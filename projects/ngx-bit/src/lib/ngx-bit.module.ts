@@ -1,5 +1,4 @@
 import {ModuleWithProviders, NgModule} from '@angular/core';
-import {BitService} from './bit.service';
 import {ConfigService} from './config.service';
 import {NgxBitModuleOptions} from './interface';
 
@@ -10,11 +9,11 @@ export class NgxBitModule {
       ngModule: NgxBitModule,
       providers: [
         {
-          provide: ConfigService, useValue: {
+          provide: ConfigService,
+          useValue: {
             origin: options.origin
           }
-        },
-        BitService
+        }
       ]
     };
   }
