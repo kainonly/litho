@@ -14,9 +14,6 @@ export class HttpService {
 
   /**
    * TODO:发送请求
-   * @param url api路由地址
-   * @param body 发送数据
-   * @param jwt 是否验证jwt
    */
   req(url: string, body: any = {}, jwt = true): Observable<any> {
     if (!jwt) {
@@ -34,8 +31,6 @@ export class HttpService {
 
   /**
    * TODO:请求对象
-   * @param url 地址
-   * @param body 数据
    */
   private client(url: string, body: any = {}): Observable<any> {
     return this.http.post(this.config.origin + url, body, {

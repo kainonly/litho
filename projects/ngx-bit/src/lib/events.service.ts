@@ -7,8 +7,6 @@ export class EventsService {
 
   /**
    * TODO:发布组件通讯
-   * @param topic 主题
-   * @param args 参数
    */
   publish(topic: string, args?: any) {
     const topics = this.events.get(topic);
@@ -21,7 +19,6 @@ export class EventsService {
 
   /**
    * TODO:组件通讯监听
-   * @param topic 主题
    */
   on(topic: string): Observable<any> {
     const topics = this.events.get(topic);
@@ -34,7 +31,6 @@ export class EventsService {
 
   /**
    * TODO:组件通讯取消监听
-   * @param topic
    */
   off(topic: string) {
     const topics = this.events.get(topic);

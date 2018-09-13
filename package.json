@@ -20,6 +20,7 @@
     "core-js": "^2.5.4",
     "ng-zorro-antd": "^1.4.1",
     "rxjs": "^6.0.0",
+    "sweetalert2": "^7.26.28",
     "zone.js": "~0.8.26"
   },
   "devDependencies": {

@@ -89,9 +89,6 @@ export class BitService {
 
   /**
    * TODO:输入层多语言数值初始化
-   * @param {string} i18n 多语言标识
-   * @param value 数值
-   * @returns {any} 数值
    */
   static i18nControlsValue(i18n: string, value?: any): string {
     if (!value) {
@@ -106,9 +103,6 @@ export class BitService {
 
   /**
    * TODO:输入层多语言同步验证初始化
-   * @param {string} i18n 多语言标识
-   * @param validate 同步验证
-   * @returns {any} 回调函数
    */
   static i18nControlsValidate(i18n: string, validate?: any) {
     if (!validate) {
@@ -123,9 +117,6 @@ export class BitService {
 
   /**
    * TODO:输入层多语言异步验证初始化
-   * @param {string} i18n 多语言标识
-   * @param asyncValidate 异步验证
-   * @returns {any} 回调函数
    */
   static i18nControlsAsyncValidate(i18n: string, asyncValidate?: any) {
     if (!asyncValidate) {
@@ -170,7 +161,6 @@ export class BitService {
 
   /**
    * TODO:语言包标识设置
-   * @param locale 语言包标识
    */
   setLocale(locale: 'zh_cn' | 'en_us') {
     this.storage.setItem('locate', locale).subscribe(status => {
@@ -184,7 +174,6 @@ export class BitService {
 
   /**
    * TODO:构建语言包
-   * @param args
    */
   buildLanguage(args ?: any): any {
     let language = this.common_language;
@@ -197,7 +186,6 @@ export class BitService {
 
   /**
    * TODO:语言包格式处理
-   * @param language
    */
   private factoryLocales(language: any) {
     const zh_cn = {};
@@ -214,7 +202,6 @@ export class BitService {
 
   /**
    * TODO:菜单数据本地存储
-   * @param data
    */
   setMenu(data: any): Observable<any> {
     return this.storage.setItem('menu', data.menu).pipe(
@@ -257,7 +244,6 @@ export class BitService {
 
   /**
    * TODO:延续菜单计算
-   * @param parent
    */
   private infiniteMenu(parent: number) {
     const data = this.menu[parent];
@@ -274,7 +260,6 @@ export class BitService {
 
   /**
    * TODO:输入层多语言数值初始化
-   * @param options
    */
   i18nControls(options?: I18nControlsOptions) {
     if (options === undefined) {
@@ -293,9 +278,6 @@ export class BitService {
 
   /**
    * TODO:表单验证提示判断
-   * @param {string} name formControl
-   * @param {boolean} pending 是否为异步类型
-   * @returns {boolean}
    */
   formExplain(name: string, pending?: boolean): boolean {
     if (pending) {
@@ -306,9 +288,6 @@ export class BitService {
 
   /**
    * TODO:表单验证类型判断
-   * @param {string} name
-   * @param {string} sign
-   * @returns {boolean}
    */
   explain(name: string, sign: string) {
     if (sign === 'pending') {
@@ -320,8 +299,6 @@ export class BitService {
 
   /**
    * TODO:表单提交阻止原生与检测
-   * @param event
-   * @param callback
    */
   submit(event, callback) {
     event.preventDefault();
@@ -346,7 +323,6 @@ export class BitService {
 
   /**
    * TODO:列表选择监听
-   * @param lists
    */
   listsRefreshStatus(lists: any[]) {
     const all_checked = lists.every(value => value.checked === true);
@@ -367,7 +343,6 @@ export class BitService {
 
   /**
    * TODO:状态更新
-   * @param service
    */
   statusChange(service: Observable<any>) {
     service.subscribe(res => {
