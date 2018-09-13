@@ -1,6 +1,6 @@
 {
   "name": "ngx-bit-projects",
-  "version": "0.0.0",
+  "version": "0.8.0",
   "scripts": {
     "start": "ng serve",
     "build": "ng build --prod ngx-bit"
@@ -16,6 +16,7 @@
     "@angular/platform-browser": "^6.1.0",
     "@angular/platform-browser-dynamic": "^6.1.0",
     "@angular/router": "^6.1.0",
+    "@ngx-pwa/local-storage": "^6.1.0",
     "core-js": "^2.5.4",
     "ng-zorro-antd": "^1.4.1",
     "rxjs": "^6.0.0",
