@@ -1,6 +1,5 @@
 {
   "name": "ngx-bit-projects",
-  "version": "0.8.0",
   "scripts": {
     "start": "ng serve",
     "build": "ng build --prod ngx-bit",
