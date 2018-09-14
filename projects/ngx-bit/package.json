@@ -1,6 +1,6 @@
 {
   "name": "ngx-bit",
-  "version": "0.8.2",
+  "version": "0.8.3",
   "peerDependencies": {
     "@angular/common": "*",
     "@angular/core": "*",
