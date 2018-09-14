@@ -3,6 +3,7 @@
  */
 export * from './lib/config.service';
 export * from './lib/ngx-bit.module';
+export * from './lib/ngx-bit.pipe.module';
 export * from './lib/plugins/i18n-switch/i18n-switch.module';
 
 export * from './lib/bit.service';
