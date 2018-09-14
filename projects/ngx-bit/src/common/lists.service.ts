@@ -12,21 +12,10 @@ export class ListsService {
               private bit: BitService) {
   }
 
-  /**
-   * TODO:自定义请求函数名称
-   * @param name 名称
-   */
   customAction(name: string) {
     this.action = name;
   }
 
-  /**
-   * TODO:生成获取请求
-   * @param model 模型名称
-   * @param condition 查询条件
-   * @param like 模糊查询条件
-   * @param refresh 刷新
-   */
   factory(model: string, condition: any[] = [], like: any = [], refresh?: boolean): Observable<any> {
     if (refresh) {
       this.bit.lists_page_index = 1;

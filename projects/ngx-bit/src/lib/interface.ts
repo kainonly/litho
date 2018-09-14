@@ -12,9 +12,3 @@ export interface I18nControlsOptions {
   validate?: any;
   asyncValidate?: any;
 }
-
-export interface ListsFactoryOptions {
-  index?: number;
-  limit?: number;
-  refresh?: boolean;
-}

@@ -5,9 +5,6 @@ import {Observable, Subject} from 'rxjs';
 export class EventsService {
   private events: Map<string, Subject<any>> = new Map<string, Subject<any>>();
 
-  /**
-   * TODO:发布组件通讯
-   */
   publish(topic: string, args?: any) {
     const topics = this.events.get(topic);
     if (topics) {
@@ -17,9 +14,6 @@ export class EventsService {
     }
   }
 
-  /**
-   * TODO:组件通讯监听
-   */
   on(topic: string): Observable<any> {
     const topics = this.events.get(topic);
     if (topics) {
@@ -29,9 +23,6 @@ export class EventsService {
     }
   }
 
-  /**
-   * TODO:组件通讯取消监听
-   */
   off(topic: string) {
     const topics = this.events.get(topic);
     if (topics) {

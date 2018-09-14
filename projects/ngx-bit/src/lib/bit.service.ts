@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {LocalStorage} from '@ngx-pwa/local-storage';
-import {AsyncSubject, Observable, Subject} from 'rxjs';
+import {Observable, Subject} from 'rxjs';
 import {ConfigService} from './config.service';
 import {switchMap} from 'rxjs/operators';
 import {I18nControlsOptions} from './interface';
@@ -10,86 +10,25 @@ import {NzNotificationService} from 'ng-zorro-antd';
 
 @Injectable()
 export class BitService {
-  /**
-   * TODO:登录完成状态
-   */
-  isLogin: AsyncSubject<boolean> = new AsyncSubject();
-  /**
-   * TODO:通用表单
-   */
   form: FormGroup;
-  /**
-   * TODO:语言包标识
-   */
   locale: 'zh_cn' | 'en_us' = 'zh_cn';
-  /**
-   * TODO:语言包标识切换监听
-   */
   localeChange: Subject<'zh_cn' | 'en_us'> = new Subject();
-  /**
-   * TODO:模版语言包
-   */
   l: any = {};
-  /**
-   * TODO:语言包存储
-   */
   private lang: Map<string, any> = new Map<string, any>();
-  /**
-   * TODO:公共语言包
-   */
   private common_language: any = {};
-  /**
-   * TODO:多语言标识
-   */
   i18ns: any[] = [];
-  /**
-   * TODO:菜单存储
-   */
   private menu: any = {};
-  /**
-   * TODO:被激活的路由
-   */
   private actives = [];
-  /**
-   * TODO:面包屑数组
-   */
   private breadcrumb = [];
-  /**
-   * TODO:列表正在加载
-   */
   lists_loading = true;
-  /**
-   * TODO:分页
-   */
   page_limit = 0;
-  /**
-   * TODO:列表总数
-   */
   lists_totals = 0;
-  /**
-   * TODO:分页索引页
-   */
   lists_page_index = 0;
-  /**
-   * TODO:列表全选
-   */
   lists_all_checked = false;
-  /**
-   * TODO:列表不完整选择
-   */
   lists_indeterminate = false;
-  /**
-   * TODO:列表操作板
-   */
   lists_disabled_action = true;
-  /**
-   * TODO:列表选择数量
-   */
   lists_checked_number = 0;
 
-  /**
-   * TODO:输入层多语言数值初始化
-   */
   static i18nControlsValue(i18n: string, value?: any): string {
     if (!value) {
       return null;
@@ -101,9 +40,6 @@ export class BitService {
     }
   }
 
-  /**
-   * TODO:输入层多语言同步验证初始化
-   */
   static i18nControlsValidate(i18n: string, validate?: any) {
     if (!validate) {
       return [];
@@ -115,9 +51,6 @@ export class BitService {
     }
   }
 
-  /**
-   * TODO:输入层多语言异步验证初始化
-   */
   static i18nControlsAsyncValidate(i18n: string, asyncValidate?: any) {
     if (!asyncValidate) {
       return [];
@@ -143,25 +76,6 @@ export class BitService {
     });
   }
 
-  /**
-   * TODO:更新登录状态
-   */
-  login() {
-    this.isLogin.next(true);
-    this.isLogin.complete();
-  }
-
-  /**
-   * TODO:更新注销状态
-   */
-  logout() {
-    this.isLogin.unsubscribe();
-    this.isLogin = new AsyncSubject();
-  }
-
-  /**
-   * TODO:语言包标识设置
-   */
   setLocale(locale: 'zh_cn' | 'en_us') {
     this.storage.setItem('locate', locale).subscribe(status => {
       if (status) {
@@ -172,9 +86,6 @@ export class BitService {
     });
   }
 
-  /**
-   * TODO:构建语言包
-   */
   buildLanguage(args ?: any): any {
     let language = this.common_language;
     if (args) {
@@ -184,9 +95,6 @@ export class BitService {
     this.l = this.lang.get(this.locale);
   }
 
-  /**
-   * TODO:语言包格式处理
-   */
   private factoryLocales(language: any) {
     const zh_cn = {};
     const en_us = {};
@@ -200,9 +108,6 @@ export class BitService {
     this.lang.set('en_us', en_us);
   }
 
-  /**
-   * TODO:菜单数据本地存储
-   */
   setMenu(data: any): Observable<any> {
     return this.storage.setItem('menu', data.menu).pipe(
       switchMap(status => {
@@ -213,9 +118,6 @@ export class BitService {
     );
   }
 
-  /**
-   * TODO:获取菜单属性
-   */
   getMenu(route: string): Observable<any> {
     this.actives = [];
     this.breadcrumb = [];
@@ -242,9 +144,6 @@ export class BitService {
       })));
   }
 
-  /**
-   * TODO:延续菜单计算
-   */
   private infiniteMenu(parent: number) {
     const data = this.menu[parent];
     this.actives.unshift(data.id);
@@ -258,9 +157,6 @@ export class BitService {
     }
   }
 
-  /**
-   * TODO:输入层多语言数值初始化
-   */
   i18nControls(options?: I18nControlsOptions) {
     if (options === undefined) {
       options = {};
@@ -276,9 +172,6 @@ export class BitService {
     return controls;
   }
 
-  /**
-   * TODO:表单验证提示判断
-   */
   formExplain(name: string, pending?: boolean): boolean {
     if (pending) {
       return this.form.get(name).pending;
@@ -286,9 +179,6 @@ export class BitService {
     return !!(this.form.get(name).dirty && this.form.get(name).errors);
   }
 
-  /**
-   * TODO:表单验证类型判断
-   */
   explain(name: string, sign: string) {
     if (sign === 'pending') {
       return this.form.get(name).pending;
@@ -297,9 +187,6 @@ export class BitService {
     }
   }
 
-  /**
-   * TODO:表单提交阻止原生与检测
-   */
   submit(event, callback) {
     event.preventDefault();
     if (this.form) {
@@ -312,18 +199,12 @@ export class BitService {
     }
   }
 
-  /**
-   * TODO:返回上一级
-   */
   back() {
     this.breadcrumb = [];
     this.actives = [];
     this.location.back();
   }
 
-  /**
-   * TODO:列表选择监听
-   */
   listsRefreshStatus(lists: any[]) {
     const all_checked = lists.every(value => value.checked === true);
     const all_unchecked = lists.every(value => !value.checked);
@@ -333,17 +214,11 @@ export class BitService {
     this.lists_checked_number = lists.filter(value => value.checked).length;
   }
 
-  /**
-   * TODO:列表全选选择监听
-   */
   listsCheckAll(event, lists: any[]) {
     lists.forEach(data => data.checked = event);
     this.listsRefreshStatus(lists);
   }
 
-  /**
-   * TODO:状态更新
-   */
   statusChange(service: Observable<any>) {
     service.subscribe(res => {
       if (!res.error) {

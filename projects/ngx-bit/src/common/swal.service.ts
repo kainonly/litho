@@ -10,11 +10,6 @@ export class SwalService {
               private notification: NzNotificationService) {
   }
 
-  /**
-   * TODO:新增响应提示框
-   * @param res 响应结果
-   * @param reset 重置数值
-   */
   addAlert(res: any, reset?: any): Observable<any> {
     return Observable.create(observer => {
       if (!res.error) {
@@ -54,10 +49,6 @@ export class SwalService {
     });
   }
 
-  /**
-   * TODO:编辑响应提示框
-   * @param res 响应数据
-   */
   editAlert(res: any): Observable<any> {
     return Observable.create(observer => {
       if (!res.error) {
@@ -92,9 +83,6 @@ export class SwalService {
     });
   }
 
-  /**
-   * TODO:删除提示框
-   */
   deleteAlert(service: Observable<any>): Observable<boolean> {
     return Observable.create(observer => {
       Swal({
