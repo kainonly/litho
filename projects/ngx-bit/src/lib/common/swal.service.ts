@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {BitService} from '../lib/bit.service';
+import {BitService} from '../bit.service';
 import Swal from 'sweetalert2';
 import {Observable} from 'rxjs';
 import {NzNotificationService} from 'ng-zorro-antd';

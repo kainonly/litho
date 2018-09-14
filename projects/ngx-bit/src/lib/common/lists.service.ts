@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
-import {HttpService} from '../lib/http.service';
-import {BitService} from '../lib/bit.service';
+import {HttpService} from '../http.service';
+import {BitService} from '../bit.service';
 import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
 

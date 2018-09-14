@@ -1,6 +1,6 @@
 import {Component, EventEmitter, Output} from '@angular/core';
-import {BitService} from '../../lib/bit.service';
-import {ConfigService} from '../../lib/config.service';
+import {BitService} from '../../bit.service';
+import {ConfigService} from '../../config.service';
 
 @Component({
   selector: 'i18n-switch',
