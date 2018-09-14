@@ -3,7 +3,8 @@
   "version": "0.8.0",
   "scripts": {
     "start": "ng serve",
-    "build": "ng build --prod ngx-bit"
+    "build": "ng build --prod ngx-bit",
+    "release": "cd dist/ngx-bit && npm publish"
   },
   "private": true,
   "dependencies": {
