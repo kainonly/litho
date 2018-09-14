@@ -1,7 +1,7 @@
 /*
  * Public API Surface of ngx-bit
  */
-
+export * from './lib/config.service';
 export * from './lib/ngx-bit.module';
 export * from './lib/plugins/i18n-switch/i18n-switch.module';
 
