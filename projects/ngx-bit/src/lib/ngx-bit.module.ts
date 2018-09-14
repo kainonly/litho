@@ -16,16 +16,9 @@ import {DeleteService} from './common/delete.service';
 import {StatusService} from './common/status.service';
 import {SwalService} from './common/swal.service';
 
-import {EmptyObjectPipe} from './pipe/empty-object.pipe';
-import {JsonParsePipe} from './pipe/json-parse.pipe';
-
 @NgModule({
   imports: [
     HttpClientModule
-  ],
-  declarations: [
-    EmptyObjectPipe,
-    JsonParsePipe
   ],
   providers: [
     ConfigService,
