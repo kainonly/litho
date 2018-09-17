@@ -4,7 +4,6 @@ import {LocalStorage} from '@ngx-pwa/local-storage';
 import {Observable, of} from 'rxjs';
 import {switchMap} from 'rxjs/operators';
 import {ConfigService} from './config.service';
-import {BitService} from './bit.service';
 
 @Injectable()
 export class HttpService {
@@ -13,8 +12,7 @@ export class HttpService {
 
   constructor(private http: HttpClient,
               private config: ConfigService,
-              private storage: LocalStorage,
-              private bit: BitService) {
+              private storage: LocalStorage) {
   }
 
   private isLogin(): Observable<boolean> {
@@ -64,13 +62,13 @@ export class HttpService {
   }
 
   private client(url: string, body: any = {}): Observable<any> {
-    return this.http.post(this.config.origin + url, body, {
+    return this.http.post(this.config.origin + this.config.namespace + '/' + url, body, {
       withCredentials: this.config.withCredentials
     });
   }
 
   private clientWithToken(url: string, body: any = {}): Observable<any> {
-    return this.http.post(this.config.origin + url, body, {
+    return this.http.post(this.config.origin + this.config.namespace + '/' + url, body, {
       headers: new HttpHeaders({
         'X-Token': this.token
       }),
