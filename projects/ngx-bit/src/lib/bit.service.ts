@@ -68,8 +68,8 @@ export class BitService {
               private config: ConfigService,
               private notification: NzNotificationService,
               private location: Location) {
-    this.static = this.config.origin + this.config.static;
-    this.uploads = this.config.origin + this.config.uploads;
+    this.static = this.config.origin + '/' + this.config.static;
+    this.uploads = this.config.origin + '/' + this.config.uploads;
     this.common_language = config.language;
     this.i18ns = config.i18n;
     this.page_limit = config.page_limit;
