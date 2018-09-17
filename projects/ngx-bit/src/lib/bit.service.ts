@@ -10,7 +10,7 @@ import {NzNotificationService} from 'ng-zorro-antd';
 
 @Injectable()
 export class BitService {
-  static: string;
+  oss: string;
   uploads: string;
   form: FormGroup;
   locale: 'zh_cn' | 'en_us' = 'zh_cn';
@@ -68,7 +68,7 @@ export class BitService {
               private config: ConfigService,
               private notification: NzNotificationService,
               private location: Location) {
-    this.static = this.config.origin + '/' + this.config.static;
+    this.oss = this.config.oss;
     this.uploads = this.config.origin + '/' + this.config.uploads;
     this.common_language = config.language;
     this.i18ns = config.i18n;
