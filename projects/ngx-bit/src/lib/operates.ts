@@ -24,7 +24,7 @@ export function getId(route: ActivatedRoute): Observable<any> {
   return route.params.pipe(map(params => params.id));
 }
 
-export function emptyObject(object: any) {
+export function emptyObject(object: any): boolean {
   if (typeof object === 'object') {
     return Object.keys(object).length === 0;
   } else {

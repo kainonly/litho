@@ -3,7 +3,8 @@
   "scripts": {
     "start": "ng serve",
     "build": "ng build --prod ngx-bit",
-    "release": "cd dist/ngx-bit && npm publish"
+    "release": "cd dist/ngx-bit && npm publish",
+    "docs": "docsify serve ./docs"
   },
   "private": true,
   "dependencies": {
