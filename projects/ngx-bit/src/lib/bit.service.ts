@@ -1,12 +1,13 @@
-import {Injectable} from '@angular/core';
-import {LocalStorage} from '@ngx-pwa/local-storage';
-import {Observable, Subject} from 'rxjs';
-import {ConfigService} from './config.service';
-import {switchMap} from 'rxjs/operators';
-import {I18nControlsOptions} from './interface';
-import {FormGroup} from '@angular/forms';
-import {Location} from '@angular/common';
-import {NzNotificationService} from 'ng-zorro-antd';
+import { Injectable } from '@angular/core';
+import { LocalStorage } from '@ngx-pwa/local-storage';
+import { Observable, Subject } from 'rxjs';
+import { ConfigService } from './config.service';
+import { i18nControlsValue, i18nControlsAsyncValidate, i18nControlsValidate } from './operates';
+import { switchMap } from 'rxjs/operators';
+import { I18nControlsOptions } from './interface';
+import { FormGroup } from '@angular/forms';
+import { Location } from '@angular/common';
+import { NzNotificationService } from 'ng-zorro-antd';
 
 @Injectable()
 export class BitService {
@@ -31,43 +32,10 @@ export class BitService {
   lists_disabled_action = true;
   lists_checked_number = 0;
 
-  static i18nControlsValue(i18n: string, value?: any): string {
-    if (!value) {
-      return null;
-    }
-    if (value[i18n] !== undefined) {
-      return value[i18n];
-    } else {
-      return null;
-    }
-  }
-
-  static i18nControlsValidate(i18n: string, validate?: any) {
-    if (!validate) {
-      return [];
-    }
-    if (validate[i18n] !== undefined) {
-      return [validate[i18n]];
-    } else {
-      return [];
-    }
-  }
-
-  static i18nControlsAsyncValidate(i18n: string, asyncValidate?: any) {
-    if (!asyncValidate) {
-      return [];
-    }
-    if (asyncValidate[i18n] !== undefined) {
-      return [asyncValidate[i18n]];
-    } else {
-      return [];
-    }
-  }
-
   constructor(private storage: LocalStorage,
-              private config: ConfigService,
-              private notification: NzNotificationService,
-              private location: Location) {
+    private config: ConfigService,
+    private notification: NzNotificationService,
+    private location: Location) {
     this.oss = this.config.oss;
     this.uploads = this.config.origin + '/' + this.config.uploads;
     this.common_language = config.language;
@@ -90,7 +58,7 @@ export class BitService {
     });
   }
 
-  buildLanguage(args ?: any): any {
+  buildLanguage(args?: any): any {
     let language = this.common_language;
     if (args) {
       language = Object.assign(language, args);
@@ -130,7 +98,7 @@ export class BitService {
         this.menu = data;
         return this.storage.getItem('route');
       }),
-      switchMap(data => Observable.create(observer => {
+      switchMap((data: any) => Observable.create(observer => {
         this.actives.unshift(data[route].id);
         const bread = {
           name: data[route].name,
@@ -168,9 +136,9 @@ export class BitService {
     const controls = {};
     for (const x of this.config.i18n) {
       controls[x] = [
-        BitService.i18nControlsValue(x, (options.value === undefined ? '' : options.value)),
-        BitService.i18nControlsValidate(x, options.validate === undefined ? '' : options.validate),
-        BitService.i18nControlsAsyncValidate(x, options.asyncValidate === undefined ? '' : options.asyncValidate)
+        i18nControlsValue(x, (options.value === undefined ? '' : options.value)),
+        i18nControlsValidate(x, options.validate === undefined ? '' : options.validate),
+        i18nControlsAsyncValidate(x, options.asyncValidate === undefined ? '' : options.asyncValidate)
       ];
     }
     return controls;

@@ -1,6 +1,6 @@
-import {Observable} from 'rxjs';
-import {map, take} from 'rxjs/operators';
-import {ActivatedRoute} from '@angular/router';
+import { Observable } from 'rxjs';
+import { map, take } from 'rxjs/operators';
+import { ActivatedRoute } from '@angular/router';
 
 export function asyncValidator(is_null: boolean, request: Observable<any>): Observable<any> {
   if (is_null) {
@@ -10,13 +10,46 @@ export function asyncValidator(is_null: boolean, request: Observable<any>): Obse
     });
   } else {
     return request.pipe(
-      map(({error}) => {
+      map(({ error }) => {
         if (error) {
-          return {error: true, duplicated: true};
+          return { error: true, duplicated: true };
         }
       }),
       take(1)
     );
+  }
+}
+
+export function i18nControlsValue(i18n: string, value?: any): string {
+  if (!value) {
+    return null;
+  }
+  if (value[i18n] !== undefined) {
+    return value[i18n];
+  } else {
+    return null;
+  }
+}
+
+export function i18nControlsValidate(i18n: string, validate?: any) {
+  if (!validate) {
+    return [];
+  }
+  if (validate[i18n] !== undefined) {
+    return [validate[i18n]];
+  } else {
+    return [];
+  }
+}
+
+export function i18nControlsAsyncValidate(i18n: string, asyncValidate?: any) {
+  if (!asyncValidate) {
+    return [];
+  }
+  if (asyncValidate[i18n] !== undefined) {
+    return [asyncValidate[i18n]];
+  } else {
+    return [];
   }
 }
 

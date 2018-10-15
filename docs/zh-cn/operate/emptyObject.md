@@ -3,7 +3,7 @@
 #### 定义
 
 ``` typescript
-function emptyObject(object: any): boolean {}
+function emptyObject(object: any): boolean
 ```
 
 - `object` 验证对象

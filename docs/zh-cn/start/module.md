@@ -4,7 +4,7 @@
 
 #### 主模块
 
-初始化完成后，`app.module.ts` 大概是这样的
+初始化完成后，`app.module.ts` 大概是这样：
 
 ```typescript
 import {BrowserModule} from '@angular/platform-browser';
@@ -31,7 +31,7 @@ import {Auth} from './guard/auth.service';
 import {AppUpdateService} from './app.update.service';
 
 // 此处省略，导入Api服务
-import {_} from './api';
+import {...} from './api';
 
 // 顶层路由
 const routes: Routes = [
@@ -62,7 +62,7 @@ const routes: Routes = [
     BitService,
     EventsService,
     HttpService,
-    _,
+    ...
     {provide: NZ_I18N, useValue: zh_CN}
   ],
   bootstrap: [AppComponent],

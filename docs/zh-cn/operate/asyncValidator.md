@@ -3,7 +3,7 @@
 #### 定义
 
 ``` typescript
-function asyncValidator(is_null: boolean, request: Observable<any>): Observable<any> {}
+function asyncValidator(is_null: boolean, request: Observable<any>): Observable<any>
 ```
 - `is_null` 是否为空
 - `request` 请求对象

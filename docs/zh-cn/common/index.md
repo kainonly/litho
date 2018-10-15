@@ -1,4 +1,4 @@
-# 通用服务
+# 扩展服务
 
 * [新增Api请求](zh-cn/common/add)
 * [删除Api请求](zh-cn/common/delete)
