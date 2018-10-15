@@ -6,19 +6,18 @@
 ng new anyone
 ```
 
-#### 安装脚手架
-
-``` shell
-npm install ngx-bit --save
-```
-
 #### 安装依赖
 
 ``` shell
 ng add ng-zorro-antd
 ng add @angular/pwa
-
 npm install @ngx-pwa/local-storage sweetalert2 --save
+```
+
+#### 安装辅助框架
+
+``` shell
+npm install ngx-bit --save
 ```
 
 #### 编辑配置
