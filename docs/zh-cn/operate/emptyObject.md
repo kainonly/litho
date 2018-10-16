@@ -1,14 +1,11 @@
 # 空对象
 
-#### 定义
+##### `emptyObject(object: any): boolean`
 
-``` typescript
-function emptyObject(object: any): boolean
-```
+- `is_null` 是否为空
+- `request` 请求对象
 
-- `object` 验证对象
-
-#### 使用方法
+例如
 
 ``` typescript
 ```

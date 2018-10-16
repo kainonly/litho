@@ -1,14 +1,10 @@
 # 获取路由ID
 
-#### 定义
+##### `getId(route: ActivatedRoute): Observable<any>`
 
-``` typescript
-function getId(route: ActivatedRoute): Observable<any>
-```
+- `route`
 
-- `route` 页面组件下 `ActivatedRoute` 实例
-
-#### 使用方法
+例如
 
 ``` typescript
 ```

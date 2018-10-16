@@ -23,7 +23,7 @@ constructor(public bit: BitService) {
 ##### `uploads: string`
 
 - RESTful Api 上传地址
-- 详情信息请参考 [上传](zh-cn)
+- 详情信息请参考 [上传](zh-cn/plugin/upload)
 
 可以在upload组件上调用此属性：
 
@@ -36,7 +36,7 @@ constructor(public bit: BitService) {
 ##### `form: FormGroup`
 
 - 表单变量
-- 详情信息请参考 [表单](zh-cn)
+- 详情信息请参考 [表单](zh-cn/plugin/form)
 
 在当前页内定义主表单：
 
@@ -112,7 +112,7 @@ this.bit.localeChange.subscribe(locale => {
 ##### `lists_loading: boolean`
 
 - 列表正在加载状态
-- 使用在表格或列表组件中，请参看 [表格](zh-cn/plugin)、[列表](zh-cn/plugin)
+- 使用在表格或列表组件中，请参看 [表格](zh-cn/plugin/table)、[列表](zh-cn/plugin/lists)
 
 在数据还未加载完成时添加加载动画：
 
@@ -126,7 +126,7 @@ this.bit.localeChange.subscribe(locale => {
 ##### `page_limit: number`
 
 - 分页，默认为配置服务 `page_limit`
-- 使用在表格或列表组件中，请参看 [表格](zh-cn/plugin)、[列表](zh-cn/plugin)
+- 使用在表格或列表组件中，请参看 [表格](zh-cn/plugin/table)、[列表](zh-cn/plugin/lists)
 
 表格中设置分页大小：
 
@@ -140,7 +140,7 @@ this.bit.localeChange.subscribe(locale => {
 ##### `lists_totals: number`
 
 - 列表数据总数
-- 使用在表格或列表组件中，请参看 [表格](zh-cn/plugin)、[列表](zh-cn/plugin)
+- 使用在表格或列表组件中，请参看 [表格](zh-cn/plugin/table)、[列表](zh-cn/plugin/lists)
 
 `lists_totals` 是由分页列表请求对象自动获取：
 
@@ -154,7 +154,7 @@ this.bit.localeChange.subscribe(locale => {
 ##### `lists_page_index: number`
 
 - 分页索引页，当前页
-- 使用在表格或列表组件中，请参看 [表格](zh-cn/plugin)、[列表](zh-cn/plugin)
+- 使用在表格或列表组件中，请参看 [表格](zh-cn/plugin/table)、[列表](zh-cn/plugin/lists)
 
 `lists_page_index` 是个双向绑定属性，可以通过外部去更改分页索引：
 
@@ -187,7 +187,7 @@ this.bit.localeChange.subscribe(locale => {
 ##### `lists_indeterminate: boolean`
 
 - 列表选项框状态为不完整选择
-- 使用在表格组件中，请参看 [表格](zh-cn/plugin)
+- 使用在表格组件中，请参看 [表格](zh-cn/plugin/table)
 
 `nzIndeterminate` 是不完整选择属性，当符合条件时，表头全选选择框将变为该状态：
 
@@ -206,7 +206,7 @@ this.bit.localeChange.subscribe(locale => {
 ##### `lists_disabled_action: boolean`
 
 - 列表操作板显示状态
-- 使用在表格组件中，请参看 [表格](zh-cn/plugin)
+- 使用在表格组件中，请参看 [表格](zh-cn/plugin/table)
 
 可在需要的标签中使用，已被选中的总数为 `0` 时，`lists_disabled_action=true`
 
@@ -219,7 +219,7 @@ this.bit.localeChange.subscribe(locale => {
 ##### `lists_checked_number: number`
 
 - 列表选项框选择数量
-- 使用在表格组件中，请参看 [表格](zh-cn/plugin)
+- 使用在表格组件中，请参看 [表格](zh-cn/plugin/table)
 
 显示已被选中的总数：
 
@@ -280,7 +280,7 @@ this.bit.getMenu('admin-index').subscribe(data => {
     - `value` 数值
     - `validate` 同步验证
     - `asyncValidate` 异步验证
-- 详情信息请参考 [表单](zh-cn)
+- 详情信息请参考 [表单](zh-cn/plugin/form)
 
 在异步表单初始化时对应这样设置多语言输入控件：
 
@@ -300,7 +300,7 @@ this.bit.form = this.fb.group({
 - 表单验证提示判断
 - `name` 表单控件标识
 - `pending` 是否为包含异步验证
-- 详情信息请参考 [表单](zh-cn)
+- 详情信息请参考 [表单](zh-cn/plugin/form)
 
 在模版中定义提示判断
 
@@ -313,7 +313,7 @@ this.bit.form = this.fb.group({
 - 表单验证类型判断
 - `name` 表单控件标识
 - `sign` 判断类型
-- 详情信息请参考 [表单](zh-cn)
+- 详情信息请参考 [表单](zh-cn/plugin/form)
 
 在模版中定义判断类型
 
@@ -328,7 +328,7 @@ this.bit.form = this.fb.group({
 - 表单提交阻止原生与检测
 - `event` 表单event事件
 - `callback` 回调事件
-- 详情信息请参考 [表单](zh-cn)
+- 详情信息请参考 [表单](zh-cn/plugin/form)
 
 定义表单事件
 
@@ -358,7 +358,7 @@ constructor(public bit: BitService) {
 
 - 列表选择监听
 - `lists` 数据源
-- 使用在表格组件中，请参看 [表格](zh-cn/plugin)
+- 使用在表格组件中，请参看 [表格](zh-cn/plugin/form)
 
 在表格中的每个子选择框触发变化事件时，判断数据是否全选、不全选或完全不选择：
 
@@ -380,7 +380,7 @@ constructor(public bit: BitService) {
 - 列表全选选择监听
 - `event` 选择框状态改变触发事件
 - `lists` 数据源
-- 使用在表格组件中，请参看 [表格](zh-cn/plugin)
+- 使用在表格组件中，请参看 [表格](zh-cn/plugin/form)
 
 在表头命名层全选选择框选中后，同步每个数据的选择框状态
 
