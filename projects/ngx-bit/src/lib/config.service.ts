@@ -4,7 +4,7 @@ import {Injectable} from '@angular/core';
 export class ConfigService {
   origin: string;
   namespace: string;
-  oss: string;
+  static: string;
   uploads: string;
   language: any;
   withCredentials: boolean;

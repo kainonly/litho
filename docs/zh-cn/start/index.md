@@ -33,14 +33,14 @@ import {Language} from '../app/app.language';
 export const environment = {
   production: false,
   bit: {
-    origin: 'https://api.anyone', // RESTful Api 地址
-    namespace: '', // RESTful Api 地址命名空间
-    oss: 'https://cdn.anyone/', // 静态资源地址
-    uploads: 'main/uploads', // RESTful Api 上传地址
-    language: Language.factory, // 引入公共语言包
-    page_limit: 20, // 分页
-    withCredentials: true, // 同源策略
-    i18n: ['zh_cn', 'en_us'], // 多语言组件类型标识
+    origin: 'https://api.anyone',
+    namespace: '',
+    static: 'https://cdn.anyone/',
+    uploads: 'main/uploads',
+    language: Language.factory,
+    page_limit: 20,
+    withCredentials: true,
+    i18n: ['zh_cn', 'en_us'],
     i18n_switch: [
       {
         i18n: 'zh_cn',
@@ -56,7 +56,7 @@ export const environment = {
           en_us: 'English'
         }
       }
-    ] // 多语言组件集合
+    ]
   }
 };
 ```

@@ -11,7 +11,7 @@ import { NzNotificationService } from 'ng-zorro-antd';
 
 @Injectable()
 export class BitService {
-  oss: string;
+  static: string;
   uploads: string;
   form: FormGroup;
   locale: 'zh_cn' | 'en_us' = 'zh_cn';
@@ -36,7 +36,7 @@ export class BitService {
     private config: ConfigService,
     private notification: NzNotificationService,
     private location: Location) {
-    this.oss = this.config.oss;
+    this.static = this.config.static;
     this.uploads = this.config.origin + '/' + this.config.uploads;
     this.common_language = config.language;
     this.i18ns = config.i18n;
@@ -80,7 +80,7 @@ export class BitService {
     this.lang.set('en_us', en_us);
   }
 
-  setMenu(data: any): Observable<any> {
+  setMenu(data: any): Observable<boolean> {
     return this.storage.setItem('menu', data.menu).pipe(
       switchMap(status => {
         if (status) {
@@ -151,7 +151,7 @@ export class BitService {
     return !!(this.form.get(name).dirty && this.form.get(name).errors);
   }
 
-  explain(name: string, sign: string) {
+  explain(name: string, sign: string): boolean {
     if (sign === 'pending') {
       return this.form.get(name).pending;
     } else {
