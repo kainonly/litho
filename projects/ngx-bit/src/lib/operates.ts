@@ -31,7 +31,7 @@ export function i18nControlsValue(i18n: string, value?: any): string {
   }
 }
 
-export function i18nControlsValidate(i18n: string, validate?: any) {
+export function i18nControlsValidate(i18n: string, validate?: any): any[] {
   if (!validate) {
     return [];
   }
@@ -42,7 +42,7 @@ export function i18nControlsValidate(i18n: string, validate?: any) {
   }
 }
 
-export function i18nControlsAsyncValidate(i18n: string, asyncValidate?: any) {
+export function i18nControlsAsyncValidate(i18n: string, asyncValidate?: any): any[] {
   if (!asyncValidate) {
     return [];
   }

@@ -2,8 +2,7 @@
 
 ##### `emptyObject(object: any): boolean`
 
-- `is_null` 是否为空
-- `request` 请求对象
+- `object` 对象
 
 例如
 
