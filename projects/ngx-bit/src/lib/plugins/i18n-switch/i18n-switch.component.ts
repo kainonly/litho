@@ -12,7 +12,7 @@ export class I18nSwitchComponent {
   i18n = 'zh_cn';
 
   constructor(public bit: BitService,
-              private config: ConfigService) {
+              config: ConfigService) {
     this.switch = config.i18n_switch;
   }
 }

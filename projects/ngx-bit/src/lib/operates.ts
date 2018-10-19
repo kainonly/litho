@@ -1,6 +1,6 @@
-import { Observable } from 'rxjs';
-import { map, take } from 'rxjs/operators';
-import { ActivatedRoute } from '@angular/router';
+import {Observable} from 'rxjs';
+import {map, take} from 'rxjs/operators';
+import {ActivatedRoute} from '@angular/router';
 
 export function asyncValidator(is_null: boolean, request: Observable<any>): Observable<any> {
   if (is_null) {
@@ -10,9 +10,9 @@ export function asyncValidator(is_null: boolean, request: Observable<any>): Obse
     });
   } else {
     return request.pipe(
-      map(({ error }) => {
+      map(({error}) => {
         if (error) {
-          return { error: true, duplicated: true };
+          return {error: true, duplicated: true};
         }
       }),
       take(1)
