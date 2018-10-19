@@ -1,6 +1,6 @@
 # NGX-BIT
 
-> 基于 Angular 的 RESTful API 辅助框架
+> 基于 Angular 的 RESTful API 辅助框架 (文档尚未补充正确)
 
 #### 项目结构
 
