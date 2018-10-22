@@ -26,7 +26,7 @@
 
 #### 后端协作库
 
-- ThinkPHP - kain/bit，https://packagist.org/packages/kain/bit
+- ThinkPHP5 - kain/think-bit，https://kainonly.github.io/think-bit
 
 #### 常用依赖库
 
