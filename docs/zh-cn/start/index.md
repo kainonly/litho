@@ -1,28 +1,35 @@
 # 快速开始
 
-##### 初始化项目
+##### 创建一个项目
 
 ``` shell
 ng new anyone
 ```
 
-##### 安装依赖
+##### 安装 Ant Design
 
-``` shell
+```shell
 ng add ng-zorro-antd
+npm install @angular/cdk --save
+npm install tslib --save-dev
+```
+
+##### 安装 service worker
+
+```shell
 ng add @angular/pwa
-npm install @ngx-pwa/local-storage sweetalert2 --save
 ```
 
 ##### 安装辅助框架
 
 ``` shell
+npm install @ngx-pwa/local-storage sweetalert2 --save
 npm install ngx-bit --save
 ```
 
 ##### 定义公共语言包
 
-创建 `src/app/app.language.ts`
+创建 `src/app/app.language.ts`，数组是为了支持中英文快速切换，如果只是使用中文可以只设置数组索引`0`
 
 ``` typescript
 export class Language {
@@ -53,11 +60,9 @@ export class Language {
 }
 ```
 
-##### 定义辅助框架配置
+##### 定义框架的辅助配置
 
-> 需要与后端架手架共同配置才可正常运行
-
-修改项目配置文件 `src/environments/environment.ts`
+开发环境修改项目配置文件 `src/environments/environment.ts`，生产环境随情况而定修改`environment.prod.ts`
 
 ``` typescript
 import {Language} from '../app/app.language';
