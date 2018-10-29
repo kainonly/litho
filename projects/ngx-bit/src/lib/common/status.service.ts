@@ -15,8 +15,11 @@ export class StatusService {
   }
 
   factory(model: string, data: any, field = 'status'): Observable<any> {
-    data['switch'] = true;
-    return this.http.req(model + this.action, data).pipe(
+    return this.http.req(model + this.action, {
+      id: data.id,
+      switch: true,
+      [field]: !data[field]
+    }).pipe(
       map(res => {
         if (!res.error) {
           data[field] = !data[field];
