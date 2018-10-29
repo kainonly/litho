@@ -1,9 +1,10 @@
 {
   "name": "ngx-bit",
-  "version": "0.10.0",
+  "version": "0.10.1",
   "peerDependencies": {
     "@angular/common": "*",
     "@angular/core": "*",
-    "@ngx-pwa/local-storage": "*"
+    "@ngx-pwa/local-storage": "*",
+    "sweetalert2": "*"
   }
 }
