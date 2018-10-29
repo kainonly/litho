@@ -5,6 +5,7 @@ import Swal from 'sweetalert2';
 
 @Injectable()
 export class SwalService {
+  static Swal = Swal;
   constructor(private bit: BitService) {
   }
 
