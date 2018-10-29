@@ -191,12 +191,11 @@ export class BitService {
     this.listsRefreshStatus(lists);
   }
 
-  statusChange(service: Observable<any>, event: boolean, custom?: any) {
+  statusChange(service: Observable<any>, custom?: any) {
     service.subscribe(res => {
       if (!res.error) {
         this.notification.success(this.l['operate_success'], this.l['status_success']);
       } else {
-        event = !event;
         if (custom && typeof custom === 'function') {
           custom(res);
         } else {
