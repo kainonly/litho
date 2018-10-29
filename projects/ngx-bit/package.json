@@ -1,6 +1,13 @@
 {
   "name": "ngx-bit",
-  "version": "0.10.1",
+  "version": "0.10.2",
+  "license": "MIT",
+  "keywords": [
+    "Angular",
+    "Ng-Zorro",
+    "RESTFul Tools",
+    "enhancement"
+  ],
   "peerDependencies": {
     "@angular/common": "*",
     "@angular/core": "*",
