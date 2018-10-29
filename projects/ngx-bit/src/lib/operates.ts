@@ -1,23 +1,24 @@
-import {Observable} from 'rxjs';
-import {map, take} from 'rxjs/operators';
-import {ActivatedRoute} from '@angular/router';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { ActivatedRoute } from '@angular/router';
 
-export function asyncValidator(is_null: boolean, request: Observable<any>): Observable<any> {
-  if (is_null) {
-    return Observable.create((observer) => {
-      observer.next(null);
-      observer.complete();
-    });
-  } else {
-    return request.pipe(
-      map(({error}) => {
-        if (error) {
-          return {error: true, duplicated: true};
+export function asyncValidator(req: Observable<any>): Observable<any> {
+  return Observable.create(observer => {
+    setTimeout(() => {
+      req.subscribe(res => {
+        if (!res.error) {
+          if (res.data) {
+            observer.next({ error: true, duplicated: true });
+          } else {
+            observer.next(null);
+          }
+        } else {
+          observer.next({ error: true });
         }
-      }),
-      take(1)
-    );
-  }
+        observer.complete();
+      });
+    }, 1000);
+  });
 }
 
 export function i18nControlsValue(i18n: string, value?: any): string {

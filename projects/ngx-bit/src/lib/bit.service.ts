@@ -5,7 +5,7 @@ import { ConfigService } from './config.service';
 import { i18nControlsValue, i18nControlsAsyncValidate, i18nControlsValidate } from './operates';
 import { switchMap } from 'rxjs/operators';
 import { I18nControlsOptions } from './interface';
-import { FormGroup } from '@angular/forms';
+import { FormGroup, ValidationErrors } from '@angular/forms';
 import { Location } from '@angular/common';
 import { NzNotificationService } from 'ng-zorro-antd';
 
@@ -144,11 +144,12 @@ export class BitService {
     return controls;
   }
 
-  formExplain(name: string, pending?: boolean): boolean {
-    if (pending) {
-      return this.form.get(name).pending;
+  formExplain(name: string, async = false): ValidationErrors | boolean {
+    if (async) {
+      return this.form.get(name).dirty && this.form.get(name).errors || this.form.get(name).pending;
+    } else {
+      return this.form.get(name).dirty && this.form.get(name).errors;
     }
-    return !!(this.form.get(name).dirty && this.form.get(name).errors);
   }
 
   explain(name: string, sign: string): boolean {

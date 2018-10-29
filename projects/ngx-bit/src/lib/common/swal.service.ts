@@ -1,13 +1,11 @@
 import { Injectable } from '@angular/core';
 import { BitService } from '../bit.service';
-import Swal from 'sweetalert2';
 import { Observable } from 'rxjs';
-import { NzNotificationService } from 'ng-zorro-antd';
+import Swal from 'sweetalert2';
 
 @Injectable()
 export class SwalService {
-  constructor(private bit: BitService,
-    private notification: NzNotificationService) {
+  constructor(private bit: BitService) {
   }
 
   addAlert(res: any, reset?: any): Observable<any> {
