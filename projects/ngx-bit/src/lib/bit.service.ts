@@ -1,13 +1,13 @@
-import {Injectable} from '@angular/core';
-import {LocalStorage} from '@ngx-pwa/local-storage';
-import {Observable, Subject} from 'rxjs';
-import {ConfigService} from './config.service';
-import {i18nControlsValue, i18nControlsAsyncValidate, i18nControlsValidate} from './operates';
-import {switchMap} from 'rxjs/operators';
-import {I18nControlsOptions} from './interface';
-import {FormGroup} from '@angular/forms';
-import {Location} from '@angular/common';
-import {NzNotificationService} from 'ng-zorro-antd';
+import { Injectable } from '@angular/core';
+import { LocalStorage } from '@ngx-pwa/local-storage';
+import { Observable, Subject } from 'rxjs';
+import { ConfigService } from './config.service';
+import { i18nControlsValue, i18nControlsAsyncValidate, i18nControlsValidate } from './operates';
+import { switchMap } from 'rxjs/operators';
+import { I18nControlsOptions } from './interface';
+import { FormGroup } from '@angular/forms';
+import { Location } from '@angular/common';
+import { NzNotificationService } from 'ng-zorro-antd';
 
 @Injectable()
 export class BitService {
@@ -33,9 +33,9 @@ export class BitService {
   lists_checked_number = 0;
 
   constructor(private storage: LocalStorage,
-              private config: ConfigService,
-              private notification: NzNotificationService,
-              private location: Location) {
+    private config: ConfigService,
+    private notification: NzNotificationService,
+    private location: Location) {
     this.static = this.config.static;
     this.uploads = this.config.origin + '/' + this.config.uploads;
     this.common_language = config.language;
@@ -191,11 +191,12 @@ export class BitService {
     this.listsRefreshStatus(lists);
   }
 
-  statusChange(service: Observable<any>, custom?: any) {
+  statusChange(service: Observable<any>, event: boolean, custom?: any) {
     service.subscribe(res => {
       if (!res.error) {
         this.notification.success(this.l['operate_success'], this.l['status_success']);
       } else {
+        event = !event;
         if (custom && typeof custom === 'function') {
           custom(res);
         } else {
