@@ -1,13 +1,13 @@
-import {Injectable} from '@angular/core';
-import {BitService} from '../bit.service';
+import { Injectable } from '@angular/core';
+import { BitService } from '../bit.service';
 import Swal from 'sweetalert2';
-import {Observable} from 'rxjs';
-import {NzNotificationService} from 'ng-zorro-antd';
+import { Observable } from 'rxjs';
+import { NzNotificationService } from 'ng-zorro-antd';
 
 @Injectable()
 export class SwalService {
   constructor(private bit: BitService,
-              private notification: NzNotificationService) {
+    private notification: NzNotificationService) {
   }
 
   addAlert(res: any, reset?: any): Observable<any> {
@@ -95,17 +95,9 @@ export class SwalService {
       }).then(result => {
         if (result.value) {
           service.subscribe(res => {
-            if (!res.error) {
-              this.notification.success(this.bit.l['operate_success'], this.bit.l['delete_success']);
-            } else {
-              this.notification.error(this.bit.l['operate_error'], this.bit.l['delete_error']);
-            }
-            observer.next(!res.error);
+            observer.next(res);
             observer.complete();
           });
-        } else {
-          observer.next(false);
-          observer.complete();
         }
       });
     });
