@@ -197,7 +197,7 @@ export class BitService {
         this.notification.success(this.l['operate_success'], this.l['status_success']);
       } else {
         if (custom && typeof custom === 'function') {
-          custom(res.error);
+          custom(res);
         } else {
           this.notification.error(this.l['operate_error'], this.l['status_error']);
         }
