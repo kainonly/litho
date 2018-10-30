@@ -20,7 +20,7 @@ export class BitService {
   private lang: Map<string, any> = new Map<string, any>();
   private common_language: any = {};
   i18ns: any[] = [];
-  private menu: any = {};
+  private menu: Map<number, any> = new Map();
   private actives = [];
   private breadcrumb = [];
   lists_loading = true;
@@ -98,15 +98,16 @@ export class BitService {
         this.menu = data;
         return this.storage.getItem('route');
       }),
-      switchMap((data: any) => Observable.create(observer => {
-        this.actives.unshift(data[route].id);
+      switchMap((data: Map<string, any>) => Observable.create(observer => {
+        const _data = data.get(route);
+        this.actives.unshift(_data.id);
         const bread = {
-          name: data[route].name,
-          routerlink: data[route].routerlink
+          name: _data.name,
+          routerlink: _data.routerlink
         };
         this.breadcrumb.unshift(bread);
-        if (data[route].parent !== 0) {
-          this.infiniteMenu(data[route].parent);
+        if (_data.parent !== 0) {
+          this.infiniteMenu(_data.parent);
         }
         observer.next({
           actives: this.actives,
@@ -117,15 +118,15 @@ export class BitService {
   }
 
   private infiniteMenu(parent: number) {
-    const data = this.menu[parent];
+    const data = this.menu.get(parent);
     this.actives.unshift(data.id);
     const bread = {
       name: data.name,
       routerlink: data.routerlink
     };
     this.breadcrumb.unshift(bread);
-    if (this.menu[parent].parent !== 0) {
-      this.infiniteMenu(this.menu[parent].parent);
+    if (data.parent !== 0) {
+      this.infiniteMenu(data.parent);
     }
   }
 
