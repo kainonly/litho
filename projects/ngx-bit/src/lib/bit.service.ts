@@ -15,7 +15,7 @@ export class BitService {
   static: string;
   uploads: string;
   form: FormGroup;
-  locale: 'zh_cn' | 'en_us' = 'zh_cn';
+  locale: 'zh_cn' | 'en_us';
   l: any = {};
   private lang: Map<string, any> = new Map<string, any>();
   private common_language: any = {};
@@ -45,6 +45,8 @@ export class BitService {
     storage.getItem('locate').subscribe(locate => {
       if (locate) {
         this.locale = locate;
+      } else {
+        this.locale = 'zh_cn';
       }
     });
     events.on('locale').subscribe(locale => {
