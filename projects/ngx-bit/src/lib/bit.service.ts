@@ -8,6 +8,7 @@ import { I18nControlsOptions } from './interface';
 import { FormGroup, ValidationErrors } from '@angular/forms';
 import { Location } from '@angular/common';
 import { NzNotificationService } from 'ng-zorro-antd';
+import { EventsService } from './events.service';
 
 @Injectable()
 export class BitService {
@@ -15,7 +16,6 @@ export class BitService {
   uploads: string;
   form: FormGroup;
   locale: 'zh_cn' | 'en_us' = 'zh_cn';
-  localeChange: Subject<'zh_cn' | 'en_us'> = new Subject();
   l: any = {};
   private lang: Map<string, any> = new Map<string, any>();
   private common_language: any = {};
@@ -35,6 +35,7 @@ export class BitService {
   constructor(private storage: LocalStorage,
     private config: ConfigService,
     private notification: NzNotificationService,
+    private events: EventsService,
     private location: Location) {
     this.static = this.config.static;
     this.uploads = this.config.origin + '/' + this.config.uploads;
@@ -46,13 +47,16 @@ export class BitService {
         this.locale = locate;
       }
     });
+    events.on('locale').subscribe(locale => {
+      this.locale = locale;
+    });
   }
 
   setLocale(locale: 'zh_cn' | 'en_us') {
     this.storage.setItem('locate', locale).subscribe(status => {
       if (status) {
         this.locale = locale;
-        this.localeChange.next(locale);
+        this.events.publish('locale', locale);
         this.l = this.lang.get(locale);
       }
     });
