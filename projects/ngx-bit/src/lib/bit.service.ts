@@ -14,15 +14,12 @@ import { EventsService } from './events.service';
 export class BitService {
   static: string;
   uploads: string;
+  locale: string;
+
   form: FormGroup;
-  locale: 'zh_cn' | 'en_us';
   l: any = {};
-  private lang: Map<string, any> = new Map<string, any>();
-  private common_language: any = {};
+
   i18ns: any[] = [];
-  private menu: Map<number, any> = new Map();
-  private actives = [];
-  private breadcrumb = [];
   lists_loading = true;
   page_limit = 0;
   lists_totals = 0;
@@ -31,6 +28,12 @@ export class BitService {
   lists_indeterminate = false;
   lists_disabled_action = true;
   lists_checked_number = 0;
+
+  private lang: Map<string, any> = new Map<string, any>();
+  private common_language: any = {};
+  private menu: Map<number, any> = new Map();
+  private actives = [];
+  private breadcrumb = [];
 
   constructor(private storage: LocalStorage,
     private config: ConfigService,
@@ -42,26 +45,17 @@ export class BitService {
     this.common_language = config.language;
     this.i18ns = config.i18n;
     this.page_limit = config.page_limit;
-    storage.getItem('locate').subscribe(locate => {
-      if (locate) {
-        this.locale = locate;
-      } else {
-        this.locale = 'zh_cn';
-      }
-    });
+    this.locale = localStorage.getItem('locate') ? localStorage.getItem('locate') : 'zh_cn';
     events.on('locale').subscribe(locale => {
       this.locale = locale;
     });
   }
 
   setLocale(locale: 'zh_cn' | 'en_us') {
-    this.storage.setItem('locate', locale).subscribe(status => {
-      if (status) {
-        this.locale = locale;
-        this.events.publish('locale', locale);
-        this.l = this.lang.get(locale);
-      }
-    });
+    this.locale = locale;
+    localStorage.setItem('locate', locale);
+    this.events.publish('locale', locale);
+    this.l = this.lang.get(locale);
   }
 
   buildLanguage(args?: any): any {
