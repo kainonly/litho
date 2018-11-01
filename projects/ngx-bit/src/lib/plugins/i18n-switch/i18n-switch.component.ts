@@ -7,20 +7,11 @@ import {ConfigService} from '../../config.service';
   templateUrl: './i18n-switch.component.html'
 })
 export class I18nSwitchComponent {
-  _i18n = 'zh_cn';
   switch: any[] = [];
 
-  @Output() change: EventEmitter<string> = new EventEmitter();
+  @Input() i18n = 'zh_cn';
+  @Output() i18nChange: EventEmitter<string> = new EventEmitter();
 
-  @Input()
-  get i18n() {
-    return this._i18n;
-  }
-
-  set i18n(_i18n: string) {
-    this._i18n = _i18n;
-    this.change.emit(this._i18n);
-  }
 
   constructor(public bit: BitService,
               config: ConfigService) {
@@ -28,5 +19,9 @@ export class I18nSwitchComponent {
     if (!this.i18n) {
       this.i18n = 'zh_cn';
     }
+  }
+
+  change(i18n: string) {
+    this.i18nChange.emit(i18n);
   }
 }
