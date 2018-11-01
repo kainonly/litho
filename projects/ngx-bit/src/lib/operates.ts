@@ -1,6 +1,6 @@
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
-import { ActivatedRoute } from '@angular/router';
+import {Observable} from 'rxjs';
+import {map} from 'rxjs/operators';
+import {ActivatedRoute} from '@angular/router';
 
 export function asyncValidator(req: Observable<any>): Observable<any> {
   return Observable.create(observer => {
@@ -8,12 +8,12 @@ export function asyncValidator(req: Observable<any>): Observable<any> {
       req.subscribe(res => {
         if (!res.error) {
           if (res.data) {
-            observer.next({ error: true, duplicated: true });
+            observer.next({error: true, duplicated: true});
           } else {
             observer.next(null);
           }
         } else {
-          observer.next({ error: true });
+          observer.next({error: true});
         }
         observer.complete();
       });
@@ -64,4 +64,9 @@ export function emptyObject(object: any): boolean {
   } else {
     return false;
   }
+}
+
+export function getRouteName(url: string, start = '%7B', end = '%7D'): string {
+  const reg1 = new RegExp(`(?:${start})(.+?)(?=${end})`, 'g');
+  return url.match(reg1)[0].replace(start, '');
 }

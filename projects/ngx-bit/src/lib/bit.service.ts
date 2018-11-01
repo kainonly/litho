@@ -1,14 +1,14 @@
-import { Injectable } from '@angular/core';
-import { LocalStorage } from '@ngx-pwa/local-storage';
-import { Observable, Subject } from 'rxjs';
-import { ConfigService } from './config.service';
-import { i18nControlsValue, i18nControlsAsyncValidate, i18nControlsValidate } from './operates';
-import { switchMap } from 'rxjs/operators';
-import { I18nControlsOptions } from './interface';
-import { FormGroup, ValidationErrors } from '@angular/forms';
-import { Location } from '@angular/common';
-import { NzNotificationService } from 'ng-zorro-antd';
-import { EventsService } from './events.service';
+import {Injectable} from '@angular/core';
+import {LocalStorage} from '@ngx-pwa/local-storage';
+import {Observable, of, Subject} from 'rxjs';
+import {ConfigService} from './config.service';
+import {i18nControlsValue, i18nControlsAsyncValidate, i18nControlsValidate} from './operates';
+import {map, switchMap} from 'rxjs/operators';
+import {I18nControlsOptions} from './interface';
+import {FormGroup, ValidationErrors} from '@angular/forms';
+import {Location} from '@angular/common';
+import {NzNotificationService} from 'ng-zorro-antd';
+import {EventsService} from './events.service';
 
 @Injectable()
 export class BitService {
@@ -36,10 +36,10 @@ export class BitService {
   private breadcrumb = [];
 
   constructor(private storage: LocalStorage,
-    private config: ConfigService,
-    private notification: NzNotificationService,
-    private events: EventsService,
-    private location: Location) {
+              private config: ConfigService,
+              private notification: NzNotificationService,
+              private events: EventsService,
+              private location: Location) {
     this.static = this.config.static;
     this.uploads = this.config.origin + '/' + this.config.uploads;
     this.common_language = config.language;
@@ -90,31 +90,48 @@ export class BitService {
     );
   }
 
+  checkRouterEmpty(route: string, set = false): Observable<any> {
+    return this.storage.getItem('menu').pipe(
+      switchMap(data => {
+        if (set) {
+          this.menu = data;
+        }
+        return this.storage.getItem('route');
+      }),
+      map((data: Map<string, any>) => {
+        const status = data.has(route);
+        if (status && set) {
+          return data.get(route);
+        } else {
+          return status;
+        }
+      }),
+    );
+  }
+
   getMenu(route: string): Observable<any> {
     this.actives = [];
     this.breadcrumb = [];
-    return this.storage.getItem('menu').pipe(
-      switchMap(data => {
-        this.menu = data;
-        return this.storage.getItem('route');
-      }),
-      switchMap((data: Map<string, any>) => Observable.create(observer => {
-        const _data = data.get(route);
-        this.actives.unshift(_data.id);
+    return this.checkRouterEmpty(route, true).pipe(
+      map(data => {
+        if (!data) {
+          return false;
+        }
+        this.actives.unshift(data.id);
         const bread = {
-          name: _data.name,
-          routerlink: _data.routerlink
+          name: data.name,
+          routerlink: data.routerlink
         };
         this.breadcrumb.unshift(bread);
-        if (_data.parent !== 0) {
-          this.infiniteMenu(_data.parent);
+        if (data.parent !== 0) {
+          this.infiniteMenu(data.parent);
         }
-        observer.next({
+        return {
           actives: this.actives,
           breadcrumb: this.breadcrumb
-        });
-        observer.complete();
-      })));
+        };
+      })
+    );
   }
 
   private infiniteMenu(parent: number) {
