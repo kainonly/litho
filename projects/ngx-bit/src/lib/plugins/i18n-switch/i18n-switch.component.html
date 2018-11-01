@@ -1,6 +1,4 @@
-<nz-radio-group [(ngModel)]="i18n"
-                (ngModelChange)="change.emit($event)"
-                nzSize="small">
+<nz-radio-group [(ngModel)]="_i18n" [nzSize]="'small'">
   <label *ngFor="let x of switch" nz-radio-button [nzValue]="x.i18n">
     <span><b>{{x.name[bit.locale]}}</b></span>
   </label>
