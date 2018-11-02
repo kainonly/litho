@@ -72,16 +72,18 @@ export class BitService {
       zh_cn: {},
       en_us: {}
     };
-    language.forEach((value, key) => {
-      source.zh_cn[key] = value[0];
-      source.en_us[key] = value[1];
-    });
+    for (const i in language) {
+      if (language.hasOwnProperty(i)) {
+        source.zh_cn[i] = language[i][0];
+        source.en_us[i] = language[i][1];
+      }
+    }
     this.storage.setItemSubscribe('packer:' + space, source);
     return source;
   }
 
   registerLocales(space: string, language: any) {
-    this.space = space;
+    this.space = space.toLocaleLowerCase();
     let lang = {};
     this.storage.getItem('packer:' + this.space).pipe(
       switchMap(data => {
