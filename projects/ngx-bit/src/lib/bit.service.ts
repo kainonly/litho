@@ -1,15 +1,14 @@
 import {Injectable} from '@angular/core';
-import {LocalStorage} from '@ngx-pwa/local-storage';
-import {Observable, of, Subject} from 'rxjs';
-import {ConfigService} from './config.service';
-import {i18nControlsValue, i18nControlsAsyncValidate, i18nControlsValidate} from './operates';
-import {map, switchMap} from 'rxjs/operators';
-import {I18nControlsOptions} from './interface';
-import {FormGroup, ValidationErrors} from '@angular/forms';
 import {Location} from '@angular/common';
+import {FormGroup, ValidationErrors} from '@angular/forms';
+import {Observable} from 'rxjs';
+import {map, switchMap} from 'rxjs/operators';
 import {NzNotificationService} from 'ng-zorro-antd';
+import {LocalStorage} from '@ngx-pwa/local-storage';
+import {I18nControlsOptions} from './interface';
+import {i18nControlsValue, i18nControlsAsyncValidate, i18nControlsValidate} from './operates';
+import {ConfigService} from './config.service';
 import {EventsService} from './events.service';
-import {sp} from '@angular/core/src/render3';
 
 @Injectable()
 export class BitService {
@@ -87,7 +86,7 @@ export class BitService {
     let lang = {};
     this.storage.getItem('packer:' + this.space).pipe(
       switchMap(data => {
-        if (data) {
+        if (data && !this.config.debug) {
           lang = data[this.locale];
         } else {
           const source = this.factoryLocales(this.space, language);
