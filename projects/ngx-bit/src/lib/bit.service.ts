@@ -87,7 +87,7 @@ export class BitService {
     let lang = {};
     this.storage.getItem('packer:' + this.space).pipe(
       switchMap(data => {
-        if (data) {
+        if (data && !this.config.debug) {
           lang = data[this.locale];
         } else {
           const source = this.factoryLocales(this.space, language);
