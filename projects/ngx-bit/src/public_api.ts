@@ -1,6 +1,3 @@
-/*
- * Public API Surface of ngx-bit
- */
 export * from './lib/config.service';
 export * from './lib/ngx-bit.module';
 export * from './lib/ngx-bit.pipe.module';

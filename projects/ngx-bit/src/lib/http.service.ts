@@ -1,8 +1,6 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {LocalStorage} from '@ngx-pwa/local-storage';
-import {Observable, of} from 'rxjs';
-import {switchMap} from 'rxjs/operators';
+import {HttpClient} from '@angular/common/http';
+import {Observable} from 'rxjs';
 import {ConfigService} from './config.service';
 
 @Injectable()

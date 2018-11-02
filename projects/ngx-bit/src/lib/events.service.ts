@@ -1,5 +1,5 @@
-import { Injectable } from '@angular/core';
-import { Observable, Subject } from 'rxjs';
+import {Injectable} from '@angular/core';
+import {Observable, Subject} from 'rxjs';
 
 @Injectable()
 export class EventsService {
@@ -16,8 +16,7 @@ export class EventsService {
 
   on(topic: string): Observable<any> {
     if (this.events.has(topic)) {
-      const topics = this.events.get(topic);
-      return topics;
+      return this.events.get(topic);
     } else {
       return this.events.set(topic, new Subject()).get(topic);
     }
