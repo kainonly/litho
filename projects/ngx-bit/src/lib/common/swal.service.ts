@@ -1,12 +1,11 @@
-import {Injectable} from '@angular/core';
-import {BitService} from '../bit.service';
-import {Observable} from 'rxjs';
+import { Injectable } from '@angular/core';
+import { BitService } from '../bit.service';
+import { Observable } from 'rxjs';
 import Swal from 'sweetalert2';
 
 @Injectable()
 export class SwalService {
   static Swal = Swal;
-
   constructor(private bit: BitService) {
   }
 
@@ -14,12 +13,12 @@ export class SwalService {
     return Observable.create(observer => {
       if (!res.error) {
         Swal({
-          title: this.bit.l.get('operate_success'),
-          text: this.bit.l.get('add_success_msg'),
+          title: this.bit.l['operate_success'],
+          text: this.bit.l['add_success_msg'],
           type: 'success',
           showCancelButton: true,
-          confirmButtonText: this.bit.l.get('add_continue'),
-          cancelButtonText: this.bit.l.get('operate_back')
+          confirmButtonText: this.bit.l['add_continue'],
+          cancelButtonText: this.bit.l['operate_back']
         }).then(result => {
           if (result.value) {
             if (reset) {
@@ -37,10 +36,10 @@ export class SwalService {
         });
       } else {
         Swal({
-          title: this.bit.l.get('operate_error'),
+          title: this.bit.l['operate_error'],
           text: res.msg,
           type: 'error',
-          confirmButtonText: this.bit.l.get('operate_ok')
+          confirmButtonText: this.bit.l['operate_ok']
         }).then(() => {
           observer.next(false);
           observer.complete();
@@ -53,12 +52,12 @@ export class SwalService {
     return Observable.create(observer => {
       if (!res.error) {
         Swal({
-          title: this.bit.l.get('operate_success'),
-          text: this.bit.l.get('edit_success_msg'),
+          title: this.bit.l['operate_success'],
+          text: this.bit.l['edit_success_msg'],
           type: 'success',
           showCancelButton: true,
-          confirmButtonText: this.bit.l.get('edit_continue'),
-          cancelButtonText: this.bit.l.get('operate_back')
+          confirmButtonText: this.bit.l['edit_continue'],
+          cancelButtonText: this.bit.l['operate_back']
         }).then(result => {
           if (result.value) {
             observer.next(true);
@@ -71,10 +70,10 @@ export class SwalService {
         });
       } else {
         Swal({
-          title: this.bit.l.get('operate_error'),
+          title: this.bit.l['operate_error'],
           text: res.msg,
           type: 'error',
-          confirmButtonText: this.bit.l.get('operate_ok')
+          confirmButtonText: this.bit.l['operate_ok']
         }).then(() => {
           observer.next(false);
           observer.complete();
@@ -86,12 +85,12 @@ export class SwalService {
   deleteAlert(service: Observable<any>): Observable<any> {
     return Observable.create(observer => {
       Swal({
-        title: this.bit.l.get('operate_warning'),
-        text: this.bit.l.get('delete_warning'),
+        title: this.bit.l['operate_warning'],
+        text: this.bit.l['delete_warning'],
         type: 'warning',
         showCancelButton: true,
-        confirmButtonText: this.bit.l.get('delete_yes'),
-        cancelButtonText: this.bit.l.get('delete_cancel')
+        confirmButtonText: this.bit.l['delete_yes'],
+        cancelButtonText: this.bit.l['delete_cancel']
       }).then(result => {
         if (result.value) {
           service.subscribe(res => {

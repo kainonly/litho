@@ -18,7 +18,7 @@ export class BitService {
   locale: string;
 
   form: FormGroup;
-  l: Map<string, string> = new Map();
+  l: any = {};
   i18ns: any[] = [];
 
   lists_loading = true;
@@ -54,36 +54,36 @@ export class BitService {
     this.locale = locale;
     localStorage.setItem('locale', locale);
     this.events.publish('locale', locale);
-    let lang = [];
-    this.storage.getItem('language:' + this.space).pipe(
+    let lang = {};
+    this.storage.getItem('packer:' + this.space).pipe(
       switchMap(data => {
         if (data) {
           lang = data[this.locale];
         }
-        return this.storage.getItem('language:common');
+        return this.storage.getItem('packer:common');
       })
     ).subscribe(data => {
-      this.l = new Map([...lang, ...data[this.locale]]);
+      this.l = Object.assign(data[this.locale], lang);
     });
   }
 
-  factoryLocales(space: string, language: Map<string, string[]>): { zh_cn: Map<string, string>, en_us: Map<string, string> } {
+  factoryLocales(space: string, language: any): any {
     const source = {
-      zh_cn: new Map(),
-      en_us: new Map()
+      zh_cn: {},
+      en_us: {}
     };
     language.forEach((value, key) => {
-      source.zh_cn.set(key, value[0]);
-      source.en_us.set(key, value[1]);
+      source.zh_cn[key] = value[0];
+      source.en_us[key] = value[1];
     });
-    this.storage.setItemSubscribe('language:' + space, source);
+    this.storage.setItemSubscribe('packer:' + space, source);
     return source;
   }
 
-  registerLocales(space: string, language: Map<string, string[]>) {
-    this.space = space.toLocaleLowerCase();
-    let lang = null;
-    this.storage.getItem('language:' + this.space).pipe(
+  registerLocales(space: string, language: any) {
+    this.space = space;
+    let lang = {};
+    this.storage.getItem('packer:' + this.space).pipe(
       switchMap(data => {
         if (data) {
           lang = data[this.locale];
@@ -91,10 +91,10 @@ export class BitService {
           const source = this.factoryLocales(this.space, language);
           lang = source[this.locale];
         }
-        return this.storage.getItem('language:common');
+        return this.storage.getItem('packer:common');
       })
     ).subscribe(data => {
-      this.l = new Map([...lang, ...data[this.locale]]);
+      this.l = Object.assign(data[this.locale], lang);
     });
   }
 
