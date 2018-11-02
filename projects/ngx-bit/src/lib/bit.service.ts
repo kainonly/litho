@@ -231,12 +231,12 @@ export class BitService {
   statusChange(service: Observable<any>, custom?: any) {
     service.subscribe(res => {
       if (!res.error) {
-        this.notification.success(this.l['operate_success'], this.l['status_success']);
+        this.notification.success(this.l.get('operate_success'), this.l.get('status_success'));
       } else {
         if (custom && typeof custom === 'function') {
           custom(res);
         } else {
-          this.notification.error(this.l['operate_error'], this.l['status_error']);
+          this.notification.error(this.l.get('operate_error'), this.l.get('status_error'));
         }
       }
     });
