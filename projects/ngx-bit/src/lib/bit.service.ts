@@ -9,6 +9,7 @@ import {FormGroup, ValidationErrors} from '@angular/forms';
 import {Location} from '@angular/common';
 import {NzNotificationService} from 'ng-zorro-antd';
 import {EventsService} from './events.service';
+import {sp} from '@angular/core/src/render3';
 
 @Injectable()
 export class BitService {
@@ -17,9 +18,9 @@ export class BitService {
   locale: string;
 
   form: FormGroup;
-  l: any = {};
-
+  l: Map<string, string> = new Map();
   i18ns: any[] = [];
+
   lists_loading = true;
   page_limit = 0;
   lists_totals = 0;
@@ -29,8 +30,7 @@ export class BitService {
   lists_disabled_action = true;
   lists_checked_number = 0;
 
-  private lang: Map<string, any> = new Map<string, any>();
-  private common_language: any = {};
+  private space: string;
   private menu: Map<number, any> = new Map();
   private actives = [];
   private breadcrumb = [];
@@ -40,12 +40,11 @@ export class BitService {
               private notification: NzNotificationService,
               private events: EventsService,
               private location: Location) {
-    this.static = this.config.static;
-    this.uploads = this.config.origin + '/' + this.config.uploads;
-    this.common_language = config.language;
+    this.static = config.static;
+    this.uploads = config.origin + '/' + config.uploads;
     this.i18ns = config.i18n;
     this.page_limit = config.page_limit;
-    this.locale = localStorage.getItem('locate') ? localStorage.getItem('locate') : 'zh_cn';
+    this.locale = localStorage.getItem('locale') ? localStorage.getItem('locale') : 'zh_cn';
     events.on('locale').subscribe(locale => {
       this.locale = locale;
     });
@@ -53,31 +52,50 @@ export class BitService {
 
   setLocale(locale: 'zh_cn' | 'en_us') {
     this.locale = locale;
-    localStorage.setItem('locate', locale);
+    localStorage.setItem('locale', locale);
     this.events.publish('locale', locale);
-    this.l = this.lang.get(locale);
+    let lang = [];
+    this.storage.getItem('language:' + this.space).pipe(
+      switchMap(data => {
+        if (data) {
+          lang = data[this.locale];
+        }
+        return this.storage.getItem('language:common');
+      })
+    ).subscribe(data => {
+      this.l = new Map([...lang, ...data[this.locale]]);
+    });
   }
 
-  buildLanguage(args?: any): any {
-    let language = this.common_language;
-    if (args) {
-      language = Object.assign(language, args);
-    }
-    this.factoryLocales(language);
-    this.l = this.lang.get(this.locale);
+  factoryLocales(space: string, language: Map<string, string[]>): { zh_cn: Map<string, string>, en_us: Map<string, string> } {
+    const source = {
+      zh_cn: new Map(),
+      en_us: new Map()
+    };
+    language.forEach((value, key) => {
+      source.zh_cn.set(key, value[0]);
+      source.en_us.set(key, value[1]);
+    });
+    this.storage.setItemSubscribe('language:' + space, source);
+    return source;
   }
 
-  private factoryLocales(language: any) {
-    const zh_cn = {};
-    const en_us = {};
-    for (const key in language) {
-      if (language.hasOwnProperty(key)) {
-        zh_cn[key] = language[key][0];
-        en_us[key] = language[key][1];
-      }
-    }
-    this.lang.set('zh_cn', zh_cn);
-    this.lang.set('en_us', en_us);
+  registerLocales(space: string, language: Map<string, string[]>) {
+    this.space = space.toLocaleLowerCase();
+    let lang = null;
+    this.storage.getItem('language:' + this.space).pipe(
+      switchMap(data => {
+        if (data) {
+          lang = data[this.locale];
+        } else {
+          const source = this.factoryLocales(this.space, language);
+          lang = source[this.locale];
+        }
+        return this.storage.getItem('language:common');
+      })
+    ).subscribe(data => {
+      this.l = new Map([...lang, ...data[this.locale]]);
+    });
   }
 
   setMenu(data: any): Observable<boolean> {
