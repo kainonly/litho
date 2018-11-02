@@ -6,7 +6,7 @@ import {map, switchMap} from 'rxjs/operators';
 import {NzNotificationService} from 'ng-zorro-antd';
 import {LocalStorage} from '@ngx-pwa/local-storage';
 import {I18nControlsOptions} from './interface';
-import {i18nControlsValue, i18nControlsAsyncValidate, i18nControlsValidate} from './operates';
+import {i18nControlsValue, i18nControlsAsyncValidate, i18nControlsValidate, factoryLocales} from './operates';
 import {ConfigService} from './config.service';
 import {EventsService} from './events.service';
 
@@ -29,7 +29,8 @@ export class BitService {
   lists_disabled_action = true;
   lists_checked_number = 0;
 
-  private space: string;
+  private language: any = {};
+  private common_language: any = {};
   private menu: Map<number, any> = new Map();
   private actives = [];
   private breadcrumb = [];
@@ -53,50 +54,16 @@ export class BitService {
     this.locale = locale;
     localStorage.setItem('locale', locale);
     this.events.publish('locale', locale);
-    let lang = {};
-    this.storage.getItem('packer:' + this.space).pipe(
-      switchMap(data => {
-        if (data) {
-          lang = data[this.locale];
-        }
-        return this.storage.getItem('packer:common');
-      })
-    ).subscribe(data => {
-      this.l = Object.assign(data[this.locale], lang);
-    });
+    this.l = Object.assign(this.common_language[this.locale], this.language[this.locale]);
   }
 
-  factoryLocales(space: string, language: any): any {
-    const source = {
-      zh_cn: {},
-      en_us: {}
-    };
-    for (const i in language) {
-      if (language.hasOwnProperty(i)) {
-        source.zh_cn[i] = language[i][0];
-        source.en_us[i] = language[i][1];
-      }
+  registerLocales(packer: any, common = false) {
+    if (common) {
+      this.common_language = factoryLocales(packer);
+    } else {
+      this.language = factoryLocales(packer);
+      this.l = Object.assign(this.common_language[this.locale], this.language[this.locale]);
     }
-    this.storage.setItemSubscribe('packer:' + space, source);
-    return source;
-  }
-
-  registerLocales(space: string, language: any) {
-    this.space = space.toLocaleLowerCase();
-    let lang = {};
-    this.storage.getItem('packer:' + this.space).pipe(
-      switchMap(data => {
-        if (data && !this.config.debug) {
-          lang = data[this.locale];
-        } else {
-          const source = this.factoryLocales(this.space, language);
-          lang = source[this.locale];
-        }
-        return this.storage.getItem('packer:common');
-      })
-    ).subscribe(data => {
-      this.l = Object.assign(data[this.locale], lang);
-    });
   }
 
   setMenu(data: any): Observable<boolean> {
