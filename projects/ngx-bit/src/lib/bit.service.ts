@@ -56,11 +56,11 @@ export class BitService {
           tips = 'Switching English for you';
           break;
       }
-      const id = message.loading('', {nzDuration: 0}).messageId;
+      const id = message.loading(tips, {nzDuration: 0}).messageId;
       setTimeout(() => {
         this.message.remove(id);
         this.locale = locale;
-      }, 1200);
+      }, 1450);
     });
   }
 
