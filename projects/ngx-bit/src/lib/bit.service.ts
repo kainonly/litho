@@ -3,7 +3,7 @@ import {Location} from '@angular/common';
 import {FormGroup, ValidationErrors} from '@angular/forms';
 import {Observable} from 'rxjs';
 import {map, switchMap} from 'rxjs/operators';
-import {NzNotificationService} from 'ng-zorro-antd';
+import {NzMessageService, NzNotificationService} from 'ng-zorro-antd';
 import {LocalStorage} from '@ngx-pwa/local-storage';
 import {I18nControlsOptions} from './interface';
 import {i18nControlsValue, i18nControlsAsyncValidate, i18nControlsValidate, factoryLocales} from './operates';
@@ -38,6 +38,7 @@ export class BitService {
   constructor(private storage: LocalStorage,
               private config: ConfigService,
               private notification: NzNotificationService,
+              private message: NzMessageService,
               private events: EventsService,
               private location: Location) {
     this.static = config.static;
@@ -46,7 +47,20 @@ export class BitService {
     this.page_limit = config.page_limit;
     this.locale = localStorage.getItem('locale') ? localStorage.getItem('locale') : 'zh_cn';
     events.on('locale').subscribe(locale => {
-      this.locale = locale;
+      let tips;
+      switch (locale) {
+        case 'zh_cn':
+          tips = '正在为您切换中文';
+          break;
+        case 'en_us':
+          tips = 'Switching English for you';
+          break;
+      }
+      const id = message.loading('', {nzDuration: 0}).messageId;
+      setTimeout(() => {
+        this.message.remove(id);
+        this.locale = locale;
+      }, 1200);
     });
   }
 
@@ -170,6 +184,7 @@ export class BitService {
       for (const key in this.form.controls) {
         if (this.form.controls.hasOwnProperty(key)) {
           this.form.controls[key].markAsDirty();
+          this.form.controls[key].updateValueAndValidity();
         }
       }
       callback(this.form.value);
