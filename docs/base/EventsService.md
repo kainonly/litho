@@ -1,6 +1,8 @@
-# 组件通讯服务 - EventsService
+# EventsService
 
-##### `publish(topic: string, args?: any)`
+EventsService 是用于组件自定义组件通讯与框架事件监听
+
+### publish(topic: string, args?: any)
 
 - `topic` 主题名称
 - `args` 发送参数
@@ -13,7 +15,7 @@ this.events.publish('any', {
 });
 ```
 
-##### `on(topic: string): Observable<any>`
+### on(topic: string): Observable< any >
 
 - `topic` 主题名称
 
@@ -25,12 +27,24 @@ this.events.on('any').subscribe(args => {
 });
 ```
 
-##### `off(topic: string)`
+### off(topic: string)
 
 - `topic` 主题名称
 
-取消已订阅的组件通讯事件
+在每次组件OnDestory时，都需要将自定义通讯取消订阅
 
 ```typescript
 this.events.off('any');
+```
+
+### events: locale
+
+- 语言包切换事件
+
+监听切换
+
+```typescript
+this.events.on('locale').subscribe(args => {
+    console.log(args);
+});
 ```
