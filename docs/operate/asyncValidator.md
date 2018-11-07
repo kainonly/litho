@@ -1,4 +1,4 @@
-# 异步验证函数
+# asyncValidator
 
 ##### `asyncValidator(is_null: boolean, request: Observable<any>): Observable<any>`
 

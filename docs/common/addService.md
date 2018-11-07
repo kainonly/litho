@@ -1,6 +1,6 @@
 # AddService
 
-AddService 新增接口请求服务
+AddService 是新增接口请求服务
 
 ### customAction(name: string)
 

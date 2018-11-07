@@ -1,17 +1,31 @@
-# 获取单条数据请求服务 - GetService
+# GetService
 
-##### `customAction(name: string)`
+GetService 是获取单条数据接口请求服务
+
+### customAction(name: string)
 
 - 设置自定义函数名
 - `name` 函数名，请求地址默认为 `model+'/get'`，通过 `name` 修改 `'/get'`
 
-##### `factory(model: string, condition: any): Observable<any>`
+### factory(model: string, condition: any): Observable< any >
 
 - 生成新增请求
 - `model` 模块名称
 - `condition` 条件数组
 
-例子1：如果 `id` 为条件，这里只能是 `单个id`
+将管理员服务注入在应用模块下的供应商内
+
+```typescript
+@NgModule({
+  providers: [
+    AdminService
+  ]
+})
+export class AppModule {
+}
+```
+
+例如：如果 `id` 为条件，这里只能是 `单个id`
 
 ```typescript
 @Injectable()
@@ -29,7 +43,7 @@ export class AdminService {
 }
 ```
 
-例子2：如果不以 `id` 为条件，这里需要用条件数组来做参数
+例如：如果不以 `id` 为条件，这里需要用条件数组来做参数
 
 ```typescript
 @Injectable()

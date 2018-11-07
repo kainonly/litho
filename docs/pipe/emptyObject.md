@@ -1,1 +1,1 @@
-# 空对象
+# EmptyObject

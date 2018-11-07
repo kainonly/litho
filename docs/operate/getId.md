@@ -1,4 +1,4 @@
-# 获取路由ID
+# getId
 
 ##### `getId(route: ActivatedRoute): Observable<any>`
 

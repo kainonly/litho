@@ -1,4 +1,4 @@
-# 空对象
+# emptyObject
 
 ##### `emptyObject(object: any): boolean`
 
