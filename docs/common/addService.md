@@ -1,4 +1,4 @@
-# 新增请求服务 - AddService
+# AddService
 
 ##### `customAction(name: string)`
 
