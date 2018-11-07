@@ -1,12 +1,12 @@
-# 公共服务 - BitService
+# BitService
 
-> `BitService` 是辅助框架的核心，将使用在组件、模板以及需要的服务类中
+BitService 是辅助框架的核心，将使用在组件、模板以及需要的服务类中
 
-##### `static: string`
+### static: string
 
 - 静态资源地址
 
-例子1：在组件中使用
+例如：在组件中使用
 
 ```typescript
 constructor(public bit: BitService) {
@@ -14,13 +14,13 @@ constructor(public bit: BitService) {
 }
 ```
 
-例子2：在模板中使用
+例如：在模板中使用
 
 ```html
 <img [src]="bit.static+'any.jpg'">
 ```
 
-##### `uploads: string`
+### uploads: string
 
 - RESTful Api 上传地址
 - 详情信息请参考 [上传](zh-cn/plugin/upload)
@@ -33,10 +33,9 @@ constructor(public bit: BitService) {
 </nz-upload>
 ```
 
-##### `form: FormGroup`
+### form: FormGroup
 
-- 表单变量
-- 详情信息请参考 [表单](zh-cn/plugin/form)
+- 组件内FormGroup对象
 
 在当前页内定义主表单：
 
@@ -44,12 +43,12 @@ constructor(public bit: BitService) {
 <form nz-form [formGroup]="bit.form"></form>
 ```
 
-##### `locale: 'zh_cn' | 'en_us'`
+### locale: string
 
 - 语言包标识
 - 可以在需要语言包的组件或模板中使用，默认 `zh_cn`
 
-例子1：在组件中使用
+例如：在组件中使用
 
 ```typescript
 name = {
@@ -62,39 +61,26 @@ constructor(public bit: BitService) {
 }
 ```
 
-例子2：在模板中使用
+例如：在模板中使用
 
 ```html
 <p>{{name[bit.locale]}}<p>
 ```
 
-##### `localeChange: Subject<'zh_cn' | 'en_us'>`
+### l: any
 
-- 语言包切换触发
+- 语言包标识，默认 `{}`
 
-当语言包切换时，可以这样订阅监听：
-
-```typescript
-this.bit.localeChange.subscribe(locale => {
-    console.log(locale);
-});
-```
-
-##### `l: any`
-
-- 语言包标识
-- 详情信息请参考 [语言包](zh-cn/language)
-
-在定义好语言包之后可直接使用 `l` 进行映射
+在定义好语言包之后可直接使用 `l` 获取相关语言
 
 ```html
-<p>{{l['name']}}</p>
+<p>{{bit.l['name']}}</p>
 ```
 
-##### `i18ns: any[]`
+### i18ns: any[]
 
-- 多语言标识
-- 可以使用在需要多语言输入的组件
+- 多语言标识，默认 `[]`
+- 应用再表单组件多语言化输入切换
 
 例如：多语言输入切换控件
 
@@ -109,10 +95,10 @@ this.bit.localeChange.subscribe(locale => {
 </nz-radio-group>
 ```
 
-##### `lists_loading: boolean`
+### lists_loading: boolean
 
 - 列表正在加载状态
-- 使用在表格或列表组件中，请参看 [表格](zh-cn/plugin/table)、[列表](zh-cn/plugin/lists)
+- 使用在表格或列表组件中
 
 在数据还未加载完成时添加加载动画：
 
@@ -123,10 +109,10 @@ this.bit.localeChange.subscribe(locale => {
 </nz-table>
 ```
 
-##### `page_limit: number`
+### page_limit: number
 
 - 分页，默认为配置服务 `page_limit`
-- 使用在表格或列表组件中，请参看 [表格](zh-cn/plugin/table)、[列表](zh-cn/plugin/lists)
+- 使用在表格或列表组件中
 
 表格中设置分页大小：
 
@@ -137,10 +123,10 @@ this.bit.localeChange.subscribe(locale => {
 </nz-table>
 ```
 
-##### `lists_totals: number`
+### lists_totals: number
 
 - 列表数据总数
-- 使用在表格或列表组件中，请参看 [表格](zh-cn/plugin/table)、[列表](zh-cn/plugin/lists)
+- 使用在表格或列表组件中
 
 `lists_totals` 是由分页列表请求对象自动获取：
 
@@ -151,10 +137,10 @@ this.bit.localeChange.subscribe(locale => {
 </nz-table>
 ```
 
-##### `lists_page_index: number`
+### lists_page_index: number
 
 - 分页索引页，当前页
-- 使用在表格或列表组件中，请参看 [表格](zh-cn/plugin/table)、[列表](zh-cn/plugin/lists)
+- 使用在表格或列表组件中
 
 `lists_page_index` 是个双向绑定属性，可以通过外部去更改分页索引：
 
@@ -165,10 +151,10 @@ this.bit.localeChange.subscribe(locale => {
 </nz-table>
 ```
 
-##### `lists_all_checked: boolean`
+### lists_all_checked: boolean
 
 - 列表选项框状态为全选
-- 使用在表格组件中，请参看 [表格](zh-cn/plugin)
+- 使用在表格组件中
 
 `lists_all_checked` 是一个双向绑定属性，当全选选择框被动触发改变时，通过它的 `modelChange` 将同步其他数据的选择框状态：
 
@@ -184,10 +170,10 @@ this.bit.localeChange.subscribe(locale => {
 </nz-table>
 ```
 
-##### `lists_indeterminate: boolean`
+### lists_indeterminate: boolean
 
 - 列表选项框状态为不完整选择
-- 使用在表格组件中，请参看 [表格](zh-cn/plugin/table)
+- 使用在表格组件中
 
 `nzIndeterminate` 是不完整选择属性，当符合条件时，表头全选选择框将变为该状态：
 
@@ -203,10 +189,10 @@ this.bit.localeChange.subscribe(locale => {
 </nz-table>
 ```
 
-##### `lists_disabled_action: boolean`
+### lists_disabled_action: boolean
 
 - 列表操作板显示状态
-- 使用在表格组件中，请参看 [表格](zh-cn/plugin/table)
+- 使用在表格组件中
 
 可在需要的标签中使用，已被选中的总数为 `0` 时，`lists_disabled_action=true`
 
@@ -216,10 +202,10 @@ this.bit.localeChange.subscribe(locale => {
 </button>
 ```
 
-##### `lists_checked_number: number`
+### lists_checked_number: number
 
 - 列表选项框选择数量
-- 使用在表格组件中，请参看 [表格](zh-cn/plugin/table)
+- 使用在表格组件中
 
 显示已被选中的总数：
 
@@ -227,7 +213,7 @@ this.bit.localeChange.subscribe(locale => {
 <p>{{bit.lists_checked_number}}</p>
 ```
 
-##### `setLocale(locale: 'zh_cn' | 'en_us')`
+### setLocale(locale: 'zh_cn' | 'en_us')
 
 - 语言包标识设置
 - `locale` 语言包标识
@@ -238,13 +224,13 @@ this.bit.localeChange.subscribe(locale => {
 this.bit.setLocale('en_us');
 ```
 
-##### `buildLanguage(args?: any): any`
+### registerLocales(packer: any, common = false)
 
 - 构建语言包
-- `args` 语言包生产参数
-- 使用方法请参考 [语言包](zh-cn/language)
+- `packer` 原始语言包
+- `common` 是否为公共语言包
 
-##### `setMenu(data: any): Observable<boolean>`
+### setMenu(data: any): Observable< boolean >
 
 - 设置菜单源数据
 - `data` 从服务器获取的菜单数据
@@ -254,13 +240,13 @@ this.bit.setLocale('en_us');
 ```typescript
 // main.menu() 为获取菜单请求
 this.main.menu().pipe(
-    switchMap(data => this.bit.setMenu(data))).subscribe(status => {
-        console.log(status);
-    }
-);
+    switchMap(data => this.bit.setMenu(data))
+).subscribe(status => {
+    console.log(status);
+})
 ```
 
-##### `getMenu(route: string): Observable<any>`
+### getMenu(route: string): Observable< any >
 
 - 用路由地址获取对应的菜单数据
 - `route` 路由名称
@@ -273,14 +259,13 @@ this.bit.getMenu('admin-index').subscribe(data => {
 });
 ```
 
-##### `i18nControls(options?: I18nControlsOptions)`
+### i18nControls(options?: I18nControlsOptions)
 
 - 输入层多语言数值初始化
 - `options` 多语言异步表单参数
     - `value` 数值
     - `validate` 同步验证
     - `asyncValidate` 异步验证
-- 详情信息请参考 [表单](zh-cn/plugin/form)
 
 在异步表单初始化时对应这样设置多语言输入控件：
 
@@ -295,12 +280,11 @@ this.bit.form = this.fb.group({
 });
 ```
 
-##### `formExplain(name: string, pending?: boolean): boolean`
+### formExplain(name: string, async = false): ValidationErrors | boolean
 
 - 表单验证提示判断
 - `name` 表单控件标识
-- `pending` 是否为包含异步验证
-- 详情信息请参考 [表单](zh-cn/plugin/form)
+- `async` 是否为包含异步验证
 
 在模版中定义提示判断
 
@@ -308,12 +292,11 @@ this.bit.form = this.fb.group({
 <nz-form-explain *ngIf="bit.formExplain('anyone',true)"></nz-form-explain>
 ```
 
-##### `explain(name: string, sign: string): boolean`
+### explain(name: string, sign: string): boolean
 
 - 表单验证类型判断
 - `name` 表单控件标识
 - `sign` 判断类型
-- 详情信息请参考 [表单](zh-cn/plugin/form)
 
 在模版中定义判断类型
 
@@ -323,12 +306,11 @@ this.bit.form = this.fb.group({
 </ng-container>
 ```
 
-##### `submit(event, callback)`
+### submit(event, callback)
 
 - 表单提交阻止原生与检测
 - `event` 表单event事件
 - `callback` 回调事件
-- 详情信息请参考 [表单](zh-cn/plugin/form)
 
 定义表单事件
 
@@ -336,11 +318,11 @@ this.bit.form = this.fb.group({
 <form nz-form [formGroup]="bit.form" (submit)="bit.submit($event,submit)"></form>
 ```
 
-##### `back()`
+### back()
 
 - 返回访问前一页
 
-例子1：在组件中使用
+例如：在组件中使用
 
 ```typescript
 constructor(public bit: BitService) {
@@ -348,17 +330,16 @@ constructor(public bit: BitService) {
 }
 ```
 
-例子2：在模板中使用
+例如：在模板中使用
 
 ```html
 <a (click)="bit.back()"></a>
 ```
 
-##### `listsRefreshStatus(lists: any[])`
+### listsRefreshStatus(lists: any[])
 
 - 列表选择监听
 - `lists` 数据源
-- 使用在表格组件中，请参看 [表格](zh-cn/plugin/form)
 
 在表格中的每个子选择框触发变化事件时，判断数据是否全选、不全选或完全不选择：
 
@@ -375,12 +356,11 @@ constructor(public bit: BitService) {
 </nz-table>
 ```
 
-##### `listsCheckAll(event, lists: any[])`
+### listsCheckAll(event, lists: any[])
 
 - 列表全选选择监听
 - `event` 选择框状态改变触发事件
 - `lists` 数据源
-- 使用在表格组件中，请参看 [表格](zh-cn/plugin/form)
 
 在表头命名层全选选择框选中后，同步每个数据的选择框状态
 
@@ -396,17 +376,33 @@ constructor(public bit: BitService) {
 </nz-table>
 ```
 
-##### `statusChange(service: Observable<any>)`
+### statusChange(service: Observable< any >, custom?: any)
 
 - 状态更新
-- `service` 状态切换请求对象
+- `service` 状态切换请求
+- `custom` 自定义处理错误提示
 
 `main.status` 是一个状态切换请求对象，当监听到状态切换时，同步数据到服务器，对组件这样定义：
 
 ```html
 <nz-switch [nzCheckedChildren]="bit.l['on']"
-    [nzUnCheckedChildren]="bit.l['off']"
-    (ngModelChange)="bit.statusChange(main.status(data))"
-    [(ngModel)]="data.status">
+            [nzUnCheckedChildren]="bit.l['off']"
+            [(ngModel)]="data.status"
+            [nzControl]="true"
+            (click)="bit.statusChange(anyService.status(data),statusCallback)">
 </nz-switch>
+```
+
+自定义错误提示，statusCallback 函数
+
+```typescript
+statusCallback = (res: any) => {
+    switch (res.msg) {
+        case 'error:self':
+            this.notification.error(this.bit.l['operate_error'], this.bit.l['error_status_self']);
+            break;
+        default:
+            this.notification.error(this.bit.l['operate_error'], this.bit.l['status_error']);
+    }
+};
 ```

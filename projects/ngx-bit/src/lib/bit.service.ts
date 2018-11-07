@@ -90,7 +90,7 @@ export class BitService {
     );
   }
 
-  checkRouterEmpty(route: string, set = false): Observable<any> {
+  private checkRouterEmpty(route: string, set = false): Observable<any> {
     return this.storage.getItem('menu').pipe(
       switchMap(data => {
         if (set) {
