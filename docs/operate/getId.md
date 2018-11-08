@@ -1,5 +1,7 @@
 # getId
 
+getId 是获取路由Id函数
+
 ##### `getId(route: ActivatedRoute): Observable<any>`
 
 - `route` 组件内实例化 `ActivatedRoute`

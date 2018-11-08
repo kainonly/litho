@@ -1,1 +1,3 @@
 # EmptyObject
+
+EmptyObject 是
