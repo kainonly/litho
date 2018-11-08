@@ -1,6 +1,12 @@
-# NGX-BIT
+NGX-BIT
+=======
 
 基于 Angular 与 Ng-Zorro UI 的辅助框架
+
+[![NPM version](https://badge.fury.io/js/ngx-bit.png)](http://badge.fury.io/js/ngx-bit)
+[![Downloads](https://img.shields.io/npm/dm/ngx-bit.svg?style=flat-square)](https://www.npmjs.com/package/ngx-bit)
+[![TypeScript](https://img.shields.io/badge/%3C%2F%3E-TypeScript-blue.svg)](https://www.typescriptlang.org/)
+[![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/kainonly/ngx-bit.js/master/LICENSE)
 
 #### 创建项目
 

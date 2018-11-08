@@ -19,7 +19,6 @@
 * 组件
     * [表单](plugin/form)
     * [表格](plugin/table)
-    * [列表](plugin/lists)
     * [上传](plugin/upload)
     * [语言包](plugin/language)
     * [多语言](plugin/i18n)
