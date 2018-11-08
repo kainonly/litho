@@ -7,11 +7,12 @@ AddService 是新增接口请求服务
 - 设置自定义函数名
 - `name` 函数名，请求地址默认为 `model+'/add'`，通过 `name` 修改 `'/add'`
 
-### factory(model: string, data: any): Observable< any >
+### factory(model: string, data: any)
 
 - 生成新增请求
 - `model` 模块名称
 - `data` 发送数据
+- 返回 `Observable< any >`
 
 为管理员服务生成新增请求接口
 
