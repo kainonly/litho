@@ -38,8 +38,8 @@ export default {
 ```typescript
 import packer from './language';
 
-const l = factoryLocales(packer);
+const language = factoryLocales(packer);
 
-console.log(l.zh_cn.username); // 用户名称
-console.log(l.en_us.username); // Username
+console.log(language.zh_cn.username); // 用户名称
+console.log(language.en_us.username); // Username
 ```

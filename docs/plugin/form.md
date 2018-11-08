@@ -60,6 +60,14 @@ export class AdminAddComponent implements OnInit {
 </form>
 ```
 
-- `formControlName="username"`  对应组件中 `this.form.get('username')`
-- `bit.formExplain('username',true)` 中 `true` 代表对这个表单组件是包含异步验证的，如果仅有同步验证可以写成 `bit.formExplain('username')`。如果包含异步验证条件设为同步，这里将会不能正常工作
-- `bit.explain('username','required')` 代表这个表单组件有 `required` 错误
+#### - formControlName="username"
+
+对应组件中 `this.form.get('username')` 对象，如获取这个 `FormContol` 的数值，需要 `this.form.get('username').value`
+
+#### - bit.formExplain('username',true)
+
+其中 `true` 代表对这个 `FormContol` 是包含异步验证的，如果仅有同步验证可以写成 `bit.formExplain('username')`。如果包含异步验证条件设为同步，这里将会不能正常工作
+
+#### - bit.explain('username','required')
+
+代表这个 `FormContol` 有 `required` 错误

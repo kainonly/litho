@@ -62,6 +62,14 @@ export class AdminAddComponent implements OnInit {
 </nz-form-item>
 ```
 
-- `nzWithCredentials` 如果存在携带 `Cookie` 必须将其设为 `true`，通常前后端分离会将 `Token` 存在服务端的 `Cookie` 中。
-- `nzAction` 则是上传请求地址，可以直接调用 `bit.uploads`
-- `nzChange` 中函数就是组件中的上传
+#### -nzWithCredentials
+
+如果存在携带 `Cookie` 必须将其设为 `true`，通常前后端分离会将 `Token` 存在服务端的 `Cookie` 中
+
+#### - nzAction
+
+则是上传请求地址，可以直接调用 `bit.uploads`
+
+#### - nzChange
+
+中函数就是组件中的上传

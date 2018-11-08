@@ -48,3 +48,7 @@ export class AdminAddComponent implements OnInit {
     }
 }
 ```
+
+#### - this.bit.registerLocales(packer)
+
+将语言包注册至 `bit.l`，这样模版下就能直接使用 `bit.l['any']`
