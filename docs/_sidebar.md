@@ -1,9 +1,9 @@
 * [简介](/)
 * 核心服务
-    * [ConfigService](base/configService)
-    * [BitService](base/bitService)
-    * [HttpService](base/httpService)
-    * [EventsService](base/eventsService)
+    * [ConfigService](core/configService)
+    * [BitService](core/bitService)
+    * [HttpService](core/httpService)
+    * [EventsService](core/eventsService)
 * 通用服务
     * [AddService](common/addService)
     * [DeleteService](common/deleteService)
