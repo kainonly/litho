@@ -10,28 +10,28 @@ NGX-BIT
 
 #### 创建项目
 
-```
-$ ng new anyone
+```shell
+# ng version // v6-lts
+# ng new anyone
 ```
 
 #### 安装依赖
 
-```
-$ ng add ng-zorro-antd
-$ npm install @angular/cdk @ngx-pwa/local-storage sweetalert2 --save
-$ npm install tslib --save-dev
+``` shell
+# ng add ng-zorro-antd
 ```
 
 #### 加入 Serivce Work
 
-```
-$ ng add @angular/pwa
+``` shell
+# ng add @angular/pwa
 ```
 
 #### 开始安装
 
-```
-$ npm install ngx-bit --save
+```shell
+# npm install @ngx-pwa/local-storage sweetalert2 --save
+# npm install ngx-bit --save
 ```
 
 #### 定义主配置
