@@ -34,6 +34,7 @@ export class BitService {
   private menu: Map<number, any> = new Map();
   private actives = [];
   private breadcrumb = [];
+  private path = 0;
 
   constructor(private storage: LocalStorage,
               private config: ConfigService,
@@ -112,6 +113,7 @@ export class BitService {
   getMenu(route: string): Observable<any> {
     this.actives = [];
     this.breadcrumb = [];
+    this.path = 0;
     return this.checkRouterEmpty(route, true).pipe(
       map(data => {
         if (!data) {
@@ -120,7 +122,7 @@ export class BitService {
         this.actives.unshift(data.id);
         const bread = {
           name: data.name,
-          routerlink: data.routerlink
+          routerlink: 0
         };
         this.breadcrumb.unshift(bread);
         if (data.parent !== 0) {
@@ -139,7 +141,7 @@ export class BitService {
     this.actives.unshift(data.id);
     const bread = {
       name: data.name,
-      routerlink: data.routerlink
+      routerlink: (data.routerlink) ? '../'.repeat(this.path++) : 0
     };
     this.breadcrumb.unshift(bread);
     if (data.parent !== 0) {
