@@ -82,11 +82,11 @@ export class SwalService {
     });
   }
 
-  deleteAlert(service: Observable<any>): Observable<any> {
+  deleteAlert(service: Observable<any>, text?: any): Observable<any> {
     return Observable.create(observer => {
       Swal({
         title: this.bit.l['operate_warning'],
-        text: this.bit.l['delete_warning'],
+        text: (text) ? text : this.bit.l['delete_warning'],
         type: 'warning',
         showCancelButton: true,
         confirmButtonText: this.bit.l['delete_yes'],
