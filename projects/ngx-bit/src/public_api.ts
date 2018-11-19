@@ -17,4 +17,3 @@ export * from './lib/common/status.service';
 export * from './lib/common/swal.service';
 
 export * from './lib/operates';
-
