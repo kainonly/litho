@@ -33,5 +33,9 @@
     * [i18n对象设定同步验证](operate/i18nControlsValidate)
     * [i18n对象设定异步验证](operate/i18nControlsAsyncValidate)
     * [语言包转化生产](operate/factoryLocales)
-    * [判断空对象](operate/emptyObject)
     * [获取当前路由名称](operate/getRouteName)
+    * [判断空数组](operate/emptyArray)
+    * [判断空对象](operate/emptyObject)
+    * [对象转化数组](operate/objectToArray)
+    * [对象转化Map对象](operate/objectToMap)
+   
