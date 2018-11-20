@@ -1,17 +1,9 @@
 import {Pipe, PipeTransform} from '@angular/core';
-import {isArray} from 'util';
+import {emptyObject} from '../operates';
 
 @Pipe({name: 'EmptyArray'})
-export class EmptyObjectPipe implements PipeTransform {
+export class EmptyArrayPipe implements PipeTransform {
   transform(value: any[]): boolean {
-    try {
-      if (isArray(value)) {
-        return value.length === 0;
-      } else {
-        return false;
-      }
-    } catch (e) {
-      return false;
-    }
+    return emptyObject(value);
   }
 }

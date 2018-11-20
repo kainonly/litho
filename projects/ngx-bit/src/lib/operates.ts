@@ -1,6 +1,4 @@
 import {Observable} from 'rxjs';
-import {map} from 'rxjs/operators';
-import {ActivatedRoute} from '@angular/router';
 import {isArray, isObject} from 'util';
 
 export function asyncValidator(req: Observable<any>): Observable<any> {
@@ -69,6 +67,11 @@ export function factoryLocales(packer: any): any {
   return source;
 }
 
+export function getRouteName(url: string, start = '%7B', end = '%7D'): string {
+  const reg1 = new RegExp(`(?:${start})(.+?)(?=${end})`, 'g');
+  return url.match(reg1)[0].replace(start, '');
+}
+
 export function emptyObject(object: any): boolean {
   if (isObject(object) && !isArray(object)) {
     return Object.keys(object).length === 0;
@@ -85,7 +88,31 @@ export function emptyArray(array: any[]) {
   }
 }
 
-export function getRouteName(url: string, start = '%7B', end = '%7D'): string {
-  const reg1 = new RegExp(`(?:${start})(.+?)(?=${end})`, 'g');
-  return url.match(reg1)[0].replace(start, '');
+export function objectToArray(object: any): any[] {
+  if (isObject(object) && !isArray(object)) {
+    const array = [];
+    for (const key in object) {
+      if (object.hasOwnProperty(key)) {
+        array.push({
+          key: key,
+          rows: object[key]
+        });
+      }
+    }
+    return array;
+  } else {
+    return [];
+  }
+}
+
+export function objectToMap(object: any): Map<any, any> {
+  const mapList: Map<any, any> = new Map();
+  if (isObject(object) && !isArray(object)) {
+    for (const key in object) {
+      if (object.hasOwnProperty(key)) {
+        mapList.set(key, object[key]);
+      }
+    }
+  }
+  return mapList;
 }
