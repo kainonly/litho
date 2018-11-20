@@ -10,6 +10,7 @@ registerLocaleData(zh);
 import {NgZorroAntdModule, NZ_I18N, zh_CN} from 'ng-zorro-antd';
 
 import {AppComponent} from './app.component';
+import {NgxBitModule, NgxBitPipeModule} from 'ngx-bit';
 
 
 @NgModule({
@@ -21,7 +22,9 @@ import {AppComponent} from './app.component';
     BrowserAnimationsModule,
     FormsModule,
     HttpClientModule,
-    NgZorroAntdModule
+    NgZorroAntdModule,
+    NgxBitModule,
+    NgxBitPipeModule
   ],
   providers: [
     {provide: NZ_I18N, useValue: zh_CN}
