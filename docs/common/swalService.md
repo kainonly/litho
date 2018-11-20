@@ -2,21 +2,6 @@
 
 SwalService 是提交反馈栏服务
 
-### static:: native(title: string, message?: string, type?: SweetAlertType)
-
-- `sweetalert2` 原始用法
-- 返回 `Promise<SweetAlertResult>`
-
-### static:: native(settings: SweetAlertOptions & { useRejections?: false })
-
-- `sweetalert2` 原始用法
-- 返回 `Promise<SweetAlertResult>`
-
-### static:: native(settings: SweetAlertOptions & { useRejections: true })
-
-- `sweetalert2` 原始用法
-- 返回 `Promise<any>`
-
 ### addAlert(res: any, reset?: any, customize?: AlertCustomize)
 
 - 新增返回提示框
@@ -119,3 +104,18 @@ export class AdminIndexComponent implements OnInit {
 ```
 
 > 订阅返回删除请求对象的响应值
+
+### static:: native(title: string, message?: string, type?: SweetAlertType)
+
+- `sweetalert2` 原始用法
+- 返回 `Promise<SweetAlertResult>`
+
+### static:: native(settings: SweetAlertOptions & { useRejections?: false })
+
+- `sweetalert2` 原始用法
+- 返回 `Promise<SweetAlertResult>`
+
+### static:: native(settings: SweetAlertOptions & { useRejections: true })
+
+- `sweetalert2` 原始用法
+- 返回 `Promise<any>`
