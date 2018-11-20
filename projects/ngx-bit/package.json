@@ -1,6 +1,6 @@
 {
   "name": "ngx-bit",
-  "version": "1.6.9",
+  "version": "1.7.0",
   "license": "MIT",
   "peerDependencies": {
     "@angular/common": "*",
