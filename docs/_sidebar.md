@@ -14,8 +14,13 @@
     * [StatusService](common/statusService)
     * [SwalService](common/swalService)
 * 管道
-    * [JSONParse](pipe/jSONParse)
+    * [Defined](pipe/defined)
+    * [Undefined](pipe/undefined)
+    * [EmptyArray](pipe/emptyArray)
     * [EmptyObject](pipe/emptyObject)
+    * [ObjectToArray](pipe/objectToArray)
+    * [ObjectToMap](pipe/objectToMap)
+    * [JSONParse](pipe/jSONParse)
 * 组件
     * [表单](plugin/form)
     * [表格](plugin/table)
@@ -28,6 +33,5 @@
     * [i18n对象设定同步验证](operate/i18nControlsValidate)
     * [i18n对象设定异步验证](operate/i18nControlsAsyncValidate)
     * [语言包转化生产](operate/factoryLocales)
-    * [获取路由Id](operate/getId)
     * [判断空对象](operate/emptyObject)
     * [获取当前路由名称](operate/getRouteName)

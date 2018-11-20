@@ -9,13 +9,12 @@ import zh from '@angular/common/locales/zh';
 registerLocaleData(zh);
 import {NgZorroAntdModule, NZ_I18N, zh_CN} from 'ng-zorro-antd';
 
-import {NgxBitModule} from 'ngx-bit';
 import {AppComponent} from './app.component';
 
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   imports: [
     BrowserModule,
