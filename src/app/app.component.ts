@@ -1,5 +1,4 @@
 import {Component} from '@angular/core';
-import {isArray, isObject} from 'util';
 
 @Component({
   selector: 'app-root',
@@ -7,6 +6,5 @@ import {isArray, isObject} from 'util';
 })
 export class AppComponent {
   constructor() {
-    console.log(isObject([]) && !isArray([]));
   }
 }
