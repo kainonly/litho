@@ -18,13 +18,13 @@ NGX-BIT
 #### 安装依赖
 
 ``` shell
-# ng add ng-zorro-antd
+# ng add ng-zorro-antd@1.8.x
 ```
 
 #### 加入 Serivce Work
 
 ``` shell
-# ng add @angular/pwa
+# ng add @angular/pwa@v6-lts
 ```
 
 #### 开始安装
