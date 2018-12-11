@@ -30,7 +30,7 @@ NGX-BIT
 #### 开始安装
 
 ```shell
-# npm install @ngx-pwa/local-storage sweetalert2 --save
+# npm install @ngx-pwa/local-storage@v6 sweetalert2 --save
 # npm install ngx-bit --save
 ```
 
