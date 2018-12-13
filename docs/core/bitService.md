@@ -43,6 +43,16 @@ constructor(public bit: BitService) {
 <form nz-form [formGroup]="bit.form"></form>
 ```
 
+### forms: FormGroup[]
+
+- 组件内FormGroup数组对象
+
+在当前页内定义主表单：
+
+```html
+<form nz-form [formGroup]="bit.forms[0]"></form>
+```
+
 ### locale: string
 
 - 语言包标识
@@ -292,11 +302,25 @@ this.bit.form = this.fb.group({
 <nz-form-explain *ngIf="bit.formExplain('anyone',true)"></nz-form-explain>
 ```
 
-### explain(name: string, sign: string): boolean
+### formsExplain(path: number, name: string, async = false): ValidationErrors | boolean
+
+- 表单验证提示判断
+- `path` 适用于forms的索引
+- `name` 表单控件标识
+- `async` 是否为包含异步验证
+
+在模版中定义提示判断
+
+```html
+<nz-form-explain *ngIf="bit.formsExplain(0,'anyone',true)"></nz-form-explain>
+```
+
+### explain(name: string, sign: string, path?: number): boolean
 
 - 表单验证类型判断
 - `name` 表单控件标识
 - `sign` 判断类型
+- `path` 可选，适用于forms的索引
 
 在模版中定义判断类型
 
@@ -306,11 +330,12 @@ this.bit.form = this.fb.group({
 </ng-container>
 ```
 
-### submit(event, callback)
+### submit(event, callback, path?: number)
 
 - 表单提交阻止原生与检测
 - `event` 表单event事件
 - `callback` 回调事件
+- `path` 可选，适用于forms的索引
 
 定义表单事件
 
