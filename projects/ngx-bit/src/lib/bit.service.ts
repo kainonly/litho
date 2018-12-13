@@ -17,7 +17,7 @@ export class BitService {
   locale: string;
 
   form: FormGroup;
-  forms: FormGroup[] = [];
+  forms: any = {};
   l: any = {};
   i18ns: any[] = [];
 
@@ -165,47 +165,47 @@ export class BitService {
     return controls;
   }
 
-  formExplain(name: string, async = false): ValidationErrors | boolean {
-    if (async) {
-      return (this.form.get(name).dirty && this.form.get(name).errors) || this.form.get(name).pending;
+  formExplain(name: string, async = false, field?: string): ValidationErrors | boolean {
+    if (!field) {
+      if (async) {
+        return (this.form.get(name).dirty && this.form.get(name).errors) || this.form.get(name).pending;
+      } else {
+        return this.form.get(name).dirty && this.form.get(name).errors;
+      }
     } else {
-      return this.form.get(name).dirty && this.form.get(name).errors;
+      if (!this.forms.hasOwnProperty(field)) {
+        return false;
+      }
+      if (async) {
+        return (this.forms[field].get(name).dirty && this.forms[field].get(name).errors) || this.forms[field].get(name).pending;
+      } else {
+        return this.forms[field].get(name).dirty && this.forms[field].get(name).errors;
+      }
     }
   }
 
-  formsExplain(path: number, name: string, async = false): ValidationErrors | boolean {
-    if (this.forms[path] === undefined) {
-      return false;
-    }
-    if (async) {
-      return (this.forms[path].get(name).dirty && this.forms[path].get(name).errors) || this.forms[path].get(name).pending;
-    } else {
-      return this.forms[path].get(name).dirty && this.forms[path].get(name).errors;
-    }
-  }
-
-  explain(name: string, sign: string, path?: number): boolean {
-    if (!path) {
+  explain(name: string, sign: string, field?: string): boolean {
+    if (!field) {
       if (sign === 'pending') {
         return this.form.get(name).pending;
       } else {
         return this.form.get(name).hasError(sign);
       }
     } else {
-      if (this.forms[path] === undefined) {
+      if (!this.forms.hasOwnProperty(field)) {
         return false;
       }
       if (sign === 'pending') {
-        return this.forms[path].get(name).pending;
+        return this.forms[field].get(name).pending;
       } else {
-        return this.forms[path].get(name).hasError(sign);
+        return this.forms[field].get(name).hasError(sign);
       }
     }
   }
 
-  submit(event, callback, path?: number) {
+  submit(event, callback, field?: string) {
     event.preventDefault();
-    if (!path) {
+    if (!field) {
       if (this.form) {
         for (const key in this.form.controls) {
           if (this.form.controls.hasOwnProperty(key)) {
@@ -216,17 +216,17 @@ export class BitService {
         callback(this.form.value);
       }
     } else {
-      if (this.forms[path] === undefined) {
+      if (!this.forms.hasOwnProperty(field)) {
         return false;
       }
-      if (this.forms[path]) {
-        for (const key in this.forms[path].controls) {
-          if (this.forms[path].controls.hasOwnProperty(key)) {
-            this.forms[path].controls[key].markAsDirty();
-            this.forms[path].controls[key].updateValueAndValidity();
+      if (this.forms[field]) {
+        for (const key in this.forms[field].controls) {
+          if (this.forms[field].controls.hasOwnProperty(key)) {
+            this.forms[field].controls[key].markAsDirty();
+            this.forms[field].controls[key].updateValueAndValidity();
           }
         }
-        callback(this.forms[path].value);
+        callback(this.forms[field].value);
       }
     }
   }
