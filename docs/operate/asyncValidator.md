@@ -2,9 +2,10 @@
 
 asyncValidator 是生产异步验证器的函数
 
-### asyncValidator(req: Observable<any>)
+### asyncValidator(req: Observable<any>, field = 'duplicated')
 
 - `req` 请求对象
+- `field` 自定义返回
 
 例如，在组件内定义异步验证器
 

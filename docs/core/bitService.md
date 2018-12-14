@@ -43,14 +43,14 @@ constructor(public bit: BitService) {
 <form nz-form [formGroup]="bit.form"></form>
 ```
 
-### forms: FormGroup[]
+### forms: any
 
-- 组件内FormGroup数组对象
+- 组件内FormGroup组合对象
 
 在当前页内定义主表单：
 
 ```html
-<form nz-form [formGroup]="bit.forms[0]"></form>
+<form nz-form [formGroup]="bit.forms['add']"></form>
 ```
 
 ### locale: string
@@ -290,37 +290,28 @@ this.bit.form = this.fb.group({
 });
 ```
 
-### formExplain(name: string, async = false): ValidationErrors | boolean
+### formExplain(name: string, async = false, field?: string): ValidationErrors | boolean
 
 - 表单验证提示判断
 - `name` 表单控件标识
 - `async` 是否为包含异步验证
+- `field` 组合FormGroup名称
 
 在模版中定义提示判断
 
 ```html
 <nz-form-explain *ngIf="bit.formExplain('anyone',true)"></nz-form-explain>
+
+<nz-form-explain *ngIf="bit.formExplain('anyone',true,'add')"></nz-form-explain>
 ```
 
-### formsExplain(path: number, name: string, async = false): ValidationErrors | boolean
 
-- 表单验证提示判断
-- `path` 适用于forms的索引
-- `name` 表单控件标识
-- `async` 是否为包含异步验证
-
-在模版中定义提示判断
-
-```html
-<nz-form-explain *ngIf="bit.formsExplain(0,'anyone',true)"></nz-form-explain>
-```
-
-### explain(name: string, sign: string, path?: number): boolean
+### explain(name: string, sign: string, field?: string): boolean
 
 - 表单验证类型判断
 - `name` 表单控件标识
 - `sign` 判断类型
-- `path` 可选，适用于forms的索引
+- `field` 组合FormGroup名称
 
 在模版中定义判断类型
 
@@ -328,19 +319,25 @@ this.bit.form = this.fb.group({
 <ng-container *ngIf="bit.explain('anyone','required')">
     {{bit.l['anyone_require']}}!
 </ng-container>
+
+<ng-container *ngIf="bit.explain('anyone','required','add')">
+    {{bit.l['anyone_require']}}!
+</ng-container>
 ```
 
-### submit(event, callback, path?: number)
+### submit(event, callback, field?: string)
 
 - 表单提交阻止原生与检测
 - `event` 表单event事件
 - `callback` 回调事件
-- `path` 可选，适用于forms的索引
+- `field` 组合FormGroup名称
 
 定义表单事件
 
 ```html
 <form nz-form [formGroup]="bit.form" (submit)="bit.submit($event,submit)"></form>
+
+<form nz-form [formGroup]="bit.form" (submit)="bit.submit($event,submit,'add')"></form>
 ```
 
 ### back()
