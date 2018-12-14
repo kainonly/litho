@@ -1,13 +1,13 @@
 import {Observable} from 'rxjs';
 import {isArray, isObject} from 'util';
 
-export function asyncValidator(req: Observable<any>): Observable<any> {
+export function asyncValidator(req: Observable<any>, field = 'duplicated'): Observable<any> {
   return Observable.create((observer) => {
     setTimeout(() => {
       req.subscribe((res) => {
         if (!res.error) {
           if (res.data) {
-            observer.next({error: true, duplicated: true});
+            observer.next({error: true, [field]: true});
           } else {
             observer.next(null);
           }
