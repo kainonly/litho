@@ -20,6 +20,7 @@ export class BitService {
   forms: any = {};
   l: any = {};
   i18ns: any[] = [];
+  i18n_tips: any = {};
 
   lists_loading = true;
   page_limit = 0;
@@ -164,6 +165,24 @@ export class BitService {
     }
     return controls;
   }
+
+  i18nCommonValidator(group: string) {
+    if (!this.form) {
+      return;
+    }
+
+    const empty = [];
+    for (const x of this.i18ns) {
+      const value = this.form.get(group).get(x).value;
+      if (!value) {
+        empty.push(x);
+      }
+    }
+
+    this.i18n_tips[group] = empty;
+    return empty;
+  }
+
 
   formExplain(name: string, async = false, field?: string): ValidationErrors | boolean {
     if (!field) {
