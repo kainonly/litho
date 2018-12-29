@@ -290,6 +290,12 @@ this.bit.form = this.fb.group({
 });
 ```
 
+### i18nCommonValidator(group: string)
+
+- 生成多语言输入通用验证结果
+- `group` FormGroup 名称
+- 返回为空的i18n标识数组
+
 ### formExplain(name: string, async = false, field?: string): ValidationErrors | boolean
 
 - 表单验证提示判断
