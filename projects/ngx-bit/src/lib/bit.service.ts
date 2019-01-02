@@ -33,7 +33,7 @@ export class BitService {
 
   private language: any = {};
   private common_language: any = {};
-  private menu: Map<number, any> = new Map();
+  private menu: Map<number | string, any> = new Map();
   private actives = [];
   private breadcrumb = [];
 
@@ -127,7 +127,7 @@ export class BitService {
           routerlink: data.routerlink
         };
         this.breadcrumb.unshift(bread);
-        if (data.parent !== 0) {
+        if (data.parent !== 0 || data.parent !== '0') {
           this.infiniteMenu(data.parent);
         }
         return {
@@ -138,7 +138,7 @@ export class BitService {
     );
   }
 
-  private infiniteMenu(parent: number) {
+  private infiniteMenu(parent: number | string) {
     const data = this.menu.get(parent);
     this.actives.unshift(data.id);
     const bread = {
@@ -146,7 +146,8 @@ export class BitService {
       routerlink: data.routerlink
     };
     this.breadcrumb.unshift(bread);
-    if (data.parent !== 0) {
+
+    if (data.parent !== 0 || data.parent !== '0') {
       this.infiniteMenu(data.parent);
     }
   }
