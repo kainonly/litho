@@ -127,7 +127,7 @@ export class BitService {
           routerlink: data.routerlink
         };
         this.breadcrumb.unshift(bread);
-        if (data.parent !== 0 || data.parent !== '0') {
+        if (data.parent !== 0) {
           this.infiniteMenu(data.parent);
         }
         return {
@@ -138,7 +138,7 @@ export class BitService {
     );
   }
 
-  private infiniteMenu(parent: number | string) {
+  private infiniteMenu(parent: number) {
     const data = this.menu.get(parent);
     this.actives.unshift(data.id);
     const bread = {
@@ -147,7 +147,7 @@ export class BitService {
     };
     this.breadcrumb.unshift(bread);
 
-    if (data.parent !== 0 || data.parent !== '0') {
+    if (data.parent !== 0) {
       this.infiniteMenu(data.parent);
     }
   }
