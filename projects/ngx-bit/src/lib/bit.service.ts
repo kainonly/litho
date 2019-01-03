@@ -168,13 +168,14 @@ export class BitService {
   }
 
   i18nCommonValidator(group: string) {
-    if (!this.form) {
+    if (!this.form || !this.form.get(group)) {
       return;
     }
 
     const empty = [];
+    const formgroup = this.form.get(group);
     for (const x of this.i18ns) {
-      const value = this.form.get(group).get(x).value;
+      const value = formgroup.get(x).value;
       if (!value) {
         empty.push(x);
       }
@@ -184,6 +185,13 @@ export class BitService {
     return empty;
   }
 
+  i18nUpdateValidity(group: string, i18n: string) {
+    for (const x of this.i18ns) {
+      if (x !== i18n) {
+        this.form.get(group).get(x).updateValueAndValidity();
+      }
+    }
+  }
 
   formExplain(name: string, async = false, field?: string): ValidationErrors | boolean {
     if (!field) {
