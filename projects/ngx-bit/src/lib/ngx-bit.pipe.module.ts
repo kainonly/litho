@@ -7,6 +7,7 @@ import {EmptyObjectPipe} from './pipe/empty-object.pipe';
 import {ObjectToArrayPipe} from './pipe/object-to-array.pipe';
 import {ObjectToMapPipe} from './pipe/object-to-map.pipe';
 import {JsonParsePipe} from './pipe/json-parse.pipe';
+import {JsonChosePipe} from './pipe/json-chose.pipe';
 
 @NgModule({
   imports: [CommonModule],
@@ -17,7 +18,8 @@ import {JsonParsePipe} from './pipe/json-parse.pipe';
     EmptyObjectPipe,
     ObjectToArrayPipe,
     ObjectToMapPipe,
-    JsonParsePipe
+    JsonParsePipe,
+    JsonChosePipe,
   ],
   declarations: [
     DefinedPipe,
@@ -26,7 +28,8 @@ import {JsonParsePipe} from './pipe/json-parse.pipe';
     EmptyObjectPipe,
     ObjectToArrayPipe,
     ObjectToMapPipe,
-    JsonParsePipe
+    JsonParsePipe,
+    JsonChosePipe
   ]
 })
 export class NgxBitPipeModule {
