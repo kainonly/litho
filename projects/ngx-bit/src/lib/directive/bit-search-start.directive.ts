@@ -6,7 +6,7 @@ import {BitService} from '../bit.service';
   selector: '[bit-search-start]'
 })
 export class BitSearchStartDirective {
-  @Input() 'bit-search-start': string;
+  @Input() searchSelector: string;
   @Output() searchover: EventEmitter<any> = new EventEmitter<any>();
 
   constructor(private bit: BitService,
@@ -22,7 +22,7 @@ export class BitSearchStartDirective {
   }
 
   private searchStart() {
-    this.storage.setItem('search:' + this['bit-search-start'], this.bit.search).subscribe(() => {
+    this.storage.setItem('search:' + this.searchSelector, this.bit.search).subscribe(() => {
       this.searchover.emit(true);
     });
   }
