@@ -23,6 +23,7 @@ export class BitService {
   i18n_tips: any = {};
 
   lists_loading = true;
+  search: { field: string, value: string }[] = [];
   page_limit = 0;
   lists_totals = 0;
   lists_page_index = 0;
@@ -263,6 +264,19 @@ export class BitService {
     this.breadcrumb = [];
     this.actives = [];
     this.location.back();
+  }
+
+  registerSearch(selector: string, ...search: { field: string, value: string }[]): Observable<any> {
+    return this.storage.getItem('search:' + selector).pipe(
+      map(data => {
+        if (!data) {
+          this.search = search;
+        } else {
+          this.search = data;
+        }
+        return true;
+      })
+    );
   }
 
   listsRefreshStatus(lists: any[]) {
