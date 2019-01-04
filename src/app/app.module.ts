@@ -11,11 +11,13 @@ import {NgZorroAntdModule, NZ_I18N, zh_CN} from 'ng-zorro-antd';
 
 import {AppComponent} from './app.component';
 import {NgxBitModule, NgxBitPipeModule} from 'ngx-bit';
+import { SearchClearDirective } from './search-clear.directive';
 
 
 @NgModule({
   declarations: [
     AppComponent,
+    SearchClearDirective,
   ],
   imports: [
     BrowserModule,

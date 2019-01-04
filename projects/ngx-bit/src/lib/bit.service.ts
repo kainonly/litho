@@ -24,8 +24,6 @@ export class BitService {
 
   lists_loading = true;
   search: { field: string, value: string }[] = [];
-  on_search_over: EventEmitter<any> = new EventEmitter<any>();
-  on_search_clear: EventEmitter<any> = new EventEmitter<any>();
   page_limit = 0;
   lists_totals = 0;
   lists_page_index = 0;
