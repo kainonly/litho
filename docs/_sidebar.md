@@ -20,7 +20,8 @@
     * [EmptyObject](pipe/emptyObject)
     * [ObjectToArray](pipe/objectToArray)
     * [ObjectToMap](pipe/objectToMap)
-    * [JSONParse](pipe/jSONParse)
+    * [JSONParse](pipe/jsonParse)
+    * [JSONChose](pipe/jsonChose)
 * 组件
     * [表单](plugin/form)
     * [表格](plugin/table)
