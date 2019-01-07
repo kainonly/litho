@@ -151,7 +151,10 @@ export class BitService {
     };
     this.breadcrumb.unshift(bread);
 
-    if (data.parent !== 0) {
+    if (!is_string && data.parent !== 0) {
+      this.infiniteMenu(data.parent, is_string);
+    }
+    if (is_string && data.parent !== '0') {
       this.infiniteMenu(data.parent, is_string);
     }
   }
