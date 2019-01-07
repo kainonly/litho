@@ -114,7 +114,7 @@ export class BitService {
     );
   }
 
-  getMenu(route: string): Observable<any> {
+  getMenu(route: string, is_string = false): Observable<any> {
     this.actives = [];
     this.breadcrumb = [];
     return this.checkRouterEmpty(route, true).pipe(
@@ -128,8 +128,11 @@ export class BitService {
           routerlink: data.routerlink
         };
         this.breadcrumb.unshift(bread);
-        if (data.parent !== 0) {
-          this.infiniteMenu(data.parent);
+        if (!is_string && data.parent !== 0) {
+          this.infiniteMenu(data.parent, is_string);
+        }
+        if (is_string && data.parent !== '0') {
+          this.infiniteMenu(data.parent, is_string);
         }
         return {
           actives: this.actives,
@@ -139,7 +142,7 @@ export class BitService {
     );
   }
 
-  private infiniteMenu(parent: number) {
+  private infiniteMenu(parent: number, is_string: boolean) {
     const data = this.menu.get(parent);
     this.actives.unshift(data.id);
     const bread = {
@@ -149,7 +152,7 @@ export class BitService {
     this.breadcrumb.unshift(bread);
 
     if (data.parent !== 0) {
-      this.infiniteMenu(data.parent);
+      this.infiniteMenu(data.parent, is_string);
     }
   }
 
