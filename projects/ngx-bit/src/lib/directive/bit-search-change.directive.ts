@@ -3,7 +3,6 @@ import {LocalStorage} from '@ngx-pwa/local-storage';
 import {NgModel} from '@angular/forms';
 import {BitService} from 'ngx-bit';
 
-
 @Directive({
   selector: '[bit-search-change]'
 })
