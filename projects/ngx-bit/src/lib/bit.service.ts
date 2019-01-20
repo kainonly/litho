@@ -1,4 +1,4 @@
-import {EventEmitter, Injectable} from '@angular/core';
+import {Injectable} from '@angular/core';
 import {Location} from '@angular/common';
 import {FormGroup, ValidationErrors} from '@angular/forms';
 import {LocalStorage} from '@ngx-pwa/local-storage';
@@ -65,10 +65,13 @@ export class BitService {
       setTimeout(() => {
         this.message.remove(id);
         this.locale = locale;
-      }, 1450);
+      }, 350);
     });
   }
 
+  /**
+   * Set background ui multi-language
+   */
   setLocale(locale: 'zh_cn' | 'en_us') {
     this.locale = locale;
     localStorage.setItem('locale', locale);
@@ -76,6 +79,9 @@ export class BitService {
     this.l = Object.assign(this.common_language[this.locale], this.language[this.locale]);
   }
 
+  /**
+   * Register background ui multi-language package
+   */
   registerLocales(packer: any, common = false) {
     if (common) {
       this.common_language = factoryLocales(packer);
@@ -85,6 +91,9 @@ export class BitService {
     }
   }
 
+  /**
+   * Set background menu data storage
+   */
   setMenu(data: any): Observable<boolean> {
     return this.storage.setItem('menu', data.menu).pipe(
       switchMap((status) => {
@@ -95,6 +104,9 @@ export class BitService {
     );
   }
 
+  /**
+   * Check if the menu data route is empty
+   */
   private checkRouterEmpty(route: string, set = false): Observable<any> {
     return this.storage.getItem('menu').pipe(
       switchMap((data) => {
@@ -114,6 +126,9 @@ export class BitService {
     );
   }
 
+  /**
+   * Get menu data through routing
+   */
   getMenu(route: string, is_string = false): Observable<any> {
     this.actives = [];
     this.breadcrumb = [];
@@ -142,6 +157,9 @@ export class BitService {
     );
   }
 
+  /**
+   * Recursively get menu tree data
+   */
   private infiniteMenu(parent: number, is_string: boolean) {
     const data = this.menu.get(parent);
     this.actives.unshift(data.id);
