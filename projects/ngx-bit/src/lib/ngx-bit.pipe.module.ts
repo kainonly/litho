@@ -8,6 +8,7 @@ import {ObjectToArrayPipe} from './pipe/object-to-array.pipe';
 import {ObjectToMapPipe} from './pipe/object-to-map.pipe';
 import {JsonParsePipe} from './pipe/json-parse.pipe';
 import {JsonChosePipe} from './pipe/json-chose.pipe';
+import {SplitPipe} from './pipe/split.pipe';
 
 @NgModule({
   imports: [CommonModule],
@@ -20,6 +21,7 @@ import {JsonChosePipe} from './pipe/json-chose.pipe';
     ObjectToMapPipe,
     JsonParsePipe,
     JsonChosePipe,
+    SplitPipe
   ],
   declarations: [
     DefinedPipe,
@@ -29,7 +31,8 @@ import {JsonChosePipe} from './pipe/json-chose.pipe';
     ObjectToArrayPipe,
     ObjectToMapPipe,
     JsonParsePipe,
-    JsonChosePipe
+    JsonChosePipe,
+    SplitPipe
   ]
 })
 export class NgxBitPipeModule {
