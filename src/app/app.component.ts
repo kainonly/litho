@@ -5,11 +5,4 @@ import {Component} from '@angular/core';
   templateUrl: './app.component.html'
 })
 export class AppComponent {
-  s = {
-    car1: 'blue',
-    car2: 'red'
-  };
-
-  constructor() {
-  }
 }

@@ -10,14 +10,11 @@ registerLocaleData(zh);
 import {NgZorroAntdModule, NZ_I18N, zh_CN} from 'ng-zorro-antd';
 
 import {AppComponent} from './app.component';
-import {NgxBitModule, NgxBitPipeModule} from 'ngx-bit';
-import { SearchClearDirective } from './search-clear.directive';
-
+import {NgxBitModule} from 'dev-ngx-bit';
 
 @NgModule({
   declarations: [
     AppComponent,
-    SearchClearDirective,
   ],
   imports: [
     BrowserModule,
@@ -26,7 +23,6 @@ import { SearchClearDirective } from './search-clear.directive';
     HttpClientModule,
     NgZorroAntdModule,
     NgxBitModule,
-    NgxBitPipeModule
   ],
   providers: [
     {provide: NZ_I18N, useValue: zh_CN}
