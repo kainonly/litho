@@ -22,7 +22,6 @@ export class MainService {
 
   menu(): Observable<any> {
     return this.http.req('menu.json', null, 'get').pipe(map(res => {
-      console.log(res);
       const refer: Map<number, any> = new Map();
       const route: Map<string, any> = new Map();
       const nav = [];

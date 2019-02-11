@@ -102,6 +102,8 @@ export class DashboardsComponent implements OnInit, OnDestroy {
     this.centerService.clear().subscribe(() => {
       this.storage.removeItemSubscribe('menu');
       this.storage.removeItemSubscribe('route');
+      localStorage.removeItem('username');
+      sessionStorage.removeItem('login');
       this.router.navigateByUrl('/login');
       this.notification.success(this.bit.l['logout'], this.bit.l['logout_success']);
     });
