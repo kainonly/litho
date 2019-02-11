@@ -1,2 +1,1 @@
-{
-}
+[{"id":"1eee3d34-08da-400d-b578-8048d11ea857","parent":"0","name":"{\"zh_cn\":\"核心服务\",\"en_us\":\"Core\"}","icon":"","nav":1,"routerlink":""},{"id":"3e7bc7db-a851-4ac2-a917-57052fce7115","parent":"1eee3d34-08da-400d-b578-8048d11ea857","name":"{\"zh_cn\":\"核心服务1\",\"en_us\":\"Core1\"}","icon":"","nav":1,"routerlink":""}]

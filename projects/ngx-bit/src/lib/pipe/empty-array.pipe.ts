@@ -1,5 +1,5 @@
 import {Pipe, PipeTransform} from '@angular/core';
-import {emptyArray} from '../operates';
+import {emptyArray} from '../operates/emptyArray';
 
 @Pipe({name: 'EmptyArray'})
 export class EmptyArrayPipe implements PipeTransform {

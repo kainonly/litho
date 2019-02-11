@@ -5,10 +5,13 @@ import {LocalStorage} from '@ngx-pwa/local-storage';
 import {NzMessageService, NzNotificationService} from 'ng-zorro-antd';
 import {map, switchMap} from 'rxjs/operators';
 import {Observable} from 'rxjs';
+import {I18nControlsOptions} from '../types/i18n-controls-options';
 import {ConfigService} from './config.service';
 import {EventsService} from './events.service';
-import {I18nControlsOptions} from './interface';
-import {i18nControlsValue, i18nControlsAsyncValidate, i18nControlsValidate, factoryLocales} from './operates';
+import {factoryLocales} from '../operates/factoryLocales';
+import {i18nControlsValue} from '../operates/i18nControlsValue';
+import {i18nControlsValidate} from '../operates/i18nControlsValidate';
+import {i18nControlsAsyncValidate} from '../operates/i18nControlsAsyncValidate';
 
 @Injectable()
 export class BitService {

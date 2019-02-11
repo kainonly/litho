@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {map} from 'rxjs/operators';
 import {Observable} from 'rxjs';
-import {HttpService} from '../http.service';
+import {HttpService} from '../base/http.service';
 
 @Injectable()
 export class StatusService {

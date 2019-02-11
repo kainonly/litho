@@ -1,8 +1,8 @@
 import {Injectable} from '@angular/core';
 import {map} from 'rxjs/operators';
 import {Observable} from 'rxjs';
-import {HttpService} from '../http.service';
-import {BitService} from '../bit.service';
+import {HttpService} from '../base/http.service';
+import {BitService} from '../base/bit.service';
 
 @Injectable()
 export class ListsService {

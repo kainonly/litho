@@ -2,18 +2,17 @@ import {NgModule} from '@angular/core';
 import {HttpClientModule} from '@angular/common/http';
 import {LocalStorage} from '@ngx-pwa/local-storage';
 
-import {ConfigService} from './config.service';
-import {BitService} from './bit.service';
-import {EventsService} from './events.service';
-import {HttpService} from './http.service';
-
-import {AddService} from './common/add.service';
-import {GetService} from './common/get.service';
-import {ListsService} from './common/lists.service';
-import {OriginListsService} from './common/origin-lists.service';
-import {EditService} from './common/edit.service';
-import {DeleteService} from './common/delete.service';
-import {StatusService} from './common/status.service';
+import {ConfigService} from './base/config.service';
+import {BitService} from './base/bit.service';
+import {EventsService} from './base/events.service';
+import {HttpService} from './base/http.service';
+import {AddService} from './curd/add.service';
+import {GetService} from './curd/get.service';
+import {ListsService} from './curd/lists.service';
+import {OriginListsService} from './curd/origin-lists.service';
+import {EditService} from './curd/edit.service';
+import {DeleteService} from './curd/delete.service';
+import {StatusService} from './curd/status.service';
 import {SwalService} from './common/swal.service';
 
 @NgModule({

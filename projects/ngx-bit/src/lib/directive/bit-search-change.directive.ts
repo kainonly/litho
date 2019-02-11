@@ -1,7 +1,7 @@
 import {Directive, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {LocalStorage} from '@ngx-pwa/local-storage';
 import {NgModel} from '@angular/forms';
-import {BitService} from '../bit.service';
+import {BitService} from '../base/bit.service';
 
 @Directive({
   selector: '[bit-search-change]'
