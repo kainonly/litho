@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {HttpService} from 'ngx-bit';
+import {HttpService} from 'dev-ngx-bit';
 import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
 
