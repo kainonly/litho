@@ -1,0 +1,59 @@
+.container-login {
+  height: 100%;
+  background: #f0f2f5;
+  position: relative;
+  overflow: hidden;
+}
+
+.title-login {
+  text-align: center;
+  font-size: 30px;
+  padding-bottom: 20px;
+}
+
+.login-form {
+  width: 265px;
+  margin: 0 auto;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translateY(-75%) translateX(-50%);
+}
+
+.login-form-forgot {
+  float: right;
+}
+
+.login-form-button {
+  width: 100%;
+}
+
+.background {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  will-change: auto;
+}
+
+.logo {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+}
+
+.loading {
+  text-align: center;
+  opacity: 0;
+}
+
+.show {
+  transition: .8s all;
+  opacity: 1;
+}
+
+.hide {
+  transition: .8s all;
+  opacity: 0;
+}

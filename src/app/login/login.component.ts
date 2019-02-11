@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {FormBuilder, Validators} from '@angular/forms';
 import {NzNotificationService} from 'ng-zorro-antd';
-import {BitService} from 'ngx-bit';
+import {BitService} from 'dev-ngx-bit';
 
 import {MainService} from '../api/main.service';
 import packer from './language';
@@ -30,22 +30,19 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  /**
-   * 提交
-   * @param data
-   */
   submit = (data) => {
     this.loading = true;
-    // this.main.login(data.username, data.password).subscribe(res => {
-    //   if (!res.error) {
-    //     localStorage.setItem('username', data.username);
-    //     this.notification.success(this.bit.l['login_tips'], this.bit.l['login_success']);
-    //     this.loading = false;
-    //     this.router.navigateByUrl('/');
-    //   } else {
-    //     this.loading = false;
-    //     this.notification.error(this.bit.l['login_tips'], this.bit.l['login_failed']);
-    //   }
-    // });
+    this.main.login(data.username, data.password).subscribe(res => {
+      if (!res.error) {
+        localStorage.setItem('username', data.username);
+        sessionStorage.setItem('login', 'true');
+        this.notification.success(this.bit.l['login_tips'], this.bit.l['login_success']);
+        this.loading = false;
+        this.router.navigateByUrl('/');
+      } else {
+        this.loading = false;
+        this.notification.error(this.bit.l['login_tips'], this.bit.l['login_failed']);
+      }
+    });
   };
 }

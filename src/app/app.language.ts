@@ -1,5 +1,5 @@
 export default {
-  main: ['应用管理平台', 'Application Center'],
+  main: ['NGX-BIT', 'NGX-BIT'],
   dashboard: ['仪表盘', 'Dashboard'],
   language: ['中文', 'English'],
   center: ['个人中心', 'Center'],

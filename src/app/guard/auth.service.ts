@@ -10,14 +10,13 @@ export class Auth implements CanActivate {
   }
 
   canActivate() {
-    return false;
-    // return this.main.check().pipe(
-    //   map((res: any) => {
-    //     if (res.error) {
-    //       this.router.navigateByUrl('/login');
-    //     }
-    //     return true;
-    //   })
-    // );
+    return this.main.check().pipe(
+      map((res: any) => {
+        if (res.error) {
+          this.router.navigateByUrl('/login');
+        }
+        return true;
+      })
+    );
   }
 }

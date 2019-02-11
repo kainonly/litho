@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HttpService} from 'dev-ngx-bit';
-import {Observable} from 'rxjs';
+import {Observable, of} from 'rxjs';
 import {map} from 'rxjs/operators';
 
 @Injectable()
@@ -9,14 +9,15 @@ export class MainService {
   }
 
   login(username: string, password: string): Observable<any> {
-    return this.http.req('main/login', {
-      username: username,
-      password: password
+    return of({
+      error: !(username === 'admin' && password === '12345678')
     });
   }
 
-  check(): Observable<boolean> {
-    return this.http.req('main/check');
+  check(): Observable<any> {
+    return of({
+      error: sessionStorage.getItem('login') === null
+    });
   }
 
   menu(): Observable<any> {

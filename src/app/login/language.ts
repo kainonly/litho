@@ -1,8 +1,8 @@
 export default {
-  username: ['用户名称', 'Username'],
+  username: ['用户名称:admin', 'Username:admin'],
   username_require: ['请填写用户名', 'Please Enter Username'],
   username_correctly: ['请输入正确的用户名', 'Please Enter Correctly Username'],
-  password: ['用户密码', 'Password'],
+  password: ['用户密码:12345678', 'Password:12345678'],
   password_require: ['请输入您的用户密码', 'Please Enter You Password!'],
   password_correctly: ['请输入格式正确的用户密码', 'Please Enter Correctly Password'],
   login: ['登录', 'Login'],
