@@ -1,0 +1,50 @@
+:host ::ng-deep .trigger {
+  font-size: 18px;
+  line-height: 64px;
+  padding: 0 24px;
+  cursor: pointer;
+  transition: color .3s;
+}
+
+:host ::ng-deep .trigger:hover {
+  color: #1890ff;
+}
+
+:host ::ng-deep .logo {
+  height: 32px;
+  line-height: 32px;
+  font-size: 16px;
+  color: #fff;
+  text-align: center;
+  background: rgba(255, 255, 255, .2);
+  margin: 16px;
+}
+
+.logo.hide {
+  display: none;
+}
+
+nz-layout.dashboard-layout {
+  height: 100%;
+}
+
+nz-content.bit-content {
+  padding: 0 15px;
+}
+
+.bit-breadcrumb {
+  background-color: #fff;
+  padding: 16px 24px;
+  h2 {
+    margin: 0;
+    padding-top: 0.5rem;
+  }
+}
+
+.bit-warpper {
+  padding: 15px 12px;
+}
+
+nz-footer.footer-bar {
+  text-align: center;
+}

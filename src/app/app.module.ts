@@ -6,8 +6,9 @@ import {HttpClient, HttpClientModule} from '@angular/common/http';
 import {registerLocaleData} from '@angular/common';
 import {NgZorroAntdModule, NZ_I18N, zh_CN} from 'ng-zorro-antd';
 import {MarkdownModule} from 'ngx-markdown';
-import {BitService, EventsService, HttpService, NgxBitModule} from 'dev-ngx-bit';
+import {BitService, ConfigService, EventsService, HttpService, NgxBitModule} from 'dev-ngx-bit';
 import zh from '@angular/common/locales/zh';
+import {environment} from '../environments/environment';
 
 registerLocaleData(zh);
 
@@ -15,6 +16,8 @@ import {AppComponent} from './app.component';
 
 import {Auth} from './guard/auth.service';
 import {MainService} from './api/main.service';
+import {CenterService} from './api/center.service';
+
 
 const routes: Routes = [
   {path: '', loadChildren: './app.router.module#AppRouterModule', canActivate: [Auth]},
@@ -35,11 +38,16 @@ const routes: Routes = [
     RouterModule.forRoot(routes, {useHash: true}),
   ],
   providers: [
+    {
+      provide: ConfigService,
+      useValue: environment.bit
+    },
     Auth,
     BitService,
     EventsService,
     HttpService,
     MainService,
+    CenterService,
     {provide: NZ_I18N, useValue: zh_CN}
   ],
   bootstrap: [AppComponent]

@@ -1,5 +1,5 @@
 import {Component, OnInit, AfterViewInit} from '@angular/core';
-import {BitService} from 'ngx-bit';
+import {BitService} from 'dev-ngx-bit';
 
 @Component({
   selector: 'app-welcome',

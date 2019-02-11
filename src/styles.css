@@ -1,1 +1,56 @@
 /* You can add global styles to this file, and also import other style files */
+body {
+  overflow: hidden;
+}
+
+nz-slider {
+  will-change: transform;
+}
+
+.ibox .ant-card-extra,
+.ibox .ant-card-head-title {
+  padding: 12px 0;
+}
+
+.ibox .ant-card-head-title {
+  font-weight: bold;
+  font-size: 15px;
+}
+
+.ibox .ant-card-extra .ant-btn-sm {
+  font-size: 12px;
+}
+
+.operate [nz-button],
+.ibox-tools [nz-button] {
+  margin-right: 8px
+}
+
+.lists-action-panel {
+  margin-bottom: 12px;
+}
+
+html body.swal2-height-auto {
+  height: 100% !important;
+  padding-right: 0 !important;
+}
+
+.opfoots {
+  margin-top: 1rem;
+  text-align: right;
+}
+
+.ant-list-something-after-last-item .ant-spin-container > .ant-list-item:last-child, .ant-list-split .ant-list-header {
+  border: none;
+}
+
+.custom-filter-dropdown {
+  padding: 8px;
+  border-radius: 6px;
+  background: #fff;
+  box-shadow: 0 1px 6px rgba(0, 0, 0, .2);
+}
+
+nz-divider.checkbox-gtoup-divider {
+  margin: 0;
+}

@@ -5,7 +5,7 @@
 export const environment = {
   production: false,
   bit: {
-    origin: '/',
+    origin: '/assets/api',
     namespace: '',
     static: '/',
     uploads: '/uploads',

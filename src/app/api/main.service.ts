@@ -21,38 +21,39 @@ export class MainService {
   }
 
   menu(): Observable<any> {
-    return this.http.req('main/menu').pipe(map(res => {
-      const refer: Map<number, any> = new Map();
-      const route: Map<string, any> = new Map();
-      const nav = [];
-      if (!res.error) {
-        for (const x of res.data) {
-          refer.set(x.id, x);
-          route.set(x.routerlink, x);
-        }
-        for (const x of res.data) {
-          if (!x.nav) {
-            continue;
-          }
-          if (x.parent === 0) {
-            nav.push(x);
-          } else {
-            const parent = x.parent;
-            if (refer.has(parent)) {
-              const rows = refer.get(parent);
-              if (!rows.hasOwnProperty('children')) {
-                rows.children = [];
-              }
-              rows.children.push(x);
-            }
-          }
-        }
-      }
-      return {
-        menu: refer,
-        nav: nav,
-        route: route
-      };
-    }));
+    return this.http.req('menu.json', null, 'get');
+    //   .pipe(map(res => {
+    //   const refer: Map<number, any> = new Map();
+    //   const route: Map<string, any> = new Map();
+    //   const nav = [];
+    //   if (!res.error) {
+    //     for (const x of res.data) {
+    //       refer.set(x.id, x);
+    //       route.set(x.routerlink, x);
+    //     }
+    //     for (const x of res.data) {
+    //       if (!x.nav) {
+    //         continue;
+    //       }
+    //       if (x.parent === 0) {
+    //         nav.push(x);
+    //       } else {
+    //         const parent = x.parent;
+    //         if (refer.has(parent)) {
+    //           const rows = refer.get(parent);
+    //           if (!rows.hasOwnProperty('children')) {
+    //             rows.children = [];
+    //           }
+    //           rows.children.push(x);
+    //         }
+    //       }
+    //     }
+    //   }
+    //   return {
+    //     menu: refer,
+    //     nav: nav,
+    //     route: route
+    //   };
+    // }));
   }
 }
