@@ -1,7 +1,3 @@
-# Defined
-
-Defined 是判断是否为定义变量
-
 ### @Pipe({name: 'Defined'})
 
 - `value` 传入对象

@@ -1,7 +1,3 @@
-# ObjectToArray
-
-ObjectToArray 将对象转化为数组
-
 ### @Pipe({name: 'ObjectToArray'})
 
 - `value` 传入对象

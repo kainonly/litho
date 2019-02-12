@@ -1,7 +1,3 @@
-# Undefined
-
-Undefined 是判断是否为未定义变量
-
 ### @Pipe({name: 'Undefined'})
 
 - `value` 传入对象

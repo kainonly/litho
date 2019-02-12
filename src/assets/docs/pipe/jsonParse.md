@@ -1,7 +1,3 @@
-# JSONParse
-
-JSONparse 是JSON字符串转化对象管道
-
 ### @Pipe({name: 'JSONParse'})
 
 - `value` 传入对象

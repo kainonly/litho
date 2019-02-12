@@ -1,7 +1,3 @@
-# EmptyObject
-
-EmptyObject 是判断是否为空对象的管道
-
 ### @Pipe({name: 'EmptyObject'})
 
 - `value` 传入对象

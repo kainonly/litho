@@ -1,7 +1,3 @@
-# ObjectToMap
-
-ObjectToMap 将对象转化为Map对象
-
 ### @Pipe({name: 'ObjectToMap'})
 
 - `value` 传入对象

@@ -1,7 +1,3 @@
-# EmptyArray
-
-EmptyArray 是判断是否为空数组的管道
-
 ### @Pipe({name: 'EmptyArray'})
 
 - `value` 传入数组

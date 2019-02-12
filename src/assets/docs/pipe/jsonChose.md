@@ -1,7 +1,3 @@
-# JSONChose
-
-JSONChose 多语言字段显示填补
-
 ### @Pipe({name: 'JSONChose'})
 
 - `value` 传入对象
