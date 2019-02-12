@@ -1,7 +1,3 @@
-# 表格
-
-生成一个通用的分页表格只需要将通用属性赋值进模版即可
-
 ```html
 <nz-table #table
             [nzData]="lists"

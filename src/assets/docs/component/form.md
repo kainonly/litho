@@ -1,7 +1,3 @@
-# 表单
-
-生成一个通用处理的表单需要以下步骤
-
 > 定义组件：需要注入 `BitService`、`FormBuilder`，需要在 `ngOnInit` 周期下定义好 `FormGroup` 对象的 `this.bit.form`
 
 ```typescript
