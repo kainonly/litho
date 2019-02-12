@@ -34,19 +34,7 @@ const routes: Routes = [
     NgZorroAntdModule,
     NgxBitModule,
     MarkdownModule.forRoot({
-      loader: HttpClient,
-      markedOptions: {
-        provide: MarkedOptions,
-        useValue: {
-          gfm: true,
-          tables: true,
-          breaks: false,
-          pedantic: false,
-          sanitize: false,
-          smartLists: true,
-          smartypants: false,
-        },
-      },
+      loader: HttpClient
     }),
     RouterModule.forRoot(routes, {useHash: true}),
   ],

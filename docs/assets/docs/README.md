@@ -1,44 +1,82 @@
-NGX-BIT
-=======
-
-基于 Angular 与 Ng-Zorro UI 的辅助框架
-
 [![NPM version](https://badge.fury.io/js/ngx-bit.png)](http://badge.fury.io/js/ngx-bit)
 [![Downloads](https://img.shields.io/npm/dm/ngx-bit.svg?style=flat-square)](https://www.npmjs.com/package/ngx-bit)
 [![TypeScript](https://img.shields.io/badge/%3C%2F%3E-TypeScript-blue.svg)](https://www.typescriptlang.org/)
 [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/kainonly/ngx-bit.js/master/LICENSE)
 
-#### 创建项目
+### **初始化操作**
+
+> 请确认 `@angular/cli` 版本是否在 `v6-lts`, 如果不是请先移除原 `@angular/cli`, 再使用 `npm install @angular/cli@v6-lts -g` 安装
 
 ```shell
-# ng version // v6-lts
-# ng new anyone
+ng version
+#      _                      _                 ____ _     ___
+#     / \   _ __   __ _ _   _| | __ _ _ __     / ___| |   |_ _|
+#    / △ \ | '_ \ / _` | | | | |/ _` | '__|   | |   | |    | |
+#   / ___ \| | | | (_| | |_| | | (_| | |      | |___| |___ | |
+#  /_/   \_\_| |_|\__, |\__,_|_|\__,_|_|       \____|_____|___|
+#                 |___/
+# 
+# 
+# Angular CLI: 6.2.7
+# Node: 10.15.0
+# OS: win32 x64
+# Angular: 6.1.6
+# ... animations, common, compiler, compiler-cli, core, forms
+# ... http, language-service, platform-browser
+# ... platform-browser-dynamic, router
+# 
+# Package                            Version
+# ------------------------------------------------------------
+# @angular-devkit/architect          0.8.7
+# @angular-devkit/build-angular      0.8.7
+# @angular-devkit/build-ng-packagr   0.8.7
+# @angular-devkit/build-optimizer    0.8.7
+# @angular-devkit/build-webpack      0.8.7
+# @angular-devkit/core               0.8.7
+# @angular-devkit/schematics         0.8.7
+# @angular/cdk                       6.4.7
+# @angular/cli                       6.2.7
+# @angular/pwa                       0.8.9
+# @ngtools/json-schema               1.1.0
+# @ngtools/webpack                   6.2.7
+# @schematics/angular                0.8.7
+# @schematics/update                 0.8.7
+# ng-packagr                         4.4.0
+# rxjs                               6.3.3
+# typescript                         2.9.2
+# webpack                            4.16.4
+
+# Create Angular Project
+ng new anyone
 ```
 
-#### 安装依赖
+### **安装 UI**
 
-``` shell
-# ng add ng-zorro-antd@1.8.x
-```
-
-#### 加入 Serivce Work
-
-``` shell
-# ng add @angular/pwa@v6-lts
-```
-
-#### 开始安装
+> ng-zorro-antd 是 Ant Design 的 Angular 实现, 这里也是基于 ng-zorro-antd 进行辅助扩展, 对应 angular v6 版本需要安装 `ng-zorro-antd@1.8.x`
 
 ```shell
-# npm install @ngx-pwa/local-storage@v6 sweetalert2 --save
-# npm install ngx-bit --save
+ng add ng-zorro-antd@1.8.x
 ```
 
-#### 定义主配置
+### **安装组件**
 
-修改 `src/environments/environment.ts`
+> ngx-bit 的部分功能依赖于 `@ngx-pwa/local-storage@v6` `sweetalert2`
 
-> 生产环境则修改 `environment.prod.ts`
+```shell
+npm install ngx-bit @ngx-pwa/local-storage@v6 sweetalert2 --save
+```
+
+### **Service Work**
+
+> 也可以加入 Service Work 服务提高使用体验
+
+```shell
+ng add @angular/pwa@v6-lts
+```
+
+### **定义配置**
+
+修改 `src/environments/environment.ts`, 生产环境则修改 `environment.prod.ts`
 
 ```typescript
 export const environment = {
@@ -72,7 +110,7 @@ export const environment = {
 };
 ```
 
-#### 定义应用模块
+### **定义模块**
 
 修改 `src/app/app.module.ts`
 
@@ -121,7 +159,7 @@ export class AppModule {
 }
 ```
 
-#### 定义路由模块
+### **定义路由**
 
 创建 `src/app/app.router.module.ts`
 
@@ -176,7 +214,7 @@ export class AppModule {
 }
 ```
 
-#### 定义公共语言包
+### **定义语言包**
 
 创建 `src/app/app.language.ts`
 
@@ -254,7 +292,7 @@ export default {
 };
 ```
 
-#### 定义根组件
+### **定义根组件**
 
 修改 `src/app/app.component.ts`，并生产公共语言包
 
@@ -277,130 +315,31 @@ export class AppComponent implements OnInit {
 }
 ```
 
-#### 添加运行脚本
+### **添加运行脚本**
 
 修改 `package.json` 的 `scripts`
 
 ```json
 {
   "start": "ng serve --host 0.0.0.0 --disable-host-check",
-  "build": "ng build --prod --build-optimizer"
+  "build": "ng build --prod --buildOptimizer"
 }
 ```
 
-#### 基础结构
+### **基础结构**
 
-- `src/app/api` 接口目录
-- `src/app/dashboard` 仪表板组件
-- `src/app/guard` 守护模型
-- `src/app/login` 登录组件
-- `src/app/pages` 页面组件
-- `src/app/app.component.ts` 根组件
-- `src/app/app.ext.module.ts` 子模块共用模块
-- `src/app/app.language.ts` 共用语言包
-- `src/app/app.module.ts` 应用模块
-- `src/app/router.module.ts` 路由模块
-- `src/app/update.service.ts` service work 服务
 
-#### 后端协作
 
-- ThinkPHP5 - [kain/think-bit](https://packagist.org/packages/kain/think-bit)
-- Iris MVC - [microbone](https://github.com/kainonly/microbone)(dev)
-
-#### 核心服务
-
-##### - ConfigService
-
-配置服务
-
-##### - BitService
-
-通用操作服务
-
-##### - EventsService
-
-事件通讯服务
-
-##### - HttpService
-
-HttpClient 请求服务
-
-#### 通用请求服务
-
-##### - AddService
-
-新增接口请求服务
-
-##### - DeleteService
-
-删除接口请求服务
-
-##### - EditService
-
-修改接口请求服务
-
-##### - GetService
-
-获取单条数据接口请求服务
-
-##### - ListsService
-
-分页数据接口请求服务
-
-##### - OriginListsService
-
-列表数据接口请求服务
-
-##### - StatusService
-
-状态切换接口请求服务
-
-##### - SwalService
-
-提交反馈栏服务
-
-#### 管道
-
-##### - JSONParse
-
-JSON字符串转化对象
-
-##### - EmptyObject
-
-是否为空对象
-
-#### 插件
-
-##### - < i18n-switch >
-
-表单控件设置多语言输入选择器
-
-#### 操作库
-
-##### - asyncValidator
-
-异步验证器函数
-
-##### - i18nControlsValue
-
-获取FormGroup下i18n对象内指定语种的输入值
-
-##### - i18nControlsValidate
-
-为FormGroup下i18n对象设定同步验证
-
-##### - i18nControlsAsyncValidate
-
-为FormGroup下i18n对象设定异步验证
-
-##### - factoryLocales
-
-原始语言包转化生产
-
-##### - emptyObject
-
-判断空对象函数
-
-##### - getRouteName
-
-获取当前路由名称
+```shell
+# - `src/app/api` 接口目录
+# - `src/app/dashboard` 仪表板组件
+# - `src/app/guard` 守护模型
+# - `src/app/login` 登录组件
+# - `src/app/pages` 页面组件
+# - `src/app/app.component.ts` 根组件
+# - `src/app/app.ext.module.ts` 子模块共用模块
+# - `src/app/app.language.ts` 共用语言包
+# - `src/app/app.module.ts` 应用模块
+# - `src/app/router.module.ts` 路由模块
+# - `src/app/update.service.ts` service work 服务
+```
