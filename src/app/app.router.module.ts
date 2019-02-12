@@ -21,6 +21,14 @@ const routes: Routes = [
       {path: '{curd-lists}', loadChildren: './pages/curd-lists/curd-lists.module#CurdListsModule'},
       {path: '{curd-originlists}', loadChildren: './pages/curd-originlists/curd-originlists.module#CurdOriginlistsModule'},
       {path: '{curd-status}', loadChildren: './pages/curd-status/curd-status.module#CurdStatusModule'},
+      {path: '{pipe-defined}', loadChildren: './pages/pipe-defined/pipe-defined.module#PipeDefinedModule'},
+      {path: '{pipe-undefined}', loadChildren: './pages/pipe-undefined/pipe-undefined.module#PipeUndefinedModule'},
+      {path: '{pipe-emptyarray}', loadChildren: './pages/pipe-emptyarray/pipe-emptyarray.module#PipeEmptyarrayModule'},
+      {path: '{pipe-emptyobject}', loadChildren: './pages/pipe-emptyobject/pipe-emptyobject.module#PipeEmptyobjectModule'},
+      {path: '{pipe-objecttoarray}', loadChildren: './pages/pipe-objecttoarray/pipe-objecttoarray.module#PipeObjecttoarrayModule'},
+      {path: '{pipe-objecttomap}', loadChildren: './pages/pipe-objecttomap/pipe-objecttomap.module#PipeObjecttomapModule'},
+      {path: '{pipe-jsonparse}', loadChildren: './pages/pipe-jsonparse/pipe-jsonparse.module#PipeJsonparseModule'},
+      {path: '{pipe-jsonchose}', loadChildren: './pages/pipe-jsonchose/pipe-jsonchose.module#PipeJsonchoseModule'},
     ]
   }
 ];
