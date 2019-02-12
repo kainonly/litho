@@ -57,6 +57,11 @@ const routes: Routes = [
         loadChildren: './pages/operate-objecttoarray/operate-objecttoarray.module#OperateObjecttoarrayModule'
       },
       {path: '{operate-objecttomap}', loadChildren: './pages/operate-objecttomap/operate-objecttomap.module#OperateObjecttomapModule'},
+      {path: '{component-form}', loadChildren: './pages/component-form/component-form.module#ComponentFormModule'},
+      {path: '{component-i18n}', loadChildren: './pages/component-i18n/component-i18n.module#ComponentI18nModule'},
+      {path: '{component-language}', loadChildren: './pages/component-language/component-language.module#ComponentLanguageModule'},
+      {path: '{component-table}', loadChildren: './pages/component-table/component-table.module#ComponentTableModule'},
+      {path: '{component-upload}', loadChildren: './pages/component-upload/component-upload.module#ComponentUploadModule'},
     ]
   }
 ];

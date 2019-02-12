@@ -1,0 +1,21 @@
+import {NgModule} from '@angular/core';
+import {ComponentLanguageComponent} from './component-language.component';
+import {RouterModule, Routes} from '@angular/router';
+import {AppExtModule} from '../../app.ext.module';
+
+const routes: Routes = [
+  {
+    path: '',
+    component: ComponentLanguageComponent
+  }
+];
+
+@NgModule({
+  imports: [
+    AppExtModule,
+    RouterModule.forChild(routes)
+  ],
+  declarations: [ComponentLanguageComponent]
+})
+export class ComponentLanguageModule {
+}
