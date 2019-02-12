@@ -4,8 +4,7 @@
     "start": "ng serve",
     "build": "ng build ngx-bit",
     "release": "cd dist/ngx-bit && npm publish",
-    "build:docs": "ng build --prod --buildOptimizer",
-    "docs": "docsify serve ./docs"
+    "build:docs": "ng build --prod --buildOptimizer"
   },
   "private": true,
   "dependencies": {
