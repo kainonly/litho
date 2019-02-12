@@ -75,7 +75,7 @@ export class DashboardsComponent implements OnInit, OnDestroy {
 
   private initNav(url: string) {
     const routename = getRouteName(url);
-    this.bit.getMenu(routename).subscribe(data => {
+    this.bit.getMenu(routename, true).subscribe(data => {
       if (data) {
         this.breadcrumb = data.breadcrumb;
         this.breadtitle = data.breadcrumb[data.breadcrumb.length - 1].name;

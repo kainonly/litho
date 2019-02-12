@@ -9,6 +9,10 @@ const routes: Routes = [
     component: DashboardsComponent,
     children: [
       {path: '', loadChildren: './pages/welcome/welcome.module#WelcomeModule'},
+      {path: '{base-config}', loadChildren: './pages/base-config/base-config.module#BaseConfigModule'},
+      {path: '{base-bit}', loadChildren: './pages/base-bit/base-bit.module#BaseBitModule'},
+      {path: '{base-http}', loadChildren: './pages/base-http/base-http.module#BaseHttpModule'},
+      {path: '{base-events}', loadChildren: './pages/base-events/base-events.module#BaseEventsModule'},
     ]
   }
 ];
