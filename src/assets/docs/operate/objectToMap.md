@@ -1,7 +1,3 @@
-# 对象转化Map对象
-
-objectToMap 将对象转化为数组的函数
-
 ### objectToMap(object: any)
 
 - `object` 对象

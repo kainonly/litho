@@ -1,7 +1,3 @@
-# 获取当前路由名称
-
-getRouteName 是获取当前路由名称的函数
-
 ### getRouteName(url: string, start = '%7B', end = '%7D')
 
 - `url` 完整路由地址

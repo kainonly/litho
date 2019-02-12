@@ -1,7 +1,3 @@
-# 对象转化数组
-
-objectToArray 将对象转化为数组的函数
-
 ### objectToArray(object: any)
 
 - `object` 对象

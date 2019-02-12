@@ -1,7 +1,3 @@
-# factoryLocales
-
-factoryLocales 是原始语言包转化生产，通常自定义语言包会使用到
-
 ### factoryLocales(packer: any)
 
 - `packer` 原始语言包数据
