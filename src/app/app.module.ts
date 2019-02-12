@@ -5,7 +5,7 @@ import {RouterModule, Routes} from '@angular/router';
 import {HttpClient, HttpClientModule} from '@angular/common/http';
 import {registerLocaleData} from '@angular/common';
 import {NgZorroAntdModule, NZ_I18N, zh_CN} from 'ng-zorro-antd';
-import {MarkdownModule} from 'ngx-markdown';
+import {MarkdownModule, MarkedOptions} from 'ngx-markdown';
 import {BitService, ConfigService, EventsService, HttpService, NgxBitModule} from 'dev-ngx-bit';
 import zh from '@angular/common/locales/zh';
 import {environment} from '../environments/environment';
@@ -33,7 +33,21 @@ const routes: Routes = [
     HttpClientModule,
     NgZorroAntdModule,
     NgxBitModule,
-    MarkdownModule.forRoot({loader: HttpClient}),
+    MarkdownModule.forRoot({
+      loader: HttpClient,
+      markedOptions: {
+        provide: MarkedOptions,
+        useValue: {
+          gfm: true,
+          tables: true,
+          breaks: false,
+          pedantic: false,
+          sanitize: false,
+          smartLists: true,
+          smartypants: false,
+        },
+      },
+    }),
     RouterModule.forRoot(routes, {useHash: true}),
   ],
   providers: [
