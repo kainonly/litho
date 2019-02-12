@@ -29,6 +29,34 @@ const routes: Routes = [
       {path: '{pipe-objecttomap}', loadChildren: './pages/pipe-objecttomap/pipe-objecttomap.module#PipeObjecttomapModule'},
       {path: '{pipe-jsonparse}', loadChildren: './pages/pipe-jsonparse/pipe-jsonparse.module#PipeJsonparseModule'},
       {path: '{pipe-jsonchose}', loadChildren: './pages/pipe-jsonchose/pipe-jsonchose.module#PipeJsonchoseModule'},
+      {
+        path: '{operate-asyncvalidator}',
+        loadChildren: './pages/operate-asyncvalidator/operate-asyncvalidator.module#OperateAsyncvalidatorModule'
+      },
+      {path: '{operate-emptyarray}', loadChildren: './pages/operate-emptyarray/operate-emptyarray.module#OperateEmptyarrayModule'},
+      {path: '{operate-emptyobject}', loadChildren: './pages/operate-emptyobject/operate-emptyobject.module#OperateEmptyobjectModule'},
+      {
+        path: '{operate-factorylocales}',
+        loadChildren: './pages/operate-factorylocales/operate-factorylocales.module#OperateFactorylocalesModule'
+      },
+      {path: '{operate-getroutename}', loadChildren: './pages/operate-getroutename/operate-getroutename.module#OperateGetroutenameModule'},
+      {
+        path: '{operate-i18ncontrolsasyncvalidate}',
+        loadChildren: './pages/operate-i18ncontrolsasyncvalidate/operate-i18ncontrolsasyncvalidate.module#OperateI18ncontrolsasyncvalidateModule'
+      },
+      {
+        path: '{operate-i18ncontrolsvalidate}',
+        loadChildren: './pages/operate-i18ncontrolsvalidate/operate-i18ncontrolsvalidate.module#OperateI18ncontrolsvalidateModule'
+      },
+      {
+        path: '{operate-i18ncontrolsvalue}',
+        loadChildren: './pages/operate-i18ncontrolsvalue/operate-i18ncontrolsvalue.module#OperateI18ncontrolsvalueModule'
+      },
+      {
+        path: '{operate-objecttoarray}',
+        loadChildren: './pages/operate-objecttoarray/operate-objecttoarray.module#OperateObjecttoarrayModule'
+      },
+      {path: '{operate-objecttomap}', loadChildren: './pages/operate-objecttomap/operate-objecttomap.module#OperateObjecttomapModule'},
     ]
   }
 ];
