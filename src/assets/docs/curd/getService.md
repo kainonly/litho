@@ -1,7 +1,3 @@
-# GetService
-
-GetService 是获取单条数据接口请求服务
-
 ### customAction(name: string)
 
 - 设置自定义函数名

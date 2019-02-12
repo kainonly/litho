@@ -1,7 +1,3 @@
-# ListsService
-
-ListsService 是分页数据接口请求服务
-
 ### customAction(name: string)
 
 - 设置自定义函数名

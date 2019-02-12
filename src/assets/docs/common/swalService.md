@@ -1,7 +1,3 @@
-# SwalService
-
-SwalService 是提交反馈栏服务
-
 ### addAlert(res: any, reset?: any, customize?: AlertCustomize)
 
 - 新增返回提示框

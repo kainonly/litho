@@ -1,7 +1,3 @@
-# DeleteService
-
-DeleteService 是删除接口请求服务
-
 ### customAction(name: string)
 
 - 设置自定义函数名
