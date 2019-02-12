@@ -18,7 +18,6 @@ import {Auth} from './guard/auth.service';
 import {MainService} from './api/main.service';
 import {CenterService} from './api/center.service';
 
-
 const routes: Routes = [
   {path: '', loadChildren: './app.router.module#AppRouterModule', canActivate: [Auth]},
   {path: 'login', loadChildren: './login/login.module#LoginModule'},
