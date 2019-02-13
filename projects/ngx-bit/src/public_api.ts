@@ -28,3 +28,4 @@ export * from './lib/operates/i18nControlsValidate';
 export * from './lib/operates/i18nControlsValue';
 export * from './lib/operates/objectToArray';
 export * from './lib/operates/objectToMap';
+export * from './lib/operates/whereAndLike';
