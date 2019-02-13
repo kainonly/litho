@@ -4,7 +4,10 @@ export function whereAndLike(search) {
     like: []
   };
   for (const x of search) {
-    if (x.hasOwnProperty('op') && x.value) {
+    if (!x.value) {
+      continue;
+    }
+    if (x.hasOwnProperty('op')) {
       condition.where.push([
         x.field, x.op, x.value
       ]);
