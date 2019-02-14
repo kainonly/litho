@@ -1,94 +1,56 @@
-#### static: string
+## 工具服务 - BitService
 
-- 静态资源地址
+#### - static: string
 
-例如：在组件中使用
-
-```typescript
-constructor(public bit: BitService) {
-    console.log(this.bit.static)
-}
-```
-
-例如：在模板中使用
+静态资源地址
 
 ```html
 <img [src]="bit.static+'any.jpg'">
 ```
 
-#### uploads: string
+#### - uploads: string
 
-- RESTful Api 上传地址
-- 详情信息请参考 [上传](zh-cn/plugin/upload)
-
-可以在upload组件上调用此属性：
+上传地址, 可以在upload组件上调用此属性：
 
 ```html
-<nz-upload nzName="anyone"
-    [nzAction]="bit.uploads">
-</nz-upload>
+<nz-upload nzName="anyone" [nzAction]="bit.uploads"></nz-upload>
 ```
 
-#### form: FormGroup
+#### - form: FormGroup
 
-- 组件内FormGroup对象
-
-在当前页内定义主表单：
+组件内 `FormGroup` 对象, 定义主表单：
 
 ```html
 <form nz-form [formGroup]="bit.form"></form>
 ```
 
-#### forms: any
+#### - forms: any
 
-- 组件内FormGroup组合对象
-
-在当前页内定义主表单：
+组件内多种 `FormGroup` 对象的组合, 定义主表单：
 
 ```html
 <form nz-form [formGroup]="bit.forms['add']"></form>
 ```
 
-#### locale: string
+#### - locale: string
 
-- 语言包标识
-- 可以在需要语言包的组件或模板中使用，默认 `zh_cn`
-
-例如：在组件中使用
-
-```typescript
-name = {
-    zh_cn:'我',
-    en_us:'me'
-}
-
-constructor(public bit: BitService) {
-    console.log(this.name[this.bit.locale])
-}
-```
-
-例如：在模板中使用
+语言包标识, 默认 `zh_cn`
 
 ```html
 <p>{{name[bit.locale]}}<p>
 ```
 
-#### l: any
+#### - l: any
 
-- 语言包标识，默认 `{}`
-
-在定义好语言包之后可直接使用 `l` 获取相关语言
+语言包索引，默认 `{}`, 在完成定义语言包之后可直接使用 `l` 获取相关语言
 
 ```html
 <p>{{bit.l['name']}}</p>
 ```
 
-#### i18ns: any[]
+#### - i18ns: any[]
 
-- 多语言标识，默认 `[]`
-- 应用再表单组件多语言化输入切换
-
-例如：多语言输入切换控件
+多语言组件标识，默认 `[]`, 使用在表单组件多语言化输入切换
 
 ```typescript
 // switch = i18ns
@@ -101,12 +63,9 @@ constructor(public bit: BitService) {
 </nz-radio-group>
 ```
 
-#### lists_loading: boolean
+#### - lists_loading: boolean
 
-- 列表正在加载状态
-- 使用在表格或列表组件中
-
-在数据还未加载完成时添加加载动画：
+列表正在加载状态, 使用在表格或列表组件中
 
 ```html
 <nz-table #table
@@ -115,12 +74,9 @@ constructor(public bit: BitService) {
 </nz-table>
 ```
 
-#### page_limit: number
+#### - page_limit: number
 
-- 分页，默认为配置服务 `page_limit`
-- 使用在表格或列表组件中
-
-表格中设置分页大小：
+分页，默认为配置服务 `page_limit` 的值, 使用在表格或列表组件中
 
 ```html
 <nz-table #table
@@ -129,12 +85,9 @@ constructor(public bit: BitService) {
 </nz-table>
 ```
 
-#### lists_totals: number
+#### - lists_totals: number
 
-- 列表数据总数
-- 使用在表格或列表组件中
-
-`lists_totals` 是由分页列表请求对象自动获取：
+列表数据总数, `lists_totals` 是由分页列表请求对象自动获取：
 
 ```html
 <nz-table #table
@@ -143,12 +96,9 @@ constructor(public bit: BitService) {
 </nz-table>
 ```
 
-#### lists_page_index: number
+#### - lists_page_index: number
 
-- 分页索引页，当前页
-- 使用在表格或列表组件中
-
-`lists_page_index` 是个双向绑定属性，可以通过外部去更改分页索引：
+分页索引页, `lists_page_index` 是个双向绑定属性，可以通过外部去更改分页索引：
 
 ```html
 <nz-table #table
@@ -157,12 +107,9 @@ constructor(public bit: BitService) {
 </nz-table>
 ```
 
-#### lists_all_checked: boolean
+#### - lists_all_checked: boolean
 
-- 列表选项框状态为全选
-- 使用在表格组件中
-
-`lists_all_checked` 是一个双向绑定属性，当全选选择框被动触发改变时，通过它的 `modelChange` 将同步其他数据的选择框状态：
+列表选项框状态为全选, `lists_all_checked` 是一个双向绑定属性，当全选选择框被动触发改变时，通过它的 `modelChange` 将同步其他数据的选择框状态：
 
 ```html
 <nz-table>
@@ -176,12 +123,9 @@ constructor(public bit: BitService) {
 </nz-table>
 ```
 
-#### lists_indeterminate: boolean
+#### - lists_indeterminate: boolean
 
-- 列表选项框状态为不完整选择
-- 使用在表格组件中
-
-`nzIndeterminate` 是不完整选择属性，当符合条件时，表头全选选择框将变为该状态：
+列表选项框状态为不完整选择, `nzIndeterminate` 是不完整选择属性，当符合条件时，表头全选选择框将变为该状态：
 
 ```html
 <nz-table>
@@ -195,12 +139,9 @@ constructor(public bit: BitService) {
 </nz-table>
 ```
 
-#### lists_disabled_action: boolean
+#### - lists_disabled_action: boolean
 
-- 列表操作板显示状态
-- 使用在表格组件中
-
-可在需要的标签中使用，已被选中的总数为 `0` 时，`lists_disabled_action=true`
+列表操作板显示状态, 可在需要的标签中使用，已被选中的总数为 `0` 时，`lists_disabled_action=true`
 
 ```html
 <button nz-button [disabled]="bit.lists_disabled_action" nzType="primary">
@@ -208,21 +149,19 @@ constructor(public bit: BitService) {
 </button>
 ```
 
-#### lists_checked_number: number
+#### - lists_checked_number: number
 
-- 列表选项框选择数量
-- 使用在表格组件中
-
-显示已被选中的总数：
+列表选项框选择数量, 显示已被选中的总数：
 
 ```html
 <p>{{bit.lists_checked_number}}</p>
 ```
 
-#### setLocale(locale: 'zh_cn' | 'en_us')
+#### - setLocale(locale : 'zh_cn' | 'en_us')
 
-- 语言包标识设置
-- `locale` 语言包标识
+语言包标识设置
+
+- **locale** 语言包标识
 
 语言包切换为英文：
 
@@ -230,31 +169,50 @@ constructor(public bit: BitService) {
 this.bit.setLocale('en_us');
 ```
 
-#### registerLocales(packer: any, common = false)
-
-- 构建语言包
-- `packer` 原始语言包
-- `common` 是否为公共语言包
-
-#### setMenu(data: any): Observable< boolean >
-
-- 设置菜单源数据
-- `data` 从服务器获取的菜单数据
-
-将左侧菜单导航存储在本地存储内，减少请求次数、提高效率，并可以应用再面包屑等扩展中：
+语言包切换监听：
 
 ```typescript
-// main.menu() 为获取菜单请求
+this.events.on('locale').subscribe(args => {
+    console.log(args);
+    // zh_cn or en_us
+});
+```
+
+#### - registerLocales(packer: any, common = false)
+
+构建语言包
+
+- **packer** language文件
+- **common** 是否为公共语言包
+
+```typescript
+const packer = {
+  name: ['名称', '名称']
+};
+
+this.bit.registerLocales(packer);
+```
+
+#### - setMenu(data: any): Observable< boolean >
+
+设置菜单源数据
+
+- `data` 从菜单列表数据
+
+将菜单存储在本地存储内, 优化侧边栏导航、面包屑：
+
+```typescript
 this.main.menu().pipe(
     switchMap(data => this.bit.setMenu(data))
 ).subscribe(status => {
     console.log(status);
-})
+});
 ```
 
-#### getMenu(route: string): Observable< any >
+#### - getMenu(route: string): Observable< any >
 
-- 用路由地址获取对应的菜单数据
+用路由地址获取对应的菜单数据
+
 - `route` 路由名称
 
 获取路由地址为 `/{admin-index}` 的菜单数据
@@ -265,13 +223,14 @@ this.bit.getMenu('admin-index').subscribe(data => {
 });
 ```
 
-#### i18nControls(options?: I18nControlsOptions)
+#### - i18nControls(options?: I18nControlsOptions)
 
-- 输入层多语言数值初始化
-- `options` 多语言异步表单参数
-    - `value` 数值
-    - `validate` 同步验证
-    - `asyncValidate` 异步验证
+多语言组件数值初始化
+
+- `options` 多语言组件参数
+    - `value` 默认值
+    - `validate` 同步验证器
+    - `asyncValidate` 异步验证器
 
 在异步表单初始化时对应这样设置多语言输入控件：
 
