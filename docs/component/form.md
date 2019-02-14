@@ -1,4 +1,6 @@
-> 定义组件：需要注入 `BitService`、`FormBuilder`，需要在 `ngOnInit` 周期下定义好 `FormGroup` 对象的 `this.bit.form`
+## 表单实例
+
+定义组件：需要注入 `BitService`、`FormBuilder`, 需要在 `ngOnInit` 周期下定义好 `FormGroup` 对象的 `this.bit.form`
 
 ```typescript
 export class AdminAddComponent implements OnInit {
@@ -26,7 +28,7 @@ export class AdminAddComponent implements OnInit {
 }
 ```
 
-> 在模版中使用通用处理属性，`bit.submit(event, callback)` 中 `$event` 一定要赋值，这样是为了防止默认表单提交与前端验证处理，`callback` 则是在组件中的 `submit` 函数
+在模版中使用通用处理属性, `bit.submit(event, callback)` 中 `$event` 一定要赋值，这样是为了防止默认表单提交与前端验证处理, `callback` 则是在组件中的 `submit` 函数
 
 ```html
 <form nz-form [formGroup]="bit.form" (submit)="bit.submit($event,submit)">
@@ -56,14 +58,14 @@ export class AdminAddComponent implements OnInit {
 </form>
 ```
 
-#### - formControlName="username"
+#### formControlName="username"
 
 对应组件中 `this.form.get('username')` 对象，如获取这个 `FormContol` 的数值，需要 `this.form.get('username').value`
 
-#### - bit.formExplain('username',true)
+#### bit.formExplain('username',true)
 
 其中 `true` 代表对这个 `FormContol` 是包含异步验证的，如果仅有同步验证可以写成 `bit.formExplain('username')`。如果包含异步验证条件设为同步，这里将会不能正常工作
 
-#### - bit.explain('username','required')
+#### bit.explain('username','required')
 
 代表这个 `FormContol` 有 `required` 错误

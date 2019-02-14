@@ -1,4 +1,4 @@
-export function whereAndLike(search) {
+export function whereAndLike(search: any) {
   const condition = {
     where: [],
     like: []
