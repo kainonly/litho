@@ -8,9 +8,9 @@ NGX-BIT
 [![TypeScript](https://img.shields.io/badge/%3C%2F%3E-TypeScript-blue.svg)](https://www.typescriptlang.org/)
 [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/kainonly/ngx-bit.js/master/LICENSE)
 
-### **初始化操作**
+### 初始化操作
 
-> 请确认 `@angular/cli` 版本是否在 `v6-lts`, 如果不是请先移除原 `@angular/cli`, 再使用 `npm install @angular/cli@v6-lts -g` 安装
+请确认 `@angular/cli` 版本是否在 `v6-lts`, 如果不是请先移除原 `@angular/cli`, 再使用 `npm install @angular/cli@v6-lts -g` 安装
 
 ```shell
 ng version
@@ -55,23 +55,21 @@ ng version
 ng new anyone
 ```
 
-### **安装 UI**
+### 安装 UI
 
-> ng-zorro-antd 是 Ant Design 的 Angular 实现, 这里也是基于 ng-zorro-antd 进行辅助扩展, 对应 angular v6 版本需要安装 `ng-zorro-antd@1.8.x`
+ng-zorro-antd 是 Ant Design 的 Angular 实现, 这里也是基于 ng-zorro-antd 进行辅助扩展, 对应 angular v6 版本需要安装 `ng-zorro-antd@1.8.x`
 
 ```shell
 ng add ng-zorro-antd@1.8.x
 ```
 
-### **安装组件**
+### 安装组件
 
-> ngx-bit 的部分功能依赖于 `@ngx-pwa/local-storage@v6` `sweetalert2`
+ngx-bit 的部分功能依赖于 `@ngx-pwa/local-storage@v6` `sweetalert2`
 
 ```shell
 npm install ngx-bit @ngx-pwa/local-storage@v6 sweetalert2 --save
 ```
-
-### **Service Work**
 
 > 也可以加入 Service Work 服务提高使用体验
 
@@ -79,7 +77,7 @@ npm install ngx-bit @ngx-pwa/local-storage@v6 sweetalert2 --save
 ng add @angular/pwa@v6-lts
 ```
 
-### **定义配置**
+### 定义配置
 
 修改 `src/environments/environment.ts`, 生产环境则修改 `environment.prod.ts`
 
@@ -115,7 +113,7 @@ export const environment = {
 };
 ```
 
-### **定义模块**
+### 定义模块
 
 修改 `src/app/app.module.ts`
 
@@ -164,7 +162,7 @@ export class AppModule {
 }
 ```
 
-### **定义路由**
+### 定义路由
 
 创建 `src/app/app.router.module.ts`
 
@@ -219,13 +217,13 @@ export class AppModule {
 }
 ```
 
-### **定义语言包**
+### 定义语言包
 
 创建 `src/app/app.language.ts`
 
 ```typescript
 export default {
-  main: ['测试', 'Any'],
+  main: ['测试', 'Test'],
   dashboard: ['仪表盘', 'Dashboard'],
   language: ['中文', 'English'],
   center: ['个人中心', 'Center'],
@@ -297,9 +295,9 @@ export default {
 };
 ```
 
-### **定义根组件**
+### 定义根组件
 
-修改 `src/app/app.component.ts`，并生产公共语言包
+修改 `src/app/app.component.ts`，并注册公共语言包
 
 ```typescript
 import {Component, OnInit} from '@angular/core';
@@ -320,7 +318,21 @@ export class AppComponent implements OnInit {
 }
 ```
 
-### **添加运行脚本**
+### 基础结构
+
+- `src/app/api` 接口目录
+- `src/app/dashboard` 仪表板组件
+- `src/app/guard` 守护模型
+- `src/app/login` 登录组件
+- `src/app/pages` 页面组件
+- `src/app/app.component.ts` 根组件
+- `src/app/app.ext.module.ts` 子模块共用模块
+- `src/app/app.language.ts` 共用语言包
+- `src/app/app.module.ts` 应用模块
+- `src/app/router.module.ts` 路由模块
+- `src/app/update.service.ts` service work 服务
+
+### 运行脚本
 
 修改 `package.json` 的 `scripts`
 
@@ -329,22 +341,4 @@ export class AppComponent implements OnInit {
   "start": "ng serve --host 0.0.0.0 --disable-host-check",
   "build": "ng build --prod --buildOptimizer"
 }
-```
-
-### **基础结构**
-
-
-
-```shell
-# - `src/app/api` 接口目录
-# - `src/app/dashboard` 仪表板组件
-# - `src/app/guard` 守护模型
-# - `src/app/login` 登录组件
-# - `src/app/pages` 页面组件
-# - `src/app/app.component.ts` 根组件
-# - `src/app/app.ext.module.ts` 子模块共用模块
-# - `src/app/app.language.ts` 共用语言包
-# - `src/app/app.module.ts` 应用模块
-# - `src/app/router.module.ts` 路由模块
-# - `src/app/update.service.ts` service work 服务
 ```

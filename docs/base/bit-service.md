@@ -180,7 +180,7 @@ this.events.on('locale').subscribe(args => {
 
 #### - registerLocales(packer: any, common = false)
 
-构建语言包
+注册语言包
 
 - **packer** language文件
 - **common** 是否为公共语言包
@@ -195,11 +195,11 @@ this.bit.registerLocales(packer);
 
 #### - setMenu(data: any): Observable< boolean >
 
-设置菜单源数据
+设置菜单本地存储
 
-- `data` 从菜单列表数据
+- **data** 从菜单列表数据
 
-将菜单存储在本地存储内, 优化侧边栏导航、面包屑：
+将菜单数据存储在本地存储内, 优化侧边栏导航、面包屑：
 
 ```typescript
 this.main.menu().pipe(
@@ -213,7 +213,7 @@ this.main.menu().pipe(
 
 用路由地址获取对应的菜单数据
 
-- `route` 路由名称
+- **route** 路由名称
 
 获取路由地址为 `/{admin-index}` 的菜单数据
 
@@ -227,12 +227,12 @@ this.bit.getMenu('admin-index').subscribe(data => {
 
 多语言组件数值初始化
 
-- `options` 多语言组件参数
-    - `value` 默认值
-    - `validate` 同步验证器
-    - `asyncValidate` 异步验证器
+- **options** 多语言组件参数
+    - **value** 默认值
+    - **validate** 同步验证器
+    - **asyncValidate** 异步验证器
 
-在异步表单初始化时对应这样设置多语言输入控件：
+表单初始化时设置多语言组件：
 
 ```typescript
 this.bit.form = this.fb.group({
@@ -245,72 +245,68 @@ this.bit.form = this.fb.group({
 });
 ```
 
-#### i18nCommonValidator(group: string)
+#### - i18nCommonValidator(group: string)
 
-- 多语言组件通用验证
-- `group` FormGroup 名称
-- 返回为空的i18n标识数组
+多语言组件通用验证
 
-#### i18nUpdateValidity(group: string, i18n: string)
+- **group** FormGroup 名称
 
-- 多语言组件验证更新
-- `group` FormGroup 名称
+#### - i18nUpdateValidity(group: string, i18n: string)
 
-#### formExplain(name: string, async = false, field?: string): ValidationErrors | boolean
+多语言组件验证更新
 
-- 表单验证提示判断
-- `name` 表单控件标识
-- `async` 是否为包含异步验证
-- `field` 组合FormGroup名称
+- **group** FormGroup 名称
+- **i18n** 需更新的多语言组件标识
 
-在模版中定义提示判断
+#### - formExplain(name: string, async = false, field?: string): ValidationErrors | boolean
+
+表单验证提示判断
+
+- **name** 表单控件标识
+- **async** 是否为包含异步验证
+- **field** 组合FormGroup名称
+- **Return** `ValidationErrors | boolean`
 
 ```html
 <nz-form-explain *ngIf="bit.formExplain('anyone',true)"></nz-form-explain>
-
 <nz-form-explain *ngIf="bit.formExplain('anyone',true,'add')"></nz-form-explain>
 ```
 
 
-#### explain(name: string, sign: string, field?: string): boolean
+#### - explain(name: string, sign: string, field?: string): boolean
 
-- 表单验证类型判断
-- `name` 表单控件标识
-- `sign` 判断类型
-- `field` 组合FormGroup名称
+表单验证类型判断
 
-在模版中定义判断类型
+- **name** 表单控件标识
+- **sign** 判断类型
+- **field** 组合FormGroup名称
+- **Return** `boolean`
 
 ```html
 <ng-container *ngIf="bit.explain('anyone','required')">
     {{bit.l['anyone_require']}}!
 </ng-container>
-
 <ng-container *ngIf="bit.explain('anyone','required','add')">
     {{bit.l['anyone_require']}}!
 </ng-container>
 ```
 
-#### submit(event, callback, field?: string)
+#### - submit(event, callback, field?: string)
 
-- 表单提交阻止原生与检测
-- `event` 表单event事件
-- `callback` 回调事件
-- `field` 组合FormGroup名称
+表单提交阻止原生与检测
 
-定义表单事件
+- **event** 表单event事件
+- **callback** 回调事件
+- **field** 组合FormGroup名称
 
 ```html
 <form nz-form [formGroup]="bit.form" (submit)="bit.submit($event,submit)"></form>
-
 <form nz-form [formGroup]="bit.form" (submit)="bit.submit($event,submit,'add')"></form>
 ```
 
-#### back()
+#### - back()
 
-- 返回访问前一页
-
-例如：在组件中使用
+返回访问前一页
 
 ```typescript
 constructor(public bit: BitService) {
@@ -318,25 +314,22 @@ constructor(public bit: BitService) {
 }
 ```
 
-例如：在模板中使用
+#### - registerSearch(selector: string, ...search: any[]): Observable< any >
 
-```html
-<a (click)="bit.back()"></a>
-```
+注册搜索字段
 
-#### registerSearch(selector: string, ...search: { field: string, value: string, op?: string }[]): Observable< any >
+- **selector** 命名
+- **search** `{field: string, value: any, op?: string }[]` 搜索参数
+  - **field** 搜索字段名称
+  - **value** 搜索值
+  - **op** 判断类型, 不存在时为模糊搜索
+- **Return** `Observable< any >` 搜索注册完成
 
-- 注册搜索字段
-- `selector` 命名
-- `search` 搜索字段定义
-  - `field` 字段名称
-  - `value` 字段值
-  - `op` 判断类型
+#### - listsRefreshStatus(lists: any[])
 
-#### listsRefreshStatus(lists: any[])
+列表选择监听
 
-- 列表选择监听
-- `lists` 数据源
+- **lists** 数据源
 
 在表格中的每个子选择框触发变化事件时，判断数据是否全选、不全选或完全不选择：
 
@@ -353,11 +346,12 @@ constructor(public bit: BitService) {
 </nz-table>
 ```
 
-#### listsCheckAll(event, lists: any[])
+#### - listsCheckAll(event, lists: any[])
 
-- 列表全选选择监听
-- `event` 选择框状态改变触发事件
-- `lists` 数据源
+列表全选选择监听
+
+- **event** 选择框状态改变触发事件
+- **lists** 数据源
 
 在表头命名层全选选择框选中后，同步每个数据的选择框状态
 
@@ -373,11 +367,12 @@ constructor(public bit: BitService) {
 </nz-table>
 ```
 
-#### statusChange(service: Observable< any >, custom?: any)
+#### - statusChange(service: Observable< any >, custom?: any)
 
-- 状态更新
-- `service` 状态切换请求
-- `custom` 自定义处理错误提示
+状态更新
+
+- **service** 状态切换请求
+- **custom** 自定义处理错误提示
 
 `main.status` 是一个状态切换请求对象，当监听到状态切换时，同步数据到服务器，对组件这样定义：
 

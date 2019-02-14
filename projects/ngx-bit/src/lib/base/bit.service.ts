@@ -18,13 +18,11 @@ export class BitService {
   static: string;
   uploads: string;
   locale: string;
-
   form: FormGroup;
   forms: any = {};
   l: any = {};
   i18ns: any[] = [];
   i18n_tips: any = {};
-
   lists_loading = true;
   search: { field: string, value: string }[] = [];
   page_limit = 0;
