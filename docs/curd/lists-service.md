@@ -1,16 +1,20 @@
+## 获取分页数据请求 - ListsService
+
 #### customAction(name: string)
 
-- 设置自定义函数名
-- `name` 函数名，请求地址默认为 `model+'/lists'`，通过 `name` 修改 `'/lists'`
+设置自定义函数名
+
+- **name** 函数名，请求地址默认为 `model+'/lists'`，通过 `name` 修改 `'/lists'`
 
 #### factory(model: string, condition: any[] = [], like: any = [], refresh?: boolean)
 
-- 生成新增请求
-- `model` 模块名称
-- `condition` 条件数组
-- `like` 模糊搜索数组
-- `refresh` 刷新参数，将分页、列表等初始化
-- 返回 `Observable< any >`
+生成新增请求
+
+- **model** 模块名称
+- **condition** 条件数组
+- **like** 模糊搜索数组
+- **refresh** 刷新参数，将分页、列表等初始化
+- **Return** `Observable< any >`
 
 将管理员服务注入在应用模块下的供应商内
 

@@ -1,14 +1,18 @@
+## 删除数据请求 - DeleteService
+
 #### customAction(name: string)
 
-- 设置自定义函数名
-- `name` 函数名，请求地址默认为 `model+'/delete'`，通过 `name` 修改 `'/delete'`
+设置自定义函数名
+
+- **name** 函数名，请求地址默认为 `model+'/delete'`，通过 `name` 修改 `'/delete'`
 
 #### factory(model: string, condition: any)
 
-- 生成删除请求
-- `model` 模块名称
-- `condition` 删除条件
-- 返回 `Observable< any >`
+生成删除请求
+
+- **model** 模块名称
+- **condition** 删除条件
+- **Return** `Observable< any >`
 
 将管理员服务注入在应用模块下的供应商内
 

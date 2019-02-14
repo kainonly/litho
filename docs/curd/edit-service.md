@@ -1,15 +1,19 @@
+## 编辑数据请求 - EditService
+
 #### customAction(name: string)
 
-- 设置自定义函数名
-- `name` 函数名，请求地址默认为 `model+'/edit'`，通过 `name` 修改 `'/edit'`
+设置自定义函数名
+
+- **name** 函数名，请求地址默认为 `model+'/edit'`，通过 `name` 修改 `'/edit'`
 
 #### factory(model: string, data: any, condition: any = [])
 
-- 生成新增请求
-- `model` 模块名称
-- `data` 发送数据
-- `condition` 条件数组
-- 返回 `Observable< any >`
+生成新增请求
+
+- **model** 模块名称
+- **data** 发送数据
+- **condition** 条件数组
+- **Return** `Observable< any >`
 
 将管理员服务注入在应用模块下的供应商内
 

@@ -1,14 +1,18 @@
+## 新增数据请求 - AddService
+
 #### customAction(name: string)
 
-- 设置自定义函数名
-- `name` 函数名，请求地址默认为 `model+'/add'`，通过 `name` 修改 `'/add'`
+设置自定义函数名
 
-### factory(model: string, data: any)
+- **name** 函数名，请求地址默认为 `model+'/add'`，通过 `name` 修改 `'/add'`
 
-- 生成新增请求
-- `model` 模块名称
-- `data` 发送数据
-- 返回 `Observable< any >`
+#### factory(model: string, data: any)
+
+生成新增请求
+
+- **model** 模块名称
+- **data** 发送数据
+- **Return** `Observable< any >`
 
 为管理员服务生成新增请求接口
 

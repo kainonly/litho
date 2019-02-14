@@ -1,15 +1,19 @@
+## 状态变更请求 - StatusService
+
 #### customAction(name: string)
 
-- 设置自定义函数名
-- `name` 函数名，请求地址默认为 `model+'/edit'`，通过 `name` 修改 `'/edit'`
+设置自定义函数名
+
+- **name** 函数名，请求地址默认为 `model+'/edit'`，通过 `name` 修改 `'/edit'`
 
 #### factory(model: string, data: any, field = 'status')
 
-- 生成状态切换请求
-- `model` 模块名称
-- `data` 状态修改数据引用，必须包含主键与状态字段
-- `field` 状态字段名称
-- 返回 `Observable< any >`
+生成状态切换请求
+
+- **model** 模块名称
+- **data** 状态修改数据引用，必须包含主键与状态字段
+- **field** 状态字段名称
+- **Return** `Observable< any >`
 
 将管理员服务注入在应用模块下的供应商内
 
