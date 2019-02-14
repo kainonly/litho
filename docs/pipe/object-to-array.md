@@ -1,6 +1,18 @@
+## 对象转数组
+
 #### @Pipe({name: 'ObjectToArray'})
 
-- `value` 传入对象
+```typescript
+@Pipe({name: 'ObjectToArray'})
+export class ObjectToArrayPipe implements PipeTransform {
+  transform(value: any): any[] {
+    return objectToArray(value);
+  }
+}
+```
+
+- **value** 对象
+- **Return** `any[]`
 
 例如，假设一个对象
 

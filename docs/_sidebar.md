@@ -1,4 +1,4 @@
-* 基础服务
+* 基础
   * [配置服务](base/config-service)
   * [工具服务](base/bit-service)
   * [请求服务](base/http-service)
@@ -16,6 +16,16 @@
   * [获取列表数据请求](curd/origin-lists-service)
   * [状态变更请求](curd/status-service)
 
+* 管道
+  * [定义](pipe/defined)
+  * [未定义](pipe/undefined)
+  * [空数组](pipe/empty-array)
+  * [空对象](pipe/empty-object)
+  * [对象转数组](pipe/object-to-array)
+  * [对象转Map对象](pipe/object-to-map)
+  * [多语言填补显示](pipe/json-chose)
+  * [JSON字符串转数组](pipe/json-parse)
+
 * 操作
   * [判断空数组](operate/empty-array)
   * [判断空对象](operate/empty-object)
@@ -27,16 +37,6 @@
   * [多语言组件初始值](operate/i18n-controls-value)
   * [多语言组件同步验证](operate/i18n-controls-validate)
   * [多语言组件异步验证](operate/i18n-controls-async-validate)
-
-* 管道
-  * [定义](pipe/defined)
-  * [未定义](pipe/undefined)
-  * [空数组](pipe/empty-array)
-  * [空对象](pipe/empty-object)
-  * [对象转数组](pipe/object-to-array)
-  * [对象转Map对象](pipe/object-to-map)
-  * [多语言填补显示](pipe/json-chose)
-  * [JSON字符串转数组](pipe/json-parse)
 
 * 组件
   * [表单实例](component/form)

@@ -1,14 +1,32 @@
+## JSON字符串转数组
+
 #### @Pipe({name: 'JSONParse'})
 
-- `value` 传入对象
-- `locale` 传入语言包标识
+```typescript
+@Pipe({name: 'JSONParse'})
+export class JsonParsePipe implements PipeTransform {
+  transform(value: string, chkey?: any): any {
+    try {
+      return chkey !== undefined ? JSON.parse(value)[chkey] : JSON.parse(value);
+    } catch (e) {
+      return {};
+    }
+  }
+}
+```
 
-例如，在自定义语言包的情况
+- **value** JSON字符串
+- **chkey** 子键
+
+例如，在接口直接返回JSON字符串数组
+
+```typescript
+const data = `{"name":"bit","version":1}`;
+```
+
+在这种情况下直接使用管道可以减少遍历处理
 
 ```html
-<nz-select nzShowSearch nzAllowClear [nzPlaceHolder]="bit.l['role_placeholder']">
-    <ng-template ngFor let-x [ngForOf]="role_lists">
-        <nz-option [nzLabel]="(x.name|JSONParse:bit.locale)" [nzValue]="x.id"></nz-option>
-    </ng-template>
-</nz-select>
+<p>{{data|JSONParse:name}}</p>
+<!-- display bit -->
 ```

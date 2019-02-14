@@ -1,6 +1,18 @@
+## 定义
+
 #### @Pipe({name: 'Defined'})
 
-- `value` 传入对象
+```typescript
+@Pipe({name: 'Defined'})
+export class DefinedPipe implements PipeTransform {
+  transform(value: any): boolean {
+    return value !== undefined;
+  }
+}
+```
+
+- **value** 数值
+- **Return** `boolean`
 
 例如，假设存在一个未定义属性
 

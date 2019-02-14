@@ -1,6 +1,18 @@
+## 对象转Map对象
+
 #### @Pipe({name: 'ObjectToMap'})
 
-- `value` 传入对象
+```typescript
+@Pipe({name: 'ObjectToMap'})
+export class ObjectToMapPipe implements PipeTransform {
+  transform(value: any): Map<any, any> | boolean {
+    return objectToMap(value);
+  }
+}
+```
+
+- **value** 对象
+- **Return** `Map`
 
 例如，假设一个对象
 

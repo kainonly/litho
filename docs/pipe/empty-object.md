@@ -1,6 +1,18 @@
+## 空对象
+
 #### @Pipe({name: 'EmptyObject'})
 
-- `value` 传入对象
+```typescript
+@Pipe({name: 'EmptyObject'})
+export class EmptyObjectPipe implements PipeTransform {
+  transform(value: any): boolean {
+    return emptyObject(value);
+  }
+}
+```
+
+- **value** 对象
+- **Return** `boolean`
 
 例如，假设存在一个空对象属性
 
