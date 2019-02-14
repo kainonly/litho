@@ -1,4 +1,4 @@
-### static: string
+#### static: string
 
 - 静态资源地址
 
@@ -16,7 +16,7 @@ constructor(public bit: BitService) {
 <img [src]="bit.static+'any.jpg'">
 ```
 
-### uploads: string
+#### uploads: string
 
 - RESTful Api 上传地址
 - 详情信息请参考 [上传](zh-cn/plugin/upload)
@@ -29,7 +29,7 @@ constructor(public bit: BitService) {
 </nz-upload>
 ```
 
-### form: FormGroup
+#### form: FormGroup
 
 - 组件内FormGroup对象
 
@@ -39,7 +39,7 @@ constructor(public bit: BitService) {
 <form nz-form [formGroup]="bit.form"></form>
 ```
 
-### forms: any
+#### forms: any
 
 - 组件内FormGroup组合对象
 
@@ -49,7 +49,7 @@ constructor(public bit: BitService) {
 <form nz-form [formGroup]="bit.forms['add']"></form>
 ```
 
-### locale: string
+#### locale: string
 
 - 语言包标识
 - 可以在需要语言包的组件或模板中使用，默认 `zh_cn`
@@ -73,7 +73,7 @@ constructor(public bit: BitService) {
 <p>{{name[bit.locale]}}<p>
 ```
 
-### l: any
+#### l: any
 
 - 语言包标识，默认 `{}`
 
@@ -83,7 +83,7 @@ constructor(public bit: BitService) {
 <p>{{bit.l['name']}}</p>
 ```
 
-### i18ns: any[]
+#### i18ns: any[]
 
 - 多语言标识，默认 `[]`
 - 应用再表单组件多语言化输入切换
@@ -101,7 +101,7 @@ constructor(public bit: BitService) {
 </nz-radio-group>
 ```
 
-### lists_loading: boolean
+#### lists_loading: boolean
 
 - 列表正在加载状态
 - 使用在表格或列表组件中
@@ -115,7 +115,7 @@ constructor(public bit: BitService) {
 </nz-table>
 ```
 
-### page_limit: number
+#### page_limit: number
 
 - 分页，默认为配置服务 `page_limit`
 - 使用在表格或列表组件中
@@ -129,7 +129,7 @@ constructor(public bit: BitService) {
 </nz-table>
 ```
 
-### lists_totals: number
+#### lists_totals: number
 
 - 列表数据总数
 - 使用在表格或列表组件中
@@ -143,7 +143,7 @@ constructor(public bit: BitService) {
 </nz-table>
 ```
 
-### lists_page_index: number
+#### lists_page_index: number
 
 - 分页索引页，当前页
 - 使用在表格或列表组件中
@@ -157,7 +157,7 @@ constructor(public bit: BitService) {
 </nz-table>
 ```
 
-### lists_all_checked: boolean
+#### lists_all_checked: boolean
 
 - 列表选项框状态为全选
 - 使用在表格组件中
@@ -176,7 +176,7 @@ constructor(public bit: BitService) {
 </nz-table>
 ```
 
-### lists_indeterminate: boolean
+#### lists_indeterminate: boolean
 
 - 列表选项框状态为不完整选择
 - 使用在表格组件中
@@ -195,7 +195,7 @@ constructor(public bit: BitService) {
 </nz-table>
 ```
 
-### lists_disabled_action: boolean
+#### lists_disabled_action: boolean
 
 - 列表操作板显示状态
 - 使用在表格组件中
@@ -208,7 +208,7 @@ constructor(public bit: BitService) {
 </button>
 ```
 
-### lists_checked_number: number
+#### lists_checked_number: number
 
 - 列表选项框选择数量
 - 使用在表格组件中
@@ -219,7 +219,7 @@ constructor(public bit: BitService) {
 <p>{{bit.lists_checked_number}}</p>
 ```
 
-### setLocale(locale: 'zh_cn' | 'en_us')
+#### setLocale(locale: 'zh_cn' | 'en_us')
 
 - 语言包标识设置
 - `locale` 语言包标识
@@ -230,13 +230,13 @@ constructor(public bit: BitService) {
 this.bit.setLocale('en_us');
 ```
 
-### registerLocales(packer: any, common = false)
+#### registerLocales(packer: any, common = false)
 
 - 构建语言包
 - `packer` 原始语言包
 - `common` 是否为公共语言包
 
-### setMenu(data: any): Observable< boolean >
+#### setMenu(data: any): Observable< boolean >
 
 - 设置菜单源数据
 - `data` 从服务器获取的菜单数据
@@ -252,7 +252,7 @@ this.main.menu().pipe(
 })
 ```
 
-### getMenu(route: string): Observable< any >
+#### getMenu(route: string): Observable< any >
 
 - 用路由地址获取对应的菜单数据
 - `route` 路由名称
@@ -265,7 +265,7 @@ this.bit.getMenu('admin-index').subscribe(data => {
 });
 ```
 
-### i18nControls(options?: I18nControlsOptions)
+#### i18nControls(options?: I18nControlsOptions)
 
 - 输入层多语言数值初始化
 - `options` 多语言异步表单参数
@@ -286,18 +286,18 @@ this.bit.form = this.fb.group({
 });
 ```
 
-### i18nCommonValidator(group: string)
+#### i18nCommonValidator(group: string)
 
 - 多语言组件通用验证
 - `group` FormGroup 名称
 - 返回为空的i18n标识数组
 
-### i18nUpdateValidity(group: string, i18n: string)
+#### i18nUpdateValidity(group: string, i18n: string)
 
 - 多语言组件验证更新
 - `group` FormGroup 名称
 
-### formExplain(name: string, async = false, field?: string): ValidationErrors | boolean
+#### formExplain(name: string, async = false, field?: string): ValidationErrors | boolean
 
 - 表单验证提示判断
 - `name` 表单控件标识
@@ -313,7 +313,7 @@ this.bit.form = this.fb.group({
 ```
 
 
-### explain(name: string, sign: string, field?: string): boolean
+#### explain(name: string, sign: string, field?: string): boolean
 
 - 表单验证类型判断
 - `name` 表单控件标识
@@ -332,7 +332,7 @@ this.bit.form = this.fb.group({
 </ng-container>
 ```
 
-### submit(event, callback, field?: string)
+#### submit(event, callback, field?: string)
 
 - 表单提交阻止原生与检测
 - `event` 表单event事件
@@ -347,7 +347,7 @@ this.bit.form = this.fb.group({
 <form nz-form [formGroup]="bit.form" (submit)="bit.submit($event,submit,'add')"></form>
 ```
 
-### back()
+#### back()
 
 - 返回访问前一页
 
@@ -365,7 +365,7 @@ constructor(public bit: BitService) {
 <a (click)="bit.back()"></a>
 ```
 
-### registerSearch(selector: string, ...search: { field: string, value: string, op?: string }[]): Observable< any >
+#### registerSearch(selector: string, ...search: { field: string, value: string, op?: string }[]): Observable< any >
 
 - 注册搜索字段
 - `selector` 命名
@@ -374,7 +374,7 @@ constructor(public bit: BitService) {
   - `value` 字段值
   - `op` 判断类型
 
-### listsRefreshStatus(lists: any[])
+#### listsRefreshStatus(lists: any[])
 
 - 列表选择监听
 - `lists` 数据源
@@ -394,7 +394,7 @@ constructor(public bit: BitService) {
 </nz-table>
 ```
 
-### listsCheckAll(event, lists: any[])
+#### listsCheckAll(event, lists: any[])
 
 - 列表全选选择监听
 - `event` 选择框状态改变触发事件
@@ -414,7 +414,7 @@ constructor(public bit: BitService) {
 </nz-table>
 ```
 
-### statusChange(service: Observable< any >, custom?: any)
+#### statusChange(service: Observable< any >, custom?: any)
 
 - 状态更新
 - `service` 状态切换请求

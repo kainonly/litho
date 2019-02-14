@@ -1,4 +1,4 @@
-### addAlert(res: any, reset?: any, customize?: AlertCustomize)
+#### addAlert(res: any, reset?: any, customize?: AlertCustomize)
 
 - 新增返回提示框
 - `res` 请求响应结果
@@ -32,7 +32,7 @@ export class AdminAddComponent implements OnInit {
 
 > `status` 为 `true` 表示确认提示框
 
-### editAlert(res: any, customize?: AlertCustomize)
+#### editAlert(res: any, customize?: AlertCustomize)
 
 - 修改返回提示框
 - `res` 请求响应结果
@@ -64,7 +64,7 @@ export class AdminEditComponent implements OnInit {
 
 > `status` 为 `true` 表示确认提示框
 
-### deleteAlert(service: Observable< any >, customize?: AlertCustomize)
+#### deleteAlert(service: Observable< any >, customize?: AlertCustomize)
 
 - 删除返回提示框
 - `service` 删除请求对象
@@ -101,17 +101,17 @@ export class AdminIndexComponent implements OnInit {
 
 > 订阅返回删除请求对象的响应值
 
-### static:: native(title: string, message?: string, type?: SweetAlertType)
+#### static:: native(title: string, message?: string, type?: SweetAlertType)
 
 - `sweetalert2` 原始用法
 - 返回 `Promise<SweetAlertResult>`
 
-### static:: native(settings: SweetAlertOptions & { useRejections?: false })
+#### static:: native(settings: SweetAlertOptions & { useRejections?: false })
 
 - `sweetalert2` 原始用法
 - 返回 `Promise<SweetAlertResult>`
 
-### static:: native(settings: SweetAlertOptions & { useRejections: true })
+#### static:: native(settings: SweetAlertOptions & { useRejections: true })
 
 - `sweetalert2` 原始用法
 - 返回 `Promise<any>`

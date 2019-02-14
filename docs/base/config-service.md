@@ -1,29 +1,29 @@
-### origin: string
+#### origin: string
 
 - RESTful Api 请求接口的域名
 - 例如，`https://api.develop.com`
 
-### namespace: string
+#### namespace: string
 
 - RESTful Api 地址命名空间
 - 例如，`system`，如果没有请设置为 `''`
 
-### static: string
+#### static: string
 
 - 静态资源地址
 - 可以是 `origin` 域名的相对路径，也可以是cdn域名，例如，`https://cdn.develop.com/`
 
-### uploads: string
+#### uploads: string
 
 - 上传地址
 - 可以是 `origin` 域名的相对路径，也可以是分离式上传服务器的域名
 
-### with_credentials: boolean
+#### with_credentials: boolean
 
 - 同源策略，XMLHttpRequest是否该使用类似cookies、authorization headers、TLS
 - 浏览器建议设置 `true`，将 `token` 存储在服务器 `cookie` 中，并加强 `csrf` 防御
 
-### http_customize: boolean
+#### http_customize: boolean
 
 - 开启全局请求前置处理
 
@@ -58,12 +58,12 @@ export class AppComponent implements OnInit {
 }
 ```
 
-### i18n: any[]
+#### i18n: any[]
 
 - 多语言组件类型标识
 - 例如：设置中文与英文，`['zh_cn', 'en_us']`
 
-### i18n_switch: any[]
+#### i18n_switch: any[]
 
 - 多语言组件集合，`i18n` 需要于标识对应
 
@@ -86,7 +86,7 @@ export class AppComponent implements OnInit {
 ]
 ```
 
-### page_limit: number
+#### page_limit: number
 
 - 分页
 - 推荐默认值 `20`

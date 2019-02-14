@@ -1,9 +1,9 @@
-### customAction(name: string)
+#### customAction(name: string)
 
 - 设置自定义函数名
 - `name` 函数名，请求地址默认为 `model+'/lists'`，通过 `name` 修改 `'/lists'`
 
-### factory(model: string, condition: any[] = [], like: any = [], refresh?: boolean)
+#### factory(model: string, condition: any[] = [], like: any = [], refresh?: boolean)
 
 - 生成新增请求
 - `model` 模块名称

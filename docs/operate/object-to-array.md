@@ -1,4 +1,4 @@
-### objectToArray(object: any)
+#### objectToArray(object: any)
 
 - `object` 对象
 - 返回 `any[]`

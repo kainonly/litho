@@ -1,9 +1,9 @@
-### customAction(name: string)
+#### customAction(name: string)
 
 - 设置自定义函数名
 - `name` 函数名，请求地址默认为 `model+'/edit'`，通过 `name` 修改 `'/edit'`
 
-### factory(model: string, data: any, field = 'status')
+#### factory(model: string, data: any, field = 'status')
 
 - 生成状态切换请求
 - `model` 模块名称

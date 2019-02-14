@@ -1,4 +1,4 @@
-### getRouteName(url: string, start = '%7B', end = '%7D')
+#### getRouteName(url: string, start = '%7B', end = '%7D')
 
 - `url` 完整路由地址
 - `start` 起始符

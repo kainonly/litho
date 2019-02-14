@@ -1,4 +1,4 @@
-### objectToMap(object: any)
+#### objectToMap(object: any)
 
 - `object` 对象
 - 返回 `Map<any,any>` 或 `false`

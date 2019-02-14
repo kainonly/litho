@@ -1,4 +1,4 @@
-### emptyObject(object: any)
+#### emptyObject(object: any)
 
 - `object` 对象
 

@@ -1,9 +1,9 @@
-### customAction(name: string)
+#### customAction(name: string)
 
 - 设置自定义函数名
 - `name` 函数名，请求地址默认为 `model+'/delete'`，通过 `name` 修改 `'/delete'`
 
-### factory(model: string, condition: any)
+#### factory(model: string, condition: any)
 
 - 生成删除请求
 - `model` 模块名称

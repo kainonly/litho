@@ -1,4 +1,4 @@
-### asyncValidator(req: Observable<any>, field = 'duplicated')
+#### asyncValidator(req: Observable<any>, field = 'duplicated')
 
 - `req` 请求对象
 - `field` 自定义返回

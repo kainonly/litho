@@ -1,4 +1,4 @@
-### customAction(name: string)
+#### customAction(name: string)
 
 - 设置自定义函数名
 - `name` 函数名，请求地址默认为 `model+'/add'`，通过 `name` 修改 `'/add'`

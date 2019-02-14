@@ -1,4 +1,4 @@
-### publish(topic: string, args?: any)
+#### publish(topic: string, args?: any)
 
 - `topic` 主题名称
 - `args` 发送参数
@@ -11,7 +11,7 @@ this.events.publish('any', {
 });
 ```
 
-### on(topic: string): Observable< any >
+#### on(topic: string): Observable< any >
 
 - `topic` 主题名称
 
@@ -23,7 +23,7 @@ this.events.on('any').subscribe(args => {
 });
 ```
 
-### off(topic: string)
+#### off(topic: string)
 
 - `topic` 主题名称
 
@@ -33,7 +33,7 @@ this.events.on('any').subscribe(args => {
 this.events.off('any');
 ```
 
-### events: locale
+#### events: locale
 
 - 语言包切换事件
 

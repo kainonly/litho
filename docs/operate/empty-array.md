@@ -1,4 +1,4 @@
-### emptyArray(array: any[])
+#### emptyArray(array: any[])
 
 - `array` 数组
 

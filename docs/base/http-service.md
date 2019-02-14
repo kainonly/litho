@@ -1,4 +1,4 @@
-### req(url: string, body: any = {}, , method = 'post'): Observable< any >
+#### req(url: string, body: any = {}, , method = 'post'): Observable< any >
 
 - 请求对象合成
 - `url` RESTful请求路由地址
@@ -13,7 +13,7 @@ this.http.req('main/nav').subscribe(res => {
 });
 ```
 
-### env.with_credentials
+#### env.with_credentials
 
 - 开启同源策略
 - 可以让前后端分离的跨域请求支持携带 `cookie`
@@ -28,7 +28,7 @@ export const environment = {
 };
 ```
 
-### env.http_customize
+#### env.http_customize
 
 - 开启自定义前置处理
 - 可以对所有请求做出拦截处理

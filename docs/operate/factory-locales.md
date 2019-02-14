@@ -1,4 +1,4 @@
-### factoryLocales(packer: any)
+#### factoryLocales(packer: any)
 
 - `packer` 原始语言包数据
 - 返回加工语言包 `{...}`

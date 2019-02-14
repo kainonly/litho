@@ -1,9 +1,9 @@
-### customAction(name: string)
+#### customAction(name: string)
 
 - 设置自定义函数名
 - `name` 函数名，请求地址默认为 `model+'/get'`，通过 `name` 修改 `'/get'`
 
-### factory(model: string, condition: any)
+#### factory(model: string, condition: any)
 
 - 生成新增请求
 - `model` 模块名称
