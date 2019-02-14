@@ -1,11 +1,17 @@
-#### req(url: string, body: any = {}, , method = 'post'): Observable< any >
+## 请求服务 - HttpService
 
-- 请求对象合成
-- `url` RESTful请求路由地址
-- `body` 发送数据
-- `method` 请求类型, 默认为 `post` 请求
+#### - req(url: string, body: any = {}, , method = 'post'): Observable< any >
 
-例如：生成验证jwt的请求对象
+创建请求对象
+
+- **url** 请求路由
+- **body** 发送数据
+- **method** 请求类型, 默认为 `post` 请求
+- **Return**  `Observable< any >`
+
+!> 在之前需要定义配置 `origin` `namespace`
+
+例如：请求导航接口
 
 ```typescript
 this.http.req('main/nav').subscribe(res => {
@@ -13,10 +19,8 @@ this.http.req('main/nav').subscribe(res => {
 });
 ```
 
-#### env.with_credentials
 
-- 开启同源策略
-- 可以让前后端分离的跨域请求支持携带 `cookie`
+#### 如何跨域携带 Cookie
 
 在 `environment` 中启用
 
@@ -28,10 +32,7 @@ export const environment = {
 };
 ```
 
-#### env.http_customize
-
-- 开启自定义前置处理
-- 可以对所有请求做出拦截处理
+#### 如何对请求做出拦截
 
 在 `environment` 中启用
 
