@@ -1,33 +1,38 @@
-#### origin: string
+## 配置服务 - ConfigService
 
-- RESTful Api 请求接口的域名
-- 例如，`https://api.develop.com`
+#### - origin: string
+
+RESTful Api 请求接口的域名
+
+> 例如 `https://api.develop.com`
 
 #### namespace: string
 
-- RESTful Api 地址命名空间
-- 例如，`system`，如果没有请设置为 `''`
+RESTful Api 地址命名空间
+
+> 例如，`system`，如果没有请设置为 `''`
 
 #### static: string
 
-- 静态资源地址
-- 可以是 `origin` 域名的相对路径，也可以是cdn域名，例如，`https://cdn.develop.com/`
+静态资源地址
+
+> 可以是 `origin` 域名的相对路径，也可以是cdn域名，例如，`https://cdn.develop.com/`
 
 #### uploads: string
 
-- 上传地址
-- 可以是 `origin` 域名的相对路径，也可以是分离式上传服务器的域名
+上传地址
+
+> 可以是 `origin` 域名的相对路径，也可以是分离式上传服务器的域名
 
 #### with_credentials: boolean
 
-- 同源策略，XMLHttpRequest是否该使用类似cookies、authorization headers、TLS
-- 浏览器建议设置 `true`，将 `token` 存储在服务器 `cookie` 中，并加强 `csrf` 防御
+同源策略
+
+> 如请求需要携带 Cookie 设置为 `true`
 
 #### http_customize: boolean
 
-- 开启全局请求前置处理
-
-例如，对RBAC返回失败的统一请求进行拦截并返回提示
+开启请求拦截自定义处理, 对RBAC返回失败的统一请求进行拦截并返回提示
 
 ```typescript
 import {Component, OnInit} from '@angular/core';
@@ -60,12 +65,13 @@ export class AppComponent implements OnInit {
 
 #### i18n: any[]
 
-- 多语言组件类型标识
-- 例如：设置中文与英文，`['zh_cn', 'en_us']`
+多语言组件类型标识
+
+> 例如：设置中文与英文，`['zh_cn', 'en_us']`
 
 #### i18n_switch: any[]
 
-- 多语言组件集合，`i18n` 需要于标识对应
+多语言组件集合，`i18n` 需要于标识对应
 
 ```typescript
 [
@@ -88,5 +94,4 @@ export class AppComponent implements OnInit {
 
 #### page_limit: number
 
-- 分页
-- 推荐默认值 `20`
+分页, 默认值 `20`
