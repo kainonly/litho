@@ -25,6 +25,8 @@
   * [对象转Map对象](pipe/object-to-map)
   * [多语言填补显示](pipe/json-chose)
   * [JSON字符串转数组](pipe/json-parse)
+  * [字符串分割为数组](pipe/split)
+  * [数组拼接为字符串](pipe/join)
 
 * 操作
   * [判断空数组](operate/empty-array)
