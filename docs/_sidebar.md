@@ -31,12 +31,12 @@
 * 管道
   * [定义](pipe/defined)
   * [未定义](pipe/undefined)
-  * [空数组](pipe/emptyArray)
-  * [空对象](pipe/emptyObject)
-  * [对象转数组](pipe/objectToArray)
-  * [对象转Map对象](pipe/objectToMap)
-  * [多语言填补显示](pipe/jsonChose)
-  * [JSON字符串转数组](pipe/jsonParse)
+  * [空数组](pipe/empty-array)
+  * [空对象](pipe/empty-object)
+  * [对象转数组](pipe/object-to-array)
+  * [对象转Map对象](pipe/object-to-map)
+  * [多语言填补显示](pipe/json-chose)
+  * [JSON字符串转数组](pipe/json-parse)
 
 * 组件
   * [表单实例](component/form)
