@@ -1,11 +1,20 @@
-#### getRouteName(url: string, start = '%7B', end = '%7D')
+## 获取路由名称
 
-- `url` 完整路由地址
-- `start` 起始符
-- `end` 结束符
-- 返回路由名称 `string`
+#### getRouteName(url: string, start = '%7B', end = '%7D'): string
 
-例如，可以在路由事件监听中使用
+```typescript
+export function getRouteName(url: string, start = '%7B', end = '%7D'): string {
+  const reg1 = new RegExp(`(?:${start})(.+?)(?=${end})`, 'g');
+  return url.match(reg1)[0].replace(start, '');
+}
+```
+
+- **url** 完整路由地址
+- **start** 起始符
+- **end** 结束符
+- **Return** 路由名称
+
+可以在路由事件监听中使用
 
 ```typescript
 export class DashboardsComponent implements OnInit {

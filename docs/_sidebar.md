@@ -4,9 +4,6 @@
   * [请求服务](base/http-service)
   * [组件通讯服务](base/events-service)
 
-* 公共服务
-  * [提交反馈栏](common/swal-service)
-
 * CURD
   * [新增数据请求](curd/add-service)
   * [删除数据请求](curd/delete-service)
@@ -39,6 +36,9 @@
   * [多语言组件初始值](operate/i18n-controls-value)
   * [多语言组件同步验证](operate/i18n-controls-validate)
   * [多语言组件异步验证](operate/i18n-controls-async-validate)
+
+* 公共服务
+  * [提交反馈栏](common/swal-service)
 
 * 组件
   * [表单实例](component/form)

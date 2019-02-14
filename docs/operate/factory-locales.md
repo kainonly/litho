@@ -1,9 +1,26 @@
+## 语言包生产
+
 #### factoryLocales(packer: any)
 
-- `packer` 原始语言包数据
-- 返回加工语言包 `{...}`
+```typescript
+export function factoryLocales(packer: any): any {
+  const source = {
+    zh_cn: {},
+    en_us: {}
+  };
+  for (const i in packer) {
+    if (packer.hasOwnProperty(i)) {
+      source.zh_cn[i] = packer[i][0];
+      source.en_us[i] = packer[i][1];
+    }
+  }
+  return source;
+}
+```
 
-例如，定义一个原始语言包
+- **packer** 语言包文件
+
+定义一个语言包数据，索引顺序按照 `['zh_cn','en_us']`
 
 ```typescript
 export default {
@@ -29,7 +46,7 @@ export default {
 };
 ```
 
-加工原始语言包
+语言包生产
 
 ```typescript
 import packer from './language';

@@ -1,13 +1,27 @@
+## 判断空对象
+
 #### emptyObject(object: any)
 
-- `object` 对象
+```typescript
+import {isArray, isObject} from 'util';
 
-例如，这么使用
+export function emptyObject(object: any): boolean {
+  if (isObject(object) && !isArray(object)) {
+    return Object.keys(object).length === 0;
+  } else {
+    return false;
+  }
+}
+```
+
+- **object** 对象
+- **Return** `boolean`
+
+判断一个对象是否为空
 
 ``` typescript
 const test = {};
 
 emptyObject(test); 
 // true
-
 ```

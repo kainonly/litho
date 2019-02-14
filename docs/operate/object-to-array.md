@@ -1,11 +1,32 @@
+## 对象转数组
+
 #### objectToArray(object: any)
 
-- `object` 对象
-- 返回 `any[]`
-  - `key` 原主键
-  - `rows` 原键值
+```typescript
+export function objectToArray(object: any): any[] {
+  if (isObject(object) && !isArray(object)) {
+    const array = [];
+    for (const key in object) {
+      if (object.hasOwnProperty(key)) {
+        array.push({
+          key: key,
+          rows: object[key]
+        });
+      }
+    }
+    return array;
+  } else {
+    return [];
+  }
+}
+```
 
-例如，这么使用
+- **object** 对象
+- **Return** `any[]`
+  - **key** 原主键
+  - **rows** 原键值
+
+将一个对象转为数组
 
 ```typescript
 const some = {
