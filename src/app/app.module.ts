@@ -5,7 +5,7 @@ import {RouterModule, Routes} from '@angular/router';
 import {HttpClient, HttpClientModule} from '@angular/common/http';
 import {registerLocaleData} from '@angular/common';
 import {NgZorroAntdModule, NZ_I18N, zh_CN} from 'ng-zorro-antd';
-import {MarkdownModule, MarkedOptions} from 'ngx-markdown';
+import {MarkdownModule} from 'ngx-markdown';
 import {BitService, ConfigService, EventsService, HttpService, NgxBitModule} from 'dev-ngx-bit';
 import zh from '@angular/common/locales/zh';
 import {environment} from '../environments/environment';
