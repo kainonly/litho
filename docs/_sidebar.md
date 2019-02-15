@@ -13,6 +13,11 @@
   * [获取列表数据请求](curd/origin-lists-service)
   * [状态变更请求](curd/status-service)
 
+* 指令
+  * [开始搜索](directive/search-start)
+  * [监听搜索](directive/search-change)
+  * [清空搜索](directive/search-clear)
+
 * 管道
   * [定义](pipe/defined)
   * [未定义](pipe/undefined)
