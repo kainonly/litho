@@ -27,36 +27,8 @@
                 "output": "/assets/"
               }
             ],
-            "styles": [
-              "node_modules/ng-zorro-antd/ng-zorro-antd.min.css",
-              "node_modules/prismjs/themes/prism-okaidia.css",
-              "node_modules/prismjs/plugins/toolbar/prism-toolbar.css",
-              "node_modules/prismjs/plugins/autolinker/prism-autolinker.css",
-              "node_modules/prismjs/plugins/command-line/prism-command-line.css",
-              "node_modules/prismjs/plugins/line-highlight/prism-line-highlight.css",
-              "node_modules/prismjs/plugins/line-numbers/prism-line-numbers.css",
-              "src/styles.css"
-            ],
-            "scripts": [
-              "node_modules/marked/lib/marked.js",
-              "node_modules/prismjs/prism.js",
-              "node_modules/prismjs/plugins/toolbar/prism-toolbar.min.js",
-              "node_modules/prismjs/plugins/autolinker/prism-autolinker.min.js",
-              "node_modules/prismjs/plugins/autoloader/prism-autoloader.min.js",
-              "node_modules/prismjs/plugins/command-line/prism-command-line.min.js",
-              "node_modules/prismjs/plugins/copy-to-clipboard/prism-copy-to-clipboard.min.js",
-              "node_modules/prismjs/plugins/custom-class/prism-custom-class.min.js",
-              "node_modules/prismjs/plugins/data-uri-highlight/prism-data-uri-highlight.min.js",
-              "node_modules/prismjs/plugins/file-highlight/prism-file-highlight.min.js",
-              "node_modules/prismjs/plugins/highlight-keywords/prism-highlight-keywords.min.js",
-              "node_modules/prismjs/plugins/keep-markup/prism-keep-markup.min.js",
-              "node_modules/prismjs/plugins/line-highlight/prism-line-highlight.min.js",
-              "node_modules/prismjs/plugins/line-numbers/prism-line-numbers.min.js",
-              "node_modules/prismjs/components/prism-scss.min.js",
-              "node_modules/prismjs/components/prism-bash.min.js",
-              "node_modules/prismjs/components/prism-json.min.js",
-              "node_modules/prismjs/components/prism-typescript.min.js"
-            ]
+            "styles": [],
+            "scripts": []
           },
           "configurations": {
             "production": {
