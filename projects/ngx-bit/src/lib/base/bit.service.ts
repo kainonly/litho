@@ -22,19 +22,19 @@ export class BitService {
   forms: any = {};
   l: any = {};
   i18ns: any[] = [];
-  i18n_tips: any = {};
-  lists_loading = true;
+  i18nTips: any = {};
+  listsLoading = true;
   search: { field: string, value: string }[] = [];
-  page_limit = 0;
-  lists_totals = 0;
-  lists_page_index = 0;
-  lists_all_checked = false;
-  lists_indeterminate = false;
-  lists_disabled_action = true;
-  lists_checked_number = 0;
+  pageLimit = 0;
+  listsTotals = 0;
+  listsPageIndex = 0;
+  listsAllChecked = false;
+  listsIndeterminate = false;
+  listsDisabledAction = true;
+  listsCheckedNumber = 0;
 
   private language: any = {};
-  private common_language: any = {};
+  private commonLanguage: any = {};
   private menu: Map<number | string, any> = new Map();
   private actives = [];
   private breadcrumb = [];
@@ -50,7 +50,7 @@ export class BitService {
     this.static = config.static;
     this.uploads = config.origin + '/' + config.uploads;
     this.i18ns = config.i18n;
-    this.page_limit = config.page_limit;
+    this.pageLimit = config.pageLimit;
     this.locale = localStorage.getItem('locale') ? localStorage.getItem('locale') : 'zh_cn';
     events.on('locale').subscribe((locale) => {
       let tips;
@@ -77,7 +77,7 @@ export class BitService {
     this.locale = locale;
     localStorage.setItem('locale', locale);
     this.events.publish('locale', locale);
-    this.l = Object.assign(this.common_language[this.locale], this.language[this.locale]);
+    this.l = Object.assign(this.commonLanguage[this.locale], this.language[this.locale]);
   }
 
   /**
@@ -85,10 +85,10 @@ export class BitService {
    */
   registerLocales(packer: any, common = false) {
     if (common) {
-      this.common_language = factoryLocales(packer);
+      this.commonLanguage = factoryLocales(packer);
     } else {
       this.language = factoryLocales(packer);
-      this.l = Object.assign(this.common_language[this.locale], this.language[this.locale]);
+      this.l = Object.assign(this.commonLanguage[this.locale], this.language[this.locale]);
     }
   }
 
@@ -110,7 +110,7 @@ export class BitService {
    */
   private checkRouterEmpty(route: string, set = false): Observable<any> {
     return this.storage.getItem('menu').pipe(
-      switchMap((data) => {
+      switchMap((data: any) => {
         if (set) {
           this.menu = data;
         }
@@ -130,7 +130,7 @@ export class BitService {
   /**
    * Get menu data through routing
    */
-  getMenu(route: string, is_string = false): Observable<any> {
+  getMenu(route: string, TypeOfString = false): Observable<any> {
     this.actives = [];
     this.breadcrumb = [];
     return this.checkRouterEmpty(route, true).pipe(
@@ -144,11 +144,11 @@ export class BitService {
           routerlink: data.routerlink
         };
         this.breadcrumb.unshift(bread);
-        if (!is_string && data.parent !== 0) {
-          this.infiniteMenu(data.parent, is_string);
+        if (!TypeOfString && data.parent !== 0) {
+          this.infiniteMenu(data.parent, TypeOfString);
         }
-        if (is_string && data.parent !== '0') {
-          this.infiniteMenu(data.parent, is_string);
+        if (TypeOfString && data.parent !== '0') {
+          this.infiniteMenu(data.parent, TypeOfString);
         }
         return {
           actives: this.actives,
@@ -161,7 +161,7 @@ export class BitService {
   /**
    * Recursively get menu tree data
    */
-  private infiniteMenu(parent: number, is_string: boolean) {
+  private infiniteMenu(parent: number, TypeOfString: boolean) {
     const data = this.menu.get(parent);
     this.actives.unshift(data.id);
     const bread = {
@@ -170,11 +170,11 @@ export class BitService {
     };
     this.breadcrumb.unshift(bread);
 
-    if (!is_string && data.parent !== 0) {
-      this.infiniteMenu(data.parent, is_string);
+    if (!TypeOfString && data.parent !== 0) {
+      this.infiniteMenu(data.parent, TypeOfString);
     }
-    if (is_string && data.parent !== '0') {
-      this.infiniteMenu(data.parent, is_string);
+    if (TypeOfString && data.parent !== '0') {
+      this.infiniteMenu(data.parent, TypeOfString);
     }
   }
 
@@ -207,7 +207,7 @@ export class BitService {
       }
     }
 
-    this.i18n_tips[group] = empty;
+    this.i18nTips[group] = empty;
     return empty;
   }
 
@@ -293,24 +293,20 @@ export class BitService {
 
   registerSearch(selector: string, ...search: { field: string, value: any, op?: string }[]): Observable<any> {
     return this.storage.getItem('search:' + selector).pipe(
-      map(data => {
-        if (!data) {
-          this.search = search;
-        } else {
-          this.search = data;
-        }
+      map((data: any) => {
+        this.search = (!data) ? search : data;
         return true;
       })
     );
   }
 
   listsRefreshStatus(lists: any[]) {
-    const all_checked = lists.every((value) => value.checked === true);
-    const all_unchecked = lists.every((value) => !value.checked);
-    this.lists_all_checked = all_checked;
-    this.lists_indeterminate = !all_checked && !all_unchecked;
-    this.lists_disabled_action = !(this.lists_all_checked || this.lists_indeterminate);
-    this.lists_checked_number = lists.filter((value) => value.checked).length;
+    const allChecked = lists.every((value) => value.checked === true);
+    const allUnchecked = lists.every((value) => !value.checked);
+    this.listsAllChecked = allChecked;
+    this.listsIndeterminate = !allChecked && !allUnchecked;
+    this.listsDisabledAction = !(this.listsAllChecked || this.listsIndeterminate);
+    this.listsCheckedNumber = lists.filter((value) => value.checked).length;
   }
 
   listsCheckAll(event, lists: any[]) {
@@ -321,12 +317,12 @@ export class BitService {
   statusChange(service: Observable<any>, custom?: any) {
     service.subscribe((res) => {
       if (!res.error) {
-        this.notification.success(this.l['operate_success'], this.l['status_success']);
+        this.notification.success(this.l.operate_success, this.l.status_success);
       } else {
         if (custom && typeof custom === 'function') {
           custom(res);
         } else {
-          this.notification.error(this.l['operate_error'], this.l['status_error']);
+          this.notification.error(this.l.operate_error, this.l.status_error);
         }
       }
     });

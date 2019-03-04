@@ -11,20 +11,20 @@ export class HttpService {
               private config: ConfigService) {
   }
 
-  /**
-   * Http Request Tools
-   */
-  req(url: string, body: any = {}, method = 'post'): Observable<any> {
-    const _http = this.http.request(method, this.config.origin + this.config.namespace + '/' + url, {
-      body: body,
-      withCredentials: this.config.with_credentials
-    });
-    return !this.config.http_customize ? _http : _http.pipe(
-      switchMap(res => this.customize(res))
-    );
+  static interceptor(res: any): Observable<any> {
+    return of(res);
   }
 
-  customize(res: any): Observable<any> {
-    return of(res);
+  /**
+   * httpClient
+   */
+  req(url: string, body: any = {}, method = 'post'): Observable<any> {
+    const httpClient = this.http.request(method, this.config.origin + this.config.namespace + '/' + url, {
+      body,
+      withCredentials: this.config.withCredentials
+    });
+    return !this.config.httpInterceptor ? httpClient : httpClient.pipe(
+      switchMap(res => HttpService.interceptor(res))
+    );
   }
 }

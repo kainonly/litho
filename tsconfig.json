@@ -9,12 +9,13 @@
     "moduleResolution": "node",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
+    "importHelpers": true,
     "target": "es5",
     "typeRoots": [
       "node_modules/@types"
     ],
     "lib": [
-      "es2017",
+      "es2018",
       "dom"
     ],
     "paths": {
@@ -23,9 +24,6 @@
       ],
       "ngx-bit/*": [
         "dist/ngx-bit/*"
-      ],
-      "dev-ngx-bit": [
-        "projects/ngx-bit/src/public_api.ts"
       ]
     }
   }

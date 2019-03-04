@@ -6,10 +6,10 @@ export class ConfigService {
   namespace = '';
   static = '';
   uploads = '';
-  with_credentials = false;
-  http_customize = false;
+  withCredentials = false;
+  httpInterceptor = false;
   i18n: any[] = ['zh_cn'];
-  i18n_switch: any[] = [
+  i18nSwitch: any[] = [
     {
       i18n: 'zh_cn',
       name: {
@@ -18,5 +18,5 @@ export class ConfigService {
       }
     }
   ];
-  page_limit = 20;
+  pageLimit = 20;
 }

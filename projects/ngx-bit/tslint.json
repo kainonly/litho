@@ -5,15 +5,15 @@
       true,
       "attribute",
       "lib",
-      "bit",
-      "camelCase"
+      "camelCase",
+      "bit"
     ],
     "component-selector": [
       true,
       "element",
       "lib",
-      "bit",
-      "kebab-case"
+      "kebab-case",
+      "bit"
     ]
   }
 }

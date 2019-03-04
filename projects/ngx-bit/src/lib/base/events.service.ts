@@ -5,6 +5,9 @@ import {Observable, Subject} from 'rxjs';
 export class EventsService {
   private events: Map<string, Subject<any>> = new Map<string, Subject<any>>();
 
+  /**
+   * 发布组建通讯事件
+   */
   publish(topic: string, args?: any) {
     if (this.events.has(topic)) {
       const topics = this.events.get(topic);
@@ -14,14 +17,17 @@ export class EventsService {
     }
   }
 
+  /**
+   * 订阅组件通讯
+   */
   on(topic: string): Observable<any> {
-    if (this.events.has(topic)) {
-      return this.events.get(topic);
-    } else {
-      return this.events.set(topic, new Subject()).get(topic);
-    }
+    return this.events.has(topic) ? this.events.get(topic) :
+      this.events.set(topic, new Subject()).get(topic);
   }
 
+  /**
+   * 取消订阅组件通讯
+   */
   off(topic: string) {
     if (this.events.has(topic)) {
       const topics = this.events.get(topic);

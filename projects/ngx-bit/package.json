@@ -1,12 +1,11 @@
 {
   "name": "ngx-bit",
-  "version": "1.9.4",
-  "license": "MIT",
+  "version": "7.0.0",
   "peerDependencies": {
-    "@angular/common": "*",
-    "@angular/core": "*",
-    "@ngx-pwa/local-storage": "*",
-    "sweetalert2": "*"
+    "@angular/common": "^7.2.0",
+    "@angular/core": "^7.2.0",
+    "@ngx-pwa/local-storage": "^7.4.2",
+    "sweetalert2": "^8.2.6"
   },
   "keywords": [
     "angular",
@@ -17,12 +16,13 @@
     "name": "kain",
     "email": "zhangtqx@vip.qq.com"
   },
+  "license": "MIT",
+  "homepage": "https://ngx-bit.kain.net.cn",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/kainonly/ngx-bit.git"
   },
   "bugs": {
     "url": "https://github.com/kainonly/ngx-bit/issues"
-  },
-  "homepage": "https://kainonly.github.io/ngx-bit"
+  }
 }
