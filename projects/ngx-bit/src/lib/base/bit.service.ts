@@ -3,8 +3,8 @@ import {Location} from '@angular/common';
 import {FormGroup, ValidationErrors} from '@angular/forms';
 import {LocalStorage} from '@ngx-pwa/local-storage';
 import {NzMessageService, NzNotificationService} from 'ng-zorro-antd';
-import {map, switchMap} from 'rxjs/operators';
 import {Observable} from 'rxjs';
+import {map, switchMap} from 'rxjs/operators';
 import {I18nControlsOptions} from '../types/i18n-controls-options';
 import {ConfigService} from './config.service';
 import {EventsService} from './events.service';
@@ -39,39 +39,23 @@ export class BitService {
   private actives = [];
   private breadcrumb = [];
 
-  constructor(
-    private storage: LocalStorage,
-    private config: ConfigService,
-    private notification: NzNotificationService,
-    private message: NzMessageService,
-    private events: EventsService,
-    private location: Location
-  ) {
+  constructor(private storage: LocalStorage,
+              private config: ConfigService,
+              private notification: NzNotificationService,
+              private events: EventsService,
+              private location: Location) {
     this.static = config.static;
     this.uploads = config.origin + '/' + config.uploads;
     this.i18ns = config.i18n;
     this.pageLimit = config.pageLimit;
     this.locale = localStorage.getItem('locale') ? localStorage.getItem('locale') : 'zh_cn';
     events.on('locale').subscribe((locale) => {
-      let tips;
-      switch (locale) {
-        case 'zh_cn':
-          tips = '正在为您切换中文';
-          break;
-        case 'en_us':
-          tips = 'Switching English for you';
-          break;
-      }
-      const id = message.loading(tips, {nzDuration: 0}).messageId;
-      setTimeout(() => {
-        this.message.remove(id);
-        this.locale = locale;
-      }, 350);
+      this.locale = locale;
     });
   }
 
   /**
-   * Set background ui multi-language
+   * 设置后台语种
    */
   setLocale(locale: 'zh_cn' | 'en_us') {
     this.locale = locale;
@@ -81,7 +65,7 @@ export class BitService {
   }
 
   /**
-   * Register background ui multi-language package
+   * 注册后台语言包
    */
   registerLocales(packer: any, common = false) {
     if (common) {
@@ -93,7 +77,7 @@ export class BitService {
   }
 
   /**
-   * Set background menu data storage
+   * 设置后台菜单列表数据
    */
   setMenu(data: any): Observable<boolean> {
     return this.storage.setItem('menu', data.menu).pipe(
@@ -106,7 +90,7 @@ export class BitService {
   }
 
   /**
-   * Check if the menu data route is empty
+   * 检测路由是否为空
    */
   private checkRouterEmpty(route: string, set = false): Observable<any> {
     return this.storage.getItem('menu').pipe(
@@ -128,7 +112,7 @@ export class BitService {
   }
 
   /**
-   * Get menu data through routing
+   * 获取菜单列表
    */
   getMenu(route: string, TypeOfString = false): Observable<any> {
     this.actives = [];
@@ -159,7 +143,7 @@ export class BitService {
   }
 
   /**
-   * Recursively get menu tree data
+   * 获取面包屑
    */
   private infiniteMenu(parent: number, TypeOfString: boolean) {
     const data = this.menu.get(parent);
@@ -178,6 +162,9 @@ export class BitService {
     }
   }
 
+  /**
+   * 表单多语言组件
+   */
   i18nControls(options?: I18nControlsOptions) {
     if (options === undefined) {
       options = {};
@@ -193,6 +180,9 @@ export class BitService {
     return controls;
   }
 
+  /**
+   * 表单多语言组件验证
+   */
   i18nCommonValidator(group: string) {
     if (!this.form || !this.form.get(group)) {
       return;
@@ -211,6 +201,9 @@ export class BitService {
     return empty;
   }
 
+  /**
+   * 表单多语言组件执行验证
+   */
   i18nUpdateValidity(group: string, i18n: string) {
     for (const x of this.i18ns) {
       if (x !== i18n) {
@@ -219,6 +212,9 @@ export class BitService {
     }
   }
 
+  /**
+   * 表单组件验证判断
+   */
   formExplain(name: string, async = false, field?: string): ValidationErrors | boolean {
     if (!field) {
       if (async) {
@@ -238,6 +234,9 @@ export class BitService {
     }
   }
 
+  /**
+   * 表单组件单元验证提示
+   */
   explain(name: string, sign: string, field?: string): boolean {
     if (!field) {
       if (sign === 'pending') {
@@ -257,6 +256,9 @@ export class BitService {
     }
   }
 
+  /**
+   * 表单提交
+   */
   submit(event, callback, field?: string) {
     event.preventDefault();
     if (!field) {
@@ -285,12 +287,18 @@ export class BitService {
     }
   }
 
+  /**
+   * 返回
+   */
   back() {
     this.breadcrumb = [];
     this.actives = [];
     this.location.back();
   }
 
+  /**
+   * 注册搜索
+   */
   registerSearch(selector: string, ...search: { field: string, value: any, op?: string }[]): Observable<any> {
     return this.storage.getItem('search:' + selector).pipe(
       map((data: any) => {
@@ -300,6 +308,9 @@ export class BitService {
     );
   }
 
+  /**
+   * 列表数据刷新状态
+   */
   listsRefreshStatus(lists: any[]) {
     const allChecked = lists.every((value) => value.checked === true);
     const allUnchecked = lists.every((value) => !value.checked);
@@ -309,11 +320,17 @@ export class BitService {
     this.listsCheckedNumber = lists.filter((value) => value.checked).length;
   }
 
+  /**
+   * 列表数据全选
+   */
   listsCheckAll(event, lists: any[]) {
     lists.forEach((data) => (data.checked = event));
     this.listsRefreshStatus(lists);
   }
 
+  /**
+   * 状态更新
+   */
   statusChange(service: Observable<any>, custom?: any) {
     service.subscribe((res) => {
       if (!res.error) {
