@@ -8,7 +8,8 @@ import {BitService} from '../base/bit.service';
 export class ListsService {
   private action = '/lists';
 
-  constructor(private http: HttpService, private bit: BitService) {
+  constructor(private http: HttpService,
+              private bit: BitService) {
   }
 
   customAction(name: string) {
@@ -17,29 +18,25 @@ export class ListsService {
 
   factory(model: string, condition: any[] = [], like: any = [], refresh?: boolean): Observable<any> {
     if (refresh) {
-      this.bit.lists_page_index = 1;
+      this.bit.listsPageIndex = 1;
     }
     return this.http
       .req(model + this.action, {
         page: {
-          limit: this.bit.page_limit,
-          index: this.bit.lists_page_index
+          limit: this.bit.pageLimit,
+          index: this.bit.listsPageIndex
         },
         where: condition,
-        like: like
+        like
       })
       .pipe(
         map((res) => {
-          if (!res.error) {
-            this.bit.lists_totals = res.data.total;
-          } else {
-            this.bit.lists_totals = 0;
-          }
-          this.bit.lists_loading = false;
-          this.bit.lists_all_checked = false;
-          this.bit.lists_indeterminate = false;
-          this.bit.lists_disabled_action = true;
-          this.bit.lists_checked_number = 0;
+          this.bit.listsTotals = !res.error ? res.data.total : 0;
+          this.bit.listsLoading = false;
+          this.bit.listsAllChecked = false;
+          this.bit.listsIndeterminate = false;
+          this.bit.listsDisabledAction = true;
+          this.bit.listsCheckedNumber = 0;
           return res;
         })
       );

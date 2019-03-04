@@ -16,7 +16,7 @@ export class OriginListsService {
   factory(model: string, condition: any[] = [], like: any = []): Observable<any> {
     return this.http.req(model + this.action, {
       where: condition,
-      like: like
+      like
     });
   }
 }

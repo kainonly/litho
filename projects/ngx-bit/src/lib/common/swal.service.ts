@@ -1,4 +1,4 @@
-import * as Swal from 'sweetalert2';
+import Swal from 'sweetalert2';
 import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs';
 import {BitService} from '../base/bit.service';

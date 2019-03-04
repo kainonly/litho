@@ -13,7 +13,7 @@ export class I18nSwitchComponent {
   @Output() i18nChange: EventEmitter<string> = new EventEmitter();
 
   constructor(public bit: BitService, config: ConfigService) {
-    this.switch = config.i18n_switch;
+    this.switch = config.i18nSwitch;
     if (!this.i18n) {
       this.i18n = 'zh_cn';
     }
