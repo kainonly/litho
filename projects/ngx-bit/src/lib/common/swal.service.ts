@@ -11,9 +11,6 @@ export class SwalService {
   constructor(private bit: BitService) {
   }
 
-  /**
-   * 新增反馈栏
-   */
   addAlert(res: any, reset?: any, customize?: AlertCustomize): Observable<any> {
     return Observable.create((observer) => {
       if (!res.error) {
@@ -61,9 +58,6 @@ export class SwalService {
     });
   }
 
-  /**
-   * 编辑反馈栏
-   */
   editAlert(res: any, customize?: AlertCustomize): Observable<any> {
     return Observable.create((observer) => {
       if (!res.error) {
@@ -106,9 +100,6 @@ export class SwalService {
     });
   }
 
-  /**
-   * 删除反馈栏
-   */
   deleteAlert(service: Observable<any>, customize?: AlertCustomize): Observable<any> {
     return Observable.create((observer) => {
       // @ts-ignore

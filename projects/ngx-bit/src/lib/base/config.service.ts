@@ -1,4 +1,5 @@
 import {Injectable} from '@angular/core';
+import {of} from 'rxjs';
 
 @Injectable()
 export class ConfigService {
@@ -19,4 +20,6 @@ export class ConfigService {
     }
   ];
   pageLimit = 20;
+
+  interceptor = (res) => of(res);
 }

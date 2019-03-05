@@ -1,22 +1,17 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {Observable, of} from 'rxjs';
+import {Observable} from 'rxjs';
 import {map, switchMap} from 'rxjs/operators';
 import {ConfigService} from './config.service';
 import {BitService} from './bit.service';
-
 
 @Injectable()
 export class HttpService {
   private model: string;
 
   constructor(private http: HttpClient,
-              private bit: BitService,
-              private config: ConfigService) {
-  }
-
-  static interceptor(res: any): Observable<any> {
-    return of(res);
+              private config: ConfigService,
+              private bit: BitService) {
   }
 
   /**
@@ -35,27 +30,30 @@ export class HttpService {
       withCredentials: this.config.withCredentials
     });
     return !this.config.httpInterceptor ? httpClient : httpClient.pipe(
-      switchMap(res => HttpService.interceptor(res))
+      switchMap(res => this.config.interceptor(res))
     );
   }
 
   /**
    * Get Request
    */
-  get(condition: any): Observable<any> {
-    return condition.hasOwnProperty('id') ? this.req(this.model + '/get', condition) : this.req(this.model + '/get', {
+  get(condition: any, special = false): Observable<any> {
+    const http = condition.hasOwnProperty('id') ? this.req(this.model + '/get', condition) : this.req(this.model + '/get', {
       where: condition
     });
+    return special ? http : http.pipe(
+      map(res => !res.error ? res.data : {})
+    );
   }
 
   /**
    * Lists Request
    */
-  lists(condition: any[] = [], refresh?: boolean): Observable<any> {
+  lists(condition: any[] = [], refresh = false, special = false): Observable<any> {
     if (refresh) {
       this.bit.listsPageIndex = 1;
     }
-    return this.req(this.model + '/lists', {
+    const http = this.req(this.model + '/lists', {
       page: {
         limit: this.bit.pageLimit,
         index: this.bit.listsPageIndex
@@ -72,15 +70,21 @@ export class HttpService {
         return res;
       })
     );
+    return special ? http : http.pipe(
+      map(res => !res.error ? res.data.lists : [])
+    );
   }
 
   /**
    * OriginLists Request
    */
-  originLists(condition: any[] = []): Observable<any> {
-    return this.req(this.model + '/originLists', {
+  originLists(condition: any[] = [], special = false): Observable<any> {
+    const http = this.req(this.model + '/originLists', {
       where: condition
     });
+    return special ? http : http.pipe(
+      map(res => !res.error ? res.data : [])
+    );
   }
 
   /**
