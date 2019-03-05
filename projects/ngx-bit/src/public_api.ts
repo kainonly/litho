@@ -2,15 +2,6 @@ export * from './lib/base/config.service';
 export * from './lib/base/bit.service';
 export * from './lib/base/events.service';
 export * from './lib/base/http.service';
-
-export * from './lib/curd/add.service';
-export * from './lib/curd/delete.service';
-export * from './lib/curd/edit.service';
-export * from './lib/curd/get.service';
-export * from './lib/curd/lists.service';
-export * from './lib/curd/origin-lists.service';
-export * from './lib/curd/status.service';
-
 export * from './lib/common/swal.service';
 
 export * from './lib/ngx-bit.module';
