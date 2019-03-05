@@ -14,7 +14,7 @@ export class EditService {
   }
 
   factory(model: string, data: any, condition: any = []): Observable<any> {
-    data['switch'] = false;
+    data.switch = false;
     if (!condition) {
       return this.http.req(model + this.action, data);
     } else {

@@ -16,7 +16,7 @@ export class ListsService {
     this.action = name;
   }
 
-  factory(model: string, condition: any[] = [], like: any = [], refresh?: boolean): Observable<any> {
+  factory(model: string, condition: any[] = [], refresh?: boolean): Observable<any> {
     if (refresh) {
       this.bit.listsPageIndex = 1;
     }
@@ -27,7 +27,6 @@ export class ListsService {
           index: this.bit.listsPageIndex
         },
         where: condition,
-        like
       })
       .pipe(
         map((res) => {
