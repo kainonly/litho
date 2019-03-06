@@ -1,6 +1,5 @@
 import {Injectable} from '@angular/core';
 import {Location} from '@angular/common';
-import {FormGroup, ValidationErrors} from '@angular/forms';
 import {LocalStorage} from '@ngx-pwa/local-storage';
 import {NzNotificationService} from 'ng-zorro-antd';
 import {Observable} from 'rxjs';
@@ -18,7 +17,7 @@ export class BitService {
   static: string;
   uploads: string;
   locale: string;
-  form: FormGroup;
+
   l: any = {};
   i18ns: any[] = [];
   i18nTips: any = {};
@@ -159,47 +158,31 @@ export class BitService {
     return controls;
   }
 
-  i18nCommonValidator(group: string) {
-    if (!this.form || !this.form.get(group)) {
-      return;
-    }
-
-    const empty = [];
-    const formgroup = this.form.get(group);
-    for (const x of this.i18ns) {
-      const value = formgroup.get(x).value;
-      if (!value) {
-        empty.push(x);
-      }
-    }
-
-    this.i18nTips[group] = empty;
-    return empty;
-  }
-
-  i18nUpdateValidity(group: string, i18n: string) {
-    for (const x of this.i18ns) {
-      if (x !== i18n) {
-        this.form.get(group).get(x).updateValueAndValidity();
-      }
-    }
-  }
-
-  formExplain(name: string, async = false): ValidationErrors | boolean {
-    if (async) {
-      return (this.form.get(name).dirty && this.form.get(name).errors) || this.form.get(name).pending;
-    } else {
-      return this.form.get(name).dirty && this.form.get(name).errors;
-    }
-  }
-
-  explain(name: string, sign: string): boolean {
-    if (sign === 'pending') {
-      return this.form.get(name).pending;
-    } else {
-      return this.form.get(name).hasError(sign);
-    }
-  }
+  // i18nCommonValidator(group: string) {
+  //   if (!this.form || !this.form.get(group)) {
+  //     return;
+  //   }
+  //
+  //   const empty = [];
+  //   const formgroup = this.form.get(group);
+  //   for (const x of this.i18ns) {
+  //     const value = formgroup.get(x).value;
+  //     if (!value) {
+  //       empty.push(x);
+  //     }
+  //   }
+  //
+  //   this.i18nTips[group] = empty;
+  //   return empty;
+  // }
+  //
+  // i18nUpdateValidity(group: string, i18n: string) {
+  //   for (const x of this.i18ns) {
+  //     if (x !== i18n) {
+  //       this.form.get(group).get(x).updateValueAndValidity();
+  //     }
+  //   }
+  // }
 
   back() {
     this.breadcrumb = [];

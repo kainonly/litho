@@ -3,10 +3,10 @@ import {BitService} from '../../base/bit.service';
 import {ConfigService} from '../../base/config.service';
 
 @Component({
-  selector: 'i18n-switch',
-  templateUrl: './i18n-switch.component.html'
+  selector: 'bit-i18n-switch',
+  templateUrl: './bit-i18n-switch.component.html'
 })
-export class I18nSwitchComponent {
+export class BitI18nSwitchComponent {
   switch: any[] = [];
 
   @Input() i18n = 'zh_cn';
