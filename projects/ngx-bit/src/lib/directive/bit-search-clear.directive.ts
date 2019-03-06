@@ -3,11 +3,11 @@ import {LocalStorage} from '@ngx-pwa/local-storage';
 import {BitService} from '../base/bit.service';
 
 @Directive({
-  selector: '[bit-search-clear]'
+  selector: '[bitSearchClear]'
 })
 export class BitSearchClearDirective {
-  @Input() searchSelector: string;
-  @Output() searchclear: EventEmitter<any> = new EventEmitter<any>();
+  @Input() bitSearchClear: string;
+  @Output() after: EventEmitter<any> = new EventEmitter<any>();
 
   constructor(private bit: BitService,
               private storage: LocalStorage) {
@@ -18,8 +18,8 @@ export class BitSearchClearDirective {
     for (const x of this.bit.search) {
       x.value = '';
     }
-    this.storage.removeItem('search:' + this.searchSelector).subscribe(() => {
-      this.searchclear.emit(true);
+    this.storage.removeItem('search:' + this.bitSearchClear).subscribe(() => {
+      this.after.emit(true);
     });
   }
 }

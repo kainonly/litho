@@ -54,9 +54,6 @@ export class BitService {
     });
   }
 
-  /**
-   * 设置后台语种
-   */
   setLocale(locale: 'zh_cn' | 'en_us') {
     this.locale = locale;
     localStorage.setItem('locale', locale);
@@ -64,9 +61,6 @@ export class BitService {
     this.l = Object.assign(this.commonLanguage[this.locale], this.language[this.locale]);
   }
 
-  /**
-   * 注册后台语言包
-   */
   registerLocales(packer: any, common = false) {
     if (common) {
       this.commonLanguage = factoryLocales(packer);
@@ -76,9 +70,6 @@ export class BitService {
     }
   }
 
-  /**
-   * 设置后台菜单列表数据
-   */
   setMenu(data: any): Observable<boolean> {
     return this.storage.setItem('menu', data.menu).pipe(
       switchMap((status) => {
@@ -89,9 +80,6 @@ export class BitService {
     );
   }
 
-  /**
-   * 检测路由是否为空
-   */
   private checkRouterEmpty(route: string, set = false): Observable<any> {
     return this.storage.getItem('menu').pipe(
       switchMap((data: any) => {
@@ -111,9 +99,6 @@ export class BitService {
     );
   }
 
-  /**
-   * 获取菜单列表
-   */
   getMenu(route: string, TypeOfString = false): Observable<any> {
     this.actives = [];
     this.breadcrumb = [];
@@ -142,9 +127,6 @@ export class BitService {
     );
   }
 
-  /**
-   * 获取面包屑
-   */
   private infiniteMenu(parent: number, TypeOfString: boolean) {
     const data = this.menu.get(parent);
     this.actives.unshift(data.id);
@@ -162,9 +144,6 @@ export class BitService {
     }
   }
 
-  /**
-   * 表单多语言组件
-   */
   i18nControls(options?: I18nControlsOptions) {
     if (options === undefined) {
       options = {};
@@ -180,9 +159,6 @@ export class BitService {
     return controls;
   }
 
-  /**
-   * 表单多语言组件验证
-   */
   i18nCommonValidator(group: string) {
     if (!this.form || !this.form.get(group)) {
       return;
@@ -201,9 +177,6 @@ export class BitService {
     return empty;
   }
 
-  /**
-   * 表单多语言组件执行验证
-   */
   i18nUpdateValidity(group: string, i18n: string) {
     for (const x of this.i18ns) {
       if (x !== i18n) {
@@ -212,9 +185,6 @@ export class BitService {
     }
   }
 
-  /**
-   * 表单组件验证判断
-   */
   formExplain(name: string, async = false, field?: string): ValidationErrors | boolean {
     if (!field) {
       if (async) {
@@ -234,9 +204,6 @@ export class BitService {
     }
   }
 
-  /**
-   * 表单组件单元验证提示
-   */
   explain(name: string, sign: string, field?: string): boolean {
     if (!field) {
       if (sign === 'pending') {
@@ -256,49 +223,12 @@ export class BitService {
     }
   }
 
-  /**
-   * 表单提交
-   */
-  submit(event, callback, field?: string) {
-    event.preventDefault();
-    if (!field) {
-      if (this.form) {
-        for (const key in this.form.controls) {
-          if (this.form.controls.hasOwnProperty(key)) {
-            this.form.controls[key].markAsDirty();
-            this.form.controls[key].updateValueAndValidity();
-          }
-        }
-        callback(this.form.value);
-      }
-    } else {
-      if (!this.forms.hasOwnProperty(field)) {
-        return false;
-      }
-      if (this.forms[field]) {
-        for (const key in this.forms[field].controls) {
-          if (this.forms[field].controls.hasOwnProperty(key)) {
-            this.forms[field].controls[key].markAsDirty();
-            this.forms[field].controls[key].updateValueAndValidity();
-          }
-        }
-        callback(this.forms[field].value);
-      }
-    }
-  }
-
-  /**
-   * 返回
-   */
   back() {
     this.breadcrumb = [];
     this.actives = [];
     this.location.back();
   }
 
-  /**
-   * 注册搜索
-   */
   registerSearch(selector: string, ...search: { field: string, value: any, op?: string }[]): Observable<any> {
     return this.storage.getItem('search:' + selector).pipe(
       map((data: any) => {
@@ -308,9 +238,6 @@ export class BitService {
     );
   }
 
-  /**
-   * 列表数据刷新状态
-   */
   listsRefreshStatus(lists: any[]) {
     const allChecked = lists.every((value) => value.checked === true);
     const allUnchecked = lists.every((value) => !value.checked);
@@ -320,17 +247,11 @@ export class BitService {
     this.listsCheckedNumber = lists.filter((value) => value.checked).length;
   }
 
-  /**
-   * 列表数据全选
-   */
   listsCheckAll(event, lists: any[]) {
     lists.forEach((data) => (data.checked = event));
     this.listsRefreshStatus(lists);
   }
 
-  /**
-   * 状态更新
-   */
   statusChange(service: Observable<any>, custom?: any) {
     service.subscribe((res) => {
       if (!res.error) {

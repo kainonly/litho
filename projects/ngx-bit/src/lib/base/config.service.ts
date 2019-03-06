@@ -20,6 +20,14 @@ export class ConfigService {
     }
   ];
   pageLimit = 20;
+  formControlCol: any = {
+    common: {},
+    submit: {}
+  };
+  formLabelCol: any = {
+    common: {},
+  };
+
 
   interceptor = (res) => of(res);
 }

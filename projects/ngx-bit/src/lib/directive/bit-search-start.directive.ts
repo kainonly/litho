@@ -3,11 +3,11 @@ import {LocalStorage} from '@ngx-pwa/local-storage';
 import {BitService} from '../base/bit.service';
 
 @Directive({
-  selector: '[bit-search-start]'
+  selector: '[bitSearchStart]'
 })
 export class BitSearchStartDirective {
-  @Input() searchSelector: string;
-  @Output() searchover: EventEmitter<any> = new EventEmitter<any>();
+  @Input() bitSearchStart: string;
+  @Output() after: EventEmitter<any> = new EventEmitter<any>();
 
   constructor(private bit: BitService,
               private storage: LocalStorage) {
@@ -22,8 +22,8 @@ export class BitSearchStartDirective {
   }
 
   private searchStart() {
-    this.storage.setItem('search:' + this.searchSelector, this.bit.search).subscribe(() => {
-      this.searchover.emit(true);
+    this.storage.setItem('search:' + this.bitSearchStart, this.bit.search).subscribe(() => {
+      this.after.emit(true);
     });
   }
 }
