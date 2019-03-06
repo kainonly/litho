@@ -7,7 +7,7 @@ export * from './lib/common/swal.service';
 export * from './lib/ngx-bit.module';
 export * from './lib/ngx-bit.pipe.module';
 export * from './lib/ngx-bit.directive.module';
-export * from './lib/component/bit-i18n-switch/bit-i18n-switch.module';
+export * from './lib/ngx-bit.ext.module';
 
 export * from './lib/operates/asyncValidator';
 export * from './lib/operates/emptyArray';

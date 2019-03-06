@@ -30,11 +30,11 @@ export class SwalService {
               : this.bit.l.operate_back
         }).then((result) => {
           if (result.value) {
-            if (reset) {
-              this.bit.form.reset(reset);
-            } else {
-              this.bit.form.reset();
-            }
+            // if (reset) {
+            //   this.bit.form.reset(reset);
+            // } else {
+            //   this.bit.form.reset();
+            // }
             observer.next(true);
             observer.complete();
           } else {
