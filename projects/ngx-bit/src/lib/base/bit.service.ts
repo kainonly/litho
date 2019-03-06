@@ -229,7 +229,7 @@ export class BitService {
     this.location.back();
   }
 
-  registerSearch(selector: string, ...search: { field: string, value: any, op?: string }[]): Observable<any> {
+  registerSearch(selector: string, ...search: any[]): Observable<any> {
     return this.storage.getItem('search:' + selector).pipe(
       map((data: any) => {
         this.search = (!data) ? search : data;
