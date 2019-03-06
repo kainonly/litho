@@ -3,7 +3,7 @@ import {CommonModule} from '@angular/common';
 import {BitSearchClearDirective} from './directive/bit-search-clear.directive';
 import {BitSearchStartDirective} from './directive/bit-search-start.directive';
 import {BitSearchChangeDirective} from './directive/bit-search-change.directive';
-import {BitFormDirective} from './directive/bit-form.directive';
+import {BitFormSubmitDirective} from './directive/bit-form-submit.directive';
 import {BitFormLabelColDirective} from './directive/bit-form-label-col.directive';
 import {BitFormControlColDirective} from './directive/bit-form-control-col.directive';
 
@@ -13,7 +13,7 @@ import {BitFormControlColDirective} from './directive/bit-form-control-col.direc
     BitSearchStartDirective,
     BitSearchClearDirective,
     BitSearchChangeDirective,
-    BitFormDirective,
+    BitFormSubmitDirective,
     BitFormControlColDirective,
     BitFormLabelColDirective
   ],
@@ -21,7 +21,7 @@ import {BitFormControlColDirective} from './directive/bit-form-control-col.direc
     BitSearchStartDirective,
     BitSearchClearDirective,
     BitSearchChangeDirective,
-    BitFormDirective,
+    BitFormSubmitDirective,
     BitFormControlColDirective,
     BitFormLabelColDirective
   ]

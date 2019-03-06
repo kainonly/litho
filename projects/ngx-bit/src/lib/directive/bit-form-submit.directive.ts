@@ -2,10 +2,10 @@ import {Directive, EventEmitter, OnInit, Output} from '@angular/core';
 import {FormGroupDirective} from '@angular/forms';
 
 @Directive({
-  selector: '[bit-form]'
+  selector: '[bitFormSubmit]'
 })
-export class BitFormDirective implements OnInit {
-  @Output() bitSubmit: EventEmitter<any> = new EventEmitter();
+export class BitFormSubmitDirective implements OnInit {
+  @Output() bitFormSubmit: EventEmitter<any> = new EventEmitter();
 
   constructor(private form: FormGroupDirective) {
   }
@@ -19,7 +19,7 @@ export class BitFormDirective implements OnInit {
           controls[key].updateValueAndValidity();
         }
       }
-      this.bitSubmit.emit(this.form.value);
+      this.bitFormSubmit.emit(this.form.value);
     });
   }
 }

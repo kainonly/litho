@@ -2,7 +2,7 @@ import {Directive, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FormGroup, FormGroupDirective} from '@angular/forms';
 
 @Directive({
-  selector: '[bit-form]'
+  selector: '[bitSubmit]'
 })
 export class BitFormDirective implements OnInit {
   @Output() bitSubmit: EventEmitter<any> = new EventEmitter();
