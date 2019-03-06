@@ -1,7 +1,0 @@
-<nz-form-explain *ngIf="formExplainError()">
-  <ng-template ngFor let-x [ngForOf]="explain">
-    <ng-container *ngIf="form.get(name).hasError(x[0])">
-      {{x[1]}}
-    </ng-container>
-  </ng-template>
-</nz-form-explain>
