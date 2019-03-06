@@ -11,8 +11,8 @@ export class BitFormControlColDirective {
   constructor(nzFormControlComponent: NzFormControlComponent,
               configService: ConfigService) {
     nzFormControlComponent.ngOnInit = () => {
-      const col = !this.bitFormControlCol && configService.formLabelCol.hasOwnProperty(this.bitFormControlCol) ?
-        configService.formLabelCol.common : configService.formLabelCol[this.bitFormControlCol];
+      const col = !this.bitFormControlCol && configService.formControlCol.hasOwnProperty(this.bitFormControlCol) ?
+        configService.formControlCol.common : configService.formControlCol[this.bitFormControlCol];
 
       nzFormControlComponent.nzXs = col.hasOwnProperty('nzXs') ? col.nzXs : null;
       nzFormControlComponent.nzSm = col.hasOwnProperty('nzSm') ? col.nzSm : null;
