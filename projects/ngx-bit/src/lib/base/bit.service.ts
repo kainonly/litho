@@ -19,12 +19,12 @@ export class BitService {
   uploads: string;
   locale: string;
   form: FormGroup;
-  forms: any = {};
   l: any = {};
   i18ns: any[] = [];
   i18nTips: any = {};
-  listsLoading = true;
   search: { field: string, value: string }[] = [];
+
+  listsLoading = true;
   pageLimit = 0;
   listsTotals = 0;
   listsPageIndex = 0;
@@ -185,41 +185,19 @@ export class BitService {
     }
   }
 
-  formExplain(name: string, async = false, field?: string): ValidationErrors | boolean {
-    if (!field) {
-      if (async) {
-        return (this.form.get(name).dirty && this.form.get(name).errors) || this.form.get(name).pending;
-      } else {
-        return this.form.get(name).dirty && this.form.get(name).errors;
-      }
+  formExplain(name: string, async = false): ValidationErrors | boolean {
+    if (async) {
+      return (this.form.get(name).dirty && this.form.get(name).errors) || this.form.get(name).pending;
     } else {
-      if (!this.forms.hasOwnProperty(field)) {
-        return false;
-      }
-      if (async) {
-        return (this.forms[field].get(name).dirty && this.forms[field].get(name).errors) || this.forms[field].get(name).pending;
-      } else {
-        return this.forms[field].get(name).dirty && this.forms[field].get(name).errors;
-      }
+      return this.form.get(name).dirty && this.form.get(name).errors;
     }
   }
 
-  explain(name: string, sign: string, field?: string): boolean {
-    if (!field) {
-      if (sign === 'pending') {
-        return this.form.get(name).pending;
-      } else {
-        return this.form.get(name).hasError(sign);
-      }
+  explain(name: string, sign: string): boolean {
+    if (sign === 'pending') {
+      return this.form.get(name).pending;
     } else {
-      if (!this.forms.hasOwnProperty(field)) {
-        return false;
-      }
-      if (sign === 'pending') {
-        return this.forms[field].get(name).pending;
-      } else {
-        return this.forms[field].get(name).hasError(sign);
-      }
+      return this.form.get(name).hasError(sign);
     }
   }
 

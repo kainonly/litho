@@ -8,20 +8,14 @@ import {HttpClientModule} from '@angular/common/http';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {registerLocaleData} from '@angular/common';
 import zh from '@angular/common/locales/zh';
-import {BitFormDirective} from './bit-form.directive';
-import {BitSearchDirective} from './bit-search.directive';
-import {BitFormControlColDirective} from './bit-form-control-col.directive';
-import {BitFormLabelColDirective} from './bit-form-label-col.directive';
+import {BitFormExplainComponent} from './bit-form-explain.component';
 
 registerLocaleData(zh);
 
 @NgModule({
   declarations: [
     AppComponent,
-    BitFormDirective,
-    BitSearchDirective,
-    BitFormControlColDirective,
-    BitFormLabelColDirective,
+    BitFormExplainComponent,
   ],
   imports: [
     BrowserModule,

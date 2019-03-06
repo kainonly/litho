@@ -1,5 +1,5 @@
 import {AfterViewInit, Component, EventEmitter, OnInit, ViewChild} from '@angular/core';
-import {FormBuilder, FormGroup} from '@angular/forms';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Observable, of} from 'rxjs';
 
 @Component({
@@ -15,15 +15,11 @@ export class AppComponent implements OnInit, AfterViewInit {
 
   ngOnInit() {
     this.form = this.fb.group({
-      email: [null],
+      email: [null, [Validators.required]],
     });
+
   }
 
   ngAfterViewInit() {
   }
-
-  submit(data) {
-    console.log(data);
-  }
-
 }
