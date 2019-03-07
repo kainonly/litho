@@ -3,7 +3,8 @@ import {FormGroup} from '@angular/forms';
 
 @Component({
   selector: 'bit-form-explain',
-  templateUrl: './bit-form-explain.component.html'
+  templateUrl: './bit-form-explain.component.html',
+  styleUrls: ['./bit-form-explain.component.scss']
 })
 export class BitFormExplainComponent {
   @Input() name: string;

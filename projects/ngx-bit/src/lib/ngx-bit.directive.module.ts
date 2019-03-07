@@ -15,7 +15,7 @@ import {BitFormControlColDirective} from './directive/bit-form-control-col.direc
     BitSearchChangeDirective,
     BitFormSubmitDirective,
     BitFormControlColDirective,
-    BitFormLabelColDirective
+    BitFormLabelColDirective,
   ],
   declarations: [
     BitSearchStartDirective,
@@ -23,8 +23,8 @@ import {BitFormControlColDirective} from './directive/bit-form-control-col.direc
     BitSearchChangeDirective,
     BitFormSubmitDirective,
     BitFormControlColDirective,
-    BitFormLabelColDirective
-  ]
+    BitFormLabelColDirective,
+  ],
 })
 export class NgxBitDirectiveModule {
 }
