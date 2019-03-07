@@ -38,7 +38,7 @@ export class SwalService {
             observer.next(true);
             observer.complete();
           } else {
-            this.bit.back();
+            // this.bit.back();
             observer.next(false);
             observer.complete();
           }
@@ -80,7 +80,7 @@ export class SwalService {
             observer.next(true);
             observer.complete();
           } else {
-            this.bit.back();
+            // this.bit.back();
             observer.next(false);
             observer.complete();
           }

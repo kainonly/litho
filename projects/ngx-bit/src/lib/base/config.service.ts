@@ -3,22 +3,14 @@ import {of} from 'rxjs';
 
 @Injectable()
 export class ConfigService {
-  origin = '';
+  originUrl = '';
+  staticUrl = '';
+  iconUrl = '';
   namespace = '';
-  static = '';
-  uploads = '';
+  uploadsUrl = '';
+  uploadsPath = '';
   withCredentials = false;
   httpInterceptor = false;
-  i18n: any[] = ['zh_cn'];
-  i18nSwitch: any[] = [
-    {
-      i18n: 'zh_cn',
-      name: {
-        zh_cn: '中文',
-        en_us: 'Chinese'
-      }
-    }
-  ];
   pageLimit = 20;
   formControlCol: any = {
     common: {},
@@ -28,6 +20,15 @@ export class ConfigService {
     common: {},
   };
 
-
+  i18nContain: any[] = ['zh_cn'];
+  i18nSwitch: any[] = [
+    {
+      i18n: 'zh_cn',
+      name: {
+        zh_cn: '中文',
+        en_us: 'Chinese'
+      }
+    }
+  ];
   interceptor = (res) => of(res);
 }

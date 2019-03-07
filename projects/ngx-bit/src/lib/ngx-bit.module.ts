@@ -7,6 +7,9 @@ import {BitService} from './base/bit.service';
 import {EventsService} from './base/events.service';
 import {HttpService} from './base/http.service';
 import {SwalService} from './common/swal.service';
+import {StorageService} from './common/storage.service';
+import {NzIconService} from 'ng-zorro-antd';
+import {environment} from '../../../../src/environments/environment';
 
 @NgModule({
   imports: [HttpClientModule],
@@ -16,8 +19,12 @@ import {SwalService} from './common/swal.service';
     BitService,
     HttpService,
     EventsService,
-    SwalService
+    SwalService,
+    StorageService
   ]
 })
 export class NgxBitModule {
+  constructor(nzIconService: NzIconService) {
+    // nzIconService.changeAssetsSource('');
+  }
 }
