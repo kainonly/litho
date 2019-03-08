@@ -25,7 +25,7 @@ export class HttpService {
    * HttpClient
    */
   req(url: string, body: any = {}, method = 'post'): Observable<any> {
-    const httpClient = this.http.request(method, this.config.origin + this.config.namespace + '/' + url, {
+    const httpClient = this.http.request(method, this.config.originUrl + this.config.namespace + '/' + url, {
       body,
       withCredentials: this.config.withCredentials
     });
