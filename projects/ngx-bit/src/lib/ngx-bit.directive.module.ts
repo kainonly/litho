@@ -6,6 +6,7 @@ import {BitSearchChangeDirective} from './directive/bit-search-change.directive'
 import {BitFormSubmitDirective} from './directive/bit-form-submit.directive';
 import {BitFormLabelColDirective} from './directive/bit-form-label-col.directive';
 import {BitFormControlColDirective} from './directive/bit-form-control-col.directive';
+import {BitBackDirective} from './directive/bit-back.directive';
 
 @NgModule({
   imports: [CommonModule],
@@ -16,6 +17,7 @@ import {BitFormControlColDirective} from './directive/bit-form-control-col.direc
     BitFormSubmitDirective,
     BitFormControlColDirective,
     BitFormLabelColDirective,
+    BitBackDirective,
   ],
   declarations: [
     BitSearchStartDirective,
@@ -24,6 +26,7 @@ import {BitFormControlColDirective} from './directive/bit-form-control-col.direc
     BitFormSubmitDirective,
     BitFormControlColDirective,
     BitFormLabelColDirective,
+    BitBackDirective,
   ],
 })
 export class NgxBitDirectiveModule {

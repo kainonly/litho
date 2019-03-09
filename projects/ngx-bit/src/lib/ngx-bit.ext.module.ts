@@ -8,7 +8,7 @@ import {BitI18nSwitchComponent} from './component/bit-i18n-switch/bit-i18n-switc
 @NgModule({
   exports: [
     BitFormExplainComponent,
-    BitI18nSwitchComponent
+    BitI18nSwitchComponent,
   ],
   declarations: [
     BitFormExplainComponent,
@@ -18,4 +18,5 @@ import {BitI18nSwitchComponent} from './component/bit-i18n-switch/bit-i18n-switc
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class NgxBitExtModule {
+
 }

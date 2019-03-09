@@ -105,12 +105,6 @@ export class BitService {
   //   }
   // }
 
-  // back() {
-  //   this.breadcrumb = [];
-  //   this.actives = [];
-  //   this.location.back();
-  // }
-
   // listsRefreshStatus(lists: any[]) {
   //   const allChecked = lists.every((value) => value.checked === true);
   //   const allUnchecked = lists.every((value) => !value.checked);
