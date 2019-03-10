@@ -10,7 +10,7 @@ NGX-BIT
 
 ### 初始化操作
 
-# Create Angular Project
+```
 ng new anyone
 ```
 
