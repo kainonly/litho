@@ -1,6 +1,8 @@
-import Swal from 'sweetalert2';
 import {Injectable} from '@angular/core';
+import {FormGroup} from '@angular/forms';
+import {Location} from '@angular/common';
 import {Observable} from 'rxjs';
+import Swal from 'sweetalert2';
 import {BitService} from '../base/bit.service';
 import {AlertCustomize} from '../types/alert-customize';
 
@@ -8,10 +10,11 @@ import {AlertCustomize} from '../types/alert-customize';
 export class SwalService {
   static native = Swal;
 
-  constructor(private bit: BitService) {
+  constructor(private bit: BitService,
+              private location: Location) {
   }
 
-  addAlert(res: any, reset?: any, customize?: AlertCustomize): Observable<any> {
+  addAlert(res: any, form: FormGroup, reset?: any, customize?: AlertCustomize): Observable<any> {
     return Observable.create((observer) => {
       if (!res.error) {
         // @ts-ignore
@@ -30,15 +33,11 @@ export class SwalService {
               : this.bit.l.operate_back
         }).then((result) => {
           if (result.value) {
-            // if (reset) {
-            //   this.bit.form.reset(reset);
-            // } else {
-            //   this.bit.form.reset();
-            // }
+            form.reset(reset ? reset : undefined);
             observer.next(true);
             observer.complete();
           } else {
-            // this.bit.back();
+            this.location.back();
             observer.next(false);
             observer.complete();
           }
@@ -80,7 +79,7 @@ export class SwalService {
             observer.next(true);
             observer.complete();
           } else {
-            // this.bit.back();
+            this.location.back();
             observer.next(false);
             observer.complete();
           }

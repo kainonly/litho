@@ -1,26 +1,31 @@
-import {Directive, Input} from '@angular/core';
+import {Directive, Input, OnInit} from '@angular/core';
 import {NzFormControlComponent} from 'ng-zorro-antd';
 import {ConfigService} from '../base/config.service';
 
 @Directive({
   selector: '[bitFormControlCol]'
 })
-export class BitFormControlColDirective {
+export class BitFormControlColDirective implements OnInit {
+  private col: any;
   @Input() bitFormControlCol: string;
 
-  constructor(nzFormControlComponent: NzFormControlComponent,
-              configService: ConfigService) {
-    nzFormControlComponent.ngOnInit = () => {
-      const col = !this.bitFormControlCol && configService.formControlCol.hasOwnProperty(this.bitFormControlCol) ?
-        configService.formControlCol.common : configService.formControlCol[this.bitFormControlCol];
+  constructor(private nzFormControlComponent: NzFormControlComponent,
+              private configService: ConfigService) {
+  }
 
-      nzFormControlComponent.nzXs = col.hasOwnProperty('nzXs') ? col.nzXs : null;
-      nzFormControlComponent.nzSm = col.hasOwnProperty('nzSm') ? col.nzSm : null;
-      nzFormControlComponent.nzMd = col.hasOwnProperty('nzMd') ? col.nzMd : null;
-      nzFormControlComponent.nzLg = col.hasOwnProperty('nzLg') ? col.nzLg : null;
-      nzFormControlComponent.nzXl = col.hasOwnProperty('nzXl') ? col.nzXl : null;
-      nzFormControlComponent.nzXXl = col.hasOwnProperty('nzXXl') ? col.nzXXl : null;
-      nzFormControlComponent.setClassMap();
-    };
+  ngOnInit() {
+    if (this.bitFormControlCol !== undefined && this.configService.formControlCol.hasOwnProperty(this.bitFormControlCol)) {
+      this.col = this.configService.formControlCol[this.bitFormControlCol];
+    } else {
+      this.col = this.configService.formControlCol.common;
+    }
+
+    this.nzFormControlComponent.nzXs = this.col.hasOwnProperty('nzXs') ? this.col.nzXs : null;
+    this.nzFormControlComponent.nzSm = this.col.hasOwnProperty('nzSm') ? this.col.nzSm : null;
+    this.nzFormControlComponent.nzMd = this.col.hasOwnProperty('nzMd') ? this.col.nzMd : null;
+    this.nzFormControlComponent.nzLg = this.col.hasOwnProperty('nzLg') ? this.col.nzLg : null;
+    this.nzFormControlComponent.nzXl = this.col.hasOwnProperty('nzXl') ? this.col.nzXl : null;
+    this.nzFormControlComponent.nzXXl = this.col.hasOwnProperty('nzXXl') ? this.col.nzXXl : null;
+    this.nzFormControlComponent.setClassMap();
   }
 }
