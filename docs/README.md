@@ -10,48 +10,7 @@ NGX-BIT
 
 ### 初始化操作
 
-请确认 `@angular/cli` 版本是否在 `v6-lts`, 如果不是请先移除原 `@angular/cli`, 再使用 `npm install @angular/cli@v6-lts -g` 安装
-
-```shell
-ng version
-#      _                      _                 ____ _     ___
-#     / \   _ __   __ _ _   _| | __ _ _ __     / ___| |   |_ _|
-#    / △ \ | '_ \ / _` | | | | |/ _` | '__|   | |   | |    | |
-#   / ___ \| | | | (_| | |_| | | (_| | |      | |___| |___ | |
-#  /_/   \_\_| |_|\__, |\__,_|_|\__,_|_|       \____|_____|___|
-#                 |___/
-# 
-# 
-# Angular CLI: 6.2.7
-# Node: 10.15.0
-# OS: win32 x64
-# Angular: 6.1.6
-# ... animations, common, compiler, compiler-cli, core, forms
-# ... http, language-service, platform-browser
-# ... platform-browser-dynamic, router
-# 
-# Package                            Version
-# ------------------------------------------------------------
-# @angular-devkit/architect          0.8.7
-# @angular-devkit/build-angular      0.8.7
-# @angular-devkit/build-ng-packagr   0.8.7
-# @angular-devkit/build-optimizer    0.8.7
-# @angular-devkit/build-webpack      0.8.7
-# @angular-devkit/core               0.8.7
-# @angular-devkit/schematics         0.8.7
-# @angular/cdk                       6.4.7
-# @angular/cli                       6.2.7
-# @angular/pwa                       0.8.9
-# @ngtools/json-schema               1.1.0
-# @ngtools/webpack                   6.2.7
-# @schematics/angular                0.8.7
-# @schematics/update                 0.8.7
-# ng-packagr                         4.4.0
-# rxjs                               6.3.3
-# typescript                         2.9.2
-# webpack                            4.16.4
-
-# Create Angular Project
+```
 ng new anyone
 ```
 
