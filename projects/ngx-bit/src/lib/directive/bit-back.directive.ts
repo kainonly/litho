@@ -5,7 +5,6 @@ import {Location} from '@angular/common';
   selector: '[bitBack]'
 })
 export class BitBackDirective {
-
   constructor(private location: Location) {
   }
 
