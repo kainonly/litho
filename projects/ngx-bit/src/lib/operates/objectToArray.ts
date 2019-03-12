@@ -6,7 +6,7 @@ export function objectToArray(object: any): any[] {
     for (const key in object) {
       if (object.hasOwnProperty(key)) {
         array.push({
-          key: key,
+          key,
           rows: object[key]
         });
       }

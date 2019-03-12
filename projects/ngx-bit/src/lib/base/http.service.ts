@@ -4,21 +4,13 @@ import {Observable} from 'rxjs';
 import {map, switchMap} from 'rxjs/operators';
 import {ConfigService} from './config.service';
 import {BitService} from './bit.service';
+import {conditionToWhere} from '../operates/conditionToWhere';
 
 @Injectable()
 export class HttpService {
-  private model: string;
-
   constructor(private http: HttpClient,
               private config: ConfigService,
               private bit: BitService) {
-  }
-
-  /**
-   * SetModel
-   */
-  setModel(model: string) {
-    this.model = model;
   }
 
   /**
@@ -37,8 +29,8 @@ export class HttpService {
   /**
    * Get Request
    */
-  get(condition: any, special = false): Observable<any> {
-    const http = condition.hasOwnProperty('id') ? this.req(this.model + '/get', condition) : this.req(this.model + '/get', {
+  get(model: string, condition: any, special = false): Observable<any> {
+    const http = condition.hasOwnProperty('id') ? this.req(model + '/get', condition) : this.req(model + '/get', {
       where: condition
     });
     return special ? http : http.pipe(
@@ -49,16 +41,17 @@ export class HttpService {
   /**
    * Lists Request
    */
-  lists(condition: any[] = [], refresh = false, special = false): Observable<any> {
+  lists(model: string, condition: any[] = [], refresh = false, special = false): Observable<any> {
+    const where = special ? condition : conditionToWhere(condition);
     if (refresh) {
       this.bit.listsPageIndex = 1;
     }
-    const http = this.req(this.model + '/lists', {
+    const http = this.req(model + '/lists', {
       page: {
         limit: this.bit.pageLimit,
         index: this.bit.listsPageIndex
       },
-      where: condition,
+      where,
     }).pipe(
       map((res) => {
         this.bit.listsTotals = !res.error ? res.data.total : 0;
@@ -78,9 +71,10 @@ export class HttpService {
   /**
    * OriginLists Request
    */
-  originLists(condition: any[] = [], special = false): Observable<any> {
-    const http = this.req(this.model + '/originLists', {
-      where: condition
+  originLists(model: string, condition: any[] = [], special = false): Observable<any> {
+    const where = special ? condition : conditionToWhere(condition);
+    const http = this.req(model + '/originLists', {
+      where
     });
     return special ? http : http.pipe(
       map(res => !res.error ? res.data : [])
@@ -90,16 +84,16 @@ export class HttpService {
   /**
    * Add Request
    */
-  add(data: any): Observable<any> {
-    return this.req(this.model + '/add', data);
+  add(model: string, data: any): Observable<any> {
+    return this.req(model + '/add', data);
   }
 
   /**
    * Edit Request
    */
-  edit(data: any, condition: any = []): Observable<any> {
+  edit(model: string, data: any, condition: any = []): Observable<any> {
     data.switch = false;
-    return !condition ? this.req(this.model + '/edit', data) : this.req(this.model + '/edit', Object.assign(data, {
+    return !condition ? this.req(model + '/edit', data) : this.req(model + '/edit', Object.assign(data, {
         where: condition
       })
     );
@@ -108,8 +102,8 @@ export class HttpService {
   /**
    * Status Request
    */
-  status(data: any, field = 'status', extra?: any): Observable<any> {
-    return this.req(this.model + '/edit', {
+  status(model: string, data: any, field = 'status', extra?: any): Observable<any> {
+    return this.req(model + '/edit', {
       id: data.id,
       switch: true,
       [field]: !data[field],
@@ -127,8 +121,8 @@ export class HttpService {
   /**
    * Delete Request
    */
-  delete(condition: any): Observable<any> {
-    return condition.hasOwnProperty('id') ? this.req(this.model + '/delete', condition) : this.req(this.model + '/delete', {
+  delete(model: string, condition: any): Observable<any> {
+    return condition.hasOwnProperty('id') ? this.req(model + '/delete', condition) : this.req(model + '/delete', {
       where: condition
     });
   }

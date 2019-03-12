@@ -1,7 +1,11 @@
 import {Injectable} from '@angular/core';
+import {Location} from '@angular/common';
 import {ConfigService} from './config.service';
 import {EventsService} from './events.service';
 import {factoryLocales} from '../operates/factoryLocales';
+import {Observable} from 'rxjs';
+import {LocalStorage} from '@ngx-pwa/local-storage';
+import {map} from 'rxjs/operators';
 
 @Injectable()
 export class BitService {
@@ -12,16 +16,7 @@ export class BitService {
   l: any = {};
   i18nContain: any[] = [];
   i18nTips: any = {};
-  search: { field: string, value: string }[] = [];
-
-  listsLoading = true;
-  pageLimit = 0;
-  listsTotals = 0;
-  listsPageIndex = 0;
-  listsAllChecked = false;
-  listsIndeterminate = false;
-  listsDisabledAction = true;
-  listsCheckedNumber = 0;
+  search: { field: string, op: string, value: any }[] = [];
 
   private language: any = {};
   private commonLanguage: any = {};
@@ -30,12 +25,23 @@ export class BitService {
   breadtitle = '';
   breadcrumb = [];
 
+  listsLoading = true;
+  pageLimit = 0;
+  listsTotals = 0;
+  listsPageIndex = 1;
+  listsAllChecked = false;
+  listsIndeterminate = false;
+  listsDisabledAction = true;
+  listsCheckedNumber = 0;
+
   constructor(private config: ConfigService,
-              private events: EventsService) {
+              private events: EventsService,
+              private location: Location,
+              private storage: LocalStorage) {
     this.static = config.staticUrl;
     this.uploads = (config.uploadsUrl) ? config.uploadsUrl : config.originUrl + '/' + config.uploadsPath;
-    this.i18nContain = config.i18nContain;
     this.pageLimit = config.pageLimit;
+    this.i18nContain = config.i18nContain;
     this.locale = localStorage.getItem('locale') ? localStorage.getItem('locale') : 'zh_cn';
   }
 
@@ -55,14 +61,36 @@ export class BitService {
     }
   }
 
-  // registerSearch(selector: string, ...search: any[]): Observable<any> {
-  //   return this.storage.getItem('search:' + selector).pipe(
-  //     map((data: any) => {
-  //       this.search = (!data) ? search : data;
-  //       return true;
-  //     })
-  //   );
-  // }
+  hasSearch(): boolean {
+    return this.search.length !== 0;
+  }
+
+  registerSearch(selector: string, ...search: { field: string, op: string, value: any }[]): Observable<any> {
+    return this.storage.getItem('search:' + selector).pipe(
+      map((data: any) => {
+        this.search = (!data) ? search : data;
+        return true;
+      })
+    )
+  }
+
+  back() {
+    this.location.back();
+  }
+
+  listsRefreshStatus(lists: any[]) {
+    const allChecked = lists.every((value) => value.checked === true);
+    const allUnchecked = lists.every((value) => !value.checked);
+    this.listsAllChecked = allChecked;
+    this.listsIndeterminate = !allChecked && !allUnchecked;
+    this.listsDisabledAction = !(this.listsAllChecked || this.listsIndeterminate);
+    this.listsCheckedNumber = lists.filter((value) => value.checked).length;
+  }
+
+  listsCheckAll(event, lists: any[]) {
+    lists.forEach((data) => (data.checked = event));
+    this.listsRefreshStatus(lists);
+  }
 
   // i18nControls(options?: I18nControlsOptions) {
   //   if (options === undefined) {
@@ -103,33 +131,5 @@ export class BitService {
   //       this.form.get(group).get(x).updateValueAndValidity();
   //     }
   //   }
-  // }
-
-  // listsRefreshStatus(lists: any[]) {
-  //   const allChecked = lists.every((value) => value.checked === true);
-  //   const allUnchecked = lists.every((value) => !value.checked);
-  //   this.listsAllChecked = allChecked;
-  //   this.listsIndeterminate = !allChecked && !allUnchecked;
-  //   this.listsDisabledAction = !(this.listsAllChecked || this.listsIndeterminate);
-  //   this.listsCheckedNumber = lists.filter((value) => value.checked).length;
-  // }
-  //
-  // listsCheckAll(event, lists: any[]) {
-  //   lists.forEach((data) => (data.checked = event));
-  //   this.listsRefreshStatus(lists);
-  // }
-  //
-  // statusChange(service: Observable<any>, custom?: any) {
-  //   service.subscribe((res) => {
-  //     if (!res.error) {
-  //       this.notification.success(this.l.operate_success, this.l.status_success);
-  //     } else {
-  //       if (custom && typeof custom === 'function') {
-  //         custom(res);
-  //       } else {
-  //         this.notification.error(this.l.operate_error, this.l.status_error);
-  //       }
-  //     }
-  //   });
   // }
 }

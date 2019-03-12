@@ -17,8 +17,7 @@ export class SwalService {
   addAlert(res: any, form: FormGroup, reset?: any, customize?: AlertCustomize): Observable<any> {
     return Observable.create((observer) => {
       if (!res.error) {
-        // @ts-ignore
-        Swal({
+        Swal.fire({
           title: this.bit.l.operate_success,
           text: customize && customize.text ? customize.text : this.bit.l.add_success_msg,
           type: 'success',
@@ -43,8 +42,7 @@ export class SwalService {
           }
         });
       } else {
-        // @ts-ignore
-        Swal({
+        Swal.fire({
           title: this.bit.l.operate_error,
           text: customize && customize.error_text ? customize.error_text : res.msg,
           type: 'error',
@@ -60,8 +58,7 @@ export class SwalService {
   editAlert(res: any, customize?: AlertCustomize): Observable<any> {
     return Observable.create((observer) => {
       if (!res.error) {
-        // @ts-ignore
-        Swal({
+        Swal.fire({
           title: this.bit.l.operate_success,
           text: customize && customize.text ? customize.text : this.bit.l.edit_success_msg,
           type: 'success',
@@ -85,8 +82,7 @@ export class SwalService {
           }
         });
       } else {
-        // @ts-ignore
-        Swal({
+        Swal.fire({
           title: this.bit.l.operate_error,
           text: customize && customize.error_text ? customize.error_text : res.msg,
           type: 'error',
@@ -101,8 +97,7 @@ export class SwalService {
 
   deleteAlert(service: Observable<any>, customize?: AlertCustomize): Observable<any> {
     return Observable.create((observer) => {
-      // @ts-ignore
-      Swal({
+      Swal.fire({
         title: this.bit.l.operate_warning,
         text: customize && customize.text ? customize.text : this.bit.l.delete_warning,
         type: 'warning',
