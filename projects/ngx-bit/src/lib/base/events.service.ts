@@ -6,7 +6,7 @@ export class EventsService {
   private events: Map<string, Subject<any>> = new Map<string, Subject<any>>();
 
   /**
-   * 发布组建通讯事件
+   * Publish a component event
    */
   publish(topic: string, args?: any) {
     if (this.events.has(topic)) {
@@ -18,7 +18,7 @@ export class EventsService {
   }
 
   /**
-   * 订阅组件通讯
+   * Subscribe to component event
    */
   on(topic: string): Observable<any> {
     return this.events.has(topic) ? this.events.get(topic) :
@@ -26,7 +26,7 @@ export class EventsService {
   }
 
   /**
-   * 取消订阅组件通讯
+   * Unsubscribe component event
    */
   off(topic: string) {
     if (this.events.has(topic)) {

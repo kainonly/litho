@@ -5,7 +5,6 @@ import {map} from 'rxjs/operators';
 import {Observable} from 'rxjs';
 import {ConfigService} from './config.service';
 import {EventsService} from './events.service';
-import {factoryLocales} from '../operates/factoryLocales';
 
 @Injectable()
 export class BitService {
@@ -106,6 +105,23 @@ export class BitService {
    */
   listsCheckedNumber = 0;
 
+  /**
+   * Production language package
+   */
+  static factoryLocales(packer: any): any {
+    const source = {
+      zh_cn: {},
+      en_us: {}
+    };
+    for (const i in packer) {
+      if (packer.hasOwnProperty(i)) {
+        source.zh_cn[i] = packer[i][0];
+        source.en_us[i] = packer[i][1];
+      }
+    }
+    return source;
+  }
+
   constructor(private config: ConfigService,
               private events: EventsService,
               private location: Location,
@@ -132,9 +148,9 @@ export class BitService {
    */
   registerLocales(packer: any, common = false) {
     if (common) {
-      this.commonLanguage = factoryLocales(packer);
+      this.commonLanguage = BitService.factoryLocales(packer);
     } else {
-      this.language = factoryLocales(packer);
+      this.language = BitService.factoryLocales(packer);
       this.l = Object.assign(this.commonLanguage[this.locale], this.language[this.locale]);
     }
   }

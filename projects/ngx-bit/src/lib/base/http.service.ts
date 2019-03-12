@@ -4,10 +4,22 @@ import {Observable} from 'rxjs';
 import {map, switchMap} from 'rxjs/operators';
 import {ConfigService} from './config.service';
 import {BitService} from './bit.service';
-import {conditionToWhere} from '../operates/conditionToWhere';
 
 @Injectable()
 export class HttpService {
+  /**
+   * Convert to where
+   */
+  static toWhere(condition: any[]) {
+    const where = [];
+    for (const x of condition) {
+      if (!(x.value === '' || x.value === 0 || !x.value)) {
+        where.push([x.field, x.op, (x.op === 'like' ? `%${x.value}%` : x.value)]);
+      }
+    }
+    return where;
+  }
+
   constructor(private http: HttpClient,
               private config: ConfigService,
               private bit: BitService) {
@@ -42,7 +54,7 @@ export class HttpService {
    * Lists Request
    */
   lists(model: string, condition: any[] = [], refresh = false, special = false): Observable<any> {
-    const where = special ? condition : conditionToWhere(condition);
+    const where = special ? condition : HttpService.toWhere(condition);
     if (refresh) {
       this.bit.listsPageIndex = 1;
     }
@@ -72,7 +84,7 @@ export class HttpService {
    * OriginLists Request
    */
   originLists(model: string, condition: any[] = [], special = false): Observable<any> {
-    const where = special ? condition : conditionToWhere(condition);
+    const where = special ? condition : HttpService.toWhere(condition);
     const http = this.req(model + '/originLists', {
       where
     });

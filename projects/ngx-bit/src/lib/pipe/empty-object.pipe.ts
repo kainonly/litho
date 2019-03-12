@@ -1,9 +1,9 @@
 import {Pipe, PipeTransform} from '@angular/core';
-import {emptyObject} from '../operates/emptyObject';
+import {operates} from '../operates';
 
 @Pipe({name: 'EmptyObject'})
 export class EmptyObjectPipe implements PipeTransform {
   transform(value: any): boolean {
-    return emptyObject(value);
+    return operates.emptyObject(value);
   }
 }

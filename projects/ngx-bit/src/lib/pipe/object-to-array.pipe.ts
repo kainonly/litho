@@ -1,9 +1,9 @@
 import {Pipe, PipeTransform} from '@angular/core';
-import {objectToArray} from '../operates/objectToArray';
+import {operates} from '../operates';
 
 @Pipe({name: 'ObjectToArray'})
 export class ObjectToArrayPipe implements PipeTransform {
   transform(value: any): any[] {
-    return objectToArray(value);
+    return operates.objectToArray(value);
   }
 }
