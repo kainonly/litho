@@ -7,21 +7,33 @@ import {BitService} from '../base/bit.service';
 
 @Injectable()
 export class StorageService {
+  /**
+   * Router subscription
+   */
   private routerSubscription: Subscription;
 
   constructor(private storage: LocalStorage,
               private bit: BitService) {
   }
 
+  /**
+   * Clear all Storage
+   */
   clear() {
     this.storage.clearSubscribe();
   }
 
+  /**
+   * Set Menu Storage
+   */
   setMenu(menu: any, router: any) {
     this.storage.setItemSubscribe('menu', menu);
     this.storage.setItemSubscribe('router', router);
   }
 
+  /**
+   * Auto get breadcrumb
+   */
   autoBreadcrumb(router: Router, match = ['%7B', '%7D']) {
     this.destoryBreadcrumb();
     if (router.url !== '/') {
@@ -38,18 +50,27 @@ export class StorageService {
     });
   }
 
+  /**
+   * Destory breadcrumb
+   */
   destoryBreadcrumb() {
     if (this.routerSubscription) {
       this.routerSubscription.unsubscribe();
     }
   }
 
+  /**
+   * Clear breadcrumb
+   */
   private clearBreadcrumb() {
     this.bit.navActive = [];
     this.bit.breadcrumb = [];
     this.bit.title = '';
   }
 
+  /**
+   * Get router associate
+   */
   private routerAssociate(router: Router, url: string, match?: any[]) {
     const regExp = new RegExp(`(?:${match[0]})(.+?)(?=${match[1]})`, 'g');
     const path = url.match(regExp)[0].replace(match[0], '');
@@ -67,6 +88,9 @@ export class StorageService {
     });
   }
 
+  /**
+   * Factory breadcrumb
+   */
   private factoryBreadcrumb(id: any) {
     this.storage.getItem('menu').subscribe((data: any) => {
       const queue = [];

@@ -148,7 +148,7 @@ export class BitService {
         this.search = (!data) ? search : data;
         return true;
       })
-    )
+    );
   }
 
   /**
