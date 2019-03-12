@@ -9,6 +9,7 @@ import {BitFormControlColDirective} from './directive/bit-form-control-col.direc
 import {BitBackDirective} from './directive/bit-back.directive';
 import {BitExplainDirective} from './directive/bit-explain.directive';
 import {BitStatusChangeDirective} from './directive/bit-status-change.directive';
+import {BitUploadDirective} from './directive/bit-upload.directive';
 
 @NgModule({
   imports: [CommonModule],
@@ -21,7 +22,8 @@ import {BitStatusChangeDirective} from './directive/bit-status-change.directive'
     BitFormLabelColDirective,
     BitBackDirective,
     BitExplainDirective,
-    BitStatusChangeDirective
+    BitStatusChangeDirective,
+    BitUploadDirective
   ],
   declarations: [
     BitSearchStartDirective,
@@ -32,7 +34,8 @@ import {BitStatusChangeDirective} from './directive/bit-status-change.directive'
     BitFormLabelColDirective,
     BitBackDirective,
     BitExplainDirective,
-    BitStatusChangeDirective
+    BitStatusChangeDirective,
+    BitUploadDirective
   ],
 })
 export class NgxBitDirectiveModule {
