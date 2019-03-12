@@ -7,6 +7,7 @@ import {BitService} from '../base/bit.service';
 })
 export class BitSearchClearDirective {
   @Input() bitSearchClear: string;
+  @Input() reset: any;
   @Output() after: EventEmitter<any> = new EventEmitter<any>();
 
   constructor(private bit: BitService,
@@ -16,7 +17,11 @@ export class BitSearchClearDirective {
   @HostListener('click')
   onclick() {
     for (const x of this.bit.search) {
-      x.value = '';
+      if (this.reset !== undefined && this.reset.hasOwnProperty(x.field)) {
+        x.value = this.reset[x.field];
+      } else {
+        x.value = '';
+      }
     }
     this.storage.removeItem('search:' + this.bitSearchClear).subscribe(() => {
       this.after.emit(true);

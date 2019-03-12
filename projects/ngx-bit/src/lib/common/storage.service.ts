@@ -47,7 +47,7 @@ export class StorageService {
   private clearBreadcrumb() {
     this.bit.navActive = [];
     this.bit.breadcrumb = [];
-    this.bit.breadtitle = '';
+    this.bit.title = '';
   }
 
   private routerAssociate(router: Router, url: string, match?: any[]) {
@@ -74,7 +74,7 @@ export class StorageService {
       const navActive = [];
       if (data.hasOwnProperty(id)) {
         const node = data[id];
-        this.bit.breadtitle = node.name;
+        this.bit.title = node.name;
         navActive.unshift(node.id);
         breadcrumb.unshift({
           name: node.name,

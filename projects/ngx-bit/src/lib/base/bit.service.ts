@@ -1,37 +1,109 @@
 import {Injectable} from '@angular/core';
 import {Location} from '@angular/common';
+import {LocalStorage} from '@ngx-pwa/local-storage';
+import {map} from 'rxjs/operators';
+import {Observable} from 'rxjs';
 import {ConfigService} from './config.service';
 import {EventsService} from './events.service';
 import {factoryLocales} from '../operates/factoryLocales';
-import {Observable} from 'rxjs';
-import {LocalStorage} from '@ngx-pwa/local-storage';
-import {map} from 'rxjs/operators';
 
 @Injectable()
 export class BitService {
-  static: string;
-  uploads: string;
-  locale: string;
+  // i18nTips: any = {};
 
-  l: any = {};
-  i18nContain: any[] = [];
-  i18nTips: any = {};
-  search: { field: string, op: string, value: any }[] = [];
-
+  /**
+   * Origin language packer
+   */
   private language: any = {};
+
+  /**
+   * app.language packer
+   */
   private commonLanguage: any = {};
 
-  navActive = [];
-  breadtitle = '';
+  /**
+   * Static Path
+   */
+  static: string;
+
+  /**
+   * Upload Path
+   */
+  uploads: string;
+
+  /**
+   * Language pack identifier
+   */
+  locale: string;
+
+  /**
+   * Language pack label
+   */
+  l: any = {};
+
+  /**
+   * Component i18n
+   */
+  i18nContain: any[] = [];
+
+  /**
+   * Title
+   */
+  title = '';
+
+  /**
+   * Breadcrumb array
+   */
   breadcrumb = [];
 
+  /**
+   * Nav active array
+   */
+  navActive = [];
+
+  /**
+   * Control panel search object
+   */
+  search: { field: string, op: string, value: any }[] = [];
+
+  /**
+   * Lists data loading status
+   */
   listsLoading = true;
+
+  /**
+   * Lists data page limit
+   */
   pageLimit = 0;
+
+  /**
+   * Lists data totals
+   */
   listsTotals = 0;
+
+  /**
+   * Lists data page index
+   */
   listsPageIndex = 1;
+
+  /**
+   * All list data is selected
+   */
   listsAllChecked = false;
+
+  /**
+   * All list data has indeterminate
+   */
   listsIndeterminate = false;
+
+  /**
+   * Control panel mutil operate status
+   */
   listsDisabledAction = true;
+
+  /**
+   * All list data selecte total
+   */
   listsCheckedNumber = 0;
 
   constructor(private config: ConfigService,
@@ -45,6 +117,9 @@ export class BitService {
     this.locale = localStorage.getItem('locale') ? localStorage.getItem('locale') : 'zh_cn';
   }
 
+  /**
+   * Set language pack ID
+   */
   setLocale(locale: 'zh_cn' | 'en_us') {
     this.locale = locale;
     localStorage.setItem('locale', locale);
@@ -52,6 +127,9 @@ export class BitService {
     this.l = Object.assign(this.commonLanguage[this.locale], this.language[this.locale]);
   }
 
+  /**
+   * Registered language pack
+   */
   registerLocales(packer: any, common = false) {
     if (common) {
       this.commonLanguage = factoryLocales(packer);
@@ -61,10 +139,9 @@ export class BitService {
     }
   }
 
-  hasSearch(): boolean {
-    return this.search.length !== 0;
-  }
-
+  /**
+   * Register search object
+   */
   registerSearch(selector: string, ...search: { field: string, op: string, value: any }[]): Observable<any> {
     return this.storage.getItem('search:' + selector).pipe(
       map((data: any) => {
@@ -74,10 +151,23 @@ export class BitService {
     )
   }
 
+  /**
+   * Determine whether the index exists in the search object
+   */
+  hasSearch(index: number): boolean {
+    return this.search[index] !== undefined;
+  }
+
+  /**
+   * Location back
+   */
   back() {
     this.location.back();
   }
 
+  /**
+   * Refresh list data selection status
+   */
   listsRefreshStatus(lists: any[]) {
     const allChecked = lists.every((value) => value.checked === true);
     const allUnchecked = lists.every((value) => !value.checked);
@@ -87,6 +177,9 @@ export class BitService {
     this.listsCheckedNumber = lists.filter((value) => value.checked).length;
   }
 
+  /**
+   * Unified change of all list data status
+   */
   listsCheckAll(event, lists: any[]) {
     lists.forEach((data) => (data.checked = event));
     this.listsRefreshStatus(lists);
