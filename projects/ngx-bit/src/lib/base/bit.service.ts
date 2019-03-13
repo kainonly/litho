@@ -5,11 +5,10 @@ import {map} from 'rxjs/operators';
 import {Observable} from 'rxjs';
 import {ConfigService} from './config.service';
 import {EventsService} from './events.service';
+import {I18nGroupOptions} from '../types/i18n-group-options';
 
 @Injectable()
 export class BitService {
-  // i18nTips: any = {};
-
   /**
    * Origin language packer
    */
@@ -39,6 +38,16 @@ export class BitService {
    * Language pack label
    */
   l: any = {};
+
+  /**
+   * Component i18n identifier
+   */
+  i18n;
+
+  /**
+   * Component i18n tooltips
+   */
+  i18nTips: any = {};
 
   /**
    * Component i18n
@@ -122,6 +131,48 @@ export class BitService {
     return source;
   }
 
+  /**
+   * Init i18n form control value
+   */
+  static i18nControlsValue(i18n: string, value?: any): string {
+    if (!value) {
+      return null;
+    }
+    if (value[i18n] !== undefined) {
+      return value[i18n];
+    } else {
+      return null;
+    }
+  }
+
+  /**
+   * Init i18n form control validate
+   */
+  static i18nControlsValidate(i18n: string, validate?: any): any[] {
+    if (!validate) {
+      return [];
+    }
+    if (validate[i18n] !== undefined) {
+      return validate[i18n];
+    } else {
+      return [];
+    }
+  }
+
+  /**
+   * Init i18n form control async validate
+   */
+  static i18nControlsAsyncValidate(i18n: string, asyncValidate?: any): any[] {
+    if (!asyncValidate) {
+      return [];
+    }
+    if (asyncValidate[i18n] !== undefined) {
+      return asyncValidate[i18n];
+    } else {
+      return [];
+    }
+  }
+
   constructor(private config: ConfigService,
               private events: EventsService,
               private location: Location,
@@ -129,6 +180,7 @@ export class BitService {
     this.static = config.staticUrl;
     this.uploads = (config.uploadsUrl) ? config.uploadsUrl : config.originUrl + '/' + config.uploadsPath;
     this.pageLimit = config.pageLimit;
+    this.i18n = config.i18nDefault;
     this.i18nContain = config.i18nContain;
     this.locale = localStorage.getItem('locale') ? localStorage.getItem('locale') : 'zh_cn';
   }
@@ -141,6 +193,20 @@ export class BitService {
     localStorage.setItem('locale', locale);
     this.events.publish('locale', locale);
     this.l = Object.assign(this.commonLanguage[this.locale], this.language[this.locale]);
+  }
+
+  /**
+   * Equal i18n ID
+   */
+  equalI18n(i18n: string) {
+    return this.i18n === i18n;
+  }
+
+  /**
+   * Reset I18n ID
+   */
+  resetI18n() {
+    this.i18n = this.config.i18nDefault;
   }
 
   /**
@@ -179,6 +245,7 @@ export class BitService {
    */
   back() {
     this.location.back();
+    this.resetI18n();
   }
 
   /**
@@ -201,20 +268,20 @@ export class BitService {
     this.listsRefreshStatus(lists);
   }
 
-  // i18nControls(options?: I18nControlsOptions) {
-  //   if (options === undefined) {
-  //     options = {};
-  //   }
-  //   const controls = {};
-  //   for (const x of this.config.i18n) {
-  //     controls[x] = [
-  //       i18nControlsValue(x, options.value === undefined ? '' : options.value),
-  //       i18nControlsValidate(x, options.validate === undefined ? '' : options.validate),
-  //       i18nControlsAsyncValidate(x, options.asyncValidate === undefined ? '' : options.asyncValidate)
-  //     ];
-  //   }
-  //   return controls;
-  // }
+  i18nGroup(options?: I18nGroupOptions) {
+    if (options === undefined) {
+      options = {};
+    }
+    const controls = {};
+    for (const x of this.config.i18nContain) {
+      controls[x] = [
+        BitService.i18nControlsValue(x, options.value === undefined ? '' : options.value),
+        BitService.i18nControlsValidate(x, options.validate === undefined ? '' : options.validate),
+        BitService.i18nControlsAsyncValidate(x, options.asyncValidate === undefined ? '' : options.asyncValidate)
+      ];
+    }
+    return controls;
+  }
 
   // i18nCommonValidator(group: string) {
   //   if (!this.form || !this.form.get(group)) {

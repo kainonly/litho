@@ -19,7 +19,7 @@ export class ConfigService {
   formLabelCol: any = {
     common: {},
   };
-
+  i18nDefault = 'zh_cn';
   i18nContain: any[] = ['zh_cn'];
   i18nSwitch: any[] = [
     {

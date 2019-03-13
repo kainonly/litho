@@ -9,7 +9,7 @@ import {BitI18nSwitchComponent} from './component/bit-i18n-switch/bit-i18n-switc
     BitI18nSwitchComponent,
   ],
   declarations: [
-    BitI18nSwitchComponent
+    BitI18nSwitchComponent,
   ],
   imports: [NgZorroAntdModule, CommonModule, FormsModule],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]

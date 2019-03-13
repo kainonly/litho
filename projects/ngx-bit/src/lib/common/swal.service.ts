@@ -18,18 +18,18 @@ export class SwalService {
     return Observable.create((observer) => {
       if (!res.error) {
         Swal.fire({
-          title: this.bit.l.operate_success,
-          text: customize && customize.text ? customize.text : this.bit.l.add_success_msg,
+          title: this.bit.l.operateSuccess,
+          text: customize && customize.text ? customize.text : this.bit.l.addSuccessMsg,
           type: 'success',
           showCancelButton: true,
           confirmButtonText:
             customize && customize.confirmButtonText
               ? customize.confirmButtonText
-              : this.bit.l.add_continue,
+              : this.bit.l.addContinue,
           cancelButtonText:
             customize && customize.cancelButtonText
               ? customize.cancelButtonText
-              : this.bit.l.operate_back
+              : this.bit.l.operateBack
         }).then((result) => {
           if (result.value) {
             form.reset(reset ? reset : undefined);
@@ -43,10 +43,10 @@ export class SwalService {
         });
       } else {
         Swal.fire({
-          title: this.bit.l.operate_error,
-          text: customize && customize.error_text ? customize.error_text : res.msg,
+          title: this.bit.l.operateError,
+          text: customize && customize.errorText ? customize.errorText : res.msg,
           type: 'error',
-          confirmButtonText: this.bit.l.operate_ok
+          confirmButtonText: this.bit.l.operateOk
         }).then(() => {
           observer.next(false);
           observer.complete();
@@ -59,18 +59,18 @@ export class SwalService {
     return Observable.create((observer) => {
       if (!res.error) {
         Swal.fire({
-          title: this.bit.l.operate_success,
-          text: customize && customize.text ? customize.text : this.bit.l.edit_success_msg,
+          title: this.bit.l.operateSuccess,
+          text: customize && customize.text ? customize.text : this.bit.l.editSuccessMsg,
           type: 'success',
           showCancelButton: true,
           confirmButtonText:
             customize && customize.confirmButtonText
               ? customize.confirmButtonText
-              : this.bit.l.edit_continue,
+              : this.bit.l.editContinue,
           cancelButtonText:
             customize && customize.cancelButtonText
               ? customize.cancelButtonText
-              : this.bit.l.operate_back
+              : this.bit.l.operateBack
         }).then((result) => {
           if (result.value) {
             observer.next(true);
@@ -83,10 +83,10 @@ export class SwalService {
         });
       } else {
         Swal.fire({
-          title: this.bit.l.operate_error,
-          text: customize && customize.error_text ? customize.error_text : res.msg,
+          title: this.bit.l.operateError,
+          text: customize && customize.errorText ? customize.errorText : res.msg,
           type: 'error',
-          confirmButtonText: this.bit.l.operate_ok
+          confirmButtonText: this.bit.l.operateOk
         }).then(() => {
           observer.next(false);
           observer.complete();
@@ -98,14 +98,14 @@ export class SwalService {
   deleteAlert(service: Observable<any>, customize?: AlertCustomize): Observable<any> {
     return Observable.create((observer) => {
       Swal.fire({
-        title: this.bit.l.operate_warning,
-        text: customize && customize.text ? customize.text : this.bit.l.delete_warning,
+        title: this.bit.l.operateWarning,
+        text: customize && customize.text ? customize.text : this.bit.l.deleteWarning,
         type: 'warning',
         showCancelButton: true,
         confirmButtonText:
-          customize && customize.confirmButtonText ? customize.confirmButtonText : this.bit.l.delete_yes,
+          customize && customize.confirmButtonText ? customize.confirmButtonText : this.bit.l.deleteYes,
         cancelButtonText:
-          customize && customize.cancelButtonText ? customize.cancelButtonText : this.bit.l.delete_cancel
+          customize && customize.cancelButtonText ? customize.cancelButtonText : this.bit.l.deleteCancel
       }).then((result) => {
         if (result.value) {
           service.subscribe((res) => {
