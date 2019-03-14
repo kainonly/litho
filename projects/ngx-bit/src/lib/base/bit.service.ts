@@ -6,6 +6,7 @@ import {Observable} from 'rxjs';
 import {ConfigService} from './config.service';
 import {EventsService} from './events.service';
 import {I18nGroupOptions} from '../types/i18n-group-options';
+import {FormGroup} from '@angular/forms';
 
 @Injectable()
 export class BitService {
@@ -268,6 +269,9 @@ export class BitService {
     this.listsRefreshStatus(lists);
   }
 
+  /**
+   * Init i18n form group
+   */
   i18nGroup(options?: I18nGroupOptions) {
     if (options === undefined) {
       options = {};
@@ -283,29 +287,27 @@ export class BitService {
     return controls;
   }
 
-  // i18nCommonValidator(group: string) {
-  //   if (!this.form || !this.form.get(group)) {
-  //     return;
-  //   }
-  //
-  //   const empty = [];
-  //   const formgroup = this.form.get(group);
-  //   for (const x of this.i18ns) {
-  //     const value = formgroup.get(x).value;
-  //     if (!value) {
-  //       empty.push(x);
-  //     }
-  //   }
-  //
-  //   this.i18nTips[group] = empty;
-  //   return empty;
-  // }
-  //
-  // i18nUpdateValidity(group: string, i18n: string) {
-  //   for (const x of this.i18ns) {
-  //     if (x !== i18n) {
-  //       this.form.get(group).get(x).updateValueAndValidity();
-  //     }
-  //   }
-  // }
+  i18nTipsUpdate(form: FormGroup, groupname: string, i18n: string) {
+    for (const x of this.i18nContain) {
+      if (x !== i18n) {
+        form.get(groupname).get(x).updateValueAndValidity();
+      }
+    }
+  }
+
+  i18nUnionValidator(form: FormGroup, groupname: string) {
+    if (!form || !form.get(groupname)) {
+      return;
+    }
+    const notExistI18n = [];
+    const formgroup = form.get(groupname);
+    for (const x of this.i18nContain) {
+      const value = formgroup.get(x).value;
+      if (!value) {
+        notExistI18n.push(x);
+      }
+    }
+    this.i18nTips[groupname] = notExistI18n;
+    return notExistI18n;
+  }
 }

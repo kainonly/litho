@@ -21,6 +21,9 @@ export class BitSearchStartDirective {
     this.searchStart();
   }
 
+  /**
+   * search data save storage
+   */
   private searchStart() {
     this.storage.setItem('search:' + this.bitSearchStart, this.bit.search).subscribe(() => {
       this.after.emit(true);
