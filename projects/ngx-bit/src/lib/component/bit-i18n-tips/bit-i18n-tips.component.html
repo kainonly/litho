@@ -1,0 +1,11 @@
+<ng-template #ref>
+  <ng-container *ngIf="bit.i18nTips.hasOwnProperty(name) && bit.i18nTips[name].length !== 0;else not">
+    <ng-container *ngFor="let x of bit.i18nTips[name];first as isFirst">
+      <ng-container *ngIf="!isFirst">,</ng-container>
+      {{bit.l[name + '_' + x]}}
+    </ng-container>
+  </ng-container>
+  <ng-template #not>
+    {{bit.l['noTips']}}
+  </ng-template>
+</ng-template>

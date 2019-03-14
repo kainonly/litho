@@ -10,7 +10,7 @@ import {BitBackDirective} from './directive/bit-back.directive';
 import {BitExplainDirective} from './directive/bit-explain.directive';
 import {BitStatusChangeDirective} from './directive/bit-status-change.directive';
 import {BitUploadDirective} from './directive/bit-upload.directive';
-import {BitI18nTipsDirective} from './directive/bit-i18n-tips.directive';
+import {BitI18nTipsStyleDirective} from './directive/bit-i18n-tips-style.directive';
 
 @NgModule({
   imports: [
@@ -27,7 +27,7 @@ import {BitI18nTipsDirective} from './directive/bit-i18n-tips.directive';
     BitExplainDirective,
     BitStatusChangeDirective,
     BitUploadDirective,
-    BitI18nTipsDirective
+    BitI18nTipsStyleDirective
   ],
   declarations: [
     BitSearchStartDirective,
@@ -40,7 +40,7 @@ import {BitI18nTipsDirective} from './directive/bit-i18n-tips.directive';
     BitExplainDirective,
     BitStatusChangeDirective,
     BitUploadDirective,
-    BitI18nTipsDirective
+    BitI18nTipsStyleDirective
   ],
 })
 export class NgxBitDirectiveModule {

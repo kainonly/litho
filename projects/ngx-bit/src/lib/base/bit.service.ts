@@ -1,4 +1,4 @@
-import {Injectable} from '@angular/core';
+import {EventEmitter, Injectable} from '@angular/core';
 import {Location} from '@angular/common';
 import {LocalStorage} from '@ngx-pwa/local-storage';
 import {map} from 'rxjs/operators';
@@ -287,7 +287,7 @@ export class BitService {
     return controls;
   }
 
-  i18nTipsUpdate(form: FormGroup, groupname: string, i18n: string) {
+  i18nUpdateValueAndValidity(form: FormGroup, groupname: string, i18n: string) {
     for (const x of this.i18nContain) {
       if (x !== i18n) {
         form.get(groupname).get(x).updateValueAndValidity();
