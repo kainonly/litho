@@ -115,12 +115,15 @@ export class HttpService {
    * Status Request
    */
   status(model: string, data: any, field = 'status', extra?: any): Observable<any> {
-    return this.req(model + '/edit', {
+    const body = {
       id: data.id,
       switch: true,
       [field]: !data[field],
-      extra
-    }).pipe(
+    };
+    if (extra) {
+      Object.assign(body, extra);
+    }
+    return this.req(model + '/edit', body).pipe(
       map((res) => {
         if (!res.error) {
           data[field] = !data[field];
