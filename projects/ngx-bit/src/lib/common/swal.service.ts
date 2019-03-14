@@ -14,6 +14,9 @@ export class SwalService {
               private location: Location) {
   }
 
+  /**
+   * Add a prompt to use the request
+   */
   addAlert(res: any, form: FormGroup, reset?: any, customize?: AlertCustomize): Observable<any> {
     return Observable.create((observer) => {
       if (!res.error) {
@@ -55,6 +58,9 @@ export class SwalService {
     });
   }
 
+  /**
+   * Edit a prompt to use the request
+   */
   editAlert(res: any, customize?: AlertCustomize): Observable<any> {
     return Observable.create((observer) => {
       if (!res.error) {
@@ -95,6 +101,9 @@ export class SwalService {
     });
   }
 
+  /**
+   * Delete a prompt to use the request
+   */
   deleteAlert(service: Observable<any>, customize?: AlertCustomize): Observable<any> {
     return Observable.create((observer) => {
       Swal.fire({

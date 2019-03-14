@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {Observable} from 'rxjs';
 import {map, switchMap} from 'rxjs/operators';
+import {Observable} from 'rxjs';
 import {ConfigService} from './config.service';
 import {BitService} from './bit.service';
 

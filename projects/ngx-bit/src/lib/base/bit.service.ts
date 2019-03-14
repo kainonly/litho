@@ -1,12 +1,12 @@
-import {EventEmitter, Injectable} from '@angular/core';
+import {Injectable} from '@angular/core';
 import {Location} from '@angular/common';
+import {FormGroup} from '@angular/forms';
 import {LocalStorage} from '@ngx-pwa/local-storage';
 import {map} from 'rxjs/operators';
 import {Observable} from 'rxjs';
 import {ConfigService} from './config.service';
 import {EventsService} from './events.service';
 import {I18nGroupOptions} from '../types/i18n-group-options';
-import {FormGroup} from '@angular/forms';
 
 @Injectable()
 export class BitService {
@@ -287,6 +287,9 @@ export class BitService {
     return controls;
   }
 
+  /**
+   * i18n form control updateValueAndValidity
+   */
   i18nUpdateValueAndValidity(form: FormGroup, groupname: string, i18n: string) {
     for (const x of this.i18nContain) {
       if (x !== i18n) {
@@ -295,6 +298,9 @@ export class BitService {
     }
   }
 
+  /**
+   * i18n form union validator
+   */
   i18nUnionValidator(form: FormGroup, groupname: string) {
     if (!form || !form.get(groupname)) {
       return;

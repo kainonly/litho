@@ -2,6 +2,9 @@ import {Observable} from 'rxjs';
 import {isArray, isObject} from 'util';
 
 export const operates = {
+  /**
+   * form control async validator
+   */
   asyncValidator(req: Observable<any>, field = 'duplicated'): Observable<any> {
     return Observable.create((observer) => {
       setTimeout(() => {
