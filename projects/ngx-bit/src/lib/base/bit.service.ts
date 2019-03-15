@@ -1,4 +1,5 @@
 import {Injectable} from '@angular/core';
+import {Router} from '@angular/router';
 import {Location} from '@angular/common';
 import {FormGroup} from '@angular/forms';
 import {LocalStorage} from '@ngx-pwa/local-storage';
@@ -7,6 +8,7 @@ import {Observable} from 'rxjs';
 import {ConfigService} from './config.service';
 import {EventsService} from './events.service';
 import {I18nGroupOptions} from '../types/i18n-group-options';
+
 
 @Injectable()
 export class BitService {
@@ -116,6 +118,14 @@ export class BitService {
   listsCheckedNumber = 0;
 
   /**
+   * getSelectorFormUrl
+   */
+  static getSelectorFormUrl(url, match: any[]) {
+    const regExp = new RegExp(`(?:${match[0]})(.+?)(?=${match[1]})`, 'g');
+    return url.match(regExp)[0].replace(match[0], '');
+  }
+
+  /**
    * Production language package
    */
   static factoryLocales(packer: any): any {
@@ -177,6 +187,7 @@ export class BitService {
   constructor(private config: ConfigService,
               private events: EventsService,
               private location: Location,
+              private router: Router,
               private storage: LocalStorage) {
     this.static = config.staticUrl;
     this.uploads = (config.uploadsUrl) ? config.uploadsUrl : config.originUrl + '/' + config.uploadsPath;
@@ -184,6 +195,46 @@ export class BitService {
     this.i18n = config.i18nDefault;
     this.i18nContain = config.i18nContain;
     this.locale = localStorage.getItem('locale') ? localStorage.getItem('locale') : 'zh_cn';
+  }
+
+  /**
+   * open routerlink with cross level
+   */
+  open(path: any[]) {
+    const url = this.router.url;
+    let selector;
+    if (url !== '/') {
+      selector = BitService.getSelectorFormUrl(this.router.url, ['%7B', '%7D']);
+    }
+    if (path.length !== 0) {
+      const routerlink = path[0];
+      const param = path.slice(1);
+      if (param[0] !== undefined) {
+        this.storage.setItemSubscribe('cross:' + selector, param[0]);
+      }
+      this.router.navigateByUrl(`{${routerlink}}` +
+        (param.length !== 0 ? '/' + param.join('/') : ''));
+    }
+  }
+
+  /**
+   * open use cross level
+   */
+  crossLevel(selector: string) {
+    this.storage.getItem('cross:' + selector).subscribe(param => {
+      if (param) {
+        this.storage.removeItemSubscribe('cross:' + selector);
+        this.router.navigateByUrl(`{${selector}}` + (param ? '/' + param : ''))
+      }
+    });
+  }
+
+  /**
+   * Location back
+   */
+  back() {
+    this.location.back();
+    this.resetI18n();
   }
 
   /**
@@ -239,14 +290,6 @@ export class BitService {
    */
   hasSearch(index: number): boolean {
     return this.search[index] !== undefined;
-  }
-
-  /**
-   * Location back
-   */
-  back() {
-    this.location.back();
-    this.resetI18n();
   }
 
   /**

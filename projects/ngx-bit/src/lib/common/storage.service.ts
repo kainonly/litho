@@ -72,8 +72,7 @@ export class StorageService {
    * Get router associate
    */
   private routerAssociate(router: Router, url: string, match?: any[]) {
-    const regExp = new RegExp(`(?:${match[0]})(.+?)(?=${match[1]})`, 'g');
-    const path = url.match(regExp)[0].replace(match[0], '');
+    const path = BitService.getSelectorFormUrl(url, match);
     this.storage.getItem('router').pipe(
       map((data: any) => {
         return data.hasOwnProperty(path) ? data[path].id : false;

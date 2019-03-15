@@ -2,9 +2,10 @@ import {Directive, HostListener, Input} from '@angular/core';
 import {BitService} from '../base/bit.service';
 
 @Directive({
-  selector: '[bitBack]'
+  selector: '[bitCrossLevel]'
 })
-export class BitBackDirective {
+export class BitCrossLevelDirective {
+  @Input() bitCrossLevel: string;
   @Input() bitTrigger = 'click';
 
   constructor(private bit: BitService) {
@@ -12,14 +13,15 @@ export class BitBackDirective {
 
   @HostListener('click')
   click() {
-    this.bit.back();
+    if (this.bitTrigger === 'click') {
+      this.bit.crossLevel(this.bitCrossLevel);
+    }
   }
-
 
   @HostListener('touchstart')
   touch() {
     if (this.bitTrigger === 'touch') {
-      this.bit.back();
+      this.bit.crossLevel(this.bitCrossLevel);
     }
   }
 }

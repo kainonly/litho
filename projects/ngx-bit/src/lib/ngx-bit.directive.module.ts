@@ -11,6 +11,8 @@ import {BitExplainDirective} from './directive/bit-explain.directive';
 import {BitStatusChangeDirective} from './directive/bit-status-change.directive';
 import {BitUploadDirective} from './directive/bit-upload.directive';
 import {BitI18nTipsStyleDirective} from './directive/bit-i18n-tips-style.directive';
+import {BitOpenDirective} from './directive/bit-open.directive';
+import {BitCrossLevelDirective} from './directive/bit-cross-level.directive';
 
 @NgModule({
   imports: [
@@ -23,6 +25,8 @@ import {BitI18nTipsStyleDirective} from './directive/bit-i18n-tips-style.directi
     BitFormSubmitDirective,
     BitFormControlColDirective,
     BitFormLabelColDirective,
+    BitOpenDirective,
+    BitCrossLevelDirective,
     BitBackDirective,
     BitExplainDirective,
     BitStatusChangeDirective,
@@ -36,6 +40,8 @@ import {BitI18nTipsStyleDirective} from './directive/bit-i18n-tips-style.directi
     BitFormSubmitDirective,
     BitFormControlColDirective,
     BitFormLabelColDirective,
+    BitOpenDirective,
+    BitCrossLevelDirective,
     BitBackDirective,
     BitExplainDirective,
     BitStatusChangeDirective,

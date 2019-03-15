@@ -2,9 +2,10 @@ import {Directive, HostListener, Input} from '@angular/core';
 import {BitService} from '../base/bit.service';
 
 @Directive({
-  selector: '[bitBack]'
+  selector: '[bitOpen]'
 })
-export class BitBackDirective {
+export class BitOpenDirective {
+  @Input() bitOpen: any[];
   @Input() bitTrigger = 'click';
 
   constructor(private bit: BitService) {
@@ -12,14 +13,15 @@ export class BitBackDirective {
 
   @HostListener('click')
   click() {
-    this.bit.back();
+    if (this.bitTrigger === 'click') {
+      this.bit.open(this.bitOpen);
+    }
   }
-
 
   @HostListener('touchstart')
   touch() {
     if (this.bitTrigger === 'touch') {
-      this.bit.back();
+      this.bit.open(this.bitOpen);
     }
   }
 }
