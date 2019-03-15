@@ -9,6 +9,7 @@ import {ConfigService} from './config.service';
 import {EventsService} from './events.service';
 import {I18nGroupOptions} from '../types/i18n-group-options';
 
+
 @Injectable()
 export class BitService {
   /**
