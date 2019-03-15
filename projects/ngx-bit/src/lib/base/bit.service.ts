@@ -9,7 +9,6 @@ import {ConfigService} from './config.service';
 import {EventsService} from './events.service';
 import {I18nGroupOptions} from '../types/i18n-group-options';
 
-
 @Injectable()
 export class BitService {
   /**
@@ -66,6 +65,11 @@ export class BitService {
    * Breadcrumb array
    */
   breadcrumb = [];
+
+  /**
+   * default breadcrumb top level
+   */
+  breadcrumbTop: any = 0;
 
   /**
    * Nav active array
@@ -192,6 +196,7 @@ export class BitService {
     this.static = config.staticUrl;
     this.uploads = (config.uploadsUrl) ? config.uploadsUrl : config.originUrl + '/' + config.uploadsPath;
     this.pageLimit = config.pageLimit;
+    this.breadcrumbTop = this.config.breadcrumbTop;
     this.i18n = config.i18nDefault;
     this.i18nContain = config.i18nContain;
     this.locale = localStorage.getItem('locale') ? localStorage.getItem('locale') : 'zh_cn';
@@ -202,16 +207,16 @@ export class BitService {
    */
   open(path: any[]) {
     const url = this.router.url;
-    let selector;
     if (url !== '/') {
-      selector = BitService.getSelectorFormUrl(this.router.url, ['%7B', '%7D']);
+      const selector = BitService.getSelectorFormUrl(this.router.url, ['%7B', '%7D']);
+      const param = url.split('/').slice(2);
+      if (param.length !== 0) {
+        this.storage.setItemSubscribe('cross:' + selector, param[0]);
+      }
     }
     if (path.length !== 0) {
       const routerlink = path[0];
       const param = path.slice(1);
-      if (param[0] !== undefined) {
-        this.storage.setItemSubscribe('cross:' + selector, param[0]);
-      }
       this.router.navigateByUrl(`{${routerlink}}` +
         (param.length !== 0 ? '/' + param.join('/') : ''));
     }
@@ -222,9 +227,11 @@ export class BitService {
    */
   crossLevel(selector: string) {
     this.storage.getItem('cross:' + selector).subscribe(param => {
-      if (param) {
+      if (param === null) {
+        this.router.navigateByUrl(`{${selector}}`);
+      } else {
         this.storage.removeItemSubscribe('cross:' + selector);
-        this.router.navigateByUrl(`{${selector}}` + (param ? '/' + param : ''))
+        this.router.navigateByUrl(`/{${selector}}/${param}`);
       }
     });
   }

@@ -11,6 +11,7 @@ export class ConfigService {
   uploadsPath = '';
   withCredentials = false;
   httpInterceptor = false;
+  breadcrumbTop = 0;
   pageLimit = 20;
   formControlCol: any = {
     common: {},

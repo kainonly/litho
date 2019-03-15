@@ -103,11 +103,11 @@ export class StorageService {
           name: node.name,
           routerlink: node.routerlink
         });
-        if (node.parent !== 0) {
+        if (node.parent !== this.bit.breadcrumbTop) {
           queue.push(node.parent);
         }
       }
-      while (queue.length !== 0) {
+      while (queue.length !== this.bit.breadcrumbTop) {
         const parentId = queue.pop();
         if (data.hasOwnProperty(parentId)) {
           const next = data[parentId];
@@ -116,7 +116,7 @@ export class StorageService {
             name: next.name,
             routerlink: next.routerlink
           });
-          if (next.parent !== 0) {
+          if (next.parent !== this.bit.breadcrumbTop) {
             queue.push(next.parent);
           }
         }
