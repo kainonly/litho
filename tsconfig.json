@@ -20,10 +20,7 @@
     ],
     "paths": {
       "ngx-bit": [
-        "dist/ngx-bit"
-      ],
-      "ngx-bit/*": [
-        "dist/ngx-bit/*"
+        "projects/ngx-bit/src/public_api.ts"
       ]
     }
   }

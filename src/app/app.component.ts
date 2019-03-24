@@ -7,15 +7,15 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit, AfterViewInit {
-  form: FormGroup;
+  data = {
+    name: 'kain'
+  };
+  x = 'asd';
 
   constructor(private fb: FormBuilder) {
   }
 
   ngOnInit() {
-    this.form = this.fb.group({
-      email: [null, [Validators.required]],
-    });
   }
 
   ngAfterViewInit() {

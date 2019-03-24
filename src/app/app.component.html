@@ -1,2 +1,7 @@
-<div appAppSet>
+<button (click)="data={}">清空</button>
+
+{{data|EmptyObject}}
+
+<div *ngIf="!(data|EmptyObject)">
+  {{x}}
 </div>
