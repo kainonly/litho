@@ -1,6 +1,6 @@
-## 组件通讯服务 - EventsService
+## 组件通讯服务 (EventsService)
 
-#### - publish(topic: string, args?: any)
+##### publish(topic: string, args?: any)
 
 发布组件通讯事件
 
@@ -13,7 +13,7 @@ this.events.publish('any', {
 });
 ```
 
-#### - on(topic: string): Observable< any >
+##### on(topic: string): Observable< any >
 
 订阅组件通讯事件
 
@@ -26,7 +26,7 @@ this.events.on('any').subscribe(args => {
 });
 ```
 
-#### - off(topic: string)
+##### off(topic: string)
 
 取消订阅的组件通讯事件
 
@@ -38,7 +38,7 @@ this.events.on('any').subscribe(args => {
 this.events.off('any');
 ```
 
-#### 语言包切换事件
+##### 语言包切换事件
 
 ```typescript
 this.events.on('locale').subscribe(args => {
