@@ -1,11 +1,9 @@
 ## 判断空数组
 
-#### emptyArray(array: any[])
+##### emptyArray(array: any[])
 
 ```typescript
-import {isArray} from 'util';
-
-export function emptyArray(array: any[]) {
+emptyArray(array: any[]) {
   if (isArray(array)) {
     return array.length === 0;
   } else {

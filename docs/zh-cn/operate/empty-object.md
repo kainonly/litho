@@ -1,11 +1,9 @@
 ## 判断空对象
 
-#### emptyObject(object: any)
+##### emptyObject(object: any)
 
 ```typescript
-import {isArray, isObject} from 'util';
-
-export function emptyObject(object: any): boolean {
+emptyObject(object: any): boolean {
   if (isObject(object) && !isArray(object)) {
     return Object.keys(object).length === 0;
   } else {

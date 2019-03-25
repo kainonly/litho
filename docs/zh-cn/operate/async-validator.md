@@ -1,11 +1,9 @@
 ## 组件异步验证器
 
-#### asyncValidator(req: Observable<any>, field = 'duplicated')
+##### asyncValidator(req: Observable<any>, field = 'duplicated')
 
 ```typescript
-import {Observable} from 'rxjs';
-
-export function asyncValidator(req: Observable<any>, field = 'duplicated'): Observable<any> {
+asyncValidator(req: Observable<any>, field = 'duplicated'): Observable<any> {
   return Observable.create((observer) => {
     setTimeout(() => {
       req.subscribe((res) => {
@@ -31,6 +29,8 @@ export function asyncValidator(req: Observable<any>, field = 'duplicated'): Obse
 在组件内定义异步验证器
 
 ``` typescript
+import {operates} from 'ngx-bit';
+
 export class AdminAddComponent implements OnInit {
 
   constructor(private swal: SwalService,
@@ -46,6 +46,7 @@ export class AdminAddComponent implements OnInit {
     });
   }
 
-  validedUsername = (control: AbstractControl) => asyncValidator(this.adminService.validedUsername(control.value));
+  validedUsername = (control: AbstractControl) =>
+    operates.asyncValidator(this.adminService.validedUsername(control.value));
 }
 ```

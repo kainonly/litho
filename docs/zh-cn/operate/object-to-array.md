@@ -1,15 +1,15 @@
 ## 对象转数组
 
-#### objectToArray(object: any)
+##### objectToArray(object: any)
 
 ```typescript
-export function objectToArray(object: any): any[] {
+objectToArray(object: any): any[] {
   if (isObject(object) && !isArray(object)) {
     const array = [];
     for (const key in object) {
       if (object.hasOwnProperty(key)) {
         array.push({
-          key: key,
+          key,
           rows: object[key]
         });
       }
