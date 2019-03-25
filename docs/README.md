@@ -1,7 +1,7 @@
 NGX-BIT
 =======
 
-基于 Angular 的辅助框架
+基于 Angular 的 CURD 辅助框架
 
 [![NPM version](https://badge.fury.io/js/ngx-bit.png)](http://badge.fury.io/js/ngx-bit)
 [![Downloads](https://img.shields.io/npm/dm/ngx-bit.svg?style=flat-square)](https://www.npmjs.com/package/ngx-bit)
