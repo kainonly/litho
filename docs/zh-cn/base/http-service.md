@@ -1,6 +1,6 @@
 ## 请求服务 (HttpService)
 
-#### - req(url: string, body: any = {}, , method = 'post'): Observable< any >
+##### req(url: string, body: any = {}, , method = 'post'): Observable< any >
 
 创建请求对象
 
@@ -20,57 +20,112 @@ this.http.req('main/nav').subscribe(res => {
 ```
 
 
-#### 如何跨域携带 Cookie
+##### 如何跨域携带 Cookie
 
 在 `environment` 中启用
 
 ```typescript
 export const environment = {
   bit: {
-    with_credentials: true
+    withCredentials: true
   }
 };
 ```
 
-#### 如何对请求做出拦截
+##### get(model: string, condition: any, special = false): Observable< any >
 
-在 `environment` 中启用
+创建一个获取单条数据的处理
+
+- **model** 模块名称
+- **condition** 条件数组
+- **special** 是否返回源数据
 
 ```typescript
-export const environment = {
-  bit: {
-    http_customize: true
-  }
-};
+get(id: number) {
+  return this.http.get(this.model, {id});
+}
 ```
 
-例如，对RBAC返回失败的统一请求进行拦截并返回提示
+##### lists(model: string, condition: any[] = [], refresh = false, special = false): Observable< any >
+
+创建一个分页列表数据的处理
+
+- **model** 模块名称
+- **condition** 条件数组
+- **refresh** 强制刷新，即重置分页相关的字段
+- **special** 是否返回源数据
 
 ```typescript
-import {Component, OnInit} from '@angular/core';
-import {BitService, HttpService} from 'ngx-bit';
-import {Observable, of} from 'rxjs';
-import {NzMessageService} from 'ng-zorro-antd';
-import packer from './app.language';
+lists(search: any, app: number, refresh: boolean): Observable<any> {
+  return this.http.lists(this.model, search, refresh);
+}
+```
 
-@Component({
-  selector: 'app-root',
-  template: '<router-outlet></router-outlet>',
-})
-export class AppComponent implements OnInit {
-  constructor(private bit: BitService,
-              private message: NzMessageService,
-              private http: HttpService) {
-  }
+##### originLists(model: string, condition: any[] = [], special = false): Observable< any >
 
-  ngOnInit() {
-    this.bit.registerLocales(packer, true);
-    this.http.customize = (res: any): Observable<any> => {
-      if (res.error && res.msg === 'error:rbac') {
-        this.message.error(this.bit.l['rbac_error']);
-      }
-      return of(res);
-    };
-  }
+创建一个列表数据的处理
+
+- **model** 模块名称
+- **condition** 条件数组
+- **special** 是否返回源数据
+
+```typescript
+originLists(): Observable<any> {
+  return this.http.originLists(this.model);
+}
+```
+
+##### add(model: string, data: any): Observable< any >
+
+创建一个新增的处理
+
+- **model** 模块名称
+- **data** 新增数据
+
+```typescript
+add(data: any) {
+  return this.http.add(this.model, data);
+}
+```
+
+##### edit(model: string, data: any, condition: any = []): Observable< any >
+
+创建一个编辑的处理
+
+- **model** 模块名称
+- **data** 编辑数据
+- **condition** 条件数组
+
+```typescript
+edit(data: any): Observable<any> {
+  return this.http.edit(this.model, data);
+}
+```
+
+##### status(model: string, data: any, field = 'status', extra?: any): Observable< any >
+
+创建一个状态切换的处理
+
+- **model** 模块名称
+- **data** 切换数据
+- **field** 状态字段，默认 `status`
+- **extra** 扩展字段
+
+```typescript
+status(data: any, app: number): Observable<any> {
+  return this.http.status(this.model, data, undefined, {app});
+}
+```
+
+##### delete(model: string, condition: any): Observable< any >
+
+创建一个删除的处理
+
+- **model** 模块名称
+- **condition** 条件数组
+
+```typescript
+delete(id: any, app: number): Observable<any> {
+  return this.http.delete(this.model, {id, app});
 }
 ```
