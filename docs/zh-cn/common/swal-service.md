@@ -1,10 +1,15 @@
-## 提交反馈栏 - SwalService
+## 提交反馈栏 (SwalService)
 
-#### - addAlert(res: any, reset?: any, customize?: AlertCustomize)
+##### static native
+
+sweetalert2 对象
+
+##### addAlert(res: any, form: FormGroup, reset?: any, customize?: AlertCustomize): Observable< any >
 
 新增返回反馈栏
 
 - **res** 请求响应结果
+- **form** 表单对象
 - **reset** FormGroup 重置值
 - **customize** 自定义文本
     - **text** 提示文本
@@ -21,19 +26,19 @@ export class AdminAddComponent implements OnInit {
 
     ...
 
-    submit = (data) => {
+    submit(data) {
         this.adminService.add(data).pipe(
-            switchMap(res => this.swal.addAlert(res, {
+            switchMap(res => this.swal.addAlert(res, this.form, {
                 status: true
             }))
         ).subscribe((status) => {
             // status => true or false
         });
-    };
+    }
 }
 ```
 
-#### - editAlert(res: any, customize?: AlertCustomize)
+##### editAlert(res: any, customize?: AlertCustomize): Observable< any >
 
 修改返回反馈栏
 
@@ -53,18 +58,18 @@ export class AdminEditComponent implements OnInit {
 
     ...
 
-    submit = (data) => {
+    submit(data) {
         data.id = this.id;
         this.adminService.edit(data).pipe(
             switchMap(res => this.swal.editAlert(res))
         ).subscribe((status) => {
             // status => true or false
         });
-    };
+    }
 }
 ```
 
-#### deleteAlert(service: Observable< any >, customize?: AlertCustomize)
+##### deleteAlert(service: Observable< any >, customize?: AlertCustomize)
 
 删除返回反馈栏
 
@@ -99,19 +104,3 @@ export class AdminIndexComponent implements OnInit {
   }
 }
 ```
-
-#### SwalService.native(title: string, message?: string, type?: SweetAlertType)
-
-自定义反馈栏
-
-- **title** 标题
-- **message** 主体信息
-- **type** `SweetAlertType` 定义参数
-- **Return** `Promise<SweetAlertResult>`
-
-#### SwalService.native(settings: SweetAlertOptions & { useRejections?: false })
-
-自定义反馈栏
-
-- **settings** `SweetAlertOptions` 对象定义反馈栏
-- **Return** `Promise<SweetAlertResult>`
