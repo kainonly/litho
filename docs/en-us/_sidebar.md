@@ -1,4 +1,4 @@
-- BASE
+- Base
   - [Config](en-us/base/config-service)
   - [Tools](en-us/base/bit-service)
   - [CURD HTTP](en-us/base/http-service)
