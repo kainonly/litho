@@ -1,4 +1,4 @@
-## 请求服务 (HttpService)
+## CURD 请求 (HttpService)
 
 ##### req(url: string, body: any = {}, , method = 'post'): Observable< any >
 

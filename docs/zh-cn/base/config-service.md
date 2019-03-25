@@ -1,4 +1,4 @@
-## 配置服务 (ConfigService)
+## 配置 (ConfigService)
 
 ##### originUrl: string
 

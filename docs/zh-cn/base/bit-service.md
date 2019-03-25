@@ -1,4 +1,4 @@
-## 工具服务 (BitService)
+## 工具 (BitService)
 
 ##### static: string
 
