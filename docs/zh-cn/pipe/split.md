@@ -1,6 +1,6 @@
 ## 字符串分割为数组
 
-#### @Pipe({name: 'Split'})
+##### @Pipe({name: 'Split'})
 
 ```typescript
 @Pipe({name: 'Split'})

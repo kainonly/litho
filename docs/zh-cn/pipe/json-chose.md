@@ -1,6 +1,6 @@
 ## 多语言填补显示
 
-#### @Pipe({name: 'JSONChose'})
+##### @Pipe({name: 'JSONChose'})
 
 ```typescript
 @Pipe({name: 'JSONChose'})

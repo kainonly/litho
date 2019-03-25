@@ -1,6 +1,6 @@
 ## 空对象
 
-#### @Pipe({name: 'EmptyObject'})
+##### @Pipe({name: 'EmptyObject'})
 
 ```typescript
 @Pipe({name: 'EmptyObject'})

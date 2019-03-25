@@ -1,6 +1,6 @@
 ## JSON字符串转数组
 
-#### @Pipe({name: 'JSONParse'})
+##### @Pipe({name: 'JSONParse'})
 
 ```typescript
 @Pipe({name: 'JSONParse'})
