@@ -1,4 +1,4 @@
-## 清空搜索
+## 搜索清除
 
 #### @Directive({selector: '[bit-search-clear]'})
 

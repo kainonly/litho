@@ -1,4 +1,4 @@
-## 监听搜索
+## 搜索监听
 
 #### @Directive({selector: '[bit-search-change]'})
 

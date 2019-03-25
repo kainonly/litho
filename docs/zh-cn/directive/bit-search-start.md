@@ -1,4 +1,4 @@
-## 开始搜索
+## 搜索触发
 
 #### @Directive({selector: '[bit-search-start]'})
 
