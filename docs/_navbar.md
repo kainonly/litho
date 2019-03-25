@@ -1,5 +1,5 @@
-* [中文](/)
-* [En](/en-us/)
-* VERSION
-  * [1.x](https://ngx-bit.v1.kain.net.cn)
-  * [7.x](/)
+- [中文](/)
+- [En](/en-us/)
+- VERSION
+  - [1.x](https://ngx-bit.v1.kain.net.cn)
+  - [7.x](/)
