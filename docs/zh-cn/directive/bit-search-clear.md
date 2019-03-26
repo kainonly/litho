@@ -1,14 +1,15 @@
 ## 搜索清除
 
-#### @Directive({selector: '[bit-search-clear]'})
+#### @Directive({selector: '[bitSearchClear]'})
 
 ```typescript
 @Directive({
-  selector: '[bit-search-clear]'
+  selector: '[bitSearchClear]'
 })
 export class BitSearchClearDirective {
-  @Input() searchSelector: string;
-  @Output() searchclear: EventEmitter<any> = new EventEmitter<any>();
+  @Input() bitSearchClear: string;
+  @Input() reset: any;
+  @Output() after: EventEmitter<any> = new EventEmitter<any>();
 
   constructor(private bit: BitService,
               private storage: LocalStorage) {
@@ -17,25 +18,36 @@ export class BitSearchClearDirective {
   @HostListener('click')
   onclick() {
     for (const x of this.bit.search) {
-      x.value = '';
+      if (this.reset !== undefined && this.reset.hasOwnProperty(x.field)) {
+        x.value = this.reset[x.field];
+      } else {
+        x.value = '';
+      }
     }
-    this.storage.removeItem('search:' + this.searchSelector).subscribe(() => {
-      this.searchclear.emit(true);
+    this.storage.removeItem('search:' + this.bitSearchClear).subscribe(() => {
+      this.after.emit(true);
     });
   }
 }
 ```
 
-- **searchSelector** 搜索命名
-- **searchclear** 清空搜索之后
+- **@Input() bitSearchClear: string** 搜索命名
+- **@Input() reset: any** 清除重置的数值
+- **@Output() after: EventEmitter< any >** 清空搜索之后
 
 清空搜索绑定在按钮 `click` 事件
 
 ```html
 <button nz-button
-  bit-search-clear
-  searchSelector="test-index"
-  (searchclear)="getLists(true)">
-  清除搜索
+        bitSearchClear="sys-index"
+        (after)="getLists(true)">
+  {{bit.l['clearSearch']}}
+</button>
+
+<button nz-button
+        bitSearchClear="admin-index"
+        [reset]="{tag:0}"
+        (after)="getLists(true)">
+  {{bit.l['clearSearch']}}
 </button>
 ```
