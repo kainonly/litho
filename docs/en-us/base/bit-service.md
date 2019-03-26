@@ -248,7 +248,7 @@ Multi-language input component ID restore defaults
 
 ##### registerLocales(packer: any, common = false)
 
-注册语言包
+Registered language pack
 
 - **packer** Language file
 - **common** Is it a common language pack

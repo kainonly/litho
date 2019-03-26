@@ -1,24 +1,24 @@
-## 提交反馈栏 (SwalService)
+## Alert (SwalService)
 
 ##### static native
 
-sweetalert2 对象
+sweetalert2 native object
 
 ##### addAlert(res: any, form: FormGroup, reset?: any, customize?: AlertCustomize): Observable< any >
 
-新增返回反馈栏
+Add a return feedback bar
 
-- **res** 请求响应结果
-- **form** 表单对象
-- **reset** FormGroup 重置值
-- **customize** 自定义文本
-    - **text** 提示文本
-    - **error_text** 返回错误提示文本
-    - **confirmButtonText** 确认按钮文本
-    - **cancelButtonText** 取消按钮文本
+- **res** Request response result
+- **form** Form object
+- **reset** FormGroup reset value
+- **customize** Custom text
+    - **text** Prompt text
+    - **error_text** Return error text
+    - **confirmButtonText** Confirm button text
+    - **cancelButtonText** Cancel button text
 - **Return** `Observable<any>`
 
-例如, 在新增操作下组件表单提交中使用, `status` 为 `true` 表示确认提示框
+For example, in the component form submission under the new operation, `status` is `true` for confirmation prompt box.
 
 ```typescript
 
@@ -40,17 +40,17 @@ export class AdminAddComponent implements OnInit {
 
 ##### editAlert(res: any, customize?: AlertCustomize): Observable< any >
 
-修改返回反馈栏
+Modify return feedback bar
 
-- **res** 请求响应结果
-- **customize** 自定义文本
-    - **text** 提示文本
-    - **error_text** 返回错误提示文本
-    - **confirmButtonText** 确认按钮文本
-    - **cancelButtonText** 取消按钮文本
+- **res** Request response result
+- **customize** Custom text
+    - **text** Prompt text
+    - **error_text** Return error text
+    - **confirmButtonText** Confirm button text
+    - **cancelButtonText** Cancel button text
 - **Return** `Observable<any>`
 
-例如, 在修改操作下组件表单提交中使用, `status` 为 `true` 表示确认提示框
+For example, in the component form submission under the modify operation, `status` is `true` for the confirmation prompt box.
 
 ```typescript
 export class AdminEditComponent implements OnInit {
@@ -71,16 +71,16 @@ export class AdminEditComponent implements OnInit {
 
 ##### deleteAlert(service: Observable< any >, customize?: AlertCustomize)
 
-删除返回反馈栏
+Delete return feedback bar
 
-- **service** 删除请求对象
-- **customize** 自定义文本
-    - **text** 提示文本
-    - **confirmButtonText** 确认按钮文本
-    - **cancelButtonText** 取消按钮文本
+- **service** Delete request object
+- **customize** Custom text
+    - **text** Prompt text
+    - **confirmButtonText** Confirm button text
+    - **cancelButtonText** Cancel button text
 - **Return** `Observable<any>`
 
-例如, 在删除操作下使用, 订阅返回删除请求对象的响应值
+For example, when used under a delete operation, the subscription returns the response value of the delete request object.
 
 ```typescript
 export class AdminIndexComponent implements OnInit {

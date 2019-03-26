@@ -1,8 +1,8 @@
-## 本地存储 (StorageService)
+## Storage (StorageService)
 
 ##### clear()
 
-清除所有本地存储
+Clear all local storage
 
 ```typescript
 this.storage.clear();
@@ -10,10 +10,10 @@ this.storage.clear();
 
 ##### setMenu(menu: any, router: any)
 
-设置本地存储菜单数据
+Set local storage menu data
 
-- **menu** 菜单数据
-- **router** 路由数据
+- **menu** Menu data
+- **router** Routing data
 
 ```typescript
 this.storage.setMenu(data.menu, data.router);
@@ -21,10 +21,10 @@ this.storage.setMenu(data.menu, data.router);
 
 ##### autoBreadcrumb(router: Router, match = ['%7B', '%7D'])
 
-自动计算面包屑
+Automatic calculation of breadcrumbs
 
-- **router** 应用 `Router` 对象
-- **match** 路由标签获取符，默认`{}`
+- **router** Apply the `Router` object
+- **match** Routing tag getter, default `{}`
 
 ```typescript
 this.storage.autoBreadcrumb(this.router);
@@ -32,7 +32,7 @@ this.storage.autoBreadcrumb(this.router);
 
 ##### destoryBreadcrumb()
 
-销毁面包屑自动计算
+Automatic calculation of breadcrumbs
 
 ```typescript
 this.storage.destoryBreadcrumb();
