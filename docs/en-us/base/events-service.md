@@ -1,4 +1,4 @@
-## 组件通讯 (EventsService)
+## Events (EventsService)
 
 ##### publish(topic: string, args?: any)
 

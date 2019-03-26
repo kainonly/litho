@@ -1,17 +1,17 @@
-## CURD 请求 (HttpService)
+## CURD HTTP (HttpService)
 
 ##### req(url: string, body: any = {}, , method = 'post'): Observable< any >
 
-创建请求对象
+Create request object
 
-- **url** 请求路由
-- **body** 发送数据
-- **method** 请求类型, 默认为 `post` 请求
+- **url** Request Url
+- **body** Request Body
+- **method** Request Method, default `post`
 - **Return**  `Observable< any >`
 
-!> 在之前需要定义配置 `origin` `namespace`
+!> Before you need to define the configuration `origin` `namespace`
 
-例如：请求导航接口
+For example: request navigation
 
 ```typescript
 this.http.req('main/nav').subscribe(res => {
@@ -20,9 +20,9 @@ this.http.req('main/nav').subscribe(res => {
 ```
 
 
-##### 如何跨域携带 Cookie
+##### How to with cookies across domains
 
-在 `environment` 中启用
+Enabled in `environment`
 
 ```typescript
 export const environment = {
@@ -34,11 +34,11 @@ export const environment = {
 
 ##### get(model: string, condition: any, special = false): Observable< any >
 
-创建一个获取单条数据的处理
+Create a process to get a single piece of data
 
-- **model** 模块名称
-- **condition** 条件数组
-- **special** 是否返回源数据
+- **model** Model Name
+- **condition** Condition Array
+- **special** Enable Data Source
 
 ```typescript
 get(id: number) {
@@ -48,12 +48,12 @@ get(id: number) {
 
 ##### lists(model: string, condition: any[] = [], refresh = false, special = false): Observable< any >
 
-创建一个分页列表数据的处理
+Create a page list data processing
 
-- **model** 模块名称
-- **condition** 条件数组
-- **refresh** 强制刷新，即重置分页相关的字段
-- **special** 是否返回源数据
+- **model** Model Name
+- **condition** Condition Array
+- **refresh** Forced refresh, that is, reset paging related fields
+- **special** Enable Data Source
 
 ```typescript
 lists(search: any, app: number, refresh: boolean): Observable<any> {
@@ -63,11 +63,11 @@ lists(search: any, app: number, refresh: boolean): Observable<any> {
 
 ##### originLists(model: string, condition: any[] = [], special = false): Observable< any >
 
-创建一个列表数据的处理
+Create a list data processing
 
-- **model** 模块名称
-- **condition** 条件数组
-- **special** 是否返回源数据
+- **model** Model Name
+- **condition** Condition Array
+- **special** Enable Data Source
 
 ```typescript
 originLists(): Observable<any> {
@@ -77,10 +77,10 @@ originLists(): Observable<any> {
 
 ##### add(model: string, data: any): Observable< any >
 
-创建一个新增的处理
+Create a new process
 
-- **model** 模块名称
-- **data** 新增数据
+- **model** Model Name
+- **data** Data
 
 ```typescript
 add(data: any) {
@@ -90,11 +90,11 @@ add(data: any) {
 
 ##### edit(model: string, data: any, condition: any = []): Observable< any >
 
-创建一个编辑的处理
+Create an edited process
 
-- **model** 模块名称
-- **data** 编辑数据
-- **condition** 条件数组
+- **model** Model Name
+- **data** Data
+- **condition** Condition Array
 
 ```typescript
 edit(data: any): Observable<any> {
@@ -104,12 +104,12 @@ edit(data: any): Observable<any> {
 
 ##### status(model: string, data: any, field = 'status', extra?: any): Observable< any >
 
-创建一个状态切换的处理
+Create a state switch processing
 
-- **model** 模块名称
-- **data** 切换数据
-- **field** 状态字段，默认 `status`
-- **extra** 扩展字段
+- **model** Model Name
+- **data** Data
+- **field** Status Field, default `status`
+- **extra** Extra Field
 
 ```typescript
 status(data: any, app: number): Observable<any> {
@@ -119,10 +119,10 @@ status(data: any, app: number): Observable<any> {
 
 ##### delete(model: string, condition: any): Observable< any >
 
-创建一个删除的处理
+Create a delete process
 
-- **model** 模块名称
-- **condition** 条件数组
+- **model** Model Name
+- **condition** Condition Array
 
 ```typescript
 delete(id: any, app: number): Observable<any> {

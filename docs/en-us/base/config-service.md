@@ -26,7 +26,7 @@ Upload address
 
 ##### withCredentials: boolean
 
-Allow the request to carry a cookie, set to `true`
+Allow the request to with cookie, set to `true`
 
 ##### httpInterceptor: boolean
 
