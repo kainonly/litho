@@ -1,4 +1,4 @@
-## 对象转Map对象
+## Object To Map
 
 ##### objectToMap(object: any)
 
@@ -18,10 +18,10 @@ objectToMap(object: any): Map<any, any> | boolean {
 }
 ```
 
-- **object** 对象
+- **object** Object
 - **Return** `Map<any,any>|false` 
 
-将一个对象转为Map对象
+Convert an object to a Map object
 
 ```typescript
 const some = {

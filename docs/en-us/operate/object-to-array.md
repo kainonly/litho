@@ -1,4 +1,4 @@
-## 对象转数组
+## Object To Array
 
 ##### objectToArray(object: any)
 
@@ -21,12 +21,12 @@ objectToArray(object: any): any[] {
 }
 ```
 
-- **object** 对象
+- **object** Object
 - **Return** `any[]`
-  - **key** 原主键
-  - **rows** 原键值
+  - **key** key
+  - **rows** value
 
-将一个对象转为数组
+Convert an object to an array
 
 ```typescript
 const some = {

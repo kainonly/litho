@@ -1,4 +1,4 @@
-## 判断空数组
+## Empty Array
 
 ##### emptyArray(array: any[])
 
@@ -12,10 +12,10 @@ emptyArray(array: any[]) {
 }
 ```
 
-- **array** 数组
+- **array** array
 - **Return** `boolean`
 
-判断一个数组是否为空
+Determine if an array is empty
 
 ``` typescript
 const test = [];

@@ -1,4 +1,4 @@
-## 判断空对象
+## Empty Object
 
 ##### emptyObject(object: any)
 
@@ -12,10 +12,10 @@ emptyObject(object: any): boolean {
 }
 ```
 
-- **object** 对象
+- **object** Object
 - **Return** `boolean`
 
-判断一个对象是否为空
+Determine if an object is empty
 
 ``` typescript
 const test = {};

@@ -1,4 +1,4 @@
-## 组件异步验证器
+## Async Validator
 
 ##### asyncValidator(req: Observable<any>, field = 'duplicated')
 
@@ -23,10 +23,10 @@ asyncValidator(req: Observable<any>, field = 'duplicated'): Observable<any> {
 }
 ```
 
-- **req** 请求对象
-- **field** 自定义返回
+- **req** Request Object
+- **field** Custom Return
 
-在组件内定义异步验证器
+Define an asynchronous validator within a component
 
 ``` typescript
 import {operates} from 'ngx-bit';
