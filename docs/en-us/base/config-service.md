@@ -1,40 +1,40 @@
-## 配置 (ConfigService)
+## Config (ConfigService)
 
 ##### originUrl: string
 
-RESTful Api 请求接口的域名，例如 `https://api.developer.com`
+The domain name of the RESTful Api request interface, such as `https://api.developer.com`
 
 ##### staticUrl: string
 
-静态资源地址，可以是 `origin` 域名的相对路径，也可以是cdn域名，例如，`https://cdn.developer.com/`
+The domain name of the RESTful Api request interface, such as `https://api.developer.com`...
 
 ##### iconUrl: string
 
-放置在CDN上的icons路径，例如，`https://cdn.developer/icons/`
+The icons path placed on the CDN, for example, `https://cdn.developer/icons/`
 
 ##### namespace: string
 
-RESTful Api 地址命名空间，例如，`sys`，如果没有请设置为 `''`
+RESTful Api address namespace, for example, `sys`, if not set to `''
 
 ##### uploadsUrl: boolean
 
-是否为分布上传，`false` 为 `originUrl`+`/`+`uploadsPath`，`true` 时 `uploadsPath` 需填写完整上传地址
+Whether it is a distribution upload, `false` is `originUrl`+`/`+`uploadsPath`, `true` when `uploadsPath` needs to fill in the full upload address
 
 ##### uploadsPath: string
 
-上传地址
+Upload address
 
 ##### withCredentials: boolean
 
-允许请求携带Cookie，设置为 `true`
+Allow the request to carry a cookie, set to `true`
 
 ##### httpInterceptor: boolean
 
-是否开启请求拦截
+Whether to enable request interception
 
 ##### interceptor = (res) => of(res)
 
-请求拦截自定义处理，例如对RBAC返回失败的统一请求进行拦截并返回提示
+Request to intercept custom processing, such as intercepting a unified request that RBAC returns failed and returning a prompt
 
 ```typescript
 import {Component, OnInit} from '@angular/core';
@@ -67,18 +67,18 @@ export class AppComponent implements OnInit {
 
 ##### breadcrumbTop: any
 
-面包屑默认最高级，默认 `0`
+Breadcrumbs default to the highest level, default `0`
 
 ##### pageLimit: number
 
-列表分页, 默认值 `20`
+List pagination, default value `20`
 
 ##### formControlCol: any
 
-表单 `Control` 栅格统一设置
+Set Form Control Common col
 
-- common: any，表单公共栅格标识
-- submit: any，表单提交栅格标识
+- common: any
+- submit: any
 
 ```typescript
 formControlCol: {
@@ -97,7 +97,7 @@ formControlCol: {
 
 ##### formLabelCol: any
 
-表单 `Label` 栅格统一设置
+Set Form Label Common col
 
 ```typescript
 formLabelCol: {
@@ -110,15 +110,15 @@ formLabelCol: {
 
 ##### i18nDefault: string
 
-多语言输入组件默认标识，默认 `zh_cn`
+Multi-language input component default identifier, default `zh_cn`
 
 ##### i18nContain: any[]
 
-多语言输入组件标识数组，例如：设置中文与英文，`['zh_cn', 'en_us']`
+Multi-language input component identification array, for example: set Chinese and English, `['zh_cn', 'en_us']`
 
 ##### i18nSwitch: any[]
 
-多语言组件集合，`i18n` 需要于标识对应
+Multi-language component collection, `i18n` needs to correspond to the identifier
 
 ```typescript
 [
