@@ -1,14 +1,14 @@
 ## 搜索监听
 
-#### @Directive({selector: '[bit-search-change]'})
+##### @Directive({selector: '[bitSearchChange]'})
 
 ```typescript
 @Directive({
-  selector: '[bit-search-change]'
+  selector: '[bitSearchChange]'
 })
 export class BitSearchChangeDirective implements OnInit {
-  @Input() searchSelector: string;
-  @Output() searchover: EventEmitter<any> = new EventEmitter<any>();
+  @Input() bitSearchChange: string;
+  @Output() after: EventEmitter<any> = new EventEmitter<any>();
 
   constructor(private bit: BitService,
               private model: NgModel,
@@ -16,29 +16,26 @@ export class BitSearchChangeDirective implements OnInit {
   }
 
   ngOnInit() {
-    this.model.update.subscribe(() => {
-      this.searchStart();
-    });
-  }
-
-  private searchStart() {
-    this.storage.setItem('search:' + this.searchSelector, this.bit.search).subscribe(() => {
-      this.searchover.emit(true);
+    this.model.update.pipe(
+      switchMap(_ => this.storage.setItem('search:' + this.bitSearchChange, this.bit.search))
+    ).subscribe(_ => {
+      this.after.emit(true);
     });
   }
 }
 ```
 
-- **searchSelector** 搜索命名
-- **searchover** 搜索变动之后
+- **@Input() bitSearchChange: string** 搜索命名
+- **@Output() after: EventEmitter< any >** 搜索变动之后
 
-监听搜索绑定在 `ngModelChange` 事件
+监听包含 `NgModelChange` 的组件中
 
 ```html
-<nz-select [(ngModel)]="bit.search[0].value"
-    bit-search-change
-    searchSelector="test-index"
-    (searchover)="getLists(true)">
-    <nz-option [nzValue]="x.id" [nzLabel]="x.name"></nz-option>
-</nz-select>
+<ng-container *ngIf="bit.hasSearch(0)">
+  <nz-select [(ngModel)]="bit.search[0].value"
+      bitSearchChange="sys-index"
+      (after)="getLists(true)">
+      <nz-option [nzValue]="x.id" [nzLabel]="x.name"></nz-option>
+  </nz-select>
+</ng-container>
 ```
