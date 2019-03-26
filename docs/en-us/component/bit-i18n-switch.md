@@ -1,12 +1,12 @@
-## 多语言切换器
+## I18n Switch
 
 ```html
 <bit-i18n-switch (i18nChange)="change($event)"></bit-i18n-switch>
 ```
 
-- **@Output() i18nChange: EventEmitter< string >** 监听 `bit.i18n` 值的变化
+- **@Output() i18nChange: EventEmitter< string >** Listen for changes in the value of `bit.i18n`
 
-控制表单内所有多语言输入组件，例如
+Control all multilingual input components within the form, for example
 
 ```html
 <ng-template #nzExtra>

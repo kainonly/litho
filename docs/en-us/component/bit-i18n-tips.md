@@ -1,4 +1,4 @@
-## 多语言提示
+## I18n Tips
 
 ```html
 <bit-i18n-tips #tips name="name"></bit-i18n-tips>
@@ -7,7 +7,7 @@
 - **tips** TemplateRef< any >
 - **name** FormControlName
 
-联合属性指令 `bitI18nTipsStyle` 共同使用
+Joint attribute directive `bitI18nTipsStyle` is used together
 
 ```html
 <bit-i18n-tips #tips name="name"></bit-i18n-tips>
