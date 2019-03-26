@@ -1,4 +1,4 @@
-## 空对象
+## Empty Object
 
 ##### @Pipe({name: 'EmptyObject'})
 
@@ -11,10 +11,10 @@ export class EmptyObjectPipe implements PipeTransform {
 }
 ```
 
-- **value** 对象
+- **value** Object
 - **Return** `boolean`
 
-例如，假设存在一个空对象属性
+For example, suppose there is an empty object attribute
 
 ```typescript
 export class AnyComponent {
@@ -22,7 +22,7 @@ export class AnyComponent {
 }
 ```
 
-在模版中判断使用
+Use in the template
 
 ```html
 <div *ngIf="!(test|EmptyObject)">

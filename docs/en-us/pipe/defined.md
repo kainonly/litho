@@ -1,4 +1,4 @@
-## 定义
+## Defined
 
 ##### @Pipe({name: 'Defined'})
 
@@ -11,10 +11,10 @@ export class DefinedPipe implements PipeTransform {
 }
 ```
 
-- **value** 数值
+- **value** Value
 - **Return** `boolean`
 
-例如，假设存在一个未定义属性
+For example, suppose there is an undefined attribute
 
 ```typescript
 export class AnyComponent {
@@ -22,7 +22,7 @@ export class AnyComponent {
 }
 ```
 
-在模版中判断使用
+Use in the template
 
 ```html
 <div *ngIf="test|Defined">

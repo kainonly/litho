@@ -1,4 +1,4 @@
-## JSON字符串转数组
+## JSON Parse
 
 ##### @Pipe({name: 'JSONParse'})
 
@@ -15,16 +15,16 @@ export class JsonParsePipe implements PipeTransform {
 }
 ```
 
-- **value** JSON字符串
-- **chkey** 子键
+- **value** JSON string
+- **chkey** children key
 
-例如，在接口直接返回JSON字符串数组
+For example, returning a JSON string array directly on the interface
 
 ```typescript
 const data = `{"name":"bit","version":1}`;
 ```
 
-在这种情况下直接使用管道可以减少遍历处理
+In this case, using pipes directly can reduce traversal processing.
 
 ```html
 <p>{{data|JSONParse:name}}</p>

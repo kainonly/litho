@@ -1,4 +1,4 @@
-## 对象转Map对象
+## Object To Map
 
 ##### @Pipe({name: 'ObjectToMap'})
 
@@ -11,10 +11,10 @@ export class ObjectToMapPipe implements PipeTransform {
 }
 ```
 
-- **value** 对象
+- **value** Object
 - **Return** `Map`
 
-例如，假设一个对象
+For example, suppose an object
 
 ```typescript
 export class AnyComponent {
@@ -25,7 +25,7 @@ export class AnyComponent {
 }
 ```
 
-在模版中判断使用
+Use in the template
 
 ```html
 <ng-container *ngIf="some|ObjectToMap as x">

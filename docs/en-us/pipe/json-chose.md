@@ -1,4 +1,4 @@
-## 多语言填补显示
+## Locale Fill
 
 ##### @Pipe({name: 'JSONChose'})
 
@@ -28,29 +28,29 @@ export class JsonChosePipe implements PipeTransform {
 }
 ```
 
-- **value** 多语言类型的JSON字符串
-- **locale** 语言包标识
+- **value** Multi-language type JSON string
+- **locale** Language pack identifier
 
-例如，在接口直接返回多语言类型的JSON字符串
+For example, returning a multilingual JSON string directly at the interface
 
 ```typescript
 const data = `{"zh_cn":"我","en_us":"me"}`;
 ```
 
-如果指定某个语言为默认的显示
+If you specify a language as the default display
 
 ```html
 <p>{{data|JSONChose:'en_us'}}</p>
 <!-- display me -->
 ```
 
-当然如果多语言类型的JSON字符串有缺失的语言存在
+Of course if a multi-language type of JSON string has a missing language
 
 ```typescript
 const data = `{"zh_cn":"","en_us":"","ru-ru":"Я"}`;
 ```
 
-这种情况则显示可以填补的语言
+This situation shows the language that can be filled
 
 ```html
 <p>{{data|JSONChose}}</p>

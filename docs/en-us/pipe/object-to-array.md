@@ -1,4 +1,4 @@
-## 对象转数组
+## Object To Array
 
 ##### @Pipe({name: 'ObjectToArray'})
 
@@ -11,10 +11,10 @@ export class ObjectToArrayPipe implements PipeTransform {
 }
 ```
 
-- **value** 对象
+- **value** Object
 - **Return** `any[]`
 
-例如，假设一个对象
+For example, suppose an object
 
 ```typescript
 export class AnyComponent {
@@ -25,7 +25,7 @@ export class AnyComponent {
 }
 ```
 
-在模版中判断使用
+Use in the template
 
 ```html
 <div *ngFor="let x of some|ObjectToArray">

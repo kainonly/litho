@@ -1,4 +1,4 @@
-## 字符串分割为数组
+## Split
 
 ##### @Pipe({name: 'Split'})
 
@@ -11,17 +11,17 @@ export class SplitPipe implements PipeTransform {
 }
 ```
 
-- **text** 字符串
-- **symbol** 分割符号
+- **text** string
+- **symbol** symbol string
 - **Return** `string`
 
-例如，在一些场景下存在字符串
+For example, there are strings in some scenarios
 
 ```typescript
 const str = 'a1|b2|c3';
 ```
 
-那么可以通过该管道进行字符串分割
+Then you can split the string through the pipe
 
 ```html
 <p>{{(str|Split:'|')[0]}}</p>

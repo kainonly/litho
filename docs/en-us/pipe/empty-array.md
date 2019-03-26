@@ -1,4 +1,4 @@
-## 空数组
+## Empty Array
 
 ##### @Pipe({name: 'EmptyArray'})
 
@@ -11,10 +11,10 @@ export class EmptyArrayPipe implements PipeTransform {
 }
 ```
 
-- **value** 数组
+- **value** array
 - **Return** `boolean`
 
-例如，假设存在一个空数组属性
+For example, suppose there is an empty array attribute
 
 ```typescript
 export class AnyComponent {
@@ -22,7 +22,7 @@ export class AnyComponent {
 }
 ```
 
-在模版中判断使用
+Use in the template
 
 ```html
 <div *ngIf="!(test|EmptyArray)">
