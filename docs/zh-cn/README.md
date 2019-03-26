@@ -1,30 +1,30 @@
 NGX-BIT
 =======
 
-Angular's CURD Auxiliary Framework
+基于 Angular 的 CURD 辅助框架
 
 [![NPM version](https://badge.fury.io/js/ngx-bit.png)](http://badge.fury.io/js/ngx-bit)
 [![Downloads](https://img.shields.io/npm/dm/ngx-bit.svg?style=flat-square)](https://www.npmjs.com/package/ngx-bit)
 [![TypeScript](https://img.shields.io/badge/%3C%2F%3E-TypeScript-blue.svg)](https://www.typescriptlang.org/)
 [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/kainonly/ngx-bit.js/master/LICENSE)
 
-### Initialization
+### 初始化操作
 
 ```shell
 ng new exercise
 ```
 
-### Install UI
+### 安装 UI
 
-Ng-zorro-antd is an Angular implementation of Ant Design, which is also based on ng-zorro-antd for auxiliary extensions.
+ng-zorro-antd 是 Ant Design 的 Angular 实现, 这里也是基于 ng-zorro-antd 进行辅助扩展
 
 ```shell
 ng add ng-zorro-antd
 ```
 
-### Install Component
+### 安装组件
 
-Some of the features of ngx-bit depend on `@ngx-pwa/local-storage` `sweetalert2`
+ngx-bit 的部分功能依赖于 `@ngx-pwa/local-storage` `sweetalert2`
 
 ```shell
 npm install ngx-bit @ngx-pwa/local-storage sweetalert2 --save
@@ -33,9 +33,9 @@ npm install ngx-bit @ngx-pwa/local-storage sweetalert2 --save
 - **@ngx-pwa/local-storage** version >= 7.x
 - **sweetalert2**  version >= 8.x
 
-### Definition configuration
+### 定义配置
 
-Modify `src/environments/environment.ts`
+修改 `src/environments/environment.ts`
 
 ```typescript
 export const environment = {
@@ -91,9 +91,9 @@ export const environment = {
 };
 ```
 
-### Definition App Module
+### 定义模块
 
-Modify `src/app/app.module.ts` to introduce `NgxBitModule`
+修改 `src/app/app.module.ts`，引入 `NgxBitModule`
 
 ```typescript
 import {NgModule} from '@angular/core';
@@ -142,9 +142,9 @@ export class AppModule {
 }
 ```
 
-### Definition Router Module
+### 定义路由
 
-Create `src/app/app.router.module.ts`
+创建 `src/app/app.router.module.ts`
 
 ```typescript
 import {NgModule} from '@angular/core';
@@ -180,9 +180,9 @@ export class AppRouterModule {
 }
 ```
 
-### Definition Common Language pack
+### 定义公共语言包
 
-Create `src/app/app.language.ts`
+创建 `src/app/app.language.ts`
 
 ```typescript
 export default {
@@ -257,9 +257,9 @@ export default {
 };
 ```
 
-### Definition App Component
+### 定义根组件
 
-Modify `src/app/app.component.ts` and register the common language pack
+修改 `src/app/app.component.ts`，并注册公共语言包
 
 ```typescript
 import {Component, OnInit} from '@angular/core';
@@ -290,9 +290,9 @@ export class AppComponent implements OnInit {
 }
 ```
 
-### Running script
+### 运行脚本
 
-Modify the `scripts` of `package.json`
+修改 `package.json` 的 `scripts`
 
 ```json
 {
