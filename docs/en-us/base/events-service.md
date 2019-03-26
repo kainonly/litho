@@ -2,10 +2,10 @@
 
 ##### publish(topic: string, args?: any)
 
-发布组件通讯事件
+Publish component communication events
 
-- **topic** 主题名称
-- **args** 发送参数
+- **topic** Topic Name
+- **args** Args
 
 ``` typescript
 this.events.publish('any', {
@@ -15,9 +15,9 @@ this.events.publish('any', {
 
 ##### on(topic: string): Observable< any >
 
-订阅组件通讯事件
+Subscribe to component newsletter events
 
-- **topic** 主题名称
+- **topic** Topic Name
 - **Return** `Observable< any >`
 
 ```typescript
@@ -28,17 +28,17 @@ this.events.on('any').subscribe(args => {
 
 ##### off(topic: string)
 
-取消订阅的组件通讯事件
+Unsubscribed component communication event
 
-!> 在每次路由组件 `OnDestory` 时，都需要将自定义事件取消订阅
+!> Unsubscribe custom events each time the component `OnDestory` is routed
 
-- **topic** 主题名称
+- **topic** Topic Name
 
 ```typescript
 this.events.off('any');
 ```
 
-##### 语言包切换事件
+##### Language packet switching event
 
 ```typescript
 this.events.on('locale').subscribe(args => {
