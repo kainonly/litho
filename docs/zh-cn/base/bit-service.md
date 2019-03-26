@@ -64,11 +64,31 @@
 
 ##### title: string
 
-当前路由名称
+当前路由名称，例如 `<nz-card [nzTitle]="bit.title"></nz-card>`
 
 ##### breadcrumb: any[]
 
 面包屑数组
+
+```html
+<nz-breadcrumb [nzSeparator]="breadcrumbIcon">
+    <ng-template #breadcrumbIcon>
+    <i nz-icon type="right"></i>
+    </ng-template>
+    <nz-breadcrumb-item>
+    <a routerLink="/">{{bit.l['dashboard']}}</a>
+    </nz-breadcrumb-item>
+    <nz-breadcrumb-item *ngFor="let x of bit.breadcrumb;last as islast">
+    <ng-container *ngIf="islast;else notLast">{{x.name}}</ng-container>
+    <ng-template #notLast>
+        <a *ngIf="x.routerlink;else notRouterlink" [bitCrossLevel]="x.routerlink">
+        {{x.name}}
+        </a>
+        <ng-template #notRouterlink>{{x.name}}</ng-template>
+    </ng-template>
+    </nz-breadcrumb-item>
+</nz-breadcrumb>
+```
 
 ##### breadcrumbTop: any
 
@@ -77,6 +97,35 @@
 ##### navActive: any[]
 
 被激活的导航数组
+
+```html
+<ul nz-menu
+    [nzTheme]="'dark'"
+    [nzInlineCollapsed]="collapsed"
+    [nzMode]="collapsed?'vertical':'inline'">
+    <ng-container *ngTemplateOutlet="navTpl; context: {$implicit: navLists}"></ng-container>
+    <ng-template #navTpl let-navs>
+    <ng-container *ngFor="let x of navs">
+        <ng-container *ngIf="x.routerlink;else notRouterlink">
+        <li nz-menu-item
+            [nzSelected]="bit.navActive.indexOf(x.id)!==-1"
+            [bitOpen]="[x.routerlink]">
+            <i nz-icon [type]="x.icon"></i>
+            <span class="nav-text">{{x.name}}</span>
+        </li>
+        </ng-container>
+        <ng-template #notRouterlink>
+        <li nz-submenu [nzOpen]="bit.navActive.indexOf(x.id)!==-1">
+            <span title><i nz-icon [type]="x.icon"></i><span>{{x.name}}</span></span>
+            <ul>
+            <ng-container *ngTemplateOutlet="navTpl; context: {$implicit: x.children}"></ng-container>
+            </ul>
+        </li>
+        </ng-template>
+    </ng-container>
+    </ng-template>
+</ul>
+```
 
 ##### search: { field: string, op: string, value: any }[]
 
@@ -168,6 +217,31 @@
 
 是否与多语言输入组件标识相等
 
+```html
+<nz-form-item formGroupName="name">
+    <nz-form-label bitFormLabelCol nzRequired>
+    {{bit.l['name']}}
+    </nz-form-label>
+    <ng-container *ngFor="let x of bit.i18nContain">
+    <nz-form-control *ngIf="bit.equalI18n(x)" bitFormControlCol nzHasFeedback>
+        <bit-i18n-tips #tips name="name"></bit-i18n-tips>
+        <input nz-input [placeholder]="bit.l['namePlaceholder']"
+                [nz-tooltip]="tips.ref"
+                bitI18nTipsStyle
+                [formControlName]="x"
+                (ngModelChange)="bit.i18nUpdateValueAndValidity(form,'name',x)"/>
+        <nz-form-explain *bitExplain="{
+        form:form,
+        name:'name.'+x,
+        explain:{
+            required:bit.l['nameRequire']
+        }
+        };let msg">{{msg}}</nz-form-explain>
+    </nz-form-control>
+    </ng-container>
+</nz-form-item>
+```
+
 ##### resetI18n()
 
 多语言输入组件标识恢复默认值
@@ -184,7 +258,9 @@ const packer = {
   name: ['名称', 'name']
 };
 
-this.bit.registerLocales(packer);
+ngOnInit() {
+    this.bit.registerLocales(packer);
+}
 ```
 
 ##### registerSearch(selector: string, ...search: { field: string, op: string, value: any }[]): Observable<any>
@@ -198,9 +274,29 @@ this.bit.registerLocales(packer);
   - **value** 搜索值
 - **Return** `Observable< any >` 搜索注册完成
 
+```typescript
+ngOnInit() {
+    this.bit.registerSearch('sys-index', {
+        field: 'user', op: 'like', value: ''
+    }).subscribe(() => {
+        ...
+    });
+}
+```
+
 ##### hasSearch(index: number): boolean
 
 该索引下的搜索数组是否存在
+
+```html
+<ng-container *ngIf="bit.hasSearch(0)">
+  <nz-select [(ngModel)]="bit.search[0].value"
+      bitSearchChange="sys-index"
+      (after)="getLists(true)">
+      <nz-option [nzValue]="x.id" [nzLabel]="x.name"></nz-option>
+  </nz-select>
+</ng-container>
+```
 
 #####  listsRefreshStatus(lists: any[])
 
@@ -274,9 +370,32 @@ this.bit.form = this.fb.group({
 - **groupname** FormGroup 名称
 - **i18n** 需更新的多语言组件标识
 
+```html
+<bit-i18n-tips #tips name="name"></bit-i18n-tips>
+<input nz-input [placeholder]="bit.l['namePlaceholder']"
+        [nz-tooltip]="tips.ref"
+        bitI18nTipsStyle
+        [formControlName]="x"
+        (ngModelChange)="bit.i18nUpdateValueAndValidity(form,'name',x)"/>
+```
+
 ##### i18nUnionValidator(form: FormGroup, groupname: string) 
 
-多语言组件联合验证
+多语言组件联合验证，配合 `i18nTips`
 
 - **form** FormGroup 对象
 - **groupname** FormGroup 名称
+
+```typescript
+this.form = this.fb.group({
+    name: this.fb.group(this.bit.i18nGroup({
+        validate: {
+            zh_cn: [this.nameValidate],
+            en_us: [this.nameValidate]
+        }
+    })),
+});
+
+nameValidate = (control: AbstractControl) =>
+    this.i18nUnionValidator(this.form, "name"); 
+```
