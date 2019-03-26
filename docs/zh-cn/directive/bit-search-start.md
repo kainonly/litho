@@ -1,14 +1,14 @@
 ## 搜索触发
 
-#### @Directive({selector: '[bit-search-start]'})
+##### @Directive({selector: '[bitSearchStart]'})
 
 ```typescript
 @Directive({
-  selector: '[bit-search-start]'
+  selector: '[bitSearchStart]'
 })
 export class BitSearchStartDirective {
-  @Input() searchSelector: string;
-  @Output() searchover: EventEmitter<any> = new EventEmitter<any>();
+  @Input() bitSearchStart: string;
+  @Output() after: EventEmitter<any> = new EventEmitter<any>();
 
   constructor(private bit: BitService,
               private storage: LocalStorage) {
@@ -22,44 +22,45 @@ export class BitSearchStartDirective {
     this.searchStart();
   }
 
+  /**
+   * search data save storage
+   */
   private searchStart() {
-    this.storage.setItem('search:' + this.searchSelector, this.bit.search).subscribe(() => {
-      this.searchover.emit(true);
+    this.storage.setItem('search:' + this.bitSearchStart, this.bit.search).subscribe(() => {
+      this.after.emit(true);
     });
   }
 }
 ```
 
-- **searchSelector** 搜索命名
-- **searchover** 开始搜索之后
+- **@Input() bitSearchStart: string** 搜索命名
+- **@Output() after: EventEmitter< any >** 开始搜索之后
 
 注册搜索字段
 
 ```typescript
-this.bit.registerSearch('test-index', {
-  field: 'name', value: ''
+ this.bit.registerSearch('app-index', {
+  field: 'name', op: 'like', value: ''
 }).subscribe(() => {
-  // after
+  ...
 });
 ```
 
-开始搜索绑定在输入框 `enter` 事件
+同时给组件加入 `click` 与 `enter` 触发搜索
 
 ```html
-<input *ngIf="bit.search[0]!==undefined" type="text" [(ngModel)]="bit.search[0].value"
-  bit-search-start
-  searchSelector="test-index"
-  (searchover)="getLists(true)"
-  nz-input>
-```
+<nz-input-group nzSearch [nzAddOnAfter]="nzAddOnAfter">
+  <input type="text" [(ngModel)]="bit.search[0].value"
+          bitSearchStart="app-index"
+          (after)="getLists(true)"
+          nz-input [placeholder]="bit.l['search']">
+</nz-input-group>
 
-开始搜索绑定在按钮 `click` 事件
-
-```html
-<button nz-button nzType="primary" nzSearch
-  bit-search-start
-  searchSelector="test-index"
-  (searchover)="getLists(true)">
-  <i nz-icon type="search"></i>
-</button>
+<ng-template #nzAddOnAfter>
+  <button nz-button nzType="primary" nzSearch
+          bitSearchStart="app-index"
+          (after)="getLists(true)">
+    <i nz-icon type="search"></i>
+  </button>
+</ng-template>
 ```
