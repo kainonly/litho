@@ -1,8 +1,8 @@
-## 表单共用栅格
+## Form Col
 
 ##### @Directive({selector: '[bitFormControlCol]'})
 
-FormControlCol 的共用栅格，由配置决定
+FormControlCol Common Col
 
 ```typescript
 @Directive({
@@ -34,7 +34,7 @@ export class BitFormControlColDirective implements OnInit {
 }
 ```
 
-在表单中使用
+Use in a form
 
 ```html
 <nz-form-control bitFormControlCol nzHasFeedback>
@@ -60,7 +60,7 @@ export class BitFormControlColDirective implements OnInit {
 
 ##### @Directive({selector: '[bitFormLabelCol]'})
 
-FormLabelCol 的共用栅格，由配置决定
+FormLabelCol Common col
 
 ```typescript
 @Directive({
@@ -92,7 +92,7 @@ export class BitFormLabelColDirective implements OnInit {
 }
 ```
 
-在表单中使用
+Use in a form
 
 ```html
 <nz-form-label bitFormLabelCol>

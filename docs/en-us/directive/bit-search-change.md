@@ -1,4 +1,4 @@
-## 搜索监听
+## Search Change
 
 ##### @Directive({selector: '[bitSearchChange]'})
 
@@ -25,10 +25,10 @@ export class BitSearchChangeDirective implements OnInit {
 }
 ```
 
-- **@Input() bitSearchChange: string** 搜索命名
-- **@Output() after: EventEmitter< any >** 搜索变动之后
+- **@Input() bitSearchChange: string** search name
+- **@Output() after: EventEmitter< any >** after event
 
-监听包含 `NgModelChange` 的组件中
+Listening for components that contain `NgModelChange`
 
 ```html
 <ng-container *ngIf="bit.hasSearch(0)">

@@ -1,4 +1,4 @@
-## 跨级跳转
+## Cross Level Link
 
 ##### @Directive({selector: '[bitCrossLevel]'})
 
@@ -29,10 +29,10 @@ export class BitCrossLevelDirective {
 }
 ```
 
-- **@Input() bitCrossLevel: string** 跨级路由名称
-- **@Input() bitTrigger = 'click'** 触发方式 `click|touch`，默认 `touch`
+- **@Input() bitCrossLevel: string** Cross-level routing name
+- **@Input() bitTrigger = 'click'** Trigger mode `click|touch`, default `touch`
 
-例如使用在面包屑
+For example, used in breadcrumbs
 
 ```html
 <nz-breadcrumb [nzSeparator]="breadcrumbIcon">

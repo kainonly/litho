@@ -1,4 +1,4 @@
-## 路由跳转
+## Open Link
 
 ##### @Directive({selector: '[bitOpen]'})
 
@@ -29,10 +29,10 @@ export class BitOpenDirective {
 }
 ```
 
-- **@Input() bitOpen: any[]** 路由跳转处理，`path[0]` 为基础地址，索引大于0则为参数，例如：`['app-edit',1]` 等价于 routerlink 的 `{app-edit}/1`，但包含跨级路由处理
-- **@Input() bitTrigger = 'click'** 触发方式 `click|touch`，默认 `click`
+- **@Input() bitOpen: any[]** Route jump processing, `path[0]` is the base address, and the index is greater than 0, for example: `['app-edit',1]` is equivalent to routerlink's `{app-edit}/1`, But including cross-level routing processing
+- **@Input() bitTrigger = 'click'** Trigger mode `click|touch`, default `click`
 
-例如替代 `routerlink`
+For example, instead of `routerlink`
 
 ```html
 <button nz-button nzType="primary" nzSize="small" [bitOpen]="['sys-add']">

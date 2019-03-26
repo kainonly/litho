@@ -1,4 +1,4 @@
-## 上传
+## Upload
 
 ##### @Directive({selector: '[bitUpload]'})
 
@@ -18,7 +18,7 @@ export class BitUploadDirective {
 }
 ```
 
-关联辅助配置，在上传组件中加入属性指令
+Associate auxiliary configuration, add attribute directives to the upload component
 
 ```html
 <nz-upload nzName="image" bitUpload

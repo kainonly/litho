@@ -1,4 +1,4 @@
-## 搜索触发
+## Search Start
 
 ##### @Directive({selector: '[bitSearchStart]'})
 
@@ -33,10 +33,10 @@ export class BitSearchStartDirective {
 }
 ```
 
-- **@Input() bitSearchStart: string** 搜索命名
-- **@Output() after: EventEmitter< any >** 开始搜索之后
+- **@Input() bitSearchStart: string** search name
+- **@Output() after: EventEmitter< any >** after event
 
-注册搜索字段
+Register search field
 
 ```typescript
  this.bit.registerSearch('app-index', {
@@ -46,7 +46,7 @@ export class BitSearchStartDirective {
 });
 ```
 
-同时给组件加入 `click` 与 `enter` 触发搜索
+Also add `click` and `enter` to the component to trigger the search.
 
 ```html
 <nz-input-group nzSearch [nzAddOnAfter]="nzAddOnAfter">

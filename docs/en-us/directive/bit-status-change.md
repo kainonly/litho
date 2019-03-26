@@ -1,4 +1,4 @@
-## 状态切换
+## Status Change
 
 ##### @Directive({selector: '[bitStatusChange]'})
 
@@ -36,11 +36,11 @@ export class BitStatusChangeDirective {
 }
 ```
 
-- **@Input() bitStatusChange: Observable< any >** 状态切换请求
-- **@Input() bitControl = false** 是否手动处理返回提示
-- **@Output() response: EventEmitter< any >** 获取请求的响应值
+- **@Input() bitStatusChange: Observable< any >** status request object
+- **@Input() bitControl = false** Whether to manually process the return prompt
+- **@Output() response: EventEmitter< any >** get response data
 
-例如控制管理员的状态
+Such as controlling the status of the administrator
 
 ```html
 <nz-switch [(ngModel)]="data.status"
@@ -50,7 +50,7 @@ export class BitStatusChangeDirective {
 </nz-switch>
 ```
 
-自定义返回提示
+Such as controlling the status of the administrator...
 
 ```typescript
 status(res: any) {

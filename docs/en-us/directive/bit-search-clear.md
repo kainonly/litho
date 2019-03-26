@@ -1,4 +1,4 @@
-## 搜索清除
+## Search Clear
 
 ##### @Directive({selector: '[bitSearchClear]'})
 
@@ -31,11 +31,11 @@ export class BitSearchClearDirective {
 }
 ```
 
-- **@Input() bitSearchClear: string** 搜索命名
-- **@Input() reset: any** 清除重置的数值
-- **@Output() after: EventEmitter< any >** 清空搜索之后
+- **@Input() bitSearchClear: string** search name
+- **@Input() reset: any** Clear reset value
+- **@Output() after: EventEmitter< any >** after event
 
-注册搜索字段
+Register search field
 
 ```typescript
 this.bit.registerSearch('api-index', {
@@ -47,7 +47,7 @@ this.bit.registerSearch('api-index', {
 });
 ```
 
-清空搜索绑定在按钮 `click` 事件
+Clear search binding on button `click` event
 
 ```html
 <button nz-button

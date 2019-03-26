@@ -1,4 +1,4 @@
-## 表单验证提示
+## Form Explain
 
 ##### @Directive({selector: '[bitExplain]'})
 
@@ -68,9 +68,9 @@ export class BitExplainDirective implements OnDestroy {
 }
 ```
 
-- **@Input() set bitExplain(args: BitExplainArgs)** 设置 `formControl` 的表单提醒信息
+- **@Input() set bitExplain(args: BitExplainArgs)** Set the form reminder for `formControl`
 
-例如在表单中使用
+For example, use in a form
 
 ```html
 <nz-form-item>

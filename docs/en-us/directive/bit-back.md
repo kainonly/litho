@@ -1,4 +1,4 @@
-## 返回上一级
+## Back
 
 ##### @Directive({selector: '[bitBack]'})
 
@@ -27,9 +27,9 @@ export class BitBackDirective {
 }
 ```
 
-- **@Input() bitTrigger** 触发方式 `click|touch`，默认 `click`
+- **@Input() bitTrigger** Trigger mode `click|touch`, default `click`
 
-添加在按钮中
+Add in button
 
 ```html
 <button nz-button type="button" bitBack>

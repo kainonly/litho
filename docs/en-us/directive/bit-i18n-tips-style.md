@@ -1,4 +1,4 @@
-## 多语言提示样式
+## I18n Tips Style
 
 ##### @Directive({selector: '[bitI18nTipsStyle]'})
 
@@ -14,7 +14,7 @@ export class BitI18nTipsStyleDirective {
 }
 ```
 
-多语言提示样式统一，与组件 `<bit-i18n-tips #tips name="name"></bit-i18n-tips>` 配合使用
+Multi-language prompt styles are unified and used with the component `<bit-i18n-tips #tips name="name"></bit-i18n-tips>`
 
 ```html
 <bit-i18n-tips #tips name="name"></bit-i18n-tips>

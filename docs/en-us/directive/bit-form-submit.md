@@ -1,4 +1,4 @@
-## 表单提交
+## Form Submit
 
 ##### @Directive({selector: '[bitFormSubmit]'})
 
@@ -27,9 +27,9 @@ export class BitFormSubmitDirective implements OnInit {
 }
 ```
 
-- **@Output() bitFormSubmit: EventEmitter< any >** 监听表单提交
+- **@Output() bitFormSubmit: EventEmitter< any >** Listening form submission
 
-在表单中使用
+Use in form
 
 ```html
 <form nz-form [formGroup]="form" (bitFormSubmit)="submit($event)">
