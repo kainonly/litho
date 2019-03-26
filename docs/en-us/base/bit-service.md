@@ -1,28 +1,28 @@
-## 工具 (BitService)
+## Tools (BitService)
 
 ##### static: string
 
-静态资源地址，例如 `[src]="bit.static+'any.jpg'"`
+Static resource address, for example `[src]="bit.static+'any.jpg'"`
 
 ##### uploads: string
 
-上传地址, 可以在upload组件上调用 `[nzAction]="bit.uploads"`
+Upload address, can be called on the upload component `[nzAction]="bit.uploads"`
 
 ##### locale: string
 
-语言包标识, 默认 `zh_cn`，例如 `{{name[bit.locale]}}`
+Language package identifier, default `zh_cn`, for example `{{name[bit.locale]}}`
 
 ##### l: any
 
-语言包索引，默认 `{}`, 在完成定义语言包之后可直接使用 `l` 获取相关语言，`{{bit.l['name']}}`
+Language pack index, default `{}`, you can use `l` to get the relevant language after you finish defining the language pack `{{bit.l['name']}}`
 
 ##### i18n: string
 
-多语言输入组件当前标识
+Multi-language input component current ID
 
 ##### i18nTips: any
 
-多语言输入组件验证提示
+Multi-language input component verification prompt
 
 ```html
 <bit-i18n-tips #tips name="name"></bit-i18n-tips>
@@ -35,7 +35,7 @@
 
 ##### i18nContain: any[]
 
-多语言输入组件标识数组
+Multi-language input component identification array
 
 ```html
 <nz-form-item formGroupName="name">
@@ -64,11 +64,11 @@
 
 ##### title: string
 
-当前路由名称，例如 `<nz-card [nzTitle]="bit.title"></nz-card>`
+Current route name, for example `<nz-card [nzTitle]="bit.title"></nz-card>`
 
 ##### breadcrumb: any[]
 
-面包屑数组
+Breadcrumbs array
 
 ```html
 <nz-breadcrumb [nzSeparator]="breadcrumbIcon">
@@ -92,11 +92,11 @@
 
 ##### breadcrumbTop: any
 
-面包屑默认最高级，默认 `0`
+Breadcrumbs default top level, default `0`
 
 ##### navActive: any[]
 
-被激活的导航数组
+Activated navigation array
 
 ```html
 <ul nz-menu
@@ -129,27 +129,27 @@
 
 ##### search: { field: string, op: string, value: any }[]
 
-搜索处理字段数组
+Search processing field array
 
 ##### listsLoading: boolean
 
-列表正在加载状态, 使用在表格或列表组件中 `[nzLoading]="bit.listsLoading"`
+The list is loading state, used in a table or list component `[nzLoading]="bit.listsLoading"`
 
 ##### pageLimit: number
 
-分页，默认为配置服务 `pageLimit` 的值, 使用在表格或列表组件中，` [nzPageSize]="bit.pageLimit"`
+Pagination, defaults to the value of the configuration service `pageLimit`, used in a table or list component, ` [nzPageSize]="bit.pageLimit"`
 
 ##### listsTotals: number
 
-列表数据总数, `listsTotals` 是由分页列表请求对象自动获取，`[nzTotal]="bit.listsTotals"`
+The total number of list data, `listsTotals` is automatically obtained by the paging list request object `[nzTotal]="bit.listsTotals"`
 
 ##### listsPageIndex: number
 
-分页索引页, `listsPageIndex` 是个双向绑定属性，可以通过外部去更改分页索引，` [(nzPageIndex)]="bit.lists_page_index"`
+The page index page, `listsPageIndex` is a two-way binding property that can be changed externally by the page index ` [(nzPageIndex)]="bit.lists_page_index"`
 
 ##### listsAllChecked: boolean
 
-列表选项框状态为全选, `nzChecked` 是一个双向绑定属性，当全选选择框被动触发改变时，通过它的 `modelChange` 将同步其他数据的选择框状态：
+The list option box state is all selected, and `nzChecked` is a two-way binding property. When the all-selection selection box passively triggers the change, its `modelChange` will synchronize the selection box state of other data:
 
 ```html
 <th nzShowCheckbox
@@ -159,7 +159,7 @@
 
 ##### listsIndeterminate: boolean
 
-列表选项框状态为不完整选择, `nzIndeterminate` 是不完整选择属性，当符合条件时，表头全选选择框将变为该状态：
+The list option box status is incomplete selection, and `nzIndeterminate` is an incomplete selection attribute. When the condition is met, the header selection box will change to this status:
 
 ```html
 <th nzShowCheckbox
@@ -169,17 +169,17 @@
 
 ##### listsDisabledAction: boolean
 
-列表操作板显示状态, 可在需要的标签中使用，已被选中的总数为 `0` 时，`listsDisabledAction=true`
+The list panel displays the status and can be used in the required tags. When the total number of selected objects is `0`, `listsDisabledAction=true`
 
 ```html
 <button nz-button [disabled]="bit.listsDisabledAction" nzType="primary">
-    执行选中的
+    Execute selected
 </button>
 ```
 
 ##### listsCheckedNumber: number
 
-列表选项框选择数量, 显示已被选中的总数：
+The list option box selects the quantity, showing the total number of selected:
 
 ```html
 <p>{{bit.listsCheckedNumber}}</p>
@@ -187,11 +187,11 @@
 
 ##### open(path: any[])
 
-路由跳转处理，`path[0]` 为基础地址，索引大于0则为参数，例如：`['app-edit',1]` 等价于 routerlink 的 `{app-edit}/1`，但包含跨级路由处理
+Route jump processing, `path[0]` is the base address, and the index is greater than 0, for example: `['app-edit',1]` is equivalent to routerlink's `{app-edit}/1`, But including cross-level routing processing
 
 ##### crossLevel(selector: string)
 
-路由跨级处理，通过使用open函数进行路由跳转会自动存储多级的路由参数，因此在跨越多级的跳转情况下可使用 `crossLevel` 可实现自动返回跨级，例如面包屑
+Routing cross-level processing, routing jumps by using the open function will automatically store multi-level routing parameters, so you can use `crossLevel` to automatically return to cross-level, such as breadcrumbs, when jumping across multiple levels.
 
 ```html
 <nz-breadcrumb-item *ngFor="let x of bit.breadcrumb;last as islast">
@@ -207,15 +207,15 @@
 
 ##### back()
 
-返回上一级
+Back to previous
 
 ##### setLocale(locale: 'zh_cn' | 'en_us')
 
-设置语言包标识
+Set language pack ID
 
 ##### equalI18n(i18n: string)
 
-是否与多语言输入组件标识相等
+Is it equal to the multi-language input component ID
 
 ```html
 <nz-form-item formGroupName="name">
@@ -244,14 +244,14 @@
 
 ##### resetI18n()
 
-多语言输入组件标识恢复默认值
+Multi-language input component ID restore defaults
 
 ##### registerLocales(packer: any, common = false)
 
 注册语言包
 
-- **packer** language文件
-- **common** 是否为公共语言包
+- **packer** Language file
+- **common** Is it a common language pack
 
 ```typescript
 const packer = {
@@ -265,14 +265,14 @@ ngOnInit() {
 
 ##### registerSearch(selector: string, ...search: { field: string, op: string, value: any }[]): Observable<any>
 
-注册搜索字段
+Register search field
 
-- **selector** 命名
-- **search** `{field: string, value: any, op?: string }[]` 搜索参数
-  - **field** 搜索字段名称
-  -  **op** 判断类型, 模糊搜索为 `like`,准确搜索为 `=`
-  - **value** 搜索值
-- **Return** `Observable< any >` 搜索注册完成
+- **selector** selector
+- **search** `{field: string, value: any, op?: string }[]` search param
+  - **field** search field
+  -  **op** Judgment type, fuzzy search is `like`, accurate search is `=`
+  - **value** search value
+- **Return** `Observable< any >` Search registration completed
 
 ```typescript
 ngOnInit() {
@@ -286,7 +286,7 @@ ngOnInit() {
 
 ##### hasSearch(index: number): boolean
 
-该索引下的搜索数组是否存在
+Whether the search array under the index exists
 
 ```html
 <ng-container *ngIf="bit.hasSearch(0)">
@@ -300,11 +300,11 @@ ngOnInit() {
 
 #####  listsRefreshStatus(lists: any[])
 
-列表选择监听
+List selection listener
 
-- **lists** 数据源
+- **lists** data source
 
-在表格中的每个子选择框触发变化事件时，判断数据是否全选、不全选或完全不选择：
+When each sub-selection box in the table triggers a change event, it is determined whether the data is fully selected, not fully selected, or not selected at all:
 
 ```html
 <nz-table>
@@ -321,12 +321,12 @@ ngOnInit() {
 
 ##### listsCheckAll(event, lists: any[])
 
-列表全选选择监听
+List selection selection listener
 
-- **event** 选择框状态改变触发事件
-- **lists** 数据源
+- **event** Select box state change trigger event
+- **lists** data source
 
-在表头命名层全选选择框选中后，同步每个数据的选择框状态
+Synchronize the state of each selection box after the header selection layer selection box is selected.
 
 ```html
 <nz-table>
@@ -342,14 +342,14 @@ ngOnInit() {
 
 ##### i18nGroup(options?: I18nGroupOptions)
 
-多语言组件数值初始化
+Multi-language component numeric initialization
 
-- **options** 多语言组件参数
-    - **value** 默认值
-    - **validate** 同步验证器数组
-    - **asyncValidate** 异步验证器数组
+- **options** options
+    - **value** value
+    - **validate** validate
+    - **asyncValidate** async validate
 
-表单初始化时设置多语言组件：
+Set up multi-language components when the form is initialized:
 
 ```typescript
 this.bit.form = this.fb.group({
@@ -364,11 +364,11 @@ this.bit.form = this.fb.group({
 
 ##### i18nUpdateValueAndValidity(form: FormGroup, groupname: string, i18n: string)
 
-多语言组件验证主动更新
+Multilingual component verification proactive update
 
-- **form** FormGroup 对象
-- **groupname** FormGroup 名称
-- **i18n** 需更新的多语言组件标识
+- **form** FormGroup
+- **groupname** FormGroupName
+- **i18n** Multi-language component ID to be updated
 
 ```html
 <bit-i18n-tips #tips name="name"></bit-i18n-tips>
@@ -381,10 +381,10 @@ this.bit.form = this.fb.group({
 
 ##### i18nUnionValidator(form: FormGroup, groupname: string) 
 
-多语言组件联合验证，配合 `i18nTips`
+Multi-language component joint verification, with `i18nTips`
 
-- **form** FormGroup 对象
-- **groupname** FormGroup 名称
+- **form** FormGroup
+- **groupname** FormGroupName
 
 ```typescript
 this.form = this.fb.group({
