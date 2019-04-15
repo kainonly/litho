@@ -23,12 +23,12 @@ export class BitStatusChangeDirective {
   onClick() {
     this.bitStatusChange.subscribe(res => {
       if (!res.error) {
-        this.notificationService.success(this.bit.l.operate_success, this.bit.l.status_success);
+        this.notificationService.success(this.bit.l.operateSuccess, this.bit.l.statusSuccess);
       } else {
         if (this.bitControl) {
           this.response.emit(res);
         } else {
-          this.notificationService.error(this.bit.l.operate_error, this.bit.l.status_error);
+          this.notificationService.error(this.bit.l.operateError, this.bit.l.statusError);
         }
       }
     });
