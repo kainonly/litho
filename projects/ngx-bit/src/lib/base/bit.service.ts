@@ -200,7 +200,9 @@ export class BitService {
     this.breadcrumbTop = this.config.breadcrumbTop;
     this.i18n = config.i18nDefault;
     this.i18nContain = config.i18nContain;
-    this.locale = localStorage.getItem('locale') ? localStorage.getItem('locale') : 'zh_cn';
+    storage.getItem('locale').subscribe((data: any) => {
+      this.locale = data ? data : 'zh_cn';
+    });
   }
 
   /**
@@ -250,7 +252,7 @@ export class BitService {
    */
   setLocale(locale: 'zh_cn' | 'en_us') {
     this.locale = locale;
-    localStorage.setItem('locale', locale);
+    this.storage.setItemSubscribe('locale', locale);
     this.events.publish('locale', locale);
     this.l = Object.assign(this.commonLanguage[this.locale], this.language[this.locale]);
   }
