@@ -81,6 +81,35 @@ export class HttpService {
   }
 
   /**
+   * MongoLists Request
+   */
+  mongoLists(model: string, action: string, filter: any = {}, refresh = false, special = false): Observable<any> {
+    if (refresh) {
+      this.bit.listsPageIndex = 1;
+    }
+    const http = this.req(model + '/' + action, {
+      page: {
+        limit: this.bit.pageLimit,
+        index: this.bit.listsPageIndex
+      },
+      filter
+    }).pipe(
+      map((res) => {
+        this.bit.listsTotals = !res.error ? res.data.total : 0;
+        this.bit.listsLoading = false;
+        this.bit.listsAllChecked = false;
+        this.bit.listsIndeterminate = false;
+        this.bit.listsDisabledAction = true;
+        this.bit.listsCheckedNumber = 0;
+        return res;
+      })
+    );
+    return special ? http : http.pipe(
+      map(res => !res.error ? res.data.lists : [])
+    );
+  }
+
+  /**
    * OriginLists Request
    */
   originLists(model: string, condition: any[] = [], special = false): Observable<any> {
@@ -88,6 +117,16 @@ export class HttpService {
     const http = this.req(model + '/originLists', {
       where
     });
+    return special ? http : http.pipe(
+      map(res => !res.error ? res.data : [])
+    );
+  }
+
+  /**
+   * MongoOriginLists Request
+   */
+  mongoOriginLists(model: string, action: string, filter: any = {}, special = false): Observable<any> {
+    const http = this.req(model + '/' + action, {filter});
     return special ? http : http.pipe(
       map(res => !res.error ? res.data : [])
     );
