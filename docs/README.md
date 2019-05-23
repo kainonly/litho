@@ -3,10 +3,12 @@ NGX-BIT
 
 Angular's CURD Auxiliary Framework
 
-[![NPM version](https://badge.fury.io/js/ngx-bit.png)](http://badge.fury.io/js/ngx-bit)
+[![npm](https://img.shields.io/npm/v/ngx-bit.svg?style=flat-square)](https://ngx-bit.kain.net.cn)
+[![npm (tag)](https://img.shields.io/npm/v/ngx-bit/v6-lts.svg?style=flat-square)](https://ngx-bit.v1.kain.net.cn)
 [![Downloads](https://img.shields.io/npm/dm/ngx-bit.svg?style=flat-square)](https://www.npmjs.com/package/ngx-bit)
-[![TypeScript](https://img.shields.io/badge/%3C%2F%3E-TypeScript-blue.svg)](https://www.typescriptlang.org/)
-[![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/kainonly/ngx-bit.js/master/LICENSE)
+[![npm](https://img.shields.io/npm/dt/ngx-bit.svg?style=flat-square)](https://www.npmjs.com/package/ngx-bit)
+[![TypeScript](https://img.shields.io/badge/%3C%2F%3E-TypeScript-blue.svg?style=flat-square)](https://www.typescriptlang.org/)
+[![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](https://raw.githubusercontent.com/kainonly/ngx-bit.js/master/LICENSE)
 
 ### Initialization
 
