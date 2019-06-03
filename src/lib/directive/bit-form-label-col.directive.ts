@@ -9,8 +9,10 @@ export class BitFormLabelColDirective implements OnInit {
   private col: any;
   @Input() bitFormLabelCol: string;
 
-  constructor(private nzFormLabelComponent: NzFormLabelComponent,
-              private configService: ConfigService) {
+  constructor(
+    private nzFormLabelComponent: NzFormLabelComponent,
+    private configService: ConfigService
+  ) {
   }
 
   ngOnInit() {

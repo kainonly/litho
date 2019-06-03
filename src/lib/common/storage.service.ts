@@ -12,8 +12,10 @@ export class StorageService {
    */
   private routerSubscription: Subscription;
 
-  constructor(private storage: LocalStorage,
-              private bit: BitService) {
+  constructor(
+    private storage: LocalStorage,
+    private bit: BitService
+  ) {
   }
 
   /**

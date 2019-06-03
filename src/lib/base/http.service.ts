@@ -20,9 +20,11 @@ export class HttpService {
     return where;
   }
 
-  constructor(private http: HttpClient,
-              private config: ConfigService,
-              private bit: BitService) {
+  constructor(
+    private http: HttpClient,
+    private config: ConfigService,
+    private bit: BitService
+  ) {
   }
 
   /**

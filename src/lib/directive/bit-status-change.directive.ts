@@ -11,9 +11,11 @@ export class BitStatusChangeDirective {
   @Input() bitControl = false;
   @Output() response: EventEmitter<any> = new EventEmitter();
 
-  constructor(private bit: BitService,
-              private nzSwitchComponent: NzSwitchComponent,
-              private notificationService: NzNotificationService) {
+  constructor(
+    private bit: BitService,
+    private nzSwitchComponent: NzSwitchComponent,
+    private notificationService: NzNotificationService
+  ) {
     nzSwitchComponent.nzControl = true;
     nzSwitchComponent.nzCheckedChildren = bit.l.on;
     nzSwitchComponent.nzUnCheckedChildren = bit.l.off;

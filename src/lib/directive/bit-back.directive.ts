@@ -7,7 +7,9 @@ import {BitService} from '../base/bit.service';
 export class BitBackDirective {
   @Input() bitTrigger = 'click';
 
-  constructor(private bit: BitService) {
+  constructor(
+    private bit: BitService
+  ) {
   }
 
   @HostListener('click')

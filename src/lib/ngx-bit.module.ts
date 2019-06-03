@@ -29,7 +29,10 @@ export class NgxBitModule {
     };
   }
 
-  constructor(nzIconService: NzIconService, configSerive: ConfigService) {
+  constructor(
+    nzIconService: NzIconService,
+    configSerive: ConfigService
+  ) {
     nzIconService.changeAssetsSource(configSerive.iconUrl);
   }
 }

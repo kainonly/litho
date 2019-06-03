@@ -11,9 +11,11 @@ export class BitSearchChangeDirective implements OnInit {
   @Input() bitSearchChange: string;
   @Output() after: EventEmitter<any> = new EventEmitter<any>();
 
-  constructor(private bit: BitService,
-              private model: NgModel,
-              private storage: LocalStorage) {
+  constructor(
+    private bit: BitService,
+    private model: NgModel,
+    private storage: LocalStorage
+  ) {
   }
 
   ngOnInit() {

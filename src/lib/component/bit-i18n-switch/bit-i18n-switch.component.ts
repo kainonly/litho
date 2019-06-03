@@ -9,8 +9,10 @@ import {ConfigService} from '../../base/config.service';
 export class BitI18nSwitchComponent {
   @Output() i18nChange: EventEmitter<string> = new EventEmitter();
 
-  constructor(public bit: BitService,
-              public config: ConfigService) {
+  constructor(
+    public bit: BitService,
+    public config: ConfigService
+  ) {
   }
 
   /**

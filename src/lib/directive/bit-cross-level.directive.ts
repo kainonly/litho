@@ -8,7 +8,9 @@ export class BitCrossLevelDirective {
   @Input() bitCrossLevel: string;
   @Input() bitTrigger = 'click';
 
-  constructor(private bit: BitService) {
+  constructor(
+    private bit: BitService
+  ) {
   }
 
   @HostListener('click')

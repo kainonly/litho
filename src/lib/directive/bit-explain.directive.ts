@@ -15,8 +15,10 @@ export class BitExplainDirective implements OnDestroy {
   private pending = false;
   private sign: string;
 
-  constructor(private viewContainerRef: ViewContainerRef,
-              private templateRef: TemplateRef<any>) {
+  constructor(
+    private viewContainerRef: ViewContainerRef,
+    private templateRef: TemplateRef<any>
+  ) {
   }
 
   @Input()

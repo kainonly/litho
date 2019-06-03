@@ -10,8 +10,10 @@ export class BitSearchClearDirective {
   @Input() reset: any;
   @Output() after: EventEmitter<any> = new EventEmitter<any>();
 
-  constructor(private bit: BitService,
-              private storage: LocalStorage) {
+  constructor(
+    private bit: BitService,
+    private storage: LocalStorage
+  ) {
   }
 
   @HostListener('click')

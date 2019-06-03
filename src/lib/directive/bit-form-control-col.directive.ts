@@ -9,8 +9,10 @@ export class BitFormControlColDirective implements OnInit {
   private col: any;
   @Input() bitFormControlCol: string;
 
-  constructor(private nzFormControlComponent: NzFormControlComponent,
-              private configService: ConfigService) {
+  constructor(
+    private nzFormControlComponent: NzFormControlComponent,
+    private configService: ConfigService
+  ) {
   }
 
   ngOnInit() {

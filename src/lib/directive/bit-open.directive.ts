@@ -8,7 +8,9 @@ export class BitOpenDirective {
   @Input() bitOpen: any[];
   @Input() bitTrigger = 'click';
 
-  constructor(private bit: BitService) {
+  constructor(
+    private bit: BitService
+  ) {
   }
 
   @HostListener('click')

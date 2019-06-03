@@ -188,11 +188,13 @@ export class BitService {
     }
   }
 
-  constructor(private config: ConfigService,
-              private events: EventsService,
-              private location: Location,
-              private router: Router,
-              private storage: LocalStorage) {
+  constructor(
+    private config: ConfigService,
+    private events: EventsService,
+    private location: Location,
+    private router: Router,
+    private storage: LocalStorage
+  ) {
     this.static = config.staticUrl;
     this.uploads = (config.uploadsUrl) ? config.uploadsUrl : config.originUrl + '/' + config.uploadsPath;
     this.pageLimit = config.pageLimit;

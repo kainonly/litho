@@ -7,7 +7,9 @@ import {FormGroupDirective} from '@angular/forms';
 export class BitFormSubmitDirective implements OnInit {
   @Output() bitFormSubmit: EventEmitter<any> = new EventEmitter();
 
-  constructor(private form: FormGroupDirective) {
+  constructor(
+    private form: FormGroupDirective
+  ) {
   }
 
   ngOnInit() {

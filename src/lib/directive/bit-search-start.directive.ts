@@ -9,8 +9,10 @@ export class BitSearchStartDirective {
   @Input() bitSearchStart: string;
   @Output() after: EventEmitter<any> = new EventEmitter<any>();
 
-  constructor(private bit: BitService,
-              private storage: LocalStorage) {
+  constructor(
+    private bit: BitService,
+    private storage: LocalStorage
+  ) {
   }
 
   @HostListener('keydown.enter') onenter() {

@@ -10,8 +10,10 @@ import {AlertCustomize} from '../types/alert-customize';
 export class SwalService {
   static native = Swal;
 
-  constructor(private bit: BitService,
-              private location: Location) {
+  constructor(
+    private bit: BitService,
+    private location: Location
+  ) {
   }
 
   /**

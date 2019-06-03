@@ -5,7 +5,9 @@ import {NzTooltipDirective} from 'ng-zorro-antd';
   selector: '[bitI18nTipsStyle]'
 })
 export class BitI18nTipsStyleDirective {
-  constructor(private nzTooltipDirective: NzTooltipDirective) {
+  constructor(
+    private nzTooltipDirective: NzTooltipDirective
+  ) {
     nzTooltipDirective.nzPlacement = 'topLeft';
     nzTooltipDirective.nzTrigger = 'focus';
   }

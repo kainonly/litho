@@ -9,6 +9,8 @@ export class BitI18nTipsComponent {
   @ViewChild('ref') ref: TemplateRef<any>;
   @Input() name: string;
 
-  constructor(public bit: BitService) {
+  constructor(
+    public bit: BitService
+  ) {
   }
 }
