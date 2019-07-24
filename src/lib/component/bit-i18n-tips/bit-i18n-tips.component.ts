@@ -6,7 +6,7 @@ import {BitService} from '../../base/bit.service';
   templateUrl: './bit-i18n-tips.component.html'
 })
 export class BitI18nTipsComponent {
-  @ViewChild('ref') ref: TemplateRef<any>;
+  @ViewChild('ref', {static: true}) ref: TemplateRef<any>;
   @Input() name: string;
 
   constructor(
