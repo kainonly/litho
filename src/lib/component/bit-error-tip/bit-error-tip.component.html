@@ -1,0 +1,7 @@
+<ng-template #ref let-control>
+  <ng-container *ngFor="let data of errorLists">
+    <ng-container *ngIf="control.hasError(data.key)">
+      {{data.error}}
+    </ng-container>
+  </ng-container>
+</ng-template>
