@@ -18,6 +18,5 @@ export class BitErrorTipComponent implements OnInit {
         });
       }
     }
-    console.log(this.errorLists);
   }
 }
