@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {Router} from '@angular/router';
 import {Location} from '@angular/common';
 import {FormGroup} from '@angular/forms';
-import {LocalStorage} from '@ngx-pwa/local-storage';
+import {LocalStorage, StorageMap} from '@ngx-pwa/local-storage';
 import {map} from 'rxjs/operators';
 import {Observable} from 'rxjs';
 import {ConfigService} from './config.service';
@@ -193,7 +193,7 @@ export class BitService {
     private events: EventsService,
     private location: Location,
     private router: Router,
-    private storage: LocalStorage
+    private storageMap: StorageMap
   ) {
     this.static = config.staticUrl;
     this.uploads = (config.uploadsUrl) ? config.uploadsUrl : config.originUrl + '/' + config.uploadsPath;
@@ -201,7 +201,7 @@ export class BitService {
     this.breadcrumbTop = this.config.breadcrumbTop;
     this.i18n = config.i18nDefault;
     this.i18nContain = config.i18nContain;
-    storage.getItem('locale').subscribe((data: any) => {
+    storageMap.get('locale').subscribe((data: any) => {
       this.locale = data ? data : 'zh_cn';
     });
   }
@@ -215,7 +215,8 @@ export class BitService {
       const selector = BitService.getSelectorFormUrl(this.router.url, ['%7B', '%7D']);
       const param = url.split('/').slice(2);
       if (param.length !== 0) {
-        this.storage.setItemSubscribe('cross:' + selector, param[0]);
+        this.storageMap.set('cross:' + selector, param[0]).subscribe(() => {
+        });
       }
     }
     if (path.length !== 0) {
@@ -230,11 +231,12 @@ export class BitService {
    * open use cross level
    */
   crossLevel(selector: string) {
-    this.storage.getItem('cross:' + selector).subscribe(param => {
+    this.storageMap.get('cross:' + selector).subscribe(param => {
       if (param === null) {
         this.router.navigateByUrl(`{${selector}}`);
       } else {
-        this.storage.removeItemSubscribe('cross:' + selector);
+        this.storageMap.delete('cross:' + selector).subscribe(() => {
+        });
         this.router.navigateByUrl(`/{${selector}}/${param}`);
       }
     });
@@ -253,7 +255,8 @@ export class BitService {
    */
   setLocale(locale: 'zh_cn' | 'en_us') {
     this.locale = locale;
-    this.storage.setItemSubscribe('locale', locale);
+    this.storageMap.set('locale', locale).subscribe(() => {
+    });
     this.events.publish('locale', locale);
     this.l = Object.assign(this.commonLanguage[this.locale], this.language[this.locale]);
   }
@@ -288,7 +291,7 @@ export class BitService {
    * Register search object
    */
   registerSearch(selector: string, ...search: { field: string, op: string, value: any }[]): Observable<any> {
-    return this.storage.getItem('search:' + selector).pipe(
+    return this.storageMap.get('search:' + selector).pipe(
       map((data: any) => {
         this.search = (!data) ? search : data;
         return true;

@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {LocalStorage} from '@ngx-pwa/local-storage';
+import {StorageMap} from '@ngx-pwa/local-storage';
 import {NavigationEnd, Router} from '@angular/router';
 import {Subscription} from 'rxjs';
 import {map} from 'rxjs/operators';
@@ -13,7 +13,7 @@ export class StorageService {
   private routerSubscription: Subscription;
 
   constructor(
-    private storage: LocalStorage,
+    private storageMap: StorageMap,
     private bit: BitService
   ) {
   }
@@ -22,15 +22,18 @@ export class StorageService {
    * Clear all Storage
    */
   clear() {
-    this.storage.clearSubscribe();
+    this.storageMap.clear().subscribe(() => {
+    });
   }
 
   /**
    * Set Menu Storage
    */
   setMenu(menu: any, router: any) {
-    this.storage.setItemSubscribe('menu', menu);
-    this.storage.setItemSubscribe('router', router);
+    this.storageMap.set('menu', menu).subscribe(() => {
+    });
+    this.storageMap.set('router', router).subscribe(() => {
+    });
   }
 
   /**
@@ -75,10 +78,10 @@ export class StorageService {
    */
   private routerAssociate(router: Router, url: string, match?: any[]) {
     const path = BitService.getSelectorFormUrl(url, match);
-    this.storage.getItem('router').pipe(
-      map((data: any) => {
-        return data.hasOwnProperty(path) ? data[path].id : false;
-      })
+    this.storageMap.get('router').pipe(
+      map((data: any) =>
+        Reflect.has(data, path) ? data[path].id : false
+      )
     ).subscribe(maybeId => {
       if (!maybeId) {
         router.navigate(['/{empty}']);
@@ -93,7 +96,7 @@ export class StorageService {
    * Factory breadcrumb
    */
   private factoryBreadcrumb(id: any) {
-    this.storage.getItem('menu').subscribe((data: any) => {
+    this.storageMap.get('menu').subscribe((data: any) => {
       const queue = [];
       const breadcrumb = [];
       const navActive = [];

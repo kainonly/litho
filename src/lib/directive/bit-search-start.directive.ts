@@ -1,5 +1,5 @@
 import {Directive, EventEmitter, HostListener, Input, Output} from '@angular/core';
-import {LocalStorage} from '@ngx-pwa/local-storage';
+import {StorageMap} from '@ngx-pwa/local-storage';
 import {BitService} from '../base/bit.service';
 
 @Directive({
@@ -11,7 +11,7 @@ export class BitSearchStartDirective {
 
   constructor(
     private bit: BitService,
-    private storage: LocalStorage
+    private storageMap: StorageMap
   ) {
   }
 
@@ -27,7 +27,7 @@ export class BitSearchStartDirective {
    * search data save storage
    */
   private searchStart() {
-    this.storage.setItem('search:' + this.bitSearchStart, this.bit.search).subscribe(() => {
+    this.storageMap.set('search:' + this.bitSearchStart, this.bit.search).subscribe(() => {
       this.after.emit(true);
     });
   }

@@ -3,8 +3,8 @@ import {FormGroup} from '@angular/forms';
 import {Location} from '@angular/common';
 import {Observable} from 'rxjs';
 import Swal from 'sweetalert2';
-import {BitService} from '../base/bit.service';
 import {AlertCustomize} from '../types/alert-customize';
+import {BitService} from '../base/bit.service';
 
 @Injectable()
 export class SwalService {
@@ -20,7 +20,7 @@ export class SwalService {
    * Add a prompt to use the request
    */
   addAlert(res: any, form: FormGroup, reset?: any, customize?: AlertCustomize): Observable<any> {
-    return Observable.create((observer) => {
+    return new Observable(subscriber => {
       if (!res.error) {
         Swal.fire({
           title: this.bit.l.operateSuccess,
@@ -38,12 +38,12 @@ export class SwalService {
         }).then((result) => {
           if (result.value) {
             form.reset(reset ? reset : undefined);
-            observer.next(true);
-            observer.complete();
+            subscriber.next(true);
+            subscriber.complete();
           } else {
             this.location.back();
-            observer.next(false);
-            observer.complete();
+            subscriber.next(false);
+            subscriber.complete();
           }
         });
       } else {
@@ -53,8 +53,8 @@ export class SwalService {
           type: 'error',
           confirmButtonText: this.bit.l.operateOk
         }).then(() => {
-          observer.next(false);
-          observer.complete();
+          subscriber.next(false);
+          subscriber.complete();
         });
       }
     });
@@ -64,7 +64,7 @@ export class SwalService {
    * Edit a prompt to use the request
    */
   editAlert(res: any, customize?: AlertCustomize): Observable<any> {
-    return Observable.create((observer) => {
+    return new Observable(subscriber => {
       if (!res.error) {
         Swal.fire({
           title: this.bit.l.operateSuccess,
@@ -81,12 +81,12 @@ export class SwalService {
               : this.bit.l.operateBack
         }).then((result) => {
           if (result.value) {
-            observer.next(true);
-            observer.complete();
+            subscriber.next(true);
+            subscriber.complete();
           } else {
             this.location.back();
-            observer.next(false);
-            observer.complete();
+            subscriber.next(false);
+            subscriber.complete();
           }
         });
       } else {
@@ -96,8 +96,8 @@ export class SwalService {
           type: 'error',
           confirmButtonText: this.bit.l.operateOk
         }).then(() => {
-          observer.next(false);
-          observer.complete();
+          subscriber.next(false);
+          subscriber.complete();
         });
       }
     });
@@ -107,7 +107,7 @@ export class SwalService {
    * Delete a prompt to use the request
    */
   deleteAlert(service: Observable<any>, customize?: AlertCustomize): Observable<any> {
-    return Observable.create((observer) => {
+    return new Observable(subscriber => {
       Swal.fire({
         title: this.bit.l.operateWarning,
         text: customize && customize.text ? customize.text : this.bit.l.deleteWarning,
@@ -120,8 +120,8 @@ export class SwalService {
       }).then((result) => {
         if (result.value) {
           service.subscribe((res) => {
-            observer.next(res);
-            observer.complete();
+            subscriber.next(res);
+            subscriber.complete();
           });
         }
       });

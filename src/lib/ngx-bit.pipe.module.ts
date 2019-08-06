@@ -12,7 +12,9 @@ import {SplitPipe} from './pipe/split.pipe';
 import {JoinPipe} from './pipe/join.pipe';
 
 @NgModule({
-  imports: [CommonModule],
+  imports: [
+    CommonModule
+  ],
   exports: [
     DefinedPipe,
     UndefinedPipe,

@@ -1,5 +1,5 @@
 import {Directive, EventEmitter, HostListener, Input, Output} from '@angular/core';
-import {LocalStorage} from '@ngx-pwa/local-storage';
+import {StorageMap} from '@ngx-pwa/local-storage';
 import {BitService} from '../base/bit.service';
 
 @Directive({
@@ -12,7 +12,7 @@ export class BitSearchClearDirective {
 
   constructor(
     private bit: BitService,
-    private storage: LocalStorage
+    private storageMap: StorageMap
   ) {
   }
 
@@ -25,7 +25,7 @@ export class BitSearchClearDirective {
         x.value = '';
       }
     }
-    this.storage.removeItem('search:' + this.bitSearchClear).subscribe(() => {
+    this.storageMap.delete('search:' + this.bitSearchClear).subscribe(() => {
       this.after.emit(true);
     });
   }
