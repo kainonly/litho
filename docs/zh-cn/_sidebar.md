@@ -11,11 +11,12 @@
 - 组件
   - [多语言切换器](zh-cn/component/bit-i18n-switch)
   - [多语言提示](zh-cn/component/bit-i18n-tips)
+  - [验证错误提示](zh-cn/component/bit-error-tip)
 
 - 指令
   - [返回上一级](zh-cn/directive/bit-back)
   - [跨级跳转](zh-cn/directive/bit-cross-level)
-  - [表单验证提示](zh-cn/directive/bit-explain)
+  - [~~表单验证提示(废弃)~~](zh-cn/directive/bit-explain)
   - [表单共用栅格](zh-cn/directive/bit-form-col)
   - [表单提交](zh-cn/directive/bit-form-submit)
   - [多语言提示样式](zh-cn/directive/bit-i18n-tips-style)

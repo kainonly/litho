@@ -11,11 +11,12 @@
 - Component
   - [I18n Switch](en-us/component/bit-i18n-switch)
   - [I18n Tips](en-us/component/bit-i18n-tips)
+  - [Error Tip](en-us/component/bit-error-tip)
 
 - Directive
   - [Back](en-us/directive/bit-back)
   - [Cross Level Link](en-us/directive/bit-cross-level)
-  - [Form Explain](en-us/directive/bit-explain)
+  - [~~Form Explain(abandon)~~](en-us/directive/bit-explain)
   - [Form Col](en-us/directive/bit-form-col)
   - [Form Submit](en-us/directive/bit-form-submit)
   - [I18n Tips Style](en-us/directive/bit-i18n-tips-style)
