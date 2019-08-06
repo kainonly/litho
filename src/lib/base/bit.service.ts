@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {Router} from '@angular/router';
 import {Location} from '@angular/common';
 import {FormGroup} from '@angular/forms';
-import {LocalStorage, StorageMap} from '@ngx-pwa/local-storage';
+import {StorageMap} from '@ngx-pwa/local-storage';
 import {map} from 'rxjs/operators';
 import {Observable} from 'rxjs';
 import {ConfigService} from './config.service';
@@ -14,12 +14,12 @@ export class BitService {
   /**
    * Origin language packer
    */
-  private language: any = {};
+  private language: Map<number, Map<string, string>> = new Map<number, Map<string, string>>();
 
   /**
    * app.language packer
    */
-  private commonLanguage: any = {};
+  private commonLanguage: Map<number, Map<string, string>> = new Map<number, Map<string, string>>();
 
   /**
    * Static Path
@@ -34,12 +34,12 @@ export class BitService {
   /**
    * Language pack identifier
    */
-  locale: string;
+  locale: number;
 
   /**
    * Language pack label
    */
-  l: any = {};
+  l: Map<string, string> = new Map();
 
   /**
    * Component i18n identifier
@@ -132,15 +132,15 @@ export class BitService {
   /**
    * Production language package
    */
-  static factoryLocales(packer: any): any {
-    const source = {
-      zh_cn: {},
-      en_us: {}
-    };
-    for (const i in packer) {
-      if (packer.hasOwnProperty(i)) {
-        source.zh_cn[i] = packer[i][0];
-        source.en_us[i] = packer[i][1];
+  static factoryLocales(packer: any): Map<number, Map<string, string>> {
+    const source: Map<number, Map<string, string>> = new Map([
+      [0, new Map()],
+      [1, new Map()]
+    ]);
+    for (const key in packer) {
+      if (packer.hasOwnProperty(key)) {
+        source.get(0).set(key, packer[key][0]);
+        source.get(1).set(key, packer[key][1]);
       }
     }
     return source;
@@ -202,7 +202,7 @@ export class BitService {
     this.i18n = config.i18nDefault;
     this.i18nContain = config.i18nContain;
     storageMap.get('locale').subscribe((data: any) => {
-      this.locale = data ? data : 'zh_cn';
+      this.locale = data ? data : 0;
     });
   }
 
@@ -253,12 +253,15 @@ export class BitService {
   /**
    * Set language pack ID
    */
-  setLocale(locale: 'zh_cn' | 'en_us') {
+  setLocale(locale: number) {
     this.locale = locale;
     this.storageMap.set('locale', locale).subscribe(() => {
     });
     this.events.publish('locale', locale);
-    this.l = Object.assign(this.commonLanguage[this.locale], this.language[this.locale]);
+    this.l = new Map(this.commonLanguage.get(this.locale).entries());
+    this.language.get(this.locale).forEach((value, key) => {
+      this.l.set(key, value);
+    });
   }
 
   /**
@@ -283,7 +286,10 @@ export class BitService {
       this.commonLanguage = BitService.factoryLocales(packer);
     } else {
       this.language = BitService.factoryLocales(packer);
-      this.l = Object.assign(this.commonLanguage[this.locale], this.language[this.locale]);
+      this.l = new Map(this.commonLanguage.get(this.locale).entries());
+      this.language.get(this.locale).forEach((value, key) => {
+        this.l.set(key, value);
+      });
     }
   }
 

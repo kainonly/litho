@@ -23,18 +23,18 @@ export class SwalService {
     return new Observable(subscriber => {
       if (!res.error) {
         Swal.fire({
-          title: this.bit.l.operateSuccess,
-          text: customize && customize.text ? customize.text : this.bit.l.addSuccessMsg,
+          title: this.bit.l.get('operateSuccess'),
+          text: customize && customize.text ? customize.text : this.bit.l.get('addSuccessMsg'),
           type: 'success',
           showCancelButton: true,
           confirmButtonText:
             customize && customize.confirmButtonText
               ? customize.confirmButtonText
-              : this.bit.l.addContinue,
+              : this.bit.l.get('addContinue'),
           cancelButtonText:
             customize && customize.cancelButtonText
               ? customize.cancelButtonText
-              : this.bit.l.operateBack
+              : this.bit.l.get('operateBack')
         }).then((result) => {
           if (result.value) {
             form.reset(reset ? reset : undefined);
@@ -48,10 +48,10 @@ export class SwalService {
         });
       } else {
         Swal.fire({
-          title: this.bit.l.operateError,
+          title: this.bit.l.get('operateError'),
           text: customize && customize.errorText ? customize.errorText : res.msg,
           type: 'error',
-          confirmButtonText: this.bit.l.operateOk
+          confirmButtonText: this.bit.l.get('operateOk')
         }).then(() => {
           subscriber.next(false);
           subscriber.complete();
@@ -67,18 +67,18 @@ export class SwalService {
     return new Observable(subscriber => {
       if (!res.error) {
         Swal.fire({
-          title: this.bit.l.operateSuccess,
-          text: customize && customize.text ? customize.text : this.bit.l.editSuccessMsg,
+          title: this.bit.l.get('operateSuccess'),
+          text: customize && customize.text ? customize.text : this.bit.l.get('editSuccessMsg'),
           type: 'success',
           showCancelButton: true,
           confirmButtonText:
             customize && customize.confirmButtonText
               ? customize.confirmButtonText
-              : this.bit.l.editContinue,
+              : this.bit.l.get('editContinue'),
           cancelButtonText:
             customize && customize.cancelButtonText
               ? customize.cancelButtonText
-              : this.bit.l.operateBack
+              : this.bit.l.get('operateBack')
         }).then((result) => {
           if (result.value) {
             subscriber.next(true);
@@ -91,10 +91,10 @@ export class SwalService {
         });
       } else {
         Swal.fire({
-          title: this.bit.l.operateError,
+          title: this.bit.l.get('operateError'),
           text: customize && customize.errorText ? customize.errorText : res.msg,
           type: 'error',
-          confirmButtonText: this.bit.l.operateOk
+          confirmButtonText: this.bit.l.get('operateOk')
         }).then(() => {
           subscriber.next(false);
           subscriber.complete();
@@ -109,14 +109,14 @@ export class SwalService {
   deleteAlert(service: Observable<any>, customize?: AlertCustomize): Observable<any> {
     return new Observable(subscriber => {
       Swal.fire({
-        title: this.bit.l.operateWarning,
-        text: customize && customize.text ? customize.text : this.bit.l.deleteWarning,
+        title: this.bit.l.get('operateWarning'),
+        text: customize && customize.text ? customize.text : this.bit.l.get('deleteWarning'),
         type: 'warning',
         showCancelButton: true,
         confirmButtonText:
-          customize && customize.confirmButtonText ? customize.confirmButtonText : this.bit.l.deleteYes,
+          customize && customize.confirmButtonText ? customize.confirmButtonText : this.bit.l.get('deleteYes'),
         cancelButtonText:
-          customize && customize.cancelButtonText ? customize.cancelButtonText : this.bit.l.deleteCancel
+          customize && customize.cancelButtonText ? customize.cancelButtonText : this.bit.l.get('deleteCancel')
       }).then((result) => {
         if (result.value) {
           service.subscribe((res) => {

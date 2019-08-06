@@ -17,20 +17,20 @@ export class BitStatusChangeDirective {
     private notificationService: NzNotificationService
   ) {
     nzSwitchComponent.nzControl = true;
-    nzSwitchComponent.nzCheckedChildren = bit.l.on;
-    nzSwitchComponent.nzUnCheckedChildren = bit.l.off;
+    nzSwitchComponent.nzCheckedChildren = bit.l.get('on');
+    nzSwitchComponent.nzUnCheckedChildren = bit.l.get('off');
   }
 
   @HostListener('click')
   onClick() {
     this.bitStatusChange.subscribe(res => {
       if (!res.error) {
-        this.notificationService.success(this.bit.l.operateSuccess, this.bit.l.statusSuccess);
+        this.notificationService.success(this.bit.l.get('operateSuccess'), this.bit.l.get('statusSuccess'));
       } else {
         if (this.bitControl) {
           this.response.emit(res);
         } else {
-          this.notificationService.error(this.bit.l.operateError, this.bit.l.statusError);
+          this.notificationService.error(this.bit.l.get('operateError'), this.bit.l.get('statusError'));
         }
       }
     });
