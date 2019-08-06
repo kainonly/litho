@@ -26,13 +26,6 @@ Control all multilingual input components within the form, for example
                     bitI18nTipsStyle
                     [formControlName]="x"
                     (ngModelChange)="bit.i18nUpdateValueAndValidity(form,'name',x)"/>
-            <nz-form-explain *bitExplain="{
-            form:form,
-            name:'name.'+x,
-            explain:{
-                required:bit.l['nameRequire']
-            }
-            };let msg">{{msg}}</nz-form-explain>
         </nz-form-control>
         </ng-container>
     </nz-form-item>

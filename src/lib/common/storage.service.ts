@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {StorageMap} from '@ngx-pwa/local-storage';
-import {NavigationEnd, Router} from '@angular/router';
+import {Event, NavigationEnd, Router} from '@angular/router';
 import {Subscription} from 'rxjs';
 import {map} from 'rxjs/operators';
 import {BitService} from '../base/bit.service';
@@ -44,7 +44,7 @@ export class StorageService {
     if (router.url !== '/') {
       this.routerAssociate(router, router.url, match);
     }
-    this.routerSubscription = router.events.subscribe(event => {
+    this.routerSubscription = router.events.subscribe((event: Event) => {
       if (event instanceof NavigationEnd) {
         if (event.url !== '/') {
           this.routerAssociate(router, event.url, match);
