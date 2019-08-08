@@ -14,7 +14,7 @@
 
 ##### l: any
 
-语言包索引，默认 `{}`, 在完成定义语言包之后可直接使用 `l` 获取相关语言，`{{bit.l['name']}}`
+语言包索引，默认 `{}`, 在完成定义语言包之后可直接使用 `l` 获取相关语言，`{{bit.l.get('name')}}`
 
 ##### i18n: string
 
@@ -230,13 +230,6 @@
                 bitI18nTipsStyle
                 [formControlName]="x"
                 (ngModelChange)="bit.i18nUpdateValueAndValidity(form,'name',x)"/>
-        <nz-form-explain *bitExplain="{
-        form:form,
-        name:'name.'+x,
-        explain:{
-            required:bit.l['nameRequire']
-        }
-        };let msg">{{msg}}</nz-form-explain>
     </nz-form-control>
     </ng-container>
 </nz-form-item>

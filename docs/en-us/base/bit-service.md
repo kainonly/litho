@@ -14,7 +14,7 @@ Language package identifier, default `zh_cn`, for example `{{name[bit.locale]}}`
 
 ##### l: any
 
-Language pack index, default `{}`, you can use `l` to get the relevant language after you finish defining the language pack `{{bit.l['name']}}`
+Language pack index, default `{}`, you can use `l` to get the relevant language after you finish defining the language pack `{{bit.l.get('name')]}}`
 
 ##### i18n: string
 
@@ -50,13 +50,6 @@ Multi-language input component identification array
                 bitI18nTipsStyle
                 [formControlName]="x"
                 (ngModelChange)="bit.i18nUpdateValueAndValidity(form,'name',x)"/>
-        <nz-form-explain *bitExplain="{
-        form:form,
-        name:'name.'+x,
-        explain:{
-            required:bit.l['nameRequire']
-        }
-        };let msg">{{msg}}</nz-form-explain>
     </nz-form-control>
     </ng-container>
 </nz-form-item>
