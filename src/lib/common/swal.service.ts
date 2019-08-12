@@ -23,18 +23,18 @@ export class SwalService {
     return new Observable(subscriber => {
       if (!res.error) {
         Swal.fire({
-          title: this.bit.l.get('operateSuccess'),
-          text: customize && customize.text ? customize.text : this.bit.l.get('addSuccessMsg'),
+          title: this.bit.l.operateSuccess,
+          text: customize && customize.text ? customize.text : this.bit.l.addSuccessMsg,
           type: 'success',
           showCancelButton: true,
           confirmButtonText:
             customize && customize.confirmButtonText
               ? customize.confirmButtonText
-              : this.bit.l.get('addContinue'),
+              : this.bit.l.addContinue,
           cancelButtonText:
             customize && customize.cancelButtonText
               ? customize.cancelButtonText
-              : this.bit.l.get('operateBack')
+              : this.bit.l.operateBack
         }).then((result) => {
           if (result.value) {
             form.reset(reset ? reset : undefined);
@@ -48,10 +48,10 @@ export class SwalService {
         });
       } else {
         Swal.fire({
-          title: this.bit.l.get('operateError'),
+          title: this.bit.l.operateError,
           text: customize && customize.errorText ? customize.errorText : res.msg,
           type: 'error',
-          confirmButtonText: this.bit.l.get('operateOk')
+          confirmButtonText: this.bit.l.operateOk
         }).then(() => {
           subscriber.next(false);
           subscriber.complete();
