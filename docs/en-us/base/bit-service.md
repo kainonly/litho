@@ -14,7 +14,7 @@ Language package identifier, default `zh_cn`, for example `{{name[bit.locale]}}`
 
 ##### l: any
 
-Language pack index, default `{}`, you can use `l` to get the relevant language after you finish defining the language pack `{{bit.l.get('name')]}}`
+Language pack index, default `{}`, you can use `l` to get the relevant language after you finish defining the language pack `{{bit.l['name']}}`
 
 ##### i18n: string
 
