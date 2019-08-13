@@ -5,9 +5,11 @@ import {FormGroup} from '@angular/forms';
 import {StorageMap} from '@ngx-pwa/local-storage';
 import {map} from 'rxjs/operators';
 import {Observable} from 'rxjs';
+import {NzI18nService} from 'ng-zorro-antd';
 import {ConfigService} from './config.service';
 import {EventsService} from './events.service';
 import {I18nGroupOptions} from '../types/i18n-group-options';
+
 
 @Injectable()
 export class BitService {
@@ -64,7 +66,7 @@ export class BitService {
   /**
    * Breadcrumb array
    */
-  breadcrumb = [];
+  breadcrumb: { name: any, routerlink: string }[] = [];
 
   /**
    * default breadcrumb top level
@@ -193,7 +195,8 @@ export class BitService {
     private events: EventsService,
     private location: Location,
     private router: Router,
-    private storageMap: StorageMap
+    private storageMap: StorageMap,
+    private nzI18nService: NzI18nService,
   ) {
     this.static = config.staticUrl;
     this.uploads = (config.uploadsUrl) ? config.uploadsUrl : config.originUrl + '/' + config.uploadsPath;
@@ -203,6 +206,7 @@ export class BitService {
     this.i18nContain = config.i18nContain;
     storageMap.get('locale').subscribe((data: any) => {
       this.locale = data ? data : 'zh_cn';
+      this.nzI18nService.setLocale(this.config.i18nBind.get(this.locale));
     });
   }
 
@@ -262,6 +266,14 @@ export class BitService {
       this.commonLanguage[this.locale],
       this.language[this.locale]
     );
+    this.nzI18nService.setLocale(this.config.i18nBind.get(this.locale));
+  }
+
+  /**
+   * manual set breadcrumb
+   */
+  setBreadcrumb(...breadcrumb: { name: any, routerlink: string }[]) {
+    this.breadcrumb = breadcrumb;
   }
 
   /**
