@@ -27,17 +27,17 @@ export class StorageService {
   }
 
   /**
-   * Set Menu Storage
+   * Put Resource Data
    */
-  setMenu(menu: any, router: any) {
-    this.storageMap.set('menu', menu).subscribe(() => {
+  putResource(resource: Map<string, any>, router: Map<string, any>) {
+    this.storageMap.set('resource', resource).subscribe(() => {
     });
     this.storageMap.set('router', router).subscribe(() => {
     });
   }
 
   /**
-   * Auto get breadcrumb
+   * Auto Breadcrumb Data
    */
   autoBreadcrumb(router: Router, match = ['%7B', '%7D']) {
     this.destoryBreadcrumb();
@@ -77,17 +77,17 @@ export class StorageService {
    * Get router associate
    */
   private routerAssociate(router: Router, url: string, match?: any[]) {
-    const path = BitService.getSelectorFormUrl(url, match);
+    const key = BitService.getSelectorFormUrl(url, match);
     this.storageMap.get('router').pipe(
-      map((data: any) =>
-        Reflect.has(data, path) ? data[path].id : false
+      map((data: Map<string, any>) =>
+        data.has(key) ? key : null
       )
-    ).subscribe(maybeId => {
-      if (!maybeId) {
+    ).subscribe(maybeKey => {
+      if (!maybeKey) {
         router.navigate(['/{empty}']);
         this.clearBreadcrumb();
       } else {
-        this.factoryBreadcrumb(maybeId);
+        this.factoryBreadcrumb(maybeKey);
       }
     });
   }
@@ -95,31 +95,31 @@ export class StorageService {
   /**
    * Factory breadcrumb
    */
-  private factoryBreadcrumb(id: any) {
-    this.storageMap.get('menu').subscribe((data: any) => {
+  private factoryBreadcrumb(key: string) {
+    this.storageMap.get('resource').subscribe((data: Map<string, any>) => {
       const queue = [];
       const breadcrumb = [];
       const navActive = [];
-      if (data.hasOwnProperty(id)) {
-        const node = data[id];
+      if (data.has(key)) {
+        const node = data.get(key);
         this.bit.title = node.name;
-        navActive.unshift(node.id);
+        navActive.unshift(node.key);
         breadcrumb.unshift({
           name: node.name,
-          routerlink: node.routerlink
+          key: node.key
         });
         if (node.parent !== this.bit.breadcrumbTop) {
           queue.push(node.parent);
         }
       }
       while (queue.length !== this.bit.breadcrumbTop) {
-        const parentId = queue.pop();
-        if (data.hasOwnProperty(parentId)) {
-          const next = data[parentId];
-          navActive.unshift(next.id);
+        const parentKey = queue.pop();
+        if (data.has(parentKey)) {
+          const next = data.get(parentKey);
+          navActive.unshift(next.key);
           breadcrumb.unshift({
             name: next.name,
-            routerlink: next.routerlink
+            key: next.key
           });
           if (next.parent !== this.bit.breadcrumbTop) {
             queue.push(next.parent);
