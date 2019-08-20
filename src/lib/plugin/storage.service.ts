@@ -106,7 +106,8 @@ export class StorageService {
         navActive.unshift(node.key);
         breadcrumb.unshift({
           name: node.name,
-          key: node.key
+          key: node.key,
+          router: node.router
         });
         if (node.parent !== this.bit.breadcrumbTop) {
           queue.push(node.parent);
@@ -119,7 +120,8 @@ export class StorageService {
           navActive.unshift(next.key);
           breadcrumb.unshift({
             name: next.name,
-            key: next.key
+            key: next.key,
+            router: next.router
           });
           if (next.parent !== this.bit.breadcrumbTop) {
             queue.push(next.parent);

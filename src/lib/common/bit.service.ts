@@ -66,7 +66,7 @@ export class BitService {
   /**
    * Breadcrumb array
    */
-  breadcrumb: { name: any, routerlink: string }[] = [];
+  breadcrumb: any[] = [];
 
   /**
    * default breadcrumb top level
@@ -236,12 +236,12 @@ export class BitService {
    */
   crossLevel(selector: string) {
     this.storageMap.get('cross:' + selector).subscribe(param => {
-      if (param === null) {
+      if (!param) {
         this.router.navigateByUrl(`{${selector}}`);
       } else {
         this.storageMap.delete('cross:' + selector).subscribe(() => {
+          this.router.navigateByUrl(`/{${selector}}/${param}`);
         });
-        this.router.navigateByUrl(`/{${selector}}/${param}`);
       }
     });
   }
@@ -272,7 +272,7 @@ export class BitService {
   /**
    * manual set breadcrumb
    */
-  setBreadcrumb(...breadcrumb: { name: any, routerlink: string }[]) {
+  setBreadcrumb(...breadcrumb: any[]) {
     this.breadcrumb = breadcrumb;
   }
 

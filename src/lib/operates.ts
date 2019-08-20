@@ -65,9 +65,4 @@ export const operates = {
       return false;
     }
   },
-  registerLocales(packer: any, common = false) {
-    return (target: any, propertyKey: string, descriptor: PropertyDescriptor) => {
-      Reflect.set(target, 'l', packer);
-    };
-  }
 };
