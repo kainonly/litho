@@ -1,5 +1,5 @@
 import {Component, Input, TemplateRef, ViewChild} from '@angular/core';
-import {BitService} from '../../base/bit.service';
+import {BitService} from '../../common/bit.service';
 
 @Component({
   selector: 'bit-i18n-tips',

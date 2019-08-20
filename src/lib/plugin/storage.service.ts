@@ -3,7 +3,7 @@ import {StorageMap} from '@ngx-pwa/local-storage';
 import {Event, NavigationEnd, Router} from '@angular/router';
 import {Subscription} from 'rxjs';
 import {map} from 'rxjs/operators';
-import {BitService} from '../base/bit.service';
+import {BitService} from '../common/bit.service';
 
 @Injectable()
 export class StorageService {

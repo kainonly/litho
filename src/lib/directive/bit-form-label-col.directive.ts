@@ -1,6 +1,6 @@
 import {Directive, Input, OnInit} from '@angular/core';
 import {NzFormLabelComponent} from 'ng-zorro-antd';
-import {ConfigService} from '../base/config.service';
+import {ConfigService} from '../common/config.service';
 
 @Directive({
   selector: '[bitFormLabelCol]'

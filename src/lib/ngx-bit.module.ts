@@ -1,14 +1,14 @@
 import {ModuleWithProviders, NgModule} from '@angular/core';
 import {HttpClientModule} from '@angular/common/http';
 import {StorageModule} from '@ngx-pwa/local-storage';
-
-import {ConfigService} from './base/config.service';
-import {BitService} from './base/bit.service';
-import {EventsService} from './base/events.service';
-import {HttpService} from './base/http.service';
-import {SwalService} from './common/swal.service';
-import {StorageService} from './common/storage.service';
 import {NzIconService} from 'ng-zorro-antd';
+
+import {ConfigService} from './common/config.service';
+import {BitService} from './common/bit.service';
+import {EventsService} from './common/events.service';
+import {HttpService} from './common/http.service';
+import {SwalService} from './plugin/swal.service';
+import {StorageService} from './plugin/storage.service';
 
 @NgModule({
   imports: [

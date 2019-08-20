@@ -4,7 +4,7 @@ import {Location} from '@angular/common';
 import {Observable} from 'rxjs';
 import Swal from 'sweetalert2';
 import {AlertCustomize} from '../types/alert-customize';
-import {BitService} from '../base/bit.service';
+import {BitService} from '../common/bit.service';
 
 @Injectable()
 export class SwalService {

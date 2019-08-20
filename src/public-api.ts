@@ -1,9 +1,10 @@
-export * from './lib/base/config.service';
-export * from './lib/base/bit.service';
-export * from './lib/base/events.service';
-export * from './lib/base/http.service';
-export * from './lib/common/swal.service';
-export * from './lib/common/storage.service';
+export * from './lib/common/config.service';
+export * from './lib/common/bit.service';
+export * from './lib/common/events.service';
+export * from './lib/common/http.service';
+
+export * from './lib/plugin/swal.service';
+export * from './lib/plugin/storage.service';
 
 export * from './lib/ngx-bit.module';
 export * from './lib/ngx-bit.pipe.module';
