@@ -4,22 +4,10 @@ import {map, switchMap} from 'rxjs/operators';
 import {Observable} from 'rxjs';
 import {ConfigService} from './config.service';
 import {BitService} from './bit.service';
+import {ConvertToWhere} from '../lib.common';
 
 @Injectable()
 export class HttpService {
-  /**
-   * Convert to where
-   */
-  static toWhere(condition: any[]) {
-    const where = [];
-    for (const x of condition) {
-      if (!(x.value === '' || x.value === 0 || !x.value)) {
-        where.push([x.field, x.op, (x.op === 'like' ? `%${x.value}%` : x.value)]);
-      }
-    }
-    return where;
-  }
-
   constructor(
     private http: HttpClient,
     private config: ConfigService,
@@ -44,9 +32,11 @@ export class HttpService {
    * Get Request
    */
   get(model: string, condition: any, special = false): Observable<any> {
-    const http = condition.hasOwnProperty('id') ? this.req(model + '/get', condition) : this.req(model + '/get', {
-      where: condition
-    });
+    const http = Reflect.has(condition, 'id') ?
+      this.req(model + '/get', condition) : this.req(model + '/get', {
+          where: condition
+        }
+      );
     return special ? http : http.pipe(
       map(res => !res.error ? res.data : {})
     );
@@ -56,7 +46,7 @@ export class HttpService {
    * Lists Request
    */
   lists(model: string, condition: any[] = [], refresh = false, special = false): Observable<any> {
-    const where = special ? condition : HttpService.toWhere(condition);
+    const where = special ? condition : ConvertToWhere(condition);
     if (refresh) {
       this.bit.listsPageIndex = 1;
     }
@@ -83,52 +73,13 @@ export class HttpService {
   }
 
   /**
-   * MongoLists Request
-   */
-  mongoLists(model: string, action: string, filter: any = {}, refresh = false, special = false): Observable<any> {
-    if (refresh) {
-      this.bit.listsPageIndex = 1;
-    }
-    const http = this.req(model + '/' + action, {
-      page: {
-        limit: this.bit.pageLimit,
-        index: this.bit.listsPageIndex
-      },
-      filter
-    }).pipe(
-      map((res) => {
-        this.bit.listsTotals = !res.error ? res.data.total : 0;
-        this.bit.listsLoading = false;
-        this.bit.listsAllChecked = false;
-        this.bit.listsIndeterminate = false;
-        this.bit.listsDisabledAction = true;
-        this.bit.listsCheckedNumber = 0;
-        return res;
-      })
-    );
-    return special ? http : http.pipe(
-      map(res => !res.error ? res.data.lists : [])
-    );
-  }
-
-  /**
    * OriginLists Request
    */
   originLists(model: string, condition: any[] = [], special = false): Observable<any> {
-    const where = special ? condition : HttpService.toWhere(condition);
+    const where = special ? condition : ConvertToWhere(condition);
     const http = this.req(model + '/originLists', {
       where
     });
-    return special ? http : http.pipe(
-      map(res => !res.error ? res.data : [])
-    );
-  }
-
-  /**
-   * MongoOriginLists Request
-   */
-  mongoOriginLists(model: string, action: string, filter: any = {}, special = false): Observable<any> {
-    const http = this.req(model + '/' + action, {filter});
     return special ? http : http.pipe(
       map(res => !res.error ? res.data : [])
     );

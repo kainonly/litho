@@ -8,8 +8,14 @@ import {Observable} from 'rxjs';
 import {NzI18nService} from 'ng-zorro-antd';
 import {ConfigService} from './config.service';
 import {EventsService} from './events.service';
-import {I18nGroupOptions} from '../types/i18n-group-options';
-
+import {
+  factoryLocales,
+  getSelectorFormUrl,
+  i18nControlsAsyncValidate,
+  i18nControlsValidate,
+  i18nControlsValue
+} from '../lib.common';
+import {I18nGroupOptions} from '../lib.types';
 
 @Injectable()
 export class BitService {
@@ -51,7 +57,7 @@ export class BitService {
   /**
    * Component i18n tooltips
    */
-  i18nTips: any = {};
+  i18nTooltip: Map<string, any> = new Map();
 
   /**
    * Component i18n
@@ -123,73 +129,6 @@ export class BitService {
    */
   listsCheckedNumber = 0;
 
-  /**
-   * getSelectorFormUrl
-   */
-  static getSelectorFormUrl(url, match: any[]) {
-    const regExp = new RegExp(`(?:${match[0]})(.+?)(?=${match[1]})`, 'g');
-    return url.match(regExp)[0].replace(match[0], '');
-  }
-
-  /**
-   * Production language package
-   */
-  static factoryLocales(packer: any): any {
-    const source = {
-      zh_cn: {},
-      en_us: {}
-    };
-    for (const i in packer) {
-      if (packer.hasOwnProperty(i)) {
-        source.zh_cn[i] = packer[i][0];
-        source.en_us[i] = packer[i][1];
-      }
-    }
-    return source;
-  }
-
-  /**
-   * Init i18n form control value
-   */
-  static i18nControlsValue(i18n: string, value?: any): string {
-    if (!value) {
-      return null;
-    }
-    if (value[i18n] !== undefined) {
-      return value[i18n];
-    } else {
-      return null;
-    }
-  }
-
-  /**
-   * Init i18n form control validate
-   */
-  static i18nControlsValidate(i18n: string, validate?: any): any[] {
-    if (!validate) {
-      return [];
-    }
-    if (validate[i18n] !== undefined) {
-      return validate[i18n];
-    } else {
-      return [];
-    }
-  }
-
-  /**
-   * Init i18n form control async validate
-   */
-  static i18nControlsAsyncValidate(i18n: string, asyncValidate?: any): any[] {
-    if (!asyncValidate) {
-      return [];
-    }
-    if (asyncValidate[i18n] !== undefined) {
-      return asyncValidate[i18n];
-    } else {
-      return [];
-    }
-  }
-
   constructor(
     private config: ConfigService,
     private events: EventsService,
@@ -216,7 +155,7 @@ export class BitService {
   open(path: any[]) {
     const url = this.router.url;
     if (url !== '/') {
-      const selector = BitService.getSelectorFormUrl(this.router.url, ['%7B', '%7D']);
+      const selector = getSelectorFormUrl(this.router.url, ['%7B', '%7D']);
       const param = url.split('/').slice(2);
       if (param.length !== 0) {
         this.storageMap.set('cross:' + selector, param[0]).subscribe(() => {
@@ -295,9 +234,9 @@ export class BitService {
    */
   registerLocales(packer: any, common = false) {
     if (common) {
-      this.commonLanguage = BitService.factoryLocales(packer);
+      this.commonLanguage = factoryLocales(packer);
     } else {
-      this.language = BitService.factoryLocales(packer);
+      this.language = factoryLocales(packer);
       this.l = Object.assign(this.commonLanguage[this.locale], this.language[this.locale]);
     }
   }
@@ -345,47 +284,44 @@ export class BitService {
    * Init i18n form group
    */
   i18nGroup(options?: I18nGroupOptions) {
-    if (options === undefined) {
-      options = {};
-    }
     const controls = {};
-    for (const x of this.config.i18nContain) {
-      controls[x] = [
-        BitService.i18nControlsValue(x, options.value === undefined ? '' : options.value),
-        BitService.i18nControlsValidate(x, options.validate === undefined ? '' : options.validate),
-        BitService.i18nControlsAsyncValidate(x, options.asyncValidate === undefined ? '' : options.asyncValidate)
-      ];
+    if (options) {
+      for (const i18n of this.config.i18nContain) {
+        controls[i18n] = [
+          i18nControlsValue(
+            i18n,
+            Reflect.has(options, 'value') ? options.value : null
+          ),
+          i18nControlsValidate(
+            i18n,
+            Reflect.has(options, 'validate') ? options.validate : []
+          ),
+          i18nControlsAsyncValidate(
+            i18n,
+            Reflect.has(options, 'asyncValidate') ? options.asyncValidate : []
+          )
+        ];
+      }
     }
     return controls;
   }
 
-  /**
-   * i18n form control updateValueAndValidity
-   */
-  i18nUpdateValueAndValidity(form: FormGroup, groupname: string, i18n: string) {
-    for (const x of this.i18nContain) {
-      if (x !== i18n) {
-        form.get(groupname).get(x).updateValueAndValidity();
-      }
-    }
-  }
-
-  /**
-   * i18n form union validator
-   */
-  i18nUnionValidator(form: FormGroup, groupname: string) {
-    if (!form || !form.get(groupname)) {
-      return;
-    }
-    const notExistI18n = [];
-    const formgroup = form.get(groupname);
-    for (const x of this.i18nContain) {
-      const value = formgroup.get(x).value;
-      if (!value) {
-        notExistI18n.push(x);
-      }
-    }
-    this.i18nTips[groupname] = notExistI18n;
-    return notExistI18n;
-  }
+  // /**
+  //  * i18n form union validator
+  //  */
+  // i18nUnionValidator(form: FormGroup, groupname: string) {
+  //   if (!form || !form.get(groupname)) {
+  //     return;
+  //   }
+  //   const notExistI18n = [];
+  //   const formgroup = form.get(groupname);
+  //   for (const x of this.i18nContain) {
+  //     const value = formgroup.get(x).value;
+  //     if (!value) {
+  //       notExistI18n.push(x);
+  //     }
+  //   }
+  //   this.i18nTips[groupname] = notExistI18n;
+  //   return notExistI18n;
+  // }
 }

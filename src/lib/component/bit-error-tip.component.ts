@@ -2,11 +2,19 @@ import {Component, Input, OnInit, TemplateRef, ViewChild} from '@angular/core';
 
 @Component({
   selector: 'bit-error-tip',
-  templateUrl: './bit-error-tip.component.html'
+  template: `
+      <ng-template #ref let-control>
+          <ng-container *ngFor="let data of errorLists">
+              <ng-container *ngIf="control.hasError(data.key)">
+                  {{data.error}}
+              </ng-container>
+          </ng-container>
+      </ng-template>
+  `
 })
 export class BitErrorTipComponent implements OnInit {
-  @Input() hasError: any = {};
   @ViewChild('ref', {static: true}) ref: TemplateRef<any>;
+  @Input() hasError: any = {};
   errorLists: any[] = [];
 
   ngOnInit() {

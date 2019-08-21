@@ -3,6 +3,7 @@ import {StorageMap} from '@ngx-pwa/local-storage';
 import {Event, NavigationEnd, Router} from '@angular/router';
 import {Subscription} from 'rxjs';
 import {map} from 'rxjs/operators';
+import {getSelectorFormUrl} from '../lib.common';
 import {BitService} from '../common/bit.service';
 
 @Injectable()
@@ -77,7 +78,7 @@ export class StorageService {
    * Get router associate
    */
   private routerAssociate(router: Router, url: string, match?: any[]) {
-    const key = BitService.getSelectorFormUrl(url, match);
+    const key = getSelectorFormUrl(url, match);
     this.storageMap.get('router').pipe(
       map((data: Map<string, any>) =>
         data.has(key) ? key : null
