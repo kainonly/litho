@@ -1,7 +1,6 @@
 import {Injectable} from '@angular/core';
 import {Router} from '@angular/router';
 import {Location} from '@angular/common';
-import {FormGroup} from '@angular/forms';
 import {StorageMap} from '@ngx-pwa/local-storage';
 import {map} from 'rxjs/operators';
 import {Observable} from 'rxjs';
@@ -305,23 +304,4 @@ export class BitService {
     }
     return controls;
   }
-
-  // /**
-  //  * i18n form union validator
-  //  */
-  // i18nUnionValidator(form: FormGroup, groupname: string) {
-  //   if (!form || !form.get(groupname)) {
-  //     return;
-  //   }
-  //   const notExistI18n = [];
-  //   const formgroup = form.get(groupname);
-  //   for (const x of this.i18nContain) {
-  //     const value = formgroup.get(x).value;
-  //     if (!value) {
-  //       notExistI18n.push(x);
-  //     }
-  //   }
-  //   this.i18nTips[groupname] = notExistI18n;
-  //   return notExistI18n;
-  // }
 }
