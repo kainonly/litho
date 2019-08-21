@@ -51,7 +51,7 @@ export class BitService {
   /**
    * Component i18n identifier
    */
-  i18n;
+  i18n: string;
 
   /**
    * Component i18n tooltips
