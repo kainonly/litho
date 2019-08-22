@@ -41,7 +41,7 @@ export class HttpService {
       where
     });
     return origin ? http : http.pipe(
-      map(res => !res.error ? res.data : {})
+      map(res => !res.error ? res.data : null)
     );
   }
 
@@ -71,7 +71,7 @@ export class HttpService {
       })
     );
     return origin ? http : http.pipe(
-      map(res => !res.error ? res.data.lists : [])
+      map(res => !res.error ? res.data.lists : null)
     );
   }
 
@@ -84,7 +84,7 @@ export class HttpService {
       where
     });
     return special ? http : http.pipe(
-      map(res => !res.error ? res.data : [])
+      map(res => !res.error ? res.data : null)
     );
   }
 
