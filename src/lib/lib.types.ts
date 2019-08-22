@@ -10,3 +10,17 @@ export interface AlertCustomize {
   confirmButtonText?: string;
   cancelButtonText?: string;
 }
+
+export interface I18nTooltipOptions {
+  [key: string]: string[]
+}
+
+export interface SearchOptions {
+  field: string;
+  op: string;
+  value: any;
+}
+
+export interface Search {
+  field: SearchOptions
+}

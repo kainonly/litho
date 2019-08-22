@@ -18,11 +18,15 @@ export class BitSearchClearDirective {
 
   @HostListener('click')
   onclick() {
-    for (const x of this.bit.search) {
-      if (this.reset !== undefined && this.reset.hasOwnProperty(x.field)) {
-        x.value = this.reset[x.field];
+    for (const i in this.bit.search) {
+      if (!this.bit.search.hasOwnProperty(i)) {
+        continue;
+      }
+      const search = this.bit.search[i];
+      if (this.reset !== undefined && this.reset.hasOwnProperty(search.field)) {
+        search.value = this.reset[search.field];
       } else {
-        x.value = '';
+        search.value = '';
       }
     }
     this.storageMap.delete('search:' + this.bitSearchClear).subscribe(() => {

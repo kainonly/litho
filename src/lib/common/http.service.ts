@@ -5,6 +5,7 @@ import {Observable} from 'rxjs';
 import {ConfigService} from './config.service';
 import {BitService} from './bit.service';
 import {ConvertToWhere} from '../lib.common';
+import {SearchOptions} from '../lib.types';
 
 @Injectable()
 export class HttpService {
@@ -31,13 +32,15 @@ export class HttpService {
   /**
    * Get Request
    */
-  get(model: string, condition: any, special = false): Observable<any> {
-    const http = Reflect.has(condition, 'id') ?
-      this.req(model + '/get', condition) : this.req(model + '/get', {
-          where: condition
-        }
-      );
-    return special ? http : http.pipe(
+  get(model: string, condition: number | string | SearchOptions[], origin = false): Observable<any> {
+    const where = Array.isArray(condition) ?
+      ConvertToWhere(condition) : {
+        id: condition
+      };
+    const http = this.req(model + '/get', {
+      where
+    });
+    return origin ? http : http.pipe(
       map(res => !res.error ? res.data : {})
     );
   }
@@ -45,9 +48,9 @@ export class HttpService {
   /**
    * Lists Request
    */
-  lists(model: string, condition: any[] = [], refresh = false, special = false): Observable<any> {
-    const where = special ? condition : ConvertToWhere(condition);
-    if (refresh) {
+  lists(model: string, condition: SearchOptions[] = [], refresh = false, origin = false): Observable<any> {
+    const where = ConvertToWhere(condition);
+    if (refresh === true) {
       this.bit.listsPageIndex = 1;
     }
     const http = this.req(model + '/lists', {
@@ -67,7 +70,7 @@ export class HttpService {
         return res;
       })
     );
-    return special ? http : http.pipe(
+    return origin ? http : http.pipe(
       map(res => !res.error ? res.data.lists : [])
     );
   }
@@ -95,12 +98,14 @@ export class HttpService {
   /**
    * Edit Request
    */
-  edit(model: string, data: any, condition: any = []): Observable<any> {
-    data.switch = false;
-    return !condition ? this.req(model + '/edit', data) : this.req(model + '/edit', Object.assign(data, {
-        where: condition
-      })
-    );
+  edit(model: string, data: any, condition?: SearchOptions[]): Observable<any> {
+    Reflect.set(data, 'switch', false);
+    return !condition ?
+      this.req(model + '/edit', data) :
+      this.req(model + '/edit', Object.assign(data, {
+          where: ConvertToWhere(condition)
+        })
+      );
   }
 
   /**
@@ -112,7 +117,7 @@ export class HttpService {
       switch: true,
       [field]: !data[field],
     };
-    if (extra) {
+    if (extra !== undefined) {
       Object.assign(body, extra);
     }
     return this.req(model + '/edit', body).pipe(
@@ -128,9 +133,17 @@ export class HttpService {
   /**
    * Delete Request
    */
-  delete(model: string, condition: any): Observable<any> {
-    return condition.hasOwnProperty('id') ? this.req(model + '/delete', condition) : this.req(model + '/delete', {
-      where: condition
-    });
+  delete(model: string, condition: any | number | number[] | string | string[] | SearchOptions[]): Observable<any> {
+    const where = !Array.isArray(condition) ? {id: condition} :
+      (
+        condition.every(v => typeof v === 'number') ||
+        condition.every(v => typeof v === 'string') ?
+          {id: condition} : ConvertToWhere(condition)
+      );
+    return where.hasOwnProperty('id') ?
+      this.req(model + '/delete', where) :
+      this.req(model + '/delete', {
+        where
+      });
   }
 }

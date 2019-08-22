@@ -30,7 +30,7 @@ export class BitI18nUpdateDirective implements OnInit, OnDestroy {
           emptyI18n.push(x);
         }
       }
-      this.bit.i18nTooltip.set(formGroupName, emptyI18n);
+      Reflect.set(this.bit.i18nTooltip, formGroupName, emptyI18n);
     });
   }
 

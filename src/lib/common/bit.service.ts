@@ -14,7 +14,7 @@ import {
   i18nControlsValidate,
   i18nControlsValue
 } from '../lib.common';
-import {I18nGroupOptions} from '../lib.types';
+import {I18nGroupOptions, I18nTooltipOptions, Search, SearchOptions} from '../lib.types';
 
 @Injectable()
 export class BitService {
@@ -56,7 +56,7 @@ export class BitService {
   /**
    * Component i18n tooltips
    */
-  i18nTooltip: Map<string, any> = new Map();
+  i18nTooltip: object | I18nTooltipOptions = {};
 
   /**
    * Component i18n
@@ -86,7 +86,7 @@ export class BitService {
   /**
    * Control panel search object
    */
-  search: { field: string, op: string, value: any }[] = [];
+  search: Search | object = {};
 
   /**
    * Lists data loading status
@@ -128,6 +128,9 @@ export class BitService {
    */
   listsCheckedNumber = 0;
 
+  /**
+   * constructor
+   */
   constructor(
     private config: ConfigService,
     private events: EventsService,
@@ -243,10 +246,16 @@ export class BitService {
   /**
    * Register search object
    */
-  registerSearch(selector: string, ...search: { field: string, op: string, value: any }[]): Observable<any> {
+  registerSearch(selector: string, ...search: SearchOptions[]): Observable<any> {
     return this.storageMap.get('search:' + selector).pipe(
       map((data: any) => {
-        this.search = (!data) ? search : data;
+        if (!data) {
+          search.forEach(((value) => {
+            this.search[value.field] = value;
+          }));
+        } else {
+          this.search = data;
+        }
         return true;
       })
     );
@@ -255,8 +264,21 @@ export class BitService {
   /**
    * Determine whether the index exists in the search object
    */
-  hasSearch(index: number): boolean {
-    return this.search[index] !== undefined;
+  hasSearch(field: string): boolean {
+    return this.search.hasOwnProperty(field);
+  }
+
+  /**
+   *
+   */
+  getSearch() {
+    const search = [];
+    for (const i in this.search) {
+      if (this.search.hasOwnProperty(i)) {
+        search.push(this.search[i]);
+      }
+    }
+    return search;
   }
 
   /**
