@@ -20,7 +20,7 @@ this.http.req('main/nav').subscribe(res => {
 ```
 
 
-##### 如何跨域携带 Cookie
+> 如何跨域携带 Cookie
 
 在 `environment` 中启用
 
@@ -102,7 +102,7 @@ edit(data: any): Observable<any> {
 }
 ```
 
-##### status(model: string, data: any, field = 'status', extra?: any): Observable< any >
+#### status(model: string, data: any, field = 'status', extra?: any): Observable< any >
 
 创建一个状态切换的处理
 
