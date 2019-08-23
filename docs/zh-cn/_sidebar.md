@@ -5,13 +5,13 @@
   - [EventsService 状态管理](zh-cn/common/events-service)
 
 - 插件扩展
-  - [本地存储](zh-cn/plugin/storage-service)
-  - [提示框](zh-cn/plugin/swal-service)
+  - [StorageService 本地存储](zh-cn/plugin/storage-service)
+  - [SwalService 提示框](zh-cn/plugin/swal-service)
 
 - 组件
-  - [多语言切换器](zh-cn/component/bit-i18n-switch)
-  - [多语言提示](zh-cn/component/bit-i18n-tips)
-  - [验证错误提示](zh-cn/component/bit-error-tip)
+  - [bit-i18n-switch 多语言切换器](zh-cn/component/bit-i18n-switch)
+  - [bit-i18n-tooltip 多语言提示](zh-cn/component/bit-i18n-tooltip)
+  - [bit-error-tip 验证错误提示](zh-cn/component/bit-error-tip)
 
 - 指令
   - [返回上一级](zh-cn/directive/bit-back)

@@ -1,4 +1,10 @@
-## 验证错误提示
+## bit-error-tip 验证错误提示
+
+```html
+<bit-error-tip #username [hasError]="{}"></bit-error-tip>
+```
+
+- **@Input() hasError** `any` errors 错误信息
 
 ```html
 <nz-form-control nzHasFeedback
@@ -10,6 +16,3 @@
     }"></bit-error-tip>
 </nz-form-control>
 ```
-
-- **@Input() hasError: any** errors 错误信息
-
