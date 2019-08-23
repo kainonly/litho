@@ -21,9 +21,10 @@ export class ConfigService {
   formLabelCol: any = {
     common: {},
   };
+  localeDefault = 'zh_cn';
+  localeBind: Map<string, NzI18nInterface> = new Map();
   i18nDefault = 'zh_cn';
   i18nContain: any[] = ['zh_cn'];
-  i18nBind: Map<string, NzI18nInterface> = new Map();
   i18nSwitch: any[] = [
     {
       i18n: 'zh_cn',

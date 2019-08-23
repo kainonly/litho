@@ -1,38 +1,40 @@
-## 配置 (ConfigService)
+## ConfigService 环境配置
 
-##### originUrl: string
+在模块 `NgxBitModule.forRoot(environment.bit)` 设置的配置最终将注入在 `ConfigService` 服务中
+
+#### originUrl: string
 
 RESTful Api 请求接口的域名，例如 `https://api.developer.com`
 
-##### staticUrl: string
+#### staticUrl: string
 
 静态资源地址，可以是 `origin` 域名的相对路径，也可以是cdn域名，例如，`https://cdn.developer.com/`
 
-##### iconUrl: string
+#### iconUrl: string
 
 放置在CDN上的icons路径，例如，`https://cdn.developer/icons/`
 
-##### namespace: string
+#### namespace: string
 
 RESTful Api 地址命名空间，例如，`sys`，如果没有请设置为 `''`
 
-##### uploadsUrl: boolean
+#### uploadsUrl: boolean
 
 是否为分布上传，`false` 为 `originUrl`+`/`+`uploadsPath`，`true` 时 `uploadsPath` 需填写完整上传地址
 
-##### uploadsPath: string
+#### uploadsPath: string
 
 上传地址
 
-##### withCredentials: boolean
+#### withCredentials: boolean
 
 允许请求携带Cookie，设置为 `true`
 
-##### httpInterceptor: boolean
+#### httpInterceptor: boolean
 
 是否开启请求拦截
 
-##### interceptor = (res) => of(res)
+#### interceptor = (res) => of(res)
 
 请求拦截自定义处理，例如对RBAC返回失败的统一请求进行拦截并返回提示
 
@@ -65,15 +67,15 @@ export class AppComponent implements OnInit {
 }
 ```
 
-##### breadcrumbTop: any
+#### breadcrumbTop: any
 
 面包屑默认最高级，默认 `0`
 
-##### pageLimit: number
+#### pageLimit: number
 
 列表分页, 默认值 `20`
 
-##### formControlCol: any
+#### formControlCol: any
 
 表单 `Control` 栅格统一设置
 
@@ -95,7 +97,7 @@ formControlCol: {
 }
 ```
 
-##### formLabelCol: any
+#### formLabelCol: any
 
 表单 `Label` 栅格统一设置
 
@@ -108,15 +110,34 @@ formLabelCol: {
 }
 ```
 
-##### i18nDefault: string
+#### localeDefault: string
+
+设定显示国际化的默认标识，默认 `zh_cn`
+
+### localeBind: Map<string, NzI18nInterface>
+
+将 ng-zorro-antd 的国际化标识与 ngx-bit 国际化标识关联
+
+```typescript
+import {en_US, zh_CN} from 'ng-zorro-antd';
+
+export const environment = {
+  localeBind: new Map([
+    ['zh_cn', zh_CN],
+    ['en_us', en_US]
+  ])
+}
+```
+
+#### i18nDefault: string
 
 多语言输入组件默认标识，默认 `zh_cn`
 
-##### i18nContain: any[]
+#### i18nContain: any[]
 
 多语言输入组件标识数组，例如：设置中文与英文，`['zh_cn', 'en_us']`
 
-##### i18nSwitch: any[]
+#### i18nSwitch: any[]
 
 多语言组件集合，`i18n` 需要于标识对应
 

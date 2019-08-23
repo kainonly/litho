@@ -1,7 +1,7 @@
 NGX-BIT
 =======
 
-易用的 Angular 辅助层框架
+Easy-to-use Angular Auxiliary Layer Framework
 
 [![npm](https://img.shields.io/npm/v/ngx-bit.svg?style=flat-square)](https://ngx-bit.kain.net.cn)
 [![Downloads](https://img.shields.io/npm/dm/ngx-bit.svg?style=flat-square)](https://www.npmjs.com/package/ngx-bit)
@@ -9,83 +9,74 @@ NGX-BIT
 [![TypeScript](https://img.shields.io/badge/%3C%2F%3E-TypeScript-blue.svg?style=flat-square)](https://www.typescriptlang.org/)
 [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](https://raw.githubusercontent.com/kainonly/ngx-bit.js/master/LICENSE)
 
+
 - **V6-LTS** [https://ngx-bit.v1.kain.net.cn](https://ngx-bit.v1.kain.net.cn)
 - **V7-LTS** [https://ngx-bit.v7.kain.net.cn](https://ngx-bit.v7.kain.net.cn)
 
-### 初始化操作
+
+### Initialization
 
 ```shell
-ng new <project_name>
+ng new exercise
 ```
 
-### 安装依赖
+### Install UI
 
-ng-zorro-antd 是 Ant Design 的 Angular 实现, ngx-bit 辅助层是基于 ng-zorro-antd 框架实现的
+Ng-zorro-antd is an Angular implementation of Ant Design, which is also based on ng-zorro-antd for auxiliary extensions.
 
 ```shell
 ng add ng-zorro-antd
 ```
 
-同时 ngx-bit 还使用了 `IndexDB` 前端存储和 `Sweetalert` 提示框插件，它们分别依赖于  `@ngx-pwa/local-storage` `sweetalert2` 来实现。
+### Install Component
+
+Some of the features of ngx-bit depend on `@ngx-pwa/local-storage` `sweetalert2`
 
 ```shell
 npm install ngx-bit @ngx-pwa/local-storage sweetalert2 --save
 ```
 
-**注意**：当前的版本基于 Angular8 需确认依赖版本
-
-- **@ngx-pwa/local-storage** version >= 8.x
+- **@ngx-pwa/local-storage** version >= 7.x
 - **sweetalert2**  version >= 8.x
 
-### 定义环境配置
+### Definition configuration
 
-开发环境修改 `src/environments/environment.ts`，生产环境修改 `src/environments/environment.prod.ts`，与 ngx-bit 环境配置相关的如下： 
+Modify `src/environments/environment.ts`
 
 ```typescript
 export const environment = {
   production: false,
   bit: {
-    originUrl: 'https://<api domain>',
-    staticUrl: 'https://<cdn domain>/',
-    iconUrl: 'https://<icon domain>/',
-    namespace: '/<api service namespace>',
+    originUrl: 'https://api.developer.com',
+    staticUrl: 'https://cdn.developer.com/',
+    iconUrl: 'https://cdn.developer/icons/',
+    namespace: '/sys',
     uploadsUrl: false,
-    uploadsPath: '<uploads action path>',
+    uploadsPath: 'sys/main/uploads',
     withCredentials: true,
     httpInterceptor: true,
     pageLimit: 10,
     breadcrumbTop: 0,
     formControlCol: {
       common: {
-        nzXXl: 8,
-        nzXl: 9,
-        nzLg: 10,
-        nzMd: 14,
-        nzSm: 24,
+        nzMd: 10,
+        nzSm: 12,
+        nzXs: 24
       },
       submit: {
-        nzXXl: {span: 8, offset: 4},
-        nzXl: {span: 9, offset: 5},
-        nzLg: {span: 10, offset: 6},
-        nzMd: {span: 14, offset: 6},
-        nzSm: {span: 24, offset: 0}
+        nzMd: {span: 10, offset: 7},
+        nzSm: {span: 12, offset: 7},
+        nzXs: {span: 24, offset: 0}
       }
     },
     formLabelCol: {
       common: {
-        nzXXl: 4,
-        nzXl: 5,
-        nzLg: 6,
-        nzMd: 7,
-        nzSm: 24
+        nzSm: 7,
+        nzXs: 24
       },
     },
     i18nDefault: 'zh_cn',
     i18nContain: ['zh_cn', 'en_us'],
-    i18nBind: new Map([
-      ['zh_cn', zh_CN],
-      ['en_us', en_US]
-    ]),
     i18nSwitch: [
       {
         i18n: 'zh_cn',
@@ -106,9 +97,9 @@ export const environment = {
 };
 ```
 
-### 定义应用模块
+### Definition App Module
 
-修改 `src/app/app.module.ts`，引入 `NgxBitModule`
+Modify `src/app/app.module.ts` to introduce `NgxBitModule`
 
 ```typescript
 import {NgModule} from '@angular/core';
@@ -127,16 +118,9 @@ registerLocaleData(zh);
 import {AppComponent} from './app.component';
 
 const routes: Routes = [
-  {
-    path: '',
-    loadChildren: () => import('./app.router.module').then(m => m.AppRouterModule),
-    canActivate: [TokenService]
-  },
-  {
-    path: 'login',
-    loadChildren: () => import('./login/login.module').then(m => m.LoginModule)
-  },
-];;
+  {path: '', loadChildren: './app.router.module#AppRouterModule', canActivate: [Auth]},
+  {path: 'login', loadChildren: './login/login.module#LoginModule'},
+];
 
 @NgModule({
   declarations: [
@@ -146,7 +130,6 @@ const routes: Routes = [
     BrowserModule,
     BrowserAnimationsModule,
     HttpClientModule,
-    // 如果前端与后端域名不同可忽略XSRF
     HttpClientXsrfModule.withOptions({
       cookieName: 'xsrf_token',
       headerName: 'X-XSRF-TOKEN',
@@ -165,9 +148,9 @@ export class AppModule {
 }
 ```
 
-### 定义路由模块
+### Definition Router Module
 
-创建 `src/app/app.router.module.ts`，新版本中 `loadChildren` 不再使用字符串路径模式，具体可查看官方说明 [DeprecatedLoadChildren](https://angular.io/api/router/DeprecatedLoadChildren)
+Create `src/app/app.router.module.ts`
 
 ```typescript
 import {NgModule} from '@angular/core';
@@ -180,18 +163,12 @@ const routes: Routes = [
     path: '',
     component: DashboardsComponent,
     children: [
-      {
-        path: '',
-        loadChildren: () => import('./pages/welcome/welcome.module').then(m => m.WelcomeModule)
-      },
-      {
-        path: '{empty}',
-        loadChildren: () => import('./pages/empty/empty.module').then(m => m.EmptyModule)
-      },
-      {
-        path: '{profile}',
-        loadChildren: () => import('./pages/profile/profile.module').then(m => m.ProfileModule)
-      },
+      {path: '', loadChildren: './pages/welcome/welcome.module#WelcomeModule'},
+      {path: '{empty}', loadChildren: './pages/empty/empty.module#EmptyModule'},
+      {path: '{profile}', loadChildren: './pages/profile/profile.module#ProfileModule'},
+      {path: '{router-index}', loadChildren: './pages/router-index/router-index.module#RouterIndexModule'},
+      {path: '{router-add}', loadChildren: './pages/router-add/router-add.module#RouterAddModule'},
+      {path: '{router-edit}/:id', loadChildren: './pages/router-edit/router-edit.module#RouterEditModule'},
     ]
   }
 ];
@@ -209,9 +186,9 @@ export class AppRouterModule {
 }
 ```
 
-### 定义公共语言包
+### Definition Common Language pack
 
-创建 `src/app/app.language.ts`，公共语言包可使用 `registerLocales(packer, true)` 一次性注册
+Create `src/app/app.language.ts`
 
 ```typescript
 export default {
@@ -286,9 +263,9 @@ export default {
 };
 ```
 
-### 定义根组件
+### Definition App Component
 
-修改 `src/app/app.component.ts`，并注册公共语言包
+Modify `src/app/app.component.ts` and register the common language pack
 
 ```typescript
 import {Component, OnInit} from '@angular/core';
@@ -308,9 +285,7 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit() {
-    // 注册公共语言包
     this.bit.registerLocales(packer, true);
-    // 设置请求拦截器
     this.config.interceptor = (res: any): Observable<any> => {
       if (res.error && res.msg === 'error:rbac') {
         this.message.error(this.bit.l.rbac_error);
@@ -321,9 +296,9 @@ export class AppComponent implements OnInit {
 }
 ```
 
-### 运行脚本
+### Running script
 
-修改 `package.json` 的 `scripts`
+Modify the `scripts` of `package.json`
 
 ```json
 {

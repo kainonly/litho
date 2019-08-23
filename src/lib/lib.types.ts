@@ -22,5 +22,5 @@ export interface SearchOptions {
 }
 
 export interface Search {
-  field: SearchOptions
+  [field: string]: SearchOptions
 }

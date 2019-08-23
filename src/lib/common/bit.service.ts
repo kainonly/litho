@@ -146,8 +146,8 @@ export class BitService {
     this.i18n = config.i18nDefault;
     this.i18nContain = config.i18nContain;
     storageMap.get('locale').subscribe((data: any) => {
-      this.locale = data ? data : 'zh_cn';
-      this.nzI18nService.setLocale(this.config.i18nBind.get(this.locale));
+      this.locale = data ? data : this.config.localeDefault;
+      this.nzI18nService.setLocale(this.config.localeBind.get(this.locale));
     });
   }
 
@@ -207,7 +207,7 @@ export class BitService {
       this.commonLanguage[this.locale],
       this.language[this.locale]
     );
-    this.nzI18nService.setLocale(this.config.i18nBind.get(this.locale));
+    this.nzI18nService.setLocale(this.config.localeBind.get(this.locale));
   }
 
   /**
@@ -296,7 +296,7 @@ export class BitService {
   /**
    * Unified change of all list data status
    */
-  listsCheckAll(event, lists: any[]) {
+  listsCheckAll(event: boolean, lists: any[]) {
     lists.forEach((data) => (data.checked = event));
     this.listsRefreshStatus(lists);
   }
@@ -304,7 +304,7 @@ export class BitService {
   /**
    * Init i18n form group
    */
-  i18nGroup(options?: I18nGroupOptions) {
+  i18nGroup(options?: I18nGroupOptions): any {
     const controls = {};
     if (options) {
       for (const i18n of this.config.i18nContain) {

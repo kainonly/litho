@@ -1,12 +1,12 @@
-- 基础
-  - [配置](zh-cn/base/config-service)
-  - [工具](zh-cn/base/bit-service)
-  - [CURD 请求](zh-cn/base/http-service)
-  - [组件通讯](zh-cn/base/events-service)
+- 公共服务
+  - [ConfigService 环境配置](zh-cn/common/config-service)
+  - [BitService 助手工具](zh-cn/common/bit-service)
+  - [HttpService 请求处理](zh-cn/common/http-service)
+  - [EventsService 状态管理](zh-cn/common/events-service)
 
-- 扩展
-  - [本地存储](zh-cn/common/storage-service)
-  - [提示框](zh-cn/common/swal-service)
+- 插件扩展
+  - [本地存储](zh-cn/plugin/storage-service)
+  - [提示框](zh-cn/plugin/swal-service)
 
 - 组件
   - [多语言切换器](zh-cn/component/bit-i18n-switch)
