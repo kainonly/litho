@@ -78,7 +78,7 @@ export class HttpService {
   /**
    * OriginLists Request
    */
-  originLists(model: string, condition: any[] = [], special = false): Observable<any> {
+  originLists(model: string, condition: SearchOptions[] = [], special = false): Observable<any> {
     const where = special ? condition : ConvertToWhere(condition);
     const http = this.req(model + '/originLists', {
       where

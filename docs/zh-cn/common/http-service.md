@@ -1,12 +1,12 @@
 ## HttpService 请求处理
 
-##### req(url: string, body: any = {}, , method = 'post'): Observable< any >
+#### req(url: string, body: any = {}, method = 'post'): Observable< any >
 
 创建请求对象
 
-- **url** 请求路由
-- **body** 发送数据
-- **method** 请求类型, 默认为 `post` 请求
+- **url** `string` 请求路由
+- **body** `any` 发送数据
+- **method** `string` 请求类型, 默认为 `post` 请求
 - **Return**  `Observable< any >`
 
 !> 在之前需要定义配置 `origin` `namespace`
@@ -32,13 +32,13 @@ export const environment = {
 };
 ```
 
-##### get(model: string, condition: any, special = false): Observable< any >
+#### get(model: string, condition: number | string | SearchOptions[], origin = false): Observable< any >
 
 创建一个获取单条数据的处理
 
-- **model** 模块名称
-- **condition** 条件数组
-- **special** 是否返回源数据
+- **model** `string` 模块名称
+- **condition** `number | string | SearchOptions[]` 条件
+- **special** `boolean` 是否返回源数据
 
 ```typescript
 get(id: number) {
@@ -46,14 +46,14 @@ get(id: number) {
 }
 ```
 
-##### lists(model: string, condition: any[] = [], refresh = false, special = false): Observable< any >
+#### lists(model: string, condition: SearchOptions[] = [], refresh = false, origin = false): Observable< any >
 
 创建一个分页列表数据的处理
 
-- **model** 模块名称
-- **condition** 条件数组
-- **refresh** 强制刷新，即重置分页相关的字段
-- **special** 是否返回源数据
+- **model** `string` 模块名称
+- **condition** `SearchOptions[]` 条件数组
+- **refresh** `boolean` 强制刷新，即重置分页相关的字段
+- **special** `boolean` 是否返回源数据
 
 ```typescript
 lists(search: any, app: number, refresh: boolean): Observable<any> {
@@ -61,13 +61,13 @@ lists(search: any, app: number, refresh: boolean): Observable<any> {
 }
 ```
 
-##### originLists(model: string, condition: any[] = [], special = false): Observable< any >
+#### originLists(model: string, condition: SearchOptions[] = [], special = false): Observable< any >
 
 创建一个列表数据的处理
 
-- **model** 模块名称
-- **condition** 条件数组
-- **special** 是否返回源数据
+- **model** `string` 模块名称
+- **condition** `SearchOptions` 条件数组
+- **special** `boolean` 是否返回源数据
 
 ```typescript
 originLists(): Observable<any> {
@@ -75,12 +75,12 @@ originLists(): Observable<any> {
 }
 ```
 
-##### add(model: string, data: any): Observable< any >
+#### add(model: string, data: any): Observable< any >
 
 创建一个新增的处理
 
-- **model** 模块名称
-- **data** 新增数据
+- **model** `string` 模块名称
+- **data** `any` 新增数据
 
 ```typescript
 add(data: any) {
@@ -88,13 +88,13 @@ add(data: any) {
 }
 ```
 
-##### edit(model: string, data: any, condition: any = []): Observable< any >
+#### edit(model: string, data: any, condition?: SearchOptions[]): Observable< any >
 
 创建一个编辑的处理
 
-- **model** 模块名称
-- **data** 编辑数据
-- **condition** 条件数组
+- **model** `string` 模块名称
+- **data** `any` 编辑数据
+- **condition** `SearchOptions` 条件数组
 
 ```typescript
 edit(data: any): Observable<any> {
@@ -106,10 +106,10 @@ edit(data: any): Observable<any> {
 
 创建一个状态切换的处理
 
-- **model** 模块名称
-- **data** 切换数据
-- **field** 状态字段，默认 `status`
-- **extra** 扩展字段
+- **model** `string` 模块名称
+- **data** `any` 切换数据
+- **field** `string` 状态字段，默认 `status`
+- **extra** `any` 扩展字段
 
 ```typescript
 status(data: any, app: number): Observable<any> {
@@ -117,15 +117,15 @@ status(data: any, app: number): Observable<any> {
 }
 ```
 
-##### delete(model: string, condition: any): Observable< any >
+#### delete(model: string, condition: any | number | number[] | string | string[] | SearchOptions[]): Observable< any >
 
 创建一个删除的处理
 
-- **model** 模块名称
-- **condition** 条件数组
+- **model** `string` 模块名称
+- **condition** `any | number | number[] | string | string[] | SearchOptions[]` 条件数组
 
 ```typescript
 delete(id: any, app: number): Observable<any> {
-  return this.http.delete(this.model, {id, app});
+  return this.http.delete(this.model, id);
 }
 ```
