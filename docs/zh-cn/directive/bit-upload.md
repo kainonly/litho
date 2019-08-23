@@ -1,4 +1,4 @@
-## 上传
+## bitUpload 上传
 
 ##### @Directive({selector: '[bitUpload]'})
 
@@ -7,9 +7,11 @@
   selector: '[bitUpload]'
 })
 export class BitUploadDirective {
-  constructor(private bit: BitService,
-              private config: ConfigService,
-              private nzUploadComponent: NzUploadComponent) {
+  constructor(
+    private bit: BitService,
+    private config: ConfigService,
+    private nzUploadComponent: NzUploadComponent
+  ) {
     nzUploadComponent.nzWithCredentials = config.withCredentials;
     nzUploadComponent.nzAction = bit.uploads;
     nzUploadComponent.nzSize = 5120;

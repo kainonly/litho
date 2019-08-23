@@ -1,4 +1,4 @@
-## 路由跳转
+## bitOpen 路由跳转
 
 ##### @Directive({selector: '[bitOpen]'})
 
@@ -10,7 +10,9 @@ export class BitOpenDirective {
   @Input() bitOpen: any[];
   @Input() bitTrigger = 'click';
 
-  constructor(private bit: BitService) {
+  constructor(
+    private bit: BitService
+  ) {
   }
 
   @HostListener('click')
@@ -29,8 +31,8 @@ export class BitOpenDirective {
 }
 ```
 
-- **@Input() bitOpen: any[]** 路由跳转处理，`path[0]` 为基础地址，索引大于0则为参数，例如：`['app-edit',1]` 等价于 routerlink 的 `{app-edit}/1`，但包含跨级路由处理
-- **@Input() bitTrigger = 'click'** 触发方式 `click|touch`，默认 `click`
+- **@Input() bitOpen** `any[]` 路由跳转处理，`path[0]` 为基础地址，索引大于0则为参数，例如：`['app-edit',1]` 等价于 routerlink 的 `{app-edit}/1`，但包含跨级路由处理
+- **@Input() bitTrigger** `click|touch` 触发方式，默认 `click`
 
 例如替代 `routerlink`
 

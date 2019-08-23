@@ -1,4 +1,4 @@
-## 搜索清除
+## bitSearchClear 搜索清除
 
 ##### @Directive({selector: '[bitSearchClear]'})
 
@@ -11,39 +11,44 @@ export class BitSearchClearDirective {
   @Input() reset: any;
   @Output() after: EventEmitter<any> = new EventEmitter<any>();
 
-  constructor(private bit: BitService,
-              private storage: LocalStorage) {
+  constructor(
+    private bit: BitService,
+    private storageMap: StorageMap
+  ) {
   }
 
   @HostListener('click')
   onclick() {
-    for (const x of this.bit.search) {
-      if (this.reset !== undefined && this.reset.hasOwnProperty(x.field)) {
-        x.value = this.reset[x.field];
+    for (const i in this.bit.search) {
+      if (!this.bit.search.hasOwnProperty(i)) {
+        continue;
+      }
+      const search = this.bit.search[i];
+      if (this.reset !== undefined && this.reset.hasOwnProperty(search.field)) {
+        search.value = this.reset[search.field];
       } else {
-        x.value = '';
+        search.value = '';
       }
     }
-    this.storage.removeItem('search:' + this.bitSearchClear).subscribe(() => {
+    this.storageMap.delete('search:' + this.bitSearchClear).subscribe(() => {
       this.after.emit(true);
     });
   }
 }
 ```
 
-- **@Input() bitSearchClear: string** 搜索命名
-- **@Input() reset: any** 清除重置的数值
-- **@Output() after: EventEmitter< any >** 清空搜索之后
+- **@Input() bitSearchClear** `string` 搜索命名
+- **@Input() reset** `any` 清除重置的数值
+- **@Output() after** `EventEmitter< any >` 清空搜索之后
 
 注册搜索字段
 
 ```typescript
-this.bit.registerSearch('api-index', {
-  field: 'tag', op: '=', value: 0,
-}, {
-  field: 'name', op: 'like', value: ''
-}).subscribe(() => {
- ...
+this.bit.registerSearch('api-index',
+  {field: 'tag', op: '=', value: 0}, 
+  {field: 'name', op: 'like', value: ''}
+).subscribe(() => {
+  
 });
 ```
 

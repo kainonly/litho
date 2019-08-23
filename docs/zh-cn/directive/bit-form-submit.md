@@ -1,4 +1,4 @@
-## 表单提交
+## bitFormSubmit 表单提交
 
 ##### @Directive({selector: '[bitFormSubmit]'})
 
@@ -9,7 +9,9 @@
 export class BitFormSubmitDirective implements OnInit {
   @Output() bitFormSubmit: EventEmitter<any> = new EventEmitter();
 
-  constructor(private form: FormGroupDirective) {
+  constructor(
+    private form: FormGroupDirective
+  ) {
   }
 
   ngOnInit() {
@@ -27,7 +29,7 @@ export class BitFormSubmitDirective implements OnInit {
 }
 ```
 
-- **@Output() bitFormSubmit: EventEmitter< any >** 监听表单提交
+- **@Output() bitFormSubmit** `EventEmitter< any >` 监听表单提交
 
 在表单中使用
 

@@ -1,4 +1,4 @@
-## 跨级跳转
+## bitCrossLevel 跨级跳转
 
 ##### @Directive({selector: '[bitCrossLevel]'})
 
@@ -10,7 +10,9 @@ export class BitCrossLevelDirective {
   @Input() bitCrossLevel: string;
   @Input() bitTrigger = 'click';
 
-  constructor(private bit: BitService) {
+  constructor(
+    private bit: BitService
+  ) {
   }
 
   @HostListener('click')
@@ -29,27 +31,27 @@ export class BitCrossLevelDirective {
 }
 ```
 
-- **@Input() bitCrossLevel: string** 跨级路由名称
-- **@Input() bitTrigger = 'click'** 触发方式 `click|touch`，默认 `touch`
+- **@Input() bitCrossLevel** `string` 跨级路由名称
+- **@Input() bitTrigger** `click|touch` 触发方式，默认 `touch`
 
 例如使用在面包屑
 
 ```html
 <nz-breadcrumb [nzSeparator]="breadcrumbIcon">
-    <ng-template #breadcrumbIcon>
-        <i nz-icon type="right"></i>
-    </ng-template>
-    <nz-breadcrumb-item>
+  <ng-template #breadcrumbIcon>
+    <i nz-icon type="right"></i>
+  </ng-template>
+  <nz-breadcrumb-item>
     <a routerLink="/">{{bit.l['dashboard']}}</a>
-    </nz-breadcrumb-item>
-    <nz-breadcrumb-item *ngFor="let x of bit.breadcrumb;last as islast">
-    <ng-container *ngIf="islast;else notLast">{{x.name}}</ng-container>
+  </nz-breadcrumb-item>
+  <nz-breadcrumb-item *ngFor="let x of bit.breadcrumb;last as islast">
+    <ng-container *ngIf="islast;else notLast">{{x.name|Locale:bit.locale}}</ng-container>
     <ng-template #notLast>
-        <a *ngIf="x.routerlink;else notRouterlink" [bitCrossLevel]="x.routerlink">
-        {{x.name}}
-        </a>
-        <ng-template #notRouterlink>{{x.name}}</ng-template>
+      <a *ngIf="x.router;else notRouterlink" [bitCrossLevel]="x.key">
+        {{x.name|Locale:bit.locale}}
+      </a>
+      <ng-template #notRouterlink>{{x.name|Locale:bit.locale}}</ng-template>
     </ng-template>
-    </nz-breadcrumb-item>
+  </nz-breadcrumb-item>
 </nz-breadcrumb>
 ```

@@ -1,4 +1,4 @@
-## 状态切换
+## bitStatusChange 状态切换
 
 ##### @Directive({selector: '[bitStatusChange]'})
 
@@ -11,9 +11,11 @@ export class BitStatusChangeDirective {
   @Input() bitControl = false;
   @Output() response: EventEmitter<any> = new EventEmitter();
 
-  constructor(private bit: BitService,
-              private nzSwitchComponent: NzSwitchComponent,
-              private notificationService: NzNotificationService) {
+  constructor(
+    private bit: BitService,
+    private nzSwitchComponent: NzSwitchComponent,
+    private notificationService: NzNotificationService
+  ) {
     nzSwitchComponent.nzControl = true;
     nzSwitchComponent.nzCheckedChildren = bit.l.on;
     nzSwitchComponent.nzUnCheckedChildren = bit.l.off;
@@ -23,12 +25,12 @@ export class BitStatusChangeDirective {
   onClick() {
     this.bitStatusChange.subscribe(res => {
       if (!res.error) {
-        this.notificationService.success(this.bit.l.operate_success, this.bit.l.status_success);
+        this.notificationService.success(this.bit.l.operateSuccess, this.bit.l.statusSuccess);
       } else {
         if (this.bitControl) {
           this.response.emit(res);
         } else {
-          this.notificationService.error(this.bit.l.operate_error, this.bit.l.status_error);
+          this.notificationService.error(this.bit.l.operateError, this.bit.l.statusError);
         }
       }
     });
@@ -36,17 +38,17 @@ export class BitStatusChangeDirective {
 }
 ```
 
-- **@Input() bitStatusChange: Observable< any >** 状态切换请求
-- **@Input() bitControl = false** 是否手动处理返回提示
-- **@Output() response: EventEmitter< any >** 获取请求的响应值
+- **@Input() bitStatusChange** `Observable< any >` 状态切换请求
+- **@Input() bitControl** `boolean` 是否手动处理返回提示，默认 `false`
+- **@Output() response** `EventEmitter< any >` 获取请求的响应值
 
 例如控制管理员的状态
 
 ```html
 <nz-switch [(ngModel)]="data.status"
-            [bitStatusChange]="ramService.status(data)"
-            [bitControl]="true"
-            (response)="status($event)">
+           [bitStatusChange]="ramService.status(data)"
+           [bitControl]="true"
+           (response)="status($event)">
 </nz-switch>
 ```
 

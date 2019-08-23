@@ -1,4 +1,4 @@
-## 返回上一级
+## bitBack 返回上一级
 
 ##### @Directive({selector: '[bitBack]'})
 
@@ -9,7 +9,9 @@
 export class BitBackDirective {
   @Input() bitTrigger = 'click';
 
-  constructor(private bit: BitService) {
+  constructor(
+    private bit: BitService
+  ) {
   }
 
   @HostListener('click')
@@ -27,7 +29,7 @@ export class BitBackDirective {
 }
 ```
 
-- **@Input() bitTrigger** 触发方式 `click|touch`，默认 `click`
+- **@Input() bitTrigger** `click|touch` 触发方式，默认 `click`
 
 添加在按钮中
 
