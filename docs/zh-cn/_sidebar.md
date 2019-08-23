@@ -40,8 +40,8 @@
   - [Join 数组拼接为字符串](zh-cn/pipe/join)
 
 - 操作
-  - [组件异步验证器](zh-cn/operate/async-validator)
-  - [判断空数组](zh-cn/operate/empty-array)
-  - [判断空对象](zh-cn/operate/empty-object)
-  - [对象转数组](zh-cn/operate/object-to-array)
-  - [对象转Map对象](zh-cn/operate/object-to-map)
+  - [asyncValidator 异步验证器](zh-cn/operate/async-validator)
+  - [emptyArray 判断空数组](zh-cn/operate/empty-array)
+  - [emptyObject 判断空对象](zh-cn/operate/empty-object)
+  - [objectToArray 对象转数组](zh-cn/operate/object-to-array)
+  - [objectToMap 对象转Map对象](zh-cn/operate/object-to-map)

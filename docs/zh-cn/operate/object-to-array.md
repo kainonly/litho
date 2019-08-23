@@ -1,27 +1,6 @@
-## 对象转数组
+## objectToArray 对象转数组
 
-##### objectToArray(object: any)
-
-```typescript
-objectToArray(object: any): any[] {
-  if (isObject(object) && !isArray(object)) {
-    const array = [];
-    for (const key in object) {
-      if (object.hasOwnProperty(key)) {
-        array.push({
-          key,
-          rows: object[key]
-        });
-      }
-    }
-    return array;
-  } else {
-    return [];
-  }
-}
-```
-
-- **object** 对象
+- **object** `any` 对象
 - **Return** `any[]`
   - **key** 原主键
   - **rows** 原键值
