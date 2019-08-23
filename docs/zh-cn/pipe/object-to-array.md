@@ -1,4 +1,4 @@
-## 对象转数组
+## ObjectToArray 对象转数组
 
 ##### @Pipe({name: 'ObjectToArray'})
 
@@ -11,7 +11,7 @@ export class ObjectToArrayPipe implements PipeTransform {
 }
 ```
 
-- **value** 对象
+- **value** `any` 对象
 - **Return** `any[]`
 
 例如，假设一个对象

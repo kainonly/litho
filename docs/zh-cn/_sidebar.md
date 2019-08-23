@@ -28,16 +28,16 @@
   - [bitUpload 上传](zh-cn/directive/bit-upload)
 
 - 管道
-  - [定义](zh-cn/pipe/defined)
-  - [未定义](zh-cn/pipe/undefined)
-  - [空数组](zh-cn/pipe/empty-array)
-  - [空对象](zh-cn/pipe/empty-object)
-  - [对象转数组](zh-cn/pipe/object-to-array)
-  - [对象转Map对象](zh-cn/pipe/object-to-map)
-  - [多语言填补显示](zh-cn/pipe/json-chose)
-  - [JSON字符串转数组](zh-cn/pipe/json-parse)
-  - [字符串分割为数组](zh-cn/pipe/split)
-  - [数组拼接为字符串](zh-cn/pipe/join)
+  - [Defined 定义](zh-cn/pipe/defined)
+  - [Undefined 未定义](zh-cn/pipe/undefined)
+  - [EmptyArray 空数组](zh-cn/pipe/empty-array)
+  - [EmptyObject 空对象](zh-cn/pipe/empty-object)
+  - [ObjectToArray 对象转数组](zh-cn/pipe/object-to-array)
+  - [ObjectToMap 对象转Map对象](zh-cn/pipe/object-to-map)
+  - [Locale 语言包显示](zh-cn/pipe/locale)
+  - [JSONParse JSON字符串转数组](zh-cn/pipe/json-parse)
+  - [Split 字符串分割为数组](zh-cn/pipe/split)
+  - [Join 数组拼接为字符串](zh-cn/pipe/join)
 
 - 操作
   - [组件异步验证器](zh-cn/operate/async-validator)

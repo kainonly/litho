@@ -1,4 +1,4 @@
-## 空数组
+## EmptyArray 空数组
 
 ##### @Pipe({name: 'EmptyArray'})
 
@@ -11,7 +11,7 @@ export class EmptyArrayPipe implements PipeTransform {
 }
 ```
 
-- **value** 数组
+- **value** `any[]` 数组
 - **Return** `boolean`
 
 例如，假设存在一个空数组属性

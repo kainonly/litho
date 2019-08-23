@@ -1,4 +1,4 @@
-## JSON字符串转数组
+## JSONParse JSON字符串转数组
 
 ##### @Pipe({name: 'JSONParse'})
 
@@ -15,8 +15,8 @@ export class JsonParsePipe implements PipeTransform {
 }
 ```
 
-- **value** JSON字符串
-- **chkey** 子键
+- **value** `string` JSON字符串
+- **chkey** `string` 子键
 
 例如，在接口直接返回JSON字符串数组
 

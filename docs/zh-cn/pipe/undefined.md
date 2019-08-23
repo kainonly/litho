@@ -1,4 +1,4 @@
-## 未定义
+## Undefined 未定义
 
 ##### @Pipe({name: 'Undefined'})
 
@@ -11,7 +11,7 @@ export class UndefinedPipe implements PipeTransform {
 }
 ```
 
-- **value** 数值
+- **value** `any` 数值
 - **Return** `boolean`
 
 例如，假设存在一个未定义属性

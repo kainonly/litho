@@ -1,4 +1,4 @@
-## 字符串分割为数组
+## Split 字符串分割为数组
 
 ##### @Pipe({name: 'Split'})
 
@@ -11,8 +11,8 @@ export class SplitPipe implements PipeTransform {
 }
 ```
 
-- **text** 字符串
-- **symbol** 分割符号
+- **text** `string` 字符串
+- **symbol** `string` 分割符号
 - **Return** `string`
 
 例如，在一些场景下存在字符串

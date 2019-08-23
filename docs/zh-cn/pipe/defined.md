@@ -1,4 +1,4 @@
-## 定义
+## Defined 定义
 
 ##### @Pipe({name: 'Defined'})
 
@@ -11,7 +11,7 @@ export class DefinedPipe implements PipeTransform {
 }
 ```
 
-- **value** 数值
+- **value** `any` 数值
 - **Return** `boolean`
 
 例如，假设存在一个未定义属性

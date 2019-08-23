@@ -1,4 +1,4 @@
-## 空对象
+## EmptyObject 空对象
 
 ##### @Pipe({name: 'EmptyObject'})
 
@@ -11,7 +11,7 @@ export class EmptyObjectPipe implements PipeTransform {
 }
 ```
 
-- **value** 对象
+- **value** `any` 对象
 - **Return** `boolean`
 
 例如，假设存在一个空对象属性

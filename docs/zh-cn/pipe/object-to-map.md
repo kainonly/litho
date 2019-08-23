@@ -1,4 +1,4 @@
-## 对象转Map对象
+## ObjectToMap 对象转Map对象
 
 ##### @Pipe({name: 'ObjectToMap'})
 
@@ -11,7 +11,7 @@ export class ObjectToMapPipe implements PipeTransform {
 }
 ```
 
-- **value** 对象
+- **value** `any` 对象
 - **Return** `Map`
 
 例如，假设一个对象

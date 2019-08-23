@@ -1,4 +1,4 @@
-## 数组拼接为字符串
+## Join 数组拼接为字符串
 
 ##### @Pipe({name: 'Join'})
 
@@ -11,8 +11,8 @@ export class JoinPipe implements PipeTransform {
 }
 ```
 
-- **origin** 字符串数组
-- **symbol** 拼接符号
+- **origin** `string[]` 字符串数组
+- **symbol** `string` 拼接符号
 - **Return** `string`
 
 例如，在一些场景下存在字符串数组
