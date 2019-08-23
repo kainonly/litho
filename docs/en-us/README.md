@@ -1,7 +1,7 @@
 NGX-BIT
 =======
 
-基于 Angular 的 CURD 辅助框架
+Angular's CURD Auxiliary Framework
 
 [![npm](https://img.shields.io/npm/v/ngx-bit.svg?style=flat-square)](https://ngx-bit.kain.net.cn)
 [![Downloads](https://img.shields.io/npm/dm/ngx-bit.svg?style=flat-square)](https://www.npmjs.com/package/ngx-bit)
@@ -9,29 +9,28 @@ NGX-BIT
 [![TypeScript](https://img.shields.io/badge/%3C%2F%3E-TypeScript-blue.svg?style=flat-square)](https://www.typescriptlang.org/)
 [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](https://raw.githubusercontent.com/kainonly/ngx-bit.js/master/LICENSE)
 
-[![npm (tag)](https://img.shields.io/npm/v/ngx-bit/v7-lts.svg?style=flat-square)](https://ngx-bit.v7.kain.net.cn)
-[![npm (tag)](https://img.shields.io/npm/v/ngx-bit/v6-lts.svg?style=flat-square)](https://ngx-bit.v1.kain.net.cn)
 
 - **V6-LTS** [https://ngx-bit.v1.kain.net.cn](https://ngx-bit.v1.kain.net.cn)
 - **V7-LTS** [https://ngx-bit.v7.kain.net.cn](https://ngx-bit.v7.kain.net.cn)
 
-### 初始化操作
+
+### Initialization
 
 ```shell
 ng new exercise
 ```
 
-### 安装 UI
+### Install UI
 
-ng-zorro-antd 是 Ant Design 的 Angular 实现, 这里也是基于 ng-zorro-antd 进行辅助扩展
+Ng-zorro-antd is an Angular implementation of Ant Design, which is also based on ng-zorro-antd for auxiliary extensions.
 
 ```shell
 ng add ng-zorro-antd
 ```
 
-### 安装组件
+### Install Component
 
-ngx-bit 的部分功能依赖于 `@ngx-pwa/local-storage` `sweetalert2`
+Some of the features of ngx-bit depend on `@ngx-pwa/local-storage` `sweetalert2`
 
 ```shell
 npm install ngx-bit @ngx-pwa/local-storage sweetalert2 --save
@@ -40,9 +39,9 @@ npm install ngx-bit @ngx-pwa/local-storage sweetalert2 --save
 - **@ngx-pwa/local-storage** version >= 7.x
 - **sweetalert2**  version >= 8.x
 
-### 定义配置
+### Definition configuration
 
-修改 `src/environments/environment.ts`
+Modify `src/environments/environment.ts`
 
 ```typescript
 export const environment = {
@@ -98,9 +97,9 @@ export const environment = {
 };
 ```
 
-### 定义模块
+### Definition App Module
 
-修改 `src/app/app.module.ts`，引入 `NgxBitModule`
+Modify `src/app/app.module.ts` to introduce `NgxBitModule`
 
 ```typescript
 import {NgModule} from '@angular/core';
@@ -149,9 +148,9 @@ export class AppModule {
 }
 ```
 
-### 定义路由
+### Definition Router Module
 
-创建 `src/app/app.router.module.ts`
+Create `src/app/app.router.module.ts`
 
 ```typescript
 import {NgModule} from '@angular/core';
@@ -187,9 +186,9 @@ export class AppRouterModule {
 }
 ```
 
-### 定义公共语言包
+### Definition Common Language pack
 
-创建 `src/app/app.language.ts`
+Create `src/app/app.language.ts`
 
 ```typescript
 export default {
@@ -264,9 +263,9 @@ export default {
 };
 ```
 
-### 定义根组件
+### Definition App Component
 
-修改 `src/app/app.component.ts`，并注册公共语言包
+Modify `src/app/app.component.ts` and register the common language pack
 
 ```typescript
 import {Component, OnInit} from '@angular/core';
@@ -297,9 +296,9 @@ export class AppComponent implements OnInit {
 }
 ```
 
-### 运行脚本
+### Running script
 
-修改 `package.json` 的 `scripts`
+Modify the `scripts` of `package.json`
 
 ```json
 {
