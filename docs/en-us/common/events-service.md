@@ -1,11 +1,11 @@
-## Events (EventsService)
+## EventsService - Events
 
-##### publish(topic: string, args?: any)
+#### publish(topic: string, args?: any)
 
-Publish component communication events
+Publish Event
 
-- **topic** Topic Name
-- **args** Args
+- **topic** `string` Topic Name
+- **args** `args` Args
 
 ``` typescript
 this.events.publish('any', {
@@ -13,11 +13,11 @@ this.events.publish('any', {
 });
 ```
 
-##### on(topic: string): Observable< any >
+#### on(topic: string): Observable< any >
 
-Subscribe to component newsletter events
+Subscribe Event
 
-- **topic** Topic Name
+- **topic** `string` Topic Name
 - **Return** `Observable< any >`
 
 ```typescript
@@ -26,19 +26,19 @@ this.events.on('any').subscribe(args => {
 });
 ```
 
-##### off(topic: string)
+#### off(topic: string)
 
-Unsubscribed component communication event
+Unsubscribe Event
 
 !> Unsubscribe custom events each time the component `OnDestory` is routed
 
-- **topic** Topic Name
+- **topic** `string` Topic Name
 
 ```typescript
 this.events.off('any');
 ```
 
-##### Language packet switching event
+> Locale Event
 
 ```typescript
 this.events.on('locale').subscribe(args => {

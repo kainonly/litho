@@ -17,64 +17,76 @@ Easy-to-use Angular Auxiliary Layer Framework
 ### Initialization
 
 ```shell
-ng new exercise
+ng new <project_name>
 ```
 
-### Install UI
+### Install
 
-Ng-zorro-antd is an Angular implementation of Ant Design, which is also based on ng-zorro-antd for auxiliary extensions.
+Ng-zorro-antd is an Angular implementation of Ant Design, and the ngx-bit auxiliary layer is based on the ng-zorro-antd framework.
 
 ```shell
 ng add ng-zorro-antd
 ```
 
-### Install Component
+At the same time, ngx-bit also uses the `IndexDB` front-end storage and the `Sweetalert` prompt box plugin, which are implemented by `@ngx-pwa/local-storage` `sweetalert2` respectively.
 
-Some of the features of ngx-bit depend on `@ngx-pwa/local-storage` `sweetalert2`
+> **Note**: The current version is based on Angular8 and needs to confirm the dependent version.
 
 ```shell
 npm install ngx-bit @ngx-pwa/local-storage sweetalert2 --save
 ```
 
-- **@ngx-pwa/local-storage** version >= 7.x
+- **@ngx-pwa/local-storage** version >= 8.x
 - **sweetalert2**  version >= 8.x
 
-### Definition configuration
+### Definition ENV
 
-Modify `src/environments/environment.ts`
+The development environment modifies `src/environments/environment.ts` and the production environment modifies `src/environments/environment.prod.ts`, which is related to the ngx-bit environment configuration as follows:
 
 ```typescript
 export const environment = {
   production: false,
   bit: {
-    originUrl: 'https://api.developer.com',
-    staticUrl: 'https://cdn.developer.com/',
-    iconUrl: 'https://cdn.developer/icons/',
-    namespace: '/sys',
+    originUrl: 'https://<api domain>',
+    staticUrl: 'https://<cdn domain>/',
+    iconUrl: 'https://<icon domain>/',
+    namespace: '/<api service namespace>',
     uploadsUrl: false,
-    uploadsPath: 'sys/main/uploads',
+    uploadsPath: '<uploads action path>',
     withCredentials: true,
     httpInterceptor: true,
     pageLimit: 10,
     breadcrumbTop: 0,
     formControlCol: {
       common: {
-        nzMd: 10,
-        nzSm: 12,
-        nzXs: 24
+        nzXXl: 8,
+        nzXl: 9,
+        nzLg: 10,
+        nzMd: 14,
+        nzSm: 24,
       },
       submit: {
-        nzMd: {span: 10, offset: 7},
-        nzSm: {span: 12, offset: 7},
-        nzXs: {span: 24, offset: 0}
+        nzXXl: {span: 8, offset: 4},
+        nzXl: {span: 9, offset: 5},
+        nzLg: {span: 10, offset: 6},
+        nzMd: {span: 14, offset: 6},
+        nzSm: {span: 24, offset: 0}
       }
     },
     formLabelCol: {
       common: {
-        nzSm: 7,
-        nzXs: 24
+        nzXXl: 4,
+        nzXl: 5,
+        nzLg: 6,
+        nzMd: 7,
+        nzSm: 24
       },
     },
+    localeDefault: 'zh_cn',
+    localeBind: new Map([
+      ['zh_cn', zh_CN],
+      ['en_us', en_US]
+    ]),
     i18nDefault: 'zh_cn',
     i18nContain: ['zh_cn', 'en_us'],
     i18nSwitch: [
@@ -97,9 +109,9 @@ export const environment = {
 };
 ```
 
-### Definition App Module
+### App Module
 
-Modify `src/app/app.module.ts` to introduce `NgxBitModule`
+Modify `src/app/app.module.ts` Import `NgxBitModule`
 
 ```typescript
 import {NgModule} from '@angular/core';
@@ -118,9 +130,16 @@ registerLocaleData(zh);
 import {AppComponent} from './app.component';
 
 const routes: Routes = [
-  {path: '', loadChildren: './app.router.module#AppRouterModule', canActivate: [Auth]},
-  {path: 'login', loadChildren: './login/login.module#LoginModule'},
-];
+  {
+    path: '',
+    loadChildren: () => import('./app.router.module').then(m => m.AppRouterModule),
+    canActivate: [TokenService]
+  },
+  {
+    path: 'login',
+    loadChildren: () => import('./login/login.module').then(m => m.LoginModule)
+  },
+];;
 
 @NgModule({
   declarations: [
@@ -130,6 +149,7 @@ const routes: Routes = [
     BrowserModule,
     BrowserAnimationsModule,
     HttpClientModule,
+    // XSRF can be ignored if the frontend is different from the backend domain name
     HttpClientXsrfModule.withOptions({
       cookieName: 'xsrf_token',
       headerName: 'X-XSRF-TOKEN',
@@ -148,9 +168,9 @@ export class AppModule {
 }
 ```
 
-### Definition Router Module
+### Router Module
 
-Create `src/app/app.router.module.ts`
+Create `src/app/app.router.module.ts`, the new version of `loadChildren` no longer uses the string path mode, you can see the official description [DeprecatedLoadChildren] (https://angular.io/api/router/ DeprecatedLoadChildren)
 
 ```typescript
 import {NgModule} from '@angular/core';
@@ -163,12 +183,18 @@ const routes: Routes = [
     path: '',
     component: DashboardsComponent,
     children: [
-      {path: '', loadChildren: './pages/welcome/welcome.module#WelcomeModule'},
-      {path: '{empty}', loadChildren: './pages/empty/empty.module#EmptyModule'},
-      {path: '{profile}', loadChildren: './pages/profile/profile.module#ProfileModule'},
-      {path: '{router-index}', loadChildren: './pages/router-index/router-index.module#RouterIndexModule'},
-      {path: '{router-add}', loadChildren: './pages/router-add/router-add.module#RouterAddModule'},
-      {path: '{router-edit}/:id', loadChildren: './pages/router-edit/router-edit.module#RouterEditModule'},
+      {
+        path: '',
+        loadChildren: () => import('./pages/welcome/welcome.module').then(m => m.WelcomeModule)
+      },
+      {
+        path: '{empty}',
+        loadChildren: () => import('./pages/empty/empty.module').then(m => m.EmptyModule)
+      },
+      {
+        path: '{profile}',
+        loadChildren: () => import('./pages/profile/profile.module').then(m => m.ProfileModule)
+      },
     ]
   }
 ];
@@ -186,9 +212,9 @@ export class AppRouterModule {
 }
 ```
 
-### Definition Common Language pack
+### Common Language pack
 
-Create `src/app/app.language.ts`
+Create `src/app/app.language.ts`, public language packs can be registered once using `registerLocales(packer, true)`
 
 ```typescript
 export default {
@@ -263,7 +289,7 @@ export default {
 };
 ```
 
-### Definition App Component
+### App Component
 
 Modify `src/app/app.component.ts` and register the common language pack
 

@@ -1,38 +1,40 @@
-## Config (ConfigService)
+## ConfigService - Config
 
-##### originUrl: string
+The configuration set in the module `NgxBitModule.forRoot(environment.bit)` will eventually be injected into the `ConfigService` service.
+
+#### originUrl: string
 
 The domain name of the RESTful Api request interface, such as `https://api.developer.com`
 
-##### staticUrl: string
+#### staticUrl: string
 
-The domain name of the RESTful Api request interface, such as `https://api.developer.com`...
+The static resource address, which can be the relative path of the `origin` domain name, or the cdn domain name, for example, `https://cdn.developer.com/`
 
-##### iconUrl: string
+#### iconUrl: string
 
 The icons path placed on the CDN, for example, `https://cdn.developer/icons/`
 
-##### namespace: string
+#### namespace: string
 
 RESTful Api address namespace, for example, `sys`, if not set to `''
 
-##### uploadsUrl: boolean
+#### uploadsUrl: boolean
 
 Whether it is a distribution upload, `false` is `originUrl`+`/`+`uploadsPath`, `true` when `uploadsPath` needs to fill in the full upload address
 
-##### uploadsPath: string
+#### uploadsPath: string
 
 Upload address
 
-##### withCredentials: boolean
+#### withCredentials: boolean
 
-Allow the request to with cookie, set to `true`
+Allow the request to carry a cookie, set to `true`
 
-##### httpInterceptor: boolean
+#### httpInterceptor: boolean
 
 Whether to enable request interception
 
-##### interceptor = (res) => of(res)
+#### interceptor = (res) => of(res)
 
 Request to intercept custom processing, such as intercepting a unified request that RBAC returns failed and returning a prompt
 
@@ -65,20 +67,17 @@ export class AppComponent implements OnInit {
 }
 ```
 
-##### breadcrumbTop: any
+#### breadcrumbTop: any
 
 Breadcrumbs default to the highest level, default `0`
 
-##### pageLimit: number
+#### pageLimit: number
 
 List pagination, default value `20`
 
-##### formControlCol: any
+#### formControlCol: any
 
-Set Form Control Common col
-
-- common: any
-- submit: any
+Form `Control` raster uniform settings
 
 ```typescript
 formControlCol: {
@@ -95,9 +94,9 @@ formControlCol: {
 }
 ```
 
-##### formLabelCol: any
+#### formLabelCol: any
 
-Set Form Label Common col
+Form `Label` raster uniform settings
 
 ```typescript
 formLabelCol: {
@@ -108,15 +107,34 @@ formLabelCol: {
 }
 ```
 
-##### i18nDefault: string
+#### localeDefault: string
+
+Set to display the internationalized default logo, default `zh_cn`
+
+### localeBind: Map<string, NzI18nInterface>
+
+Associate the internationalized identifier of ng-zorro-antd with the ngx-bit internationalization identifier
+
+```typescript
+import {en_US, zh_CN} from 'ng-zorro-antd';
+
+export const environment = {
+  localeBind: new Map([
+    ['zh_cn', zh_CN],
+    ['en_us', en_US]
+  ])
+}
+```
+
+#### i18nDefault: string
 
 Multi-language input component default identifier, default `zh_cn`
 
-##### i18nContain: any[]
+#### i18nContain: any[]
 
 Multi-language input component identification array, for example: set Chinese and English, `['zh_cn', 'en_us']`
 
-##### i18nSwitch: any[]
+#### i18nSwitch: any[]
 
 Multi-language component collection, `i18n` needs to correspond to the identifier
 
@@ -138,4 +156,3 @@ Multi-language component collection, `i18n` needs to correspond to the identifie
     }
 ]
 ```
-

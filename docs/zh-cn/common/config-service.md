@@ -79,9 +79,6 @@ export class AppComponent implements OnInit {
 
 表单 `Control` 栅格统一设置
 
-- common: any，表单公共栅格标识
-- submit: any，表单提交栅格标识
-
 ```typescript
 formControlCol: {
   common: {
@@ -159,4 +156,3 @@ export const environment = {
     }
 ]
 ```
-
