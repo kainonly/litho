@@ -1,6 +1,6 @@
-## 本地存储 (StorageService)
+## StorageService 本地存储
 
-##### clear()
+#### clear()
 
 清除所有本地存储
 
@@ -8,29 +8,29 @@
 this.storage.clear();
 ```
 
-##### setMenu(menu: any, router: any)
+#### putResource(resource: Map< string, any >, router: Map< string, any >)
 
-设置本地存储菜单数据
+将资源保存在本地存储中
 
-- **menu** 菜单数据
-- **router** 路由数据
+- **resource** `Map< string, any >` 菜单数据
+- **router** `Map< string, any >` 路由数据
 
 ```typescript
 this.storage.setMenu(data.menu, data.router);
 ```
 
-##### autoBreadcrumb(router: Router, match = ['%7B', '%7D'])
+#### autoBreadcrumb(router: Router, match = ['%7B', '%7D'])
 
 自动计算面包屑
 
-- **router** 应用 `Router` 对象
-- **match** 路由标签获取符，默认`{}`
+- **router** `Router` 应用 `Router` 对象
+- **match** `string[]` 路由标签获取符，默认`['%7B', '%7D']`
 
 ```typescript
 this.storage.autoBreadcrumb(this.router);
 ```
 
-##### destoryBreadcrumb()
+#### destoryBreadcrumb()
 
 销毁面包屑自动计算
 

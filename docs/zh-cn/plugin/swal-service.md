@@ -1,21 +1,23 @@
-## 提交反馈栏 (SwalService)
+## SwalService 提示框
 
-##### static native
+基于 sweetalert2 的提交反馈栏
 
-sweetalert2 对象
+#### SwalService.native : Swal
 
-##### addAlert(res: any, form: FormGroup, reset?: any, customize?: AlertCustomize): Observable< any >
+原始 sweetalert2 对象
+
+#### addAlert(res: any, form: FormGroup, reset?: any, customize?: AlertCustomize): Observable< any >
 
 新增返回反馈栏
 
-- **res** 请求响应结果
-- **form** 表单对象
-- **reset** FormGroup 重置值
-- **customize** 自定义文本
-    - **text** 提示文本
-    - **error_text** 返回错误提示文本
-    - **confirmButtonText** 确认按钮文本
-    - **cancelButtonText** 取消按钮文本
+- **res** `any` 请求响应结果
+- **form** `FormGroup` 表单对象
+- **reset** `any` FormGroup 重置值
+- **customize** `AlertCustomize` 自定义文本
+    - **text** `string` 提示文本
+    - **error_text** `string` 返回错误提示文本
+    - **confirmButtonText** `string` 确认按钮文本
+    - **cancelButtonText** `string` 取消按钮文本
 - **Return** `Observable<any>`
 
 例如, 在新增操作下组件表单提交中使用, `status` 为 `true` 表示确认提示框
@@ -42,12 +44,12 @@ export class AdminAddComponent implements OnInit {
 
 修改返回反馈栏
 
-- **res** 请求响应结果
-- **customize** 自定义文本
-    - **text** 提示文本
-    - **error_text** 返回错误提示文本
-    - **confirmButtonText** 确认按钮文本
-    - **cancelButtonText** 取消按钮文本
+- **res** `any` 请求响应结果
+- **customize** `AlertCustomize` 自定义文本
+    - **text** `string` 提示文本
+    - **error_text** `string` 返回错误提示文本
+    - **confirmButtonText** `string` 确认按钮文本
+    - **cancelButtonText** `string` 取消按钮文本
 - **Return** `Observable<any>`
 
 例如, 在修改操作下组件表单提交中使用, `status` 为 `true` 表示确认提示框
@@ -73,11 +75,11 @@ export class AdminEditComponent implements OnInit {
 
 删除返回反馈栏
 
-- **service** 删除请求对象
-- **customize** 自定义文本
-    - **text** 提示文本
-    - **confirmButtonText** 确认按钮文本
-    - **cancelButtonText** 取消按钮文本
+- **service** `Observable< any >` 删除请求对象
+- **customize** `AlertCustomize` 自定义文本
+    - **text** `string` 提示文本
+    - **confirmButtonText** `string` 确认按钮文本
+    - **cancelButtonText** `string` 取消按钮文本
 - **Return** `Observable<any>`
 
 例如, 在删除操作下使用, 订阅返回删除请求对象的响应值
