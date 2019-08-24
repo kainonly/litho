@@ -1,6 +1,12 @@
 ## Error Tip
 
 ```html
+<bit-error-tip #username [hasError]="{}"></bit-error-tip>
+```
+
+- **@Input() hasError** `any` form errors
+
+```html
 <nz-form-control nzHasFeedback
                  [nzValidatingTip]="'Validating...'"
                  [nzErrorTip]="username.ref">
@@ -10,6 +16,3 @@
     }"></bit-error-tip>
 </nz-form-control>
 ```
-
-- **@Input() hasError: any** errors
-

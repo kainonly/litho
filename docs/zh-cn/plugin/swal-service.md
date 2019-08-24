@@ -40,7 +40,7 @@ export class AdminAddComponent implements OnInit {
 }
 ```
 
-##### editAlert(res: any, customize?: AlertCustomize): Observable< any >
+#### editAlert(res: any, customize?: AlertCustomize): Observable< any >
 
 修改返回反馈栏
 
@@ -71,7 +71,7 @@ export class AdminEditComponent implements OnInit {
 }
 ```
 
-##### deleteAlert(service: Observable< any >, customize?: AlertCustomize)
+#### deleteAlert(service: Observable< any >, customize?: AlertCustomize)
 
 删除返回反馈栏
 
