@@ -1,6 +1,6 @@
 ## Storage (StorageService)
 
-##### clear()
+#### clear()
 
 Clear all local storage
 
@@ -8,31 +8,31 @@ Clear all local storage
 this.storage.clear();
 ```
 
-##### setMenu(menu: any, router: any)
+#### putResource(resource: Map< string, any >, router: Map< string, any >)
 
-Set local storage menu data
+Save resources in local storage
 
-- **menu** Menu data
-- **router** Routing data
+- **resource** `Map< string, any >` Resource data
+- **router** `Map< string, any >` Routing data
 
 ```typescript
 this.storage.setMenu(data.menu, data.router);
 ```
 
-##### autoBreadcrumb(router: Router, match = ['%7B', '%7D'])
+#### autoBreadcrumb(router: Router, match = ['%7B', '%7D'])
 
 Automatic calculation of breadcrumbs
 
-- **router** Apply the `Router` object
-- **match** Routing tag getter, default `{}`
+- **router** `Router` Apply the `Router` object
+- **match** `string[]` Routing label getter, default `['%7B', '%7D']`
 
 ```typescript
 this.storage.autoBreadcrumb(this.router);
 ```
 
-##### destoryBreadcrumb()
+#### destoryBreadcrumb()
 
-Automatic calculation of breadcrumbs
+Turn off automatic calculation of breadcrumbs
 
 ```typescript
 this.storage.destoryBreadcrumb();

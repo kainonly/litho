@@ -12,7 +12,7 @@ this.storage.clear();
 
 将资源保存在本地存储中
 
-- **resource** `Map< string, any >` 菜单数据
+- **resource** `Map< string, any >` 资源数据
 - **router** `Map< string, any >` 路由数据
 
 ```typescript

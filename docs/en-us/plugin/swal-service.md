@@ -1,21 +1,23 @@
 ## Alert (SwalService)
 
-##### static native
+Submit feedback bar based on sweetalert2
 
-sweetalert2 native object
+#### SwalService.native : Swal
 
-##### addAlert(res: any, form: FormGroup, reset?: any, customize?: AlertCustomize): Observable< any >
+Original sweetalert2 object
+
+#### addAlert(res: any, form: FormGroup, reset?: any, customize?: AlertCustomize): Observable< any >
 
 Add a return feedback bar
 
-- **res** Request response result
-- **form** Form object
-- **reset** FormGroup reset value
-- **customize** Custom text
-    - **text** Prompt text
-    - **error_text** Return error text
-    - **confirmButtonText** Confirm button text
-    - **cancelButtonText** Cancel button text
+- **res** `any` Request response result
+- **form** `FormGroup` Form object
+- **reset** `any` FormGroup reset value
+- **customize** `AlertCustomize` Custom text
+    - **text** `string` Prompt text
+    - **error_text** `string` Return error text
+    - **confirmButtonText** `string` Confirm button text
+    - **cancelButtonText** `string` Cancel button text
 - **Return** `Observable<any>`
 
 For example, in the component form submission under the new operation, `status` is `true` for confirmation prompt box.
@@ -38,16 +40,16 @@ export class AdminAddComponent implements OnInit {
 }
 ```
 
-##### editAlert(res: any, customize?: AlertCustomize): Observable< any >
+#### editAlert(res: any, customize?: AlertCustomize): Observable< any >
 
 Modify return feedback bar
 
-- **res** Request response result
-- **customize** Custom text
-    - **text** Prompt text
-    - **error_text** Return error text
-    - **confirmButtonText** Confirm button text
-    - **cancelButtonText** Cancel button text
+- **res** `any` Request response result
+- **customize** `AlertCustomize` Custom text
+    - **text** `string` Prompt text
+    - **error_text** `string` Return error text
+    - **confirmButtonText** `string` Confirm button text
+    - **cancelButtonText** `string` Cancel button text
 - **Return** `Observable<any>`
 
 For example, in the component form submission under the modify operation, `status` is `true` for the confirmation prompt box.
@@ -69,15 +71,15 @@ export class AdminEditComponent implements OnInit {
 }
 ```
 
-##### deleteAlert(service: Observable< any >, customize?: AlertCustomize)
+#### deleteAlert(service: Observable< any >, customize?: AlertCustomize)
 
 Delete return feedback bar
 
-- **service** Delete request object
-- **customize** Custom text
-    - **text** Prompt text
-    - **confirmButtonText** Confirm button text
-    - **cancelButtonText** Cancel button text
+- **service** `Observable< any >` Delete request object
+- **customize** `AlertCustomize` Custom text
+    - **text** `string` Prompt text
+    - **confirmButtonText** `string` Confirm button text
+    - **cancelButtonText** `string` Cancel button text
 - **Return** `Observable<any>`
 
 For example, when used under a delete operation, the subscription returns the response value of the delete request object.
