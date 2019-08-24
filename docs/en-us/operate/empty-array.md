@@ -1,18 +1,8 @@
-## Empty Array
+## emptyArray
 
-##### emptyArray(array: any[])
+#### emptyArray(array: any[])
 
-```typescript
-emptyArray(array: any[]) {
-  if (isArray(array)) {
-    return array.length === 0;
-  } else {
-    return false;
-  }
-}
-```
-
-- **array** array
+- **array** `any[]` Array
 - **Return** `boolean`
 
 Determine if an array is empty

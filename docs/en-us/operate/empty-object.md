@@ -1,18 +1,8 @@
-## Empty Object
+## emptyObject
 
-##### emptyObject(object: any)
+#### emptyObject(object: any)
 
-```typescript
-emptyObject(object: any): boolean {
-  if (isObject(object) && !isArray(object)) {
-    return Object.keys(object).length === 0;
-  } else {
-    return false;
-  }
-}
-```
-
-- **object** Object
+- **object** `any` Object
 - **Return** `boolean`
 
 Determine if an object is empty

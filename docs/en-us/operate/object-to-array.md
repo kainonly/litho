@@ -1,30 +1,9 @@
-## Object To Array
+## objectToArray
 
-##### objectToArray(object: any)
-
-```typescript
-objectToArray(object: any): any[] {
-  if (isObject(object) && !isArray(object)) {
-    const array = [];
-    for (const key in object) {
-      if (object.hasOwnProperty(key)) {
-        array.push({
-          key,
-          rows: object[key]
-        });
-      }
-    }
-    return array;
-  } else {
-    return [];
-  }
-}
-```
-
-- **object** Object
+- **object** `any` Object
 - **Return** `any[]`
   - **key** key
-  - **rows** value
+  - **rows** rows data
 
 Convert an object to an array
 

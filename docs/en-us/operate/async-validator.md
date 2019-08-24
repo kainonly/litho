@@ -1,35 +1,14 @@
-## Async Validator
+## asyncValidator
 
-##### asyncValidator(req: Observable<any>, field = 'duplicated')
+#### asyncValidator(req: Observable< any >, field = 'duplicated')
 
-```typescript
-asyncValidator(req: Observable<any>, field = 'duplicated'): Observable<any> {
-  return Observable.create((observer) => {
-    setTimeout(() => {
-      req.subscribe((res) => {
-        if (!res.error) {
-          if (res.data) {
-            observer.next({error: true, [field]: true});
-          } else {
-            observer.next(null);
-          }
-        } else {
-          observer.next({error: true});
-        }
-        observer.complete();
-      });
-    }, 1000);
-  });
-}
-```
-
-- **req** Request Object
-- **field** Custom Return
+- **req** `Observable< any >` Request object
+- **field** `string` Custom return
 
 Define an asynchronous validator within a component
 
 ``` typescript
-import {operates} from 'ngx-bit';
+import {asyncValidator} from 'ngx-bit';
 
 export class AdminAddComponent implements OnInit {
 
@@ -47,6 +26,6 @@ export class AdminAddComponent implements OnInit {
   }
 
   validedUsername = (control: AbstractControl) =>
-    operates.asyncValidator(this.adminService.validedUsername(control.value));
+    asyncValidator(this.adminService.validedUsername(control.value));
 }
 ```
