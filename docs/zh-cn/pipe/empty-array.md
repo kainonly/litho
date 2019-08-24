@@ -1,6 +1,6 @@
 ## EmptyArray 空数组
 
-##### @Pipe({name: 'EmptyArray'})
+#### @Pipe({name: 'EmptyArray'})
 
 ```typescript
 @Pipe({name: 'EmptyArray'})

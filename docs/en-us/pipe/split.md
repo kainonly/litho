@@ -1,6 +1,6 @@
 ## Split
 
-##### @Pipe({name: 'Split'})
+#### @Pipe({name: 'Split'})
 
 ```typescript
 @Pipe({name: 'Split'})
@@ -11,8 +11,8 @@ export class SplitPipe implements PipeTransform {
 }
 ```
 
-- **text** string
-- **symbol** symbol string
+- **text** `string` string
+- **symbol** `string` symbol string
 - **Return** `string`
 
 For example, there are strings in some scenarios

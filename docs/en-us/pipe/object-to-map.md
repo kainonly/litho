@@ -1,6 +1,6 @@
 ## Object To Map
 
-##### @Pipe({name: 'ObjectToMap'})
+#### @Pipe({name: 'ObjectToMap'})
 
 ```typescript
 @Pipe({name: 'ObjectToMap'})
@@ -11,7 +11,7 @@ export class ObjectToMapPipe implements PipeTransform {
 }
 ```
 
-- **value** Object
+- **value** `any` Object
 - **Return** `Map`
 
 For example, suppose an object

@@ -1,6 +1,6 @@
 ## Undefined
 
-##### @Pipe({name: 'Undefined'})
+#### @Pipe({name: 'Undefined'})
 
 ```typescript
 @Pipe({name: 'Undefined'})
@@ -11,7 +11,7 @@ export class UndefinedPipe implements PipeTransform {
 }
 ```
 
-- **value** value
+- **value** `any` value
 - **Return** `boolean`
 
 For example, suppose there is an undefined attribute

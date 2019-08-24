@@ -1,6 +1,6 @@
 ## Empty Array
 
-##### @Pipe({name: 'EmptyArray'})
+#### @Pipe({name: 'EmptyArray'})
 
 ```typescript
 @Pipe({name: 'EmptyArray'})
@@ -11,7 +11,7 @@ export class EmptyArrayPipe implements PipeTransform {
 }
 ```
 
-- **value** array
+- **value** `any[]` array
 - **Return** `boolean`
 
 For example, suppose there is an empty array attribute

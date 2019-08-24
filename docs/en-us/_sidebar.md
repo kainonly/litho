@@ -34,7 +34,7 @@
   - [EmptyObject](en-us/pipe/empty-object)
   - [ObjectToArray](en-us/pipe/object-to-array)
   - [ObjectToMap](en-us/pipe/object-to-map)
-  - [Locale - Locale Display](en-us/pipe/json-chose)
+  - [Locale - Locale Display](en-us/pipe/locale)
   - [JSONParse](en-us/pipe/json-parse)
   - [Split](en-us/pipe/split)
   - [Join](en-us/pipe/join)

@@ -1,4 +1,4 @@
-## Locale 语言包显示
+## Locale - Locale Displa
 
 #### @Pipe({name: 'Locale'})
 
@@ -20,16 +20,16 @@ export class LocalePipe implements PipeTransform {
 }
 ```
 
-- **value** `string | object` JSON字符串或JSON
-- **locale** `string` 语言包标识
+- **value** `string | object` JSON string or JSON
+- **locale** `string` Language pack identifier
 
-例如，在接口直接返回多语言类型的JSON字符串
+For example, returning a multilingual JSON string directly at the interface
 
 ```typescript
 const data = `{"zh_cn":"我","en_us":"me"}`;
 ```
 
-如果指定某个语言为默认的显示
+If you specify a language as the default display
 
 ```html
 <p>{{data|Locale:'en_us'}}</p>

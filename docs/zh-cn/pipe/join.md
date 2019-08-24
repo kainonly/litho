@@ -1,6 +1,6 @@
 ## Join 数组拼接为字符串
 
-##### @Pipe({name: 'Join'})
+#### @Pipe({name: 'Join'})
 
 ```typescript
 @Pipe({name: 'Join'})

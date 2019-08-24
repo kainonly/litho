@@ -1,6 +1,6 @@
 ## Object To Array
 
-##### @Pipe({name: 'ObjectToArray'})
+#### @Pipe({name: 'ObjectToArray'})
 
 ```typescript
 @Pipe({name: 'ObjectToArray'})
@@ -11,7 +11,7 @@ export class ObjectToArrayPipe implements PipeTransform {
 }
 ```
 
-- **value** Object
+- **value** `any` Object
 - **Return** `any[]`
 
 For example, suppose an object

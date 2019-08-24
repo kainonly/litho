@@ -1,6 +1,6 @@
 ## Join
 
-##### @Pipe({name: 'Join'})
+#### @Pipe({name: 'Join'})
 
 ```typescript
 @Pipe({name: 'Join'})
@@ -11,8 +11,8 @@ export class JoinPipe implements PipeTransform {
 }
 ```
 
-- **origin** array
-- **symbol** symbol string
+- **origin** `string[]` array
+- **symbol** `string` symbol string
 - **Return** `string`
 
 For example, there are strings of strings in some scenarios

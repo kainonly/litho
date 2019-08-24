@@ -1,6 +1,6 @@
 ## ObjectToArray 对象转数组
 
-##### @Pipe({name: 'ObjectToArray'})
+#### @Pipe({name: 'ObjectToArray'})
 
 ```typescript
 @Pipe({name: 'ObjectToArray'})

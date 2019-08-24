@@ -1,6 +1,6 @@
 ## JSON Parse
 
-##### @Pipe({name: 'JSONParse'})
+#### @Pipe({name: 'JSONParse'})
 
 ```typescript
 @Pipe({name: 'JSONParse'})
@@ -15,8 +15,8 @@ export class JsonParsePipe implements PipeTransform {
 }
 ```
 
-- **value** JSON string
-- **chkey** children key
+- **value** `string` JSON string
+- **chkey** `string` children key
 
 For example, returning a JSON string array directly on the interface
 

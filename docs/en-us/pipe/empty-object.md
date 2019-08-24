@@ -1,6 +1,6 @@
 ## Empty Object
 
-##### @Pipe({name: 'EmptyObject'})
+#### @Pipe({name: 'EmptyObject'})
 
 ```typescript
 @Pipe({name: 'EmptyObject'})
@@ -11,7 +11,7 @@ export class EmptyObjectPipe implements PipeTransform {
 }
 ```
 
-- **value** Object
+- **value** `any` Object
 - **Return** `boolean`
 
 For example, suppose there is an empty object attribute
