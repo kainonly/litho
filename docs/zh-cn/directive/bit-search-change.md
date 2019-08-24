@@ -1,6 +1,6 @@
 ## bitSearchChange 搜索监听
 
-##### @Directive({selector: '[bitSearchChange]'})
+#### @Directive({selector: '[bitSearchChange]'})
 
 ```typescript
 @Directive({

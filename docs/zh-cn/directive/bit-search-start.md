@@ -1,6 +1,6 @@
 ## bitSearchStart 搜索触发
 
-##### @Directive({selector: '[bitSearchStart]'})
+#### @Directive({selector: '[bitSearchStart]'})
 
 ```typescript
 @Directive({

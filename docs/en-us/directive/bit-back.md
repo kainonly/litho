@@ -1,6 +1,6 @@
 ## Back
 
-##### @Directive({selector: '[bitBack]'})
+#### @Directive({selector: '[bitBack]'})
 
 ```typescript
 @Directive({
@@ -9,7 +9,9 @@
 export class BitBackDirective {
   @Input() bitTrigger = 'click';
 
-  constructor(private bit: BitService) {
+  constructor(
+    private bit: BitService
+  ) {
   }
 
   @HostListener('click')
@@ -27,7 +29,7 @@ export class BitBackDirective {
 }
 ```
 
-- **@Input() bitTrigger** Trigger mode `click|touch`, default `click`
+- **@Input() bitTrigger** `click|touch` Trigger mode, default `click`
 
 Add in button
 

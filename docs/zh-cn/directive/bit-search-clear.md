@@ -1,6 +1,6 @@
 ## bitSearchClear 搜索清除
 
-##### @Directive({selector: '[bitSearchClear]'})
+#### @Directive({selector: '[bitSearchClear]'})
 
 ```typescript
 @Directive({

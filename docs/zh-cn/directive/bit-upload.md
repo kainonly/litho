@@ -1,6 +1,6 @@
 ## bitUpload 上传
 
-##### @Directive({selector: '[bitUpload]'})
+#### @Directive({selector: '[bitUpload]'})
 
 ```typescript
 @Directive({

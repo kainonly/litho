@@ -1,6 +1,6 @@
-## Open Link
+## bitOpen - Open Link
 
-##### @Directive({selector: '[bitOpen]'})
+#### @Directive({selector: '[bitOpen]'})
 
 ```typescript
 @Directive({
@@ -10,7 +10,9 @@ export class BitOpenDirective {
   @Input() bitOpen: any[];
   @Input() bitTrigger = 'click';
 
-  constructor(private bit: BitService) {
+  constructor(
+    private bit: BitService
+  ) {
   }
 
   @HostListener('click')
@@ -29,8 +31,8 @@ export class BitOpenDirective {
 }
 ```
 
-- **@Input() bitOpen: any[]** Route jump processing, `path[0]` is the base address, and the index is greater than 0, for example: `['app-edit',1]` is equivalent to routerlink's `{app-edit}/1`, But including cross-level routing processing
-- **@Input() bitTrigger = 'click'** Trigger mode `click|touch`, default `click`
+- **@Input() bitOpen** `any[]` Route jump processing, `path[0]` is the base address, and the index is greater than 0, for example: `['app-edit',1]` is equivalent to routerlink's `{app-edit}/1`, But including cross-level routing processing
+- **@Input() bitTrigger** `click|touch` Trigger mode, default `click`
 
 For example, instead of `routerlink`
 

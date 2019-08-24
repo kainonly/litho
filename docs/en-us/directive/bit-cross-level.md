@@ -1,6 +1,6 @@
 ## Cross Level Link
 
-##### @Directive({selector: '[bitCrossLevel]'})
+#### @Directive({selector: '[bitCrossLevel]'})
 
 ```typescript
 @Directive({
@@ -10,7 +10,9 @@ export class BitCrossLevelDirective {
   @Input() bitCrossLevel: string;
   @Input() bitTrigger = 'click';
 
-  constructor(private bit: BitService) {
+  constructor(
+    private bit: BitService
+  ) {
   }
 
   @HostListener('click')
@@ -29,8 +31,8 @@ export class BitCrossLevelDirective {
 }
 ```
 
-- **@Input() bitCrossLevel: string** Cross-level routing name
-- **@Input() bitTrigger = 'click'** Trigger mode `click|touch`, default `touch`
+- **@Input() bitCrossLevel** `string` Cross-level routing name
+- **@Input() bitTrigger** `click|touch` Trigger mode, default `click`
 
 For example, used in breadcrumbs
 

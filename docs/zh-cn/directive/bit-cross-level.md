@@ -1,6 +1,6 @@
 ## bitCrossLevel 跨级跳转
 
-##### @Directive({selector: '[bitCrossLevel]'})
+#### @Directive({selector: '[bitCrossLevel]'})
 
 ```typescript
 @Directive({
@@ -32,7 +32,7 @@ export class BitCrossLevelDirective {
 ```
 
 - **@Input() bitCrossLevel** `string` 跨级路由名称
-- **@Input() bitTrigger** `click|touch` 触发方式，默认 `touch`
+- **@Input() bitTrigger** `click|touch` 触发方式，默认 `click`
 
 例如使用在面包屑
 

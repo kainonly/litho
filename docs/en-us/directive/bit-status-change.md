@@ -1,6 +1,6 @@
-## Status Change
+## bitStatusChange - Status Change
 
-##### @Directive({selector: '[bitStatusChange]'})
+#### @Directive({selector: '[bitStatusChange]'})
 
 ```typescript
 @Directive({
@@ -11,9 +11,11 @@ export class BitStatusChangeDirective {
   @Input() bitControl = false;
   @Output() response: EventEmitter<any> = new EventEmitter();
 
-  constructor(private bit: BitService,
-              private nzSwitchComponent: NzSwitchComponent,
-              private notificationService: NzNotificationService) {
+  constructor(
+    private bit: BitService,
+    private nzSwitchComponent: NzSwitchComponent,
+    private notificationService: NzNotificationService
+  ) {
     nzSwitchComponent.nzControl = true;
     nzSwitchComponent.nzCheckedChildren = bit.l.on;
     nzSwitchComponent.nzUnCheckedChildren = bit.l.off;
@@ -23,12 +25,12 @@ export class BitStatusChangeDirective {
   onClick() {
     this.bitStatusChange.subscribe(res => {
       if (!res.error) {
-        this.notificationService.success(this.bit.l.operate_success, this.bit.l.status_success);
+        this.notificationService.success(this.bit.l.operateSuccess, this.bit.l.statusSuccess);
       } else {
         if (this.bitControl) {
           this.response.emit(res);
         } else {
-          this.notificationService.error(this.bit.l.operate_error, this.bit.l.status_error);
+          this.notificationService.error(this.bit.l.operateError, this.bit.l.statusError);
         }
       }
     });
@@ -36,9 +38,9 @@ export class BitStatusChangeDirective {
 }
 ```
 
-- **@Input() bitStatusChange: Observable< any >** status request object
-- **@Input() bitControl = false** Whether to manually process the return prompt
-- **@Output() response: EventEmitter< any >** get response data
+- **@Input() bitStatusChange** `Observable< any >` status request object
+- **@Input() bitControl** `boolean` Whether to manually process the return prompt, default `false`
+- **@Output() response** `EventEmitter< any >` get response data
 
 Such as controlling the status of the administrator
 

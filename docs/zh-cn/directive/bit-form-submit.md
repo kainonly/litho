@@ -1,6 +1,6 @@
 ## bitFormSubmit 表单提交
 
-##### @Directive({selector: '[bitFormSubmit]'})
+#### @Directive({selector: '[bitFormSubmit]'})
 
 ```typescript
 @Directive({

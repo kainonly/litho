@@ -2,7 +2,7 @@
 
 #### @Directive({selector: '[bitFormControlCol]'})
 
-FormControlCol 的共用栅格，由配置决定
+Shared grid of FormControlCol, determined by configuration
 
 ```typescript
 @Directive({
@@ -36,7 +36,7 @@ export class BitFormControlColDirective implements OnInit {
 }
 ```
 
-在表单中使用
+Use in a form
 
 ```html
 <nz-form-item>

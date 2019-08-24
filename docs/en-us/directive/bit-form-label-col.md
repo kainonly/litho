@@ -1,8 +1,8 @@
-## bitFormLabelCol 共用栅格
+## bitFormLabelCol - Common Form Label
 
 #### @Directive({selector: '[bitFormLabelCol]'})
 
-FormLabelCol 的共用栅格，由配置决定
+shared grid, determined by configuration
 
 ```typescript
 @Directive({
@@ -36,7 +36,7 @@ export class BitFormLabelColDirective implements OnInit {
 }
 ```
 
-在表单中使用
+Use in a form
 
 ```html
 <nz-form-item>

@@ -1,4 +1,4 @@
-## bitI18nUpdate 多语言联动验证
+## bitI18nUpdate - I18n Union Update
 
 #### @Directive({selector: '[bitI18nUpdate]'})
 
@@ -40,7 +40,7 @@ export class BitI18nUpdateDirective implements OnInit, OnDestroy {
 }
 ```
 
-在表单中使用
+Use in a form
 
 ```html
 <nz-form-item formGroupName="name">

@@ -1,6 +1,6 @@
-## Search Start
+## bitSearchStart - Search Start
 
-##### @Directive({selector: '[bitSearchStart]'})
+#### @Directive({selector: '[bitSearchStart]'})
 
 ```typescript
 @Directive({
@@ -10,8 +10,10 @@ export class BitSearchStartDirective {
   @Input() bitSearchStart: string;
   @Output() after: EventEmitter<any> = new EventEmitter<any>();
 
-  constructor(private bit: BitService,
-              private storage: LocalStorage) {
+  constructor(
+    private bit: BitService,
+    private storageMap: StorageMap
+  ) {
   }
 
   @HostListener('keydown.enter') onenter() {
@@ -26,23 +28,23 @@ export class BitSearchStartDirective {
    * search data save storage
    */
   private searchStart() {
-    this.storage.setItem('search:' + this.bitSearchStart, this.bit.search).subscribe(() => {
+    this.storageMap.set('search:' + this.bitSearchStart, this.bit.search).subscribe(() => {
       this.after.emit(true);
     });
   }
 }
 ```
 
-- **@Input() bitSearchStart: string** search name
-- **@Output() after: EventEmitter< any >** after event
+- **@Input() bitSearchStart** `string` search name
+- **@Output() after** `EventEmitter< any >` after event
 
 Register search field
 
 ```typescript
- this.bit.registerSearch('app-index', {
-  field: 'name', op: 'like', value: ''
-}).subscribe(() => {
-  ...
+this.bit.registerSearch('app-index', 
+  {field: 'name', op: 'like', value: ''}
+).subscribe(() => {
+
 });
 ```
 
@@ -50,7 +52,7 @@ Also add `click` and `enter` to the component to trigger the search.
 
 ```html
 <nz-input-group nzSearch [nzAddOnAfter]="nzAddOnAfter">
-  <input type="text" [(ngModel)]="bit.search[0].value"
+  <input type="text" [(ngModel)]="bit.search['name'].value"
           bitSearchStart="app-index"
           (after)="getLists(true)"
           nz-input [placeholder]="bit.l['search']">

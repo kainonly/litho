@@ -1,6 +1,6 @@
 ## bitBack 返回上一级
 
-##### @Directive({selector: '[bitBack]'})
+#### @Directive({selector: '[bitBack]'})
 
 ```typescript
 @Directive({

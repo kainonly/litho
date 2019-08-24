@@ -1,6 +1,6 @@
 ## bitOpen 路由跳转
 
-##### @Directive({selector: '[bitOpen]'})
+#### @Directive({selector: '[bitOpen]'})
 
 ```typescript
 @Directive({

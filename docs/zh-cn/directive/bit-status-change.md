@@ -1,6 +1,6 @@
 ## bitStatusChange 状态切换
 
-##### @Directive({selector: '[bitStatusChange]'})
+#### @Directive({selector: '[bitStatusChange]'})
 
 ```typescript
 @Directive({
