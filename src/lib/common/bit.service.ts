@@ -146,8 +146,15 @@ export class BitService {
     this.i18n = config.i18nDefault;
     this.i18nContain = config.i18nContain;
     storageMap.get('locale').subscribe((data: any) => {
-      this.locale = data ? data : this.config.localeDefault;
-      this.nzI18nService.setLocale(this.config.localeBind.get(this.locale));
+      if (!this.config.localeDefault) {
+        this.locale = data ? data : 'zh_cn';
+      } else {
+        this.locale = data ? data : this.config.localeDefault;
+      }
+
+      if (this.config.localeBind.size !== 0 && this.config.localeBind.has(this.locale)) {
+        this.nzI18nService.setLocale(this.config.localeBind.get(this.locale));
+      }
     });
   }
 
@@ -207,7 +214,10 @@ export class BitService {
       this.commonLanguage[this.locale],
       this.language[this.locale]
     );
-    this.nzI18nService.setLocale(this.config.localeBind.get(this.locale));
+
+    if (this.config.localeBind.size !== 0 && this.config.localeBind.has(this.locale)) {
+      this.nzI18nService.setLocale(this.config.localeBind.get(this.locale));
+    }
   }
 
   /**
