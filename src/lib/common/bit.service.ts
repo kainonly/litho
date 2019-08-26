@@ -152,7 +152,9 @@ export class BitService {
         this.locale = data ? data : this.config.localeDefault;
       }
 
-      if (this.config.localeBind.size !== 0 && this.config.localeBind.has(this.locale)) {
+      if (this.config.localeBind !== undefined &&
+        this.config.localeBind.size !== 0 &&
+        this.config.localeBind.has(this.locale)) {
         this.nzI18nService.setLocale(this.config.localeBind.get(this.locale));
       }
     });
@@ -215,7 +217,9 @@ export class BitService {
       this.language[this.locale]
     );
 
-    if (this.config.localeBind.size !== 0 && this.config.localeBind.has(this.locale)) {
+    if (this.config.localeBind !== undefined &&
+      this.config.localeBind.size !== 0 &&
+      this.config.localeBind.has(this.locale)) {
       this.nzI18nService.setLocale(this.config.localeBind.get(this.locale));
     }
   }
