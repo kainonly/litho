@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {Router} from '@angular/router';
+import {NavigationExtras, Router} from '@angular/router';
 import {Location} from '@angular/common';
 import {StorageMap} from '@ngx-pwa/local-storage';
 import {map} from 'rxjs/operators';
@@ -163,7 +163,7 @@ export class BitService {
   /**
    * open routerlink with cross level
    */
-  open(path: any[]) {
+  open(urlTree: any[], extras?: NavigationExtras) {
     const url = this.router.url;
     if (url !== '/') {
       const selector = getSelectorFormUrl(this.router.url, ['%7B', '%7D']);
@@ -173,11 +173,11 @@ export class BitService {
         });
       }
     }
-    if (path.length !== 0) {
-      const routerlink = path[0];
-      const param = path.slice(1);
-      this.router.navigateByUrl(`{${routerlink}}` +
-        (param.length !== 0 ? '/' + param.join('/') : ''));
+    if (urlTree.length !== 0) {
+      this.router.navigate([
+        '{' + urlTree[0] + '}',
+        ...urlTree.slice(1)
+      ], extras);
     }
   }
 
