@@ -176,11 +176,12 @@ The list option box selects the quantity, showing the total number of selected:
 <p>{{bit.listsCheckedNumber}}</p>
 ```
 
-#### open(path: any[])
+#### open(urlTree: any[], extras?: NavigationExtras)
 
-Route jump processing, `path[0]` is the base address, and the index is greater than 0, for example: `['app-edit',1]` is equivalent to routerlink's `{app-edit}/1`, But including cross-level routing processing
+Route jump processing, `urlTree[0]` is the base address, and the index is greater than 0, for example: `['app-edit',1]` is equivalent to routerlink's `{app-edit}/1`, But including cross-level routing processing
 
-- **path** `any[]` Path array
+- **urlTree** `any[]` urlTree
+- **extras** `NavigationExtras` Options that modify the navigation strategy
 
 #### crossLevel(selector: string)
 

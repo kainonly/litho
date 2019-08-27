@@ -8,6 +8,7 @@
 })
 export class BitOpenDirective {
   @Input() bitOpen: any[];
+  @Input() extras: NavigationExtras;
   @Input() bitTrigger = 'click';
 
   constructor(
@@ -18,20 +19,21 @@ export class BitOpenDirective {
   @HostListener('click')
   click() {
     if (this.bitTrigger === 'click') {
-      this.bit.open(this.bitOpen);
+      this.bit.open(this.bitOpen, this.extras);
     }
   }
 
   @HostListener('touchstart')
   touch() {
     if (this.bitTrigger === 'touch') {
-      this.bit.open(this.bitOpen);
+      this.bit.open(this.bitOpen, this.extras);
     }
   }
 }
 ```
 
 - **@Input() bitOpen** `any[]` Route jump processing, `path[0]` is the base address, and the index is greater than 0, for example: `['app-edit',1]` is equivalent to routerlink's `{app-edit}/1`, But including cross-level routing processing
+- **@Input() extras** `NavigationExtras` Options that modify the navigation strategy
 - **@Input() bitTrigger** `click|touch` Trigger mode, default `click`
 
 For example, instead of `routerlink`

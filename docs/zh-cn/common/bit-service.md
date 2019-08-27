@@ -176,11 +176,12 @@
 <p>{{bit.listsCheckedNumber}}</p>
 ```
 
-#### open(path: any[])
+#### open(urlTree: any[], extras?: NavigationExtras)
 
-路由跳转处理，`path[0]` 为基础地址，索引大于0则为参数，例如：`['app-edit',1]` 等价于 routerlink 的 `{app-edit}/1`，但包含跨级路由处理
+路由跳转处理，`urlTree[0]` 为基础地址，索引大于0则为参数，例如：`['app-edit',1]` 等价于 routerlink 的 `{app-edit}/1`，但包含跨级路由处理
 
-- **path** `any[]` 路径数组
+- **urlTree** `any[]` urlTree
+- **extras** `NavigationExtras` 修改导航策略的选项
 
 #### crossLevel(selector: string)
 

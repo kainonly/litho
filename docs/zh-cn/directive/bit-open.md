@@ -8,6 +8,7 @@
 })
 export class BitOpenDirective {
   @Input() bitOpen: any[];
+  @Input() extras: NavigationExtras;
   @Input() bitTrigger = 'click';
 
   constructor(
@@ -18,20 +19,21 @@ export class BitOpenDirective {
   @HostListener('click')
   click() {
     if (this.bitTrigger === 'click') {
-      this.bit.open(this.bitOpen);
+      this.bit.open(this.bitOpen, this.extras);
     }
   }
 
   @HostListener('touchstart')
   touch() {
     if (this.bitTrigger === 'touch') {
-      this.bit.open(this.bitOpen);
+      this.bit.open(this.bitOpen, this.extras);
     }
   }
 }
 ```
 
 - **@Input() bitOpen** `any[]` 路由跳转处理，`path[0]` 为基础地址，索引大于0则为参数，例如：`['app-edit',1]` 等价于 routerlink 的 `{app-edit}/1`，但包含跨级路由处理
+- **@Input() extras** `NavigationExtras` 修改导航策略的选项
 - **@Input() bitTrigger** `click|touch` 触发方式，默认 `click`
 
 例如替代 `routerlink`
