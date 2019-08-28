@@ -117,15 +117,16 @@ status(data: any, app: number): Observable<any> {
 }
 ```
 
-#### delete(model: string, condition: any | number | number[] | string | string[] | SearchOptions[]): Observable< any >
+#### delete(model: string, id?: number[] | string[], condition?: SearchOptions[]): Observable< any >
 
 创建一个删除的处理
 
 - **model** `string` 模块名称
-- **condition** `any | number | number[] | string | string[] | SearchOptions[]` 条件数组
+- **id** `number[] | string[]` 主键
+- **condition** `SearchOptions[]` 条件数组
 
 ```typescript
-delete(id: any, app: number): Observable<any> {
-  return this.http.delete(this.model, id);
+delete(id: number, app: number): Observable<any> {
+  return this.http.delete(this.model, [id]);
 }
 ```

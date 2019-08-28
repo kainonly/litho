@@ -117,15 +117,16 @@ status(data: any, app: number): Observable<any> {
 }
 ```
 
-#### delete(model: string, condition: any | number | number[] | string | string[] | SearchOptions[]): Observable< any >
+#### delete(model: string, id?: number[] | string[], condition?: SearchOptions[]): Observable< any >
 
 Create a delete process
 
 - **model** `string` Model name
+- **id** `number[] | string[]` Primary key
 - **condition** `any | number | number[] | string | string[] | SearchOptions[]` Condition
 
 ```typescript
-delete(id: any, app: number): Observable<any> {
-  return this.http.delete(this.model, id);
+delete(id: number, app: number): Observable<any> {
+  return this.http.delete(this.model, [id]);
 }
 ```

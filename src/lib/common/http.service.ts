@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {map, switchMap} from 'rxjs/operators';
-import {Observable} from 'rxjs';
+import {Observable, of} from 'rxjs';
 import {ConfigService} from './config.service';
 import {BitService} from './bit.service';
 import {ConvertToWhere} from '../lib.common';
@@ -133,17 +133,18 @@ export class HttpService {
   /**
    * Delete Request
    */
-  delete(model: string, condition: any | number | number[] | string | string[] | SearchOptions[]): Observable<any> {
-    const where = !Array.isArray(condition) ? {id: condition} :
-      (
-        condition.every(v => typeof v === 'number') ||
-        condition.every(v => typeof v === 'string') ?
-          {id: condition} : ConvertToWhere(condition)
-      );
-    return where.hasOwnProperty('id') ?
-      this.req(model + '/delete', where) :
-      this.req(model + '/delete', {
+  delete(model: string, id?: number[] | string[], condition?: SearchOptions[]): Observable<any> {
+    if (id !== undefined) {
+      return this.req(model + '/delete', {
+        id
+      });
+    }
+    if (condition !== undefined) {
+      const where = ConvertToWhere(condition);
+      return this.req(model + '/delete', {
         where
       });
+    }
+    return of(false);
   }
 }
