@@ -1,4 +1,4 @@
-import {Component, Input, OnInit, TemplateRef, ViewChild} from '@angular/core';
+import {Component, Input, OnChanges, SimpleChanges, TemplateRef, ViewChild} from '@angular/core';
 
 @Component({
   selector: 'bit-error-tip',
@@ -12,18 +12,22 @@ import {Component, Input, OnInit, TemplateRef, ViewChild} from '@angular/core';
       </ng-template>
   `
 })
-export class BitErrorTipComponent implements OnInit {
+export class BitErrorTipComponent implements OnChanges {
   @ViewChild('ref', {static: true}) ref: TemplateRef<any>;
   @Input() hasError: any = {};
   errorLists: any[] = [];
 
-  ngOnInit() {
-    for (const key in this.hasError) {
-      if (this.hasError.hasOwnProperty(key)) {
-        this.errorLists.push({
-          key,
-          error: this.hasError[key]
-        });
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes.hasOwnProperty('hasError')) {
+      this.errorLists = [];
+      const errors = changes.hasError.currentValue;
+      for (const key in errors) {
+        if (errors.hasOwnProperty(key)) {
+          this.errorLists.push({
+            key,
+            error: errors[key]
+          });
+        }
       }
     }
   }
