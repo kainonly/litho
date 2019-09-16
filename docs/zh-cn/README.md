@@ -9,8 +9,8 @@ NGX-BIT
 [![TypeScript](https://img.shields.io/badge/%3C%2F%3E-TypeScript-blue.svg?style=flat-square)](https://www.typescriptlang.org/)
 [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](https://raw.githubusercontent.com/kainonly/ngx-bit.js/master/LICENSE)
 
-- **V6-LTS** [https://ngx-bit.v1.kain.net.cn](https://ngx-bit.v1.kain.net.cn)
-- **V7-LTS** [https://ngx-bit.v7.kain.net.cn](https://ngx-bit.v7.kain.net.cn)
+- **V6-LTS** [https://ngx-bit.v1.kainonly.com](https://ngx-bit.v1.kainonly.com)
+- **V7-LTS** [https://ngx-bit.v7.kainonly.com](https://ngx-bit.v7.kainonly.com)
 
 ### 初始化
 
