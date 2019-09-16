@@ -1,6 +1,6 @@
 - [En](/)
 - [中文](/zh-cn/)
 - VERSION
-  - [1.x](https://ngx-bit.v1.kain.net.cn)
-  - [7.x](https://ngx-bit.v7.kain.net.cn)
+  - [1.x](https://ngx-bit.v1.kainonly.com)
+  - [7.x](https://ngx-bit.v7.kainonly.com)
   - [8.x](/)
