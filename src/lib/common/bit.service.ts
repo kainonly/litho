@@ -261,6 +261,7 @@ export class BitService {
    * Register search object
    */
   registerSearch(selector: string, ...search: SearchOptions[]): Observable<any> {
+    this.search = {};
     return this.storageMap.get('search:' + selector).pipe(
       map((data: any) => {
         if (!data) {
