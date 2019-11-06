@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {StorageMap} from '@ngx-pwa/local-storage';
 import {Event, NavigationEnd, Router} from '@angular/router';
 import {Subscription} from 'rxjs';
-import {map} from 'rxjs/operators';
+import {filter, map, switchMap} from 'rxjs/operators';
 import {getSelectorFormUrl} from '../lib.common';
 import {BitService} from '../common/bit.service';
 
@@ -20,10 +20,15 @@ export class StorageService {
   }
 
   /**
-   * Clear all Storage
+   * Clear Ngx Bit Storage
    */
   clear() {
-    this.storageMap.clear().subscribe(() => {
+    this.storageMap.keys().pipe(
+      filter(v =>
+        ['resource', 'router'].includes(v) || v.search(/^search:\S+$/) !== -1
+      ),
+      switchMap(key => this.storageMap.delete(key))
+    ).subscribe(() => {
     });
   }
 
