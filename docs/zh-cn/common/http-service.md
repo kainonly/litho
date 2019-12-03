@@ -42,7 +42,7 @@ export const environment = {
 
 ```typescript
 get(id: number) {
-  return this.http.get(this.model, {id});
+  return this.http.get(this.model, id);
 }
 ```
 
@@ -56,7 +56,7 @@ get(id: number) {
 - **special** `boolean` 是否返回源数据
 
 ```typescript
-lists(search: any, app: number, refresh: boolean): Observable<any> {
+lists(search: any, refresh: boolean): Observable<any> {
   return this.http.lists(this.model, search, refresh);
 }
 ```
@@ -112,8 +112,8 @@ edit(data: any): Observable<any> {
 - **extra** `any` 扩展字段
 
 ```typescript
-status(data: any, app: number): Observable<any> {
-  return this.http.status(this.model, data, undefined, {app});
+status(data: any): Observable<any> {
+  return this.http.status(this.model, data);
 }
 ```
 
@@ -126,7 +126,7 @@ status(data: any, app: number): Observable<any> {
 - **condition** `SearchOptions[]` 条件数组
 
 ```typescript
-delete(id: number, app: number): Observable<any> {
-  return this.http.delete(this.model, [id]);
+delete(id: number | number[]): Observable<any> {
+  return this.http.delete(this.model, Array.isArray(id) ? id : [id]);
 }
 ```

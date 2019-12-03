@@ -42,7 +42,7 @@ Create a process to get a single piece of data
 
 ```typescript
 get(id: number) {
-  return this.http.get(this.model, {id});
+  return this.http.get(this.model, id);
 }
 ```
 
@@ -56,7 +56,7 @@ Create a page list data processing
 - **special** `boolean` Whether to return source data
 
 ```typescript
-lists(search: any, app: number, refresh: boolean): Observable<any> {
+lists(search: any, refresh: boolean): Observable<any> {
   return this.http.lists(this.model, search, refresh);
 }
 ```
@@ -112,8 +112,8 @@ Create a state switch processing
 - **extra** `any` Extra field
 
 ```typescript
-status(data: any, app: number): Observable<any> {
-  return this.http.status(this.model, data, undefined, {app});
+status(data: any): Observable<any> {
+  return this.http.status(this.model, data);
 }
 ```
 
@@ -123,10 +123,10 @@ Create a delete process
 
 - **model** `string` Model name
 - **id** `number[] | string[]` Primary key
-- **condition** `any | number | number[] | string | string[] | SearchOptions[]` Condition
+- **condition** `SearchOptions[]` Condition
 
 ```typescript
-delete(id: number, app: number): Observable<any> {
-  return this.http.delete(this.model, [id]);
+delete(id: number | number[]): Observable<any> {
+  return this.http.delete(this.model, Array.isArray(id) ? id : [id]);
 }
 ```
