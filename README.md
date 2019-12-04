@@ -37,7 +37,7 @@ npm install ngx-bit @ngx-pwa/local-storage sweetalert2 --save
 ```
 
 - **@ngx-pwa/local-storage** version >= 8.x
-- **sweetalert2**  version >= 8.x
+- **sweetalert2**  version >= 9.x
 
 ### Definition ENV
 

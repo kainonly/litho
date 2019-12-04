@@ -35,7 +35,7 @@ npm install ngx-bit @ngx-pwa/local-storage sweetalert2 --save
 **注意**：当前的版本基于 Angular8 需确认依赖版本
 
 - **@ngx-pwa/local-storage** version >= 8.x
-- **sweetalert2**  version >= 8.x
+- **sweetalert2**  version >= 9.x
 
 ### 定义环境配置
 

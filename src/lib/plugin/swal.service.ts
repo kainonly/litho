@@ -25,7 +25,7 @@ export class SwalService {
         Swal.fire({
           title: this.bit.l.operateSuccess,
           text: customize && customize.text ? customize.text : this.bit.l.addSuccessMsg,
-          type: 'success',
+          icon: 'success',
           showCancelButton: true,
           confirmButtonText:
             customize && customize.confirmButtonText
@@ -50,7 +50,7 @@ export class SwalService {
         Swal.fire({
           title: this.bit.l.operateError,
           text: customize && customize.errorText ? customize.errorText : res.msg,
-          type: 'error',
+          icon: 'error',
           confirmButtonText: this.bit.l.operateOk
         }).then(() => {
           subscriber.next(false);
@@ -69,7 +69,7 @@ export class SwalService {
         Swal.fire({
           title: this.bit.l.operateSuccess,
           text: customize && customize.text ? customize.text : this.bit.l.editSuccessMsg,
-          type: 'success',
+          icon: 'success',
           showCancelButton: true,
           confirmButtonText:
             customize && customize.confirmButtonText
@@ -93,7 +93,7 @@ export class SwalService {
         Swal.fire({
           title: this.bit.l.operateError,
           text: customize && customize.errorText ? customize.errorText : res.msg,
-          type: 'error',
+          icon: 'error',
           confirmButtonText: this.bit.l.operateOk
         }).then(() => {
           subscriber.next(false);
@@ -111,7 +111,7 @@ export class SwalService {
       Swal.fire({
         title: this.bit.l.operateWarning,
         text: customize && customize.text ? customize.text : this.bit.l.deleteWarning,
-        type: 'warning',
+        icon: 'warning',
         showCancelButton: true,
         confirmButtonText:
           customize && customize.confirmButtonText ? customize.confirmButtonText : this.bit.l.deleteYes,
