@@ -19,6 +19,7 @@ export interface SearchOptions {
   field: string;
   op: string;
   value: any;
+  must?: boolean;
 }
 
 export interface Search {

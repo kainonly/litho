@@ -76,8 +76,8 @@ export const ConvertToWhere = (condition: SearchOptions[]) => {
     if (typeof x.value === 'string') {
       x.value = x.value.trim();
     }
-    if (!(x.value === '' || x.value === 0 || !x.value
-      || (typeof x.value === 'object' && x.value.length === 0))) {
+    if (!(x.value === '' || x.value === 0 || !x.value || (typeof x.value === 'object' && x.value.length === 0))
+      || x.must) {
       where.push([x.field, x.op, (x.op === 'like' ? `%${x.value}%` : x.value)]);
     }
   }
