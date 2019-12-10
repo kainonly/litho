@@ -77,7 +77,7 @@ export class StorageService {
    * Auto Page Index
    */
   private autoPageIndex(url: string, match?: any[]) {
-    if (this.prevUrl) {
+    if (this.prevUrl && this.bit.listsPageIndex !== 1) {
       this.storageMap.set(
         'page:' + this.prevUrl,
         this.bit.listsPageIndex
