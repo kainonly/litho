@@ -88,9 +88,7 @@ export class StorageService {
     this.storageMap.get(
       'page:' + this.prevUrl
     ).subscribe((index: number) => {
-      if (index) {
-        this.bit.listsPageIndex = index;
-      }
+      this.bit.listsPageIndex = index ? index : 1;
     });
   }
 
