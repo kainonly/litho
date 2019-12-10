@@ -26,7 +26,10 @@ export class StorageService {
   clear() {
     this.storageMap.keys().pipe(
       filter(v =>
-        ['resource', 'router'].includes(v) || v.search(/^search:\S+$/) !== -1
+        ['resource', 'router'].includes(v) ||
+        v.search(/^search:\S+$/) !== -1 ||
+        v.search(/^page:\S+$/) !== -1 ||
+        v.search(/^cross:\S+$/) !== -1
       ),
       switchMap(key => this.storageMap.delete(key))
     ).subscribe(() => {
@@ -77,12 +80,19 @@ export class StorageService {
    * Auto Page Index
    */
   private autoPageIndex(url: string, match?: any[]) {
-    if (this.prevUrl && this.bit.listsPageIndex !== 1) {
-      this.storageMap.set(
-        'page:' + this.prevUrl,
-        this.bit.listsPageIndex
-      ).subscribe(() => {
-      });
+    if (this.prevUrl) {
+      if (this.bit.listsPageIndex !== 1) {
+        this.storageMap.set(
+          'page:' + this.prevUrl,
+          this.bit.listsPageIndex
+        ).subscribe(() => {
+        });
+      } else {
+        this.storageMap.delete(
+          'page:' + this.prevUrl
+        ).subscribe(() => {
+        });
+      }
     }
     this.prevUrl = getSelectorFormUrl(url, match);
     this.storageMap.get(
