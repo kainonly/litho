@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {StorageMap} from '@ngx-pwa/local-storage';
-import {Event, NavigationEnd, Router} from '@angular/router';
+import {Event, NavigationEnd, NavigationStart, Router} from '@angular/router';
 import {Subscription} from 'rxjs';
 import {filter, map, switchMap} from 'rxjs/operators';
 import {getSelectorFormUrl} from '../lib.common';
@@ -12,6 +12,7 @@ export class StorageService {
    * Router subscription
    */
   private routerSubscription: Subscription;
+  private prevUrl: string;
 
   constructor(
     private storageMap: StorageMap,
@@ -43,16 +44,18 @@ export class StorageService {
   }
 
   /**
-   * Auto Breadcrumb Data
+   * Auto Breadcrumb & PageIndex
    */
-  autoBreadcrumb(router: Router, match = ['%7B', '%7D']) {
-    this.destoryBreadcrumb();
+  setup(router: Router, match = ['%7B', '%7D']) {
+    this.destory();
     if (router.url !== '/') {
+      this.autoPageIndex(router.url, match);
       this.routerAssociate(router, router.url, match);
     }
     this.routerSubscription = router.events.subscribe((event: Event) => {
-      if (event instanceof NavigationEnd) {
+      if (event instanceof NavigationStart) {
         if (event.url !== '/') {
+          this.autoPageIndex(event.url, match);
           this.routerAssociate(router, event.url, match);
         } else {
           this.clearBreadcrumb();
@@ -62,12 +65,33 @@ export class StorageService {
   }
 
   /**
-   * Destory breadcrumb
+   * Destory Storage
    */
-  destoryBreadcrumb() {
+  destory() {
     if (this.routerSubscription) {
       this.routerSubscription.unsubscribe();
     }
+  }
+
+  /**
+   * Auto Page Index
+   */
+  private autoPageIndex(url: string, match?: any[]) {
+    if (this.prevUrl) {
+      this.storageMap.set(
+        'page:' + this.prevUrl,
+        this.bit.listsPageIndex
+      ).subscribe(() => {
+      });
+    }
+    this.prevUrl = getSelectorFormUrl(url, match);
+    this.storageMap.get(
+      'page:' + this.prevUrl
+    ).subscribe((index: number) => {
+      if (index) {
+        this.bit.listsPageIndex = index;
+      }
+    });
   }
 
   /**
