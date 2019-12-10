@@ -74,6 +74,7 @@ export class StorageService {
     if (this.routerSubscription) {
       this.routerSubscription.unsubscribe();
     }
+    this.prevUrl = null;
   }
 
   /**
