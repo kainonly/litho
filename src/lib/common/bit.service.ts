@@ -341,4 +341,18 @@ export class BitService {
     }
     return controls;
   }
+
+  /**
+   * Parse i18n string json
+   */
+  i18nParse(raws: string) {
+    const data = JSON.parse(raws);
+    for (const i18n in data) {
+      if (data.hasOwnProperty(i18n) &&
+        this.config.i18nContain.indexOf(i18n) === -1) {
+        Reflect.deleteProperty(data, i18n);
+      }
+    }
+    return data;
+  }
 }

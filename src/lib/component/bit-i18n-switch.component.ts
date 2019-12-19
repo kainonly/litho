@@ -5,7 +5,7 @@ import {ConfigService} from '../common/config.service';
 @Component({
   selector: 'bit-i18n-switch',
   template: `
-    <ng-container *ngIf="bit.i18nContain.length>1">
+    <ng-container *ngIf="config.i18nSwitch.length>1">
       <nz-radio-group [(ngModel)]="bit.i18n"
                       (ngModelChange)="change($event)"
                       [nzSize]="'small'">
