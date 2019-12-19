@@ -5,13 +5,15 @@ import {ConfigService} from '../common/config.service';
 @Component({
   selector: 'bit-i18n-switch',
   template: `
+    <ng-container *ngIf="bit.i18nContain.length>1">
       <nz-radio-group [(ngModel)]="bit.i18n"
                       (ngModelChange)="change($event)"
                       [nzSize]="'small'">
-          <label *ngFor="let x of config.i18nSwitch" nz-radio-button [nzValue]="x.i18n">
-              <span><b>{{x.name[bit.locale]}}</b></span>
-          </label>
+        <label *ngFor="let x of config.i18nSwitch" nz-radio-button [nzValue]="x.i18n">
+          <span><b>{{x.name[bit.locale]}}</b></span>
+        </label>
       </nz-radio-group>
+    </ng-container>
   `
 })
 export class BitI18nSwitchComponent {
