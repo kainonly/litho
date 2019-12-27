@@ -10,6 +10,7 @@ import {JsonParsePipe} from './pipe/json-parse.pipe';
 import {LocalePipe} from './pipe/locale.pipe';
 import {SplitPipe} from './pipe/split.pipe';
 import {JoinPipe} from './pipe/join.pipe';
+import {PrivacyPipe} from './pipe/privacy.pipe';
 
 @NgModule({
   imports: [
@@ -25,7 +26,8 @@ import {JoinPipe} from './pipe/join.pipe';
     JsonParsePipe,
     LocalePipe,
     SplitPipe,
-    JoinPipe
+    JoinPipe,
+    PrivacyPipe
   ],
   declarations: [
     DefinedPipe,
@@ -37,7 +39,8 @@ import {JoinPipe} from './pipe/join.pipe';
     JsonParsePipe,
     LocalePipe,
     SplitPipe,
-    JoinPipe
+    JoinPipe,
+    PrivacyPipe
   ]
 })
 export class NgxBitPipeModule {
