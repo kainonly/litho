@@ -1,7 +1,7 @@
-NGX-BIT
-=======
+# NGX-BIT
 
-Easy-to-use Angular Auxiliary Layer Framework
+
+易用的 Angular 辅助层框架
 
 [![npm](https://img.shields.io/npm/v/ngx-bit.svg?style=flat-square)](https://ngx-bit.kain.net.cn)
 [![Downloads](https://img.shields.io/npm/dm/ngx-bit.svg?style=flat-square)](https://www.npmjs.com/package/ngx-bit)
@@ -9,39 +9,37 @@ Easy-to-use Angular Auxiliary Layer Framework
 [![TypeScript](https://img.shields.io/badge/%3C%2F%3E-TypeScript-blue.svg?style=flat-square)](https://www.typescriptlang.org/)
 [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](https://raw.githubusercontent.com/kainonly/ngx-bit.js/master/LICENSE)
 
+- **V6-LTS** [https://ngx-bit.v1.kainonly.com](https://ngx-bit.v1.kainonly.com)
+- **V7-LTS** [https://ngx-bit.v7.kainonly.com](https://ngx-bit.v7.kainonly.com)
 
-- **V6-LTS** [https://ngx-bit.v1.kain.net.cn](https://ngx-bit.v1.kain.net.cn)
-- **V7-LTS** [https://ngx-bit.v7.kain.net.cn](https://ngx-bit.v7.kain.net.cn)
-
-
-### Initialization
+### 初始化
 
 ```shell
 ng new <project_name>
 ```
 
-### Install
+### 安装依赖
 
-Ng-zorro-antd is an Angular implementation of Ant Design, and the ngx-bit auxiliary layer is based on the ng-zorro-antd framework.
+ng-zorro-antd 是 Ant Design 的 Angular 实现, ngx-bit 辅助层是基于 ng-zorro-antd 框架实现的
 
 ```shell
 ng add ng-zorro-antd
 ```
 
-At the same time, ngx-bit also uses the `IndexDB` front-end storage and the `Sweetalert` prompt box plugin, which are implemented by `@ngx-pwa/local-storage` `sweetalert2` respectively.
-
-> **Note**: The current version is based on Angular8 and needs to confirm the dependent version.
+同时 ngx-bit 还使用了 `IndexDB` 前端存储和 `Sweetalert` 提示框插件，它们分别依赖于  `@ngx-pwa/local-storage` `sweetalert2` 来实现。
 
 ```shell
 npm install ngx-bit @ngx-pwa/local-storage sweetalert2 --save
 ```
 
+**注意**：当前的版本基于 Angular8 需确认依赖版本
+
 - **@ngx-pwa/local-storage** version >= 8.x
 - **sweetalert2**  version >= 9.x
 
-### Definition ENV
+### 定义环境配置
 
-The development environment modifies `src/environments/environment.ts` and the production environment modifies `src/environments/environment.prod.ts`, which is related to the ngx-bit environment configuration as follows:
+开发环境修改 `src/environments/environment.ts`，生产环境修改 `src/environments/environment.prod.ts`，与 ngx-bit 环境配置相关的如下： 
 
 ```typescript
 export const environment = {
@@ -109,9 +107,9 @@ export const environment = {
 };
 ```
 
-### App Module
+### 定义应用模块
 
-Modify `src/app/app.module.ts` Import `NgxBitModule`
+修改 `src/app/app.module.ts`，引入 `NgxBitModule`
 
 ```typescript
 import {NgModule} from '@angular/core';
@@ -149,7 +147,7 @@ const routes: Routes = [
     BrowserModule,
     BrowserAnimationsModule,
     HttpClientModule,
-    // XSRF can be ignored if the frontend is different from the backend domain name
+    // 如果前端与后端域名不同可忽略XSRF
     HttpClientXsrfModule.withOptions({
       cookieName: 'xsrf_token',
       headerName: 'X-XSRF-TOKEN',
@@ -168,9 +166,9 @@ export class AppModule {
 }
 ```
 
-### Router Module
+### 定义路由模块
 
-Create `src/app/app.router.module.ts`, the new version of `loadChildren` no longer uses the string path mode, you can see the official description [DeprecatedLoadChildren] (https://angular.io/api/router/ DeprecatedLoadChildren)
+创建 `src/app/app.router.module.ts`，新版本中 `loadChildren` 不再使用字符串路径模式，具体可查看官方说明 [DeprecatedLoadChildren](https://angular.io/api/router/DeprecatedLoadChildren)
 
 ```typescript
 import {NgModule} from '@angular/core';
@@ -212,9 +210,9 @@ export class AppRouterModule {
 }
 ```
 
-### Common Language pack
+### 定义公共语言包
 
-Create `src/app/app.language.ts`, public language packs can be registered once using `registerLocales(packer, true)`
+创建 `src/app/app.language.ts`，公共语言包可使用 `registerLocales(packer, true)` 一次性注册
 
 ```typescript
 export default {
@@ -289,9 +287,9 @@ export default {
 };
 ```
 
-### App Component
+### 定义根组件
 
-Modify `src/app/app.component.ts` and register the common language pack
+修改 `src/app/app.component.ts`，并注册公共语言包
 
 ```typescript
 import {Component, OnInit} from '@angular/core';
@@ -311,7 +309,9 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit() {
+    // 注册公共语言包
     this.bit.registerLocales(packer, true);
+    // 设置请求拦截器
     this.config.interceptor = (res: any): Observable<any> => {
       if (res.error && res.msg === 'error:rbac') {
         this.message.error(this.bit.l.rbac_error);
@@ -322,9 +322,9 @@ export class AppComponent implements OnInit {
 }
 ```
 
-### Running script
+### 运行脚本
 
-Modify the `scripts` of `package.json`
+修改 `package.json` 的 `scripts`
 
 ```json
 {
