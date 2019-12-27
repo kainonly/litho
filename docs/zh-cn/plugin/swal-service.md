@@ -2,11 +2,7 @@
 
 基于 sweetalert2 的提交反馈栏
 
-#### SwalService.native : Swal
-
-原始 sweetalert2 对象
-
-#### addAlert(res: any, form: FormGroup, reset?: any, customize?: AlertCustomize): Observable< any >
+#### addAlert(res: any, form: FormGroup, reset?: any, customize?: AlertCustomize)
 
 新增返回反馈栏
 
@@ -40,7 +36,7 @@ export class AdminAddComponent implements OnInit {
 }
 ```
 
-#### editAlert(res: any, customize?: AlertCustomize): Observable< any >
+#### editAlert(res: any, customize?: AlertCustomize)
 
 修改返回反馈栏
 

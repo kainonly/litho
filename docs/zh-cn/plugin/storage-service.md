@@ -2,7 +2,7 @@
 
 #### clear()
 
-清除所有本地存储
+清除框架使用的本地存储
 
 ```typescript
 this.storage.clear();
@@ -10,30 +10,32 @@ this.storage.clear();
 
 #### putResource(resource: Map< string, any >, router: Map< string, any >)
 
-将资源保存在本地存储中
+将资源数据保存在本地存储中
 
 - **resource** `Map< string, any >` 资源数据
 - **router** `Map< string, any >` 路由数据
 
 ```typescript
-this.storage.setMenu(data.menu, data.router);
+this.mainService.resource().subscribe(data => {
+    this.storageService.putResource(data.resource, data.router);
+});
 ```
 
-#### autoBreadcrumb(router: Router, match = ['%7B', '%7D'])
+#### setup(router: Router, match = ['%7B', '%7D'])
 
-自动计算面包屑
+安装框架存储支持：计算面包屑、存储历史分页等
 
 - **router** `Router` 应用 `Router` 对象
 - **match** `string[]` 路由标签获取符，默认`['%7B', '%7D']`
 
 ```typescript
-this.storage.autoBreadcrumb(this.router);
+this.storageService.setup(this.router);
 ```
 
-#### destoryBreadcrumb()
+#### destory()
 
-销毁面包屑自动计算
+销毁框架存储支持
 
 ```typescript
-this.storage.destoryBreadcrumb();
+this.storageService.destory();
 ```
