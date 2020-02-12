@@ -46,14 +46,14 @@ export class HttpService {
   /**
    * Lists Request
    */
-  lists(model: string, condition: SearchOptions[] = [], refresh = false, origin = false): Observable<any> {
+  lists(model: string, condition: SearchOptions[] = [], refresh = false, limit = 0, origin = false): Observable<any> {
     const where = ConvertToWhere(condition);
     if (refresh === true) {
       this.bit.listsPageIndex = 1;
     }
     const http = this.req(model + '/lists', {
       page: {
-        limit: this.bit.pageLimit,
+        limit: !limit ? this.bit.pageLimit : limit,
         index: this.bit.listsPageIndex
       },
       where,
