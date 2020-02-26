@@ -7,6 +7,7 @@ import {BitService} from '../common/bit.service';
 })
 export class BitSearchClearDirective {
   @Input() bitSearchClear: string;
+  @Input() variable: object;
   @Input() reset: any;
   @Output() after: EventEmitter<any> = new EventEmitter<any>();
 
@@ -18,15 +19,29 @@ export class BitSearchClearDirective {
 
   @HostListener('click')
   onclick() {
-    for (const i in this.bit.search) {
-      if (!this.bit.search.hasOwnProperty(i)) {
-        continue;
+    if (!this.variable) {
+      for (const i in this.bit.search) {
+        if (!this.bit.search.hasOwnProperty(i)) {
+          continue;
+        }
+        const search = this.bit.search[i];
+        if (this.reset !== undefined && this.reset.hasOwnProperty(search.field)) {
+          search.value = this.reset[search.field];
+        } else {
+          search.value = '';
+        }
       }
-      const search = this.bit.search[i];
-      if (this.reset !== undefined && this.reset.hasOwnProperty(search.field)) {
-        search.value = this.reset[search.field];
-      } else {
-        search.value = '';
+    } else {
+      for (const i in this.variable) {
+        if (!this.variable.hasOwnProperty(i)) {
+          continue;
+        }
+        const search = this.variable[i];
+        if (this.reset !== undefined && this.reset.hasOwnProperty(search.field)) {
+          search.value = this.reset[search.field];
+        } else {
+          search.value = '';
+        }
       }
     }
     this.storageMap.delete('search:' + this.bitSearchClear).subscribe(() => {

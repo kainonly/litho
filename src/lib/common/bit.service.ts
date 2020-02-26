@@ -277,20 +277,49 @@ export class BitService {
   }
 
   /**
+   * Register section search object
+   */
+  registerSectionSearch(selector: string, variable: object, ...search: SearchOptions[]): Observable<any> {
+    Reflect.ownKeys(variable).forEach(key => Reflect.deleteProperty(variable, key));
+    return this.storageMap.get('search:' + selector).pipe(
+      map((data: any) => {
+        if (!data) {
+          search.forEach(((value) => {
+            variable[value.field] = value;
+          }));
+        } else {
+          data.forEach(((value) => {
+            variable[value.field] = value;
+          }));
+        }
+        return true;
+      })
+    );
+  }
+
+  /**
    * Determine whether the index exists in the search object
    */
-  hasSearch(field: string): boolean {
-    return this.search.hasOwnProperty(field);
+  hasSearch(field: string, variable?: object): boolean {
+    return !variable ? this.search.hasOwnProperty(field) : variable.hasOwnProperty(field);
   }
 
   /**
    *
    */
-  getSearch() {
+  getSearch(variable?: object) {
     const search = [];
-    for (const i in this.search) {
-      if (this.search.hasOwnProperty(i)) {
-        search.push(this.search[i]);
+    if (!variable) {
+      for (const i in this.search) {
+        if (this.search.hasOwnProperty(i)) {
+          search.push(this.search[i]);
+        }
+      }
+    } else {
+      for (const i in variable) {
+        if (variable.hasOwnProperty(i)) {
+          search.push(variable[i]);
+        }
       }
     }
     return search;

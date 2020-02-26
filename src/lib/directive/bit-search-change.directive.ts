@@ -9,6 +9,7 @@ import {BitService} from '../common/bit.service';
 })
 export class BitSearchChangeDirective implements OnInit {
   @Input() bitSearchChange: string;
+  @Input() variable: object;
   @Output() after: EventEmitter<any> = new EventEmitter<any>();
 
   constructor(
@@ -20,7 +21,10 @@ export class BitSearchChangeDirective implements OnInit {
 
   ngOnInit() {
     this.model.update.pipe(
-      switchMap(_ => this.storageMap.set('search:' + this.bitSearchChange, this.bit.search))
+      switchMap(_ =>
+        this.storageMap.set('search:' + this.bitSearchChange, !this.variable ? this.bit.search : this.variable
+        )
+      )
     ).subscribe(_ => {
       this.after.emit(true);
     });

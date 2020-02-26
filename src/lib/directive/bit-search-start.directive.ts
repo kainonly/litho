@@ -7,6 +7,7 @@ import {BitService} from '../common/bit.service';
 })
 export class BitSearchStartDirective {
   @Input() bitSearchStart: string;
+  @Input() variable: object;
   @Output() after: EventEmitter<any> = new EventEmitter<any>();
 
   constructor(
@@ -27,7 +28,9 @@ export class BitSearchStartDirective {
    * search data save storage
    */
   private searchStart() {
-    this.storageMap.set('search:' + this.bitSearchStart, this.bit.search).subscribe(() => {
+    this.storageMap.set(
+      'search:' + this.bitSearchStart, !this.variable ? this.bit.search : this.variable
+    ).subscribe(() => {
       this.after.emit(true);
     });
   }
