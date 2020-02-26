@@ -8,6 +8,7 @@
 })
 export class BitSearchStartDirective {
   @Input() bitSearchStart: string;
+  @Input() variable: object;
   @Output() after: EventEmitter<any> = new EventEmitter<any>();
 
   constructor(
@@ -28,7 +29,9 @@ export class BitSearchStartDirective {
    * search data save storage
    */
   private searchStart() {
-    this.storageMap.set('search:' + this.bitSearchStart, this.bit.search).subscribe(() => {
+    this.storageMap.set(
+      'search:' + this.bitSearchStart, !this.variable ? this.bit.search : this.variable
+    ).subscribe(() => {
       this.after.emit(true);
     });
   }
@@ -36,6 +39,7 @@ export class BitSearchStartDirective {
 ```
 
 - **@Input() bitSearchStart** `string` 搜索命名
+- **@Input() variable** `object` 局部搜索变量
 - **@Output() after** `EventEmitter< any >` 开始搜索之后
 
 注册搜索字段

@@ -307,9 +307,9 @@ export class BitService {
   }
 
   /**
-   *
+   * Get conversion search array
    */
-  getSearch(variable?: object) {
+  getSearch(variable?: object): any[] {
     const search = [];
     if (!variable) {
       for (const i in this.search) {

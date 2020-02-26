@@ -255,7 +255,7 @@ ngOnInit() {
 }
 ```
 
-#### registerSearch(selector: string, ...search: SearchOptions[]): Observable<any>
+#### registerSearch(selector: string, ...search: SearchOptions[])
 
 注册搜索字段
 
@@ -268,19 +268,45 @@ ngOnInit() {
 
 ```typescript
 ngOnInit() {
-    this.bit.registerSearch('sys-index', {
-        field: 'user', op: 'like', value: ''
-    }).subscribe(() => {
-        ...
+    this.bit.registerSearch('sys-index', 
+        { field: 'user', op: 'like', value: '' }
+    ).subscribe(() => {
+        // ...
     });
 }
 ```
 
-#### hasSearch(field: string): boolean
+#### registerSectionSearch(selector: string, variable: object, ...search: SearchOptions[])
+
+注册局部搜索字段
+
+- **selector** `string` 命名
+- **variable** `object` 局部搜索变量
+- **search** `SearchOptions[]` 搜索参数
+  - **field** `string` 搜索字段名称
+  - **op** `string` 判断类型, 模糊搜索为 `like`,准确搜索为 `=`
+  - **value** `any` 搜索值
+- **Return** `Observable< any >` 搜索注册完成
+
+```typescript
+search = {};
+
+ngOnInit() {
+    this.bit.registerSearch('sys-index', this.search,
+        { field: 'user', op: 'like', value: '' }
+    ).subscribe(() => {
+        // ...
+    });
+}
+```
+
+#### hasSearch(field: string, variable?: object)
 
 搜索中是否存在该字段
 
 - **field** `string` 字段名称
+- **variable** `object` 局部搜索变量
+- **Return** `boolean`
 
 ```html
 <ng-container *ngIf="bit.hasSearch('user')">
@@ -290,9 +316,25 @@ ngOnInit() {
       <nz-option [nzValue]="x.id" [nzLabel]="x.name"></nz-option>
   </nz-select>
 </ng-container>
+
+<ng-container *ngIf="bit.hasSearch('user', search)">
+  <nz-select [(ngModel)]="search['user'].value"
+      bitSearchChange="sys-index"
+      [variable]="search"
+      (after)="getLists(true)">
+      <nz-option [nzValue]="x.id" [nzLabel]="x.name"></nz-option>
+  </nz-select>
+</ng-container>
 ```
 
-####  listsRefreshStatus(lists: any[])
+#### getSearch(variable?: object)
+
+获取转化为数组的搜索条件
+
+- **variable** `object` 局部搜索变量
+- **Return** `any[]`
+
+#### listsRefreshStatus(lists: any[])
 
 列表选择监听
 
