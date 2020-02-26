@@ -288,9 +288,11 @@ export class BitService {
             variable[value.field] = value;
           }));
         } else {
-          data.forEach(((value) => {
-            variable[value.field] = value;
-          }));
+          for (const key in data) {
+            if (data.hasOwnProperty(key)) {
+              variable[key] = data[key];
+            }
+          }
         }
         return true;
       })
