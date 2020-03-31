@@ -300,6 +300,13 @@ export class BitService {
   }
 
   /**
+   * Manually trigger search change after
+   */
+  searchChangeAfter(selector: string, variable?: object): Observable<any> {
+    return this.storageMap.set('search:' + selector, !variable ? this.search : variable)
+  }
+
+  /**
    * Determine whether the index exists in the search object
    */
   hasSearch(field: string, variable?: object): boolean {
