@@ -300,6 +300,22 @@ ngOnInit() {
 }
 ```
 
+#### searchChangeAfter(selector: string, variable?: object)
+
+手动触发搜索后置
+
+- **selector** `string` 命名
+- **variable** `object` 局部搜索变量
+- **Return** `Observable< any >` 搜索注册完成
+
+```typescript
+oneOfChange() {
+    this.bit.searchChangeAfter('sys-index').subscribe(() => {
+      this.getLists(true);
+    });
+}
+```
+
 #### hasSearch(field: string, variable?: object)
 
 搜索中是否存在该字段
