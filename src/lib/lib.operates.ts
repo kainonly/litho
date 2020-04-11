@@ -1,4 +1,6 @@
 import {Observable} from 'rxjs';
+import * as AjvFactory from 'ajv';
+import {Ajv} from 'ajv';
 
 /**
  * form control async validator
@@ -22,6 +24,17 @@ export const asyncValidator = (req: Observable<any>, field = 'duplicated'): Obse
   });
 };
 
+/**
+ * json schema validate
+ */
+export const validate = (schema: string | boolean | object, data: any): any => {
+  const ajv: Ajv = new AjvFactory();
+  const valid = ajv.validate(schema, data);
+  return {
+    error: !valid,
+    msg: ajv.errorsText()
+  };
+}
 
 export const emptyArray = (array: any[]) => {
   return Array.isArray(array) ? array.length === 0 : false;
@@ -31,7 +44,6 @@ export const emptyObject = (object: any): boolean => {
   return (object !== null && typeof object === 'object' && !Array.isArray(object)) ?
     Object.keys(object).length === 0 : false;
 };
-
 
 export const objectToArray = (object: any): any[] => {
   if (object !== null && typeof object === 'object' && !Array.isArray(object)) {
