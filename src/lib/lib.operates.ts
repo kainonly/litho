@@ -1,27 +1,35 @@
-import {Observable} from 'rxjs';
+import {Observable, timer} from 'rxjs';
+import {map, switchMap} from 'rxjs/operators';
+import * as AjvFactory from 'ajv';
+import {Ajv} from 'ajv';
 
 /**
  * form control async validator
  */
 export const asyncValidator = (req: Observable<any>, field = 'duplicated'): Observable<any> => {
-  return new Observable(subscriber => {
-    setTimeout(() => {
-      req.subscribe((res) => {
-        if (!res.error) {
-          if (res.data) {
-            subscriber.next({error: true, [field]: true});
-          } else {
-            subscriber.next(null);
-          }
-        } else {
-          subscriber.next({error: true});
-        }
-        subscriber.complete();
-      });
-    }, 1000);
-  });
+  return timer(500).pipe(
+    switchMap(() => req),
+    map(res => {
+      if (!res.error) {
+        return res.data ? {error: true, [field]: true} : null;
+      } else {
+        return {error: true, [field]: true};
+      }
+    })
+  );
 };
 
+/**
+ * json schema validate
+ */
+export const validate = (schema: string | boolean | object, data: any): any => {
+  const ajv: Ajv = new AjvFactory();
+  const valid = ajv.validate(schema, data);
+  return {
+    error: !valid,
+    msg: ajv.errorsText()
+  };
+}
 
 export const emptyArray = (array: any[]) => {
   return Array.isArray(array) ? array.length === 0 : false;
