@@ -3,9 +3,8 @@ import {CommonModule} from '@angular/common';
 import {BitSearchClearDirective} from './directive/bit-search-clear.directive';
 import {BitSearchStartDirective} from './directive/bit-search-start.directive';
 import {BitSearchChangeDirective} from './directive/bit-search-change.directive';
+import {BitColDirective} from './directive/bit-col.directive';
 import {BitFormSubmitDirective} from './directive/bit-form-submit.directive';
-import {BitFormLabelColDirective} from './directive/bit-form-label-col.directive';
-import {BitFormControlColDirective} from './directive/bit-form-control-col.directive';
 import {BitBackDirective} from './directive/bit-back.directive';
 import {BitStatusChangeDirective} from './directive/bit-status-change.directive';
 import {BitUploadDirective} from './directive/bit-upload.directive';
@@ -21,9 +20,8 @@ import {BitI18nUpdateDirective} from './directive/bit-i18n-update.directive';
     BitSearchStartDirective,
     BitSearchClearDirective,
     BitSearchChangeDirective,
+    BitColDirective,
     BitFormSubmitDirective,
-    BitFormControlColDirective,
-    BitFormLabelColDirective,
     BitOpenDirective,
     BitCrossLevelDirective,
     BitBackDirective,
@@ -35,9 +33,8 @@ import {BitI18nUpdateDirective} from './directive/bit-i18n-update.directive';
     BitSearchStartDirective,
     BitSearchClearDirective,
     BitSearchChangeDirective,
+    BitColDirective,
     BitFormSubmitDirective,
-    BitFormControlColDirective,
-    BitFormLabelColDirective,
     BitOpenDirective,
     BitCrossLevelDirective,
     BitBackDirective,

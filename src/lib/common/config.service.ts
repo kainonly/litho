@@ -14,13 +14,7 @@ export class ConfigService {
   httpInterceptor = false;
   breadcrumbTop = 0;
   pageLimit = 20;
-  formControlCol: any = {
-    common: {},
-    submit: {}
-  };
-  formLabelCol: any = {
-    common: {},
-  };
+  col: any = {};
   localeDefault = 'zh_cn';
   localeBind: Map<string, NzI18nInterface> = new Map();
   i18nDefault = 'zh_cn';

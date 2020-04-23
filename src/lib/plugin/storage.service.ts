@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {StorageMap} from '@ngx-pwa/local-storage';
-import {Event, NavigationEnd, NavigationStart, Router} from '@angular/router';
+import {Event, NavigationStart, Router} from '@angular/router';
 import {Subscription} from 'rxjs';
 import {filter, map, switchMap} from 'rxjs/operators';
 import {getSelectorFormUrl} from '../lib.common';
