@@ -1,7 +1,7 @@
 /**
  * getSelectorFormUrl
  */
-import {SearchOptions} from './lib.types';
+import { SearchOptions } from './lib.types';
 
 export const getSelectorFormUrl = (url: string, match: any[]) => {
   const regExp = new RegExp(`(?:${match[0]})(.+?)(?=${match[1]})`, 'g');

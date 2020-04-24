@@ -1,6 +1,6 @@
-import {Directive, HostListener, Input} from '@angular/core';
-import {BitService} from '../common/bit.service';
-import {NavigationExtras} from '@angular/router';
+import { Directive, HostListener, Input } from '@angular/core';
+import { BitService } from '../common/bit.service';
+import { NavigationExtras } from '@angular/router';
 
 @Directive({
   selector: '[bitOpen]'

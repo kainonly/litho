@@ -1,14 +1,14 @@
-import {ModuleWithProviders, NgModule} from '@angular/core';
-import {HttpClientModule} from '@angular/common/http';
-import {StorageModule} from '@ngx-pwa/local-storage';
-import {NzIconService} from 'ng-zorro-antd/icon';
+import { ModuleWithProviders, NgModule } from '@angular/core';
+import { HttpClientModule } from '@angular/common/http';
+import { StorageModule } from '@ngx-pwa/local-storage';
+import { NzIconService } from 'ng-zorro-antd/icon';
 
-import {ConfigService} from './common/config.service';
-import {BitService} from './common/bit.service';
-import {EventsService} from './common/events.service';
-import {HttpService} from './common/http.service';
-import {SwalService} from './plugin/swal.service';
-import {StorageService} from './plugin/storage.service';
+import { ConfigService } from './common/config.service';
+import { BitService } from './common/bit.service';
+import { EventsService } from './common/events.service';
+import { HttpService } from './common/http.service';
+import { SwalService } from './plugin/swal.service';
+import { StorageService } from './plugin/storage.service';
 
 @NgModule({
   imports: [
@@ -28,8 +28,8 @@ export class NgxBitModule {
         EventsService,
         SwalService,
         StorageService,
-        {provide: ConfigService, useValue: config},
-      ],
+        { provide: ConfigService, useValue: config }
+      ]
     };
   }
 

@@ -1,12 +1,12 @@
-import {Injectable} from '@angular/core';
-import {NavigationExtras, Router} from '@angular/router';
-import {Location} from '@angular/common';
-import {StorageMap} from '@ngx-pwa/local-storage';
-import {map} from 'rxjs/operators';
-import {Observable} from 'rxjs';
-import {NzI18nService} from 'ng-zorro-antd';
-import {ConfigService} from './config.service';
-import {EventsService} from './events.service';
+import { Injectable } from '@angular/core';
+import { NavigationExtras, Router } from '@angular/router';
+import { Location } from '@angular/common';
+import { StorageMap } from '@ngx-pwa/local-storage';
+import { map } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { NzI18nService } from 'ng-zorro-antd';
+import { ConfigService } from './config.service';
+import { EventsService } from './events.service';
 import {
   factoryLocales,
   getSelectorFormUrl,
@@ -14,7 +14,7 @@ import {
   i18nControlsValidate,
   i18nControlsValue
 } from '../lib.common';
-import {I18nGroupOptions, I18nTooltipOptions, Search, SearchOptions} from '../lib.types';
+import { I18nGroupOptions, I18nTooltipOptions, Search, SearchOptions } from '../lib.types';
 
 @Injectable()
 export class BitService {
@@ -137,7 +137,7 @@ export class BitService {
     private location: Location,
     private router: Router,
     private storageMap: StorageMap,
-    private nzI18nService: NzI18nService,
+    private nzI18nService: NzI18nService
   ) {
     this.static = config.staticUrl;
     this.uploads = (config.uploadsUrl) ? config.uploadsUrl : config.originUrl + '/' + config.uploadsPath;
@@ -303,7 +303,7 @@ export class BitService {
    * Manually trigger search change after
    */
   searchChangeAfter(selector: string, variable?: object): Observable<any> {
-    return this.storageMap.set('search:' + selector, !variable ? this.search : variable)
+    return this.storageMap.set('search:' + selector, !variable ? this.search : variable);
   }
 
   /**

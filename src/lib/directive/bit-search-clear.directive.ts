@@ -1,6 +1,6 @@
-import {Directive, EventEmitter, HostListener, Input, Output} from '@angular/core';
-import {StorageMap} from '@ngx-pwa/local-storage';
-import {BitService} from '../common/bit.service';
+import { Directive, EventEmitter, HostListener, Input, Output } from '@angular/core';
+import { StorageMap } from '@ngx-pwa/local-storage';
+import { BitService } from '../common/bit.service';
 
 @Directive({
   selector: '[bitSearchClear]'

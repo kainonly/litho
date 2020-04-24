@@ -1,5 +1,5 @@
-import {Directive, EventEmitter, OnInit, Output} from '@angular/core';
-import {FormGroupDirective} from '@angular/forms';
+import { Directive, EventEmitter, OnInit, Output } from '@angular/core';
+import { FormGroupDirective } from '@angular/forms';
 
 @Directive({
   selector: '[bitFormSubmit]'

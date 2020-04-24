@@ -1,6 +1,6 @@
-import {Injectable} from '@angular/core';
-import {NzI18nInterface} from 'ng-zorro-antd';
-import {of} from 'rxjs';
+import { Injectable } from '@angular/core';
+import { NzI18nInterface } from 'ng-zorro-antd';
+import { of } from 'rxjs';
 
 @Injectable()
 export class ConfigService {

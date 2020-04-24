@@ -1,10 +1,10 @@
-import {Injectable} from '@angular/core';
-import {FormGroup} from '@angular/forms';
-import {Location} from '@angular/common';
-import {Observable} from 'rxjs';
+import { Injectable } from '@angular/core';
+import { FormGroup } from '@angular/forms';
+import { Location } from '@angular/common';
+import { Observable } from 'rxjs';
 import Swal from 'sweetalert2';
-import {BitService} from '../common/bit.service';
-import {AlertCustomize} from '../lib.types';
+import { BitService } from '../common/bit.service';
+import { AlertCustomize } from '../lib.types';
 
 @Injectable()
 export class SwalService {

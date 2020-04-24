@@ -1,11 +1,11 @@
-import {Injectable} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
-import {map, switchMap} from 'rxjs/operators';
-import {Observable, of} from 'rxjs';
-import {ConfigService} from './config.service';
-import {BitService} from './bit.service';
-import {ConvertToWhere} from '../lib.common';
-import {SearchOptions} from '../lib.types';
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { map, switchMap } from 'rxjs/operators';
+import { Observable, of } from 'rxjs';
+import { ConfigService } from './config.service';
+import { BitService } from './bit.service';
+import { ConvertToWhere } from '../lib.common';
+import { SearchOptions } from '../lib.types';
 
 @Injectable()
 export class HttpService {
@@ -56,7 +56,7 @@ export class HttpService {
         limit: !limit ? this.bit.pageLimit : limit,
         index: this.bit.listsPageIndex
       },
-      where,
+      where
     }).pipe(
       map((res) => {
         this.bit.listsTotals = !res.error ? res.data.total : 0;
@@ -113,7 +113,7 @@ export class HttpService {
     const body = {
       id: data.id,
       switch: true,
-      [field]: !data[field],
+      [field]: !data[field]
     };
     if (extra !== undefined) {
       Object.assign(body, extra);

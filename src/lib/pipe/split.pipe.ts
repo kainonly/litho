@@ -1,6 +1,6 @@
-import {Pipe, PipeTransform} from '@angular/core';
+import { Pipe, PipeTransform } from '@angular/core';
 
-@Pipe({name: 'Split'})
+@Pipe({ name: 'Split' })
 export class SplitPipe implements PipeTransform {
   transform(text: string, symbol: string): string[] {
     if (!text || !symbol) {

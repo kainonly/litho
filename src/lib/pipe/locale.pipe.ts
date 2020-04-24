@@ -1,6 +1,6 @@
-import {Pipe, PipeTransform} from '@angular/core';
+import { Pipe, PipeTransform } from '@angular/core';
 
-@Pipe({name: 'Locale'})
+@Pipe({ name: 'Locale' })
 export class LocalePipe implements PipeTransform {
   transform(value: string | object, locale: string): string {
     try {
