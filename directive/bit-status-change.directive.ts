@@ -1,7 +1,7 @@
 import { Directive, EventEmitter, HostListener, Input, Output } from '@angular/core';
 import { NzNotificationService, NzSwitchComponent } from 'ng-zorro-antd';
 import { Observable } from 'rxjs';
-import { BitService } from '../common/bit.service';
+import { BitService } from 'ngx-bit';
 
 @Directive({
   selector: '[bitStatusChange]'

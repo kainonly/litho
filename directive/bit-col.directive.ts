@@ -1,6 +1,6 @@
 import { Directive, Input, OnInit } from '@angular/core';
 import { NzColDirective } from 'ng-zorro-antd/grid';
-import { ConfigService } from '../common/config.service';
+import { ConfigService } from 'ngx-bit';
 
 @Directive({
   selector: '[bitCol]'

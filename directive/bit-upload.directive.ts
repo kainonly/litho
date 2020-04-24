@@ -1,7 +1,6 @@
 import { Directive } from '@angular/core';
 import { NzUploadComponent } from 'ng-zorro-antd';
-import { ConfigService } from '../common/config.service';
-import { BitService } from '../common/bit.service';
+import { ConfigService, BitService } from 'ngx-bit';
 
 @Directive({
   selector: '[bitUpload]'

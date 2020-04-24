@@ -2,7 +2,6 @@ import { ModuleWithProviders, NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { StorageModule } from '@ngx-pwa/local-storage';
 import { NzIconService } from 'ng-zorro-antd/icon';
-
 import { ConfigService } from './common/config.service';
 import { BitService } from './common/bit.service';
 import { EventsService } from './common/events.service';

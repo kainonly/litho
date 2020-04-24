@@ -1,13 +1,11 @@
 import { Directive, HostListener, Input } from '@angular/core';
-import { BitService } from '../common/bit.service';
-import { NavigationExtras } from '@angular/router';
+import { BitService } from 'ngx-bit';
 
 @Directive({
-  selector: '[bitOpen]'
+  selector: '[bitCrossLevel]'
 })
-export class BitOpenDirective {
-  @Input() bitOpen: any[];
-  @Input() extras: NavigationExtras;
+export class BitCrossLevelDirective {
+  @Input() bitCrossLevel: string;
   @Input() bitTrigger = 'click';
 
   constructor(
@@ -18,14 +16,14 @@ export class BitOpenDirective {
   @HostListener('click')
   click() {
     if (this.bitTrigger === 'click') {
-      this.bit.open(this.bitOpen, this.extras);
+      this.bit.crossLevel(this.bitCrossLevel);
     }
   }
 
   @HostListener('touchstart')
   touch() {
     if (this.bitTrigger === 'touch') {
-      this.bit.open(this.bitOpen, this.extras);
+      this.bit.crossLevel(this.bitCrossLevel);
     }
   }
 }

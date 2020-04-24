@@ -2,7 +2,7 @@ import { Directive, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { StorageMap } from '@ngx-pwa/local-storage';
 import { NgModel } from '@angular/forms';
 import { switchMap } from 'rxjs/operators';
-import { BitService } from '../common/bit.service';
+import { BitService } from 'ngx-bit';
 
 @Directive({
   selector: '[bitSearchChange]'

@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { emptyObject } from '../lib.operates';
+import { emptyObject } from 'ngx-bit';
 
 @Pipe({ name: 'EmptyObject' })
 export class EmptyObjectPipe implements PipeTransform {
