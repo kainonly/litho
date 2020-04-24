@@ -16,8 +16,7 @@
 - 指令
   - [bitBack 返回上一级](directive/bit-back)
   - [bitCrossLevel 跨级跳转](directive/bit-cross-level)
-  - [bitFormControlCol 共用栅格](directive/bit-form-control-col)
-  - [bitFormLabelCol 共用栅格](directive/bit-form-label-col)
+  - [bitCol 栅格标识](directive/bit-col)
   - [bitFormSubmit 表单提交](directive/bit-form-submit)
   - [bitI18nUpdate 多语言联动验证](directive/bit-i18n-update)
   - [bitOpen 路由跳转](directive/bit-open)

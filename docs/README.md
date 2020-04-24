@@ -8,9 +8,6 @@
 [![TypeScript](https://img.shields.io/badge/%3C%2F%3E-TypeScript-blue.svg?style=flat-square)](https://www.typescriptlang.org/)
 [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](https://raw.githubusercontent.com/kainonly/ngx-bit.js/master/LICENSE)
 
-- **V6-LTS** [https://ngx-bit.v1.kainonly.com](https://ngx-bit.v1.kainonly.com)
-- **V7-LTS** [https://ngx-bit.v7.kainonly.com](https://ngx-bit.v7.kainonly.com)
-
 ### 初始化
 
 ```shell
@@ -31,9 +28,9 @@ ng add ng-zorro-antd
 npm install ngx-bit @ngx-pwa/local-storage sweetalert2 --save
 ```
 
-**注意**：当前的版本基于 Angular8 需确认依赖版本
+**注意**：当前的版本基于 Angular9 需确认依赖版本
 
-- **@ngx-pwa/local-storage** version >= 8.x
+- **@ngx-pwa/local-storage** version >= 9.x
 - **sweetalert2**  version >= 9.x
 
 ### 定义环境配置
@@ -54,8 +51,15 @@ export const environment = {
     httpInterceptor: true,
     pageLimit: 10,
     breadcrumbTop: 0,
-    formControlCol: {
-      common: {
+    col: {
+      label: {
+        nzXXl: 4,
+        nzXl: 5,
+        nzLg: 6,
+        nzMd: 7,
+        nzSm: 24
+      },
+      control: {
         nzXXl: 8,
         nzXl: 9,
         nzLg: 10,
@@ -69,15 +73,6 @@ export const environment = {
         nzMd: {span: 14, offset: 6},
         nzSm: {span: 24, offset: 0}
       }
-    },
-    formLabelCol: {
-      common: {
-        nzXXl: 4,
-        nzXl: 5,
-        nzLg: 6,
-        nzMd: 7,
-        nzSm: 24
-      },
     },
     localeDefault: 'zh_cn',
     localeBind: new Map([
@@ -215,7 +210,6 @@ export class AppRouterModule {
 
 ```typescript
 export default {
-  main: ['NGX-BIT', 'NGX-BIT'],
   dashboard: ['仪表盘', 'Dashboard'],
   language: ['中文', 'English'],
   center: ['个人中心', 'Center'],
@@ -231,7 +225,8 @@ export default {
   status: ['状态', 'Status'],
   edit: ['编辑', 'Edit'],
   delete: ['删除', 'Delete'],
-  checksDelete: ['删除选中', 'Delete Selected'],
+  refreshLists: ['刷新列表', 'Refresh Lists'],
+  bulkDelete: ['批量删除', 'Bulk Delete'],
   on: ['开启', 'On'],
   off: ['冻结', 'Off'],
   yes: ['是', 'Yes'],
@@ -302,9 +297,11 @@ import packer from './app.language';
   template: '<router-outlet></router-outlet>',
 })
 export class AppComponent implements OnInit {
-  constructor(private bit: BitService,
-              private message: NzMessageService,
-              private config: ConfigService) {
+  constructor(
+    private bit: BitService,
+    private message: NzMessageService,
+    private config: ConfigService
+  ) {
   }
 
   ngOnInit() {

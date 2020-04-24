@@ -75,35 +75,33 @@ export class AppComponent implements OnInit {
 
 列表分页, 默认值 `20`
 
-#### formControlCol: any
+#### col: any
 
-表单 `Control` 栅格统一设置
+栅格标识
 
 ```typescript
-formControlCol: {
-  common: {
-    nzMd: 10,
-    nzSm: 12,
-    nzXs: 24
+col: {
+  label: {
+    nzXXl: 4,
+    nzXl: 5,
+    nzLg: 6,
+    nzMd: 7,
+    nzSm: 24
+  },
+  control: {
+    nzXXl: 8,
+    nzXl: 9,
+    nzLg: 10,
+    nzMd: 14,
+    nzSm: 24,
   },
   submit: {
-    nzMd: {span: 10, offset: 7},
-    nzSm: {span: 12, offset: 7},
-    nzXs: {span: 24, offset: 0}
+    nzXXl: {span: 8, offset: 4},
+    nzXl: {span: 9, offset: 5},
+    nzLg: {span: 10, offset: 6},
+    nzMd: {span: 14, offset: 6},
+    nzSm: {span: 24, offset: 0}
   }
-}
-```
-
-#### formLabelCol: any
-
-表单 `Label` 栅格统一设置
-
-```typescript
-formLabelCol: {
-  common: {
-    nzSm: 7,
-    nzXs: 24
-  },
 }
 ```
 
