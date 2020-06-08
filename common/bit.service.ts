@@ -56,7 +56,7 @@ export class BitService {
   /**
    * Component i18n tooltips
    */
-  i18nTooltip: object | I18nTooltipOptions = {};
+  i18nTooltip: I18nTooltipOptions | any = {};
 
   /**
    * Component i18n
@@ -86,7 +86,7 @@ export class BitService {
   /**
    * Control panel search object
    */
-  search: Search | object = {};
+  search: Search | any = {};
 
   /**
    * Lists data loading status
