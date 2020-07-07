@@ -307,6 +307,38 @@ export class BitService {
   }
 
   /**
+   * Manually trigger search clear
+   */
+  searchClear(selector: string, reset: any = {}, variable?: object): Observable<any> {
+    if (!variable) {
+      for (const i in this.search) {
+        if (!this.search.hasOwnProperty(i)) {
+          continue;
+        }
+        const search = this.search[i];
+        if (reset !== undefined && reset.hasOwnProperty(search.field)) {
+          search.value = reset[search.field];
+        } else {
+          search.value = '';
+        }
+      }
+    } else {
+      for (const i in variable) {
+        if (!variable.hasOwnProperty(i)) {
+          continue;
+        }
+        const search = variable[i];
+        if (reset !== undefined && reset.hasOwnProperty(search.field)) {
+          search.value = reset[search.field];
+        } else {
+          search.value = '';
+        }
+      }
+    }
+    return this.storageMap.delete('search:' + selector);
+  }
+
+  /**
    * Determine whether the index exists in the search object
    */
   hasSearch(field: string, variable?: object): boolean {
