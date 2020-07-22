@@ -1,4 +1,0 @@
-- VERSION
-  - [1.x](https://ngx-bit.v1.kainonly.com)
-  - [7.x](https://ngx-bit.v7.kainonly.com)
-  - [8.x](/)
