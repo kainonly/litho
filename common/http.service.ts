@@ -33,11 +33,16 @@ export class HttpService {
    * Get Request
    */
   get(model: string, condition: number | string | SearchOptions[], origin = false): Observable<any> {
-    const http = Array.isArray(condition) ? this.req(model + '/get', {
-      where: ConvertToWhere(condition)
-    }) : this.req(model + '/get', {
-      id: condition
-    });
+    let http: Observable<any>;
+    if (Array.isArray(condition)) {
+      http = this.req(model + '/get', {
+        where: ConvertToWhere(condition)
+      });
+    } else {
+      http = this.req(model + '/get', {
+        id: condition
+      });
+    }
     return origin ? http : http.pipe(
       map(res => !res.error ? res.data : null)
     );
