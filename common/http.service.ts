@@ -1,20 +1,17 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-
 import { map, switchMap } from 'rxjs/operators';
 import { Observable, of } from 'rxjs';
 import { ConfigService } from './config.service';
-import { BitService } from './bit.service';
-import { ConvertToWhere } from '../lib.common';
-import { SearchOptions } from '../lib.types';
 import { ListByPage } from '../factory/list-by-page';
+import { getQuerySchema } from '../operates/get-query-schema';
+import { SearchOption } from '../types/search-option';
 
 @Injectable()
 export class HttpService {
   constructor(
     private http: HttpClient,
-    private config: ConfigService,
-    private bit: BitService
+    private config: ConfigService
   ) {
   }
 
@@ -22,10 +19,14 @@ export class HttpService {
    * HttpClient
    */
   req(url: string, body: any = {}, method = 'post'): Observable<any> {
-    const httpClient = this.http.request(method, this.config.originUrl + this.config.namespace + '/' + url, {
-      body,
-      withCredentials: this.config.withCredentials
-    });
+    const httpClient = this.http.request(
+      method,
+      this.config.originUrl + this.config.namespace + '/' + url,
+      {
+        body,
+        withCredentials: this.config.withCredentials
+      }
+    );
     return !this.config.httpInterceptor ? httpClient : httpClient.pipe(
       switchMap(res => this.config.interceptor(res))
     );
@@ -34,18 +35,18 @@ export class HttpService {
   /**
    * Get Request
    */
-  get(model: string, condition: number | string | SearchOptions[], origin = false): Observable<any> {
+  get(model: string, condition: number | string | SearchOption[]): Observable<any> {
     let http: Observable<any>;
     if (Array.isArray(condition)) {
       http = this.req(model + '/get', {
-        where: ConvertToWhere(condition)
+        where: getQuerySchema(condition)
       });
     } else {
       http = this.req(model + '/get', {
         id: condition
       });
     }
-    return origin ? http : http.pipe(
+    return http.pipe(
       map(res => !res.error ? res.data : null)
     );
   }
@@ -62,7 +63,7 @@ export class HttpService {
         limit: factory.limit,
         index: factory.index
       },
-      where: factory.getQuerySchema()
+      where: factory.toQuerySchema()
     }).pipe(
       map((res) => {
         factory.totals = !res.error ? res.data.total : 0;
@@ -82,12 +83,10 @@ export class HttpService {
   /**
    * OriginLists Request
    */
-  originLists(model: string, condition: SearchOptions[] = [], special = false): Observable<any> {
-    const where = special ? condition : ConvertToWhere(condition);
-    const http = this.req(model + '/originLists', {
-      where
-    });
-    return special ? http : http.pipe(
+  originLists(model: string, condition: SearchOption[] = []): Observable<any> {
+    return this.req(model + '/originLists', {
+      where: getQuerySchema(condition)
+    }).pipe(
       map(res => !res.error ? res.data : null)
     );
   }
@@ -102,12 +101,12 @@ export class HttpService {
   /**
    * Edit Request
    */
-  edit(model: string, data: any, condition?: SearchOptions[]): Observable<any> {
-    Reflect.set(data, 'switch', false);
+  edit(model: string, data: any, condition?: SearchOption[]): Observable<any> {
+    data.switch = false;
     return !condition ?
       this.req(model + '/edit', data) :
       this.req(model + '/edit', Object.assign(data, {
-          where: ConvertToWhere(condition)
+          where: getQuerySchema(condition)
         })
       );
   }
@@ -137,16 +136,15 @@ export class HttpService {
   /**
    * Delete Request
    */
-  delete(model: string, id?: number[] | string[], condition?: SearchOptions[]): Observable<any> {
-    if (id !== undefined) {
+  delete(model: string, id?: any[], condition?: SearchOption[]): Observable<any> {
+    if (!id) {
       return this.req(model + '/delete', {
         id
       });
     }
-    if (condition !== undefined) {
-      const where = ConvertToWhere(condition);
+    if (!condition) {
       return this.req(model + '/delete', {
-        where
+        where: getQuerySchema(condition)
       });
     }
     return of(false);

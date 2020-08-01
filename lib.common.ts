@@ -1,8 +1,6 @@
 /**
  * getSelectorFormUrl
  */
-import { SearchOptions } from './lib.types';
-
 export const getSelectorFormUrl = (url: string, match: any[]) => {
   const regExp = new RegExp(`(?:${match[0]})(.+?)(?=${match[1]})`, 'g');
   return url.match(regExp)[0].replace(match[0], '');
@@ -65,21 +63,4 @@ export const i18nControlsAsyncValidate = (i18n: string, asyncValidate?: any): an
   } else {
     return [];
   }
-};
-
-/**
- * Convert To Where
- */
-export const ConvertToWhere = (condition: SearchOptions[]) => {
-  const where = [];
-  for (const x of condition) {
-    if (typeof x.value === 'string') {
-      x.value = x.value.trim();
-    }
-    if (!(x.value === '' || x.value === 0 || !x.value || (typeof x.value === 'object' && x.value.length === 0))
-      || x.must) {
-      where.push([x.field, x.op, (x.op === 'like' ? `%${x.value}%` : x.value)]);
-    }
-  }
-  return where;
 };

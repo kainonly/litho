@@ -1,6 +1,6 @@
 import { StorageMap } from '@ngx-pwa/local-storage';
-import { Observable } from 'rxjs';
 import * as Ajv from 'ajv';
+import { Observable } from 'rxjs';
 import { ListByPageOption } from '../types/list-by-page-option';
 import { SearchOption } from '../types/search-option';
 
@@ -72,6 +72,9 @@ export class ListByPage {
         this.search = data;
       }
     });
+    storage.get('page:' + this.option.id).subscribe((index: number) => {
+      this.index = index ? index : 1;
+    });
   }
 
   setData(data: any[]): void {
@@ -129,7 +132,7 @@ export class ListByPage {
     this.refreshStatus();
   }
 
-  getQuerySchema(): any[] {
+  toQuerySchema(): any[] {
     const schema = [];
     for (const key in this.search) {
       if (this.search.hasOwnProperty(key)) {
@@ -150,5 +153,11 @@ export class ListByPage {
       }
     }
     return schema;
+  }
+
+  persistence() {
+    this.storage.set('page:' + this.option.id, this.index).subscribe(() => {
+      // ok
+    });
   }
 }

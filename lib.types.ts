@@ -14,14 +14,3 @@ export interface AlertCustomize {
 export interface I18nTooltipOptions {
   [key: string]: string[]
 }
-
-export interface SearchOptions {
-  field: string;
-  op: string;
-  value: any;
-  must?: boolean;
-}
-
-export interface Search {
-  [field: string]: SearchOptions
-}

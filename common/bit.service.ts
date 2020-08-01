@@ -14,7 +14,7 @@ import {
   i18nControlsValidate,
   i18nControlsValue
 } from '../lib.common';
-import { I18nGroupOptions, I18nTooltipOptions, Search, SearchOptions } from '../lib.types';
+import { I18nGroupOptions, I18nTooltipOptions } from '../lib.types';
 
 @Injectable({
   providedIn: 'root'
