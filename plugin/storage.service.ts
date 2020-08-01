@@ -81,26 +81,26 @@ export class StorageService {
    * Auto Page Index
    */
   private autoPageIndex(url: string, match?: any[]) {
-    if (this.prevUrl) {
-      if (this.bit.listsPageIndex !== 1) {
-        this.storageMap.set(
-          'page:' + this.prevUrl,
-          this.bit.listsPageIndex
-        ).subscribe(() => {
-        });
-      } else {
-        this.storageMap.delete(
-          'page:' + this.prevUrl
-        ).subscribe(() => {
-        });
-      }
-    }
-    this.prevUrl = getSelectorFormUrl(url, match);
-    this.storageMap.get(
-      'page:' + this.prevUrl
-    ).subscribe((index: number) => {
-      this.bit.listsPageIndex = index ? index : 1;
-    });
+    // if (this.prevUrl) {
+    //   if (this.bit.listsPageIndex !== 1) {
+    //     this.storageMap.set(
+    //       'page:' + this.prevUrl,
+    //       this.bit.listsPageIndex
+    //     ).subscribe(() => {
+    //     });
+    //   } else {
+    //     this.storageMap.delete(
+    //       'page:' + this.prevUrl
+    //     ).subscribe(() => {
+    //     });
+    //   }
+    // }
+    // this.prevUrl = getSelectorFormUrl(url, match);
+    // this.storageMap.get(
+    //   'page:' + this.prevUrl
+    // ).subscribe((index: number) => {
+    //   this.bit.listsPageIndex = index ? index : 1;
+    // });
   }
 
   /**

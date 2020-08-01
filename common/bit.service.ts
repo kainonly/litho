@@ -2,9 +2,9 @@ import { Injectable } from '@angular/core';
 import { NavigationExtras, Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { StorageMap } from '@ngx-pwa/local-storage';
-import { map } from 'rxjs/operators';
-import { Observable } from 'rxjs';
 import { NzI18nService } from 'ng-zorro-antd';
+import { ListByPage } from '../factory/list-by-page';
+import { ListByPageOption } from '../types/list-by-page-option';
 import { ConfigService } from './config.service';
 import { EventsService } from './events.service';
 import {
@@ -16,7 +16,9 @@ import {
 } from '../lib.common';
 import { I18nGroupOptions, I18nTooltipOptions, Search, SearchOptions } from '../lib.types';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class BitService {
   /**
    * Origin language packer
@@ -84,51 +86,6 @@ export class BitService {
   navActive = [];
 
   /**
-   * Control panel search object
-   */
-  search: Search | any = {};
-
-  /**
-   * Lists data loading status
-   */
-  listsLoading = true;
-
-  /**
-   * Lists data page limit
-   */
-  pageLimit = 0;
-
-  /**
-   * Lists data totals
-   */
-  listsTotals = 0;
-
-  /**
-   * Lists data page index
-   */
-  listsPageIndex = 1;
-
-  /**
-   * All list data is selected
-   */
-  listsAllChecked = false;
-
-  /**
-   * All list data has indeterminate
-   */
-  listsIndeterminate = false;
-
-  /**
-   * Control panel mutil operate status
-   */
-  listsDisabledAction = true;
-
-  /**
-   * All list data selecte total
-   */
-  listsCheckedNumber = 0;
-
-  /**
    * constructor
    */
   constructor(
@@ -141,7 +98,6 @@ export class BitService {
   ) {
     this.static = config.staticUrl;
     this.uploads = (config.uploadsUrl) ? config.uploadsUrl : config.originUrl + '/' + config.uploadsPath;
-    this.pageLimit = config.pageLimit;
     this.breadcrumbTop = this.config.breadcrumbTop;
     this.i18n = config.i18nDefault;
     this.i18nContain = config.i18nContain;
@@ -245,6 +201,13 @@ export class BitService {
     this.i18n = this.config.i18nDefault;
   }
 
+  listByPage(option: ListByPageOption): ListByPage {
+    if (!option.limit) {
+      option.limit = this.config.pageLimit;
+    }
+    return new ListByPage(option, this.storageMap);
+  }
+
   /**
    * Registered language pack
    */
@@ -255,135 +218,6 @@ export class BitService {
       this.language = factoryLocales(packer);
       this.l = Object.assign(this.commonLanguage[this.locale], this.language[this.locale]);
     }
-  }
-
-  /**
-   * Register search object
-   */
-  registerSearch(selector: string, ...search: SearchOptions[]): Observable<any> {
-    this.search = {};
-    return this.storageMap.get('search:' + selector).pipe(
-      map((data: any) => {
-        if (!data) {
-          search.forEach(((value) => {
-            this.search[value.field] = value;
-          }));
-        } else {
-          this.search = data;
-        }
-        return true;
-      })
-    );
-  }
-
-  /**
-   * Register section search object
-   */
-  registerSectionSearch(selector: string, variable: object, ...search: SearchOptions[]): Observable<any> {
-    Reflect.ownKeys(variable).forEach(key => Reflect.deleteProperty(variable, key));
-    return this.storageMap.get('search:' + selector).pipe(
-      map((data: any) => {
-        if (!data) {
-          search.forEach(((value) => {
-            variable[value.field] = value;
-          }));
-        } else {
-          for (const key in data) {
-            if (data.hasOwnProperty(key)) {
-              variable[key] = data[key];
-            }
-          }
-        }
-        return true;
-      })
-    );
-  }
-
-  /**
-   * Manually trigger search change after
-   */
-  searchChangeAfter(selector: string, variable?: object): Observable<any> {
-    return this.storageMap.set('search:' + selector, !variable ? this.search : variable);
-  }
-
-  /**
-   * Manually trigger search clear
-   */
-  searchClear(selector: string, reset: any = {}, variable?: object): Observable<any> {
-    if (!variable) {
-      for (const i in this.search) {
-        if (!this.search.hasOwnProperty(i)) {
-          continue;
-        }
-        const search = this.search[i];
-        if (reset !== undefined && reset.hasOwnProperty(search.field)) {
-          search.value = reset[search.field];
-        } else {
-          search.value = '';
-        }
-      }
-    } else {
-      for (const i in variable) {
-        if (!variable.hasOwnProperty(i)) {
-          continue;
-        }
-        const search = variable[i];
-        if (reset !== undefined && reset.hasOwnProperty(search.field)) {
-          search.value = reset[search.field];
-        } else {
-          search.value = '';
-        }
-      }
-    }
-    return this.storageMap.delete('search:' + selector);
-  }
-
-  /**
-   * Determine whether the index exists in the search object
-   */
-  hasSearch(field: string, variable?: object): boolean {
-    return !variable ? this.search.hasOwnProperty(field) : variable.hasOwnProperty(field);
-  }
-
-  /**
-   * Get conversion search array
-   */
-  getSearch(variable?: object): any[] {
-    const search = [];
-    if (!variable) {
-      for (const i in this.search) {
-        if (this.search.hasOwnProperty(i)) {
-          search.push(this.search[i]);
-        }
-      }
-    } else {
-      for (const i in variable) {
-        if (variable.hasOwnProperty(i)) {
-          search.push(variable[i]);
-        }
-      }
-    }
-    return search;
-  }
-
-  /**
-   * Refresh list data selection status
-   */
-  listsRefreshStatus(lists: any[]) {
-    const allChecked = lists.every((value) => value.checked === true);
-    const allUnchecked = lists.every((value) => !value.checked);
-    this.listsAllChecked = allChecked;
-    this.listsIndeterminate = !allChecked && !allUnchecked;
-    this.listsDisabledAction = !(this.listsAllChecked || this.listsIndeterminate);
-    this.listsCheckedNumber = lists.filter((value) => value.checked).length;
-  }
-
-  /**
-   * Unified change of all list data status
-   */
-  listsCheckAll(event: boolean, lists: any[]) {
-    lists.forEach((data) => (data.checked = event));
-    this.listsRefreshStatus(lists);
   }
 
   /**

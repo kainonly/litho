@@ -1,36 +1,23 @@
 import { Directive, EventEmitter, HostListener, Input, Output } from '@angular/core';
-import { StorageMap } from '@ngx-pwa/local-storage';
-import { BitService } from 'ngx-bit';
+import { ListByPage } from '../factory/list-by-page';
 
 @Directive({
   selector: '[bitSearchStart]'
 })
 export class BitSearchStartDirective {
-  @Input() bitSearchStart: string;
-  @Input() variable: object;
+  @Input() bitSearchStart: ListByPage;
   @Output() after: EventEmitter<any> = new EventEmitter<any>();
 
-  constructor(
-    private bit: BitService,
-    private storageMap: StorageMap
-  ) {
-  }
-
   @HostListener('keydown.enter') onenter() {
-    this.searchStart();
+    this.afterSearch();
   }
 
   @HostListener('click') onclick() {
-    this.searchStart();
+    this.afterSearch();
   }
 
-  /**
-   * search data save storage
-   */
-  private searchStart() {
-    this.storageMap.set(
-      'search:' + this.bitSearchStart, !this.variable ? this.bit.search : this.variable
-    ).subscribe(() => {
+  private afterSearch() {
+    this.bitSearchStart.afterSearch().subscribe(() => {
       this.after.emit(true);
     });
   }

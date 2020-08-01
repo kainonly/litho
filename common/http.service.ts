@@ -1,11 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+
 import { map, switchMap } from 'rxjs/operators';
 import { Observable, of } from 'rxjs';
 import { ConfigService } from './config.service';
 import { BitService } from './bit.service';
 import { ConvertToWhere } from '../lib.common';
 import { SearchOptions } from '../lib.types';
+import { ListByPage } from '../factory/list-by-page';
 
 @Injectable()
 export class HttpService {
@@ -51,29 +53,28 @@ export class HttpService {
   /**
    * Lists Request
    */
-  lists(model: string, condition: SearchOptions[] = [], refresh = false, limit = 0, origin = false): Observable<any> {
-    const where = ConvertToWhere(condition);
+  lists(model: string, factory: ListByPage, refresh = false): Observable<any> {
     if (refresh === true) {
-      this.bit.listsPageIndex = 1;
+      factory.index = 1;
     }
     const http = this.req(model + '/lists', {
       page: {
-        limit: !limit ? this.bit.pageLimit : limit,
-        index: this.bit.listsPageIndex
+        limit: factory.limit,
+        index: factory.index
       },
-      where
+      where: factory.getQuerySchema()
     }).pipe(
       map((res) => {
-        this.bit.listsTotals = !res.error ? res.data.total : 0;
-        this.bit.listsLoading = false;
-        this.bit.listsAllChecked = false;
-        this.bit.listsIndeterminate = false;
-        this.bit.listsDisabledAction = true;
-        this.bit.listsCheckedNumber = 0;
+        factory.totals = !res.error ? res.data.total : 0;
+        factory.loading = false;
+        factory.checked = false;
+        factory.indeterminate = false;
+        factory.batch = false;
+        factory.checkedNumber = 0;
         return res;
       })
     );
-    return origin ? http : http.pipe(
+    return http.pipe(
       map(res => !res.error ? res.data.lists : null)
     );
   }

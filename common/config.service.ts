@@ -2,7 +2,9 @@ import { Injectable } from '@angular/core';
 import { NzI18nInterface } from 'ng-zorro-antd';
 import { of } from 'rxjs';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class ConfigService {
   originUrl = '';
   staticUrl = '';

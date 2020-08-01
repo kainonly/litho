@@ -8,7 +8,7 @@ import { AlertCustomize } from '../lib.types';
 
 @Injectable()
 export class SwalService {
-  static native = Swal;
+  static native: typeof Swal = Swal;
 
   constructor(
     private bit: BitService,
