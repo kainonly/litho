@@ -74,6 +74,7 @@ export class ListByPage {
     });
     storage.get('page:' + this.option.id).subscribe((index: number) => {
       this.index = index ? index : 1;
+      console.log(this.index);
     });
   }
 

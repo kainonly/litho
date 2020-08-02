@@ -57,7 +57,9 @@ export class HttpService {
   lists(model: string, factory: ListByPage, refresh = false): Observable<any> {
     if (refresh === true) {
       factory.index = 1;
+      factory.persistence();
     }
+    console.log(factory.index);
     const http = this.req(model + '/lists', {
       page: {
         limit: factory.limit,
