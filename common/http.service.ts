@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { map, switchMap } from 'rxjs/operators';
 import { Observable, of } from 'rxjs';
+import { ListsOption } from '../types/lists-option';
 import { ConfigService } from './config.service';
 import { ListByPage } from '../factory/list-by-page';
 import { getQuerySchema } from '../operates/get-query-schema';
@@ -54,9 +55,11 @@ export class HttpService {
   /**
    * Lists Request
    */
-  lists(model: string, factory: ListByPage, refresh = false): Observable<any> {
-    if (refresh === true) {
-      factory.index = 1;
+  lists(model: string, factory: ListByPage, option: ListsOption): Observable<any> {
+    if (option.refresh || option.persistence) {
+      if (option.refresh) {
+        factory.index = 1;
+      }
       factory.persistence();
     }
     return factory.getPage().pipe(

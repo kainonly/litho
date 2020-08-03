@@ -13,7 +13,7 @@ export class ListByPage {
   /**
    * Paging list data
    */
-  data: any[];
+  data: any[] = [];
 
   /**
    * loading status

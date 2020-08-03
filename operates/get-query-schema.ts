@@ -1,7 +1,7 @@
 import * as Ajv from 'ajv';
 import { SearchOption } from '../types/search-option';
 
-export function getQuerySchema(options: SearchOption[]) {
+export function getQuerySchema(options: SearchOption[]): any[] {
   const schema = [];
   for (const search of options) {
     if (typeof search.value === 'string') {
