@@ -173,4 +173,11 @@ export class ListByPage {
     }
     return schema;
   }
+
+  /**
+   * Get checked lists
+   */
+  getChecked(): any[] {
+    return this.data.filter(value => value.checked);
+  }
 }
