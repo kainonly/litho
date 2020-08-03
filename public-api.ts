@@ -1,4 +1,4 @@
-export * from './common/config.service';
+export * from './common/bit-config.service';
 export * from './common/bit.service';
 export * from './common/events.service';
 export * from './common/http.service';

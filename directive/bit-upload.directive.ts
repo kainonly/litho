@@ -1,18 +1,17 @@
 import { Directive } from '@angular/core';
 import { NzUploadComponent } from 'ng-zorro-antd';
-import { ConfigService, BitService } from 'ngx-bit';
+import { BitConfigService } from '../common/bit-config.service';
 
 @Directive({
   selector: '[bitUpload]'
 })
 export class BitUploadDirective {
   constructor(
-    private bit: BitService,
-    private config: ConfigService,
+    private config: BitConfigService,
     private nzUploadComponent: NzUploadComponent
   ) {
-    nzUploadComponent.nzWithCredentials = config.withCredentials;
-    nzUploadComponent.nzAction = bit.uploads;
+    nzUploadComponent.nzWithCredentials = config.api.withCredentials;
+    nzUploadComponent.nzAction = config.url.api + config.api.upload;
     nzUploadComponent.nzSize = 5120;
     nzUploadComponent.nzShowUploadList = false;
   }

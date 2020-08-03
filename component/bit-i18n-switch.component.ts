@@ -1,12 +1,12 @@
 import { Component, EventEmitter, Output } from '@angular/core';
-import { BitService, ConfigService } from 'ngx-bit';
+import { BitService, BitConfigService } from 'ngx-bit';
 
 @Component({
   selector: 'bit-i18n-switch',
   template: `
-    <ng-container *ngIf="config.i18nSwitch.length>1">
+    <ng-container *ngIf="config.i18n.contain.length>1">
       <nz-radio-group [(ngModel)]="bit.i18n" (ngModelChange)="change($event)">
-        <label *ngFor="let x of config.i18nSwitch" nz-radio-button [nzValue]="x.i18n">
+        <label *ngFor="let x of config.i18n.switch" nz-radio-button [nzValue]="x.i18n">
           <span><b>{{x.name[bit.locale]}}</b></span>
         </label>
       </nz-radio-group>
@@ -18,7 +18,7 @@ export class BitI18nSwitchComponent {
 
   constructor(
     public bit: BitService,
-    public config: ConfigService
+    public config: BitConfigService
   ) {
   }
 

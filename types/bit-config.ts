@@ -1,0 +1,30 @@
+import { BitI18nOption } from './bit-i18n-option';
+
+export interface BitConfig {
+  url: {
+    api: string,
+    static: string,
+    icon?: string
+  };
+  api: {
+    namespace: string,
+    upload: string,
+    withCredentials: boolean
+  };
+  col: {
+    [key: string]: any
+  };
+  locale: {
+    default: string,
+    bind: Map<string, any>
+  };
+  i18n: {
+    default: string,
+    contain: string[],
+    switch: BitI18nOption[]
+  };
+  page: number;
+}
+
+
+

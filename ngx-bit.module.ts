@@ -1,13 +1,14 @@
 import { ModuleWithProviders, NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { StorageModule } from '@ngx-pwa/local-storage';
-import { NzIconService } from 'ng-zorro-antd/icon';
-import { ConfigService } from './common/config.service';
+import { NzIconService } from 'ng-zorro-antd';
+import { BitConfigService } from './common/bit-config.service';
 import { BitService } from './common/bit.service';
 import { EventsService } from './common/events.service';
 import { HttpService } from './common/http.service';
 import { SwalService } from './plugin/swal.service';
 import { StorageService } from './plugin/storage.service';
+import { BitConfig } from './types/bit-config';
 
 @NgModule({
   imports: [
@@ -18,7 +19,7 @@ import { StorageService } from './plugin/storage.service';
   ]
 })
 export class NgxBitModule {
-  static forRoot(config: any): ModuleWithProviders<NgxBitModule> {
+  static forRoot(config: BitConfig): ModuleWithProviders<NgxBitModule> {
     return {
       ngModule: NgxBitModule,
       providers: [
@@ -27,15 +28,18 @@ export class NgxBitModule {
         EventsService,
         SwalService,
         StorageService,
-        { provide: ConfigService, useValue: config }
+        NzIconService,
+        { provide: BitConfigService, useValue: config }
       ]
     };
   }
 
   constructor(
-    nzIconService: NzIconService,
-    configSerive: ConfigService
+    config: BitConfigService,
+    nzIconService: NzIconService
   ) {
-    nzIconService.changeAssetsSource(configSerive.iconUrl);
+    if (config.url.icon !== undefined) {
+      nzIconService.changeAssetsSource(config.url.icon);
+    }
   }
 }

@@ -5,7 +5,7 @@ import { StorageMap } from '@ngx-pwa/local-storage';
 import { NzI18nService } from 'ng-zorro-antd';
 import { ListByPage } from '../factory/list-by-page';
 import { ListByPageOption } from '../types/list-by-page-option';
-import { ConfigService } from './config.service';
+import { BitConfigService } from './bit-config.service';
 import { EventsService } from './events.service';
 import {
   factoryLocales,
@@ -33,12 +33,12 @@ export class BitService {
   /**
    * Static Path
    */
-  static: string;
+  readonly static: string;
 
   /**
    * Upload Path
    */
-  uploads: string;
+  readonly uploads: string;
 
   /**
    * Language pack identifier
@@ -89,29 +89,23 @@ export class BitService {
    * constructor
    */
   constructor(
-    private config: ConfigService,
+    private config: BitConfigService,
     private events: EventsService,
     private location: Location,
     private router: Router,
     private storageMap: StorageMap,
     private nzI18nService: NzI18nService
   ) {
-    this.static = config.staticUrl;
-    this.uploads = (config.uploadsUrl) ? config.uploadsUrl : config.originUrl + '/' + config.uploadsPath;
-    this.breadcrumbTop = this.config.breadcrumbTop;
-    this.i18n = config.i18nDefault;
-    this.i18nContain = config.i18nContain;
+    this.static = config.url.static;
+    this.uploads = config.url.api + config.api.upload;
+    this.breadcrumbTop = 0;
+    this.i18n = config.i18n.default;
+    this.i18nContain = config.i18n.contain;
     storageMap.get('locale').subscribe((data: any) => {
-      if (!this.config.localeDefault) {
-        this.locale = data ? data : 'zh_cn';
-      } else {
-        this.locale = data ? data : this.config.localeDefault;
-      }
-
-      if (this.config.localeBind !== undefined &&
-        this.config.localeBind.size !== 0 &&
-        this.config.localeBind.has(this.locale)) {
-        this.nzI18nService.setLocale(this.config.localeBind.get(this.locale));
+      this.locale = data ? data : config.locale.default;
+      const bind = config.locale.bind;
+      if (bind.size !== 0 && bind.has(this.locale)) {
+        nzI18nService.setLocale(bind.get(this.locale));
       }
     });
   }
@@ -172,11 +166,9 @@ export class BitService {
       this.commonLanguage[this.locale],
       this.language[this.locale]
     );
-
-    if (this.config.localeBind !== undefined &&
-      this.config.localeBind.size !== 0 &&
-      this.config.localeBind.has(this.locale)) {
-      this.nzI18nService.setLocale(this.config.localeBind.get(this.locale));
+    const bind = this.config.locale.bind;
+    if (bind.size !== 0 && bind.has(this.locale)) {
+      this.nzI18nService.setLocale(bind.get(this.locale));
     }
   }
 
@@ -198,12 +190,12 @@ export class BitService {
    * Reset I18n ID
    */
   resetI18n() {
-    this.i18n = this.config.i18nDefault;
+    this.i18n = this.config.i18n.default.toString();
   }
 
   listByPage(option: ListByPageOption): ListByPage {
     if (!option.limit) {
-      option.limit = this.config.pageLimit;
+      option.limit = this.config.page;
     }
     return new ListByPage(option, this.storageMap);
   }
@@ -226,7 +218,7 @@ export class BitService {
   i18nGroup(options?: I18nGroupOptions): any {
     const controls = {};
     if (options) {
-      for (const i18n of this.config.i18nContain) {
+      for (const i18n of this.config.i18n.contain) {
         controls[i18n] = [
           i18nControlsValue(
             i18n,
@@ -253,7 +245,7 @@ export class BitService {
     const data = JSON.parse(raws);
     for (const i18n in data) {
       if (data.hasOwnProperty(i18n) &&
-        this.config.i18nContain.indexOf(i18n) === -1) {
+        this.config.i18n.contain.indexOf(i18n) === -1) {
         Reflect.deleteProperty(data, i18n);
       }
     }

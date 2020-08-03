@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { map, switchMap } from 'rxjs/operators';
 import { Observable, of } from 'rxjs';
 import { ListsOption } from '../types/lists-option';
-import { ConfigService } from './config.service';
+import { BitConfigService } from './bit-config.service';
 import { ListByPage } from '../factory/list-by-page';
 import { getQuerySchema } from '../operates/get-query-schema';
 import { SearchOption } from '../types/search-option';
@@ -12,7 +12,7 @@ import { SearchOption } from '../types/search-option';
 export class HttpService {
   constructor(
     private http: HttpClient,
-    private config: ConfigService
+    private config: BitConfigService
   ) {
   }
 
@@ -20,16 +20,13 @@ export class HttpService {
    * HttpClient
    */
   req(url: string, body: any = {}, method = 'post'): Observable<any> {
-    const httpClient = this.http.request(
+    return this.http.request(
       method,
-      this.config.originUrl + this.config.namespace + '/' + url,
+      this.config.url.api + this.config.api.namespace + '/' + url,
       {
         body,
-        withCredentials: this.config.withCredentials
+        withCredentials: this.config.api.withCredentials
       }
-    );
-    return !this.config.httpInterceptor ? httpClient : httpClient.pipe(
-      switchMap(res => this.config.interceptor(res))
     );
   }
 
