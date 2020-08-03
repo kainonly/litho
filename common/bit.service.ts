@@ -6,7 +6,7 @@ import { NzI18nService } from 'ng-zorro-antd';
 import { ListByPage } from '../factory/list-by-page';
 import { ListByPageOption } from '../types/list-by-page-option';
 import { BitConfigService } from './bit-config.service';
-import { EventsService } from './events.service';
+import { BitEventsService } from './bit-events.service';
 import {
   factoryLocales,
   getSelectorFormUrl,
@@ -90,7 +90,7 @@ export class BitService {
    */
   constructor(
     private config: BitConfigService,
-    private events: EventsService,
+    private events: BitEventsService,
     private location: Location,
     private router: Router,
     private storageMap: StorageMap,
@@ -108,6 +108,13 @@ export class BitService {
         nzI18nService.setLocale(bind.get(this.locale));
       }
     });
+  }
+
+  /**
+   * manual set breadcrumb
+   */
+  setBreadcrumb(...breadcrumb: any[]) {
+    this.breadcrumb = breadcrumb;
   }
 
   /**
@@ -173,34 +180,6 @@ export class BitService {
   }
 
   /**
-   * manual set breadcrumb
-   */
-  setBreadcrumb(...breadcrumb: any[]) {
-    this.breadcrumb = breadcrumb;
-  }
-
-  /**
-   * Equal i18n ID
-   */
-  equalI18n(i18n: string) {
-    return this.i18n === i18n;
-  }
-
-  /**
-   * Reset I18n ID
-   */
-  resetI18n() {
-    this.i18n = this.config.i18n.default.toString();
-  }
-
-  listByPage(option: ListByPageOption): ListByPage {
-    if (!option.limit) {
-      option.limit = this.config.page;
-    }
-    return new ListByPage(option, this.storageMap);
-  }
-
-  /**
    * Registered language pack
    */
   registerLocales(packer: any, common = false) {
@@ -213,6 +192,30 @@ export class BitService {
   }
 
   /**
+   * factory list by page
+   */
+  listByPage(option: ListByPageOption): ListByPage {
+    if (!option.limit) {
+      option.limit = this.config.page;
+    }
+    return new ListByPage(option, this.storageMap);
+  }
+
+  /**
+   * Equal i18n ID
+   */
+  equalI18n(i18n: string): boolean {
+    return this.i18n === i18n;
+  }
+
+  /**
+   * Reset I18n ID
+   */
+  resetI18n() {
+    this.i18n = this.config.i18n.default.toString();
+  }
+
+  /**
    * Init i18n form group
    */
   i18nGroup(options?: I18nGroupOptions): any {
@@ -222,15 +225,15 @@ export class BitService {
         controls[i18n] = [
           i18nControlsValue(
             i18n,
-            Reflect.has(options, 'value') ? options.value : null
+            options.value !== undefined ? options.value : null
           ),
           i18nControlsValidate(
             i18n,
-            Reflect.has(options, 'validate') ? options.validate : []
+            options.validate !== undefined ? options.validate : []
           ),
           i18nControlsAsyncValidate(
             i18n,
-            Reflect.has(options, 'asyncValidate') ? options.asyncValidate : []
+            options.asyncValidate !== undefined ? options.asyncValidate : []
           )
         ];
       }
@@ -246,7 +249,7 @@ export class BitService {
     for (const i18n in data) {
       if (data.hasOwnProperty(i18n) &&
         this.config.i18n.contain.indexOf(i18n) === -1) {
-        Reflect.deleteProperty(data, i18n);
+        delete data.i18n;
       }
     }
     return data;

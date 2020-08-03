@@ -29,4 +29,16 @@ export class BitConfigService implements BitConfig {
     readonly bind: Map<string, any>
   };
   readonly page: number;
+  /**
+   * common language packer
+   */
+  private language: any = {};
+
+  get getLanguage(): any {
+    return this.language;
+  }
+
+  set setLanguage(value: any) {
+    this.language = value;
+  }
 }

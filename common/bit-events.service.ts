@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 
 @Injectable()
-export class EventsService {
+export class BitEventsService {
   private events: Map<string, Subject<any>> = new Map<string, Subject<any>>();
 
   /**

@@ -4,8 +4,8 @@ import { StorageModule } from '@ngx-pwa/local-storage';
 import { NzIconService } from 'ng-zorro-antd';
 import { BitConfigService } from './common/bit-config.service';
 import { BitService } from './common/bit.service';
-import { EventsService } from './common/events.service';
-import { HttpService } from './common/http.service';
+import { BitEventsService } from './common/bit-events.service';
+import { BitHttpService } from './common/bit-http.service';
 import { SwalService } from './plugin/swal.service';
 import { StorageService } from './plugin/storage.service';
 import { BitConfig } from './types/bit-config';
@@ -24,8 +24,8 @@ export class NgxBitModule {
       ngModule: NgxBitModule,
       providers: [
         BitService,
-        HttpService,
-        EventsService,
+        BitHttpService,
+        BitEventsService,
         SwalService,
         StorageService,
         NzIconService,

@@ -9,7 +9,7 @@ import { getQuerySchema } from '../operates/get-query-schema';
 import { SearchOption } from '../types/search-option';
 
 @Injectable()
-export class HttpService {
+export class BitHttpService {
   constructor(
     private http: HttpClient,
     private config: BitConfigService

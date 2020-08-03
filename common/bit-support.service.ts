@@ -7,7 +7,7 @@ import { getSelectorFormUrl } from '../lib.common';
 import { BitService } from '../common/bit.service';
 
 @Injectable()
-export class SupportService {
+export class BitSupportService {
   /**
    * Router subscription
    */
