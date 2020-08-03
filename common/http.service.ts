@@ -59,26 +59,26 @@ export class HttpService {
       factory.index = 1;
       factory.persistence();
     }
-    console.log(factory.index);
-    const http = this.req(model + '/lists', {
-      page: {
-        limit: factory.limit,
-        index: factory.index
-      },
-      where: factory.toQuerySchema()
-    }).pipe(
-      map((res) => {
+    return factory.getPage().pipe(
+      switchMap(index => {
+        factory.index = index ? index : 1;
+        return this.req(model + '/lists', {
+          page: {
+            limit: factory.limit,
+            index: factory.index
+          },
+          where: factory.toQuerySchema()
+        });
+      }),
+      map(res => {
         factory.totals = !res.error ? res.data.total : 0;
         factory.loading = false;
         factory.checked = false;
         factory.indeterminate = false;
         factory.batch = false;
         factory.checkedNumber = 0;
-        return res;
+        return !res.error ? res.data.lists : null;
       })
-    );
-    return http.pipe(
-      map(res => !res.error ? res.data.lists : null)
     );
   }
 

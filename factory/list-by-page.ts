@@ -72,12 +72,11 @@ export class ListByPage {
         this.search = data;
       }
     });
-    storage.get('page:' + this.option.id).subscribe((index: number) => {
-      this.index = index ? index : 1;
-      console.log(this.index);
-    });
   }
 
+  /**
+   * Set data
+   */
   setData(data: any[]): void {
     this.data = data;
   }
@@ -133,6 +132,25 @@ export class ListByPage {
     this.refreshStatus();
   }
 
+  /**
+   * Get pagination
+   */
+  getPage(): Observable<any> {
+    return this.storage.get('page:' + this.option.id);
+  }
+
+  /**
+   * Persistent settings
+   */
+  persistence() {
+    this.storage.set('page:' + this.option.id, this.index).subscribe(() => {
+      // ok
+    });
+  }
+
+  /**
+   * Convert to query schema
+   */
   toQuerySchema(): any[] {
     const schema = [];
     for (const key in this.search) {
@@ -154,11 +172,5 @@ export class ListByPage {
       }
     }
     return schema;
-  }
-
-  persistence() {
-    this.storage.set('page:' + this.option.id, this.index).subscribe(() => {
-      // ok
-    });
   }
 }
