@@ -1,7 +1,7 @@
 import { Directive, OnDestroy, OnInit } from '@angular/core';
 import { FormControlName } from '@angular/forms';
 import { Subscription } from 'rxjs';
-import { BitService } from 'ngx-bit';
+import { BitService } from '../common/bit.service';
 
 @Directive({
   selector: '[bitI18nUpdate]'

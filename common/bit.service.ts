@@ -5,15 +5,16 @@ import { StorageMap } from '@ngx-pwa/local-storage';
 import { NzI18nService } from 'ng-zorro-antd';
 import { BitConfigService } from './bit-config.service';
 import { BitEventsService } from './bit-events.service';
-import { getSelectorFormUrl } from '../operates/get-selector-form-url';
+import { BitSupportService } from './bit-support.service';
+import { ListByPage } from '../factory/list-by-page';
+import { ListByPageOption } from '../types/list-by-page-option';
+import { I18nGroupOption } from '../types/i18n-group-option';
+import { I18nTooltipOption } from '../types/i18n-tooltip-option';
 import { factoryLocales } from '../operates/factory-locales';
+import { getSelectorFormUrl } from '../operates/get-selector-form-url';
 import { i18nControlsValue } from '../operates/i18n-controls-value';
 import { i18nControlsValidate } from '../operates/i18n-controls-validate';
 import { i18nControlsAsyncValidate } from '../operates/i18n-controls-async-validate';
-import { ListByPage } from '../factory/list-by-page';
-import { ListByPageOption } from '../types/list-by-page-option';
-import { I18nGroupOptions, I18nTooltipOptions } from '../lib.types';
-import { BitSupportService } from './bit-support.service';
 
 @Injectable({
   providedIn: 'root'
@@ -46,7 +47,7 @@ export class BitService {
   /**
    * Component i18n tooltips
    */
-  i18nTooltip: I18nTooltipOptions | any = {};
+  i18nTooltip: I18nTooltipOption | any = {};
   /**
    * Component i18n
    */
@@ -179,7 +180,7 @@ export class BitService {
   /**
    * Init i18n form group
    */
-  i18nGroup(options?: I18nGroupOptions): any {
+  i18nGroup(options?: I18nGroupOption): any {
     const controls = {};
     if (options) {
       for (const i18n of this.config.i18n.contain) {

@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { objectToMap } from 'ngx-bit';
+import { objectToMap } from '../operates/object-to-map';
 
 @Pipe({ name: 'ObjectToMap' })
 export class ObjectToMapPipe implements PipeTransform {

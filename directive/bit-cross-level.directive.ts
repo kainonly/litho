@@ -1,5 +1,5 @@
 import { Directive, HostListener, Input } from '@angular/core';
-import { BitService } from 'ngx-bit';
+import { BitService } from '../common/bit.service';
 
 @Directive({
   selector: '[bitCrossLevel]'

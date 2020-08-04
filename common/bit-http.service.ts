@@ -2,10 +2,10 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { map, switchMap } from 'rxjs/operators';
 import { Observable, of } from 'rxjs';
-import { ListsOption } from '../types/lists-option';
 import { BitConfigService } from './bit-config.service';
 import { ListByPage } from '../factory/list-by-page';
 import { getQuerySchema } from '../operates/get-query-schema';
+import { ListsOption } from '../types/lists-option';
 import { SearchOption } from '../types/search-option';
 
 @Injectable()
