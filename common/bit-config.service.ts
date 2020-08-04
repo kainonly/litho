@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { factoryLocales } from '../operates/factory-locales';
 import { BitConfig } from '../types/bit-config';
-import { BitI18nOption } from '../types/bit-i18n-option';
+import { I18nOption } from '../types/i18n-option';
 
 @Injectable({
   providedIn: 'root'
@@ -23,7 +23,7 @@ export class BitConfigService implements BitConfig {
   i18n: {
     default: string;
     contain: string[];
-    switch: BitI18nOption[]
+    switch: I18nOption[]
   };
   locale: {
     default: string;

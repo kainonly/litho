@@ -9,4 +9,4 @@ export * from './object-to-map.pipe';
 export * from './privacy.pipe';
 export * from './split.pipe';
 export * from './undefined.pipe';
-export * from './pipe.module';
+export * from './bit-pipe.module';

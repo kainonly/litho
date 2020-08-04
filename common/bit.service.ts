@@ -3,17 +3,15 @@ import { NavigationExtras, Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { StorageMap } from '@ngx-pwa/local-storage';
 import { NzI18nService } from 'ng-zorro-antd';
-import { factoryLocales } from '../operates/factory-locales';
-import { ListByPage } from '../factory/list-by-page';
-import { ListByPageOption } from '../types/list-by-page-option';
 import { BitConfigService } from './bit-config.service';
 import { BitEventsService } from './bit-events.service';
-import {
-  getSelectorFormUrl,
-  i18nControlsAsyncValidate,
-  i18nControlsValidate,
-  i18nControlsValue
-} from '../lib.common';
+import { getSelectorFormUrl } from '../operates/get-selector-form-url';
+import { factoryLocales } from '../operates/factory-locales';
+import { i18nControlsValue } from '../operates/i18n-controls-value';
+import { i18nControlsValidate } from '../operates/i18n-controls-validate';
+import { i18nControlsAsyncValidate } from '../operates/i18n-controls-async-validate';
+import { ListByPage } from '../factory/list-by-page';
+import { ListByPageOption } from '../types/list-by-page-option';
 import { I18nGroupOptions, I18nTooltipOptions } from '../lib.types';
 import { BitSupportService } from './bit-support.service';
 

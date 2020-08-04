@@ -3,7 +3,7 @@ import { StorageMap } from '@ngx-pwa/local-storage';
 import { Event, NavigationStart, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { filter, map, switchMap } from 'rxjs/operators';
-import { getSelectorFormUrl } from '../lib.common';
+import { getSelectorFormUrl } from '../operates/get-selector-form-url';
 
 @Injectable()
 export class BitSupportService {

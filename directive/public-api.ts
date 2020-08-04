@@ -9,4 +9,4 @@ export * from './bit-search-clear.directive';
 export * from './bit-search-start.directive';
 export * from './bit-status-change.directive';
 export * from './bit-upload.directive';
-export * from './directive.module';
+export * from './bit-directive.module';

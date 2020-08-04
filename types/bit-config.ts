@@ -1,4 +1,4 @@
-import { BitI18nOption } from './bit-i18n-option';
+import { I18nOption } from './i18n-option';
 
 export interface BitConfig {
   url: {
@@ -22,7 +22,7 @@ export interface BitConfig {
   i18n: {
     default: string,
     contain: string[],
-    switch: BitI18nOption[]
+    switch: I18nOption[]
   };
   page: number;
 }
