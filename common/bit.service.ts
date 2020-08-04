@@ -3,12 +3,12 @@ import { NavigationExtras, Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { StorageMap } from '@ngx-pwa/local-storage';
 import { NzI18nService } from 'ng-zorro-antd';
+import { factoryLocales } from '../operates/factory-locales';
 import { ListByPage } from '../factory/list-by-page';
 import { ListByPageOption } from '../types/list-by-page-option';
 import { BitConfigService } from './bit-config.service';
 import { BitEventsService } from './bit-events.service';
 import {
-  factoryLocales,
   getSelectorFormUrl,
   i18nControlsAsyncValidate,
   i18nControlsValidate,
@@ -21,14 +21,9 @@ import { I18nGroupOptions, I18nTooltipOptions } from '../lib.types';
 })
 export class BitService {
   /**
-   * Origin language packer
+   * Component language packer
    */
-  private language: any = {};
-
-  /**
-   * app.language packer
-   */
-  private commonLanguage: any = {};
+  private lang: any = {};
 
   /**
    * Static Path
@@ -170,8 +165,8 @@ export class BitService {
     });
     this.events.publish('locale', locale);
     this.l = Object.assign(
-      this.commonLanguage[this.locale],
-      this.language[this.locale]
+      this.config.getLang(this.locale),
+      this.lang[this.locale]
     );
     const bind = this.config.locale.bind;
     if (bind.size !== 0 && bind.has(this.locale)) {
@@ -182,13 +177,14 @@ export class BitService {
   /**
    * Registered language pack
    */
-  registerLocales(packer: any, common = false) {
-    if (common) {
-      this.commonLanguage = factoryLocales(packer);
-    } else {
-      this.language = factoryLocales(packer);
-      this.l = Object.assign(this.commonLanguage[this.locale], this.language[this.locale]);
-    }
+  registerLocales(packer: Promise<any>) {
+    packer.then(result => {
+      this.lang = factoryLocales(result.default, this.config.locale.mapping);
+      this.l = Object.assign(
+        this.config.getLang(this.locale),
+        this.lang[this.locale]
+      );
+    });
   }
 
   /**

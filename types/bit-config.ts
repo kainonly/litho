@@ -16,6 +16,7 @@ export interface BitConfig {
   };
   locale: {
     default: string,
+    mapping: Map<number, string>
     bind: Map<string, any>
   };
   i18n: {

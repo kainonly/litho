@@ -7,23 +7,6 @@ export const getSelectorFormUrl = (url: string, match: any[]) => {
 };
 
 /**
- * Production language package
- */
-export const factoryLocales = (packer: any): any => {
-  const source = {
-    zh_cn: {},
-    en_us: {}
-  };
-  for (const i in packer) {
-    if (packer.hasOwnProperty(i)) {
-      source.zh_cn[i] = packer[i][0];
-      source.en_us[i] = packer[i][1];
-    }
-  }
-  return source;
-};
-
-/**
  * Init i18n form control value
  */
 export const i18nControlsValue = (i18n: string, value?: any): string => {

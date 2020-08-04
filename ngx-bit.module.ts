@@ -8,7 +8,6 @@ import { BitEventsService } from './common/bit-events.service';
 import { BitHttpService } from './common/bit-http.service';
 import { SwalService } from './plugin/swal.service';
 import { StorageService } from './plugin/storage.service';
-import { BitConfig } from './types/bit-config';
 
 @NgModule({
   imports: [
@@ -19,7 +18,7 @@ import { BitConfig } from './types/bit-config';
   ]
 })
 export class NgxBitModule {
-  static forRoot(config: BitConfig): ModuleWithProviders<NgxBitModule> {
+  static forRoot(config: BitConfigService): ModuleWithProviders<NgxBitModule> {
     return {
       ngModule: NgxBitModule,
       providers: [
