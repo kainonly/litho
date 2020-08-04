@@ -23,7 +23,10 @@ export class BitSupportService {
    * Nav active array
    */
   navActive = [];
-  private routerSubscription: Subscription;
+  /**
+   * Router events
+   */
+  private routerEvents: Subscription;
 
   constructor(
     private storageMap: StorageMap
@@ -31,40 +34,21 @@ export class BitSupportService {
   }
 
   /**
-   * Clear Ngx Bit Storage
+   * Manual set breadcrumb
    */
-  clear() {
-    this.storageMap.keys().pipe(
-      filter(v =>
-        ['resource', 'router'].includes(v) ||
-        v.search(/^search:\S+$/) !== -1 ||
-        v.search(/^page:\S+$/) !== -1 ||
-        v.search(/^cross:\S+$/) !== -1
-      ),
-      switchMap(key => this.storageMap.delete(key))
-    ).subscribe(() => {
-    });
+  setBreadcrumb(...breadcrumb: any[]) {
+    this.breadcrumb = breadcrumb;
   }
 
   /**
-   * Put Resource Data
+   * Auto set breadcrumb
    */
-  putResource(resource: Map<string, any>, router: Map<string, any>) {
-    this.storageMap.set('resource', resource).subscribe(() => {
-    });
-    this.storageMap.set('router', router).subscribe(() => {
-    });
-  }
-
-  /**
-   * Auto Breadcrumb & PageIndex
-   */
-  setup(router: Router, match = ['%7B', '%7D']) {
-    this.destory();
+  autoBreadcrumb(router: Router, match = ['%7B', '%7D']) {
+    this.unsubscribe();
     if (router.url !== '/') {
       this.routerAssociate(router, router.url, match);
     }
-    this.routerSubscription = router.events.subscribe((event: Event) => {
+    this.routerEvents = router.events.subscribe((event: Event) => {
       if (event instanceof NavigationStart) {
         if (event.url !== '/') {
           this.routerAssociate(router, event.url, match);
@@ -73,15 +57,6 @@ export class BitSupportService {
         }
       }
     });
-  }
-
-  /**
-   * Destory Storage
-   */
-  destory() {
-    if (this.routerSubscription) {
-      this.routerSubscription.unsubscribe();
-    }
   }
 
   /**
@@ -154,9 +129,39 @@ export class BitSupportService {
   }
 
   /**
-   * manual set breadcrumb
+   * Set resource data
    */
-  setBreadcrumb(...breadcrumb: any[]) {
-    this.breadcrumb = breadcrumb;
+  setResource(resource: Map<string, any>, router: Map<string, any>) {
+    this.storageMap.set('resource', resource).subscribe(() => {
+      // ok
+    });
+    this.storageMap.set('router', router).subscribe(() => {
+      // ok
+    });
+  }
+
+  /**
+   * Clear support storage
+   */
+  clearStorage() {
+    this.storageMap.keys().pipe(
+      filter(v =>
+        ['resource', 'router'].includes(v) ||
+        v.search(/^search:\S+$/) !== -1 ||
+        v.search(/^page:\S+$/) !== -1 ||
+        v.search(/^cross:\S+$/) !== -1
+      ),
+      switchMap(key => this.storageMap.delete(key))
+    ).subscribe(() => {
+    });
+  }
+
+  /**
+   * Unsubscribe support events
+   */
+  unsubscribe() {
+    if (this.routerEvents) {
+      this.routerEvents.unsubscribe();
+    }
   }
 }
