@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Optional } from '@angular/core';
 import { NavigationExtras, Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { StorageMap } from '@ngx-pwa/local-storage';
@@ -15,6 +15,7 @@ import {
   i18nControlsValue
 } from '../lib.common';
 import { I18nGroupOptions, I18nTooltipOptions } from '../lib.types';
+import { BitSupportService } from './bit-support.service';
 
 @Injectable({
   providedIn: 'root'
@@ -24,61 +25,34 @@ export class BitService {
    * Component language packer
    */
   private lang: any = {};
-
   /**
    * Static Path
    */
   readonly static: string;
-
   /**
    * Upload Path
    */
   readonly uploads: string;
-
   /**
    * Language pack identifier
    */
   locale: string;
-
   /**
    * Language pack label
    */
   l: any = {};
-
   /**
    * Component i18n identifier
    */
   i18n: string;
-
   /**
    * Component i18n tooltips
    */
   i18nTooltip: I18nTooltipOptions | any = {};
-
   /**
    * Component i18n
    */
   i18nContain: any[] = [];
-
-  /**
-   * Title
-   */
-  title = '';
-
-  /**
-   * Breadcrumb array
-   */
-  breadcrumb: any[] = [];
-
-  /**
-   * default breadcrumb top level
-   */
-  breadcrumbTop: any = 0;
-
-  /**
-   * Nav active array
-   */
-  navActive = [];
 
   /**
    * constructor
@@ -89,11 +63,11 @@ export class BitService {
     private location: Location,
     private router: Router,
     private storageMap: StorageMap,
-    private nzI18nService: NzI18nService
+    private nzI18nService: NzI18nService,
+    @Optional() public support: BitSupportService
   ) {
     this.static = config.url.static;
     this.uploads = config.url.api + config.api.upload;
-    this.breadcrumbTop = 0;
     this.i18n = config.i18n.default;
     this.i18nContain = config.i18n.contain;
     storageMap.get('locale').subscribe((data: any) => {
@@ -103,13 +77,6 @@ export class BitService {
         nzI18nService.setLocale(bind.get(this.locale));
       }
     });
-  }
-
-  /**
-   * manual set breadcrumb
-   */
-  setBreadcrumb(...breadcrumb: any[]) {
-    this.breadcrumb = breadcrumb;
   }
 
   /**
