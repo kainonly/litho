@@ -27,7 +27,7 @@ export class BitHttpService {
         body,
         withCredentials: this.config.api.withCredentials
       }
-    );
+    ).pipe(this.config.getHttpInterceptor());
   }
 
   /**

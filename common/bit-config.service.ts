@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { OperatorFunction } from 'rxjs';
 import { factoryLocales } from '../operates/factory-locales';
 import { BitConfig } from '../types/bit-config';
 import { I18nOption } from '../types/i18n-option';
@@ -35,6 +36,10 @@ export class BitConfigService implements BitConfig {
    * Common language packer
    */
   private lang: any = {};
+  /**
+   * request interceptor
+   */
+  private httpInterceptor: OperatorFunction<any, any>;
 
   /**
    * Setup common language pack
@@ -50,5 +55,19 @@ export class BitConfigService implements BitConfig {
    */
   getLang(locale: string) {
     return this.lang[locale];
+  }
+
+  /**
+   * Set up request interceptor
+   */
+  setupHttpInterceptor(operate: OperatorFunction<any, any>) {
+    this.httpInterceptor = operate;
+  }
+
+  /**
+   * Get request interceptor
+   */
+  getHttpInterceptor() {
+    return this.httpInterceptor;
   }
 }
