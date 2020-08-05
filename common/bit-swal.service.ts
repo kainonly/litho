@@ -3,11 +3,11 @@ import { FormGroup } from '@angular/forms';
 import { Location } from '@angular/common';
 import { Observable } from 'rxjs';
 import Swal from 'sweetalert2';
-import { BitService } from '../common/bit.service';
+import { BitService } from './bit.service';
 import { AlertCustomize } from '../types/alert-customize';
 
 @Injectable()
-export class SwalService {
+export class BitSwalService {
   static native: typeof Swal = Swal;
 
   constructor(
