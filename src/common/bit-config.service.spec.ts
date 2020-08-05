@@ -1,5 +1,6 @@
 import { TestBed } from '@angular/core/testing';
-import { BitConfigService } from 'ngx-bit';
+import { environment } from '@env';
+import { BitConfigService, NgxBitModule } from 'ngx-bit';
 
 describe('BitConfigService', () => {
   let service: BitConfigService;
@@ -7,15 +8,17 @@ describe('BitConfigService', () => {
   beforeEach(() => {
     if (!service) {
       TestBed.configureTestingModule({
-        providers: [
-          BitConfigService
+        imports: [
+          NgxBitModule.forRoot(environment.bit)
         ]
       });
       service = TestBed.inject(BitConfigService);
     }
   });
 
-  it('', () => {
+  it('Verify configuration correctness', () => {
+    expect(service.url).toBe(environment.bit.url);
+    console.log(service);
   });
 
 });
