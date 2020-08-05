@@ -1,7 +1,7 @@
 import { Directive, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { NgModel } from '@angular/forms';
 import { switchMap } from 'rxjs/operators';
-import { ListByPage } from '../factory/list-by-page';
+import { ListByPage } from '../factory';
 
 @Directive({
   selector: '[bitSearchChange]'

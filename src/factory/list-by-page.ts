@@ -1,8 +1,7 @@
 import { StorageMap } from '@ngx-pwa/local-storage';
 import * as Ajv from 'ajv';
 import { Observable } from 'rxjs';
-import { ListByPageOption } from '../types/list-by-page-option';
-import { SearchOption } from '../types/search-option';
+import { ListByPageOption, SearchOption } from '../types';
 
 export class ListByPage {
   /**

@@ -1,5 +1,5 @@
 import { Directive, HostListener, Input } from '@angular/core';
-import { BitService } from '../common/bit.service';
+import { BitService } from 'ngx-bit';
 
 @Directive({
   selector: '[bitBack]'
