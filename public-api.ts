@@ -5,4 +5,3 @@ export * from './common/bit-events.service';
 export * from './common/bit-http.service';
 export * from './common/bit-swal.service';
 export * from './ngx-bit.module';
-export * from './factory/list-by-page';

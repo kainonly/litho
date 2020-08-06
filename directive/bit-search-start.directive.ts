@@ -1,5 +1,5 @@
 import { Directive, EventEmitter, HostListener, Input, Output } from '@angular/core';
-import { ListByPage } from 'ngx-bit';
+import { ListByPage } from 'ngx-bit/factory';
 
 @Directive({
   selector: '[bitSearchStart]'
