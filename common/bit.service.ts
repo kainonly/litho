@@ -12,7 +12,7 @@ import { getSelectorFormUrl } from '../operates/get-selector-form-url';
 import { i18nControlsValue } from '../operates/i18n-controls-value';
 import { i18nControlsValidate } from '../operates/i18n-controls-validate';
 import { i18nControlsAsyncValidate } from '../operates/i18n-controls-async-validate';
-import { ListByPageOption, I18nGroupOption, I18nTooltipOption } from '../interface';
+import { ListByPageOption, I18nGroupOption, I18nTooltipOption } from '../types';
 
 @Injectable({
   providedIn: 'root'

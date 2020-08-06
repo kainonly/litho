@@ -1,5 +1,5 @@
 import { BitConfigService } from 'ngx-bit';
-import { BitConfig } from '../interface';
+import { BitConfig } from 'ngx-bit/types';
 
 export function factoryBitConfig(config: BitConfig) {
   const service = new BitConfigService();

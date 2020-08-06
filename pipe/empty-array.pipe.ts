@@ -1,8 +1,9 @@
 import { Pipe, PipeTransform } from '@angular/core';
+import { emptyArray } from 'ngx-bit/operates';
 
 @Pipe({ name: 'EmptyArray' })
 export class EmptyArrayPipe implements PipeTransform {
   transform(value: any[]): boolean {
-    return Array.isArray(value) ? value.length === 0 : false;
+    return emptyArray(value);
   }
 }

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { OperatorFunction } from 'rxjs';
 import { factoryLocales } from '../operates/factory-locales';
-import { BitConfig, I18nOption } from '../interface';
+import { BitConfig, I18nOption } from '../types';
 
 @Injectable({
   providedIn: 'root'
