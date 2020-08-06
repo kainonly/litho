@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { objectToArray } from '../operates/object-to-array';
+import { objectToArray } from '../operates';
 
 @Pipe({ name: 'ObjectToArray' })
 export class ObjectToArrayPipe implements PipeTransform {

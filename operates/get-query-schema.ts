@@ -1,5 +1,5 @@
 import * as Ajv from 'ajv';
-import { SearchOption } from '../types/search-option';
+import { SearchOption } from '../interface';
 
 export function getQuerySchema(options: SearchOption[]): any[] {
   const schema = [];

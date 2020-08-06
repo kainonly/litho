@@ -7,14 +7,12 @@ import { BitConfigService } from './bit-config.service';
 import { BitEventsService } from './bit-events.service';
 import { BitSupportService } from './bit-support.service';
 import { ListByPage } from '../factory/list-by-page';
-import { ListByPageOption } from '../types/list-by-page-option';
-import { I18nGroupOption } from '../types/i18n-group-option';
-import { I18nTooltipOption } from '../types/i18n-tooltip-option';
 import { factoryLocales } from '../operates/factory-locales';
 import { getSelectorFormUrl } from '../operates/get-selector-form-url';
 import { i18nControlsValue } from '../operates/i18n-controls-value';
 import { i18nControlsValidate } from '../operates/i18n-controls-validate';
 import { i18nControlsAsyncValidate } from '../operates/i18n-controls-async-validate';
+import { ListByPageOption, I18nGroupOption, I18nTooltipOption } from '../interface';
 
 @Injectable({
   providedIn: 'root'

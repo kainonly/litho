@@ -12,16 +12,13 @@
       "es2018"
     ]
   },
-  "include": [
-    "./**/*.ts"
-  ],
   "angularCompilerOptions": {
     "skipTemplateCodegen": true,
     "strictMetadataEmit": true,
     "enableResourceInlining": true
   },
   "exclude": [
-    "src/test.ts",
+    "test.ts",
     "**/*.spec.ts"
   ]
 }
