@@ -19,14 +19,19 @@ export class BitHttpService {
    * HttpClient
    */
   req(url: string, body: any = {}, method = 'post'): Observable<any> {
-    return this.http.request(
+    const request = this.http.request(
       method,
       this.config.url.api + this.config.api.namespace + '/' + url,
       {
         body,
         withCredentials: this.config.api.withCredentials
       }
-    ).pipe(this.config.getHttpInterceptor());
+    );
+    const interceptor = this.config.getHttpInterceptor();
+    if (interceptor) {
+      request.pipe(interceptor);
+    }
+    return request;
   }
 
   /**
@@ -138,12 +143,12 @@ export class BitHttpService {
    * Delete Request
    */
   delete(model: string, id?: any[], condition?: SearchOption[]): Observable<any> {
-    if (!id) {
+    if (id !== undefined) {
       return this.req(model + '/delete', {
         id
       });
     }
-    if (!condition) {
+    if (condition !== undefined) {
       return this.req(model + '/delete', {
         where: getQuerySchema(condition)
       });
