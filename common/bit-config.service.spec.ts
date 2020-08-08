@@ -5,32 +5,32 @@ import { of } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 describe('BitConfigService', () => {
-  let service: BitConfigService;
+  let config: BitConfigService;
 
   beforeEach(() => {
-    if (!service) {
+    if (!config) {
       TestBed.configureTestingModule({
         imports: [
           NgxBitModule.forRoot(environment.bit)
         ]
       });
-      service = TestBed.inject(BitConfigService);
+      config = TestBed.inject(BitConfigService);
     }
   });
 
   it('Verify configuration correctness', () => {
-    expect(service.url).toBe(environment.bit.url);
-    expect(service.api).toBe(environment.bit.api);
-    expect(service.locale).toBe(environment.bit.locale);
-    expect(service.page).toBe(environment.bit.page);
-    expect(service.col).toBe(environment.bit.col);
-    expect(service.i18n).toBe(environment.bit.i18n);
+    expect(config.url).toBe(environment.bit.url);
+    expect(config.api).toBe(environment.bit.api);
+    expect(config.locale).toBe(environment.bit.locale);
+    expect(config.page).toBe(environment.bit.page);
+    expect(config.col).toBe(environment.bit.col);
+    expect(config.i18n).toBe(environment.bit.i18n);
   });
 
   it('Test setup common language pack', (done) => {
-    service.setupLocales(import('../simulation/language'));
+    config.setupLocales(import('../simulation/language'));
     setTimeout(() => {
-      const lang = service.getLang('zh_cn');
+      const lang = config.getLang('zh_cn');
       expect(lang).not.toBeNull();
       expect(lang.dashboard).toBe('仪表盘');
       done();
@@ -42,7 +42,7 @@ describe('BitConfigService', () => {
       error: 1,
       code: 400
     });
-    service.setupHttpInterceptor(
+    config.setupHttpInterceptor(
       map((res: any) => {
         if (res.error === 1 && res.code === 400) {
           return false;
@@ -51,7 +51,7 @@ describe('BitConfigService', () => {
       })
     );
     http.pipe(
-      service.getHttpInterceptor()
+      config.getHttpInterceptor()
     ).subscribe(result => {
       expect(result).toBe(false);
       done();

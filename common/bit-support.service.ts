@@ -4,17 +4,18 @@ import { Event, NavigationStart, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { filter, map, switchMap } from 'rxjs/operators';
 import { getSelectorFormUrl } from '../operates/get-selector-form-url';
+import { BreadcrumbOption } from '../types';
 
 @Injectable()
 export class BitSupportService {
   /**
    * Title
    */
-  title = '';
+  title: any = '';
   /**
    * Breadcrumb array
    */
-  breadcrumb: any[] = [];
+  breadcrumb: BreadcrumbOption[] = [];
   /**
    * default breadcrumb top level
    */
@@ -22,7 +23,7 @@ export class BitSupportService {
   /**
    * Nav active array
    */
-  navActive = [];
+  navActive: any[] = [];
   /**
    * Router events
    */
@@ -36,14 +37,14 @@ export class BitSupportService {
   /**
    * Manual set breadcrumb
    */
-  setBreadcrumb(...breadcrumb: any[]) {
+  setBreadcrumb(...breadcrumb: BreadcrumbOption[]) {
     this.breadcrumb = breadcrumb;
   }
 
   /**
    * Auto set breadcrumb
    */
-  autoBreadcrumb(router: Router, match = ['%7B', '%7D']) {
+  autoBreadcrumb(router: Router, match: string[] = ['%7B', '%7D']) {
     this.unsubscribe();
     if (router.url !== '/') {
       this.routerAssociate(router, router.url, match);
@@ -71,7 +72,7 @@ export class BitSupportService {
   /**
    * Get router associate
    */
-  private routerAssociate(router: Router, url: string, match?: any[]) {
+  private routerAssociate(router: Router, url: string, match?: string[]) {
     const key = getSelectorFormUrl(url, match);
     this.storageMap.get('router').pipe(
       map((data: Map<string, any>) =>
@@ -93,7 +94,7 @@ export class BitSupportService {
   private factoryBreadcrumb(key: string) {
     this.storageMap.get('resource').subscribe((data: Map<string, any>) => {
       const queue = [];
-      const breadcrumb = [];
+      const breadcrumb: BreadcrumbOption[] = [];
       const navActive = [];
       if (data.has(key)) {
         const node = data.get(key);
