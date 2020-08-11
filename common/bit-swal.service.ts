@@ -17,22 +17,24 @@ export class BitSwalService {
   }
 
   /**
-   * Add a prompt to use the request
+   * Add response prompt box
    */
   addAlert(res: any, form: FormGroup, reset?: any, customize?: AlertCustomize): Observable<any> {
     return new Observable(subscriber => {
       if (!res.error) {
         Swal.fire({
           title: this.bit.l.operateSuccess,
-          text: customize && customize.text ? customize.text : this.bit.l.addSuccessMsg,
+          text: customize !== undefined && customize.text !== undefined
+            ? customize.text
+            : this.bit.l.addSuccessMsg,
           icon: 'success',
           showCancelButton: true,
           confirmButtonText:
-            customize && customize.confirmButtonText
+            customize !== undefined && customize.confirmButtonText !== undefined
               ? customize.confirmButtonText
               : this.bit.l.addContinue,
           cancelButtonText:
-            customize && customize.cancelButtonText
+            customize !== undefined && customize.cancelButtonText !== undefined
               ? customize.cancelButtonText
               : this.bit.l.operateBack
         }).then((result) => {
@@ -49,11 +51,13 @@ export class BitSwalService {
       } else {
         Swal.fire({
           title: this.bit.l.operateError,
-          text: customize && customize.errorText ? customize.errorText : res.msg,
+          text: customize !== undefined && customize.errorText !== undefined
+            ? customize.errorText
+            : res.msg,
           icon: 'error',
           confirmButtonText: this.bit.l.operateOk
         }).then(() => {
-          subscriber.next(false);
+          subscriber.next(null);
           subscriber.complete();
         });
       }
@@ -61,22 +65,24 @@ export class BitSwalService {
   }
 
   /**
-   * Edit a prompt to use the request
+   * Edit response prompt box
    */
   editAlert(res: any, customize?: AlertCustomize): Observable<any> {
     return new Observable(subscriber => {
       if (!res.error) {
         Swal.fire({
           title: this.bit.l.operateSuccess,
-          text: customize && customize.text ? customize.text : this.bit.l.editSuccessMsg,
+          text: customize !== undefined && customize.text !== undefined
+            ? customize.text
+            : this.bit.l.editSuccessMsg,
           icon: 'success',
           showCancelButton: true,
           confirmButtonText:
-            customize && customize.confirmButtonText
+            customize !== undefined && customize.confirmButtonText !== undefined
               ? customize.confirmButtonText
               : this.bit.l.editContinue,
           cancelButtonText:
-            customize && customize.cancelButtonText
+            customize !== undefined && customize.cancelButtonText !== undefined
               ? customize.cancelButtonText
               : this.bit.l.operateBack
         }).then((result) => {
@@ -92,11 +98,13 @@ export class BitSwalService {
       } else {
         Swal.fire({
           title: this.bit.l.operateError,
-          text: customize && customize.errorText ? customize.errorText : res.msg,
+          text: customize !== undefined && customize.errorText !== undefined
+            ? customize.errorText
+            : res.msg,
           icon: 'error',
           confirmButtonText: this.bit.l.operateOk
         }).then(() => {
-          subscriber.next(false);
+          subscriber.next(null);
           subscriber.complete();
         });
       }
@@ -104,25 +112,34 @@ export class BitSwalService {
   }
 
   /**
-   * Delete a prompt to use the request
+   * Delete response prompt box
    */
   deleteAlert(service: Observable<any>, customize?: AlertCustomize): Observable<any> {
     return new Observable(subscriber => {
       Swal.fire({
         title: this.bit.l.operateWarning,
-        text: customize && customize.text ? customize.text : this.bit.l.deleteWarning,
+        text: customize !== undefined && customize.text !== undefined
+          ? customize.text
+          : this.bit.l.deleteWarning,
         icon: 'warning',
         showCancelButton: true,
         confirmButtonText:
-          customize && customize.confirmButtonText ? customize.confirmButtonText : this.bit.l.deleteYes,
+          customize !== undefined && customize.confirmButtonText !== undefined
+            ? customize.confirmButtonText
+            : this.bit.l.deleteYes,
         cancelButtonText:
-          customize && customize.cancelButtonText ? customize.cancelButtonText : this.bit.l.deleteCancel
+          customize !== undefined && customize.cancelButtonText !== undefined
+            ? customize.cancelButtonText
+            : this.bit.l.deleteCancel
       }).then((result) => {
         if (result.value) {
           service.subscribe((res) => {
             subscriber.next(res);
             subscriber.complete();
           });
+        } else {
+          subscriber.next(null);
+          subscriber.complete();
         }
       });
     });

@@ -3,7 +3,6 @@ import { TestBed } from '@angular/core/testing';
 import { Router, RouterModule } from '@angular/router';
 import { environment } from '@env';
 import { StorageMap } from '@ngx-pwa/local-storage';
-import { throws } from 'assert';
 import { BitSupportService, NgxBitModule } from 'ngx-bit';
 import { BreadcrumbOption } from 'ngx-bit/types';
 import { switchMap } from 'rxjs/operators';

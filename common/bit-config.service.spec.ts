@@ -28,7 +28,7 @@ describe('BitConfigService', () => {
   });
 
   it('Test setup common language pack', (done) => {
-    config.setupLocales(import('../simulation/language'));
+    config.setupLocales(import('../simulation/common.language'));
     setTimeout(() => {
       const lang = config.getLang('zh_cn');
       expect(lang).not.toBeNull();
