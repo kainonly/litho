@@ -42,6 +42,18 @@ export class BitSupportService {
   }
 
   /**
+   * Set resource data
+   */
+  setResource(resource: Map<string, any>, router: Map<string, any>) {
+    this.storageMap.set('resource', resource).subscribe(() => {
+      // ok
+    });
+    this.storageMap.set('router', router).subscribe(() => {
+      // ok
+    });
+  }
+
+  /**
    * Auto set breadcrumb
    */
   autoBreadcrumb(router: Router, match: string[] = ['%7B', '%7D']) {
@@ -98,10 +110,11 @@ export class BitSupportService {
       const navActive = [];
       if (data.has(key)) {
         const node = data.get(key);
-        this.title = node.name;
+        const name = JSON.parse(node.name);
+        this.title = name;
         navActive.unshift(node.key);
         breadcrumb.unshift({
-          name: node.name,
+          name,
           key: node.key,
           router: node.router
         });
@@ -115,7 +128,7 @@ export class BitSupportService {
           const next = data.get(parentKey);
           navActive.unshift(next.key);
           breadcrumb.unshift({
-            name: next.name,
+            name: JSON.parse(next.name),
             key: next.key,
             router: next.router
           });
@@ -126,18 +139,6 @@ export class BitSupportService {
       }
       this.navActive = navActive;
       this.breadcrumb = breadcrumb;
-    });
-  }
-
-  /**
-   * Set resource data
-   */
-  setResource(resource: Map<string, any>, router: Map<string, any>) {
-    this.storageMap.set('resource', resource).subscribe(() => {
-      // ok
-    });
-    this.storageMap.set('router', router).subscribe(() => {
-      // ok
     });
   }
 
@@ -165,4 +166,5 @@ export class BitSupportService {
       this.routerEvents.unsubscribe();
     }
   }
+
 }
