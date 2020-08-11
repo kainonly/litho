@@ -1,7 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { environment } from '@env';
+import { environment } from '../simulation/environment';
 import { BitConfigService, BitService, BitSwalService, NgxBitModule } from 'ngx-bit';
 import { of } from 'rxjs';
 

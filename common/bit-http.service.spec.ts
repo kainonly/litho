@@ -1,14 +1,14 @@
 import { TestBed } from '@angular/core/testing';
 import { RouterModule } from '@angular/router';
-import { environment } from '@env';
+import { environment } from '../simulation/environment';
 import { BitHttpService, BitService, NgxBitModule } from 'ngx-bit';
 import { switchMap } from 'rxjs/operators';
-import { AdminService } from '../simulation/admin.service';
+import { TestService } from '../simulation/test.service';
 
 // This test needs to run the project hyperf-api-case
 describe('BitHttpService', () => {
   let http: BitHttpService;
-  let curd: AdminService;
+  let curd: TestService;
   let bit: BitService;
 
   beforeEach(() => {
@@ -19,11 +19,11 @@ describe('BitHttpService', () => {
           NgxBitModule.forRoot(environment.bit)
         ],
         providers: [
-          AdminService
+          TestService
         ]
       });
       http = TestBed.inject(BitHttpService);
-      curd = TestBed.inject(AdminService);
+      curd = TestBed.inject(TestService);
       bit = TestBed.inject(BitService);
     }
   });
@@ -75,13 +75,12 @@ describe('BitHttpService', () => {
 
   it('Test add data request', (done) => {
     curd.add({
-      username: 'devbot',
-      password: 'pass@VAN1234',
-      role: '*',
-      email: 'kainonly@qq.com',
-      call: 'kain-dev'
+      username: 'kain',
+      age: 26,
+      sex: 1,
+      call: 'devbot',
+      email: 'zhangtqx@vip.qq.com'
     }).subscribe(res => {
-      console.log(res);
       expect(res).not.toBeNull();
       expect(res.error).toBe(0);
       done();
@@ -92,7 +91,7 @@ describe('BitHttpService', () => {
     curd.originLists().pipe(
       switchMap(data => {
         expect(data).not.toBeNull();
-        const value = data.find(v => v.username === 'devbot');
+        const value = data.find(v => v.username === 'kain');
         value.call = 'mydevbot';
         return curd.edit(value);
       })
@@ -107,7 +106,7 @@ describe('BitHttpService', () => {
     curd.originLists().pipe(
       switchMap(data => {
         expect(data).not.toBeNull();
-        const value = data.find(v => v.username === 'devbot');
+        const value = data.find(v => v.username === 'kain');
         return curd.status({
           id: value.id,
           status: 0
@@ -124,7 +123,7 @@ describe('BitHttpService', () => {
     curd.originLists().pipe(
       switchMap(data => {
         expect(data).not.toBeNull();
-        const value = data.find(v => v.username === 'devbot');
+        const value = data.find(v => v.username === 'kain');
         return curd.delete([value.id]);
       })
     ).subscribe(res => {

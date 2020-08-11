@@ -1,5 +1,5 @@
 import { TestBed } from '@angular/core/testing';
-import { environment } from '@env';
+import { environment } from '../simulation/environment';
 import { BitConfigService, NgxBitModule } from 'ngx-bit';
 import { of } from 'rxjs';
 import { map } from 'rxjs/operators';

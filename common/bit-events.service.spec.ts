@@ -1,5 +1,5 @@
 import { TestBed } from '@angular/core/testing';
-import { environment } from '@env';
+import { environment } from '../simulation/environment';
 import { BitEventsService, NgxBitModule } from 'ngx-bit';
 
 describe('BitEventsService', () => {

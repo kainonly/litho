@@ -3,8 +3,8 @@ import { Observable } from 'rxjs';
 import { BitHttpService } from 'ngx-bit';
 
 @Injectable()
-export class AdminService {
-  private model = 'admin';
+export class TestService {
+  private model = 'test';
 
   constructor(
     private http: BitHttpService

@@ -3,7 +3,7 @@ import { TestBed } from '@angular/core/testing';
 import { Location } from '@angular/common';
 import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { NavigationEnd, Router, RouterModule } from '@angular/router';
-import { environment } from '@env';
+import { environment } from '../simulation/environment';
 import { BitConfigService, BitService, NgxBitModule } from 'ngx-bit';
 import { ListByPage } from 'ngx-bit/factory';
 import { AsyncSubject } from 'rxjs';

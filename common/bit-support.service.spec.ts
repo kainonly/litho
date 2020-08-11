@@ -1,7 +1,7 @@
 import { NgZone } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { Router, RouterModule } from '@angular/router';
-import { environment } from '@env';
+import { environment } from '../simulation/environment';
 import { StorageMap } from '@ngx-pwa/local-storage';
 import { BitSupportService, NgxBitModule } from 'ngx-bit';
 import { BreadcrumbOption } from 'ngx-bit/types';
