@@ -121,6 +121,19 @@ export class BitService {
   }
 
   /**
+   * Registered language pack
+   */
+  registerLocales(packer: Promise<any>) {
+    packer.then(result => {
+      this.lang = factoryLocales(result.default, this.config.locale.mapping);
+      this.l = Object.assign(
+        this.config.getLang(this.locale),
+        this.lang[this.locale]
+      );
+    });
+  }
+
+  /**
    * Set language pack ID
    */
   setLocale(locale: string) {
@@ -136,19 +149,6 @@ export class BitService {
     if (bind.size !== 0 && bind.has(this.locale)) {
       this.nzI18nService.setLocale(bind.get(this.locale));
     }
-  }
-
-  /**
-   * Registered language pack
-   */
-  registerLocales(packer: Promise<any>) {
-    packer.then(result => {
-      this.lang = factoryLocales(result.default, this.config.locale.mapping);
-      this.l = Object.assign(
-        this.config.getLang(this.locale),
-        this.lang[this.locale]
-      );
-    });
   }
 
   /**
@@ -205,11 +205,11 @@ export class BitService {
    * Parse i18n string json
    */
   i18nParse(raws: string) {
-    const data = JSON.parse(raws);
-    for (const i18n in data) {
-      if (data.hasOwnProperty(i18n) &&
-        this.config.i18n.contain.indexOf(i18n) === -1) {
-        delete data.i18n;
+    const lang: any = JSON.parse(raws);
+    const data: any = {};
+    for (const ID of this.config.i18n.contain) {
+      if (lang.hasOwnProperty(ID)) {
+        data[ID] = lang[ID];
       }
     }
     return data;
