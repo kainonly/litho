@@ -3,7 +3,7 @@ import { factoryBitConfig } from 'ngx-bit/operates';
 
 const bit = factoryBitConfig({
   url: {
-    api: 'https://api.kainonly.com',
+    api: 'http://localhost:9501',
     static: 'https://cdn.kainonly.com/',
     icon: 'https://cdn.kainonly.com/'
   },
