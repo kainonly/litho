@@ -6,13 +6,13 @@ import { BitService } from 'ngx-bit';
   template: `
     <ng-template #ref>
       <ng-container *ngIf="bit.i18nTooltip.hasOwnProperty(groupName) && bit.i18nTooltip[groupName].length !== 0;else not">
-        <ng-container *ngFor="let x of bit.i18nTooltip[groupName];first as isFirst">
+        <ng-container *ngFor="let ID of bit.i18nTooltip[groupName];first as isFirst">
           <ng-container *ngIf="!isFirst">,</ng-container>
-          {{bit.l[groupName + '_' + x]}}
+          {{bit.l[groupName + '_' + ID]}}
         </ng-container>
       </ng-container>
       <ng-template #not>
-        {{bit.l['noTips']}}
+        {{bit.l.noTips}}
       </ng-template>
     </ng-template>
   `

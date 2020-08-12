@@ -21,13 +21,13 @@ export class BitI18nUpdateDirective implements OnInit, OnDestroy {
     const formGroupName = this.formControlName.path[0];
     this.valueChanges = this.formControlName.control.valueChanges.subscribe(() => {
       const emptyI18n = [];
-      for (const x of this.bit.i18nContain) {
-        const formControl = formGroup.get(x);
-        if (x !== controlName) {
+      for (const ID of this.bit.i18nContain) {
+        const formControl = formGroup.get(ID);
+        if (ID !== controlName) {
           formControl.updateValueAndValidity();
         }
         if (!formControl.value) {
-          emptyI18n.push(x);
+          emptyI18n.push(ID);
         }
       }
       Reflect.set(this.bit.i18nTooltip, formGroupName, emptyI18n);
