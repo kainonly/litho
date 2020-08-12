@@ -9,15 +9,14 @@ import { environment } from '../simulation/environment';
 describe('BitI18nTooltipComponent', () => {
   let config: BitConfigService;
   let bit: BitService;
-  let component: TestComponentExample;
-  let fixture: ComponentFixture<TestComponentExample>;
-  let debugElement: DebugElement;
+  let component: TestComponent;
+  let fixture: ComponentFixture<TestComponent>;
 
   beforeEach((done) => {
     if (!component) {
       TestBed.configureTestingModule({
         declarations: [
-          TestComponentExample
+          TestComponent
         ],
         imports: [
           BitExtModule,
@@ -27,9 +26,8 @@ describe('BitI18nTooltipComponent', () => {
       });
       config = TestBed.inject(BitConfigService);
       bit = TestBed.inject(BitService);
-      fixture = TestBed.createComponent(TestComponentExample);
+      fixture = TestBed.createComponent(TestComponent);
       component = fixture.componentInstance;
-      debugElement = fixture.debugElement;
       config.setupLocales(import('../simulation/common.language'));
       setTimeout(() => {
         bit.registerLocales(import('../simulation/language'));
@@ -74,6 +72,6 @@ describe('BitI18nTooltipComponent', () => {
     <bit-i18n-tooltip #tooltip groupName="name"></bit-i18n-tooltip>
   `
 })
-class TestComponentExample {
+class TestComponent {
   @ViewChild('element') ref: ElementRef;
 }
