@@ -1,21 +1,19 @@
 /* tslint:disable:component-class-suffix */
-import { Location } from '@angular/common';
 import { Component, NgZone } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { NavigationEnd, Router, RouterModule } from '@angular/router';
-import { BitService, NgxBitModule } from 'ngx-bit';
 import { NzButtonModule } from 'ng-zorro-antd/button';
-import { BitBackDirective, BitDirectiveModule } from 'ngx-bit/directive';
+import { BitService, NgxBitModule } from 'ngx-bit';
+import { BitDirectiveModule, BitOpenDirective } from 'ngx-bit/directive';
 import { environment } from '../simulation/environment';
 
-describe('BitBackDirective', () => {
+describe('BitOpenDirective', () => {
   let bit: BitService;
   let component: TestComponent;
   let fixture: ComponentFixture<TestComponent>;
   let zone: NgZone;
   let router: Router;
-  let location: Location;
 
   beforeEach(() => {
     if (!component) {
@@ -34,10 +32,6 @@ describe('BitBackDirective', () => {
             {
               path: '{admin-index}',
               loadChildren: () => import('../simulation/case/case.module').then(m => m.CaseModule)
-            },
-            {
-              path: '{admin-add}',
-              loadChildren: () => import('../simulation/case/case.module').then(m => m.CaseModule)
             }
           ]),
           NgxBitModule.forRoot(environment.bit)
@@ -46,38 +40,31 @@ describe('BitBackDirective', () => {
       bit = TestBed.inject(BitService);
       zone = TestBed.inject(NgZone);
       router = TestBed.inject(Router);
-      location = TestBed.inject(Location);
       fixture = TestBed.createComponent(TestComponent);
       component = fixture.componentInstance;
       fixture.detectChanges();
     }
   });
 
-  it('Test location back', (done) => {
+  it('Test', (done) => {
     zone.run(() => {
-      bit.open(['admin-index']);
-      setTimeout(() => {
-        const event = router.events.subscribe(events => {
-          if (events instanceof NavigationEnd) {
-            expect(events.url).toBe('/%7Badmin-add%7D');
-            event.unsubscribe();
-            const button = fixture.debugElement.query(By.directive(BitBackDirective));
-            button.triggerEventHandler('click', null);
-            setTimeout(() => {
-              expect(location.path()).toBe('/%7Badmin-index%7D');
-              done();
-            }, 200);
-          }
-        });
-        bit.open(['admin-add']);
-      }, 200);
+      const event = router.events.subscribe(events => {
+        if (events instanceof NavigationEnd) {
+          expect(events.url).toBe('/%7Badmin-index%7D');
+          event.unsubscribe();
+          done();
+        }
+      });
+      const button = fixture.debugElement.query(By.directive(BitOpenDirective));
+      button.triggerEventHandler('click', null);
     });
   });
+
 });
 
 @Component({
   template: `
-    <button nz-button nzType="primary" bitBack>Test</button>
+    <button nz-button nzType="primary" [bitOpen]="['admin-index']">Test</button>
   `
 })
 class TestComponent {

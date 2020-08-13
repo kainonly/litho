@@ -1,5 +1,5 @@
 /* tslint:disable:component-class-suffix */
-import { Component, ElementRef, NgZone, ViewChild } from '@angular/core';
+import { Component, NgZone } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { NavigationEnd, Router, RouterModule } from '@angular/router';
@@ -93,9 +93,8 @@ describe('BitCrossLevelDirective', () => {
 
 @Component({
   template: `
-    <button #buttonComponent nz-button nzType="primary" bitCrossLevel="admin-edit">Test</button>
+    <button nz-button nzType="primary" bitCrossLevel="admin-edit">Test</button>
   `
 })
 class TestComponent {
-  @ViewChild('buttonComponent') ref: ElementRef;
 }
