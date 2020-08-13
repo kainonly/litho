@@ -1,5 +1,5 @@
 import { Directive, OnDestroy, OnInit } from '@angular/core';
-import { FormControlName } from '@angular/forms';
+import { FormGroupName } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { BitService } from 'ngx-bit';
 
@@ -7,34 +7,29 @@ import { BitService } from 'ngx-bit';
   selector: '[bitI18nUpdate]'
 })
 export class BitI18nUpdateDirective implements OnInit, OnDestroy {
-  private valueChanges: Subscription;
+  private changes: Subscription;
 
   constructor(
     private bit: BitService,
-    private formControlName: FormControlName
+    private formGroupName: FormGroupName
   ) {
   }
 
   ngOnInit(): void {
-    const controlName = this.formControlName.name;
-    const formGroup = this.formControlName.control.parent;
-    const formGroupName = this.formControlName.path[0];
-    this.valueChanges = this.formControlName.control.valueChanges.subscribe(() => {
+    this.changes = this.formGroupName.valueChanges.subscribe((value) => {
       const emptyI18n = [];
-      for (const ID of this.bit.i18nContain) {
-        const formControl = formGroup.get(ID);
-        if (ID !== controlName) {
-          formControl.updateValueAndValidity();
-        }
-        if (!formControl.value) {
-          emptyI18n.push(ID);
+      for (const ID in value) {
+        if (value.hasOwnProperty(ID)) {
+          if (!value[ID]) {
+            emptyI18n.push(ID);
+          }
         }
       }
-      Reflect.set(this.bit.i18nTooltip, formGroupName, emptyI18n);
+      Reflect.set(this.bit.i18nTooltip, this.formGroupName.name, emptyI18n);
     });
   }
 
   ngOnDestroy(): void {
-    this.valueChanges.unsubscribe();
+    this.changes.unsubscribe();
   }
 }

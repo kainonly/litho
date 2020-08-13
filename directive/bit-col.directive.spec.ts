@@ -2,7 +2,6 @@
 import { Component, DebugElement } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { RouterModule } from '@angular/router';
 import { BitConfigService, NgxBitModule } from 'ngx-bit';
 import { BitColDirective, BitDirectiveModule } from 'ngx-bit/directive';
 import { environment } from '../simulation/environment';
@@ -23,7 +22,6 @@ describe('BitColDirective', () => {
         imports: [
           NzGridModule,
           BitDirectiveModule,
-          RouterModule.forRoot([]),
           NgxBitModule.forRoot(environment.bit)
         ],
         providers: [

@@ -3,13 +3,11 @@ import { Component, DebugElement, OnInit } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { By } from '@angular/platform-browser';
-import { RouterModule } from '@angular/router';
-import { BitConfigService, NgxBitModule } from 'ngx-bit';
+import { NgxBitModule } from 'ngx-bit';
 import { BitDirectiveModule } from 'ngx-bit/directive';
 import { environment } from '../simulation/environment';
 
 describe('BitFormSubmitDirective', () => {
-  let config: BitConfigService;
   let component: TestComponent;
   let fixture: ComponentFixture<TestComponent>;
   let debugElement: DebugElement;
@@ -24,11 +22,9 @@ describe('BitFormSubmitDirective', () => {
           FormsModule,
           ReactiveFormsModule,
           BitDirectiveModule,
-          RouterModule.forRoot([]),
           NgxBitModule.forRoot(environment.bit)
         ]
       });
-      config = TestBed.inject(BitConfigService);
       fixture = TestBed.createComponent(TestComponent);
       component = fixture.componentInstance;
       debugElement = fixture.debugElement;
