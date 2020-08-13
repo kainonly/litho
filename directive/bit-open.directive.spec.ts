@@ -46,7 +46,7 @@ describe('BitOpenDirective', () => {
     }
   });
 
-  it('Test', (done) => {
+  it('Test open routerlink with cross level', (done) => {
     zone.run(() => {
       const event = router.events.subscribe(events => {
         if (events instanceof NavigationEnd) {
