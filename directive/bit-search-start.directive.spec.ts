@@ -5,14 +5,12 @@ import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
 import { StorageMap } from '@ngx-pwa/local-storage';
-import { NzSelectModule } from 'ng-zorro-antd/select';
 import { BitService, NgxBitModule } from 'ngx-bit';
-import { BitDirectiveModule, BitSearchChangeDirective, BitSearchClearDirective } from 'ngx-bit/directive';
+import { BitDirectiveModule, BitSearchStartDirective } from 'ngx-bit/directive';
 import { ListByPage } from 'ngx-bit/factory';
-import { switchMap } from 'rxjs/operators';
 import { environment } from '../simulation/environment';
 
-describe('BitSearchClearDirective', () => {
+describe('BitSearchStartDirective', () => {
   let bit: BitService;
   let component: TestComponent;
   let fixture: ComponentFixture<TestComponent>;
@@ -26,7 +24,6 @@ describe('BitSearchClearDirective', () => {
       ],
       imports: [
         FormsModule,
-        NzSelectModule,
         BitDirectiveModule,
         RouterModule.forRoot([]),
         NgxBitModule.forRoot(environment.bit)
@@ -46,63 +43,59 @@ describe('BitSearchClearDirective', () => {
     });
   });
 
-  it('Test clear search conditions and persistent directive', (done) => {
-    const select = debugElement.query(By.directive(BitSearchChangeDirective));
-    select.nativeElement.value = 2;
-    select.triggerEventHandler('change', {
-      target: select.nativeElement
+  it('Test search directive for input', (done) => {
+    const input = debugElement.query(By.css('input'));
+    input.nativeElement.value = 'kain';
+    input.triggerEventHandler('input', {
+      target: input.nativeElement
     });
     fixture.detectChanges();
-    expect(component.lists.hasSearch('type')).toBeTruthy();
-    expect(component.lists.search.type.value).toEqual('2');
-    storage.has('search:test').pipe(
-      switchMap(status => {
-        expect(status).toBeTruthy();
-        return storage.get('search:test');
-      }),
-      switchMap(data => {
-        expect(data).toEqual(component.lists.search);
-        const button = debugElement.query(By.directive(BitSearchClearDirective));
-        button.triggerEventHandler('click', null);
-        return storage.has('search:test');
-      })
-    ).subscribe(status => {
-      expect(status).toBeFalsy();
-      setTimeout(() => {
-        expect(component.afterResult).toEqual('triggered');
-        done();
-      }, 200);
+    input.triggerEventHandler('keydown.enter', null);
+    expect(component.lists.hasSearch('username')).toBeTruthy();
+    expect(component.lists.search.username.value).toEqual('kain');
+    setTimeout(() => {
+      expect(component.afterResult).toEqual('triggered');
+      done();
+    }, 200);
+  });
+
+  it('Test search directive for button', (done) => {
+    const input = debugElement.query(By.css('input'));
+    input.nativeElement.value = 'van';
+    input.triggerEventHandler('input', {
+      target: input.nativeElement
     });
+    fixture.detectChanges();
+    const button = debugElement.query(By.css('button'));
+    button.triggerEventHandler('click', null);
+    expect(component.lists.hasSearch('username')).toBeTruthy();
+    expect(component.lists.search.username.value).toEqual('van');
+    setTimeout(() => {
+      expect(component.afterResult).toEqual('triggered');
+      done();
+    }, 200);
   });
 });
 
 @Component({
   template: `
-    <ng-container *ngIf="lists.hasSearch('type')">
-      <select
-        [bitSearchChange]="lists"
-        [(ngModel)]="lists.search['type'].value"
-      >
-        <ng-container *ngFor="let option of options">
-          <option [label]="option.label" [value]="option.value"></option>
-        </ng-container>
-      </select>
+    <ng-container *ngIf="lists.hasSearch('username')">
+      <input
+        [bitSearchStart]="lists"
+        [(ngModel)]="lists.search['username'].value"
+        (after)="after()"
+      />
       <button
-        [bitSearchClear]="lists"
+        [bitSearchStart]="lists"
         (after)="after()"
       >
-        测试清除
+        搜索
       </button>
     </ng-container>
   `
 })
 class TestComponent implements OnInit {
   lists: ListByPage;
-  options: any[] = [
-    { label: 'type1', value: 0 },
-    { label: 'type1', value: 1 },
-    { label: 'type2', value: 2 }
-  ];
   afterResult: any;
 
   constructor(
@@ -114,7 +107,7 @@ class TestComponent implements OnInit {
     this.lists = this.bit.listByPage({
       id: 'test',
       query: [
-        { field: 'type', op: '=', value: 0 }
+        { field: 'username', op: '=', value: '' }
       ]
     });
   }

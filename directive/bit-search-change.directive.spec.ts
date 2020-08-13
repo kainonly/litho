@@ -4,6 +4,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
+import { StorageMap } from '@ngx-pwa/local-storage';
 import { BitService, NgxBitModule } from 'ngx-bit';
 import { BitDirectiveModule, BitSearchChangeDirective } from 'ngx-bit/directive';
 import { ListByPage } from 'ngx-bit/factory';
@@ -15,31 +16,33 @@ describe('BitSearchChangeDirective', () => {
   let component: TestComponent;
   let fixture: ComponentFixture<TestComponent>;
   let debugElement: DebugElement;
+  let storage: StorageMap;
 
   beforeEach((done) => {
-    if (!component) {
-      TestBed.configureTestingModule({
-        declarations: [
-          TestComponent
-        ],
-        imports: [
-          FormsModule,
-          NzSelectModule,
-          BitDirectiveModule,
-          RouterModule.forRoot([]),
-          NgxBitModule.forRoot(environment.bit)
-        ]
-      });
-      bit = TestBed.inject(BitService);
-      fixture = TestBed.createComponent(TestComponent);
-      component = fixture.componentInstance;
-      debugElement = fixture.debugElement;
-      fixture.detectChanges();
+    TestBed.configureTestingModule({
+      declarations: [
+        TestComponent
+      ],
+      imports: [
+        FormsModule,
+        NzSelectModule,
+        BitDirectiveModule,
+        RouterModule.forRoot([]),
+        NgxBitModule.forRoot(environment.bit)
+      ]
+    });
+    bit = TestBed.inject(BitService);
+    storage = TestBed.inject(StorageMap);
+    fixture = TestBed.createComponent(TestComponent);
+    component = fixture.componentInstance;
+    debugElement = fixture.debugElement;
+    fixture.detectChanges();
+    storage.clear().subscribe(() => {
       setTimeout(() => {
         fixture.detectChanges();
         done();
       }, 500);
-    }
+    });
   });
 
   it('Test search directive in ngModel', (done) => {
