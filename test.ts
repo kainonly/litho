@@ -2,6 +2,7 @@
 
 import 'zone.js/dist/zone';
 import 'zone.js/dist/zone-testing';
+import 'zone.js/dist/zone-patch-rxjs-fake-async';
 import { getTestBed } from '@angular/core/testing';
 import {
   BrowserDynamicTestingModule,
