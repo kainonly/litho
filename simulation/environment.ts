@@ -33,6 +33,10 @@ const bit = factoryBitConfig({
       nzLg: { span: 10, offset: 6 },
       nzMd: { span: 14, offset: 6 },
       nzSm: { span: 24, offset: 0 }
+    },
+    test: {
+      nzXXl: { span: 8, pull: 16, order: 2 },
+      nzXl: { span: 10, pull: 14, order: 3 }
     }
   },
   locale: {

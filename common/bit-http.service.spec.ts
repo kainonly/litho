@@ -37,14 +37,16 @@ describe('BitHttpService', () => {
       error: 0,
       msg: 'ok'
     };
-    http.req('main/login', {
+    const data = {
       username: 'kain',
       password: 'pass@VAN1234'
-    }).subscribe(data => {
-      expect(data).toEqual(result);
+    };
+    http.req('main/login', data).subscribe(res => {
+      expect(res).toEqual(result);
     });
     const req = httpTestingController.expectOne(config.url.api + '/system/main/login');
     expect(req.request.method).toEqual('POST');
+    expect(req.request.body).toEqual(data);
     req.flush(result);
     httpTestingController.verify();
   });
