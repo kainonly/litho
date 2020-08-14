@@ -132,6 +132,13 @@ export class ListByPage {
   }
 
   /**
+   * Get checked lists
+   */
+  getChecked(): any[] {
+    return this.data.filter(value => value.checked);
+  }
+
+  /**
    * Get pagination
    */
   getPage(): Observable<any> {
@@ -171,12 +178,5 @@ export class ListByPage {
       }
     }
     return schema;
-  }
-
-  /**
-   * Get checked lists
-   */
-  getChecked(): any[] {
-    return this.data.filter(value => value.checked);
   }
 }
