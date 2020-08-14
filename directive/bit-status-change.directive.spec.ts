@@ -5,7 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
-import { BitConfigService, BitService, NgxBitModule } from 'ngx-bit';
+import { BitConfigService, NgxBitModule } from 'ngx-bit';
 import { BitDirectiveModule, BitStatusChangeDirective } from 'ngx-bit/directive';
 import { NzSwitchComponent, NzSwitchModule } from 'ng-zorro-antd/switch';
 import { NzNotificationModule } from 'ng-zorro-antd/notification';
@@ -15,12 +15,11 @@ import { TestService } from '../simulation/test.service';
 describe('BitStatusChangeDirective', () => {
   let httpTestingController: HttpTestingController;
   let config: BitConfigService;
-  let bit: BitService;
   let component: TestComponent;
   let fixture: ComponentFixture<TestComponent>;
   let debugElement: DebugElement;
 
-  beforeEach((done) => {
+  beforeEach(() => {
     TestBed.configureTestingModule({
       declarations: [
         TestComponent
@@ -41,18 +40,10 @@ describe('BitStatusChangeDirective', () => {
     });
     httpTestingController = TestBed.inject(HttpTestingController);
     config = TestBed.inject(BitConfigService);
-    bit = TestBed.inject(BitService);
-    config.setupLocales(import('../simulation/common.language'));
     fixture = TestBed.createComponent(TestComponent);
     component = fixture.componentInstance;
     debugElement = fixture.debugElement;
     fixture.detectChanges();
-    setTimeout(() => {
-      bit.registerLocales(import('../simulation/language'));
-      setTimeout(() => {
-        done();
-      }, 200);
-    }, 200);
   });
 
   it('Test status change request binding directive', () => {
