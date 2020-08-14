@@ -1,4 +1,3 @@
-/* tslint:disable:component-class-suffix */
 import { Component, DebugElement, OnInit } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';

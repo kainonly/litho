@@ -17,8 +17,6 @@ export class BitStatusChangeDirective {
     private notificationService: NzNotificationService
   ) {
     nzSwitchComponent.nzControl = true;
-    nzSwitchComponent.nzCheckedChildren = bit.l.on;
-    nzSwitchComponent.nzUnCheckedChildren = bit.l.off;
   }
 
   @HostListener('click')
