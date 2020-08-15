@@ -2,6 +2,8 @@
 
 易用的 Angular 辅助层框架
 
+[![Travis (.org)](https://img.shields.io/travis/kainonly/ngx-bit.svg?style=flat-square)](https://travis-ci.org/kainonly/ngx-bit)
+[![Coveralls github](https://img.shields.io/coveralls/github/kainonly/ngx-bit.svg?style=flat-square)](https://coveralls.io/github/kainonly/ngx-bit)
 [![npm](https://img.shields.io/npm/v/ngx-bit.svg?style=flat-square)](https://ngx-bit.kainonly.com)
 [![Downloads](https://img.shields.io/npm/dm/ngx-bit.svg?style=flat-square)](https://www.npmjs.com/package/ngx-bit)
 [![npm](https://img.shields.io/npm/dt/ngx-bit.svg?style=flat-square)](https://www.npmjs.com/package/ngx-bit)
