@@ -1,0 +1,123 @@
+<nz-page-header nzBackIcon (nzBack)="bit.back()" [nzTitle]="bit.support.title|Locale:bit.locale">
+  <nz-page-header-extra>
+    <bit-i18n-switch></bit-i18n-switch>
+  </nz-page-header-extra>
+</nz-page-header>
+
+<nz-card>
+  <form nz-form [formGroup]="form" (bitFormSubmit)="submit($event)">
+    <nz-form-item formGroupName="name" bitI18nUpdate>
+      <nz-form-label bitCol="label" nzRequired>
+        <span>
+          {{bit.l['name']}}
+          <i nz-icon
+             nz-tooltip
+             [nzTooltipTitle]="bit.l['i18n']"
+             nzType="translation"
+             nzTheme="outline">
+          </i>
+        </span>
+
+      </nz-form-label>
+      <ng-container *ngFor="let x of bit.i18nContain">
+        <nz-form-control *ngIf="bit.equalI18n(x)"
+                         nzHasFeedback
+                         bitCol="control"
+                         [nzValidatingTip]="bit.l['validating']"
+                         [nzErrorTip]="name.ref">
+          <input nz-input
+                 [nz-tooltip]="tooltip.ref"
+                 [formControlName]="x"
+                 [placeholder]="bit.l['namePlaceholder']"/>
+          <bit-i18n-tooltip #tooltip groupName="name"></bit-i18n-tooltip>
+          <bit-error-tip #name [hasError]="{
+            required:bit.l['nameRequire'],
+            duplicated:bit.l['nameDuplicated']
+          }"></bit-error-tip>
+        </nz-form-control>
+      </ng-container>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-label bitCol="label" nzRequired>
+        <span>{{bit.l['key']}}
+          <i nz-icon
+             nz-tooltip
+             [nzTooltipTitle]="bit.l['keyHelp']"
+             nzType="question-circle"
+             nzTheme="outline">
+          </i>
+        </span>
+      </nz-form-label>
+      <nz-form-control bitCol="control"
+                       nzHasFeedback
+                       [nzValidatingTip]="bit.l['validating']"
+                       [nzErrorTip]="key.ref">
+        <input nz-input
+               formControlName="key"
+               [placeholder]="bit.l['keyPlaceholder']"/>
+        <bit-error-tip #key [hasError]="{
+          required:bit.l['keyRequire'],
+          duplicated:bit.l['keyDuplicated']
+        }"></bit-error-tip>
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-label bitCol="label" nzRequired>
+        {{bit.l['writeLists']}}
+      </nz-form-label>
+      <nz-form-control bitCol="control">
+        <nz-select nzMode="tags" formControlName="write">
+          <ng-container *ngFor="let v of writeLists">
+            <nz-option [nzLabel]="v" [nzValue]="v"></nz-option>
+          </ng-container>
+        </nz-select>
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-label bitCol="label" nzRequired>
+        {{bit.l['readLists']}}
+      </nz-form-label>
+      <nz-form-control bitCol="control">
+        <nz-select nzMode="tags" formControlName="read">
+          <ng-container *ngFor="let v of readLists">
+            <nz-option [nzLabel]="v" [nzValue]="v"></nz-option>
+          </ng-container>
+        </nz-select>
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-label bitCol="label" nzRequired>
+        {{bit.l['status']}}
+      </nz-form-label>
+      <nz-form-control bitCol="control">
+        <nz-switch formControlName="status"
+                   [nzCheckedChildren]="bit.l['on']"
+                   [nzUnCheckedChildren]="bit.l['off']">
+        </nz-switch>
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-divider></nz-divider>
+
+    <nz-form-item>
+      <nz-form-control bitCol="submit">
+        <nz-space>
+          <nz-space-item>
+            <button nz-button nzType="primary" [disabled]="!form.valid">
+              <i nz-icon nzType="check"></i> {{bit.l['submit']}}
+            </button>
+          </nz-space-item>
+          <nz-space-item>
+            <button nz-button type="button" bitBack>
+              <i nz-icon nzType="close"></i> {{bit.l['cancel']}}
+            </button>
+          </nz-space-item>
+        </nz-space>
+      </nz-form-control>
+    </nz-form-item>
+  </form>
+</nz-card>

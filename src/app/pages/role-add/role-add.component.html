@@ -1,0 +1,131 @@
+<nz-page-header nzBackIcon (nzBack)="bit.back()" [nzTitle]="bit.support.title|Locale:bit.locale">
+  <nz-page-header-extra>
+    <bit-i18n-switch></bit-i18n-switch>
+  </nz-page-header-extra>
+</nz-page-header>
+
+<nz-card>
+  <form nz-form [formGroup]="form" (bitFormSubmit)="submit($event)">
+    <nz-form-item formGroupName="name">
+      <nz-form-label bitCol="label" nzRequired>
+        {{bit.l['name']}}
+      </nz-form-label>
+      <ng-container *ngFor="let x of bit.i18nContain">
+        <nz-form-control
+          *ngIf="bit.equalI18n(x)"
+          bitCol="control"
+          nzHasFeedback
+          [nzErrorTip]="name.ref"
+        >
+          <input
+            nz-input
+            bitI18nUpdate
+            [nz-tooltip]="tooltip.ref"
+            [formControlName]="x"
+            [placeholder]="bit.l['namePlaceholder']"
+          />
+          <bit-i18n-tooltip #tooltip groupName="name"></bit-i18n-tooltip>
+          <bit-error-tip #name [hasError]="{
+            required:bit.l['nameRequire']
+          }"></bit-error-tip>
+        </nz-form-control>
+      </ng-container>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-label bitCol="label" nzRequired>
+        {{bit.l['key']}}
+      </nz-form-label>
+      <nz-form-control bitCol="control"
+                       nzHasFeedback
+                       [nzValidatingTip]="bit.l['validating']"
+                       [nzErrorTip]="key.ref">
+        <input nz-input
+               formControlName="key"
+               [placeholder]="bit.l['keyPlaceholder']"/>
+        <bit-error-tip #key [hasError]="{
+          required:bit.l['keyRequire'],
+          duplicated:bit.l['keyDuplicated']
+        }"></bit-error-tip>
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-label bitCol="label" nzRequired>
+        {{bit.l['resource']}}
+      </nz-form-label>
+
+      <nz-form-control bitCol="control">
+        <nz-space>
+          <nz-space-item>
+            <button nz-button type="button" (click)="allChecked()">
+              <i nz-icon nzType="check-square"></i>
+              {{bit.l['checked']}}
+            </button>
+          </nz-space-item>
+          <nz-space-item>
+            <button nz-button type="button" (click)="allUnchecked()">
+              <i nz-icon nzType="close-square"></i>
+              {{bit.l['unchecked']}}
+            </button>
+          </nz-space-item>
+          <nz-space-item>
+            <button nz-button type="button" (click)="allExpand()">
+              <i nz-icon nzType="node-expand"></i>
+              {{bit.l['expand']}}
+            </button>
+          </nz-space-item>
+          <nz-space-item>
+            <button nz-button type="button" (click)="allClose()">
+              <i nz-icon nzType="node-collapse"></i>
+              {{bit.l['close']}}
+            </button>
+          </nz-space-item>
+        </nz-space>
+
+        <nz-divider [nzDashed]="true"></nz-divider>
+
+        <nz-tree #nzTree
+                 [nzBlockNode]="true"
+                 [nzShowLine]="true"
+                 [nzShowIcon]="true"
+                 [nzExpandAll]="true"
+                 [nzData]="nodes"
+                 (nzCheckBoxChange)="setResource()"
+                 nzCheckable>
+        </nz-tree>
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-label bitCol="label" nzRequired>
+        {{bit.l['status']}}
+      </nz-form-label>
+      <nz-form-control bitCol="control">
+        <nz-switch formControlName="status"
+                   [nzCheckedChildren]="bit.l['on']"
+                   [nzUnCheckedChildren]="bit.l['off']">
+        </nz-switch>
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-divider></nz-divider>
+
+    <nz-form-item>
+      <nz-form-control bitCol="submit">
+        <nz-space>
+          <nz-space-item>
+            <button nz-button nzType="primary" [disabled]="!form.valid">
+              <i nz-icon nzType="check"></i> {{bit.l['submit']}}
+            </button>
+          </nz-space-item>
+          <nz-space-item>
+            <button nz-button type="button" bitBack>
+              <i nz-icon nzType="close"></i> {{bit.l['cancel']}}
+            </button>
+          </nz-space-item>
+        </nz-space>
+      </nz-form-control>
+    </nz-form-item>
+  </form>
+</nz-card>

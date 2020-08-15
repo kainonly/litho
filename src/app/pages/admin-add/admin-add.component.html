@@ -1,0 +1,177 @@
+<nz-page-header nzBackIcon (nzBack)="bit.back()" [nzTitle]="bit.support.title|Locale:bit.locale">
+</nz-page-header>
+
+<nz-card>
+  <form nz-form [formGroup]="form" (bitFormSubmit)="submit($event)">
+    <nz-form-item>
+      <nz-form-label bitCol="label" nzRequired>
+        {{bit.l['username']}}
+      </nz-form-label>
+      <nz-form-control
+        bitCol="control"
+        nzHasFeedback
+        [nzValidatingTip]="bit.l['validating']"
+        [nzErrorTip]="username.ref"
+      >
+        <input nz-input formControlName="username" [placeholder]="bit.l['usernamePlaceholder']"/>
+        <bit-error-tip #username [hasError]="{
+          required:bit.l['usernameRequire'],
+          minlength:bit.l['usernameCorrectly'],
+          maxlength:bit.l['usernameCorrectly'],
+          duplicated:bit.l['usernameDuplicated']
+        }"></bit-error-tip>
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-label bitCol="label" nzRequired>
+        {{bit.l['role']}}
+      </nz-form-label>
+      <nz-form-control bitCol="control">
+        <nz-select nzShowSearch nzAllowClear formControlName="role" [nzPlaceHolder]="bit.l['rolePlaceholder']">
+          <ng-template ngFor let-x [ngForOf]="roleLists">
+            <nz-option [nzLabel]="x.name|Locale:bit.locale" [nzValue]="x.key"></nz-option>
+          </ng-template>
+        </nz-select>
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-label bitCol="label" nzRequired>
+        <span>
+          {{bit.l['password']}}
+          <i
+            nz-icon
+            nzType="question-circle"
+            [nz-tooltip]="bit.l['passwordTips']"
+          >
+          </i>
+        </span>
+      </nz-form-label>
+      <nz-form-control
+        bitCol="control"
+        nzHasFeedback
+        [nzErrorTip]="password.ref"
+      >
+        <input
+          nz-input
+          type="password"
+          formControlName="password"
+          [placeholder]="bit.l['passwordPlaceholder']"
+        />
+        <bit-error-tip #password [hasError]="{
+          required:bit.l['passwordRequire'],
+          min:bit.l['passwordMinLength'],
+          max:bit.l['passwordMaxLength'],
+          lowercase:bit.l['passwordLowercase'],
+          uppercase:bit.l['passwordUppercase'],
+          number:bit.l['passwordNumber'],
+          symbol:bit.l['passwordSymbol']
+        }"></bit-error-tip>
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-label bitCol="label" nzRequired>
+        {{bit.l['passwordCheck']}}
+      </nz-form-label>
+      <nz-form-control
+        bitCol="control"
+        nzHasFeedback
+        [nzErrorTip]="passwordCheck.ref"
+      >
+        <input
+          nz-input
+          type="password"
+          formControlName="password_check"
+          [placeholder]="bit.l['passwordPlaceholder']"
+        />
+        <bit-error-tip #passwordCheck [hasError]="{
+          required:bit.l['passwordRequire'],
+          correctly:bit.l['passwordCorrectly']
+        }"></bit-error-tip>
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-label bitCol="label">
+        {{bit.l['call']}}
+      </nz-form-label>
+      <nz-form-control bitCol="control" nzHasFeedback>
+        <input nz-input formControlName="call" [placeholder]="bit.l['callPlaceholder']"/>
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-label bitCol="label">
+        {{bit.l['email']}}
+      </nz-form-label>
+      <nz-form-control bitCol="control"
+                       nzHasFeedback
+                       [nzErrorTip]="email.ref">
+        <input nz-input formControlName="email" [placeholder]="bit.l['emailPlaceholder']"/>
+        <bit-error-tip #email [hasError]="{
+          email:bit.l['emailCorrectly']
+        }"></bit-error-tip>
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-label bitCol="label">
+        {{bit.l['phone']}}
+      </nz-form-label>
+      <nz-form-control bitCol="control" nzHasFeedback>
+        <input nz-input formControlName="phone" [placeholder]="bit.l['phonePlaceholder']"/>
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-label bitCol="label">
+        {{bit.l['avatar']}}
+      </nz-form-label>
+      <nz-form-control bitCol="control">
+        <p>{{bit.l['avatarTips']}}</p>
+        <nz-upload nzName="image" bitUpload
+                   nzListType="picture-card"
+                   (nzChange)="upload($event)">
+          <ng-container *ngIf="!avatar">
+            <i nz-icon nzType="plus"></i>
+            <div class="ant-upload-text">{{bit.l['upload']}}</div>
+          </ng-container>
+          <img width="120" *ngIf="avatar" [src]="bit.static+avatar" class="avatar">
+        </nz-upload>
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-label bitCol="label" nzRequired>
+        {{bit.l['status']}}
+      </nz-form-label>
+      <nz-form-control bitCol="control">
+        <nz-switch formControlName="status"
+                   [nzCheckedChildren]="bit.l['on']"
+                   [nzUnCheckedChildren]="bit.l['off']">
+        </nz-switch>
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-divider></nz-divider>
+
+    <nz-form-item>
+      <nz-form-control bitCol="submit">
+        <nz-space>
+          <nz-space-item>
+            <button nz-button nzType="primary" [disabled]="!form.valid">
+              <i nz-icon nzType="check"></i> {{bit.l['submit']}}
+            </button>
+          </nz-space-item>
+          <nz-space-item>
+            <button nz-button type="button" bitBack>
+              <i nz-icon nzType="close"></i> {{bit.l['cancel']}}
+            </button>
+          </nz-space-item>
+        </nz-space>
+      </nz-form-control>
+    </nz-form-item>
+  </form>
+</nz-card>

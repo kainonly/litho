@@ -1,33 +1,58 @@
 {
-  "name": "ngx-bit",
-  "version": "9.1.0",
+  "name": "ngx-bit-case",
+  "scripts": {
+    "start": "ng serve --host 0.0.0.0 --port 4201 --disableHostCheck",
+    "build": "ng build --prod",
+    "test:ngx-bit": "ng test ngx-bit --no-watch --code-coverage",
+    "build:ngx-bit": "ng build ngx-bit --prod",
+    "release:ngx-bit": "cd dist/ngx-bit && npm publish",
+    "test": "ng test",
+    "lint": "ng lint",
+    "e2e": "ng e2e"
+  },
+  "private": true,
   "dependencies": {
-    "@ngx-pwa/local-storage": "^9.0.0",
+    "@angular/animations": "~9.1.0",
+    "@angular/common": "~9.1.0",
+    "@angular/compiler": "~9.1.0",
+    "@angular/core": "~9.1.0",
+    "@angular/forms": "~9.1.0",
+    "@angular/platform-browser": "~9.1.0",
+    "@angular/platform-browser-dynamic": "~9.1.0",
+    "@angular/router": "~9.1.0",
+    "@angular/service-worker": "~9.1.0",
+    "@ngx-pwa/local-storage": "^9.0.3",
+    "ajv": "^6.12.0",
     "ng-zorro-antd": "^9.0.0",
-    "sweetalert2": "^9.0.0",
-    "ajv": "^6.0.0"
+    "rxjs": "~6.5.5",
+    "sweetalert2": "^9.4.3",
+    "tslib": "^1.10.0",
+    "zone.js": "~0.10.2"
   },
-  "peerDependencies": {
-    "@angular/common": "^9.0.0",
-    "@angular/core": "^9.0.0",
-    "tslib": "^1.10.0"
-  },
-  "keywords": [
-    "angular",
-    "ng-zorro",
-    "ngx"
-  ],
-  "author": {
-    "name": "kain",
-    "email": "zhangtqx@vip.qq.com"
-  },
-  "license": "MIT",
-  "homepage": "https://ngx-bit.kainonly.com",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/kainonly/ngx-bit.git"
-  },
-  "bugs": {
-    "url": "https://github.com/kainonly/ngx-bit/issues"
+  "devDependencies": {
+    "@angular-devkit/build-angular": "~0.901.3",
+    "@angular-devkit/build-ng-packagr": "~0.901.3",
+    "@angular/cli": "~9.1.0",
+    "@angular/compiler-cli": "~9.1.0",
+    "@angular/language-service": "~9.1.0",
+    "@types/howler": "^2.2.1",
+    "@types/jasmine": "~3.5.0",
+    "@types/jasminewd2": "~2.0.3",
+    "@types/node": "^12.11.1",
+    "codelyzer": "^5.1.2",
+    "jasmine-core": "~3.5.0",
+    "jasmine-spec-reporter": "~4.2.1",
+    "karma": "~5.0.0",
+    "karma-chrome-launcher": "~3.1.0",
+    "karma-coverage-istanbul-reporter": "~2.1.0",
+    "karma-jasmine": "~3.0.1",
+    "karma-jasmine-html-reporter": "^1.4.2",
+    "mqtt": "^4.1.0",
+    "ng-packagr": "^9.0.0",
+    "prettier": "^2.0.5",
+    "protractor": "~5.4.3",
+    "ts-node": "~8.3.0",
+    "tslint": "~5.19.0",
+    "typescript": "~3.8.3"
   }
 }

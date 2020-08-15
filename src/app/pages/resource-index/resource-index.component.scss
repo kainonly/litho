@@ -1,0 +1,44 @@
+//.info-tags {
+//  span {
+//    padding-right: 0.5rem;
+//  }
+//}
+//
+:host ::ng-deep .ant-tree {
+  overflow: hidden;
+  margin: 0 -24px;
+  padding: 0 24px;
+}
+//
+//:host ::ng-deep .ant-tree li {
+//  padding: 4px 0 0 0;
+//}
+//
+//:host ::ng-deep .ant-tree li span.ant-tree-switcher {
+//  margin-top: 5px;
+//}
+
+.resource-node {
+  cursor: pointer;
+  //margin-left: 4px;
+  display: inline-block;
+  margin: 0 -1000px;
+  padding: 0 1000px;
+
+  &:hover {
+    background: #e6f7ff;
+  }
+}
+
+.active {
+  background: #bae7ff;
+}
+
+//.resource-line {
+//  line-height: 36px;
+//  font-size: 16px;
+//}
+
+.title, .policy {
+  padding-left: 5px;
+}

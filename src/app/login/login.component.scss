@@ -1,0 +1,25 @@
+.container-login {
+  height: 100%;
+  background: #fbfbfb;
+  position: relative;
+  overflow: hidden;
+}
+
+.login-wrapper {
+  width: 320px;
+  margin: 150px auto;
+  padding: 40px 25px 25px 25px;
+  background: #fff;
+  border-radius: 3px;
+  box-shadow: 0 7px 25px rgba(0, 0, 0, .08);
+
+  h1 {
+    padding-bottom: 25px;
+    text-align: center;
+
+    img {
+      height: 120px;
+      width: 120px;
+    }
+  }
+}

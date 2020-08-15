@@ -1,0 +1,40 @@
+.logo {
+  width: 120px;
+  height: 31px;
+  line-height: 31px;
+  margin: 16px 28px 16px 0;
+  float: left;
+  color: #fff;
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.header-menu {
+  float: right;
+  line-height: 64px;
+}
+
+nz-layout.dashboard-layout {
+  height: 100%;
+}
+
+nz-sider.main-sider {
+  background: #fff;
+
+  ul {
+    height: 100%
+  }
+}
+
+nz-layout.app-warpper {
+  padding: 0 15px;
+}
+
+nz-breadcrumb.app-breadcrumb {
+  margin: 16px 0;
+}
+
+nz-content.app-content {
+  min-height: 280px;
+}
+

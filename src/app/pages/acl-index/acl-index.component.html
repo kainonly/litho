@@ -1,0 +1,121 @@
+<nz-page-header [nzTitle]="bit.support.title|Locale:bit.locale">
+  <nz-page-header-extra>
+    <button nz-button nzType="primary" [bitOpen]="['acl-add']">
+      <span>{{bit.l['add']}}</span>
+    </button>
+  </nz-page-header-extra>
+</nz-page-header>
+
+<nz-card>
+  <nz-space>
+    <nz-space-item *ngIf="lists.hasSearch('name->'+bit.locale)">
+      <nz-input-group nzSearch [nzAddOnAfter]="nzAddOnAfter" style="width: 320px">
+        <input
+          nz-input
+          [bitSearchStart]="lists"
+          [placeholder]="bit.l['search']"
+          [(ngModel)]="lists.search['name->'+bit.locale].value"
+          (after)="getLists(true)"
+        >
+      </nz-input-group>
+      <ng-template #nzAddOnAfter>
+        <button
+          nz-button
+          nzType="primary"
+          nzSearch
+          [bitSearchStart]="lists"
+          (after)="getLists(true)"
+        >
+          <i nz-icon nzType="search"></i>
+        </button>
+      </ng-template>
+    </nz-space-item>
+    <nz-space-item>
+      <button nz-button nzType="default" (click)="getLists(true)">
+        <i nz-icon nzType="sync"></i> {{bit.l['refreshLists']}}
+      </button>
+    </nz-space-item>
+    <nz-space-item>
+      <button
+        nz-button
+        nzType="default"
+        [bitSearchClear]="lists"
+        (after)="getLists(true)"
+      >
+        <i nz-icon nzType="clear"></i> {{bit.l['clearSearch']}}
+      </button>
+    </nz-space-item>
+    <nz-space-item>
+      <button
+        nz-button
+        nzType="danger"
+        [disabled]="!lists.batch"
+        (click)="deleteCheckData()"
+      >
+        <i nz-icon nzType="rest"></i> {{bit.l['bulkDelete']}}
+      </button>
+    </nz-space-item>
+  </nz-space>
+
+  <nz-divider [nzDashed]="true"></nz-divider>
+
+  <nz-table
+    #table
+    [nzData]="lists.data"
+    [nzLoading]="lists.loading"
+    [nzTotal]="lists.totals"
+    [nzPageSize]="lists.limit"
+    [nzFrontPagination]="false"
+    [(nzPageIndex)]="lists.index"
+    (nzPageIndexChange)="getLists(false,$event)"
+    nzSize="middle"
+  >
+    <thead>
+    <tr>
+      <th
+        nzShowCheckbox nzWidth="65px"
+        [(nzChecked)]="lists.checked"
+        [nzIndeterminate]="lists.indeterminate"
+        (nzCheckedChange)="lists.checkedAll($event)"
+      >
+      </th>
+      <th nzWidth="200px">{{bit.l['name']}}</th>
+      <th nzWidth="200px">{{bit.l['key']}}</th>
+      <th nzWidth="300px">{{bit.l['write']}}</th>
+      <th nzWidth="300px">{{bit.l['read']}}</th>
+      <th>{{bit.l['status']}}</th>
+      <th nzWidth="300px"
+          nzRight="0px">{{bit.l['action']}}</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let data of table.data">
+      <td nzShowCheckbox
+          [(nzChecked)]="data.checked"
+          (nzCheckedChange)="lists.refreshStatus()"></td>
+      <td>{{data.name|Locale:bit.locale}}</td>
+      <td>{{data.key}}</td>
+      <td>{{data.write}}</td>
+      <td>{{data.read}}</td>
+      <td>
+        <nz-switch
+          [(ngModel)]="data.status"
+          [nzCheckedChildren]="bit.l['on']"
+          [nzUnCheckedChildren]="bit.l['off']"
+          [bitStatusChange]="aclService.status(data)"
+        >
+        </nz-switch>
+      </td>
+      <td>
+        <a [bitOpen]="['acl-edit',data.id]">
+          <i nz-icon nzType="edit"></i> {{bit.l['edit']}}
+        </a>
+        <nz-divider nzType="vertical"></nz-divider>
+        <a (click)="deleteData([data.id])">
+          <i nz-icon nzType="delete"></i> {{bit.l['delete']}}
+        </a>
+      </td>
+    </tr>
+    </tbody>
+  </nz-table>
+</nz-card>

@@ -1,0 +1,125 @@
+<nz-page-header [nzTitle]="bit.support.title|Locale:bit.locale">
+  <nz-page-header-extra>
+    <button nz-button nzType="primary" [bitOpen]="['admin-add']">
+      <span>{{bit.l['add']}}</span>
+    </button>
+  </nz-page-header-extra>
+</nz-page-header>
+
+<nz-card>
+  <nz-space>
+    <nz-space-item *ngIf="lists.hasSearch('username')">
+      <nz-input-group nzSearch [nzAddOnAfter]="nzAddOnAfter" style="width: 320px">
+        <input
+          nz-input
+          [bitSearchStart]="lists"
+          [placeholder]="bit.l['search']"
+          [(ngModel)]="lists.search['username'].value"
+          (after)="getLists(true)"
+        >
+      </nz-input-group>
+      <ng-template #nzAddOnAfter>
+        <button
+          nzSearch
+          nz-button nzType="primary"
+          [bitSearchStart]="lists"
+          (after)="getLists(true)"
+        >
+          <i nz-icon nzType="search"></i>
+        </button>
+      </ng-template>
+    </nz-space-item>
+    <nz-space-item>
+      <button nz-button nzType="default" (click)="getLists(true)">
+        <i nz-icon nzType="sync"></i> {{bit.l['refreshLists']}}
+      </button>
+    </nz-space-item>
+    <nz-space-item>
+      <button
+        nz-button
+        nzType="default"
+        [bitSearchClear]="lists"
+        (after)="getLists(true)"
+      >
+        <i nz-icon nzType="clear"></i> {{bit.l['clearSearch']}}
+      </button>
+    </nz-space-item>
+    <nz-space-item>
+      <button
+        nz-button
+        nzType="danger"
+        [disabled]="!lists.batch"
+        (click)="deleteCheckData()"
+      >
+        <i nz-icon nzType="rest"></i> {{bit.l['bulkDelete']}}
+      </button>
+    </nz-space-item>
+  </nz-space>
+
+  <nz-divider [nzDashed]="true"></nz-divider>
+
+  <nz-table
+    #table
+    [nzData]="lists.data"
+    [nzLoading]="lists.loading"
+    [nzTotal]="lists.totals"
+    [nzPageSize]="lists.limit"
+    [nzFrontPagination]="false"
+    [(nzPageIndex)]="lists.index"
+    (nzPageIndexChange)="getLists()"
+    nzSize="middle"
+  >
+    <thead>
+    <tr>
+      <th nzShowCheckbox nzWidth="65px"
+          [(nzChecked)]="lists.checked"
+          [nzIndeterminate]="lists.indeterminate"
+          (nzCheckedChange)="lists.checkedAll($event)"></th>
+      <th nzWidth="200px">{{bit.l['username']}}</th>
+      <th nzWidth="200px">{{bit.l['role']}}</th>
+      <th nzWidth="200px">{{bit.l['call']}}</th>
+      <th nzWidth="150px">{{bit.l['phone']}}</th>
+      <th nzWidth="200px">{{bit.l['email']}}</th>
+      <th>{{bit.l['status']}}</th>
+      <th nzWidth="300px"
+          nzRight="0px">{{bit.l['action']}}</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let data of table.data">
+      <td nzShowCheckbox
+          [(nzChecked)]="data.checked"
+          (nzCheckedChange)="lists.refreshStatus()"></td>
+      <td>{{data.username}}</td>
+      <td>
+        <ng-container *ngIf="role[data.role]!==undefined">
+          {{(role[data.role].name)|Locale:bit.locale}}
+        </ng-container>
+      </td>
+      <td>{{data.call}}</td>
+      <td>{{data.phone}}</td>
+      <td>{{data.email}}</td>
+      <td>
+        <nz-switch
+          [(ngModel)]="data.status"
+          [nzCheckedChildren]="bit.l['on']"
+          [nzUnCheckedChildren]="bit.l['off']"
+          [bitStatusChange]="adminService.status(data)"
+          [bitControl]="true"
+          (response)="statusFeedback($event)"
+        >
+        </nz-switch>
+      </td>
+      <td>
+        <a [bitOpen]="['admin-edit',data.id]">
+          <i nz-icon nzType="edit"></i> {{bit.l['edit']}}
+        </a>
+        <nz-divider nzType="vertical"></nz-divider>
+        <a (click)="deleteData([data.id])">
+          <i nz-icon nzType="delete"></i> {{bit.l['delete']}}
+        </a>
+      </td>
+    </tr>
+    </tbody>
+  </nz-table>
+</nz-card>

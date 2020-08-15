@@ -1,0 +1,67 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "baseUrl": "./",
+    "outDir": "./dist/out-tsc",
+    "sourceMap": true,
+    "declaration": false,
+    "downlevelIteration": true,
+    "experimentalDecorators": true,
+    "module": "esnext",
+    "moduleResolution": "node",
+    "importHelpers": true,
+    "target": "es2015",
+    "typeRoots": [
+      "node_modules/@types"
+    ],
+    "lib": [
+      "es2018",
+      "dom"
+    ],
+    "paths": {
+      "@common": [
+        "src/app/common"
+      ],
+      "@common/*": [
+        "src/app/common/*"
+      ],
+      "@env": [
+        "src/environments/environment.ts"
+      ],
+      "@ext": [
+        "src/app/app.ext.module.ts"
+      ],
+      "ngx-bit": [
+        "projects/ngx-bit/public-api.ts"
+      ],
+      "ngx-bit/component": [
+        "projects/ngx-bit/component/public-api.ts"
+      ],
+      "ngx-bit/directive": [
+        "projects/ngx-bit/directive/public-api.ts"
+      ],
+      "ngx-bit/factory": [
+        "projects/ngx-bit/factory/public-api.ts"
+      ],
+      "ngx-bit/operates": [
+        "projects/ngx-bit/operates/public-api.ts"
+      ],
+      "ngx-bit/pipe": [
+        "projects/ngx-bit/pipe/public-api.ts"
+      ],
+      "ngx-bit/types": [
+        "projects/ngx-bit/types/public-api.ts"
+      ],
+      "ngx-mqtt-lite": [
+        "projects/ngx-mqtt-lite/src/public-api.ts"
+      ],
+      "ngx-howler": [
+        "projects/ngx-howler/src/public-api.ts"
+      ]
+    }
+  },
+  "angularCompilerOptions": {
+    "fullTemplateTypeCheck": true,
+    "strictInjectionParameters": true
+  }
+}
