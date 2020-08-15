@@ -3,7 +3,7 @@
   "scripts": {
     "start": "ng serve --host 0.0.0.0 --port 4201 --disableHostCheck",
     "build": "ng build --prod",
-    "test:ngx-bit": "ng test ngx-bit --no-watch --code-coverage",
+    "test:ngx-bit": "ng test ngx-bit --no-watch",
     "build:ngx-bit": "ng build ngx-bit --prod",
     "release:ngx-bit": "cd dist/ngx-bit && npm publish",
     "test": "ng test",

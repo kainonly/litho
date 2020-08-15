@@ -146,7 +146,18 @@ describe('BitSupportService', () => {
     ).subscribe((data: Map<any, any>) => {
       expect(data).not.toBeNull();
       expect(data.get('resource-add').name).toBe('{"zh_cn":"资源控制新增","en_us":"Resource Add"}');
-      done();
+      support.clearStorage();
+      setTimeout(() => {
+        storage.has('resource').pipe(
+          switchMap(status => {
+            expect(status).toBeFalsy();
+            return storage.has('router');
+          })
+        ).subscribe(status => {
+          expect(status).toBeFalsy();
+          done();
+        });
+      }, 500);
     });
   });
 
