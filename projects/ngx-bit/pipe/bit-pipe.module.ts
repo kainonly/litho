@@ -3,8 +3,6 @@ import { DefinedPipe } from './defined.pipe';
 import { UndefinedPipe } from './undefined.pipe';
 import { EmptyArrayPipe } from './empty-array.pipe';
 import { EmptyObjectPipe } from './empty-object.pipe';
-import { ObjectToArrayPipe } from './object-to-array.pipe';
-import { ObjectToMapPipe } from './object-to-map.pipe';
 import { JsonParsePipe } from './json-parse.pipe';
 import { LocalePipe } from './locale.pipe';
 import { SplitPipe } from './split.pipe';
@@ -17,8 +15,6 @@ import { PrivacyPipe } from './privacy.pipe';
     UndefinedPipe,
     EmptyArrayPipe,
     EmptyObjectPipe,
-    ObjectToArrayPipe,
-    ObjectToMapPipe,
     JsonParsePipe,
     LocalePipe,
     SplitPipe,
@@ -30,8 +26,6 @@ import { PrivacyPipe } from './privacy.pipe';
     UndefinedPipe,
     EmptyArrayPipe,
     EmptyObjectPipe,
-    ObjectToArrayPipe,
-    ObjectToMapPipe,
     JsonParsePipe,
     LocalePipe,
     SplitPipe,
