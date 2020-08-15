@@ -1,5 +1,4 @@
 import { NgModule } from '@angular/core';
-import { DefinedPipe } from './defined.pipe';
 import { UndefinedPipe } from './undefined.pipe';
 import { EmptyArrayPipe } from './empty-array.pipe';
 import { EmptyObjectPipe } from './empty-object.pipe';
@@ -11,7 +10,6 @@ import { PrivacyPipe } from './privacy.pipe';
 
 @NgModule({
   exports: [
-    DefinedPipe,
     UndefinedPipe,
     EmptyArrayPipe,
     EmptyObjectPipe,
@@ -22,7 +20,6 @@ import { PrivacyPipe } from './privacy.pipe';
     PrivacyPipe
   ],
   declarations: [
-    DefinedPipe,
     UndefinedPipe,
     EmptyArrayPipe,
     EmptyObjectPipe,

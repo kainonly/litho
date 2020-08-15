@@ -1,4 +1,3 @@
-export * from './defined.pipe';
 export * from './empty-array.pipe';
 export * from './empty-object.pipe';
 export * from './join.pipe';
