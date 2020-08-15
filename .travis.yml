@@ -19,4 +19,4 @@ install:
   - npm install
 
 script:
-  - npm run test -- --no-watch --no-progress --code-coverage --browsers=ChromeHeadlessCI
+  - npm run test
