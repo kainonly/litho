@@ -9,9 +9,6 @@ import { BitSupportService } from './bit-support.service';
 import { ListByPage } from '../factory/list-by-page';
 import { factoryLocales } from '../operates/factory-locales';
 import { getSelectorFormUrl } from '../operates/get-selector-form-url';
-import { i18nControlsValue } from '../operates/i18n-controls-value';
-import { i18nControlsValidate } from '../operates/i18n-controls-validate';
-import { i18nControlsAsyncValidate } from '../operates/i18n-controls-async-validate';
 import { ListByPageOption, I18nGroupOption, I18nTooltipOption } from '../types';
 
 @Injectable({
@@ -178,24 +175,20 @@ export class BitService {
   /**
    * Init i18n form group
    */
-  i18nGroup(options?: I18nGroupOption): any {
+  i18nGroup(options: I18nGroupOption): any {
     const controls = {};
     if (options) {
-      for (const i18n of this.config.i18n.contain) {
-        controls[i18n] = [
-          i18nControlsValue(
-            i18n,
-            options.value !== undefined ? options.value : null
-          ),
-          i18nControlsValidate(
-            i18n,
-            options.validate !== undefined ? options.validate : []
-          ),
-          i18nControlsAsyncValidate(
-            i18n,
-            options.asyncValidate !== undefined ? options.asyncValidate : []
-          )
-        ];
+      for (const ID of this.config.i18n.contain) {
+        controls[ID] = [null, [], []];
+        if (options.value !== undefined && options.value.hasOwnProperty(ID)) {
+          controls[ID][0] = options.value[ID];
+        }
+        if (options.validate !== undefined && options.validate.hasOwnProperty(ID)) {
+          controls[ID][1] = options.validate[ID];
+        }
+        if (options.asyncValidate !== undefined && options.asyncValidate.hasOwnProperty(ID)) {
+          controls[ID][2] = options.asyncValidate[ID];
+        }
       }
     }
     return controls;

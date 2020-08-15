@@ -5,8 +5,3 @@ export * from './factory-bit-config';
 export * from './factory-locales';
 export * from './get-query-schema';
 export * from './get-selector-form-url';
-export * from './i18n-controls-async-validate';
-export * from './i18n-controls-validate';
-export * from './i18n-controls-value';
-export * from './object-to-map';
-export * from './object-to-array';
