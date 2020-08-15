@@ -30,16 +30,20 @@ describe('BitEventsService', () => {
 
   it('Test functional destruction', (done) => {
     expect(events.exists('test')).toBe(false);
+    events.publish('test', {
+      name: 'kain'
+    });
+    expect(events.exists('test')).toBe(true);
     events.on('test').subscribe(args => {
       expect(args).not.toBeNull();
-      expect(args.name).toBe('kain');
+      expect(args.name).toBe('abc');
       events.off('test');
       expect(events.exists('test')).toBe(false);
       done();
     });
     expect(events.exists('test')).toBe(true);
     events.publish('test', {
-      name: 'kain'
+      name: 'abc'
     });
   });
 

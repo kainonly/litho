@@ -120,7 +120,7 @@ describe('BitHttpService', () => {
         { field: 'sex', op: '=', value: 1 }
       ]
     });
-    curd.lists(search, false, true).subscribe(data => {
+    curd.lists(search, true, true).subscribe(data => {
       expect(data).toEqual(result.data.lists);
       done();
     });
@@ -280,5 +280,11 @@ describe('BitHttpService', () => {
     expect(req.request.body.where[0]).toEqual(['username', '=', 'kain']);
     req.flush(result);
     httpTestingController.verify();
+  });
+
+  it('Test delete data request prevent', () => {
+    curd.deleteNothing().subscribe(res => {
+      expect(res).toBeFalsy();
+    });
   });
 });

@@ -18,42 +18,40 @@ describe('BitBackDirective', () => {
   let location: Location;
 
   beforeEach(() => {
-    if (!component) {
-      TestBed.configureTestingModule({
-        declarations: [
-          TestComponent
-        ],
-        imports: [
-          BitDirectiveModule,
-          NzButtonModule,
-          RouterModule.forRoot([
-            {
-              path: '',
-              loadChildren: () => import('../simulation/case/case.module').then(m => m.CaseModule)
-            },
-            {
-              path: '{admin-index}',
-              loadChildren: () => import('../simulation/case/case.module').then(m => m.CaseModule)
-            },
-            {
-              path: '{admin-add}',
-              loadChildren: () => import('../simulation/case/case.module').then(m => m.CaseModule)
-            }
-          ]),
-          NgxBitModule.forRoot(environment.bit)
-        ]
-      });
-      bit = TestBed.inject(BitService);
-      zone = TestBed.inject(NgZone);
-      router = TestBed.inject(Router);
-      location = TestBed.inject(Location);
-      fixture = TestBed.createComponent(TestComponent);
-      component = fixture.componentInstance;
-      fixture.detectChanges();
-    }
+    TestBed.configureTestingModule({
+      declarations: [
+        TestComponent
+      ],
+      imports: [
+        BitDirectiveModule,
+        NzButtonModule,
+        RouterModule.forRoot([
+          {
+            path: '',
+            loadChildren: () => import('../simulation/case/case.module').then(m => m.CaseModule)
+          },
+          {
+            path: '{admin-index}',
+            loadChildren: () => import('../simulation/case/case.module').then(m => m.CaseModule)
+          },
+          {
+            path: '{admin-add}',
+            loadChildren: () => import('../simulation/case/case.module').then(m => m.CaseModule)
+          }
+        ]),
+        NgxBitModule.forRoot(environment.bit)
+      ]
+    });
+    bit = TestBed.inject(BitService);
+    zone = TestBed.inject(NgZone);
+    router = TestBed.inject(Router);
+    location = TestBed.inject(Location);
+    fixture = TestBed.createComponent(TestComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
   });
 
-  it('Test location back', (done) => {
+  it('Test click trigger to location back', (done) => {
     zone.run(() => {
       bit.open(['admin-index']);
       setTimeout(() => {

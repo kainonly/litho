@@ -67,4 +67,8 @@ export class TestService {
       { field: 'username', op: '=', value: username }
     ]);
   }
+
+  deleteNothing(): Observable<any> {
+    return this.http.delete(this.model);
+  }
 }

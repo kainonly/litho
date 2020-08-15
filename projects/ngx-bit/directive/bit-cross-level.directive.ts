@@ -6,7 +6,6 @@ import { BitService } from 'ngx-bit';
 })
 export class BitCrossLevelDirective {
   @Input() bitCrossLevel: string;
-  @Input() bitTrigger = 'click';
 
   constructor(
     private bit: BitService
@@ -14,16 +13,7 @@ export class BitCrossLevelDirective {
   }
 
   @HostListener('click')
-  click() {
-    if (this.bitTrigger === 'click') {
-      this.bit.crossLevel(this.bitCrossLevel);
-    }
-  }
-
-  @HostListener('touchstart')
-  touch() {
-    if (this.bitTrigger === 'touch') {
-      this.bit.crossLevel(this.bitCrossLevel);
-    }
+  onClick() {
+    this.bit.crossLevel(this.bitCrossLevel);
   }
 }

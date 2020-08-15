@@ -44,6 +44,8 @@ describe('pipe', () => {
     };
     expect(pipe.transform(obj, 'zh_cn')).toEqual('你好');
     expect(pipe.transform(obj, 'en_us')).toEqual('Hello');
+    const str = 'abc';
+    expect(pipe.transform(str, 'zh_cn')).toEqual('');
   });
 
   it('Test PrivacyPipe', () => {
@@ -54,6 +56,7 @@ describe('pipe', () => {
   it('Test SplitPipe', () => {
     const pipe = new SplitPipe();
     expect(pipe.transform('a,b,c,d', ',')).toEqual(['a', 'b', 'c', 'd']);
+    expect(pipe.transform('', '')).toEqual([]);
   });
 
   it('Test UndefinedPipe', () => {

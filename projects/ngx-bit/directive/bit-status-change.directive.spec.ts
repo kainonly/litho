@@ -77,6 +77,7 @@ describe('BitStatusChangeDirective', () => {
     httpTestingController.verify();
     expect(component.feedback).toEqual(result);
   });
+
 });
 
 @Component({
@@ -98,6 +99,7 @@ class TestComponent {
     status: true
   };
   feedback: any;
+  test = false;
 
   constructor(
     public testService: TestService

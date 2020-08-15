@@ -63,10 +63,19 @@ describe('ListByPage', () => {
 
   it('Test clearSearch', (done) => {
     lists.clearSearch({}).pipe(
-      switchMap(() => storage.has('search:test'))
-    ).subscribe(status => {
-      expect(status).toBeFalsy();
-      expect(lists.search.username.value).toEqual('');
+      switchMap(() => storage.has('search:test')),
+      switchMap((status) => {
+        expect(status).toBeFalsy();
+        expect(lists.search.username.value).toEqual('');
+        return lists.clearSearch({
+          username: 'kain'
+        });
+      }),
+      switchMap(() => {
+        expect(lists.search.username.value).toEqual('kain');
+        return lists.clearSearch();
+      })
+    ).subscribe(() => {
       done();
     });
   });
