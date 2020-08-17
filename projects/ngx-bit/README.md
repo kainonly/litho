@@ -10,80 +10,98 @@
 [![TypeScript](https://img.shields.io/badge/%3C%2F%3E-TypeScript-blue.svg?style=flat-square)](https://www.typescriptlang.org/)
 [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](https://raw.githubusercontent.com/kainonly/ngx-bit.js/master/LICENSE)
 
-### 初始化
+## 链接
+
+在线案例 [https://console.kainonly.com](https://console.kainonly.com)
+
+- Username `kain`
+- Password `pass@VAN1234`
+
+手册地址 [https://ngx-bit.kainonly.com](https://ngx-bit.kainonly.com)
+
+## 快速开始
+
+初始化案例，创建本地项目 bit-example
 
 ```shell
-ng new <project_name>
+ng new bit-example
+
+# ? Would you like to add Angular routing? Yes
+# ? Which stylesheet format would you like to use? SCSS
 ```
 
-### 安装依赖
-
-ng-zorro-antd 是 Ant Design 的 Angular 实现, ngx-bit 辅助层是基于 ng-zorro-antd 框架实现的
+首先为项目安装组件依赖 ng-zorro-antd （Ant Design 的 Angular 实现）
 
 ```shell
 ng add ng-zorro-antd
+
+# ? Enable icon dynamic loading [ Detail: https://ng.ant.design/components/icon/en ] Yes
+# ? Set up custom theme file [ Detail: https://ng.ant.design/docs/customize-theme/en ] No
+# ? Choose your locale code: zh_CN
+# ? Choose template to create project: blank
 ```
 
-同时 ngx-bit 还使用了 `IndexDB` 前端存储和 `Sweetalert` 提示框插件，它们分别依赖于  `@ngx-pwa/local-storage` `sweetalert2` 来实现。
+然后安装辅助框架 ngx-bit
 
 ```shell
-npm install ngx-bit @ngx-pwa/local-storage sweetalert2 --save
+ng add ngx-bit
 ```
 
-**注意**：当前的版本基于 Angular9 需确认依赖版本
-
-- **@ngx-pwa/local-storage** version >= 9.x
-- **sweetalert2**  version >= 9.x
-
-### 定义环境配置
-
-开发环境修改 `src/environments/environment.ts`，生产环境修改 `src/environments/environment.prod.ts`，与 ngx-bit 环境配置相关的如下： 
+配置项目环境，修改文件 `src\environments\environment.ts`
 
 ```typescript
-export const environment = {
-  production: false,
-  bit: {
-    originUrl: 'https://<api domain>',
-    staticUrl: 'https://<cdn domain>/',
-    iconUrl: 'https://<icon domain>/',
-    namespace: '/<api service namespace>',
-    uploadsUrl: false,
-    uploadsPath: '<uploads action path>',
-    withCredentials: true,
-    httpInterceptor: true,
-    pageLimit: 10,
-    breadcrumbTop: 0,
-    col: {
-      label: {
-        nzXXl: 4,
-        nzXl: 5,
-        nzLg: 6,
-        nzMd: 7,
-        nzSm: 24
-      },
-      control: {
-        nzXXl: 8,
-        nzXl: 9,
-        nzLg: 10,
-        nzMd: 14,
-        nzSm: 24,
-      },
-      submit: {
-        nzXXl: {span: 8, offset: 4},
-        nzXl: {span: 9, offset: 5},
-        nzLg: {span: 10, offset: 6},
-        nzMd: {span: 14, offset: 6},
-        nzSm: {span: 24, offset: 0}
-      }
+import { en_US, zh_CN } from 'ng-zorro-antd';
+import { factoryBitConfig } from 'ngx-bit/operates';
+
+const bit = factoryBitConfig({
+  url: {
+    api: 'http://localhost:9501',
+    static: 'https://cdn.example.com/',
+    icon: 'https://cdn.example.com/'
+  },
+  api: {
+    namespace: '/system',
+    upload: '/system/main/uploads',
+    withCredentials: true
+  },
+  col: {
+    label: {
+      nzXXl: 4,
+      nzXl: 5,
+      nzLg: 6,
+      nzMd: 7,
+      nzSm: 24
     },
-    localeDefault: 'zh_cn',
-    localeBind: new Map([
+    control: {
+      nzXXl: 8,
+      nzXl: 9,
+      nzLg: 10,
+      nzMd: 14,
+      nzSm: 24
+    },
+    submit: {
+      nzXXl: { span: 8, offset: 4 },
+      nzXl: { span: 9, offset: 5 },
+      nzLg: { span: 10, offset: 6 },
+      nzMd: { span: 14, offset: 6 },
+      nzSm: { span: 24, offset: 0 }
+    }
+  },
+  locale: {
+    default: 'zh_cn',
+    mapping: new Map<number, string>([
+      [0, 'zh_cn'],
+      [1, 'en_us']
+    ]),
+    bind: new Map<string, any>([
       ['zh_cn', zh_CN],
       ['en_us', en_US]
-    ]),
-    i18nDefault: 'zh_cn',
-    i18nContain: ['zh_cn', 'en_us'],
-    i18nSwitch: [
+    ])
+  },
+  i18n: {
+    default: 'zh_cn',
+    contain: ['zh_cn', 'en_us'],
+    switch: [
       {
         i18n: 'zh_cn',
         name: {
@@ -99,116 +117,125 @@ export const environment = {
         }
       }
     ]
-  }
+  },
+  page: 20
+});
+
+export const environment = {
+  production: false,
+  bit
 };
 ```
 
-### 定义应用模块
-
-修改 `src/app/app.module.ts`，引入 `NgxBitModule`
+建立共享模块（可按照需要来定义），创建文件 `src\app\app.ext.module.ts`
 
 ```typescript
-import {NgModule} from '@angular/core';
-import {BrowserModule} from '@angular/platform-browser';
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {RouterModule, Routes} from '@angular/router';
-import {HttpClientModule, HttpClientXsrfModule} from '@angular/common/http';
-import {registerLocaleData} from '@angular/common';
-import {NgZorroAntdModule, NZ_I18N, zh_CN} from 'ng-zorro-antd';
-import {NgxBitModule} from 'ngx-bit';
-import zh from '@angular/common/locales/zh';
-import {environment} from '../environments/environment';
-
-registerLocaleData(zh);
-
-import {AppComponent} from './app.component';
-
-const routes: Routes = [
-  {
-    path: '',
-    loadChildren: () => import('./app.router.module').then(m => m.AppRouterModule),
-    canActivate: [TokenService]
-  },
-  {
-    path: 'login',
-    loadChildren: () => import('./login/login.module').then(m => m.LoginModule)
-  },
-];;
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { BitDirectiveModule } from 'ngx-bit/directive';
+import { BitExtModule } from 'ngx-bit/component';
+import { BitPipeModule } from 'ngx-bit/pipe';
+import { NzButtonModule } from 'ng-zorro-antd/button';
+import { NzIconModule } from 'ng-zorro-antd/icon';
+import { NzGridModule } from 'ng-zorro-antd/grid';
+import { NzLayoutModule } from 'ng-zorro-antd/layout';
+import { NzSpaceModule } from 'ng-zorro-antd/space';
+import { NzMenuModule } from 'ng-zorro-antd/menu';
+import { NzInputModule } from 'ng-zorro-antd/input';
+import { NzFormModule } from 'ng-zorro-antd/form';
+import { NzSelectModule } from 'ng-zorro-antd/select';
+import { NzSwitchModule } from 'ng-zorro-antd/switch';
+import { NzDrawerModule } from 'ng-zorro-antd/drawer';
+import { NzCardModule } from 'ng-zorro-antd/card';
+import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
+import { NzMessageModule } from 'ng-zorro-antd/message';
+import { NzNotificationModule } from 'ng-zorro-antd/notification';
+import { NzAutocompleteModule } from 'ng-zorro-antd/auto-complete';
+import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
+import { NzDividerModule } from 'ng-zorro-antd/divider';
+import { NzAlertModule } from 'ng-zorro-antd/alert';
+import { NzBreadCrumbModule } from 'ng-zorro-antd/breadcrumb';
+import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
+import { NzPageHeaderModule } from 'ng-zorro-antd/page-header';
+import { NzRadioModule } from 'ng-zorro-antd/radio';
+import { NzResultModule } from 'ng-zorro-antd/result';
+import { NzTableModule } from 'ng-zorro-antd/table';
+import { NzTagModule } from 'ng-zorro-antd/tag';
+import { NzTreeModule } from 'ng-zorro-antd/tree';
+import { NzTreeSelectModule } from 'ng-zorro-antd/tree-select';
+import { NzUploadModule } from 'ng-zorro-antd/upload';
 
 @NgModule({
-  declarations: [
-    AppComponent,
+  exports: [
+    CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
+    NzButtonModule,
+    NzIconModule,
+    NzGridModule,
+    NzLayoutModule,
+    NzSpaceModule,
+    NzMenuModule,
+    NzFormModule,
+    NzInputModule,
+    NzSelectModule,
+    NzSwitchModule,
+    NzCardModule,
+    NzToolTipModule,
+    NzDrawerModule,
+    NzMessageModule,
+    NzNotificationModule,
+    NzDividerModule,
+    NzAutocompleteModule,
+    NzCheckboxModule,
+    NzPageHeaderModule,
+    NzTableModule,
+    NzMessageModule,
+    NzTreeModule,
+    NzTagModule,
+    NzTreeSelectModule,
+    NzRadioModule,
+    NzDropDownModule,
+    NzBreadCrumbModule,
+    NzAlertModule,
+    NzResultModule,
+    NzMessageModule,
+    NzUploadModule,
+    BitExtModule,
+    BitPipeModule,
+    BitDirectiveModule
   ],
-  imports: [
-    BrowserModule,
-    BrowserAnimationsModule,
-    HttpClientModule,
-    // 如果前端与后端域名不同可忽略XSRF
-    HttpClientXsrfModule.withOptions({
-      cookieName: 'xsrf_token',
-      headerName: 'X-XSRF-TOKEN',
-    }),
-    NgZorroAntdModule,
-    PerfectScrollbarModule,
-    NgxBitModule.forRoot(environment.bit),
-    RouterModule.forRoot(routes, {useHash: true}),
-  ],
-  providers: [
-    {provide: NZ_I18N, useValue: zh_CN},
-  ],
-  bootstrap: [AppComponent]
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
-export class AppModule {
+export class AppExtModule {
 }
 ```
 
-### 定义路由模块
+配置 tsconfig.json ，在文件 `tsconfig.json` 中 `compilerOptions` 加入
 
-创建 `src/app/app.router.module.ts`，新版本中 `loadChildren` 不再使用字符串路径模式，具体可查看官方说明 [DeprecatedLoadChildren](https://angular.io/api/router/DeprecatedLoadChildren)
-
-```typescript
-import {NgModule} from '@angular/core';
-import {Routes, RouterModule} from '@angular/router';
-import {DashboardsComponent} from './dashboards/dashboards.component';
-import {AppExtModule} from './app.ext.module';
-
-const routes: Routes = [
-  {
-    path: '',
-    component: DashboardsComponent,
-    children: [
-      {
-        path: '',
-        loadChildren: () => import('./pages/welcome/welcome.module').then(m => m.WelcomeModule)
-      },
-      {
-        path: '{empty}',
-        loadChildren: () => import('./pages/empty/empty.module').then(m => m.EmptyModule)
-      },
-      {
-        path: '{profile}',
-        loadChildren: () => import('./pages/profile/profile.module').then(m => m.ProfileModule)
-      },
-    ]
+```json
+{
+  "compilerOptions":{
+    "paths": {
+      "@env": [
+        "src/environments/environment.ts"
+      ],
+      "@common": [
+        "src/app/common"
+      ],
+      "@common/*": [
+        "src/app/common/*"
+      ],
+      "@ext": [
+        "src/app/app.ext.module.ts"
+      ]
+    }
   }
-];
-
-@NgModule({
-  imports: [
-    AppExtModule,
-    RouterModule.forChild(routes)
-  ],
-  declarations: [
-    DashboardsComponent
-  ],
-})
-export class AppRouterModule {
 }
 ```
 
-### 定义公共语言包
-
-创建 `src/app/app.language.ts`，公共语言包可使用 `registerLocales(packer, true)` 一次性注册
+建立公共语言包，创建文件 `src\app\app.language.ts`
 
 ```typescript
 export default {
@@ -272,6 +299,7 @@ export default {
   items: ['项目', 'items'],
   clearSearch: ['清除搜索', 'Clear Search'],
   noResult: ['当前列表无数据', 'No data in current list'],
+  i18n: ['多语言输入框', 'a multilingual input box'],
   noTips: ['无提示', 'No prompt'],
   statusSuccess: ['状态已更新成功', 'Status updated successfully'],
   statusError: ['请求错误，状态更新失败', 'Request error, status update failed'],
@@ -279,57 +307,795 @@ export default {
   logoutSuccess: ['登出成功', 'Logout Success'],
   timeout: ['超时登出', 'Timeout'],
   timeoutWarning: ['您的登录已超时，请重新登录', 'Your login has timed out, please log in again'],
-  rbacError: ['您没有权限或该权限已被关闭', 'You don\'t have permission or the permission has been turned off'],
+  rbacError: ['您没有权限或该权限已被关闭', 'You don\'t have permission or the permission has been turned off']
 };
 ```
 
-### 定义根组件
+创建必要的服务与页面组件：主服务、仪表盘、登录、欢迎页、空白页
 
-修改 `src/app/app.component.ts`，并注册公共语言包
+```shell
+ng g service common/main
+ng g component dashboards --skip-import
+ng g component login --skip-import
+ng g component pages/welcome --skip-import
+ng g component pages/empty --skip-import
+```
+
+编写主服务（需根据后端实际情况更改），修改文件 `src\app\common\main.service.ts`
 
 ```typescript
-import {Component, OnInit} from '@angular/core';
-import {BitService, ConfigService} from 'ngx-bit';
-import {Observable, of} from 'rxjs';
-import {NzMessageService} from 'ng-zorro-antd';
-import packer from './app.language';
+import { Injectable } from '@angular/core';
+import { BitHttpService } from 'ngx-bit';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+
+@Injectable()
+export class MainService {
+  private model = 'main';
+
+  constructor(
+    private http: BitHttpService
+  ) {
+  }
+
+  /**
+   * Login Api
+   */
+  login(username: string, password: string): Observable<any> {
+    return this.http.req(this.model + '/login', {
+      username,
+      password
+    });
+  }
+
+  /**
+   * Logout Api
+   */
+  logout(): Observable<boolean> {
+    return this.http.req(this.model + '/logout').pipe(
+      map(res => !res.error)
+    );
+  }
+
+  /**
+   * Verify Token Api
+   */
+  verify(): Observable<boolean> {
+    return this.http.req(this.model + '/verify');
+  }
+
+  /**
+   * Get Resource
+   * @see https://github.com/kainonly/ngx-bit/blob/master/projects/ngx-bit/mock/resource.json
+   */
+  resource(): Observable<any> {
+    return this.http.req(this.model + '/resource').pipe(
+      map(res => {
+        const resource: Map<string, any> = new Map<string, any>();
+        const router: Map<string, any> = new Map<string, any>();
+        const nav: any = [];
+
+        if (!res.error) {
+          for (const x of res.data) {
+            resource.set(x.key, x);
+            if (x.router === 1) {
+              router.set(x.key, x);
+            }
+          }
+          for (const x of res.data) {
+            if (!x.nav) {
+              continue;
+            }
+
+            if (x.parent === 'origin') {
+              nav.push(x);
+            } else {
+              const parent = x.parent;
+              if (resource.has(parent)) {
+                const rows = resource.get(parent);
+                if (!rows.hasOwnProperty('children')) {
+                  rows.children = [];
+                }
+                rows.children.push(x);
+              }
+            }
+          }
+          return { resource, nav, router };
+        } else {
+          return {};
+        }
+      })
+    );
+  }
+}
+```
+
+编写令牌验证服务，修改文件 `src\app\common\token.service.ts`
+
+```typescript
+import { Injectable } from '@angular/core';
+import { CanActivate, Router } from '@angular/router';
+import { MainService } from '@common/main.service';
+import { map } from 'rxjs/operators';
+
+@Injectable()
+export class TokenService implements CanActivate {
+  constructor(
+    private mainService: MainService,
+    private router: Router
+  ) {
+  }
+
+  canActivate() {
+    return this.mainService.verify().pipe(
+      map((res: any) => {
+        if (res.error) {
+          this.router.navigateByUrl('/login');
+        }
+        return true;
+      })
+    );
+  }
+}
+```
+
+编写仪表盘组件，修改文件 `src\app\dashboards\dashboards.component.ts`
+
+```typescript
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { BitService, BitEventsService, BitSupportService } from 'ngx-bit';
+import { NzNotificationService } from 'ng-zorro-antd';
+import { MainService } from '@common/main.service';
 
 @Component({
-  selector: 'app-root',
-  template: '<router-outlet></router-outlet>',
+  selector: 'app-dashboards',
+  templateUrl: './dashboards.component.html',
+  styleUrls: ['./dashboards.component.scss']
 })
-export class AppComponent implements OnInit {
+export class DashboardsComponent implements OnInit, OnDestroy {
+  collapsed = false;
+  navLists: any[] = [];
+
   constructor(
-    private bit: BitService,
-    private message: NzMessageService,
-    private config: ConfigService
+    private router: Router,
+    private route: ActivatedRoute,
+    private mainService: MainService,
+    private events: BitEventsService,
+    private notification: NzNotificationService,
+    public support: BitSupportService,
+    public bit: BitService
   ) {
   }
 
   ngOnInit() {
-    // 注册公共语言包
-    this.bit.registerLocales(packer, true);
-    // 设置请求拦截器
-    this.config.interceptor = (res: any): Observable<any> => {
-      if (res.error && res.msg === 'error:rbac') {
-        this.message.error(this.bit.l.rbac_error);
-      }
-      return of(res);
-    };
+    this.getMenuLists();
+    this.support.autoBreadcrumb(this.router);
+    this.events.on('refresh-menu').subscribe(() => {
+      this.getMenuLists();
+    });
+  }
+
+  ngOnDestroy() {
+    this.events.off('refresh-menu');
+    this.support.unsubscribe();
+  }
+
+  /**
+   * Get Menu Lists
+   */
+  private getMenuLists() {
+    this.mainService.resource().subscribe(data => {
+      this.support.setResource(data.resource, data.router);
+      this.navLists = data.nav;
+    });
+  }
+
+  /**
+   * User logout
+   */
+  logout() {
+    this.mainService.logout().subscribe(() => {
+      this.support.clearStorage();
+      this.support.unsubscribe();
+      this.router.navigateByUrl('/login');
+      this.notification.success(this.bit.l.logout, this.bit.l.logoutSuccess);
+    });
   }
 }
 ```
 
-### 运行脚本
+修改模板文件 `src\app\dashboards\dashboards.component.html`
 
-修改 `package.json` 的 `scripts`
+```html
+<nz-layout class="dashboard-layout">
+  <nz-header>
+    <div class="logo">DEV VER</div>
+    <ul class="header-menu" nz-menu [nzTheme]="'dark'" [nzMode]="'horizontal'">
+      <li nz-submenu>
+        <span title>
+          <i nz-icon nzType="global"></i>
+          {{bit.l['language']}}
+        </span>
+        <ul>
+          <li nz-menu-item (click)="bit.setLocale('zh_cn')">
+            <a title>中文</a>
+          </li>
+          <li nz-menu-item (click)="bit.setLocale('en_us')">
+            <a title>English</a>
+          </li>
+        </ul>
+      </li>
+      <li nz-submenu>
+        <span title>
+          <i nz-icon nzType="user"></i> {{bit.l['center']}}
+        </span>
+        <ul>
+          <li nz-menu-item routerLink="/{profile}">
+            <a title><i nz-icon nzType="solution"></i> {{bit.l['profile']}}</a>
+          </li>
+          <li nz-menu-item (click)="logout()">
+            <a title><i nz-icon nzType="logout"></i> {{bit.l['exit']}}</a>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </nz-header>
+  <nz-layout>
+    <nz-sider class="main-sider">
+      <ul nz-menu
+          [nzInlineCollapsed]="collapsed"
+          [nzMode]="collapsed?'vertical':'inline'">
+        <ng-container *ngTemplateOutlet="navTpl; context: {$implicit: navLists}"></ng-container>
+        <ng-template #navTpl let-navs>
+          <ng-container *ngFor="let x of navs">
+            <ng-container *ngIf="x.router;else notRouter">
+              <li nz-menu-item
+                  [nzSelected]="support.navActive.indexOf(x.key)!==-1"
+                  [bitOpen]="[x.key]">
+                <i nz-icon [nzType]="x.icon"></i>
+                <span class="nav-text">{{x.name|Locale:bit.locale}}</span>
+              </li>
+            </ng-container>
+            <ng-template #notRouter>
+              <li nz-submenu [nzOpen]="support.navActive.indexOf(x.key)!==-1">
+                <span title><i nz-icon [nzType]="x.icon"></i><span>{{x.name|Locale:bit.locale}}</span></span>
+                <ul>
+                  <ng-container *ngTemplateOutlet="navTpl; context: {$implicit: x.children}"></ng-container>
+                </ul>
+              </li>
+            </ng-template>
+          </ng-container>
+        </ng-template>
+      </ul>
+    </nz-sider>
+    <nz-layout class="app-warpper">
+      <nz-breadcrumb class="app-breadcrumb" [nzSeparator]="breadcrumbIcon">
+        <ng-template #breadcrumbIcon>
+          <i nz-icon nzType="right"></i>
+        </ng-template>
+        <nz-breadcrumb-item>
+          <a routerLink="/">{{bit.l['dashboard']}}</a>
+        </nz-breadcrumb-item>
+        <nz-breadcrumb-item *ngFor="let x of support.breadcrumb;last as islast">
+          <ng-container *ngIf="islast;else notLast">{{x.name|Locale:bit.locale}}</ng-container>
+          <ng-template #notLast>
+            <a *ngIf="x.router;else notRouterlink" [bitCrossLevel]="x.key">
+              {{x.name|Locale:bit.locale}}
+            </a>
+            <ng-template #notRouterlink>{{x.name|Locale:bit.locale}}</ng-template>
+          </ng-template>
+        </nz-breadcrumb-item>
+      </nz-breadcrumb>
 
-```json
-{
-  "start": "ng serve --port 4000",
-  "serve:open": "ng serve --host 0.0.0.0 --port 4000 --disableHostCheck",
-  "build": "ng build --prod --buildOptimizer",
-  "server": "http-server -p 4000 -c-1 dist/exercise",
-  "lint": "ng lint"
+      <nz-content class="app-content">
+        <router-outlet></router-outlet>
+      </nz-content>
+    </nz-layout>
+  </nz-layout>
+</nz-layout>
+```
+
+修改样式文件 `src\app\dashboards\dashboards.component.scss`
+
+```scss
+.logo {
+  width: 120px;
+  height: 31px;
+  line-height: 31px;
+  margin: 16px 28px 16px 0;
+  float: left;
+  color: #fff;
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.header-menu {
+  float: right;
+  line-height: 64px;
+}
+
+nz-layout.dashboard-layout {
+  height: 100%;
+}
+
+nz-sider.main-sider {
+  background: #fff;
+
+  ul {
+    height: 100%
+  }
+}
+
+nz-layout.app-warpper {
+  padding: 0 15px;
+}
+
+nz-breadcrumb.app-breadcrumb {
+  margin: 16px 0;
+}
+
+nz-content.app-content {
+  min-height: 280px;
 }
 ```
+
+编写登录组件，修改文件 `src\app\login\login.component.ts`
+
+```typescript
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { NzNotificationService } from 'ng-zorro-antd';
+import { MainService } from '@common/main.service';
+import { BitService, BitSupportService } from 'ngx-bit';
+import { StorageMap } from '@ngx-pwa/local-storage';
+import { switchMap } from 'rxjs/operators';
+
+@Component({
+  selector: 'app-login',
+  templateUrl: './login.component.html',
+  styleUrls: ['./login.component.scss']
+})
+export class LoginComponent implements OnInit {
+  form: FormGroup;
+  users: any[] = [];
+
+  constructor(
+    private mainService: MainService,
+    private notification: NzNotificationService,
+    private router: Router,
+    private fb: FormBuilder,
+    public bit: BitService,
+    private support: BitSupportService,
+    private storageMap: StorageMap
+  ) {
+  }
+
+  ngOnInit() {
+    this.bit.registerLocales(import('./language'));
+    this.form = this.fb.group({
+      username: [null, [
+        Validators.required,
+        Validators.minLength(4),
+        Validators.maxLength(20)]
+      ],
+      password: [null, [
+        Validators.required,
+        Validators.minLength(12),
+        Validators.maxLength(20)]
+      ],
+      remember: [1, [
+        Validators.required
+      ]]
+    });
+    this.storageMap.get('users').subscribe((data: Set<string>) => {
+      if (data) {
+        this.users = [...data.keys()];
+      }
+    });
+  }
+
+  submit(data: any) {
+    this.mainService.login(data.username, data.password).subscribe(res => {
+      if (!res.error) {
+        this.support.clearStorage();
+        if (data.remember) {
+          this.storageMap.get('users').pipe(
+            switchMap((lists: Set<string>) =>
+              this.storageMap.set(
+                'users',
+                lists ? lists.add(data.username) : new Set([data.username])
+              )
+            )
+          ).subscribe(() => {
+          });
+        }
+        this.storageMap.set('currentUsername', data.username).subscribe(() => {
+          // ok
+        });
+        this.storageMap.set('loginTime', new Date().toISOString()).subscribe(() => {
+          // ok
+        });
+        this.notification.success(
+          this.bit.l.loginTips,
+          this.bit.l.loginSuccess
+        );
+        this.router.navigateByUrl('/');
+      } else {
+        this.notification.error(
+          this.bit.l.loginTips,
+          this.bit.l.loginFailed
+        );
+      }
+    });
+  }
+}
+```
+
+建立子语言包，创建文件 `src\app\login\language.ts`
+
+```typescript
+export default {
+  username: ['账户', 'Username'],
+  usernameRequire: ['请输入管理账户', 'Please Enter Username'],
+  usernameCorrectly: ['请输入正确的管理账户', 'Please Enter Correctly Username'],
+  password: ['口令', 'Password'],
+  passwordRequire: ['请输入您的口令', 'Please Enter You Password!'],
+  passwordCorrectly: ['请输入格式正确的口令', 'Please Enter Correctly Password'],
+  login: ['登录', 'Login'],
+  loginRemember: ['记住帐户登录', 'Remember account login'],
+  loginTips: ['登录操作', 'Login Response'],
+  loginFailed: ['您的登录失败，请确实账户口令是否正确', 'Your login failed. Please confirm that the account password is correct'],
+  loginSuccess: ['登录成功', 'Login Success'],
+};
+```
+
+修改模板文件 `src\app\login\login.component.html`
+
+```html
+<div class="container-login">
+  <div class="login-wrapper">
+    <h1>
+      <img src="assets/login.svg" alt="ant-design"/>
+    </h1>
+    <form [formGroup]="form" (bitFormSubmit)="submit($event)">
+      <nz-form-item>
+        <nz-form-control [nzErrorTip]="username.ref">
+          <nz-input-group [nzSuffix]="usernameSuffix" [nzPrefix]="userPrefix">
+            <input
+              type="text"
+              nz-input
+              formControlName="username"
+              [nzAutocomplete]="auto"
+              [placeholder]="bit.l['usernameRequire']"
+            >
+            <nz-autocomplete #auto>
+              <ng-container *ngFor="let x of users">
+                <nz-auto-option [nzValue]="x">{{x}}</nz-auto-option>
+              </ng-container>
+            </nz-autocomplete>
+            <ng-template #userPrefix>
+              <i nz-icon nzType="user"></i>
+            </ng-template>
+            <ng-template #usernameSuffix>
+              <i
+                *ngIf="form.get('username').value"
+                nz-icon
+                nzType="close-circle"
+                (click)="form.get('username').reset()"
+              >
+              </i>
+            </ng-template>
+          </nz-input-group>
+          <bit-error-tip #username [hasError]="{
+            required:bit.l['usernameRequire'],
+            minlength:bit.l['usernameCorrectly'],
+            maxlength:bit.l['usernameCorrectly']
+          }">
+          </bit-error-tip>
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item>
+        <nz-form-control [nzErrorTip]="password.ref">
+          <nz-input-group [nzSuffix]="passwordSuffix" [nzPrefix]="passwordPrefix">
+            <input
+              nz-input
+              type="password"
+              formControlName="password"
+              [placeholder]="bit.l['passwordRequire']"
+            >
+          </nz-input-group>
+          <ng-template #passwordPrefix>
+            <i nz-icon nzType="lock"></i>
+          </ng-template>
+          <ng-template #passwordSuffix>
+            <i
+              *ngIf="form.get('password').value"
+              nz-icon
+              nzType="close-circle"
+              (click)="form.get('password').reset()"
+            >
+            </i>
+          </ng-template>
+          <bit-error-tip #password [hasError]="{
+            required:bit.l['passwordRequire'],
+            minlength:bit.l['passwordCorrectly'],
+            maxlength:bit.l['passwordCorrectly']
+          }">
+          </bit-error-tip>
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item>
+        <nz-form-control>
+          <label nz-checkbox formControlName="remember">
+            <span>{{bit.l['loginRemember']}}</span>
+          </label>
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item>
+        <nz-form-control>
+          <button nz-button nzType="primary" [nzBlock]="true">
+            {{bit.l['login']}}
+          </button>
+        </nz-form-control>
+      </nz-form-item>
+    </form>
+  </div>
+</div>
+```
+
+修改样式文件 `src\app\login\login.component.scss`
+
+```scss
+.container-login {
+  height: 100%;
+  background: #fbfbfb;
+  position: relative;
+  overflow: hidden;
+}
+
+.login-wrapper {
+  width: 320px;
+  margin: 150px auto;
+  padding: 40px 25px 25px 25px;
+  background: #fff;
+  border-radius: 3px;
+  box-shadow: 0 7px 25px rgba(0, 0, 0, .08);
+
+  h1 {
+    padding-bottom: 25px;
+    text-align: center;
+
+    img {
+      height: 120px;
+      width: 120px;
+    }
+  }
+}
+```
+
+为登录组件建立懒加载模块，创建文件 `src\app\login\login.module.ts`
+
+```typescript
+import { NgModule } from '@angular/core';
+import { Routes, RouterModule } from '@angular/router';
+import { AppExtModule } from '@ext';
+import { LoginComponent } from './login.component';
+
+const routes: Routes = [
+  {
+    path: '',
+    component: LoginComponent
+  }
+];
+
+@NgModule({
+  imports: [
+    AppExtModule,
+    RouterModule.forChild(routes)
+  ],
+  declarations: [LoginComponent]
+})
+export class LoginModule {
+}
+```
+
+为欢迎页组件建立懒加载模块，创建文件 `src\app\pages\welcome\welcome.module.ts`
+
+```typescript
+import {NgModule} from '@angular/core';
+import {WelcomeComponent} from './welcome.component';
+import {RouterModule, Routes} from '@angular/router';
+import {AppExtModule} from '@ext';
+
+const routes: Routes = [
+  {
+    path: '',
+    component: WelcomeComponent
+  }
+];
+
+@NgModule({
+  imports: [
+    AppExtModule,
+    RouterModule.forChild(routes)
+  ],
+  declarations: [WelcomeComponent]
+})
+export class WelcomeModule {
+}
+```
+
+为空白页组件建立懒加载模块，创建文件 `src\app\pages\empty\empty.module.ts`
+
+```typescript
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
+import { EmptyComponent } from './empty.component';
+import { AppExtModule } from '@ext';
+
+const routes: Routes = [
+  {
+    path: '',
+    component: EmptyComponent
+  }
+];
+
+@NgModule({
+  imports: [
+    AppExtModule,
+    RouterModule.forChild(routes)
+  ],
+  declarations: [EmptyComponent]
+})
+export class EmptyModule {
+}
+```
+
+建立路由模块（案例中使用的是自定义路由模块），删除默认的 `src\app\app-routing.module.ts` 并创建 `src\app\app.router.module.ts`
+
+```typescript
+import { NgModule } from '@angular/core';
+import { Routes, RouterModule } from '@angular/router';
+import { AppExtModule } from '@ext';
+import { DashboardsComponent } from './dashboards/dashboards.component';
+
+const routes: Routes = [
+  {
+    path: '',
+    component: DashboardsComponent,
+    children: [
+      {
+        path: '',
+        loadChildren: () => import('./pages/welcome/welcome.module').then(m => m.WelcomeModule)
+      },
+      {
+        path: '{empty}',
+        loadChildren: () => import('./pages/empty/empty.module').then(m => m.EmptyModule)
+      }
+    ]
+  }
+];
+
+@NgModule({
+  imports: [
+    AppExtModule,
+    RouterModule.forChild(routes)
+  ],
+  declarations: [
+    DashboardsComponent
+  ]
+})
+export class AppRouterModule {
+}
+```
+
+配置项目根模块，修改文件 `src\app\app.module.ts`
+
+```typescript
+import { BrowserModule } from '@angular/platform-browser';
+import { NgModule } from '@angular/core';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { RouterModule, Routes } from '@angular/router';
+import { HttpClientModule } from '@angular/common/http';
+import { registerLocaleData } from '@angular/common';
+import zh from '@angular/common/locales/zh';
+import { NZ_I18N, zh_CN } from 'ng-zorro-antd';
+import { NgxBitModule } from 'ngx-bit';
+import { environment } from '@env';
+import { StorageModule } from '@ngx-pwa/local-storage';
+
+registerLocaleData(zh);
+
+import { AppComponent } from './app.component';
+import { MainService } from '@common/main.service';
+import { TokenService } from '@common/token.service';
+import { AppExtModule } from '@ext';
+
+
+const routes: Routes = [
+  {
+    path: '',
+    loadChildren: () => import('./app.router.module').then(m => m.AppRouterModule),
+    canActivate: [TokenService]
+  },
+  {
+    path: 'login',
+    loadChildren: () => import('./login/login.module').then(m => m.LoginModule)
+  }
+];
+
+@NgModule({
+  declarations: [
+    AppComponent
+  ],
+  imports: [
+    BrowserModule,
+    BrowserAnimationsModule,
+    HttpClientModule,
+    AppExtModule,
+    NgxBitModule.forRoot(environment.bit),
+    RouterModule.forRoot(routes, { useHash: true }),
+    StorageModule.forRoot({ IDBNoWrap: false })
+  ],
+  providers: [
+    MainService,
+    TokenService,
+    { provide: NZ_I18N, useValue: zh_CN }
+  ],
+  bootstrap: [AppComponent]
+})
+export class AppModule {
+}
+```
+
+修改根组件 `src\app\app.component.ts`
+
+```typescript
+import { Component, OnInit } from '@angular/core';
+import { BitConfigService, BitService } from 'ngx-bit';
+import { map } from 'rxjs/operators';
+
+@Component({
+  selector: 'app-root',
+  template: `
+    <router-outlet></router-outlet>
+  `
+})
+export class AppComponent implements OnInit {
+  constructor(
+    private bit: BitService,
+    private config: BitConfigService
+  ) {
+  }
+
+  ngOnInit() {
+    this.config.setupLocales(import('./app.language'));
+    this.config.setupHttpInterceptor(
+      map(res => {
+        return res;
+      })
+    );
+  }
+}
+```
+
+开始运行，如编译正常说明前端配置完毕
+
+```shell
+npm start
+```
+
+到此项目并不能正常加载如下提示，因为还需要对应的后端运行
+
+> core.js:6241 ERROR Error: Uncaught (in promise): HttpErrorResponse: {"headers":{"normalizedNames":{},"lazyUpdate":null,"headers":{}},"status":0,"statusText":"Unknown Error","url":"http://localhost:9501/system/main/verify","ok":false,"name":"HttpErrorResponse","message":"Http failure response for http://localhost:9501/system/main/verify
+
+可选择以下后端案例运行后正常加载，或更具需要自行定义框架：
+
+- [hyperf-api-case](https://github.com/kainonly/hyperf-api-case) 辅助 Hyperf 框架的工具集合使用案例
+- [think-api-case](https://github.com/kainonly/think-api-case) 辅助 ThinkPHP 框架的工具集合使用案例
+
