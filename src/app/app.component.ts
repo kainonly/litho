@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { NzMessageService } from 'ng-zorro-antd';
 import { BitConfigService, BitService } from 'ngx-bit';
 import { map } from 'rxjs/operators';
 
@@ -12,8 +11,7 @@ import { map } from 'rxjs/operators';
 export class AppComponent implements OnInit {
   constructor(
     private bit: BitService,
-    private config: BitConfigService,
-    private message: NzMessageService
+    private config: BitConfigService
   ) {
   }
 
