@@ -9,6 +9,7 @@
 [![npm](https://img.shields.io/npm/dt/ngx-bit.svg?style=flat-square)](https://www.npmjs.com/package/ngx-bit)
 [![TypeScript](https://img.shields.io/badge/%3C%2F%3E-TypeScript-blue.svg?style=flat-square)](https://www.typescriptlang.org/)
 [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](https://raw.githubusercontent.com/kainonly/ngx-bit.js/master/LICENSE)
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fkainonly%2Fngx-bit.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2Fkainonly%2Fngx-bit?ref=badge_shield)
 
 ## 链接
 
@@ -1099,3 +1100,7 @@ npm start
 - [hyperf-api-case](https://github.com/kainonly/hyperf-api-case) 辅助 Hyperf 框架的工具集合使用案例
 - [think-api-case](https://github.com/kainonly/think-api-case) 辅助 ThinkPHP 框架的工具集合使用案例
 
+
+
+## License
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fkainonly%2Fngx-bit.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2Fkainonly%2Fngx-bit?ref=badge_large)
