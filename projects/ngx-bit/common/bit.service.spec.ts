@@ -6,7 +6,7 @@ import { NavigationEnd, Router, RouterModule } from '@angular/router';
 import { environment } from '../simulation/environment';
 import { BitConfigService, BitService, NgxBitModule } from 'ngx-bit';
 import { ListByPage } from 'ngx-bit/factory';
-import { AsyncSubject } from 'rxjs';
+import { AsyncSubject, of } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 
 describe('BitService', () => {
@@ -68,6 +68,21 @@ describe('BitService', () => {
         }
       });
       bit.open(['admin-add']);
+    });
+  });
+
+  it('Test open use cross level without storage', (done) => {
+    zone.run(() => {
+      const event = router.events.subscribe(events => {
+        if (events instanceof NavigationEnd) {
+          expect(events.url).toBe('/%7Badmin-index%7D');
+          event.unsubscribe();
+          done();
+        }
+      });
+      setTimeout(() => {
+        bit.crossLevel('admin-index');
+      }, 200);
     });
   });
 
@@ -144,6 +159,9 @@ describe('BitService', () => {
 
   it('Test init i18n form group', () => {
     try {
+      const fun1 = () => {
+        return of(null);
+      };
       const name = bit.i18nGroup({
         value: {
           zh_cn: '测试',
@@ -151,12 +169,18 @@ describe('BitService', () => {
         },
         validate: {
           zh_cn: [Validators.required],
-          en_us: [Validators.required]
+          en_us: []
         },
-        asyncValidate: {}
+        asyncValidate: {
+          en_us: [fun1]
+        }
       });
-      expect(name.zh_cn[0]).toBe('测试');
-      expect(name.zh_cn[1].length).toBe(1);
+      expect(name.zh_cn[0]).toEqual('测试');
+      expect(name.en_us[0]).toEqual('TEST');
+      expect(name.zh_cn[1]).toEqual([Validators.required]);
+      expect(name.en_us[1]).toEqual([]);
+      expect(name.zh_cn[2]).toEqual([]);
+      expect(name.en_us[2]).toEqual([fun1]);
       fb.group({
         name
       });

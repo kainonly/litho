@@ -6,12 +6,14 @@ import { StorageMap } from '@ngx-pwa/local-storage';
 import { BitSupportService, NgxBitModule } from 'ngx-bit';
 import { BreadcrumbOption } from 'ngx-bit/types';
 import { switchMap } from 'rxjs/operators';
+import { Location } from '@angular/common';
 
 describe('BitSupportService', () => {
   let support: BitSupportService;
   let router: Router;
   let zone: NgZone;
   let storage: StorageMap;
+  let location: Location;
 
   beforeEach(() => {
     if (!support) {
@@ -29,6 +31,10 @@ describe('BitSupportService', () => {
             {
               path: '{admin-add}',
               loadChildren: () => import('../simulation/case/case.module').then(m => m.CaseModule)
+            },
+            {
+              path: '{admin-edit}/:id',
+              loadChildren: () => import('../simulation/case/case.module').then(m => m.CaseModule)
             }
           ]),
           NgxBitModule.forRoot(environment.bit)
@@ -38,6 +44,7 @@ describe('BitSupportService', () => {
       router = TestBed.inject(Router);
       zone = TestBed.inject(NgZone);
       storage = TestBed.inject(StorageMap);
+      location = TestBed.inject(Location);
     }
   });
 
@@ -126,6 +133,61 @@ describe('BitSupportService', () => {
         }, 500);
       }
     });
+  });
+
+  it('Test loading url is /', (done) => {
+    zone.run(() => {
+      router.navigate(['/']);
+    });
+    setTimeout(() => {
+      expect(support.title).toEqual('');
+      expect(support.breadcrumb).toEqual([]);
+      expect(support.navActive).toEqual([]);
+      support.unsubscribe();
+      done();
+    }, 500);
+  });
+
+  it('Test initialization breadcrumb when url is not /', (done) => {
+    zone.run(() => {
+      router.navigate(['{admin-edit}/2']).then(() => {
+        support.autoBreadcrumb(router);
+      });
+    });
+    setTimeout(() => {
+      expect(support.title.zh_cn).toBe('管理员修改');
+      expect(support.breadcrumb.length).toBe(3);
+      for (const value of support.breadcrumb) {
+        expect(
+          Reflect.has(value, 'key') &&
+          Reflect.has(value, 'name') &&
+          Reflect.has(value, 'router')
+        ).toBeTruthy();
+      }
+      expect(support.breadcrumb[0].name.zh_cn).toBe('系统设置');
+      expect(support.breadcrumb[0].key).toBe('system');
+      expect(support.breadcrumb[0].router).toBe(0);
+      expect(support.breadcrumb[1].name.zh_cn).toBe('管理员');
+      expect(support.breadcrumb[1].key).toBe('admin-index');
+      expect(support.breadcrumb[1].router).toBe(1);
+      expect(support.breadcrumb[2].name.zh_cn).toBe('管理员修改');
+      expect(support.breadcrumb[2].key).toBe('admin-edit');
+      expect(support.breadcrumb[2].router).toBe(1);
+      expect(support.navActive).toEqual(['system', 'admin-index', 'admin-edit']);
+      done();
+    }, 500);
+  });
+
+  it('Test not exists router link', (done) => {
+    zone.run(() => {
+      router.navigate(['{unknown}']);
+    });
+    setTimeout(() => {
+      expect(support.title).toEqual('');
+      expect(support.breadcrumb).toEqual([]);
+      expect(support.navActive).toEqual([]);
+      done();
+    }, 500);
   });
 
   it('Test clear support storage', (done) => {

@@ -1,5 +1,5 @@
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
-import { Component, DebugElement, OnInit, ViewChild } from '@angular/core';
+import { Component, DebugElement, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
@@ -47,8 +47,8 @@ describe('BitStatusChangeDirective', () => {
   });
 
   it('Test status change request binding directive', () => {
-    expect(component.ref.nzControl).toBeTruthy();
-    const debug = debugElement.query(By.directive(BitStatusChangeDirective));
+    expect(component.ref1.nzControl).toBeTruthy();
+    const debug = debugElement.queryAll(By.directive(BitStatusChangeDirective))[0];
     const result = {
       error: 0,
       msg: 'ok'
@@ -62,9 +62,41 @@ describe('BitStatusChangeDirective', () => {
     expect(component.feedback).toBeUndefined();
   });
 
-  it('Test status change request binding directive with response', () => {
-    expect(component.ref.nzControl).toBeTruthy();
-    const debug = debugElement.query(By.directive(BitStatusChangeDirective));
+  it('Test status change request binding directive when response error', () => {
+    expect(component.ref1.nzControl).toBeTruthy();
+    const debug = debugElement.queryAll(By.directive(BitStatusChangeDirective))[0];
+    const result = {
+      error: 1,
+      msg: 'status cannot be changed'
+    };
+    debug.nativeElement.click();
+    const req = httpTestingController.expectOne(config.url.api + '/system/test/edit');
+    expect(req.request.method).toEqual('POST');
+    expect(req.request.body).toEqual({ id: 1, switch: true, status: false });
+    req.flush(result);
+    httpTestingController.verify();
+    expect(component.feedback).toBeUndefined();
+  });
+
+  it('Test status change request binding directive when bitControl is true', () => {
+    expect(component.ref2.nzControl).toBeTruthy();
+    const debug = debugElement.queryAll(By.directive(BitStatusChangeDirective))[1];
+    const result = {
+      error: 0,
+      msg: 'ok'
+    };
+    debug.nativeElement.click();
+    const req = httpTestingController.expectOne(config.url.api + '/system/test/edit');
+    expect(req.request.method).toEqual('POST');
+    expect(req.request.body).toEqual({ id: 1, switch: true, status: false });
+    req.flush(result);
+    httpTestingController.verify();
+    expect(component.feedback).toBeUndefined();
+  });
+
+  it('Test status change request binding directive when bitControl is true and response error', () => {
+    expect(component.ref2.nzControl).toBeTruthy();
+    const debug = debugElement.queryAll(By.directive(BitStatusChangeDirective))[1];
     const result = {
       error: 1,
       msg: 'status cannot be changed'
@@ -83,7 +115,14 @@ describe('BitStatusChangeDirective', () => {
 @Component({
   template: `
     <nz-switch
-      #switchComponent
+      #switchComponent1
+      [(ngModel)]="data.status"
+      [bitStatusChange]="testService.status(data)"
+      (response)="statusFeedback($event)"
+    >
+    </nz-switch>
+    <nz-switch
+      #switchComponent2
       [(ngModel)]="data.status"
       [bitStatusChange]="testService.status(data)"
       [bitControl]="true"
@@ -93,7 +132,8 @@ describe('BitStatusChangeDirective', () => {
   `
 })
 class TestComponent {
-  @ViewChild('switchComponent') ref: NzSwitchComponent;
+  @ViewChild('switchComponent1') ref1: NzSwitchComponent;
+  @ViewChild('switchComponent2') ref2: NzSwitchComponent;
   data: any = {
     id: 1,
     status: true

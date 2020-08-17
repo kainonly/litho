@@ -25,9 +25,10 @@ export class BitStatusChangeDirective {
       if (!res.error) {
         this.notificationService.success(this.bit.l.operateSuccess, this.bit.l.statusSuccess);
       } else {
-        this.response.emit(res);
         if (!this.bitControl) {
           this.notificationService.error(this.bit.l.operateError, this.bit.l.statusError);
+        } else {
+          this.response.emit(res);
         }
       }
     });
