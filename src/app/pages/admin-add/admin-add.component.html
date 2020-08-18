@@ -131,7 +131,8 @@
       </nz-form-label>
       <nz-form-control bitCol="control">
         <p>{{bit.l['avatarTips']}}</p>
-        <nz-upload nzName="image" bitUpload
+        <nz-upload nzName="image"
+                   bitUpload
                    nzListType="picture-card"
                    (nzChange)="upload($event)">
           <ng-container *ngIf="!avatar">

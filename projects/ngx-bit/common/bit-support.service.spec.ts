@@ -72,7 +72,7 @@ describe('BitSupportService', () => {
     }
   });
 
-  it('Set resource data and test auto set breadcrumb', (done) => {
+  it('Set resource data and setup support', (done) => {
     import('../mock/resource.json').then(res => {
       const resourceData: Map<string, any> = new Map<string, any>();
       const routerData: Map<string, any> = new Map<string, any>();
@@ -105,7 +105,7 @@ describe('BitSupportService', () => {
         }
         support.setResource(resourceData, routerData);
         expect(nav).not.toBeNull();
-        support.autoBreadcrumb(router);
+        support.setup(router);
         zone.run(() => {
           router.navigate(['{admin-add}']);
         });
@@ -151,7 +151,7 @@ describe('BitSupportService', () => {
   it('Test initialization breadcrumb when url is not /', (done) => {
     zone.run(() => {
       router.navigate(['{admin-edit}/2']).then(() => {
-        support.autoBreadcrumb(router);
+        support.setup(router);
       });
     });
     setTimeout(() => {

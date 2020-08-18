@@ -10,7 +10,6 @@ import { ListByPage } from '../factory/list-by-page';
 import { factoryLocales } from '../operates/factory-locales';
 import { getSelectorFormUrl } from '../operates/get-selector-form-url';
 import { ListByPageOption, I18nGroupOption, I18nTooltipOption } from '../types';
-import { switchMap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -47,7 +46,7 @@ export class BitService {
   /**
    * Component i18n
    */
-  i18nContain: any[] = [];
+    i18nContain: any[] = [];
 
   /**
    * constructor

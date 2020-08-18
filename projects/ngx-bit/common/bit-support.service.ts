@@ -54,9 +54,9 @@ export class BitSupportService {
   }
 
   /**
-   * Auto set breadcrumb
+   * Setup support
    */
-  autoBreadcrumb(router: Router, match: string[] = ['%7B', '%7D']) {
+  setup(router: Router, match: string[] = ['%7B', '%7D']) {
     this.unsubscribe();
     if (router.url !== '/') {
       this.routerAssociate(router, router.url, match);

@@ -470,7 +470,7 @@ export class DashboardsComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.getMenuLists();
-    this.support.autoBreadcrumb(this.router);
+    this.support.setup(this.router);
     this.events.on('refresh-menu').subscribe(() => {
       this.getMenuLists();
     });

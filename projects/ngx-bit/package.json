@@ -1,6 +1,6 @@
 {
   "name": "ngx-bit",
-  "version": "9.1.1",
+  "version": "9.1.3",
   "schematics": "./schematics/collection.json",
   "dependencies": {
     "@ngx-pwa/local-storage": "^9.0.0",
