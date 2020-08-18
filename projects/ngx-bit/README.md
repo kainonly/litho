@@ -1094,7 +1094,7 @@ npm start
 
 > core.js:6241 ERROR Error: Uncaught (in promise): HttpErrorResponse: {"headers":{"normalizedNames":{},"lazyUpdate":null,"headers":{}},"status":0,"statusText":"Unknown Error","url":"http://localhost:9501/system/main/verify","ok":false,"name":"HttpErrorResponse","message":"Http failure response for http://localhost:9501/system/main/verify
 
-可选择以下后端案例运行后正常加载，或更具需要自行定义框架：
+可选择以下后端案例运行后正常加载，或根据需要自行定义框架：
 
 - [hyperf-api-case](https://github.com/kainonly/hyperf-api-case) 辅助 Hyperf 框架的工具集合使用案例
 - [think-api-case](https://github.com/kainonly/think-api-case) 辅助 ThinkPHP 框架的工具集合使用案例
