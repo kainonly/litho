@@ -19,6 +19,10 @@
 
 手册地址 [https://ngx-bit.kainonly.com](https://ngx-bit.kainonly.com)
 
+感谢 [JetBrains](https://www.jetbrains.com/?from=ngx-bit) 提供的免费开源 License 赞助
+
+[![JetBrains](https://cdn.kainonly.com/resource/jetbrains.svg)](https://www.jetbrains.com/?from=ngx-bit)
+
 ## 快速开始
 
 初始化案例，创建本地项目 bit-example
