@@ -6,11 +6,11 @@ import {
   factoryBitConfig,
   factoryLocales,
   getQuerySchema,
-  getSelectorFormUrl
+  getSelectorFormUrl,
+  validate
 } from 'ngx-bit/operates';
 import { switchMap } from 'rxjs/operators';
 import { environment } from '@env';
-import { validate } from './validate';
 
 describe('operates', () => {
   it('Test asyncValidator', (done) => {
