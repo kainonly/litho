@@ -1,12 +1,9 @@
-<nz-page-header [nzTitle]="bit.support.title|Locale:bit.locale">
-  <nz-page-header-extra>
-    <button nz-button nzType="primary" [bitOpen]="['acl-add']">
-      <span>{{bit.l['add']}}</span>
-    </button>
-  </nz-page-header-extra>
-</nz-page-header>
-
-<nz-card>
+<bit-header>
+  <button nz-button nzType="primary" [bitOpen]="['acl-add']">
+    <span>{{bit.l['add']}}</span>
+  </button>
+</bit-header>
+<ng-template #title>
   <nz-space>
     <nz-space-item *ngIf="lists.hasSearch('name->'+bit.locale)">
       <nz-input-group nzSearch [nzAddOnAfter]="nzAddOnAfter" style="width: 320px">
@@ -56,9 +53,8 @@
       </button>
     </nz-space-item>
   </nz-space>
-
-  <nz-divider [nzDashed]="true"></nz-divider>
-
+</ng-template>
+<nz-card [nzTitle]="title" [nzBordered]="false">
   <nz-table
     #table
     [nzData]="lists.data"
@@ -84,8 +80,7 @@
       <th nzWidth="300px">{{bit.l['write']}}</th>
       <th nzWidth="300px">{{bit.l['read']}}</th>
       <th>{{bit.l['status']}}</th>
-      <th nzWidth="300px"
-          nzRight="0px">{{bit.l['action']}}</th>
+      <th nzWidth="300px" nzRight="0px">{{bit.l['action']}}</th>
     </tr>
     </thead>
     <tbody>

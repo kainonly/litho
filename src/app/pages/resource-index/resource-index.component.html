@@ -1,15 +1,12 @@
-<nz-page-header [nzTitle]="bit.support.title|Locale:bit.locale" [nzSubtitle]="nzMessage">
-  <nz-page-header-extra>
-    <button nz-button nzType="primary" [bitOpen]="['resource-add']">
-      <span>{{bit.l['add']}}</span>
-    </button>
-  </nz-page-header-extra>
+<bit-header [subTitle]="nzMessage">
   <ng-template #nzMessage>
     <span>{{bit.l['info']}}</span>
   </ng-template>
-</nz-page-header>
-
-<nz-card>
+  <button nz-button nzType="primary" [bitOpen]="['resource-add']">
+    <span>{{bit.l['add']}}</span>
+  </button>
+</bit-header>
+<ng-template #title>
   <nz-space>
     <nz-space-item>
       <nz-input-group [nzSuffix]="suffixIcon" style="width: 320px">
@@ -58,9 +55,8 @@
       </nz-space-item>
     </ng-container>
   </nz-space>
-
-  <nz-divider [nzDashed]="true"></nz-divider>
-
+</ng-template>
+<nz-card [nzTitle]="title">
   <ng-container *ngIf="sort">
     <nz-tree
       #nzTree

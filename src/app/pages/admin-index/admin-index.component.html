@@ -1,12 +1,9 @@
-<nz-page-header [nzTitle]="bit.support.title|Locale:bit.locale">
-  <nz-page-header-extra>
-    <button nz-button nzType="primary" [bitOpen]="['admin-add']">
-      <span>{{bit.l['add']}}</span>
-    </button>
-  </nz-page-header-extra>
-</nz-page-header>
-
-<nz-card>
+<bit-header>
+  <button nz-button nzType="primary" [bitOpen]="['admin-add']">
+    <span>{{bit.l['add']}}</span>
+  </button>
+</bit-header>
+<ng-template #title>
   <nz-space>
     <nz-space-item *ngIf="lists.hasSearch('username')">
       <nz-input-group nzSearch [nzAddOnAfter]="nzAddOnAfter" style="width: 320px">
@@ -55,9 +52,8 @@
       </button>
     </nz-space-item>
   </nz-space>
-
-  <nz-divider [nzDashed]="true"></nz-divider>
-
+</ng-template>
+<nz-card [nzTitle]="title">
   <nz-table
     #table
     [nzData]="lists.data"

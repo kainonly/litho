@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { EventEmitter, Injectable, TemplateRef } from '@angular/core';
 import { StorageMap } from '@ngx-pwa/local-storage';
 import { Event, NavigationStart, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
@@ -13,6 +13,10 @@ export class BitSupportService {
    */
   title: any = '';
   /**
+   * SubTitle
+   */
+  subTitle: any = '';
+  /**
    * Breadcrumb array
    */
   breadcrumb: BreadcrumbOption[] = [];
@@ -24,6 +28,18 @@ export class BitSupportService {
    * Nav active array
    */
   navActive: any[] = [];
+  /**
+   * Allow back
+   */
+  back = false;
+  /**
+   * Header actions
+   */
+  actions: TemplateRef<any>;
+  /**
+   * Support status
+   */
+  status: EventEmitter<any> = new EventEmitter<any>();
   /**
    * Router events
    */

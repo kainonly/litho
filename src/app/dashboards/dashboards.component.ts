@@ -1,8 +1,9 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild, TemplateRef, ChangeDetectorRef } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BitService, BitEventsService, BitSupportService } from 'ngx-bit';
 import { NzNotificationService } from 'ng-zorro-antd';
 import { MainService } from '@common/main.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-dashboards',
@@ -12,6 +13,7 @@ import { MainService } from '@common/main.service';
 export class DashboardsComponent implements OnInit, OnDestroy {
   collapsed = false;
   navLists: any[] = [];
+  private statusSubscription: Subscription;
 
   constructor(
     private router: Router,
@@ -20,7 +22,8 @@ export class DashboardsComponent implements OnInit, OnDestroy {
     private events: BitEventsService,
     private notification: NzNotificationService,
     public support: BitSupportService,
-    public bit: BitService
+    public bit: BitService,
+    private changeDetectorRef: ChangeDetectorRef
   ) {
   }
 
@@ -30,11 +33,15 @@ export class DashboardsComponent implements OnInit, OnDestroy {
     this.events.on('refresh-menu').subscribe(() => {
       this.getMenuLists();
     });
+    this.statusSubscription = this.support.status.subscribe(() => {
+      this.changeDetectorRef.detectChanges();
+    });
   }
 
   ngOnDestroy() {
     this.events.off('refresh-menu');
     this.support.unsubscribe();
+    this.statusSubscription.unsubscribe();
   }
 
   /**

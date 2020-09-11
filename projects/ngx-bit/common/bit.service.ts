@@ -1,4 +1,4 @@
-import { Injectable, Optional } from '@angular/core';
+import { Injectable, Optional, TemplateRef } from '@angular/core';
 import { NavigationExtras, Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { StorageMap } from '@ngx-pwa/local-storage';
@@ -46,7 +46,7 @@ export class BitService {
   /**
    * Component i18n
    */
-    i18nContain: any[] = [];
+  i18nContain: any[] = [];
 
   /**
    * constructor

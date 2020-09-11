@@ -1,9 +1,6 @@
-<nz-page-header nzBackIcon (nzBack)="bit.back()" [nzTitle]="bit.support.title|Locale:bit.locale">
-  <nz-page-header-extra>
-    <bit-i18n-switch></bit-i18n-switch>
-  </nz-page-header-extra>
-</nz-page-header>
-
+<bit-header back>
+  <bit-i18n-switch></bit-i18n-switch>
+</bit-header>
 <nz-card>
   <form nz-form [formGroup]="form" (bitFormSubmit)="submit($event)">
     <nz-form-item formGroupName="name">
@@ -19,7 +16,7 @@
                  bitI18nUpdate
                  [nz-tooltip]="tooltip.ref"
                  [formControlName]="x"
-                 [placeholder]="bit.l['namePlaceholder']"/>
+                 [placeholder]="bit.l['namePlaceholder']" />
           <bit-i18n-tooltip #tooltip groupName="name"></bit-i18n-tooltip>
           <bit-error-tip #name [hasError]="{
             required:bit.l['nameRequire'],
@@ -46,7 +43,7 @@
                        [nzErrorTip]="key.ref">
         <input nz-input
                formControlName="key"
-               [placeholder]="bit.l['keyPlaceholder']"/>
+               [placeholder]="bit.l['keyPlaceholder']" />
         <bit-error-tip #key [hasError]="{
           required:bit.l['keyRequire'],
           duplicated:bit.l['keyDuplicated']

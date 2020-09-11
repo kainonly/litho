@@ -66,7 +66,7 @@ const bit = factoryBitConfig({
       }
     ]
   },
-  page: 20
+  page: 12
 });
 
 export const environment = {
