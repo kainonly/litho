@@ -15,7 +15,7 @@ export class BitSupportService {
   /**
    * SubTitle
    */
-  subTitle: any = '';
+  subTitle: any;
   /**
    * Breadcrumb array
    */
