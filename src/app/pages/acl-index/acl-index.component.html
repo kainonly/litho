@@ -85,12 +85,14 @@
     </thead>
     <tbody>
     <tr *ngFor="let data of table.data">
-      <td nzShowCheckbox
-          [(nzChecked)]="data.checked"
-          (nzCheckedChange)="lists.refreshStatus()"></td>
+      <td
+        nzShowCheckbox
+        [(nzChecked)]="data.checked"
+        (nzCheckedChange)="lists.refreshStatus()"
+      ></td>
       <td>{{data.name|Locale:bit.locale}}</td>
       <td>{{data.key}}</td>
-      <td>{{data.write}}</td>
+      <td nzEllipsis>{{data.write}}</td>
       <td>{{data.read}}</td>
       <td>
         <nz-switch
@@ -103,7 +105,7 @@
       </td>
       <td>
         <a [bitOpen]="['acl-edit',data.id]">
-          <i nz-icon nzType="edit"></i> {{bit.l['edit']}}
+          <i nz-icon nzType="edit"></i>  {{bit.l['edit']}}
         </a>
         <nz-divider nzType="vertical"></nz-divider>
         <a (click)="deleteData([data.id])">
