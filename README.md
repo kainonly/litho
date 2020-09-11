@@ -446,11 +446,12 @@ export class TokenService implements CanActivate {
 编写仪表盘组件，修改文件 `src\app\dashboards\dashboards.component.ts`
 
 ```typescript
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild, TemplateRef, ChangeDetectorRef } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BitService, BitEventsService, BitSupportService } from 'ngx-bit';
 import { NzNotificationService } from 'ng-zorro-antd';
 import { MainService } from '@common/main.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-dashboards',
@@ -460,6 +461,7 @@ import { MainService } from '@common/main.service';
 export class DashboardsComponent implements OnInit, OnDestroy {
   collapsed = false;
   navLists: any[] = [];
+  private statusSubscription: Subscription;
 
   constructor(
     private router: Router,
@@ -468,7 +470,8 @@ export class DashboardsComponent implements OnInit, OnDestroy {
     private events: BitEventsService,
     private notification: NzNotificationService,
     public support: BitSupportService,
-    public bit: BitService
+    public bit: BitService,
+    private changeDetectorRef: ChangeDetectorRef
   ) {
   }
 
@@ -478,11 +481,15 @@ export class DashboardsComponent implements OnInit, OnDestroy {
     this.events.on('refresh-menu').subscribe(() => {
       this.getMenuLists();
     });
+    this.statusSubscription = this.support.status.subscribe(() => {
+      this.changeDetectorRef.detectChanges();
+    });
   }
 
   ngOnDestroy() {
     this.events.off('refresh-menu');
     this.support.unsubscribe();
+    this.statusSubscription.unsubscribe();
   }
 
   /**
@@ -513,30 +520,68 @@ export class DashboardsComponent implements OnInit, OnDestroy {
 
 ```html
 <nz-layout class="dashboard-layout">
-  <nz-header>
-    <div class="logo">DEV VER</div>
-    <ul class="header-menu" nz-menu [nzTheme]="'dark'" [nzMode]="'horizontal'">
+  <nz-sider nzCollapsible
+            [(nzCollapsed)]="collapsed"
+            [nzBreakpoint]="'lg'">
+    <ul nz-menu
+        [nzTheme]="'dark'"
+        [nzInlineCollapsed]="collapsed"
+        [nzMode]="collapsed?'vertical':'inline'">
+      <ng-container *ngTemplateOutlet="navTpl; context: {$implicit: navLists}"></ng-container>
+      <ng-template #navTpl let-navs>
+        <ng-container *ngFor="let x of navs">
+          <ng-container *ngIf="x.router;else notRouter">
+            <li nz-menu-item
+                [bitOpen]="[x.key]"
+                [nzSelected]="support.navActive.indexOf(x.key)!==-1">
+              <i nz-icon [nzType]="x.icon"></i>
+              <span class="nav-text">{{x.name|Locale:bit.locale}}</span>
+            </li>
+          </ng-container>
+          <ng-template #notRouter>
+            <li nz-submenu
+                [nzOpen]="support.navActive.indexOf(x.key)!==-1">
+              <span title><i nz-icon [nzType]="x.icon"></i><span>{{x.name|Locale:bit.locale}}</span></span>
+              <ul>
+                <ng-container *ngTemplateOutlet="navTpl; context: {$implicit: x.children}"></ng-container>
+              </ul>
+            </li>
+          </ng-template>
+        </ng-container>
+      </ng-template>
+    </ul>
+  </nz-sider>
+  <nz-layout>
+    <ul class="header" nz-menu
+        [nzMode]="'horizontal'"
+        [nzSelectable]="false">
+      <li nz-menu-item routerLink="/">
+        <i nz-icon nzType="dashboard"></i> {{bit.l['dashboard']}}
+      </li>
+
       <li nz-submenu>
         <span title>
-          <i nz-icon nzType="global"></i>
+          <i nz-icon nzType="translation"></i>
           {{bit.l['language']}}
         </span>
         <ul>
           <li nz-menu-item (click)="bit.setLocale('zh_cn')">
-            <a title>中文</a>
+            <a title><b>中文</b></a>
           </li>
           <li nz-menu-item (click)="bit.setLocale('en_us')">
-            <a title>English</a>
+            <a title><b>English</b></a>
           </li>
         </ul>
       </li>
-      <li nz-submenu>
+
+      <li style="float: right" nz-submenu>
         <span title>
-          <i nz-icon nzType="user"></i> {{bit.l['center']}}
+          <i nz-icon nzType="user"></i>
+          {{bit.l['center']}}
         </span>
         <ul>
           <li nz-menu-item routerLink="/{profile}">
-            <a title><i nz-icon nzType="solution"></i> {{bit.l['profile']}}</a>
+            <a title><i nz-icon nzType="idcard"></i> {{bit.l['profile']}}</a>
           </li>
           <li nz-menu-item (click)="logout()">
             <a title><i nz-icon nzType="logout"></i> {{bit.l['exit']}}</a>
@@ -544,58 +589,38 @@ export class DashboardsComponent implements OnInit, OnDestroy {
         </ul>
       </li>
     </ul>
-  </nz-header>
-  <nz-layout>
-    <nz-sider class="main-sider">
-      <ul nz-menu
-          [nzInlineCollapsed]="collapsed"
-          [nzMode]="collapsed?'vertical':'inline'">
-        <ng-container *ngTemplateOutlet="navTpl; context: {$implicit: navLists}"></ng-container>
-        <ng-template #navTpl let-navs>
-          <ng-container *ngFor="let x of navs">
-            <ng-container *ngIf="x.router;else notRouter">
-              <li nz-menu-item
-                  [nzSelected]="support.navActive.indexOf(x.key)!==-1"
-                  [bitOpen]="[x.key]">
-                <i nz-icon [nzType]="x.icon"></i>
-                <span class="nav-text">{{x.name|Locale:bit.locale}}</span>
-              </li>
-            </ng-container>
-            <ng-template #notRouter>
-              <li nz-submenu [nzOpen]="support.navActive.indexOf(x.key)!==-1">
-                <span title><i nz-icon [nzType]="x.icon"></i><span>{{x.name|Locale:bit.locale}}</span></span>
-                <ul>
-                  <ng-container *ngTemplateOutlet="navTpl; context: {$implicit: x.children}"></ng-container>
-                </ul>
-              </li>
-            </ng-template>
-          </ng-container>
-        </ng-template>
-      </ul>
-    </nz-sider>
-    <nz-layout class="app-warpper">
-      <nz-breadcrumb class="app-breadcrumb" [nzSeparator]="breadcrumbIcon">
-        <ng-template #breadcrumbIcon>
-          <i nz-icon nzType="right"></i>
-        </ng-template>
-        <nz-breadcrumb-item>
-          <a routerLink="/">{{bit.l['dashboard']}}</a>
-        </nz-breadcrumb-item>
-        <nz-breadcrumb-item *ngFor="let x of support.breadcrumb;last as islast">
-          <ng-container *ngIf="islast;else notLast">{{x.name|Locale:bit.locale}}</ng-container>
-          <ng-template #notLast>
-            <a *ngIf="x.router;else notRouterlink" [bitCrossLevel]="x.key">
-              {{x.name|Locale:bit.locale}}
-            </a>
-            <ng-template #notRouterlink>{{x.name|Locale:bit.locale}}</ng-template>
+    <nz-content>
+      <nz-page-header
+        [nzTitle]="support.title|Locale:bit.locale"
+        [nzSubtitle]="!support.subTitle?null:support.subTitle"
+        [nzBackIcon]="!support.back?null:''"
+        (nzBack)="bit.back()"
+      >
+        <nz-breadcrumb [nzSeparator]="breadcrumbIcon" nz-page-header-breadcrumb>
+          <ng-template #breadcrumbIcon>
+            <i nz-icon nzType="right"></i>
           </ng-template>
-        </nz-breadcrumb-item>
-      </nz-breadcrumb>
-
-      <nz-content class="app-content">
+          <nz-breadcrumb-item>
+            <a routerLink="/">{{bit.l['dashboard']}}</a>
+          </nz-breadcrumb-item>
+          <nz-breadcrumb-item *ngFor="let x of support.breadcrumb;last as islast">
+            <ng-container *ngIf="islast;else notLast">{{x.name|Locale:bit.locale}}</ng-container>
+            <ng-template #notLast>
+              <a *ngIf="x.router;else notRouterlink" [bitCrossLevel]="x.key">
+                {{x.name|Locale:bit.locale}}
+              </a>
+              <ng-template #notRouterlink>{{x.name|Locale:bit.locale}}</ng-template>
+            </ng-template>
+          </nz-breadcrumb-item>
+        </nz-breadcrumb>
+        <nz-page-header-extra>
+          <ng-container *ngTemplateOutlet="support.actions"></ng-container>
+        </nz-page-header-extra>
+      </nz-page-header>
+      <div class="app-warpper">
         <router-outlet></router-outlet>
-      </nz-content>
-    </nz-layout>
+      </div>
+    </nz-content>
   </nz-layout>
 </nz-layout>
 ```
@@ -603,44 +628,56 @@ export class DashboardsComponent implements OnInit, OnDestroy {
 修改样式文件 `src\app\dashboards\dashboards.component.scss`
 
 ```scss
-.logo {
-  width: 120px;
-  height: 31px;
-  line-height: 31px;
-  margin: 16px 28px 16px 0;
-  float: left;
-  color: #fff;
-  font-weight: bold;
-  font-size: 18px;
-}
+:host ::ng-deep {
+  .trigger {
+    font-size: 18px;
+    line-height: 64px;
+    padding: 0 24px;
+    cursor: pointer;
+    transition: color .3s;
 
-.header-menu {
-  float: right;
-  line-height: 64px;
-}
+    &:hover {
+      color: #1890ff;
+    }
+  }
 
-nz-layout.dashboard-layout {
-  height: 100%;
-}
+  .logo {
+    height: 64px;
+    line-height: 64px;
+    font-size: 16px;
+    white-space: nowrap;
+    color: #fff;
+    padding-left: 22px;
+    background: #002140;
+    overflow: hidden;
 
-nz-sider.main-sider {
-  background: #fff;
+    img {
+      width: 32px;
+      height: 32px;
+    }
 
-  ul {
-    height: 100%
+    nz-divider {
+      opacity: 0.6;
+      margin: 0 12px;
+    }
   }
 }
 
-nz-layout.app-warpper {
-  padding: 0 15px;
+nz-layout {
+  &.dashboard-layout {
+    height: 100%;
+  }
 }
 
-nz-breadcrumb.app-breadcrumb {
-  margin: 16px 0;
-}
+nz-content {
+  .app-breadcrumb {
+    background-color: #fff;
+    padding: 16px 24px;
+  }
 
-nz-content.app-content {
-  min-height: 280px;
+  .app-warpper {
+    padding: 15px 12px;
+  }
 }
 ```
 
