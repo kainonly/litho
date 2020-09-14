@@ -37,14 +37,14 @@ export class BitHttpService {
   /**
    * Get Request
    */
-  get(model: string, condition: number | string | SearchOption[]): Observable<any> {
+  get(model: string, condition: number | string | SearchOption[], path: string = '/get'): Observable<any> {
     let http: Observable<any>;
     if (Array.isArray(condition)) {
       http = this.req(model + '/get', {
         where: getQuerySchema(condition)
       });
     } else {
-      http = this.req(model + '/get', {
+      http = this.req(model + path, {
         id: condition
       });
     }
@@ -56,7 +56,7 @@ export class BitHttpService {
   /**
    * Lists Request
    */
-  lists(model: string, factory: ListByPage, option: ListsOption): Observable<any> {
+  lists(model: string, factory: ListByPage, option: ListsOption, path: string = '/lists'): Observable<any> {
     if (option.refresh || option.persistence) {
       if (option.refresh) {
         factory.index = 1;
@@ -66,7 +66,7 @@ export class BitHttpService {
     return factory.getPage().pipe(
       switchMap(index => {
         factory.index = index ? index : 1;
-        return this.req(model + '/lists', {
+        return this.req(model + path, {
           page: {
             limit: factory.limit,
             index: factory.index
@@ -89,8 +89,8 @@ export class BitHttpService {
   /**
    * OriginLists Request
    */
-  originLists(model: string, condition: SearchOption[] = []): Observable<any> {
-    return this.req(model + '/originLists', {
+  originLists(model: string, condition: SearchOption[] = [], path: string = '/originLists'): Observable<any> {
+    return this.req(model + path, {
       where: getQuerySchema(condition)
     }).pipe(
       map(res => !res.error ? res.data : null)
@@ -107,11 +107,11 @@ export class BitHttpService {
   /**
    * Edit Request
    */
-  edit(model: string, data: any, condition?: SearchOption[]): Observable<any> {
+  edit(model: string, data: any, condition?: SearchOption[], path: string = '/edit'): Observable<any> {
     data.switch = false;
     return !condition ?
-      this.req(model + '/edit', data) :
-      this.req(model + '/edit', Object.assign(data, {
+      this.req(model + path, data) :
+      this.req(model + path, Object.assign(data, {
           where: getQuerySchema(condition)
         })
       );
@@ -120,7 +120,7 @@ export class BitHttpService {
   /**
    * Status Request
    */
-  status(model: string, data: any, field = 'status', extra?: any): Observable<any> {
+  status(model: string, data: any, field = 'status', extra?: any, path: string = '/edit'): Observable<any> {
     const body = {
       id: data.id,
       switch: true,
@@ -129,7 +129,7 @@ export class BitHttpService {
     if (extra !== undefined) {
       Object.assign(body, extra);
     }
-    return this.req(model + '/edit', body).pipe(
+    return this.req(model + path, body).pipe(
       map((res) => {
         if (!res.error) {
           data[field] = !data[field];
@@ -142,14 +142,14 @@ export class BitHttpService {
   /**
    * Delete Request
    */
-  delete(model: string, id?: any[], condition?: SearchOption[]): Observable<any> {
+  delete(model: string, id?: any[], condition?: SearchOption[], path: string = '/delete'): Observable<any> {
     if (id !== undefined) {
-      return this.req(model + '/delete', {
+      return this.req(model + path, {
         id
       });
     }
     if (condition !== undefined) {
-      return this.req(model + '/delete', {
+      return this.req(model + path, {
         where: getQuerySchema(condition)
       });
     }
