@@ -5,7 +5,7 @@ import { Observable, of } from 'rxjs';
 import { BitConfigService } from './bit-config.service';
 import { ListByPage } from '../factory/list-by-page';
 import { getQuerySchema } from '../operates/get-query-schema';
-import { ListsOption, SearchOption } from '../types';
+import { ListsOption, SearchOption } from 'ngx-bit/types';
 
 @Injectable()
 export class BitHttpService {

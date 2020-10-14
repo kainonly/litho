@@ -9,7 +9,7 @@ import { BitSupportService } from './bit-support.service';
 import { ListByPage } from '../factory/list-by-page';
 import { factoryLocales } from '../operates/factory-locales';
 import { getSelectorFormUrl } from '../operates/get-selector-form-url';
-import { ListByPageOption, I18nGroupOption, I18nTooltipOption } from '../types';
+import { ListByPageOption, I18nGroupOption, I18nTooltipOption } from 'ngx-bit/types';
 
 @Injectable({
   providedIn: 'root'
