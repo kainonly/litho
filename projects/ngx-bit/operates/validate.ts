@@ -1,6 +1,6 @@
-import Ajv, { JSONSchemaType } from 'ajv';
+import Ajv from 'ajv';
 
-export function validate(schema: JSONSchemaType<any>, data: any): any {
+export function validate(schema: any, data: any): any {
   const ajv = new Ajv();
   const valid = ajv.validate(schema, data);
   return {
