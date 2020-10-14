@@ -1,5 +1,5 @@
 import { Directive } from '@angular/core';
-import { NzUploadComponent } from 'ng-zorro-antd';
+import { NzUploadComponent } from 'ng-zorro-antd/upload';
 import { BitConfigService } from 'ngx-bit';
 
 @Directive({

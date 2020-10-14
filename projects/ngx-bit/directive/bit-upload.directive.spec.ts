@@ -1,6 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { NzUploadComponent, NzUploadModule } from 'ng-zorro-antd';
+import { NzUploadComponent, NzUploadModule } from 'ng-zorro-antd/upload';
 import { BitConfigService, NgxBitModule } from 'ngx-bit';
 import { BitDirectiveModule, BitUploadDirective } from 'ngx-bit/directive';
 import { environment } from '../simulation/environment';

@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy, ViewChild, TemplateRef, ChangeDetectorRef } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BitService, BitEventsService, BitSupportService } from 'ngx-bit';
-import { NzNotificationService } from 'ng-zorro-antd';
+import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { MainService } from '@common/main.service';
 import { Subscription } from 'rxjs';
 

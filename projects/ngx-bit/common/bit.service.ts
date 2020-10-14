@@ -2,7 +2,7 @@ import { Injectable, Optional, TemplateRef } from '@angular/core';
 import { NavigationExtras, Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { StorageMap } from '@ngx-pwa/local-storage';
-import { NzI18nService } from 'ng-zorro-antd';
+import { NzI18nService } from 'ng-zorro-antd/i18n';
 import { BitConfigService } from './bit-config.service';
 import { BitEventsService } from './bit-events.service';
 import { BitSupportService } from './bit-support.service';

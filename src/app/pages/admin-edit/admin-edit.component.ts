@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { BitSwalService, BitService } from 'ngx-bit';
 import { switchMap } from 'rxjs/operators';
-import { NzNotificationService } from 'ng-zorro-antd';
+import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { AdminService } from '@common/admin.service';
 import { RoleService } from '@common/role.service';
 import { ActivatedRoute } from '@angular/router';

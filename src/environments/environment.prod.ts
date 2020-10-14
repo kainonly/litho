@@ -1,4 +1,4 @@
-import { en_US, zh_CN } from 'ng-zorro-antd';
+import { en_US, zh_CN } from 'ng-zorro-antd/i18n';
 import { factoryBitConfig } from 'ngx-bit/operates';
 
 const bit = factoryBitConfig({

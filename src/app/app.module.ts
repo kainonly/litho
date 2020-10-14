@@ -5,7 +5,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { registerLocaleData } from '@angular/common';
 import zh from '@angular/common/locales/zh';
-import { NZ_I18N, zh_CN } from 'ng-zorro-antd';
+import { NZ_I18N, zh_CN } from 'ng-zorro-antd/i18n';
 import { NgxBitModule } from 'ngx-bit';
 import { environment } from '@env';
 

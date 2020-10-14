@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { BitSwalService, BitService } from 'ngx-bit';
-import { NzNotificationService } from 'ng-zorro-antd';
+import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { AdminService } from '@common/admin.service';
 import { RoleService } from '@common/role.service';
 import { ListByPage } from 'ngx-bit/factory';

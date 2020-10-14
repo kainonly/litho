@@ -1,7 +1,8 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { BitSwalService, BitService, BitEventsService } from 'ngx-bit';
-import { NzNotificationService, NzTreeComponent, NzTreeNodeOptions } from 'ng-zorro-antd';
+import { NzNotificationService } from 'ng-zorro-antd/notification';
+import { NzTreeComponent, NzTreeNodeOptions } from 'ng-zorro-antd/tree';
 import { asyncValidator } from 'ngx-bit/operates';
 import { switchMap } from 'rxjs/operators';
 import { RoleService } from '@common/role.service';

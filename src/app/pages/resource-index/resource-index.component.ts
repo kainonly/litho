@@ -1,14 +1,8 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ResourceService } from '@common/resource.service';
-import {
-  NzContextMenuService,
-  NzDropdownMenuComponent,
-  NzFormatBeforeDropEvent,
-  NzFormatEmitEvent,
-  NzNotificationService,
-  NzTreeComponent, NzTreeNode,
-  NzTreeNodeOptions
-} from 'ng-zorro-antd';
+import { NzContextMenuService, NzDropdownMenuComponent } from 'ng-zorro-antd/dropdown';
+import { NzFormatBeforeDropEvent, NzFormatEmitEvent, NzTreeComponent, NzTreeNode, NzTreeNodeOptions } from 'ng-zorro-antd/tree';
+import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { BitService, BitEventsService, BitSwalService } from 'ngx-bit';
 import { Observable, of } from 'rxjs';
 import { PolicyService } from '@common/policy.service';

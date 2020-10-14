@@ -1,5 +1,6 @@
 import { Directive, EventEmitter, HostListener, Input, Output } from '@angular/core';
-import { NzNotificationService, NzSwitchComponent } from 'ng-zorro-antd';
+import { NzNotificationService } from 'ng-zorro-antd/notification';
+import { NzSwitchComponent } from 'ng-zorro-antd/switch';
 import { Observable } from 'rxjs';
 import { BitService } from 'ngx-bit';
 
