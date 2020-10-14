@@ -23,6 +23,7 @@ export class BitSwalService {
     return new Observable(subscriber => {
       if (!res.error) {
         Swal.fire({
+          heightAuto: false,
           title: this.bit.l.operateSuccess,
           text: customize !== undefined && customize.text !== undefined
             ? customize.text
@@ -50,6 +51,7 @@ export class BitSwalService {
         });
       } else {
         Swal.fire({
+          heightAuto: false,
           title: this.bit.l.operateError,
           text: customize !== undefined && customize.errorText !== undefined
             ? customize.errorText
@@ -71,6 +73,7 @@ export class BitSwalService {
     return new Observable(subscriber => {
       if (!res.error) {
         Swal.fire({
+          heightAuto: false,
           title: this.bit.l.operateSuccess,
           text: customize !== undefined && customize.text !== undefined
             ? customize.text
@@ -97,6 +100,7 @@ export class BitSwalService {
         });
       } else {
         Swal.fire({
+          heightAuto: false,
           title: this.bit.l.operateError,
           text: customize !== undefined && customize.errorText !== undefined
             ? customize.errorText
@@ -117,6 +121,7 @@ export class BitSwalService {
   deleteAlert(service: Observable<any>, customize?: AlertCustomize): Observable<any> {
     return new Observable(subscriber => {
       Swal.fire({
+        heightAuto: false,
         title: this.bit.l.operateWarning,
         text: customize !== undefined && customize.text !== undefined
           ? customize.text
@@ -137,9 +142,6 @@ export class BitSwalService {
             subscriber.next(res);
             subscriber.complete();
           });
-        } else {
-          subscriber.next(null);
-          subscriber.complete();
         }
       });
     });

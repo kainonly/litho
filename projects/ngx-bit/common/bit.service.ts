@@ -1,4 +1,4 @@
-import { Injectable, Optional, TemplateRef } from '@angular/core';
+import { Injectable, Optional } from '@angular/core';
 import { NavigationExtras, Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { StorageMap } from '@ngx-pwa/local-storage';

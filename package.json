@@ -27,8 +27,8 @@
     "@ngx-pwa/local-storage": "^10.1.0",
     "ajv": "^6.12.0",
     "ng-zorro-antd": "^10.0.1",
-    "rxjs": "~6.5.5",
-    "sweetalert2": "^9.4.3",
+    "rxjs": "~6.6.3",
+    "sweetalert2": "^10.0.0",
     "tslib": "^2.0.0",
     "zone.js": "~0.10.2"
   },

@@ -1,17 +1,17 @@
 {
   "name": "ngx-bit",
-  "version": "9.3.1",
+  "version": "10.0.0",
   "schematics": "./schematics/collection.json",
   "dependencies": {
-    "@ngx-pwa/local-storage": "^9.0.0",
-    "ng-zorro-antd": "^9.0.0",
-    "sweetalert2": "^9.0.0",
+    "@ngx-pwa/local-storage": "^10.0.0",
+    "ng-zorro-antd": "^10.0.0",
+    "sweetalert2": "^10.0.0",
     "ajv": "^6.0.0",
     "tslib": "^2.0.0"
   },
   "peerDependencies": {
-    "@angular/common": "^9.0.0",
-    "@angular/core": "^9.0.0"
+    "@angular/common": "^10.0.0",
+    "@angular/core": "^10.0.0"
   },
   "keywords": [
     "angular",

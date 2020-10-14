@@ -49,6 +49,7 @@ export class AclIndexComponent implements OnInit {
    */
   deleteData(id: any[]) {
     this.swal.deleteAlert(this.aclService.delete(id)).subscribe(res => {
+      console.log(res);
       if (!res.error) {
         this.notification.success(
           this.bit.l.operateSuccess,
