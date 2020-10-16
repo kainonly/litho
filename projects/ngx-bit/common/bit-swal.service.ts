@@ -142,6 +142,8 @@ export class BitSwalService {
             subscriber.next(res);
             subscriber.complete();
           });
+        } else {
+          subscriber.complete();
         }
       });
     });

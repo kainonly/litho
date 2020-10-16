@@ -187,12 +187,19 @@ describe('BitSwalService', () => {
       error: 0
     });
     setTimeout(() => {
+      const container = document.querySelector('.swal2-container');
+      expect(container).not.toBeNull();
       const cancel: HTMLButtonElement = document.querySelector('.swal2-cancel');
       cancel.click();
     }, 200);
-    swal.deleteAlert(res).subscribe(result => {
-      expect(result).toBeNull();
-      done();
+    swal.deleteAlert(res).subscribe({
+      complete() {
+        setTimeout(() => {
+          const container = document.querySelector('.swal2-container');
+          expect(container).toBeNull();
+          done();
+        }, 200);
+      }
     });
   });
 });

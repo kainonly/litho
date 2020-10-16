@@ -55,19 +55,15 @@ describe('BitBackDirective', () => {
     zone.run(() => {
       bit.open(['admin-index']);
       setTimeout(() => {
-        const event = router.events.subscribe(events => {
-          if (events instanceof NavigationEnd) {
-            expect(events.url).toBe('/%7Badmin-add%7D');
-            event.unsubscribe();
-            const button = fixture.debugElement.query(By.directive(BitBackDirective));
-            button.triggerEventHandler('click', null);
-            setTimeout(() => {
-              expect(location.path()).toBe('/%7Badmin-index%7D');
-              done();
-            }, 200);
-          }
-        });
         bit.open(['admin-add']);
+        setTimeout(() => {
+          const button = fixture.debugElement.query(By.directive(BitBackDirective));
+          button.triggerEventHandler('click', null);
+          location.subscribe(value => {
+            expect(value.url).toBe('/%7Badmin-index%7D');
+            done();
+          });
+        }, 200);
       }, 200);
     });
   });

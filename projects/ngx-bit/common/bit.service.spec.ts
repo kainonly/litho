@@ -1,6 +1,6 @@
 import { NgZone } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
-import { Location } from '@angular/common';
+import { Location, LocationStrategy, PathLocationStrategy } from '@angular/common';
 import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { NavigationEnd, Router, RouterModule } from '@angular/router';
 import { environment } from '../simulation/environment';
@@ -116,11 +116,19 @@ describe('BitService', () => {
   });
 
   it('Test location back', (done) => {
-    bit.back();
-    setTimeout(() => {
-      expect(location.path()).toBe('/%7Badmin-edit%7D/2/a7');
-      done();
-    }, 200);
+    zone.run(() => {
+      bit.open(['admin-index']);
+      setTimeout(() => {
+        bit.open(['admin-add']);
+        setTimeout(() => {
+          bit.back();
+          location.subscribe(value => {
+            expect(value.url).toBe('/%7Badmin-index%7D');
+            done();
+          });
+        }, 200);
+      }, 200);
+    });
   });
 
   it('Test registered language pack', (done) => {
