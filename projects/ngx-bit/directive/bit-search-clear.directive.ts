@@ -10,7 +10,7 @@ export class BitSearchClearDirective {
   @Output() after: EventEmitter<any> = new EventEmitter<any>();
 
   @HostListener('click')
-  onClick() {
+  onClick(): void {
     this.bitSearchClear.clearSearch(this.reset).subscribe(() => {
       this.after.emit(true);
     });

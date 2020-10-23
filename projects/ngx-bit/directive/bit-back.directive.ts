@@ -11,7 +11,7 @@ export class BitBackDirective {
   }
 
   @HostListener('click')
-  onClick() {
+  onClick(): void {
     this.bit.back();
   }
 }

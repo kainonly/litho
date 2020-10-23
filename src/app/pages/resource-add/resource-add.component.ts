@@ -26,7 +26,7 @@ export class ResourceAddComponent implements OnInit, OnDestroy {
   ) {
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.bit.registerLocales(import('./language'));
     this.form = this.fb.group({
       name: this.fb.group(this.bit.i18nGroup({
@@ -65,7 +65,7 @@ export class ResourceAddComponent implements OnInit, OnDestroy {
   /**
    * 获取父级节点
    */
-  getParentNodes() {
+  getParentNodes(): void {
     this.resourceService.originLists().subscribe(data => {
       const refer: Map<string, NzTreeNodeOptions> = new Map();
       const lists = data.map(v => {
@@ -109,7 +109,7 @@ export class ResourceAddComponent implements OnInit, OnDestroy {
     });
   }
 
-  submit(data) {
+  submit(data): void {
     this.resourceService.add(data).pipe(
       switchMap(res => this.swal.addAlert(res, this.form, {
         nav: false,

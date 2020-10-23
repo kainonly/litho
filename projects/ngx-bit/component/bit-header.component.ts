@@ -19,17 +19,17 @@ export class BitHeaderComponent implements OnInit, AfterViewInit, OnDestroy {
   ) {
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.support.subTitle = this.subTitle;
     this.support.back = this.back !== undefined;
   }
 
-  ngAfterViewInit() {
+  ngAfterViewInit(): void {
     this.support.actions = this.actions;
     this.support.status.emit('update');
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     this.support.actions = undefined;
     this.support.back = false;
     this.support.subTitle = undefined;

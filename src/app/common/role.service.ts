@@ -23,11 +23,11 @@ export class RoleService {
     });
   }
 
-  get(id: number) {
+  get(id: any): Observable<any> {
     return this.http.get(this.model, id);
   }
 
-  add(data: any) {
+  add(data: any): Observable<any> {
     return this.http.add(this.model, data);
   }
 
@@ -46,7 +46,7 @@ export class RoleService {
   /**
    * Validate Role Key
    */
-  validedKey(key: string, edit: Observable<string> = of(null)) {
+  validedKey(key: string, edit: Observable<string> = of(null)): Observable<any> {
     return edit.pipe(
       switchMap(editKey => {
         if (key !== editKey) {

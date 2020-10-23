@@ -28,7 +28,7 @@ export class ResourceEditComponent implements OnInit, OnDestroy {
   ) {
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.bit.registerLocales(import('./language'));
     this.form = this.fb.group({
       name: this.fb.group(this.bit.i18nGroup({
@@ -66,7 +66,7 @@ export class ResourceEditComponent implements OnInit, OnDestroy {
   /**
    * 获取数据
    */
-  getData() {
+  getData(): void {
     this.resourceService.get(this.id).subscribe(data => {
       if (!data) {
         return;
@@ -89,7 +89,7 @@ export class ResourceEditComponent implements OnInit, OnDestroy {
   /**
    * 获取父级节点
    */
-  getParentNodes() {
+  getParentNodes(): void {
     this.resourceService.originLists().subscribe(data => {
       const refer: Map<string, NzTreeNodeOptions> = new Map();
       const lists = data.map(v => {
@@ -129,7 +129,7 @@ export class ResourceEditComponent implements OnInit, OnDestroy {
     });
   }
 
-  submit(data) {
+  submit(data): void {
     Reflect.set(data, 'id', this.id);
     this.resourceService.edit(data).pipe(
       switchMap(res => this.swal.editAlert(res))

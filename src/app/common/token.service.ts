@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { CanActivate, Router } from '@angular/router';
 import { MainService } from '@common/main.service';
 import { map } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 
 @Injectable()
 export class TokenService implements CanActivate {
@@ -11,7 +12,7 @@ export class TokenService implements CanActivate {
   ) {
   }
 
-  canActivate() {
+  canActivate(): Observable<any> {
     return this.mainService.verify().pipe(
       map((res: any) => {
         if (res.error) {

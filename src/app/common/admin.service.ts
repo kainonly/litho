@@ -22,11 +22,11 @@ export class AdminService {
     });
   }
 
-  get(id: number) {
+  get(id: any): Observable<any> {
     return this.http.get(this.model, id);
   }
 
-  add(data: any) {
+  add(data: any): Observable<any> {
     return this.http.add(this.model, data);
   }
 
@@ -45,7 +45,7 @@ export class AdminService {
   /**
    * Validate Username
    */
-  validedUsername(username: string) {
+  validedUsername(username: string): Observable<any> {
     return this.http.req(this.model + '/validedUsername', {
       username
     });

@@ -1,4 +1,4 @@
-export function factoryLocales(dataset: object, mapping: Map<number, string>) {
+export function factoryLocales(dataset: object, mapping: Map<number, string>): any {
   const lang: { [key: string]: any } = {};
   for (const key in dataset) {
     if (dataset.hasOwnProperty(key)) {

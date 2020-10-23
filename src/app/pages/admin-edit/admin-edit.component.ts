@@ -29,7 +29,7 @@ export class AdminEditComponent implements OnInit {
   ) {
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.bit.registerLocales(import('./language'));
     this.form = this.fb.group({
       password: [null, [this.validedPassword]],
@@ -95,7 +95,7 @@ export class AdminEditComponent implements OnInit {
   /**
    * 获取数据
    */
-  getData() {
+  getData(): void {
     this.adminService.get(this.id).subscribe(data => {
       if (data.self) {
         BitSwalService.native.fire({
@@ -127,7 +127,7 @@ export class AdminEditComponent implements OnInit {
   /**
    * 获取权限组
    */
-  getRole() {
+  getRole(): void {
     this.roleService.originLists().subscribe(data => {
       this.roleLists = data;
     });
@@ -136,7 +136,7 @@ export class AdminEditComponent implements OnInit {
   /**
    * 上传
    */
-  upload(info) {
+  upload(info): void {
     if (info.type === 'success') {
       this.avatar = info.file.response.data.save_name;
       this.notification.success(
@@ -155,7 +155,7 @@ export class AdminEditComponent implements OnInit {
   /**
    * 提交
    */
-  submit(data) {
+  submit(data): void {
     Reflect.set(data, 'id', this.id);
     Reflect.set(data, 'avatar', this.avatar);
     delete data.password_check;

@@ -16,11 +16,11 @@ export class ResourceService {
     return this.http.originLists(this.model);
   }
 
-  add(data: any) {
+  add(data: any): Observable<any> {
     return this.http.add(this.model, data);
   }
 
-  get(id: number) {
+  get(id: any): Observable<any> {
     return this.http.get(this.model, id);
   }
 
@@ -44,7 +44,7 @@ export class ResourceService {
   /**
    * Validate Resource Key
    */
-  validedKey(key: string, edit: Observable<string> = of(null)) {
+  validedKey(key: string, edit: Observable<string> = of(null)): Observable<any> {
     return edit.pipe(
       switchMap(editKey => {
         if (key !== editKey) {

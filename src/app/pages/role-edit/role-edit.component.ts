@@ -35,7 +35,7 @@ export class RoleEditComponent implements OnInit, AfterViewInit, OnDestroy {
   ) {
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.bit.registerLocales(import('./language'));
     this.form = this.fb.group({
       name: this.fb.group(this.bit.i18nGroup({
@@ -90,7 +90,7 @@ export class RoleEditComponent implements OnInit, AfterViewInit, OnDestroy {
   /**
    * 获取数据
    */
-  getData() {
+  getData(): void {
     this.roleService.get(this.id).subscribe(data => {
       this.resource = data.resource ? data.resource.split(',') : '';
       this.dataAsync.next();
@@ -108,7 +108,7 @@ export class RoleEditComponent implements OnInit, AfterViewInit, OnDestroy {
   /**
    * 获取资源策略节点
    */
-  getNodes() {
+  getNodes(): void {
     this.resourceService.originLists().subscribe(data => {
       const refer: Map<string, NzTreeNodeOptions> = new Map();
       const lists = data.map(v => {
@@ -143,8 +143,7 @@ export class RoleEditComponent implements OnInit, AfterViewInit, OnDestroy {
   /**
    * 获取资源键
    */
-  setResource() {
-    console.log('asd');
+  setResource(): void {
     this.resource = [];
     const queue = [...this.nzTree.getTreeNodes()];
     while (queue.length !== 0) {
@@ -162,21 +161,21 @@ export class RoleEditComponent implements OnInit, AfterViewInit, OnDestroy {
   /**
    * 全部选中
    */
-  allChecked() {
+  allChecked(): void {
     this.allCheckedStatus(true);
   }
 
   /**
    * 取消选中
    */
-  allUnchecked() {
+  allUnchecked(): void {
     this.allCheckedStatus(false);
   }
 
   /**
    * 设置展开状态
    */
-  private allCheckedStatus(status: boolean) {
+  private allCheckedStatus(status: boolean): void {
     const queue = [...this.nzTree.getTreeNodes()];
     while (queue.length !== 0) {
       const node = queue.pop();
@@ -193,21 +192,21 @@ export class RoleEditComponent implements OnInit, AfterViewInit, OnDestroy {
   /**
    * 全部展开
    */
-  allExpand() {
+  allExpand(): void {
     this.allExpandStatus(true);
   }
 
   /**
    * 全部关闭
    */
-  allClose() {
+  allClose(): void {
     this.allExpandStatus(false);
   }
 
   /**
    * 设置展开状态
    */
-  private allExpandStatus(status: boolean) {
+  private allExpandStatus(status: boolean): void {
     const queue = [...this.nzTree.getTreeNodes()];
     while (queue.length !== 0) {
       const node = queue.pop();
@@ -222,7 +221,7 @@ export class RoleEditComponent implements OnInit, AfterViewInit, OnDestroy {
   /**
    * 提交
    */
-  submit(data) {
+  submit(data): void {
     Reflect.set(data, 'id', this.id);
     Reflect.set(data, 'resource', this.resource);
     this.roleService.edit(data).pipe(

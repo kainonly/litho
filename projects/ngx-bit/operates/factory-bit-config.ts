@@ -1,7 +1,7 @@
 import { BitConfigService } from 'ngx-bit';
 import { BitConfig } from 'ngx-bit/types';
 
-export function factoryBitConfig(config: BitConfig) {
+export function factoryBitConfig(config: BitConfig): BitConfigService {
   const service = new BitConfigService();
   service.url = config.url;
   service.api = config.api;

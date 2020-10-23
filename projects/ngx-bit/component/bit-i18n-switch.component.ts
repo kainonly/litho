@@ -25,7 +25,7 @@ export class BitI18nSwitchComponent {
   /**
    * i18n id change
    */
-  change(i18n: string) {
+  change(i18n: string): void {
     this.i18nChange.emit(i18n);
   }
 }

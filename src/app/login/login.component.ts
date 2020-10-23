@@ -27,7 +27,7 @@ export class LoginComponent implements OnInit {
   ) {
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.bit.registerLocales(import('./language'));
     this.form = this.fb.group({
       username: [null, [
@@ -51,7 +51,7 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  submit(data: any) {
+  submit(data: any): void {
     this.mainService.login(data.username, data.password).subscribe(res => {
       if (!res.error) {
         this.support.clearStorage();

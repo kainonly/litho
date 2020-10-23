@@ -3,8 +3,8 @@ import { StorageMap } from '@ngx-pwa/local-storage';
 import { Event, NavigationStart, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { filter, map, switchMap } from 'rxjs/operators';
-import { getSelectorFormUrl } from '../operates/get-selector-form-url';
 import { BreadcrumbOption } from 'ngx-bit/types';
+import { getSelectorFormUrl } from '../operates/get-selector-form-url';
 
 @Injectable()
 export class BitSupportService {
@@ -53,14 +53,14 @@ export class BitSupportService {
   /**
    * Manual set breadcrumb
    */
-  setBreadcrumb(...breadcrumb: BreadcrumbOption[]) {
+  setBreadcrumb(...breadcrumb: BreadcrumbOption[]): void {
     this.breadcrumb = breadcrumb;
   }
 
   /**
    * Set resource data
    */
-  setResource(resource: Map<string, any>, router: Map<string, any>) {
+  setResource(resource: Map<string, any>, router: Map<string, any>): void {
     this.storageMap.set('resource', resource).subscribe(() => {
       // ok
     });
@@ -72,7 +72,7 @@ export class BitSupportService {
   /**
    * Setup support
    */
-  setup(router: Router, match: string[] = ['%7B', '%7D']) {
+  setup(router: Router, match: string[] = ['%7B', '%7D']): void {
     this.unsubscribe();
     if (router.url !== '/') {
       this.routerAssociate(router, router.url, match);
@@ -91,7 +91,7 @@ export class BitSupportService {
   /**
    * Clear breadcrumb
    */
-  private clearBreadcrumb() {
+  private clearBreadcrumb(): void {
     this.navActive = [];
     this.breadcrumb = [];
     this.title = '';
@@ -100,7 +100,7 @@ export class BitSupportService {
   /**
    * Get router associate
    */
-  private routerAssociate(router: Router, url: string, match?: string[]) {
+  private routerAssociate(router: Router, url: string, match?: string[]): void {
     const key = getSelectorFormUrl(url, match);
     this.storageMap.get('router').pipe(
       map((data: Map<string, any>) =>
@@ -119,7 +119,7 @@ export class BitSupportService {
   /**
    * Factory breadcrumb
    */
-  private factoryBreadcrumb(key: string) {
+  private factoryBreadcrumb(key: string): void {
     this.storageMap.get('resource').subscribe((data: Map<string, any>) => {
       const queue = [];
       const breadcrumb: BreadcrumbOption[] = [];
@@ -161,7 +161,7 @@ export class BitSupportService {
   /**
    * Clear support storage
    */
-  clearStorage() {
+  clearStorage(): void {
     this.storageMap.keys().pipe(
       filter(v =>
         ['resource', 'router'].includes(v) ||
@@ -177,7 +177,7 @@ export class BitSupportService {
   /**
    * Unsubscribe support events
    */
-  unsubscribe() {
+  unsubscribe(): void {
     if (this.routerEvents) {
       this.routerEvents.unsubscribe();
     }

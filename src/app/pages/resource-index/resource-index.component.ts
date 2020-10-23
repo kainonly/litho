@@ -44,7 +44,7 @@ export class ResourceIndexComponent implements OnInit, OnDestroy {
   ) {
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.bit.registerLocales(import('./language'));
     this.getNodes();
     this.getPolicy();
@@ -60,7 +60,7 @@ export class ResourceIndexComponent implements OnInit, OnDestroy {
   /**
    * 获取树形数据
    */
-  getNodes() {
+  getNodes(): void {
     this.resourceService.originLists().subscribe(data => {
       const refer: Map<string, NzTreeNodeOptions> = new Map();
       const lists = data.map(v => {
@@ -101,7 +101,7 @@ export class ResourceIndexComponent implements OnInit, OnDestroy {
   /**
    * 获取策略数据
    */
-  getPolicy() {
+  getPolicy(): void {
     this.policyService.originLists().subscribe(data => {
       this.policy = new Map();
       for (const x of data) {
@@ -127,7 +127,7 @@ export class ResourceIndexComponent implements OnInit, OnDestroy {
   /**
    * 获取访问控制
    */
-  getAcl() {
+  getAcl(): void {
     this.aclService.originLists().subscribe(data => {
       this.aclLists = data;
     });
@@ -136,7 +136,7 @@ export class ResourceIndexComponent implements OnInit, OnDestroy {
   /**
    * 监听展开状态
    */
-  onExpanded() {
+  onExpanded(): void {
     this.expanded = new Set();
     const queue = [...this.nzTree.getTreeNodes()];
     while (queue.length !== 0) {
@@ -154,21 +154,21 @@ export class ResourceIndexComponent implements OnInit, OnDestroy {
   /**
    * 全部展开
    */
-  allExpand() {
+  allExpand(): void {
     this.allExpandStatus(true);
   }
 
   /**
    * 全部关闭
    */
-  allClose() {
+  allClose(): void {
     this.allExpandStatus(false);
   }
 
   /**
    * 设置展开状态
    */
-  private allExpandStatus(status: boolean) {
+  private allExpandStatus(status: boolean): void {
     this.expanded = new Set();
     const queue = [...this.nzTree.getTreeNodes()];
     while (queue.length !== 0) {
@@ -187,14 +187,14 @@ export class ResourceIndexComponent implements OnInit, OnDestroy {
   /**
    * 选择节点
    */
-  clickNode(nzFormatEmitEvent: NzFormatEmitEvent) {
+  clickNode(nzFormatEmitEvent: NzFormatEmitEvent): void {
     this.activeNode = nzFormatEmitEvent.node;
   }
 
   /**
    * 打开资源
    */
-  openResource(node: NzTreeNode) {
+  openResource(node: NzTreeNode): void {
     node.isExpanded = !node.isExpanded;
   }
 
@@ -209,21 +209,21 @@ export class ResourceIndexComponent implements OnInit, OnDestroy {
   /**
    * 新增资源
    */
-  addResource() {
+  addResource(): void {
     this.bit.open(['resource-add', { parentId: this.activeNode.origin.id }]);
   }
 
   /**
    * 修改资源
    */
-  editResource() {
+  editResource(): void {
     this.bit.open(['resource-edit', this.activeNode.origin.id]);
   }
 
   /**
    * 删除资源
    */
-  deleteResource() {
+  deleteResource(): void {
     this.swal.deleteAlert(
       this.resourceService.delete([this.activeNode.origin.id])
     ).subscribe(res => {
@@ -245,7 +245,7 @@ export class ResourceIndexComponent implements OnInit, OnDestroy {
   /**
    * 开启排序
    */
-  startSort() {
+  startSort(): void {
     this.sort = true;
   }
 
@@ -263,7 +263,7 @@ export class ResourceIndexComponent implements OnInit, OnDestroy {
   /**
    * 拖拽结束
    */
-  dragEnd() {
+  dragEnd(): void {
     this.sortLists = [];
     const queue = [...this.nzTree.getTreeNodes()];
     let originIndex = queue.length - 1;
@@ -294,7 +294,7 @@ export class ResourceIndexComponent implements OnInit, OnDestroy {
   /**
    * 取消排序
    */
-  cancelSort() {
+  cancelSort(): void {
     this.sort = false;
     this.sortLists = [];
     this.getNodes();
@@ -303,7 +303,7 @@ export class ResourceIndexComponent implements OnInit, OnDestroy {
   /**
    * 提交排序
    */
-  submitSort() {
+  submitSort(): void {
     this.resourceService.sort(this.sortLists).subscribe(res => {
       if (!res.error) {
         this.events.publish('refresh-menu');
@@ -320,7 +320,7 @@ export class ResourceIndexComponent implements OnInit, OnDestroy {
   /**
    * 开启策略绑定编辑
    */
-  openPolicy() {
+  openPolicy(): void {
     this.policyVisable = true;
     this.getAcl();
     this.policyForm = this.fb.group({
@@ -332,7 +332,7 @@ export class ResourceIndexComponent implements OnInit, OnDestroy {
   /**
    * 关闭策略绑定编辑
    */
-  closePolicy() {
+  closePolicy(): void {
     this.policyVisable = false;
     this.policyForm = null;
   }
@@ -340,7 +340,7 @@ export class ResourceIndexComponent implements OnInit, OnDestroy {
   /**
    * 禁用已存在的访问控制键
    */
-  disabledAcl(key: string) {
+  disabledAcl(key: string): boolean {
     if (!this.policy.has(this.activeNode.key)) {
       return false;
     }
@@ -351,7 +351,7 @@ export class ResourceIndexComponent implements OnInit, OnDestroy {
   /**
    * 提交策略绑定
    */
-  submitPolicy(data) {
+  submitPolicy(data): void {
     Reflect.set(data, 'resource_key', this.activeNode.key);
     this.policyService.add(data).subscribe(res => {
       if (!res.error) {
@@ -377,7 +377,7 @@ export class ResourceIndexComponent implements OnInit, OnDestroy {
   /**
    * 删除策略绑定
    */
-  deletePolicy(id: number) {
+  deletePolicy(id: number): void {
     this.policyService.delete([id]).subscribe(res => {
       if (!res.error) {
         this.notification.success(

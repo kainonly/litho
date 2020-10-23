@@ -15,7 +15,7 @@ export class BitOpenDirective {
   }
 
   @HostListener('click')
-  onClick() {
+  onClick(): void {
     this.bit.open(this.bitOpen, this.extras);
   }
 }

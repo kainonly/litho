@@ -30,7 +30,7 @@ export class AclEditComponent implements OnInit {
   ) {
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.bit.registerLocales(import('./language'));
     this.form = this.fb.group({
       name: this.fb.group(this.bit.i18nGroup({
@@ -68,7 +68,7 @@ export class AclEditComponent implements OnInit {
     return asyncValidator(this.aclService.validedKey(control.value, this.keyAsync));
   };
 
-  getData() {
+  getData(): void {
     this.aclService.get(this.id).subscribe(data => {
       const name = this.bit.i18nParse(data.name);
       this.nameAsync.next(name.zh_cn);
@@ -90,7 +90,7 @@ export class AclEditComponent implements OnInit {
   /**
    * 提交
    */
-  submit(data) {
+  submit(data): void {
     Reflect.set(data, 'id', this.id);
     this.aclService.edit(data).pipe(
       switchMap(res => this.swal.editAlert(res))

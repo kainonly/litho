@@ -83,7 +83,7 @@ export class ListByPage {
   /**
    * Determine whether the index exists in the search object
    */
-  hasSearch(field: string) {
+  hasSearch(field: string): boolean {
     return this.search.hasOwnProperty(field);
   }
 
@@ -148,7 +148,7 @@ export class ListByPage {
   /**
    * Persistent settings
    */
-  persistence() {
+  persistence(): void {
     this.storage.set('page:' + this.option.id, this.index).subscribe(() => {
       // ok
     });

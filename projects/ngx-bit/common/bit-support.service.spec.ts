@@ -1,12 +1,12 @@
 import { NgZone } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { Router, RouterModule } from '@angular/router';
-import { environment } from '../simulation/environment';
 import { StorageMap } from '@ngx-pwa/local-storage';
 import { BitSupportService, NgxBitModule } from 'ngx-bit';
 import { BreadcrumbOption } from 'ngx-bit/types';
 import { switchMap } from 'rxjs/operators';
 import { Location } from '@angular/common';
+import { environment } from '../simulation/environment';
 
 describe('BitSupportService', () => {
   let support: BitSupportService;
@@ -73,6 +73,7 @@ describe('BitSupportService', () => {
   });
 
   it('Set resource data and setup support', (done) => {
+    // @ts-ignore
     import('../mock/resource.json').then(res => {
       const resourceData: Map<string, any> = new Map<string, any>();
       const routerData: Map<string, any> = new Map<string, any>();

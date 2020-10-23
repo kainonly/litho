@@ -26,7 +26,7 @@ export class AdminAddComponent implements OnInit {
   ) {
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.bit.registerLocales(import('./language'));
     this.form = this.fb.group({
       username: [null, [
@@ -98,7 +98,7 @@ export class AdminAddComponent implements OnInit {
   /**
    * 获取权限组
    */
-  getRole() {
+  getRole(): void {
     this.roleService.originLists().subscribe(data => {
       this.roleLists = data;
     });
@@ -107,7 +107,7 @@ export class AdminAddComponent implements OnInit {
   /**
    * 上传
    */
-  upload(info) {
+  upload(info): void {
     if (info.type === 'success') {
       this.avatar = info.file.response.data.save_name;
       this.notification.success(
@@ -126,7 +126,7 @@ export class AdminAddComponent implements OnInit {
   /**
    * 提交
    */
-  submit(data) {
+  submit(data): void {
     if (this.avatar) {
       data.avatar = this.avatar;
     }

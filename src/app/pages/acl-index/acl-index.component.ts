@@ -19,7 +19,7 @@ export class AclIndexComponent implements OnInit {
   ) {
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.bit.registerLocales(import('./language'));
     this.lists = this.bit.listByPage({
       id: 'acl-index',
@@ -34,7 +34,7 @@ export class AclIndexComponent implements OnInit {
   /**
    * 获取列表数据
    */
-  getLists(refresh = false, event?: number) {
+  getLists(refresh = false, event?: number): void {
     this.aclService.lists(
       this.lists,
       refresh,
@@ -47,7 +47,7 @@ export class AclIndexComponent implements OnInit {
   /**
    * 删除单操作
    */
-  deleteData(id: any[]) {
+  deleteData(id: any[]): void {
     this.swal.deleteAlert(this.aclService.delete(id)).subscribe(res => {
       if (!res.error) {
         this.notification.success(
@@ -67,7 +67,7 @@ export class AclIndexComponent implements OnInit {
   /**
    * 选中删除
    */
-  deleteCheckData() {
+  deleteCheckData(): void {
     const id = this.lists.getChecked().map(v => v.id);
     this.deleteData(id);
   }

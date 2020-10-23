@@ -12,7 +12,7 @@ export class BitFormSubmitDirective implements OnInit {
   ) {
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.form.ngSubmit.subscribe(_ => {
       const controls = this.form.control.controls;
       for (const key in controls) {

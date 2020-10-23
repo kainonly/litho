@@ -21,7 +21,7 @@ export class EmptyComponent implements OnInit {
   ) {
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.bit.registerLocales(import('./language'));
   }
 }

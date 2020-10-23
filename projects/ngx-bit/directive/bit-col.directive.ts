@@ -14,7 +14,7 @@ export class BitColDirective implements OnInit {
   ) {
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     if (!this.config.col.hasOwnProperty(this.bitCol)) {
       return;
     }

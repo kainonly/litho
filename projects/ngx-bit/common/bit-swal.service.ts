@@ -3,8 +3,8 @@ import { FormGroup } from '@angular/forms';
 import { Location } from '@angular/common';
 import { Observable } from 'rxjs';
 import Swal from 'sweetalert2';
-import { BitService } from './bit.service';
 import { AlertCustomize } from 'ngx-bit/types';
+import { BitService } from './bit.service';
 
 @Injectable()
 export class BitSwalService {

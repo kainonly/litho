@@ -21,7 +21,7 @@ export class ProfileComponent implements OnInit {
   ) {
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.bit.registerLocales(import('./language'));
     this.form = this.fb.group({
       call: [null],
@@ -118,7 +118,7 @@ export class ProfileComponent implements OnInit {
   /**
    * 获取个人信息
    */
-  getInformation() {
+  getInformation(): void {
     this.mainService.information().subscribe(data => {
       this.avatar = data.avatar;
       this.form.patchValue({
@@ -132,7 +132,7 @@ export class ProfileComponent implements OnInit {
   /**
    * 头像上传
    */
-  upload(info) {
+  upload(info): void {
     if (info.type === 'success') {
       this.avatar = info.file.response.data.savename;
       this.notification.success(
@@ -151,7 +151,7 @@ export class ProfileComponent implements OnInit {
   /**
    * 监听密码修改关闭
    */
-  editPasswordChange(status: boolean) {
+  editPasswordChange(status: boolean): void {
     if (status) {
       this.form.addControl('old_password', new FormControl([null, [this.validedPassword]]));
       this.form.addControl('new_password', new FormControl([null, [this.validedNewPassword]]));
@@ -171,7 +171,7 @@ export class ProfileComponent implements OnInit {
   /**
    * 提交
    */
-  submit(data) {
+  submit(data): void {
     if (this.avatar) {
       data.avatar = this.avatar;
     }

@@ -13,7 +13,7 @@ export class BitCrossLevelDirective {
   }
 
   @HostListener('click')
-  onClick() {
+  onClick(): void {
     this.bit.crossLevel(this.bitCrossLevel);
   }
 }

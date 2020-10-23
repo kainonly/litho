@@ -10,10 +10,12 @@ export class BitSearchChangeDirective implements OnInit {
   @Input() bitSearchChange: ListByPage;
   @Output() after: EventEmitter<any> = new EventEmitter<any>();
 
-  constructor(private model: NgModel) {
+  constructor(
+    private model: NgModel
+  ) {
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.model.update.pipe(
       switchMap(_ => this.bitSearchChange.afterSearch()
       )

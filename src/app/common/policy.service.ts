@@ -15,7 +15,7 @@ export class PolicyService {
     return this.http.originLists(this.model);
   }
 
-  add(data: any) {
+  add(data: any): Observable<any> {
     return this.http.add(this.model, data);
   }
 

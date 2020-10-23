@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { OperatorFunction } from 'rxjs';
-import { factoryLocales } from '../operates/factory-locales';
 import { BitConfig, I18nOption } from 'ngx-bit/types';
+import { factoryLocales } from '../operates/factory-locales';
 
 @Injectable({
   providedIn: 'root'
@@ -43,7 +43,7 @@ export class BitConfigService implements BitConfig {
   /**
    * Setup common language pack
    */
-  setupLocales(packer: Promise<any>) {
+  setupLocales(packer: Promise<any>): void {
     packer.then(result => {
       this.lang = factoryLocales(result.default, this.locale.mapping);
     });
@@ -52,21 +52,21 @@ export class BitConfigService implements BitConfig {
   /**
    * Get a language
    */
-  getLang(locale: string) {
+  getLang(locale: string): any {
     return this.lang[locale];
   }
 
   /**
    * Set up request interceptor
    */
-  setupHttpInterceptor(operate: OperatorFunction<any, any>) {
+  setupHttpInterceptor(operate: OperatorFunction<any, any>): void {
     this.httpInterceptor = operate;
   }
 
   /**
    * Get request interceptor
    */
-  getHttpInterceptor() {
+  getHttpInterceptor(): OperatorFunction<any, any> {
     return this.httpInterceptor;
   }
 }

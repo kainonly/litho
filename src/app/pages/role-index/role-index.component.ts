@@ -28,7 +28,7 @@ export class RoleIndexComponent implements OnInit, AfterViewInit {
   ) {
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.bit.registerLocales(import('./language'));
     this.lists = this.bit.listByPage({
       id: 'role-index',
@@ -64,7 +64,7 @@ export class RoleIndexComponent implements OnInit, AfterViewInit {
   /**
    * 获取列表数据
    */
-  getLists(refresh = false, event?: number) {
+  getLists(refresh = false, event?: number): void {
     this.roleService.lists(
       this.lists,
       refresh,
@@ -81,7 +81,7 @@ export class RoleIndexComponent implements OnInit, AfterViewInit {
   /**
    * 获取资源节点
    */
-  getNodes() {
+  getNodes(): void {
     this.resourceService.originLists().subscribe(data => {
       const refer: Map<string, NzTreeNodeOptions> = new Map();
       const lists = data.map(v => {
@@ -117,7 +117,7 @@ export class RoleIndexComponent implements OnInit, AfterViewInit {
   /**
    * 删除单操作
    */
-  deleteData(id: any[]) {
+  deleteData(id: any[]): void {
     this.swal.deleteAlert(this.roleService.delete(id)).subscribe(res => {
       if (!res.error) {
         this.notification.success(
@@ -137,7 +137,7 @@ export class RoleIndexComponent implements OnInit, AfterViewInit {
   /**
    * 选中删除
    */
-  deleteCheckData() {
+  deleteCheckData(): void {
     const id = this.lists.getChecked().map(v => v.id);
     this.deleteData(id);
   }
@@ -145,12 +145,12 @@ export class RoleIndexComponent implements OnInit, AfterViewInit {
   /**
    * 开启
    */
-  openPolicy(data: any) {
+  openPolicy(data: any): void {
     this.activeData = data;
     this.policyVisable = true;
   }
 
-  closePolicy() {
+  closePolicy(): void {
     this.activeData = null;
     this.policyVisable = false;
   }

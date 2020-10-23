@@ -1,8 +1,8 @@
 import { TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { RouterModule } from '@angular/router';
-import { environment } from '../simulation/environment';
 import { BitConfigService, BitHttpService, BitService, NgxBitModule } from 'ngx-bit';
+import { environment } from '../simulation/environment';
 import { TestService } from '../simulation/test.service';
 
 describe('BitHttpService', () => {

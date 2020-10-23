@@ -24,7 +24,7 @@ export class AclAddComponent implements OnInit {
   ) {
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.bit.registerLocales(import('./language'));
     this.form = this.fb.group({
       name: this.fb.group(this.bit.i18nGroup({
@@ -62,7 +62,7 @@ export class AclAddComponent implements OnInit {
   /**
    * 提交
    */
-  submit(data) {
+  submit(data): void {
     this.aclService.add(data).pipe(
       switchMap(res => this.swal.addAlert(res, this.form, {
         status: true

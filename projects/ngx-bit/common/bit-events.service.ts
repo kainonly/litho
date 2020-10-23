@@ -15,7 +15,7 @@ export class BitEventsService {
   /**
    * Publish a component event
    */
-  publish(topic: string, args?: any) {
+  publish(topic: string, args?: any): void {
     if (this.exists(topic)) {
       const topics = this.events.get(topic);
       topics.next(args !== undefined ? args : null);
@@ -38,7 +38,7 @@ export class BitEventsService {
   /**
    * Unsubscribe component event
    */
-  off(topic: string) {
+  off(topic: string): void {
     if (this.exists(topic)) {
       const topics = this.events.get(topic);
       topics.unsubscribe();

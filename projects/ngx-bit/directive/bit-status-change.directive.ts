@@ -21,7 +21,7 @@ export class BitStatusChangeDirective {
   }
 
   @HostListener('click')
-  onClick() {
+  onClick(): void {
     this.bitStatusChange.subscribe(res => {
       if (!res.error) {
         this.notificationService.success(this.bit.l.operateSuccess, this.bit.l.statusSuccess);

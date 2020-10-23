@@ -29,7 +29,7 @@ export class RoleAddComponent implements OnInit, OnDestroy {
   ) {
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.bit.registerLocales(import('./language'));
     this.form = this.fb.group({
       name: this.fb.group(this.bit.i18nGroup({
@@ -58,7 +58,7 @@ export class RoleAddComponent implements OnInit, OnDestroy {
   /**
    * 获取资源策略节点
    */
-  getNodes() {
+  getNodes(): void {
     this.resourceService.originLists().subscribe(data => {
       const refer: Map<string, NzTreeNodeOptions> = new Map();
       const lists = data.map(v => {
@@ -93,7 +93,7 @@ export class RoleAddComponent implements OnInit, OnDestroy {
   /**
    * 获取资源键
    */
-  setResource() {
+  setResource(): void {
     this.resource = [];
     const queue = [...this.nzTree.getTreeNodes()];
     while (queue.length !== 0) {
@@ -111,21 +111,21 @@ export class RoleAddComponent implements OnInit, OnDestroy {
   /**
    * 全部选中
    */
-  allChecked() {
+  allChecked(): void {
     this.allCheckedStatus(true);
   }
 
   /**
    * 取消选中
    */
-  allUnchecked() {
+  allUnchecked(): void {
     this.allCheckedStatus(false);
   }
 
   /**
    * 设置展开状态
    */
-  private allCheckedStatus(status: boolean) {
+  private allCheckedStatus(status: boolean): void {
     const queue = [...this.nzTree.getTreeNodes()];
     while (queue.length !== 0) {
       const node = queue.pop();
@@ -142,21 +142,21 @@ export class RoleAddComponent implements OnInit, OnDestroy {
   /**
    * 全部展开
    */
-  allExpand() {
+  allExpand(): void {
     this.allExpandStatus(true);
   }
 
   /**
    * 全部关闭
    */
-  allClose() {
+  allClose(): void {
     this.allExpandStatus(false);
   }
 
   /**
    * 设置展开状态
    */
-  private allExpandStatus(status: boolean) {
+  private allExpandStatus(status: boolean): void {
     const queue = [...this.nzTree.getTreeNodes()];
     while (queue.length !== 0) {
       const node = queue.pop();
@@ -171,7 +171,7 @@ export class RoleAddComponent implements OnInit, OnDestroy {
   /**
    * 提交
    */
-  submit(data) {
+  submit(data): void {
     Reflect.set(data, 'resource', this.resource);
     this.roleService.add(data).pipe(
       switchMap(res => this.swal.addAlert(res, this.form, {

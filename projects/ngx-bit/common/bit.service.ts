@@ -3,13 +3,14 @@ import { NavigationExtras, Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { StorageMap } from '@ngx-pwa/local-storage';
 import { NzI18nService } from 'ng-zorro-antd/i18n';
+import { ListByPageOption, I18nGroupOption, I18nTooltipOption } from 'ngx-bit/types';
 import { BitConfigService } from './bit-config.service';
 import { BitEventsService } from './bit-events.service';
 import { BitSupportService } from './bit-support.service';
 import { ListByPage } from '../factory/list-by-page';
 import { factoryLocales } from '../operates/factory-locales';
 import { getSelectorFormUrl } from '../operates/get-selector-form-url';
-import { ListByPageOption, I18nGroupOption, I18nTooltipOption } from 'ngx-bit/types';
+
 
 @Injectable({
   providedIn: 'root'
@@ -76,7 +77,7 @@ export class BitService {
   /**
    * open routerlink with cross level
    */
-  open(urlTree: any[], extras?: NavigationExtras) {
+  open(urlTree: any[], extras?: NavigationExtras): void {
     const url = this.router.url;
     if (url !== '/') {
       const selector = getSelectorFormUrl(this.router.url, ['%7B', '%7D']);
@@ -97,7 +98,7 @@ export class BitService {
   /**
    * open use cross level
    */
-  crossLevel(selector: string) {
+  crossLevel(selector: string): void {
     this.storageMap.get('cross:' + selector).subscribe(param => {
       if (!param) {
         this.router.navigateByUrl(`{${selector}}`);
@@ -112,7 +113,7 @@ export class BitService {
   /**
    * Location back
    */
-  back() {
+  back(): void {
     this.location.back();
     this.resetI18n();
   }
@@ -120,7 +121,7 @@ export class BitService {
   /**
    * Registered language pack
    */
-  registerLocales(packer: Promise<any>) {
+  registerLocales(packer: Promise<any>): void {
     packer.then(result => {
       this.lang = factoryLocales(result.default, this.config.locale.mapping);
       this.l = Object.assign(
@@ -133,7 +134,7 @@ export class BitService {
   /**
    * Set language pack ID
    */
-  setLocale(locale: string) {
+  setLocale(locale: string): void {
     this.locale = locale;
     this.storageMap.set('locale', locale).subscribe(() => {
     });
@@ -168,7 +169,7 @@ export class BitService {
   /**
    * Reset I18n ID
    */
-  resetI18n() {
+  resetI18n(): void {
     this.i18n = this.config.i18n.default.toString();
   }
 
@@ -197,7 +198,7 @@ export class BitService {
   /**
    * Parse i18n string json
    */
-  i18nParse(raws: string) {
+  i18nParse(raws: string): any {
     const lang: any = JSON.parse(raws);
     const data: any = {};
     for (const ID of this.config.i18n.contain) {

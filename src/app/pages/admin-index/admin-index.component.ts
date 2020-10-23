@@ -22,7 +22,7 @@ export class AdminIndexComponent implements OnInit {
   ) {
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.bit.registerLocales(import('./language'));
     this.lists = this.bit.listByPage({
       id: 'admin-index',
@@ -37,7 +37,7 @@ export class AdminIndexComponent implements OnInit {
   /**
    * 获取列表数据
    */
-  getLists(refresh = false, event?: number) {
+  getLists(refresh = false, event?: number): void {
     this.adminService.lists(
       this.lists,
       refresh,
@@ -50,7 +50,7 @@ export class AdminIndexComponent implements OnInit {
   /**
    * 获取权限组
    */
-  getRole() {
+  getRole(): void {
     this.roleService.originLists().subscribe((data) => {
       for (const x of data) {
         this.role[x.key] = x;
@@ -61,7 +61,7 @@ export class AdminIndexComponent implements OnInit {
   /**
    * 删除单操作
    */
-  deleteData(id: any[]) {
+  deleteData(id: any[]): void {
     this.swal.deleteAlert(this.adminService.delete(id)).subscribe((res) => {
       if (!res.error) {
         this.notification.success(
@@ -88,7 +88,7 @@ export class AdminIndexComponent implements OnInit {
   /**
    * 选中删除
    */
-  deleteCheckData() {
+  deleteCheckData(): void {
     const id = this.lists.getChecked().map((v) => v.id);
     this.deleteData(id);
   }
@@ -96,7 +96,7 @@ export class AdminIndexComponent implements OnInit {
   /**
    * 自定义返回结果
    */
-  statusFeedback(res: any) {
+  statusFeedback(res: any): void {
     if (res.msg === 'error:self') {
       this.notification.error(
         this.bit.l.operateError,

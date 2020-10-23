@@ -27,7 +27,7 @@ export class DashboardsComponent implements OnInit, OnDestroy {
   ) {
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.getMenuLists();
     this.support.setup(this.router);
     this.events.on('refresh-menu').subscribe(() => {
@@ -38,7 +38,7 @@ export class DashboardsComponent implements OnInit, OnDestroy {
     });
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     this.events.off('refresh-menu');
     this.support.unsubscribe();
     this.statusSubscription.unsubscribe();
@@ -47,7 +47,7 @@ export class DashboardsComponent implements OnInit, OnDestroy {
   /**
    * Get Menu Lists
    */
-  private getMenuLists() {
+  private getMenuLists(): void {
     this.mainService.resource().subscribe(data => {
       this.support.setResource(data.resource, data.router);
       this.navLists = data.nav;
@@ -57,7 +57,7 @@ export class DashboardsComponent implements OnInit, OnDestroy {
   /**
    * User logout
    */
-  logout() {
+  logout(): void {
     this.mainService.logout().subscribe(() => {
       this.support.clearStorage();
       this.support.unsubscribe();

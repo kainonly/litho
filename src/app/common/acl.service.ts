@@ -24,11 +24,11 @@ export class AclService {
     });
   }
 
-  add(data: any) {
+  add(data: any): Observable<any> {
     return this.http.add(this.model, data);
   }
 
-  get(id: any) {
+  get(id: any): Observable<any> {
     return this.http.get(this.model, id);
   }
 
@@ -47,7 +47,7 @@ export class AclService {
   /**
    * Validate Acl Key
    */
-  validedName(name: string, edit: Observable<string> = of(null)) {
+  validedName(name: string, edit: Observable<string> = of(null)): Observable<any> {
     return edit.pipe(
       switchMap(nameKey => {
         if (name !== nameKey) {
@@ -66,7 +66,7 @@ export class AclService {
   /**
    * Validate Acl Key
    */
-  validedKey(key: string, edit: Observable<string> = of(null)) {
+  validedKey(key: string, edit: Observable<string> = of(null)): Observable<any> {
     return edit.pipe(
       switchMap(editKey => {
         if (key !== editKey) {
