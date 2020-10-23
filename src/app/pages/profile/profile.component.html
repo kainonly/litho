@@ -5,7 +5,7 @@
         {{bit.l['call']}}
       </nz-form-label>
       <nz-form-control bitCol="control" nzHasFeedback>
-        <input nz-input formControlName="call" [placeholder]="bit.l['callPlaceholder']"/>
+        <input nz-input formControlName="call" [placeholder]="bit.l['callPlaceholder']" />
       </nz-form-control>
     </nz-form-item>
     <nz-form-item>
@@ -17,7 +17,7 @@
         nzHasFeedback
         [nzErrorTip]="email.ref"
       >
-        <input nz-input formControlName="email" [placeholder]="bit.l['emailPlaceholder']"/>
+        <input nz-input formControlName="email" [placeholder]="bit.l['emailPlaceholder']" />
         <bit-error-tip #email [hasError]="{
           email:bit.l['emailCorrectly']
         }"></bit-error-tip>
@@ -28,7 +28,7 @@
         {{bit.l['phone']}}
       </nz-form-label>
       <nz-form-control bitCol="control" nzHasFeedback>
-        <input nz-input formControlName="phone" [placeholder]="bit.l['phonePlaceholder']"/>
+        <input nz-input formControlName="phone" [placeholder]="bit.l['phonePlaceholder']" />
       </nz-form-control>
     </nz-form-item>
     <nz-form-item>

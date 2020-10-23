@@ -13,5 +13,5 @@ export default {
   writeLists: ['可写列表', 'Write Lists'],
   readLists: ['可读列表', 'Read Lists'],
   addOperateFailed: ['不可新增已存在的操作', 'Cannot add existing operations'],
-  addMore: ['新增更多', 'Add More'],
+  addMore: ['新增更多', 'Add More']
 };

@@ -62,8 +62,8 @@ describe('BitI18nUpdateDirective', () => {
   template: `
     <form [formGroup]="form">
       <div formGroupName="name" bitI18nUpdate>
-        <input formControlName="zh_cn"/>
-        <input formControlName="en_us"/>
+        <input formControlName="zh_cn" />
+        <input formControlName="en_us" />
       </div>
     </form>
   `

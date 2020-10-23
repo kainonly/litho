@@ -12,5 +12,5 @@ export default {
   checked: ['全部选中', 'Checked'],
   unchecked: ['取消选中', 'UnChecked'],
   expand: ['全部展开', 'Expand'],
-  close: ['全部关闭', 'Close'],
+  close: ['全部关闭', 'Close']
 };

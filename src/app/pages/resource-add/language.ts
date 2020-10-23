@@ -15,5 +15,5 @@ export default {
   nav: ['是否为导航', 'Whether Navigate'],
   router: ['是否为路由', 'Whether Router'],
   policy: ['是否为策略节点', 'Whether Policy Node'],
-  icon: ['字体图标', 'Icon Font'],
+  icon: ['字体图标', 'Icon Font']
 };

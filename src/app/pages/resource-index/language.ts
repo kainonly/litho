@@ -15,5 +15,5 @@ export default {
   resource_key: ['资源控制键', 'Resource Key'],
   acl_key: ['访问控制键', 'Acl Key'],
   aclPlaceHolder: ['请选择访问控制键', 'Please Select Acl Key'],
-  policy: ['策略', 'Policy'],
+  policy: ['策略', 'Policy']
 };

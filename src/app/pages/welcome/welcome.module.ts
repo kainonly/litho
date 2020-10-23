@@ -1,7 +1,7 @@
-import {NgModule} from '@angular/core';
-import {WelcomeComponent} from './welcome.component';
-import {RouterModule, Routes} from '@angular/router';
-import {AppExtModule} from '@ext';
+import { NgModule } from '@angular/core';
+import { WelcomeComponent } from './welcome.component';
+import { RouterModule, Routes } from '@angular/router';
+import { AppExtModule } from '@ext';
 
 const routes: Routes = [
   {
