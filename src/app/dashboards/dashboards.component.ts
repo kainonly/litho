@@ -28,6 +28,7 @@ export class DashboardsComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    this.bit.registerLocales({});
     this.getMenuLists();
     this.support.setup(this.router);
     this.events.on('refresh-menu').subscribe(() => {

@@ -121,8 +121,8 @@ export class BitService {
   /**
    * Registered language pack
    */
-  registerLocales(packer: Promise<any>): void {
-    packer.then(result => {
+  registerLocales(packer: object | Promise<any>): void {
+    Promise.resolve(packer).then(result => {
       this.lang = factoryLocales(result.default, this.config.locale.mapping);
       this.l = Object.assign(
         this.config.getLang(this.locale),

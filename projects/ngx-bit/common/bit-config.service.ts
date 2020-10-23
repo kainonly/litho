@@ -43,8 +43,8 @@ export class BitConfigService implements BitConfig {
   /**
    * Setup common language pack
    */
-  setupLocales(packer: Promise<any>): void {
-    packer.then(result => {
+  setupLocales(packer: object | Promise<any>): void {
+    Promise.resolve(packer).then(result => {
       this.lang = factoryLocales(result.default, this.locale.mapping);
     });
   }
