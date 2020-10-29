@@ -20,6 +20,15 @@ export class BitConfigService implements BitConfig {
   col: {
     [p: string]: any
   };
+  curd: {
+    get: string,
+    lists: string,
+    originLists: string,
+    add: string,
+    edit: string,
+    status: string,
+    delete: string
+  };
   i18n: {
     default: string;
     contain: string[];

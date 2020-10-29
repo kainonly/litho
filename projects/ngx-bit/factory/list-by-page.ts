@@ -1,6 +1,6 @@
 import { StorageMap } from '@ngx-pwa/local-storage';
 import { Observable } from 'rxjs';
-import { ListByPageOption, SearchOption } from 'ngx-bit/types';
+import { ListByPageOption, SearchOption, OrderOption } from 'ngx-bit/types';
 import * as Ajv from 'ajv';
 
 export class ListByPage {
@@ -8,6 +8,11 @@ export class ListByPage {
    * Search group
    */
   search: { [field: string]: SearchOption } = {};
+
+  /**
+   * Order by
+   */
+  order: OrderOption;
 
   /**
    * Paging list data
@@ -62,6 +67,7 @@ export class ListByPage {
     private storage: StorageMap
   ) {
     this.limit = option.limit;
+    this.order = option.order;
     storage.get('search:' + option.id).subscribe((data: any) => {
       if (!data) {
         for (const value of option.query) {
@@ -152,6 +158,19 @@ export class ListByPage {
     this.storage.set('page:' + this.option.id, this.index).subscribe(() => {
       // ok
     });
+  }
+
+  /**
+   * Convert to SearchOption[]
+   */
+  toQuery(): SearchOption[] {
+    const query = [];
+    for (const key in this.search) {
+      if (this.search.hasOwnProperty(key)) {
+        query.push(this.search[key]);
+      }
+    }
+    return query;
   }
 
   /**

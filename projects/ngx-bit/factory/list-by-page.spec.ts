@@ -15,7 +15,8 @@ describe('ListByPage', () => {
           id: 'test',
           limit: 10,
           query: [
-            { field: 'username', op: '=', value: '' }
+            { field: 'username', op: '=', value: '' },
+            { field: 'keywords', op: 'like', value: 'ab' }
           ]
         },
         storage
@@ -56,6 +57,11 @@ describe('ListByPage', () => {
           field: 'username',
           op: '=',
           value: 'kain'
+        },
+        keywords: {
+          field: 'keywords',
+          op: 'like',
+          value: 'ab'
         }
       });
       done();
@@ -79,6 +85,13 @@ describe('ListByPage', () => {
     ).subscribe(() => {
       done();
     });
+  });
+
+  it('Test to query', () => {
+    expect(lists.toQuery()).toEqual([
+      { field: 'username', op: '=', value: '' },
+      { field: 'keywords', op: 'like', value: '' }
+    ]);
   });
 
   it('Test checked status', () => {
@@ -114,13 +127,18 @@ describe('ListByPage', () => {
     }, 200);
   });
 
+
   it('Test convert to query schema', (done) => {
     let schema = lists.toQuerySchema();
     expect(schema).toEqual([]);
     lists.search.username.value = 'kain';
+    lists.search.keywords.value = 'cd';
     lists.afterSearch().subscribe(() => {
       schema = lists.toQuerySchema();
-      expect(schema).toEqual([['username', '=', 'kain']]);
+      expect(schema).toEqual([
+        ['username', '=', 'kain'],
+        ['keywords', 'like', '%cd%']
+      ]);
       done();
     });
   });

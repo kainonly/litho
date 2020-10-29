@@ -11,6 +11,15 @@ export interface BitConfig {
     upload: string,
     withCredentials: boolean
   };
+  curd: {
+    get: string,
+    lists: string,
+    originLists: string,
+    add: string,
+    edit: string,
+    status: string,
+    delete: string
+  };
   col: {
     [key: string]: any
   };

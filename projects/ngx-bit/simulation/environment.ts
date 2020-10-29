@@ -12,6 +12,15 @@ const bit = factoryBitConfig({
     upload: '/system/main/uploads',
     withCredentials: true
   },
+  curd: {
+    get: '/get',
+    lists: '/lists',
+    originLists: '/originLists',
+    add: '/add',
+    edit: '/edit',
+    status: '/edit',
+    delete: '/delete'
+  },
   col: {
     label: {
       nzXXl: 4,

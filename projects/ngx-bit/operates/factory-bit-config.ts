@@ -4,6 +4,7 @@ import { BitConfig } from 'ngx-bit/types';
 export function factoryBitConfig(config: BitConfig): BitConfigService {
   const service = new BitConfigService();
   service.url = config.url;
+  service.curd = config.curd;
   service.api = config.api;
   service.col = config.col;
   service.locale = config.locale;

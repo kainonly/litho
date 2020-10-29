@@ -6,4 +6,5 @@ export * from './i18n-tooltip-option';
 export * from './list-by-page-option';
 export * from './lists-option';
 export * from './search-option';
+export * from './order-option';
 export * from './breadcrumb-option';
