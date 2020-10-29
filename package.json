@@ -25,7 +25,7 @@
     "@angular/router": "~10.2.0",
     "@angular/service-worker": "~10.2.0",
     "@ngx-pwa/local-storage": "^10.1.0",
-    "ajv": "^7.0.0-beta.1",
+    "ajv": "^6.12.6",
     "ng-zorro-antd": "^10.0.2",
     "rxjs": "~6.6.3",
     "sweetalert2": "^10.0.0",

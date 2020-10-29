@@ -1,5 +1,5 @@
 import { SearchOption } from 'ngx-bit/types';
-import Ajv from 'ajv';
+import * as Ajv from 'ajv';
 
 export function getQuerySchema(options: SearchOption[]): any[] {
   const schema = [];
