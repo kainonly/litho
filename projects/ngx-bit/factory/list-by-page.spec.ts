@@ -10,21 +10,23 @@ describe('ListByPage', () => {
   beforeEach((done) => {
     if (!lists) {
       storage = TestBed.inject(StorageMap);
-      lists = new ListByPage(
-        {
-          id: 'test',
-          limit: 10,
-          query: [
-            { field: 'username', op: '=', value: '' },
-            { field: 'keywords', op: 'like', value: 'ab' }
-          ]
-        },
-        storage
-      );
-      setTimeout(() => {
-        // wait init
-        done();
-      }, 200);
+      storage.clear().subscribe(() => {
+        lists = new ListByPage(
+          {
+            id: 'test',
+            limit: 10,
+            query: [
+              { field: 'username', op: '=', value: '' },
+              { field: 'keywords', op: 'like', value: 'ab' }
+            ]
+          },
+          storage
+        );
+        setTimeout(() => {
+          // wait init
+          done();
+        }, 200);
+      });
     } else {
       done();
     }
