@@ -28,7 +28,9 @@ export class AclIndexComponent implements OnInit {
         { field: 'name->en_us', op: 'like', value: '' }
       ]
     });
-    this.getLists();
+    this.lists.ready.subscribe(() => {
+      this.getLists();
+    });
   }
 
   /**

@@ -1,9 +1,14 @@
 import { StorageMap } from '@ngx-pwa/local-storage';
-import { Observable } from 'rxjs';
+import { AsyncSubject, Observable } from 'rxjs';
 import { ListByPageOption, SearchOption, OrderOption } from 'ngx-bit/types';
 import * as Ajv from 'ajv';
 
 export class ListByPage {
+  /**
+   * initialization ready
+   */
+  ready: AsyncSubject<any> = new AsyncSubject<any>();
+
   /**
    * Search group
    */
@@ -76,6 +81,8 @@ export class ListByPage {
       } else {
         this.search = data;
       }
+      this.ready.next(data);
+      this.ready.complete();
     });
   }
 

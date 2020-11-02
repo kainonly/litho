@@ -37,8 +37,10 @@ export class RoleIndexComponent implements OnInit, AfterViewInit {
         { field: 'name->en_us', op: 'like', value: '' }
       ]
     });
-    this.getLists();
-    this.getNodes();
+    this.lists.ready.subscribe(() => {
+      this.getLists();
+      this.getNodes();
+    });
   }
 
   ngAfterViewInit(): void {

@@ -30,8 +30,10 @@ export class AdminIndexComponent implements OnInit {
         { field: 'username', op: 'like', value: '' }
       ]
     });
-    this.getLists();
-    this.getRole();
+    this.lists.ready.subscribe(() => {
+      this.getLists();
+      this.getRole();
+    });
   }
 
   /**
