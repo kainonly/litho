@@ -34,7 +34,6 @@
             ],
             "scripts": [],
             "allowedCommonJsDependencies": [
-              "@ant-design/colors",
               "ajv"
             ]
           },

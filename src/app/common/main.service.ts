@@ -51,7 +51,7 @@ export class MainService {
         if (!res.error) {
           for (const x of res.data) {
             resource.set(x.key, x);
-            if (x.router === 1) {
+            if (x.router === 1 || x.router === true) {
               router.set(x.key, x);
             }
           }

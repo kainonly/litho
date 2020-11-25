@@ -14,22 +14,10 @@ import { environment } from '@env';
 
 describe('operates', () => {
   it('Test asyncValidator', (done) => {
-    asyncValidator(of({
-      error: 0,
-      data: true
-    })).pipe(
+    asyncValidator(of(true)).pipe(
       switchMap(result => {
-        expect(result).toEqual({ error: true, duplicated: true });
-        return asyncValidator(of({
-          error: 0,
-          data: false
-        }));
-      }),
-      switchMap(result => {
-        expect(result).toBeNull();
-        return asyncValidator(of({
-          error: 1
-        }));
+        expect(result).toEqual(null);
+        return asyncValidator(of(false));
       })
     ).subscribe(result => {
       expect(result).toEqual({ error: true, duplicated: true });
