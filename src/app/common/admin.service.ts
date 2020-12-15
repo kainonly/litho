@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { BitHttpService } from 'ngx-bit';
+import { map } from 'rxjs/operators';
 
 @Injectable()
 export class AdminService {
@@ -48,6 +49,13 @@ export class AdminService {
   validedUsername(username: string): Observable<any> {
     return this.http.req(this.model + '/validedUsername', {
       username
-    });
+    }).pipe(
+      map(res => {
+        if (res.error === 1) {
+          return false;
+        }
+        return !res.data;
+      })
+    );
   }
 }

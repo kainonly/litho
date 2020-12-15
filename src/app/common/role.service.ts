@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BitHttpService } from 'ngx-bit';
 import { Observable, of } from 'rxjs';
-import { switchMap } from 'rxjs/operators';
+import { map, switchMap } from 'rxjs/operators';
 
 @Injectable()
 export class RoleService {
@@ -58,6 +58,12 @@ export class RoleService {
           error: 0,
           data: false
         });
+      }),
+      map(res => {
+        if (res.error === 1) {
+          return false;
+        }
+        return !res.data;
       })
     );
   }
