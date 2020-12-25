@@ -24,7 +24,7 @@
     "@angular/platform-browser-dynamic": "~11.0.5",
     "@angular/router": "~11.0.5",
     "@angular/service-worker": "~11.0.5",
-    "@ngx-pwa/local-storage": "^10.1.0",
+    "@ngx-pwa/local-storage": "^11.0.2",
     "ajv": "^6.12.6",
     "ng-zorro-antd": "^11.0.0",
     "rxjs": "~6.6.3",
