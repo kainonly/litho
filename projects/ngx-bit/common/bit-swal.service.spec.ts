@@ -17,7 +17,7 @@ describe('BitSwalService', () => {
         imports: [
           FormsModule,
           ReactiveFormsModule,
-          RouterModule.forRoot([]),
+          RouterModule.forRoot([], { relativeLinkResolution: 'legacy' }),
           NgxBitModule.forRoot(environment.bit)
         ]
       });

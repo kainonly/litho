@@ -20,7 +20,7 @@ describe('BitI18nTooltipComponent', () => {
         ],
         imports: [
           BitExtModule,
-          RouterModule.forRoot([]),
+          RouterModule.forRoot([], { relativeLinkResolution: 'legacy' }),
           NgxBitModule.forRoot(environment.bit)
         ]
       });

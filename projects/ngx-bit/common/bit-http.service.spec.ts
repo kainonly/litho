@@ -17,7 +17,7 @@ describe('BitHttpService', () => {
       TestBed.configureTestingModule({
         imports: [
           HttpClientTestingModule,
-          RouterModule.forRoot([]),
+          RouterModule.forRoot([], { relativeLinkResolution: 'legacy' }),
           NgxBitModule.forRoot(environment.bit)
         ],
         providers: [

@@ -26,19 +26,19 @@ describe('BitBackDirective', () => {
         BitDirectiveModule,
         NzButtonModule,
         RouterModule.forRoot([
-          {
-            path: '',
-            loadChildren: () => import('../simulation/case/case.module').then(m => m.CaseModule)
-          },
-          {
-            path: '{admin-index}',
-            loadChildren: () => import('../simulation/case/case.module').then(m => m.CaseModule)
-          },
-          {
-            path: '{admin-add}',
-            loadChildren: () => import('../simulation/case/case.module').then(m => m.CaseModule)
-          }
-        ]),
+    {
+        path: '',
+        loadChildren: () => import('../simulation/case/case.module').then(m => m.CaseModule)
+    },
+    {
+        path: '{admin-index}',
+        loadChildren: () => import('../simulation/case/case.module').then(m => m.CaseModule)
+    },
+    {
+        path: '{admin-add}',
+        loadChildren: () => import('../simulation/case/case.module').then(m => m.CaseModule)
+    }
+], { relativeLinkResolution: 'legacy' }),
         NgxBitModule.forRoot(environment.bit)
       ]
     });

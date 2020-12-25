@@ -28,7 +28,7 @@ describe('BitSearchClearDirective', () => {
         FormsModule,
         NzSelectModule,
         BitDirectiveModule,
-        RouterModule.forRoot([]),
+        RouterModule.forRoot([], { relativeLinkResolution: 'legacy' }),
         NgxBitModule.forRoot(environment.bit)
       ]
     });

@@ -24,7 +24,7 @@ describe('BitI18nUpdateDirective', () => {
           FormsModule,
           ReactiveFormsModule,
           BitDirectiveModule,
-          RouterModule.forRoot([]),
+          RouterModule.forRoot([], { relativeLinkResolution: 'legacy' }),
           NgxBitModule.forRoot(environment.bit)
         ]
       });

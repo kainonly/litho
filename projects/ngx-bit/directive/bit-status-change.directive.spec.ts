@@ -30,7 +30,7 @@ describe('BitStatusChangeDirective', () => {
         BitDirectiveModule,
         NzNotificationModule,
         NoopAnimationsModule,
-        RouterModule.forRoot([]),
+        RouterModule.forRoot([], { relativeLinkResolution: 'legacy' }),
         NgxBitModule.forRoot(environment.bit),
         HttpClientTestingModule
       ],

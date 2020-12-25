@@ -17,7 +17,7 @@ describe('BitI18nSwitchComponent', () => {
       TestBed.configureTestingModule({
         imports: [
           BitExtModule,
-          RouterModule.forRoot([]),
+          RouterModule.forRoot([], { relativeLinkResolution: 'legacy' }),
           NgxBitModule.forRoot(environment.bit)
         ]
       });
