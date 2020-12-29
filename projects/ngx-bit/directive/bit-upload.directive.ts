@@ -3,7 +3,7 @@ import { NzUploadComponent } from 'ng-zorro-antd/upload';
 import { BitConfigService } from 'ngx-bit';
 
 @Directive({
-  selector: '[bitUpload]'
+  selector: 'nzUpload[bitUpload]'
 })
 export class BitUploadDirective {
   constructor(

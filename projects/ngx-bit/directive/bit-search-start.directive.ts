@@ -2,17 +2,23 @@ import { Directive, EventEmitter, HostListener, Input, Output } from '@angular/c
 import { ListByPage } from 'ngx-bit/factory';
 
 @Directive({
-  selector: '[bitSearchStart]'
+  selector: 'input[bitSearchStart],button[bitSearchStart]'
 })
 export class BitSearchStartDirective {
   @Input() bitSearchStart: ListByPage;
   @Output() after: EventEmitter<any> = new EventEmitter<any>();
 
-  @HostListener('keydown.enter') onenter(): void {
+  @HostListener('keydown.enter', ['$event.target']) onenter(el: Element): void {
+    if (el.tagName.toLowerCase() !== 'input') {
+      return;
+    }
     this.afterSearch();
   }
 
-  @HostListener('click') onclick(): void {
+  @HostListener('click', ['$event.target']) onclick(el: Element): void {
+    if (el.tagName.toLowerCase() === 'input') {
+      return;
+    }
     this.afterSearch();
   }
 

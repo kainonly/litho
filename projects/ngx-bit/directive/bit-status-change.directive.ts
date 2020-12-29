@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 import { BitService } from 'ngx-bit';
 
 @Directive({
-  selector: '[bitStatusChange]'
+  selector: 'nz-switch[bitStatusChange]'
 })
 export class BitStatusChangeDirective {
   @Input() bitStatusChange: Observable<any>;
