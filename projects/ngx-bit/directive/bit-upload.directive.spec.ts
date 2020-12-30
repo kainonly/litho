@@ -42,7 +42,7 @@ describe('BitUploadDirective', () => {
     <nz-upload
       #uploadComponent
       bitUpload
-      nzListType="picture-card"
+      nzListType='picture-card'
     >
     </nz-upload>
   `

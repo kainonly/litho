@@ -52,9 +52,9 @@ describe('BitFormSubmitDirective', () => {
 
 @Component({
   template: `
-    <form [formGroup]="form" (bitFormSubmit)="submit($event)">
-      <input formControlName="name" />
-      <input formControlName="email" />
+    <form [formGroup]='form' (bitFormSubmit)='submit($event)'>
+      <input formControlName='name' />
+      <input formControlName='email' />
     </form>
   `
 })
@@ -67,7 +67,7 @@ class TestComponent implements OnInit {
   ) {
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.form = this.fb.group({
       name: [null, [Validators.required]],
       email: [],
@@ -75,7 +75,7 @@ class TestComponent implements OnInit {
     });
   }
 
-  submit(data) {
+  submit(data): void {
     this.resultValue = data;
   }
 }

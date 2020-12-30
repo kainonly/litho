@@ -64,12 +64,12 @@ describe('BitSearchChangeDirective', () => {
   template: `
     <ng-container *ngIf="lists.hasSearch('type')">
       <select
-        [bitSearchChange]="lists"
+        [bitSearchChange]='lists'
         [(ngModel)]="lists.search['type'].value"
-        (after)="after()"
+        (after)='after()'
       >
-        <ng-container *ngFor="let option of options">
-          <option [label]="option.label" [value]="option.value"></option>
+        <ng-container *ngFor='let option of options'>
+          <option [label]='option.label' [value]='option.value'></option>
         </ng-container>
       </select>
     </ng-container>
@@ -89,7 +89,7 @@ class TestComponent implements OnInit {
   ) {
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.lists = this.bit.listByPage({
       id: 'test',
       query: [
@@ -98,7 +98,7 @@ class TestComponent implements OnInit {
     });
   }
 
-  after() {
+  after(): void {
     this.afterResult = 'triggered';
   }
 }

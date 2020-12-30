@@ -193,12 +193,13 @@ describe('BitSwalService', () => {
       cancel.click();
     }, 200);
     swal.deleteAlert(res).subscribe({
+      // tslint:disable-next-line:typedef
       complete() {
         setTimeout(() => {
           const container = document.querySelector('.swal2-container');
           expect(container).toBeNull();
           done();
-        }, 200);
+        }, 500);
       }
     });
   });

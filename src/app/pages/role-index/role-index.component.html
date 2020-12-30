@@ -1,115 +1,115 @@
 <bit-header>
-  <button nz-button nzType="primary" [bitOpen]="['role-add']">
+  <button nz-button nzType='primary' [bitOpen]="['role-add']">
     <span>{{bit.l['add']}}</span>
   </button>
 </bit-header>
 <ng-template #title>
   <nz-space>
     <nz-space-item *ngIf="lists.hasSearch('name->'+bit.locale)">
-      <nz-input-group nzSearch [nzAddOnAfter]="nzAddOnAfter" style="width: 320px">
+      <nz-input-group nzSearch [nzAddOnAfter]='nzAddOnAfter' style='width: 320px'>
         <input
           nz-input
-          [bitSearchStart]="lists"
+          [bitSearchStart]='lists'
           [placeholder]="bit.l['search']"
           [(ngModel)]="lists.search['name->'+bit.locale].value"
-          (after)="getLists(true)"
+          (after)='getLists(true)'
         >
       </nz-input-group>
       <ng-template #nzAddOnAfter>
         <button
           nz-button
-          nzType="primary"
+          nzType='primary'
           nzSearch
-          [bitSearchStart]="lists"
-          (after)="getLists(true)"
+          [bitSearchStart]='lists'
+          (after)='getLists(true)'
         >
-          <i nz-icon nzType="search"></i>
+          <i nz-icon nzType='search'></i>
         </button>
       </ng-template>
     </nz-space-item>
     <nz-space-item>
-      <button nz-button nzType="default" (click)="getLists(true)">
-        <i nz-icon nzType="sync"></i> {{bit.l['refreshLists']}}
+      <button nz-button nzType='default' (click)='getLists(true)'>
+        <i nz-icon nzType='sync'></i> {{bit.l['refreshLists']}}
       </button>
     </nz-space-item>
     <nz-space-item>
       <button
         nz-button
-        nzType="default"
-        [bitSearchClear]="lists"
-        (after)="getLists(true)"
+        nzType='default'
+        [bitSearchClear]='lists'
+        (after)='getLists(true)'
       >
-        <i nz-icon nzType="clear"></i> {{bit.l['clearSearch']}}
+        <i nz-icon nzType='clear'></i> {{bit.l['clearSearch']}}
       </button>
     </nz-space-item>
     <nz-space-item>
       <button
         nz-button
-        nzType="danger"
-        [disabled]="!lists.batch"
-        (click)="deleteCheckData()"
+        nzDanger
+        [disabled]='!lists.batch'
+        (click)='deleteCheckData()'
       >
-        <i nz-icon nzType="rest"></i> {{bit.l['bulkDelete']}}
+        <i nz-icon nzType='rest'></i> {{bit.l['bulkDelete']}}
       </button>
     </nz-space-item>
   </nz-space>
 </ng-template>
 
-<nz-card [nzTitle]="title">
+<nz-card [nzTitle]='title'>
   <nz-table
     #table
-    [nzData]="lists.data"
-    [nzLoading]="lists.loading"
-    [nzTotal]="lists.totals"
-    [nzPageSize]="lists.limit"
-    [nzFrontPagination]="false"
-    [(nzPageIndex)]="lists.index"
-    (nzPageIndexChange)="getLists()"
-    nzSize="middle"
+    [nzData]='lists.data'
+    [nzLoading]='lists.loading'
+    [nzTotal]='lists.totals'
+    [nzPageSize]='lists.limit'
+    [nzFrontPagination]='false'
+    [(nzPageIndex)]='lists.index'
+    (nzPageIndexChange)='getLists()'
+    nzSize='middle'
   >
     <thead>
     <tr>
       <th
-        nzShowCheckbox nzWidth="65px"
-        [(nzChecked)]="lists.checked"
-        [nzIndeterminate]="lists.indeterminate"
-        (nzCheckedChange)="lists.checkedAll($event)"
+        nzShowCheckbox nzWidth='65px'
+        [(nzChecked)]='lists.checked'
+        [nzIndeterminate]='lists.indeterminate'
+        (nzCheckedChange)='lists.checkedAll($event)'
       ></th>
-      <th nzWidth="300px">{{bit.l['name']}}</th>
-      <th nzWidth="300px">{{bit.l['key']}}</th>
+      <th nzWidth='300px'>{{bit.l['name']}}</th>
+      <th nzWidth='300px'>{{bit.l['key']}}</th>
       <th>{{bit.l['status']}}</th>
-      <th nzWidth="300px"
-          nzRight="0px">{{bit.l['action']}}</th>
+      <th nzWidth='300px'
+          nzRight='0px'>{{bit.l['action']}}</th>
     </tr>
     </thead>
     <tbody>
-    <ng-container *ngFor="let data of table.data">
+    <ng-container *ngFor='let data of table.data'>
       <tr>
         <td nzShowCheckbox
-            [(nzChecked)]="data.checked"
-            (nzCheckedChange)="lists.refreshStatus()"></td>
+            [(nzChecked)]='data.checked'
+            (nzCheckedChange)='lists.refreshStatus()'></td>
         <td>{{data.name|Locale:bit.locale}}</td>
         <td>{{data.key}}</td>
         <td>
           <nz-switch
-            [(ngModel)]="data.status"
+            [(ngModel)]='data.status'
             [nzCheckedChildren]="bit.l['on']"
             [nzUnCheckedChildren]="bit.l['off']"
-            [bitStatusChange]="roleService.status(data)"
+            [bitStatusChange]='roleService.status(data)'
           >
           </nz-switch>
         </td>
         <td>
-          <a (click)="openPolicy(data)">
-            <i nz-icon nzType="apartment"></i> {{bit.l['policy']}}
+          <a (click)='openPolicy(data)'>
+            <i nz-icon nzType='apartment'></i> {{bit.l['policy']}}
           </a>
-          <nz-divider nzType="vertical"></nz-divider>
+          <nz-divider nzType='vertical'></nz-divider>
           <a [bitOpen]="['role-edit',data.id]">
-            <i nz-icon nzType="edit"></i> {{bit.l['edit']}}
+            <i nz-icon nzType='edit'></i> {{bit.l['edit']}}
           </a>
-          <nz-divider nzType="vertical"></nz-divider>
-          <a (click)="deleteData([data.id])">
-            <i nz-icon nzType="delete"></i> {{bit.l['delete']}}
+          <nz-divider nzType='vertical'></nz-divider>
+          <a (click)='deleteData([data.id])'>
+            <i nz-icon nzType='delete'></i> {{bit.l['delete']}}
           </a>
         </td>
       </tr>
@@ -120,34 +120,36 @@
 
 <nz-drawer
   #nzDrawer
-  [nzWidth]="500"
-  [nzTitle]="nzTitle"
-  [nzVisible]="policyVisable"
-  (nzOnClose)="closePolicy()"
+  [nzWidth]='500'
+  [nzTitle]='nzTitle'
+  [nzVisible]='policyVisable'
+  (nzOnClose)='closePolicy()'
 >
   <ng-template #nzTitle>
-    <b *ngIf="activeData">{{bit.l['policy']}}: {{activeData.name|Locale:bit.locale}}</b>
+    <b *ngIf='activeData'>{{bit.l['policy']}}: {{activeData.name|Locale:bit.locale}}</b>
   </ng-template>
-  <ng-container *ngIf="activeData">
-    <form nz-form>
-      <ng-container *ngFor="let x of activeData.acl">
-        <nz-tag [nzColor]="x[1]===0?'default':'blue'">
-          {{x[0]}}
-        </nz-tag>
-      </ng-container>
+  <ng-container *nzDrawerContent>
+    <ng-container *ngIf='activeData'>
+      <form nz-form>
+        <ng-container *ngFor='let x of activeData.acl'>
+          <nz-tag [nzColor]="x[1]===0?'default':'blue'">
+            {{x[0]}}
+          </nz-tag>
+        </ng-container>
 
-      <nz-divider [nzDashed]="true"></nz-divider>
+        <nz-divider [nzDashed]='true'></nz-divider>
 
-      <nz-tree
-        #nzTree
-        [nzBlockNode]="true"
-        [nzShowLine]="true"
-        [nzShowIcon]="true"
-        [nzExpandAll]="true"
-        [nzData]="nodes"
-        nzCheckable
-      >
-      </nz-tree>
-    </form>
+        <nz-tree
+          #nzTree
+          [nzBlockNode]='true'
+          [nzShowLine]='true'
+          [nzShowIcon]='true'
+          [nzExpandAll]='true'
+          [nzData]='nodes'
+          nzCheckable
+        >
+        </nz-tree>
+      </form>
+    </ng-container>
   </ng-container>
 </nz-drawer>

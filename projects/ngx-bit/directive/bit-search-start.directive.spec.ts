@@ -49,7 +49,9 @@ describe('BitSearchStartDirective', () => {
       target: input.nativeElement
     });
     fixture.detectChanges();
-    input.triggerEventHandler('keydown.enter', null);
+    input.triggerEventHandler('keydown.enter', {
+      target: input.nativeElement
+    });
     expect(component.lists.hasSearch('username')).toBeTruthy();
     expect(component.lists.search.username.value).toEqual('kain');
     setTimeout(() => {
@@ -66,7 +68,9 @@ describe('BitSearchStartDirective', () => {
     });
     fixture.detectChanges();
     const button = debugElement.query(By.css('button'));
-    button.triggerEventHandler('click', null);
+    button.triggerEventHandler('click', {
+      target: button.nativeElement
+    });
     expect(component.lists.hasSearch('username')).toBeTruthy();
     expect(component.lists.search.username.value).toEqual('van');
     setTimeout(() => {
@@ -80,13 +84,13 @@ describe('BitSearchStartDirective', () => {
   template: `
     <ng-container *ngIf="lists.hasSearch('username')">
       <input
-        [bitSearchStart]="lists"
+        [bitSearchStart]='lists'
         [(ngModel)]="lists.search['username'].value"
-        (after)="after()"
+        (after)='after()'
       />
       <button
-        [bitSearchStart]="lists"
-        (after)="after()"
+        [bitSearchStart]='lists'
+        (after)='after()'
       >
         搜索
       </button>
@@ -102,7 +106,7 @@ class TestComponent implements OnInit {
   ) {
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.lists = this.bit.listByPage({
       id: 'test',
       query: [
@@ -111,7 +115,7 @@ class TestComponent implements OnInit {
     });
   }
 
-  after() {
+  after(): void {
     this.afterResult = 'triggered';
   }
 }

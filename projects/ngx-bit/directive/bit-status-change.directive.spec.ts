@@ -116,17 +116,17 @@ describe('BitStatusChangeDirective', () => {
   template: `
     <nz-switch
       #switchComponent1
-      [(ngModel)]="data.status"
-      [bitStatusChange]="testService.status(data)"
-      (response)="statusFeedback($event)"
+      [(ngModel)]='data.status'
+      [bitStatusChange]='testService.status(data)'
+      (response)='statusFeedback($event)'
     >
     </nz-switch>
     <nz-switch
       #switchComponent2
-      [(ngModel)]="data.status"
-      [bitStatusChange]="testService.status(data)"
-      [bitControl]="true"
-      (response)="statusFeedback($event)"
+      [(ngModel)]='data.status'
+      [bitStatusChange]='testService.status(data)'
+      [bitControl]='true'
+      (response)='statusFeedback($event)'
     >
     </nz-switch>
   `
@@ -146,7 +146,7 @@ class TestComponent {
   ) {
   }
 
-  statusFeedback(event) {
+  statusFeedback(event): void {
     this.feedback = event;
   }
 }
