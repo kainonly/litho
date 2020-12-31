@@ -60,10 +60,10 @@ describe('BitI18nUpdateDirective', () => {
 
 @Component({
   template: `
-    <form [formGroup]='form'>
-      <div formGroupName='name' bitI18nUpdate>
-        <input formControlName='zh_cn' />
-        <input formControlName='en_us' />
+    <form [formGroup]="form">
+      <div formGroupName="name" bitI18nUpdate>
+        <input formControlName="zh_cn" />
+        <input formControlName="en_us" />
       </div>
     </form>
   `

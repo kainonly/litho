@@ -52,9 +52,9 @@ describe('BitFormSubmitDirective', () => {
 
 @Component({
   template: `
-    <form [formGroup]='form' (bitFormSubmit)='submit($event)'>
-      <input formControlName='name' />
-      <input formControlName='email' />
+    <form [formGroup]="form" (bitFormSubmit)="submit($event)">
+      <input formControlName="name" />
+      <input formControlName="email" />
     </form>
   `
 })

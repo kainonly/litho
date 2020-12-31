@@ -80,16 +80,16 @@ describe('BitSearchClearDirective', () => {
   template: `
     <ng-container *ngIf="lists.hasSearch('type')">
       <select
-        [bitSearchChange]='lists'
+        [bitSearchChange]="lists"
         [(ngModel)]="lists.search['type'].value"
       >
-        <ng-container *ngFor='let option of options'>
-          <option [label]='option.label' [value]='option.value'></option>
+        <ng-container *ngFor="let option of options">
+          <option [label]="option.label" [value]="option.value"></option>
         </ng-container>
       </select>
       <button
-        [bitSearchClear]='lists'
-        (after)='after()'
+        [bitSearchClear]="lists"
+        (after)="after()"
       >
         测试清除
       </button>

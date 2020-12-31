@@ -84,11 +84,11 @@ describe('BitColDirective', () => {
 @Component({
   template: `
     <div nz-row>
-      <div nz-col bitCol='label'></div>
-      <div nz-col bitCol='control'></div>
-      <div nz-col bitCol='submit'></div>
-      <div nz-col bitCol='somebody'></div>
-      <div nz-col bitCol='test'></div>
+      <div nz-col bitCol="label"></div>
+      <div nz-col bitCol="control"></div>
+      <div nz-col bitCol="submit"></div>
+      <div nz-col bitCol="somebody"></div>
+      <div nz-col bitCol="test"></div>
     </div>
   `
 })

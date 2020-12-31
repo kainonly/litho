@@ -64,12 +64,12 @@ describe('BitSearchChangeDirective', () => {
   template: `
     <ng-container *ngIf="lists.hasSearch('type')">
       <select
-        [bitSearchChange]='lists'
+        [bitSearchChange]="lists"
         [(ngModel)]="lists.search['type'].value"
-        (after)='after()'
+        (after)="after()"
       >
-        <ng-container *ngFor='let option of options'>
-          <option [label]='option.label' [value]='option.value'></option>
+        <ng-container *ngFor="let option of options">
+          <option [label]="option.label" [value]="option.value"></option>
         </ng-container>
       </select>
     </ng-container>
