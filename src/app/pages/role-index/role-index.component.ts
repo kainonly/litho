@@ -1,8 +1,6 @@
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { BitSwalService, BitService } from 'ngx-bit';
-import { NzDrawerComponent } from 'ng-zorro-antd/drawer';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
-import { NzTreeComponent, NzTreeNodeOptions } from 'ng-zorro-antd/tree';
 import { ListByPage } from 'ngx-bit/factory';
 import { RoleService } from '@common/role.service';
 import { ResourceService } from '@common/resource.service';
@@ -11,13 +9,8 @@ import { ResourceService } from '@common/resource.service';
   selector: 'app-role-index',
   templateUrl: './role-index.component.html'
 })
-export class RoleIndexComponent implements OnInit, AfterViewInit {
-  @ViewChild('nzDrawer', { static: true }) nzDrawer: NzDrawerComponent;
-  @ViewChild('nzTree') nzTree: NzTreeComponent;
+export class RoleIndexComponent implements OnInit {
   lists: ListByPage;
-  policyVisable = false;
-  activeData: any;
-  nodes: NzTreeNodeOptions[] = [];
 
   constructor(
     private swal: BitSwalService,
@@ -39,27 +32,6 @@ export class RoleIndexComponent implements OnInit, AfterViewInit {
     });
     this.lists.ready.subscribe(() => {
       this.getLists();
-      this.getNodes();
-    });
-  }
-
-  ngAfterViewInit(): void {
-    this.nzDrawer.afterOpen.subscribe(() => {
-      const resource = this.activeData.resource;
-      const queue = [...this.nzTree.getTreeNodes()];
-      while (queue.length !== 0) {
-        const node = queue.pop();
-        node.isChecked = resource.indexOf(node.key) !== -1;
-        const parent = node.parentNode;
-        if (parent) {
-          parent.isChecked = parent.getChildren().every(v => resource.indexOf(v.key) !== -1);
-          parent.isHalfChecked = !parent.isChecked && parent.getChildren().some(v => resource.indexOf(v.key) !== -1);
-        }
-        const children = node.getChildren();
-        if (children.length !== 0) {
-          queue.push(...children);
-        }
-      }
     });
   }
 
@@ -77,42 +49,6 @@ export class RoleIndexComponent implements OnInit, AfterViewInit {
         v.resource = v.resource.split(',');
         return v;
       }));
-    });
-  }
-
-  /**
-   * 获取资源节点
-   */
-  getNodes(): void {
-    this.resourceService.originLists().subscribe(data => {
-      const refer: Map<string, NzTreeNodeOptions> = new Map();
-      const lists = data.map(v => {
-        const rows = {
-          title: JSON.parse(v.name)[this.bit.locale] + '[' + v.key + ']',
-          key: v.key,
-          parent: v.parent,
-          disableCheckbox: true,
-          children: [],
-          isLeaf: true
-        };
-        refer.set(v.key, rows);
-        return rows;
-      });
-      const nodes: any[] = [];
-      for (const x of lists) {
-        if (x.parent === 'origin') {
-          nodes.push(x);
-        } else {
-          const parent = x.parent;
-          if (refer.has(parent)) {
-            const rows = refer.get(parent);
-            rows.isLeaf = false;
-            rows.children.push(x);
-            refer.set(parent, rows);
-          }
-        }
-      }
-      this.nodes = nodes;
     });
   }
 
@@ -143,18 +79,4 @@ export class RoleIndexComponent implements OnInit, AfterViewInit {
     const id = this.lists.getChecked().map(v => v.id);
     this.deleteData(id);
   }
-
-  /**
-   * 开启
-   */
-  openPolicy(data: any): void {
-    this.activeData = data;
-    this.policyVisable = true;
-  }
-
-  closePolicy(): void {
-    this.activeData = null;
-    this.policyVisable = false;
-  }
-
 }

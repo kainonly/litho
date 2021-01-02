@@ -100,10 +100,6 @@
           </nz-switch>
         </td>
         <td>
-          <a (click)="openPolicy(data)">
-            <i nz-icon nzType="apartment"></i> {{bit.l['policy']}}
-          </a>
-          <nz-divider nzType="vertical"></nz-divider>
           <a [bitOpen]="['role-edit',data.id]">
             <i nz-icon nzType="edit"></i> {{bit.l['edit']}}
           </a>
@@ -117,39 +113,3 @@
     </tbody>
   </nz-table>
 </nz-card>
-
-<nz-drawer
-  #nzDrawer
-  [nzWidth]="500"
-  [nzTitle]="nzTitle"
-  [nzVisible]="policyVisable"
-  (nzOnClose)="closePolicy()"
->
-  <ng-template #nzTitle>
-    <b *ngIf="activeData">{{bit.l['policy']}}: {{activeData.name|Locale:bit.locale}}</b>
-  </ng-template>
-  <ng-container *nzDrawerContent>
-    <ng-container *ngIf="activeData">
-      <form nz-form>
-        <ng-container *ngFor="let x of activeData.acl">
-          <nz-tag [nzColor]="x[1]===0?'default':'blue'">
-            {{x[0]}}
-          </nz-tag>
-        </ng-container>
-
-        <nz-divider [nzDashed]="true"></nz-divider>
-
-        <nz-tree
-          #nzTree
-          [nzBlockNode]="true"
-          [nzShowLine]="true"
-          [nzShowIcon]="true"
-          [nzExpandAll]="true"
-          [nzData]="nodes"
-          nzCheckable
-        >
-        </nz-tree>
-      </form>
-    </ng-container>
-  </ng-container>
-</nz-drawer>
