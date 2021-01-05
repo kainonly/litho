@@ -8,9 +8,7 @@ import { BitHttpService } from 'ngx-bit';
 export class AclService {
   private model = 'acl';
 
-  constructor(
-    private http: BitHttpService
-  ) {
+  constructor(private http: BitHttpService) {
   }
 
   originLists(): Observable<any> {

@@ -11,10 +11,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [
-    AppExtModule,
-    RouterModule.forChild(routes)
-  ],
+  imports: [AppExtModule, RouterModule.forChild(routes)],
   declarations: [ResourceIndexComponent]
 })
 export class ResourceIndexModule {

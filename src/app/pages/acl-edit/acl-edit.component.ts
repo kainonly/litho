@@ -33,15 +33,17 @@ export class AclEditComponent implements OnInit {
   ngOnInit(): void {
     this.bit.registerLocales(import('./language'));
     this.form = this.fb.group({
-      name: this.fb.group(this.bit.i18nGroup({
-        validate: {
-          zh_cn: [Validators.required],
-          en_us: []
-        },
-        asyncValidate: {
-          zh_cn: [this.existsName]
-        }
-      })),
+      name: this.fb.group(
+        this.bit.i18nGroup({
+          validate: {
+            zh_cn: [Validators.required],
+            en_us: []
+          },
+          asyncValidate: {
+            zh_cn: [this.existsName]
+          }
+        })
+      ),
       key: [null, [Validators.required], [this.existsKey]],
       write: [[]],
       read: [[]],
@@ -92,12 +94,13 @@ export class AclEditComponent implements OnInit {
    */
   submit(data): void {
     Reflect.set(data, 'id', this.id);
-    this.aclService.edit(data).pipe(
-      switchMap(res => this.swal.editAlert(res))
-    ).subscribe((status) => {
-      if (status) {
-        this.getData();
-      }
-    });
+    this.aclService
+      .edit(data)
+      .pipe(switchMap(res => this.swal.editAlert(res)))
+      .subscribe(status => {
+        if (status) {
+          this.getData();
+        }
+      });
   }
 }

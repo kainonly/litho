@@ -98,20 +98,22 @@ export class AdminEditComponent implements OnInit {
   getData(): void {
     this.adminService.get(this.id).subscribe(data => {
       if (data.self) {
-        BitSwalService.native.fire({
-          title: this.bit.l.operateInfo,
-          text: this.bit.l.selfTips,
-          icon: 'info',
-          showCancelButton: true,
-          confirmButtonText: this.bit.l.goProfile,
-          cancelButtonText: this.bit.l.operateBack
-        }).then(result => {
-          if (result.value) {
-            this.bit.open(['profile']);
-          } else {
-            this.bit.back();
-          }
-        });
+        BitSwalService.native
+          .fire({
+            title: this.bit.l.operateInfo,
+            text: this.bit.l.selfTips,
+            icon: 'info',
+            showCancelButton: true,
+            confirmButtonText: this.bit.l.goProfile,
+            cancelButtonText: this.bit.l.operateBack
+          })
+          .then(result => {
+            if (result.value) {
+              this.bit.open(['profile']);
+            } else {
+              this.bit.back();
+            }
+          });
       }
       this.username = data.username;
       this.form.patchValue({
@@ -139,16 +141,10 @@ export class AdminEditComponent implements OnInit {
   upload(info): void {
     if (info.type === 'success') {
       this.avatar = info.file.response.data.save_name;
-      this.notification.success(
-        this.bit.l.success,
-        this.bit.l.uploadSuccess
-      );
+      this.notification.success(this.bit.l.success, this.bit.l.uploadSuccess);
     }
     if (info.type === 'error') {
-      this.notification.error(
-        this.bit.l.notice,
-        this.bit.l.uploadError
-      );
+      this.notification.error(this.bit.l.notice, this.bit.l.uploadError);
     }
   }
 
@@ -159,12 +155,13 @@ export class AdminEditComponent implements OnInit {
     Reflect.set(data, 'id', this.id);
     Reflect.set(data, 'avatar', this.avatar);
     delete data.password_check;
-    this.adminService.edit(data).pipe(
-      switchMap(res => this.swal.editAlert(res))
-    ).subscribe((status) => {
-      if (status) {
-        this.getData();
-      }
-    });
+    this.adminService
+      .edit(data)
+      .pipe(switchMap(res => this.swal.editAlert(res)))
+      .subscribe(status => {
+        if (status) {
+          this.getData();
+        }
+      });
   }
 }

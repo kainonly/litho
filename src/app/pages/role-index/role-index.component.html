@@ -1,19 +1,19 @@
 <bit-header>
   <button nz-button nzType="primary" [bitOpen]="['role-add']">
-    <span>{{bit.l['add']}}</span>
+    <span>{{ bit.l["add"] }}</span>
   </button>
 </bit-header>
 <ng-template #title>
   <nz-space>
-    <nz-space-item *ngIf="lists.hasSearch('name->'+bit.locale)">
+    <nz-space-item *ngIf="lists.hasSearch('name->' + bit.locale)">
       <nz-input-group nzSearch [nzAddOnAfter]="nzAddOnAfter" style="width: 320px">
         <input
           nz-input
           [bitSearchStart]="lists"
           [placeholder]="bit.l['search']"
-          [(ngModel)]="lists.search['name->'+bit.locale].value"
+          [(ngModel)]="lists.search['name->' + bit.locale].value"
           (after)="getLists(true)"
-        >
+        />
       </nz-input-group>
       <ng-template #nzAddOnAfter>
         <button
@@ -29,27 +29,17 @@
     </nz-space-item>
     <nz-space-item>
       <button nz-button nzType="default" (click)="getLists(true)">
-        <i nz-icon nzType="sync"></i> {{bit.l['refreshLists']}}
+        <i nz-icon nzType="sync"></i> {{ bit.l["refreshLists"] }}
       </button>
     </nz-space-item>
     <nz-space-item>
-      <button
-        nz-button
-        nzType="default"
-        [bitSearchClear]="lists"
-        (after)="getLists(true)"
-      >
-        <i nz-icon nzType="clear"></i> {{bit.l['clearSearch']}}
+      <button nz-button nzType="default" [bitSearchClear]="lists" (after)="getLists(true)">
+        <i nz-icon nzType="clear"></i> {{ bit.l["clearSearch"] }}
       </button>
     </nz-space-item>
     <nz-space-item>
-      <button
-        nz-button
-        nzDanger
-        [disabled]="!lists.batch"
-        (click)="deleteCheckData()"
-      >
-        <i nz-icon nzType="rest"></i> {{bit.l['bulkDelete']}}
+      <button nz-button nzDanger [disabled]="!lists.batch" (click)="deleteCheckData()">
+        <i nz-icon nzType="rest"></i> {{ bit.l["bulkDelete"] }}
       </button>
     </nz-space-item>
   </nz-space>
@@ -70,26 +60,28 @@
     <thead>
     <tr>
       <th
-        nzShowCheckbox nzWidth="65px"
+        nzShowCheckbox
+        nzWidth="65px"
         [(nzChecked)]="lists.checked"
         [nzIndeterminate]="lists.indeterminate"
         (nzCheckedChange)="lists.checkedAll($event)"
       ></th>
-      <th nzWidth="300px">{{bit.l['name']}}</th>
-      <th nzWidth="300px">{{bit.l['key']}}</th>
-      <th>{{bit.l['status']}}</th>
-      <th nzWidth="300px"
-          nzRight="0px">{{bit.l['action']}}</th>
+      <th nzWidth="300px">{{ bit.l["name"] }}</th>
+      <th nzWidth="300px">{{ bit.l["key"] }}</th>
+      <th>{{ bit.l["status"] }}</th>
+      <th nzWidth="300px" nzRight="0px">{{ bit.l["action"] }}</th>
     </tr>
     </thead>
     <tbody>
     <ng-container *ngFor="let data of table.data">
       <tr>
-        <td nzShowCheckbox
-            [(nzChecked)]="data.checked"
-            (nzCheckedChange)="lists.refreshStatus()"></td>
-        <td>{{data.name|Locale:bit.locale}}</td>
-        <td>{{data.key}}</td>
+        <td
+          nzShowCheckbox
+          [(nzChecked)]="data.checked"
+          (nzCheckedChange)="lists.refreshStatus()"
+        ></td>
+        <td>{{ data.name | Locale: bit.locale }}</td>
+        <td>{{ data.key }}</td>
         <td>
           <nz-switch
             [(ngModel)]="data.status"
@@ -100,12 +92,12 @@
           </nz-switch>
         </td>
         <td>
-          <a [bitOpen]="['role-edit',data.id]">
-            <i nz-icon nzType="edit"></i> {{bit.l['edit']}}
+          <a [bitOpen]="['role-edit', data.id]">
+            <i nz-icon nzType="edit"></i> {{ bit.l["edit"] }}
           </a>
           <nz-divider nzType="vertical"></nz-divider>
           <a (click)="deleteData([data.id])">
-            <i nz-icon nzType="delete"></i> {{bit.l['delete']}}
+            <i nz-icon nzType="delete"></i> {{ bit.l["delete"] }}
           </a>
         </td>
       </tr>

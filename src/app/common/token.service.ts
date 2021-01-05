@@ -6,10 +6,7 @@ import { Observable } from 'rxjs';
 
 @Injectable()
 export class TokenService implements CanActivate {
-  constructor(
-    private mainService: MainService,
-    private router: Router
-  ) {
+  constructor(private mainService: MainService, private router: Router) {
   }
 
   canActivate(): Observable<any> {

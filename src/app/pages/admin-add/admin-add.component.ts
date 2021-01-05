@@ -29,12 +29,7 @@ export class AdminAddComponent implements OnInit {
   ngOnInit(): void {
     this.bit.registerLocales(import('./language'));
     this.form = this.fb.group({
-      username: [null, [
-        Validators.required,
-        Validators.minLength(4),
-        Validators.maxLength(20)
-      ], [this.validedUsername]
-      ],
+      username: [null, [Validators.required, Validators.minLength(4), Validators.maxLength(20)], [this.validedUsername]],
       password: [null, this.validedPassword],
       password_check: [null, [this.checkPassword]],
       role: [null, [Validators.required]],
@@ -110,16 +105,10 @@ export class AdminAddComponent implements OnInit {
   upload(info): void {
     if (info.type === 'success') {
       this.avatar = info.file.response.data.save_name;
-      this.notification.success(
-        this.bit.l.success,
-        this.bit.l.uploadSuccess
-      );
+      this.notification.success(this.bit.l.success, this.bit.l.uploadSuccess);
     }
     if (info.type === 'error') {
-      this.notification.error(
-        this.bit.l.notice,
-        this.bit.l.uploadError
-      );
+      this.notification.error(this.bit.l.notice, this.bit.l.uploadError);
     }
   }
 
@@ -131,11 +120,16 @@ export class AdminAddComponent implements OnInit {
       data.avatar = this.avatar;
     }
     delete data.password_check;
-    this.adminService.add(data).pipe(
-      switchMap(res => this.swal.addAlert(res, this.form, {
-        status: true
-      }))
-    ).subscribe(() => {
-    });
+    this.adminService
+      .add(data)
+      .pipe(
+        switchMap(res =>
+          this.swal.addAlert(res, this.form, {
+            status: true
+          })
+        )
+      )
+      .subscribe(() => {
+      });
   }
 }

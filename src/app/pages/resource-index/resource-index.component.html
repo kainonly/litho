@@ -1,9 +1,9 @@
 <bit-header [subTitle]="nzMessage">
   <ng-template #nzMessage>
-    <span>{{ bit.l['info'] }}</span>
+    <span>{{ bit.l["info"] }}</span>
   </ng-template>
   <button nz-button nzType="primary" [bitOpen]="['resource-add']">
-    <span>{{ bit.l['add'] }}</span>
+    <span>{{ bit.l["add"] }}</span>
   </button>
 </bit-header>
 <ng-template #title>
@@ -19,32 +19,32 @@
     <nz-space-item>
       <button nz-button (click)="allExpand()">
         <i nz-icon nzType="node-expand"></i>
-        {{ bit.l['expand'] }}
+        {{ bit.l["expand"] }}
       </button>
     </nz-space-item>
     <nz-space-item>
       <button nz-button (click)="allClose()">
         <i nz-icon nzType="node-collapse"></i>
-        {{ bit.l['close'] }}
+        {{ bit.l["close"] }}
       </button>
     </nz-space-item>
     <nz-space-item *ngIf="!sort">
       <button nz-button (click)="startSort()">
         <i nz-icon nzType="sort-ascending"></i>
-        {{ bit.l['sort'] }}
+        {{ bit.l["sort"] }}
       </button>
     </nz-space-item>
     <ng-container *ngIf="sort">
       <nz-space-item>
         <button nz-button (click)="submitSort()">
           <i nz-icon nzType="check"></i>
-          {{ bit.l['sortYes'] }}
+          {{ bit.l["sortYes"] }}
         </button>
       </nz-space-item>
       <nz-space-item>
         <button nz-button (click)="cancelSort()">
           <i nz-icon nzType="close"></i>
-          {{ bit.l['sortCancel'] }}
+          {{ bit.l["sortCancel"] }}
         </button>
       </nz-space-item>
     </ng-container>
@@ -128,18 +128,18 @@
         </li>
         <li nz-menu-divider></li>
         <li nz-menu-item (click)="addResource()">
-          {{ bit.l['AddResource'] }}
+          {{ bit.l["AddResource"] }}
         </li>
         <li nz-menu-item *ngIf="activeNode.origin.policy" (click)="openPolicy()">
-          {{ bit.l['policyEdit'] }}
+          {{ bit.l["policyEdit"] }}
         </li>
-        <li nz-menu-item (click)="editResource()">{{ bit.l['edit'] }}</li>
+        <li nz-menu-item (click)="editResource()">{{ bit.l["edit"] }}</li>
         <li
           nz-menu-item
           (click)="deleteResource()"
           [nzDisabled]="activeNode.getChildren().length !== 0"
         >
-          {{ bit.l['delete'] }}
+          {{ bit.l["delete"] }}
         </li>
       </ul>
     </nz-dropdown-menu>
@@ -153,7 +153,7 @@
   (nzOnClose)="closePolicy()"
 >
   <ng-template #nzTitle>
-    <b *ngIf="activeNode">{{ bit.l['policyEdit'] }}: {{ activeNode.title }}</b>
+    <b *ngIf="activeNode">{{ bit.l["policyEdit"] }}: {{ activeNode.title }}</b>
   </ng-template>
   <ng-container *nzDrawerContent>
     <ng-container *ngIf="activeNode && policyForm">
@@ -168,7 +168,7 @@
 
         <nz-form-item>
           <nz-form-label [nzSpan]="6" nzRequired>
-            {{ bit.l['resource_key'] }}
+            {{ bit.l["resource_key"] }}
           </nz-form-label>
           <nz-form-control [nzSpan]="18">
             <input type="text" nz-input [disabled]="true" [value]="activeNode.key" />
@@ -177,7 +177,7 @@
 
         <nz-form-item>
           <nz-form-label [nzSpan]="6" nzRequired>
-            {{ bit.l['acl_key'] }}
+            {{ bit.l["acl_key"] }}
           </nz-form-label>
           <nz-form-control [nzSpan]="18">
             <nz-select
@@ -200,12 +200,12 @@
 
         <nz-form-item>
           <nz-form-label [nzSpan]="6" nzRequired>
-            {{ bit.l['policy'] }}
+            {{ bit.l["policy"] }}
           </nz-form-label>
           <nz-form-control [nzSpan]="18">
             <nz-radio-group formControlName="policy">
-              <label nz-radio-button [nzValue]="0">{{ bit.l['readonly'] }}</label>
-              <label nz-radio-button [nzValue]="1">{{ bit.l['readandwrite'] }}</label>
+              <label nz-radio-button [nzValue]="0">{{ bit.l["readonly"] }}</label>
+              <label nz-radio-button [nzValue]="1">{{ bit.l["readandwrite"] }}</label>
             </nz-radio-group>
           </nz-form-control>
         </nz-form-item>
@@ -215,7 +215,7 @@
         <nz-form-item>
           <nz-form-control [nzOffset]="6" [nzSpan]="18">
             <button nz-button nzType="primary" [disabled]="!policyForm.valid">
-              {{ bit.l['submit'] }}
+              {{ bit.l["submit"] }}
             </button>
           </nz-form-control>
         </nz-form-item>

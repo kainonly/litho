@@ -38,12 +38,14 @@ export class RoleEditComponent implements OnInit, AfterViewInit, OnDestroy {
   ngOnInit(): void {
     this.bit.registerLocales(import('./language'));
     this.form = this.fb.group({
-      name: this.fb.group(this.bit.i18nGroup({
-        validate: {
-          zh_cn: [Validators.required],
-          en_us: []
-        }
-      })),
+      name: this.fb.group(
+        this.bit.i18nGroup({
+          validate: {
+            zh_cn: [Validators.required],
+            en_us: []
+          }
+        })
+      ),
       key: [null, [Validators.required], [this.existsKey]],
       status: [true, [Validators.required]]
     });
@@ -224,12 +226,13 @@ export class RoleEditComponent implements OnInit, AfterViewInit, OnDestroy {
   submit(data): void {
     Reflect.set(data, 'id', this.id);
     Reflect.set(data, 'resource', this.resource);
-    this.roleService.edit(data).pipe(
-      switchMap(res => this.swal.editAlert(res))
-    ).subscribe((status) => {
-      if (status) {
-        this.getData();
-      }
-    });
+    this.roleService
+      .edit(data)
+      .pipe(switchMap(res => this.swal.editAlert(res)))
+      .subscribe(status => {
+        if (status) {
+          this.getData();
+        }
+      });
   }
 }

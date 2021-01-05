@@ -30,19 +30,9 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
     this.bit.registerLocales(import('./language'));
     this.form = this.fb.group({
-      username: [null, [
-        Validators.required,
-        Validators.minLength(4),
-        Validators.maxLength(20)]
-      ],
-      password: [null, [
-        Validators.required,
-        Validators.minLength(12),
-        Validators.maxLength(20)]
-      ],
-      remember: [1, [
-        Validators.required
-      ]]
+      username: [null, [Validators.required, Validators.minLength(4), Validators.maxLength(20)]],
+      password: [null, [Validators.required, Validators.minLength(12), Validators.maxLength(20)]],
+      remember: [1, [Validators.required]]
     });
     this.storageMap.get('users').subscribe((data: Set<string>) => {
       if (data) {
@@ -56,15 +46,13 @@ export class LoginComponent implements OnInit {
       if (!res.error) {
         this.support.clearStorage();
         if (data.remember) {
-          this.storageMap.get('users').pipe(
-            switchMap((lists: Set<string>) =>
-              this.storageMap.set(
-                'users',
-                lists ? lists.add(data.username) : new Set([data.username])
-              )
+          this.storageMap
+            .get('users')
+            .pipe(
+              switchMap((lists: Set<string>) => this.storageMap.set('users', lists ? lists.add(data.username) : new Set([data.username])))
             )
-          ).subscribe(() => {
-          });
+            .subscribe(() => {
+            });
         }
         this.storageMap.set('currentUsername', data.username).subscribe(() => {
           // ok
@@ -72,16 +60,10 @@ export class LoginComponent implements OnInit {
         this.storageMap.set('loginTime', new Date().toISOString()).subscribe(() => {
           // ok
         });
-        this.notification.success(
-          this.bit.l.loginTips,
-          this.bit.l.loginSuccess
-        );
+        this.notification.success(this.bit.l.loginTips, this.bit.l.loginSuccess);
         this.router.navigateByUrl('/');
       } else {
-        this.notification.error(
-          this.bit.l.loginTips,
-          this.bit.l.loginFailed
-        );
+        this.notification.error(this.bit.l.loginTips, this.bit.l.loginFailed);
       }
     });
   }

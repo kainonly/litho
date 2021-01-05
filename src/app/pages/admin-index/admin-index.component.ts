@@ -26,9 +26,7 @@ export class AdminIndexComponent implements OnInit {
     this.bit.registerLocales(import('./language'));
     this.lists = this.bit.listByPage({
       id: 'admin-index',
-      query: [
-        { field: 'username', op: 'like', value: '' }
-      ]
+      query: [{ field: 'username', op: 'like', value: '' }]
     });
     this.lists.ready.subscribe(() => {
       this.getLists();
@@ -40,11 +38,7 @@ export class AdminIndexComponent implements OnInit {
    * 获取列表数据
    */
   getLists(refresh = false, event?: number): void {
-    this.adminService.lists(
-      this.lists,
-      refresh,
-      event !== undefined
-    ).subscribe((data) => {
+    this.adminService.lists(this.lists, refresh, event !== undefined).subscribe(data => {
       this.lists.setData(data);
     });
   }
@@ -53,7 +47,7 @@ export class AdminIndexComponent implements OnInit {
    * 获取权限组
    */
   getRole(): void {
-    this.roleService.originLists().subscribe((data) => {
+    this.roleService.originLists().subscribe(data => {
       for (const x of data) {
         this.role[x.key] = x;
       }
@@ -64,24 +58,15 @@ export class AdminIndexComponent implements OnInit {
    * 删除单操作
    */
   deleteData(id: any[]): void {
-    this.swal.deleteAlert(this.adminService.delete(id)).subscribe((res) => {
+    this.swal.deleteAlert(this.adminService.delete(id)).subscribe(res => {
       if (!res.error) {
-        this.notification.success(
-          this.bit.l.operateSuccess,
-          this.bit.l.deleteSuccess
-        );
+        this.notification.success(this.bit.l.operateSuccess, this.bit.l.deleteSuccess);
         this.getLists(true);
       } else {
         if (res.msg === 'error:self') {
-          this.notification.error(
-            this.bit.l.operateError,
-            this.bit.l.errorDeleteSelf
-          );
+          this.notification.error(this.bit.l.operateError, this.bit.l.errorDeleteSelf);
         } else {
-          this.notification.error(
-            this.bit.l.operateError,
-            this.bit.l.deleteError
-          );
+          this.notification.error(this.bit.l.operateError, this.bit.l.deleteError);
         }
       }
     });
@@ -91,7 +76,7 @@ export class AdminIndexComponent implements OnInit {
    * 选中删除
    */
   deleteCheckData(): void {
-    const id = this.lists.getChecked().map((v) => v.id);
+    const id = this.lists.getChecked().map(v => v.id);
     this.deleteData(id);
   }
 
@@ -100,15 +85,9 @@ export class AdminIndexComponent implements OnInit {
    */
   statusFeedback(res: any): void {
     if (res.msg === 'error:self') {
-      this.notification.error(
-        this.bit.l.operateError,
-        this.bit.l.errorStatusSelf
-      );
+      this.notification.error(this.bit.l.operateError, this.bit.l.errorStatusSelf);
     } else {
-      this.notification.error(
-        this.bit.l.operateError,
-        this.bit.l.statusError
-      );
+      this.notification.error(this.bit.l.operateError, this.bit.l.statusError);
     }
   }
 }

@@ -7,9 +7,7 @@ import { map } from 'rxjs/operators';
 export class AdminService {
   private model = 'admin';
 
-  constructor(
-    private http: BitHttpService
-  ) {
+  constructor(private http: BitHttpService) {
   }
 
   originLists(): Observable<any> {
@@ -47,15 +45,17 @@ export class AdminService {
    * Validate Username
    */
   validedUsername(username: string): Observable<any> {
-    return this.http.req(this.model + '/validedUsername', {
-      username
-    }).pipe(
-      map(res => {
-        if (res.error === 1) {
-          return false;
-        }
-        return !res.data;
+    return this.http
+      .req(this.model + '/validedUsername', {
+        username
       })
-    );
+      .pipe(
+        map(res => {
+          if (res.error === 1) {
+            return false;
+          }
+          return !res.data;
+        })
+      );
   }
 }

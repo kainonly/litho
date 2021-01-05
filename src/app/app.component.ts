@@ -4,15 +4,10 @@ import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-root',
-  template: `
-    <router-outlet></router-outlet>
-  `
+  template: ` <router-outlet></router-outlet> `
 })
 export class AppComponent implements OnInit {
-  constructor(
-    private bit: BitService,
-    private config: BitConfigService
-  ) {
+  constructor(private bit: BitService, private config: BitConfigService) {
   }
 
   ngOnInit(): void {

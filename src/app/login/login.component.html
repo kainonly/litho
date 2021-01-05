@@ -13,10 +13,10 @@
               formControlName="username"
               [nzAutocomplete]="auto"
               [placeholder]="bit.l['usernameRequire']"
-            >
+            />
             <nz-autocomplete #auto>
               <ng-container *ngFor="let x of users">
-                <nz-auto-option [nzValue]="x">{{x}}</nz-auto-option>
+                <nz-auto-option [nzValue]="x">{{ x }}</nz-auto-option>
               </ng-container>
             </nz-autocomplete>
             <ng-template #userPrefix>
@@ -32,11 +32,14 @@
               </i>
             </ng-template>
           </nz-input-group>
-          <bit-error-tip #username [hasError]="{
-            required:bit.l['usernameRequire'],
-            minlength:bit.l['usernameCorrectly'],
-            maxlength:bit.l['usernameCorrectly']
-          }">
+          <bit-error-tip
+            #username
+            [hasError]="{
+              required: bit.l['usernameRequire'],
+              minlength: bit.l['usernameCorrectly'],
+              maxlength: bit.l['usernameCorrectly']
+            }"
+          >
           </bit-error-tip>
         </nz-form-control>
       </nz-form-item>
@@ -49,7 +52,7 @@
               type="password"
               formControlName="password"
               [placeholder]="bit.l['passwordRequire']"
-            >
+            />
           </nz-input-group>
           <ng-template #passwordPrefix>
             <i nz-icon nzType="lock"></i>
@@ -63,11 +66,14 @@
             >
             </i>
           </ng-template>
-          <bit-error-tip #password [hasError]="{
-            required:bit.l['passwordRequire'],
-            minlength:bit.l['passwordCorrectly'],
-            maxlength:bit.l['passwordCorrectly']
-          }">
+          <bit-error-tip
+            #password
+            [hasError]="{
+              required: bit.l['passwordRequire'],
+              minlength: bit.l['passwordCorrectly'],
+              maxlength: bit.l['passwordCorrectly']
+            }"
+          >
           </bit-error-tip>
         </nz-form-control>
       </nz-form-item>
@@ -75,7 +81,7 @@
       <nz-form-item>
         <nz-form-control>
           <label nz-checkbox formControlName="remember">
-            <span>{{bit.l['loginRemember']}}</span>
+            <span>{{ bit.l["loginRemember"] }}</span>
           </label>
         </nz-form-control>
       </nz-form-item>
@@ -83,7 +89,7 @@
       <nz-form-item>
         <nz-form-control>
           <button nz-button nzType="primary" [nzBlock]="true">
-            {{bit.l['login']}}
+            {{ bit.l["login"] }}
           </button>
         </nz-form-control>
       </nz-form-item>

@@ -5,17 +5,16 @@ import { interval } from 'rxjs';
 
 @Injectable()
 export class UpdateService {
-  constructor(
-    appRef: ApplicationRef,
-    updates: SwUpdate
-  ) {
-    interval(3600000).pipe(
-      switchMapTo(appRef.isStable),
-      first(result => {
-        return result === true;
-      })
-    ).subscribe(() => {
-      updates.checkForUpdate();
-    });
+  constructor(appRef: ApplicationRef, updates: SwUpdate) {
+    interval(3600000)
+      .pipe(
+        switchMapTo(appRef.isStable),
+        first(result => {
+          return result === true;
+        })
+      )
+      .subscribe(() => {
+        updates.checkForUpdate();
+      });
   }
 }

@@ -32,12 +32,14 @@ export class RoleAddComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.bit.registerLocales(import('./language'));
     this.form = this.fb.group({
-      name: this.fb.group(this.bit.i18nGroup({
-        validate: {
-          zh_cn: [Validators.required],
-          en_us: []
-        }
-      })),
+      name: this.fb.group(
+        this.bit.i18nGroup({
+          validate: {
+            zh_cn: [Validators.required],
+            en_us: []
+          }
+        })
+      ),
       key: [null, [Validators.required], [this.existsKey]],
       status: [true, [Validators.required]]
     });
@@ -173,11 +175,16 @@ export class RoleAddComponent implements OnInit, OnDestroy {
    */
   submit(data): void {
     Reflect.set(data, 'resource', this.resource);
-    this.roleService.add(data).pipe(
-      switchMap(res => this.swal.addAlert(res, this.form, {
-        status: true
-      }))
-    ).subscribe(() => {
-    });
+    this.roleService
+      .add(data)
+      .pipe(
+        switchMap(res =>
+          this.swal.addAlert(res, this.form, {
+            status: true
+          })
+        )
+      )
+      .subscribe(() => {
+      });
   }
 }

@@ -37,11 +37,7 @@ export class AclIndexComponent implements OnInit {
    * 获取列表数据
    */
   getLists(refresh = false, event?: number): void {
-    this.aclService.lists(
-      this.lists,
-      refresh,
-      event !== undefined
-    ).subscribe(data => {
+    this.aclService.lists(this.lists, refresh, event !== undefined).subscribe(data => {
       this.lists.setData(data);
     });
   }
@@ -52,16 +48,10 @@ export class AclIndexComponent implements OnInit {
   deleteData(id: any[]): void {
     this.swal.deleteAlert(this.aclService.delete(id)).subscribe(res => {
       if (!res.error) {
-        this.notification.success(
-          this.bit.l.operateSuccess,
-          this.bit.l.deleteSuccess
-        );
+        this.notification.success(this.bit.l.operateSuccess, this.bit.l.deleteSuccess);
         this.getLists(true);
       } else {
-        this.notification.error(
-          this.bit.l.operateError,
-          this.bit.l.deleteError
-        );
+        this.notification.error(this.bit.l.operateError, this.bit.l.deleteError);
       }
     });
   }

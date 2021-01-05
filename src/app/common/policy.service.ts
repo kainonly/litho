@@ -6,9 +6,7 @@ import { Observable } from 'rxjs';
 export class PolicyService {
   private model = 'policy';
 
-  constructor(
-    private http: BitHttpService
-  ) {
+  constructor(private http: BitHttpService) {
   }
 
   originLists(): Observable<any> {

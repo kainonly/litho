@@ -31,12 +31,14 @@ export class ResourceEditComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.bit.registerLocales(import('./language'));
     this.form = this.fb.group({
-      name: this.fb.group(this.bit.i18nGroup({
-        validate: {
-          zh_cn: [Validators.required],
-          en_us: []
-        }
-      })),
+      name: this.fb.group(
+        this.bit.i18nGroup({
+          validate: {
+            zh_cn: [Validators.required],
+            en_us: []
+          }
+        })
+      ),
       key: [null, [Validators.required], [this.existsKey]],
       parent: [null, [Validators.required]],
       nav: [false, [Validators.required]],
@@ -104,14 +106,16 @@ export class ResourceEditComponent implements OnInit, OnDestroy {
         refer.set(v.key, rows);
         return rows;
       });
-      const nodes: any[] = [{
-        key: 'origin',
-        title: {
-          zh_cn: '最高级',
-          en_us: 'Top'
-        }[this.bit.locale],
-        isLeaf: true
-      }];
+      const nodes: any[] = [
+        {
+          key: 'origin',
+          title: {
+            zh_cn: '最高级',
+            en_us: 'Top'
+          }[this.bit.locale],
+          isLeaf: true
+        }
+      ];
       for (const x of lists) {
         if (x.parent === 'origin') {
           nodes.push(refer.get(x.key));
@@ -131,13 +135,14 @@ export class ResourceEditComponent implements OnInit, OnDestroy {
 
   submit(data): void {
     Reflect.set(data, 'id', this.id);
-    this.resourceService.edit(data).pipe(
-      switchMap(res => this.swal.editAlert(res))
-    ).subscribe(status => {
-      if (status) {
-        this.getParentNodes();
-      }
-      this.events.publish('refresh-menu');
-    });
-  };
+    this.resourceService
+      .edit(data)
+      .pipe(switchMap(res => this.swal.editAlert(res)))
+      .subscribe(status => {
+        if (status) {
+          this.getParentNodes();
+        }
+        this.events.publish('refresh-menu');
+      });
+  }
 }

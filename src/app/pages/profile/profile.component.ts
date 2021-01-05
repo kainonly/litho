@@ -135,16 +135,10 @@ export class ProfileComponent implements OnInit {
   upload(info): void {
     if (info.type === 'success') {
       this.avatar = info.file.response.data.savename;
-      this.notification.success(
-        this.bit.l.success,
-        this.bit.l.uploadSuccess
-      );
+      this.notification.success(this.bit.l.success, this.bit.l.uploadSuccess);
     }
     if (info.type === 'error') {
-      this.notification.error(
-        this.bit.l.notice,
-        this.bit.l.uploadError
-      );
+      this.notification.error(this.bit.l.notice, this.bit.l.uploadError);
     }
   }
 
@@ -183,21 +177,12 @@ export class ProfileComponent implements OnInit {
     this.mainService.update(data).subscribe(res => {
       if (res.error) {
         if (res.msg === 'error:password') {
-          this.notification.error(
-            this.bit.l.failed,
-            this.bit.l.passwordError
-          );
+          this.notification.error(this.bit.l.failed, this.bit.l.passwordError);
         } else {
-          this.notification.error(
-            this.bit.l.failed,
-            this.bit.l.updateError
-          );
+          this.notification.error(this.bit.l.failed, this.bit.l.updateError);
         }
       } else {
-        this.notification.success(
-          this.bit.l.success,
-          this.bit.l.updateSuccess
-        );
+        this.notification.success(this.bit.l.success, this.bit.l.updateSuccess);
         this.getInformation();
       }
     });

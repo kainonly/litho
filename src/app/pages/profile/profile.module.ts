@@ -6,10 +6,12 @@ import { ProfileComponent } from './profile.component';
 @NgModule({
   imports: [
     AppExtModule,
-    RouterModule.forChild([{
-      path: '',
-      component: ProfileComponent
-    }])
+    RouterModule.forChild([
+      {
+        path: '',
+        component: ProfileComponent
+      }
+    ])
   ],
   declarations: [ProfileComponent]
 })

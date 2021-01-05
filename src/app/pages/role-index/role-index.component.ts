@@ -39,16 +39,14 @@ export class RoleIndexComponent implements OnInit {
    * 获取列表数据
    */
   getLists(refresh = false, event?: number): void {
-    this.roleService.lists(
-      this.lists,
-      refresh,
-      event !== undefined
-    ).subscribe(data => {
-      this.lists.setData(data.map(v => {
-        v.acl = v.acl.split(',').map(c => c.split(':'));
-        v.resource = v.resource.split(',');
-        return v;
-      }));
+    this.roleService.lists(this.lists, refresh, event !== undefined).subscribe(data => {
+      this.lists.setData(
+        data.map(v => {
+          v.acl = v.acl.split(',').map(c => c.split(':'));
+          v.resource = v.resource.split(',');
+          return v;
+        })
+      );
     });
   }
 
@@ -58,16 +56,10 @@ export class RoleIndexComponent implements OnInit {
   deleteData(id: any[]): void {
     this.swal.deleteAlert(this.roleService.delete(id)).subscribe(res => {
       if (!res.error) {
-        this.notification.success(
-          this.bit.l.operateSuccess,
-          this.bit.l.deleteSuccess
-        );
+        this.notification.success(this.bit.l.operateSuccess, this.bit.l.deleteSuccess);
         this.getLists(true);
       } else {
-        this.notification.error(
-          this.bit.l.operateError,
-          this.bit.l.deleteError
-        );
+        this.notification.error(this.bit.l.operateError, this.bit.l.deleteError);
       }
     });
   }

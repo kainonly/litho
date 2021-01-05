@@ -27,16 +27,18 @@ export class AclAddComponent implements OnInit {
   ngOnInit(): void {
     this.bit.registerLocales(import('./language'));
     this.form = this.fb.group({
-      name: this.fb.group(this.bit.i18nGroup({
-        validate: {
-          zh_cn: [Validators.required],
-          en_us: [Validators.required]
-        },
-        asyncValidate: {
-          zh_cn: [],
-          en_us: []
-        }
-      })),
+      name: this.fb.group(
+        this.bit.i18nGroup({
+          validate: {
+            zh_cn: [Validators.required],
+            en_us: [Validators.required]
+          },
+          asyncValidate: {
+            zh_cn: [],
+            en_us: []
+          }
+        })
+      ),
       key: [null, [Validators.required], [this.existsKey]],
       write: [this.writeLists],
       read: [this.readLists],
@@ -63,11 +65,15 @@ export class AclAddComponent implements OnInit {
    * 提交
    */
   submit(data): void {
-    this.aclService.add(data).pipe(
-      switchMap(res => this.swal.addAlert(res, this.form, {
-        status: true
-      }))
-    ).subscribe(() => {
+    this.aclService
+      .add(data)
+      .pipe(
+        switchMap(res =>
+          this.swal.addAlert(res, this.form, {
+            status: true
+          })
+        )
+      ).subscribe(() => {
     });
   }
 }

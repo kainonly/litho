@@ -7,9 +7,7 @@ import { BitHttpService } from 'ngx-bit';
 export class ResourceService {
   private model = 'resource';
 
-  constructor(
-    private http: BitHttpService
-  ) {
+  constructor(private http: BitHttpService) {
   }
 
   originLists(): Observable<any> {
@@ -66,5 +64,3 @@ export class ResourceService {
     );
   }
 }
-
-

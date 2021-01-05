@@ -73,13 +73,8 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [
-    AppExtModule,
-    RouterModule.forChild(routes)
-  ],
-  declarations: [
-    DashboardsComponent
-  ]
+  imports: [AppExtModule, RouterModule.forChild(routes)],
+  declarations: [DashboardsComponent]
 })
 export class AppRouterModule {
 }

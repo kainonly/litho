@@ -6,9 +6,7 @@ import { BitService } from 'ngx-bit';
   template: ``
 })
 export class WelcomeComponent implements OnInit {
-  constructor(
-    public bit: BitService
-  ) {
+  constructor(public bit: BitService) {
   }
 
   ngOnInit(): void {

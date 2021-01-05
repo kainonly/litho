@@ -114,11 +114,13 @@ export class ResourceIndexComponent implements OnInit, OnDestroy {
           });
           this.policy.set(x.resource_key, queue);
         } else {
-          this.policy.set(x.resource_key, [{
-            id: x.id,
-            acl_key: x.acl_key,
-            policy: x.policy
-          }]);
+          this.policy.set(x.resource_key, [
+            {
+              id: x.id,
+              acl_key: x.acl_key,
+              policy: x.policy
+            }
+          ]);
         }
       }
     });
@@ -224,20 +226,12 @@ export class ResourceIndexComponent implements OnInit, OnDestroy {
    * 删除资源
    */
   deleteResource(): void {
-    this.swal.deleteAlert(
-      this.resourceService.delete([this.activeNode.origin.id])
-    ).subscribe(res => {
+    this.swal.deleteAlert(this.resourceService.delete([this.activeNode.origin.id])).subscribe(res => {
       if (!res.error) {
         this.getNodes();
-        this.notification.success(
-          this.bit.l.operateSuccess,
-          this.bit.l.deleteSuccess
-        );
+        this.notification.success(this.bit.l.operateSuccess, this.bit.l.deleteSuccess);
       } else {
-        this.notification.error(
-          this.bit.l.operateError,
-          this.bit.l.deleteError
-        );
+        this.notification.error(this.bit.l.operateError, this.bit.l.deleteError);
       }
     });
   }
@@ -253,11 +247,7 @@ export class ResourceIndexComponent implements OnInit, OnDestroy {
    * 拖拽限制
    */
   beforeDrop = (arg: NzFormatBeforeDropEvent): Observable<any> => {
-    return of(
-      arg.dragNode.level === arg.node.level
-      && arg.dragNode.origin.parent === arg.node.origin.parent
-      && arg.pos !== 0
-    );
+    return of(arg.dragNode.level === arg.node.level && arg.dragNode.origin.parent === arg.node.origin.parent && arg.pos !== 0);
   };
 
   /**
@@ -283,10 +273,12 @@ export class ResourceIndexComponent implements OnInit, OnDestroy {
       }
       const children = node.getChildren();
       if (children.length !== 0) {
-        queue.push(...children.map((value, index) => {
-          value.origin.sort = index;
-          return value;
-        }));
+        queue.push(
+          ...children.map((value, index) => {
+            value.origin.sort = index;
+            return value;
+          })
+        );
       }
     }
   }
@@ -344,8 +336,7 @@ export class ResourceIndexComponent implements OnInit, OnDestroy {
     if (!this.policy.has(this.activeNode.key)) {
       return false;
     }
-    return this.policy.get(this.activeNode.key)
-      .some(v => v.acl_key === key);
+    return this.policy.get(this.activeNode.key).some(v => v.acl_key === key);
   }
 
   /**
@@ -355,10 +346,7 @@ export class ResourceIndexComponent implements OnInit, OnDestroy {
     Reflect.set(data, 'resource_key', this.activeNode.key);
     this.policyService.add(data).subscribe(res => {
       if (!res.error) {
-        this.notification.success(
-          this.bit.l.operateSuccess,
-          this.bit.l.deleteSuccess
-        );
+        this.notification.success(this.bit.l.operateSuccess, this.bit.l.deleteSuccess);
         this.policyForm.reset({
           acl_key: null,
           policy: 0
@@ -366,10 +354,7 @@ export class ResourceIndexComponent implements OnInit, OnDestroy {
         this.getPolicy();
         this.getAcl();
       } else {
-        this.notification.error(
-          this.bit.l.operateError,
-          this.bit.l.deleteError
-        );
+        this.notification.error(this.bit.l.operateError, this.bit.l.deleteError);
       }
     });
   }
@@ -380,17 +365,11 @@ export class ResourceIndexComponent implements OnInit, OnDestroy {
   deletePolicy(id: number): void {
     this.policyService.delete([id]).subscribe(res => {
       if (!res.error) {
-        this.notification.success(
-          this.bit.l.operateSuccess,
-          this.bit.l.deleteSuccess
-        );
+        this.notification.success(this.bit.l.operateSuccess, this.bit.l.deleteSuccess);
         this.getPolicy();
         this.getAcl();
       } else {
-        this.notification.error(
-          this.bit.l.operateError,
-          this.bit.l.deleteError
-        );
+        this.notification.error(this.bit.l.operateError, this.bit.l.deleteError);
       }
     });
   }
