@@ -49,15 +49,15 @@
         </span>
         <ul>
           <li nz-menu-item (click)="bit.setLocale('zh_cn')">
-            <a title><b>中文</b></a>
+            <a title>中文</a>
           </li>
           <li nz-menu-item (click)="bit.setLocale('en_us')">
-            <a title><b>English</b></a>
+            <a title>English</a>
           </li>
         </ul>
       </li>
 
-      <li style="float: right" nz-submenu>
+      <li style="float: right" nz-submenu nzMenuClassName="center-submenu">
         <span title>
           <i nz-icon nzType="user"></i>
           {{ bit.l["center"] }}
