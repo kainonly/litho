@@ -67,6 +67,10 @@ const routes: Routes = [
       {
         path: '{admin-edit}/:id',
         loadChildren: () => import('./pages/admin-edit/admin-edit.module').then(m => m.AdminEditModule)
+      },
+      {
+        path: '{gallery}',
+        loadChildren: () => import('./pages/gallery/gallery.module').then(m => m.GalleryModule)
       }
     ]
   }
