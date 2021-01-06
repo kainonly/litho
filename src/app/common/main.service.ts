@@ -90,4 +90,11 @@ export class MainService {
   update(data: any): Observable<any> {
     return this.http.req(this.model + '/update', data);
   }
+
+  /**
+   * COS Presigned
+   */
+  cosPresigned(): Observable<any> {
+    return this.http.req(this.model + '/cosPresigned');
+  }
 }

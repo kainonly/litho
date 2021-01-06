@@ -8,6 +8,7 @@ import { NzModalComponent, NzModalService } from 'ng-zorro-antd/modal';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { NzImageService } from 'ng-zorro-antd/image';
 import { Clipboard } from '@angular/cdk/clipboard';
+import { MainService } from '@common/main.service';
 
 @Component({
   selector: 'app-gallery',
@@ -25,6 +26,7 @@ export class GalleryComponent implements OnInit {
   constructor(
     public config: BitConfigService,
     public bit: BitService,
+    private mainService: MainService,
     private galleryService: GalleryService,
     private galleryTypeService: GalleryTypeService,
     private clipboard: Clipboard,
@@ -38,6 +40,10 @@ export class GalleryComponent implements OnInit {
 
   ngOnInit(): void {
     this.bit.registerLocales(import('./language'));
+    this.mainService.cosPresigned().subscribe(res => {
+      console.log(res);
+
+    });
     this.ds.lists = this.bit.listByPage({
       id: 'gallery',
       query: [
@@ -48,6 +54,7 @@ export class GalleryComponent implements OnInit {
     });
     this.ds.lists.ready.subscribe(() => {
       this.getTypeLists();
+
     });
   }
 
