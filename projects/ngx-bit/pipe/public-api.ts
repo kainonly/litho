@@ -6,4 +6,5 @@ export * from './locale.pipe';
 export * from './privacy.pipe';
 export * from './split.pipe';
 export * from './undefined.pipe';
+export * from './print.pipe';
 export * from './bit-pipe.module';

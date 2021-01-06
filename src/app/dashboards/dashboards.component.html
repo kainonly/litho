@@ -73,6 +73,7 @@
       </li>
     </ul>
     <nz-content>
+      <ng-container *ngTemplateOutlet="support.banner"></ng-container>
       <nz-page-header
         [nzTitle]="support.title | Locale: bit.locale"
         [nzSubtitle]="!support.subTitle ? null : support.subTitle"
@@ -87,9 +88,9 @@
             <a routerLink="/">{{ bit.l["dashboard"] }}</a>
           </nz-breadcrumb-item>
           <nz-breadcrumb-item *ngFor="let x of support.breadcrumb; last as islast">
-            <ng-container *ngIf="islast; else notLast">{{
-              x.name | Locale: bit.locale
-              }}</ng-container>
+            <ng-container *ngIf="islast; else notLast">
+              {{ x.name | Locale: bit.locale }}
+            </ng-container>
             <ng-template #notLast>
               <a *ngIf="x.router; else notRouterlink" [bitCrossLevel]="x.key">
                 {{ x.name | Locale: bit.locale }}

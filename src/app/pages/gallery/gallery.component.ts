@@ -11,7 +11,8 @@ import { Clipboard } from '@angular/cdk/clipboard';
 
 @Component({
   selector: 'app-gallery',
-  templateUrl: './gallery.component.html'
+  templateUrl: './gallery.component.html',
+  styleUrls: ['./gallery.component.scss']
 })
 export class GalleryComponent implements OnInit {
   ds: GalleryDataSource;

@@ -1,19 +1,96 @@
 <bit-header>
-  <nz-upload
-    [nzName]="'image'"
-    [nzAction]="config.url.api + config.api.upload"
-    [nzWithCredentials]="config.api.withCredentials"
-    [nzSize]="5120"
-    [nzShowUploadList]="false"
-  >
-    <button nz-button>
-      <i nz-icon [nzType]="'upload'"></i><span>{{ bit.l['upload'] }}</span>
+  <nz-alert bitBanner nzBanner [nzMessage]="bit.l['uploading']"></nz-alert>
+  <nz-button-group>
+    <nz-upload
+      class="upload"
+      [nzName]="'image'"
+      [nzAction]="config.url.api + config.api.upload"
+      [nzWithCredentials]="config.api.withCredentials"
+      [nzSize]="5120"
+      [nzShowUploadList]="false"
+    >
+      <button nz-button>
+        <i nz-icon [nzType]="'upload'"></i><span>{{ bit.l["upload"] }}</span>
+      </button>
+    </nz-upload>
+    <button
+      class="transport-btn"
+      nz-button
+      nz-popover
+      [nzPopoverContent]="transport"
+      [nzPopoverPlacement]="'bottomRight'"
+      [nzPopoverTrigger]="'click'"
+    >
+      <nz-badge nzStatus="default">
+        <i nz-icon nzType="inbox"></i>
+      </nz-badge>
     </button>
-  </nz-upload>
 
-  <button nz-button nzType="primary">
-    <i nz-icon nzType="inbox"></i>
-  </button>
+    <ng-template #transport>
+      <nz-list class="transport-table" nzSize="small">
+        <nz-list-item>
+          <span nz-typography><mark>[ITEM]</mark></span>
+          <div style="width: 150px">
+            <nz-progress [nzPercent]="30" nzSize="small"></nz-progress>
+          </div>
+        </nz-list-item>
+        <nz-list-item>
+          <span nz-typography><mark>[ITEM]</mark></span>
+          <div style="width: 150px">
+            <nz-progress [nzPercent]="30" nzSize="small"></nz-progress>
+          </div>
+        </nz-list-item>
+        <nz-list-item>
+          <span nz-typography><mark>[ITEM]</mark></span>
+          <div style="width: 150px">
+            <nz-progress [nzPercent]="30" nzSize="small"></nz-progress>
+          </div>
+        </nz-list-item>
+        <nz-list-item>
+          <span nz-typography><mark>[ITEM]</mark></span>
+          <div style="width: 150px">
+            <nz-progress [nzPercent]="30" nzSize="small"></nz-progress>
+          </div>
+        </nz-list-item>
+        <nz-list-item>
+          <span nz-typography><mark>[ITEM]</mark></span>
+          <div style="width: 150px">
+            <nz-progress [nzPercent]="30" nzSize="small"></nz-progress>
+          </div>
+        </nz-list-item>
+        <nz-list-item>
+          <span nz-typography><mark>[ITEM]</mark></span>
+          <div style="width: 150px">
+            <nz-progress [nzPercent]="30" nzSize="small"></nz-progress>
+          </div>
+        </nz-list-item>
+        <nz-list-item>
+          <span nz-typography><mark>[ITEM]</mark></span>
+          <div style="width: 150px">
+            <nz-progress [nzPercent]="30" nzSize="small"></nz-progress>
+          </div>
+        </nz-list-item>
+        <nz-list-item>
+          <span nz-typography><mark>[ITEM]</mark></span>
+          <div style="width: 150px">
+            <nz-progress [nzPercent]="30" nzSize="small"></nz-progress>
+          </div>
+        </nz-list-item>
+        <nz-list-item>
+          <span nz-typography><mark>[ITEM]</mark></span>
+          <div style="width: 150px">
+            <nz-progress [nzPercent]="30" nzSize="small"></nz-progress>
+          </div>
+        </nz-list-item>
+        <nz-list-item>
+          <span nz-typography><mark>[ITEM]</mark></span>
+          <div style="width: 150px">
+            <nz-progress [nzPercent]="30" nzSize="small"></nz-progress>
+          </div>
+        </nz-list-item>
+      </nz-list>
+    </ng-template>
+  </nz-button-group>
 </bit-header>
 
 <ng-template #title>
@@ -60,11 +137,7 @@
       >
         <nz-option [nzValue]="''" [nzLabel]="bit.l['all']"></nz-option>
         <nz-option [nzValue]="0" [nzLabel]="bit.l['unknownType']"></nz-option>
-        <nz-option
-          *ngFor="let x of typeLists"
-          [nzValue]="x.id"
-          [nzLabel]="x.name"
-        ></nz-option>
+        <nz-option *ngFor="let x of typeLists" [nzValue]="x.id" [nzLabel]="x.name"></nz-option>
       </nz-select>
       <ng-template #renderTemplate>
         <button nz-button nzType="link" nzBlock>
@@ -110,92 +183,94 @@
   </nz-space>
 </ng-template>
 
-<nz-card [nzTitle]="title">
-  <cdk-virtual-scroll-viewport itemSize="20" class="infinite-container">
-    <nz-list nzGrid>
-      <nz-list-empty *ngIf="ds.empty()"></nz-list-empty>
-      <div nz-row [nzGutter]="8">
-        <div nz-col *cdkVirtualFor="let x of ds">
-          <nz-list-item *ngIf="x">
-            <nz-card
-              style="width: 195px"
-              nzSize="small"
-              [nzHoverable]="true"
-              [nzCover]="coverTemplate"
-              [nzActions]="[actionCopy, actionRename, actionEllipsis]"
-            >
-              <nz-card-meta [nzTitle]="cardTitle"></nz-card-meta>
-              <ng-template #cardTitle>
-                <label
-                  nz-checkbox
-                  [(ngModel)]="x.checked"
-                  (ngModelChange)="ds.lists.refreshStatus()"
-                  [nz-tooltip]="x.name"
-                >
-                  {{ x.name }}
-                </label>
-              </ng-template>
-            </nz-card>
-            <ng-template #coverTemplate>
-              <div
-                class="thumb"
-                [style]="{ 'background-image': thumb(x.litpic) }"
-                (click)="preview(x)"
+<nz-ribbon [nzText]="bit.l['uploadRibbon']">
+  <nz-card [nzTitle]="title">
+    <cdk-virtual-scroll-viewport itemSize="20" class="infinite-container">
+      <nz-list nzGrid>
+        <nz-list-empty *ngIf="ds.empty()"></nz-list-empty>
+        <div nz-row [nzGutter]="8">
+          <div nz-col *cdkVirtualFor="let x of ds">
+            <nz-list-item *ngIf="x">
+              <nz-card
+                style="width: 195px"
+                nzSize="small"
+                [nzHoverable]="true"
+                [nzCover]="coverTemplate"
+                [nzActions]="[actionCopy, actionRename, actionEllipsis]"
               >
-                <div class="thumb-actions">
-                  <i nz-icon nzType="search"></i>
+                <nz-card-meta [nzTitle]="cardTitle"></nz-card-meta>
+                <ng-template #cardTitle>
+                  <label
+                    nz-checkbox
+                    [(ngModel)]="x.checked"
+                    (ngModelChange)="ds.lists.refreshStatus()"
+                    [nz-tooltip]="x.name"
+                  >
+                    {{ x.name }}
+                  </label>
+                </ng-template>
+              </nz-card>
+              <ng-template #coverTemplate>
+                <div
+                  class="thumb"
+                  [style]="{ 'background-image': thumb(x.litpic) }"
+                  (click)="preview(x)"
+                >
+                  <div class="thumb-actions">
+                    <i nz-icon nzType="search"></i>
+                  </div>
                 </div>
-              </div>
-            </ng-template>
-            <ng-template #actionCopy>
-              <i
-                nz-icon
-                nzType="link"
-                [nz-tooltip]="x.copied ? copyTip : bit.static + x.litpic"
-                (click)="copy(x)"
-              ></i>
-              <ng-template #copyTip>
-                <span nz-typography nzType="success">
-                  <i nz-icon nzType="check"></i>
-                </span>
-                {{ bit.l["copied"] }}
               </ng-template>
-            </ng-template>
-            <ng-template #actionRename>
-              <i
-                nz-icon
-                nzType="edit"
-                [nz-tooltip]="bit.l['rename']"
-                (click)="openRenameModal(x)"
-              ></i>
-            </ng-template>
-            <ng-template #actionEllipsis>
-              <i
-                nz-icon
-                nzType="ellipsis"
-                nz-dropdown
-                [nzDropdownMenu]="actionMenu"
-                [nzClickHide]="false"
-              ></i>
-              <nz-dropdown-menu #actionMenu>
-                <ul nz-menu>
-                  <li nz-menu-item>
-                    <i nz-icon nzType="swap"></i>
-                    {{ bit.l["move"] }}
-                  </li>
-                  <li nz-menu-item (click)="delete([x.id])">
-                    <i nz-icon nzType="delete"></i>
-                    {{ bit.l["delete"] }}
-                  </li>
-                </ul>
-              </nz-dropdown-menu>
-            </ng-template>
-          </nz-list-item>
+              <ng-template #actionCopy>
+                <i
+                  nz-icon
+                  nzType="link"
+                  [nz-tooltip]="x.copied ? copyTip : bit.static + x.litpic"
+                  (click)="copy(x)"
+                ></i>
+                <ng-template #copyTip>
+                  <span nz-typography nzType="success">
+                    <i nz-icon nzType="check"></i>
+                  </span>
+                  {{ bit.l["copied"] }}
+                </ng-template>
+              </ng-template>
+              <ng-template #actionRename>
+                <i
+                  nz-icon
+                  nzType="edit"
+                  [nz-tooltip]="bit.l['rename']"
+                  (click)="openRenameModal(x)"
+                ></i>
+              </ng-template>
+              <ng-template #actionEllipsis>
+                <i
+                  nz-icon
+                  nzType="ellipsis"
+                  nz-dropdown
+                  [nzDropdownMenu]="actionMenu"
+                  [nzClickHide]="false"
+                ></i>
+                <nz-dropdown-menu #actionMenu>
+                  <ul nz-menu>
+                    <li nz-menu-item>
+                      <i nz-icon nzType="swap"></i>
+                      {{ bit.l["move"] }}
+                    </li>
+                    <li nz-menu-item (click)="delete([x.id])">
+                      <i nz-icon nzType="delete"></i>
+                      {{ bit.l["delete"] }}
+                    </li>
+                  </ul>
+                </nz-dropdown-menu>
+              </ng-template>
+            </nz-list-item>
+          </div>
         </div>
-      </div>
-    </nz-list>
-  </cdk-virtual-scroll-viewport>
-</nz-card>
+      </nz-list>
+    </cdk-virtual-scroll-viewport>
+  </nz-card>
+</nz-ribbon>
 
 <nz-modal
   #renameModal
@@ -207,10 +282,8 @@
   <ng-container *nzModalContent>
     <form *ngIf="renameData" nz-form nzLayout="vertical" [formGroup]="renameForm">
       <nz-form-item>
-        <nz-form-label
-        >您将重命名 <b>{{ renameData.name }}</b> 此元素，您完全确定吗？
-        </nz-form-label
-        >
+        <nz-form-label [innerHTML]="bit.l['renameLabel'] | Print: [renameData.name]">
+        </nz-form-label>
         <nz-form-control [nzErrorTip]="name.ref">
           <input formControlName="name" nz-input [placeholder]="bit.l['namePlaceholder']" />
           <bit-error-tip

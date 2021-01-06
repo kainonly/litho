@@ -32,6 +32,7 @@ export class BitSupportService {
    * Allow back
    */
   back = false;
+  banner: TemplateRef<any>;
   /**
    * Header actions
    */
