@@ -23,6 +23,8 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 import { UpdateService } from '@common/update.service';
 import { StorageModule } from '@ngx-pwa/local-storage';
 import { AppExtModule } from '@ext';
+import { GalleryTypeService } from '@common/gallery-type.service';
+import { GalleryService } from '@common/gallery.service';
 
 const routes: Routes = [
   {
@@ -57,6 +59,8 @@ const routes: Routes = [
     PolicyService,
     RoleService,
     AdminService,
+    GalleryTypeService,
+    GalleryService,
     { provide: NZ_I18N, useValue: zh_CN }
   ],
   bootstrap: [AppComponent]

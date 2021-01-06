@@ -1,0 +1,226 @@
+<bit-header>
+  <nz-upload
+    [nzName]="'image'"
+    [nzAction]="config.url.api + config.api.upload"
+    [nzWithCredentials]="config.api.withCredentials"
+    [nzSize]="5120"
+    [nzShowUploadList]="false"
+  >
+    <button nz-button>
+      <i nz-icon [nzType]="'upload'"></i><span>{{ bit.l['upload'] }}</span>
+    </button>
+  </nz-upload>
+
+  <button nz-button nzType="primary">
+    <i nz-icon nzType="inbox"></i>
+  </button>
+</bit-header>
+
+<ng-template #title>
+  <nz-space>
+    <nz-space-item>
+      <nz-button-group>
+        <button nz-button (click)="checkedAllBind($event)">
+          <label
+            nz-checkbox
+            [(ngModel)]="ds.lists.checked"
+            [nzIndeterminate]="ds.lists.indeterminate"
+            (ngModelChange)="ds.lists.checkedAll($event)"
+          >
+            {{ bit.l["checked"] }}
+          </label>
+        </button>
+        <button nz-button nz-dropdown [nzDropdownMenu]="menu">
+          <nz-badge [nzCount]="ds.lists.checkedNumber">
+            <i nz-icon nzType="ellipsis"></i>
+          </nz-badge>
+        </button>
+        <nz-dropdown-menu #menu>
+          <ul nz-menu>
+            <li nz-menu-item>
+              <i nz-icon nzType="swap"></i>
+              {{ bit.l["move"] }}
+            </li>
+            <li nz-menu-item>
+              <i nz-icon nzType="delete"></i>
+              {{ bit.l["delete"] }}
+            </li>
+          </ul>
+        </nz-dropdown-menu>
+      </nz-button-group>
+    </nz-space-item>
+    <nz-space-item *ngIf="ds.lists.hasSearch('type_id')">
+      <nz-select
+        style="width: 240px"
+        [(ngModel)]="ds.lists.search['type_id'].value"
+        [bitSearchChange]="ds.lists"
+        (after)="ds.fetchData(true)"
+        [nzDropdownRender]="renderTemplate"
+        [nz-tooltip]="bit.l['typePlaceholder']"
+      >
+        <nz-option [nzValue]="''" [nzLabel]="bit.l['all']"></nz-option>
+        <nz-option [nzValue]="0" [nzLabel]="bit.l['unknownType']"></nz-option>
+        <nz-option
+          *ngFor="let x of typeLists"
+          [nzValue]="x.id"
+          [nzLabel]="x.name"
+        ></nz-option>
+      </nz-select>
+      <ng-template #renderTemplate>
+        <button nz-button nzType="link" nzBlock>
+          <i nz-icon nzType="form"></i>
+          {{ bit.l["editType"] }}
+        </button>
+      </ng-template>
+    </nz-space-item>
+    <nz-space-item *ngIf="ds.lists.hasSearch('name')">
+      <nz-input-group nzSearch [nzAddOnAfter]="nzAddOnAfter" style="width: 320px">
+        <input
+          nz-input
+          [bitSearchStart]="ds.lists"
+          [placeholder]="bit.l['search']"
+          [(ngModel)]="ds.lists.search['name'].value"
+          (after)="ds.fetchData(true)"
+        />
+      </nz-input-group>
+      <ng-template #nzAddOnAfter>
+        <button
+          nz-button
+          nzType="primary"
+          nzSearch
+          [bitSearchStart]="ds.lists"
+          (after)="ds.fetchData(true)"
+        >
+          <i nz-icon nzType="search"></i>
+        </button>
+      </ng-template>
+    </nz-space-item>
+    <nz-space-item>
+      <button nz-button nzType="default" (click)="ds.fetchData(true)">
+        <i nz-icon nzType="sync"></i>
+        {{ bit.l["refreshLists"] }}
+      </button>
+    </nz-space-item>
+    <nz-space-item>
+      <button nz-button nzType="default" [bitSearchClear]="ds.lists" (after)="ds.fetchData(true)">
+        <i nz-icon nzType="clear"></i>
+        {{ bit.l["clearSearch"] }}
+      </button>
+    </nz-space-item>
+  </nz-space>
+</ng-template>
+
+<nz-card [nzTitle]="title">
+  <cdk-virtual-scroll-viewport itemSize="20" class="infinite-container">
+    <nz-list nzGrid>
+      <nz-list-empty *ngIf="ds.empty()"></nz-list-empty>
+      <div nz-row [nzGutter]="8">
+        <div nz-col *cdkVirtualFor="let x of ds">
+          <nz-list-item *ngIf="x">
+            <nz-card
+              style="width: 195px"
+              nzSize="small"
+              [nzHoverable]="true"
+              [nzCover]="coverTemplate"
+              [nzActions]="[actionCopy, actionRename, actionEllipsis]"
+            >
+              <nz-card-meta [nzTitle]="cardTitle"></nz-card-meta>
+              <ng-template #cardTitle>
+                <label
+                  nz-checkbox
+                  [(ngModel)]="x.checked"
+                  (ngModelChange)="ds.lists.refreshStatus()"
+                  [nz-tooltip]="x.name"
+                >
+                  {{ x.name }}
+                </label>
+              </ng-template>
+            </nz-card>
+            <ng-template #coverTemplate>
+              <div
+                class="thumb"
+                [style]="{ 'background-image': thumb(x.litpic) }"
+                (click)="preview(x)"
+              >
+                <div class="thumb-actions">
+                  <i nz-icon nzType="search"></i>
+                </div>
+              </div>
+            </ng-template>
+            <ng-template #actionCopy>
+              <i
+                nz-icon
+                nzType="link"
+                [nz-tooltip]="x.copied ? copyTip : bit.static + x.litpic"
+                (click)="copy(x)"
+              ></i>
+              <ng-template #copyTip>
+                <span nz-typography nzType="success">
+                  <i nz-icon nzType="check"></i>
+                </span>
+                {{ bit.l["copied"] }}
+              </ng-template>
+            </ng-template>
+            <ng-template #actionRename>
+              <i
+                nz-icon
+                nzType="edit"
+                [nz-tooltip]="bit.l['rename']"
+                (click)="openRenameModal(x)"
+              ></i>
+            </ng-template>
+            <ng-template #actionEllipsis>
+              <i
+                nz-icon
+                nzType="ellipsis"
+                nz-dropdown
+                [nzDropdownMenu]="actionMenu"
+                [nzClickHide]="false"
+              ></i>
+              <nz-dropdown-menu #actionMenu>
+                <ul nz-menu>
+                  <li nz-menu-item>
+                    <i nz-icon nzType="swap"></i>
+                    {{ bit.l["move"] }}
+                  </li>
+                  <li nz-menu-item (click)="delete([x.id])">
+                    <i nz-icon nzType="delete"></i>
+                    {{ bit.l["delete"] }}
+                  </li>
+                </ul>
+              </nz-dropdown-menu>
+            </ng-template>
+          </nz-list-item>
+        </div>
+      </div>
+    </nz-list>
+  </cdk-virtual-scroll-viewport>
+</nz-card>
+
+<nz-modal
+  #renameModal
+  [nzTitle]="bit.l['confirm']"
+  [nzOkDisabled]="!renameForm ? false : !renameForm.valid"
+  (nzOnOk)="submitRename()"
+  (nzOnCancel)="closeRenameModal()"
+>
+  <ng-container *nzModalContent>
+    <form *ngIf="renameData" nz-form nzLayout="vertical" [formGroup]="renameForm">
+      <nz-form-item>
+        <nz-form-label
+        >您将重命名 <b>{{ renameData.name }}</b> 此元素，您完全确定吗？
+        </nz-form-label
+        >
+        <nz-form-control [nzErrorTip]="name.ref">
+          <input formControlName="name" nz-input [placeholder]="bit.l['namePlaceholder']" />
+          <bit-error-tip
+            #name
+            [hasError]="{
+              required: bit.l['nameRequire']
+            }"
+          ></bit-error-tip>
+        </nz-form-control>
+      </nz-form-item>
+    </form>
+  </ng-container>
+</nz-modal>

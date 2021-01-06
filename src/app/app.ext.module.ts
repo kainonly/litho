@@ -33,6 +33,10 @@ import { NzTagModule } from 'ng-zorro-antd/tag';
 import { NzTreeModule } from 'ng-zorro-antd/tree';
 import { NzTreeSelectModule } from 'ng-zorro-antd/tree-select';
 import { NzUploadModule } from 'ng-zorro-antd/upload';
+import { NzListModule } from 'ng-zorro-antd/list';
+import { NzTypographyModule } from 'ng-zorro-antd/typography';
+import { NzModalModule } from 'ng-zorro-antd/modal';
+import { NzBadgeModule } from 'ng-zorro-antd/badge';
 
 @NgModule({
   exports: [
@@ -59,6 +63,7 @@ import { NzUploadModule } from 'ng-zorro-antd/upload';
     NzCheckboxModule,
     NzPageHeaderModule,
     NzTableModule,
+    NzListModule,
     NzMessageModule,
     NzTreeModule,
     NzTagModule,
@@ -70,6 +75,9 @@ import { NzUploadModule } from 'ng-zorro-antd/upload';
     NzResultModule,
     NzMessageModule,
     NzUploadModule,
+    NzTypographyModule,
+    NzModalModule,
+    NzBadgeModule,
     BitExtModule,
     BitPipeModule,
     BitDirectiveModule
