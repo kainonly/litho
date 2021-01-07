@@ -1,6 +1,5 @@
 import { ModuleWithProviders, NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
-import { StorageModule } from '@ngx-pwa/local-storage';
 import { NzIconService } from 'ng-zorro-antd/icon';
 import { BitService } from './common/bit.service';
 import { BitConfigService } from './common/bit-config.service';
@@ -11,10 +10,7 @@ import { BitSwalService } from './common/bit-swal.service';
 
 @NgModule({
   imports: [
-    HttpClientModule,
-    StorageModule.forRoot({
-      IDBNoWrap: true
-    })
+    HttpClientModule
   ]
 })
 export class NgxBitModule {

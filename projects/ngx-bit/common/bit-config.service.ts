@@ -1,45 +1,23 @@
 import { Injectable } from '@angular/core';
 import { OperatorFunction } from 'rxjs';
-import { BitConfig, I18nOption } from 'ngx-bit/types';
+import { ApiConfig, BitConfig, ColConfig, CurdConfig, I18nConfig, LocaleConfig, UrlConfig } from 'ngx-bit/types';
 import { factoryLocales } from '../operates/factory-locales';
 
 @Injectable({
   providedIn: 'root'
 })
 export class BitConfigService implements BitConfig {
-  url: {
-    api: string;
-    static: string;
-    icon?: string
-  };
-  api: {
-    namespace: string;
-    upload: string;
-    withCredentials: boolean
-  };
-  col: {
-    [p: string]: any
-  };
-  curd: {
-    get: string,
-    lists: string,
-    originLists: string,
-    add: string,
-    edit: string,
-    status: string,
-    delete: string
-  };
-  i18n: {
-    default: string;
-    contain: string[];
-    switch: I18nOption[]
-  };
-  locale: {
-    default: string;
-    mapping: Map<number, string>
-    bind: Map<string, any>
-  };
+  /**
+   * @see BitConfig
+   */
+  url: UrlConfig;
+  api: ApiConfig;
+  col: ColConfig;
+  curd: CurdConfig;
+  i18n: I18nConfig;
+  locale: LocaleConfig;
   page: number;
+
   /**
    * Common language packer
    */

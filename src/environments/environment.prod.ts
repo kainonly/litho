@@ -9,8 +9,10 @@ const bit = factoryBitConfig({
   },
   api: {
     namespace: '/system',
-    upload: '/system/main/uploads',
-    withCredentials: true
+    withCredentials: true,
+    upload: 'https://cdn-1252852151.cos.ap-guangzhou.myqcloud.com',
+    uploadStorage: 'cos',
+    uploadSize: 102400
   },
   curd: {
     get: '/get',

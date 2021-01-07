@@ -43,7 +43,7 @@ export class BitService {
   /**
    * Component i18n tooltips
    */
-  i18nTooltip: I18nTooltipOption | any = {};
+  i18nTooltip: I18nTooltipOption = {};
   /**
    * Component i18n
    */

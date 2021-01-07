@@ -3,10 +3,12 @@ import { BitService } from 'ngx-bit';
 import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { MainService } from '@common/main.service';
+import { NzUploadChangeParam } from 'ng-zorro-antd/upload';
 
 @Component({
   selector: 'app-profile',
-  templateUrl: './profile.component.html'
+  templateUrl: './profile.component.html',
+  styleUrls: ['./profile.component.scss']
 })
 export class ProfileComponent implements OnInit {
   form: FormGroup;
@@ -132,9 +134,9 @@ export class ProfileComponent implements OnInit {
   /**
    * 头像上传
    */
-  upload(info): void {
+  upload(info: NzUploadChangeParam): void {
     if (info.type === 'success') {
-      this.avatar = info.file.response.data.savename;
+      this.avatar = Reflect.get(info.file.originFileObj, 'key');
       this.notification.success(this.bit.l.success, this.bit.l.uploadSuccess);
     }
     if (info.type === 'error') {
