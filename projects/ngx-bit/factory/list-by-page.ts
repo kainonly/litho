@@ -1,7 +1,8 @@
 import { StorageMap } from '@ngx-pwa/local-storage';
 import { AsyncSubject, Observable } from 'rxjs';
 import { ListByPageOption, SearchOption, OrderOption } from 'ngx-bit/types';
-import * as Ajv from 'ajv';
+import Ajv from 'ajv';
+import AjvFormats from 'ajv-formats';
 
 export class ListByPage {
   /**
@@ -192,6 +193,7 @@ export class ListByPage {
           search.value = search.value.trim();
         }
         const ajv = new Ajv();
+        AjvFormats(ajv);
         const valid = ajv.validate({
           not: {
             enum: ['', 0, null, [], {}]

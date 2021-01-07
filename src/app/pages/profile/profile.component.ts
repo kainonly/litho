@@ -7,8 +7,7 @@ import { NzUploadChangeParam } from 'ng-zorro-antd/upload';
 
 @Component({
   selector: 'app-profile',
-  templateUrl: './profile.component.html',
-  styleUrls: ['./profile.component.scss']
+  templateUrl: './profile.component.html'
 })
 export class ProfileComponent implements OnInit {
   form: FormGroup;

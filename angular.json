@@ -34,7 +34,8 @@
             ],
             "scripts": [],
             "allowedCommonJsDependencies": [
-              "ajv"
+              "ajv",
+              "ajv-formats"
             ]
           },
           "configurations": {
@@ -91,7 +92,11 @@
           "builder": "@angular-devkit/build-angular:ng-packagr",
           "options": {
             "tsConfig": "projects/ngx-bit/tsconfig.lib.json",
-            "project": "projects/ngx-bit/ng-package.json"
+            "project": "projects/ngx-bit/ng-package.json",
+            "allowedCommonJsDependencies": [
+              "ajv",
+              "ajv-formats"
+            ]
           },
           "configurations": {
             "production": {

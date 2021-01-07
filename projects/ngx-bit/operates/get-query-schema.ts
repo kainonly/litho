@@ -1,5 +1,6 @@
 import { SearchOption } from 'ngx-bit/types';
-import * as Ajv from 'ajv';
+import Ajv from 'ajv';
+import AjvFormats from 'ajv-formats';
 
 export function getQuerySchema(options: SearchOption[]): any[] {
   const schema = [];
@@ -8,6 +9,7 @@ export function getQuerySchema(options: SearchOption[]): any[] {
       search.value = search.value.trim();
     }
     const ajv = new Ajv();
+    AjvFormats(ajv);
     const valid = ajv.validate({
       not: {
         enum: ['', 0, null, [], {}]
