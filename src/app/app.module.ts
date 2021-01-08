@@ -25,6 +25,7 @@ import { StorageModule } from '@ngx-pwa/local-storage';
 import { AppExtModule } from '@ext';
 import { GalleryTypeService } from '@common/gallery-type.service';
 import { GalleryService } from '@common/gallery.service';
+import { UiSerivce } from '@common/ui.serivce';
 
 const routes: Routes = [
   {
@@ -53,6 +54,7 @@ const routes: Routes = [
   providers: [
     UpdateService,
     TokenService,
+    UiSerivce,
     MainService,
     AclService,
     ResourceService,

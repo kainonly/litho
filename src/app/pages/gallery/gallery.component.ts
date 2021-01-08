@@ -11,6 +11,7 @@ import { Clipboard } from '@angular/cdk/clipboard';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { TransportDataSource } from './transport.data-source';
 import { switchMap } from 'rxjs/operators';
+import { UiSerivce } from '@common/ui.serivce';
 
 @Component({
   selector: 'app-gallery',
@@ -32,6 +33,7 @@ export class GalleryComponent implements OnInit, AfterViewInit {
   constructor(
     public config: BitConfigService,
     public bit: BitService,
+    public ui: UiSerivce,
     private galleryService: GalleryService,
     private galleryTypeService: GalleryTypeService,
     private clipboard: Clipboard,

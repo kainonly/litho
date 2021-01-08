@@ -1,23 +1,36 @@
-import { Component, OnInit, OnDestroy, ViewChild, TemplateRef, ChangeDetectorRef } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  OnDestroy,
+  ViewChild,
+  ChangeDetectorRef,
+  HostListener,
+  AfterViewInit,
+  ElementRef
+} from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BitService, BitEventsService, BitSupportService } from 'ngx-bit';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { MainService } from '@common/main.service';
 import { Subscription } from 'rxjs';
+import { UiSerivce } from '@common/ui.serivce';
 
 @Component({
   selector: 'app-dashboards',
   templateUrl: './dashboards.component.html',
   styleUrls: ['./dashboards.component.scss']
 })
-export class DashboardsComponent implements OnInit, OnDestroy {
+export class DashboardsComponent implements OnInit, AfterViewInit, OnDestroy {
   collapsed = false;
   navLists: any[] = [];
+  @ViewChild('warpper') warpper: ElementRef;
+
   private statusSubscription: Subscription;
 
   constructor(
     private router: Router,
     private route: ActivatedRoute,
+    private ui: UiSerivce,
     private mainService: MainService,
     private events: BitEventsService,
     private notification: NzNotificationService,
@@ -39,10 +52,33 @@ export class DashboardsComponent implements OnInit, OnDestroy {
     });
   }
 
+  ngAfterViewInit(): void {
+    this.fetchNotOverflowHeight();
+  }
+
   ngOnDestroy(): void {
     this.events.off('refresh-menu');
     this.support.unsubscribe();
     this.statusSubscription.unsubscribe();
+  }
+
+  @HostListener('window:resize')
+  onresize(): void {
+    this.fetchNotOverflowHeight();
+  }
+
+  private fetchNotOverflowHeight(): void {
+    setTimeout(() => {
+      const node = this.warpper.nativeElement;
+      const parent = node.parentNode;
+      let sibling = node.previousElementSibling;
+      let notOverflowHeight = parent.offsetHeight;
+      while (sibling) {
+        notOverflowHeight -= sibling.offsetHeight;
+        sibling = sibling.previousElementSibling;
+      }
+      this.ui.notOverflowHeight.next(notOverflowHeight);
+    });
   }
 
   /**

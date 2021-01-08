@@ -137,7 +137,10 @@
 
 <nz-ribbon [nzText]="bit.l['uploadRibbon']">
   <nz-card [nzTitle]="title">
-    <cdk-virtual-scroll-viewport itemSize="20" class="infinite-container">
+    <cdk-virtual-scroll-viewport
+      itemSize="10"
+      class="infinite-container"
+      [ngStyle]="{'height.px':ui.setNotOverflowHeight(-160)|async}">
       <nz-list nzGrid>
         <nz-list-empty *ngIf="ds.empty()"></nz-list-empty>
         <div nz-row [nzGutter]="8">
