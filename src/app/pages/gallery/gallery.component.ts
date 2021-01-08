@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { BitConfigService, BitService } from 'ngx-bit';
 import { GalleryDataSource } from './gallery.data-source';
 import { GalleryService } from '@common/gallery.service';
@@ -8,14 +8,20 @@ import { NzModalComponent, NzModalService } from 'ng-zorro-antd/modal';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { NzImageService } from 'ng-zorro-antd/image';
 import { Clipboard } from '@angular/cdk/clipboard';
-import { MainService } from '@common/main.service';
+import { NzMessageService } from 'ng-zorro-antd/message';
+import { TransportDataSource } from './transport.data-source';
+import { switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-gallery',
   templateUrl: './gallery.component.html',
-  styleUrls: ['./gallery.component.scss']
+  styleUrls: ['./gallery.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class GalleryComponent implements OnInit {
+export class GalleryComponent implements OnInit, AfterViewInit {
+  tds: TransportDataSource = new TransportDataSource();
+  @ViewChild('transportMessageTpl') transportMessageTpl: TemplateRef<any>;
+
   ds: GalleryDataSource;
   typeLists: any[] = [];
 
@@ -26,12 +32,12 @@ export class GalleryComponent implements OnInit {
   constructor(
     public config: BitConfigService,
     public bit: BitService,
-    private mainService: MainService,
     private galleryService: GalleryService,
     private galleryTypeService: GalleryTypeService,
     private clipboard: Clipboard,
     private modal: NzModalService,
     private notification: NzNotificationService,
+    private message: NzMessageService,
     private image: NzImageService,
     private fb: FormBuilder
   ) {
@@ -40,10 +46,6 @@ export class GalleryComponent implements OnInit {
 
   ngOnInit(): void {
     this.bit.registerLocales(import('./language'));
-    this.mainService.cosPresigned().subscribe(res => {
-      console.log(res);
-
-    });
     this.ds.lists = this.bit.listByPage({
       id: 'gallery',
       query: [
@@ -54,7 +56,39 @@ export class GalleryComponent implements OnInit {
     });
     this.ds.lists.ready.subscribe(() => {
       this.getTypeLists();
+    });
+    this.tds.complete.pipe(
+      switchMap(data => {
+        return this.galleryService.bulkInsert({
+          type_id: !this.ds.lists.search.type_id.value ? 0 : this.ds.lists.search.type_id.value,
+          data: data.map(v => ({
+            name: v.originFileObj.name,
+            url: Reflect.get(v.originFileObj, 'key')
+          }))
+        });
+      })
+    ).subscribe(res => {
+      if (res.error === 1) {
+        this.message.error(this.bit.l.uploadError);
+        return;
+      }
+      this.ds.fetchData(true);
+      this.message.success(this.bit.l.uploadSuccess);
+    });
+  }
 
+  ngAfterViewInit(): void {
+    let messageId: string;
+    this.tds.done.subscribe(status => {
+      if (!status && !messageId) {
+        messageId = this.message.loading(this.transportMessageTpl, {
+          nzDuration: 0
+        }).messageId;
+      }
+      if (status && messageId) {
+        this.message.remove(messageId);
+        messageId = undefined;
+      }
     });
   }
 
@@ -74,12 +108,12 @@ export class GalleryComponent implements OnInit {
   }
 
   thumb(url: string): string {
-    return `url(${this.bit.static}${url}`;
+    return `url(${this.bit.static}${url}?imageMogr2/thumbnail/200x/format/webp/interlace/1/quality/80`;
   }
 
   preview(data: any): void {
     this.image.preview([
-      { src: this.bit.static + data.litpic }
+      { src: this.bit.static + data.url }
     ]);
   }
 

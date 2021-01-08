@@ -26,6 +26,10 @@ export class GalleryService {
     return this.http.add(this.model, data);
   }
 
+  bulkInsert(data: any): Observable<any> {
+    return this.http.req(this.model + '/bulkInsert', data);
+  }
+
   edit(data: any): Observable<any> {
     return this.http.edit(this.model, data);
   }

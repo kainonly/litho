@@ -1,13 +1,16 @@
+<ng-template #transportMessageTpl>
+  {{bit.l['uploading']}}({{tds.doneLength}}/{{tds.total}})
+  <nz-progress [nzPercent]="tds.percent"></nz-progress>
+</ng-template>
+
 <bit-header>
-  <nz-alert bitBanner nzBanner [nzMessage]="bit.l['uploading']"></nz-alert>
   <nz-button-group>
     <nz-upload
       class="upload"
-      [nzName]="'image'"
-      [nzAction]="config.url.api + config.api.upload"
-      [nzWithCredentials]="config.api.withCredentials"
-      [nzSize]="5120"
-      [nzShowUploadList]="false"
+      bitUpload
+      nzName="file"
+      nzMultiple
+      (nzChange)="tds.update($event)"
     >
       <button nz-button>
         <i nz-icon [nzType]="'upload'"></i><span>{{ bit.l["upload"] }}</span>
@@ -17,78 +20,27 @@
       class="transport-btn"
       nz-button
       nz-popover
-      [nzPopoverContent]="transport"
+      [nzPopoverContent]="transportContent"
       [nzPopoverPlacement]="'bottomRight'"
       [nzPopoverTrigger]="'click'"
     >
-      <nz-badge nzStatus="default">
+      <nz-badge [nzStatus]="(tds.done|async)?'default':'processing'">
         <i nz-icon nzType="inbox"></i>
       </nz-badge>
     </button>
 
-    <ng-template #transport>
-      <nz-list class="transport-table" nzSize="small">
-        <nz-list-item>
-          <span nz-typography><mark>[ITEM]</mark></span>
-          <div style="width: 150px">
-            <nz-progress [nzPercent]="30" nzSize="small"></nz-progress>
-          </div>
-        </nz-list-item>
-        <nz-list-item>
-          <span nz-typography><mark>[ITEM]</mark></span>
-          <div style="width: 150px">
-            <nz-progress [nzPercent]="30" nzSize="small"></nz-progress>
-          </div>
-        </nz-list-item>
-        <nz-list-item>
-          <span nz-typography><mark>[ITEM]</mark></span>
-          <div style="width: 150px">
-            <nz-progress [nzPercent]="30" nzSize="small"></nz-progress>
-          </div>
-        </nz-list-item>
-        <nz-list-item>
-          <span nz-typography><mark>[ITEM]</mark></span>
-          <div style="width: 150px">
-            <nz-progress [nzPercent]="30" nzSize="small"></nz-progress>
-          </div>
-        </nz-list-item>
-        <nz-list-item>
-          <span nz-typography><mark>[ITEM]</mark></span>
-          <div style="width: 150px">
-            <nz-progress [nzPercent]="30" nzSize="small"></nz-progress>
-          </div>
-        </nz-list-item>
-        <nz-list-item>
-          <span nz-typography><mark>[ITEM]</mark></span>
-          <div style="width: 150px">
-            <nz-progress [nzPercent]="30" nzSize="small"></nz-progress>
-          </div>
-        </nz-list-item>
-        <nz-list-item>
-          <span nz-typography><mark>[ITEM]</mark></span>
-          <div style="width: 150px">
-            <nz-progress [nzPercent]="30" nzSize="small"></nz-progress>
-          </div>
-        </nz-list-item>
-        <nz-list-item>
-          <span nz-typography><mark>[ITEM]</mark></span>
-          <div style="width: 150px">
-            <nz-progress [nzPercent]="30" nzSize="small"></nz-progress>
-          </div>
-        </nz-list-item>
-        <nz-list-item>
-          <span nz-typography><mark>[ITEM]</mark></span>
-          <div style="width: 150px">
-            <nz-progress [nzPercent]="30" nzSize="small"></nz-progress>
-          </div>
-        </nz-list-item>
-        <nz-list-item>
-          <span nz-typography><mark>[ITEM]</mark></span>
-          <div style="width: 150px">
-            <nz-progress [nzPercent]="30" nzSize="small"></nz-progress>
-          </div>
-        </nz-list-item>
-      </nz-list>
+    <ng-template #transportContent>
+      <cdk-virtual-scroll-viewport itemSize="10" class="transport-container">
+        <nz-list nzSize="small">
+          <nz-list-empty *ngIf="tds.total===0"></nz-list-empty>
+          <nz-list-item *cdkVirtualFor="let x of tds">
+            <span nz-typography nzEllipsis style="width: 450px">{{x.name}}</span>
+            <div style="width: 150px">
+              <nz-progress [nzPercent]="x.percent" nzSize="small"></nz-progress>
+            </div>
+          </nz-list-item>
+        </nz-list>
+      </cdk-virtual-scroll-viewport>
     </ng-template>
   </nz-button-group>
 </bit-header>
@@ -120,7 +72,7 @@
             </li>
             <li nz-menu-item>
               <i nz-icon nzType="delete"></i>
-              {{ bit.l["delete"] }}
+              {{ bit.l["deleteItem"] }}
             </li>
           </ul>
         </nz-dropdown-menu>
@@ -213,7 +165,7 @@
               <ng-template #coverTemplate>
                 <div
                   class="thumb"
-                  [style]="{ 'background-image': thumb(x.litpic) }"
+                  [style]="{ 'background-image': thumb(x.url) }"
                   (click)="preview(x)"
                 >
                   <div class="thumb-actions">
@@ -225,7 +177,7 @@
                 <i
                   nz-icon
                   nzType="link"
-                  [nz-tooltip]="x.copied ? copyTip : bit.static + x.litpic"
+                  [nz-tooltip]="x.copied ? copyTip : bit.static + x.url"
                   (click)="copy(x)"
                 ></i>
                 <ng-template #copyTip>
@@ -259,7 +211,7 @@
                     </li>
                     <li nz-menu-item (click)="delete([x.id])">
                       <i nz-icon nzType="delete"></i>
-                      {{ bit.l["delete"] }}
+                      {{ bit.l["deleteItem"] }}
                     </li>
                   </ul>
                 </nz-dropdown-menu>

@@ -40,6 +40,7 @@ import { NzBadgeModule } from 'ng-zorro-antd/badge';
 import { NzPopoverModule } from 'ng-zorro-antd/popover';
 import { NzProgressModule } from 'ng-zorro-antd/progress';
 import { NzImageModule } from 'ng-zorro-antd/image';
+import { NzSpinModule } from 'ng-zorro-antd/spin';
 
 @NgModule({
   exports: [
@@ -84,6 +85,7 @@ import { NzImageModule } from 'ng-zorro-antd/image';
     NzPopoverModule,
     NzProgressModule,
     NzImageModule,
+    NzSpinModule,
     BitExtModule,
     BitPipeModule,
     BitDirectiveModule

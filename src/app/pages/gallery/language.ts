@@ -1,10 +1,9 @@
 export default {
   transport: ['传输详情', 'Transport'],
-
-  uploading: ['正在上传文件请勿切换页面', 'Do not switch pages while uploading files'],
+  uploading: ['请勿切换页面，目前正在上传文件中', 'Do not switch pages, currently uploading files'],
   checked: ['全选', 'Checked'],
   move: ['移动分组', 'Move Group'],
-  delete: ['删除元素', 'Delete Item'],
+  deleteItem: ['删除元素', 'Delete Item'],
   all: ['全部元素', 'All'],
   typePlaceholder: ['请选择所属分类', 'Please select type'],
   unknownType: ['未分类', 'Unknown Type'],
