@@ -1,4 +1,4 @@
-import { AfterViewInit, ChangeDetectionStrategy, Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { BitConfigService, BitService } from 'ngx-bit';
 import { GalleryDataSource } from './gallery.data-source';
 import { GalleryService } from '@common/gallery.service';
@@ -8,16 +8,17 @@ import { NzModalComponent, NzModalService } from 'ng-zorro-antd/modal';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { NzImageService } from 'ng-zorro-antd/image';
 import { Clipboard } from '@angular/cdk/clipboard';
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { TransportDataSource } from './transport.data-source';
 import { switchMap } from 'rxjs/operators';
 import { UiSerivce } from '@common/ui.serivce';
+import { NzContextMenuService, NzDropdownMenuComponent } from 'ng-zorro-antd/dropdown';
 
 @Component({
   selector: 'app-gallery',
   templateUrl: './gallery.component.html',
-  styleUrls: ['./gallery.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./gallery.component.scss']
 })
 export class GalleryComponent implements OnInit, AfterViewInit {
   tds: TransportDataSource = new TransportDataSource();
@@ -25,6 +26,10 @@ export class GalleryComponent implements OnInit, AfterViewInit {
 
   ds: GalleryDataSource;
   typeLists: any[] = [];
+  typeVisible = true;
+  typeSort = true;
+  typeName: string;
+  editTypeData: any;
 
   @ViewChild('renameModal') renameModal: NzModalComponent;
   renameData: any;
@@ -41,6 +46,7 @@ export class GalleryComponent implements OnInit, AfterViewInit {
     private notification: NzNotificationService,
     private message: NzMessageService,
     private image: NzImageService,
+    private contextMenu: NzContextMenuService,
     private fb: FormBuilder
   ) {
     this.ds = new GalleryDataSource(galleryService, 1);
@@ -117,6 +123,125 @@ export class GalleryComponent implements OnInit, AfterViewInit {
     this.image.preview([
       { src: this.bit.static + data.url }
     ]);
+  }
+
+  openTypeDrawer(): void {
+    this.typeVisible = true;
+  }
+
+  closeTypeDrawer(): void {
+    this.typeVisible = false;
+    this.addTypeCancel();
+    this.editTypeCancel();
+  }
+
+  addTypeCancel(): void {
+    this.typeName = undefined;
+  }
+
+  addTypeSubmit(): void {
+    if (!this.typeName) {
+      return;
+    }
+    this.galleryTypeService.add({
+      name: this.typeName
+    }).subscribe(res => {
+      if (!res.error) {
+        this.addTypeCancel();
+        this.getTypeLists();
+        this.notification.success(this.bit.l.operateSuccess, this.bit.l.addSuccess);
+      } else {
+        this.notification.success(this.bit.l.operateError, this.bit.l.addFailed);
+      }
+    });
+  }
+
+  editType(data: any): void {
+    this.editTypeData = Object.assign(data, {
+      editName: data.name
+    });
+  }
+
+  editTypeCell(data: any): boolean {
+    return this.editTypeData && this.editTypeData.id === data.id && !this.typeSort;
+  }
+
+  editTypeCancel(): void {
+    this.editTypeData = undefined;
+  }
+
+  editTypeSubmit(data: any): void {
+    if (!data.editName) {
+      return;
+    }
+    this.galleryTypeService.edit({
+      id: data.id,
+      name: data.editName
+    }).subscribe(res => {
+      if (!res.error) {
+        data.name = data.editName;
+        this.editTypeCancel();
+        this.notification.success(this.bit.l.operateSuccess, this.bit.l.editSuccess);
+      } else {
+        this.notification.success(this.bit.l.operateError, this.bit.l.editFailed);
+      }
+    });
+  }
+
+  editTypeDelete(id: any[]): void {
+    this.galleryTypeService.delete(id).subscribe(res => {
+      if (!res.error) {
+        this.getTypeLists();
+        this.notification.success(
+          this.bit.l.operateSuccess,
+          this.bit.l.deleteSuccess
+        );
+      } else {
+        this.notification.error(
+          this.bit.l.operateError,
+          this.bit.l.deleteError
+        );
+      }
+    });
+  }
+
+  drop(event: CdkDragDrop<string[]>): void {
+    console.log(event);
+    moveItemInArray(this.typeLists, event.previousIndex, event.currentIndex);
+    // this.sortSubmit();
+  }
+
+  openSortMenu($event: MouseEvent, menu: NzDropdownMenuComponent): void {
+    this.contextMenu.create($event, menu);
+  }
+
+  sortMove(previousIndex: number, currentIndex: number): void {
+    moveItemInArray(this.typeLists, previousIndex, currentIndex);
+    this.sortSubmit();
+  }
+
+  private sortSubmit(): void {
+    const data = this.typeLists.map((value, index) => {
+      return {
+        id: value.id,
+        sort: index
+      };
+    });
+    this.galleryTypeService.sort(data).subscribe(res => {
+      console.log(res);
+      if (!res.error) {
+        this.getTypeLists();
+        this.notification.success(
+          this.bit.l.operateSuccess,
+          this.bit.l.sortSuccess
+        );
+      } else {
+        this.notification.error(
+          this.bit.l.operateError,
+          this.bit.l.sortError
+        );
+      }
+    });
   }
 
   openRenameModal(data: any): void {

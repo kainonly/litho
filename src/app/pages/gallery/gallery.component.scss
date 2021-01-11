@@ -27,6 +27,18 @@
     white-space: nowrap;
     text-overflow: ellipsis
   }
+
+  .cdk-drag-preview {
+    display: table;
+  }
+
+  .cdk-drag-placeholder {
+    opacity: 0;
+  }
+}
+
+.drag-cursor {
+  cursor: move;
 }
 
 .infinite-container {

@@ -1,17 +1,11 @@
 <ng-template #transportMessageTpl>
-  {{bit.l['uploading']}}({{tds.doneLength}}/{{tds.total}})
+  {{ bit.l["uploading"] }}({{ tds.doneLength }}/{{ tds.total }})
   <nz-progress [nzPercent]="tds.percent"></nz-progress>
 </ng-template>
 
 <bit-header>
   <nz-button-group>
-    <nz-upload
-      class="upload"
-      bitUpload
-      nzName="file"
-      nzMultiple
-      (nzChange)="tds.update($event)"
-    >
+    <nz-upload class="upload" bitUpload nzName="file" nzMultiple (nzChange)="tds.update($event)">
       <button nz-button>
         <i nz-icon [nzType]="'upload'"></i><span>{{ bit.l["upload"] }}</span>
       </button>
@@ -24,7 +18,7 @@
       [nzPopoverPlacement]="'bottomRight'"
       [nzPopoverTrigger]="'click'"
     >
-      <nz-badge [nzStatus]="(tds.done|async)?'default':'processing'">
+      <nz-badge [nzStatus]="(tds.done | async) ? 'default' : 'processing'">
         <i nz-icon nzType="inbox"></i>
       </nz-badge>
     </button>
@@ -32,9 +26,9 @@
     <ng-template #transportContent>
       <cdk-virtual-scroll-viewport itemSize="10" class="transport-container">
         <nz-list nzSize="small">
-          <nz-list-empty *ngIf="tds.total===0"></nz-list-empty>
+          <nz-list-empty *ngIf="tds.total === 0"></nz-list-empty>
           <nz-list-item *cdkVirtualFor="let x of tds">
-            <span nz-typography nzEllipsis style="width: 450px">{{x.name}}</span>
+            <span nz-typography nzEllipsis style="width: 450px">{{ x.name }}</span>
             <div style="width: 150px">
               <nz-progress [nzPercent]="x.percent" nzSize="small"></nz-progress>
             </div>
@@ -92,7 +86,7 @@
         <nz-option *ngFor="let x of typeLists" [nzValue]="x.id" [nzLabel]="x.name"></nz-option>
       </nz-select>
       <ng-template #renderTemplate>
-        <button nz-button nzType="link" nzBlock>
+        <button nz-button nzType="link" nzBlock (click)="openTypeDrawer()">
           <i nz-icon nzType="form"></i>
           {{ bit.l["editType"] }}
         </button>
@@ -135,12 +129,134 @@
   </nz-space>
 </ng-template>
 
+<nz-drawer
+  [nzClosable]="false"
+  [nzWidth]="640"
+  [nzVisible]="typeVisible"
+  [nzTitle]="typeTitle"
+  [nzFooter]="typeSort ? typeFooter : null"
+  (nzOnClose)="closeTypeDrawer()"
+>
+  <ng-template #typeFooter>
+    <nz-alert nzType="info" nzBanner [nzMessage]="bit.l['typeSortTip']"></nz-alert>
+  </ng-template>
+  <ng-template #typeTitle>
+    <nz-space>
+      <nz-space-item>
+        {{ bit.l["editType"] }}
+      </nz-space-item>
+      <nz-space-item>
+        <nz-switch
+          [(ngModel)]="typeSort"
+          [nzCheckedChildren]="bit.l['sort']"
+          [nzUnCheckedChildren]="bit.l['sort']"
+        >
+        </nz-switch>
+      </nz-space-item>
+    </nz-space>
+  </ng-template>
+  <ng-container *nzDrawerContent>
+    <nz-table
+      #typeTable
+      [nzData]="typeLists"
+      nzSize="middle"
+      nzTableLayout="fixed"
+      [nzFrontPagination]="false"
+    >
+      <thead>
+      <tr>
+        <th nzWidth="70%">{{ bit.l["typeName"] }}</th>
+        <th *ngIf="!typeSort">{{ bit.l["action"] }}</th>
+      </tr>
+      </thead>
+      <tbody
+        cdkDropList
+        [cdkDropListDisabled]="!typeSort"
+        (cdkDropListDropped)="drop($event)"
+      >
+      <tr class="example-custom-placeholder" *cdkDragPlaceholder></tr>
+      <tr *ngIf="!typeSort">
+        <td>
+          <input
+            nz-input
+            [(ngModel)]="typeName"
+            [placeholder]="bit.l['typeNamePlaceholder']"
+            (keyup.enter)="addTypeSubmit()"
+          />
+        </td>
+        <td>
+          <a (click)="addTypeSubmit()"><i nz-icon nzType="check"></i> {{ bit.l["submit"] }}</a>
+          <nz-divider nzType="vertical"></nz-divider>
+          <a (click)="addTypeCancel()"><i nz-icon nzType="close"></i> {{ bit.l["cancel"] }}</a>
+        </td>
+      </tr>
+      <tr
+        *ngFor="let data of typeTable.data;index as i;count as len"
+        [ngClass]="{'drag-cursor':typeSort}"
+        cdkDrag
+        (contextmenu)="openSortMenu($event, sortMenu)"
+      >
+        <ng-container *ngIf="editTypeCell(data); else normalCellTel">
+          <td>
+            <input
+              nz-input
+              [(ngModel)]="data.editName"
+              [placeholder]="bit.l['typeNamePlaceholder']"
+              (keyup.enter)="editTypeSubmit(data)"
+            />
+          </td>
+          <td>
+            <a (click)="editTypeSubmit(data)">
+              <i nz-icon nzType="check"></i> {{ bit.l["submit"] }}
+            </a>
+            <nz-divider nzType="vertical"></nz-divider>
+            <a (click)="editTypeCancel()">
+              <i nz-icon nzType="close"></i> {{ bit.l["cancel"] }}
+            </a>
+          </td>
+        </ng-container>
+        <ng-template #normalCellTel>
+          <td>
+            {{ data.name }}
+          </td>
+          <td *ngIf="!typeSort">
+            <a (click)="editType(data)">
+              <i nz-icon nzType="edit"></i> {{ bit.l["edit"] }}
+            </a>
+            <nz-divider nzType="vertical"></nz-divider>
+            <a
+              nz-popconfirm
+              [nzPopconfirmTitle]="bit.l['deleteWarning']"
+              (nzOnConfirm)="editTypeDelete([data.id])"
+            >
+              <i nz-icon nzType="delete"></i> {{ bit.l["delete"] }}
+            </a>
+          </td>
+        </ng-template>
+        <nz-dropdown-menu #sortMenu>
+          <ul nz-menu>
+            <li nz-menu-item (click)="sortMove(i,0)">
+              <i nz-icon nzType="vertical-align-top"></i> 置顶
+            </li>
+            <li nz-menu-item (click)="sortMove(i,len-1)">
+              <i nz-icon nzType="vertical-align-bottom"></i> 置底
+            </li>
+          </ul>
+        </nz-dropdown-menu>
+      </tr>
+
+      </tbody>
+    </nz-table>
+  </ng-container>
+</nz-drawer>
+
 <nz-ribbon [nzText]="bit.l['uploadRibbon']">
   <nz-card [nzTitle]="title">
     <cdk-virtual-scroll-viewport
-      itemSize="10"
+      itemSize="8"
       class="infinite-container"
-      [ngStyle]="{'height.px':ui.setNotOverflowHeight(-160)|async}">
+      [ngStyle]="{ 'height.px': ui.setNotOverflowHeight(-160) | async }"
+    >
       <nz-list nzGrid>
         <nz-list-empty *ngIf="ds.empty()"></nz-list-empty>
         <div nz-row [nzGutter]="8">

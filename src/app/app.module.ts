@@ -26,6 +26,7 @@ import { AppExtModule } from '@ext';
 import { GalleryTypeService } from '@common/gallery-type.service';
 import { GalleryService } from '@common/gallery.service';
 import { UiSerivce } from '@common/ui.serivce';
+import { NZ_CONFIG, NzConfig } from 'ng-zorro-antd/core/config';
 
 const routes: Routes = [
   {
@@ -38,6 +39,10 @@ const routes: Routes = [
     loadChildren: () => import('./login/login.module').then(m => m.LoginModule)
   }
 ];
+
+const ngZorroConfig: NzConfig = {
+  notification: { nzPlacement: 'bottomRight' }
+};
 
 @NgModule({
   declarations: [AppComponent],
@@ -63,7 +68,8 @@ const routes: Routes = [
     AdminService,
     GalleryTypeService,
     GalleryService,
-    { provide: NZ_I18N, useValue: zh_CN }
+    { provide: NZ_I18N, useValue: zh_CN },
+    { provide: NZ_CONFIG, useValue: ngZorroConfig }
   ],
   bootstrap: [AppComponent]
 })

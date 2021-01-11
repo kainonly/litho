@@ -26,4 +26,10 @@ export class GalleryTypeService {
   delete(id: any[]): Observable<any> {
     return this.http.delete(this.model, id);
   }
+
+  sort(data: any[]): Observable<any> {
+    return this.http.req(this.model + '/sort', {
+      data
+    });
+  }
 }

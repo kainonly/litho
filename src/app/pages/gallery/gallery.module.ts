@@ -3,6 +3,7 @@ import { GalleryComponent } from './gallery.component';
 import { RouterModule, Routes } from '@angular/router';
 import { AppExtModule } from '@ext';
 import { ScrollingModule } from '@angular/cdk/scrolling';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 
 const routes: Routes = [
   {
@@ -15,7 +16,8 @@ const routes: Routes = [
   imports: [
     AppExtModule,
     ScrollingModule,
-    RouterModule.forChild(routes)
+    RouterModule.forChild(routes),
+    DragDropModule
   ],
   declarations: [GalleryComponent]
 })
