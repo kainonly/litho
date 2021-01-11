@@ -16,8 +16,8 @@ const routes: Routes = [
   imports: [
     AppExtModule,
     ScrollingModule,
-    RouterModule.forChild(routes),
-    DragDropModule
+    DragDropModule,
+    RouterModule.forChild(routes)
   ],
   declarations: [GalleryComponent]
 })

@@ -75,6 +75,7 @@
     <nz-space-item *ngIf="ds.lists.hasSearch('type_id')">
       <nz-select
         style="width: 240px"
+        nzShowSearch
         [(ngModel)]="ds.lists.search['type_id'].value"
         [bitSearchChange]="ds.lists"
         (after)="ds.fetchData(true)"
@@ -158,10 +159,9 @@
   <ng-container *nzDrawerContent>
     <nz-table
       #typeTable
+      [nzSize]="'middle'"
       [nzData]="typeLists"
-      nzSize="middle"
-      nzTableLayout="fixed"
-      [nzFrontPagination]="false"
+      [(nzPageIndex)]="typePageIndex"
     >
       <thead>
       <tr>
@@ -190,7 +190,7 @@
         </td>
       </tr>
       <tr
-        *ngFor="let data of typeTable.data;index as i;count as len"
+        *ngFor="let data of typeTable.data;index as i"
         [ngClass]="{'drag-cursor':typeSort}"
         cdkDrag
         (contextmenu)="openSortMenu($event, sortMenu)"
@@ -235,17 +235,23 @@
         <nz-dropdown-menu #sortMenu>
           <ul nz-menu>
             <li nz-menu-item (click)="sortMove(i,0)">
-              <i nz-icon nzType="vertical-align-top"></i> 置顶
+              <i nz-icon nzType="vertical-align-top"></i> 排序置顶
             </li>
-            <li nz-menu-item (click)="sortMove(i,len-1)">
-              <i nz-icon nzType="vertical-align-bottom"></i> 置底
+            <li nz-menu-item (click)="sortMove(i,i-typePageIndex*10)">
+              <i nz-icon nzType="vertical-right"></i> 向前一页
+            </li>
+            <li nz-menu-item (click)="sortMove(i,i+typePageIndex*10)">
+              <i nz-icon nzType="vertical-left"></i> 向后一页
+            </li>
+            <li nz-menu-item (click)="sortMove(i,typeLists.length-1)">
+              <i nz-icon nzType="vertical-align-bottom"></i> 排序置底
             </li>
           </ul>
         </nz-dropdown-menu>
       </tr>
-
       </tbody>
     </nz-table>
+
   </ng-container>
 </nz-drawer>
 
@@ -323,7 +329,7 @@
                 ></i>
                 <nz-dropdown-menu #actionMenu>
                   <ul nz-menu>
-                    <li nz-menu-item>
+                    <li nz-menu-item (click)="openMoveModal(x)">
                       <i nz-icon nzType="swap"></i>
                       {{ bit.l["move"] }}
                     </li>
@@ -367,3 +373,35 @@
     </form>
   </ng-container>
 </nz-modal>
+
+<nz-modal
+  #moveModal
+  [nzTitle]="bit.l['confirm']"
+  [nzOkDisabled]="!moveForm ? false : !moveForm.valid"
+  (nzOnOk)="submitMove()"
+  (nzOnCancel)="closeMoveModal()"
+>
+  <ng-container *nzModalContent>
+    <form *ngIf="moveData" nz-form nzLayout="vertical" [formGroup]="moveForm">
+      <nz-form-item>
+        <nz-form-label [innerHTML]="bit.l['moveLabel'] | Print: [moveData.name]">
+        </nz-form-label>
+        <nz-form-control [nzErrorTip]="type.ref">
+          <nz-select nzShowSearch  formControlName="type_id">
+            <nz-option [nzValue]="0" [nzLabel]="bit.l['unknownType']"></nz-option>
+            <ng-container *ngFor="let x of typeLists">
+              <nz-option [nzValue]="x.id" [nzLabel]="x.name"></nz-option>
+            </ng-container>
+          </nz-select>
+          <bit-error-tip
+            #type
+            [hasError]="{
+              required: bit.l['typeRequire']
+            }"
+          ></bit-error-tip>
+        </nz-form-control>
+      </nz-form-item>
+    </form>
+  </ng-container>
+</nz-modal>
+

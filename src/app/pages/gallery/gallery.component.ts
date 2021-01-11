@@ -26,14 +26,19 @@ export class GalleryComponent implements OnInit, AfterViewInit {
 
   ds: GalleryDataSource;
   typeLists: any[] = [];
-  typeVisible = true;
-  typeSort = true;
+  typeVisible = false;
+  typeSort = false;
+  typePageIndex = 1;
   typeName: string;
   editTypeData: any;
 
   @ViewChild('renameModal') renameModal: NzModalComponent;
   renameData: any;
   renameForm: FormGroup;
+
+  @ViewChild('moveModal') moveModal: NzModalComponent;
+  moveData: any;
+  moveForm: FormGroup;
 
   constructor(
     public config: BitConfigService,
@@ -133,6 +138,8 @@ export class GalleryComponent implements OnInit, AfterViewInit {
     this.typeVisible = false;
     this.addTypeCancel();
     this.editTypeCancel();
+    this.typeSort = false;
+    this.typePageIndex = 1;
   }
 
   addTypeCancel(): void {
@@ -206,9 +213,12 @@ export class GalleryComponent implements OnInit, AfterViewInit {
   }
 
   drop(event: CdkDragDrop<string[]>): void {
-    console.log(event);
-    moveItemInArray(this.typeLists, event.previousIndex, event.currentIndex);
-    // this.sortSubmit();
+    moveItemInArray(
+      this.typeLists,
+      event.previousIndex + (this.typePageIndex - 1) * 10,
+      event.currentIndex + (this.typePageIndex - 1) * 10
+    );
+    this.sortSubmit();
   }
 
   openSortMenu($event: MouseEvent, menu: NzDropdownMenuComponent): void {
@@ -216,7 +226,7 @@ export class GalleryComponent implements OnInit, AfterViewInit {
   }
 
   sortMove(previousIndex: number, currentIndex: number): void {
-    moveItemInArray(this.typeLists, previousIndex, currentIndex);
+    moveItemInArray(this.typeLists, previousIndex + (this.typePageIndex - 1) * 10, currentIndex);
     this.sortSubmit();
   }
 
@@ -277,6 +287,48 @@ export class GalleryComponent implements OnInit, AfterViewInit {
         );
         this.renameData.name = this.renameForm.value.name;
         this.closeRenameModal();
+      } else {
+        this.notification.error(
+          this.bit.l.operateError,
+          this.bit.l.editFailed
+        );
+      }
+    });
+  }
+
+  openMoveModal(data: any): void {
+    this.moveModal.open();
+    this.moveData = data;
+    this.moveForm = this.fb.group({
+      id: [this.moveData.id],
+      type_id: [this.moveData.type_id, [Validators.required]],
+      name: [this.moveData.name],
+      url: [this.moveData.url]
+    });
+  }
+
+  closeMoveModal(): void {
+    this.moveModal.close();
+    this.moveData = undefined;
+    this.moveForm = undefined;
+  }
+
+  submitMove(): void {
+    const controls = this.moveForm.controls;
+    for (const key in controls) {
+      if (controls.hasOwnProperty(key)) {
+        controls[key].markAsDirty();
+        controls[key].updateValueAndValidity();
+      }
+    }
+    this.galleryService.edit(this.moveForm.value).subscribe(res => {
+      if (!res.error) {
+        this.notification.success(
+          this.bit.l.operateSuccess,
+          this.bit.l.editSuccess
+        );
+        this.moveData.name = this.moveForm.value.name;
+        this.closeMoveModal();
       } else {
         this.notification.error(
           this.bit.l.operateError,
