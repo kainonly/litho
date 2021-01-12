@@ -37,7 +37,7 @@
           [nzPlaceHolder]="bit.l['rolePlaceholder']"
         >
           <ng-template ngFor let-x [ngForOf]="roleLists">
-            <nz-option [nzLabel]="x.name | Locale: bit.locale" [nzValue]="x.key"></nz-option>
+            <nz-option [nzLabel]="x.name | object: bit.locale" [nzValue]="x.key"></nz-option>
           </ng-template>
         </nz-select>
       </nz-form-control>

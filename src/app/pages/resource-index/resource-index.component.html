@@ -188,7 +188,7 @@
             >
               <ng-container *ngFor="let x of aclLists">
                 <nz-option
-                  [nzLabel]="(x.name | Locale: bit.locale) + '[' + x.key + ']'"
+                  [nzLabel]="(x.name | object: bit.locale) + '[' + x.key + ']'"
                   [nzDisabled]="disabledAcl(x.key)"
                   [nzValue]="x.key"
                 >

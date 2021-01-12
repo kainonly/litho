@@ -66,8 +66,7 @@ export interface SearchOption {
   field: string;
   op: string;
   value: any;
-  must?: boolean;
-  // TODO: exclude value
+  exclude?: any[];
 }
 
 export interface OrderOption {

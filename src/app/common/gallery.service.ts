@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BitHttpService } from 'ngx-bit';
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Injectable()
 export class GalleryService {
@@ -36,5 +37,11 @@ export class GalleryService {
 
   delete(id: any[]): Observable<any> {
     return this.http.delete(this.model, id);
+  }
+
+  count(): Observable<any> {
+    return this.http.req(this.model + '/count').pipe(
+      map(res => !res.error ? res.data : null)
+    );
   }
 }

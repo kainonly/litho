@@ -1,15 +1,12 @@
 import { Injectable } from '@angular/core';
 import { OperatorFunction } from 'rxjs';
 import { ApiConfig, BitConfig, ColConfig, CurdConfig, I18nConfig, LocaleConfig, UrlConfig } from 'ngx-bit/types';
-import { factoryLocales } from '../operates/factory-locales';
+import { factoryLocales } from 'ngx-bit/operates';
 
 @Injectable({
   providedIn: 'root'
 })
 export class BitConfigService implements BitConfig {
-  /**
-   * @see BitConfig
-   */
   url: UrlConfig;
   api: ApiConfig;
   col: ColConfig;

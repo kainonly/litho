@@ -2,10 +2,10 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { map, switchMap } from 'rxjs/operators';
 import { Observable, of } from 'rxjs';
+import { ListByPage } from 'ngx-bit/factory';
+import { getQuerySchema } from 'ngx-bit/operates';
 import { ListsOption, OrderOption, SearchOption } from 'ngx-bit/types';
 import { BitConfigService } from './bit-config.service';
-import { ListByPage } from '../factory/list-by-page';
-import { getQuerySchema } from '../operates/get-query-schema';
 
 @Injectable()
 export class BitHttpService {

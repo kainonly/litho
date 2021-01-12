@@ -4,7 +4,7 @@ import { Event, NavigationStart, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { filter, map, switchMap } from 'rxjs/operators';
 import { BreadcrumbOption } from 'ngx-bit/types';
-import { getSelectorFormUrl } from '../operates/get-selector-form-url';
+import { getSelectorFormUrl } from 'ngx-bit/operates';
 
 @Injectable()
 export class BitSupportService {
@@ -32,6 +32,9 @@ export class BitSupportService {
    * Allow back
    */
   back = false;
+  /**
+   * Header banner
+   */
   banner: TemplateRef<any>;
   /**
    * Header actions

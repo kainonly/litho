@@ -31,6 +31,8 @@ export class GalleryComponent implements OnInit, AfterViewInit {
   typePageIndex = 1;
   typeName: string;
   editTypeData: any;
+  typeCount: any = {};
+  typeCountStyle = { backgroundColor: '#d1dade', color: '#5e5e5e', boxShadow: 'none' };
 
   @ViewChild('renameModal') renameModal: NzModalComponent;
   renameData: any;
@@ -63,12 +65,13 @@ export class GalleryComponent implements OnInit, AfterViewInit {
       id: 'gallery',
       query: [
         { field: 'name', op: 'like', value: '' },
-        { field: 'type_id', op: '=', value: '' }
+        { field: 'type_id', op: '=', value: '', exclude: [''] }
       ],
       limit: 50
     });
     this.ds.lists.ready.subscribe(() => {
       this.getTypeLists();
+      this.getCount();
     });
     this.tds.complete.pipe(
       switchMap(data => {
@@ -109,6 +112,17 @@ export class GalleryComponent implements OnInit, AfterViewInit {
     this.galleryTypeService.originLists().subscribe(data => {
       this.typeLists = data;
       this.ds.done();
+    });
+  }
+
+  getCount(): void {
+    this.galleryService.count().subscribe(data => {
+      const count: any = {};
+      count.total = data.total;
+      for (const x of data.values) {
+        count[x.type_id] = x.size;
+      }
+      this.typeCount = count;
     });
   }
 
@@ -238,7 +252,6 @@ export class GalleryComponent implements OnInit, AfterViewInit {
       };
     });
     this.galleryTypeService.sort(data).subscribe(res => {
-      console.log(res);
       if (!res.error) {
         this.getTypeLists();
         this.notification.success(

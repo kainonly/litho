@@ -1,7 +1,7 @@
 import { en_US, zh_CN } from 'ng-zorro-antd/i18n';
-import { factoryBitConfig } from 'ngx-bit/operates';
+import { BitConfig } from 'ngx-bit/types';
 
-const bit = factoryBitConfig({
+const bit: BitConfig = {
   url: {
     api: 'https://api.kainonly.com',
     static: 'https://cdn.kainonly.com/',
@@ -78,7 +78,7 @@ const bit = factoryBitConfig({
     ]
   },
   page: 10
-});
+};
 
 export const environment = {
   production: true,

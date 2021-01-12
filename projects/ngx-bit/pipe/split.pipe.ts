@@ -2,10 +2,10 @@ import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({ name: 'Split' })
 export class SplitPipe implements PipeTransform {
-  transform(text: string, symbol: string): string[] {
-    if (!text || !symbol) {
+  transform(value: string, separator: string): string[] {
+    if (!value || !separator) {
       return [];
     }
-    return text.split(symbol);
+    return value.split(separator);
   }
 }

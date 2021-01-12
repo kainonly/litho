@@ -54,7 +54,7 @@
           </label>
         </button>
         <button nz-button nz-dropdown [nzDropdownMenu]="menu">
-          <nz-badge [nzCount]="ds.lists.checkedNumber">
+          <nz-badge [nzCount]="ds.lists.checkedNumber" [nzOffset]="[3, -12]">
             <i nz-icon nzType="ellipsis"></i>
           </nz-badge>
         </button>
@@ -82,9 +82,36 @@
         [nzDropdownRender]="renderTemplate"
         [nz-tooltip]="bit.l['typePlaceholder']"
       >
-        <nz-option [nzValue]="''" [nzLabel]="bit.l['all']"></nz-option>
-        <nz-option [nzValue]="0" [nzLabel]="bit.l['unknownType']"></nz-option>
-        <nz-option *ngFor="let x of typeLists" [nzValue]="x.id" [nzLabel]="x.name"></nz-option>
+        <nz-option nzCustomContent [nzValue]="''" [nzLabel]="bit.l['all']">
+          <span>{{ bit.l["all"] }}</span>
+          <nz-badge
+            *ngIf="typeCount.hasOwnProperty('total')"
+            class="custom-badge"
+            nzStandalone
+            [nzCount]="typeCount['total']"
+            [nzStyle]="typeCountStyle"
+          ></nz-badge>
+        </nz-option>
+        <nz-option nzCustomContent [nzValue]="0" [nzLabel]="bit.l['unknownType']">
+          <span>{{ bit.l["unknownType"] }}</span>
+          <nz-badge
+            *ngIf="typeCount.hasOwnProperty('0')"
+            class="custom-badge"
+            nzStandalone
+            [nzCount]="typeCount['0']"
+            [nzStyle]="typeCountStyle"
+          ></nz-badge>
+        </nz-option>
+        <nz-option nzCustomContent *ngFor="let x of typeLists" [nzValue]="x.id" [nzLabel]="x.name">
+          <span>{{ x.name }}</span>
+          <nz-badge
+            *ngIf="typeCount.hasOwnProperty(x.id)"
+            class="custom-badge"
+            nzStandalone
+            [nzCount]="typeCount[x.id]"
+            [nzStyle]="typeCountStyle"
+          ></nz-badge>
+        </nz-option>
       </nz-select>
       <ng-template #renderTemplate>
         <button nz-button nzType="link" nzBlock (click)="openTypeDrawer()">
@@ -157,23 +184,14 @@
     </nz-space>
   </ng-template>
   <ng-container *nzDrawerContent>
-    <nz-table
-      #typeTable
-      [nzSize]="'middle'"
-      [nzData]="typeLists"
-      [(nzPageIndex)]="typePageIndex"
-    >
+    <nz-table #typeTable [nzSize]="'middle'" [nzData]="typeLists" [(nzPageIndex)]="typePageIndex">
       <thead>
       <tr>
         <th nzWidth="70%">{{ bit.l["typeName"] }}</th>
         <th *ngIf="!typeSort">{{ bit.l["action"] }}</th>
       </tr>
       </thead>
-      <tbody
-        cdkDropList
-        [cdkDropListDisabled]="!typeSort"
-        (cdkDropListDropped)="drop($event)"
-      >
+      <tbody cdkDropList [cdkDropListDisabled]="!typeSort" (cdkDropListDropped)="drop($event)">
       <tr *ngIf="!typeSort">
         <td>
           <input
@@ -190,8 +208,8 @@
         </td>
       </tr>
       <tr
-        *ngFor="let data of typeTable.data;index as i"
-        [ngClass]="{'drag-cursor':typeSort}"
+        *ngFor="let data of typeTable.data; index as i"
+        [ngClass]="{ 'drag-cursor': typeSort }"
         cdkDrag
         (contextmenu)="openSortMenu($event, sortMenu)"
       >
@@ -219,9 +237,7 @@
             {{ data.name }}
           </td>
           <td *ngIf="!typeSort">
-            <a (click)="editType(data)">
-              <i nz-icon nzType="edit"></i> {{ bit.l["edit"] }}
-            </a>
+            <a (click)="editType(data)"> <i nz-icon nzType="edit"></i> {{ bit.l["edit"] }} </a>
             <nz-divider nzType="vertical"></nz-divider>
             <a
               nz-popconfirm
@@ -234,16 +250,16 @@
         </ng-template>
         <nz-dropdown-menu #sortMenu>
           <ul nz-menu>
-            <li nz-menu-item (click)="sortMove(i,0)">
+            <li nz-menu-item (click)="sortMove(i, 0)">
               <i nz-icon nzType="vertical-align-top"></i> 排序置顶
             </li>
-            <li nz-menu-item (click)="sortMove(i,i-typePageIndex*10)">
+            <li nz-menu-item (click)="sortMove(i, i - typePageIndex * 10)">
               <i nz-icon nzType="vertical-right"></i> 向前一页
             </li>
-            <li nz-menu-item (click)="sortMove(i,i+typePageIndex*10)">
+            <li nz-menu-item (click)="sortMove(i, i + typePageIndex * 10)">
               <i nz-icon nzType="vertical-left"></i> 向后一页
             </li>
-            <li nz-menu-item (click)="sortMove(i,typeLists.length-1)">
+            <li nz-menu-item (click)="sortMove(i, typeLists.length - 1)">
               <i nz-icon nzType="vertical-align-bottom"></i> 排序置底
             </li>
           </ul>
@@ -251,7 +267,6 @@
       </tr>
       </tbody>
     </nz-table>
-
   </ng-container>
 </nz-drawer>
 
@@ -384,10 +399,9 @@
   <ng-container *nzModalContent>
     <form *ngIf="moveData" nz-form nzLayout="vertical" [formGroup]="moveForm">
       <nz-form-item>
-        <nz-form-label [innerHTML]="bit.l['moveLabel'] | Print: [moveData.name]">
-        </nz-form-label>
+        <nz-form-label [innerHTML]="bit.l['moveLabel'] | Print: [moveData.name]"></nz-form-label>
         <nz-form-control [nzErrorTip]="type.ref">
-          <nz-select nzShowSearch  formControlName="type_id">
+          <nz-select nzShowSearch formControlName="type_id">
             <nz-option [nzValue]="0" [nzLabel]="bit.l['unknownType']"></nz-option>
             <ng-container *ngFor="let x of typeLists">
               <nz-option [nzValue]="x.id" [nzLabel]="x.name"></nz-option>
@@ -404,4 +418,3 @@
     </form>
   </ng-container>
 </nz-modal>
-

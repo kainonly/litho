@@ -80,7 +80,7 @@
           [(nzChecked)]="data.checked"
           (nzCheckedChange)="lists.refreshStatus()"
         ></td>
-        <td>{{ data.name | Locale: bit.locale }}</td>
+        <td>{{ data.name | object: bit.locale }}</td>
         <td>{{ data.key }}</td>
         <td>
           <nz-switch

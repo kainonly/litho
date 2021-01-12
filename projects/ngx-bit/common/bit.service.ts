@@ -4,13 +4,11 @@ import { Location } from '@angular/common';
 import { StorageMap } from '@ngx-pwa/local-storage';
 import { NzI18nService } from 'ng-zorro-antd/i18n';
 import { ListByPageOption, I18nGroupOption, I18nTooltipOption } from 'ngx-bit/types';
+import { ListByPage } from 'ngx-bit/factory';
+import { factoryLocales, getSelectorFormUrl } from 'ngx-bit/operates';
 import { BitConfigService } from './bit-config.service';
 import { BitEventsService } from './bit-events.service';
 import { BitSupportService } from './bit-support.service';
-import { ListByPage } from '../factory/list-by-page';
-import { factoryLocales } from '../operates/factory-locales';
-import { getSelectorFormUrl } from '../operates/get-selector-form-url';
-
 
 @Injectable({
   providedIn: 'root'

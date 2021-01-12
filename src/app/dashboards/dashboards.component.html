@@ -16,14 +16,14 @@
               [nzSelected]="support.navActive.indexOf(x.key) !== -1"
             >
               <i nz-icon [nzType]="x.icon"></i>
-              <span class="nav-text">{{ x.name | Locale: bit.locale }}</span>
+              <span class="nav-text">{{ x.name | object: bit.locale }}</span>
             </li>
           </ng-container>
           <ng-template #notRouter>
             <li nz-submenu [nzOpen]="support.navActive.indexOf(x.key) !== -1">
               <span title
               ><i nz-icon [nzType]="x.icon"></i
-              ><span>{{ x.name | Locale: bit.locale }}</span></span
+              ><span>{{ x.name | object: bit.locale }}</span></span
               >
               <ul>
                 <ng-container
@@ -75,7 +75,7 @@
     <nz-content>
       <ng-container *ngTemplateOutlet="support.banner"></ng-container>
       <nz-page-header
-        [nzTitle]="support.title | Locale: bit.locale"
+        [nzTitle]="support.title | object: bit.locale"
         [nzSubtitle]="!support.subTitle ? null : support.subTitle"
         [nzBackIcon]="!support.back ? null : ''"
         (nzBack)="bit.back()"
@@ -89,13 +89,13 @@
           </nz-breadcrumb-item>
           <nz-breadcrumb-item *ngFor="let x of support.breadcrumb; last as islast">
             <ng-container *ngIf="islast; else notLast">
-              {{ x.name | Locale: bit.locale }}
+              {{ x.name | object: bit.locale }}
             </ng-container>
             <ng-template #notLast>
               <a *ngIf="x.router; else notRouterlink" [bitCrossLevel]="x.key">
-                {{ x.name | Locale: bit.locale }}
+                {{ x.name | object: bit.locale }}
               </a>
-              <ng-template #notRouterlink>{{ x.name | Locale: bit.locale }}</ng-template>
+              <ng-template #notRouterlink>{{ x.name | object: bit.locale }}</ng-template>
             </ng-template>
           </nz-breadcrumb-item>
         </nz-breadcrumb>

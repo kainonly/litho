@@ -1,6 +1,7 @@
 import { ModuleWithProviders, NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { NzIconService } from 'ng-zorro-antd/icon';
+import { BitConfig } from 'ngx-bit/types';
 import { BitService } from './common/bit.service';
 import { BitConfigService } from './common/bit-config.service';
 import { BitSupportService } from './common/bit-support.service';
@@ -14,7 +15,13 @@ import { BitSwalService } from './common/bit-swal.service';
   ]
 })
 export class NgxBitModule {
-  static forRoot(config: BitConfigService): ModuleWithProviders<NgxBitModule> {
+  static forRoot(config: BitConfig): ModuleWithProviders<NgxBitModule> {
+    const service = new BitConfigService();
+    for (const key in config) {
+      if (config.hasOwnProperty(key)) {
+        service[key] = config[key];
+      }
+    }
     return {
       ngModule: NgxBitModule,
       providers: [
@@ -24,7 +31,7 @@ export class NgxBitModule {
         BitSupportService,
         BitSwalService,
         NzIconService,
-        { provide: BitConfigService, useValue: config }
+        { provide: BitConfigService, useValue: service }
       ]
     };
   }
@@ -33,7 +40,7 @@ export class NgxBitModule {
     config: BitConfigService,
     nzIconService: NzIconService
   ) {
-    if (config.url.icon !== undefined) {
+    if (config.url.icon) {
       nzIconService.changeAssetsSource(config.url.icon);
     }
   }

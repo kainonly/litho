@@ -1,13 +1,9 @@
 import { of } from 'rxjs';
 import {
   asyncValidator,
-  emptyArray,
-  emptyObject,
-  factoryBitConfig,
   factoryLocales,
   getQuerySchema,
-  getSelectorFormUrl,
-  validate
+  getSelectorFormUrl
 } from 'ngx-bit/operates';
 import { switchMap } from 'rxjs/operators';
 import { environment } from '@env';
@@ -23,27 +19,6 @@ describe('operates', () => {
       expect(result).toEqual({ error: true, duplicated: true });
       done();
     });
-  });
-
-  it('Test emptyArray', () => {
-    expect(emptyArray([1, 2, 3])).toBeFalsy();
-    expect(emptyArray([])).toBeTruthy();
-  });
-
-  it('Test emptyObject', () => {
-    expect(emptyObject({ name: 'kain' })).toBeFalsy();
-    expect(emptyObject([])).toBeFalsy();
-    expect(emptyObject({})).toBeTruthy();
-  });
-
-  it('Test factoryBitConfig', () => {
-    const config = factoryBitConfig(environment.bit);
-    expect(config.url).toBe(environment.bit.url);
-    expect(config.api).toBe(environment.bit.api);
-    expect(config.locale).toBe(environment.bit.locale);
-    expect(config.page).toBe(environment.bit.page);
-    expect(config.col).toBe(environment.bit.col);
-    expect(config.i18n).toBe(environment.bit.i18n);
   });
 
   it('Test factoryLocales', (done) => {
@@ -63,7 +38,7 @@ describe('operates', () => {
     ]);
     expect(schema).toEqual([]);
     schema = getQuerySchema([
-      { field: 'username', op: '=', value: '', must: true }
+      { field: 'username', op: '=', value: '' }
     ]);
     expect(schema).toEqual([['username', '=', '']]);
     schema = getQuerySchema([
@@ -86,17 +61,6 @@ describe('operates', () => {
     expect(key).toEqual('acl-edit');
     key = getSelectorFormUrl('/%7Bacl-edit%7D/1/2', ['%7B', '%7D']);
     expect(key).toEqual('acl-edit');
-  });
-
-  it('Test validate', () => {
-    let valid = validate({
-      enum: [1, 2, 3, 4]
-    }, 1);
-    expect(valid.error).toBeFalsy();
-    valid = validate({
-      enum: [1, 2, 3, 4]
-    }, 5);
-    expect(valid.error).toBeTruthy();
   });
 
 });

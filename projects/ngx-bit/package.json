@@ -5,9 +5,7 @@
   "dependencies": {
     "@ngx-pwa/local-storage": "^11.0.0",
     "ng-zorro-antd": "^11.0.0",
-    "sweetalert2": "^10.0.0",
-    "ajv": "^7.0.0",
-    "ajv-formats": "^1.0.0"
+    "sweetalert2": "^10.0.0"
   },
   "peerDependencies": {
     "@angular/common": "^11.0.0",

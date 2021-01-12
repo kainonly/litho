@@ -84,7 +84,7 @@
       <td>{{ data.username }}</td>
       <td>
         <ng-container *ngIf="role[data.role] !== undefined">
-          {{ role[data.role].name | Locale: bit.locale }}
+          {{ role[data.role].name | object: bit.locale }}
         </ng-container>
       </td>
       <td>{{ data.call }}</td>

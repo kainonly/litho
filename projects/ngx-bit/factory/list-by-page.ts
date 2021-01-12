@@ -1,8 +1,7 @@
 import { StorageMap } from '@ngx-pwa/local-storage';
 import { AsyncSubject, Observable } from 'rxjs';
 import { ListByPageOption, SearchOption, OrderOption } from 'ngx-bit/types';
-import Ajv from 'ajv';
-import AjvFormats from 'ajv-formats';
+import { getQuerySchema } from 'ngx-bit/operates';
 
 export class ListByPage {
   /**
@@ -185,26 +184,6 @@ export class ListByPage {
    * Convert to query schema
    */
   toQuerySchema(): any[] {
-    const schema = [];
-    for (const key in this.search) {
-      if (this.search.hasOwnProperty(key)) {
-        const search = this.search[key];
-        if (typeof search.value === 'string') {
-          search.value = search.value.trim();
-        }
-        const ajv = new Ajv();
-        AjvFormats(ajv);
-        const valid = ajv.validate({
-          not: {
-            enum: ['', 0, null, [], {}]
-          }
-        }, search.value);
-        if (valid || search.must) {
-          const value = search.op === 'like' ? `%${search.value}%` : search.value;
-          schema.push([search.field, search.op, value]);
-        }
-      }
-    }
-    return schema;
+    return getQuerySchema(Object.values(this.search));
   }
 }

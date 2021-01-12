@@ -1,21 +1,17 @@
 import { SearchOption } from 'ngx-bit/types';
-import Ajv from 'ajv';
-import AjvFormats from 'ajv-formats';
 
 export function getQuerySchema(options: SearchOption[]): any[] {
   const schema = [];
   for (const search of options) {
+    if (typeof search.value === 'object'
+      && Object.keys(search.value).length === 0) {
+      continue;
+    }
     if (typeof search.value === 'string') {
       search.value = search.value.trim();
     }
-    const ajv = new Ajv();
-    AjvFormats(ajv);
-    const valid = ajv.validate({
-      not: {
-        enum: ['', 0, null, [], {}]
-      }
-    }, search.value);
-    if (valid || search.must) {
+    const exclude = search.exclude ? search.exclude : ['', 0, null];
+    if (!exclude.includes(search.value)) {
       const value = search.op === 'like' ? `%${search.value}%` : search.value;
       schema.push([search.field, search.op, value]);
     }
