@@ -42,7 +42,23 @@ describe('BitSearchStartDirective', () => {
     });
   });
 
-  it('Test search directive for input', (done) => {
+  it('should not triggered for input(click)', (done) => {
+    const input = debugElement.query(By.css('input'));
+    input.nativeElement.value = 'kain';
+    input.triggerEventHandler('input', {
+      target: input.nativeElement
+    });
+    fixture.detectChanges();
+    input.triggerEventHandler('click', {
+      target: input.nativeElement
+    });
+    setTimeout(() => {
+      expect(component.afterResult).toBeUndefined();
+      done();
+    }, 200);
+  });
+
+  it('should be triggered for input(keydown.enter)', (done) => {
     const input = debugElement.query(By.css('input'));
     input.nativeElement.value = 'kain';
     input.triggerEventHandler('input', {
@@ -60,9 +76,26 @@ describe('BitSearchStartDirective', () => {
     }, 200);
   });
 
-  it('Test search directive for button', (done) => {
+  it('should not triggered for button(keydown.enter)', (done) => {
     const input = debugElement.query(By.css('input'));
-    input.nativeElement.value = 'van';
+    input.nativeElement.value = 'bit';
+    input.triggerEventHandler('input', {
+      target: input.nativeElement
+    });
+    fixture.detectChanges();
+    const button = debugElement.query(By.css('button'));
+    button.triggerEventHandler('keydown.enter', {
+      target: button.nativeElement
+    });
+    setTimeout(() => {
+      expect(component.afterResult).toBeUndefined();
+      done();
+    }, 200);
+  });
+
+  it('should be triggered for button(click)', (done) => {
+    const input = debugElement.query(By.css('input'));
+    input.nativeElement.value = 'bit';
     input.triggerEventHandler('input', {
       target: input.nativeElement
     });
@@ -72,7 +105,7 @@ describe('BitSearchStartDirective', () => {
       target: button.nativeElement
     });
     expect(component.lists.hasSearch('username')).toBeTruthy();
-    expect(component.lists.search.username.value).toEqual('van');
+    expect(component.lists.search.username.value).toEqual('bit');
     setTimeout(() => {
       expect(component.afterResult).toEqual('triggered');
       done();
@@ -84,13 +117,13 @@ describe('BitSearchStartDirective', () => {
   template: `
     <ng-container *ngIf="lists.hasSearch('username')">
       <input
-        [bitSearchStart]='lists'
+        [bitSearchStart]="lists"
         [(ngModel)]="lists.search['username'].value"
-        (after)='after()'
+        (after)="after()"
       />
       <button
-        [bitSearchStart]='lists'
-        (after)='after()'
+        [bitSearchStart]="lists"
+        (after)="after()"
       >
         搜索
       </button>

@@ -74,7 +74,7 @@ describe('BitSupportService', () => {
 
   it('Set resource data and setup support', (done) => {
     // @ts-ignore
-    import('../mock/resource.json').then(res => {
+    import('../simulation/resource.json').then(res => {
       const resourceData: Map<string, any> = new Map<string, any>();
       const routerData: Map<string, any> = new Map<string, any>();
       const nav: any = [];

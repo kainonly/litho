@@ -4,6 +4,7 @@ import { RouterModule } from '@angular/router';
 import { BitConfigService, BitHttpService, BitService, NgxBitModule } from 'ngx-bit';
 import { environment } from '../simulation/environment';
 import { TestService } from '../simulation/test.service';
+import { map } from 'rxjs/operators';
 
 describe('BitHttpService', () => {
   let http: BitHttpService;
@@ -33,6 +34,9 @@ describe('BitHttpService', () => {
   });
 
   it('Test sending a login request', () => {
+    config.setupHttpInterceptor(map(res => {
+      return res;
+    }));
     const result = {
       error: 0,
       msg: 'ok'

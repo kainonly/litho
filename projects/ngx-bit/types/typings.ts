@@ -88,7 +88,7 @@ export interface BreadcrumbOption {
 
 export type I18nTooltipOption = {
   [key: string]: string[];
-} | {};
+} | any;
 
 export interface I18nGroupOption {
   value?: any;

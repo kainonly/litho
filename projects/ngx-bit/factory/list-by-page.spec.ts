@@ -34,7 +34,7 @@ describe('ListByPage', () => {
 
   it('Test setData', (done) => {
     // @ts-ignore
-    import('../mock/acl.json').then((res: any) => {
+    import('../simulation/acl.json').then((res: any) => {
       lists.setData(res.data.lists);
       expect(lists.data).toEqual(res.data.lists);
       done();

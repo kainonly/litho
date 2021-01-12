@@ -28,8 +28,9 @@ export class BitUploadDirective {
         withCredentials: config.api.withCredentials
       }).pipe(
         map((res: any) => {
-          const ext = file.name.split('.').pop().toLowerCase();
-          file.key = res.filename + '.' + ext;
+          const sep = file.name.split('.');
+          const ext = sep.length > 1 ? '.' + sep.pop().toLowerCase() : '';
+          file.key = res.filename + ext;
           switch (config.api.uploadStorage) {
             case 'oss':
               return {
