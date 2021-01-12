@@ -2,7 +2,7 @@ import { Component, TemplateRef, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { BitSupportService, NgxBitModule } from 'ngx-bit';
 import { BitHeaderComponent, BitExtModule } from 'ngx-bit/component';
-import { environment } from '../simulation/environment';
+import { environment } from '../../simulation/environment';
 
 describe('BitHeaderComponent', () => {
   let support: BitSupportService;

@@ -44,17 +44,17 @@ describe('BitI18nUpdateDirective', () => {
       target: inputs[0].nativeElement
     });
     expect(bit.i18nTooltip.hasOwnProperty('name')).toBeTruthy();
-    expect(bit.i18nTooltip.name).toEqual(['en_us']);
+    expect(bit.i18nTooltip[name]).toEqual(['en_us']);
     inputs[1].nativeElement.value = 'TEST';
     inputs[1].triggerEventHandler('input', {
       target: inputs[1].nativeElement
     });
-    expect(bit.i18nTooltip.name).toEqual([]);
+    expect(bit.i18nTooltip[name]).toEqual([]);
     inputs[0].nativeElement.value = '';
     inputs[0].triggerEventHandler('input', {
       target: inputs[0].nativeElement
     });
-    expect(bit.i18nTooltip.name).toEqual(['zh_cn']);
+    expect(bit.i18nTooltip[name]).toEqual(['zh_cn']);
   });
 });
 

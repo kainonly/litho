@@ -6,9 +6,9 @@ import {
   getSelectorFormUrl
 } from 'ngx-bit/operates';
 import { switchMap } from 'rxjs/operators';
-import { environment } from '@env';
+import { environment } from '../simulation/environment';
 
-describe('operates', () => {
+describe('operates module', () => {
   it('Test asyncValidator', (done) => {
     asyncValidator(of(true)).pipe(
       switchMap(result => {
@@ -38,7 +38,7 @@ describe('operates', () => {
     ]);
     expect(schema).toEqual([]);
     schema = getQuerySchema([
-      { field: 'username', op: '=', value: '' }
+      { field: 'username', op: '=', value: '', exclude: [] }
     ]);
     expect(schema).toEqual([['username', '=', '']]);
     schema = getQuerySchema([

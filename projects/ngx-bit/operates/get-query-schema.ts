@@ -3,8 +3,11 @@ import { SearchOption } from 'ngx-bit/types';
 export function getQuerySchema(options: SearchOption[]): any[] {
   const schema = [];
   for (const search of options) {
-    if (typeof search.value === 'object'
-      && Object.keys(search.value).length === 0) {
+    if (
+      search.value !== null &&
+      typeof search.value === 'object' &&
+      Object.keys(search.value).length === 0
+    ) {
       continue;
     }
     if (typeof search.value === 'string') {

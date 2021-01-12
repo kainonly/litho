@@ -1,10 +1,10 @@
 /* tslint:disable:component-class-suffix */
-import { Component, DebugElement, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterModule } from '@angular/router';
 import { BitConfigService, BitService, NgxBitModule } from 'ngx-bit';
 import { BitExtModule, BitI18nTooltipComponent } from 'ngx-bit/component';
-import { environment } from '../simulation/environment';
+import { environment } from '../../simulation/environment';
 
 describe('BitI18nTooltipComponent', () => {
   let config: BitConfigService;
@@ -28,9 +28,9 @@ describe('BitI18nTooltipComponent', () => {
       bit = TestBed.inject(BitService);
       fixture = TestBed.createComponent(TestComponent);
       component = fixture.componentInstance;
-      config.setupLocales(import('../simulation/common.language'));
+      config.setupLocales(import('../../simulation/common.language'));
       setTimeout(() => {
-        bit.registerLocales(import('../simulation/language'));
+        bit.registerLocales(import('../../simulation/language'));
         setTimeout(() => {
           done();
         }, 200);
