@@ -4,7 +4,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 export class PrintPipe implements PipeTransform {
   transform(str: string, vars: string[]): string {
     if (!str) {
-      return;
+      return '';
     }
     vars.forEach((value, index) => {
       str = str.replace('$' + index, value);
