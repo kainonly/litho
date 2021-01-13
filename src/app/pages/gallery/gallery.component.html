@@ -10,7 +10,7 @@
     nzType="info"
     nzCloseable
     [nzMessage]="bit.l['uploadTip']"
-    (nzOnClose)="ui.notOverflowHeightUpdate.next(true)"
+    (nzOnClose)="bannerClosed = true"
   ></nz-alert>
   <nz-button-group>
     <nz-upload class="upload" bitUpload nzName="file" nzMultiple (nzChange)="tds.update($event)">
@@ -61,23 +61,28 @@
             {{ bit.l["checked"] }}
           </label>
         </button>
-        <button nz-button nz-dropdown [nzDropdownMenu]="menu">
+        <button
+          nz-button
+          nz-dropdown
+          [nzDropdownMenu]="bulkActions"
+          [disabled]="ds.lists.checkedNumber === 0"
+        >
           <nz-badge [nzCount]="ds.lists.checkedNumber" [nzOffset]="[3, -12]">
             <i nz-icon nzType="ellipsis"></i>
           </nz-badge>
+          <nz-dropdown-menu #bulkActions>
+            <ul nz-menu>
+              <li nz-menu-item (click)="openMoveModal(ds.lists.getChecked())">
+                <i nz-icon nzType="swap"></i>
+                {{ bit.l["move"] }}
+              </li>
+              <li nz-menu-item (click)="openDeleteModal(ds.lists.getChecked())">
+                <i nz-icon nzType="delete"></i>
+                {{ bit.l["deleteItem"] }}
+              </li>
+            </ul>
+          </nz-dropdown-menu>
         </button>
-        <nz-dropdown-menu #menu>
-          <ul nz-menu>
-            <li nz-menu-item (click)="openMoveModal(ds.lists.getChecked())">
-              <i nz-icon nzType="swap"></i>
-              {{ bit.l["move"] }}
-            </li>
-            <li nz-menu-item>
-              <i nz-icon nzType="delete"></i>
-              {{ bit.l["deleteItem"] }}
-            </li>
-          </ul>
-        </nz-dropdown-menu>
       </nz-button-group>
     </nz-space-item>
     <nz-space-item *ngIf="ds.lists.hasSearch('type_id')">
@@ -283,7 +288,7 @@
     <cdk-virtual-scroll-viewport
       itemSize="8"
       class="infinite-container"
-      [ngStyle]="{ 'height.px': ui.setNotOverflowHeight(-160) | async }"
+      [ngStyle]="{ 'height.px': fetchInfiniteHeight() | async }"
     >
       <nz-list nzGrid>
         <nz-list-empty *ngIf="ds.empty()"></nz-list-empty>
@@ -356,7 +361,7 @@
                       <i nz-icon nzType="swap"></i>
                       {{ bit.l["move"] }}
                     </li>
-                    <li nz-menu-item (click)="delete([x.id])">
+                    <li nz-menu-item (click)="openDeleteModal([x])">
                       <i nz-icon nzType="delete"></i>
                       {{ bit.l["deleteItem"] }}
                     </li>
@@ -436,5 +441,23 @@
         </ng-template>
       </nz-form-item>
     </form>
+  </ng-container>
+</nz-modal>
+
+<nz-modal
+  #deleteModal
+  [nzOkText]="bit.l['deleteYes']"
+  [nzOkDanger]="true"
+  [nzCancelText]="bit.l['deleteCancel']"
+  (nzOnOk)="submitDelete()"
+  (nzOnCancel)="closeDeleteModal()"
+>
+  <ng-container *nzModalContent>
+    <ng-container *ngIf="deleteData">
+      <p [innerHTML]="bit.l['deleteLabel'] | Print: [deleteData.length]"></p>
+      <nz-list nzSize="small">
+        <nz-list-item *ngFor="let item of deleteData">- {{ item.name }}</nz-list-item>
+      </nz-list>
+    </ng-container>
   </ng-container>
 </nz-modal>

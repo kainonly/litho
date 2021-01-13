@@ -14,6 +14,8 @@ import { TransportDataSource } from './transport.data-source';
 import { switchMap } from 'rxjs/operators';
 import { UiSerivce } from '@common/ui.serivce';
 import { NzContextMenuService, NzDropdownMenuComponent } from 'ng-zorro-antd/dropdown';
+import { Observable } from 'rxjs';
+import { print } from 'ngx-bit/operates';
 
 @Component({
   selector: 'app-gallery',
@@ -23,6 +25,8 @@ import { NzContextMenuService, NzDropdownMenuComponent } from 'ng-zorro-antd/dro
 export class GalleryComponent implements OnInit, AfterViewInit {
   tds: TransportDataSource = new TransportDataSource();
   @ViewChild('transportMessageTpl') transportMessageTpl: TemplateRef<any>;
+
+  bannerClosed = false;
 
   ds: GalleryDataSource;
   typeLists: any[] = [];
@@ -42,6 +46,10 @@ export class GalleryComponent implements OnInit, AfterViewInit {
   @ViewChild('moveModal') moveModal: NzModalComponent;
   moveData: any[];
   moveForm: FormGroup;
+
+  @ViewChild('deleteModal') deleteModal: NzModalComponent;
+  deleteData: any[];
+  @ViewChild('deleteModalContentTpl') deleteModalContentTpl: TemplateRef<any>;
 
   constructor(
     public config: BitConfigService,
@@ -146,6 +154,10 @@ export class GalleryComponent implements OnInit, AfterViewInit {
       default:
         return [this.typeMap.get(typeId).name, this.typeCount.hasOwnProperty(typeId) ? this.typeCount[typeId] : 0];
     }
+  }
+
+  fetchInfiniteHeight(): Observable<any> {
+    return this.ui.setNotOverflowHeight(-160 + (this.bannerClosed ? 38 : 0));
   }
 
   checkedAllBind(event: any): void {
@@ -289,6 +301,13 @@ export class GalleryComponent implements OnInit, AfterViewInit {
     });
   }
 
+  copy(data: any): void {
+    data.copied = this.clipboard.copy(this.bit.static + data.url);
+    setTimeout(() => {
+      data.copied = false;
+    }, 1000);
+  }
+
   openRenameModal(data: any): void {
     this.renameModal.open();
     this.renameData = data;
@@ -374,37 +393,39 @@ export class GalleryComponent implements OnInit, AfterViewInit {
     });
   }
 
-  copy(data: any): void {
-    data.copied = this.clipboard.copy(this.bit.static + data.url);
-    setTimeout(() => {
-      data.copied = false;
-    }, 1000);
+  openDeleteModal(data: any[]): void {
+    this.deleteModal.open();
+    this.deleteData = data;
   }
 
-  delete(id: any[]): void {
-    this.modal.confirm({
-      nzTitle: this.bit.l.operateWarning,
-      nzContent: this.bit.l.deleteWarning,
-      nzOkText: this.bit.l.deleteYes,
-      nzOkType: 'primary',
-      nzOkDanger: true,
-      nzOnOk: () => {
-        this.galleryService.delete(id).subscribe(res => {
-          if (!res.error) {
-            this.notification.success(
-              this.bit.l.operateSuccess,
-              this.bit.l.deleteSuccess
-            );
-            this.ds.delete(id);
-          } else {
-            this.notification.error(
-              this.bit.l.operateError,
-              this.bit.l.deleteError
-            );
-          }
-        });
-      },
-      nzCancelText: this.bit.l.deleteCancel
+  closeDeleteModal(): void {
+    this.deleteModal.close();
+    this.deleteData = undefined;
+  }
+
+  submitDelete(): void {
+    const ids = this.deleteData.map(v => v.id);
+    this.galleryService.delete(
+      ids
+    ).subscribe(res => {
+      if (!res.error) {
+        this.notification.success(
+          this.bit.l.operateSuccess,
+          this.bit.l.deleteSuccess
+        );
+        this.closeDeleteModal();
+        this.getCount();
+        if (ids.length > 1) {
+          this.ds.fetchData(true);
+        } else {
+          this.ds.delete(ids);
+        }
+      } else {
+        this.notification.error(
+          this.bit.l.operateError,
+          this.bit.l.deleteError
+        );
+      }
     });
   }
 }
