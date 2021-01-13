@@ -54,6 +54,9 @@ export class DashboardsComponent implements OnInit, AfterViewInit, OnDestroy {
 
   ngAfterViewInit(): void {
     this.fetchNotOverflowHeight();
+    this.ui.notOverflowHeightUpdate.subscribe(() => {
+      this.fetchNotOverflowHeight();
+    });
   }
 
   ngOnDestroy(): void {

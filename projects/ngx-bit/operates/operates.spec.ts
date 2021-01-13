@@ -1,9 +1,10 @@
 import { of } from 'rxjs';
 import {
   asyncValidator,
+  empty,
   factoryLocales,
   getQuerySchema,
-  getSelectorFormUrl
+  getSelectorFormUrl, print, privacy
 } from 'ngx-bit/operates';
 import { switchMap } from 'rxjs/operators';
 import { environment } from '../simulation/environment';
@@ -61,6 +62,33 @@ describe('operates module', () => {
     expect(key).toEqual('acl-edit');
     key = getSelectorFormUrl('/%7Bacl-edit%7D/1/2', ['%7B', '%7D']);
     expect(key).toEqual('acl-edit');
+  });
+
+  it('Test empty', () => {
+    expect(empty('hello')).toBeFalsy();
+    expect(empty(123)).toBeFalsy();
+    expect(empty(true)).toBeFalsy();
+    expect(empty([1, 2, 3])).toBeFalsy();
+    expect(empty({ name: 'kain' })).toBeFalsy();
+    expect(empty(undefined)).toBeTruthy();
+    expect(empty('')).toBeTruthy();
+    expect(empty(0)).toBeTruthy();
+    expect(empty(false)).toBeTruthy();
+    expect(empty(null)).toBeTruthy();
+    expect(empty([])).toBeTruthy();
+    expect(empty({})).toBeTruthy();
+  });
+
+  it('Test print', () => {
+    expect(print('')).toEqual('');
+    expect(print(
+      '$0 是遵循 $1 设计规范的 $2 组件库',
+      'ng-zorro-antd', 'Ant Design', 'Angular UI'
+    )).toEqual('ng-zorro-antd 是遵循 Ant Design 设计规范的 Angular UI 组件库');
+  });
+
+  it('Test privacy', () => {
+    expect(privacy('123456789', 3, 6)).toEqual('123***789');
   });
 
 });

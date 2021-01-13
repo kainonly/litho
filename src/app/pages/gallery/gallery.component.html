@@ -4,6 +4,14 @@
 </ng-template>
 
 <bit-header>
+  <nz-alert
+    bitBanner
+    nzBanner
+    nzType="info"
+    nzCloseable
+    [nzMessage]="bit.l['uploadTip']"
+    (nzOnClose)="ui.notOverflowHeightUpdate.next(true)"
+  ></nz-alert>
   <nz-button-group>
     <nz-upload class="upload" bitUpload nzName="file" nzMultiple (nzChange)="tds.update($event)">
       <button nz-button>
@@ -60,7 +68,7 @@
         </button>
         <nz-dropdown-menu #menu>
           <ul nz-menu>
-            <li nz-menu-item>
+            <li nz-menu-item (click)="openMoveModal(ds.lists.getChecked())">
               <i nz-icon nzType="swap"></i>
               {{ bit.l["move"] }}
             </li>
@@ -270,7 +278,7 @@
   </ng-container>
 </nz-drawer>
 
-<nz-ribbon [nzText]="bit.l['uploadRibbon']">
+<nz-ribbon [nzText]="bit.l['typeCount'] | Print: currentCount()">
   <nz-card [nzTitle]="title">
     <cdk-virtual-scroll-viewport
       itemSize="8"
@@ -344,7 +352,7 @@
                 ></i>
                 <nz-dropdown-menu #actionMenu>
                   <ul nz-menu>
-                    <li nz-menu-item (click)="openMoveModal(x)">
+                    <li nz-menu-item (click)="openMoveModal([x])">
                       <i nz-icon nzType="swap"></i>
                       {{ bit.l["move"] }}
                     </li>
@@ -373,7 +381,8 @@
   <ng-container *nzModalContent>
     <form *ngIf="renameData" nz-form nzLayout="vertical" [formGroup]="renameForm">
       <nz-form-item>
-        <nz-form-label [innerHTML]="bit.l['renameLabel'] | Print: [renameData.name]">
+        <nz-form-label nzRequired>
+          <span [innerHTML]="bit.l['renameLabel'] | Print: [renameData.name]"></span>
         </nz-form-label>
         <nz-form-control [nzErrorTip]="name.ref">
           <input formControlName="name" nz-input [placeholder]="bit.l['namePlaceholder']" />
@@ -399,9 +408,15 @@
   <ng-container *nzModalContent>
     <form *ngIf="moveData" nz-form nzLayout="vertical" [formGroup]="moveForm">
       <nz-form-item>
-        <nz-form-label [innerHTML]="bit.l['moveLabel'] | Print: [moveData.name]"></nz-form-label>
-        <nz-form-control [nzErrorTip]="type.ref">
-          <nz-select nzShowSearch formControlName="type_id">
+        <nz-form-label nzRequired>
+          <span [innerHTML]="bit.l['moveLabel'] | Print: [moveData.length]"></span>
+        </nz-form-label>
+        <nz-form-control [nzErrorTip]="type.ref" [nzExtra]="typeExtra">
+          <nz-select
+            nzShowSearch
+            formControlName="type_id"
+            [nzPlaceHolder]="bit.l['movePlaceholder']"
+          >
             <nz-option [nzValue]="0" [nzLabel]="bit.l['unknownType']"></nz-option>
             <ng-container *ngFor="let x of typeLists">
               <nz-option [nzValue]="x.id" [nzLabel]="x.name"></nz-option>
@@ -414,6 +429,11 @@
             }"
           ></bit-error-tip>
         </nz-form-control>
+        <ng-template #typeExtra>
+          <nz-list style="margin-top: 0.5em" nzSize="small">
+            <nz-list-item *ngFor="let item of moveData">- {{ item.name }}</nz-list-item>
+          </nz-list>
+        </ng-template>
       </nz-form-item>
     </form>
   </ng-container>

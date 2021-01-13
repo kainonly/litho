@@ -12,10 +12,6 @@ export class GalleryService {
   ) {
   }
 
-  originLists(): Observable<any> {
-    return this.http.originLists(this.model);
-  }
-
   lists(search: any, refresh: boolean, persistence: boolean): Observable<any> {
     return this.http.lists(this.model, search, {
       refresh,
@@ -23,16 +19,16 @@ export class GalleryService {
     });
   }
 
-  add(data: any): Observable<any> {
-    return this.http.add(this.model, data);
-  }
-
-  bulkInsert(data: any): Observable<any> {
-    return this.http.req(this.model + '/bulkInsert', data);
+  bulkAdd(data: any): Observable<any> {
+    return this.http.req(this.model + '/bulkAdd', data);
   }
 
   edit(data: any): Observable<any> {
     return this.http.edit(this.model, data);
+  }
+
+  bulkEdit(data: any): Observable<any> {
+    return this.http.req(this.model + '/bulkEdit', data);
   }
 
   delete(id: any[]): Observable<any> {

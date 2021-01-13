@@ -26,6 +26,7 @@ export class GalleryComponent implements OnInit, AfterViewInit {
 
   ds: GalleryDataSource;
   typeLists: any[] = [];
+  typeMap: Map<any, any> = new Map<any, any>();
   typeVisible = false;
   typeSort = false;
   typePageIndex = 1;
@@ -39,7 +40,7 @@ export class GalleryComponent implements OnInit, AfterViewInit {
   renameForm: FormGroup;
 
   @ViewChild('moveModal') moveModal: NzModalComponent;
-  moveData: any;
+  moveData: any[];
   moveForm: FormGroup;
 
   constructor(
@@ -75,7 +76,7 @@ export class GalleryComponent implements OnInit, AfterViewInit {
     });
     this.tds.complete.pipe(
       switchMap(data => {
-        return this.galleryService.bulkInsert({
+        return this.galleryService.bulkAdd({
           type_id: !this.ds.lists.search.type_id.value ? 0 : this.ds.lists.search.type_id.value,
           data: data.map(v => ({
             name: v.originFileObj.name,
@@ -111,6 +112,9 @@ export class GalleryComponent implements OnInit, AfterViewInit {
   getTypeLists(): void {
     this.galleryTypeService.originLists().subscribe(data => {
       this.typeLists = data;
+      for (const x of data) {
+        this.typeMap.set(x.id, x);
+      }
       this.ds.done();
     });
   }
@@ -124,6 +128,24 @@ export class GalleryComponent implements OnInit, AfterViewInit {
       }
       this.typeCount = count;
     });
+  }
+
+  currentCount(): string[] {
+    if (
+      !this.ds.lists.hasSearch('type_id') ||
+      Object.keys(this.typeCount).length === 0
+    ) {
+      return [this.bit.l.all, '0'];
+    }
+    const typeId = this.ds.lists.search.type_id.value;
+    switch (typeId) {
+      case '':
+        return [this.bit.l.all, this.typeCount.total];
+      case 0:
+        return [this.bit.l.unknownType, this.typeCount[0]];
+      default:
+        return [this.typeMap.get(typeId).name, this.typeCount.hasOwnProperty(typeId) ? this.typeCount[typeId] : 0];
+    }
   }
 
   checkedAllBind(event: any): void {
@@ -271,10 +293,7 @@ export class GalleryComponent implements OnInit, AfterViewInit {
     this.renameModal.open();
     this.renameData = data;
     this.renameForm = this.fb.group({
-      id: [this.renameData.id],
-      type_id: [this.renameData.type_id],
-      name: [null, [Validators.required]],
-      url: [this.renameData.url]
+      name: [null, [Validators.required]]
     });
   }
 
@@ -292,7 +311,10 @@ export class GalleryComponent implements OnInit, AfterViewInit {
         controls[key].updateValueAndValidity();
       }
     }
-    this.galleryService.edit(this.renameForm.value).subscribe(res => {
+    this.galleryService.edit({
+      id: this.renameData.id,
+      name: this.renameForm.value.name
+    }).subscribe(res => {
       if (!res.error) {
         this.notification.success(
           this.bit.l.operateSuccess,
@@ -309,14 +331,11 @@ export class GalleryComponent implements OnInit, AfterViewInit {
     });
   }
 
-  openMoveModal(data: any): void {
+  openMoveModal(data: any[]): void {
     this.moveModal.open();
     this.moveData = data;
     this.moveForm = this.fb.group({
-      id: [this.moveData.id],
-      type_id: [this.moveData.type_id, [Validators.required]],
-      name: [this.moveData.name],
-      url: [this.moveData.url]
+      type_id: [null, [Validators.required]]
     });
   }
 
@@ -334,14 +353,18 @@ export class GalleryComponent implements OnInit, AfterViewInit {
         controls[key].updateValueAndValidity();
       }
     }
-    this.galleryService.edit(this.moveForm.value).subscribe(res => {
+    this.galleryService.bulkEdit({
+      type_id: this.moveForm.value.type_id,
+      ids: this.moveData.map(v => v.id)
+    }).subscribe(res => {
       if (!res.error) {
         this.notification.success(
           this.bit.l.operateSuccess,
           this.bit.l.editSuccess
         );
-        this.moveData.name = this.moveForm.value.name;
         this.closeMoveModal();
+        this.getCount();
+        this.ds.fetchData(true);
       } else {
         this.notification.error(
           this.bit.l.operateError,
@@ -352,7 +375,7 @@ export class GalleryComponent implements OnInit, AfterViewInit {
   }
 
   copy(data: any): void {
-    data.copied = this.clipboard.copy(this.bit.static + data.litpic);
+    data.copied = this.clipboard.copy(this.bit.static + data.url);
     setTimeout(() => {
       data.copied = false;
     }, 1000);

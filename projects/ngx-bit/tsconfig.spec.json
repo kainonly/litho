@@ -16,8 +16,6 @@
     "**/*.d.ts"
   ],
   "exclude": [
-    "schematics",
-    "simulation",
-    "ngx-bit.module.ts"
+    "schematics"
   ]
 }

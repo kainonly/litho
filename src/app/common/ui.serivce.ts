@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { map, throttleTime } from 'rxjs/operators';
 
 @Injectable()
 export class UiSerivce {
   notOverflowHeight = new BehaviorSubject(0);
+  notOverflowHeightUpdate = new Subject();
 
   setNotOverflowHeight(offset: number): Observable<any> {
     return this.notOverflowHeight.pipe(
