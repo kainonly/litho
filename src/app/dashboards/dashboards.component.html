@@ -40,7 +40,7 @@
       </perfect-scrollbar>
     </nz-sider>
     <nz-layout class="right-layout" [ngClass]="{'collapsed':collapsed}">
-      <ul class="header" nz-menu [nzMode]="'horizontal'" [nzSelectable]="false">
+      <ul #header nz-menu [nzMode]="'horizontal'" [nzSelectable]="false">
         <li nz-menu-item routerLink="/">
           <i nz-icon nzType="dashboard"></i> {{ bit.l["dashboard"] }}
         </li>

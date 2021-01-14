@@ -4,7 +4,6 @@ import {
   OnDestroy,
   ViewChild,
   ChangeDetectorRef,
-  HostListener,
   AfterViewInit,
   ElementRef
 } from '@angular/core';
@@ -12,20 +11,24 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { BitService, BitEventsService, BitSupportService } from 'ngx-bit';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { MainService } from '@common/main.service';
-import { Subscription } from 'rxjs';
+import { AsyncSubject, Subscription, timer } from 'rxjs';
 import { UiSerivce } from '@common/ui.serivce';
+import { switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-dashboards',
   templateUrl: './dashboards.component.html',
   styleUrls: ['./dashboards.component.scss']
 })
-export class DashboardsComponent implements OnInit, AfterViewInit, OnDestroy {
+export class DashboardsComponent implements OnInit, OnDestroy {
   collapsed = false;
   navLists: any[] = [];
+
+  @ViewChild('header') header: ElementRef;
   @ViewChild('warpper') warpper: ElementRef;
 
   private statusSubscription: Subscription;
+  private firstDispatch = true;
 
   constructor(
     private router: Router,
@@ -49,36 +52,14 @@ export class DashboardsComponent implements OnInit, AfterViewInit, OnDestroy {
     });
     this.statusSubscription = this.support.status.subscribe(() => {
       this.changeDetectorRef.detectChanges();
+      this.dispatch();
     });
-  }
-
-  ngAfterViewInit(): void {
-    this.fetchNotOverflowHeight();
   }
 
   ngOnDestroy(): void {
     this.events.off('refresh-menu');
     this.support.unsubscribe();
     this.statusSubscription.unsubscribe();
-  }
-
-  @HostListener('window:resize')
-  onresize(): void {
-    this.fetchNotOverflowHeight();
-  }
-
-  private fetchNotOverflowHeight(): void {
-    setTimeout(() => {
-      const node = this.warpper.nativeElement;
-      const parent = node.parentNode;
-      let sibling = node.previousElementSibling;
-      let notOverflowHeight = parent.offsetHeight;
-      while (sibling) {
-        notOverflowHeight -= sibling.offsetHeight;
-        sibling = sibling.previousElementSibling;
-      }
-      this.ui.notOverflowHeight.next(notOverflowHeight);
-    });
   }
 
   /**
@@ -89,6 +70,20 @@ export class DashboardsComponent implements OnInit, AfterViewInit, OnDestroy {
       this.support.setResource(data.resource, data.router);
       this.navLists = data.nav;
     });
+  }
+
+  private dispatch(): void {
+    timer(this.firstDispatch ? 150 : 0).subscribe(() => {
+      const node = this.warpper.nativeElement;
+      let sibling = node.previousElementSibling;
+      const container = [this.header.nativeElement];
+      while (sibling) {
+        container.push(sibling);
+        sibling = sibling.previousElementSibling;
+      }
+      this.ui.container.next(container);
+    });
+    this.firstDispatch = false;
   }
 
   /**

@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { AfterContentInit, AfterViewInit, Component, HostListener, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { BitConfigService, BitService } from 'ngx-bit';
 import { GalleryDataSource } from './gallery.data-source';
 import { GalleryService } from '@common/gallery.service';
@@ -11,21 +11,20 @@ import { Clipboard } from '@angular/cdk/clipboard';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { TransportDataSource } from './transport.data-source';
-import { switchMap } from 'rxjs/operators';
+import { map, switchMap, throttleTime } from 'rxjs/operators';
 import { UiSerivce } from '@common/ui.serivce';
 import { NzContextMenuService, NzDropdownMenuComponent } from 'ng-zorro-antd/dropdown';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
+import { element } from 'protractor';
 
 @Component({
   selector: 'app-gallery',
   templateUrl: './gallery.component.html',
   styleUrls: ['./gallery.component.scss']
 })
-export class GalleryComponent implements OnInit, AfterViewInit {
+export class GalleryComponent implements OnInit, AfterContentInit, AfterViewInit {
   tds: TransportDataSource = new TransportDataSource();
   @ViewChild('transportMessageTpl') transportMessageTpl: TemplateRef<any>;
-
-  bannerClosed = false;
 
   ds: GalleryDataSource;
   typeLists: any[] = [];
@@ -37,6 +36,8 @@ export class GalleryComponent implements OnInit, AfterViewInit {
   editTypeData: any;
   typeCount: any = {};
   typeCountStyle = { backgroundColor: '#d1dade', color: '#5e5e5e', boxShadow: 'none' };
+
+  infiniteY$: Observable<any> = of(0);
 
   @ViewChild('renameModal') renameModal: NzModalComponent;
   renameData: any;
@@ -102,6 +103,10 @@ export class GalleryComponent implements OnInit, AfterViewInit {
     });
   }
 
+  ngAfterContentInit(): void {
+    this.fetchInfiniteY();
+  }
+
   ngAfterViewInit(): void {
     let messageId: string;
     this.tds.done.subscribe(status => {
@@ -115,6 +120,11 @@ export class GalleryComponent implements OnInit, AfterViewInit {
         messageId = undefined;
       }
     });
+  }
+
+  @HostListener('window:resize')
+  onresize(): void {
+    this.fetchInfiniteY();
   }
 
   getTypeLists(): void {
@@ -156,8 +166,19 @@ export class GalleryComponent implements OnInit, AfterViewInit {
     }
   }
 
-  fetchInfiniteHeight(): Observable<any> {
-    return this.ui.setNotOverflowHeight(-160 + (this.bannerClosed ? 38 : 0));
+  fetchInfiniteY(): void {
+    this.infiniteY$ = this.ui.container.pipe(
+      map((elements: Element[]) => {
+        if (elements.length === 0) {
+          return 0;
+        }
+        let height = 0;
+        for (const ele of elements) {
+          height += ele.clientHeight;
+        }
+        return window.innerHeight - height - 150;
+      })
+    );
   }
 
   checkedAllBind(event: any): void {

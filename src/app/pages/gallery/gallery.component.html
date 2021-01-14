@@ -10,7 +10,7 @@
     nzType="info"
     nzCloseable
     [nzMessage]="bit.l['uploadTip']"
-    (nzOnClose)="bannerClosed = true"
+    (nzOnClose)="fetchInfiniteY()"
   ></nz-alert>
   <nz-button-group>
     <nz-upload class="upload" bitUpload nzName="file" nzMultiple (nzChange)="tds.update($event)">
@@ -292,7 +292,7 @@
     <cdk-virtual-scroll-viewport
       class="infinite-container"
       [itemSize]="8"
-      [ngStyle]="{ 'height.px': fetchInfiniteHeight() | async }"
+      [ngStyle]="{ 'height.px': infiniteY$ | async }"
     >
       <nz-list nzGrid>
         <nz-list-empty *ngIf="ds.empty()"></nz-list-empty>
@@ -371,6 +371,7 @@
                       [(ngModel)]="x.checked"
                       (ngModelChange)="ds.lists.refreshStatus()"
                       [nz-tooltip]="x.name"
+                      [nzTooltipMouseEnterDelay]="0.2"
                     >
                       {{ x.name }}
                     </label>
