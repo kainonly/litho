@@ -15,7 +15,6 @@ import { switchMap } from 'rxjs/operators';
 import { UiSerivce } from '@common/ui.serivce';
 import { NzContextMenuService, NzDropdownMenuComponent } from 'ng-zorro-antd/dropdown';
 import { Observable } from 'rxjs';
-import { print } from 'ngx-bit/operates';
 
 @Component({
   selector: 'app-gallery',
@@ -98,6 +97,7 @@ export class GalleryComponent implements OnInit, AfterViewInit {
         return;
       }
       this.ds.fetchData(true);
+      this.getCount();
       this.message.success(this.bit.l.uploadSuccess);
     });
   }

@@ -1,6 +1,6 @@
 <ng-template #transportMessageTpl>
-  {{ bit.l["uploading"] }}({{ tds.doneLength }}/{{ tds.total }})
-  <nz-progress [nzPercent]="tds.percent"></nz-progress>
+  {{ bit.l["uploading"] }}
+  <nz-progress [nzPercent]="tds.percent" nzStatus="active"></nz-progress>
 </ng-template>
 
 <bit-header>
@@ -22,28 +22,30 @@
       class="transport-btn"
       nz-button
       nz-popover
+      [disabled]="tds.total===0"
       [nzPopoverContent]="transportContent"
       [nzPopoverPlacement]="'bottomRight'"
       [nzPopoverTrigger]="'click'"
+      [nzPopoverVisible]="!(tds.done | async)"
     >
       <nz-badge [nzStatus]="(tds.done | async) ? 'default' : 'processing'">
         <i nz-icon nzType="inbox"></i>
       </nz-badge>
-    </button>
 
-    <ng-template #transportContent>
-      <cdk-virtual-scroll-viewport itemSize="10" class="transport-container">
-        <nz-list nzSize="small">
-          <nz-list-empty *ngIf="tds.total === 0"></nz-list-empty>
-          <nz-list-item *cdkVirtualFor="let x of tds">
-            <span nz-typography nzEllipsis style="width: 450px">{{ x.name }}</span>
-            <div style="width: 150px">
-              <nz-progress [nzPercent]="x.percent" nzSize="small"></nz-progress>
-            </div>
-          </nz-list-item>
-        </nz-list>
-      </cdk-virtual-scroll-viewport>
-    </ng-template>
+      <ng-template #transportContent>
+        <cdk-virtual-scroll-viewport itemSize="10" class="transport-container">
+          <nz-list nzSize="small">
+            <nz-list-empty *ngIf="tds.total === 0"></nz-list-empty>
+            <nz-list-item *cdkVirtualFor="let x of tds">
+              <span nz-typography nzEllipsis style="width: 450px">{{ x.name }}</span>
+              <div style="width: 150px">
+                <nz-progress [nzPercent]="x.percent" nzSize="small"></nz-progress>
+              </div>
+            </nz-list-item>
+          </nz-list>
+        </cdk-virtual-scroll-viewport>
+      </ng-template>
+    </button>
   </nz-button-group>
 </bit-header>
 
@@ -65,6 +67,8 @@
           nz-button
           nz-dropdown
           [nzDropdownMenu]="bulkActions"
+          [nzTrigger]="'click'"
+          [nzClickHide]="false"
           [disabled]="ds.lists.checkedNumber === 0"
         >
           <nz-badge [nzCount]="ds.lists.checkedNumber" [nzOffset]="[3, -12]">
@@ -286,8 +290,8 @@
 <nz-ribbon [nzText]="bit.l['typeCount'] | Print: currentCount()">
   <nz-card [nzTitle]="title">
     <cdk-virtual-scroll-viewport
-      itemSize="8"
       class="infinite-container"
+      [itemSize]="8"
       [ngStyle]="{ 'height.px': fetchInfiniteHeight() | async }"
     >
       <nz-list nzGrid>
@@ -299,75 +303,80 @@
                 style="width: 195px"
                 nzSize="small"
                 [nzHoverable]="true"
-                [nzCover]="coverTemplate"
+                [nzCover]="thumbTpl"
                 [nzActions]="[actionCopy, actionRename, actionEllipsis]"
               >
-                <nz-card-meta [nzTitle]="cardTitle"></nz-card-meta>
-                <ng-template #cardTitle>
-                  <label
-                    nz-checkbox
-                    [(ngModel)]="x.checked"
-                    (ngModelChange)="ds.lists.refreshStatus()"
-                    [nz-tooltip]="x.name"
+                <ng-template #thumbTpl>
+                  <div
+                    class="thumb"
+                    [style]="{ 'background-image': thumb(x.url) }"
+                    (click)="preview(x)"
                   >
-                    {{ x.name }}
-                  </label>
-                </ng-template>
-              </nz-card>
-              <ng-template #coverTemplate>
-                <div
-                  class="thumb"
-                  [style]="{ 'background-image': thumb(x.url) }"
-                  (click)="preview(x)"
-                >
-                  <div class="thumb-actions">
-                    <i nz-icon nzType="search"></i>
+                    <div class="thumb-actions">
+                      <i nz-icon nzType="search"></i>
+                    </div>
                   </div>
-                </div>
-              </ng-template>
-              <ng-template #actionCopy>
-                <i
-                  nz-icon
-                  nzType="link"
-                  [nz-tooltip]="x.copied ? copyTip : bit.static + x.url"
-                  (click)="copy(x)"
-                ></i>
-                <ng-template #copyTip>
+                </ng-template>
+                <ng-template #actionCopy>
+                  <i
+                    nz-icon
+                    nzType="link"
+                    [nz-tooltip]="x.copied ? copyTip : bit.static + x.url"
+                    [nzTooltipMouseEnterDelay]="0.2"
+                    (click)="copy(x)"
+                  ></i>
+                  <ng-template #copyTip>
                   <span nz-typography nzType="success">
                     <i nz-icon nzType="check"></i>
                   </span>
-                  {{ bit.l["copied"] }}
+                    {{ bit.l["copied"] }}
+                  </ng-template>
                 </ng-template>
-              </ng-template>
-              <ng-template #actionRename>
-                <i
-                  nz-icon
-                  nzType="edit"
-                  [nz-tooltip]="bit.l['rename']"
-                  (click)="openRenameModal(x)"
-                ></i>
-              </ng-template>
-              <ng-template #actionEllipsis>
-                <i
-                  nz-icon
-                  nzType="ellipsis"
-                  nz-dropdown
-                  [nzDropdownMenu]="actionMenu"
-                  [nzClickHide]="false"
-                ></i>
-                <nz-dropdown-menu #actionMenu>
-                  <ul nz-menu>
-                    <li nz-menu-item (click)="openMoveModal([x])">
-                      <i nz-icon nzType="swap"></i>
-                      {{ bit.l["move"] }}
-                    </li>
-                    <li nz-menu-item (click)="openDeleteModal([x])">
-                      <i nz-icon nzType="delete"></i>
-                      {{ bit.l["deleteItem"] }}
-                    </li>
-                  </ul>
-                </nz-dropdown-menu>
-              </ng-template>
+                <ng-template #actionRename>
+                  <i
+                    nz-icon
+                    nzType="edit"
+                    [nz-tooltip]="bit.l['rename']"
+                    [nzTooltipMouseEnterDelay]="0.2"
+                    (click)="openRenameModal(x)"
+                  ></i>
+                </ng-template>
+                <ng-template #actionEllipsis>
+                  <i
+                    nz-icon
+                    nzType="ellipsis"
+                    nz-dropdown
+                    [nzDropdownMenu]="actionMenu"
+                    [nzTrigger]="'click'"
+                    [nzClickHide]="false"
+                  ></i>
+                  <nz-dropdown-menu #actionMenu>
+                    <ul nz-menu>
+                      <li nz-menu-item (click)="openMoveModal([x])">
+                        <i nz-icon nzType="swap"></i>
+                        {{ bit.l["move"] }}
+                      </li>
+                      <li nz-menu-item (click)="openDeleteModal([x])">
+                        <i nz-icon nzType="delete"></i>
+                        {{ bit.l["deleteItem"] }}
+                      </li>
+                    </ul>
+                  </nz-dropdown-menu>
+                </ng-template>
+
+                <nz-card-meta [nzTitle]="cardTitle">
+                  <ng-template #cardTitle>
+                    <label
+                      nz-checkbox
+                      [(ngModel)]="x.checked"
+                      (ngModelChange)="ds.lists.refreshStatus()"
+                      [nz-tooltip]="x.name"
+                    >
+                      {{ x.name }}
+                    </label>
+                  </ng-template>
+                </nz-card-meta>
+              </nz-card>
             </nz-list-item>
           </div>
         </div>

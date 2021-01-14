@@ -42,6 +42,7 @@ import { NzProgressModule } from 'ng-zorro-antd/progress';
 import { NzImageModule } from 'ng-zorro-antd/image';
 import { NzSpinModule } from 'ng-zorro-antd/spin';
 import { NzPopconfirmModule } from 'ng-zorro-antd/popconfirm';
+import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
 
 @NgModule({
   exports: [
@@ -90,7 +91,8 @@ import { NzPopconfirmModule } from 'ng-zorro-antd/popconfirm';
     NzPopconfirmModule,
     BitExtModule,
     BitPipeModule,
-    BitDirectiveModule
+    BitDirectiveModule,
+    PerfectScrollbarModule
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

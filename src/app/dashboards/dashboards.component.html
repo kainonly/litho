@@ -1,111 +1,115 @@
-<nz-layout class="dashboard-layout">
-  <nz-sider nzCollapsible [(nzCollapsed)]="collapsed" [nzBreakpoint]="'lg'">
-    <ul
-      nz-menu
-      [nzTheme]="'dark'"
-      [nzInlineCollapsed]="collapsed"
-      [nzMode]="collapsed ? 'vertical' : 'inline'"
-    >
-      <ng-container *ngTemplateOutlet="navTpl; context: { $implicit: navLists }"></ng-container>
-      <ng-template #navTpl let-navs>
-        <ng-container *ngFor="let x of navs">
-          <ng-container *ngIf="x.router; else notRouter">
-            <li
-              nz-menu-item
-              [bitOpen]="[x.key]"
-              [nzSelected]="support.navActive.indexOf(x.key) !== -1"
-            >
-              <i nz-icon [nzType]="x.icon"></i>
-              <span class="nav-text">{{ x.name | object: bit.locale }}</span>
-            </li>
-          </ng-container>
-          <ng-template #notRouter>
-            <li nz-submenu [nzOpen]="support.navActive.indexOf(x.key) !== -1">
-              <span title
-              ><i nz-icon [nzType]="x.icon"></i
-              ><span>{{ x.name | object: bit.locale }}</span></span
-              >
-              <ul>
-                <ng-container
-                  *ngTemplateOutlet="navTpl; context: { $implicit: x.children }"
-                ></ng-container>
-              </ul>
-            </li>
-          </ng-template>
-        </ng-container>
-      </ng-template>
-    </ul>
-  </nz-sider>
-  <nz-layout>
-    <ul class="header" nz-menu [nzMode]="'horizontal'" [nzSelectable]="false">
-      <li nz-menu-item routerLink="/">
-        <i nz-icon nzType="dashboard"></i> {{ bit.l["dashboard"] }}
-      </li>
-
-      <li nz-submenu>
-        <span title>
-          <i nz-icon nzType="translation"></i>
-          {{ bit.l["language"] }}
-        </span>
-        <ul>
-          <li nz-menu-item (click)="bit.setLocale('zh_cn')">
-            <a title>中文</a>
-          </li>
-          <li nz-menu-item (click)="bit.setLocale('en_us')">
-            <a title>English</a>
-          </li>
-        </ul>
-      </li>
-
-      <li style="float: right" nz-submenu nzMenuClassName="center-submenu">
-        <span title>
-          <i nz-icon nzType="user"></i>
-          {{ bit.l["center"] }}
-        </span>
-        <ul>
-          <li nz-menu-item routerLink="/{profile}">
-            <a title><i nz-icon nzType="idcard"></i> {{ bit.l["profile"] }}</a>
-          </li>
-          <li nz-menu-item (click)="logout()">
-            <a title><i nz-icon nzType="logout"></i> {{ bit.l["exit"] }}</a>
-          </li>
-        </ul>
-      </li>
-    </ul>
-    <nz-content>
-      <ng-container *ngTemplateOutlet="support.banner"></ng-container>
-      <nz-page-header
-        [nzTitle]="support.title | object: bit.locale"
-        [nzSubtitle]="!support.subTitle ? null : support.subTitle"
-        [nzBackIcon]="!support.back ? null : ''"
-        (nzBack)="bit.back()"
-      >
-        <nz-breadcrumb [nzSeparator]="breadcrumbIcon" nz-page-header-breadcrumb>
-          <ng-template #breadcrumbIcon>
-            <i nz-icon nzType="right"></i>
-          </ng-template>
-          <nz-breadcrumb-item>
-            <a routerLink="/">{{ bit.l["dashboard"] }}</a>
-          </nz-breadcrumb-item>
-          <nz-breadcrumb-item *ngFor="let x of support.breadcrumb; last as islast">
-            <ng-container *ngIf="islast; else notLast">
-              {{ x.name | object: bit.locale }}
+<nz-layout class="main-layout">
+  <perfect-scrollbar class="main-scrollbar">
+    <nz-sider nzCollapsible [(nzCollapsed)]="collapsed" [nzBreakpoint]="'lg'">
+      <perfect-scrollbar class="sider-scrollbar">
+        <ul
+          nz-menu
+          [nzTheme]="'dark'"
+          [nzInlineCollapsed]="collapsed"
+          [nzMode]="collapsed ? 'vertical' : 'inline'"
+        >
+          <ng-container *ngTemplateOutlet="navTpl; context: { $implicit: navLists }"></ng-container>
+          <ng-template #navTpl let-navs>
+            <ng-container *ngFor="let x of navs">
+              <ng-container *ngIf="x.router; else notRouter">
+                <li
+                  nz-menu-item
+                  [bitOpen]="[x.key]"
+                  [nzSelected]="support.navActive.indexOf(x.key) !== -1"
+                >
+                  <i nz-icon [nzType]="x.icon"></i>
+                  <span class="nav-text">{{ x.name | object: bit.locale }}</span>
+                </li>
+              </ng-container>
+              <ng-template #notRouter>
+                <li nz-submenu [nzOpen]="support.navActive.indexOf(x.key) !== -1">
+                  <span title>
+                    <i nz-icon [nzType]="x.icon"></i>
+                    <span>{{ x.name | object: bit.locale }}</span>
+                  </span>
+                  <ul>
+                    <ng-container
+                      *ngTemplateOutlet="navTpl; context: { $implicit: x.children }"
+                    ></ng-container>
+                  </ul>
+                </li>
+              </ng-template>
             </ng-container>
-            <ng-template #notLast>
-              <a *ngIf="x.router; else notRouterlink" [bitCrossLevel]="x.key">
-                {{ x.name | object: bit.locale }}
-              </a>
-              <ng-template #notRouterlink>{{ x.name | object: bit.locale }}</ng-template>
+          </ng-template>
+        </ul>
+      </perfect-scrollbar>
+    </nz-sider>
+    <nz-layout class="right-layout" [ngClass]="{'collapsed':collapsed}">
+      <ul class="header" nz-menu [nzMode]="'horizontal'" [nzSelectable]="false">
+        <li nz-menu-item routerLink="/">
+          <i nz-icon nzType="dashboard"></i> {{ bit.l["dashboard"] }}
+        </li>
+
+        <li nz-submenu>
+          <span title>
+            <i nz-icon nzType="translation"></i>
+            {{ bit.l["language"] }}
+          </span>
+          <ul>
+            <li nz-menu-item (click)="bit.setLocale('zh_cn')">
+              <a title>中文</a>
+            </li>
+            <li nz-menu-item (click)="bit.setLocale('en_us')">
+              <a title>English</a>
+            </li>
+          </ul>
+        </li>
+
+        <li style="float: right" nz-submenu nzMenuClassName="center-submenu">
+          <span title>
+            <i nz-icon nzType="user"></i>
+            {{ bit.l["center"] }}
+          </span>
+          <ul>
+            <li nz-menu-item routerLink="/{profile}">
+              <a title><i nz-icon nzType="idcard"></i> {{ bit.l["profile"] }}</a>
+            </li>
+            <li nz-menu-item (click)="logout()">
+              <a title><i nz-icon nzType="logout"></i> {{ bit.l["exit"] }}</a>
+            </li>
+          </ul>
+        </li>
+      </ul>
+      <nz-content>
+        <ng-container *ngTemplateOutlet="support.banner"></ng-container>
+        <nz-page-header
+          [nzTitle]="support.title | object: bit.locale"
+          [nzSubtitle]="!support.subTitle ? null : support.subTitle"
+          [nzBackIcon]="!support.back ? null : ''"
+          (nzBack)="bit.back()"
+        >
+          <nz-breadcrumb [nzSeparator]="breadcrumbIcon" nz-page-header-breadcrumb>
+            <ng-template #breadcrumbIcon>
+              <i nz-icon nzType="right"></i>
             </ng-template>
-          </nz-breadcrumb-item>
-        </nz-breadcrumb>
-        <nz-page-header-extra>
-          <ng-container *ngTemplateOutlet="support.actions"></ng-container>
-        </nz-page-header-extra>
-      </nz-page-header>
-      <div #warpper class="app-warpper">
-        <router-outlet></router-outlet>
-      </div>
-    </nz-content>
-  </nz-layout>
+            <nz-breadcrumb-item>
+              <a routerLink="/">{{ bit.l["dashboard"] }}</a>
+            </nz-breadcrumb-item>
+            <nz-breadcrumb-item *ngFor="let x of support.breadcrumb; last as islast">
+              <ng-container *ngIf="islast; else notLast">
+                {{ x.name | object: bit.locale }}
+              </ng-container>
+              <ng-template #notLast>
+                <a *ngIf="x.router; else notRouterlink" [bitCrossLevel]="x.key">
+                  {{ x.name | object: bit.locale }}
+                </a>
+                <ng-template #notRouterlink>{{ x.name | object: bit.locale }}</ng-template>
+              </ng-template>
+            </nz-breadcrumb-item>
+          </nz-breadcrumb>
+          <nz-page-header-extra>
+            <ng-container *ngTemplateOutlet="support.actions"></ng-container>
+          </nz-page-header-extra>
+        </nz-page-header>
+        <div #warpper class="app-warpper">
+          <router-outlet></router-outlet>
+        </div>
+      </nz-content>
+    </nz-layout>
+  </perfect-scrollbar>
 </nz-layout>

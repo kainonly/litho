@@ -6,6 +6,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { registerLocaleData } from '@angular/common';
 import zh from '@angular/common/locales/zh';
 import { NZ_I18N, zh_CN } from 'ng-zorro-antd/i18n';
+import { NZ_CONFIG, NzConfig } from 'ng-zorro-antd/core/config';
+import { PERFECT_SCROLLBAR_CONFIG, PerfectScrollbarConfigInterface, PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
 import { NgxBitModule } from 'ngx-bit';
 import { environment } from '@env';
 
@@ -26,7 +28,7 @@ import { AppExtModule } from '@ext';
 import { GalleryTypeService } from '@common/gallery-type.service';
 import { GalleryService } from '@common/gallery.service';
 import { UiSerivce } from '@common/ui.serivce';
-import { NZ_CONFIG, NzConfig } from 'ng-zorro-antd/core/config';
+
 
 const routes: Routes = [
   {
@@ -44,6 +46,10 @@ const ngZorroConfig: NzConfig = {
   notification: { nzPlacement: 'bottomRight' }
 };
 
+const perfectBar: PerfectScrollbarConfigInterface = {
+  suppressScrollX: true
+};
+
 @NgModule({
   declarations: [AppComponent],
   imports: [
@@ -51,6 +57,7 @@ const ngZorroConfig: NzConfig = {
     BrowserAnimationsModule,
     HttpClientModule,
     AppExtModule,
+    PerfectScrollbarModule,
     NgxBitModule.forRoot(environment.bit),
     RouterModule.forRoot(routes, { useHash: true, relativeLinkResolution: 'legacy' }),
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
@@ -69,7 +76,8 @@ const ngZorroConfig: NzConfig = {
     GalleryTypeService,
     GalleryService,
     { provide: NZ_I18N, useValue: zh_CN },
-    { provide: NZ_CONFIG, useValue: ngZorroConfig }
+    { provide: NZ_CONFIG, useValue: ngZorroConfig },
+    { provide: PERFECT_SCROLLBAR_CONFIG, useValue: perfectBar }
   ],
   bootstrap: [AppComponent]
 })

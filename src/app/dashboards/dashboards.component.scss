@@ -1,6 +1,46 @@
-nz-layout {
-  &.dashboard-layout {
+:host ::ng-deep {
+  .trigger {
+    font-size: 18px;
+    line-height: 64px;
+    padding: 0 24px;
+    cursor: pointer;
+    transition: color 0.3s;
+
+    &:hover {
+      color: #1890ff;
+    }
+  }
+}
+
+.main-layout {
+  height: 100%;
+  overflow: hidden;
+
+  .main-scrollbar {
     height: 100%;
+  }
+}
+
+nz-sider {
+  overflow: hidden;
+  height: 100%;
+  position: fixed;
+  left: 0;
+
+  .sider-scrollbar {
+    height: 100%;
+    padding-bottom: 48px;
+  }
+}
+
+nz-layout {
+  &.right-layout {
+    transition: margin-left .2s;
+    margin-left: 200px;
+  }
+
+  &.collapsed {
+    margin-left: 80px;
   }
 }
 
