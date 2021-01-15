@@ -18,7 +18,7 @@ module.exports = function(config) {
       },
       clearContext: false // leave Jasmine Spec Runner output visible in browser
     },
-    reporters: ["progress", "kjhtml", "coverage"],
+    reporters: ["progress", "kjhtml"],
     coverageReporter: {
       dir: require("path").join(__dirname, "../../coverage"),
       reporters: [
