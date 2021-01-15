@@ -16,12 +16,15 @@ import { AclService } from '@common/acl.service';
 })
 export class ResourceIndexComponent implements OnInit, OnDestroy {
   @ViewChild('nzTree') nzTree: NzTreeComponent;
-  private expanded: Set<string> = new Set();
-  activeNode: NzTreeNode;
-  nodes: NzTreeNodeOptions[] = [];
+
+
   search = '';
-  sort = false;
-  sortLists = [];
+  resource: NzTreeNodeOptions[] = [];
+  activeNode: NzTreeNode;
+
+  isSort = false;
+  sortData = [];
+
   policy: Map<string, any[]> = new Map();
   policyVisable = false;
   policyInfo = {
@@ -31,13 +34,15 @@ export class ResourceIndexComponent implements OnInit, OnDestroy {
   policyForm: FormGroup;
   aclLists: any[] = [];
 
+  private expanded: Set<string> = new Set();
+
   constructor(
     public bit: BitService,
     private events: BitEventsService,
     private fb: FormBuilder,
     private swal: BitSwalService,
     private notification: NzNotificationService,
-    private nzContextMenuService: NzContextMenuService,
+    private contextMenu: NzContextMenuService,
     private resourceService: ResourceService,
     private policyService: PolicyService,
     private aclService: AclService
@@ -94,7 +99,7 @@ export class ResourceIndexComponent implements OnInit, OnDestroy {
           }
         }
       }
-      this.nodes = nodes;
+      this.resource = nodes;
     });
   }
 
@@ -154,23 +159,9 @@ export class ResourceIndexComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * 全部展开
-   */
-  allExpand(): void {
-    this.allExpandStatus(true);
-  }
-
-  /**
-   * 全部关闭
-   */
-  allClose(): void {
-    this.allExpandStatus(false);
-  }
-
-  /**
    * 设置展开状态
    */
-  private allExpandStatus(status: boolean): void {
+  setExpand(status: boolean): void {
     this.expanded = new Set();
     const queue = [...this.nzTree.getTreeNodes()];
     while (queue.length !== 0) {
@@ -187,49 +178,23 @@ export class ResourceIndexComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * 选择节点
+   * more actions
    */
-  clickNode(nzFormatEmitEvent: NzFormatEmitEvent): void {
+  actions(nzFormatEmitEvent: NzFormatEmitEvent, menu: NzDropdownMenuComponent): void {
     this.activeNode = nzFormatEmitEvent.node;
+    this.contextMenu.create(nzFormatEmitEvent.event, menu);
   }
 
   /**
-   * 打开资源
+   * delete resource
    */
-  openResource(node: NzTreeNode): void {
-    node.isExpanded = !node.isExpanded;
-  }
-
-  /**
-   * 鼠标右键
-   */
-  contextMenu(nzFormatEmitEvent: NzFormatEmitEvent, menu: NzDropdownMenuComponent): void {
-    this.activeNode = nzFormatEmitEvent.node;
-    this.nzContextMenuService.create(nzFormatEmitEvent.event, menu);
-  }
-
-  /**
-   * 新增资源
-   */
-  addResource(): void {
-    this.bit.open(['resource-add', { parentId: this.activeNode.origin.id }]);
-  }
-
-  /**
-   * 修改资源
-   */
-  editResource(): void {
-    this.bit.open(['resource-edit', this.activeNode.origin.id]);
-  }
-
-  /**
-   * 删除资源
-   */
-  deleteResource(): void {
-    this.swal.deleteAlert(this.resourceService.delete([this.activeNode.origin.id])).subscribe(res => {
+  delete(): void {
+    this.swal.deleteAlert(
+      this.resourceService.delete([this.activeNode.origin.id])
+    ).subscribe(res => {
       if (!res.error) {
-        this.getNodes();
         this.notification.success(this.bit.l.operateSuccess, this.bit.l.deleteSuccess);
+        this.getNodes();
       } else {
         this.notification.error(this.bit.l.operateError, this.bit.l.deleteError);
       }
@@ -239,34 +204,47 @@ export class ResourceIndexComponent implements OnInit, OnDestroy {
   /**
    * 开启排序
    */
-  startSort(): void {
-    this.sort = true;
+  openSort(): void {
+    this.isSort = true;
+  }
+
+  /**
+   * 取消排序
+   */
+  closeSort(): void {
+    this.isSort = false;
+    this.sortData = [];
+    this.getNodes();
   }
 
   /**
    * 拖拽限制
    */
   beforeDrop = (arg: NzFormatBeforeDropEvent): Observable<any> => {
-    return of(arg.dragNode.level === arg.node.level && arg.dragNode.origin.parent === arg.node.origin.parent && arg.pos !== 0);
+    return of(
+      arg.dragNode.level === arg.node.level &&
+      arg.dragNode.origin.parent === arg.node.origin.parent &&
+      arg.pos !== 0
+    );
   };
 
   /**
    * 拖拽结束
    */
   dragEnd(): void {
-    this.sortLists = [];
+    this.sortData = [];
     const queue = [...this.nzTree.getTreeNodes()];
     let originIndex = queue.length - 1;
     while (queue.length !== 0) {
       const node = queue.pop();
       if (node.origin.parent === 'origin') {
-        this.sortLists.push({
+        this.sortData.push({
           id: node.origin.id,
           sort: originIndex
         });
         originIndex--;
       } else {
-        this.sortLists.push({
+        this.sortData.push({
           id: node.origin.id,
           sort: node.origin.sort
         });
@@ -284,25 +262,16 @@ export class ResourceIndexComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * 取消排序
-   */
-  cancelSort(): void {
-    this.sort = false;
-    this.sortLists = [];
-    this.getNodes();
-  }
-
-  /**
    * 提交排序
    */
-  submitSort(): void {
-    this.resourceService.sort(this.sortLists).subscribe(res => {
+  sortSubmit(): void {
+    this.resourceService.sort(
+      this.sortData
+    ).subscribe(res => {
       if (!res.error) {
-        this.events.publish('refresh-menu');
-        this.sort = false;
-        this.sortLists = [];
-        this.getNodes();
         this.notification.success(this.bit.l.operateSuccess, this.bit.l.sortSuccess);
+        this.events.publish('refresh-menu');
+        this.closeSort();
       } else {
         this.notification.error(this.bit.l.operateError, this.bit.l.sortError);
       }

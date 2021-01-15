@@ -59,7 +59,7 @@ const perfectBar: PerfectScrollbarConfigInterface = {
     AppExtModule,
     PerfectScrollbarModule,
     NgxBitModule.forRoot(environment.bit),
-    RouterModule.forRoot(routes, { useHash: true, relativeLinkResolution: 'legacy' }),
+    RouterModule.forRoot(routes, { useHash: true }),
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
     StorageModule.forRoot({ IDBNoWrap: false })
   ],

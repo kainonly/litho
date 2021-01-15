@@ -26,7 +26,7 @@ describe('BitErrorTipComponent', () => {
       hasError: new SimpleChange(null, component.hasError, true)
     });
     fixture.detectChanges();
-    const data = component.errorLists.find(v => v.key === 'required');
+    const data = component.values.find(v => v.key === 'required');
     expect(data.error).toBe('当前数值必须不为空');
     expect(component.ref).not.toBeNull();
   });

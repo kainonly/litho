@@ -1,13 +1,40 @@
-<bit-header [subTitle]="nzMessage">
-  <ng-template #nzMessage>
-    <span>{{ bit.l["info"] }}</span>
-  </ng-template>
+<bit-header>
+  <nz-alert bitBanner nzBanner nzType="info" nzCloseable [nzMessage]="nzMessage.ref">
+    <bit-print #nzMessage [text]="bit.l['info']" [vars]="[vars0,vars1,vars2]">
+      <ng-template #vars0>
+        <nz-tag>
+          <i nz-icon nzType="flag"></i>
+        </nz-tag>
+      </ng-template>
+      <ng-template #vars1>
+        <nz-tag>
+          <i nz-icon nzType="file-done"></i>
+        </nz-tag>
+      </ng-template>
+      <ng-template #vars2>
+        <nz-tag>
+          <i nz-icon nzType="control"></i>
+        </nz-tag>
+      </ng-template>
+    </bit-print>
+  </nz-alert>
   <button nz-button nzType="primary" [bitOpen]="['resource-add']">
     <span>{{ bit.l["add"] }}</span>
   </button>
 </bit-header>
+
 <ng-template #title>
   <nz-space>
+    <nz-space-item>
+      <nz-button-group>
+        <button nz-button [nz-tooltip]="bit.l['close']" (click)="setExpand(false)">
+          <i nz-icon nzType="node-collapse"></i>
+        </button>
+        <button nz-button [nz-tooltip]="bit.l['expand']" (click)="setExpand(true)">
+          <i nz-icon nzType="node-expand"></i>
+        </button>
+      </nz-button-group>
+    </nz-space-item>
     <nz-space-item>
       <nz-input-group [nzSuffix]="suffixIcon" style="width: 320px">
         <input type="text" nz-input [placeholder]="bit.l['search']" [(ngModel)]="search" />
@@ -16,136 +43,125 @@
         <i nz-icon nzType="search"></i>
       </ng-template>
     </nz-space-item>
-    <nz-space-item>
-      <button nz-button (click)="allExpand()">
-        <i nz-icon nzType="node-expand"></i>
-        {{ bit.l["expand"] }}
-      </button>
-    </nz-space-item>
-    <nz-space-item>
-      <button nz-button (click)="allClose()">
-        <i nz-icon nzType="node-collapse"></i>
-        {{ bit.l["close"] }}
-      </button>
-    </nz-space-item>
-    <nz-space-item *ngIf="!sort">
-      <button nz-button (click)="startSort()">
-        <i nz-icon nzType="sort-ascending"></i>
-        {{ bit.l["sort"] }}
-      </button>
-    </nz-space-item>
-    <ng-container *ngIf="sort">
+    <ng-container *ngIf="!isSort">
       <nz-space-item>
-        <button nz-button (click)="submitSort()">
-          <i nz-icon nzType="check"></i>
-          {{ bit.l["sortYes"] }}
+        <button nz-button nzType="primary" (click)="openSort()">
+          <i nz-icon nzType="sort-ascending"></i>
+          {{ bit.l["sort"] }}
+        </button>
+      </nz-space-item>
+    </ng-container>
+    <ng-container *ngIf="isSort">
+      <nz-space-item>
+        <button nz-button (click)="closeSort()">
+          <i nz-icon nzType="close"></i>
+          {{ bit.l["sortCancel"] }}
         </button>
       </nz-space-item>
       <nz-space-item>
-        <button nz-button (click)="cancelSort()">
-          <i nz-icon nzType="close"></i>
-          {{ bit.l["sortCancel"] }}
+        <button nz-button nzType="primary" (click)="sortSubmit()">
+          <i nz-icon nzType="check"></i>
+          {{ bit.l["sortYes"] }}
         </button>
       </nz-space-item>
     </ng-container>
   </nz-space>
 </ng-template>
-<nz-card [nzTitle]="title">
-  <ng-container *ngIf="sort">
+
+<nz-ribbon [nzText]="isSort?bit.l['isSort']:null">
+  <nz-card [nzTitle]="title">
     <nz-tree
+      *ngIf="isSort"
       #nzTree
-      [nzShowLine]="true"
+      class="tree-edit"
+      [nzData]="resource"
       [nzBlockNode]="true"
       [nzShowIcon]="true"
       [nzExpandAll]="true"
-      [nzData]="nodes"
       [nzDraggable]="true"
       [nzBeforeDrop]="beforeDrop"
       (nzOnDragEnd)="dragEnd()"
     >
     </nz-tree>
-  </ng-container>
 
-  <ng-container *ngIf="!sort">
     <nz-tree
+      *ngIf="!isSort"
       #nzTree
-      [nzShowExpand]="false"
+      [nzData]="resource"
+      [nzShowLine]="true"
       [nzBlockNode]="true"
-      [nzData]="nodes"
+      [nzExpandedIcon]="nzExpandedIcon"
       (nzExpandChange)="onExpanded()"
-      (nzClick)="clickNode($event)"
-      (nzContextMenu)="contextMenu($event, menu)"
+      (nzContextMenu)="actions($event, actionsMenu)"
       [nzTreeTemplate]="nzTreeTemplate"
       [nzSearchValue]="search"
     >
     </nz-tree>
-
-    <ng-template #nzTreeTemplate let-node>
-      <div class="resource-node" [class.active]="activeNode?.key === node.key">
-        <div class="resource-line" *ngIf="!node.isLeaf">
-          <ng-container *ngIf="!node.origin.router">
-            <ng-container *ngIf="!node.origin.nav">
-              <i nz-icon nzType="tags"></i>
-            </ng-container>
-            <ng-container *ngIf="node.origin.nav">
-              <i
-                nz-icon
-                [nzType]="node.isExpanded ? 'folder-open' : 'folder'"
-                (click)="openResource(node)"
-              ></i>
-            </ng-container>
-          </ng-container>
-          <ng-container *ngIf="node.origin.router">
-            <i nz-icon nzType="global" (click)="openResource(node)"></i>
-          </ng-container>
-          <span class="title">{{ node.title }} [{{ node.key }}]</span>
-          <span class="policy" *ngIf="node.origin.policy">
-            <ng-container *ngFor="let x of policy.get(node.key)">
-              <nz-tag [nzColor]="x.policy === 0 ? 'default' : 'blue'">
-                {{ x.acl_key }}
-              </nz-tag>
-            </ng-container>
-          </span>
-        </div>
-        <div class="resource-line" *ngIf="node.isLeaf">
-          <i nz-icon nzType="file-text"></i>
-          <span class="title">{{ node.title }} [{{ node.key }}]</span>
-          <span class="policy" *ngIf="node.origin.policy">
-            <ng-container *ngFor="let x of policy.get(node.key)">
-              <nz-tag [nzColor]="'blue'">
-                {{ x.acl_key }} : {{ bit.l[policyInfo[x.policy]] }}
-              </nz-tag>
-            </ng-container>
-          </span>
-        </div>
-      </div>
+    <ng-template #nzExpandedIcon let-node>
+      <ng-container *ngIf="node.isLeaf">
+        <i nz-icon nzType="file"></i>
+      </ng-container>
+      <ng-container *ngIf="!node.isLeaf">
+        <i nz-icon [nzType]="node.isExpanded ? 'folder-open' : 'folder'"></i>
+      </ng-container>
     </ng-template>
-
-    <nz-dropdown-menu #menu>
-      <ul nz-menu *ngIf="activeNode !== undefined">
+    <ng-template #nzTreeTemplate let-node>
+      <nz-space>
+        <nz-space-item class="title">
+          <ng-container *ngIf="node.origin.icon">
+            <i nz-icon [nzType]="node.origin.icon"></i>
+          </ng-container>
+          <mark *ngIf="node.isMatched">{{ node.title }} [ {{ node.key }} ]</mark>
+          <span *ngIf="!node.isMatched">{{ node.title }} [ {{ node.key }} ]</span>
+        </nz-space-item>
+        <nz-space-item *ngIf="node.origin.nav || node.origin.router || node.origin.policy">
+          <nz-tag>
+            <ng-container *ngIf="node.origin.nav">
+              <i nz-icon nzType="flag"></i>
+            </ng-container>
+            <ng-container *ngIf="node.origin.nav && node.origin.router">
+              <nz-divider nzType="vertical"></nz-divider>
+            </ng-container>
+            <ng-container *ngIf="node.origin.router">
+              <i nz-icon nzType="file-done"></i>
+            </ng-container>
+            <ng-container *ngIf="node.origin.router && node.origin.policy">
+              <nz-divider nzType="vertical"></nz-divider>
+            </ng-container>
+            <ng-container *ngIf="node.origin.policy">
+              <i nz-icon nzType="control"></i>
+            </ng-container>
+          </nz-tag>
+        </nz-space-item>
+      </nz-space>
+    </ng-template>
+    <nz-dropdown-menu #actionsMenu>
+      <ul nz-menu *ngIf="activeNode">
         <li style="color: #333" nz-menu-item nzDisabled>
-          <b>{{ activeNode.title }} [{{ activeNode.key }}]</b>
+          {{ activeNode.title }} [ {{ activeNode.key }} ]
         </li>
         <li nz-menu-divider></li>
-        <li nz-menu-item (click)="addResource()">
-          {{ bit.l["AddResource"] }}
+        <li nz-menu-item [bitOpen]="['resource-add', { parentId: activeNode.origin.id }]">
+          <i nz-icon nzType="subnode"></i> {{ bit.l["add"] }}
         </li>
-        <li nz-menu-item *ngIf="activeNode.origin.policy" (click)="openPolicy()">
-          {{ bit.l["policyEdit"] }}
+        <li *ngIf="activeNode.origin.policy" nz-menu-item (click)="openPolicy()">
+          <i nz-icon nzType="function"></i> {{ bit.l["policy"] }}
         </li>
-        <li nz-menu-item (click)="editResource()">{{ bit.l["edit"] }}</li>
+        <li nz-menu-item [bitOpen]="['resource-edit', activeNode.origin.id]">
+          <i nz-icon nzType="edit"></i> {{ bit.l["edit"] }}
+        </li>
+        <li nz-menu-divider></li>
         <li
           nz-menu-item
-          (click)="deleteResource()"
           [nzDisabled]="activeNode.getChildren().length !== 0"
+          (click)="delete()"
         >
-          {{ bit.l["delete"] }}
+          <i nz-icon nzType="delete"></i> {{ bit.l["delete"] }}
         </li>
       </ul>
     </nz-dropdown-menu>
-  </ng-container>
-</nz-card>
-
+  </nz-card>
+</nz-ribbon>
 <nz-drawer
   [nzWidth]="500"
   [nzTitle]="nzTitle"

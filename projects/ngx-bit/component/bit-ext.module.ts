@@ -7,19 +7,22 @@ import { BitI18nSwitchComponent } from './bit-i18n-switch/bit-i18n-switch.compon
 import { BitI18nTooltipComponent } from './bit-i18n-tooltip/bit-i18n-tooltip.component';
 import { BitErrorTipComponent } from './bit-error-tip/bit-error-tip.component';
 import { BitHeaderComponent } from './bit-header/bit-header.component';
+import { BitPrintComponent } from './bit-print/bit-print.component';
 
 @NgModule({
   exports: [
     BitI18nSwitchComponent,
     BitI18nTooltipComponent,
     BitErrorTipComponent,
-    BitHeaderComponent
+    BitHeaderComponent,
+    BitPrintComponent
   ],
   declarations: [
     BitI18nSwitchComponent,
     BitI18nTooltipComponent,
     BitErrorTipComponent,
-    BitHeaderComponent
+    BitHeaderComponent,
+    BitPrintComponent
   ],
   imports: [
     CommonModule,

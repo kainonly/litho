@@ -1,25 +1,9 @@
-:host ::ng-deep .ant-tree {
-  overflow: hidden;
-  margin: 0 -24px;
-  padding: 0 24px;
+.tree-edit {
+  background: #eee
 }
 
-.resource-node {
-  cursor: pointer;
-  display: inline-block;
-  margin: 0 -1000px;
-  padding: 0 1000px;
-
-  &:hover {
-    background: #e6f7ff;
+.title {
+  i {
+    margin: 0 5px;
   }
-}
-
-.active {
-  background: #bae7ff;
-}
-
-.title,
-.policy {
-  padding-left: 5px;
 }
