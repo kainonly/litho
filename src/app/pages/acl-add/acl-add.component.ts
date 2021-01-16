@@ -65,15 +65,13 @@ export class AclAddComponent implements OnInit {
    * 提交
    */
   submit(data): void {
-    this.aclService
-      .add(data)
-      .pipe(
-        switchMap(res =>
-          this.swal.addAlert(res, this.form, {
-            status: true
-          })
-        )
-      ).subscribe(() => {
+    this.aclService.add(data).pipe(
+      switchMap(res =>
+        this.swal.addAlert(res, this.form, {
+          status: true
+        })
+      )
+    ).subscribe(() => {
     });
   }
 }

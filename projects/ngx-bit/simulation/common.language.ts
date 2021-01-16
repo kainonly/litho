@@ -66,5 +66,24 @@ export default {
   logoutSuccess: ['登出成功', 'Logout Success'],
   timeout: ['超时登出', 'Timeout'],
   timeoutWarning: ['您的登录已超时，请重新登录', 'Your login has timed out, please log in again'],
-  rbacError: ['您没有权限或该权限已被关闭', 'You don\'t have permission or the permission has been turned off']
+  rbacError: ['您没有权限或该权限已被关闭', 'You don\'t have permission or the permission has been turned off'],
+
+  AddAlertSuccessTitle: ['操作成功', ''],
+  AddAlertSuccessContent: ['表单数据已提交完成，您是否要继续执行新增操作？'],
+  AddAlertSuccessOk: ['继续新增'],
+  AddAlertSuccessCancel: ['返回列表'],
+  AddAlertErrorTitle: ['操作失败'],
+  AddAlertErrorContent: ['表单数据提交异常，请稍后再试'],
+  AddAlertErrorOk: ['好的'],
+  EditAlertSuccessTitle: ['操作成功', ''],
+  EditAlertSuccessContent: ['表单数据已提交完成，你是否要继续执行编辑操作？'],
+  EditAlertSuccessOk: ['继续修改'],
+  EditAlertSuccessCancel: ['返回列表'],
+  EditAlertErrorTitle: ['操作失败'],
+  EditAlertErrorContent: ['表单数据提交异常，请稍后再试'],
+  EditAlertErrorOk: ['好的'],
+  DeleteAlertTitle: ['请求确认'],
+  DeleteAlertContent: ['您确认删除当前数据吗？'],
+  DeleteAlertOk: ['确认删除'],
+  DeleteAlertCancel: ['再想想']
 };

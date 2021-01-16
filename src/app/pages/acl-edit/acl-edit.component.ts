@@ -94,13 +94,12 @@ export class AclEditComponent implements OnInit {
    */
   submit(data): void {
     Reflect.set(data, 'id', this.id);
-    this.aclService
-      .edit(data)
-      .pipe(switchMap(res => this.swal.editAlert(res)))
-      .subscribe(status => {
-        if (status) {
-          this.getData();
-        }
-      });
+    this.aclService.edit(data).pipe(
+      switchMap(res => this.swal.editAlert(res))
+    ).subscribe(status => {
+      if (status) {
+        this.getData();
+      }
+    });
   }
 }

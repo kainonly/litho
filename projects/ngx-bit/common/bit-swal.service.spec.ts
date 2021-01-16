@@ -46,14 +46,15 @@ describe('BitSwalService', () => {
       error: 0
     };
     setTimeout(() => {
-      const title: HTMLElement = document.querySelector('#swal2-title');
-      expect(title.innerText).toBe(bit.l.operateSuccess);
-      const content: HTMLElement = document.querySelector('#swal2-content');
-      expect(content.innerText).toBe(bit.l.addSuccessMsg);
+      const swal2: HTMLElement = document.querySelector('#swal2-content');
+      const title: HTMLElement = swal2.querySelector('.ant-result-title');
+      expect(title.innerText).toBe(bit.l.AddAlertSuccessTitle);
+      const content: HTMLElement = swal2.querySelector('.ant-result-subtitle');
+      expect(content.innerText).toBe(bit.l.AddAlertSuccessContent);
       const confirm: HTMLButtonElement = document.querySelector('.swal2-confirm');
-      expect(confirm.innerText).toBe(bit.l.addContinue);
+      expect(confirm.innerText).toBe(bit.l.AddAlertSuccessOk);
       const cancel: HTMLButtonElement = document.querySelector('.swal2-cancel');
-      expect(cancel.innerText).toBe(bit.l.operateBack);
+      expect(cancel.innerText).toBe(bit.l.AddAlertSuccessCancel);
       confirm.click();
     }, 200);
     swal.addAlert(res, form, { name: 'kain' }).subscribe(result => {
@@ -88,14 +89,16 @@ describe('BitSwalService', () => {
     });
     const res: any = {
       error: 1,
-      msg: 'schema wrong'
+      msg: 'request throw'
     };
     setTimeout(() => {
-      const title: HTMLElement = document.querySelector('#swal2-title');
-      expect(title.innerText).toBe(bit.l.operateError);
-      const content: HTMLElement = document.querySelector('#swal2-content');
+      const swal2: HTMLElement = document.querySelector('#swal2-content');
+      const title: HTMLElement = swal2.querySelector('.ant-result-title');
+      expect(title.innerText).toBe(bit.l.AddAlertErrorTitle);
+      const content: HTMLElement = swal2.querySelector('.ant-result-subtitle');
       expect(content.innerText).toBe(res.msg);
       const confirm: HTMLButtonElement = document.querySelector('.swal2-confirm');
+      expect(confirm.innerText).toBe(bit.l.AddAlertErrorOk);
       confirm.click();
     }, 200);
     swal.addAlert(res, form).subscribe(result => {

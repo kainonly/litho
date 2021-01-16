@@ -1,3 +1,7 @@
+import { FormGroup } from '@angular/forms';
+import { Observable } from 'rxjs';
+import { SweetAlertIcon } from 'sweetalert2';
+
 export interface UrlConfig {
   api: string;
   static: string;
@@ -96,9 +100,14 @@ export interface I18nGroupOption {
   asyncValidate?: any;
 }
 
-export interface AlertCustomize {
-  text?: string;
-  errorText?: string;
-  confirmButtonText?: string;
-  cancelButtonText?: string;
+export interface AlertOption {
+  title: string;
+  content: string;
+  type: SweetAlertIcon;
+  width?: number;
+  okText?: string;
+  okDanger?: boolean;
+  okShow?: boolean;
+  cancelText?: string;
+  cancelShow?: boolean;
 }
