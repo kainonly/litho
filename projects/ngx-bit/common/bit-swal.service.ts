@@ -41,9 +41,7 @@ export class BitSwalService {
       }).then((result) => {
         observer.next(result.value);
         observer.complete();
-      }).catch((reason => {
-        observer.error(reason);
-      }));
+      });
     });
   }
 
@@ -72,7 +70,9 @@ export class BitSwalService {
       type: 'error',
       okText: this.bit.l.AddAlertErrorOk,
       cancelShow: false
-    });
+    }).pipe(
+      map(_ => null)
+    );
   }
 
   /**
@@ -99,7 +99,9 @@ export class BitSwalService {
       type: 'error',
       okText: this.bit.l.EditAlertErrorOk,
       cancelShow: false
-    });
+    }).pipe(
+      map(_ => null)
+    );
   }
 
   /**

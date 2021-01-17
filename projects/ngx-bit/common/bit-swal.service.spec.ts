@@ -89,7 +89,7 @@ describe('BitSwalService', () => {
     });
     const res: any = {
       error: 1,
-      msg: 'request throw'
+      msg: 'add failed'
     };
     setTimeout(() => {
       const swal2: HTMLElement = document.querySelector('#swal2-content');
@@ -112,14 +112,15 @@ describe('BitSwalService', () => {
       error: 0
     };
     setTimeout(() => {
-      const title: HTMLElement = document.querySelector('#swal2-title');
-      expect(title.innerText).toBe(bit.l.operateSuccess);
-      const content: HTMLElement = document.querySelector('#swal2-content');
-      expect(content.innerText).toBe(bit.l.editSuccessMsg);
+      const swal2: HTMLElement = document.querySelector('#swal2-content');
+      const title: HTMLElement = swal2.querySelector('.ant-result-title');
+      expect(title.innerText).toBe(bit.l.EditAlertSuccessTitle);
+      const content: HTMLElement = swal2.querySelector('.ant-result-subtitle');
+      expect(content.innerText).toBe(bit.l.EditAlertSuccessContent);
       const confirm: HTMLButtonElement = document.querySelector('.swal2-confirm');
-      expect(confirm.innerText).toBe(bit.l.editContinue);
+      expect(confirm.innerText).toBe(bit.l.EditAlertSuccessOk);
       const cancel: HTMLButtonElement = document.querySelector('.swal2-cancel');
-      expect(cancel.innerText).toBe(bit.l.operateBack);
+      expect(cancel.innerText).toBe(bit.l.EditAlertSuccessCancel);
       confirm.click();
     }, 200);
     swal.editAlert(res).subscribe(result => {
@@ -148,11 +149,13 @@ describe('BitSwalService', () => {
       msg: 'edit fail'
     };
     setTimeout(() => {
-      const title: HTMLElement = document.querySelector('#swal2-title');
-      expect(title.innerText).toBe(bit.l.operateError);
-      const content: HTMLElement = document.querySelector('#swal2-content');
+      const swal2: HTMLElement = document.querySelector('#swal2-content');
+      const title: HTMLElement = swal2.querySelector('.ant-result-title');
+      expect(title.innerText).toBe(bit.l.EditAlertErrorTitle);
+      const content: HTMLElement = swal2.querySelector('.ant-result-subtitle');
       expect(content.innerText).toBe(res.msg);
       const confirm: HTMLButtonElement = document.querySelector('.swal2-confirm');
+      expect(confirm.innerText).toBe(bit.l.EditAlertErrorOk);
       confirm.click();
     }, 200);
     swal.editAlert(res).subscribe(result => {
@@ -167,14 +170,15 @@ describe('BitSwalService', () => {
       msg: 'ok'
     });
     setTimeout(() => {
-      const title: HTMLElement = document.querySelector('#swal2-title');
-      expect(title.innerText).toBe(bit.l.operateWarning);
-      const content: HTMLElement = document.querySelector('#swal2-content');
-      expect(content.innerText).toBe(bit.l.deleteWarning);
+      const swal2: HTMLElement = document.querySelector('#swal2-content');
+      const title: HTMLElement = swal2.querySelector('.ant-result-title');
+      expect(title.innerText).toBe(bit.l.DeleteAlertTitle);
+      const content: HTMLElement = swal2.querySelector('.ant-result-subtitle');
+      expect(content.innerText).toBe(bit.l.DeleteAlertContent);
       const confirm: HTMLButtonElement = document.querySelector('.swal2-confirm');
-      expect(confirm.innerText).toBe(bit.l.deleteYes);
+      expect(confirm.innerText).toBe(bit.l.DeleteAlertOk);
       const cancel: HTMLButtonElement = document.querySelector('.swal2-cancel');
-      expect(cancel.innerText).toBe(bit.l.deleteCancel);
+      expect(cancel.innerText).toBe(bit.l.DeleteAlertCancel);
       confirm.click();
     }, 200);
     swal.deleteAlert(res).subscribe(result => {
