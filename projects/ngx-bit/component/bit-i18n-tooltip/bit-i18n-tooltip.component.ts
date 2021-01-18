@@ -12,7 +12,7 @@ import { BitService } from 'ngx-bit';
         </ng-container>
       </ng-container>
       <ng-template #not>
-        {{bit.l.noTips}}
+        {{bit.l['I18nNoTip']}}
       </ng-template>
     </ng-template>
   `

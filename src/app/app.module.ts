@@ -6,9 +6,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { registerLocaleData } from '@angular/common';
 import zh from '@angular/common/locales/zh';
 import { NZ_I18N, zh_CN } from 'ng-zorro-antd/i18n';
-import { NgxBitModule } from 'ngx-bit';
 import { environment } from '@env';
-
+import { BitConfigService, BitEventsService, BitHttpService, BitService, BitSupportService, BitSwalService } from 'ngx-bit';
 import { PERFECT_SCROLLBAR_CONFIG, PerfectScrollbarConfigInterface, PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
 
 registerLocaleData(zh);
@@ -28,7 +27,7 @@ import { AppExtModule } from '@ext';
 import { GalleryTypeService } from '@common/gallery-type.service';
 import { GalleryService } from '@common/gallery.service';
 import { UiSerivce } from '@common/ui.serivce';
-
+import { NzIconService } from 'ng-zorro-antd/icon';
 
 const routes: Routes = [
   {
@@ -42,6 +41,15 @@ const routes: Routes = [
   }
 ];
 
+const bitConfig = () => {
+  const env = environment.bit;
+  const service = new BitConfigService();
+  Reflect.ownKeys(env).forEach(key => {
+    service[key] = env[key];
+  });
+  return service;
+};
+
 const perfectBar: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
 };
@@ -54,15 +62,23 @@ const perfectBar: PerfectScrollbarConfigInterface = {
     HttpClientModule,
     AppExtModule,
     PerfectScrollbarModule,
-    NgxBitModule.forRoot(environment.bit),
     RouterModule.forRoot(routes, { useHash: true }),
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
     StorageModule.forRoot({ IDBNoWrap: false })
   ],
   providers: [
+    NzIconService,
+    BitService,
+    BitHttpService,
+    BitEventsService,
+    BitSupportService,
+    BitSwalService,
+    { provide: BitConfigService, useFactory: bitConfig },
+    { provide: NZ_I18N, useValue: zh_CN },
+    { provide: PERFECT_SCROLLBAR_CONFIG, useValue: perfectBar },
+    UiSerivce,
     UpdateService,
     TokenService,
-    UiSerivce,
     MainService,
     AclService,
     ResourceService,
@@ -70,11 +86,17 @@ const perfectBar: PerfectScrollbarConfigInterface = {
     RoleService,
     AdminService,
     GalleryTypeService,
-    GalleryService,
-    { provide: NZ_I18N, useValue: zh_CN },
-    { provide: PERFECT_SCROLLBAR_CONFIG, useValue: perfectBar }
+    GalleryService
   ],
   bootstrap: [AppComponent]
 })
 export class AppModule {
+  constructor(
+    config: BitConfigService,
+    nzIconService: NzIconService
+  ) {
+    if (config.url.icon) {
+      nzIconService.changeAssetsSource(config.url.icon);
+    }
+  }
 }

@@ -4,7 +4,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { NavigationEnd, Router, RouterModule } from '@angular/router';
 import { NzButtonModule } from 'ng-zorro-antd/button';
-import { BitService, NgxBitModule } from 'ngx-bit';
+import { BitConfigService, BitEventsService, BitHttpService, BitService, BitSupportService, BitSwalService } from 'ngx-bit';
 import { BitDirectiveModule, BitOpenDirective } from 'ngx-bit/directive';
 import { environment } from '../simulation/environment';
 
@@ -33,8 +33,24 @@ describe('BitOpenDirective', () => {
               path: '{admin-index}',
               loadChildren: () => import('../simulation/case/case.module').then(m => m.CaseModule)
             }
-          ], { relativeLinkResolution: 'legacy' }),
-          NgxBitModule.forRoot(environment.bit)
+          ])
+        ],
+        providers: [
+          BitService,
+          BitHttpService,
+          BitEventsService,
+          BitSupportService,
+          BitSwalService,
+          {
+            provide: BitConfigService, useFactory: () => {
+              const env = environment.bit;
+              const service = new BitConfigService();
+              Reflect.ownKeys(env).forEach(key => {
+                service[key] = env[key];
+              });
+              return service;
+            }
+          }
         ]
       });
       bit = TestBed.inject(BitService);

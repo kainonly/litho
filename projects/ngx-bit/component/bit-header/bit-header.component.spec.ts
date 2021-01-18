@@ -1,6 +1,6 @@
 import { Component, TemplateRef, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { BitSupportService, NgxBitModule } from 'ngx-bit';
+import { BitConfigService, BitEventsService, BitHttpService, BitService, BitSupportService, BitSwalService } from 'ngx-bit';
 import { BitHeaderComponent, BitExtModule } from 'ngx-bit/component';
 import { environment } from '../../simulation/environment';
 
@@ -14,8 +14,24 @@ describe('BitHeaderComponent', () => {
     if (!component) {
       TestBed.configureTestingModule({
         imports: [
-          BitExtModule,
-          NgxBitModule.forRoot(environment.bit)
+          BitExtModule
+        ],
+        providers: [
+          BitService,
+          BitHttpService,
+          BitEventsService,
+          BitSupportService,
+          BitSwalService,
+          {
+            provide: BitConfigService, useFactory: () => {
+              const env = environment.bit;
+              const service = new BitConfigService();
+              Reflect.ownKeys(env).forEach(key => {
+                service[key] = env[key];
+              });
+              return service;
+            }
+          }
         ]
       });
       support = TestBed.inject(BitSupportService);

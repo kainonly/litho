@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 import { environment } from '../simulation/environment';
-import { BitEventsService, NgxBitModule } from 'ngx-bit';
+import { BitConfigService, BitEventsService, BitHttpService, BitService, BitSupportService, BitSwalService } from 'ngx-bit';
 
 describe('BitEventsService', () => {
   let events: BitEventsService;
@@ -8,8 +8,22 @@ describe('BitEventsService', () => {
   beforeEach(() => {
     if (!events) {
       TestBed.configureTestingModule({
-        imports: [
-          NgxBitModule.forRoot(environment.bit)
+        providers: [
+          BitService,
+          BitHttpService,
+          BitEventsService,
+          BitSupportService,
+          BitSwalService,
+          {
+            provide: BitConfigService, useFactory: () => {
+              const env = environment.bit;
+              const service = new BitConfigService();
+              Reflect.ownKeys(env).forEach(key => {
+                service[key] = env[key];
+              });
+              return service;
+            }
+          }
         ]
       });
       events = TestBed.inject(BitEventsService);

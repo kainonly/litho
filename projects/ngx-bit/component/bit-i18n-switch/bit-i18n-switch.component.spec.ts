@@ -1,7 +1,7 @@
 import { DebugElement } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterModule } from '@angular/router';
-import { BitService, NgxBitModule } from 'ngx-bit';
+import { BitConfigService, BitEventsService, BitHttpService, BitService, BitSupportService, BitSwalService } from 'ngx-bit';
 import { BitI18nSwitchComponent, BitExtModule } from 'ngx-bit/component';
 import { By } from '@angular/platform-browser';
 import { environment } from '../../simulation/environment';
@@ -17,8 +17,24 @@ describe('BitI18nSwitchComponent', () => {
       TestBed.configureTestingModule({
         imports: [
           BitExtModule,
-          RouterModule.forRoot([], { relativeLinkResolution: 'legacy' }),
-          NgxBitModule.forRoot(environment.bit)
+          RouterModule.forRoot([])
+        ],
+        providers: [
+          BitService,
+          BitHttpService,
+          BitEventsService,
+          BitSupportService,
+          BitSwalService,
+          {
+            provide: BitConfigService, useFactory: () => {
+              const env = environment.bit;
+              const service = new BitConfigService();
+              Reflect.ownKeys(env).forEach(key => {
+                service[key] = env[key];
+              });
+              return service;
+            }
+          }
         ]
       });
       bit = TestBed.inject(BitService);

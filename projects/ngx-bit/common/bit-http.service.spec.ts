@@ -1,7 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { RouterModule } from '@angular/router';
-import { BitConfigService, BitHttpService, BitService, NgxBitModule } from 'ngx-bit';
+import { BitConfigService, BitEventsService, BitHttpService, BitService, BitSupportService, BitSwalService } from 'ngx-bit';
 import { environment } from '../simulation/environment';
 import { TestService } from '../simulation/test.service';
 import { map } from 'rxjs/operators';
@@ -18,10 +18,24 @@ describe('BitHttpService', () => {
       TestBed.configureTestingModule({
         imports: [
           HttpClientTestingModule,
-          RouterModule.forRoot([], { relativeLinkResolution: 'legacy' }),
-          NgxBitModule.forRoot(environment.bit)
+          RouterModule.forRoot([], { relativeLinkResolution: 'legacy' })
         ],
         providers: [
+          BitService,
+          BitHttpService,
+          BitEventsService,
+          BitSupportService,
+          BitSwalService,
+          {
+            provide: BitConfigService, useFactory: () => {
+              const env = environment.bit;
+              const service = new BitConfigService();
+              Reflect.ownKeys(env).forEach(key => {
+                service[key] = env[key];
+              });
+              return service;
+            }
+          },
           TestService
         ]
       });

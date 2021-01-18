@@ -6,7 +6,7 @@ import { By } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
 import { StorageMap } from '@ngx-pwa/local-storage';
 import { NzSelectModule } from 'ng-zorro-antd/select';
-import { BitService, NgxBitModule } from 'ngx-bit';
+import { BitConfigService, BitEventsService, BitHttpService, BitService, BitSupportService, BitSwalService } from 'ngx-bit';
 import { BitDirectiveModule, BitSearchChangeDirective, BitSearchClearDirective } from 'ngx-bit/directive';
 import { ListByPage } from 'ngx-bit/factory';
 import { switchMap } from 'rxjs/operators';
@@ -28,8 +28,24 @@ describe('BitSearchClearDirective', () => {
         FormsModule,
         NzSelectModule,
         BitDirectiveModule,
-        RouterModule.forRoot([], { relativeLinkResolution: 'legacy' }),
-        NgxBitModule.forRoot(environment.bit)
+        RouterModule.forRoot([])
+      ],
+      providers: [
+        BitService,
+        BitHttpService,
+        BitEventsService,
+        BitSupportService,
+        BitSwalService,
+        {
+          provide: BitConfigService, useFactory: () => {
+            const env = environment.bit;
+            const service = new BitConfigService();
+            Reflect.ownKeys(env).forEach(key => {
+              service[key] = env[key];
+            });
+            return service;
+          }
+        }
       ]
     });
     bit = TestBed.inject(BitService);

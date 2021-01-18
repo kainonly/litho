@@ -3,7 +3,7 @@ import { TestBed } from '@angular/core/testing';
 import { Location } from '@angular/common';
 import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { NavigationEnd, Router, RouterModule } from '@angular/router';
-import { BitConfigService, BitService, NgxBitModule } from 'ngx-bit';
+import { BitConfigService, BitEventsService, BitHttpService, BitService, BitSupportService, BitSwalService } from 'ngx-bit';
 import { ListByPage } from 'ngx-bit/factory';
 import { AsyncSubject, of } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
@@ -44,8 +44,24 @@ describe('BitService', () => {
               path: '{admin-edit}/:id/:subId',
               loadChildren: () => import('../simulation/case/case.module').then(m => m.CaseModule)
             }
-          ], { relativeLinkResolution: 'legacy' }),
-          NgxBitModule.forRoot(environment.bit)
+          ])
+        ],
+        providers: [
+          BitService,
+          BitHttpService,
+          BitEventsService,
+          BitSupportService,
+          BitSwalService,
+          {
+            provide: BitConfigService, useFactory: () => {
+              const env = environment.bit;
+              const service = new BitConfigService();
+              Reflect.ownKeys(env).forEach(key => {
+                service[key] = env[key];
+              });
+              return service;
+            }
+          }
         ]
       });
       config = TestBed.inject(BitConfigService);

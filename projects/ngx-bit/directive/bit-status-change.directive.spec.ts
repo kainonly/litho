@@ -5,12 +5,12 @@ import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
-import { BitConfigService, NgxBitModule } from 'ngx-bit';
+import { BitConfigService, BitEventsService, BitHttpService, BitService, BitSupportService, BitSwalService } from 'ngx-bit';
 import { BitDirectiveModule, BitStatusChangeDirective } from 'ngx-bit/directive';
 import { NzSwitchComponent, NzSwitchModule } from 'ng-zorro-antd/switch';
-import { NzNotificationModule } from 'ng-zorro-antd/notification';
 import { environment } from '../simulation/environment';
 import { TestService } from '../simulation/test.service';
+import { NzMessageModule } from 'ng-zorro-antd/message';
 
 describe('BitStatusChangeDirective', () => {
   let httpTestingController: HttpTestingController;
@@ -28,13 +28,27 @@ describe('BitStatusChangeDirective', () => {
         FormsModule,
         NzSwitchModule,
         BitDirectiveModule,
-        NzNotificationModule,
+        NzMessageModule,
         NoopAnimationsModule,
         RouterModule.forRoot([], { relativeLinkResolution: 'legacy' }),
-        NgxBitModule.forRoot(environment.bit),
         HttpClientTestingModule
       ],
       providers: [
+        BitService,
+        BitHttpService,
+        BitEventsService,
+        BitSupportService,
+        BitSwalService,
+        {
+          provide: BitConfigService, useFactory: () => {
+            const env = environment.bit;
+            const service = new BitConfigService();
+            Reflect.ownKeys(env).forEach(key => {
+              service[key] = env[key];
+            });
+            return service;
+          }
+        },
         TestService
       ]
     });
@@ -116,17 +130,17 @@ describe('BitStatusChangeDirective', () => {
   template: `
     <nz-switch
       #switchComponent1
-      [(ngModel)]='data.status'
-      [bitStatusChange]='testService.status(data)'
-      (response)='statusFeedback($event)'
+      [(ngModel)]="data.status"
+      [bitStatusChange]="testService.status(data)"
+      (response)="statusFeedback($event)"
     >
     </nz-switch>
     <nz-switch
       #switchComponent2
-      [(ngModel)]='data.status'
-      [bitStatusChange]='testService.status(data)'
-      [bitControl]='true'
-      (response)='statusFeedback($event)'
+      [(ngModel)]="data.status"
+      [bitStatusChange]="testService.status(data)"
+      [bitControl]="true"
+      (response)="statusFeedback($event)"
     >
     </nz-switch>
   `

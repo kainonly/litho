@@ -3,8 +3,8 @@ import { Location } from '@angular/common';
 import { Component, NgZone } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { NavigationEnd, Router, RouterModule } from '@angular/router';
-import { BitService, NgxBitModule } from 'ngx-bit';
+import { Router, RouterModule } from '@angular/router';
+import { BitConfigService, BitEventsService, BitHttpService, BitService, BitSupportService, BitSwalService } from 'ngx-bit';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { BitBackDirective, BitDirectiveModule } from 'ngx-bit/directive';
 import { environment } from '../simulation/environment';
@@ -38,8 +38,25 @@ describe('BitBackDirective', () => {
             path: '{admin-add}',
             loadChildren: () => import('../simulation/case/case.module').then(m => m.CaseModule)
           }
-        ], { relativeLinkResolution: 'legacy' }),
-        NgxBitModule.forRoot(environment.bit)
+        ])
+
+      ],
+      providers: [
+        BitService,
+        BitHttpService,
+        BitEventsService,
+        BitSupportService,
+        BitSwalService,
+        {
+          provide: BitConfigService, useFactory: () => {
+            const env = environment.bit;
+            const service = new BitConfigService();
+            Reflect.ownKeys(env).forEach(key => {
+              service[key] = env[key];
+            });
+            return service;
+          }
+        }
       ]
     });
     bit = TestBed.inject(BitService);

@@ -38,8 +38,8 @@ export default {
   roleError: ['您没有权限加载此模块或当前模块已被屏蔽', `You do not have permission to load this module or the current module has been blocked`],
 
   // The Tooltip Language Pack
+  I18nNoTip: ['无提示', 'No prompt'],
   i18nTip: ['多语言输入框', 'A multilingual input box'],
-  noTip: ['无提示', 'No prompt'],
 
   // The Async Validate
   validating: ['正在验证...', 'Validating...'],

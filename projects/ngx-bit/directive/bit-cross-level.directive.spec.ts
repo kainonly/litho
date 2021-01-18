@@ -4,11 +4,12 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { NavigationEnd, Router, RouterModule } from '@angular/router';
 import { NzButtonModule } from 'ng-zorro-antd/button';
-import { BitService, NgxBitModule } from 'ngx-bit';
+import { BitConfigService, BitEventsService, BitHttpService, BitService, BitSupportService, BitSwalService } from 'ngx-bit';
 import { BitCrossLevelDirective, BitDirectiveModule } from 'ngx-bit/directive';
 import { AsyncSubject } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import { environment } from '../simulation/environment';
+import { NzColDirective } from 'ng-zorro-antd/grid';
 
 describe('BitCrossLevelDirective', () => {
   let bit: BitService;
@@ -43,8 +44,24 @@ describe('BitCrossLevelDirective', () => {
               path: '{admin-edit}/:id/:subId',
               loadChildren: () => import('../simulation/case/case.module').then(m => m.CaseModule)
             }
-          ], { relativeLinkResolution: 'legacy' }),
-          NgxBitModule.forRoot(environment.bit)
+          ])
+        ],
+        providers: [
+          BitService,
+          BitHttpService,
+          BitEventsService,
+          BitSupportService,
+          BitSwalService,
+          {
+            provide: BitConfigService, useFactory: () => {
+              const env = environment.bit;
+              const service = new BitConfigService();
+              Reflect.ownKeys(env).forEach(key => {
+                service[key] = env[key];
+              });
+              return service;
+            }
+          }
         ]
       });
       bit = TestBed.inject(BitService);
