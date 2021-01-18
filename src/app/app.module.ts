@@ -6,10 +6,10 @@ import { HttpClientModule } from '@angular/common/http';
 import { registerLocaleData } from '@angular/common';
 import zh from '@angular/common/locales/zh';
 import { NZ_I18N, zh_CN } from 'ng-zorro-antd/i18n';
-import { NZ_CONFIG, NzConfig } from 'ng-zorro-antd/core/config';
-import { PERFECT_SCROLLBAR_CONFIG, PerfectScrollbarConfigInterface, PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
 import { NgxBitModule } from 'ngx-bit';
 import { environment } from '@env';
+
+import { PERFECT_SCROLLBAR_CONFIG, PerfectScrollbarConfigInterface, PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
 
 registerLocaleData(zh);
 
@@ -42,10 +42,6 @@ const routes: Routes = [
   }
 ];
 
-const ngZorroConfig: NzConfig = {
-  notification: { nzPlacement: 'bottomRight' }
-};
-
 const perfectBar: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
 };
@@ -76,7 +72,6 @@ const perfectBar: PerfectScrollbarConfigInterface = {
     GalleryTypeService,
     GalleryService,
     { provide: NZ_I18N, useValue: zh_CN },
-    { provide: NZ_CONFIG, useValue: ngZorroConfig },
     { provide: PERFECT_SCROLLBAR_CONFIG, useValue: perfectBar }
   ],
   bootstrap: [AppComponent]

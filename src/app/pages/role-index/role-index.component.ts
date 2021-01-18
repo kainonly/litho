@@ -3,7 +3,6 @@ import { BitSwalService, BitService } from 'ngx-bit';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { ListByPage } from 'ngx-bit/factory';
 import { RoleService } from '@common/role.service';
-import { ResourceService } from '@common/resource.service';
 
 @Component({
   selector: 'app-role-index',
@@ -16,8 +15,7 @@ export class RoleIndexComponent implements OnInit {
     private swal: BitSwalService,
     public bit: BitService,
     private notification: NzNotificationService,
-    public roleService: RoleService,
-    private resourceService: ResourceService
+    public roleService: RoleService
   ) {
   }
 

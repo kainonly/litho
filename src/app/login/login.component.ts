@@ -17,11 +17,11 @@ export class LoginComponent implements OnInit {
   users: any[] = [];
 
   constructor(
+    public bit: BitService,
     private mainService: MainService,
     private notification: NzNotificationService,
     private router: Router,
     private fb: FormBuilder,
-    public bit: BitService,
     private support: BitSupportService,
     private storageMap: StorageMap
   ) {
@@ -54,16 +54,10 @@ export class LoginComponent implements OnInit {
             .subscribe(() => {
             });
         }
-        this.storageMap.set('currentUsername', data.username).subscribe(() => {
-          // ok
-        });
-        this.storageMap.set('loginTime', new Date().toISOString()).subscribe(() => {
-          // ok
-        });
-        this.notification.success(this.bit.l.loginTips, this.bit.l.loginSuccess);
+        this.notification.success(this.bit.l.auth, this.bit.l.loginSuccess);
         this.router.navigateByUrl('/');
       } else {
-        this.notification.error(this.bit.l.loginTips, this.bit.l.loginFailed);
+        this.notification.error(this.bit.l.auth, this.bit.l.loginError);
       }
     });
   }

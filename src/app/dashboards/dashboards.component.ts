@@ -4,16 +4,14 @@ import {
   OnDestroy,
   ViewChild,
   ChangeDetectorRef,
-  AfterViewInit,
   ElementRef
 } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BitService, BitEventsService, BitSupportService } from 'ngx-bit';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { MainService } from '@common/main.service';
-import { AsyncSubject, Subscription, timer } from 'rxjs';
+import { Subscription, timer } from 'rxjs';
 import { UiSerivce } from '@common/ui.serivce';
-import { switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-dashboards',
@@ -21,11 +19,11 @@ import { switchMap } from 'rxjs/operators';
   styleUrls: ['./dashboards.component.scss']
 })
 export class DashboardsComponent implements OnInit, OnDestroy {
-  collapsed = false;
-  navLists: any[] = [];
-
   @ViewChild('header') header: ElementRef;
   @ViewChild('warpper') warpper: ElementRef;
+
+  collapsed = false;
+  navLists: any[] = [];
 
   private statusSubscription: Subscription;
   private firstDispatch = true;
@@ -94,7 +92,7 @@ export class DashboardsComponent implements OnInit, OnDestroy {
       this.support.clearStorage();
       this.support.unsubscribe();
       this.router.navigateByUrl('/login');
-      this.notification.success(this.bit.l.logout, this.bit.l.logoutSuccess);
+      this.notification.info(this.bit.l.auth, this.bit.l.authLogout);
     });
   }
 }

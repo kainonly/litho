@@ -189,6 +189,9 @@ export class ResourceIndexComponent implements OnInit, OnDestroy {
    * delete resource
    */
   delete(): void {
+    if (this.activeNode.getChildren().length !== 0) {
+      return;
+    }
     this.swal.deleteAlert(
       this.resourceService.delete([this.activeNode.origin.id])
     ).subscribe(res => {

@@ -7,7 +7,6 @@ export default {
   passwordCorrectly: ['请输入格式正确的口令', 'Please Enter Correctly Password'],
   login: ['登录', 'Login'],
   loginRemember: ['记住帐户登录', 'Remember account login'],
-  loginTips: ['登录操作', 'Login Response'],
-  loginFailed: ['您的登录失败，请确实账户口令是否正确', 'Your login failed. Please confirm that the account password is correct'],
-  loginSuccess: ['登录成功', 'Login Success']
+  loginSuccess: ['登录成功，正在加载数据~', 'Successful login, data is being loaded~'],
+  loginError: ['您的登录失败，请确实账户口令是否正确', 'Your login failed. Please confirm that the account password is correct']
 };
