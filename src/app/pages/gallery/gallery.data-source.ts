@@ -2,7 +2,7 @@ import { CollectionViewer, DataSource } from '@angular/cdk/collections';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { switchMap, takeUntil } from 'rxjs/operators';
 import { ListByPage } from 'ngx-bit/factory';
-import { GalleryService } from '@common/gallery.service';
+import { GalleryService } from '@api/gallery.service';
 
 export class GalleryDataSource extends DataSource<any> {
   lists: ListByPage;

@@ -4,7 +4,7 @@ import { AbstractControl, AsyncValidatorFn, FormBuilder, FormGroup, Validators }
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { asyncValidator } from 'ngx-bit/operates';
 import { map, switchMap } from 'rxjs/operators';
-import { AclService } from '@common/acl.service';
+import { AclService } from '@api/acl.service';
 import { ActivatedRoute } from '@angular/router';
 import { AsyncSubject } from 'rxjs';
 

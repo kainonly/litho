@@ -5,8 +5,8 @@ import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { NzTreeComponent, NzTreeNodeOptions } from 'ng-zorro-antd/tree';
 import { asyncValidator } from 'ngx-bit/operates';
 import { switchMap } from 'rxjs/operators';
-import { RoleService } from '@common/role.service';
-import { ResourceService } from '@common/resource.service';
+import { RoleService } from '@api/role.service';
+import { ResourceService } from '@api/resource.service';
 
 @Component({
   selector: 'app-role-add',

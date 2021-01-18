@@ -1,13 +1,13 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { ResourceService } from '@common/resource.service';
+import { ResourceService } from '@api/resource.service';
 import { NzContextMenuService, NzDropdownMenuComponent } from 'ng-zorro-antd/dropdown';
 import { NzFormatBeforeDropEvent, NzFormatEmitEvent, NzTreeComponent, NzTreeNode, NzTreeNodeOptions } from 'ng-zorro-antd/tree';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { BitService, BitEventsService, BitSwalService } from 'ngx-bit';
 import { Observable, of } from 'rxjs';
-import { PolicyService } from '@common/policy.service';
+import { PolicyService } from '@api/policy.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { AclService } from '@common/acl.service';
+import { AclService } from '@api/acl.service';
 
 @Component({
   selector: 'app-resource-index',

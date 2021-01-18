@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { BitService } from 'ngx-bit';
 import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
-import { MainService } from '@common/main.service';
+import { MainService } from '@api/main.service';
 import { NzUploadChangeParam } from 'ng-zorro-antd/upload';
 
 @Component({

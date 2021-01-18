@@ -16,14 +16,20 @@
       "dom"
     ],
     "paths": {
+      "@env": [
+        "src/environments/environment.ts"
+      ],
       "@common": [
         "src/app/common"
       ],
       "@common/*": [
         "src/app/common/*"
       ],
-      "@env": [
-        "src/environments/environment.ts"
+      "@api": [
+        "src/app/api"
+      ],
+      "@api/*": [
+        "src/app/api/*"
       ],
       "@ext": [
         "src/app/app.ext.module.ts"

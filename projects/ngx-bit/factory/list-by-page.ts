@@ -130,7 +130,7 @@ export class ListByPage {
   refreshStatus(): void {
     const allChecked = this.data.every((value) => value.checked === true);
     const allUnchecked = this.data.every((value) => !value.checked);
-    this.checked = allChecked;
+    this.checked = this.data.length !== 0 && allChecked;
     this.indeterminate = !allChecked && !allUnchecked;
     this.batch = this.checked || this.indeterminate;
     this.checkedNumber = this.data.filter((value) => value.checked).length;

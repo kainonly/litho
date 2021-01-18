@@ -28,12 +28,12 @@
       </ng-template>
     </nz-space-item>
     <nz-space-item>
-      <button nz-button nzType="default" (click)="getLists(true)">
+      <button nz-button (click)="getLists(true)">
         <i nz-icon nzType="sync"></i> {{ bit.l["refreshLists"] }}
       </button>
     </nz-space-item>
     <nz-space-item>
-      <button nz-button nzType="default" [bitSearchClear]="lists" (after)="getLists(true)">
+      <button nz-button [bitSearchClear]="lists" (after)="getLists(true)">
         <i nz-icon nzType="clear"></i> {{ bit.l["clearSearch"] }}
       </button>
     </nz-space-item>

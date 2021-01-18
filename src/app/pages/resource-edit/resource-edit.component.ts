@@ -3,7 +3,7 @@ import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/fo
 import { BitService, BitEventsService, BitSwalService } from 'ngx-bit';
 import { ActivatedRoute } from '@angular/router';
 import { NzTreeNodeOptions } from 'ng-zorro-antd/core/tree/nz-tree-base-node';
-import { ResourceService } from '@common/resource.service';
+import { ResourceService } from '@api/resource.service';
 import { asyncValidator } from 'ngx-bit/operates';
 import { switchMap } from 'rxjs/operators';
 import { AsyncSubject } from 'rxjs';

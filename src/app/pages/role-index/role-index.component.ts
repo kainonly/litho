@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { BitSwalService, BitService } from 'ngx-bit';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { ListByPage } from 'ngx-bit/factory';
-import { RoleService } from '@common/role.service';
+import { RoleService } from '@api/role.service';
 
 @Component({
   selector: 'app-role-index',

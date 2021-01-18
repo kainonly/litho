@@ -26,7 +26,9 @@ export class MainService {
    * User Logout
    */
   logout(): Observable<boolean> {
-    return this.http.req(this.model + '/logout').pipe(map(res => !res.error));
+    return this.http.req(this.model + '/logout').pipe(
+      map(res => !res.error)
+    );
   }
 
   /**
@@ -83,7 +85,9 @@ export class MainService {
    * Get Profile Information
    */
   information(): Observable<any> {
-    return this.http.req(this.model + '/information').pipe(map(res => (!res.error ? res.data : {})));
+    return this.http.req(this.model + '/information').pipe(
+      map(res => (!res.error ? res.data : {}))
+    );
   }
 
   /**

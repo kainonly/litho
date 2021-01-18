@@ -9,9 +9,9 @@ import {
 import { ActivatedRoute, Router } from '@angular/router';
 import { BitService, BitEventsService, BitSupportService } from 'ngx-bit';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
-import { MainService } from '@common/main.service';
+import { MainService } from '@api/main.service';
 import { Subscription, timer } from 'rxjs';
-import { UiSerivce } from '@common/ui.serivce';
+import { UiService } from '@common/ui.service';
 
 @Component({
   selector: 'app-dashboards',
@@ -31,7 +31,7 @@ export class DashboardsComponent implements OnInit, OnDestroy {
   constructor(
     private router: Router,
     private route: ActivatedRoute,
-    private ui: UiSerivce,
+    private ui: UiService,
     private mainService: MainService,
     private events: BitEventsService,
     private notification: NzNotificationService,

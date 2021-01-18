@@ -4,30 +4,32 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule, Routes } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { registerLocaleData } from '@angular/common';
+import { ServiceWorkerModule } from '@angular/service-worker';
 import zh from '@angular/common/locales/zh';
-import { NZ_I18N, zh_CN } from 'ng-zorro-antd/i18n';
 import { environment } from '@env';
+import { NZ_I18N, zh_CN } from 'ng-zorro-antd/i18n';
+import { StorageModule } from '@ngx-pwa/local-storage';
 import { BitConfigService, BitEventsService, BitHttpService, BitService, BitSupportService, BitSwalService } from 'ngx-bit';
 import { PERFECT_SCROLLBAR_CONFIG, PerfectScrollbarConfigInterface, PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
 
 registerLocaleData(zh);
 
+import { AppExtModule } from '@ext';
+import { NzIconService } from 'ng-zorro-antd/icon';
+
 import { AppComponent } from './app.component';
 import { TokenService } from '@common/token.service';
-import { MainService } from '@common/main.service';
-import { AdminService } from '@common/admin.service';
-import { RoleService } from '@common/role.service';
-import { AclService } from '@common/acl.service';
-import { ResourceService } from '@common/resource.service';
-import { PolicyService } from '@common/policy.service';
-import { ServiceWorkerModule } from '@angular/service-worker';
 import { UpdateService } from '@common/update.service';
-import { StorageModule } from '@ngx-pwa/local-storage';
-import { AppExtModule } from '@ext';
-import { GalleryTypeService } from '@common/gallery-type.service';
-import { GalleryService } from '@common/gallery.service';
-import { UiSerivce } from '@common/ui.serivce';
-import { NzIconService } from 'ng-zorro-antd/icon';
+import { UiService } from '@common/ui.service';
+
+import { MainService } from '@api/main.service';
+import { AdminService } from '@api/admin.service';
+import { RoleService } from '@api/role.service';
+import { AclService } from '@api/acl.service';
+import { ResourceService } from '@api/resource.service';
+import { PolicyService } from '@api/policy.service';
+import { GalleryTypeService } from '@api/gallery-type.service';
+import { GalleryService } from '@api/gallery.service';
 
 const routes: Routes = [
   {
@@ -67,6 +69,22 @@ const perfectBar: PerfectScrollbarConfigInterface = {
     StorageModule.forRoot({ IDBNoWrap: false })
   ],
   providers: [
+    // Common Service
+    UpdateService,
+    TokenService,
+    UiService,
+
+    // API Service
+    MainService,
+    AclService,
+    ResourceService,
+    PolicyService,
+    RoleService,
+    AdminService,
+    GalleryTypeService,
+    GalleryService,
+
+    // Library Service
     NzIconService,
     BitService,
     BitHttpService,
@@ -75,18 +93,7 @@ const perfectBar: PerfectScrollbarConfigInterface = {
     BitSwalService,
     { provide: BitConfigService, useFactory: bitConfig },
     { provide: NZ_I18N, useValue: zh_CN },
-    { provide: PERFECT_SCROLLBAR_CONFIG, useValue: perfectBar },
-    UiSerivce,
-    UpdateService,
-    TokenService,
-    MainService,
-    AclService,
-    ResourceService,
-    PolicyService,
-    RoleService,
-    AdminService,
-    GalleryTypeService,
-    GalleryService
+    { provide: PERFECT_SCROLLBAR_CONFIG, useValue: perfectBar }
   ],
   bootstrap: [AppComponent]
 })

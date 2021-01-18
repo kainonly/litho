@@ -4,8 +4,8 @@ import { BitSwalService, BitService } from 'ngx-bit';
 import { asyncValidator } from 'ngx-bit/operates';
 import { switchMap } from 'rxjs/operators';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
-import { AdminService } from '@common/admin.service';
-import { RoleService } from '@common/role.service';
+import { AdminService } from '@api/admin.service';
+import { RoleService } from '@api/role.service';
 
 @Component({
   selector: 'app-admin-add',

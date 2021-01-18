@@ -1,8 +1,8 @@
 import { AfterContentInit, AfterViewInit, Component, HostListener, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { BitConfigService, BitService } from 'ngx-bit';
 import { GalleryDataSource } from './gallery.data-source';
-import { GalleryService } from '@common/gallery.service';
-import { GalleryTypeService } from '@common/gallery-type.service';
+import { GalleryService } from '@api/gallery.service';
+import { GalleryTypeService } from '@api/gallery-type.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NzModalComponent, NzModalService } from 'ng-zorro-antd/modal';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
@@ -11,11 +11,10 @@ import { Clipboard } from '@angular/cdk/clipboard';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { TransportDataSource } from './transport.data-source';
-import { map, switchMap, throttleTime } from 'rxjs/operators';
-import { UiSerivce } from '@common/ui.serivce';
+import { map, switchMap } from 'rxjs/operators';
+import { UiService } from '@common/ui.service';
 import { NzContextMenuService, NzDropdownMenuComponent } from 'ng-zorro-antd/dropdown';
 import { Observable, of } from 'rxjs';
-import { element } from 'protractor';
 
 @Component({
   selector: 'app-gallery',
@@ -54,7 +53,7 @@ export class GalleryComponent implements OnInit, AfterContentInit, AfterViewInit
   constructor(
     public config: BitConfigService,
     public bit: BitService,
-    public ui: UiSerivce,
+    public ui: UiService,
     private galleryService: GalleryService,
     private galleryTypeService: GalleryTypeService,
     private clipboard: Clipboard,

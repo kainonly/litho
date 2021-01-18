@@ -69,7 +69,7 @@
           [nzDropdownMenu]="bulkActions"
           [nzTrigger]="'click'"
           [nzClickHide]="false"
-          [disabled]="ds.lists.checkedNumber === 0"
+          [disabled]="!ds.lists.batch"
         >
           <nz-badge [nzCount]="ds.lists.checkedNumber" [nzOffset]="[3, -12]">
             <i nz-icon nzType="ellipsis"></i>
