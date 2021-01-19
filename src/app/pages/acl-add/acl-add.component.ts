@@ -25,6 +25,14 @@ export class AclAddComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.swal.create({
+      title: 'This is a success message',
+      content: 'some messages...some messages...',
+      type: 'success'
+    }).subscribe(() => {
+
+    });
+
     this.bit.registerLocales(import('./language'));
     this.form = this.fb.group({
       name: this.fb.group(

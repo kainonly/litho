@@ -1,5 +1,3 @@
-import { FormGroup } from '@angular/forms';
-import { Observable } from 'rxjs';
 import { SweetAlertIcon } from 'sweetalert2';
 
 export interface UrlConfig {

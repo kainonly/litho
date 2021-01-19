@@ -33,7 +33,6 @@ describe('BitUploadDirective', () => {
         BitSwalService,
         {
           provide: BitConfigService, useFactory: () => {
-            const env = environment.bit;
             const service = new BitConfigService();
             Reflect.ownKeys(env).forEach(key => {
               service[key] = env[key];

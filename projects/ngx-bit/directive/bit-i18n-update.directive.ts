@@ -4,7 +4,7 @@ import { Subscription } from 'rxjs';
 import { BitService } from 'ngx-bit';
 
 @Directive({
-  selector: '[bitI18nUpdate]'
+  selector: '[formGroupName][bitI18nUpdate]'
 })
 export class BitI18nUpdateDirective implements OnInit, OnDestroy {
   private changes: Subscription;

@@ -1,11 +1,9 @@
 {
   "name": "ngx-bit",
-  "version": "11.0.2",
+  "version": "11.1.0",
   "schematics": "./schematics/collection.json",
   "dependencies": {
-    "@ngx-pwa/local-storage": "^11.0.0",
-    "ng-zorro-antd": "^11.0.0",
-    "sweetalert2": "^10.0.0"
+    "ng-zorro-antd": "^11.0.0"
   },
   "peerDependencies": {
     "@angular/common": "^11.0.0",
