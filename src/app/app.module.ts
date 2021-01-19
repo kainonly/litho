@@ -9,6 +9,7 @@ import zh from '@angular/common/locales/zh';
 import { environment } from '@env';
 import { NZ_I18N, zh_CN } from 'ng-zorro-antd/i18n';
 import { StorageModule } from '@ngx-pwa/local-storage';
+import { NZ_CONFIG, NzConfig } from 'ng-zorro-antd/core/config';
 import { BitConfigService, BitEventsService, BitHttpService, BitService, BitSupportService, BitSwalService } from 'ngx-bit';
 import { PERFECT_SCROLLBAR_CONFIG, PerfectScrollbarConfigInterface, PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
 
@@ -21,6 +22,7 @@ import { AppComponent } from './app.component';
 import { TokenService } from '@common/token.service';
 import { UpdateService } from '@common/update.service';
 import { UiService } from '@common/ui.service';
+import { LogicService } from '@common/logic.service';
 
 import { MainService } from '@api/main.service';
 import { AdminService } from '@api/admin.service';
@@ -42,6 +44,10 @@ const routes: Routes = [
     loadChildren: () => import('./login/login.module').then(m => m.LoginModule)
   }
 ];
+
+const ngZorroConfig: NzConfig = {
+  notification: { nzPlacement: 'bottomRight' }
+};
 
 const bitConfig = () => {
   const env = environment.bit;
@@ -73,6 +79,7 @@ const perfectBar: PerfectScrollbarConfigInterface = {
     UpdateService,
     TokenService,
     UiService,
+    LogicService,
 
     // API Service
     MainService,
@@ -91,8 +98,9 @@ const perfectBar: PerfectScrollbarConfigInterface = {
     BitEventsService,
     BitSupportService,
     BitSwalService,
-    { provide: BitConfigService, useFactory: bitConfig },
+    { provide: NZ_CONFIG, useValue: ngZorroConfig },
     { provide: NZ_I18N, useValue: zh_CN },
+    { provide: BitConfigService, useFactory: bitConfig },
     { provide: PERFECT_SCROLLBAR_CONFIG, useValue: perfectBar }
   ],
   bootstrap: [AppComponent]

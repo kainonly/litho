@@ -1,6 +1,6 @@
 <bit-header>
   <nz-alert bitBanner nzBanner nzType="info" nzCloseable [nzMessage]="nzMessage.ref">
-    <bit-print #nzMessage [text]="bit.l['info']" [vars]="[vars0,vars1,vars2]">
+    <bit-print #nzMessage [text]="bit.l['info']" [vars]="[vars0, vars1, vars2]">
       <ng-template #vars0>
         <nz-tag>
           <i nz-icon nzType="flag"></i>
@@ -68,7 +68,7 @@
   </nz-space>
 </ng-template>
 
-<nz-ribbon [nzText]="isSort?bit.l['isSort']:null">
+<nz-ribbon [nzText]="isSort ? bit.l['isSort'] : null">
   <nz-card [nzTitle]="title">
     <nz-tree
       *ngIf="isSort"
@@ -132,6 +132,14 @@
               <i nz-icon nzType="control"></i>
             </ng-container>
           </nz-tag>
+          <nz-tag *ngIf="node.origin.policy" nzColor="blue">
+            <ng-container *ngFor="let x of policy.get(node.key); last as isLast">
+              {{ x.acl_key }}:
+              <ng-container *ngIf="x.policy === 0"> r</ng-container>
+              <ng-container *ngIf="x.policy === 1"> rw</ng-container>
+              <nz-divider nzType="vertical" *ngIf="!isLast"></nz-divider>
+            </ng-container>
+          </nz-tag>
         </nz-space-item>
       </nz-space>
     </ng-template>
@@ -154,7 +162,7 @@
         <li
           nz-menu-item
           [nzDisabled]="activeNode.getChildren().length !== 0"
-          (click)="delete()"
+          (click)="deleteData()"
         >
           <i nz-icon nzType="delete"></i> {{ bit.l["delete"] }}
         </li>
@@ -162,80 +170,69 @@
     </nz-dropdown-menu>
   </nz-card>
 </nz-ribbon>
+
 <nz-drawer
-  [nzWidth]="500"
+  [nzWidth]="540"
   [nzTitle]="nzTitle"
   [nzVisible]="policyVisable"
   (nzOnClose)="closePolicy()"
 >
   <ng-template #nzTitle>
-    <b *ngIf="activeNode">{{ bit.l["policyEdit"] }}: {{ activeNode.title }}</b>
+    <nz-space>
+      <nz-space-item *ngIf="activeNode">
+        {{ activeNode.title }}
+      </nz-space-item>
+      <nz-space-item>
+        <nz-input-group nzCompact>
+          <nz-select
+            style="width: 160px"
+            nzAllowClear
+            [(ngModel)]="policyAclKey"
+            [nzShowSearch]="true"
+            [nzPlaceHolder]="bit.l['aclKeyPlaceHolder']"
+            [nzDropdownMatchSelectWidth]="false"
+          >
+            <ng-container *ngFor="let x of policyAcl">
+              <nz-option
+                [nzLabel]="(x.name | object: bit.locale) + '[' + x.key + ']'"
+                [nzDisabled]="disabledAclKey(x.key)"
+                [nzValue]="x.key"
+              >
+              </nz-option>
+            </ng-container>
+          </nz-select>
+          <nz-select
+            style="width: 80px"
+            [(ngModel)]="policyValue"
+            [nzDropdownMatchSelectWidth]="false"
+          >
+            <nz-option [nzLabel]="bit.l['policyRead']" [nzValue]="0"></nz-option>
+            <nz-option [nzLabel]="bit.l['policyReadAndWrite']" [nzValue]="1"></nz-option>
+          </nz-select>
+        </nz-input-group>
+      </nz-space-item>
+      <nz-space-item>
+        <button nz-button nzType="primary" (click)="policySubmit()" [disabled]="!policyAclKey">
+          <i nz-icon nzType="check"></i> {{ bit.l["add"] }}
+        </button>
+      </nz-space-item>
+    </nz-space>
   </ng-template>
   <ng-container *nzDrawerContent>
-    <ng-container *ngIf="activeNode && policyForm">
-      <form nz-form [formGroup]="policyForm" (bitFormSubmit)="submitPolicy($event)">
-        <ng-container *ngFor="let x of policy.get(activeNode.key)">
-          <nz-tag [nzColor]="'blue'" nzMode="closeable" (nzOnClose)="deletePolicy(x.id)">
-            {{ x.acl_key }}:{{ bit.l[policyInfo[x.policy]] }}
-          </nz-tag>
-        </ng-container>
+    <ng-container *ngIf="activeNode">
+      <ng-container *ngFor="let data of policy.get(activeNode.key)">
 
-        <nz-divider></nz-divider>
-
-        <nz-form-item>
-          <nz-form-label [nzSpan]="6" nzRequired>
-            {{ bit.l["resource_key"] }}
-          </nz-form-label>
-          <nz-form-control [nzSpan]="18">
-            <input type="text" nz-input [disabled]="true" [value]="activeNode.key" />
-          </nz-form-control>
-        </nz-form-item>
-
-        <nz-form-item>
-          <nz-form-label [nzSpan]="6" nzRequired>
-            {{ bit.l["acl_key"] }}
-          </nz-form-label>
-          <nz-form-control [nzSpan]="18">
-            <nz-select
-              formControlName="acl_key"
-              nzAllowClear
-              [nzShowSearch]="true"
-              [nzPlaceHolder]="bit.l['aclPlaceHolder']"
-            >
-              <ng-container *ngFor="let x of aclLists">
-                <nz-option
-                  [nzLabel]="(x.name | object: bit.locale) + '[' + x.key + ']'"
-                  [nzDisabled]="disabledAcl(x.key)"
-                  [nzValue]="x.key"
-                >
-                </nz-option>
-              </ng-container>
-            </nz-select>
-          </nz-form-control>
-        </nz-form-item>
-
-        <nz-form-item>
-          <nz-form-label [nzSpan]="6" nzRequired>
-            {{ bit.l["policy"] }}
-          </nz-form-label>
-          <nz-form-control [nzSpan]="18">
-            <nz-radio-group formControlName="policy">
-              <label nz-radio-button [nzValue]="0">{{ bit.l["readonly"] }}</label>
-              <label nz-radio-button [nzValue]="1">{{ bit.l["readandwrite"] }}</label>
-            </nz-radio-group>
-          </nz-form-control>
-        </nz-form-item>
-
-        <nz-divider></nz-divider>
-
-        <nz-form-item>
-          <nz-form-control [nzOffset]="6" [nzSpan]="18">
-            <button nz-button nzType="primary" [disabled]="!policyForm.valid">
-              {{ bit.l["submit"] }}
-            </button>
-          </nz-form-control>
-        </nz-form-item>
-      </form>
+        <nz-tag nzColor="blue" nzMode="closeable" (nzOnClose)="deletePolicy([data.id])">
+          <span>{{ data.acl_key }}</span>
+          <nz-divider nzType="vertical"></nz-divider>
+          <ng-container *ngIf="data.policy === 0">
+            {{ bit.l["policyRead"] }}
+          </ng-container>
+          <ng-container *ngIf="data.policy === 1">
+            {{ bit.l["policyReadAndWrite"] }}
+          </ng-container>
+        </nz-tag>
+      </ng-container>
     </ng-container>
   </ng-container>
 </nz-drawer>

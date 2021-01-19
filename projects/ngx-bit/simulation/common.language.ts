@@ -27,7 +27,9 @@ export default {
 
   // The Notification or Message Language Pack
   success: ['操作成功', 'Operation Success'],
-  failed: ['操作失败', 'Operation Failed'],
+  error: ['操作失败', 'Operation Failed'],
+  updateSuccess: ['您的请求提交成功，已更新数据内容', 'Your request was submitted successfully and the data content has been updated'],
+  updateDelete: ['您的请求提交异常，请稍后再试', 'Your request submission is abnormal, please try again later'],
   deleteSuccess: ['您的请求提交成功，该数据已被删除', 'Your request was submitted successfully and the data has been deleted'],
   deleteError: ['您的请求提交异常，请稍后再试', 'Your request submission is abnormal, please try again later'],
   uploadSuccess: ['您的文件已上传完毕', 'Your file has been uploaded'],

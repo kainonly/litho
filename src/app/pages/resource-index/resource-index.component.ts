@@ -8,6 +8,7 @@ import { Observable, of } from 'rxjs';
 import { PolicyService } from '@api/policy.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AclService } from '@api/acl.service';
+import { NzMessageService } from 'ng-zorro-antd/message';
 
 @Component({
   selector: 'app-resource-index',
@@ -17,34 +18,30 @@ import { AclService } from '@api/acl.service';
 export class ResourceIndexComponent implements OnInit, OnDestroy {
   @ViewChild('nzTree') nzTree: NzTreeComponent;
 
-
   search = '';
   resource: NzTreeNodeOptions[] = [];
   activeNode: NzTreeNode;
-
   isSort = false;
   sortData = [];
 
+  private expanded: Set<string> = new Set();
+
   policy: Map<string, any[]> = new Map();
   policyVisable = false;
-  policyInfo = {
-    0: 'readonly',
-    1: 'readandwrite'
-  };
-  policyForm: FormGroup;
-  aclLists: any[] = [];
-
-  private expanded: Set<string> = new Set();
+  policyAcl: any[] = [];
+  policyAclKey: string;
+  policyValue = 0;
 
   constructor(
     public bit: BitService,
     private events: BitEventsService,
     private fb: FormBuilder,
     private swal: BitSwalService,
+    private message: NzMessageService,
     private notification: NzNotificationService,
     private contextMenu: NzContextMenuService,
     private resourceService: ResourceService,
-    private policyService: PolicyService,
+    public policyService: PolicyService,
     private aclService: AclService
   ) {
   }
@@ -108,7 +105,7 @@ export class ResourceIndexComponent implements OnInit, OnDestroy {
    */
   getPolicy(): void {
     this.policyService.originLists().subscribe(data => {
-      this.policy = new Map();
+      this.policy.clear();
       for (const x of data) {
         if (this.policy.has(x.resource_key)) {
           const queue = this.policy.get(x.resource_key);
@@ -136,7 +133,7 @@ export class ResourceIndexComponent implements OnInit, OnDestroy {
    */
   getAcl(): void {
     this.aclService.originLists().subscribe(data => {
-      this.aclLists = data;
+      this.policyAcl = data;
     });
   }
 
@@ -188,7 +185,7 @@ export class ResourceIndexComponent implements OnInit, OnDestroy {
   /**
    * delete resource
    */
-  delete(): void {
+  deleteData(): void {
     if (this.activeNode.getChildren().length !== 0) {
       return;
     }
@@ -196,10 +193,10 @@ export class ResourceIndexComponent implements OnInit, OnDestroy {
       this.resourceService.delete([this.activeNode.origin.id])
     ).subscribe(res => {
       if (!res.error) {
-        this.notification.success(this.bit.l.operateSuccess, this.bit.l.deleteSuccess);
+        this.message.success(this.bit.l.deleteSuccess);
         this.getNodes();
       } else {
-        this.notification.error(this.bit.l.operateError, this.bit.l.deleteError);
+        this.message.error(this.bit.l.deleteError);
       }
     });
   }
@@ -272,11 +269,11 @@ export class ResourceIndexComponent implements OnInit, OnDestroy {
       this.sortData
     ).subscribe(res => {
       if (!res.error) {
-        this.notification.success(this.bit.l.operateSuccess, this.bit.l.sortSuccess);
+        this.message.success(this.bit.l.sortSuccess);
         this.events.publish('refresh-menu');
         this.closeSort();
       } else {
-        this.notification.error(this.bit.l.operateError, this.bit.l.sortError);
+        this.message.error(this.bit.l.sortError);
       }
     });
   }
@@ -287,10 +284,6 @@ export class ResourceIndexComponent implements OnInit, OnDestroy {
   openPolicy(): void {
     this.policyVisable = true;
     this.getAcl();
-    this.policyForm = this.fb.group({
-      acl_key: [null, Validators.required],
-      policy: [0, Validators.required]
-    });
   }
 
   /**
@@ -298,35 +291,40 @@ export class ResourceIndexComponent implements OnInit, OnDestroy {
    */
   closePolicy(): void {
     this.policyVisable = false;
-    this.policyForm = null;
+    this.policyReset();
+  }
+
+  private policyReset(): void {
+    this.policyAclKey = undefined;
+    this.policyValue = 0;
   }
 
   /**
    * 禁用已存在的访问控制键
    */
-  disabledAcl(key: string): boolean {
+  disabledAclKey(value: string): boolean {
     if (!this.policy.has(this.activeNode.key)) {
       return false;
     }
-    return this.policy.get(this.activeNode.key).some(v => v.acl_key === key);
+    return this.policy.get(this.activeNode.key).some(v => v.acl_key === value);
   }
 
   /**
    * 提交策略绑定
    */
-  submitPolicy(data): void {
-    Reflect.set(data, 'resource_key', this.activeNode.key);
-    this.policyService.add(data).subscribe(res => {
+  policySubmit(): void {
+    this.policyService.add({
+      resource_key: this.activeNode.key,
+      acl_key: this.policyAclKey,
+      policy: this.policyValue
+    }).subscribe(res => {
       if (!res.error) {
-        this.notification.success(this.bit.l.operateSuccess, this.bit.l.deleteSuccess);
-        this.policyForm.reset({
-          acl_key: null,
-          policy: 0
-        });
+        this.notification.success(this.bit.l.success, this.bit.l.updateSuccess);
+        this.policyReset();
         this.getPolicy();
         this.getAcl();
       } else {
-        this.notification.error(this.bit.l.operateError, this.bit.l.deleteError);
+        this.notification.error(this.bit.l.error, this.bit.l.updateError);
       }
     });
   }
@@ -334,15 +332,15 @@ export class ResourceIndexComponent implements OnInit, OnDestroy {
   /**
    * 删除策略绑定
    */
-  deletePolicy(id: number): void {
-    this.policyService.delete([id]).subscribe(res => {
+  deletePolicy(id: any[]): void {
+    this.policyService.delete(id).subscribe(res => {
       if (!res.error) {
-        this.notification.success(this.bit.l.operateSuccess, this.bit.l.deleteSuccess);
-        this.getPolicy();
-        this.getAcl();
+        this.notification.success(this.bit.l.success, this.bit.l.deleteSuccess);
       } else {
-        this.notification.error(this.bit.l.operateError, this.bit.l.deleteError);
+        this.notification.error(this.bit.l.error, this.bit.l.deleteError);
       }
+      this.getPolicy();
+      this.getAcl();
     });
   }
 }

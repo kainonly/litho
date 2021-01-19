@@ -6,7 +6,9 @@ import { Observable } from 'rxjs';
 export class PolicyService {
   private model = 'policy';
 
-  constructor(private http: BitHttpService) {
+  constructor(
+    private http: BitHttpService
+  ) {
   }
 
   originLists(): Observable<any> {
@@ -19,5 +21,9 @@ export class PolicyService {
 
   delete(id: any[]): Observable<any> {
     return this.http.delete(this.model, id);
+  }
+
+  status(data: any): Observable<any> {
+    return this.http.status(this.model, data, 'policy');
   }
 }
