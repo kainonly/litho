@@ -119,7 +119,12 @@
             <ng-container *ngIf="node.origin.nav">
               <i nz-icon nzType="flag"></i>
             </ng-container>
-            <ng-container *ngIf="node.origin.nav && node.origin.router">
+            <ng-container
+              *ngIf="
+                (node.origin.nav && node.origin.router) ||
+                (node.origin.nav && !node.origin.router && node.origin.policy)
+              "
+            >
               <nz-divider nzType="vertical"></nz-divider>
             </ng-container>
             <ng-container *ngIf="node.origin.router">
@@ -133,12 +138,15 @@
             </ng-container>
           </nz-tag>
           <nz-tag *ngIf="node.origin.policy" nzColor="blue">
-            <ng-container *ngFor="let x of policy.get(node.key); last as isLast">
-              {{ x.acl_key }}:
-              <ng-container *ngIf="x.policy === 0"> r</ng-container>
-              <ng-container *ngIf="x.policy === 1"> rw</ng-container>
-              <nz-divider nzType="vertical" *ngIf="!isLast"></nz-divider>
+            <ng-container *ngFor="let x of policy.get(node.key); last as isLast; index as i">
+              <ng-container *ngIf="i < 10">
+                {{ x.acl_key }}:
+                <ng-container *ngIf="x.policy === 0"> r</ng-container>
+                <ng-container *ngIf="x.policy === 1"> rw</ng-container>
+                <nz-divider *ngIf="!isLast" nzType="vertical"></nz-divider>
+              </ng-container>
             </ng-container>
+            <ng-container *ngIf="policy.get(node.key).length >= 10"> ...</ng-container>
           </nz-tag>
         </nz-space-item>
       </nz-space>
