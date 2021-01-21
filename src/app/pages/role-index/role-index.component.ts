@@ -12,8 +12,8 @@ export class RoleIndexComponent implements OnInit {
   lists: ListByPage;
 
   constructor(
-    private swal: BitSwalService,
     public bit: BitService,
+    private swal: BitSwalService,
     private message: NzMessageService,
     public roleService: RoleService
   ) {
@@ -52,7 +52,9 @@ export class RoleIndexComponent implements OnInit {
    * 删除单操作
    */
   deleteData(id: any[]): void {
-    this.swal.deleteAlert(this.roleService.delete(id)).subscribe(res => {
+    this.swal.deleteAlert(
+      this.roleService.delete(id)
+    ).subscribe(res => {
       if (!res.error) {
         this.message.success(this.bit.l.deleteSuccess);
         this.getLists(true);
