@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { BitSwalService, BitService } from 'ngx-bit';
-import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { ListByPage } from 'ngx-bit/factory';
 import { RoleService } from '@api/role.service';
+import { NzMessageService } from 'ng-zorro-antd/message';
 
 @Component({
   selector: 'app-role-index',
@@ -14,7 +14,7 @@ export class RoleIndexComponent implements OnInit {
   constructor(
     private swal: BitSwalService,
     public bit: BitService,
-    private notification: NzNotificationService,
+    private message: NzMessageService,
     public roleService: RoleService
   ) {
   }
@@ -54,10 +54,10 @@ export class RoleIndexComponent implements OnInit {
   deleteData(id: any[]): void {
     this.swal.deleteAlert(this.roleService.delete(id)).subscribe(res => {
       if (!res.error) {
-        this.notification.success(this.bit.l.operateSuccess, this.bit.l.deleteSuccess);
+        this.message.success(this.bit.l.deleteSuccess);
         this.getLists(true);
       } else {
-        this.notification.error(this.bit.l.operateError, this.bit.l.deleteError);
+        this.message.error(this.bit.l.deleteError);
       }
     });
   }

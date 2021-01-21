@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { BitSwalService, BitService } from 'ngx-bit';
-import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { AdminService } from '@api/admin.service';
 import { RoleService } from '@api/role.service';
 import { ListByPage } from 'ngx-bit/factory';
+import { NzMessageService } from 'ng-zorro-antd/message';
 
 @Component({
   selector: 'app-admin-index',
@@ -18,7 +18,7 @@ export class AdminIndexComponent implements OnInit {
     public bit: BitService,
     public adminService: AdminService,
     private roleService: RoleService,
-    private notification: NzNotificationService
+    private message: NzMessageService
   ) {
   }
 
@@ -58,15 +58,17 @@ export class AdminIndexComponent implements OnInit {
    * 删除单操作
    */
   deleteData(id: any[]): void {
-    this.swal.deleteAlert(this.adminService.delete(id)).subscribe(res => {
+    this.swal.deleteAlert(
+      this.adminService.delete(id)
+    ).subscribe(res => {
       if (!res.error) {
-        this.notification.success(this.bit.l.operateSuccess, this.bit.l.deleteSuccess);
+        this.message.success(this.bit.l.deleteSuccess);
         this.getLists(true);
       } else {
         if (res.msg === 'error:self') {
-          this.notification.error(this.bit.l.operateError, this.bit.l.errorDeleteSelf);
+          this.message.error(this.bit.l.deleteSelfError);
         } else {
-          this.notification.error(this.bit.l.operateError, this.bit.l.deleteError);
+          this.message.error(this.bit.l.deleteError);
         }
       }
     });
@@ -85,9 +87,9 @@ export class AdminIndexComponent implements OnInit {
    */
   statusFeedback(res: any): void {
     if (res.msg === 'error:self') {
-      this.notification.error(this.bit.l.operateError, this.bit.l.errorStatusSelf);
+      this.message.error(this.bit.l.statusSelfError);
     } else {
-      this.notification.error(this.bit.l.operateError, this.bit.l.statusError);
+      this.message.error(this.bit.l.StatusError);
     }
   }
 }
