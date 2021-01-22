@@ -1,7 +1,8 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AppExtModule } from '@ext';
-import { DashboardsComponent } from './dashboards/dashboards.component';
+import { DashboardsComponent, ProfileComponent } from 'van-skeleton/skeleton';
+import { SkeletonModule } from 'van-skeleton/skeleton';
 
 const routes: Routes = [
   {
@@ -13,12 +14,12 @@ const routes: Routes = [
         loadChildren: () => import('./pages/welcome/welcome.module').then(m => m.WelcomeModule)
       },
       {
-        path: '{empty}',
-        loadChildren: () => import('./pages/empty/empty.module').then(m => m.EmptyModule)
+        path: '{profile}',
+        component: ProfileComponent
       },
       {
-        path: '{profile}',
-        loadChildren: () => import('./pages/profile/profile.module').then(m => m.ProfileModule)
+        path: '{empty}',
+        loadChildren: () => import('./pages/empty/empty.module').then(m => m.EmptyModule)
       },
       {
         path: '{acl-index}',
@@ -77,8 +78,11 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [AppExtModule, RouterModule.forChild(routes)],
-  declarations: [DashboardsComponent]
+  imports: [
+    AppExtModule,
+    SkeletonModule,
+    RouterModule.forChild(routes)
+  ]
 })
 export class AppRouterModule {
 }

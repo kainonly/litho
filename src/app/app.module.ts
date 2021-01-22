@@ -18,18 +18,15 @@ registerLocaleData(zh);
 import { AppExtModule } from '@ext';
 import { NzIconService } from 'ng-zorro-antd/icon';
 
-import { AppComponent } from './app.component';
-import { TokenService } from '@common/token.service';
-import { UpdateService } from '@common/update.service';
-import { UiService } from '@common/ui.service';
-import { LogicService } from '@common/logic.service';
+import { TokenService, UiService, UpdateService } from 'van-skeleton';
+import { LoginComponent, MainService, SkeletonModule } from 'van-skeleton/skeleton';
+import { AclService } from 'van-skeleton/acl';
+import { PolicyService, ResourceService } from 'van-skeleton/resource';
+import { RoleService } from 'van-skeleton/role';
+import { AdminService } from 'van-skeleton/admin';
 
-import { MainService } from '@api/main.service';
-import { AdminService } from '@api/admin.service';
-import { RoleService } from '@api/role.service';
-import { AclService } from '@api/acl.service';
-import { ResourceService } from '@api/resource.service';
-import { PolicyService } from '@api/policy.service';
+import { AppComponent } from './app.component';
+import { LogicService } from '@common/logic.service';
 import { GalleryTypeService } from '@api/gallery-type.service';
 import { GalleryService } from '@api/gallery.service';
 
@@ -41,7 +38,7 @@ const routes: Routes = [
   },
   {
     path: 'login',
-    loadChildren: () => import('./login/login.module').then(m => m.LoginModule)
+    component: LoginComponent
   }
 ];
 
@@ -69,6 +66,7 @@ const perfectBar: PerfectScrollbarConfigInterface = {
     BrowserAnimationsModule,
     HttpClientModule,
     AppExtModule,
+    SkeletonModule,
     PerfectScrollbarModule,
     RouterModule.forRoot(routes, { useHash: true }),
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),

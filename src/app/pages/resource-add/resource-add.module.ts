@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
-import { ResourceAddComponent } from './resource-add.component';
-import { RouterModule, Routes } from '@angular/router';
+import { Routes, RouterModule } from '@angular/router';
 import { AppExtModule } from '@ext';
+import { ResourceAddComponent, ResourceModule } from 'van-skeleton/resource';
 
 const routes: Routes = [
   {
@@ -11,8 +11,11 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [AppExtModule, RouterModule.forChild(routes)],
-  declarations: [ResourceAddComponent]
+  imports: [
+    ResourceModule,
+    AppExtModule,
+    RouterModule.forChild(routes)
+  ]
 })
 export class ResourceAddModule {
 }

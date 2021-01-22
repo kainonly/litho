@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
-import { RoleAddComponent } from './role-add.component';
-import { RouterModule, Routes } from '@angular/router';
+import { Routes, RouterModule } from '@angular/router';
 import { AppExtModule } from '@ext';
+import { RoleAddComponent, RoleModule } from 'van-skeleton/role';
 
 const routes: Routes = [
   {
@@ -11,8 +11,11 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [AppExtModule, RouterModule.forChild(routes)],
-  declarations: [RoleAddComponent]
+  imports: [
+    RoleModule,
+    AppExtModule,
+    RouterModule.forChild(routes)
+  ]
 })
 export class RoleAddModule {
 }

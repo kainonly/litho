@@ -55,9 +55,23 @@
       "ngx-bit/types": [
         "projects/ngx-bit/types/public-api.ts"
       ],
-      "lab-skeleton": [
-        "dist/lab-skeleton/lab-skeleton",
-        "dist/lab-skeleton"
+      "van-skeleton": [
+        "projects/lab-skeleton/public-api.ts"
+      ],
+      "van-skeleton/skeleton": [
+        "projects/lab-skeleton/skeleton/public-api.ts"
+      ],
+      "van-skeleton/acl": [
+        "projects/lab-skeleton/acl/public-api.ts"
+      ],
+      "van-skeleton/resource": [
+        "projects/lab-skeleton/resource/public-api.ts"
+      ],
+      "van-skeleton/role": [
+        "projects/lab-skeleton/role/public-api.ts"
+      ],
+      "van-skeleton/admin": [
+        "projects/lab-skeleton/admin/public-api.ts"
       ]
     }
   }

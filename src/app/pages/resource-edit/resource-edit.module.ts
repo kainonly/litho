@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
-import { ResourceEditComponent } from './resource-edit.component';
-import { RouterModule, Routes } from '@angular/router';
+import { Routes, RouterModule } from '@angular/router';
 import { AppExtModule } from '@ext';
+import { ResourceEditComponent, ResourceModule } from 'van-skeleton/resource';
 
 const routes: Routes = [
   {
@@ -11,8 +11,11 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [AppExtModule, RouterModule.forChild(routes)],
-  declarations: [ResourceEditComponent]
+  imports: [
+    ResourceModule,
+    AppExtModule,
+    RouterModule.forChild(routes)
+  ]
 })
 export class ResourceEditModule {
 }

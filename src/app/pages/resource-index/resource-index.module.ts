@@ -1,8 +1,7 @@
 import { NgModule } from '@angular/core';
-import { ResourceIndexComponent } from './resource-index.component';
-import { RouterModule, Routes } from '@angular/router';
+import { Routes, RouterModule } from '@angular/router';
 import { AppExtModule } from '@ext';
-import { NzPipesModule } from 'ng-zorro-antd/pipes';
+import { ResourceIndexComponent, ResourceModule } from 'van-skeleton/resource';
 
 const routes: Routes = [
   {
@@ -12,8 +11,11 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [AppExtModule, RouterModule.forChild(routes), NzPipesModule],
-  declarations: [ResourceIndexComponent]
+  imports: [
+    ResourceModule,
+    AppExtModule,
+    RouterModule.forChild(routes)
+  ]
 })
 export class ResourceIndexModule {
 }

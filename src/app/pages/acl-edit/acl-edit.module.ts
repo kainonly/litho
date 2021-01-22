@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
-import { AclEditComponent } from './acl-edit.component';
-import { RouterModule, Routes } from '@angular/router';
+import { Routes, RouterModule } from '@angular/router';
+import { AclEditComponent, AclModule } from 'van-skeleton/acl';
 import { AppExtModule } from '@ext';
 
 const routes: Routes = [
@@ -11,8 +11,11 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [AppExtModule, RouterModule.forChild(routes)],
-  declarations: [AclEditComponent]
+  imports: [
+    AclModule,
+    AppExtModule,
+    RouterModule.forChild(routes)
+  ]
 })
 export class AclEditModule {
 }

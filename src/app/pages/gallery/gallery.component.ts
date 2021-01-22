@@ -12,7 +12,7 @@ import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { TransportDataSource } from './transport.data-source';
 import { map, switchMap } from 'rxjs/operators';
-import { UiService } from '@common/ui.service';
+import { UiService } from 'van-skeleton';
 import { NzContextMenuService, NzDropdownMenuComponent } from 'ng-zorro-antd/dropdown';
 import { Observable, of } from 'rxjs';
 

@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
-import { AdminEditComponent } from './admin-edit.component';
-import { RouterModule, Routes } from '@angular/router';
+import { Routes, RouterModule } from '@angular/router';
 import { AppExtModule } from '@ext';
+import { AdminEditComponent, AdminModule } from 'van-skeleton/admin';
 
 const routes: Routes = [
   {
@@ -11,8 +11,11 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [AppExtModule, RouterModule.forChild(routes)],
-  declarations: [AdminEditComponent]
+  imports: [
+    AdminModule,
+    AppExtModule,
+    RouterModule.forChild(routes)
+  ]
 })
 export class AdminEditModule {
 }

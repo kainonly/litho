@@ -4,6 +4,7 @@
     "start": "ng serve --host 0.0.0.0 --port 4201 --disableHostCheck",
     "build": "ng build --prod",
     "build:ngx-bit": "ng build ngx-bit --prod && npm run build:schematics && npm run postbuild",
+    "build:lab-skeleton": "ng build lab-skeleton --prod",
     "release:ngx-bit": "cd dist/ngx-bit && npm publish",
     "build:schematics": "./node_modules/.bin/tsc -p projects/ngx-bit/tsconfig.schematics.json",
     "copy:schemas": "cpy --parents projects/ngx-bit/schematics/*/schema.json dist/ngx-bit/",
