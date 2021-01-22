@@ -12,7 +12,9 @@
     "postbuild": "npm run copy:schemas && npm run copy:collection",
     "test": "ng test ngx-bit --no-watch --no-progress --browsers=ChromeHeadlessCI",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "deploy": "npm run build && python utils/deploy.py",
+    "deploy:dependency": "pip install cos-python-sdk-v5 tencentcloud-sdk-python"
   },
   "private": true,
   "dependencies": {
