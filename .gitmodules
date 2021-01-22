@@ -1,0 +1,3 @@
+[submodule "projects/lab-skeleton"]
+	path = projects/lab-skeleton
+	url = git@github.com:kain-lab/lab-skeleton.git

@@ -54,6 +54,10 @@
       ],
       "ngx-bit/types": [
         "projects/ngx-bit/types/public-api.ts"
+      ],
+      "lab-skeleton": [
+        "dist/lab-skeleton/lab-skeleton",
+        "dist/lab-skeleton"
       ]
     }
   }
