@@ -27,8 +27,8 @@ import { AdminService } from 'van-skeleton/admin';
 
 import { AppComponent } from './app.component';
 import { LogicService } from '@common/logic.service';
-import { GalleryTypeService } from '@api/gallery-type.service';
-import { GalleryService } from '@api/gallery.service';
+import { PictureTypeService } from '@api/picture-type.service';
+import { PictureService } from '@api/picture.service';
 
 const routes: Routes = [
   {
@@ -86,8 +86,8 @@ const perfectBar: PerfectScrollbarConfigInterface = {
     PolicyService,
     RoleService,
     AdminService,
-    GalleryTypeService,
-    GalleryService,
+    PictureTypeService,
+    PictureService,
 
     // Library Service
     NzIconService,

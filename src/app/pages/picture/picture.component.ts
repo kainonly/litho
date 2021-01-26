@@ -1,8 +1,8 @@
 import { AfterContentInit, AfterViewInit, Component, HostListener, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { BitConfigService, BitService } from 'ngx-bit';
-import { GalleryDataSource } from './gallery.data-source';
-import { GalleryService } from '@api/gallery.service';
-import { GalleryTypeService } from '@api/gallery-type.service';
+import { PictureDataSource } from './picture.data-source';
+import { PictureService } from '@api/picture.service';
+import { PictureTypeService } from '@api/picture-type.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NzModalComponent, NzModalService } from 'ng-zorro-antd/modal';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
@@ -17,15 +17,15 @@ import { NzContextMenuService, NzDropdownMenuComponent } from 'ng-zorro-antd/dro
 import { Observable, of } from 'rxjs';
 
 @Component({
-  selector: 'app-gallery',
-  templateUrl: './gallery.component.html',
-  styleUrls: ['./gallery.component.scss']
+  selector: 'app-picture',
+  templateUrl: './picture.component.html',
+  styleUrls: ['./picture.component.scss']
 })
-export class GalleryComponent implements OnInit, AfterContentInit, AfterViewInit {
+export class PictureComponent implements OnInit, AfterContentInit, AfterViewInit {
   tds: TransportDataSource = new TransportDataSource();
   @ViewChild('transportMessageTpl') transportMessageTpl: TemplateRef<any>;
 
-  ds: GalleryDataSource;
+  ds: PictureDataSource;
   typeLists: any[] = [];
   typeMap: Map<any, any> = new Map<any, any>();
   typeVisible = false;
@@ -54,8 +54,8 @@ export class GalleryComponent implements OnInit, AfterContentInit, AfterViewInit
     public config: BitConfigService,
     public bit: BitService,
     public ui: UiService,
-    private galleryService: GalleryService,
-    private galleryTypeService: GalleryTypeService,
+    private pictureService: PictureService,
+    private pictureTypeService: PictureTypeService,
     private clipboard: Clipboard,
     private modal: NzModalService,
     private notification: NzNotificationService,
@@ -64,13 +64,13 @@ export class GalleryComponent implements OnInit, AfterContentInit, AfterViewInit
     private contextMenu: NzContextMenuService,
     private fb: FormBuilder
   ) {
-    this.ds = new GalleryDataSource(galleryService, 1);
+    this.ds = new PictureDataSource(pictureService, 1);
   }
 
   ngOnInit(): void {
     this.bit.registerLocales(import('./language'));
     this.ds.lists = this.bit.listByPage({
-      id: 'gallery',
+      id: 'picture',
       query: [
         { field: 'name', op: 'like', value: '' },
         { field: 'type_id', op: '=', value: '', exclude: [''] }
@@ -83,7 +83,7 @@ export class GalleryComponent implements OnInit, AfterContentInit, AfterViewInit
     });
     this.tds.complete.pipe(
       switchMap(data => {
-        return this.galleryService.bulkAdd({
+        return this.pictureService.bulkAdd({
           type_id: !this.ds.lists.search.type_id.value ? 0 : this.ds.lists.search.type_id.value,
           data: data.map(v => ({
             name: v.originFileObj.name,
@@ -127,7 +127,7 @@ export class GalleryComponent implements OnInit, AfterContentInit, AfterViewInit
   }
 
   getTypeLists(): void {
-    this.galleryTypeService.originLists().subscribe(data => {
+    this.pictureTypeService.originLists().subscribe(data => {
       this.typeLists = data;
       for (const x of data) {
         this.typeMap.set(x.id, x);
@@ -137,7 +137,7 @@ export class GalleryComponent implements OnInit, AfterContentInit, AfterViewInit
   }
 
   getCount(): void {
-    this.galleryService.count().subscribe(data => {
+    this.pictureService.count().subscribe(data => {
       const count: any = {};
       count.total = data.total;
       for (const x of data.values) {
@@ -218,7 +218,7 @@ export class GalleryComponent implements OnInit, AfterContentInit, AfterViewInit
     if (!this.typeName) {
       return;
     }
-    this.galleryTypeService.add({
+    this.pictureTypeService.add({
       name: this.typeName
     }).subscribe(res => {
       if (!res.error) {
@@ -249,7 +249,7 @@ export class GalleryComponent implements OnInit, AfterContentInit, AfterViewInit
     if (!data.editName) {
       return;
     }
-    this.galleryTypeService.edit({
+    this.pictureTypeService.edit({
       id: data.id,
       name: data.editName
     }).subscribe(res => {
@@ -264,7 +264,7 @@ export class GalleryComponent implements OnInit, AfterContentInit, AfterViewInit
   }
 
   editTypeDelete(id: any[]): void {
-    this.galleryTypeService.delete(id).subscribe(res => {
+    this.pictureTypeService.delete(id).subscribe(res => {
       if (!res.error) {
         this.getTypeLists();
         this.notification.success(
@@ -305,7 +305,7 @@ export class GalleryComponent implements OnInit, AfterContentInit, AfterViewInit
         sort: index
       };
     });
-    this.galleryTypeService.sort(data).subscribe(res => {
+    this.pictureTypeService.sort(data).subscribe(res => {
       if (!res.error) {
         this.getTypeLists();
         this.notification.success(
@@ -350,7 +350,7 @@ export class GalleryComponent implements OnInit, AfterContentInit, AfterViewInit
         controls[key].updateValueAndValidity();
       }
     }
-    this.galleryService.edit({
+    this.pictureService.edit({
       id: this.renameData.id,
       name: this.renameForm.value.name
     }).subscribe(res => {
@@ -392,7 +392,7 @@ export class GalleryComponent implements OnInit, AfterContentInit, AfterViewInit
         controls[key].updateValueAndValidity();
       }
     }
-    this.galleryService.bulkEdit({
+    this.pictureService.bulkEdit({
       type_id: this.moveForm.value.type_id,
       ids: this.moveData.map(v => v.id)
     }).subscribe(res => {
@@ -425,7 +425,7 @@ export class GalleryComponent implements OnInit, AfterContentInit, AfterViewInit
 
   submitDelete(): void {
     const ids = this.deleteData.map(v => v.id);
-    this.galleryService.delete(
+    this.pictureService.delete(
       ids
     ).subscribe(res => {
       if (!res.error) {

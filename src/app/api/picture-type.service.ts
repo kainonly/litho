@@ -3,8 +3,8 @@ import { BitHttpService } from 'ngx-bit';
 import { Observable } from 'rxjs';
 
 @Injectable()
-export class GalleryTypeService {
-  private model = 'gallery_type';
+export class PictureTypeService {
+  private model = 'picture_type';
 
   constructor(
     private http: BitHttpService

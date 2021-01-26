@@ -70,8 +70,8 @@ const routes: Routes = [
         loadChildren: () => import('./pages/admin-edit/admin-edit.module').then(m => m.AdminEditModule)
       },
       {
-        path: '{gallery}',
-        loadChildren: () => import('./pages/gallery/gallery.module').then(m => m.GalleryModule)
+        path: '{picture}',
+        loadChildren: () => import('./pages/picture/picture.module').then(m => m.PictureModule)
       }
     ]
   }

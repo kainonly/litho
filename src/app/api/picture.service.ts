@@ -4,8 +4,8 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 @Injectable()
-export class GalleryService {
-  private model = 'gallery';
+export class PictureService {
+  private model = 'picture';
 
   constructor(
     private http: BitHttpService

@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { GalleryComponent } from './gallery.component';
+import { PictureComponent } from './picture.component';
 import { RouterModule, Routes } from '@angular/router';
 import { AppExtModule } from '@ext';
 import { ScrollingModule } from '@angular/cdk/scrolling';
@@ -8,7 +8,7 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
 const routes: Routes = [
   {
     path: '',
-    component: GalleryComponent
+    component: PictureComponent
   }
 ];
 
@@ -19,7 +19,7 @@ const routes: Routes = [
     DragDropModule,
     RouterModule.forChild(routes)
   ],
-  declarations: [GalleryComponent]
+  declarations: [PictureComponent]
 })
-export class GalleryModule {
+export class PictureModule {
 }

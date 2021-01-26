@@ -2,9 +2,9 @@ import { CollectionViewer, DataSource } from '@angular/cdk/collections';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { switchMap, takeUntil } from 'rxjs/operators';
 import { ListByPage } from 'ngx-bit/factory';
-import { GalleryService } from '@api/gallery.service';
+import { PictureService } from '@api/picture.service';
 
-export class GalleryDataSource extends DataSource<any> {
+export class PictureDataSource extends DataSource<any> {
   lists: ListByPage;
   private preload$ = new Subject<any>();
   private preloadN = 0;
@@ -14,7 +14,7 @@ export class GalleryDataSource extends DataSource<any> {
   private disconnect$ = new Subject<void>();
 
   constructor(
-    private gallery: GalleryService,
+    private picture: PictureService,
     preload: number
   ) {
     super();
@@ -66,7 +66,7 @@ export class GalleryDataSource extends DataSource<any> {
     }
     this.pages.add(this.lists.index);
     this.lists.ready.pipe(
-      switchMap(() => this.gallery.lists(this.lists, refresh, true))
+      switchMap(() => this.picture.lists(this.lists, refresh, true))
     ).subscribe(data => {
       this.lists.data.splice(this.lists.index * this.lists.limit, this.lists.limit, ...data);
       this.lists.data.forEach(((value, index) => {
