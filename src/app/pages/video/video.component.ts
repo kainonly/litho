@@ -1,8 +1,5 @@
 import { AfterContentInit, AfterViewInit, Component, HostListener, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { BitConfigService, BitService } from 'ngx-bit';
-import { VideoDataSource } from './video.data-source';
-import { PictureService } from '@api/picture.service';
-import { PictureTypeService } from '@api/picture-type.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NzModalComponent, NzModalService } from 'ng-zorro-antd/modal';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
@@ -17,6 +14,7 @@ import { Observable, of } from 'rxjs';
 import { TransportDataSource } from '@common/transport.data-source';
 import { VideoService } from '@api/video.service';
 import { VideoTypeService } from '@api/video-type.service';
+import { VideoDataSource } from './video.data-source';
 
 @Component({
   selector: 'app-video',
@@ -190,14 +188,7 @@ export class VideoComponent implements OnInit, AfterContentInit, AfterViewInit {
     }
   }
 
-  thumb(url: string): string {
-    return `url(${this.bit.static}${url}?imageMogr2/thumbnail/200x/format/webp/interlace/1/quality/80`;
-  }
-
   preview(data: any): void {
-    this.image.preview([
-      { src: this.bit.static + data.url }
-    ]);
   }
 
   openTypeDrawer(): void {
@@ -291,7 +282,7 @@ export class VideoComponent implements OnInit, AfterContentInit, AfterViewInit {
     this.sortSubmit();
   }
 
-  openSortMenu($event: MouseEvent, menu: NzDropdownMenuComponent): void {
+  openSortMenu($event: any, menu: NzDropdownMenuComponent): void {
     this.contextMenu.create($event, menu);
   }
 

@@ -303,18 +303,14 @@
                 style="width: 195px"
                 nzSize="small"
                 [nzHoverable]="true"
-                [nzCover]="thumbTpl"
+                [nzCover]="videoTpl"
                 [nzActions]="[actionCopy, actionRename, actionEllipsis]"
               >
-                <ng-template #thumbTpl>
-                  <div
-                    class="thumb"
-                    [style]="{ 'background-image': thumb(x.url) }"
-                    (click)="preview(x)"
-                  >
-                    <div class="thumb-actions">
-                      <i nz-icon nzType="search"></i>
-                    </div>
+                <ng-template #videoTpl>
+                  <div class="video">
+                    <video controls="controls">
+                      <source [src]="bit.static + x.url" type="video/mp4" />
+                    </video>
                   </div>
                 </ng-template>
                 <ng-template #actionCopy>

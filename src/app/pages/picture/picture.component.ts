@@ -289,7 +289,7 @@ export class PictureComponent implements OnInit, AfterContentInit, AfterViewInit
     this.sortSubmit();
   }
 
-  openSortMenu($event: MouseEvent, menu: NzDropdownMenuComponent): void {
+  openSortMenu($event: any, menu: NzDropdownMenuComponent): void {
     this.contextMenu.create($event, menu);
   }
 

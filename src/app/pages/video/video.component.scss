@@ -51,32 +51,15 @@
   overflow-x: hidden;
 }
 
-.thumb {
+.video {
   height: 135px;
   width: 100%;
-  background-size: contain;
-  background-position: 50% 50%;
-  background-repeat: no-repeat;
   overflow: hidden;
   position: relative;
 
-  .thumb-actions {
-    pointer-events: none;
-    position: absolute;
-    top: 50%;
+  video {
+    height: 100%;
     width: 100%;
-    height: 32px;
-    margin-top: -16px;
-    text-align: center;
-    z-index: 1;
-    color: #fff;
-    font-size: 32px;
-    opacity: 0;
   }
 
-  &:hover {
-    .thumb-actions {
-      opacity: 0.8;
-    }
-  }
 }

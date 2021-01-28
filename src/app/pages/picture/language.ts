@@ -17,8 +17,8 @@ export default {
   typeCount: ['“$0” 包含 $1 个元素', 'The $0 contains $1 elements'],
   search: ['请输入元素名称', 'Please enter element name'],
   uploadTip: [
-    '上传元素将归属当前分类，每个上传文件大小限制在50MB',
-    'Uploaded elements will belong to the current category, and the size of each uploaded file is limited to 50MB'
+    '上传元素将归属当前分类，每个上传文件大小限制在100MB',
+    'Uploaded elements will belong to the current category, and the size of each uploaded file is limited to 100MB'
   ],
   copied: ['已复制', 'Copied'],
   confirm: ['请求确认', 'Confirm'],
