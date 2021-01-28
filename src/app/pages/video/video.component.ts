@@ -188,9 +188,6 @@ export class VideoComponent implements OnInit, AfterContentInit, AfterViewInit {
     }
   }
 
-  preview(data: any): void {
-  }
-
   openTypeDrawer(): void {
     this.typeVisible = true;
   }
