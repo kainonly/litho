@@ -29,6 +29,8 @@ import { AppComponent } from './app.component';
 import { LogicService } from '@common/logic.service';
 import { PictureTypeService } from '@api/picture-type.service';
 import { PictureService } from '@api/picture.service';
+import { VideoService } from '@api/video.service';
+import { VideoTypeService } from '@api/video-type.service';
 
 const routes: Routes = [
   {
@@ -88,6 +90,8 @@ const perfectBar: PerfectScrollbarConfigInterface = {
     AdminService,
     PictureTypeService,
     PictureService,
+    VideoService,
+    VideoTypeService,
 
     // Library Service
     NzIconService,

@@ -1,6 +1,6 @@
 import { AfterContentInit, AfterViewInit, Component, HostListener, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { BitConfigService, BitService } from 'ngx-bit';
-import { PictureDataSource } from './picture.data-source';
+import { VideoDataSource } from './video.data-source';
 import { PictureService } from '@api/picture.service';
 import { PictureTypeService } from '@api/picture-type.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -15,17 +15,19 @@ import { UiService } from 'van-skeleton';
 import { NzContextMenuService, NzDropdownMenuComponent } from 'ng-zorro-antd/dropdown';
 import { Observable, of } from 'rxjs';
 import { TransportDataSource } from '@common/transport.data-source';
+import { VideoService } from '@api/video.service';
+import { VideoTypeService } from '@api/video-type.service';
 
 @Component({
-  selector: 'app-picture',
-  templateUrl: './picture.component.html',
-  styleUrls: ['./picture.component.scss']
+  selector: 'app-video',
+  templateUrl: './video.component.html',
+  styleUrls: ['./video.component.scss']
 })
-export class PictureComponent implements OnInit, AfterContentInit, AfterViewInit {
+export class VideoComponent implements OnInit, AfterContentInit, AfterViewInit {
   tds: TransportDataSource = new TransportDataSource();
   @ViewChild('transportMessageTpl') transportMessageTpl: TemplateRef<any>;
 
-  ds: PictureDataSource;
+  ds: VideoDataSource;
   typeLists: any[] = [];
   typeMap: Map<any, any> = new Map<any, any>();
   typeVisible = false;
@@ -54,8 +56,8 @@ export class PictureComponent implements OnInit, AfterContentInit, AfterViewInit
     public config: BitConfigService,
     public bit: BitService,
     public ui: UiService,
-    private pictureService: PictureService,
-    private pictureTypeService: PictureTypeService,
+    private videoService: VideoService,
+    private videoTypeService: VideoTypeService,
     private clipboard: Clipboard,
     private modal: NzModalService,
     private notification: NzNotificationService,
@@ -64,7 +66,7 @@ export class PictureComponent implements OnInit, AfterContentInit, AfterViewInit
     private contextMenu: NzContextMenuService,
     private fb: FormBuilder
   ) {
-    this.ds = new PictureDataSource(pictureService, 1);
+    this.ds = new VideoDataSource(videoService, 1);
   }
 
   ngOnInit(): void {
@@ -83,7 +85,7 @@ export class PictureComponent implements OnInit, AfterContentInit, AfterViewInit
     });
     this.tds.complete.pipe(
       switchMap(data => {
-        return this.pictureService.bulkAdd({
+        return this.videoService.bulkAdd({
           type_id: !this.ds.lists.search.type_id.value ? 0 : this.ds.lists.search.type_id.value,
           data: data.map(v => ({
             name: v.originFileObj.name,
@@ -127,7 +129,7 @@ export class PictureComponent implements OnInit, AfterContentInit, AfterViewInit
   }
 
   getTypeLists(): void {
-    this.pictureTypeService.originLists().subscribe(data => {
+    this.videoTypeService.originLists().subscribe(data => {
       this.typeLists = data;
       for (const x of data) {
         this.typeMap.set(x.id, x);
@@ -137,7 +139,7 @@ export class PictureComponent implements OnInit, AfterContentInit, AfterViewInit
   }
 
   getCount(): void {
-    this.pictureService.count().subscribe(data => {
+    this.videoService.count().subscribe(data => {
       const count: any = {};
       count.total = data.total;
       for (const x of data.values) {
@@ -218,7 +220,7 @@ export class PictureComponent implements OnInit, AfterContentInit, AfterViewInit
     if (!this.typeName) {
       return;
     }
-    this.pictureTypeService.add({
+    this.videoTypeService.add({
       name: this.typeName
     }).subscribe(res => {
       if (!res.error) {
@@ -249,7 +251,7 @@ export class PictureComponent implements OnInit, AfterContentInit, AfterViewInit
     if (!data.editName) {
       return;
     }
-    this.pictureTypeService.edit({
+    this.videoTypeService.edit({
       id: data.id,
       name: data.editName
     }).subscribe(res => {
@@ -264,7 +266,7 @@ export class PictureComponent implements OnInit, AfterContentInit, AfterViewInit
   }
 
   editTypeDelete(id: any[]): void {
-    this.pictureTypeService.delete(id).subscribe(res => {
+    this.videoTypeService.delete(id).subscribe(res => {
       if (!res.error) {
         this.getTypeLists();
         this.notification.success(
@@ -305,7 +307,7 @@ export class PictureComponent implements OnInit, AfterContentInit, AfterViewInit
         sort: index
       };
     });
-    this.pictureTypeService.sort(data).subscribe(res => {
+    this.videoTypeService.sort(data).subscribe(res => {
       if (!res.error) {
         this.getTypeLists();
         this.notification.success(
@@ -350,7 +352,7 @@ export class PictureComponent implements OnInit, AfterContentInit, AfterViewInit
         controls[key].updateValueAndValidity();
       }
     }
-    this.pictureService.edit({
+    this.videoService.edit({
       id: this.renameData.id,
       name: this.renameForm.value.name
     }).subscribe(res => {
@@ -392,7 +394,7 @@ export class PictureComponent implements OnInit, AfterContentInit, AfterViewInit
         controls[key].updateValueAndValidity();
       }
     }
-    this.pictureService.bulkEdit({
+    this.videoService.bulkEdit({
       type_id: this.moveForm.value.type_id,
       ids: this.moveData.map(v => v.id)
     }).subscribe(res => {
@@ -425,7 +427,7 @@ export class PictureComponent implements OnInit, AfterContentInit, AfterViewInit
 
   submitDelete(): void {
     const ids = this.deleteData.map(v => v.id);
-    this.pictureService.delete(
+    this.videoService.delete(
       ids
     ).subscribe(res => {
       if (!res.error) {
