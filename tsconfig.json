@@ -72,6 +72,9 @@
       ],
       "van-skeleton/admin": [
         "projects/lab-skeleton/admin/public-api.ts"
+      ],
+      "van-skeleton/permission": [
+        "projects/lab-skeleton/permission/public-api.ts"
       ]
     }
   }

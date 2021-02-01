@@ -22,6 +22,7 @@ import { TokenService, UiService, UpdateService } from 'van-skeleton';
 import { LoginComponent, MainService, SkeletonModule } from 'van-skeleton/skeleton';
 import { AclService } from 'van-skeleton/acl';
 import { PolicyService, ResourceService } from 'van-skeleton/resource';
+import { PermissionService } from 'van-skeleton/permission';
 import { RoleService } from 'van-skeleton/role';
 import { AdminService } from 'van-skeleton/admin';
 
@@ -31,6 +32,7 @@ import { PictureTypeService } from '@api/picture-type.service';
 import { PictureService } from '@api/picture.service';
 import { VideoService } from '@api/video.service';
 import { VideoTypeService } from '@api/video-type.service';
+
 
 const routes: Routes = [
   {
@@ -86,6 +88,7 @@ const perfectBar: PerfectScrollbarConfigInterface = {
     AclService,
     ResourceService,
     PolicyService,
+    PermissionService,
     RoleService,
     AdminService,
     PictureTypeService,

@@ -46,6 +46,18 @@ const routes: Routes = [
         loadChildren: () => import('./pages/resource-edit/resource-edit.module').then(m => m.ResourceEditModule)
       },
       {
+        path: '{permission-index}',
+        loadChildren: () => import('./pages/permission-index/permission-index.module').then(m => m.PermissionIndexModule)
+      },
+      {
+        path: '{permission-add}',
+        loadChildren: () => import('./pages/permission-add/permission-add.module').then(m => m.PermissionAddModule)
+      },
+      {
+        path: '{permission-edit}/:id',
+        loadChildren: () => import('./pages/permission-edit/permission-edit.module').then(m => m.PermissionEditModule)
+      },
+      {
         path: '{role-index}',
         loadChildren: () => import('./pages/role-index/role-index.module').then(m => m.RoleIndexModule)
       },
