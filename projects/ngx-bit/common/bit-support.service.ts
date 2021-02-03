@@ -182,6 +182,7 @@ export class BitSupportService {
    * Unsubscribe support events
    */
   unsubscribe(): void {
+    this.clearBreadcrumb();
     if (this.routerEvents) {
       this.routerEvents.unsubscribe();
     }
