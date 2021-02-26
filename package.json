@@ -29,6 +29,7 @@
     "@angular/router": "~11.0.5",
     "@angular/service-worker": "~11.0.5",
     "@ngx-pwa/local-storage": "^11.0.2",
+    "merge": "^2.1.1",
     "ng-zorro-antd": "^11.0.0",
     "ngx-perfect-scrollbar": "^10.1.0",
     "rxjs": "~6.6.3",

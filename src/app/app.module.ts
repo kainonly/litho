@@ -5,6 +5,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { registerLocaleData } from '@angular/common';
 import { ServiceWorkerModule } from '@angular/service-worker';
+import merge from 'merge';
 import zh from '@angular/common/locales/zh';
 import { environment } from '@env';
 import { NZ_I18N, zh_CN } from 'ng-zorro-antd/i18n';
@@ -12,6 +13,7 @@ import { StorageModule } from '@ngx-pwa/local-storage';
 import { NZ_CONFIG, NzConfig } from 'ng-zorro-antd/core/config';
 import { BitConfigService, BitEventsService, BitHttpService, BitService, BitSupportService, BitSwalService } from 'ngx-bit';
 import { PERFECT_SCROLLBAR_CONFIG, PerfectScrollbarConfigInterface, PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
+
 
 registerLocaleData(zh);
 
@@ -53,10 +55,7 @@ const ngZorroConfig: NzConfig = {
 const bitConfig = () => {
   const env = environment.bit;
   const service = new BitConfigService();
-  Reflect.ownKeys(env).forEach(key => {
-    service[key] = env[key];
-  });
-  return service;
+  return merge.recursive(service, env);
 };
 
 const perfectBar: PerfectScrollbarConfigInterface = {
