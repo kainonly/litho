@@ -20,7 +20,7 @@ registerLocaleData(zh);
 import { AppExtModule } from '@ext';
 import { NzIconService } from 'ng-zorro-antd/icon';
 
-import { TokenService, UiService, UpdateService } from 'van-skeleton';
+import { TokenService, SystemService, UpdateService } from 'van-skeleton';
 import { LoginComponent, MainService, SkeletonModule } from 'van-skeleton/skeleton';
 import { AclService } from 'van-skeleton/acl';
 import { PolicyService, ResourceService } from 'van-skeleton/resource';
@@ -79,7 +79,7 @@ const perfectBar: PerfectScrollbarConfigInterface = {
     // Common Service
     UpdateService,
     TokenService,
-    UiService,
+    SystemService,
     LogicService,
 
     // API Service

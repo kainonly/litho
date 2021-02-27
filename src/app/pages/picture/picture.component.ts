@@ -11,7 +11,7 @@ import { Clipboard } from '@angular/cdk/clipboard';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { map, switchMap } from 'rxjs/operators';
-import { UiService } from 'van-skeleton';
+import { SystemService } from 'van-skeleton';
 import { NzContextMenuService, NzDropdownMenuComponent } from 'ng-zorro-antd/dropdown';
 import { Observable, of } from 'rxjs';
 import { TransportDataSource } from '@common/transport.data-source';
@@ -53,7 +53,7 @@ export class PictureComponent implements OnInit, AfterContentInit, AfterViewInit
   constructor(
     public config: BitConfigService,
     public bit: BitService,
-    public ui: UiService,
+    public system: SystemService,
     private pictureService: PictureService,
     private pictureTypeService: PictureTypeService,
     private clipboard: Clipboard,
@@ -166,7 +166,7 @@ export class PictureComponent implements OnInit, AfterContentInit, AfterViewInit
   }
 
   fetchInfiniteY(): void {
-    this.infiniteY$ = this.ui.container.pipe(
+    this.infiniteY$ = this.system.layout.pipe(
       map((elements: Element[]) => {
         if (elements.length === 0) {
           return 0;
