@@ -73,7 +73,9 @@ const perfectBar: PerfectScrollbarConfigInterface = {
     PerfectScrollbarModule,
     RouterModule.forRoot(routes, { useHash: true }),
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
-    StorageModule.forRoot({ IDBNoWrap: false })
+    StorageModule.forRoot({
+      IDBStoreName: 'lab-console'
+    })
   ],
   providers: [
     // Common Service
