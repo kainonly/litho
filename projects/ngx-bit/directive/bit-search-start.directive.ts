@@ -2,7 +2,7 @@ import { Directive, EventEmitter, HostListener, Input, Output } from '@angular/c
 import { ListByPage } from 'ngx-bit/factory';
 
 @Directive({
-  selector: 'input[bitSearchStart],button[bitSearchStart]'
+  selector: '[bitSearchStart]'
 })
 export class BitSearchStartDirective {
   @Input() bitSearchStart: ListByPage;

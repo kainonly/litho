@@ -5,7 +5,7 @@
     "build": "ng build --prod",
     "build:ngx-bit": "ng build ngx-bit --prod && npm run build:schematics && npm run postbuild",
     "release:ngx-bit": "cd dist/ngx-bit && npm publish",
-    "build:schematics": "./node_modules/.bin/tsc -p projects/ngx-bit/tsconfig.schematics.json",
+    "build:schematics": "tsc -p projects/ngx-bit/tsconfig.schematics.json",
     "copy:schemas": "cpy --parents projects/ngx-bit/schematics/*/schema.json dist/ngx-bit/",
     "copy:collection": "cpy projects/ngx-bit/schematics/collection.json dist/ngx-bit/schematics",
     "postbuild": "npm run copy:schemas && npm run copy:collection",
