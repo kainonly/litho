@@ -53,6 +53,13 @@ describe('operates module', () => {
       { field: 'error', op: '=', value: {} }
     ]);
     expect(schema).toEqual([]);
+    const picker = [new Date(), new Date()];
+    schema = getQuerySchema([
+      { field: 'time', op: 'between', value: [new Date(), new Date()], format: 'unixtime' }
+    ]);
+    expect(schema).toEqual([
+      ['time', 'between', picker.map(v => Math.floor(v.getTime() / 1000))]
+    ]);
   });
 
   it('Test getSelectorFormUrl', () => {

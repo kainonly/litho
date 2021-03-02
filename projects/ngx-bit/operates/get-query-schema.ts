@@ -15,7 +15,14 @@ export function getQuerySchema(options: SearchOption[]): any[] {
     }
     const exclude = search.exclude ? search.exclude : ['', 0, null];
     if (!exclude.includes(search.value)) {
-      const value = search.op === 'like' ? `%${search.value}%` : search.value;
+      let value = search.value;
+      if (search.op === 'like') {
+        value = `%${value}%`;
+      }
+      if (search.format !== undefined && search.format === 'unixtime') {
+        value = Array.isArray(value) ?
+          value.map(v => Math.floor(v.getTime() / 1000)) : Math.floor(value.getTime() / 1000);
+      }
       schema.push([search.field, search.op, value]);
     }
   }

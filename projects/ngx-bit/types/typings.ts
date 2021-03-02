@@ -69,6 +69,7 @@ export interface SearchOption {
   op: string;
   value: any;
   exclude?: any[];
+  format?: string;
 }
 
 export interface OrderOption {
