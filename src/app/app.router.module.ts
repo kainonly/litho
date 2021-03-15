@@ -88,6 +88,10 @@ const routes: Routes = [
       {
         path: '{video}',
         loadChildren: () => import('./pages/video/video.module').then(m => m.VideoModule)
+      },
+      {
+        path: '{audio}',
+        loadChildren: () => import('./pages/audio/audio.module').then(m => m.AudioModule)
       }
     ]
   }

@@ -34,6 +34,8 @@ import { PictureTypeService } from '@api/picture-type.service';
 import { PictureService } from '@api/picture.service';
 import { VideoService } from '@api/video.service';
 import { VideoTypeService } from '@api/video-type.service';
+import { AudioService } from '@api/audio.service';
+import { AudioTypeService } from '@api/audio-type.service';
 
 
 const routes: Routes = [
@@ -92,10 +94,12 @@ const perfectBar: PerfectScrollbarConfigInterface = {
     PermissionService,
     RoleService,
     AdminService,
-    PictureTypeService,
     PictureService,
+    PictureTypeService,
     VideoService,
     VideoTypeService,
+    AudioService,
+    AudioTypeService,
 
     // Library Service
     NzIconService,
