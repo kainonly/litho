@@ -1,5 +1,14 @@
-/* You can add global styles to this file, and also import other style files */
-@import '~perfect-scrollbar/css/perfect-scrollbar.css';
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+::-webkit-scrollbar-track {
+  background: #ddd;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #666;
+}
 
 .ant-page-header {
   background: #fff;

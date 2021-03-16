@@ -12,8 +12,6 @@ import { NZ_I18N, zh_CN } from 'ng-zorro-antd/i18n';
 import { StorageModule } from '@ngx-pwa/local-storage';
 import { NZ_CONFIG, NzConfig } from 'ng-zorro-antd/core/config';
 import { BitConfigService, BitEventsService, BitHttpService, BitService, BitSupportService, BitSwalService } from 'ngx-bit';
-import { PERFECT_SCROLLBAR_CONFIG, PerfectScrollbarConfigInterface, PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
-
 
 registerLocaleData(zh);
 
@@ -60,10 +58,6 @@ const bitConfig = () => {
   return merge.recursive(service, env);
 };
 
-const perfectBar: PerfectScrollbarConfigInterface = {
-  suppressScrollX: true
-};
-
 @NgModule({
   declarations: [AppComponent],
   imports: [
@@ -72,7 +66,6 @@ const perfectBar: PerfectScrollbarConfigInterface = {
     HttpClientModule,
     AppExtModule,
     SkeletonModule,
-    PerfectScrollbarModule,
     RouterModule.forRoot(routes, { useHash: true }),
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
     StorageModule.forRoot({
@@ -110,8 +103,7 @@ const perfectBar: PerfectScrollbarConfigInterface = {
     BitSwalService,
     { provide: NZ_CONFIG, useValue: ngZorroConfig },
     { provide: NZ_I18N, useValue: zh_CN },
-    { provide: BitConfigService, useFactory: bitConfig },
-    { provide: PERFECT_SCROLLBAR_CONFIG, useValue: perfectBar }
+    { provide: BitConfigService, useFactory: bitConfig }
   ],
   bootstrap: [AppComponent]
 })
