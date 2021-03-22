@@ -22,6 +22,10 @@ const routes: Routes = [
         loadChildren: () => import('./pages/empty/empty.module').then(m => m.EmptyModule)
       },
       {
+        path: '{page}',
+        loadChildren: () => import('./pages/page/page.module').then(m => m.PageModule)
+      },
+      {
         path: '{acl-index}',
         loadChildren: () => import('./pages/acl-index/acl-index.module').then(m => m.AclIndexModule)
       },
