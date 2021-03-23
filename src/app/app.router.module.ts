@@ -22,7 +22,7 @@ const routes: Routes = [
         loadChildren: () => import('./pages/empty/empty.module').then(m => m.EmptyModule)
       },
       {
-        path: '{page}',
+        path: '{page}/:key',
         loadChildren: () => import('./pages/page/page.module').then(m => m.PageModule)
       },
       {
