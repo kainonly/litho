@@ -22,6 +22,18 @@ const routes: Routes = [
         loadChildren: () => import('./pages/empty/empty.module').then(m => m.EmptyModule)
       },
       {
+        path: 'shop-index',
+        loadChildren: () => import('./pages/shop-index/shop-index.module').then(m => m.ShopIndexModule)
+      },
+      {
+        path: 'shop-add',
+        loadChildren: () => import('./pages/shop-add/shop-add.module').then(m => m.ShopAddModule)
+      },
+      {
+        path: 'shop-edit/:id',
+        loadChildren: () => import('./pages/shop-edit/shop-edit.module').then(m => m.ShopEditModule)
+      },
+      {
         path: 'page/:key',
         loadChildren: () => import('./pages/page/page.module').then(m => m.PageModule)
       },

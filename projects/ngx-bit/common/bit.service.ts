@@ -82,7 +82,9 @@ export class BitService {
       const segments = primary.segments;
       if (segments.length > 1) {
         const key = segments[0].path;
-        this.storageMap.set('cross:' + key, segments.splice(1)).subscribe(() => {
+        this.storageMap.set(
+          'cross:' + key, segments.splice(1)
+        ).subscribe(() => {
         });
       }
     }
