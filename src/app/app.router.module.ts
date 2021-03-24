@@ -34,6 +34,18 @@ const routes: Routes = [
         loadChildren: () => import('./pages/shop-edit/shop-edit.module').then(m => m.ShopEditModule)
       },
       {
+        path: 'product-index/:sid',
+        loadChildren: () => import('./pages/product-index/product-index.module').then(m => m.ProductIndexModule)
+      },
+      {
+        path: 'product-add/:sid',
+        loadChildren: () => import('./pages/product-add/product-add.module').then(m => m.ProductAddModule)
+      },
+      {
+        path: 'product-edit/:sid/:id',
+        loadChildren: () => import('./pages/product-edit/product-edit.module').then(m => m.ProductEditModule)
+      },
+      {
         path: 'page/:key',
         loadChildren: () => import('./pages/page/page.module').then(m => m.PageModule)
       },

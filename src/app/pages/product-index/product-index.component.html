@@ -1,5 +1,5 @@
 <bit-header>
-  <button nz-button nzType="primary" [bitOpen]="['shop-add']">
+  <button nz-button nzType="primary" [bitOpen]="['product-add']">
     <span>{{ bit.l["add"] }}</span>
   </button>
 </bit-header>
@@ -83,16 +83,12 @@
           [(ngModel)]="data.status"
           [nzCheckedChildren]="bit.l['on']"
           [nzUnCheckedChildren]="bit.l['off']"
-          [bitStatusChange]="shopService.status(data)"
+          [bitStatusChange]="productService.status(data)"
         >
         </nz-switch>
       </td>
       <td>
-        <a [bitOpen]="['product-index', data.id]">
-          <i nz-icon nzType="gold"></i> 产品
-        </a>
-        <nz-divider nzType="vertical"></nz-divider>
-        <a [bitOpen]="['shop-edit', data.id]">
+        <a [bitOpen]="['product-edit', data.id]">
           <i nz-icon nzType="edit"></i> {{ bit.l["edit"] }}
         </a>
         <nz-divider nzType="vertical"></nz-divider>
