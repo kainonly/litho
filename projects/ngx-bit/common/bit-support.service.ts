@@ -1,10 +1,9 @@
 import { EventEmitter, Injectable, TemplateRef } from '@angular/core';
 import { StorageMap } from '@ngx-pwa/local-storage';
-import { Event, NavigationStart, Router } from '@angular/router';
+import { Event, NavigationStart, PRIMARY_OUTLET, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { filter, map, switchMap } from 'rxjs/operators';
 import { BreadcrumbOption } from 'ngx-bit/types';
-import { getSelectorFormUrl } from 'ngx-bit/operates';
 
 @Injectable()
 export class BitSupportService {
@@ -105,14 +104,21 @@ export class BitSupportService {
    * Get router associate
    */
   private routerAssociate(router: Router, url: string, match?: string[]): void {
-    const key = getSelectorFormUrl(url, match);
+    const primary = router.parseUrl(url).root.children[PRIMARY_OUTLET];
+    const segments = primary.segments;
     this.storageMap.get('router').pipe(
-      map((data: Map<string, any>) =>
-        data.has(key) ? key : null
-      )
+      map((data: Map<string, any>) => {
+        for (let i = 0; i < segments.length; i++) {
+          const key = segments.slice(0, i + 1).map(v => v.path).join('/');
+          if (data.has(key)) {
+            return key;
+          }
+        }
+        return null;
+      })
     ).subscribe(maybeKey => {
       if (!maybeKey) {
-        router.navigate(['/{empty}']);
+        router.navigate(['/empty']);
         this.clearBreadcrumb();
       } else {
         this.factoryBreadcrumb(maybeKey);
@@ -187,5 +193,4 @@ export class BitSupportService {
       this.routerEvents.unsubscribe();
     }
   }
-
 }

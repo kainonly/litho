@@ -1,11 +1,11 @@
 import { Injectable, Optional } from '@angular/core';
-import { NavigationExtras, Router } from '@angular/router';
+import { NavigationExtras, PRIMARY_OUTLET, Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { StorageMap } from '@ngx-pwa/local-storage';
 import { NzI18nService } from 'ng-zorro-antd/i18n';
 import { ListByPageOption, I18nGroupOption, I18nTooltipOption } from 'ngx-bit/types';
 import { ListByPage } from 'ngx-bit/factory';
-import { factoryLocales, getSelectorFormUrl } from 'ngx-bit/operates';
+import { factoryLocales } from 'ngx-bit/operates';
 import { BitConfigService } from './bit-config.service';
 import { BitEventsService } from './bit-events.service';
 import { BitSupportService } from './bit-support.service';
@@ -75,21 +75,27 @@ export class BitService {
   /**
    * open routerlink with cross level
    */
-  open(urlTree: any[], extras?: NavigationExtras): void {
+  open(path: any[], extras?: NavigationExtras): void {
     const url = this.router.url;
     if (url !== '/') {
-      const selector = getSelectorFormUrl(this.router.url, ['%7B', '%7D']);
-      const param = url.split('/').slice(2);
-      if (param.length !== 0) {
-        this.storageMap.set('cross:' + selector, param[0]).subscribe(() => {
+      const primary = this.router.parseUrl(url).root.children[PRIMARY_OUTLET];
+      const segments = primary.segments;
+      if (segments.length > 1) {
+        const key = segments[0].path;
+        this.storageMap.set('cross:' + key, segments.splice(1)).subscribe(() => {
         });
       }
     }
-    if (urlTree.length !== 0) {
-      this.router.navigate([
-        '{' + urlTree[0] + '}',
-        ...urlTree.slice(1)
-      ], extras);
+    if (path.length !== 0) {
+      const commands = [];
+      path.forEach((value) => {
+        if (typeof value === 'string') {
+          commands.push(...value.split('/'));
+        } else {
+          commands.push(value);
+        }
+      });
+      this.router.navigate(commands, extras);
     }
   }
 

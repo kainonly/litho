@@ -4,7 +4,8 @@ import {
   empty,
   factoryLocales,
   getQuerySchema,
-  getSelectorFormUrl, print, privacy
+  print,
+  privacy
 } from 'ngx-bit/operates';
 import { switchMap } from 'rxjs/operators';
 import { environment } from '../simulation/environment';
@@ -60,15 +61,6 @@ describe('operates module', () => {
     expect(schema).toEqual([
       ['time', 'between', picker.map(v => Math.floor(v.getTime() / 1000))]
     ]);
-  });
-
-  it('Test getSelectorFormUrl', () => {
-    let key = getSelectorFormUrl('/%7Bacl-index%7D', ['%7B', '%7D']);
-    expect(key).toEqual('acl-index');
-    key = getSelectorFormUrl('/%7Bacl-edit%7D/1', ['%7B', '%7D']);
-    expect(key).toEqual('acl-edit');
-    key = getSelectorFormUrl('/%7Bacl-edit%7D/1/2', ['%7B', '%7D']);
-    expect(key).toEqual('acl-edit');
   });
 
   it('Test empty', () => {
