@@ -3,19 +3,22 @@ import { BitSwalService, BitService } from 'ngx-bit';
 import { ListByPage } from 'ngx-bit/factory';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { ProductService } from '@api/product.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-product-index',
   templateUrl: './product-index.component.html'
 })
 export class ProductIndexComponent implements OnInit {
+  sid: any;
   lists: ListByPage;
 
   constructor(
     private swal: BitSwalService,
     public bit: BitService,
     public productService: ProductService,
-    private message: NzMessageService
+    private message: NzMessageService,
+    private route: ActivatedRoute
   ) {
   }
 
@@ -29,6 +32,9 @@ export class ProductIndexComponent implements OnInit {
     });
     this.lists.ready.subscribe(() => {
       this.getLists();
+    });
+    this.route.params.subscribe(data => {
+      this.sid = data.sid;
     });
   }
 

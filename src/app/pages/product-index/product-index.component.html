@@ -1,5 +1,5 @@
-<bit-header>
-  <button nz-button nzType="primary" [bitOpen]="['product-add']">
+<bit-header back>
+  <button nz-button nzType="primary" [bitOpen]="['product-add', sid]">
     <span>{{ bit.l["add"] }}</span>
   </button>
 </bit-header>
@@ -88,7 +88,7 @@
         </nz-switch>
       </td>
       <td>
-        <a [bitOpen]="['product-edit', data.id]">
+        <a [bitOpen]="['product-edit', sid, data.id]">
           <i nz-icon nzType="edit"></i> {{ bit.l["edit"] }}
         </a>
         <nz-divider nzType="vertical"></nz-divider>

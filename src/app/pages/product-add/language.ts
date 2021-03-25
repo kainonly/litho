@@ -1,3 +1,3 @@
 export default {
-  name: ['商户名称', 'Shop Name']
+  name: ['产品名称', 'Product Name']
 };
