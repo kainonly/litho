@@ -72,7 +72,7 @@ describe('BitCrossLevelDirective', () => {
     }
   });
 
-  it('Test cross-level jump directive', (done) => {
+  it('Test route history', (done) => {
     const complete: AsyncSubject<any> = new AsyncSubject<any>();
     zone.run(() => {
       bit.open(['admin-index']);
@@ -85,7 +85,7 @@ describe('BitCrossLevelDirective', () => {
           })
         ).subscribe(events => {
           if (events instanceof NavigationEnd) {
-            expect(events.url).toBe('/%7Badmin-edit%7D/2');
+            expect(events.url).toBe('/admin-edit/2');
             event.unsubscribe();
             complete.unsubscribe();
             done();

@@ -29,19 +29,19 @@ describe('BitService', () => {
               loadChildren: () => import('../simulation/case/case.module').then(m => m.CaseModule)
             },
             {
-              path: '{admin-index}',
+              path: 'admin-index',
               loadChildren: () => import('../simulation/case/case.module').then(m => m.CaseModule)
             },
             {
-              path: '{admin-add}',
+              path: 'admin-add',
               loadChildren: () => import('../simulation/case/case.module').then(m => m.CaseModule)
             },
             {
-              path: '{admin-edit}/:id',
+              path: 'admin-edit/:id',
               loadChildren: () => import('../simulation/case/case.module').then(m => m.CaseModule)
             },
             {
-              path: '{admin-edit}/:id/:subId',
+              path: 'admin-edit/:id/:subId',
               loadChildren: () => import('../simulation/case/case.module').then(m => m.CaseModule)
             }
           ])
@@ -91,7 +91,7 @@ describe('BitService', () => {
     zone.run(() => {
       const event = router.events.subscribe(events => {
         if (events instanceof NavigationEnd) {
-          expect(events.url).toBe('/%7Badmin-index%7D');
+          expect(events.url).toBe('/admin-index');
           event.unsubscribe();
           done();
         }
@@ -113,7 +113,7 @@ describe('BitService', () => {
         })
       ).subscribe(events => {
         if (events instanceof NavigationEnd) {
-          expect(events.url).toBe('/%7Badmin-edit%7D/2');
+          expect(events.url).toBe('/admin-edit/2');
           event.unsubscribe();
           complete.unsubscribe();
           done();
@@ -139,7 +139,7 @@ describe('BitService', () => {
         setTimeout(() => {
           bit.back();
           location.subscribe(value => {
-            expect(value.url).toBe('/%7Badmin-index%7D');
+            expect(value.url).toBe('/admin-index');
             done();
           });
         }, 200);

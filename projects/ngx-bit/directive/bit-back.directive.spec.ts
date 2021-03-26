@@ -68,7 +68,7 @@ describe('BitBackDirective', () => {
     fixture.detectChanges();
   });
 
-  it('Test click trigger to location back', (done) => {
+  it('Test click trigger to route back', (done) => {
     zone.run(() => {
       bit.open(['admin-index']);
       setTimeout(() => {
@@ -77,7 +77,7 @@ describe('BitBackDirective', () => {
           const button = fixture.debugElement.query(By.directive(BitBackDirective));
           button.triggerEventHandler('click', null);
           location.subscribe(value => {
-            expect(value.url).toBe('/%7Badmin-index%7D');
+            expect(value.url).toBe('/admin-index');
             done();
           });
         }, 200);

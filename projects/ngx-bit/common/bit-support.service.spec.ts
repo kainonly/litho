@@ -25,15 +25,15 @@ describe('BitSupportService', () => {
               loadChildren: () => import('../simulation/case/case.module').then(m => m.CaseModule)
             },
             {
-              path: '{admin-index}',
+              path: 'admin-index',
               loadChildren: () => import('../simulation/case/case.module').then(m => m.CaseModule)
             },
             {
-              path: '{admin-add}',
+              path: 'admin-add',
               loadChildren: () => import('../simulation/case/case.module').then(m => m.CaseModule)
             },
             {
-              path: '{admin-edit}/:id',
+              path: 'admin-edit/:id',
               loadChildren: () => import('../simulation/case/case.module').then(m => m.CaseModule)
             }
           ])
@@ -124,7 +124,7 @@ describe('BitSupportService', () => {
         expect(nav).not.toBeNull();
         support.setup(router);
         zone.run(() => {
-          router.navigate(['{admin-add}']);
+          router.navigate(['admin-add']);
         });
         setTimeout(() => {
           expect(support.title.zh_cn).toBe('管理员新增');
@@ -167,7 +167,7 @@ describe('BitSupportService', () => {
 
   it('Test initialization breadcrumb when url is not /', (done) => {
     zone.run(() => {
-      router.navigate(['{admin-edit}/2']).then(() => {
+      router.navigate(['admin-edit/2']).then(() => {
         support.setup(router);
       });
     });
@@ -197,7 +197,7 @@ describe('BitSupportService', () => {
 
   it('Test not exists router link', (done) => {
     zone.run(() => {
-      router.navigate(['{unknown}']);
+      router.navigate(['unknown']);
     });
     setTimeout(() => {
       expect(support.title).toEqual('');

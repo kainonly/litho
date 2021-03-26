@@ -62,11 +62,11 @@ describe('BitOpenDirective', () => {
     }
   });
 
-  it('Test open routerlink with cross level', (done) => {
+  it('Test open routerlink', (done) => {
     zone.run(() => {
       const event = router.events.subscribe(events => {
         if (events instanceof NavigationEnd) {
-          expect(events.url).toBe('/%7Badmin-index%7D');
+          expect(events.url).toBe('/admin-index');
           event.unsubscribe();
           done();
         }
