@@ -97,7 +97,7 @@ describe('BitService', () => {
         }
       });
       setTimeout(() => {
-        bit.crossLevel('admin-index');
+        bit.history('admin-index');
       }, 200);
     });
   });
@@ -125,7 +125,7 @@ describe('BitService', () => {
         setTimeout(() => {
           complete.next(true);
           complete.complete();
-          bit.crossLevel('admin-edit');
+          bit.history('admin-edit');
         }, 200);
       }, 200);
     });
