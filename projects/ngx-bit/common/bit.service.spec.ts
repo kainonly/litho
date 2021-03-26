@@ -78,7 +78,7 @@ describe('BitService', () => {
     zone.run(() => {
       const event = router.events.subscribe(events => {
         if (events instanceof NavigationEnd) {
-          expect(events.url).toBe('/%7Badmin-add%7D');
+          expect(events.url).toBe('/admin-add');
           event.unsubscribe();
           done();
         }
