@@ -2,10 +2,10 @@ import { Directive, HostListener, Input } from '@angular/core';
 import { BitService } from 'ngx-bit';
 
 @Directive({
-  selector: '[bitCrossLevel]'
+  selector: '[bitHistory]'
 })
-export class BitCrossLevelDirective {
-  @Input() bitCrossLevel: string;
+export class BitHistoryDirective {
+  @Input() bitHistory: string;
 
   constructor(
     private bit: BitService
@@ -14,6 +14,6 @@ export class BitCrossLevelDirective {
 
   @HostListener('click')
   onClick(): void {
-    this.bit.crossLevel(this.bitCrossLevel);
+    this.bit.history(this.bitHistory);
   }
 }

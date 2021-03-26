@@ -5,11 +5,10 @@ import { By } from '@angular/platform-browser';
 import { NavigationEnd, Router, RouterModule } from '@angular/router';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { BitConfigService, BitEventsService, BitHttpService, BitService, BitSupportService, BitSwalService } from 'ngx-bit';
-import { BitCrossLevelDirective, BitDirectiveModule } from 'ngx-bit/directive';
+import { BitHistoryDirective, BitDirectiveModule } from 'ngx-bit/directive';
 import { AsyncSubject } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import { environment } from '../simulation/environment';
-import { NzColDirective } from 'ng-zorro-antd/grid';
 
 describe('BitCrossLevelDirective', () => {
   let bit: BitService;
@@ -33,15 +32,15 @@ describe('BitCrossLevelDirective', () => {
               loadChildren: () => import('../simulation/case/case.module').then(m => m.CaseModule)
             },
             {
-              path: '{admin-index}',
+              path: 'admin-index',
               loadChildren: () => import('../simulation/case/case.module').then(m => m.CaseModule)
             },
             {
-              path: '{admin-edit}/:id',
+              path: 'admin-edit/:id',
               loadChildren: () => import('../simulation/case/case.module').then(m => m.CaseModule)
             },
             {
-              path: '{admin-edit}/:id/:subId',
+              path: 'admin-edit/:id/:subId',
               loadChildren: () => import('../simulation/case/case.module').then(m => m.CaseModule)
             }
           ])
@@ -98,7 +97,7 @@ describe('BitCrossLevelDirective', () => {
           setTimeout(() => {
             complete.next(true);
             complete.complete();
-            const button = fixture.debugElement.query(By.directive(BitCrossLevelDirective));
+            const button = fixture.debugElement.query(By.directive(BitHistoryDirective));
             button.triggerEventHandler('click', null);
           }, 200);
         }, 200);
@@ -110,7 +109,7 @@ describe('BitCrossLevelDirective', () => {
 
 @Component({
   template: `
-    <button nz-button nzType="primary" bitCrossLevel="admin-edit">Test</button>
+    <button nz-button nzType="primary" bitHistory="admin-edit">Test</button>
   `
 })
 class TestComponent {

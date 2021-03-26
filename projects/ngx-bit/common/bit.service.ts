@@ -1,5 +1,5 @@
 import { Injectable, Optional } from '@angular/core';
-import { NavigationExtras, PRIMARY_OUTLET, Router } from '@angular/router';
+import { NavigationExtras, PRIMARY_OUTLET, Router, UrlSegment } from '@angular/router';
 import { Location } from '@angular/common';
 import { StorageMap } from '@ngx-pwa/local-storage';
 import { NzI18nService } from 'ng-zorro-antd/i18n';
@@ -48,7 +48,7 @@ export class BitService {
   i18nContain: any[] = [];
 
   /**
-   * constructor
+   * Constructor
    */
   constructor(
     private config: BitConfigService,
@@ -73,9 +73,12 @@ export class BitService {
   }
 
   /**
-   * open routerlink with cross level
+   * Route navigation
    */
   open(path: any[], extras?: NavigationExtras): void {
+    if (path.length === 0) {
+      return;
+    }
     const url = this.router.url;
     if (url !== '/') {
       const primary = this.router.parseUrl(url).root.children[PRIMARY_OUTLET];
@@ -83,41 +86,39 @@ export class BitService {
       if (segments.length > 1) {
         const key = segments[0].path;
         this.storageMap.set(
-          'cross:' + key, segments.splice(1)
+          'history:' + key, segments.splice(1)
         ).subscribe(() => {
         });
       }
     }
-    if (path.length !== 0) {
-      const commands = [];
-      path.forEach((value) => {
-        if (typeof value === 'string') {
-          commands.push(...value.split('/'));
-        } else {
-          commands.push(value);
-        }
-      });
-      this.router.navigate(commands, extras);
-    }
+    const commands = [];
+    path.forEach((value) => {
+      if (typeof value === 'string') {
+        commands.push(...value.split('/'));
+      } else {
+        commands.push(value);
+      }
+    });
+    this.router.navigate(commands, extras);
   }
 
   /**
-   * open use cross level
+   * Route history
    */
-  crossLevel(selector: string): void {
-    this.storageMap.get('cross:' + selector).subscribe(param => {
-      if (!param) {
-        this.router.navigateByUrl(`{${selector}}`);
-      } else {
-        this.storageMap.delete('cross:' + selector).subscribe(() => {
-          this.router.navigateByUrl(`/{${selector}}/${param}`);
+  history(key: string): void {
+    this.storageMap.get('history:' + key).subscribe((segments: UrlSegment[]) => {
+      const commands = [key];
+      if (segments && segments.length !== 0) {
+        commands.push(...segments.map(v => v.path));
+        this.storageMap.delete('history:' + key).subscribe(() => {
         });
       }
+      this.router.navigate(commands);
     });
   }
 
   /**
-   * Location back
+   * Route back
    */
   back(): void {
     this.location.back();

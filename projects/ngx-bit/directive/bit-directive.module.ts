@@ -8,7 +8,7 @@ import { BitBackDirective } from './bit-back.directive';
 import { BitStatusChangeDirective } from './bit-status-change.directive';
 import { BitUploadDirective } from './bit-upload.directive';
 import { BitOpenDirective } from './bit-open.directive';
-import { BitCrossLevelDirective } from './bit-cross-level.directive';
+import { BitHistoryDirective } from './bit-history.directive';
 import { BitI18nUpdateDirective } from './bit-i18n-update.directive';
 
 @NgModule({
@@ -19,7 +19,7 @@ import { BitI18nUpdateDirective } from './bit-i18n-update.directive';
     BitColDirective,
     BitFormSubmitDirective,
     BitOpenDirective,
-    BitCrossLevelDirective,
+    BitHistoryDirective,
     BitBackDirective,
     BitStatusChangeDirective,
     BitUploadDirective,
@@ -32,7 +32,7 @@ import { BitI18nUpdateDirective } from './bit-i18n-update.directive';
     BitColDirective,
     BitFormSubmitDirective,
     BitOpenDirective,
-    BitCrossLevelDirective,
+    BitHistoryDirective,
     BitBackDirective,
     BitStatusChangeDirective,
     BitUploadDirective,
