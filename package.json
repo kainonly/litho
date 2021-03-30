@@ -28,7 +28,7 @@
     "@angular/platform-browser-dynamic": "~11.2.7",
     "@angular/router": "~11.2.7",
     "@angular/service-worker": "~11.2.7",
-    "@ngx-pwa/local-storage": "^11.0.2",
+    "@ngx-pwa/local-storage": "^11.1.0",
     "merge": "^2.1.1",
     "ng-particles": "^2.3.1",
     "ng-zorro-antd": "^11.0.0",
