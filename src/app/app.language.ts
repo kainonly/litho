@@ -41,6 +41,8 @@ export default {
 
   // The Tooltip Language Pack
   I18nNoTip: ['无提示', 'No prompt'],
+  I18nZHCN: ['中文为空', 'Chinese empty'],
+  I18nENUS: ['英文为空', 'English empty'],
   i18nTip: ['多语言输入框', 'A multilingual input box'],
 
   // The Async Validate

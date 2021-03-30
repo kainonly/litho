@@ -8,7 +8,19 @@ import { BitService } from 'ngx-bit';
       <ng-container *ngIf="bit.i18nTooltip.hasOwnProperty(groupName) && bit.i18nTooltip[groupName].length !== 0;else not">
         <ng-container *ngFor="let ID of bit.i18nTooltip[groupName];first as isFirst">
           <ng-container *ngIf="!isFirst">,</ng-container>
-          {{bit.l[groupName + '_' + ID]}}
+          <ng-container *ngIf="bit.l.hasOwnProperty(groupName + '_' + ID);else universal">
+            {{bit.l[groupName + '_' + ID]}}
+          </ng-container>
+          <ng-template #universal>
+            <ng-container [ngSwitch]="ID">
+              <ng-container *ngSwitchCase="'zh_cn'">
+                {{bit.l['I18nZHCN']}}
+              </ng-container>
+              <ng-container *ngSwitchCase="'en_us'">
+                {{bit.l['I18nENUS']}}
+              </ng-container>
+            </ng-container>
+          </ng-template>
         </ng-container>
       </ng-container>
       <ng-template #not>
