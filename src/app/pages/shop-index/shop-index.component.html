@@ -5,8 +5,8 @@
 </bit-header>
 <ng-template #title>
   <nz-space>
-    <nz-space-item *ngIf="lists.hasSearch('name->' + bit.locale)">
-      <nz-input-group nzSearch [nzAddOnAfter]="nzAddOnAfter" style="width: 320px">
+    <ng-container *ngIf="lists.hasSearch('name->' + bit.locale)">
+      <nz-input-group *nzSpaceItem nzSearch [nzAddOnAfter]="nzAddOnAfter" style="width: 320px">
         <input
           nz-input
           [bitSearchStart]="lists"
@@ -26,22 +26,16 @@
           <i nz-icon nzType="search"></i>
         </button>
       </ng-template>
-    </nz-space-item>
-    <nz-space-item>
-      <button nz-button (click)="getLists(true)">
-        <i nz-icon nzType="sync"></i> {{ bit.l["refreshLists"] }}
-      </button>
-    </nz-space-item>
-    <nz-space-item>
-      <button nz-button [bitSearchClear]="lists" (after)="getLists(true)">
-        <i nz-icon nzType="clear"></i> {{ bit.l["clearSearch"] }}
-      </button>
-    </nz-space-item>
-    <nz-space-item>
-      <button nz-button nzDanger [disabled]="!lists.batch" (click)="deleteCheckData()">
-        <i nz-icon nzType="rest"></i> {{ bit.l["bulkDelete"] }}
-      </button>
-    </nz-space-item>
+    </ng-container>
+    <button *nzSpaceItem nz-button (click)="getLists(true)">
+      <i nz-icon nzType="sync"></i> {{ bit.l["refreshLists"] }}
+    </button>
+    <button *nzSpaceItem nz-button [bitSearchClear]="lists" (after)="getLists(true)">
+      <i nz-icon nzType="clear"></i> {{ bit.l["clearSearch"] }}
+    </button>
+    <button *nzSpaceItem nz-button nzDanger [disabled]="!lists.batch" (click)="deleteCheckData()">
+      <i nz-icon nzType="rest"></i> {{ bit.l["bulkDelete"] }}
+    </button>
   </nz-space>
 </ng-template>
 <nz-card [nzTitle]="title" [nzBordered]="false">

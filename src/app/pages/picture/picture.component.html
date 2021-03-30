@@ -51,46 +51,45 @@
 
 <ng-template #title>
   <nz-space>
-    <nz-space-item>
-      <nz-button-group>
-        <button nz-button (click)="checkedAllBind($event)">
-          <label
-            nz-checkbox
-            [(ngModel)]="ds.lists.checked"
-            [nzIndeterminate]="ds.lists.indeterminate"
-            (ngModelChange)="ds.lists.checkedAll($event)"
-          >
-            {{ bit.l["checked"] }}
-          </label>
-        </button>
-        <button
-          nz-button
-          nz-dropdown
-          [nzDropdownMenu]="bulkActions"
-          [nzTrigger]="'click'"
-          [nzClickHide]="false"
-          [disabled]="!ds.lists.batch"
+    <nz-button-group *nzSpaceItem>
+      <button nz-button (click)="checkedAllBind($event)">
+        <label
+          nz-checkbox
+          [(ngModel)]="ds.lists.checked"
+          [nzIndeterminate]="ds.lists.indeterminate"
+          (ngModelChange)="ds.lists.checkedAll($event)"
         >
-          <nz-badge [nzCount]="ds.lists.checkedNumber" [nzOffset]="[3, -12]">
-            <i nz-icon nzType="ellipsis"></i>
-          </nz-badge>
-          <nz-dropdown-menu #bulkActions>
-            <ul nz-menu>
-              <li nz-menu-item (click)="openMoveModal(ds.lists.getChecked())">
-                <i nz-icon nzType="swap"></i>
-                {{ bit.l["move"] }}
-              </li>
-              <li nz-menu-item (click)="openDeleteModal(ds.lists.getChecked())">
-                <i nz-icon nzType="delete"></i>
-                {{ bit.l["deleteItem"] }}
-              </li>
-            </ul>
-          </nz-dropdown-menu>
-        </button>
-      </nz-button-group>
-    </nz-space-item>
-    <nz-space-item *ngIf="ds.lists.hasSearch('type_id')">
+          {{ bit.l["checked"] }}
+        </label>
+      </button>
+      <button
+        nz-button
+        nz-dropdown
+        [nzDropdownMenu]="bulkActions"
+        [nzTrigger]="'click'"
+        [nzClickHide]="false"
+        [disabled]="!ds.lists.batch"
+      >
+        <nz-badge [nzCount]="ds.lists.checkedNumber" [nzOffset]="[3, -12]">
+          <i nz-icon nzType="ellipsis"></i>
+        </nz-badge>
+        <nz-dropdown-menu #bulkActions>
+          <ul nz-menu>
+            <li nz-menu-item (click)="openMoveModal(ds.lists.getChecked())">
+              <i nz-icon nzType="swap"></i>
+              {{ bit.l["move"] }}
+            </li>
+            <li nz-menu-item (click)="openDeleteModal(ds.lists.getChecked())">
+              <i nz-icon nzType="delete"></i>
+              {{ bit.l["deleteItem"] }}
+            </li>
+          </ul>
+        </nz-dropdown-menu>
+      </button>
+    </nz-button-group>
+    <ng-container *ngIf="ds.lists.hasSearch('type_id')">
       <nz-select
+        *nzSpaceItem
         style="width: 240px"
         nzShowSearch
         [(ngModel)]="ds.lists.search['type_id'].value"
@@ -136,10 +135,11 @@
           {{ bit.l["editType"] }}
         </button>
       </ng-template>
-    </nz-space-item>
-    <nz-space-item *ngIf="ds.lists.hasSearch('name')">
+    </ng-container>
+    <ng-container *ngIf="ds.lists.hasSearch('name')">
       <nz-input-group nzSearch [nzAddOnAfter]="nzAddOnAfter" style="width: 320px">
         <input
+          *nzSpaceItem
           nz-input
           [bitSearchStart]="ds.lists"
           [placeholder]="bit.l['search']"
@@ -158,19 +158,15 @@
           <i nz-icon nzType="search"></i>
         </button>
       </ng-template>
-    </nz-space-item>
-    <nz-space-item>
-      <button nz-button nzType="default" (click)="ds.fetchData(true)">
-        <i nz-icon nzType="sync"></i>
-        {{ bit.l["refreshLists"] }}
-      </button>
-    </nz-space-item>
-    <nz-space-item>
-      <button nz-button nzType="default" [bitSearchClear]="ds.lists" (after)="ds.fetchData(true)">
-        <i nz-icon nzType="clear"></i>
-        {{ bit.l["clearSearch"] }}
-      </button>
-    </nz-space-item>
+    </ng-container>
+    <button *nzSpaceItem nz-button nzType="default" (click)="ds.fetchData(true)">
+      <i nz-icon nzType="sync"></i>
+      {{ bit.l["refreshLists"] }}
+    </button>
+    <button *nzSpaceItem nz-button nzType="default" [bitSearchClear]="ds.lists" (after)="ds.fetchData(true)">
+      <i nz-icon nzType="clear"></i>
+      {{ bit.l["clearSearch"] }}
+    </button>
   </nz-space>
 </ng-template>
 
@@ -187,17 +183,16 @@
   </ng-template>
   <ng-template #typeTitle>
     <nz-space>
-      <nz-space-item>
+      <ng-container *nzSpaceItem>
         {{ bit.l["editType"] }}
-      </nz-space-item>
-      <nz-space-item>
-        <nz-switch
-          [(ngModel)]="typeSort"
-          [nzCheckedChildren]="bit.l['sort']"
-          [nzUnCheckedChildren]="bit.l['sort']"
-        >
-        </nz-switch>
-      </nz-space-item>
+      </ng-container>
+      <nz-switch
+        *nzSpaceItem
+        [(ngModel)]="typeSort"
+        [nzCheckedChildren]="bit.l['sort']"
+        [nzUnCheckedChildren]="bit.l['sort']"
+      >
+      </nz-switch>
     </nz-space>
   </ng-template>
   <ng-container *nzDrawerContent>

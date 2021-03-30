@@ -32,16 +32,12 @@
     <nz-form-item>
       <nz-form-control bitCol="submit">
         <nz-space>
-          <nz-space-item>
-            <button nz-button nzType="primary" [disabled]="!form.valid">
-              <i nz-icon nzType="check"></i> {{ bit.l["submit"] }}
-            </button>
-          </nz-space-item>
-          <nz-space-item>
-            <button nz-button type="button" bitBack>
-              <i nz-icon nzType="close"></i> {{ bit.l["cancel"] }}
-            </button>
-          </nz-space-item>
+          <button *nzSpaceItem nz-button nzType="primary" [disabled]="!form.valid">
+            <i nz-icon nzType="check"></i> {{ bit.l["submit"] }}
+          </button>
+          <button *nzSpaceItem nz-button type="button" bitBack>
+            <i nz-icon nzType="close"></i> {{ bit.l["cancel"] }}
+          </button>
         </nz-space>
       </nz-form-control>
     </nz-form-item>
