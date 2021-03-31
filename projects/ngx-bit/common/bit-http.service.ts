@@ -19,7 +19,7 @@ export class BitHttpService {
    * HttpClient
    */
   req(url: string, body: any = {}, method = 'post'): Observable<any> {
-    const request = this.http.request(
+    let httpClient = this.http.request(
       method,
       this.config.url.api + this.config.api.namespace + '/' + url,
       {
@@ -29,9 +29,9 @@ export class BitHttpService {
     );
     const interceptor = this.config.getHttpInterceptor();
     if (interceptor) {
-      request.pipe(interceptor);
+      httpClient = httpClient.pipe(interceptor);
     }
-    return request;
+    return httpClient;
   }
 
   /**
