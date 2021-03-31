@@ -137,9 +137,8 @@
       </ng-template>
     </ng-container>
     <ng-container *ngIf="ds.lists.hasSearch('name')">
-      <nz-input-group nzSearch [nzAddOnAfter]="nzAddOnAfter" style="width: 320px">
+      <nz-input-group *nzSpaceItem nzSearch [nzAddOnAfter]="nzAddOnAfter" style="width: 320px">
         <input
-          *nzSpaceItem
           nz-input
           [bitSearchStart]="ds.lists"
           [placeholder]="bit.l['search']"
