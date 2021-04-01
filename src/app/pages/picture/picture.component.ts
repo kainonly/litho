@@ -224,9 +224,9 @@ export class PictureComponent implements OnInit, AfterContentInit, AfterViewInit
       if (!res.error) {
         this.addTypeCancel();
         this.getTypeLists();
-        this.notification.success(this.bit.l.operateSuccess, this.bit.l.addSuccess);
+        this.notification.success(this.bit.l.success, this.bit.l.updateSuccess);
       } else {
-        this.notification.success(this.bit.l.operateError, this.bit.l.addFailed);
+        this.notification.success(this.bit.l.error, this.bit.l.updateError);
       }
     });
   }
@@ -256,9 +256,9 @@ export class PictureComponent implements OnInit, AfterContentInit, AfterViewInit
       if (!res.error) {
         data.name = data.editName;
         this.editTypeCancel();
-        this.notification.success(this.bit.l.operateSuccess, this.bit.l.editSuccess);
+        this.notification.success(this.bit.l.success, this.bit.l.updateSuccess);
       } else {
-        this.notification.success(this.bit.l.operateError, this.bit.l.editFailed);
+        this.notification.success(this.bit.l.error, this.bit.l.updateError);
       }
     });
   }
@@ -268,12 +268,12 @@ export class PictureComponent implements OnInit, AfterContentInit, AfterViewInit
       if (!res.error) {
         this.getTypeLists();
         this.notification.success(
-          this.bit.l.operateSuccess,
+          this.bit.l.success,
           this.bit.l.deleteSuccess
         );
       } else {
         this.notification.error(
-          this.bit.l.operateError,
+          this.bit.l.error,
           this.bit.l.deleteError
         );
       }
@@ -309,12 +309,12 @@ export class PictureComponent implements OnInit, AfterContentInit, AfterViewInit
       if (!res.error) {
         this.getTypeLists();
         this.notification.success(
-          this.bit.l.operateSuccess,
+          this.bit.l.success,
           this.bit.l.sortSuccess
         );
       } else {
         this.notification.error(
-          this.bit.l.operateError,
+          this.bit.l.error,
           this.bit.l.sortError
         );
       }
@@ -356,15 +356,15 @@ export class PictureComponent implements OnInit, AfterContentInit, AfterViewInit
     }).subscribe(res => {
       if (!res.error) {
         this.notification.success(
-          this.bit.l.operateSuccess,
-          this.bit.l.editSuccess
+          this.bit.l.success,
+          this.bit.l.updateSuccess
         );
         this.renameData.name = this.renameForm.value.name;
         this.closeRenameModal();
       } else {
         this.notification.error(
-          this.bit.l.operateError,
-          this.bit.l.editFailed
+          this.bit.l.error,
+          this.bit.l.updateError
         );
       }
     });
@@ -398,15 +398,15 @@ export class PictureComponent implements OnInit, AfterContentInit, AfterViewInit
     }).subscribe(res => {
       if (!res.error) {
         this.notification.success(
-          this.bit.l.operateSuccess,
-          this.bit.l.editSuccess
+          this.bit.l.success,
+          this.bit.l.updateSuccess
         );
         this.closeMoveModal();
         this.getCount();
         this.ds.fetchData(true);
       } else {
         this.notification.error(
-          this.bit.l.operateError,
+          this.bit.l.error,
           this.bit.l.editFailed
         );
       }
@@ -430,7 +430,7 @@ export class PictureComponent implements OnInit, AfterContentInit, AfterViewInit
     ).subscribe(res => {
       if (!res.error) {
         this.notification.success(
-          this.bit.l.operateSuccess,
+          this.bit.l.success,
           this.bit.l.deleteSuccess
         );
         this.closeDeleteModal();
@@ -442,7 +442,7 @@ export class PictureComponent implements OnInit, AfterContentInit, AfterViewInit
         }
       } else {
         this.notification.error(
-          this.bit.l.operateError,
+          this.bit.l.error,
           this.bit.l.deleteError
         );
       }
