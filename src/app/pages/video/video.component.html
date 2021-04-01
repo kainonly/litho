@@ -1,8 +1,3 @@
-<ng-template #transportMessageTpl>
-  {{ bit.l["uploading"] }}
-  <nz-progress [nzPercent]="tds.percent" nzStatus="active"></nz-progress>
-</ng-template>
-
 <bit-header>
   <nz-alert
     bitBanner
@@ -12,41 +7,7 @@
     [nzMessage]="bit.l['uploadTip']"
     (nzOnClose)="fetchInfiniteY()"
   ></nz-alert>
-  <nz-button-group>
-    <nz-upload class="upload" bitUpload nzName="file" nzMultiple (nzChange)="tds.update($event)">
-      <button nz-button>
-        <i nz-icon [nzType]="'upload'"></i><span>{{ bit.l["upload"] }}</span>
-      </button>
-    </nz-upload>
-    <button
-      class="transport-btn"
-      nz-button
-      nz-popover
-      [disabled]="tds.total===0"
-      [nzPopoverContent]="transportContent"
-      [nzPopoverPlacement]="'bottomRight'"
-      [nzPopoverTrigger]="'click'"
-      [nzPopoverVisible]="!(tds.done | async)"
-    >
-      <nz-badge [nzStatus]="(tds.done | async) ? 'default' : 'processing'">
-        <i nz-icon nzType="inbox"></i>
-      </nz-badge>
-
-      <ng-template #transportContent>
-        <cdk-virtual-scroll-viewport itemSize="10" class="transport-container">
-          <nz-list nzSize="small">
-            <nz-list-empty *ngIf="tds.total === 0"></nz-list-empty>
-            <nz-list-item *cdkVirtualFor="let x of tds">
-              <span nz-typography nzEllipsis style="width: 450px">{{ x.name }}</span>
-              <div style="width: 150px">
-                <nz-progress [nzPercent]="x.percent" nzSize="small"></nz-progress>
-              </div>
-            </nz-list-item>
-          </nz-list>
-        </cdk-virtual-scroll-viewport>
-      </ng-template>
-    </button>
-  </nz-button-group>
+  <bit-transport [action]="transport" (actionComplete)="transportComplete()"></bit-transport>
 </bit-header>
 
 <ng-template #title>

@@ -15,6 +15,7 @@ import { TransportDataSource } from '@common/transport.data-source';
 import { VideoService } from '@api/video.service';
 import { VideoTypeService } from '@api/video-type.service';
 import { VideoDataSource } from './video.data-source';
+import { NzUploadFile } from 'ng-zorro-antd/upload';
 
 @Component({
   selector: 'app-video',
@@ -126,6 +127,21 @@ export class VideoComponent implements OnInit, AfterContentInit, AfterViewInit {
     this.fetchInfiniteY();
   }
 
+  transport = (files: NzUploadFile[]): Observable<any> => {
+    return this.videoService.bulkAdd({
+      type_id: !this.ds.lists.search.type_id.value ? 0 : this.ds.lists.search.type_id.value,
+      data: files.map(v => ({
+        name: v.originFileObj.name,
+        url: Reflect.get(v.originFileObj, 'key')
+      }))
+    });
+  };
+
+  transportComplete(): void {
+    this.ds.fetchData(true);
+    this.getCount();
+  }
+
   getTypeLists(): void {
     this.videoTypeService.originLists().subscribe(data => {
       this.typeLists = data;
@@ -214,9 +230,9 @@ export class VideoComponent implements OnInit, AfterContentInit, AfterViewInit {
       if (!res.error) {
         this.addTypeCancel();
         this.getTypeLists();
-        this.notification.success(this.bit.l.operateSuccess, this.bit.l.addSuccess);
+        this.notification.success(this.bit.l.success, this.bit.l.updateSuccess);
       } else {
-        this.notification.success(this.bit.l.operateError, this.bit.l.addFailed);
+        this.notification.success(this.bit.l.error, this.bit.l.updateError);
       }
     });
   }
@@ -246,9 +262,9 @@ export class VideoComponent implements OnInit, AfterContentInit, AfterViewInit {
       if (!res.error) {
         data.name = data.editName;
         this.editTypeCancel();
-        this.notification.success(this.bit.l.operateSuccess, this.bit.l.editSuccess);
+        this.notification.success(this.bit.l.success, this.bit.l.updateSuccess);
       } else {
-        this.notification.success(this.bit.l.operateError, this.bit.l.editFailed);
+        this.notification.success(this.bit.l.error, this.bit.l.updateError);
       }
     });
   }
@@ -258,12 +274,12 @@ export class VideoComponent implements OnInit, AfterContentInit, AfterViewInit {
       if (!res.error) {
         this.getTypeLists();
         this.notification.success(
-          this.bit.l.operateSuccess,
+          this.bit.l.success,
           this.bit.l.deleteSuccess
         );
       } else {
         this.notification.error(
-          this.bit.l.operateError,
+          this.bit.l.error,
           this.bit.l.deleteError
         );
       }
@@ -299,12 +315,12 @@ export class VideoComponent implements OnInit, AfterContentInit, AfterViewInit {
       if (!res.error) {
         this.getTypeLists();
         this.notification.success(
-          this.bit.l.operateSuccess,
+          this.bit.l.success,
           this.bit.l.sortSuccess
         );
       } else {
         this.notification.error(
-          this.bit.l.operateError,
+          this.bit.l.error,
           this.bit.l.sortError
         );
       }
@@ -346,14 +362,14 @@ export class VideoComponent implements OnInit, AfterContentInit, AfterViewInit {
     }).subscribe(res => {
       if (!res.error) {
         this.notification.success(
-          this.bit.l.operateSuccess,
-          this.bit.l.editSuccess
+          this.bit.l.success,
+          this.bit.l.updateSuccess
         );
         this.renameData.name = this.renameForm.value.name;
         this.closeRenameModal();
       } else {
         this.notification.error(
-          this.bit.l.operateError,
+          this.bit.l.error,
           this.bit.l.editFailed
         );
       }
@@ -388,16 +404,16 @@ export class VideoComponent implements OnInit, AfterContentInit, AfterViewInit {
     }).subscribe(res => {
       if (!res.error) {
         this.notification.success(
-          this.bit.l.operateSuccess,
-          this.bit.l.editSuccess
+          this.bit.l.success,
+          this.bit.l.updateSuccess
         );
         this.closeMoveModal();
         this.getCount();
         this.ds.fetchData(true);
       } else {
         this.notification.error(
-          this.bit.l.operateError,
-          this.bit.l.editFailed
+          this.bit.l.error,
+          this.bit.l.updateError
         );
       }
     });
@@ -420,7 +436,7 @@ export class VideoComponent implements OnInit, AfterContentInit, AfterViewInit {
     ).subscribe(res => {
       if (!res.error) {
         this.notification.success(
-          this.bit.l.operateSuccess,
+          this.bit.l.success,
           this.bit.l.deleteSuccess
         );
         this.closeDeleteModal();
@@ -432,7 +448,7 @@ export class VideoComponent implements OnInit, AfterContentInit, AfterViewInit {
         }
       } else {
         this.notification.error(
-          this.bit.l.operateError,
+          this.bit.l.error,
           this.bit.l.deleteError
         );
       }
