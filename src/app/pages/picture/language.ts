@@ -1,6 +1,4 @@
 export default {
-  transport: ['传输详情', 'Transport'],
-  uploading: ['请勿切换页面，目前正在上传文件中', 'Do not switch pages, currently uploading files'],
   checked: ['全选', 'Checked'],
   move: ['移动分类', 'Move Type'],
   deleteItem: ['删除元素', 'Delete Item'],

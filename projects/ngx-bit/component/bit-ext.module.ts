@@ -8,6 +8,17 @@ import { BitI18nTooltipComponent } from './bit-i18n-tooltip/bit-i18n-tooltip.com
 import { BitErrorTipComponent } from './bit-error-tip/bit-error-tip.component';
 import { BitHeaderComponent } from './bit-header/bit-header.component';
 import { BitPrintComponent } from './bit-print/bit-print.component';
+import { BitTransportComponent } from './bit-transport/bit-transport.component';
+import { NzProgressModule } from 'ng-zorro-antd/progress';
+import { NzUploadModule } from 'ng-zorro-antd/upload';
+import { NzPopoverModule } from 'ng-zorro-antd/popover';
+import { NzIconModule } from 'ng-zorro-antd/icon';
+import { NzBadgeModule } from 'ng-zorro-antd/badge';
+import { ScrollingModule } from '@angular/cdk/scrolling';
+import { NzListModule } from 'ng-zorro-antd/list';
+import { NzTypographyModule } from 'ng-zorro-antd/typography';
+import { BitDirectiveModule } from 'ngx-bit/directive';
+import { NzMessageModule } from 'ng-zorro-antd/message';
 
 @NgModule({
   exports: [
@@ -15,20 +26,32 @@ import { BitPrintComponent } from './bit-print/bit-print.component';
     BitI18nTooltipComponent,
     BitErrorTipComponent,
     BitHeaderComponent,
-    BitPrintComponent
+    BitPrintComponent,
+    BitTransportComponent
   ],
   declarations: [
     BitI18nSwitchComponent,
     BitI18nTooltipComponent,
     BitErrorTipComponent,
     BitHeaderComponent,
-    BitPrintComponent
+    BitPrintComponent,
+    BitTransportComponent
   ],
   imports: [
     CommonModule,
     FormsModule,
     NzButtonModule,
-    NzRadioModule
+    NzRadioModule,
+    NzProgressModule,
+    NzUploadModule,
+    NzPopoverModule,
+    NzIconModule,
+    NzBadgeModule,
+    NzListModule,
+    NzTypographyModule,
+    NzMessageModule,
+    BitDirectiveModule,
+    ScrollingModule
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

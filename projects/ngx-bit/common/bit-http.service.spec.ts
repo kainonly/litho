@@ -18,7 +18,7 @@ describe('BitHttpService', () => {
       TestBed.configureTestingModule({
         imports: [
           HttpClientTestingModule,
-          RouterModule.forRoot([], { relativeLinkResolution: 'legacy' })
+          RouterModule.forRoot([])
         ],
         providers: [
           BitService,

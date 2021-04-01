@@ -76,5 +76,9 @@ export default {
   DeleteAlertTitle: ['请求确认', 'Operation Question'],
   DeleteAlertContent: ['您确认删除当前数据吗？', 'Are you sure to delete the current data?'],
   DeleteAlertOk: ['确认删除', 'Confirm'],
-  DeleteAlertCancel: ['再想想', 'Think again']
+  DeleteAlertCancel: ['再想想', 'Think again'],
+
+  // Transport
+  Transport: ['传输详情', 'Transport'],
+  Uploading: ['请勿切换页面，目前正在上传文件中', 'Do not switch pages, currently uploading files']
 };

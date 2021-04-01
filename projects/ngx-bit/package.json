@@ -1,6 +1,6 @@
 {
   "name": "ngx-bit",
-  "version": "11.2.2",
+  "version": "11.3.0",
   "schematics": "./schematics/collection.json",
   "dependencies": {
     "ng-zorro-antd": "^11.0.0"

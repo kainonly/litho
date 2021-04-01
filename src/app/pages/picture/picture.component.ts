@@ -1,4 +1,4 @@
-import { AfterContentInit, AfterViewInit, Component, HostListener, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { AfterContentInit, Component, HostListener, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { BitConfigService, BitService } from 'ngx-bit';
 import { PictureDataSource } from './picture.data-source';
 import { PictureService } from '@api/picture.service';
@@ -10,20 +10,18 @@ import { NzImageService } from 'ng-zorro-antd/image';
 import { Clipboard } from '@angular/cdk/clipboard';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { NzMessageService } from 'ng-zorro-antd/message';
-import { map, switchMap } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 import { SystemService } from 'van-skeleton';
 import { NzContextMenuService, NzDropdownMenuComponent } from 'ng-zorro-antd/dropdown';
 import { Observable, of } from 'rxjs';
-import { TransportDataSource } from '@common/transport.data-source';
+import { NzUploadFile } from 'ng-zorro-antd/upload';
 
 @Component({
   selector: 'app-picture',
   templateUrl: './picture.component.html',
   styleUrls: ['./picture.component.scss']
 })
-export class PictureComponent implements OnInit, AfterContentInit, AfterViewInit {
-  tds: TransportDataSource = new TransportDataSource();
-  @ViewChild('transportMessageTpl') transportMessageTpl: TemplateRef<any>;
+export class PictureComponent implements OnInit, AfterContentInit {
 
   ds: PictureDataSource;
   typeLists: any[] = [];
@@ -81,49 +79,30 @@ export class PictureComponent implements OnInit, AfterContentInit, AfterViewInit
       this.getTypeLists();
       this.getCount();
     });
-    this.tds.complete.pipe(
-      switchMap(data => {
-        return this.pictureService.bulkAdd({
-          type_id: !this.ds.lists.search.type_id.value ? 0 : this.ds.lists.search.type_id.value,
-          data: data.map(v => ({
-            name: v.originFileObj.name,
-            url: Reflect.get(v.originFileObj, 'key')
-          }))
-        });
-      })
-    ).subscribe(res => {
-      if (res.error === 1) {
-        this.message.error(this.bit.l.uploadError);
-        return;
-      }
-      this.ds.fetchData(true);
-      this.getCount();
-      this.message.success(this.bit.l.uploadSuccess);
-    });
   }
 
   ngAfterContentInit(): void {
     this.fetchInfiniteY();
   }
 
-  ngAfterViewInit(): void {
-    let messageId: string;
-    this.tds.done.subscribe(status => {
-      if (!status && !messageId) {
-        messageId = this.message.loading(this.transportMessageTpl, {
-          nzDuration: 0
-        }).messageId;
-      }
-      if (status && messageId) {
-        this.message.remove(messageId);
-        messageId = undefined;
-      }
-    });
-  }
-
   @HostListener('window:resize')
   onresize(): void {
     this.fetchInfiniteY();
+  }
+
+  transport = (files: NzUploadFile[]): Observable<any> => {
+    return this.pictureService.bulkAdd({
+      type_id: !this.ds.lists.search.type_id.value ? 0 : this.ds.lists.search.type_id.value,
+      data: files.map(v => ({
+        name: v.originFileObj.name,
+        url: Reflect.get(v.originFileObj, 'key')
+      }))
+    });
+  };
+
+  transportComplete(): void {
+    this.ds.fetchData(true);
+    this.getCount();
   }
 
   getTypeLists(): void {

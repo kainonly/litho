@@ -10,7 +10,9 @@ const bit: BitConfig = {
   api: {
     namespace: '/system',
     withCredentials: true,
-    upload: '/system/main/uploads'
+    upload: '/system/main/uploads',
+    uploadStorage: 'default',
+    uploadSize: 102400
   },
   curd: {
     get: '/get',
