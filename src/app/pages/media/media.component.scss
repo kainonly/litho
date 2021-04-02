@@ -80,3 +80,15 @@
     }
   }
 }
+
+.video, .audio {
+  height: 135px;
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+
+  video, audio {
+    height: 100%;
+    width: 100%;
+  }
+}

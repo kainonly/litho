@@ -1,4 +1,4 @@
-import { AfterContentInit, Component, HostListener, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { AfterContentInit, Component, HostListener, OnDestroy, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { BitConfigService, BitService } from 'ngx-bit';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NzModalComponent, NzModalService } from 'ng-zorro-antd/modal';
@@ -23,7 +23,7 @@ import { MediaDataSource } from './media.data-source';
   styleUrls: ['./media.component.scss']
 })
 export class MediaComponent implements OnInit, AfterContentInit {
-  private key: string;
+  key: string;
   ds: MediaDataSource;
   typeLists: any[] = [];
   typeMap: Map<any, any> = new Map<any, any>();
@@ -73,7 +73,7 @@ export class MediaComponent implements OnInit, AfterContentInit {
         this.key = params.key;
         this.mediaService.setModel(this.key);
         this.mediaTypeService.setModel(this.key);
-        this.ds = new MediaDataSource(this.mediaService, 1);
+        this.ds = new MediaDataSource(this.mediaService);
         this.ds.lists = this.bit.listByPage({
           id: this.key,
           query: [
@@ -85,8 +85,9 @@ export class MediaComponent implements OnInit, AfterContentInit {
         return this.ds.lists.ready;
       })
     ).subscribe(() => {
-      this.getTypeLists();
       this.getCount();
+      this.getTypeLists();
+      this.ds.fetchData();
     });
   }
 
@@ -120,7 +121,6 @@ export class MediaComponent implements OnInit, AfterContentInit {
       for (const x of data) {
         this.typeMap.set(x.id, x);
       }
-      this.ds.done();
     });
   }
 
@@ -255,15 +255,9 @@ export class MediaComponent implements OnInit, AfterContentInit {
     this.mediaTypeService.delete(id).subscribe(res => {
       if (!res.error) {
         this.getTypeLists();
-        this.notification.success(
-          this.bit.l.success,
-          this.bit.l.deleteSuccess
-        );
+        this.notification.success(this.bit.l.success, this.bit.l.deleteSuccess);
       } else {
-        this.notification.error(
-          this.bit.l.error,
-          this.bit.l.deleteError
-        );
+        this.notification.error(this.bit.l.error, this.bit.l.deleteError);
       }
     });
   }
@@ -296,15 +290,9 @@ export class MediaComponent implements OnInit, AfterContentInit {
     this.mediaTypeService.sort(data).subscribe(res => {
       if (!res.error) {
         this.getTypeLists();
-        this.notification.success(
-          this.bit.l.success,
-          this.bit.l.sortSuccess
-        );
+        this.notification.success(this.bit.l.success, this.bit.l.sortSuccess);
       } else {
-        this.notification.error(
-          this.bit.l.error,
-          this.bit.l.sortError
-        );
+        this.notification.error(this.bit.l.error, this.bit.l.sortError);
       }
     });
   }
@@ -343,17 +331,11 @@ export class MediaComponent implements OnInit, AfterContentInit {
       name: this.renameForm.value.name
     }).subscribe(res => {
       if (!res.error) {
-        this.notification.success(
-          this.bit.l.success,
-          this.bit.l.updateSuccess
-        );
+        this.notification.success(this.bit.l.success, this.bit.l.updateSuccess);
         this.renameData.name = this.renameForm.value.name;
         this.closeRenameModal();
       } else {
-        this.notification.error(
-          this.bit.l.error,
-          this.bit.l.updateError
-        );
+        this.notification.error(this.bit.l.error, this.bit.l.updateError);
       }
     });
   }
@@ -385,18 +367,12 @@ export class MediaComponent implements OnInit, AfterContentInit {
       ids: this.moveData.map(v => v.id)
     }).subscribe(res => {
       if (!res.error) {
-        this.notification.success(
-          this.bit.l.success,
-          this.bit.l.updateSuccess
-        );
+        this.notification.success(this.bit.l.success, this.bit.l.updateSuccess);
         this.closeMoveModal();
         this.getCount();
         this.ds.fetchData(true);
       } else {
-        this.notification.error(
-          this.bit.l.error,
-          this.bit.l.editFailed
-        );
+        this.notification.error(this.bit.l.error, this.bit.l.editFailed);
       }
     });
   }
@@ -417,10 +393,7 @@ export class MediaComponent implements OnInit, AfterContentInit {
       ids
     ).subscribe(res => {
       if (!res.error) {
-        this.notification.success(
-          this.bit.l.success,
-          this.bit.l.deleteSuccess
-        );
+        this.notification.success(this.bit.l.success, this.bit.l.deleteSuccess);
         this.closeDeleteModal();
         this.getCount();
         if (ids.length > 1) {
@@ -429,10 +402,7 @@ export class MediaComponent implements OnInit, AfterContentInit {
           this.ds.delete(ids);
         }
       } else {
-        this.notification.error(
-          this.bit.l.error,
-          this.bit.l.deleteError
-        );
+        this.notification.error(this.bit.l.error, this.bit.l.deleteError);
       }
     });
   }

@@ -123,7 +123,7 @@ const routes: Routes = [
       },
       {
         path: 'media/:key',
-        loadChildren: () => import('./pages/media/media.module').then(m => m.MediaModule)
+        loadChildren: () => import('./pages/media/media.module').then(m => m.MediaModule),
       }
     ]
   }

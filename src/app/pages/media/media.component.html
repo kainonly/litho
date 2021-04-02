@@ -258,19 +258,37 @@
                 style="width: 195px"
                 nzSize="small"
                 [nzHoverable]="true"
-                [nzCover]="thumbTpl"
+                [nzCover]="coverTpl"
                 [nzActions]="[actionCopy, actionRename, actionEllipsis]"
               >
-                <ng-template #thumbTpl>
-                  <div
-                    class="thumb"
-                    [style]="{ 'background-image': thumb(x.url) }"
-                    (click)="preview(x)"
-                  >
-                    <div class="thumb-actions">
-                      <i nz-icon nzType="search"></i>
-                    </div>
-                  </div>
+                <ng-template #coverTpl>
+                  <ng-container [ngSwitch]="key">
+                    <ng-container *ngSwitchCase="'picture'">
+                      <div
+                        class="thumb"
+                        [style]="{ 'background-image': thumb(x.url) }"
+                        (click)="preview(x)"
+                      >
+                        <div class="thumb-actions">
+                          <i nz-icon nzType="search"></i>
+                        </div>
+                      </div>
+                    </ng-container>
+                    <ng-container *ngSwitchCase="'video'">
+                      <div class="video">
+                        <video controls="controls">
+                          <source [src]="bit.static + x.url" type="video/mp4" />
+                        </video>
+                      </div>
+                    </ng-container>
+                    <ng-container *ngSwitchCase="'audio'">
+                      <div class="audio">
+                        <audio controls="controls">
+                          <source [src]="bit.static + x.url" type="audio/mpeg" />
+                        </audio>
+                      </div>
+                    </ng-container>
+                  </ng-container>
                 </ng-template>
                 <ng-template #actionCopy>
                   <i
