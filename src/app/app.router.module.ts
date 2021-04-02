@@ -110,20 +110,8 @@ const routes: Routes = [
         loadChildren: () => import('./pages/admin-edit/admin-edit.module').then(m => m.AdminEditModule)
       },
       {
-        path: 'picture',
-        loadChildren: () => import('./pages/picture/picture.module').then(m => m.PictureModule)
-      },
-      {
-        path: 'video',
-        loadChildren: () => import('./pages/video/video.module').then(m => m.VideoModule)
-      },
-      {
-        path: 'audio',
-        loadChildren: () => import('./pages/audio/audio.module').then(m => m.AudioModule)
-      },
-      {
         path: 'media/:key',
-        loadChildren: () => import('./pages/media/media.module').then(m => m.MediaModule),
+        loadChildren: () => import('./pages/media/media.module').then(m => m.MediaModule)
       }
     ]
   }

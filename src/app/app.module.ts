@@ -28,12 +28,6 @@ import { AdminService } from 'van-skeleton/admin';
 
 import { AppComponent } from './app.component';
 import { LogicService } from '@common/logic.service';
-import { PictureTypeService } from '@api/picture-type.service';
-import { PictureService } from '@api/picture.service';
-import { VideoService } from '@api/video.service';
-import { VideoTypeService } from '@api/video-type.service';
-import { AudioService } from '@api/audio.service';
-import { AudioTypeService } from '@api/audio-type.service';
 import { ShopService } from '@api/shop.service';
 import { ProductService } from '@api/product.service';
 import { MediaService } from '@api/media.service';
@@ -91,12 +85,6 @@ const bitConfig = () => {
     PermissionService,
     RoleService,
     AdminService,
-    PictureService,
-    PictureTypeService,
-    VideoService,
-    VideoTypeService,
-    AudioService,
-    AudioTypeService,
     MediaService,
     MediaTypeService,
     ShopService,
