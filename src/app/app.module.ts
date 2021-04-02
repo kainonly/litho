@@ -36,6 +36,8 @@ import { AudioService } from '@api/audio.service';
 import { AudioTypeService } from '@api/audio-type.service';
 import { ShopService } from '@api/shop.service';
 import { ProductService } from '@api/product.service';
+import { MediaService } from '@api/media.service';
+import { MediaTypeService } from '@api/media-type.service';
 
 
 const routes: Routes = [
@@ -95,6 +97,8 @@ const bitConfig = () => {
     VideoTypeService,
     AudioService,
     AudioTypeService,
+    MediaService,
+    MediaTypeService,
     ShopService,
     ProductService,
 

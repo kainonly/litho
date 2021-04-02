@@ -120,6 +120,10 @@ const routes: Routes = [
       {
         path: 'audio',
         loadChildren: () => import('./pages/audio/audio.module').then(m => m.AudioModule)
+      },
+      {
+        path: 'media/:key',
+        loadChildren: () => import('./pages/media/media.module').then(m => m.MediaModule)
       }
     ]
   }
