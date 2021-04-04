@@ -1,8 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AppExtModule } from '@ext';
-import { DashboardsComponent, ProfileComponent } from 'van-skeleton/skeleton';
-import { SkeletonModule } from 'van-skeleton/skeleton';
+import { DashboardsComponent, SkeletonModule } from 'van-skeleton/skeleton';
 import { CoreModule, CoreRoutes } from './skeleton/core.module';
 
 const routes: Routes = [
