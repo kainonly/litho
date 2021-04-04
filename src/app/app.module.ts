@@ -27,7 +27,6 @@ import { RoleService } from 'van-skeleton/role';
 import { AdminService } from 'van-skeleton/admin';
 
 import { AppComponent } from './app.component';
-import { LogicService } from '@common/logic.service';
 import { ShopService } from '@api/shop.service';
 import { ProductService } from '@api/product.service';
 import { MediaService } from '@api/media.service';
@@ -75,7 +74,6 @@ const bitConfig = () => {
     UpdateService,
     TokenService,
     SystemService,
-    LogicService,
 
     // API Service
     MainService,
