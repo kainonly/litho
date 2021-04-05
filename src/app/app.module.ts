@@ -31,6 +31,7 @@ import { ShopService } from '@api/shop.service';
 import { ProductService } from '@api/product.service';
 import { MediaService } from '@api/media.service';
 import { MediaTypeService } from '@api/media-type.service';
+import { LoginLogService, RequestLogService } from 'van-skeleton/log';
 
 
 const routes: Routes = [
@@ -83,6 +84,8 @@ const bitConfig = () => {
     PermissionService,
     RoleService,
     AdminService,
+    LoginLogService,
+    RequestLogService,
     MediaService,
     MediaTypeService,
     ShopService,
