@@ -29,9 +29,8 @@ import { AdminService } from 'van-skeleton/admin';
 import { AppComponent } from './app.component';
 import { ShopService } from '@api/shop.service';
 import { ProductService } from '@api/product.service';
-import { MediaService } from '@api/media.service';
-import { MediaTypeService } from '@api/media-type.service';
 import { LoginLogService, RequestLogService } from 'van-skeleton/log';
+import { MediaService, MediaTypeService } from 'van-skeleton/media';
 
 
 const routes: Routes = [

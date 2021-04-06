@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { AppExtModule } from '@ext';
 import { DashboardsComponent, SkeletonModule } from 'van-skeleton/skeleton';
 import { CoreModule, CoreRoutes } from './skeleton/core.module';
+import { CmsModule, CmsRoutes } from './skeleton/cms.module';
 
 const routes: Routes = [
   {
@@ -18,13 +19,10 @@ const routes: Routes = [
         loadChildren: () => import('./pages/empty/empty.module').then(m => m.EmptyModule)
       },
       ...CoreRoutes,
+      ...CmsRoutes,
       {
         path: 'page/:key',
         loadChildren: () => import('./pages/page/page.module').then(m => m.PageModule)
-      },
-      {
-        path: 'media/:key',
-        loadChildren: () => import('./pages/media/media.module').then(m => m.MediaModule)
       },
       {
         path: 'shop-index',
@@ -59,6 +57,7 @@ const routes: Routes = [
     AppExtModule,
     SkeletonModule,
     CoreModule,
+    CmsModule,
     RouterModule.forChild(routes)
   ]
 })
