@@ -18,8 +18,8 @@ registerLocaleData(zh);
 import { AppExtModule } from '@ext';
 import { NzIconService } from 'ng-zorro-antd/icon';
 
-import { TokenService, SystemService, UpdateService } from 'van-skeleton';
-import { LoginComponent, MainService, SkeletonModule } from 'van-skeleton/skeleton';
+import { TokenService, SystemService, UpdateService, MainService } from 'van-skeleton';
+import { LoginComponent, LoginModule } from 'van-skeleton/login';
 import { AclService } from 'van-skeleton/acl';
 import { PolicyService, ResourceService } from 'van-skeleton/resource';
 import { PermissionService } from 'van-skeleton/permission';
@@ -62,7 +62,7 @@ const bitConfig = () => {
     BrowserAnimationsModule,
     HttpClientModule,
     AppExtModule,
-    SkeletonModule,
+    LoginModule,
     RouterModule.forRoot(routes, { useHash: true }),
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
     StorageModule.forRoot({

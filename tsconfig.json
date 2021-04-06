@@ -58,8 +58,14 @@
       "van-skeleton": [
         "projects/lab-skeleton/public-api.ts"
       ],
-      "van-skeleton/skeleton": [
-        "projects/lab-skeleton/skeleton/public-api.ts"
+      "van-skeleton/dashboards": [
+        "projects/lab-skeleton/dashboards/public-api.ts"
+      ],
+      "van-skeleton/login": [
+        "projects/lab-skeleton/login/public-api.ts"
+      ],
+      "van-skeleton/profile": [
+        "projects/lab-skeleton/profile/public-api.ts"
       ],
       "van-skeleton/acl": [
         "projects/lab-skeleton/acl/public-api.ts"

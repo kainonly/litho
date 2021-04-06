@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes } from '@angular/router';
-import { ProfileComponent } from 'van-skeleton/skeleton';
+import { ProfileComponent, ProfileModule } from 'van-skeleton/profile';
 import { AclAddComponent, AclEditComponent, AclIndexComponent, AclModule } from 'van-skeleton/acl';
 import { ResourceAddComponent, ResourceEditComponent, ResourceIndexComponent, ResourceModule } from 'van-skeleton/resource';
 import { PermissionAddComponent, PermissionEditComponent, PermissionIndexComponent, PermissionModule } from 'van-skeleton/permission';
@@ -85,6 +85,7 @@ export const CoreRoutes: Routes = [
 
 @NgModule({
   exports: [
+    ProfileModule,
     AclModule,
     ResourceModule,
     PermissionModule,

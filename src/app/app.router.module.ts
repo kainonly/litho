@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AppExtModule } from '@ext';
-import { DashboardsComponent, SkeletonModule } from 'van-skeleton/skeleton';
 import { CoreModule, CoreRoutes } from './skeleton/core.module';
 import { CmsModule, CmsRoutes } from './skeleton/cms.module';
+import { DashboardsComponent, DashboardsModule } from 'van-skeleton/dashboards';
 
 const routes: Routes = [
   {
@@ -55,7 +55,7 @@ const routes: Routes = [
 @NgModule({
   imports: [
     AppExtModule,
-    SkeletonModule,
+    DashboardsModule,
     CoreModule,
     CmsModule,
     RouterModule.forChild(routes)
