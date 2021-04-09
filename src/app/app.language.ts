@@ -24,6 +24,8 @@ export default {
   refreshLists: ['刷新列表', 'Refresh Lists'],
   clearSearch: ['清除搜索', 'Clear Search'],
   bulkDelete: ['批量删除', 'Bulk Delete'],
+  startTime: ['开始日期', 'Start Time'],
+  endTime: ['结束日期', 'End Time'],
 
   // The Notification or Message Language Pack
   success: ['操作成功', 'Operation Success'],
