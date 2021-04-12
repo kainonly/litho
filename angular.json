@@ -163,6 +163,46 @@
           }
         }
       }
+    },
+    "ngx-howler": {
+      "projectType": "library",
+      "root": "projects/ngx-howler",
+      "sourceRoot": "projects/ngx-howler/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "tsConfig": "projects/ngx-howler/tsconfig.lib.json",
+            "project": "projects/ngx-howler/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/ngx-howler/tsconfig.lib.prod.json"
+            }
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/ngx-howler/src/test.ts",
+            "tsConfig": "projects/ngx-howler/tsconfig.spec.json",
+            "karmaConfig": "projects/ngx-howler/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/ngx-howler/tsconfig.lib.json",
+              "projects/ngx-howler/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
     }
   },
   "defaultProject": "ngx-bit-case",
