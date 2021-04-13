@@ -4,3 +4,6 @@
 [submodule "projects/ngx-howler"]
 	path = projects/ngx-howler
 	url = git@github.com:kainonly/ngx-howler.git
+[submodule "projects/ngx-mqtt-lite"]
+	path = projects/ngx-mqtt-lite
+	url = git@github.com:kainonly/ngx-mqtt-lite.git
