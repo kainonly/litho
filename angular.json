@@ -203,6 +203,46 @@
           }
         }
       }
+    },
+    "ngx-mqtt-lite": {
+      "projectType": "library",
+      "root": "projects/ngx-mqtt-lite",
+      "sourceRoot": "projects/ngx-mqtt-lite/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "tsConfig": "projects/ngx-mqtt-lite/tsconfig.lib.json",
+            "project": "projects/ngx-mqtt-lite/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/ngx-mqtt-lite/tsconfig.lib.prod.json"
+            }
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/ngx-mqtt-lite/src/test.ts",
+            "tsConfig": "projects/ngx-mqtt-lite/tsconfig.spec.json",
+            "karmaConfig": "projects/ngx-mqtt-lite/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/ngx-mqtt-lite/tsconfig.lib.json",
+              "projects/ngx-mqtt-lite/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
     }
   },
   "defaultProject": "ngx-bit-case",

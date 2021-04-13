@@ -90,6 +90,9 @@
       ],
       "ngx-howler": [
         "projects/ngx-howler/src/public-api.ts"
+      ],
+      "ngx-mqtt-lite": [
+        "projects/ngx-mqtt-lite/src/public-api.ts"
       ]
     }
   }
