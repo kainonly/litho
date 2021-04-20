@@ -85,6 +85,9 @@
       "van-skeleton/log": [
         "projects/lab-skeleton/log/public-api.ts"
       ],
+      "van-skeleton/schema": [
+        "projects/lab-skeleton/schema/public-api.ts"
+      ],
       "van-skeleton/media": [
         "projects/lab-skeleton/media/public-api.ts"
       ],

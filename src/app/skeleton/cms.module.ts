@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes } from '@angular/router';
 import { MediaComponent, MediaModule } from 'van-skeleton/media';
+import { SchemaModule } from 'van-skeleton/schema';
 
 export const CmsRoutes: Routes = [
   {
@@ -11,6 +12,7 @@ export const CmsRoutes: Routes = [
 
 @NgModule({
   exports: [
+    SchemaModule,
     MediaModule
   ]
 })
