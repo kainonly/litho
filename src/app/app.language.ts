@@ -1,12 +1,17 @@
 export default {
-  // The Dashboard Language Pack
+  // 登录页面语言包
+  welcome: ['欢迎访问企业测试系统', 'Welcome to Your Compony'],
+  subTitle: ['遵循 Ant Design 设计规范的 Angular 企业系统', 'An Angular enterprise system based on Ant Design'],
+  footer: ['基于 ng-zorro-antd 强力驱动，由 kain 整合开发的系统解决方案', 'Based on the drive of ng-zorro-antd, a system solution integrated and developed by kain'],
+
+  // 仪表盘语言包
   dashboard: ['仪表盘', 'Dashboard'],
   language: ['切换语言', 'Language'],
   center: ['个人中心', 'Center'],
   profile: ['信息修改', 'Profile'],
   exit: ['退出系统', 'Exit'],
 
-  // The Common Language Pack
+  // 公共语言包
   add: ['新增', 'Add'],
   edit: ['编辑', 'Edit'],
   delete: ['删除', 'Delete'],
