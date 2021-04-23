@@ -27,11 +27,8 @@ import { RoleService } from 'van-skeleton/role';
 import { AdminService } from 'van-skeleton/admin';
 
 import { AppComponent } from './app.component';
-import { ShopService } from '@api/shop.service';
-import { ProductService } from '@api/product.service';
 import { LoginLogService, RequestLogService } from 'van-skeleton/log';
 import { MediaService, MediaTypeService } from 'van-skeleton/media';
-
 
 const routes: Routes = [
   {
@@ -87,8 +84,6 @@ const bitConfig = () => {
     RequestLogService,
     MediaService,
     MediaTypeService,
-    ShopService,
-    ProductService,
 
     // Library Service
     NzIconService,
