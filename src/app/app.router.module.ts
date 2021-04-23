@@ -19,35 +19,7 @@ const routes: Routes = [
         loadChildren: () => import('./pages/empty/empty.module').then(m => m.EmptyModule)
       },
       ...CoreRoutes,
-      ...CmsRoutes,
-      {
-        path: 'page/:key',
-        loadChildren: () => import('./pages/page/page.module').then(m => m.PageModule)
-      },
-      {
-        path: 'shop-index',
-        loadChildren: () => import('./pages/shop-index/shop-index.module').then(m => m.ShopIndexModule)
-      },
-      {
-        path: 'shop-add',
-        loadChildren: () => import('./pages/shop-add/shop-add.module').then(m => m.ShopAddModule)
-      },
-      {
-        path: 'shop-edit/:id',
-        loadChildren: () => import('./pages/shop-edit/shop-edit.module').then(m => m.ShopEditModule)
-      },
-      {
-        path: 'product-index/:sid',
-        loadChildren: () => import('./pages/product-index/product-index.module').then(m => m.ProductIndexModule)
-      },
-      {
-        path: 'product-add/:sid',
-        loadChildren: () => import('./pages/product-add/product-add.module').then(m => m.ProductAddModule)
-      },
-      {
-        path: 'product-edit/:sid/:id',
-        loadChildren: () => import('./pages/product-edit/product-edit.module').then(m => m.ProductEditModule)
-      }
+      ...CmsRoutes
     ]
   }
 ];
