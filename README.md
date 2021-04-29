@@ -12,18 +12,23 @@
 
 ## 链接
 
-手册地址 [https://ngx-bit.kainonly.com](https://ngx-bit.kainonly.com)
+手册 [https://kainonly.com/document/ngx-bit](https://kainonly.com/document/ngx-bit)
 
 感谢 [JetBrains](https://www.jetbrains.com/?from=ngx-bit) 提供的免费开源 License 赞助
 
-[![JetBrains](https://cdn.kainonly.com/resource/jetbrains.svg)](https://www.jetbrains.com/?from=ngx-bit)
+[![JetBrains](resource/jetbrains.svg)](https://www.jetbrains.com/?from=ngx-bit)
 
 ## 示例
 
-![demo-1](https://cdn.kainonly.com/resource/ngx-bit/demo-1.png)
-![demo-2](https://cdn.kainonly.com/resource/ngx-bit/demo-2.png)
-![demo-3](https://cdn.kainonly.com/resource/ngx-bit/demo-3.png)
-![demo-4](https://cdn.kainonly.com/resource/ngx-bit/demo-4.png)
+在线案例，https://console.kainonly.com
+
+- 用户 `super`
+- 密码 `pass@VAN1234`
+
+[![demo-1](resource/demo-1.gif)](https://console.kainonly.com)
+[![demo-2](resource/demo-2.gif)](https://console.kainonly.com)
+[![demo-3](resource/demo-3.gif)](https://console.kainonly.com)
+[![demo-4](resource/demo-4.gif)](https://console.kainonly.com)
 
 此项目还需要对应的后端运行，可选择以下后端案例运行后正常加载：
 
