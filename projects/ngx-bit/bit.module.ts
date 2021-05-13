@@ -5,7 +5,7 @@ import { BitService } from './common/bit.service';
 import { BitHttpService } from './common/bit-http.service';
 import { BitEventsService } from './common/bit-events.service';
 import { BitConfigService } from './common/bit-config.service';
-import { BitConfig } from './typings';
+import { BitConfig } from './common/typings';
 
 @NgModule()
 export class BitModule {

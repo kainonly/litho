@@ -4,9 +4,8 @@ import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
 import { StorageMap } from '@ngx-pwa/local-storage';
-import { BitConfigService, BitEventsService, BitHttpService, BitService, BitSupportService, BitSwalService } from 'ngx-bit';
+import { BitConfigService, BitEventsService, BitHttpService, BitService, BitSupportService, BitSwalService, ListByPage } from 'ngx-bit';
 import { BitDirectiveModule, BitSearchStartDirective } from 'ngx-bit/directive';
-import { ListByPage } from 'ngx-bit/factory';
 import { environment } from '../simulation/environment';
 
 describe('BitSearchStartDirective', () => {

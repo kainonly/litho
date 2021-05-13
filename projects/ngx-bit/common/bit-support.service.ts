@@ -3,7 +3,7 @@ import { StorageMap } from '@ngx-pwa/local-storage';
 import { Event, NavigationStart, PRIMARY_OUTLET, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { filter, map, switchMap } from 'rxjs/operators';
-import { BreadcrumbOption } from '../typings';
+import { BreadcrumbOption } from './typings';
 
 @Injectable()
 export class BitSupportService {

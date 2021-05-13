@@ -4,7 +4,7 @@ import { Location } from '@angular/common';
 import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { NavigationEnd, Router, RouterModule } from '@angular/router';
 import { BitConfigService, BitEventsService, BitHttpService, BitService, BitSupportService, BitSwalService } from 'ngx-bit';
-import { ListByPage } from 'ngx-bit/factory';
+import { ListByPage } from 'ngx-bit';
 import { AsyncSubject, of } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import { environment } from '../simulation/environment';

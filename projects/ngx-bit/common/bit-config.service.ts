@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { OperatorFunction } from 'rxjs';
 import { factoryLocales } from 'ngx-bit/operates';
-import { ApiConfig, BitConfig, ColConfig, CurdConfig, I18nConfig, LocaleConfig, UrlConfig } from '../typings';
+import { ApiConfig, BitConfig, ColConfig, CurdConfig, I18nConfig, LocaleConfig, UrlConfig } from './typings';
 
 @Injectable({
   providedIn: 'root'

@@ -6,9 +6,8 @@ import { By } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
 import { StorageMap } from '@ngx-pwa/local-storage';
 import { NzSelectModule } from 'ng-zorro-antd/select';
-import { BitConfigService, BitEventsService, BitHttpService, BitService, BitSupportService, BitSwalService } from 'ngx-bit';
+import { BitConfigService, BitEventsService, BitHttpService, BitService, BitSupportService, BitSwalService, ListByPage } from 'ngx-bit';
 import { BitDirectiveModule, BitSearchChangeDirective, BitSearchClearDirective } from 'ngx-bit/directive';
-import { ListByPage } from 'ngx-bit/factory';
 import { switchMap } from 'rxjs/operators';
 import { environment } from '../simulation/environment';
 

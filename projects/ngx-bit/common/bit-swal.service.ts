@@ -5,7 +5,7 @@ import { Observable, of } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
 import Swal from 'sweetalert2';
 import { BitService } from './bit.service';
-import { AlertOption } from '../typings';
+import { AlertOption } from './typings';
 
 @Injectable()
 export class BitSwalService {
