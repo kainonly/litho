@@ -1,6 +1,6 @@
-[submodule "projects/lab-skeleton"]
-	path = projects/lab-skeleton
-	url = git@github.com:kain-lab/lab-skeleton.git
+[submodule "projects/framework"]
+	path = projects/framework
+	url = git@github.com:van-skeleton/framework.git
 [submodule "projects/ngx-howler"]
 	path = projects/ngx-howler
 	url = git@github.com:kainonly/ngx-howler.git

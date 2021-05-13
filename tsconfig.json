@@ -55,8 +55,8 @@
       "ngx-bit/types": [
         "projects/ngx-bit/types/public-api.ts"
       ],
-      "van-skeleton": [
-        "projects/lab-skeleton/public-api.ts"
+      "@vanx/framework": [
+        "projects/framework/public-api.ts"
       ],
       "van-skeleton/dashboards": [
         "projects/lab-skeleton/dashboards/public-api.ts"
