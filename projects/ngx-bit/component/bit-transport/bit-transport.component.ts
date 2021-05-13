@@ -3,7 +3,7 @@ import { TransportDataSource } from './transport.data-source';
 import { BitService } from 'ngx-bit';
 import { switchMap } from 'rxjs/operators';
 import { NzMessageService } from 'ng-zorro-antd/message';
-import { NzUploadComponent, NzUploadFile } from 'ng-zorro-antd/upload';
+import { NzUploadFile } from 'ng-zorro-antd/upload';
 import { Observable } from 'rxjs';
 
 @Component({

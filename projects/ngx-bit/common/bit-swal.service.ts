@@ -2,10 +2,10 @@ import { Injectable } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { Location } from '@angular/common';
 import { Observable, of } from 'rxjs';
-import { AlertOption } from 'ngx-bit/types';
 import { map, switchMap } from 'rxjs/operators';
 import Swal from 'sweetalert2';
 import { BitService } from './bit.service';
+import { AlertOption } from '../typings';
 
 @Injectable()
 export class BitSwalService {

@@ -1,6 +1,6 @@
 import { StorageMap } from '@ngx-pwa/local-storage';
 import { AsyncSubject, Observable } from 'rxjs';
-import { ListByPageOption, SearchOption, OrderOption } from 'ngx-bit/types';
+import { ListByPageOption, SearchOption, OrderOption } from 'ngx-bit';
 import { getQuerySchema } from 'ngx-bit/operates';
 
 export class ListByPage {

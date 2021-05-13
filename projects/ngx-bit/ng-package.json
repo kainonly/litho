@@ -7,8 +7,6 @@
   },
   "whitelistedNonPeerDependencies": [
     "ng-zorro-antd",
-    "@ngx-pwa/local-storage",
-    "sweetalert2",
-    "ajv"
+    "merge"
   ]
 }

@@ -3,12 +3,12 @@ import { NavigationExtras, PRIMARY_OUTLET, Router, UrlSegment } from '@angular/r
 import { Location } from '@angular/common';
 import { StorageMap } from '@ngx-pwa/local-storage';
 import { NzI18nService } from 'ng-zorro-antd/i18n';
-import { ListByPageOption, I18nGroupOption, I18nTooltipOption } from 'ngx-bit/types';
 import { ListByPage } from 'ngx-bit/factory';
 import { factoryLocales } from 'ngx-bit/operates';
 import { BitConfigService } from './bit-config.service';
 import { BitEventsService } from './bit-events.service';
 import { BitSupportService } from './bit-support.service';
+import { ListByPageOption, I18nGroupOption, I18nTooltipOption } from '../typings';
 
 @Injectable({
   providedIn: 'root'

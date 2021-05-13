@@ -1,4 +1,4 @@
-import { SearchOption } from 'ngx-bit/types';
+import { SearchOption } from 'ngx-bit';
 
 export function getQuerySchema(options: SearchOption[]): any[] {
   const schema = [];

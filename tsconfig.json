@@ -19,14 +19,8 @@
       "@env": [
         "src/environments/environment.ts"
       ],
-      "@common": [
-        "src/app/common"
-      ],
       "@common/*": [
         "src/app/common/*"
-      ],
-      "@api": [
-        "src/app/api"
       ],
       "@api/*": [
         "src/app/api/*"
@@ -51,9 +45,6 @@
       ],
       "ngx-bit/pipe": [
         "projects/ngx-bit/pipe/public-api.ts"
-      ],
-      "ngx-bit/types": [
-        "projects/ngx-bit/types/public-api.ts"
       ],
       "ngx-howler": [
         "projects/ngx-howler/src/public-api.ts"

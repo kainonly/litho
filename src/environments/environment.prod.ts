@@ -1,5 +1,5 @@
 import { en_US, zh_CN } from 'ng-zorro-antd/i18n';
-import { BitConfig } from 'ngx-bit/types';
+import { BitConfig } from 'ngx-bit';
 
 const bit: BitConfig = {
   url: {

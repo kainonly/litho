@@ -5,13 +5,12 @@ import { RouterModule, Routes } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { registerLocaleData } from '@angular/common';
 import { ServiceWorkerModule } from '@angular/service-worker';
-import merge from 'merge';
 import zh from '@angular/common/locales/zh';
 import { environment } from '@env';
 import { NZ_I18N, zh_CN } from 'ng-zorro-antd/i18n';
 import { StorageModule } from '@ngx-pwa/local-storage';
 import { NZ_CONFIG, NzConfig } from 'ng-zorro-antd/core/config';
-import { BitConfigService, BitEventsService, BitHttpService, BitService, BitSupportService, BitSwalService } from 'ngx-bit';
+import { BitModule, BitSupportService, BitSwalService } from 'ngx-bit';
 
 registerLocaleData(zh);
 
@@ -38,12 +37,6 @@ const ngZorroConfig: NzConfig = {
   notification: { nzPlacement: 'bottomRight' }
 };
 
-const bitConfig = () => {
-  const env = environment.bit;
-  const service = new BitConfigService();
-  return merge.recursive(service, env);
-};
-
 @NgModule({
   declarations: [AppComponent],
   imports: [
@@ -53,11 +46,12 @@ const bitConfig = () => {
     AppExtModule,
     FrameworkModule,
     LoginModule,
-    RouterModule.forRoot(routes, { useHash: true }),
-    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
+    BitModule.forRoot(environment.bit),
     StorageModule.forRoot({
       IDBDBName: 'ngx-bit'
-    })
+    }),
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
+    RouterModule.forRoot(routes, { useHash: true })
   ],
   providers: [
     // Common Service
@@ -65,25 +59,12 @@ const bitConfig = () => {
     // API Service
 
     // Library Service
-    NzIconService,
-    BitService,
-    BitHttpService,
-    BitEventsService,
     BitSupportService,
     BitSwalService,
     { provide: NZ_CONFIG, useValue: ngZorroConfig },
-    { provide: NZ_I18N, useValue: zh_CN },
-    { provide: BitConfigService, useFactory: bitConfig }
+    { provide: NZ_I18N, useValue: zh_CN }
   ],
   bootstrap: [AppComponent]
 })
 export class AppModule {
-  constructor(
-    config: BitConfigService,
-    nzIconService: NzIconService
-  ) {
-    if (config.url.icon) {
-      nzIconService.changeAssetsSource(config.url.icon);
-    }
-  }
 }

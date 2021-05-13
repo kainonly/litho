@@ -14,7 +14,9 @@ import { BitService } from 'ngx-bit';
   `
 })
 export class EmptyComponent implements OnInit {
-  constructor(public bit: BitService) {
+  constructor(
+    public bit: BitService
+  ) {
   }
 
   ngOnInit(): void {

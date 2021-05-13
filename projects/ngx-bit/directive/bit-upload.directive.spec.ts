@@ -3,7 +3,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { NzUploadComponent, NzUploadFile, NzUploadModule } from 'ng-zorro-antd/upload';
 import { BitConfigService, BitEventsService, BitHttpService, BitService, BitSupportService, BitSwalService } from 'ngx-bit';
 import { BitDirectiveModule, BitUploadDirective } from 'ngx-bit/directive';
-import { ApiConfig } from 'ngx-bit/types';
+import { ApiConfig } from 'ngx-bit';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { environment } from '../simulation/environment';
 
