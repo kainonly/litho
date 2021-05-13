@@ -12,7 +12,7 @@
 
 ## 链接
 
-手册 [https://kainonly.com/document/ngx-bit](https://kainonly.com/document/ngx-bit)
+手册 https://doc.kainonly.com/#/ngx-bit/
 
 感谢 [JetBrains](https://www.jetbrains.com/?from=ngx-bit) 提供的免费开源 License 赞助
 
