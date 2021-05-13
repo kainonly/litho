@@ -55,47 +55,41 @@
       "ngx-bit/types": [
         "projects/ngx-bit/types/public-api.ts"
       ],
-      "@vanx/framework": [
-        "projects/framework/public-api.ts"
-      ],
-      "van-skeleton/dashboards": [
-        "projects/lab-skeleton/dashboards/public-api.ts"
-      ],
-      "van-skeleton/login": [
-        "projects/lab-skeleton/login/public-api.ts"
-      ],
-      "van-skeleton/profile": [
-        "projects/lab-skeleton/profile/public-api.ts"
-      ],
-      "van-skeleton/acl": [
-        "projects/lab-skeleton/acl/public-api.ts"
-      ],
-      "van-skeleton/resource": [
-        "projects/lab-skeleton/resource/public-api.ts"
-      ],
-      "van-skeleton/role": [
-        "projects/lab-skeleton/role/public-api.ts"
-      ],
-      "van-skeleton/admin": [
-        "projects/lab-skeleton/admin/public-api.ts"
-      ],
-      "van-skeleton/permission": [
-        "projects/lab-skeleton/permission/public-api.ts"
-      ],
-      "van-skeleton/log": [
-        "projects/lab-skeleton/log/public-api.ts"
-      ],
-      "van-skeleton/schema": [
-        "projects/lab-skeleton/schema/public-api.ts"
-      ],
-      "van-skeleton/media": [
-        "projects/lab-skeleton/media/public-api.ts"
-      ],
       "ngx-howler": [
         "projects/ngx-howler/src/public-api.ts"
       ],
       "ngx-mqtt-lite": [
         "projects/ngx-mqtt-lite/src/public-api.ts"
+      ],
+      "@vanx/framework": [
+        "projects/framework/public-api.ts"
+      ],
+      "@vanx/framework/layout": [
+        "projects/framework/layout/public-api.ts"
+      ],
+      "@vanx/framework/login": [
+        "projects/framework/login/public-api.ts"
+      ],
+      "@vanx/framework/profile": [
+        "projects/framework/profile/public-api.ts"
+      ],
+      "@vanx/framework/acl": [
+        "projects/framework/acl/public-api.ts"
+      ],
+      "@vanx/framework/resource": [
+        "projects/framework/resource/public-api.ts"
+      ],
+      "@vanx/framework/role": [
+        "projects/framework/role/public-api.ts"
+      ],
+      "@vanx/framework/admin": [
+        "projects/framework/admin/public-api.ts"
+      ],
+      "@vanx/framework/permission": [
+        "projects/framework/permission/public-api.ts"
+      ],
+      "@vanx/framework/log": [
+        "projects/framework/log/public-api.ts"
       ]
     }
   }

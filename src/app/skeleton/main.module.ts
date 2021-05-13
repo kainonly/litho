@@ -1,14 +1,14 @@
 import { NgModule } from '@angular/core';
 import { Routes } from '@angular/router';
-import { ProfileComponent, ProfileModule } from 'van-skeleton/profile';
-import { AclAddComponent, AclEditComponent, AclIndexComponent, AclModule } from 'van-skeleton/acl';
-import { ResourceAddComponent, ResourceEditComponent, ResourceIndexComponent, ResourceModule } from 'van-skeleton/resource';
-import { PermissionAddComponent, PermissionEditComponent, PermissionIndexComponent, PermissionModule } from 'van-skeleton/permission';
-import { RoleAddComponent, RoleEditComponent, RoleIndexComponent, RoleModule } from 'van-skeleton/role';
-import { AdminAddComponent, AdminEditComponent, AdminIndexComponent, AdminModule } from 'van-skeleton/admin';
-import { RequestLogComponent, LoginLogComponent, LogModule } from 'van-skeleton/log';
+import { ProfileComponent, ProfileModule } from '@vanx/framework/profile';
+import { PermissionAddComponent, PermissionEditComponent, PermissionIndexComponent, PermissionModule } from '@vanx/framework/permission';
+import { AdminAddComponent, AdminEditComponent, AdminIndexComponent, AdminModule } from '@vanx/framework/admin';
+import { LoginLogComponent, LogModule, RequestLogComponent } from '@vanx/framework/log';
+import { AclAddComponent, AclEditComponent, AclIndexComponent, AclModule } from '@vanx/framework/acl';
+import { ResourceAddComponent, ResourceEditComponent, ResourceIndexComponent, ResourceModule } from '@vanx/framework/resource';
+import { RoleAddComponent, RoleEditComponent, RoleIndexComponent, RoleModule } from '@vanx/framework/role';
 
-export const CoreRoutes: Routes = [
+export const IRoutes: Routes = [
   {
     path: 'profile',
     component: ProfileComponent
@@ -94,5 +94,5 @@ export const CoreRoutes: Routes = [
     LogModule
   ]
 })
-export class CoreModule {
+export class MainModule {
 }

@@ -1,14 +1,13 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AppExtModule } from '@ext';
-import { CoreModule, CoreRoutes } from './skeleton/core.module';
-import { CmsModule, CmsRoutes } from './skeleton/cms.module';
-import { DashboardsComponent, DashboardsModule } from 'van-skeleton/dashboards';
+import { LayoutComponent, LayoutModule } from '@vanx/framework/layout';
+import { MainModule, IRoutes } from './skeleton/main.module';
 
 const routes: Routes = [
   {
     path: '',
-    component: DashboardsComponent,
+    component: LayoutComponent,
     children: [
       {
         path: '',
@@ -18,8 +17,7 @@ const routes: Routes = [
         path: 'empty',
         loadChildren: () => import('./pages/empty/empty.module').then(m => m.EmptyModule)
       },
-      ...CoreRoutes,
-      ...CmsRoutes
+      ...IRoutes
     ]
   }
 ];
@@ -27,9 +25,8 @@ const routes: Routes = [
 @NgModule({
   imports: [
     AppExtModule,
-    DashboardsModule,
-    CoreModule,
-    CmsModule,
+    LayoutModule,
+    MainModule,
     RouterModule.forChild(routes)
   ]
 })

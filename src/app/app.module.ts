@@ -18,17 +18,9 @@ registerLocaleData(zh);
 import { AppExtModule } from '@ext';
 import { NzIconService } from 'ng-zorro-antd/icon';
 
-import { TokenService, SystemService, UpdateService, MainService } from 'van-skeleton';
-import { LoginComponent, LoginModule } from 'van-skeleton/login';
-import { AclService } from 'van-skeleton/acl';
-import { PolicyService, ResourceService } from 'van-skeleton/resource';
-import { PermissionService } from 'van-skeleton/permission';
-import { RoleService } from 'van-skeleton/role';
-import { AdminService } from 'van-skeleton/admin';
-
 import { AppComponent } from './app.component';
-import { LoginLogService, RequestLogService } from 'van-skeleton/log';
-import { MediaService, MediaTypeService } from 'van-skeleton/media';
+import { FrameworkModule, TokenService } from '@vanx/framework';
+import { LoginComponent, LoginModule } from '@vanx/framework/login';
 
 const routes: Routes = [
   {
@@ -59,31 +51,18 @@ const bitConfig = () => {
     BrowserAnimationsModule,
     HttpClientModule,
     AppExtModule,
+    FrameworkModule,
     LoginModule,
     RouterModule.forRoot(routes, { useHash: true }),
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
     StorageModule.forRoot({
-      IDBStoreName: 'lab-console'
+      IDBDBName: 'ngx-bit'
     })
   ],
   providers: [
     // Common Service
-    UpdateService,
-    TokenService,
-    SystemService,
 
     // API Service
-    MainService,
-    AclService,
-    ResourceService,
-    PolicyService,
-    PermissionService,
-    RoleService,
-    AdminService,
-    LoginLogService,
-    RequestLogService,
-    MediaService,
-    MediaTypeService,
 
     // Library Service
     NzIconService,

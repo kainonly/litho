@@ -16,7 +16,7 @@
 
 感谢 [JetBrains](https://www.jetbrains.com/?from=ngx-bit) 提供的免费开源 License 赞助
 
-[![JetBrains](https://raw.githubusercontent.com/kainonly/ngx-bit/9ae3e0614503a0088a920816d9c2a18a4401002a/resource/jetbrains.svg)](https://www.jetbrains.com/?from=ngx-bit)
+[![JetBrains](https://raw.githubusercontent.com/kainonly/ngx-bit/main/resource/jetbrains.svg)](https://www.jetbrains.com/?from=ngx-bit)
 
 ## 示例
 
@@ -25,10 +25,10 @@
 - 用户 `super`
 - 密码 `pass@VAN1234`
 
-[![demo-1](https://github.com/kainonly/ngx-bit/blob/master/resource/demo-1.gif?raw=true)](https://console.kainonly.com)
-[![demo-2](https://github.com/kainonly/ngx-bit/blob/master/resource/demo-2.gif?raw=true)](https://console.kainonly.com)
-[![demo-3](https://github.com/kainonly/ngx-bit/blob/master/resource/demo-3.gif?raw=true)](https://console.kainonly.com)
-[![demo-4](https://github.com/kainonly/ngx-bit/blob/master/resource/demo-4.gif?raw=true)](https://console.kainonly.com)
+[![demo-1](https://github.com/kainonly/ngx-bit/blob/main/resource/demo-1.gif?raw=true)](https://console.kainonly.com)
+[![demo-2](https://github.com/kainonly/ngx-bit/blob/main/resource/demo-2.gif?raw=true)](https://console.kainonly.com)
+[![demo-3](https://github.com/kainonly/ngx-bit/blob/main/resource/demo-3.gif?raw=true)](https://console.kainonly.com)
+[![demo-4](https://github.com/kainonly/ngx-bit/blob/main/resource/demo-4.gif?raw=true)](https://console.kainonly.com)
 
 此项目还需要对应的后端运行，可选择以下后端案例运行后正常加载：
 
@@ -37,6 +37,6 @@
 
 ## License
 
-[MIT](https://github.com/kainonly/ngx-bit/blob/master/LICENSE)
+[MIT](https://github.com/kainonly/ngx-bit/blob/main/LICENSE)
 
 [![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fkainonly%2Fngx-bit.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2Fkainonly%2Fngx-bit?ref=badge_large)

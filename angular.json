@@ -124,42 +124,22 @@
         }
       }
     },
-    "lab-skeleton": {
+    "framework": {
       "projectType": "library",
-      "root": "projects/lab-skeleton",
-      "sourceRoot": "projects/lab-skeleton/src",
+      "root": "projects/framework",
+      "sourceRoot": "projects/framework/src",
       "prefix": "lib",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:ng-packagr",
           "options": {
-            "tsConfig": "projects/lab-skeleton/tsconfig.lib.json",
-            "project": "projects/lab-skeleton/ng-package.json"
+            "tsConfig": "projects/framework/tsconfig.lib.json",
+            "project": "projects/framework/ng-package.json"
           },
           "configurations": {
             "production": {
-              "tsConfig": "projects/lab-skeleton/tsconfig.lib.prod.json"
+              "tsConfig": "projects/framework/tsconfig.lib.prod.json"
             }
-          }
-        },
-        "test": {
-          "builder": "@angular-devkit/build-angular:karma",
-          "options": {
-            "main": "projects/lab-skeleton/src/test.ts",
-            "tsConfig": "projects/lab-skeleton/tsconfig.spec.json",
-            "karmaConfig": "projects/lab-skeleton/karma.conf.js"
-          }
-        },
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": [
-              "projects/lab-skeleton/tsconfig.lib.json",
-              "projects/lab-skeleton/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
           }
         }
       }
