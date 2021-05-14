@@ -8,7 +8,6 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 import zh from '@angular/common/locales/zh';
 import { environment } from '@env';
 import { NZ_I18N, zh_CN } from 'ng-zorro-antd/i18n';
-import { StorageModule } from '@ngx-pwa/local-storage';
 import { NZ_CONFIG, NzConfig } from 'ng-zorro-antd/core/config';
 import { BitModule, BitSupportService, BitSwalService } from 'ngx-bit';
 
@@ -47,7 +46,6 @@ const ngZorroConfig: NzConfig = {
     FrameworkModule,
     LoginModule,
     BitModule.forRoot(environment.bit),
-    StorageModule.forRoot({}),
     NgxTinymceModule.forRoot({
       baseURL: environment.bit.url.static + 'assets/tinymce/',
       config: TinymceConfig

@@ -16,12 +16,10 @@ export class CmsExampleComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.bit.registerLocales({});
-    const mock1 = [];
-    const mock2 = [];
+    this.bit.registerLocales(import('./language'));
     this.form = this.fb.group({
-      // picture: [mock1],
-      // video: [mock2],
+      picture: [],
+      video: [],
       richtext: []
     });
   }

@@ -6,7 +6,33 @@
   <form nz-form [formGroup]="form" (bitFormSubmit)="submit($event)">
     <nz-form-item>
       <nz-form-label bitCol="label">
-        RichText
+        {{bit.l['picture']}}
+      </nz-form-label>
+      <nz-form-control bitCol="control">
+        <van-picture
+          formControlName="picture"
+          [allowSort]="true"
+          [limit]="5"
+        ></van-picture>
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-label bitCol="label">
+        {{bit.l['video']}}
+      </nz-form-label>
+      <nz-form-control bitCol="control">
+        <van-video
+          formControlName="video"
+          [allowSort]="true"
+          [limit]="5"
+        ></van-video>
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-label bitCol="label">
+        {{bit.l['richtext']}}
       </nz-form-label>
       <nz-form-control bitCol="control">
         <van-richtext formControlName="richtext"></van-richtext>
