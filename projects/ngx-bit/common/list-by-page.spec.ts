@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 import { StorageMap } from '@ngx-pwa/local-storage';
-import { ListByPage } from 'ngx-bit/factory';
+import { ListByPage } from 'ngx-bit';
 import { switchMap } from 'rxjs/operators';
 
 describe('ListByPage', () => {
