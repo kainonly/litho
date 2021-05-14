@@ -81,6 +81,21 @@
       ],
       "@vanx/framework/log": [
         "projects/framework/log/public-api.ts"
+      ],
+      "@vanx/cms": [
+        "projects/cms/public-api.ts"
+      ],
+      "@vanx/cms/component": [
+        "projects/cms/component/public-api.ts"
+      ],
+      "@vanx/cms/media": [
+        "projects/cms/media/public-api.ts"
+      ],
+      "@vanx/cms/schema": [
+        "projects/cms/schema/public-api.ts"
+      ],
+      "@vanx/cms/template": [
+        "projects/cms/template/public-api.ts"
       ]
     }
   }

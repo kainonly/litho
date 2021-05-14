@@ -15,11 +15,11 @@ import { BitModule, BitSupportService, BitSwalService } from 'ngx-bit';
 registerLocaleData(zh);
 
 import { AppExtModule } from '@ext';
-import { NzIconService } from 'ng-zorro-antd/icon';
-
 import { AppComponent } from './app.component';
 import { FrameworkModule, TokenService } from '@vanx/framework';
 import { LoginComponent, LoginModule } from '@vanx/framework/login';
+import { NgxTinymceModule } from 'ngx-tinymce';
+import { TinymceConfig } from '@vanx/cms/component';
 
 const routes: Routes = [
   {
@@ -47,18 +47,15 @@ const ngZorroConfig: NzConfig = {
     FrameworkModule,
     LoginModule,
     BitModule.forRoot(environment.bit),
-    StorageModule.forRoot({
-      IDBDBName: 'ngx-bit'
+    StorageModule.forRoot({}),
+    NgxTinymceModule.forRoot({
+      baseURL: environment.bit.url.static + 'assets/tinymce/',
+      config: TinymceConfig
     }),
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
     RouterModule.forRoot(routes, { useHash: true })
   ],
   providers: [
-    // Common Service
-
-    // API Service
-
-    // Library Service
     BitSupportService,
     BitSwalService,
     { provide: NZ_CONFIG, useValue: ngZorroConfig },

@@ -1,9 +1,12 @@
-[submodule "projects/framework"]
-	path = projects/framework
-	url = git@github.com:van-skeleton/framework.git
 [submodule "projects/ngx-howler"]
 	path = projects/ngx-howler
 	url = git@github.com:kainonly/ngx-howler.git
 [submodule "projects/ngx-mqtt-lite"]
 	path = projects/ngx-mqtt-lite
 	url = git@github.com:kainonly/ngx-mqtt-lite.git
+[submodule "projects/framework"]
+	path = projects/framework
+	url = git@github.com:van-skeleton/framework.git
+[submodule "projects/cms"]
+	path = projects/cms
+	url = git@github.com:van-skeleton/cms.git

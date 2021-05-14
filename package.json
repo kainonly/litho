@@ -32,10 +32,12 @@
     "merge": "^2.1.1",
     "ng-particles": "^2.7.2",
     "ng-zorro-antd": "^11.4.0",
+    "ngx-tinymce": "^11.0.0",
     "rxjs": "~6.6.7",
     "sweetalert2": "^10.0.0",
     "tslib": "^2.0.0",
     "tsparticles": "^1.24.2",
+    "uuid": "^8.3.2",
     "zone.js": "~0.10.2"
   },
   "devDependencies": {

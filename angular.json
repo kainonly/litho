@@ -144,6 +144,26 @@
         }
       }
     },
+    "cms": {
+      "projectType": "library",
+      "root": "projects/cms",
+      "sourceRoot": "projects/cms/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "tsConfig": "projects/cms/tsconfig.lib.json",
+            "project": "projects/cms/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/cms/tsconfig.lib.prod.json"
+            }
+          }
+        }
+      }
+    },
     "ngx-howler": {
       "projectType": "library",
       "root": "projects/ngx-howler",

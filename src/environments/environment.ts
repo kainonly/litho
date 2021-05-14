@@ -12,7 +12,7 @@ const bit: BitConfig = {
     withCredentials: true,
     upload: 'https://cdn-1252852151.cos.ap-guangzhou.myqcloud.com',
     uploadStorage: 'cos',
-    uploadFetchSigned: '/system/main/cosPresigned',
+    uploadFetchSigned: '/system/main/presigned',
     uploadFetchSignedMethod: 'POST',
     uploadSize: 102400
   },
