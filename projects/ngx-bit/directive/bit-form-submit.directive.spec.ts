@@ -5,7 +5,7 @@ import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } 
 import { By } from '@angular/platform-browser';
 import { BitDirectiveModule } from 'ngx-bit/directive';
 import { environment } from '../simulation/environment';
-import { BitConfigService, BitEventsService, BitHttpService, BitService, BitSupportService, BitSwalService } from 'ngx-bit';
+import { BitModule } from 'ngx-bit';
 
 describe('BitFormSubmitDirective', () => {
   let component: TestComponent;
@@ -21,24 +21,8 @@ describe('BitFormSubmitDirective', () => {
         imports: [
           FormsModule,
           ReactiveFormsModule,
-          BitDirectiveModule
-        ],
-        providers: [
-          BitService,
-          BitHttpService,
-          BitEventsService,
-          BitSupportService,
-          BitSwalService,
-          {
-            provide: BitConfigService, useFactory: () => {
-              const env = environment.bit;
-              const service = new BitConfigService();
-              Reflect.ownKeys(env).forEach(key => {
-                service[key] = env[key];
-              });
-              return service;
-            }
-          }
+          BitDirectiveModule,
+          BitModule.forRoot(environment.bit)
         ]
       });
       fixture = TestBed.createComponent(TestComponent);

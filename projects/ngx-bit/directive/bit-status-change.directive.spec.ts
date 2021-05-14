@@ -5,7 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
-import { BitConfigService, BitEventsService, BitHttpService, BitService, BitSupportService, BitSwalService } from 'ngx-bit';
+import { BitConfigService, BitModule } from 'ngx-bit';
 import { BitDirectiveModule, BitStatusChangeDirective } from 'ngx-bit/directive';
 import { NzSwitchComponent, NzSwitchModule } from 'ng-zorro-antd/switch';
 import { environment } from '../simulation/environment';
@@ -27,28 +27,14 @@ describe('BitStatusChangeDirective', () => {
       imports: [
         FormsModule,
         NzSwitchModule,
-        BitDirectiveModule,
         NzMessageModule,
         NoopAnimationsModule,
-        RouterModule.forRoot([], { relativeLinkResolution: 'legacy' }),
-        HttpClientTestingModule
+        HttpClientTestingModule,
+        BitDirectiveModule,
+        BitModule.forRoot(environment.bit),
+        RouterModule.forRoot([])
       ],
       providers: [
-        BitService,
-        BitHttpService,
-        BitEventsService,
-        BitSupportService,
-        BitSwalService,
-        {
-          provide: BitConfigService, useFactory: () => {
-            const env = environment.bit;
-            const service = new BitConfigService();
-            Reflect.ownKeys(env).forEach(key => {
-              service[key] = env[key];
-            });
-            return service;
-          }
-        },
         TestService
       ]
     });

@@ -1,6 +1,8 @@
 import {
   EmptyPipe,
-  JoinPipe, ObjectPipe, PrintPipe,
+  JoinPipe,
+  ObjectPipe,
+  PrintPipe,
   PrivacyPipe,
   SplitPipe
 } from 'ngx-bit/pipe';

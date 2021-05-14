@@ -2,7 +2,7 @@ import { TestBed } from '@angular/core/testing';
 import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { environment } from '../simulation/environment';
-import { BitConfigService, BitEventsService, BitHttpService, BitService, BitSupportService, BitSwalService } from 'ngx-bit';
+import { BitConfigService, BitModule, BitService, BitSwalService } from 'ngx-bit';
 import { of } from 'rxjs';
 
 describe('BitSwalService', () => {
@@ -17,24 +17,8 @@ describe('BitSwalService', () => {
         imports: [
           FormsModule,
           ReactiveFormsModule,
-          RouterModule.forRoot([])
-        ],
-        providers: [
-          BitService,
-          BitHttpService,
-          BitEventsService,
-          BitSupportService,
-          BitSwalService,
-          {
-            provide: BitConfigService, useFactory: () => {
-              const env = environment.bit;
-              const service = new BitConfigService();
-              Reflect.ownKeys(env).forEach(key => {
-                service[key] = env[key];
-              });
-              return service;
-            }
-          }
+          RouterModule.forRoot([]),
+          BitModule.forRoot(environment.bit)
         ]
       });
       config = TestBed.inject(BitConfigService);

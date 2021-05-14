@@ -5,46 +5,27 @@ import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
 import { StorageMap } from '@ngx-pwa/local-storage';
-import { NzSelectModule } from 'ng-zorro-antd/select';
-import { BitConfigService, BitEventsService, BitHttpService, BitService, BitSupportService, BitSwalService, ListByPage } from 'ngx-bit';
+import { BitModule, BitService, ListByPage } from 'ngx-bit';
 import { BitDirectiveModule, BitSearchChangeDirective, BitSearchClearDirective } from 'ngx-bit/directive';
-import { switchMap } from 'rxjs/operators';
 import { environment } from '../simulation/environment';
 
 describe('BitSearchClearDirective', () => {
   let bit: BitService;
+  let storage: StorageMap;
   let component: TestComponent;
   let fixture: ComponentFixture<TestComponent>;
   let debugElement: DebugElement;
-  let storage: StorageMap;
 
-  beforeEach((done) => {
+  beforeEach(() => {
     TestBed.configureTestingModule({
       declarations: [
         TestComponent
       ],
       imports: [
         FormsModule,
-        NzSelectModule,
         BitDirectiveModule,
+        BitModule.forRoot(environment.bit),
         RouterModule.forRoot([])
-      ],
-      providers: [
-        BitService,
-        BitHttpService,
-        BitEventsService,
-        BitSupportService,
-        BitSwalService,
-        {
-          provide: BitConfigService, useFactory: () => {
-            const env = environment.bit;
-            const service = new BitConfigService();
-            Reflect.ownKeys(env).forEach(key => {
-              service[key] = env[key];
-            });
-            return service;
-          }
-        }
       ]
     });
     bit = TestBed.inject(BitService);
@@ -52,16 +33,13 @@ describe('BitSearchClearDirective', () => {
     fixture = TestBed.createComponent(TestComponent);
     component = fixture.componentInstance;
     debugElement = fixture.debugElement;
-    fixture.detectChanges();
-    storage.clear().subscribe(() => {
-      setTimeout(() => {
-        fixture.detectChanges();
-        done();
-      }, 500);
-    });
   });
 
-  it('Test clear search conditions and persistent directive', (done) => {
+  it('Test clear search conditions and persistent directive', async () => {
+    fixture.detectChanges();
+    expect(component.lists).not.toBeNull();
+    await component.lists.ready.toPromise();
+    fixture.detectChanges();
     const select = debugElement.query(By.directive(BitSearchChangeDirective));
     select.nativeElement.value = 2;
     select.triggerEventHandler('change', {
@@ -70,24 +48,16 @@ describe('BitSearchClearDirective', () => {
     fixture.detectChanges();
     expect(component.lists.hasSearch('type')).toBeTruthy();
     expect(component.lists.search.type.value).toEqual('2');
-    storage.has('search:test').pipe(
-      switchMap(status => {
-        expect(status).toBeTruthy();
-        return storage.get('search:test');
-      }),
-      switchMap(data => {
-        expect(data).toEqual(component.lists.search);
-        const button = debugElement.query(By.directive(BitSearchClearDirective));
-        button.triggerEventHandler('click', null);
-        return storage.has('search:test');
-      })
-    ).subscribe(status => {
-      expect(status).toBeFalsy();
-      setTimeout(() => {
-        expect(component.afterResult).toEqual('triggered');
-        done();
-      }, 200);
-    });
+    let clearKey = await storage.has('search:test-clear').toPromise();
+    expect(clearKey).toBeTruthy();
+    const button = debugElement.query(By.directive(BitSearchClearDirective));
+    button.triggerEventHandler('click', null);
+    fixture.detectChanges();
+    expect(component.lists.search.type.value).toEqual('');
+    await component.lists.clearSearch().toPromise();
+    expect(component.triggered).toBeTruthy();
+    clearKey = await storage.has('search:test-clear').toPromise();
+    expect(clearKey).toBeFalsy();
   });
 });
 
@@ -106,7 +76,7 @@ describe('BitSearchClearDirective', () => {
         [bitSearchClear]="lists"
         (after)="after()"
       >
-        测试清除
+        Clear
       </button>
     </ng-container>
   `
@@ -114,11 +84,11 @@ describe('BitSearchClearDirective', () => {
 class TestComponent implements OnInit {
   lists: ListByPage;
   options: any[] = [
-    { label: 'type1', value: 0 },
+    { label: 'type0', value: 0 },
     { label: 'type1', value: 1 },
     { label: 'type2', value: 2 }
   ];
-  afterResult: any;
+  triggered = false;
 
   constructor(
     private bit: BitService
@@ -127,7 +97,7 @@ class TestComponent implements OnInit {
 
   ngOnInit(): void {
     this.lists = this.bit.listByPage({
-      id: 'test',
+      id: 'test-clear',
       query: [
         { field: 'type', op: '=', value: 0 }
       ]
@@ -135,6 +105,6 @@ class TestComponent implements OnInit {
   }
 
   after(): void {
-    this.afterResult = 'triggered';
+    this.triggered = true;
   }
 }

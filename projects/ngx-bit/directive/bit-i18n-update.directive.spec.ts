@@ -4,7 +4,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
-import { BitConfigService, BitEventsService, BitHttpService, BitService, BitSupportService, BitSwalService } from 'ngx-bit';
+import { BitModule, BitService } from 'ngx-bit';
 import { BitDirectiveModule, BitI18nUpdateDirective } from 'ngx-bit/directive';
 import { environment } from '../simulation/environment';
 
@@ -24,24 +24,8 @@ describe('BitI18nUpdateDirective', () => {
           FormsModule,
           ReactiveFormsModule,
           BitDirectiveModule,
+          BitModule.forRoot(environment.bit),
           RouterModule.forRoot([])
-        ],
-        providers: [
-          BitService,
-          BitHttpService,
-          BitEventsService,
-          BitSupportService,
-          BitSwalService,
-          {
-            provide: BitConfigService, useFactory: () => {
-              const env = environment.bit;
-              const service = new BitConfigService();
-              Reflect.ownKeys(env).forEach(key => {
-                service[key] = env[key];
-              });
-              return service;
-            }
-          }
         ]
       });
       bit = TestBed.inject(BitService);

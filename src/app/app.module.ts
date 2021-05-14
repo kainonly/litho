@@ -54,8 +54,6 @@ const ngZorroConfig: NzConfig = {
     RouterModule.forRoot(routes, { useHash: true })
   ],
   providers: [
-    BitSupportService,
-    BitSwalService,
     { provide: NZ_CONFIG, useValue: ngZorroConfig },
     { provide: NZ_I18N, useValue: zh_CN }
   ],

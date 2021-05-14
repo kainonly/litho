@@ -2,8 +2,7 @@ import { NgZone } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { Router, RouterModule } from '@angular/router';
 import { StorageMap } from '@ngx-pwa/local-storage';
-import { BitConfigService, BitEventsService, BitHttpService, BitService, BitSupportService, BitSwalService } from 'ngx-bit';
-import { BreadcrumbOption } from 'ngx-bit';
+import { BitModule, BitSupportService, BreadcrumbOption } from 'ngx-bit';
 import { switchMap } from 'rxjs/operators';
 import { Location } from '@angular/common';
 import { environment } from '../simulation/environment';
@@ -36,24 +35,8 @@ describe('BitSupportService', () => {
               path: 'admin-edit/:id',
               loadChildren: () => import('../simulation/case/case.module').then(m => m.CaseModule)
             }
-          ])
-        ],
-        providers: [
-          BitService,
-          BitHttpService,
-          BitEventsService,
-          BitSupportService,
-          BitSwalService,
-          {
-            provide: BitConfigService, useFactory: () => {
-              const env = environment.bit;
-              const service = new BitConfigService();
-              Reflect.ownKeys(env).forEach(key => {
-                service[key] = env[key];
-              });
-              return service;
-            }
-          }
+          ]),
+          BitModule.forRoot(environment.bit)
         ]
       });
       support = TestBed.inject(BitSupportService);

@@ -1,9 +1,8 @@
 import { Component, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { NzUploadComponent, NzUploadFile, NzUploadModule } from 'ng-zorro-antd/upload';
-import { BitConfigService, BitEventsService, BitHttpService, BitService, BitSupportService, BitSwalService } from 'ngx-bit';
+import { BitConfigService, BitModule, ApiConfig } from 'ngx-bit';
 import { BitDirectiveModule, BitUploadDirective } from 'ngx-bit/directive';
-import { ApiConfig } from 'ngx-bit';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { environment } from '../simulation/environment';
 
@@ -22,24 +21,9 @@ describe('BitUploadDirective', () => {
       ],
       imports: [
         NzUploadModule,
+        HttpClientTestingModule,
         BitDirectiveModule,
-        HttpClientTestingModule
-      ],
-      providers: [
-        BitService,
-        BitHttpService,
-        BitEventsService,
-        BitSupportService,
-        BitSwalService,
-        {
-          provide: BitConfigService, useFactory: () => {
-            const service = new BitConfigService();
-            Reflect.ownKeys(env).forEach(key => {
-              service[key] = env[key];
-            });
-            return service;
-          }
-        }
+        BitModule.forRoot(environment.bit)
       ]
     });
     config = TestBed.inject(BitConfigService);

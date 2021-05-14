@@ -2,10 +2,10 @@
 import { Component, DebugElement } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { BitConfigService, BitEventsService, BitHttpService, BitService, BitSupportService, BitSwalService } from 'ngx-bit';
+import { BitConfigService, BitModule } from 'ngx-bit';
 import { BitColDirective, BitDirectiveModule } from 'ngx-bit/directive';
 import { environment } from '../simulation/environment';
-import { NzColDirective, NzGridModule } from 'ng-zorro-antd/grid';
+import { NzGridModule } from 'ng-zorro-antd/grid';
 
 describe('BitColDirective', () => {
   let config: BitConfigService;
@@ -21,25 +21,8 @@ describe('BitColDirective', () => {
         ],
         imports: [
           NzGridModule,
-          BitDirectiveModule
-        ],
-        providers: [
-          BitService,
-          BitHttpService,
-          BitEventsService,
-          BitSupportService,
-          BitSwalService,
-          {
-            provide: BitConfigService, useFactory: () => {
-              const env = environment.bit;
-              const service = new BitConfigService();
-              Reflect.ownKeys(env).forEach(key => {
-                service[key] = env[key];
-              });
-              return service;
-            }
-          },
-          NzColDirective
+          BitDirectiveModule,
+          BitModule.forRoot(environment.bit)
         ]
       });
       config = TestBed.inject(BitConfigService);

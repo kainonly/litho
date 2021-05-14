@@ -4,18 +4,20 @@ import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
 import { StorageMap } from '@ngx-pwa/local-storage';
-import { BitConfigService, BitEventsService, BitHttpService, BitService, BitSupportService, BitSwalService, ListByPage } from 'ngx-bit';
+import { BitModule, BitService, ListByPage } from 'ngx-bit';
 import { BitDirectiveModule, BitSearchStartDirective } from 'ngx-bit/directive';
+import { interval } from 'rxjs';
+import { take } from 'rxjs/operators';
 import { environment } from '../simulation/environment';
 
 describe('BitSearchStartDirective', () => {
   let bit: BitService;
+  let storage: StorageMap;
   let component: TestComponent;
   let fixture: ComponentFixture<TestComponent>;
   let debugElement: DebugElement;
-  let storage: StorageMap;
 
-  beforeEach((done) => {
+  beforeEach(async () => {
     TestBed.configureTestingModule({
       declarations: [
         TestComponent
@@ -23,24 +25,8 @@ describe('BitSearchStartDirective', () => {
       imports: [
         FormsModule,
         BitDirectiveModule,
-        RouterModule.forRoot([], { relativeLinkResolution: 'legacy' })
-      ],
-      providers: [
-        BitService,
-        BitHttpService,
-        BitEventsService,
-        BitSupportService,
-        BitSwalService,
-        {
-          provide: BitConfigService, useFactory: () => {
-            const env = environment.bit;
-            const service = new BitConfigService();
-            Reflect.ownKeys(env).forEach(key => {
-              service[key] = env[key];
-            });
-            return service;
-          }
-        }
+        BitModule.forRoot(environment.bit),
+        RouterModule.forRoot([])
       ]
     });
     bit = TestBed.inject(BitService);
@@ -48,16 +34,13 @@ describe('BitSearchStartDirective', () => {
     fixture = TestBed.createComponent(TestComponent);
     component = fixture.componentInstance;
     debugElement = fixture.debugElement;
-    fixture.detectChanges();
-    storage.clear().subscribe(() => {
-      setTimeout(() => {
-        fixture.detectChanges();
-        done();
-      }, 500);
-    });
+    await storage.clear().toPromise();
   });
 
-  it('should not triggered for input(click)', (done) => {
+  it('should not triggered for input(click)', async (done) => {
+    fixture.detectChanges();
+    await component.lists.ready.toPromise();
+    fixture.detectChanges();
     const input = debugElement.query(By.css('input'));
     input.nativeElement.value = 'kain';
     input.triggerEventHandler('input', {
@@ -67,13 +50,22 @@ describe('BitSearchStartDirective', () => {
     input.triggerEventHandler('click', {
       target: input.nativeElement
     });
-    setTimeout(() => {
-      expect(component.afterResult).toBeUndefined();
-      done();
-    }, 200);
+    interval(1000).pipe(
+      take(3)
+    ).subscribe({
+      next: (v) => {
+        expect(component.triggered).toBeFalsy();
+      },
+      complete: () => {
+        done();
+      }
+    });
   });
 
-  it('should be triggered for input(keydown.enter)', (done) => {
+  it('should be triggered for input(keydown.enter)', async () => {
+    fixture.detectChanges();
+    await component.lists.ready.toPromise();
+    fixture.detectChanges();
     const input = debugElement.query(By.css('input'));
     input.nativeElement.value = 'kain';
     input.triggerEventHandler('input', {
@@ -85,13 +77,16 @@ describe('BitSearchStartDirective', () => {
     });
     expect(component.lists.hasSearch('username')).toBeTruthy();
     expect(component.lists.search.username.value).toEqual('kain');
-    setTimeout(() => {
-      expect(component.afterResult).toEqual('triggered');
-      done();
-    }, 200);
+    await component.lists.afterSearch().toPromise();
+    expect(component.triggered).toBeTruthy();
+    const changeKey = await storage.has('search:test-start').toPromise();
+    expect(changeKey).toBeTruthy();
   });
 
-  it('should not triggered for button(keydown.enter)', (done) => {
+  it('should not triggered for button(keydown.enter)', async (done) => {
+    fixture.detectChanges();
+    await component.lists.ready.toPromise();
+    fixture.detectChanges();
     const input = debugElement.query(By.css('input'));
     input.nativeElement.value = 'bit';
     input.triggerEventHandler('input', {
@@ -102,13 +97,22 @@ describe('BitSearchStartDirective', () => {
     button.triggerEventHandler('keydown.enter', {
       target: button.nativeElement
     });
-    setTimeout(() => {
-      expect(component.afterResult).toBeUndefined();
-      done();
-    }, 200);
+    interval(1000).pipe(
+      take(3)
+    ).subscribe({
+      next: (v) => {
+        expect(component.triggered).toBeFalsy();
+      },
+      complete: () => {
+        done();
+      }
+    });
   });
 
-  it('should be triggered for button(click)', (done) => {
+  it('should be triggered for button(click)', async () => {
+    fixture.detectChanges();
+    await component.lists.ready.toPromise();
+    fixture.detectChanges();
     const input = debugElement.query(By.css('input'));
     input.nativeElement.value = 'bit';
     input.triggerEventHandler('input', {
@@ -121,10 +125,10 @@ describe('BitSearchStartDirective', () => {
     });
     expect(component.lists.hasSearch('username')).toBeTruthy();
     expect(component.lists.search.username.value).toEqual('bit');
-    setTimeout(() => {
-      expect(component.afterResult).toEqual('triggered');
-      done();
-    }, 200);
+    await component.lists.afterSearch().toPromise();
+    expect(component.triggered).toBeTruthy();
+    const changeKey = await storage.has('search:test-start').toPromise();
+    expect(changeKey).toBeTruthy();
   });
 });
 
@@ -140,14 +144,14 @@ describe('BitSearchStartDirective', () => {
         [bitSearchStart]="lists"
         (after)="after()"
       >
-        搜索
+        Search
       </button>
     </ng-container>
   `
 })
 class TestComponent implements OnInit {
   lists: ListByPage;
-  afterResult: any;
+  triggered = false;
 
   constructor(
     private bit: BitService
@@ -156,7 +160,7 @@ class TestComponent implements OnInit {
 
   ngOnInit(): void {
     this.lists = this.bit.listByPage({
-      id: 'test',
+      id: 'test-start',
       query: [
         { field: 'username', op: '=', value: '' }
       ]
@@ -164,6 +168,6 @@ class TestComponent implements OnInit {
   }
 
   after(): void {
-    this.afterResult = 'triggered';
+    this.triggered = true;
   }
 }

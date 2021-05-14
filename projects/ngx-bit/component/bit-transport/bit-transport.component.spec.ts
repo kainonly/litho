@@ -5,7 +5,7 @@ import { BitExtModule, BitTransportComponent } from 'ngx-bit/component';
 import { NzUploadBtnComponent, NzUploadFile } from 'ng-zorro-antd/upload';
 import { Observable, of } from 'rxjs';
 import { By } from '@angular/platform-browser';
-import { BitConfigService, BitEventsService, BitHttpService, BitService, BitSupportService, BitSwalService } from 'ngx-bit';
+import { BitConfigService, BitModule } from 'ngx-bit';
 import { RouterModule } from '@angular/router';
 import { HttpClientModule, HttpEventType } from '@angular/common/http';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
@@ -32,24 +32,8 @@ describe('BitTransportComponent', () => {
           HttpClientModule,
           HttpClientTestingModule,
           BitExtModule,
-          RouterModule.forRoot([])
-        ],
-        providers: [
-          BitService,
-          BitHttpService,
-          BitEventsService,
-          BitSupportService,
-          BitSwalService,
-          {
-            provide: BitConfigService, useFactory: () => {
-              const env = environment.bit;
-              const service = new BitConfigService();
-              Reflect.ownKeys(env).forEach(key => {
-                service[key] = env[key];
-              });
-              return service;
-            }
-          }
+          RouterModule.forRoot([]),
+          BitModule.forRoot(environment.bit)
         ]
       });
       config = TestBed.inject(BitConfigService);

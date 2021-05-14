@@ -5,6 +5,8 @@ import { BitService } from './common/bit.service';
 import { BitHttpService } from './common/bit-http.service';
 import { BitEventsService } from './common/bit-events.service';
 import { BitConfigService } from './common/bit-config.service';
+import { BitSupportService } from './common/bit-support.service';
+import { BitSwalService } from './common/bit-swal.service';
 import { BitConfig } from './common/typings';
 
 @NgModule()
@@ -17,6 +19,8 @@ export class BitModule {
         BitService,
         BitHttpService,
         BitEventsService,
+        BitSupportService,
+        BitSwalService,
         {
           provide: BitConfigService,
           useValue: merge.recursive(new BitConfigService(), config)
