@@ -1,12 +1,5 @@
 import { of } from 'rxjs';
-import {
-  asyncValidator,
-  empty,
-  factoryLocales,
-  getQuerySchema,
-  print,
-  privacy
-} from 'ngx-bit/operates';
+import { asyncValidator, empty, factoryLocales, print, privacy } from 'ngx-bit/operates';
 import { switchMap } from 'rxjs/operators';
 import { environment } from '../simulation/environment';
 
@@ -32,35 +25,6 @@ describe('operates module', () => {
       expect(lang.en_us.dashboard).toEqual('Dashboard');
       done();
     });
-  });
-
-  it('Test getQuerySchema', () => {
-    let schema = getQuerySchema([
-      { field: 'username', op: '=', value: '' }
-    ]);
-    expect(schema).toEqual([]);
-    schema = getQuerySchema([
-      { field: 'username', op: '=', value: '', exclude: [] }
-    ]);
-    expect(schema).toEqual([['username', '=', '']]);
-    schema = getQuerySchema([
-      { field: 'username', op: '=', value: 'kain' }
-    ]);
-    expect(schema).toEqual([['username', '=', 'kain']]);
-    schema = getQuerySchema([
-      { field: 'username', op: '=', value: null },
-      { field: 'type', op: '=', value: 0 },
-      { field: 'ids', op: 'in', value: [] },
-      { field: 'error', op: '=', value: {} }
-    ]);
-    expect(schema).toEqual([]);
-    const picker = [new Date(), new Date()];
-    schema = getQuerySchema([
-      { field: 'time', op: 'between', value: [new Date(), new Date()], format: 'unixtime' }
-    ]);
-    expect(schema).toEqual([
-      ['time', 'between', picker.map(v => Math.floor(v.getTime() / 1000))]
-    ]);
   });
 
   it('Test empty', () => {

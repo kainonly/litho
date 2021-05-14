@@ -32,6 +32,35 @@ describe('ListByPage', () => {
     }
   });
 
+  it('Test getQuerySchema', () => {
+    let schema = ListByPage.getQuerySchema([
+      { field: 'username', op: '=', value: '' }
+    ]);
+    expect(schema).toEqual([]);
+    schema = ListByPage.getQuerySchema([
+      { field: 'username', op: '=', value: '', exclude: [] }
+    ]);
+    expect(schema).toEqual([['username', '=', '']]);
+    schema = ListByPage.getQuerySchema([
+      { field: 'username', op: '=', value: 'kain' }
+    ]);
+    expect(schema).toEqual([['username', '=', 'kain']]);
+    schema = ListByPage.getQuerySchema([
+      { field: 'username', op: '=', value: null },
+      { field: 'type', op: '=', value: 0 },
+      { field: 'ids', op: 'in', value: [] },
+      { field: 'error', op: '=', value: {} }
+    ]);
+    expect(schema).toEqual([]);
+    const picker = [new Date(), new Date()];
+    schema = ListByPage.getQuerySchema([
+      { field: 'time', op: 'between', value: [new Date(), new Date()], format: 'unixtime' }
+    ]);
+    expect(schema).toEqual([
+      ['time', 'between', picker.map(v => Math.floor(v.getTime() / 1000))]
+    ]);
+  });
+
   it('Test setData', (done) => {
     // @ts-ignore
     import('../simulation/acl.json').then((res: any) => {

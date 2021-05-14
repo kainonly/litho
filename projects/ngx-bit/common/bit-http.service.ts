@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { map, switchMap } from 'rxjs/operators';
 import { Observable, of } from 'rxjs';
-import { getQuerySchema } from 'ngx-bit/operates';
 import { ListByPage } from './list-by-page';
 import { BitConfigService } from './bit-config.service';
 import { ListsOption, OrderOption, SearchOption } from './typings';
@@ -42,7 +41,7 @@ export class BitHttpService {
     const url = path ? path : this.config.curd.get;
     if (Array.isArray(condition)) {
       http = this.req(model + url, {
-        where: getQuerySchema(condition),
+        where: ListByPage.getQuerySchema(condition),
         order
       });
     } else {
@@ -96,7 +95,7 @@ export class BitHttpService {
   originLists(model: string, condition: SearchOption[] = [], order?: OrderOption, path?: string): Observable<any> {
     const url = path ? path : this.config.curd.originLists;
     return this.req(model + url, {
-      where: getQuerySchema(condition),
+      where: ListByPage.getQuerySchema(condition),
       order
     }).pipe(
       map(res => !res.error ? res.data : null)
@@ -120,7 +119,7 @@ export class BitHttpService {
     return !condition ?
       this.req(model + url, data) :
       this.req(model + url, Object.assign(data, {
-          where: getQuerySchema(condition)
+          where: ListByPage.getQuerySchema(condition)
         })
       );
   }
@@ -160,7 +159,7 @@ export class BitHttpService {
     }
     if (condition !== undefined) {
       return this.req(model + url, {
-        where: getQuerySchema(condition)
+        where: ListByPage.getQuerySchema(condition)
       });
     }
     return of(false);

@@ -1,7 +1,6 @@
 import { StorageMap } from '@ngx-pwa/local-storage';
 import { AsyncSubject, Observable } from 'rxjs';
 import { ListByPageOption, SearchOption, OrderOption } from './typings';
-import { getQuerySchema } from 'ngx-bit/operates';
 
 export class ListByPage {
   /**
@@ -63,6 +62,38 @@ export class ListByPage {
    * The total number of checked data in the list
    */
   checkedNumber = 0;
+
+  /**
+   * get query schema
+   */
+  static getQuerySchema(options: SearchOption[]): any[] {
+    const schema = [];
+    for (const search of options) {
+      if (
+        search.value !== null &&
+        typeof search.value === 'object' &&
+        Object.keys(search.value).length === 0
+      ) {
+        continue;
+      }
+      if (typeof search.value === 'string') {
+        search.value = search.value.trim();
+      }
+      const exclude = search.exclude ? search.exclude : ['', 0, null];
+      if (!exclude.includes(search.value)) {
+        let value = search.value;
+        if (search.op === 'like') {
+          value = `%${value}%`;
+        }
+        if (search.format !== undefined && search.format === 'unixtime') {
+          value = Array.isArray(value) ?
+            value.map(v => Math.floor(v.getTime() / 1000)) : Math.floor(value.getTime() / 1000);
+        }
+        schema.push([search.field, search.op, value]);
+      }
+    }
+    return schema;
+  }
 
   /**
    * ListByPage factory class
@@ -171,19 +202,13 @@ export class ListByPage {
    * Convert to SearchOption[]
    */
   toQuery(): SearchOption[] {
-    const query = [];
-    for (const key in this.search) {
-      if (this.search.hasOwnProperty(key)) {
-        query.push(this.search[key]);
-      }
-    }
-    return query;
+    return Object.values(this.search);
   }
 
   /**
    * Convert to query schema
    */
   toQuerySchema(): any[] {
-    return getQuerySchema(Object.values(this.search));
+    return ListByPage.getQuerySchema(this.toQuery());
   }
 }
