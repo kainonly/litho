@@ -11,6 +11,8 @@
     "postbuild": "npm run copy:schemas && npm run copy:collection",
     "build:framework": "ng build framework --prod",
     "release:framework": "cd dist/framework && npm publish --access=public",
+    "build:cms": "ng build cms --prod",
+    "release:cms": "cd dist/cms && npm publish --access=public",
     "test": "ng test ngx-bit --no-watch --no-progress --browsers=ChromeHeadlessCI",
     "lint": "ng lint",
     "e2e": "ng e2e",
