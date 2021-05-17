@@ -9,7 +9,7 @@ import zh from '@angular/common/locales/zh';
 import { environment } from '@env';
 import { NZ_I18N, zh_CN } from 'ng-zorro-antd/i18n';
 import { NZ_CONFIG, NzConfig } from 'ng-zorro-antd/core/config';
-import { BitModule, BitSupportService, BitSwalService } from 'ngx-bit';
+import { BitModule } from 'ngx-bit';
 
 registerLocaleData(zh);
 
