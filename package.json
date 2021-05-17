@@ -1,7 +1,7 @@
 {
   "name": "ngx-bit-case",
   "scripts": {
-    "start": "ng serve --host 0.0.0.0 --port 4201 --disableHostCheck",
+    "start": "ng serve --host 0.0.0.0 --port 4201 --disable-host-check",
     "build": "ng build --prod",
     "build:ngx-bit": "ng build ngx-bit --prod && npm run build:schematics && npm run postbuild",
     "release:ngx-bit": "cd dist/ngx-bit && npm publish",

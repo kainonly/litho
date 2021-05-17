@@ -79,8 +79,8 @@
       "@vanx/framework/permission": [
         "projects/framework/permission/public-api.ts"
       ],
-      "@vanx/framework/log": [
-        "projects/framework/log/public-api.ts"
+      "@vanx/framework/security": [
+        "projects/framework/security/public-api.ts"
       ],
       "@vanx/cms": [
         "projects/cms/public-api.ts"

@@ -3,7 +3,7 @@ import { Routes } from '@angular/router';
 import { ProfileComponent, ProfileModule } from '@vanx/framework/profile';
 import { PermissionAddComponent, PermissionEditComponent, PermissionIndexComponent, PermissionModule } from '@vanx/framework/permission';
 import { AdminAddComponent, AdminEditComponent, AdminIndexComponent, AdminModule } from '@vanx/framework/admin';
-import { LoginLogComponent, LogModule, RequestLogComponent } from '@vanx/framework/log';
+import { LogsComponent, ActivitiesComponent, SecurityModule } from '@vanx/framework/security';
 import { AclAddComponent, AclEditComponent, AclIndexComponent, AclModule } from '@vanx/framework/acl';
 import { ResourceAddComponent, ResourceEditComponent, ResourceIndexComponent, ResourceModule } from '@vanx/framework/resource';
 import { RoleAddComponent, RoleEditComponent, RoleIndexComponent, RoleModule } from '@vanx/framework/role';
@@ -74,12 +74,12 @@ export const IRoutes: Routes = [
     component: AdminEditComponent
   },
   {
-    path: 'request-log',
-    component: RequestLogComponent
+    path: 'logs',
+    component: LogsComponent
   },
   {
-    path: 'login-log',
-    component: LoginLogComponent
+    path: 'activities',
+    component: ActivitiesComponent
   }
 ];
 
@@ -91,7 +91,7 @@ export const IRoutes: Routes = [
     PermissionModule,
     RoleModule,
     AdminModule,
-    LogModule
+    SecurityModule
   ]
 })
 export class MainModule {
