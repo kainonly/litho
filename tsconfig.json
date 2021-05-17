@@ -73,8 +73,8 @@
       "@vanx/framework/role": [
         "projects/framework/role/public-api.ts"
       ],
-      "@vanx/framework/admin": [
-        "projects/framework/admin/public-api.ts"
+      "@vanx/framework/user": [
+        "projects/framework/user/public-api.ts"
       ],
       "@vanx/framework/permission": [
         "projects/framework/permission/public-api.ts"
