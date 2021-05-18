@@ -55,6 +55,9 @@
       "@vanx/framework": [
         "projects/framework/public-api.ts"
       ],
+      "@vanx/framework/component": [
+        "projects/framework/component/public-api.ts"
+      ],
       "@vanx/framework/layout": [
         "projects/framework/layout/public-api.ts"
       ],

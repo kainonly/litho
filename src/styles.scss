@@ -1,4 +1,4 @@
-@import "https://cdn.kainonly.com/assets/animate.css/animate.min.css";
+@import "https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css";
 
 ::-webkit-scrollbar {
   width: 5px;
@@ -12,8 +12,10 @@
   background: #666;
 }
 
-.ant-page-header {
-  background: #fff;
+.ant-card-head-title {
+  .ant-space {
+    line-height: 2.5rem;
+  }
 }
 
 .ant-menu-sub.center-submenu {
