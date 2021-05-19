@@ -4,7 +4,7 @@ import { ProfileComponent, ProfileModule } from '@vanx/framework/profile';
 import { PermissionAddComponent, PermissionEditComponent, PermissionIndexComponent, PermissionModule } from '@vanx/framework/permission';
 import { UserAddComponent, UserEditComponent, UserIndexComponent, UserModule } from '@vanx/framework/user';
 import { LogsComponent, ActivitiesComponent, SecurityModule } from '@vanx/framework/security';
-import { AclAddComponent, AclEditComponent, AclIndexComponent, AclModule } from '@vanx/framework/acl';
+import { AclPageComponent, AclIndexComponent, AclModule } from '@vanx/framework/acl';
 import { ResourceAddComponent, ResourceEditComponent, ResourceIndexComponent, ResourceModule } from '@vanx/framework/resource';
 import { RoleAddComponent, RoleEditComponent, RoleIndexComponent, RoleModule } from '@vanx/framework/role';
 
@@ -19,11 +19,11 @@ export const IRoutes: Routes = [
   },
   {
     path: 'acl-add',
-    component: AclAddComponent
+    component: AclPageComponent
   },
   {
     path: 'acl-edit/:id',
-    component: AclEditComponent
+    component: AclPageComponent
   },
   {
     path: 'resource-index',
