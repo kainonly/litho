@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes } from '@angular/router';
 import { ProfileComponent, ProfileModule } from '@vanx/framework/profile';
-import { PermissionAddComponent, PermissionEditComponent, PermissionIndexComponent, PermissionModule } from '@vanx/framework/permission';
+import { PermissionPageComponent, PermissionIndexComponent, PermissionModule } from '@vanx/framework/permission';
 import { UserAddComponent, UserEditComponent, UserIndexComponent, UserModule } from '@vanx/framework/user';
 import { LogsComponent, ActivitiesComponent, SecurityModule } from '@vanx/framework/security';
 import { AclPageComponent, AclIndexComponent, AclModule } from '@vanx/framework/acl';
@@ -43,11 +43,11 @@ export const IRoutes: Routes = [
   },
   {
     path: 'permission-add',
-    component: PermissionAddComponent
+    component: PermissionPageComponent
   },
   {
     path: 'permission-edit/:id',
-    component: PermissionEditComponent
+    component: PermissionPageComponent
   },
   {
     path: 'role-index',
