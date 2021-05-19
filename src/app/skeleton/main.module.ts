@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes } from '@angular/router';
 import { ProfileComponent, ProfileModule } from '@vanx/framework/profile';
 import { PermissionPageComponent, PermissionIndexComponent, PermissionModule } from '@vanx/framework/permission';
-import { UserAddComponent, UserEditComponent, UserIndexComponent, UserModule } from '@vanx/framework/user';
+import { UserIndexComponent, UserModule, UserPageComponent } from '@vanx/framework/user';
 import { LogsComponent, ActivitiesComponent, SecurityModule } from '@vanx/framework/security';
 import { AclPageComponent, AclIndexComponent, AclModule } from '@vanx/framework/acl';
 import { ResourceIndexComponent, ResourceModule, ResourcePageComponent } from '@vanx/framework/resource';
@@ -67,11 +67,11 @@ export const IRoutes: Routes = [
   },
   {
     path: 'admin-add',
-    component: UserAddComponent
+    component: UserPageComponent
   },
   {
     path: 'admin-edit/:id',
-    component: UserEditComponent
+    component: UserPageComponent
   },
   {
     path: 'logs',
