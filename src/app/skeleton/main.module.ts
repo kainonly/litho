@@ -5,7 +5,7 @@ import { PermissionPageComponent, PermissionIndexComponent, PermissionModule } f
 import { UserAddComponent, UserEditComponent, UserIndexComponent, UserModule } from '@vanx/framework/user';
 import { LogsComponent, ActivitiesComponent, SecurityModule } from '@vanx/framework/security';
 import { AclPageComponent, AclIndexComponent, AclModule } from '@vanx/framework/acl';
-import { ResourceAddComponent, ResourceEditComponent, ResourceIndexComponent, ResourceModule } from '@vanx/framework/resource';
+import { ResourceIndexComponent, ResourceModule, ResourcePageComponent } from '@vanx/framework/resource';
 import { RoleIndexComponent, RoleModule, RolePageComponent } from '@vanx/framework/role';
 
 export const IRoutes: Routes = [
@@ -31,11 +31,11 @@ export const IRoutes: Routes = [
   },
   {
     path: 'resource-add',
-    component: ResourceAddComponent
+    component: ResourcePageComponent
   },
   {
     path: 'resource-edit/:id',
-    component: ResourceEditComponent
+    component: ResourcePageComponent
   },
   {
     path: 'permission-index',
