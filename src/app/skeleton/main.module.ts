@@ -6,7 +6,7 @@ import { UserAddComponent, UserEditComponent, UserIndexComponent, UserModule } f
 import { LogsComponent, ActivitiesComponent, SecurityModule } from '@vanx/framework/security';
 import { AclPageComponent, AclIndexComponent, AclModule } from '@vanx/framework/acl';
 import { ResourceAddComponent, ResourceEditComponent, ResourceIndexComponent, ResourceModule } from '@vanx/framework/resource';
-import { RoleAddComponent, RoleEditComponent, RoleIndexComponent, RoleModule } from '@vanx/framework/role';
+import { RoleIndexComponent, RoleModule, RolePageComponent } from '@vanx/framework/role';
 
 export const IRoutes: Routes = [
   {
@@ -55,11 +55,11 @@ export const IRoutes: Routes = [
   },
   {
     path: 'role-add',
-    component: RoleAddComponent
+    component: RolePageComponent
   },
   {
     path: 'role-edit/:id',
-    component: RoleEditComponent
+    component: RolePageComponent
   },
   {
     path: 'admin-index',
