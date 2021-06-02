@@ -20,7 +20,8 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.config.setupLocales(import('./app.language'));
+    this.bit.setupLocale();
+    this.bit.registerLocales(import('./app.language'));
     this.config.setupHttpInterceptor(
       map(res => {
         if (res.error) {

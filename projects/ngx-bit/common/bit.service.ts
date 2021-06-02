@@ -3,35 +3,42 @@ import { NavigationExtras, PRIMARY_OUTLET, Router, UrlSegment } from '@angular/r
 import { Location } from '@angular/common';
 import { StorageMap } from '@ngx-pwa/local-storage';
 import { NzI18nService } from 'ng-zorro-antd/i18n';
-import { factoryLocales } from 'ngx-bit/operates';
 import { BitConfigService } from './bit-config.service';
-import { BitEventsService } from './bit-events.service';
 import { BitSupportService } from './bit-support.service';
 import { ListByPageOption, I18nGroupOption, I18nTooltipOption } from './typings';
 import { ListByPage } from './list-by-page';
+import { Subject } from 'rxjs';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable({ providedIn: 'root' })
 export class BitService {
   /**
-   * Component language packer
-   */
-  private lang: any = {};
-  /**
-   * Static Path
+   * 静态资源地址
+   * Static resource address
    */
   readonly static: string;
   /**
-   * Upload Path
+   * 上传地址
+   * Upload address
    */
   readonly uploads: string;
   /**
-   * Language pack identifier
+   * 公共语言包
+   * Common language pack
+   */
+  private language: Map<string, any> = new Map();
+  /**
+   * 语言包 ID
+   * Language ID
    */
   locale: string;
   /**
-   * Language pack label
+   * 语言包 ID 状态
+   * Language ID changed
+   */
+  readonly localeChanged: Subject<string> = new Subject<string>();
+  /**
+   * 语言包引用
+   * Language pack reference
    */
   l: any = {};
   /**
@@ -47,12 +54,8 @@ export class BitService {
    */
   i18nContain: any[] = [];
 
-  /**
-   * Constructor
-   */
   constructor(
     private config: BitConfigService,
-    private events: BitEventsService,
     private location: Location,
     private router: Router,
     private storageMap: StorageMap,
@@ -63,13 +66,6 @@ export class BitService {
     this.uploads = config.url.api + config.api.upload;
     this.i18n = config.i18n.default;
     this.i18nContain = config.i18n.contain;
-    storageMap.get('locale').subscribe((data: any) => {
-      this.locale = data ? data : config.locale.default;
-      const bind = config.locale.bind;
-      if (bind.size !== 0 && bind.has(this.locale)) {
-        nzI18nService.setLocale(bind.get(this.locale));
-      }
-    });
   }
 
   /**
@@ -126,34 +122,49 @@ export class BitService {
   }
 
   /**
+   * 初始化语言包
+   * Setup language pack
+   */
+  setupLocale(): void {
+    this.setLocale(
+      localStorage.getItem('locale') ||
+      this.config.locale.default
+    );
+  }
+
+  /**
+   * 载入语言包
    * Registered language pack
    */
   registerLocales(packer: object | Promise<any>): void {
     Promise.resolve(packer).then(result => {
-      this.lang = factoryLocales(result.default, this.config.locale.mapping);
-      this.l = Object.assign(
-        this.config.getLang(this.locale),
-        this.lang[this.locale]
-      );
+      if (!result.default) {
+        return;
+      }
+      this.language = new Map([
+        ...this.language,
+        ...Object.entries(result.default)
+      ]);
+      const index = this.config.locale.mapping.indexOf(this.locale);
+      for (const [key, data] of this.language.entries()) {
+        this.l[key] = data[index];
+      }
     });
   }
 
   /**
-   * Set language pack ID
+   * 设置语言包 ID
+   * Set language ID
    */
   setLocale(locale: string): void {
     this.locale = locale;
-    this.storageMap.set('locale', locale).subscribe(() => {
-    });
-    this.events.publish('locale', locale);
-    this.l = Object.assign(
-      this.config.getLang(this.locale),
-      this.lang[this.locale]
-    );
-    const bind = this.config.locale.bind;
-    if (bind.size !== 0 && bind.has(this.locale)) {
-      this.nzI18nService.setLocale(bind.get(this.locale));
+    localStorage.setItem('locale', locale);
+    this.localeChanged.next(locale);
+    const index = this.config.locale.mapping.indexOf(this.locale);
+    for (const [key, data] of this.language.entries()) {
+      this.l[key] = data[index];
     }
+    this.nzI18nService.setLocale(this.config.locale.bind[index]);
   }
 
   /**

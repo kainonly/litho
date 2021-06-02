@@ -34,8 +34,8 @@ export interface ColConfig {
 
 export interface LocaleConfig {
   default: string;
-  mapping: Map<number, string>;
-  bind: Map<string, any>;
+  mapping: string[];
+  bind: any[];
 }
 
 export interface I18nOption {

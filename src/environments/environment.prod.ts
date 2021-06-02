@@ -50,14 +50,16 @@ const bit: BitConfig = {
   },
   locale: {
     default: 'zh_cn',
-    mapping: new Map<number, string>([
-      [0, 'zh_cn'],
-      [1, 'en_us']
-    ]),
-    bind: new Map<string, any>([
-      ['zh_cn', zh_CN],
-      ['en_us', en_US]
-    ])
+    // mapping: new Map<number, string>([
+    //   [0, 'zh_cn'],
+    //   [1, 'en_us']
+    // ]),
+    // bind: new Map<string, any>([
+    //   ['zh_cn', zh_CN],
+    //   ['en_us', en_US]
+    // ])
+    mapping: ['zh_cn', 'en_us'],
+    bind: [zh_CN, en_US]
   },
   i18n: {
     default: 'zh_cn',

@@ -1,11 +1,8 @@
 import { Injectable } from '@angular/core';
 import { OperatorFunction } from 'rxjs';
-import { factoryLocales } from 'ngx-bit/operates';
 import { ApiConfig, BitConfig, ColConfig, CurdConfig, I18nConfig, LocaleConfig, UrlConfig } from './typings';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable({ providedIn: 'root' })
 export class BitConfigService implements BitConfig {
   url: UrlConfig;
   api: ApiConfig;
@@ -16,29 +13,9 @@ export class BitConfigService implements BitConfig {
   page: number;
 
   /**
-   * Common language packer
-   */
-  private lang: any = {};
-  /**
    * request interceptor
    */
   private httpInterceptor: OperatorFunction<any, any>;
-
-  /**
-   * Setup common language pack
-   */
-  setupLocales(packer: object | Promise<any>): void {
-    Promise.resolve(packer).then(result => {
-      this.lang = factoryLocales(result.default, this.locale.mapping);
-    });
-  }
-
-  /**
-   * Get a language
-   */
-  getLang(locale: string): any {
-    return this.lang[locale];
-  }
 
   /**
    * Set up request interceptor

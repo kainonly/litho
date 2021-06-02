@@ -34,7 +34,6 @@ const routes: Routes = [
 
 const ngZorroConfig: NzConfig = {
   notification: { nzPlacement: 'bottomRight' },
-  card: { nzBordered: false }
 };
 
 @NgModule({
