@@ -22,7 +22,7 @@
     "name": "kain",
     "email": "zhangtqx@vip.qq.com"
   },
-  "license": "MIT",
+  "license": "BSD-3-Clause License",
   "homepage": "https://doc.kainonly.com/#/ngx-bit/",
   "repository": {
     "type": "git",

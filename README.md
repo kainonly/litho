@@ -37,6 +37,6 @@
 
 ## License
 
-[MIT](https://github.com/kainonly/ngx-bit/blob/master/LICENSE)
+[BSD-3-Clause License](https://github.com/kainonly/ngx-bit/blob/master/LICENSE)
 
 [![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fkainonly%2Fngx-bit.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2Fkainonly%2Fngx-bit?ref=badge_large)
