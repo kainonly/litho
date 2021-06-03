@@ -1,6 +1,6 @@
 import { Directive } from '@angular/core';
 import { NzUploadComponent, NzUploadFile } from 'ng-zorro-antd/upload';
-import { BitConfigService } from 'ngx-bit';
+import { BitConfig } from 'ngx-bit';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
@@ -10,7 +10,7 @@ import { map } from 'rxjs/operators';
 })
 export class BitUploadDirective {
   constructor(
-    config: BitConfigService,
+    config: BitConfig,
     http: HttpClient,
     nzUploadComponent: NzUploadComponent
   ) {

@@ -1,6 +1,6 @@
 import { Directive, Input, OnInit } from '@angular/core';
 import { NzColDirective } from 'ng-zorro-antd/grid';
-import { BitConfigService } from 'ngx-bit';
+import { BitConfig } from 'ngx-bit';
 
 @Directive({
   selector: '[bitCol]'
@@ -10,7 +10,7 @@ export class BitColDirective implements OnInit {
 
   constructor(
     private nzColDirective: NzColDirective,
-    private config: BitConfigService
+    private config: BitConfig
   ) {
   }
 
