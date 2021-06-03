@@ -2,15 +2,7 @@ import { Component, Input, OnChanges, SimpleChanges, TemplateRef, ViewChild } fr
 
 @Component({
   selector: 'bit-error-tip',
-  template: `
-    <ng-template #ref let-control>
-      <ng-container *ngFor="let value of values">
-        <ng-container *ngIf="control.hasError(value.key)">
-          {{value.error}}
-        </ng-container>
-      </ng-container>
-    </ng-template>
-  `
+  templateUrl: './bit-error-tip.component.html'
 })
 export class BitErrorTipComponent implements OnChanges {
   @ViewChild('ref', { static: true }) ref: TemplateRef<any>;

@@ -2,18 +2,7 @@ import { Component, Input, OnChanges, SimpleChanges, TemplateRef, ViewChild } fr
 
 @Component({
   selector: 'bit-print',
-  template: `
-    <ng-template #ref>
-      <ng-container *ngFor="let value of values">
-        <ng-container *ngIf="!is(value);else template">
-          {{value}}
-        </ng-container>
-        <ng-template #template>
-          <ng-container *ngTemplateOutlet="value"></ng-container>
-        </ng-template>
-      </ng-container>
-    </ng-template>
-  `
+  templateUrl: './bit-print.component.html'
 })
 export class BitPrintComponent implements OnChanges {
   @ViewChild('ref', { static: true }) ref: TemplateRef<any>;
