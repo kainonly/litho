@@ -3,7 +3,6 @@ import { NzIconService } from 'ng-zorro-antd/icon';
 import merge from 'merge';
 import { BitService } from './common/bit.service';
 import { BitHttpService } from './common/bit-http.service';
-import { BitEventsService } from './common/bit-events.service';
 import { BitConfigService } from './common/bit-config.service';
 import { BitSupportService } from './common/bit-support.service';
 import { BitSwalService } from './common/bit-swal.service';
@@ -18,7 +17,6 @@ export class BitModule {
         NzIconService,
         BitService,
         BitHttpService,
-        BitEventsService,
         BitSupportService,
         BitSwalService,
         {
