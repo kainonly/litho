@@ -3,15 +3,13 @@
   "version": "11.4.0",
   "schematics": "./schematics/collection.json",
   "dependencies": {
-    "tslib": "^2.0.0",
-    "merge": "^2.0.0"
+    "tslib": "^2.0.0"
   },
   "peerDependencies": {
     "@angular/common": "^11.0.0",
     "@angular/core": "^11.0.0",
     "ng-zorro-antd": "^11.0.0",
-    "sweetalert2": "^10.0.0",
-    "@ngx-pwa/local-storage": "^11.0.0"
+    "sweetalert2": "^10.0.0"
   },
   "keywords": [
     "angular",

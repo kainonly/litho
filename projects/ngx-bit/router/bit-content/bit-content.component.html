@@ -1,0 +1,34 @@
+<ng-container *ngTemplateOutlet="router.banner"></ng-container>
+<nz-page-header
+  [nzGhost]="false"
+  [nzTitle]="router.title | object: bit.locale"
+  [nzSubtitle]="!router.subTitle ? null : router.subTitle"
+  [nzBackIcon]="!router.back ? null : ''"
+  (nzBack)="bit.back()"
+>
+  <nz-breadcrumb [nzSeparator]="breadcrumbIcon" nz-page-header-breadcrumb>
+    <ng-template #breadcrumbIcon>
+      <i nz-icon nzType="right"></i>
+    </ng-template>
+    <nz-breadcrumb-item>
+      <a routerLink="/">{{ bit.l["dashboard"] }}</a>
+    </nz-breadcrumb-item>
+    <nz-breadcrumb-item *ngFor="let x of router.breadcrumb; index as i; last as islast">
+      <ng-container *ngIf="islast; else notLast">
+        {{ x.name | object: bit.locale }}
+      </ng-container>
+      <ng-template #notLast>
+        <a *ngIf="x.router; else notRouterlink" [bitHistory]="x.key">
+          {{ x.name | object: bit.locale }}
+        </a>
+        <ng-template #notRouterlink>{{ x.name | object: bit.locale }}</ng-template>
+      </ng-template>
+    </nz-breadcrumb-item>
+  </nz-breadcrumb>
+  <nz-page-header-extra>
+    <ng-container *ngTemplateOutlet="router.actions"></ng-container>
+  </nz-page-header-extra>
+</nz-page-header>
+<nz-page-header-content #warpper class="page-header-content">
+  <router-outlet></router-outlet>
+</nz-page-header-content>

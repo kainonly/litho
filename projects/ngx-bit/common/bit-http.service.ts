@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, OperatorFunction } from 'rxjs';
 import { BitConfig } from './bit-config';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class BitHttpService {
   /**
    * 基础路径

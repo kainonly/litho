@@ -2,9 +2,13 @@ import { Injectable, Optional } from '@angular/core';
 import { NzI18nService, zh_CN } from 'ng-zorro-antd/i18n';
 import { Subject } from 'rxjs';
 import { BitConfig } from './bit-config';
-import { ListByPageOption, I18nGroupOption, I18nTooltipOption } from './types';
+import { ListByPageOption, I18nGroupOption, I18nTooltipOption, I18nOption } from './types';
 import { ListByPage } from './utils/list-by-page';
 import { BitCurdService } from './bit-curd.service';
+import { NavigationExtras, PRIMARY_OUTLET, Router, UrlSegment } from '@angular/router';
+import { storage } from 'ngx-bit/storage';
+import { Location } from '@angular/common';
+import { filter, switchMap } from 'rxjs/operators';
 
 @Injectable({ providedIn: 'root' })
 export class BitService {
@@ -64,10 +68,20 @@ export class BitService {
    */
   i18n: string;
   /**
+   * 国际化 ID 状态
+   * I18n ID changed
+   */
+  readonly i18nChanged: Subject<string> = new Subject<string>();
+  /**
    * 国际化包含语言 ID
    * I18n includes languages ID
    */
   i18nContain: any[] = [];
+  /**
+   * 国际化详情
+   * I18n Detail
+   */
+  i18nSwitch: I18nOption[];
   /**
    * 国际化输入提示状态
    * I18n tooltip status
@@ -82,6 +96,8 @@ export class BitService {
   constructor(
     bitConfig: BitConfig,
     @Optional() private curd: BitCurdService,
+    @Optional() private router: Router,
+    @Optional() private location: Location,
     @Optional() private nzI18nService: NzI18nService
   ) {
     this.static = bitConfig?.url?.static;
@@ -92,7 +108,66 @@ export class BitService {
     this.i18nDefault = bitConfig?.i18n?.default ?? 'zh_cn';
     this.i18n = bitConfig?.i18n?.default ?? 'zh_cn';
     this.i18nContain = bitConfig?.i18n?.contain ?? ['zh_cn'];
+    this.i18nSwitch = bitConfig?.i18n?.switch ?? [{
+      i18n: 'zh_cn',
+      name: {
+        zh_cn: '中文',
+        en_us: 'Chinese'
+      }
+    }];
     this.pageDefault = bitConfig?.page ?? 10;
+  }
+
+  /**
+   * 路由导航
+   * Route navigation
+   */
+  open(path: any[], extras?: NavigationExtras): void {
+    if (path.length === 0) {
+      return;
+    }
+    const url = this.router.url;
+    if (url !== '/') {
+      const primary = this.router.parseUrl(url).root.children[PRIMARY_OUTLET];
+      const segments = primary.segments;
+      if (segments.length > 1) {
+        const key = segments[0].path;
+        storage.set(['history', key], segments.splice(1)).subscribe(_ => _);
+      }
+    }
+    const commands = [];
+    path.forEach((value) => {
+      if (typeof value === 'string') {
+        commands.push(...value.split('/'));
+      } else {
+        commands.push(value);
+      }
+    });
+    this.router.navigate(commands, extras);
+  }
+
+  /**
+   * 导航历史
+   * Navigation history
+   */
+  history(key: string): void {
+    storage.get(['history', key]).subscribe((segments: UrlSegment[]) => {
+      const commands = [key];
+      if (segments && segments.length !== 0) {
+        commands.push(...segments.map(v => v.path));
+        storage.remove(['history', key]).subscribe(_ => _);
+      }
+      this.router.navigate(commands);
+    });
+  }
+
+  /**
+   * 导航返回
+   * Navigate back
+   */
+  back(): void {
+    this.location.back();
+    this.resetI18n();
   }
 
   /**
@@ -184,5 +259,21 @@ export class BitService {
   listByPage(option: ListByPageOption): ListByPage {
     option.limit = option.limit || this.pageDefault;
     return new ListByPage(this.curd, option);
+  }
+
+  /**
+   * 清除应用本地存储
+   * Clear app local storage
+   */
+  clear(): void {
+    storage.keys().pipe(
+      filter(v =>
+        ['resource', 'router'].includes(v) ||
+        v.search(/^search:\S+$/) !== -1 ||
+        v.search(/^page:\S+$/) !== -1 ||
+        v.search(/^cross:\S+$/) !== -1
+      ),
+      switchMap(key => storage.remove([key]))
+    ).subscribe(_ => _);
   }
 }

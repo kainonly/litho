@@ -1,0 +1,45 @@
+<nz-sider nzCollapsible [(nzCollapsed)]="collapsed" [nzBreakpoint]="'lg'">
+  <div class="scroll-bar">
+    <ul
+      nz-menu
+      [nzTheme]="'dark'"
+      [nzInlineCollapsed]="collapsed"
+      [nzMode]="collapsed ? 'vertical' : 'inline'"
+    >
+      <ng-container *ngTemplateOutlet="navTpl; context: { $implicit: data }"></ng-container>
+      <ng-template #navTpl let-navs>
+        <ng-container *ngFor="let nav of navs">
+          <ng-container *ngIf="nav.router; else notRouter">
+            <li
+              nz-menu-item
+              [nzPaddingLeft]="level(nav)"
+              [bitOpen]="[nav.key]"
+              [nzSelected]="router.navActive.indexOf(nav.key) !== -1"
+            >
+              <i nz-icon [nzType]="nav.icon"></i>
+              <span class="nav-text">{{ nav.name | object: bit.locale }}</span>
+            </li>
+          </ng-container>
+          <ng-template #notRouter>
+            <li
+              nz-submenu
+              [nzOpen]="router.navActive.indexOf(nav.key) !== -1"
+              [nzPaddingLeft]="level(nav)"
+            >
+          <span title>
+            <i nz-icon [nzType]="nav.icon"></i>
+            <span>{{ nav.name | object: bit.locale }}</span>
+          </span>
+              <ul>
+                <ng-container
+                  *ngTemplateOutlet="navTpl; context: { $implicit: nav.children }"
+                ></ng-container>
+              </ul>
+            </li>
+          </ng-template>
+        </ng-container>
+      </ng-template>
+    </ul>
+  </div>
+</nz-sider>
+
