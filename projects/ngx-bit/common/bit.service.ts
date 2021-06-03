@@ -100,22 +100,16 @@ export class BitService {
     @Optional() private location: Location,
     @Optional() private nzI18nService: NzI18nService
   ) {
-    this.static = bitConfig?.url?.static;
-    this.uploads = bitConfig?.url?.api + bitConfig?.api?.upload;
-    this.localeDefault = bitConfig?.locale?.default ?? 'zh_cn';
-    this.localeMapping = bitConfig?.locale?.mapping ?? ['zh_cn'];
-    this.localeBind = bitConfig?.locale?.bind ?? [zh_CN];
-    this.i18nDefault = bitConfig?.i18n?.default ?? 'zh_cn';
-    this.i18n = bitConfig?.i18n?.default ?? 'zh_cn';
-    this.i18nContain = bitConfig?.i18n?.contain ?? ['zh_cn'];
-    this.i18nSwitch = bitConfig?.i18n?.switch ?? [{
-      i18n: 'zh_cn',
-      name: {
-        zh_cn: '中文',
-        en_us: 'Chinese'
-      }
-    }];
-    this.pageDefault = bitConfig?.page ?? 10;
+    this.static = bitConfig.url.static;
+    this.uploads = bitConfig.url.api + bitConfig.api.upload;
+    this.localeDefault = bitConfig.locale.default;
+    this.localeMapping = bitConfig.locale.mapping;
+    this.localeBind = bitConfig.locale.bind;
+    this.i18nDefault = bitConfig.i18n.default;
+    this.i18n = bitConfig.i18n.default;
+    this.i18nContain = bitConfig.i18n.contain;
+    this.i18nSwitch = bitConfig.i18n.switch;
+    this.pageDefault = bitConfig.page;
   }
 
   /**
@@ -250,6 +244,20 @@ export class BitService {
       }
     }
     return controls;
+  }
+
+  /**
+   * Parse i18n string json
+   */
+  i18nParse(text: string): any {
+    const json: any = JSON.parse(text);
+    const data: any = {};
+    for (const ID of this.i18nContain) {
+      if (json.hasOwnProperty(ID)) {
+        data[ID] = json[ID];
+      }
+    }
+    return data;
   }
 
   /**

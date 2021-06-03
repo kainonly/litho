@@ -8,6 +8,10 @@ import { BitRouterService } from './bit-router.service';
 import { BitHeaderComponent } from './bit-header/bit-header.component';
 import { BitSiderComponent } from './bit-sider/bit-sider.component';
 import { BitContentComponent } from './bit-content/bit-content.component';
+import { NzPageHeaderModule } from 'ng-zorro-antd/page-header';
+import { NzBreadCrumbModule } from 'ng-zorro-antd/breadcrumb';
+import { RouterModule } from '@angular/router';
+import { CommonModule } from '@angular/common';
 
 @NgModule({
   imports: [
@@ -15,7 +19,11 @@ import { BitContentComponent } from './bit-content/bit-content.component';
     NzIconModule,
     BitDirectiveModule,
     BitPipeModule,
-    NzLayoutModule
+    NzLayoutModule,
+    NzPageHeaderModule,
+    NzBreadCrumbModule,
+    RouterModule,
+    CommonModule
   ],
   declarations: [
     BitContentComponent,

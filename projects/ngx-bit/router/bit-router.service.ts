@@ -90,7 +90,9 @@ export class BitRouterService {
    * Cancel parallel routing logic
    */
   uninstall(): void {
-    this.events$?.unsubscribe();
+    if (this.events$) {
+      this.events$.unsubscribe();
+    }
   }
 
   private match(router: Router, url: string): void {

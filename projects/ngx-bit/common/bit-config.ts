@@ -3,12 +3,12 @@ import { CurdOption, I18nOption, UploadStorage } from './types';
 
 @Injectable({ providedIn: 'root' })
 export class BitConfig {
-  url?: {
+  url: {
     api: string;
     static: string;
     icon?: string;
   };
-  api?: {
+  api: {
     namespace: string;
     withCredentials: boolean;
     upload: string;
@@ -17,20 +17,20 @@ export class BitConfig {
     uploadFetchSignedMethod?: string;
     uploadSize?: number;
   };
-  curd?: CurdOption;
-  col?: {
+  curd: CurdOption;
+  col: {
     [key: string]: any;
   };
-  locale?: {
+  locale: {
     default: string;
     mapping: string[];
     bind: any[];
   };
-  i18n?: {
+  i18n: {
     default: string;
     contain: string[];
     switch: I18nOption[];
   };
-  page?: number;
-  query?: 'sql-orm' | 'mongo' | 'cloud';
+  page: number;
+  query: 'sql-orm' | 'mongo' | 'cloud';
 }

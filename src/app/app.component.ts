@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { BitConfigService, BitService } from 'ngx-bit';
+import { BitHttpService, BitService } from 'ngx-bit';
 import { map } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
@@ -13,7 +13,7 @@ import { NzNotificationService } from 'ng-zorro-antd/notification';
 export class AppComponent implements OnInit {
   constructor(
     private bit: BitService,
-    private config: BitConfigService,
+    private http: BitHttpService,
     private notification: NzNotificationService,
     private router: Router
   ) {
@@ -22,7 +22,7 @@ export class AppComponent implements OnInit {
   ngOnInit(): void {
     this.bit.setupLocale();
     this.bit.registerLocales(import('./app.language'));
-    this.config.setupHttpInterceptor(
+    this.http.setupInterceptor(
       map(res => {
         if (res.error) {
           switch (res.msg) {

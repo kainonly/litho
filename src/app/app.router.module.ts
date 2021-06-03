@@ -3,7 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { AppExtModule } from '@ext';
 import { LayoutComponent, LayoutModule } from '@vanx/framework/layout';
 import { MainModule, IRoutes } from './skeleton/main.module';
-import { CmsModule, CmsRoutes } from './skeleton/cms.module';
+// import { CmsModule, CmsRoutes } from './skeleton/cms.module';
 
 const routes: Routes = [
   {
@@ -19,11 +19,11 @@ const routes: Routes = [
         loadChildren: () => import('./pages/empty/empty.module').then(m => m.EmptyModule)
       },
       ...IRoutes,
-      ...CmsRoutes,
-      {
-        path: 'cms-example',
-        loadChildren: () => import('./pages/cms-example/cms-example.module').then(m => m.CmsExampleModule)
-      }
+      // ...CmsRoutes,
+      // {
+      //   path: 'cms-example',
+      //   loadChildren: () => import('./pages/cms-example/cms-example.module').then(m => m.CmsExampleModule)
+      // }
     ]
   }
 ];
@@ -33,7 +33,7 @@ const routes: Routes = [
     AppExtModule,
     LayoutModule,
     MainModule,
-    CmsModule,
+    // CmsModule,
     RouterModule.forChild(routes)
   ]
 })

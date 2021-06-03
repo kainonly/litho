@@ -20,14 +20,15 @@ export class BitCurdService {
     bitConfig: BitConfig,
     protected http: BitHttpService
   ) {
-    this.mode = bitConfig?.query ?? 'sql-orm';
-    this.curd.get = bitConfig?.curd?.get ?? '/get';
-    this.curd.originLists = bitConfig?.curd?.originLists ?? '/originLists';
-    this.curd.lists = bitConfig?.curd?.lists ?? '/lists';
-    this.curd.add = bitConfig?.curd?.add ?? '/add';
-    this.curd.edit = bitConfig?.curd.edit ?? '/edit';
-    this.curd.status = bitConfig?.curd.status ?? '/status';
-    this.curd.delete = bitConfig?.curd.delete ?? '/delete';
+    this.mode = bitConfig.query;
+    this.curd = bitConfig.curd;
+    // this.curd.get = bitConfig.curd.get || '/get';
+    // this.curd.originLists = bitConfig.curd.originLists ?? '/originLists';
+    // this.curd.lists = bitConfig.curd.lists ?? '/lists';
+    // this.curd.add = bitConfig?.curd?.add ?? '/add';
+    // this.curd.edit = bitConfig?.curd.edit ?? '/edit';
+    // this.curd.status = bitConfig?.curd.status ?? '/status';
+    // this.curd.delete = bitConfig?.curd.delete ?? '/delete';
   }
 
   /**

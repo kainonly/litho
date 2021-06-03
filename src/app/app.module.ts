@@ -18,7 +18,9 @@ import { AppComponent } from './app.component';
 import { FrameworkModule, TokenService } from '@vanx/framework';
 import { LoginComponent, LoginModule } from '@vanx/framework/login';
 import { NgxTinymceModule } from 'ngx-tinymce';
-import { TinymceConfig } from '@vanx/cms/component';
+// import { TinymceConfig } from '@vanx/cms/component';
+import { BitSwalModule } from 'ngx-bit/swal';
+import { BitStorageModule } from 'ngx-bit/storage';
 
 const routes: Routes = [
   {
@@ -33,7 +35,7 @@ const routes: Routes = [
 ];
 
 const ngZorroConfig: NzConfig = {
-  notification: { nzPlacement: 'bottomRight' },
+  notification: { nzPlacement: 'bottomRight' }
 };
 
 @NgModule({
@@ -46,10 +48,12 @@ const ngZorroConfig: NzConfig = {
     FrameworkModule,
     LoginModule,
     BitModule.forRoot(environment.bit),
-    NgxTinymceModule.forRoot({
-      baseURL: environment.bit.url.static + 'assets/tinymce/',
-      config: TinymceConfig
-    }),
+    BitSwalModule.forRoot(),
+    BitStorageModule.forRoot(),
+    // NgxTinymceModule.forRoot({
+    //   baseURL: environment.bit.url.static + 'assets/tinymce/',
+    //   config: TinymceConfig
+    // }),
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
     RouterModule.forRoot(routes, { useHash: true })
   ],
