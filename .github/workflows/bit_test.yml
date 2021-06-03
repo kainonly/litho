@@ -1,4 +1,4 @@
-name: test
+name: bit_test
 
 on: [ push, pull_request ]
 
@@ -7,9 +7,8 @@ jobs:
 
     runs-on: ubuntu-latest
 
-    steps:
-      - uses: actions/checkout@v2
-      - run: "curl -H 'Cache-Control: no-cache' https://raw.githubusercontent.com/fossas/fossa-cli/master/install.sh | sudo bash"
+#    steps:
+#      - uses: actions/checkout@v2
 #      - name: Use Node.js
 #        uses: actions/setup-node@v1
 #        with:
