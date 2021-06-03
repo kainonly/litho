@@ -7,10 +7,10 @@ export const storage = {
    * 从仓库中获取 key 对应的值并将结果提供给回调函数
    * Gets an item from the storage library and supplies the result to a callback.
    */
-  get(key: string): Observable<any> {
+  get(key: string[]): Observable<any> {
     return new Observable(observer => {
       localforage.ready()
-        .then(() => localforage.getItem(key))
+        .then(() => localforage.getItem(key.join(':')))
         .then(value => {
           observer.next(value);
           observer.complete();
@@ -24,10 +24,10 @@ export const storage = {
    * 将数据保存到离线仓库
    * Saves data to an offline store.
    */
-  set(key: string, value: any): Observable<any> {
+  set(key: string[], value: any): Observable<any> {
     return new Observable(observer => {
       localforage.ready()
-        .then(() => localforage.setItem(key, value))
+        .then(() => localforage.setItem(key.join(':'), value))
         .then(_ => {
           observer.next(true);
           observer.complete();
@@ -41,10 +41,10 @@ export const storage = {
    * 从离线仓库中删除 key 对应的值
    * Removes the value of a key from the offline store.
    */
-  remove(key: string): Observable<any> {
+  remove(key: string[]): Observable<any> {
     return new Observable(observer => {
       localforage.ready()
-        .then(() => localforage.removeItem(key))
+        .then(() => localforage.removeItem(key.join(':')))
         .then(_ => {
           observer.next(true);
           observer.complete();

@@ -3,13 +3,13 @@ import { FormGroup } from '@angular/forms';
 import { Location } from '@angular/common';
 import { Observable, of } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
-import Swal from 'sweetalert2';
-import { BitService } from './bit.service';
-import { AlertOption } from './typings';
+import { BitService } from 'ngx-bit';
+import { AlertOption } from './types';
+
+declare let Swal: any;
 
 @Injectable()
 export class BitSwalService {
-  static native: typeof Swal = Swal;
 
   constructor(
     private bit: BitService,
