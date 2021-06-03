@@ -1,6 +1,6 @@
 # NGX-BIT
 
-易用的 Angular 辅助层框架
+一个灵活的 NG-ZORRO 助手库
 
 [![Github Actions](https://img.shields.io/github/workflow/status/kainonly/ngx-bit/test?style=flat-square)](https://github.com/kainonly/ngx-bit/actions)
 [![Coveralls github](https://img.shields.io/coveralls/github/kainonly/ngx-bit.svg?style=flat-square)](https://coveralls.io/github/kainonly/ngx-bit)
@@ -37,6 +37,6 @@
 
 ## License
 
-[BSD-3-Clause License](https://github.com/kainonly/ngx-bit/blob/master/LICENSE)
+[BSD-3-Clause License](https://github.com/kainonly/ngx-bit/blob/main/LICENSE)
 
 [![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fkainonly%2Fngx-bit.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2Fkainonly%2Fngx-bit?ref=badge_large)
