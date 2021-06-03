@@ -10,14 +10,14 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - run: "curl -H 'Cache-Control: no-cache' https://raw.githubusercontent.com/fossas/fossa-cli/master/install.sh | sudo bash"
-      - name: Use Node.js
-        uses: actions/setup-node@v1
-        with:
-          node-version: '12.x'
-      - run: npm install
-      - run: npm test
-      - name: Coveralls GitHub Action
-        uses: coverallsapp/github-action@master
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          path-to-lcov: ./coverage/report-lcov/lcov.info
+#      - name: Use Node.js
+#        uses: actions/setup-node@v1
+#        with:
+#          node-version: '12.x'
+#      - run: npm install
+#      - run: npm test
+#      - name: Coveralls GitHub Action
+#        uses: coverallsapp/github-action@master
+#        with:
+#          github-token: ${{ secrets.GITHUB_TOKEN }}
+#          path-to-lcov: ./coverage/report-lcov/lcov.info
