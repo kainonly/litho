@@ -20,7 +20,7 @@ export class BitRouterService {
   /**
    * Title
    */
-  title: string = null;
+  title: any = null;
   /**
    * SubTitle
    */
