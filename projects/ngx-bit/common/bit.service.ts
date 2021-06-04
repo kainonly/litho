@@ -1,14 +1,13 @@
 import { Injectable, Optional } from '@angular/core';
 import { NavigationExtras, PRIMARY_OUTLET, Router, UrlSegment } from '@angular/router';
 import { NzI18nService } from 'ng-zorro-antd/i18n';
-import { storage } from 'ngx-bit/storage';
 import { Location } from '@angular/common';
-import { filter, switchMap } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { BitConfig } from './bit-config';
 import { ListByPageOption, I18nGroupOption, I18nTooltipOption, I18nOption } from './types';
 import { ListByPage } from './utils/list-by-page';
 import { BitCurdService } from './bit-curd.service';
+import { StorageMap } from '@ngx-pwa/local-storage';
 
 @Injectable({ providedIn: 'root' })
 export class BitService {
@@ -94,8 +93,9 @@ export class BitService {
   readonly pageDefault: number;
 
   constructor(
-    bitConfig: BitConfig,
+    private bitConfig: BitConfig,
     @Optional() private curd: BitCurdService,
+    @Optional() private storage: StorageMap,
     @Optional() private router: Router,
     @Optional() private location: Location,
     @Optional() private nzI18nService: NzI18nService
@@ -126,7 +126,7 @@ export class BitService {
       const segments = primary.segments;
       if (segments.length > 1) {
         const key = segments[0].path;
-        storage.set(['history', key], segments.splice(1)).subscribe(_ => _);
+        this.storage.set('history:' + key, segments.splice(1)).subscribe(_ => _);
       }
     }
     const commands = [];
@@ -145,11 +145,11 @@ export class BitService {
    * Navigation history
    */
   history(key: string): void {
-    storage.get(['history', key]).subscribe((segments: UrlSegment[]) => {
+    this.storage.get('history' + key).subscribe((segments: UrlSegment[]) => {
       const commands = [key];
       if (segments && segments.length !== 0) {
         commands.push(...segments.map(v => v.path));
-        storage.remove(['history', key]).subscribe(_ => _);
+        this.storage.delete('history:' + key).subscribe(_ => _);
       }
       this.router.navigate(commands);
     });
@@ -263,7 +263,7 @@ export class BitService {
    */
   listByPage(option: ListByPageOption): ListByPage {
     option.limit = option.limit || this.pageDefault;
-    return new ListByPage(this.curd, option);
+    return new ListByPage(this.curd, this.storage, option);
   }
 
   /**
@@ -271,6 +271,6 @@ export class BitService {
    * Clear app local storage
    */
   clear(): void {
-    storage.clear().subscribe(_ => _);
+    this.storage.clear().subscribe(_ => _);
   }
 }

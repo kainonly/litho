@@ -20,7 +20,6 @@ import { LoginComponent, LoginModule } from '@vanx/framework/login';
 import { NgxTinymceModule } from 'ngx-tinymce';
 // import { TinymceConfig } from '@vanx/cms/component';
 import { BitSwalModule } from 'ngx-bit/swal';
-import { BitStorageModule } from 'ngx-bit/storage';
 
 const routes: Routes = [
   {
@@ -49,7 +48,6 @@ const ngZorroConfig: NzConfig = {
     LoginModule,
     BitModule.forRoot(environment.bit),
     BitSwalModule.forRoot(),
-    BitStorageModule.forRoot(),
     // NgxTinymceModule.forRoot({
     //   baseURL: environment.bit.url.static + 'assets/tinymce/',
     //   config: TinymceConfig

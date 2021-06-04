@@ -2,8 +2,8 @@ import { Injectable, TemplateRef } from '@angular/core';
 import { NavigationEnd, PRIMARY_OUTLET, Router } from '@angular/router';
 import { Subject, Subscription } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
-import { storage } from 'ngx-bit/storage';
 import { BreadcrumbOption, RouterData } from './types';
+import { StorageMap } from '@ngx-pwa/local-storage';
 
 @Injectable({ providedIn: 'root' })
 export class BitRouterService {
@@ -62,7 +62,8 @@ export class BitRouterService {
   private events$: Subscription;
 
   constructor(
-    private router: Router
+    private router: Router,
+    private storage: StorageMap
   ) {
   }
 
@@ -93,8 +94,8 @@ export class BitRouterService {
    * Set parallel routing data, synchronize navigation and page header
    */
   setData(data: RouterData): void {
-    storage.set(['resource'], data.resource).subscribe(_ => _);
-    storage.set(['router'], data.router).subscribe(_ => _);
+    this.storage.set('resource', data.resource).subscribe(_ => _);
+    this.storage.set('router', data.router).subscribe(_ => _);
   }
 
   /**
@@ -110,7 +111,7 @@ export class BitRouterService {
   private match(router: Router, url: string): void {
     const primary = router.parseUrl(url).root.children[PRIMARY_OUTLET];
     const segments = primary.segments;
-    storage.get(['router']).pipe(
+    this.storage.get('router').pipe(
       map((data: object) => {
         for (let i = 0; i < segments.length; i++) {
           const key = segments.slice(0, i + 1).map(v => v.path).join('/');
@@ -131,7 +132,7 @@ export class BitRouterService {
   }
 
   private dynamicBreadcrumb(key: string): void {
-    storage.get(['resource']).subscribe((data: object) => {
+    this.storage.get('resource').subscribe((data: object) => {
       const queue = [];
       const breadcrumb: BreadcrumbOption[] = [];
       const navActive = [];

@@ -3,7 +3,8 @@
   "version": "11.4.0",
   "schematics": "./schematics/collection.json",
   "dependencies": {
-    "tslib": "^2.0.0"
+    "tslib": "^2.0.0",
+    "@ngx-pwa/local-storage": "^11.1.0"
   },
   "peerDependencies": {
     "@angular/common": "^11.0.0",

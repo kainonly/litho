@@ -6,7 +6,6 @@
     "entryFile": "public-api.ts"
   },
   "whitelistedNonPeerDependencies": [
-    "ng-zorro-antd",
-    "merge"
+    "@ngx-pwa/local-storage"
   ]
 }

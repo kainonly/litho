@@ -30,6 +30,7 @@
     "@angular/platform-browser-dynamic": "~11.2.7",
     "@angular/router": "~11.2.7",
     "@angular/service-worker": "~11.2.7",
+    "@ngx-pwa/local-storage": "^11.1.0",
     "ng-particles": "^2.7.2",
     "ng-zorro-antd": "^11.4.0",
     "ngx-tinymce": "^11.0.0",
