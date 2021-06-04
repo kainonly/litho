@@ -17,6 +17,9 @@ export class BitSiderComponent {
   ) {
   }
 
+  /**
+   * 返回层级
+   */
   level(data: any): number {
     let deep = 0;
     while (data.hasOwnProperty('parentNode')) {

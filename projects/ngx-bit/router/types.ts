@@ -4,7 +4,7 @@ export interface BreadcrumbOption {
   router: number;
 }
 
-export interface Data {
+export interface RouterData {
   resource: object;
   router: object;
 }

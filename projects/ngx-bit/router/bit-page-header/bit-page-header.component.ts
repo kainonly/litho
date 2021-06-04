@@ -3,15 +3,13 @@ import { BitService } from 'ngx-bit';
 import { BitRouterService } from '../bit-router.service';
 
 @Component({
-  selector: 'bit-content',
-  templateUrl: './bit-content.component.html',
-  styleUrls: ['./bit-content.component.scss']
+  selector: 'bit-page-header',
+  templateUrl: './bit-page-header.component.html'
 })
-export class BitContentComponent {
+export class BitPageHeaderComponent {
   constructor(
     public bit: BitService,
     public router: BitRouterService
   ) {
   }
-
 }

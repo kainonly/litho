@@ -1,11 +1,5 @@
 <ng-container *ngTemplateOutlet="router.banner"></ng-container>
-<nz-page-header
-  [nzGhost]="false"
-  [nzTitle]="router.title | object: bit.locale"
-  [nzSubtitle]="!router.subTitle ? null : router.subTitle"
-  [nzBackIcon]="!router.back ? null : ''"
-  (nzBack)="bit.back()"
->
+<nz-page-header [nzGhost]="false" [nzBackIcon]="!router.back ? null : ''" (nzBack)="bit.back()">
   <nz-breadcrumb [nzSeparator]="breadcrumbIcon" nz-page-header-breadcrumb>
     <ng-template #breadcrumbIcon>
       <i nz-icon nzType="right"></i>
@@ -25,10 +19,24 @@
       </ng-template>
     </nz-breadcrumb-item>
   </nz-breadcrumb>
+  <nz-page-header-title>{{ router.title | object: bit.locale }}</nz-page-header-title>
+  <nz-page-header-subtitle>{{ router.subTitle }}</nz-page-header-subtitle>
+  <nz-page-header-tags>
+    <ng-container *ngTemplateOutlet="router.tags"></ng-container>
+  </nz-page-header-tags>
   <nz-page-header-extra>
-    <ng-container *ngTemplateOutlet="router.actions"></ng-container>
+    <nz-space>
+      <ng-container *ngFor="let action of router.actions">
+        <ng-container *nzSpaceItem>
+          <ng-container *ngTemplateOutlet="action"></ng-container>
+        </ng-container>
+      </ng-container>
+    </nz-space>
   </nz-page-header-extra>
+  <nz-page-header-content>
+    <ng-container *ngTemplateOutlet="router.content"></ng-container>
+  </nz-page-header-content>
+  <nz-page-header-footer>
+    <ng-container *ngTemplateOutlet="router.footer"></ng-container>
+  </nz-page-header-footer>
 </nz-page-header>
-<nz-page-header-content #warpper class="page-header-content">
-  <router-outlet></router-outlet>
-</nz-page-header-content>

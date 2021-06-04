@@ -1,9 +1,7 @@
-import { SweetAlertIcon } from 'sweetalert2';
-
 export interface AlertOption {
   title: string;
   content: string;
-  type: SweetAlertIcon;
+  type: 'success' | 'error' | 'warning' | 'info' | 'question';
   width?: number;
   okText?: string;
   okDanger?: boolean;

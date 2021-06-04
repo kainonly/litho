@@ -6,15 +6,15 @@
       [nzInlineCollapsed]="collapsed"
       [nzMode]="collapsed ? 'vertical' : 'inline'"
     >
-      <ng-container *ngTemplateOutlet="navTpl; context: { $implicit: data }"></ng-container>
-      <ng-template #navTpl let-navs>
+      <ng-container *ngTemplateOutlet="navTemplate; context: { $implicit: data }"></ng-container>
+      <ng-template #navTemplate let-navs>
         <ng-container *ngFor="let nav of navs">
           <ng-container *ngIf="nav.router; else notRouter">
             <li
               nz-menu-item
               [nzPaddingLeft]="level(nav)"
               [bitOpen]="[nav.key]"
-              [nzSelected]="router.navActive.indexOf(nav.key) !== -1"
+              [nzSelected]="router.navActive.includes(nav.key)"
             >
               <i nz-icon [nzType]="nav.icon"></i>
               <span class="nav-text">{{ nav.name | object: bit.locale }}</span>
@@ -23,16 +23,16 @@
           <ng-template #notRouter>
             <li
               nz-submenu
-              [nzOpen]="router.navActive.indexOf(nav.key) !== -1"
+              [nzOpen]="router.navActive.includes(nav.key)"
               [nzPaddingLeft]="level(nav)"
             >
-          <span title>
-            <i nz-icon [nzType]="nav.icon"></i>
-            <span>{{ nav.name | object: bit.locale }}</span>
-          </span>
+              <span title>
+                <i nz-icon [nzType]="nav.icon"></i>
+                <span>{{ nav.name | object: bit.locale }}</span>
+              </span>
               <ul>
                 <ng-container
-                  *ngTemplateOutlet="navTpl; context: { $implicit: nav.children }"
+                  *ngTemplateOutlet="navTemplate; context: { $implicit: nav.children }"
                 ></ng-container>
               </ul>
             </li>
@@ -42,4 +42,3 @@
     </ul>
   </div>
 </nz-sider>
-

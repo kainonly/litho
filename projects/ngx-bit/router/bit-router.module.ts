@@ -1,17 +1,22 @@
 import { NgModule } from '@angular/core';
+import { RouterModule } from '@angular/router';
+import { CommonModule } from '@angular/common';
 import { NzMenuModule } from 'ng-zorro-antd/menu';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { BitPipeModule } from 'ngx-bit/pipe';
 import { BitDirectiveModule } from 'ngx-bit/directive';
 import { NzLayoutModule } from 'ng-zorro-antd/layout';
-import { BitRouterService } from './bit-router.service';
-import { BitHeaderComponent } from './bit-header/bit-header.component';
-import { BitSiderComponent } from './bit-sider/bit-sider.component';
-import { BitContentComponent } from './bit-content/bit-content.component';
 import { NzPageHeaderModule } from 'ng-zorro-antd/page-header';
 import { NzBreadCrumbModule } from 'ng-zorro-antd/breadcrumb';
-import { RouterModule } from '@angular/router';
-import { CommonModule } from '@angular/common';
+import { BitRouterService } from './bit-router.service';
+import { BitSiderComponent } from './bit-sider/bit-sider.component';
+import { BitHeaderComponent } from './bit-header/bit-header.component';
+import { BitPageHeaderComponent } from './bit-page-header/bit-page-header.component';
+import { BitHeaderActionDirective } from './bit-header/bit-header-action.directive';
+import { BitHeaderBannerDirective } from './bit-header/bit-header-banner.directive';
+import { BitHeaderTagsDirective } from './bit-header/bit-header-tags.directive';
+import { BitHeaderFooterDirective } from './bit-header/bit-header-footer.directive';
+import { NzSpaceModule } from 'ng-zorro-antd/space';
 
 @NgModule({
   imports: [
@@ -23,17 +28,26 @@ import { CommonModule } from '@angular/common';
     NzPageHeaderModule,
     NzBreadCrumbModule,
     RouterModule,
-    CommonModule
+    CommonModule,
+    NzSpaceModule
   ],
   declarations: [
-    BitContentComponent,
+    BitSiderComponent,
+    BitPageHeaderComponent,
     BitHeaderComponent,
-    BitSiderComponent
+    BitHeaderActionDirective,
+    BitHeaderBannerDirective,
+    BitHeaderTagsDirective,
+    BitHeaderFooterDirective
   ],
   exports: [
-    BitContentComponent,
+    BitSiderComponent,
+    BitPageHeaderComponent,
     BitHeaderComponent,
-    BitSiderComponent
+    BitHeaderActionDirective,
+    BitHeaderBannerDirective,
+    BitHeaderTagsDirective,
+    BitHeaderFooterDirective
   ],
   providers: [BitRouterService]
 })

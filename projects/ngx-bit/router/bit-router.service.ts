@@ -1,9 +1,9 @@
 import { Injectable, TemplateRef } from '@angular/core';
-import { Event, NavigationEnd, PRIMARY_OUTLET, Router } from '@angular/router';
+import { NavigationEnd, PRIMARY_OUTLET, Router } from '@angular/router';
 import { Subject, Subscription } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
 import { storage } from 'ngx-bit/storage';
-import { BreadcrumbOption, Data } from './types';
+import { BreadcrumbOption, RouterData } from './types';
 
 @Injectable({ providedIn: 'root' })
 export class BitRouterService {
@@ -20,27 +20,39 @@ export class BitRouterService {
   /**
    * Title
    */
-  title: any = '';
+  title: string = null;
   /**
    * SubTitle
    */
-  subTitle: any;
+  subTitle: string = null;
+  /**
+   * default breadcrumb Root
+   */
+  breadcrumbRoot: any = 0;
   /**
    * Breadcrumb array
    */
-  breadcrumb: BreadcrumbOption[] = [];
-  /**
-   * default breadcrumb top level
-   */
-  breadcrumbTop: any = 0;
+  breadcrumb: BreadcrumbOption[];
   /**
    * Header banner
    */
   banner: TemplateRef<any>;
   /**
+   * Header banner
+   */
+  tags: TemplateRef<any>;
+  /**
    * Header actions
    */
-  actions: TemplateRef<any>;
+  actions: TemplateRef<any>[] = [];
+  /**
+   * Header banner
+   */
+  content: TemplateRef<any>;
+  /**
+   * Header banner
+   */
+  footer: TemplateRef<any>;
 
   changed: Subject<any> = new Subject();
 
@@ -80,7 +92,7 @@ export class BitRouterService {
    * 设置平行路由数据，同步导航与页头
    * Set parallel routing data, synchronize navigation and page header
    */
-  setData(data: Data): void {
+  setData(data: RouterData): void {
     storage.set(['resource'], data.resource).subscribe(_ => _);
     storage.set(['router'], data.router).subscribe(_ => _);
   }
@@ -118,10 +130,6 @@ export class BitRouterService {
     });
   }
 
-  setBreadcrumb(...breadcrumb: BreadcrumbOption[]): void {
-    this.breadcrumb = breadcrumb;
-  }
-
   private dynamicBreadcrumb(key: string): void {
     storage.get(['resource']).subscribe((data: object) => {
       const queue = [];
@@ -137,11 +145,11 @@ export class BitRouterService {
           key: node.key,
           router: node.router
         });
-        if (node.parent !== this.breadcrumbTop) {
+        if (node.parent !== this.breadcrumbRoot) {
           queue.push(node.parent);
         }
       }
-      while (queue.length !== this.breadcrumbTop) {
+      while (queue.length !== this.breadcrumbRoot) {
         const parentKey = queue.pop();
         if (data.hasOwnProperty(parentKey)) {
           const next = data[parentKey];
@@ -151,7 +159,7 @@ export class BitRouterService {
             key: next.key,
             router: next.router
           });
-          if (next.parent !== this.breadcrumbTop) {
+          if (next.parent !== this.breadcrumbRoot) {
             queue.push(next.parent);
           }
         }

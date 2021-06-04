@@ -1,14 +1,14 @@
 import { Injectable, Optional } from '@angular/core';
-import { NzI18nService, zh_CN } from 'ng-zorro-antd/i18n';
+import { NavigationExtras, PRIMARY_OUTLET, Router, UrlSegment } from '@angular/router';
+import { NzI18nService } from 'ng-zorro-antd/i18n';
+import { storage } from 'ngx-bit/storage';
+import { Location } from '@angular/common';
+import { filter, switchMap } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { BitConfig } from './bit-config';
 import { ListByPageOption, I18nGroupOption, I18nTooltipOption, I18nOption } from './types';
 import { ListByPage } from './utils/list-by-page';
 import { BitCurdService } from './bit-curd.service';
-import { NavigationExtras, PRIMARY_OUTLET, Router, UrlSegment } from '@angular/router';
-import { storage } from 'ngx-bit/storage';
-import { Location } from '@angular/common';
-import { filter, switchMap } from 'rxjs/operators';
 
 @Injectable({ providedIn: 'root' })
 export class BitService {
@@ -130,7 +130,7 @@ export class BitService {
       }
     }
     const commands = [];
-    path.forEach((value) => {
+    path.forEach(value => {
       if (typeof value === 'string') {
         commands.push(...value.split('/'));
       } else {
@@ -181,10 +181,7 @@ export class BitService {
       if (!result.default) {
         return;
       }
-      this.language = new Map([
-        ...this.language,
-        ...Object.entries(result.default)
-      ]);
+      this.language = new Map([...this.language, ...Object.entries(result.default)]);
       const index = this.localeDefault.indexOf(this.locale);
       for (const [key, data] of this.language.entries()) {
         this.l[key] = data[index];
@@ -274,14 +271,6 @@ export class BitService {
    * Clear app local storage
    */
   clear(): void {
-    storage.keys().pipe(
-      filter(v =>
-        ['resource', 'router'].includes(v) ||
-        v.search(/^search:\S+$/) !== -1 ||
-        v.search(/^page:\S+$/) !== -1 ||
-        v.search(/^cross:\S+$/) !== -1
-      ),
-      switchMap(key => storage.remove([key]))
-    ).subscribe(_ => _);
+    storage.clear().subscribe(_ => _);
   }
 }
