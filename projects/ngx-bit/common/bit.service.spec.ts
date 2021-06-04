@@ -8,6 +8,7 @@ import { ListByPage } from 'ngx-bit';
 import { AsyncSubject, of } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import { environment } from '../simulation/environment';
+import { HttpClientModule } from '@angular/common/http';
 
 describe('BitService', () => {
   let config: BitConfig;
@@ -23,6 +24,7 @@ describe('BitService', () => {
         imports: [
           FormsModule,
           ReactiveFormsModule,
+          HttpClientModule,
           RouterModule.forRoot([
             {
               path: '',

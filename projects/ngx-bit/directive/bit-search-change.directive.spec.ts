@@ -8,6 +8,7 @@ import { RouterModule } from '@angular/router';
 import { By } from '@angular/platform-browser';
 import { StorageMap } from '@ngx-pwa/local-storage';
 import { environment } from '../simulation/environment';
+import { HttpClientModule } from '@angular/common/http';
 
 describe('BitSearchChangeDirective', () => {
   let bit: BitService;
@@ -22,6 +23,7 @@ describe('BitSearchChangeDirective', () => {
         TestComponent
       ],
       imports: [
+        HttpClientModule,
         FormsModule,
         BitDirectiveModule,
         BitModule.forRoot(environment.bit),

@@ -53,7 +53,7 @@ describe('BitHttpService', () => {
     httpTestingController.verify();
   });
 
-  it('Test set up request interceptor', (done) => {
+  it('Test set up request interceptor', () => {
     http.setupInterceptor(
       map(res => {
         if (res.error) {

@@ -5,6 +5,7 @@ import { environment } from '../simulation/environment';
 import { BitConfig, BitModule, BitService } from 'ngx-bit';
 import { of } from 'rxjs';
 import { BitSwalModule, BitSwalService } from 'ngx-bit/swal';
+import { HttpClientModule } from '@angular/common/http';
 
 describe('BitSwalService', () => {
   let config: BitConfig;
@@ -18,6 +19,7 @@ describe('BitSwalService', () => {
         imports: [
           FormsModule,
           ReactiveFormsModule,
+          HttpClientModule,
           RouterModule.forRoot([]),
           BitModule.forRoot(environment.bit),
           BitSwalModule.forRoot()

@@ -7,6 +7,7 @@ import { RouterModule } from '@angular/router';
 import { BitModule, BitService } from 'ngx-bit';
 import { BitDirectiveModule, BitI18nUpdateDirective } from 'ngx-bit/directive';
 import { environment } from '../simulation/environment';
+import { HttpClientModule } from '@angular/common/http';
 
 describe('BitI18nUpdateDirective', () => {
   let bit: BitService;
@@ -21,6 +22,7 @@ describe('BitI18nUpdateDirective', () => {
           TestComponent
         ],
         imports: [
+          HttpClientModule,
           FormsModule,
           ReactiveFormsModule,
           BitDirectiveModule,

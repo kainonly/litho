@@ -1,7 +1,9 @@
 import { TestBed } from '@angular/core/testing';
 import { StorageMap } from '@ngx-pwa/local-storage';
-import { BitCurdService, ListByPage } from 'ngx-bit';
+import { BitCurdService, BitModule, ListByPage } from 'ngx-bit';
 import { switchMap } from 'rxjs/operators';
+import { HttpClientModule } from '@angular/common/http';
+import { environment } from '../../simulation/environment';
 
 describe('ListByPage', () => {
   let lists: ListByPage;
@@ -10,6 +12,12 @@ describe('ListByPage', () => {
 
   beforeEach((done) => {
     if (!lists) {
+      TestBed.configureTestingModule({
+        imports: [
+          HttpClientModule,
+          BitModule.forRoot(environment.bit)
+        ]
+      });
       curd = TestBed.inject(BitCurdService);
       storage = TestBed.inject(StorageMap);
       storage.clear().subscribe(() => {
@@ -65,8 +73,7 @@ describe('ListByPage', () => {
   });
 
   it('Test setData', (done) => {
-    // @ts-ignore
-    import('../simulation/acl.json').then((res: any) => {
+    import('../../simulation/acl').then((res: any) => {
       lists.setData(res.data.lists);
       expect(lists.data).toEqual(res.data.lists);
       done();

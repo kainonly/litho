@@ -9,6 +9,7 @@ import { BitDirectiveModule, BitSearchStartDirective } from 'ngx-bit/directive';
 import { interval } from 'rxjs';
 import { take } from 'rxjs/operators';
 import { environment } from '../simulation/environment';
+import { HttpClientModule } from '@angular/common/http';
 
 describe('BitSearchStartDirective', () => {
   let bit: BitService;
@@ -23,6 +24,7 @@ describe('BitSearchStartDirective', () => {
         TestComponent
       ],
       imports: [
+        HttpClientModule,
         FormsModule,
         BitDirectiveModule,
         BitModule.forRoot(environment.bit),

@@ -5,6 +5,7 @@ import { RouterModule } from '@angular/router';
 import { BitConfig, BitModule, BitService } from 'ngx-bit';
 import { BitComponentModule, BitI18nTooltipComponent } from 'ngx-bit/component';
 import { environment } from '../../simulation/environment';
+import { HttpClientModule } from '@angular/common/http';
 
 describe('BitI18nTooltipComponent', () => {
   let config: BitConfig;
@@ -19,6 +20,7 @@ describe('BitI18nTooltipComponent', () => {
           TestComponent
         ],
         imports: [
+          HttpClientModule,
           BitComponentModule,
           RouterModule.forRoot([]),
           BitModule.forRoot(environment.bit)

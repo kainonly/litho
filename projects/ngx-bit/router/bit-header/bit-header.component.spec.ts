@@ -4,6 +4,8 @@ import { BitModule } from 'ngx-bit';
 import { BitComponentModule } from 'ngx-bit/component';
 import { environment } from '../../simulation/environment';
 import { BitHeaderActionDirective, BitHeaderComponent, BitRouterModule, BitRouterService } from 'ngx-bit/router';
+import { HttpClientModule } from '@angular/common/http';
+import { RouterModule } from '@angular/router';
 
 describe('BitHeaderComponent', () => {
   let router: BitRouterService;
@@ -15,9 +17,11 @@ describe('BitHeaderComponent', () => {
     if (!component) {
       TestBed.configureTestingModule({
         imports: [
+          HttpClientModule,
           BitComponentModule,
           BitRouterModule,
-          BitModule.forRoot(environment.bit)
+          BitModule.forRoot(environment.bit),
+          RouterModule
         ]
       });
       router = TestBed.inject(BitRouterService);

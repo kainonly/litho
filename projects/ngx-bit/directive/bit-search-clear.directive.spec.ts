@@ -8,6 +8,7 @@ import { StorageMap } from '@ngx-pwa/local-storage';
 import { BitModule, BitService, ListByPage } from 'ngx-bit';
 import { BitDirectiveModule, BitSearchChangeDirective, BitSearchClearDirective } from 'ngx-bit/directive';
 import { environment } from '../simulation/environment';
+import { HttpClientModule } from '@angular/common/http';
 
 describe('BitSearchClearDirective', () => {
   let bit: BitService;
@@ -22,6 +23,7 @@ describe('BitSearchClearDirective', () => {
         TestComponent
       ],
       imports: [
+        HttpClientModule,
         FormsModule,
         BitDirectiveModule,
         BitModule.forRoot(environment.bit),

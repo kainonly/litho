@@ -5,6 +5,7 @@ import { BitModule, BitService } from 'ngx-bit';
 import { BitI18nSwitchComponent, BitComponentModule } from 'ngx-bit/component';
 import { By } from '@angular/platform-browser';
 import { environment } from '../../simulation/environment';
+import { HttpClientModule } from '@angular/common/http';
 
 describe('BitI18nSwitchComponent', () => {
   let bit: BitService;
@@ -16,6 +17,7 @@ describe('BitI18nSwitchComponent', () => {
     if (!component) {
       TestBed.configureTestingModule({
         imports: [
+          HttpClientModule,
           BitComponentModule,
           RouterModule.forRoot([]),
           BitModule.forRoot(environment.bit)

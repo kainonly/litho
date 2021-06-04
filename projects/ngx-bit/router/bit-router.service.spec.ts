@@ -3,10 +3,10 @@ import { TestBed } from '@angular/core/testing';
 import { Router, RouterModule } from '@angular/router';
 import { StorageMap } from '@ngx-pwa/local-storage';
 import { BitModule } from 'ngx-bit';
-import { switchMap } from 'rxjs/operators';
 import { Location } from '@angular/common';
 import { environment } from '../simulation/environment';
 import { BitRouterService } from 'ngx-bit/router';
+import { HttpClientModule } from '@angular/common/http';
 
 describe('BitRouterService', () => {
   let bitRouter: BitRouterService;
@@ -19,6 +19,7 @@ describe('BitRouterService', () => {
     if (!bitRouter) {
       TestBed.configureTestingModule({
         imports: [
+          HttpClientModule,
           RouterModule.forRoot([
             {
               path: '',
@@ -49,8 +50,7 @@ describe('BitRouterService', () => {
   });
 
   it('Set resource data and setup support', (done) => {
-    // @ts-ignore
-    import('../simulation/resource.json').then(res => {
+    import('../simulation/resource').then((res: any) => {
       const resourceData: object = {};
       const routerData: object = {};
       const nav: any = [];

@@ -109,7 +109,7 @@ describe('BitHttpService', () => {
       const req = httpTestingController.expectOne(config.url.api + '/system/test/lists');
       expect(req.request.method).toEqual('POST');
       expect(req.request.body.page).toEqual({
-        limit: 20,
+        limit: 10,
         index: 1
       });
       expect(req.request.body.where[0]).toEqual(['sex', '=', 1]);

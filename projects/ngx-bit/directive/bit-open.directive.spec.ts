@@ -7,6 +7,7 @@ import { NzButtonModule } from 'ng-zorro-antd/button';
 import { BitModule, BitService } from 'ngx-bit';
 import { BitDirectiveModule, BitOpenDirective } from 'ngx-bit/directive';
 import { environment } from '../simulation/environment';
+import { HttpClientModule } from '@angular/common/http';
 
 describe('BitOpenDirective', () => {
   let bit: BitService;
@@ -22,6 +23,7 @@ describe('BitOpenDirective', () => {
           TestComponent
         ],
         imports: [
+          HttpClientModule,
           BitDirectiveModule,
           NzButtonModule,
           BitModule.forRoot(environment.bit),

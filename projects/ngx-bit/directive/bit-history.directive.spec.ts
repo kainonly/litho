@@ -9,6 +9,7 @@ import { BitHistoryDirective, BitDirectiveModule } from 'ngx-bit/directive';
 import { AsyncSubject } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import { environment } from '../simulation/environment';
+import { HttpClientModule } from '@angular/common/http';
 
 describe('BitCrossLevelDirective', () => {
   let bit: BitService;
@@ -24,6 +25,7 @@ describe('BitCrossLevelDirective', () => {
           TestComponent
         ],
         imports: [
+          HttpClientModule,
           BitDirectiveModule,
           NzButtonModule,
           BitModule.forRoot(environment.bit),
