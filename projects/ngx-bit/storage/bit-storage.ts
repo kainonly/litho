@@ -1,4 +1,5 @@
 import { Observable } from 'rxjs';
+import { fromPromise } from 'rxjs/internal-compatibility';
 
 declare let localforage: any;
 
@@ -8,84 +9,34 @@ export const storage = {
    * Gets an item from the storage library and supplies the result to a callback.
    */
   get(key: string[]): Observable<any> {
-    return new Observable(observer => {
-      localforage.ready()
-        .then(() => localforage.getItem(key.join(':')))
-        .then(value => {
-          observer.next(value);
-          observer.complete();
-        })
-        .catch(e => {
-          observer.error(e);
-        });
-    });
+    return fromPromise(localforage.getItem(key.join(':')));
   },
   /**
    * 将数据保存到离线仓库
    * Saves data to an offline store.
    */
   set(key: string[], value: any): Observable<any> {
-    return new Observable(observer => {
-      localforage.ready()
-        .then(() => localforage.setItem(key.join(':'), value))
-        .then(_ => {
-          observer.next(true);
-          observer.complete();
-        })
-        .catch(e => {
-          observer.error(e);
-        });
-    });
+    return fromPromise(localforage.setItem(key.join(':'), value));
   },
   /**
    * 从离线仓库中删除 key 对应的值
    * Removes the value of a key from the offline store.
    */
   remove(key: string[]): Observable<any> {
-    return new Observable(observer => {
-      localforage.ready()
-        .then(() => localforage.removeItem(key.join(':')))
-        .then(_ => {
-          observer.next(true);
-          observer.complete();
-        })
-        .catch(e => {
-          observer.error(e);
-        });
-    });
+    return fromPromise(localforage.removeItem(key.join(':')));
   },
   /**
    * 从数据库中删除所有的 key，重置数据库
    * Removes every key from the database, returning it to a blank slate.
    */
   clear(): Observable<any> {
-    return new Observable(observer => {
-      localforage.ready()
-        .then(() => localforage.clear())
-        .then(_ => {
-          observer.next(true);
-          observer.complete();
-        })
-        .catch(e => {
-          observer.error(e);
-        });
-    });
+    return fromPromise(localforage.clear());
   },
   /**
    * 获取数据仓库中所有的 key
    * Get the list of all keys in the datastore.
    */
   keys(): Observable<any> {
-    return new Observable(observer => {
-      localforage.ready()
-        .then(() => localforage.keys())
-        .then(value => {
-          observer.next(value);
-          observer.complete();
-        })
-        .catch(e => {
-          observer.error(e);
-        });
-    });
+    return fromPromise(localforage.keys());
   }
 };
