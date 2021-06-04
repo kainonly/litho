@@ -93,7 +93,7 @@ export class BitService {
   readonly pageDefault: number;
 
   constructor(
-    private bitConfig: BitConfig,
+    bitConfig: BitConfig,
     @Optional() private curd: BitCurdService,
     @Optional() private storage: StorageMap,
     @Optional() private router: Router,

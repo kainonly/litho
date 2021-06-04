@@ -22,13 +22,6 @@ export class BitCurdService {
   ) {
     this.mode = bitConfig.query;
     this.curd = bitConfig.curd;
-    // this.curd.get = bitConfig.curd.get || '/get';
-    // this.curd.originLists = bitConfig.curd.originLists ?? '/originLists';
-    // this.curd.lists = bitConfig.curd.lists ?? '/lists';
-    // this.curd.add = bitConfig?.curd?.add ?? '/add';
-    // this.curd.edit = bitConfig?.curd.edit ?? '/edit';
-    // this.curd.status = bitConfig?.curd.status ?? '/status';
-    // this.curd.delete = bitConfig?.curd.delete ?? '/delete';
   }
 
   /**

@@ -1,3 +1,4 @@
+/* tslint:disable:variable-name */
 import { Rule, SchematicContext, Tree } from '@angular-devkit/schematics';
 import { NodePackageInstallTask } from '@angular-devkit/schematics/tasks';
 

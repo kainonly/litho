@@ -9,8 +9,7 @@
   "peerDependencies": {
     "@angular/common": "^11.0.0",
     "@angular/core": "^11.0.0",
-    "ng-zorro-antd": "^11.0.0",
-    "sweetalert2": "^10.0.0"
+    "ng-zorro-antd": "^11.0.0"
   },
   "keywords": [
     "angular",

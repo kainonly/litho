@@ -36,7 +36,6 @@ export class BitCurdCommonService extends BitCurdService implements CurdInterfac
   lists(model: string, factory: ListByPage, option: ListsOption, path?: string): Observable<any> {
     const url = path || this.curd.lists;
     if (option.refresh || option.persistence) {
-      console.log(option.refresh);
       if (option.refresh) {
         factory.index = 1;
       }
