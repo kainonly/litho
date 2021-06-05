@@ -21,7 +21,7 @@ describe('BitHeaderComponent', () => {
           BitComponentModule,
           BitRouterModule,
           BitModule.forRoot(environment.bit),
-          RouterModule
+          RouterModule.forRoot([])
         ]
       });
       router = TestBed.inject(BitRouterService);

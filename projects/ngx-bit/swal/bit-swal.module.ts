@@ -20,8 +20,12 @@ export class BitSwalModule {
 
   constructor(
     config: Config,
+    swal: BitSwalService,
     @Inject(DOCUMENT) readonly document: Document
   ) {
-    loadScript(document, config?.url || this.url).subscribe(_ => _);
+    loadScript(document, config?.url || this.url).subscribe(_ => {
+      swal.ready.next(window['Swal']);
+      swal.ready.complete();
+    });
   }
 }

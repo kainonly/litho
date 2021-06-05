@@ -1,16 +1,16 @@
 import { Injectable } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { Location } from '@angular/common';
-import { Observable, of } from 'rxjs';
+import { AsyncSubject, Observable, of } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
 import { BitService } from 'ngx-bit';
-import { AlertOption } from './types';
 import { fromPromise } from 'rxjs/internal-compatibility';
-
-declare let Swal: any;
+import { AlertOption } from './types';
 
 @Injectable()
 export class BitSwalService {
+  ready: AsyncSubject<any> = new AsyncSubject();
+
   constructor(
     private bit: BitService,
     private location: Location
@@ -22,26 +22,30 @@ export class BitSwalService {
    * create alert
    */
   create(option: AlertOption): Observable<any> {
-    return fromPromise(Swal.fire({
-      heightAuto: false,
-      html: `
-          <div class="ant-result-title ng-star-inserted"> ${option.title} </div>
-          <div class="ant-result-subtitle ng-star-inserted"> ${option.content} </div>
-        `,
-      icon: option.type,
-      width: !option.width ? 520 : option.width,
-      confirmButtonText: !option.okText ? 'ok' : option.okText,
-      cancelButtonText: !option.cancelText ? 'cancel' : option.cancelText,
-      buttonsStyling: false,
-      showConfirmButton: option.okShow === undefined ? true : option.cancelShow,
-      showCancelButton: option.cancelShow === undefined ? true : option.cancelShow,
-      customClass: {
-        popup: 'swal2-ant-modal',
-        actions: 'ant-result-extra ng-star-inserted',
-        confirmButton: 'ant-btn ant-btn-primary ' + (!option.okDanger ? '' : 'ant-btn-dangerous'),
-        cancelButton: 'ant-btn'
-      }
-    }));
+    return this.ready.pipe(
+      switchMap(plugin => fromPromise(
+        plugin.fire({
+          heightAuto: false,
+          html: `
+            <div class="ant-result-title ng-star-inserted"> ${option.title} </div>
+            <div class="ant-result-subtitle ng-star-inserted"> ${option.content} </div>
+          `,
+          icon: option.type,
+          width: !option.width ? 520 : option.width,
+          confirmButtonText: !option.okText ? 'ok' : option.okText,
+          cancelButtonText: !option.cancelText ? 'cancel' : option.cancelText,
+          buttonsStyling: false,
+          showConfirmButton: option.okShow === undefined ? true : option.cancelShow,
+          showCancelButton: option.cancelShow === undefined ? true : option.cancelShow,
+          customClass: {
+            popup: 'swal2-ant-modal',
+            actions: 'ant-result-extra ng-star-inserted',
+            confirmButton: 'ant-btn ant-btn-primary ' + (!option.okDanger ? '' : 'ant-btn-dangerous'),
+            cancelButton: 'ant-btn'
+          }
+        })
+      ))
+    );
   }
 
   /**

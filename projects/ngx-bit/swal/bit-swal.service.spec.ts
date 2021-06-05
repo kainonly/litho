@@ -1,217 +1,165 @@
 import { TestBed } from '@angular/core/testing';
-import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { environment } from '../simulation/environment';
-import { BitConfig, BitModule, BitService } from 'ngx-bit';
+import { BitModule, BitService } from 'ngx-bit';
 import { of } from 'rxjs';
 import { BitSwalModule, BitSwalService } from 'ngx-bit/swal';
 import { HttpClientModule } from '@angular/common/http';
+import { delay } from 'rxjs/operators';
+import { environment } from '../simulation/environment';
 
 describe('BitSwalService', () => {
-  let config: BitConfig;
   let bit: BitService;
   let swal: BitSwalService;
-  let fb: FormBuilder;
+  let form: FormGroup;
+  const responseOk = {
+    error: 0
+  };
+  const responseError = {
+    error: 1,
+    msg: 'bad'
+  };
+  const reset = {
+    name: 'kain'
+  };
 
   beforeEach((done) => {
-    if (!swal) {
-      TestBed.configureTestingModule({
-        imports: [
-          FormsModule,
-          ReactiveFormsModule,
-          HttpClientModule,
-          RouterModule.forRoot([]),
-          BitModule.forRoot(environment.bit),
-          BitSwalModule.forRoot()
-        ]
-      });
-      config = TestBed.inject(BitConfig);
-      bit = TestBed.inject(BitService);
-      swal = TestBed.inject(BitSwalService);
-      fb = TestBed.inject(FormBuilder);
-      bit.registerLocales(import('../simulation/common.language'));
-      setTimeout(() => {
-        bit.registerLocales(import('../simulation/language'));
-        setTimeout(() => {
-          done();
-        }, 200);
-      }, 200);
-    } else {
+    TestBed.configureTestingModule({
+      imports: [
+        FormsModule,
+        ReactiveFormsModule,
+        HttpClientModule,
+        RouterModule.forRoot([]),
+        BitModule.forRoot(environment.bit),
+        BitSwalModule.forRoot()
+      ]
+    });
+    bit = TestBed.inject(BitService);
+    swal = TestBed.inject(BitSwalService);
+    bit.setupLocale();
+    bit.registerLocales(import('../simulation/common.language'));
+    const fb = TestBed.inject(FormBuilder);
+    form = fb.group({
+      name: []
+    });
+    swal.ready.pipe(
+      delay(200)
+    ).subscribe(() => {
       done();
-    }
+    });
   });
 
   it('Test add response prompt box, click confirm', (done) => {
-    const form = fb.group({
-      name: [],
-      status: [true]
-    });
-    const res: any = {
-      error: 0
-    };
-    setTimeout(() => {
-      const swal2: HTMLElement = document.querySelector('#swal2-content');
-      const title: HTMLElement = swal2.querySelector('.ant-result-title');
-      expect(title.innerText).toBe(bit.l.AddAlertSuccessTitle);
-      const content: HTMLElement = swal2.querySelector('.ant-result-subtitle');
-      expect(content.innerText).toBe(bit.l.AddAlertSuccessContent);
-      const confirm: HTMLButtonElement = document.querySelector('.swal2-confirm');
-      expect(confirm.innerText).toBe(bit.l.AddAlertSuccessOk);
-      const cancel: HTMLButtonElement = document.querySelector('.swal2-cancel');
-      expect(cancel.innerText).toBe(bit.l.AddAlertSuccessCancel);
-      confirm.click();
-    }, 200);
-    swal.addAlert(res, form, { name: 'kain' }).subscribe(result => {
+    swal.addAlert(responseOk, form, reset).subscribe(result => {
       expect(result).toBeTruthy();
       expect(form.get('name').value).toBe('kain');
       done();
     });
+    const container = document.querySelector('.swal2-html-container');
+    const title: HTMLElement = container.querySelector('.ant-result-title');
+    expect(title.innerText).toBe(bit.l.AddAlertSuccessTitle);
+    const content: HTMLElement = container.querySelector('.ant-result-subtitle');
+    expect(content.innerText).toBe(bit.l.AddAlertSuccessContent);
+    const confirm: HTMLButtonElement = document.querySelector('.swal2-confirm');
+    expect(confirm.innerText).toBe(bit.l.AddAlertSuccessOk);
+    const cancel: HTMLButtonElement = document.querySelector('.swal2-cancel');
+    expect(cancel.innerText).toBe(bit.l.AddAlertSuccessCancel);
+    confirm.click();
   });
 
   it('Test add response prompt box, click cancel', (done) => {
-    const form = fb.group({
-      name: [],
-      status: [true]
-    });
-    const res: any = {
-      error: 0
-    };
-    setTimeout(() => {
-      const cancel: HTMLButtonElement = document.querySelector('.swal2-cancel');
-      cancel.click();
-    }, 200);
-    swal.addAlert(res, form).subscribe(result => {
+    swal.addAlert(responseOk, form).subscribe(result => {
       expect(result).toBeFalsy();
       done();
     });
+    const cancel: HTMLButtonElement = document.querySelector('.swal2-cancel');
+    cancel.click();
   });
 
   it('Test add response prompt box, response failed', (done) => {
-    const form = fb.group({
-      name: [],
-      status: [true]
-    });
-    const res: any = {
-      error: 1,
-      msg: 'add failed'
-    };
-    setTimeout(() => {
-      const swal2: HTMLElement = document.querySelector('#swal2-content');
-      const title: HTMLElement = swal2.querySelector('.ant-result-title');
-      expect(title.innerText).toBe(bit.l.AddAlertErrorTitle);
-      const content: HTMLElement = swal2.querySelector('.ant-result-subtitle');
-      expect(content.innerText).toBe(res.msg);
-      const confirm: HTMLButtonElement = document.querySelector('.swal2-confirm');
-      expect(confirm.innerText).toBe(bit.l.AddAlertErrorOk);
-      confirm.click();
-    }, 200);
-    swal.addAlert(res, form).subscribe(result => {
+    swal.addAlert(responseError, form).subscribe(result => {
       expect(result).toBeNull();
       done();
     });
+    const container = document.querySelector('.swal2-html-container');
+    const title: HTMLElement = container.querySelector('.ant-result-title');
+    expect(title.innerText).toBe(bit.l.AddAlertErrorTitle);
+    const content: HTMLElement = container.querySelector('.ant-result-subtitle');
+    expect(content.innerText).toBe(responseError.msg);
+    const confirm: HTMLButtonElement = document.querySelector('.swal2-confirm');
+    expect(confirm.innerText).toBe(bit.l.AddAlertErrorOk);
+    confirm.click();
   });
 
   it('Test edit response prompt box, click confirm', (done) => {
-    const res: any = {
-      error: 0
-    };
-    setTimeout(() => {
-      const swal2: HTMLElement = document.querySelector('#swal2-content');
-      const title: HTMLElement = swal2.querySelector('.ant-result-title');
-      expect(title.innerText).toBe(bit.l.EditAlertSuccessTitle);
-      const content: HTMLElement = swal2.querySelector('.ant-result-subtitle');
-      expect(content.innerText).toBe(bit.l.EditAlertSuccessContent);
-      const confirm: HTMLButtonElement = document.querySelector('.swal2-confirm');
-      expect(confirm.innerText).toBe(bit.l.EditAlertSuccessOk);
-      const cancel: HTMLButtonElement = document.querySelector('.swal2-cancel');
-      expect(cancel.innerText).toBe(bit.l.EditAlertSuccessCancel);
-      confirm.click();
-    }, 200);
-    swal.editAlert(res).subscribe(result => {
+    swal.editAlert(responseOk).subscribe(result => {
       expect(result).toBeTruthy();
       done();
     });
+    const container = document.querySelector('.swal2-html-container');
+    const title: HTMLElement = container.querySelector('.ant-result-title');
+    expect(title.innerText).toBe(bit.l.EditAlertSuccessTitle);
+    const content: HTMLElement = container.querySelector('.ant-result-subtitle');
+    expect(content.innerText).toBe(bit.l.EditAlertSuccessContent);
+    const confirm: HTMLButtonElement = document.querySelector('.swal2-confirm');
+    expect(confirm.innerText).toBe(bit.l.EditAlertSuccessOk);
+    const cancel: HTMLButtonElement = document.querySelector('.swal2-cancel');
+    expect(cancel.innerText).toBe(bit.l.EditAlertSuccessCancel);
+    confirm.click();
   });
 
   it('Test edit response prompt box, click cancel', (done) => {
-    const res: any = {
-      error: 0
-    };
-    setTimeout(() => {
-      const cancel: HTMLButtonElement = document.querySelector('.swal2-cancel');
-      cancel.click();
-    }, 200);
-    swal.editAlert(res).subscribe(result => {
+    swal.editAlert(responseOk).subscribe(result => {
       expect(result).toBeFalsy();
       done();
     });
+    const cancel: HTMLButtonElement = document.querySelector('.swal2-cancel');
+    cancel.click();
   });
 
   it('Test edit response prompt box, response failed', (done) => {
-    const res: any = {
-      error: 1,
-      msg: 'edit fail'
-    };
-    setTimeout(() => {
-      const swal2: HTMLElement = document.querySelector('#swal2-content');
-      const title: HTMLElement = swal2.querySelector('.ant-result-title');
-      expect(title.innerText).toBe(bit.l.EditAlertErrorTitle);
-      const content: HTMLElement = swal2.querySelector('.ant-result-subtitle');
-      expect(content.innerText).toBe(res.msg);
-      const confirm: HTMLButtonElement = document.querySelector('.swal2-confirm');
-      expect(confirm.innerText).toBe(bit.l.EditAlertErrorOk);
-      confirm.click();
-    }, 200);
-    swal.editAlert(res).subscribe(result => {
+    swal.editAlert(responseError).subscribe(result => {
       expect(result).toBeNull();
       done();
     });
+    const container: HTMLElement = document.querySelector('.swal2-html-container');
+    const title: HTMLElement = container.querySelector('.ant-result-title');
+    expect(title.innerText).toBe(bit.l.EditAlertErrorTitle);
+    const content: HTMLElement = container.querySelector('.ant-result-subtitle');
+    expect(content.innerText).toBe(responseError.msg);
+    const confirm: HTMLButtonElement = document.querySelector('.swal2-confirm');
+    expect(confirm.innerText).toBe(bit.l.EditAlertErrorOk);
+    confirm.click();
   });
 
   it('Test delete response prompt box, click confirm', (done) => {
-    const res: any = of({
-      error: 0,
-      msg: 'ok'
-    });
-    setTimeout(() => {
-      const swal2: HTMLElement = document.querySelector('#swal2-content');
-      const title: HTMLElement = swal2.querySelector('.ant-result-title');
-      expect(title.innerText).toBe(bit.l.DeleteAlertTitle);
-      const content: HTMLElement = swal2.querySelector('.ant-result-subtitle');
-      expect(content.innerText).toBe(bit.l.DeleteAlertContent);
-      const confirm: HTMLButtonElement = document.querySelector('.swal2-confirm');
-      expect(confirm.innerText).toBe(bit.l.DeleteAlertOk);
-      const cancel: HTMLButtonElement = document.querySelector('.swal2-cancel');
-      expect(cancel.innerText).toBe(bit.l.DeleteAlertCancel);
-      confirm.click();
-    }, 200);
-    swal.deleteAlert(res).subscribe(result => {
+    swal.deleteAlert(of(responseOk)).subscribe(result => {
       expect(result).not.toBeNull();
       expect(result.error).toBe(0);
-      expect(result.msg).toBe('ok');
       done();
     });
+    const container: HTMLElement = document.querySelector('.swal2-html-container');
+    const title: HTMLElement = container.querySelector('.ant-result-title');
+    expect(title.innerText).toBe(bit.l.DeleteAlertTitle);
+    const content: HTMLElement = container.querySelector('.ant-result-subtitle');
+    expect(content.innerText).toBe(bit.l.DeleteAlertContent);
+    const confirm: HTMLButtonElement = document.querySelector('.swal2-confirm');
+    expect(confirm.innerText).toBe(bit.l.DeleteAlertOk);
+    const cancel: HTMLButtonElement = document.querySelector('.swal2-cancel');
+    expect(cancel.innerText).toBe(bit.l.DeleteAlertCancel);
+    confirm.click();
   });
 
   it('Test delete response prompt box, click cancel', (done) => {
-    const res: any = of({
-      error: 0
+    swal.deleteAlert(of(responseOk)).subscribe(_ => _, _ => _, () => {
+      setTimeout(() => {
+        expect(document.querySelector('.swal2-container')).toBeNull();
+        done();
+      }, 500);
     });
-    setTimeout(() => {
-      const container = document.querySelector('.swal2-container');
-      expect(container).not.toBeNull();
-      const cancel: HTMLButtonElement = document.querySelector('.swal2-cancel');
-      cancel.click();
-    }, 200);
-    swal.deleteAlert(res).subscribe({
-      // tslint:disable-next-line:typedef
-      complete() {
-        setTimeout(() => {
-          const container = document.querySelector('.swal2-container');
-          expect(container).toBeNull();
-          done();
-        }, 500);
-      }
-    });
+    const container = document.querySelector('.swal2-container');
+    expect(container).not.toBeNull();
+    const cancel: HTMLButtonElement = document.querySelector('.swal2-cancel');
+    cancel.click();
   });
 });

@@ -5,10 +5,10 @@ export const loadScript = (doc: Document, url: string): Observable<any> => {
   script.type = 'text/javascript';
   script.src = url;
   doc.body.appendChild(script);
-  return new Observable<any>(observer => {
+  return new Observable<any>(subscriber => {
     script.onload = () => {
-      observer.next();
-      observer.complete();
+      subscriber.next();
+      subscriber.complete();
     };
   });
 };
