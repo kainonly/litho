@@ -1,26 +1,39 @@
 import { TestBed } from '@angular/core/testing';
 import { StorageMap } from '@ngx-pwa/local-storage';
 import { BitCurdService, BitModule, ListByPage } from 'ngx-bit';
-import { switchMap } from 'rxjs/operators';
+import { delay, switchMap } from 'rxjs/operators';
 import { HttpClientModule } from '@angular/common/http';
 import { environment } from '../../simulation/environment';
+import { dataset } from './mock';
 
 describe('ListByPage', () => {
-  let lists: ListByPage;
   let curd: BitCurdService;
   let storage: StorageMap;
+  let lists: ListByPage;
+  const searchData = {
+    username: {
+      field: 'username',
+      op: '=',
+      value: 'kain'
+    },
+    keywords: {
+      field: 'keywords',
+      op: 'like',
+      value: 'ab'
+    }
+  };
 
   beforeEach((done) => {
-    if (!lists) {
-      TestBed.configureTestingModule({
-        imports: [
-          HttpClientModule,
-          BitModule.forRoot(environment.bit)
-        ]
-      });
-      curd = TestBed.inject(BitCurdService);
-      storage = TestBed.inject(StorageMap);
-      storage.clear().subscribe(() => {
+    TestBed.configureTestingModule({
+      imports: [
+        HttpClientModule,
+        BitModule.forRoot(environment.bit)
+      ]
+    });
+    curd = TestBed.inject(BitCurdService);
+    storage = TestBed.inject(StorageMap);
+    storage.clear().pipe(
+      switchMap(() => {
         lists = new ListByPage(
           curd,
           storage,
@@ -33,14 +46,12 @@ describe('ListByPage', () => {
             ]
           }
         );
-        setTimeout(() => {
-          // wait init
-          done();
-        }, 200);
-      });
-    } else {
+        return lists.ready;
+      })
+    ).subscribe(() => {
+      lists.setData(dataset);
       done();
-    }
+    });
   });
 
   it('Test getQuerySchema', () => {
@@ -72,16 +83,14 @@ describe('ListByPage', () => {
     ]);
   });
 
-  it('Test setData', (done) => {
-    import('../../simulation/acl').then((res: any) => {
-      lists.setData(res.data.lists);
-      expect(lists.data).toEqual(res.data.lists);
-      done();
-    });
+  it('Check setData', () => {
+    expect(lists.data).toEqual(dataset);
   });
 
   it('Test hasSearch', () => {
     expect(lists.hasSearch('username')).toBeTruthy();
+    expect(lists.hasSearch('keywords')).toBeTruthy();
+    expect(lists.hasSearch('keywords1')).toBeFalsy();
   });
 
   it('Test afterSearch', (done) => {
@@ -93,27 +102,17 @@ describe('ListByPage', () => {
         return storage.get('search:test');
       })
     ).subscribe(value => {
-      expect(value).toEqual({
-        username: {
-          field: 'username',
-          op: '=',
-          value: 'kain'
-        },
-        keywords: {
-          field: 'keywords',
-          op: 'like',
-          value: 'ab'
-        }
-      });
+      expect(value).toEqual(searchData);
       done();
     });
   });
 
   it('Test clearSearch', (done) => {
-    lists.clearSearch({}).pipe(
+    storage.set('search:test', searchData).pipe(
+      switchMap(() => lists.clearSearch()),
       switchMap(() => storage.has('search:test')),
-      switchMap((status) => {
-        expect(status).toBeFalsy();
+      switchMap((exists) => {
+        expect(exists).toBeFalsy();
         expect(lists.search.username.value).toEqual('');
         return lists.clearSearch({
           username: 'kain'
@@ -131,7 +130,7 @@ describe('ListByPage', () => {
   it('Test to query', () => {
     expect(lists.toQuery()).toEqual([
       { field: 'username', op: '=', value: '' },
-      { field: 'keywords', op: 'like', value: '' }
+      { field: 'keywords', op: 'like', value: 'ab' }
     ]);
   });
 
@@ -160,23 +159,22 @@ describe('ListByPage', () => {
   it('Test lists page', (done) => {
     lists.index = 2;
     lists.persistence();
-    setTimeout(() => {
-      lists.getPage().subscribe(value => {
-        expect(value).toEqual(2);
-        done();
-      });
-    }, 200);
+    lists.getPage().pipe(
+      delay(200)
+    ).subscribe(value => {
+      expect(value).toEqual(2);
+      done();
+    });
   });
 
-
   it('Test convert to query schema', (done) => {
-    let schema = lists.toQuerySchema();
-    expect(schema).toEqual([]);
+    expect(lists.toQuerySchema()).toEqual([
+      ['keywords', 'like', '%ab%']
+    ]);
     lists.search.username.value = 'kain';
     lists.search.keywords.value = 'cd';
     lists.afterSearch().subscribe(() => {
-      schema = lists.toQuerySchema();
-      expect(schema).toEqual([
+      expect(lists.toQuerySchema()).toEqual([
         ['username', '=', 'kain'],
         ['keywords', 'like', '%cd%']
       ]);
