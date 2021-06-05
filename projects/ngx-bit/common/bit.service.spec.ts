@@ -1,4 +1,3 @@
-import { NgZone } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { Location } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
@@ -7,7 +6,7 @@ import { NavigationEnd, Router, RouterEvent, RouterModule } from '@angular/route
 import { BitModule, BitService } from 'ngx-bit';
 import { ListByPage } from 'ngx-bit';
 import { of } from 'rxjs';
-import { delay, filter, take } from 'rxjs/operators';
+import { filter, take } from 'rxjs/operators';
 import { environment } from '@mock/env';
 import { routes } from '@mock/routes';
 import { ExampleModule } from '@mock/example.module';
@@ -16,7 +15,6 @@ describe('BitService', () => {
   let bit: BitService;
   let router: Router;
   let location: Location;
-  let fb: FormBuilder;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -32,7 +30,6 @@ describe('BitService', () => {
     bit = TestBed.inject(BitService);
     router = TestBed.inject(Router);
     location = TestBed.inject(Location);
-    fb = TestBed.inject(FormBuilder);
     localStorage.clear();
     bit.setupLocale();
     bit.registerLocales(import('@mock/common.language'));
@@ -177,9 +174,6 @@ describe('BitService', () => {
       expect(name.en_us[1]).toEqual([]);
       expect(name.zh_cn[2]).toEqual([]);
       expect(name.en_us[2]).toEqual([fun1]);
-      fb.group({
-        name
-      });
     } catch (e) {
       fail(e);
     }

@@ -2,36 +2,27 @@ import { TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { RouterModule } from '@angular/router';
 import { BitConfig, BitHttpService, BitModule, BitService } from 'ngx-bit';
-import { environment } from '../simulation/environment';
-import { TestService } from '../simulation/test.service';
+import { environment } from '@mock/env';
 import { map } from 'rxjs/operators';
-import { of } from 'rxjs';
 
 describe('BitHttpService', () => {
-  let http: BitHttpService;
-  let httpTestingController: HttpTestingController;
-  let curd: TestService;
   let config: BitConfig;
   let bit: BitService;
+  let http: BitHttpService;
+  let httpTestingController: HttpTestingController;
 
   beforeEach(() => {
-    if (!http) {
-      TestBed.configureTestingModule({
-        imports: [
-          HttpClientTestingModule,
-          RouterModule.forRoot([]),
-          BitModule.forRoot(environment.bit)
-        ],
-        providers: [
-          TestService
-        ]
-      });
-      http = TestBed.inject(BitHttpService);
-      httpTestingController = TestBed.inject(HttpTestingController);
-      curd = TestBed.inject(TestService);
-      config = TestBed.inject(BitConfig);
-      bit = TestBed.inject(BitService);
-    }
+    TestBed.configureTestingModule({
+      imports: [
+        HttpClientTestingModule,
+        RouterModule.forRoot([]),
+        BitModule.forRoot(environment.bit)
+      ]
+    });
+    httpTestingController = TestBed.inject(HttpTestingController);
+    config = TestBed.inject(BitConfig);
+    bit = TestBed.inject(BitService);
+    http = TestBed.inject(BitHttpService);
   });
 
   it('Test sending a login request', () => {

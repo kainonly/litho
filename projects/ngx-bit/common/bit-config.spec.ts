@@ -1,19 +1,17 @@
 import { TestBed } from '@angular/core/testing';
 import { BitConfig, BitModule } from 'ngx-bit';
-import { environment } from '../simulation/environment';
+import { environment } from '@mock/env';
 
-describe('BitConfigService', () => {
+describe('BitConfig', () => {
   let config: BitConfig;
 
   beforeEach(() => {
-    if (!config) {
-      TestBed.configureTestingModule({
-        imports: [
-          BitModule.forRoot(environment.bit)
-        ]
-      });
-      config = TestBed.inject(BitConfig);
-    }
+    TestBed.configureTestingModule({
+      imports: [
+        BitModule.forRoot(environment.bit)
+      ]
+    });
+    config = TestBed.inject(BitConfig);
   });
 
   it('Verify configuration correctness', () => {
@@ -23,5 +21,6 @@ describe('BitConfigService', () => {
     expect(config.page).toBe(environment.bit.page);
     expect(config.col).toBe(environment.bit.col);
     expect(config.i18n).toBe(environment.bit.i18n);
+    expect(config.query).toBe(environment.bit.query);
   });
 });

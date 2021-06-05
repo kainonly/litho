@@ -2,34 +2,32 @@ import { TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { RouterModule } from '@angular/router';
 import { BitConfig, BitHttpService, BitModule, BitService } from 'ngx-bit';
-import { environment } from '../simulation/environment';
-import { TestService } from '../simulation/test.service';
+import { environment } from '@mock/env';
+import { ExampleService } from '@mock/example.service';
 
-describe('BitHttpService', () => {
-  let http: BitHttpService;
-  let httpTestingController: HttpTestingController;
-  let curd: TestService;
+describe('BitCurdCommonService', () => {
   let config: BitConfig;
   let bit: BitService;
+  let http: BitHttpService;
+  let httpTestingController: HttpTestingController;
+  let exampleService: ExampleService;
 
   beforeEach(() => {
-    if (!http) {
-      TestBed.configureTestingModule({
-        imports: [
-          HttpClientTestingModule,
-          RouterModule.forRoot([]),
-          BitModule.forRoot(environment.bit)
-        ],
-        providers: [
-          TestService
-        ]
-      });
-      http = TestBed.inject(BitHttpService);
-      httpTestingController = TestBed.inject(HttpTestingController);
-      curd = TestBed.inject(TestService);
-      config = TestBed.inject(BitConfig);
-      bit = TestBed.inject(BitService);
-    }
+    TestBed.configureTestingModule({
+      imports: [
+        HttpClientTestingModule,
+        RouterModule.forRoot([]),
+        BitModule.forRoot(environment.bit)
+      ],
+      providers: [
+        ExampleService
+      ]
+    });
+    config = TestBed.inject(BitConfig);
+    bit = TestBed.inject(BitService);
+    http = TestBed.inject(BitHttpService);
+    httpTestingController = TestBed.inject(HttpTestingController);
+    exampleService = TestBed.inject(ExampleService);
   });
 
   it('Test list data request', () => {
@@ -39,10 +37,10 @@ describe('BitHttpService', () => {
         { id: 1, username: 'kain' }
       ]
     };
-    curd.originLists(100).subscribe(data => {
+    exampleService.originLists(100).subscribe(data => {
       expect(data).toEqual(result.data);
     });
-    const req = httpTestingController.expectOne(config.url.api + '/system/test/originLists');
+    const req = httpTestingController.expectOne(config.url.api + '/system/example/originLists');
     expect(req.request.method).toEqual('POST');
     expect(req.request.body.where[0]).toEqual(['type', '=', 100]);
     req.flush(result);
@@ -57,10 +55,10 @@ describe('BitHttpService', () => {
         username: 'kain'
       }
     };
-    curd.get(1).subscribe(data => {
+    exampleService.get(1).subscribe(data => {
       expect(data).toEqual(result.data);
     });
-    const req = httpTestingController.expectOne(config.url.api + '/system/test/get');
+    const req = httpTestingController.expectOne(config.url.api + '/system/example/get');
     expect(req.request.method).toEqual('POST');
     expect(req.request.body.id).toEqual(1);
     req.flush(result);
@@ -75,10 +73,10 @@ describe('BitHttpService', () => {
         username: 'kain'
       }
     };
-    curd.getFromUsername('kain').subscribe(data => {
+    exampleService.getFromUsername('kain').subscribe(data => {
       expect(data).toEqual(result.data);
     });
-    const req = httpTestingController.expectOne(config.url.api + '/system/test/get');
+    const req = httpTestingController.expectOne(config.url.api + '/system/example/get');
     expect(req.request.method).toEqual('POST');
     expect(req.request.body.where[0]).toEqual(['username', '=', 'kain']);
     req.flush(result);
@@ -101,12 +99,12 @@ describe('BitHttpService', () => {
         { field: 'sex', op: '=', value: 1 }
       ]
     });
-    curd.lists(search, true, true).subscribe(data => {
+    exampleService.lists(search, true, true).subscribe(data => {
       expect(data).toEqual(result.data.lists);
       done();
     });
     setTimeout(() => {
-      const req = httpTestingController.expectOne(config.url.api + '/system/test/lists');
+      const req = httpTestingController.expectOne(config.url.api + '/system/example/lists');
       expect(req.request.method).toEqual('POST');
       expect(req.request.body.page).toEqual({
         limit: 10,
@@ -130,7 +128,7 @@ describe('BitHttpService', () => {
       call: 'devbot',
       email: 'zhangtqx@vip.qq.com'
     };
-    curd.add({
+    exampleService.add({
       username: 'kain',
       age: 26,
       sex: 1,
@@ -139,7 +137,7 @@ describe('BitHttpService', () => {
     }).subscribe(res => {
       expect(res).toEqual(result);
     });
-    const req = httpTestingController.expectOne(config.url.api + '/system/test/add');
+    const req = httpTestingController.expectOne(config.url.api + '/system/example/add');
     expect(req.request.method).toEqual('POST');
     expect(req.request.body).toEqual(data);
     req.flush(result);
@@ -155,10 +153,10 @@ describe('BitHttpService', () => {
       id: 1,
       call: 'mydevbot'
     };
-    curd.edit(data).subscribe(res => {
+    exampleService.edit(data).subscribe(res => {
       expect(res).toEqual(result);
     });
-    const req = httpTestingController.expectOne(config.url.api + '/system/test/edit');
+    const req = httpTestingController.expectOne(config.url.api + '/system/example/edit');
     expect(req.request.method).toEqual('POST');
     expect(req.request.body).toEqual(data);
     req.flush(result);
@@ -173,10 +171,10 @@ describe('BitHttpService', () => {
     const data = {
       call: 'mydevbot'
     };
-    curd.editFormUsername('kain', data).subscribe(res => {
+    exampleService.editFormUsername('kain', data).subscribe(res => {
       expect(res).toEqual(result);
     });
-    const req = httpTestingController.expectOne(config.url.api + '/system/test/edit');
+    const req = httpTestingController.expectOne(config.url.api + '/system/example/edit');
     expect(req.request.method).toEqual('POST');
     expect(req.request.body.call).toEqual(data.call);
     expect(req.request.body.where[0]).toEqual(['username', '=', 'kain']);
@@ -193,10 +191,10 @@ describe('BitHttpService', () => {
       id: 1,
       status: 0
     };
-    curd.status(data).subscribe(res => {
+    exampleService.status(data).subscribe(res => {
       expect(res).toEqual(result);
     });
-    const req = httpTestingController.expectOne(config.url.api + '/system/test/edit');
+    const req = httpTestingController.expectOne(config.url.api + '/system/example/edit');
     expect(req.request.method).toEqual('POST');
     expect(req.request.body).toEqual({
       id: 1,
@@ -216,10 +214,10 @@ describe('BitHttpService', () => {
       id: 1,
       work: 1
     };
-    curd.work(data, 'no0').subscribe(res => {
+    exampleService.work(data, 'no0').subscribe(res => {
       expect(res).toEqual(result);
     });
-    const req = httpTestingController.expectOne(config.url.api + '/system/test/edit');
+    const req = httpTestingController.expectOne(config.url.api + '/system/example/edit');
     expect(req.request.method).toEqual('POST');
     expect(req.request.body).toEqual({
       id: 1,
@@ -236,10 +234,10 @@ describe('BitHttpService', () => {
       error: 0,
       msg: 'ok'
     };
-    curd.delete([1, 2]).subscribe(res => {
+    exampleService.delete([1, 2]).subscribe(res => {
       expect(res).toEqual(result);
     });
-    const req = httpTestingController.expectOne(config.url.api + '/system/test/delete');
+    const req = httpTestingController.expectOne(config.url.api + '/system/example/delete');
     expect(req.request.method).toEqual('POST');
     expect(req.request.body).toEqual({
       id: [1, 2]
@@ -253,10 +251,10 @@ describe('BitHttpService', () => {
       error: 0,
       msg: 'ok'
     };
-    curd.deleteFormUsername('kain').subscribe(res => {
+    exampleService.deleteFormUsername('kain').subscribe(res => {
       expect(res).toEqual(result);
     });
-    const req = httpTestingController.expectOne(config.url.api + '/system/test/delete');
+    const req = httpTestingController.expectOne(config.url.api + '/system/example/delete');
     expect(req.request.method).toEqual('POST');
     expect(req.request.body.where[0]).toEqual(['username', '=', 'kain']);
     req.flush(result);
@@ -264,7 +262,7 @@ describe('BitHttpService', () => {
   });
 
   it('Test delete data request prevent', () => {
-    curd.deleteNothing().subscribe(res => {
+    exampleService.deleteNothing().subscribe(res => {
       expect(res).toBeFalsy();
     });
   });
