@@ -1,22 +1,23 @@
 /* tslint:disable:component-class-suffix */
 import { Location } from '@angular/common';
-import { Component, NgZone } from '@angular/core';
+import { Component } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { Router, RouterModule } from '@angular/router';
+import { NavigationEnd, Router, RouterEvent, RouterModule } from '@angular/router';
 import { BitModule, BitService } from 'ngx-bit';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { BitBackDirective, BitDirectiveModule } from 'ngx-bit/directive';
-import { environment } from '../simulation/environment';
+import { environment } from '@mock/env';
 import { HttpClientModule } from '@angular/common/http';
+import { routes } from '@mock/routes';
+import { filter, take } from 'rxjs/operators';
 
 describe('BitBackDirective', () => {
+  let router: Router;
   let bit: BitService;
+  let location: Location;
   let component: TestComponent;
   let fixture: ComponentFixture<TestComponent>;
-  let zone: NgZone;
-  let router: Router;
-  let location: Location;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -25,49 +26,44 @@ describe('BitBackDirective', () => {
       ],
       imports: [
         HttpClientModule,
-        BitDirectiveModule,
         NzButtonModule,
-        RouterModule.forRoot([
-          {
-            path: '',
-            loadChildren: () => import('../simulation/case/case.module').then(m => m.CaseModule)
-          },
-          {
-            path: 'admin-index',
-            loadChildren: () => import('../simulation/case/case.module').then(m => m.CaseModule)
-          },
-          {
-            path: 'admin-add',
-            loadChildren: () => import('../simulation/case/case.module').then(m => m.CaseModule)
-          }
-        ]),
+        BitDirectiveModule,
+        RouterModule.forRoot(routes),
         BitModule.forRoot(environment.bit)
       ]
     });
-    bit = TestBed.inject(BitService);
-    zone = TestBed.inject(NgZone);
     router = TestBed.inject(Router);
     location = TestBed.inject(Location);
+    bit = TestBed.inject(BitService);
     fixture = TestBed.createComponent(TestComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
 
   it('Test click trigger to route back', (done) => {
-    zone.run(() => {
-      bit.open(['admin-index']);
-      setTimeout(() => {
-        bit.open(['admin-add']);
-        setTimeout(() => {
+    let count = 2;
+    router.events.pipe(
+      filter(e => e instanceof NavigationEnd),
+      take(count)
+    ).subscribe((e: RouterEvent) => {
+      switch (2 - count) {
+        case 0:
+          expect(e.url).toBe('/example-index');
+          bit.open(['example-add']);
+          break;
+        case 1:
+          expect(e.url).toBe('/example-add');
           const button = fixture.debugElement.query(By.directive(BitBackDirective));
           button.triggerEventHandler('click', null);
-          location.subscribe(value => {
-            expect(value.url).toBe('/admin-index');
-            done();
-          });
-        }, 200);
-      }, 200);
+          break;
+      }
+      count--;
     });
+    location.subscribe(e => {
+      expect(e.url).toBe('/example-index');
+      done();
+    });
+    bit.open(['example-index']);
   });
 });
 

@@ -7,7 +7,7 @@ import { BitDirectiveModule, BitSearchChangeDirective } from 'ngx-bit/directive'
 import { RouterModule } from '@angular/router';
 import { By } from '@angular/platform-browser';
 import { StorageMap } from '@ngx-pwa/local-storage';
-import { environment } from '../simulation/environment';
+import { environment } from '@mock/env';
 import { HttpClientModule } from '@angular/common/http';
 
 describe('BitSearchChangeDirective', () => {

@@ -6,7 +6,7 @@ import { By } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
 import { BitModule, BitService } from 'ngx-bit';
 import { BitDirectiveModule, BitI18nUpdateDirective } from 'ngx-bit/directive';
-import { environment } from '../simulation/environment';
+import { environment } from '@mock/env';
 import { HttpClientModule } from '@angular/common/http';
 
 describe('BitI18nUpdateDirective', () => {

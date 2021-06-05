@@ -4,7 +4,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterModule } from '@angular/router';
 import { BitConfig, BitModule, BitService } from 'ngx-bit';
 import { BitComponentModule, BitI18nTooltipComponent } from 'ngx-bit/component';
-import { environment } from '../../simulation/environment';
+import { environment } from '@mock/env';
 import { HttpClientModule } from '@angular/common/http';
 
 describe('BitI18nTooltipComponent', () => {

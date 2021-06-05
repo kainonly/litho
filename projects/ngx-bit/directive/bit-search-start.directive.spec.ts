@@ -8,7 +8,7 @@ import { BitModule, BitService, ListByPage } from 'ngx-bit';
 import { BitDirectiveModule, BitSearchStartDirective } from 'ngx-bit/directive';
 import { interval } from 'rxjs';
 import { take } from 'rxjs/operators';
-import { environment } from '../simulation/environment';
+import { environment } from '@mock/env';
 import { HttpClientModule } from '@angular/common/http';
 
 describe('BitSearchStartDirective', () => {

@@ -4,7 +4,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { BitDirectiveModule } from 'ngx-bit/directive';
-import { environment } from '../simulation/environment';
+import { environment } from '@mock/env';
 import { BitModule } from 'ngx-bit';
 
 describe('BitFormSubmitDirective', () => {

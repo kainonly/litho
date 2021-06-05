@@ -4,7 +4,7 @@ import { NzUploadComponent, NzUploadFile, NzUploadModule } from 'ng-zorro-antd/u
 import { BitConfig, BitModule } from 'ngx-bit';
 import { BitDirectiveModule, BitUploadDirective } from 'ngx-bit/directive';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
-import { environment } from '../simulation/environment';
+import { environment } from '@mock/env';
 
 describe('BitUploadDirective', () => {
   let config: BitConfig;

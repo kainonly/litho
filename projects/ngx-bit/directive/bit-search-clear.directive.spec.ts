@@ -7,7 +7,7 @@ import { RouterModule } from '@angular/router';
 import { StorageMap } from '@ngx-pwa/local-storage';
 import { BitModule, BitService, ListByPage } from 'ngx-bit';
 import { BitDirectiveModule, BitSearchChangeDirective, BitSearchClearDirective } from 'ngx-bit/directive';
-import { environment } from '../simulation/environment';
+import { environment } from '@mock/env';
 import { HttpClientModule } from '@angular/common/http';
 
 describe('BitSearchClearDirective', () => {

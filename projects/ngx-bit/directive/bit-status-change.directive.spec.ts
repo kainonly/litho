@@ -8,8 +8,8 @@ import { RouterModule } from '@angular/router';
 import { BitConfig, BitModule } from 'ngx-bit';
 import { BitDirectiveModule, BitStatusChangeDirective } from 'ngx-bit/directive';
 import { NzSwitchComponent, NzSwitchModule } from 'ng-zorro-antd/switch';
-import { environment } from '../simulation/environment';
-import { TestService } from '../simulation/test.service';
+import { environment } from '@mock/env';
+import { ExampleService } from '@mock/example.service';
 import { NzMessageModule } from 'ng-zorro-antd/message';
 
 describe('BitStatusChangeDirective', () => {
@@ -35,7 +35,7 @@ describe('BitStatusChangeDirective', () => {
         RouterModule.forRoot([])
       ],
       providers: [
-        TestService
+        ExampleService
       ]
     });
     httpTestingController = TestBed.inject(HttpTestingController);
@@ -54,7 +54,7 @@ describe('BitStatusChangeDirective', () => {
       msg: 'ok'
     };
     debug.nativeElement.click();
-    const req = httpTestingController.expectOne(config.url.api + '/system/test/edit');
+    const req = httpTestingController.expectOne(config.url.api + '/system/example/edit');
     expect(req.request.method).toEqual('POST');
     expect(req.request.body).toEqual({ id: 1, switch: true, status: false });
     req.flush(result);
@@ -70,7 +70,7 @@ describe('BitStatusChangeDirective', () => {
       msg: 'status cannot be changed'
     };
     debug.nativeElement.click();
-    const req = httpTestingController.expectOne(config.url.api + '/system/test/edit');
+    const req = httpTestingController.expectOne(config.url.api + '/system/example/edit');
     expect(req.request.method).toEqual('POST');
     expect(req.request.body).toEqual({ id: 1, switch: true, status: false });
     req.flush(result);
@@ -86,7 +86,7 @@ describe('BitStatusChangeDirective', () => {
       msg: 'ok'
     };
     debug.nativeElement.click();
-    const req = httpTestingController.expectOne(config.url.api + '/system/test/edit');
+    const req = httpTestingController.expectOne(config.url.api + '/system/example/edit');
     expect(req.request.method).toEqual('POST');
     expect(req.request.body).toEqual({ id: 1, switch: true, status: false });
     req.flush(result);
@@ -102,7 +102,7 @@ describe('BitStatusChangeDirective', () => {
       msg: 'status cannot be changed'
     };
     debug.nativeElement.click();
-    const req = httpTestingController.expectOne(config.url.api + '/system/test/edit');
+    const req = httpTestingController.expectOne(config.url.api + '/system/example/edit');
     expect(req.request.method).toEqual('POST');
     expect(req.request.body).toEqual({ id: 1, switch: true, status: false });
     req.flush(result);
@@ -117,14 +117,14 @@ describe('BitStatusChangeDirective', () => {
     <nz-switch
       #switchComponent1
       [(ngModel)]="data.status"
-      [bitStatusChange]="testService.status(data)"
+      [bitStatusChange]="exampleService.status(data)"
       (response)="statusFeedback($event)"
     >
     </nz-switch>
     <nz-switch
       #switchComponent2
       [(ngModel)]="data.status"
-      [bitStatusChange]="testService.status(data)"
+      [bitStatusChange]="exampleService.status(data)"
       [bitControl]="true"
       (response)="statusFeedback($event)"
     >
@@ -142,7 +142,7 @@ class TestComponent {
   test = false;
 
   constructor(
-    public testService: TestService
+    public exampleService: ExampleService
   ) {
   }
 

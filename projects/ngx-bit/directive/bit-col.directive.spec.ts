@@ -4,7 +4,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { BitConfig, BitModule } from 'ngx-bit';
 import { BitColDirective, BitDirectiveModule } from 'ngx-bit/directive';
-import { environment } from '../simulation/environment';
+import { environment } from '@mock/env';
 import { NzGridModule } from 'ng-zorro-antd/grid';
 
 describe('BitColDirective', () => {

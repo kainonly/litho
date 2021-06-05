@@ -4,7 +4,7 @@ import { RouterModule } from '@angular/router';
 import { BitModule, BitService } from 'ngx-bit';
 import { BitI18nSwitchComponent, BitComponentModule } from 'ngx-bit/component';
 import { By } from '@angular/platform-browser';
-import { environment } from '../../simulation/environment';
+import { environment } from '@mock/env';
 import { HttpClientModule } from '@angular/common/http';
 
 describe('BitI18nSwitchComponent', () => {
