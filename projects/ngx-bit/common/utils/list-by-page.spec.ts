@@ -3,8 +3,8 @@ import { StorageMap } from '@ngx-pwa/local-storage';
 import { BitCurdService, BitModule, ListByPage } from 'ngx-bit';
 import { delay, switchMap } from 'rxjs/operators';
 import { HttpClientModule } from '@angular/common/http';
-import { environment } from '../../simulation/environment';
-import { dataset } from './mock';
+import { environment } from '@mock/env';
+import { acl } from '@mock/dataset';
 
 describe('ListByPage', () => {
   let curd: BitCurdService;
@@ -49,7 +49,7 @@ describe('ListByPage', () => {
         return lists.ready;
       })
     ).subscribe(() => {
-      lists.setData(dataset);
+      lists.setData(acl);
       done();
     });
   });
@@ -84,7 +84,7 @@ describe('ListByPage', () => {
   });
 
   it('Check setData', () => {
-    expect(lists.data).toEqual(dataset);
+    expect(lists.data).toEqual(acl);
   });
 
   it('Test hasSearch', () => {

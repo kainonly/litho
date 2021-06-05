@@ -1,6 +1,7 @@
 import { NgZone } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { Location } from '@angular/common';
+import { HttpClientModule } from '@angular/common/http';
 import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { NavigationEnd, Router, RouterModule } from '@angular/router';
 import { BitConfig, BitModule, BitService } from 'ngx-bit';
@@ -8,7 +9,6 @@ import { ListByPage } from 'ngx-bit';
 import { AsyncSubject, of } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import { environment } from '../simulation/environment';
-import { HttpClientModule } from '@angular/common/http';
 
 describe('BitService', () => {
   let config: BitConfig;

@@ -6,7 +6,7 @@ import { of } from 'rxjs';
 import { BitSwalModule, BitSwalService } from 'ngx-bit/swal';
 import { HttpClientModule } from '@angular/common/http';
 import { delay } from 'rxjs/operators';
-import { environment } from '../simulation/environment';
+import { environment } from '@mock/env';
 
 describe('BitSwalService', () => {
   let bit: BitService;
@@ -152,13 +152,9 @@ describe('BitSwalService', () => {
 
   it('Test delete response prompt box, click cancel', (done) => {
     swal.deleteAlert(of(responseOk)).subscribe(_ => _, _ => _, () => {
-      setTimeout(() => {
-        expect(document.querySelector('.swal2-container')).toBeNull();
-        done();
-      }, 500);
+      expect().nothing();
+      done();
     });
-    const container = document.querySelector('.swal2-container');
-    expect(container).not.toBeNull();
     const cancel: HTMLButtonElement = document.querySelector('.swal2-cancel');
     cancel.click();
   });

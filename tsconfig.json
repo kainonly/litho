@@ -46,9 +46,6 @@
       "ngx-bit/router": [
         "projects/ngx-bit/router/public-api.ts"
       ],
-      "ngx-bit/storage": [
-        "projects/ngx-bit/storage/public-api.ts"
-      ],
       "ngx-bit/swal": [
         "projects/ngx-bit/swal/public-api.ts"
       ],
@@ -105,6 +102,9 @@
       ],
       "@vanx/cms/template": [
         "projects/cms/template/public-api.ts"
+      ],
+      "@mock/*": [
+        "mock/*"
       ]
     }
   }
