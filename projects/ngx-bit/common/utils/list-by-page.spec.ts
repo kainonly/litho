@@ -4,7 +4,7 @@ import { BitCurdService, BitModule, ListByPage } from 'ngx-bit';
 import { delay, switchMap } from 'rxjs/operators';
 import { HttpClientModule } from '@angular/common/http';
 import { environment } from '@mock/env';
-import { acl } from '@mock/dataset';
+import { aclData } from '@mock/dataset';
 
 describe('ListByPage', () => {
   let curd: BitCurdService;
@@ -49,7 +49,7 @@ describe('ListByPage', () => {
         return lists.ready;
       })
     ).subscribe(() => {
-      lists.setData(acl);
+      lists.setData(aclData);
       done();
     });
   });
@@ -84,7 +84,7 @@ describe('ListByPage', () => {
   });
 
   it('Check setData', () => {
-    expect(lists.data).toEqual(acl);
+    expect(lists.data).toEqual(aclData);
   });
 
   it('Test hasSearch', () => {

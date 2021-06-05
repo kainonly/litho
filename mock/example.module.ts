@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import {
+  EmptyComponent,
   ExampleAddComponent,
   ExampleComponent,
   ExampleEditComponent,
@@ -13,14 +14,16 @@ import {
     ExampleIndexComponent,
     ExampleAddComponent,
     ExampleEditComponent,
-    ExampleOptComponent
+    ExampleOptComponent,
+    EmptyComponent
   ],
   exports: [
     ExampleComponent,
     ExampleIndexComponent,
     ExampleAddComponent,
     ExampleEditComponent,
-    ExampleOptComponent
+    ExampleOptComponent,
+    EmptyComponent
   ]
 })
 export class ExampleModule {

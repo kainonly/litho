@@ -112,11 +112,13 @@ export class BitRouterService {
     const primary = router.parseUrl(url).root.children[PRIMARY_OUTLET];
     const segments = primary.segments;
     this.storage.get('router').pipe(
-      map((data: object) => {
-        for (let i = 0; i < segments.length; i++) {
-          const key = segments.slice(0, i + 1).map(v => v.path).join('/');
-          if (data.hasOwnProperty(key)) {
-            return key;
+      map((data: any) => {
+        if (data) {
+          for (let i = 0; i < segments.length; i++) {
+            const key = segments.slice(0, i + 1).map(v => v.path).join('/');
+            if (data.hasOwnProperty(key)) {
+              return key;
+            }
           }
         }
         return null;
@@ -152,6 +154,7 @@ export class BitRouterService {
       }
       while (queue.length !== this.breadcrumbRoot) {
         const parentKey = queue.pop();
+
         if (data.hasOwnProperty(parentKey)) {
           const next = data[parentKey];
           navActive.unshift(next.key);
@@ -173,6 +176,6 @@ export class BitRouterService {
   private clearBreadcrumb(): void {
     this.navActive = [];
     this.breadcrumb = [];
-    this.title = '';
+    this.title = null;
   }
 }

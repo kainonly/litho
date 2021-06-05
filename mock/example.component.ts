@@ -34,3 +34,10 @@ export class ExampleEditComponent {
 })
 export class ExampleOptComponent {
 }
+
+@Component({
+  selector: 'app-empty',
+  template: ``
+})
+export class EmptyComponent {
+}

@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
 import {
+  EmptyComponent,
   ExampleAddComponent,
   ExampleComponent,
   ExampleEditComponent,
@@ -27,5 +28,14 @@ export const routes: Routes = [
   {
     path: 'example-opt/:key/:subkey',
     component: ExampleOptComponent
+  },
+  {
+    path: 'empty',
+    component: EmptyComponent
+  },
+  {
+    path: '**',
+    pathMatch: 'full',
+    redirectTo: '/empty'
   }
 ];
