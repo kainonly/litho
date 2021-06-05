@@ -1,19 +1,27 @@
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
-import { ExampleComponent } from './example.component';
-
-const routes: Routes = [
-  {
-    path: '',
-    component: ExampleComponent
-  }
-];
+import {
+  ExampleAddComponent,
+  ExampleComponent,
+  ExampleEditComponent,
+  ExampleIndexComponent,
+  ExampleOptComponent
+} from './example.component';
 
 @NgModule({
-  imports: [
-    RouterModule.forChild(routes)
+  declarations: [
+    ExampleComponent,
+    ExampleIndexComponent,
+    ExampleAddComponent,
+    ExampleEditComponent,
+    ExampleOptComponent
   ],
-  declarations: [ExampleComponent]
+  exports: [
+    ExampleComponent,
+    ExampleIndexComponent,
+    ExampleAddComponent,
+    ExampleEditComponent,
+    ExampleOptComponent
+  ]
 })
 export class ExampleModule {
 }

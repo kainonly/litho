@@ -3,138 +3,129 @@ import { TestBed } from '@angular/core/testing';
 import { Location } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { NavigationEnd, Router, RouterModule } from '@angular/router';
-import { BitConfig, BitModule, BitService } from 'ngx-bit';
+import { NavigationEnd, Router, RouterEvent, RouterModule } from '@angular/router';
+import { BitModule, BitService } from 'ngx-bit';
 import { ListByPage } from 'ngx-bit';
-import { AsyncSubject, of } from 'rxjs';
-import { switchMap } from 'rxjs/operators';
-import { environment } from '../simulation/environment';
+import { of } from 'rxjs';
+import { delay, filter, take } from 'rxjs/operators';
+import { environment } from '@mock/env';
+import { routes } from '@mock/routes';
+import { ExampleModule } from '@mock/example.module';
 
 describe('BitService', () => {
-  let config: BitConfig;
   let bit: BitService;
-  let zone: NgZone;
   let router: Router;
   let location: Location;
   let fb: FormBuilder;
 
   beforeEach(() => {
-    if (!bit) {
-      TestBed.configureTestingModule({
-        imports: [
-          FormsModule,
-          ReactiveFormsModule,
-          HttpClientModule,
-          RouterModule.forRoot([
-            {
-              path: '',
-              loadChildren: () => import('../simulation/case/case.module').then(m => m.CaseModule)
-            },
-            {
-              path: 'admin-index',
-              loadChildren: () => import('../simulation/case/case.module').then(m => m.CaseModule)
-            },
-            {
-              path: 'admin-add',
-              loadChildren: () => import('../simulation/case/case.module').then(m => m.CaseModule)
-            },
-            {
-              path: 'admin-edit/:id',
-              loadChildren: () => import('../simulation/case/case.module').then(m => m.CaseModule)
-            },
-            {
-              path: 'admin-edit/:id/:subId',
-              loadChildren: () => import('../simulation/case/case.module').then(m => m.CaseModule)
-            }
-          ]),
-          BitModule.forRoot(environment.bit)
-        ]
-      });
-      config = TestBed.inject(BitConfig);
-      bit = TestBed.inject(BitService);
-      zone = TestBed.inject(NgZone);
-      router = TestBed.inject(Router);
-      location = TestBed.inject(Location);
-      bit.registerLocales(import('../simulation/common.language'));
-      fb = TestBed.inject(FormBuilder);
-    }
+    TestBed.configureTestingModule({
+      imports: [
+        FormsModule,
+        ReactiveFormsModule,
+        HttpClientModule,
+        RouterModule.forRoot(routes),
+        BitModule.forRoot(environment.bit),
+        ExampleModule
+      ]
+    });
+    bit = TestBed.inject(BitService);
+    router = TestBed.inject(Router);
+    location = TestBed.inject(Location);
+    fb = TestBed.inject(FormBuilder);
+    localStorage.clear();
+    bit.setupLocale();
+    bit.registerLocales(import('@mock/common.language'));
   });
 
   it('Test open routerlink with cross level', (done) => {
-    zone.run(() => {
-      const event = router.events.subscribe(events => {
-        if (events instanceof NavigationEnd) {
-          expect(events.url).toBe('/admin-add');
-          event.unsubscribe();
-          done();
-        }
-      });
-      bit.open(['admin-add']);
+    router.events.pipe(
+      filter(e => e instanceof NavigationEnd),
+      take(1)
+    ).subscribe((e: RouterEvent) => {
+      expect(e.url).toBe('/example-add');
+      done();
     });
+    bit.open(['example-add']);
   });
 
   it('Test open use cross level without storage', (done) => {
-    zone.run(() => {
-      const event = router.events.subscribe(events => {
-        if (events instanceof NavigationEnd) {
-          expect(events.url).toBe('/admin-index');
-          event.unsubscribe();
-          done();
-        }
-      });
-      setTimeout(() => {
-        bit.history('admin-index');
-      }, 200);
+    let count = 2;
+    router.events.pipe(
+      filter(e => e instanceof NavigationEnd),
+      take(count)
+    ).subscribe((e: RouterEvent) => {
+      switch (2 - count) {
+        case 0:
+          expect(e.url).toBe('/example-add');
+          bit.history('example-index');
+          break;
+        case 1:
+          expect(e.url).toBe('/example-index');
+          break;
+      }
+      count--;
+      if (!count) {
+        done();
+      }
     });
+    bit.open(['example-add']);
   });
 
   it('Test open use cross level', (done) => {
-    const complete: AsyncSubject<any> = new AsyncSubject<any>();
-    zone.run(() => {
-      const event = complete.pipe(
-        switchMap(status => {
-          if (status) {
-            return router.events;
-          }
-        })
-      ).subscribe(events => {
-        if (events instanceof NavigationEnd) {
-          expect(events.url).toBe('/admin-edit/2');
-          event.unsubscribe();
-          complete.unsubscribe();
-          done();
-        }
-      });
-      bit.open(['admin-edit', 2]);
-      setTimeout(() => {
-        bit.open(['admin-edit', 2, 'a7']);
-        setTimeout(() => {
-          complete.next(true);
-          complete.complete();
-          bit.history('admin-edit');
-        }, 200);
-      }, 200);
+    let count = 3;
+    router.events.pipe(
+      filter(e => e instanceof NavigationEnd),
+      take(count)
+    ).subscribe((e: RouterEvent) => {
+      switch (3 - count) {
+        case 0:
+          expect(e.url).toBe('/example-edit/123');
+          bit.open(['example-opt', '123', 'A1']);
+          break;
+        case 1:
+          expect(e.url).toBe('/example-opt/123/A1');
+          bit.history('example-edit');
+          break;
+        case 2:
+          expect(e.url).toBe('/example-edit/123');
+          break;
+      }
+      count--;
+      if (!count) {
+        done();
+      }
     });
+    bit.open(['example-edit', '123']);
   });
 
   it('Test location back', (done) => {
-    zone.run(() => {
-      bit.open(['admin-index']);
-      setTimeout(() => {
-        bit.open(['admin-add']);
-        setTimeout(() => {
+    let count = 2;
+    router.events.pipe(
+      filter(e => e instanceof NavigationEnd),
+      take(count)
+    ).subscribe((e: RouterEvent) => {
+      switch (2 - count) {
+        case 0:
+          expect(e.url).toBe('/example-index');
+          bit.open(['example-add']);
+          break;
+        case 1:
+          expect(e.url).toBe('/example-add');
           bit.back();
-          location.subscribe(value => {
-            expect(value.url).toBe('/admin-index');
-            done();
-          });
-        }, 200);
-      }, 200);
+          break;
+      }
+      count--;
     });
+    location.subscribe(e => {
+      expect(e.url).toBe('/example-index');
+      done();
+    });
+    bit.open(['example-index']);
   });
 
   it('Test registered language pack', (done) => {
-    bit.registerLocales(import('../simulation/language'));
+    bit.registerLocales(import('@mock/language'));
     setTimeout(() => {
       expect(bit.l.dashboard).toBe('仪表盘');
       expect(bit.l.name).toBe('测试');
@@ -143,21 +134,16 @@ describe('BitService', () => {
   });
 
   it('Test set language pack ID', (done) => {
-    bit.setLocale('en_us');
-    setTimeout(() => {
+    bit.registerLocales(import('@mock/language'));
+    bit.localeChanged.subscribe((locale) => {
+      console.log(bit.l);
       expect(bit.l.dashboard).toBe('Dashboard');
       expect(bit.l.name).toBe('TEST');
-      bit.setLocale('zh_cn');
       done();
-    }, 200);
-  });
-
-  it('Test factory list by page', () => {
-    const list = bit.listByPage({
-      id: 'test',
-      query: []
     });
-    expect(list).toBeInstanceOf(ListByPage);
+    setTimeout(() => {
+      bit.setLocale('en_us');
+    }, 200);
   });
 
   it('Test i18n ID', () => {
@@ -204,5 +190,12 @@ describe('BitService', () => {
     expect(data.zh_cn).toBe('测试');
     expect(data.en_us).toBe('TEST');
     expect(data.ja_jp).toBeUndefined();
+  });
+
+  it('Test factory list by page', () => {
+    expect(bit.listByPage({
+      id: 'test',
+      query: []
+    })).toBeInstanceOf(ListByPage);
   });
 });

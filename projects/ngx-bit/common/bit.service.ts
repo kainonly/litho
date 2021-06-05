@@ -2,7 +2,7 @@ import { Injectable, Optional } from '@angular/core';
 import { NavigationExtras, PRIMARY_OUTLET, Router, UrlSegment } from '@angular/router';
 import { NzI18nService } from 'ng-zorro-antd/i18n';
 import { Location } from '@angular/common';
-import { Subject } from 'rxjs';
+import { BehaviorSubject, Subject } from 'rxjs';
 import { BitConfig } from './bit-config';
 import { ListByPageOption, I18nGroupOption, I18nTooltipOption, I18nOption } from './types';
 import { ListByPage } from './utils/list-by-page';
@@ -145,7 +145,8 @@ export class BitService {
    * Navigation history
    */
   history(key: string): void {
-    this.storage.get('history' + key).subscribe((segments: UrlSegment[]) => {
+    this.storage.get('history:' + key).subscribe((segments: UrlSegment[]) => {
+      // console.log(segments);
       const commands = [key];
       if (segments && segments.length !== 0) {
         commands.push(...segments.map(v => v.path));
@@ -196,12 +197,13 @@ export class BitService {
   setLocale(locale: string): void {
     this.locale = locale;
     localStorage.setItem('locale', locale);
-    this.localeChanged.next(locale);
     const index = this.localeMapping.indexOf(this.locale);
     for (const [key, data] of this.language.entries()) {
       this.l[key] = data[index];
     }
+    console.log(this.l);
     this.nzI18nService.setLocale(this.localeBind[index]);
+    this.localeChanged.next(locale);
   }
 
   /**
