@@ -30,12 +30,10 @@ describe('BitI18nTooltipComponent', () => {
       bit = TestBed.inject(BitService);
       fixture = TestBed.createComponent(TestComponent);
       component = fixture.componentInstance;
-      bit.registerLocales(import('../../simulation/common.language'));
+      bit.registerLocales(import('@mock/common.language'));
+      bit.registerLocales(import('@mock/language'));
       setTimeout(() => {
-        bit.registerLocales(import('../../simulation/language'));
-        setTimeout(() => {
-          done();
-        }, 200);
+        done();
       }, 200);
     }
   });

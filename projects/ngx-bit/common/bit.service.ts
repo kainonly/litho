@@ -170,6 +170,7 @@ export class BitService {
    * Setup language pack
    */
   setupLocale(): void {
+    this.l = {};
     this.setLocale(localStorage.getItem('locale') || this.localeDefault);
   }
 

@@ -53,6 +53,8 @@ export class BitHeaderComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
+    this.router.subTitle = null;
+    this.router.back = false;
     this.router.banner = undefined;
     this.router.actions = [];
     this.router.tags = undefined;
