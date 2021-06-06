@@ -32,12 +32,6 @@ export class BitCurdService {
     switch (this.mode) {
       case 'sql-orm':
         return this.common(options);
-      case 'mongo':
-        break;
-      case 'cloud':
-        break;
-      default:
-        console.warn('Please set the query driver.');
     }
   }
 
@@ -69,7 +63,7 @@ export class BitCurdService {
         }
         if (search.format !== undefined && search.format === 'unixtime') {
           value = Array.isArray(value) ?
-            value.map(v => Math.floor(v.getTime() / 1000)) : Math.floor(value.getTime() / 1000);
+            value.map(v => Math.trunc(v.getTime() / 1000)) : Math.trunc(value.getTime() / 1000);
         }
         schema.push([search.field, search.op, value]);
       }

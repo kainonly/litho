@@ -8,6 +8,7 @@ import { ListByPageOption, I18nGroupOption, I18nTooltipOption, I18nOption } from
 import { ListByPage } from './utils/list-by-page';
 import { BitCurdService } from './bit-curd.service';
 import { StorageMap } from '@ngx-pwa/local-storage';
+import { filter, switchMap } from 'rxjs/operators';
 
 @Injectable({ providedIn: 'root' })
 export class BitService {
@@ -274,6 +275,14 @@ export class BitService {
    * Clear app local storage
    */
   clear(): void {
-    this.storage.clear().subscribe(_ => _);
+    this.storage.keys().pipe(
+      filter(v =>
+        ['resource', 'router'].includes(v) ||
+        v.search(/^search:\S+$/) !== -1 ||
+        v.search(/^page:\S+$/) !== -1 ||
+        v.search(/^cross:\S+$/) !== -1
+      ),
+      switchMap(key => this.storage.delete(key))
+    ).subscribe(_ => _);
   }
 }

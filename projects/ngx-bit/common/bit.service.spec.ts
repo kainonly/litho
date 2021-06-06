@@ -10,11 +10,13 @@ import { filter, take } from 'rxjs/operators';
 import { environment } from '@mock/env';
 import { routes } from '@mock/routes';
 import { ExampleModule } from '@mock/example.module';
+import { StorageMap } from '@ngx-pwa/local-storage';
 
 describe('BitService', () => {
   let bit: BitService;
   let router: Router;
   let location: Location;
+  let storage: StorageMap;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -30,6 +32,7 @@ describe('BitService', () => {
     bit = TestBed.inject(BitService);
     router = TestBed.inject(Router);
     location = TestBed.inject(Location);
+    storage = TestBed.inject(StorageMap);
     localStorage.clear();
     bit.setupLocale();
     bit.registerLocales(import('@mock/common.language'));
@@ -197,5 +200,10 @@ describe('BitService', () => {
       id: 'test',
       query: []
     })).toBeInstanceOf(ListByPage);
+  });
+
+  it('Test clear', () => {
+    bit.clear();
+    expect().nothing();
   });
 });

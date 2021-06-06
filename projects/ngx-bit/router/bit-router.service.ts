@@ -24,7 +24,7 @@ export class BitRouterService {
   /**
    * SubTitle
    */
-  subTitle: string = null;
+  subTitle: any = null;
   /**
    * default breadcrumb Root
    */
