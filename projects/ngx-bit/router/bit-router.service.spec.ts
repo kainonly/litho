@@ -31,7 +31,7 @@ describe('BitRouterService', () => {
     bitRouter.setup();
   });
 
-  it('Set resource data and setup support', (done) => {
+  function setData(): void {
     const resourceMap: object = {};
     const routerMap: object = {};
     const nav: any = [];
@@ -63,7 +63,10 @@ describe('BitRouterService', () => {
       router: routerMap
     });
     expect(nav).not.toBeNull();
-    bitRouter.setup();
+  }
+
+  it('Set resource data and setup support', (done) => {
+    setData();
     router.events.pipe(
       filter(e => e instanceof NavigationEnd),
       take(1),
@@ -109,6 +112,7 @@ describe('BitRouterService', () => {
   });
 
   it('Test initialization breadcrumb when url is not /', (done) => {
+    setData();
     router.events.pipe(
       filter(e => e instanceof NavigationEnd),
       take(1),

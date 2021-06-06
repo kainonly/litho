@@ -24,33 +24,29 @@ describe('BitSwalService', () => {
   };
 
   beforeEach((done) => {
-    if (!swal) {
-      TestBed.configureTestingModule({
-        imports: [
-          FormsModule,
-          ReactiveFormsModule,
-          HttpClientModule,
-          RouterModule.forRoot([]),
-          BitModule.forRoot(environment.bit),
-          BitSwalModule.forRoot()
-        ]
-      });
-      bit = TestBed.inject(BitService);
-      swal = TestBed.inject(BitSwalService);
-      bit.setupLocale();
-      bit.registerLocales(import('@mock/common.language'));
-      const fb = TestBed.inject(FormBuilder);
-      form = fb.group({
-        name: []
-      });
-      swal.ready.pipe(
-        delay(500)
-      ).subscribe(() => {
-        done();
-      });
-    } else {
+    TestBed.configureTestingModule({
+      imports: [
+        FormsModule,
+        ReactiveFormsModule,
+        HttpClientModule,
+        RouterModule.forRoot([]),
+        BitModule.forRoot(environment.bit),
+        BitSwalModule.forRoot()
+      ]
+    });
+    bit = TestBed.inject(BitService);
+    swal = TestBed.inject(BitSwalService);
+    bit.setupLocale();
+    bit.registerLocales(import('@mock/common.language'));
+    const fb = TestBed.inject(FormBuilder);
+    form = fb.group({
+      name: []
+    });
+    swal.ready.pipe(
+      delay(200)
+    ).subscribe(() => {
       done();
-    }
+    });
   });
 
   it('Test add response prompt box, click confirm', (done) => {
