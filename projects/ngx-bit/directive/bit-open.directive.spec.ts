@@ -10,6 +10,7 @@ import { environment } from '@mock/env';
 import { HttpClientModule } from '@angular/common/http';
 import { routes } from '@mock/routes';
 import { filter, take } from 'rxjs/operators';
+import { ExampleModule } from '@mock/example.module';
 
 describe('BitOpenDirective', () => {
   let router: Router;
@@ -19,25 +20,24 @@ describe('BitOpenDirective', () => {
 
 
   beforeEach(() => {
-    if (!component) {
-      TestBed.configureTestingModule({
-        declarations: [
-          TestComponent
-        ],
-        imports: [
-          HttpClientModule,
-          BitDirectiveModule,
-          NzButtonModule,
-          BitModule.forRoot(environment.bit),
-          RouterModule.forRoot(routes)
-        ]
-      });
-      router = TestBed.inject(Router);
-      bit = TestBed.inject(BitService);
-      fixture = TestBed.createComponent(TestComponent);
-      component = fixture.componentInstance;
-      fixture.detectChanges();
-    }
+    TestBed.configureTestingModule({
+      declarations: [
+        TestComponent
+      ],
+      imports: [
+        HttpClientModule,
+        BitDirectiveModule,
+        NzButtonModule,
+        BitModule.forRoot(environment.bit),
+        RouterModule.forRoot(routes),
+        ExampleModule
+      ]
+    });
+    router = TestBed.inject(Router);
+    bit = TestBed.inject(BitService);
+    fixture = TestBed.createComponent(TestComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
   });
 
   it('Test open routerlink', (done) => {

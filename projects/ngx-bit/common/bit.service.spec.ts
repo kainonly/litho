@@ -36,6 +36,7 @@ describe('BitService', () => {
   });
 
   it('Test open routerlink with cross level', (done) => {
+    router.navigate(['/']);
     router.events.pipe(
       filter(e => e instanceof NavigationEnd),
       take(1)
@@ -47,6 +48,7 @@ describe('BitService', () => {
   });
 
   it('Test open use cross level without storage', (done) => {
+    router.navigate(['/']);
     let count = 2;
     router.events.pipe(
       filter(e => e instanceof NavigationEnd),
@@ -70,6 +72,7 @@ describe('BitService', () => {
   });
 
   it('Test open use cross level', (done) => {
+    router.navigate(['/']);
     let count = 3;
     router.events.pipe(
       filter(e => e instanceof NavigationEnd),
@@ -97,6 +100,7 @@ describe('BitService', () => {
   });
 
   it('Test location back', (done) => {
+    router.navigate(['/']);
     let count = 2;
     router.events.pipe(
       filter(e => e instanceof NavigationEnd),
@@ -115,8 +119,10 @@ describe('BitService', () => {
       count--;
     });
     location.subscribe(e => {
-      expect(e.url).toBe('/example-index');
-      done();
+      setTimeout(() => {
+        expect(e.url).toBe('/example-index');
+        done();
+      }, 200);
     });
     bit.open(['example-index']);
   });

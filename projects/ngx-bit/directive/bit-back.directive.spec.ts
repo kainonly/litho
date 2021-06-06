@@ -11,6 +11,7 @@ import { environment } from '@mock/env';
 import { HttpClientModule } from '@angular/common/http';
 import { routes } from '@mock/routes';
 import { filter, take } from 'rxjs/operators';
+import { ExampleModule } from '@mock/example.module';
 
 describe('BitBackDirective', () => {
   let router: Router;
@@ -29,13 +30,15 @@ describe('BitBackDirective', () => {
         NzButtonModule,
         BitDirectiveModule,
         RouterModule.forRoot(routes),
-        BitModule.forRoot(environment.bit)
+        BitModule.forRoot(environment.bit),
+        ExampleModule
       ]
     });
     router = TestBed.inject(Router);
     location = TestBed.inject(Location);
     bit = TestBed.inject(BitService);
     fixture = TestBed.createComponent(TestComponent);
+    router.navigate(['/']);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
@@ -60,8 +63,10 @@ describe('BitBackDirective', () => {
       count--;
     });
     location.subscribe(e => {
-      expect(e.url).toBe('/example-index');
-      done();
+      setTimeout(() => {
+        expect(e.url).toBe('/example-index');
+        done();
+      }, 200);
     });
     bit.open(['example-index']);
   });

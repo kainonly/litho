@@ -7,6 +7,8 @@ import { BitSwalModule, BitSwalService } from 'ngx-bit/swal';
 import { HttpClientModule } from '@angular/common/http';
 import { delay } from 'rxjs/operators';
 import { environment } from '@mock/env';
+import { routes } from '@mock/routes';
+import { ExampleModule } from '@mock/example.module';
 
 describe('BitSwalService', () => {
   let bit: BitService;
@@ -24,29 +26,35 @@ describe('BitSwalService', () => {
   };
 
   beforeEach((done) => {
-    TestBed.configureTestingModule({
-      imports: [
-        FormsModule,
-        ReactiveFormsModule,
-        HttpClientModule,
-        RouterModule.forRoot([]),
-        BitModule.forRoot(environment.bit),
-        BitSwalModule.forRoot()
-      ]
-    });
-    bit = TestBed.inject(BitService);
-    swal = TestBed.inject(BitSwalService);
-    bit.setupLocale();
-    bit.registerLocales(import('@mock/common.language'));
-    const fb = TestBed.inject(FormBuilder);
-    form = fb.group({
-      name: []
-    });
-    swal.ready.pipe(
-      delay(200)
-    ).subscribe(() => {
+    if (!swal) {
+      TestBed.configureTestingModule({
+        imports: [
+          FormsModule,
+          ReactiveFormsModule,
+          HttpClientModule,
+          RouterModule.forRoot(routes),
+          BitModule.forRoot(environment.bit),
+          BitSwalModule.forRoot(),
+          ExampleModule
+        ]
+      });
+      bit = TestBed.inject(BitService);
+      swal = TestBed.inject(BitSwalService);
+      bit.setupLocale();
+      bit.registerLocales(import('@mock/common.language'));
+      bit.setLocale('zh_cn');
+      const fb = TestBed.inject(FormBuilder);
+      form = fb.group({
+        name: []
+      });
+      swal.ready.pipe(
+        delay(500)
+      ).subscribe(() => {
+        done();
+      });
+    } else {
       done();
-    });
+    }
   });
 
   it('Test add response prompt box, click confirm', (done) => {
@@ -57,6 +65,7 @@ describe('BitSwalService', () => {
     });
     const container = document.querySelector('.swal2-html-container');
     const title: HTMLElement = container.querySelector('.ant-result-title');
+    console.log(title);
     expect(title.innerText).toBe(bit.l.AddAlertSuccessTitle);
     const content: HTMLElement = container.querySelector('.ant-result-subtitle');
     expect(content.innerText).toBe(bit.l.AddAlertSuccessContent);
