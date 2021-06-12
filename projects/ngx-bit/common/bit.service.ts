@@ -203,7 +203,6 @@ export class BitService {
     for (const [key, data] of this.language.entries()) {
       this.l[key] = data[index];
     }
-    console.log(this.l);
     this.nzI18nService.setLocale(this.localeBind[index]);
     this.localeChanged.next(locale);
   }
