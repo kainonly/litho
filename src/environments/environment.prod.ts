@@ -14,7 +14,7 @@ const bit: BitConfig = {
     uploadStorage: 'cos',
     uploadFetchSigned: '/system/main/presigned',
     uploadFetchSignedMethod: 'POST',
-    uploadSize: 102400
+    uploadSize: 5120
   },
   curd: {
     get: '/get',
