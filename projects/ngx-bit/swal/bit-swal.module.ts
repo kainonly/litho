@@ -21,7 +21,7 @@ export class BitSwalModule {
   constructor(
     config: Config,
     swal: BitSwalService,
-    @Inject(DOCUMENT) readonly document: Document
+    @Inject(DOCUMENT) readonly document: any
   ) {
     loadScript(document, config?.url || this.url).subscribe(_ => {
       swal.ready.next(window['Swal']);

@@ -53,7 +53,9 @@ export class BitRouterService {
    * Header banner
    */
   footer: TemplateRef<any>;
-
+  /**
+   * Status
+   */
   changed: Subject<any> = new Subject();
 
   /**

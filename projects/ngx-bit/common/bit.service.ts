@@ -147,7 +147,6 @@ export class BitService {
    */
   history(key: string): void {
     this.storage.get('history:' + key).subscribe((segments: UrlSegment[]) => {
-      // console.log(segments);
       const commands = [key];
       if (segments && segments.length !== 0) {
         commands.push(...segments.map(v => v.path));
@@ -247,6 +246,7 @@ export class BitService {
   }
 
   /**
+   * 解析国际化数据
    * Parse i18n string json
    */
   i18nParse(text: string): any {

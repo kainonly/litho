@@ -1,6 +1,6 @@
 import { Observable } from 'rxjs';
 
-export const loadScript = (doc: Document, url: string): Observable<any> => {
+export function loadScript(doc: Document, url: string): Observable<any> {
   const script = doc.createElement('script');
   script.type = 'text/javascript';
   script.src = url;
@@ -11,4 +11,4 @@ export const loadScript = (doc: Document, url: string): Observable<any> => {
       subscriber.complete();
     };
   });
-};
+}

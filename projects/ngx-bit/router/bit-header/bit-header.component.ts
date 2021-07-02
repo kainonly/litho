@@ -26,7 +26,7 @@ import { BitRouterService } from '../bit-router.service';
 })
 export class BitHeaderComponent implements OnInit, AfterViewInit, OnDestroy {
   @Input() subTitle: any;
-  @Input() back: boolean;
+    @Input() back: boolean;
   @ViewChild('ContentTpl') content: TemplateRef<any>;
   @ContentChild(BitHeaderBannerDirective) banner: BitHeaderBannerDirective;
   @ContentChild(BitHeaderTagsDirective) tags: BitHeaderTagsDirective;
