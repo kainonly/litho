@@ -1,65 +1,33 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { RouterModule, Routes } from '@angular/router';
-import { HttpClientModule } from '@angular/common/http';
 import { registerLocaleData } from '@angular/common';
+import { HttpClientModule } from '@angular/common/http';
+import en from '@angular/common/locales/en';
+import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ServiceWorkerModule } from '@angular/service-worker';
-import zh from '@angular/common/locales/zh';
 import { environment } from '@env';
-import { NZ_I18N, zh_CN } from 'ng-zorro-antd/i18n';
-import { NZ_CONFIG, NzConfig } from 'ng-zorro-antd/core/config';
-import { BitModule } from 'ngx-bit';
+import { en_US, NZ_I18N } from 'ng-zorro-antd/i18n';
 
-registerLocaleData(zh);
-
-import { AppExtModule } from '@ext';
+import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { FrameworkModule, TokenService } from '@vanx/framework';
-import { LoginComponent, LoginModule } from '@vanx/framework/login';
-import { NgxTinymceModule } from 'ngx-tinymce';
-// import { TinymceConfig } from '@vanx/cms/component';
-import { BitSwalModule } from 'ngx-bit/swal';
 
-const routes: Routes = [
-  {
-    path: '',
-    loadChildren: () => import('./app.router.module').then(m => m.AppRouterModule),
-    canActivate: [TokenService]
-  },
-  {
-    path: 'login',
-    component: LoginComponent
-  }
-];
-
-const ngZorroConfig: NzConfig = {
-  notification: { nzPlacement: 'bottomRight' }
-};
+registerLocaleData(en);
 
 @NgModule({
   declarations: [AppComponent],
   imports: [
     BrowserModule,
-    BrowserAnimationsModule,
+    AppRoutingModule,
+    FormsModule,
     HttpClientModule,
-    AppExtModule,
-    FrameworkModule,
-    LoginModule,
-    BitModule.forRoot(environment.bit),
-    BitSwalModule.forRoot(),
-    // NgxTinymceModule.forRoot({
-    //   baseURL: environment.bit.url.static + 'assets/tinymce/',
-    //   config: TinymceConfig
-    // }),
-    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
-    RouterModule.forRoot(routes, { useHash: true })
+    BrowserAnimationsModule,
+    ServiceWorkerModule.register('ngsw-worker.js', {
+      enabled: environment.production,
+      registrationStrategy: 'registerWhenStable:30000'
+    })
   ],
-  providers: [
-    { provide: NZ_CONFIG, useValue: ngZorroConfig },
-    { provide: NZ_I18N, useValue: zh_CN }
-  ],
+  providers: [{ provide: NZ_I18N, useValue: en_US }],
   bootstrap: [AppComponent]
 })
-export class AppModule {
-}
+export class AppModule {}

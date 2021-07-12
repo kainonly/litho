@@ -1,13 +1,20 @@
 {
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "cli": {
+    "analytics": false,
+    "defaultCollection": "@angular-eslint/schematics"
+  },
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "ngx-bit-case": {
+    "ngx-bit-example": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
           "style": "scss"
+        },
+        "@schematics/angular:application": {
+          "strict": true
         }
       },
       "root": "",
@@ -17,11 +24,12 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/ngx-bit-case",
+            "outputPath": "dist/ngx-bit-example",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.app.json",
+            "inlineStyleLanguage": "scss",
             "assets": [
               "src/favicon.ico",
               "src/assets",
@@ -32,59 +40,87 @@
               "src/styles.scss"
             ],
             "scripts": [],
-            "allowedCommonJsDependencies": [
-              "ajv",
-              "ajv-formats",
-              "tsparticles"
-            ],
-            "vendorChunk": true,
-            "extractLicenses": false,
-            "buildOptimizer": false,
-            "sourceMap": true,
-            "optimization": false,
-            "namedChunks": true
+            "serviceWorker": true,
+            "ngswConfigPath": "ngsw-config.json"
           },
           "configurations": {
             "production": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kb",
+                  "maximumError": "1mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "2kb",
+                  "maximumError": "4kb"
+                }
+              ],
               "fileReplacements": [
                 {
                   "replace": "src/environments/environment.ts",
                   "with": "src/environments/environment.prod.ts"
                 }
               ],
-              "optimization": true,
-              "outputHashing": "all",
-              "sourceMap": false,
-              "namedChunks": false,
-              "extractLicenses": true,
-              "vendorChunk": false,
-              "buildOptimizer": true,
-              "budgets": [
-                {
-                  "type": "initial",
-                  "maximumWarning": "2mb",
-                  "maximumError": "5mb"
-                },
-                {
-                  "type": "anyComponentStyle",
-                  "maximumWarning": "6kb"
-                }
-              ],
-              "serviceWorker": true,
-              "ngswConfigPath": "ngsw-config.json"
+              "outputHashing": "all"
+            },
+            "development": {
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true
             }
           },
-          "defaultConfiguration": ""
+          "defaultConfiguration": "production"
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
-          "options": {
-            "browserTarget": "ngx-bit-case:build"
-          },
           "configurations": {
             "production": {
-              "browserTarget": "ngx-bit-case:build:production"
+              "browserTarget": "ngx-bit-example:build:production"
+            },
+            "development": {
+              "browserTarget": "ngx-bit-example:build:development"
             }
+          },
+          "defaultConfiguration": "development"
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "ngx-bit-example:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "src/test.ts",
+            "polyfills": "src/polyfills.ts",
+            "tsConfig": "tsconfig.spec.json",
+            "karmaConfig": "karma.conf.js",
+            "inlineStyleLanguage": "scss",
+            "assets": [
+              "src/favicon.ico",
+              "src/assets",
+              "src/manifest.webmanifest"
+            ],
+            "styles": [
+              "./node_modules/ng-zorro-antd/ng-zorro-antd.min.css",
+              "src/styles.scss"
+            ],
+            "scripts": []
+          }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "src/**/*.ts",
+              "src/**/*.html"
+            ]
           }
         }
       }
@@ -93,166 +129,42 @@
       "projectType": "library",
       "root": "projects/ngx-bit",
       "sourceRoot": "projects/ngx-bit",
-      "prefix": "lib",
+      "prefix": "bit",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:ng-packagr",
           "options": {
-            "tsConfig": "projects/ngx-bit/tsconfig.lib.json",
             "project": "projects/ngx-bit/ng-package.json"
           },
           "configurations": {
             "production": {
               "tsConfig": "projects/ngx-bit/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/ngx-bit/tsconfig.lib.json"
             }
-          }
+          },
+          "defaultConfiguration": "production"
         },
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
             "main": "projects/ngx-bit/test.ts",
             "tsConfig": "projects/ngx-bit/tsconfig.spec.json",
-            "karmaConfig": "projects/ngx-bit/karma.conf.js",
-            "codeCoverage": true
+            "karmaConfig": "projects/ngx-bit/karma.conf.js"
           }
         },
         "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
+          "builder": "@angular-eslint/builder:lint",
           "options": {
-            "tsConfig": [
-              "projects/ngx-bit/tsconfig.lib.json",
-              "projects/ngx-bit/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
-          }
-        }
-      }
-    },
-    "framework": {
-      "projectType": "library",
-      "root": "projects/framework",
-      "sourceRoot": "projects/framework/src",
-      "prefix": "lib",
-      "architect": {
-        "build": {
-          "builder": "@angular-devkit/build-angular:ng-packagr",
-          "options": {
-            "tsConfig": "projects/framework/tsconfig.lib.json",
-            "project": "projects/framework/ng-package.json"
-          },
-          "configurations": {
-            "production": {
-              "tsConfig": "projects/framework/tsconfig.lib.prod.json"
-            }
-          }
-        }
-      }
-    },
-    "cms": {
-      "projectType": "library",
-      "root": "projects/cms",
-      "sourceRoot": "projects/cms/src",
-      "prefix": "lib",
-      "architect": {
-        "build": {
-          "builder": "@angular-devkit/build-angular:ng-packagr",
-          "options": {
-            "tsConfig": "projects/cms/tsconfig.lib.json",
-            "project": "projects/cms/ng-package.json"
-          },
-          "configurations": {
-            "production": {
-              "tsConfig": "projects/cms/tsconfig.lib.prod.json"
-            }
-          }
-        }
-      }
-    },
-    "ngx-howler": {
-      "projectType": "library",
-      "root": "projects/ngx-howler",
-      "sourceRoot": "projects/ngx-howler/src",
-      "prefix": "lib",
-      "architect": {
-        "build": {
-          "builder": "@angular-devkit/build-angular:ng-packagr",
-          "options": {
-            "tsConfig": "projects/ngx-howler/tsconfig.lib.json",
-            "project": "projects/ngx-howler/ng-package.json"
-          },
-          "configurations": {
-            "production": {
-              "tsConfig": "projects/ngx-howler/tsconfig.lib.prod.json"
-            }
-          }
-        },
-        "test": {
-          "builder": "@angular-devkit/build-angular:karma",
-          "options": {
-            "main": "projects/ngx-howler/src/test.ts",
-            "tsConfig": "projects/ngx-howler/tsconfig.spec.json",
-            "karmaConfig": "projects/ngx-howler/karma.conf.js"
-          }
-        },
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": [
-              "projects/ngx-howler/tsconfig.lib.json",
-              "projects/ngx-howler/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
-          }
-        }
-      }
-    },
-    "ngx-mqtt-lite": {
-      "projectType": "library",
-      "root": "projects/ngx-mqtt-lite",
-      "sourceRoot": "projects/ngx-mqtt-lite/src",
-      "prefix": "lib",
-      "architect": {
-        "build": {
-          "builder": "@angular-devkit/build-angular:ng-packagr",
-          "options": {
-            "tsConfig": "projects/ngx-mqtt-lite/tsconfig.lib.json",
-            "project": "projects/ngx-mqtt-lite/ng-package.json"
-          },
-          "configurations": {
-            "production": {
-              "tsConfig": "projects/ngx-mqtt-lite/tsconfig.lib.prod.json"
-            }
-          }
-        },
-        "test": {
-          "builder": "@angular-devkit/build-angular:karma",
-          "options": {
-            "main": "projects/ngx-mqtt-lite/src/test.ts",
-            "tsConfig": "projects/ngx-mqtt-lite/tsconfig.spec.json",
-            "karmaConfig": "projects/ngx-mqtt-lite/karma.conf.js"
-          }
-        },
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": [
-              "projects/ngx-mqtt-lite/tsconfig.lib.json",
-              "projects/ngx-mqtt-lite/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**"
+            "lintFilePatterns": [
+              "projects/ngx-bit/**/*.ts",
+              "projects/ngx-bit/**/*.html"
             ]
           }
         }
       }
     }
   },
-  "defaultProject": "ngx-bit-case",
-  "cli": {
-    "analytics": "ab1bb0eb-ad9b-4481-8057-ff2d76424627"
-  }
+  "defaultProject": "ngx-bit-example"
 }

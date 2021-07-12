@@ -5,12 +5,9 @@ import { BitService } from 'ngx-bit';
   selector: '[bitHistory]'
 })
 export class BitHistoryDirective {
-  @Input() bitHistory: string;
+  @Input() bitHistory!: string;
 
-  constructor(
-    private bit: BitService
-  ) {
-  }
+  constructor(private bit: BitService) {}
 
   @HostListener('click')
   onClick(): void {

@@ -1,22 +1,25 @@
+import { Location } from '@angular/common';
 import { Injectable, Optional } from '@angular/core';
 import { NavigationExtras, PRIMARY_OUTLET, Router, UrlSegment } from '@angular/router';
-import { NzI18nService } from 'ng-zorro-antd/i18n';
-import { Location } from '@angular/common';
-import { Subject } from 'rxjs';
-import { BitConfig } from './bit-config';
-import { ListByPageOption, I18nGroupOption, I18nTooltipOption, I18nOption } from './types';
-import { ListByPage } from './utils/list-by-page';
-import { BitCurdService } from './bit-curd.service';
 import { StorageMap } from '@ngx-pwa/local-storage';
+import { NzI18nService } from 'ng-zorro-antd/i18n';
+import { Subject } from 'rxjs';
 import { filter, switchMap } from 'rxjs/operators';
 
-@Injectable({ providedIn: 'root' })
+import { BitConfig } from './bit-config';
+import { BitCurdService } from './bit-curd.service';
+import { ListByPageOption, I18nGroupOption, I18nTooltipOption, I18nOption } from './types';
+import { ListByPage } from './utils/list-by-page';
+
+@Injectable({
+  providedIn: 'root'
+})
 export class BitService {
   /**
    * 静态资源地址
    * Static resource address
    */
-  readonly static: string;
+  readonly static?: string;
   /**
    * 上传地址
    * Upload address
@@ -26,7 +29,7 @@ export class BitService {
    * 公共语言包
    * Common language pack
    */
-  private language: Map<string, any> = new Map();
+  private language: Map<string, unknown> = new Map();
   /**
    * 默认语言包 ID
    * Default language ID
@@ -41,12 +44,12 @@ export class BitService {
    * 语言包 ID 与 NG-ZORRO 语言包关联
    * Language ID associated with NG-ZORRO language
    */
-  readonly localeBind: any[];
+  readonly localeBind: unknown[];
   /**
    * 语言包 ID
    * Language ID
    */
-  locale: string;
+  locale?: string;
   /**
    * 语言包 ID 状态
    * Language ID changed
@@ -56,7 +59,7 @@ export class BitService {
    * 语言包引用
    * Language pack reference
    */
-  l: any = {};
+  l: unknown = {};
   /**
    * 默认国际化 ID，^ 国际化是面向表单输入的
    * Default I18n ID, ^ I18n is for form input
@@ -76,7 +79,7 @@ export class BitService {
    * 国际化包含语言 ID
    * I18n includes languages ID
    */
-  i18nContain: any[] = [];
+  i18nContain: unknown[] = [];
   /**
    * 国际化详情
    * I18n Detail
@@ -103,13 +106,13 @@ export class BitService {
   ) {
     this.static = bitConfig.url.static;
     this.uploads = bitConfig.url.api + bitConfig.api.upload;
-    this.localeDefault = bitConfig.locale.default;
-    this.localeMapping = bitConfig.locale.mapping;
-    this.localeBind = bitConfig.locale.bind;
-    this.i18nDefault = bitConfig.i18n.default;
-    this.i18n = bitConfig.i18n.default;
-    this.i18nContain = bitConfig.i18n.contain;
-    this.i18nSwitch = bitConfig.i18n.switch;
+    this.localeDefault = bitConfig.locale!.default;
+    this.localeMapping = bitConfig.locale!.mapping;
+    this.localeBind = bitConfig.locale!.bind;
+    this.i18nDefault = bitConfig.i18n!.default;
+    this.i18n = bitConfig.i18n!.default;
+    this.i18nContain = bitConfig.i18n!.contain;
+    this.i18nSwitch = bitConfig.i18n!.switch;
     this.pageDefault = bitConfig.page;
   }
 
@@ -117,7 +120,7 @@ export class BitService {
    * 路由导航
    * Route navigation
    */
-  open(path: any[], extras?: NavigationExtras): void {
+  open(path: unknown[], extras?: NavigationExtras): void {
     if (path.length === 0) {
       return;
     }
@@ -127,10 +130,10 @@ export class BitService {
       const segments = primary.segments;
       if (segments.length > 1) {
         const key = segments[0].path;
-        this.storage.set('history:' + key, segments.splice(1)).subscribe(_ => _);
+        this.storage.set(`history:${key}`, segments.splice(1)).subscribe(() => null);
       }
     }
-    const commands = [];
+    const commands: unknown[] = [];
     path.forEach(value => {
       if (typeof value === 'string') {
         commands.push(...value.split('/'));
@@ -146,11 +149,11 @@ export class BitService {
    * Navigation history
    */
   history(key: string): void {
-    this.storage.get('history:' + key).subscribe((segments: UrlSegment[]) => {
+    this.storage.get(`history:${key}`).subscribe((segments: unknown) => {
       const commands = [key];
-      if (segments && segments.length !== 0) {
-        commands.push(...segments.map(v => v.path));
-        this.storage.delete('history:' + key).subscribe(_ => _);
+      if (segments && (<UrlSegment[]>segments).length !== 0) {
+        commands.push(...(<UrlSegment[]>segments).map(v => v.path));
+        this.storage.delete(`history:${key}`).subscribe(_ => _);
       }
       this.router.navigate(commands);
     });
@@ -178,13 +181,13 @@ export class BitService {
    * 载入语言包
    * Registered language pack
    */
-  registerLocales(packer: object | Promise<any>): void {
+  registerLocales(packer: Record<string, unknown> | Promise<unknown>): void {
     Promise.resolve(packer).then(result => {
       if (!result.default) {
         return;
       }
       this.language = new Map([...this.language, ...Object.entries(result.default)]);
-      const index = this.localeDefault.indexOf(this.locale);
+      const index = this.localeDefault.indexOf(<string>this.locale);
       for (const [key, data] of this.language.entries()) {
         this.l[key] = data[index];
       }
@@ -226,8 +229,8 @@ export class BitService {
    * 生成 I18n FormGroup
    * Generate I18n FormGroup
    */
-  i18nGroup(options: I18nGroupOption): any {
-    const controls = {};
+  i18nGroup(options: I18nGroupOption): Record<any, any> {
+    const controls: Record<string, unknown> = {};
     if (options) {
       for (const ID of this.i18nContain) {
         controls[ID] = [null, [], []];
@@ -274,14 +277,18 @@ export class BitService {
    * Clear app local storage
    */
   clear(): void {
-    this.storage.keys().pipe(
-      filter(v =>
-        ['resource', 'router'].includes(v) ||
-        v.search(/^search:\S+$/) !== -1 ||
-        v.search(/^page:\S+$/) !== -1 ||
-        v.search(/^cross:\S+$/) !== -1
-      ),
-      switchMap(key => this.storage.delete(key))
-    ).subscribe(_ => _);
+    this.storage
+      .keys()
+      .pipe(
+        filter(
+          v =>
+            ['resource', 'router'].includes(v) ||
+            v.search(/^search:\S+$/) !== -1 ||
+            v.search(/^page:\S+$/) !== -1 ||
+            v.search(/^cross:\S+$/) !== -1
+        ),
+        switchMap(key => this.storage.delete(key))
+      )
+      .subscribe(_ => _);
   }
 }

@@ -1,112 +1,57 @@
+/* To learn more about this file see: https://angular.io/config/tsconfig. */
 {
   "compileOnSave": false,
   "compilerOptions": {
     "baseUrl": "./",
     "outDir": "./dist/out-tsc",
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
     "sourceMap": true,
     "declaration": false,
     "downlevelIteration": true,
     "experimentalDecorators": true,
     "moduleResolution": "node",
     "importHelpers": true,
-    "skipLibCheck": true,
-    "target": "es2015",
+    "target": "es2017",
     "module": "es2020",
-    "lib": [
-      "es2018",
-      "dom"
-    ],
+    "lib": ["es2018", "dom"],
     "paths": {
-      "@env": [
-        "src/environments/environment.ts"
-      ],
-      "@common/*": [
-        "src/app/common/*"
-      ],
-      "@api/*": [
-        "src/app/api/*"
-      ],
-      "@ext": [
-        "src/app/app.ext.module.ts"
-      ],
-      "ngx-bit": [
-        "projects/ngx-bit/public-api.ts"
-      ],
-      "ngx-bit/component": [
-        "projects/ngx-bit/component/public-api.ts"
-      ],
-      "ngx-bit/directive": [
-        "projects/ngx-bit/directive/public-api.ts"
-      ],
-      "ngx-bit/operates": [
-        "projects/ngx-bit/operates/public-api.ts"
-      ],
-      "ngx-bit/pipe": [
-        "projects/ngx-bit/pipe/public-api.ts"
-      ],
-      "ngx-bit/router": [
-        "projects/ngx-bit/router/public-api.ts"
-      ],
-      "ngx-bit/swal": [
-        "projects/ngx-bit/swal/public-api.ts"
-      ],
-      "ngx-howler": [
-        "projects/ngx-howler/src/public-api.ts"
-      ],
-      "ngx-mqtt-lite": [
-        "projects/ngx-mqtt-lite/src/public-api.ts"
-      ],
-      "@vanx/framework": [
-        "projects/framework/public-api.ts"
-      ],
-      "@vanx/framework/component": [
-        "projects/framework/component/public-api.ts"
-      ],
-      "@vanx/framework/layout": [
-        "projects/framework/layout/public-api.ts"
-      ],
-      "@vanx/framework/login": [
-        "projects/framework/login/public-api.ts"
-      ],
-      "@vanx/framework/profile": [
-        "projects/framework/profile/public-api.ts"
-      ],
-      "@vanx/framework/acl": [
-        "projects/framework/acl/public-api.ts"
-      ],
-      "@vanx/framework/resource": [
-        "projects/framework/resource/public-api.ts"
-      ],
-      "@vanx/framework/role": [
-        "projects/framework/role/public-api.ts"
-      ],
-      "@vanx/framework/user": [
-        "projects/framework/user/public-api.ts"
-      ],
-      "@vanx/framework/permission": [
-        "projects/framework/permission/public-api.ts"
-      ],
-      "@vanx/framework/security": [
-        "projects/framework/security/public-api.ts"
-      ],
-      "@vanx/cms": [
-        "projects/cms/public-api.ts"
-      ],
-      "@vanx/cms/component": [
-        "projects/cms/component/public-api.ts"
-      ],
-      "@vanx/cms/media": [
-        "projects/cms/media/public-api.ts"
-      ],
-      "@vanx/cms/schema": [
-        "projects/cms/schema/public-api.ts"
-      ],
-      "@vanx/cms/template": [
-        "projects/cms/template/public-api.ts"
-      ],
-      "@mock/*": [
-        "mock/*"
-      ]
+      "@env": ["src/environments/environment.ts"],
+      "@common/*": ["src/app/common/*"],
+      "@api/*": ["src/app/api/*"],
+      "@ext": ["src/app/app.ext.module.ts"],
+      "ngx-bit": ["projects/ngx-bit/src/public-api.ts"],
+      "ngx-bit/component": ["projects/ngx-bit/src/component/public-api.ts"],
+      "ngx-bit/directive": ["projects/ngx-bit/src/directive/public-api.ts"],
+      "ngx-bit/operates": ["projects/ngx-bit/src/operates/public-api.ts"],
+      "ngx-bit/pipe": ["projects/ngx-bit/src/pipe/public-api.ts"],
+      "ngx-bit/router": ["projects/ngx-bit/src/router/public-api.ts"],
+      "ngx-bit/swal": ["projects/ngx-bit/src/swal/public-api.ts"],
+      "@vanx/framework": ["projects/framework/public-api.ts"],
+      "@vanx/framework/component": ["projects/framework/component/public-api.ts"],
+      "@vanx/framework/layout": ["projects/framework/layout/public-api.ts"],
+      "@vanx/framework/login": ["projects/framework/login/public-api.ts"],
+      "@vanx/framework/profile": ["projects/framework/profile/public-api.ts"],
+      "@vanx/framework/acl": ["projects/framework/acl/public-api.ts"],
+      "@vanx/framework/resource": ["projects/framework/resource/public-api.ts"],
+      "@vanx/framework/role": ["projects/framework/role/public-api.ts"],
+      "@vanx/framework/user": ["projects/framework/user/public-api.ts"],
+      "@vanx/framework/permission": ["projects/framework/permission/public-api.ts"],
+      "@vanx/framework/security": ["projects/framework/security/public-api.ts"],
+      "@vanx/cms": ["projects/cms/public-api.ts"],
+      "@vanx/cms/component": ["projects/cms/component/public-api.ts"],
+      "@vanx/cms/media": ["projects/cms/media/public-api.ts"],
+      "@vanx/cms/schema": ["projects/cms/schema/public-api.ts"],
+      "@vanx/cms/template": ["projects/cms/template/public-api.ts"],
+      "@mock/*": ["mock/*"]
     }
+  },
+  "angularCompilerOptions": {
+    "enableI18nLegacyMessageIdFormat": false,
+    "strictInjectionParameters": true,
+    "strictInputAccessModifiers": true,
+    "strictTemplates": true
   }
 }

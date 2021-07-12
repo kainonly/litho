@@ -25,7 +25,7 @@ export interface CurdInterface {
 
   edit?(model: string, data: any, condition?: SearchOption[], path?: string): Observable<any>;
 
-  status?(model: string, data: any, field, extra?: any, path?: string): Observable<any>;
+  status?(model: string, data: any, field: string, extra?: any, path?: string): Observable<any>;
 
   delete?(model: string, id?: any[], condition?: SearchOption[], path?: string): Observable<any>;
 }
@@ -47,9 +47,11 @@ export interface I18nOption {
   name: object;
 }
 
-export type I18nTooltipOption = {
-  [key: string]: string[];
-} | any;
+export type I18nTooltipOption =
+  | {
+      [key: string]: string[];
+    }
+  | any;
 
 export interface I18nGroupOption {
   value?: any;

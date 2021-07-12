@@ -1,8 +1,8 @@
 import { ModuleWithProviders, NgModule } from '@angular/core';
-import { NzIconService } from 'ng-zorro-antd/icon';
-import { BitService } from './common/bit.service';
-import { BitHttpService } from './common/bit-http.service';
+
 import { BitConfig } from './common/bit-config';
+import { BitHttpService } from './common/bit-http.service';
+import { BitService } from './common/bit.service';
 
 @NgModule()
 export class BitModule {
@@ -15,16 +15,8 @@ export class BitModule {
           useValue: config
         },
         BitService,
-        BitHttpService,
-        NzIconService
+        BitHttpService
       ]
     };
-  }
-
-  constructor(
-    config: BitConfig,
-    nzIcon: NzIconService
-  ) {
-    nzIcon.changeAssetsSource(config?.url?.icon);
   }
 }
