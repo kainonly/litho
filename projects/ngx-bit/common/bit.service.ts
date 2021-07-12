@@ -1,14 +1,14 @@
+import { Location } from '@angular/common';
 import { Injectable, Optional } from '@angular/core';
 import { NavigationExtras, PRIMARY_OUTLET, Router, UrlSegment } from '@angular/router';
-import { NzI18nService } from 'ng-zorro-antd/i18n';
-import { Location } from '@angular/common';
 import { Subject } from 'rxjs';
+import { filter, switchMap } from 'rxjs/operators';
+import { StorageMap } from '@ngx-pwa/local-storage';
+import { NzI18nService } from 'ng-zorro-antd/i18n';
 import { BitConfig } from './bit-config';
+import { BitCurdService } from './bit-curd.service';
 import { ListByPageOption, I18nGroupOption, I18nTooltipOption, I18nOption } from './types';
 import { ListByPage } from './utils/list-by-page';
-import { BitCurdService } from './bit-curd.service';
-import { StorageMap } from '@ngx-pwa/local-storage';
-import { filter, switchMap } from 'rxjs/operators';
 
 @Injectable({ providedIn: 'root' })
 export class BitService {
@@ -46,7 +46,7 @@ export class BitService {
    * 语言包 ID
    * Language ID
    */
-  locale: string;
+  locale!: string;
   /**
    * 语言包 ID 状态
    * Language ID changed
@@ -56,7 +56,7 @@ export class BitService {
    * 语言包引用
    * Language pack reference
    */
-  l: any = {};
+  l: Record<string, any> = {};
   /**
    * 默认国际化 ID，^ 国际化是面向表单输入的
    * Default I18n ID, ^ I18n is for form input
@@ -127,10 +127,10 @@ export class BitService {
       const segments = primary.segments;
       if (segments.length > 1) {
         const key = segments[0].path;
-        this.storage.set('history:' + key, segments.splice(1)).subscribe(_ => _);
+        this.storage.set(`history:${key}`, segments.splice(1)).subscribe(_ => _);
       }
     }
-    const commands = [];
+    const commands: any[] = [];
     path.forEach(value => {
       if (typeof value === 'string') {
         commands.push(...value.split('/'));
@@ -146,11 +146,12 @@ export class BitService {
    * Navigation history
    */
   history(key: string): void {
-    this.storage.get('history:' + key).subscribe((segments: UrlSegment[]) => {
+    this.storage.get(`history:${key}`).subscribe(data => {
+      const segments = <UrlSegment[]>data;
       const commands = [key];
       if (segments && segments.length !== 0) {
         commands.push(...segments.map(v => v.path));
-        this.storage.delete('history:' + key).subscribe(_ => _);
+        this.storage.delete(`history:${key}`).subscribe(_ => _);
       }
       this.router.navigate(commands);
     });
@@ -178,9 +179,9 @@ export class BitService {
    * 载入语言包
    * Registered language pack
    */
-  registerLocales(packer: object | Promise<any>): void {
+  registerLocales(packer: Record<string, any> | Promise<any>): void {
     Promise.resolve(packer).then(result => {
-      if (!result.default) {
+      if (typeof result === 'object' && !result.default) {
         return;
       }
       this.language = new Map([...this.language, ...Object.entries(result.default)]);
@@ -227,7 +228,7 @@ export class BitService {
    * Generate I18n FormGroup
    */
   i18nGroup(options: I18nGroupOption): any {
-    const controls = {};
+    const controls: Record<string, any> = {};
     if (options) {
       for (const ID of this.i18nContain) {
         controls[ID] = [null, [], []];
@@ -274,14 +275,18 @@ export class BitService {
    * Clear app local storage
    */
   clear(): void {
-    this.storage.keys().pipe(
-      filter(v =>
-        ['resource', 'router'].includes(v) ||
-        v.search(/^search:\S+$/) !== -1 ||
-        v.search(/^page:\S+$/) !== -1 ||
-        v.search(/^cross:\S+$/) !== -1
-      ),
-      switchMap(key => this.storage.delete(key))
-    ).subscribe(_ => _);
+    this.storage
+      .keys()
+      .pipe(
+        filter(
+          v =>
+            ['resource', 'router'].includes(v) ||
+            v.search(/^search:\S+$/) !== -1 ||
+            v.search(/^page:\S+$/) !== -1 ||
+            v.search(/^cross:\S+$/) !== -1
+        ),
+        switchMap(key => this.storage.delete(key))
+      )
+      .subscribe(_ => _);
   }
 }

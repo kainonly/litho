@@ -32,12 +32,6 @@ module.exports = {
             prefix: 'app',
             style: 'kebab-case'
           }
-        ],
-        '@angular-eslint/directive-class-suffix': [
-          'error',
-          {
-            suffixes: ['Directive', 'Component', 'Base']
-          }
         ]
       }
     },

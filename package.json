@@ -1,7 +1,6 @@
 {
   "name": "ngx-bit-example",
-  "version": "12.0.0",
-  "private": true,
+  "version": "0.0.0-NOT-USED",
   "scripts": {
     "start": "ng serve --host 0.0.0.0 --port 4201 --disable-host-check",
     "build": "ng build --configuration production",
@@ -21,6 +20,7 @@
     "deploy": "npm run build && python utils/deploy.py",
     "deploy:dependency": "pip install cos-python-sdk-v5 tencentcloud-sdk-python"
   },
+  "private": true,
   "dependencies": {
     "@angular/animations": "~12.1.1",
     "@angular/common": "~12.1.1",
