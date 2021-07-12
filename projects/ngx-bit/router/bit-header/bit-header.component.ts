@@ -26,17 +26,14 @@ import { BitRouterService } from '../bit-router.service';
 })
 export class BitHeaderComponent implements OnInit, AfterViewInit, OnDestroy {
   @Input() subTitle: any;
-    @Input() back: boolean;
-  @ViewChild('ContentTpl') content: TemplateRef<any>;
-  @ContentChild(BitHeaderBannerDirective) banner: BitHeaderBannerDirective;
-  @ContentChild(BitHeaderTagsDirective) tags: BitHeaderTagsDirective;
-  @ContentChildren(BitHeaderActionDirective) actions: QueryList<BitHeaderActionDirective>;
-  @ContentChild(BitHeaderFooterDirective) footer: BitHeaderFooterDirective;
+  @Input() back = false;
+  @ViewChild('ContentTpl') content?: TemplateRef<any>;
+  @ContentChild(BitHeaderBannerDirective) banner?: BitHeaderBannerDirective;
+  @ContentChild(BitHeaderTagsDirective) tags?: BitHeaderTagsDirective;
+  @ContentChildren(BitHeaderActionDirective) actions?: QueryList<BitHeaderActionDirective>;
+  @ContentChild(BitHeaderFooterDirective) footer?: BitHeaderFooterDirective;
 
-  constructor(
-    private router: BitRouterService
-  ) {
-  }
+  constructor(private router: BitRouterService) {}
 
   ngOnInit(): void {
     this.router.subTitle = this.subTitle;

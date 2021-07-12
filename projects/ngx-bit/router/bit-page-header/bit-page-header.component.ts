@@ -8,9 +8,5 @@ import { BitRouterService } from '../bit-router.service';
   styleUrls: ['./bit-page-header.component.scss']
 })
 export class BitPageHeaderComponent {
-  constructor(
-    public bit: BitService,
-    public router: BitRouterService
-  ) {
-  }
+  constructor(public bit: BitService, public router: BitRouterService) {}
 }

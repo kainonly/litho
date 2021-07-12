@@ -11,11 +11,7 @@ export class BitSiderComponent {
   @Input() collapsed = false;
   @Input() data: any[] = [];
 
-  constructor(
-    public bit: BitService,
-    public router: BitRouterService
-  ) {
-  }
+  constructor(public bit: BitService, public router: BitRouterService) {}
 
   /**
    * 返回层级

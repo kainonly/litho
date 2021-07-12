@@ -51,5 +51,4 @@ import { NzSpaceModule } from 'ng-zorro-antd/space';
   ],
   providers: [BitRouterService]
 })
-export class BitRouterModule {
-}
+export class BitRouterModule {}

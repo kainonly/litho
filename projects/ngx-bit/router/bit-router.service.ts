@@ -32,27 +32,27 @@ export class BitRouterService {
   /**
    * Breadcrumb array
    */
-  breadcrumb: BreadcrumbOption[];
+  breadcrumb?: BreadcrumbOption[];
   /**
    * Header banner
    */
-  banner: TemplateRef<any>;
+  banner?: TemplateRef<any>;
   /**
    * Header banner
    */
-  tags: TemplateRef<any>;
+  tags?: TemplateRef<any>;
   /**
    * Header actions
    */
-  actions: TemplateRef<any>[] = [];
+  actions?: TemplateRef<any>[] = [];
   /**
    * Header banner
    */
-  content: TemplateRef<any>;
+  content?: TemplateRef<any>;
   /**
    * Header banner
    */
-  footer: TemplateRef<any>;
+  footer?: TemplateRef<any>;
   /**
    * Status
    */
@@ -61,13 +61,9 @@ export class BitRouterService {
   /**
    * Angular routed event subscription
    */
-  private events$: Subscription;
+  private events$!: Subscription;
 
-  constructor(
-    private router: Router,
-    private storage: StorageMap
-  ) {
-  }
+  constructor(private router: Router, private storage: StorageMap) {}
 
   /**
    * 初始化平行路由
@@ -80,9 +76,7 @@ export class BitRouterService {
     if (this.router.url !== '/') {
       this.match(this.router, this.router.url);
     }
-    this.events$ = this.router.events.pipe(
-      filter(e => e instanceof NavigationEnd)
-    ).subscribe((event: any) => {
+    this.events$ = this.router.events.pipe(filter(e => e instanceof NavigationEnd)).subscribe((event: any) => {
       if (event.url !== '/') {
         this.match(this.router, event.url);
       } else {
@@ -113,30 +107,36 @@ export class BitRouterService {
   private match(router: Router, url: string): void {
     const primary = router.parseUrl(url).root.children[PRIMARY_OUTLET];
     const segments = primary.segments;
-    this.storage.get('router').pipe(
-      map((data: any) => {
-        if (data) {
-          for (let i = 0; i < segments.length; i++) {
-            const key = segments.slice(0, i + 1).map(v => v.path).join('/');
-            if (data.hasOwnProperty(key)) {
-              return key;
+    this.storage
+      .get('router')
+      .pipe(
+        map((data: any) => {
+          if (data) {
+            for (let i = 0; i < segments.length; i++) {
+              const key = segments
+                .slice(0, i + 1)
+                .map(v => v.path)
+                .join('/');
+              if (data.hasOwnProperty(key)) {
+                return key;
+              }
             }
           }
+          return null;
+        })
+      )
+      .subscribe(maybeKey => {
+        if (!maybeKey) {
+          router.navigate(['/empty']);
+          this.clearBreadcrumb();
+        } else {
+          this.dynamicBreadcrumb(maybeKey);
         }
-        return null;
-      })
-    ).subscribe(maybeKey => {
-      if (!maybeKey) {
-        router.navigate(['/empty']);
-        this.clearBreadcrumb();
-      } else {
-        this.dynamicBreadcrumb(maybeKey);
-      }
-    });
+      });
   }
 
   private dynamicBreadcrumb(key: string): void {
-    this.storage.get('resource').subscribe((data: object) => {
+    this.storage.get('resource').subscribe((data: any) => {
       const queue = [];
       const breadcrumb: BreadcrumbOption[] = [];
       const navActive = [];
@@ -155,7 +155,7 @@ export class BitRouterService {
         }
       }
       while (queue.length !== this.breadcrumbRoot) {
-        const parentKey = queue.pop();
+        const parentKey: string = queue.pop();
 
         if (data.hasOwnProperty(parentKey)) {
           const next = data[parentKey];

@@ -4,8 +4,5 @@ import { Directive, TemplateRef } from '@angular/core';
   selector: '[bitHeaderTags]'
 })
 export class BitHeaderTagsDirective {
-  constructor(
-    public ref: TemplateRef<any>
-  ) {
-  }
+  constructor(public ref: TemplateRef<any>) {}
 }
