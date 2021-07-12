@@ -39,4 +39,5 @@ import { BitBackDirective } from './bit-back.directive';
     BitUploadDirective
   ]
 })
-export class BitDirectiveModule {}
+export class BitDirectiveModule {
+}

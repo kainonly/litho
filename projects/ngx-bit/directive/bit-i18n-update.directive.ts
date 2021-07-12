@@ -7,12 +7,16 @@ import { BitService } from 'ngx-bit';
   selector: '[formGroupName][bitI18nUpdate]'
 })
 export class BitI18nUpdateDirective implements OnInit, OnDestroy {
-  private changes!: Subscription;
+  private changes: Subscription;
 
-  constructor(private bit: BitService, private formGroupName: FormGroupName) {}
+  constructor(
+    private bit: BitService,
+    private formGroupName: FormGroupName
+  ) {
+  }
 
   ngOnInit(): void {
-    this.changes = this.formGroupName.valueChanges!.subscribe(value => {
+    this.changes = this.formGroupName.valueChanges.subscribe((value) => {
       const emptyI18n = [];
       for (const ID in value) {
         if (value.hasOwnProperty(ID)) {
@@ -21,7 +25,7 @@ export class BitI18nUpdateDirective implements OnInit, OnDestroy {
           }
         }
       }
-      this.bit.i18nTooltip[<string>this.formGroupName.name] = emptyI18n;
+      Reflect.set(this.bit.i18nTooltip, this.formGroupName.name, emptyI18n);
     });
   }
 

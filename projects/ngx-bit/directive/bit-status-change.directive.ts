@@ -8,11 +8,15 @@ import { BitService } from 'ngx-bit';
   selector: 'nz-switch[bitStatusChange]'
 })
 export class BitStatusChangeDirective {
-  @Input() bitStatusChange!: Observable<any>;
+  @Input() bitStatusChange: Observable<any>;
   @Input() bitControl = false;
   @Output() response: EventEmitter<any> = new EventEmitter();
 
-  constructor(nzSwitchComponent: NzSwitchComponent, private bit: BitService, private message: NzMessageService) {
+  constructor(
+    nzSwitchComponent: NzSwitchComponent,
+    private bit: BitService,
+    private message: NzMessageService
+  ) {
     nzSwitchComponent.nzControl = true;
   }
 

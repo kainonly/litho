@@ -6,9 +6,13 @@ import { BitConfig } from 'ngx-bit';
   selector: '[bitCol]'
 })
 export class BitColDirective implements OnInit {
-  @Input() bitCol!: string;
+  @Input() bitCol: string;
 
-  constructor(private nzColDirective: NzColDirective, private config: BitConfig) {}
+  constructor(
+    private nzColDirective: NzColDirective,
+    private config: BitConfig
+  ) {
+  }
 
   ngOnInit(): void {
     if (!this.config.col.hasOwnProperty(this.bitCol)) {

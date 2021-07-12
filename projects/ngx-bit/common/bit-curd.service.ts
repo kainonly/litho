@@ -3,9 +3,7 @@ import { CurdOption, QueryMode, SearchOption } from './types';
 import { BitHttpService } from './bit-http.service';
 import { BitConfig } from './bit-config';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable({ providedIn: 'root' })
 export class BitCurdService {
   /**
    * 查询模式
@@ -18,17 +16,12 @@ export class BitCurdService {
    */
   protected curd: CurdOption;
 
-  constructor(bitConfig: BitConfig, protected http: BitHttpService) {
-    this.mode = bitConfig.query ?? 'sql-orm';
-    this.curd = bitConfig.curd ?? {
-      get: '/get',
-      lists: '/lists',
-      originLists: '/originLists',
-      add: '/add',
-      edit: '/edit',
-      status: '/edit',
-      delete: '/delete'
-    };
+  constructor(
+    bitConfig: BitConfig,
+    protected http: BitHttpService
+  ) {
+    this.mode = bitConfig.query;
+    this.curd = bitConfig.curd;
   }
 
   /**
@@ -38,8 +31,6 @@ export class BitCurdService {
   getQuerySchema(options: SearchOption[]): any[] {
     switch (this.mode) {
       case 'sql-orm':
-        return this.common(options);
-      default:
         return this.common(options);
     }
   }
@@ -54,7 +45,11 @@ export class BitCurdService {
   protected common(options: SearchOption[]): any[] {
     const schema = [];
     for (const search of options) {
-      if (search.value !== null && typeof search.value === 'object' && Object.keys(search.value).length === 0) {
+      if (
+        search.value !== null &&
+        typeof search.value === 'object' &&
+        Object.keys(search.value).length === 0
+      ) {
         continue;
       }
       if (typeof search.value === 'string') {
@@ -67,9 +62,8 @@ export class BitCurdService {
           value = `%${value}%`;
         }
         if (search.format !== undefined && search.format === 'unixtime') {
-          value = Array.isArray(value)
-            ? value.map(v => Math.trunc(v.getTime() / 1000))
-            : Math.trunc(value.getTime() / 1000);
+          value = Array.isArray(value) ?
+            value.map(v => Math.trunc(v.getTime() / 1000)) : Math.trunc(value.getTime() / 1000);
         }
         schema.push([search.field, search.op, value]);
       }

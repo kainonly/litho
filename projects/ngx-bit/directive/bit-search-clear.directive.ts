@@ -5,7 +5,7 @@ import { ListByPage } from 'ngx-bit';
   selector: 'button[bitSearchClear]'
 })
 export class BitSearchClearDirective {
-  @Input() bitSearchClear!: ListByPage;
+  @Input() bitSearchClear: ListByPage;
   @Input() reset: any;
   @Output() after: EventEmitter<any> = new EventEmitter<any>();
 

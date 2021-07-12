@@ -5,7 +5,7 @@ import { ListByPage } from 'ngx-bit';
   selector: '[bitSearchStart]'
 })
 export class BitSearchStartDirective {
-  @Input() bitSearchStart!: ListByPage;
+  @Input() bitSearchStart: ListByPage;
   @Output() after: EventEmitter<any> = new EventEmitter<any>();
 
   @HostListener('keydown.enter', ['$event.target']) onenter(el: Element): void {

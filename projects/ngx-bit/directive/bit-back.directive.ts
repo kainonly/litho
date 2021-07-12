@@ -5,7 +5,10 @@ import { BitService } from 'ngx-bit';
   selector: '[bitBack]'
 })
 export class BitBackDirective {
-  constructor(private bit: BitService) {}
+  constructor(
+    private bit: BitService
+  ) {
+  }
 
   @HostListener('click')
   onClick(): void {
