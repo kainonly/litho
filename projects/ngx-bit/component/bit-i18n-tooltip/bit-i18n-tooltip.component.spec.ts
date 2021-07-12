@@ -1,4 +1,3 @@
-/* tslint:disable:component-class-suffix */
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterModule } from '@angular/router';
@@ -13,18 +12,11 @@ describe('BitI18nTooltipComponent', () => {
   let component: TestComponent;
   let fixture: ComponentFixture<TestComponent>;
 
-  beforeEach((done) => {
+  beforeEach(done => {
     if (!component) {
       TestBed.configureTestingModule({
-        declarations: [
-          TestComponent
-        ],
-        imports: [
-          HttpClientModule,
-          BitComponentModule,
-          RouterModule.forRoot([]),
-          BitModule.forRoot(environment.bit)
-        ]
+        declarations: [TestComponent],
+        imports: [HttpClientModule, BitComponentModule, RouterModule.forRoot([]), BitModule.forRoot(environment.bit)]
       });
       config = TestBed.inject(BitConfig);
       bit = TestBed.inject(BitService);
@@ -73,5 +65,5 @@ describe('BitI18nTooltipComponent', () => {
   `
 })
 class TestComponent {
-  @ViewChild('element') ref: ElementRef;
+  @ViewChild('element') ref!: ElementRef;
 }

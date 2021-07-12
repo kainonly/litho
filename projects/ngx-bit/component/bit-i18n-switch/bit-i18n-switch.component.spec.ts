@@ -16,12 +16,7 @@ describe('BitI18nSwitchComponent', () => {
   beforeEach(() => {
     if (!component) {
       TestBed.configureTestingModule({
-        imports: [
-          HttpClientModule,
-          BitComponentModule,
-          RouterModule.forRoot([]),
-          BitModule.forRoot(environment.bit)
-        ]
+        imports: [HttpClientModule, BitComponentModule, RouterModule.forRoot([]), BitModule.forRoot(environment.bit)]
       });
       bit = TestBed.inject(BitService);
       fixture = TestBed.createComponent(BitI18nSwitchComponent);
@@ -41,5 +36,4 @@ describe('BitI18nSwitchComponent', () => {
     radioZHCN.click();
     expect(bit.i18n).toBe('zh_cn');
   });
-
 });

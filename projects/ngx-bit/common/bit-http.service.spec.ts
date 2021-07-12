@@ -13,11 +13,7 @@ describe('BitHttpService', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [
-        HttpClientTestingModule,
-        RouterModule.forRoot([]),
-        BitModule.forRoot(environment.bit)
-      ]
+      imports: [HttpClientTestingModule, RouterModule.forRoot([]), BitModule.forRoot(environment.bit)]
     });
     httpTestingController = TestBed.inject(HttpTestingController);
     config = TestBed.inject(BitConfig);

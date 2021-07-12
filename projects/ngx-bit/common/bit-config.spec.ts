@@ -7,9 +7,7 @@ describe('BitConfig', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [
-        BitModule.forRoot(environment.bit)
-      ]
+      imports: [BitModule.forRoot(environment.bit)]
     });
     config = TestBed.inject(BitConfig);
   });

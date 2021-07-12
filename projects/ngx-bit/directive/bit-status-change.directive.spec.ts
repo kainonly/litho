@@ -21,9 +21,7 @@ describe('BitStatusChangeDirective', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [
-        TestComponent
-      ],
+      declarations: [TestComponent],
       imports: [
         FormsModule,
         NzSwitchModule,
@@ -34,9 +32,7 @@ describe('BitStatusChangeDirective', () => {
         BitModule.forRoot(environment.bit),
         RouterModule.forRoot([])
       ],
-      providers: [
-        ExampleService
-      ]
+      providers: [ExampleService]
     });
     httpTestingController = TestBed.inject(HttpTestingController);
     config = TestBed.inject(BitConfig);
@@ -109,7 +105,6 @@ describe('BitStatusChangeDirective', () => {
     httpTestingController.verify();
     expect(component.feedback).toEqual(result);
   });
-
 });
 
 @Component({
@@ -132,8 +127,8 @@ describe('BitStatusChangeDirective', () => {
   `
 })
 class TestComponent {
-  @ViewChild('switchComponent1') ref1: NzSwitchComponent;
-  @ViewChild('switchComponent2') ref2: NzSwitchComponent;
+  @ViewChild('switchComponent1') ref1!: NzSwitchComponent;
+  @ViewChild('switchComponent2') ref2!: NzSwitchComponent;
   data: any = {
     id: 1,
     status: true
@@ -141,12 +136,9 @@ class TestComponent {
   feedback: any;
   test = false;
 
-  constructor(
-    public exampleService: ExampleService
-  ) {
-  }
+  constructor(public exampleService: ExampleService) {}
 
-  statusFeedback(event): void {
+  statusFeedback(event: any): void {
     this.feedback = event;
   }
 }

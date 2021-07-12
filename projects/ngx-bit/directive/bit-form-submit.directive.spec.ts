@@ -1,4 +1,3 @@
-/* tslint:disable:component-class-suffix */
 import { Component, DebugElement, OnInit } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -15,15 +14,8 @@ describe('BitFormSubmitDirective', () => {
   beforeEach(() => {
     if (!component) {
       TestBed.configureTestingModule({
-        declarations: [
-          TestComponent
-        ],
-        imports: [
-          FormsModule,
-          ReactiveFormsModule,
-          BitDirectiveModule,
-          BitModule.forRoot(environment.bit)
-        ]
+        declarations: [TestComponent],
+        imports: [FormsModule, ReactiveFormsModule, BitDirectiveModule, BitModule.forRoot(environment.bit)]
       });
       fixture = TestBed.createComponent(TestComponent);
       component = fixture.componentInstance;
@@ -59,13 +51,10 @@ describe('BitFormSubmitDirective', () => {
   `
 })
 class TestComponent implements OnInit {
-  form: FormGroup;
+  form!: FormGroup;
   resultValue: any;
 
-  constructor(
-    private fb: FormBuilder
-  ) {
-  }
+  constructor(private fb: FormBuilder) {}
 
   ngOnInit(): void {
     this.form = this.fb.group({
@@ -75,7 +64,7 @@ class TestComponent implements OnInit {
     });
   }
 
-  submit(data): void {
+  submit(data: any): void {
     this.resultValue = data;
   }
 }

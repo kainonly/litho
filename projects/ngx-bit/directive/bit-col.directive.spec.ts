@@ -1,4 +1,3 @@
-/* tslint:disable:component-class-suffix */
 import { Component, DebugElement } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
@@ -16,14 +15,8 @@ describe('BitColDirective', () => {
   beforeEach(() => {
     if (!component) {
       TestBed.configureTestingModule({
-        declarations: [
-          TestComponent
-        ],
-        imports: [
-          NzGridModule,
-          BitDirectiveModule,
-          BitModule.forRoot(environment.bit)
-        ]
+        declarations: [TestComponent],
+        imports: [NzGridModule, BitDirectiveModule, BitModule.forRoot(environment.bit)]
       });
       config = TestBed.inject(BitConfig);
       fixture = TestBed.createComponent(TestComponent);
@@ -89,5 +82,4 @@ describe('BitColDirective', () => {
     </div>
   `
 })
-class TestComponent {
-}
+class TestComponent {}

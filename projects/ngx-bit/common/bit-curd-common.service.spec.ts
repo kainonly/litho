@@ -14,14 +14,8 @@ describe('BitCurdCommonService', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [
-        HttpClientTestingModule,
-        RouterModule.forRoot([]),
-        BitModule.forRoot(environment.bit)
-      ],
-      providers: [
-        ExampleService
-      ]
+      imports: [HttpClientTestingModule, RouterModule.forRoot([]), BitModule.forRoot(environment.bit)],
+      providers: [ExampleService]
     });
     config = TestBed.inject(BitConfig);
     bit = TestBed.inject(BitService);
@@ -33,9 +27,7 @@ describe('BitCurdCommonService', () => {
   it('Test list data request', () => {
     const result = {
       error: 0,
-      data: [
-        { id: 1, username: 'kain' }
-      ]
+      data: [{ id: 1, username: 'kain' }]
     };
     exampleService.originLists(100).subscribe(data => {
       expect(data).toEqual(result.data);
@@ -83,21 +75,17 @@ describe('BitCurdCommonService', () => {
     httpTestingController.verify();
   });
 
-  it('Test paged list data request', (done) => {
+  it('Test paged list data request', done => {
     const result = {
       error: 0,
       data: {
         total: 1,
-        lists: [
-          { id: 1, username: 'kain' }
-        ]
+        lists: [{ id: 1, username: 'kain' }]
       }
     };
     const search = bit.listByPage({
       id: 'test',
-      query: [
-        { field: 'sex', op: '=', value: 1 }
-      ]
+      query: [{ field: 'sex', op: '=', value: 1 }]
     });
     exampleService.lists(search, true, true).subscribe(data => {
       expect(data).toEqual(result.data.lists);
@@ -128,15 +116,17 @@ describe('BitCurdCommonService', () => {
       call: 'devbot',
       email: 'zhangtqx@vip.qq.com'
     };
-    exampleService.add({
-      username: 'kain',
-      age: 26,
-      sex: 1,
-      call: 'devbot',
-      email: 'zhangtqx@vip.qq.com'
-    }).subscribe(res => {
-      expect(res).toEqual(result);
-    });
+    exampleService
+      .add({
+        username: 'kain',
+        age: 26,
+        sex: 1,
+        call: 'devbot',
+        email: 'zhangtqx@vip.qq.com'
+      })
+      .subscribe(res => {
+        expect(res).toEqual(result);
+      });
     const req = httpTestingController.expectOne(config.url.api + '/system/example/add');
     expect(req.request.method).toEqual('POST');
     expect(req.request.body).toEqual(data);

@@ -1,4 +1,3 @@
-/* tslint:disable:component-class-suffix */
 import { Component } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
@@ -20,9 +19,7 @@ describe('BitCrossLevelDirective', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [
-        TestComponent
-      ],
+      declarations: [TestComponent],
       imports: [
         HttpClientModule,
         BitDirectiveModule,
@@ -39,39 +36,38 @@ describe('BitCrossLevelDirective', () => {
     fixture.detectChanges();
   });
 
-  it('Test route history', (done) => {
+  it('Test route history', done => {
     let count = 3;
-    router.events.pipe(
-      filter(e => e instanceof NavigationEnd),
-      take(count)
-    ).subscribe((e: RouterEvent) => {
-      switch (3 - count) {
-        case 0:
-          expect(e.url).toBe('/example-edit/123');
-          bit.open(['example-opt', '123', 'A1']);
-          break;
-        case 1:
-          expect(e.url).toBe('/example-opt/123/A1');
-          const button = fixture.debugElement.query(By.directive(BitHistoryDirective));
-          button.triggerEventHandler('click', null);
-          break;
-        case 2:
-          expect(e.url).toBe('/example-edit/123');
-          break;
-      }
-      count--;
-      if (!count) {
-        done();
-      }
-    });
+    router.events
+      .pipe(
+        filter(e => e instanceof NavigationEnd),
+        take(count)
+      )
+      .subscribe((e: any) => {
+        switch (3 - count) {
+          case 0:
+            expect(e.url).toBe('/example-edit/123');
+            bit.open(['example-opt', '123', 'A1']);
+            break;
+          case 1:
+            expect(e.url).toBe('/example-opt/123/A1');
+            const button = fixture.debugElement.query(By.directive(BitHistoryDirective));
+            button.triggerEventHandler('click', null);
+            break;
+          case 2:
+            expect(e.url).toBe('/example-edit/123');
+            break;
+        }
+        count--;
+        if (!count) {
+          done();
+        }
+      });
     bit.open(['example-edit', '123']);
   });
 });
 
 @Component({
-  template: `
-    <button nz-button nzType="primary" bitHistory="example-edit">Test</button>
-  `
+  template: ` <button nz-button nzType="primary" bitHistory="example-edit">Test</button> `
 })
-class TestComponent {
-}
+class TestComponent {}

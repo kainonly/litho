@@ -16,15 +16,8 @@ describe('BitUploadDirective', () => {
     const env = environment.bit;
     env.api = api;
     TestBed.configureTestingModule({
-      declarations: [
-        TestComponent
-      ],
-      imports: [
-        NzUploadModule,
-        HttpClientTestingModule,
-        BitDirectiveModule,
-        BitModule.forRoot(environment.bit)
-      ]
+      declarations: [TestComponent],
+      imports: [NzUploadModule, HttpClientTestingModule, BitDirectiveModule, BitModule.forRoot(environment.bit)]
     });
     config = TestBed.inject(BitConfig);
     httpTestingController = TestBed.inject(HttpTestingController);
@@ -74,7 +67,7 @@ describe('BitUploadDirective', () => {
       });
     });
     const req = httpTestingController.expectOne(config.url.api + config.api.uploadFetchSigned);
-    expect(req.request.method).toEqual(config.api.uploadFetchSignedMethod);
+    expect(req.request.method).toEqual(config.api.uploadFetchSignedMethod!);
     req.flush({
       filename: 'f50c215d-95c2-4564-9b25-37aaba7fb305',
       option: {
@@ -114,7 +107,7 @@ describe('BitUploadDirective', () => {
       });
     });
     const req = httpTestingController.expectOne(config.url.api + config.api.uploadFetchSigned);
-    expect(req.request.method).toEqual(config.api.uploadFetchSignedMethod);
+    expect(req.request.method).toEqual(config.api.uploadFetchSignedMethod!);
     req.flush({
       filename: 'f50c215d-95c2-4564-9b25-37aaba7fb305',
       option: {
@@ -156,7 +149,7 @@ describe('BitUploadDirective', () => {
       });
     });
     const req = httpTestingController.expectOne(config.url.api + config.api.uploadFetchSigned);
-    expect(req.request.method).toEqual(config.api.uploadFetchSignedMethod);
+    expect(req.request.method).toEqual(config.api.uploadFetchSignedMethod!);
     req.flush({
       filename: 'f50c215d-95c2-4564-9b25-37aaba7fb305',
       option: {
@@ -172,15 +165,8 @@ describe('BitUploadDirective', () => {
 });
 
 @Component({
-  template: `
-    <nz-upload
-      #uploadComponent
-      bitUpload
-      nzListType="picture-card"
-    >
-    </nz-upload>
-  `
+  template: ` <nz-upload #uploadComponent bitUpload nzListType="picture-card"> </nz-upload> `
 })
 class TestComponent {
-  @ViewChild('uploadComponent') ref: NzUploadComponent;
+  @ViewChild('uploadComponent') ref!: NzUploadComponent;
 }

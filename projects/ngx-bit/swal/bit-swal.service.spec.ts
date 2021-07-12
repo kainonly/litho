@@ -25,7 +25,7 @@ describe('BitSwalService', () => {
     name: 'kain'
   };
 
-  beforeEach((done) => {
+  beforeEach(done => {
     if (!swal) {
       TestBed.configureTestingModule({
         imports: [
@@ -47,9 +47,7 @@ describe('BitSwalService', () => {
       form = fb.group({
         name: []
       });
-      swal.ready.pipe(
-        delay(500)
-      ).subscribe(() => {
+      swal.ready.pipe(delay(500)).subscribe(() => {
         done();
       });
     } else {
@@ -57,114 +55,117 @@ describe('BitSwalService', () => {
     }
   });
 
-  it('Test add response prompt box, click confirm', (done) => {
+  it('Test add response prompt box, click confirm', done => {
     swal.addAlert(responseOk, form, reset).subscribe(result => {
       expect(result).toBeTruthy();
-      expect(form.get('name').value).toBe('kain');
+      expect(form.get('name')!.value).toBe('kain');
       done();
     });
-    const container = document.querySelector('.swal2-html-container');
-    const title: HTMLElement = container.querySelector('.ant-result-title');
-    console.log(title);
+    const container = document.querySelector('.swal2-html-container')!;
+    const title: HTMLElement = container.querySelector('.ant-result-title')!;
     expect(title.innerText).toBe(bit.l.AddAlertSuccessTitle);
-    const content: HTMLElement = container.querySelector('.ant-result-subtitle');
+    const content: HTMLElement = container.querySelector('.ant-result-subtitle')!;
     expect(content.innerText).toBe(bit.l.AddAlertSuccessContent);
-    const confirm: HTMLButtonElement = document.querySelector('.swal2-confirm');
+    const confirm: HTMLButtonElement = document.querySelector('.swal2-confirm')!;
     expect(confirm.innerText).toBe(bit.l.AddAlertSuccessOk);
-    const cancel: HTMLButtonElement = document.querySelector('.swal2-cancel');
+    const cancel: HTMLButtonElement = document.querySelector('.swal2-cancel')!;
     expect(cancel.innerText).toBe(bit.l.AddAlertSuccessCancel);
     confirm.click();
   });
 
-  it('Test add response prompt box, click cancel', (done) => {
+  it('Test add response prompt box, click cancel', done => {
     swal.addAlert(responseOk, form).subscribe(result => {
       expect(result).toBeFalsy();
       done();
     });
-    const cancel: HTMLButtonElement = document.querySelector('.swal2-cancel');
+    const cancel: HTMLButtonElement = document.querySelector('.swal2-cancel')!;
     cancel.click();
   });
 
-  it('Test add response prompt box, response failed', (done) => {
+  it('Test add response prompt box, response failed', done => {
     swal.addAlert(responseError, form).subscribe(result => {
       expect(result).toBeNull();
       done();
     });
-    const container = document.querySelector('.swal2-html-container');
-    const title: HTMLElement = container.querySelector('.ant-result-title');
+    const container = document.querySelector('.swal2-html-container')!;
+    const title: HTMLElement = container.querySelector('.ant-result-title')!;
     expect(title.innerText).toBe(bit.l.AddAlertErrorTitle);
-    const content: HTMLElement = container.querySelector('.ant-result-subtitle');
+    const content: HTMLElement = container.querySelector('.ant-result-subtitle')!;
     expect(content.innerText).toBe(responseError.msg);
-    const confirm: HTMLButtonElement = document.querySelector('.swal2-confirm');
+    const confirm: HTMLButtonElement = document.querySelector('.swal2-confirm')!;
     expect(confirm.innerText).toBe(bit.l.AddAlertErrorOk);
     confirm.click();
   });
 
-  it('Test edit response prompt box, click confirm', (done) => {
+  it('Test edit response prompt box, click confirm', done => {
     swal.editAlert(responseOk).subscribe(result => {
       expect(result).toBeTruthy();
       done();
     });
-    const container = document.querySelector('.swal2-html-container');
-    const title: HTMLElement = container.querySelector('.ant-result-title');
+    const container = document.querySelector('.swal2-html-container')!;
+    const title: HTMLElement = container.querySelector('.ant-result-title')!;
     expect(title.innerText).toBe(bit.l.EditAlertSuccessTitle);
-    const content: HTMLElement = container.querySelector('.ant-result-subtitle');
+    const content: HTMLElement = container.querySelector('.ant-result-subtitle')!;
     expect(content.innerText).toBe(bit.l.EditAlertSuccessContent);
-    const confirm: HTMLButtonElement = document.querySelector('.swal2-confirm');
+    const confirm: HTMLButtonElement = document.querySelector('.swal2-confirm')!;
     expect(confirm.innerText).toBe(bit.l.EditAlertSuccessOk);
-    const cancel: HTMLButtonElement = document.querySelector('.swal2-cancel');
+    const cancel: HTMLButtonElement = document.querySelector('.swal2-cancel')!;
     expect(cancel.innerText).toBe(bit.l.EditAlertSuccessCancel);
     confirm.click();
   });
 
-  it('Test edit response prompt box, click cancel', (done) => {
+  it('Test edit response prompt box, click cancel', done => {
     swal.editAlert(responseOk).subscribe(result => {
       expect(result).toBeFalsy();
       done();
     });
-    const cancel: HTMLButtonElement = document.querySelector('.swal2-cancel');
+    const cancel: HTMLButtonElement = document.querySelector('.swal2-cancel')!;
     cancel.click();
   });
 
-  it('Test edit response prompt box, response failed', (done) => {
+  it('Test edit response prompt box, response failed', done => {
     swal.editAlert(responseError).subscribe(result => {
       expect(result).toBeNull();
       done();
     });
-    const container: HTMLElement = document.querySelector('.swal2-html-container');
-    const title: HTMLElement = container.querySelector('.ant-result-title');
+    const container: HTMLElement = document.querySelector('.swal2-html-container')!;
+    const title: HTMLElement = container.querySelector('.ant-result-title')!;
     expect(title.innerText).toBe(bit.l.EditAlertErrorTitle);
-    const content: HTMLElement = container.querySelector('.ant-result-subtitle');
+    const content: HTMLElement = container.querySelector('.ant-result-subtitle')!;
     expect(content.innerText).toBe(responseError.msg);
-    const confirm: HTMLButtonElement = document.querySelector('.swal2-confirm');
+    const confirm: HTMLButtonElement = document.querySelector('.swal2-confirm')!;
     expect(confirm.innerText).toBe(bit.l.EditAlertErrorOk);
     confirm.click();
   });
 
-  it('Test delete response prompt box, click confirm', (done) => {
+  it('Test delete response prompt box, click confirm', done => {
     swal.deleteAlert(of(responseOk)).subscribe(result => {
       expect(result).not.toBeNull();
       expect(result.error).toBe(0);
       done();
     });
-    const container: HTMLElement = document.querySelector('.swal2-html-container');
-    const title: HTMLElement = container.querySelector('.ant-result-title');
+    const container: HTMLElement = document.querySelector('.swal2-html-container')!;
+    const title: HTMLElement = container.querySelector('.ant-result-title')!;
     expect(title.innerText).toBe(bit.l.DeleteAlertTitle);
-    const content: HTMLElement = container.querySelector('.ant-result-subtitle');
+    const content: HTMLElement = container.querySelector('.ant-result-subtitle')!;
     expect(content.innerText).toBe(bit.l.DeleteAlertContent);
-    const confirm: HTMLButtonElement = document.querySelector('.swal2-confirm');
+    const confirm: HTMLButtonElement = document.querySelector('.swal2-confirm')!;
     expect(confirm.innerText).toBe(bit.l.DeleteAlertOk);
-    const cancel: HTMLButtonElement = document.querySelector('.swal2-cancel');
+    const cancel: HTMLButtonElement = document.querySelector('.swal2-cancel')!;
     expect(cancel.innerText).toBe(bit.l.DeleteAlertCancel);
     confirm.click();
   });
 
-  it('Test delete response prompt box, click cancel', (done) => {
-    swal.deleteAlert(of(responseOk)).subscribe(_ => _, _ => _, () => {
-      expect().nothing();
-      done();
-    });
-    const cancel: HTMLButtonElement = document.querySelector('.swal2-cancel');
+  it('Test delete response prompt box, click cancel', done => {
+    swal.deleteAlert(of(responseOk)).subscribe(
+      _ => _,
+      _ => _,
+      () => {
+        expect().nothing();
+        done();
+      }
+    );
+    const cancel: HTMLButtonElement = document.querySelector('.swal2-cancel')!;
     cancel.click();
   });
 });

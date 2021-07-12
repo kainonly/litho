@@ -38,89 +38,97 @@ describe('BitService', () => {
     bit.registerLocales(import('@mock/common.language'));
   });
 
-  it('Test open routerlink with cross level', (done) => {
+  it('Test open routerlink with cross level', done => {
     router.navigate(['/']);
-    router.events.pipe(
-      filter(e => e instanceof NavigationEnd),
-      take(1)
-    ).subscribe((e: RouterEvent) => {
-      expect(e.url).toBe('/example-add');
-      done();
-    });
+    router.events
+      .pipe(
+        filter(e => e instanceof NavigationEnd),
+        take(1)
+      )
+      .subscribe((e: any) => {
+        expect(e.url).toBe('/example-add');
+        done();
+      });
     bit.open(['example-add']);
   });
 
-  it('Test open use cross level without storage', (done) => {
+  it('Test open use cross level without storage', done => {
     router.navigate(['/']);
     let count = 2;
-    router.events.pipe(
-      filter(e => e instanceof NavigationEnd),
-      take(count)
-    ).subscribe((e: RouterEvent) => {
-      switch (2 - count) {
-        case 0:
-          expect(e.url).toBe('/example-add');
-          bit.history('example-index');
-          break;
-        case 1:
-          expect(e.url).toBe('/example-index');
-          break;
-      }
-      count--;
-      if (!count) {
-        done();
-      }
-    });
+    router.events
+      .pipe(
+        filter(e => e instanceof NavigationEnd),
+        take(count)
+      )
+      .subscribe((e: any) => {
+        switch (2 - count) {
+          case 0:
+            expect(e.url).toBe('/example-add');
+            bit.history('example-index');
+            break;
+          case 1:
+            expect(e.url).toBe('/example-index');
+            break;
+        }
+        count--;
+        if (!count) {
+          done();
+        }
+      });
     bit.open(['example-add']);
   });
 
-  it('Test open use cross level', (done) => {
+  it('Test open use cross level', done => {
     router.navigate(['/']);
     let count = 3;
-    router.events.pipe(
-      filter(e => e instanceof NavigationEnd),
-      take(count)
-    ).subscribe((e: RouterEvent) => {
-      switch (3 - count) {
-        case 0:
-          expect(e.url).toBe('/example-edit/123');
-          bit.open(['example-opt', '123', 'A1']);
-          break;
-        case 1:
-          expect(e.url).toBe('/example-opt/123/A1');
-          bit.history('example-edit');
-          break;
-        case 2:
-          expect(e.url).toBe('/example-edit/123');
-          break;
-      }
-      count--;
-      if (!count) {
-        done();
-      }
-    });
+    router.events
+      .pipe(
+        filter(e => e instanceof NavigationEnd),
+        take(count)
+      )
+      .subscribe((e: any) => {
+        switch (3 - count) {
+          case 0:
+            expect(e.url).toBe('/example-edit/123');
+            bit.open(['example-opt', '123', 'A1']);
+            break;
+          case 1:
+            expect(e.url).toBe('/example-opt/123/A1');
+            bit.history('example-edit');
+            break;
+          case 2:
+            expect(e.url).toBe('/example-edit/123');
+            break;
+        }
+        count--;
+        if (!count) {
+          done();
+        }
+      });
     bit.open(['example-edit', '123']);
   });
 
-  it('Test location back', (done) => {
+  it('Test location back', done => {
     router.navigate(['/']);
     let count = 2;
-    router.events.pipe(
-      filter(e => e instanceof NavigationEnd),
-      take(count)
-    ).subscribe((e: RouterEvent) => {
-      switch (2 - count) {
-        case 0:
-          expect(e.url).toBe('/example-index');
-          bit.open(['example-add']);
-          break;
-        case 1:
-          expect(e.url).toBe('/example-add');
-          bit.back();
-          break;
-      }
-      count--;
-    });
+    router.events
+      .pipe(
+        filter(e => e instanceof NavigationEnd),
+        take(count)
+      )
+      .subscribe((e: any) => {
+        switch (2 - count) {
+          case 0:
+            expect(e.url).toBe('/example-index');
+            bit.open(['example-add']);
+            break;
+          case 1:
+            expect(e.url).toBe('/example-add');
+            bit.back();
+            break;
+        }
+        count--;
+      });
     location.subscribe(e => {
       setTimeout(() => {
         expect(e.url).toBe('/example-index');
@@ -130,7 +138,7 @@ describe('BitService', () => {
     bit.open(['example-index']);
   });
 
-  it('Test registered language pack', (done) => {
+  it('Test registered language pack', done => {
     bit.registerLocales(import('@mock/language'));
     setTimeout(() => {
       expect(bit.l.dashboard).toBe('仪表盘');
@@ -139,9 +147,9 @@ describe('BitService', () => {
     }, 200);
   });
 
-  it('Test set language pack ID', (done) => {
+  it('Test set language pack ID', done => {
     bit.registerLocales(import('@mock/language'));
-    bit.localeChanged.subscribe((locale) => {
+    bit.localeChanged.subscribe(locale => {
       console.log(bit.l);
       expect(bit.l.dashboard).toBe('Dashboard');
       expect(bit.l.name).toBe('TEST');
@@ -196,10 +204,12 @@ describe('BitService', () => {
   });
 
   it('Test factory list by page', () => {
-    expect(bit.listByPage({
-      id: 'test',
-      query: []
-    })).toBeInstanceOf(ListByPage);
+    expect(
+      bit.listByPage({
+        id: 'test',
+        query: []
+      })
+    ).toBeInstanceOf(ListByPage);
   });
 
   it('Test clear', () => {

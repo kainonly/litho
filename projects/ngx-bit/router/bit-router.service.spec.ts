@@ -18,11 +18,7 @@ describe('BitRouterService', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [
-        HttpClientModule,
-        RouterModule.forRoot(routes),
-        BitModule.forRoot(environment.bit)
-      ]
+      imports: [HttpClientModule, RouterModule.forRoot(routes), BitModule.forRoot(environment.bit)]
     });
     router = TestBed.inject(Router);
     storage = TestBed.inject(StorageMap);
@@ -32,8 +28,8 @@ describe('BitRouterService', () => {
   });
 
   function setData(): void {
-    const resourceMap: object = {};
-    const routerMap: object = {};
+    const resourceMap: Record<string, any> = {};
+    const routerMap: Record<string, any> = {};
     const nav: any = [];
     for (const x of resourceData) {
       resourceMap[x.key] = x;
@@ -65,94 +61,94 @@ describe('BitRouterService', () => {
     expect(nav).not.toBeNull();
   }
 
-  it('Set resource data and setup support', (done) => {
+  it('Set resource data and setup support', done => {
     setData();
-    router.events.pipe(
-      filter(e => e instanceof NavigationEnd),
-      take(1),
-      delay(200)
-    ).subscribe(() => {
-      expect(bitRouter.title.zh_cn).toBe('测试新增页');
-      expect(bitRouter.breadcrumb.length).toBe(3);
-      for (const value of bitRouter.breadcrumb) {
-        expect(
-          Reflect.has(value, 'key') &&
-          Reflect.has(value, 'name') &&
-          Reflect.has(value, 'router')
-        ).toBeTruthy();
-      }
-      expect(bitRouter.breadcrumb[0].name.zh_cn).toBe('系统设置');
-      expect(bitRouter.breadcrumb[0].key).toBe('system');
-      expect(bitRouter.breadcrumb[0].router).toBe(0);
-      expect(bitRouter.breadcrumb[1].name.zh_cn).toBe('测试主页');
-      expect(bitRouter.breadcrumb[1].key).toBe('example-index');
-      expect(bitRouter.breadcrumb[1].router).toBe(1);
-      expect(bitRouter.breadcrumb[2].name.zh_cn).toBe('测试新增页');
-      expect(bitRouter.breadcrumb[2].key).toBe('example-add');
-      expect(bitRouter.breadcrumb[2].router).toBe(1);
-      expect(bitRouter.navActive).toEqual(['system', 'example-index', 'example-add']);
-      done();
-    });
+    router.events
+      .pipe(
+        filter(e => e instanceof NavigationEnd),
+        take(1),
+        delay(200)
+      )
+      .subscribe(() => {
+        expect(bitRouter.title.zh_cn).toBe('测试新增页');
+        expect(bitRouter.breadcrumb!.length).toBe(3);
+        for (const value of bitRouter.breadcrumb!) {
+          expect(Reflect.has(value, 'key') && Reflect.has(value, 'name') && Reflect.has(value, 'router')).toBeTruthy();
+        }
+        expect(bitRouter.breadcrumb![0].name.zh_cn).toBe('系统设置');
+        expect(bitRouter.breadcrumb![0].key).toBe('system');
+        expect(bitRouter.breadcrumb![0].router).toBe(0);
+        expect(bitRouter.breadcrumb![1].name.zh_cn).toBe('测试主页');
+        expect(bitRouter.breadcrumb![1].key).toBe('example-index');
+        expect(bitRouter.breadcrumb![1].router).toBe(1);
+        expect(bitRouter.breadcrumb![2].name.zh_cn).toBe('测试新增页');
+        expect(bitRouter.breadcrumb![2].key).toBe('example-add');
+        expect(bitRouter.breadcrumb![2].router).toBe(1);
+        expect(bitRouter.navActive).toEqual(['system', 'example-index', 'example-add']);
+        done();
+      });
     router.navigate(['example-add']);
   });
 
-  it('Test loading url is /', (done) => {
-    router.events.pipe(
-      filter(e => e instanceof NavigationEnd),
-      take(1),
-      delay(200)
-    ).subscribe(() => {
-      expect(bitRouter.title).toEqual(null);
-      expect(bitRouter.breadcrumb).toEqual([]);
-      expect(bitRouter.navActive).toEqual([]);
-      bitRouter.uninstall();
-      done();
-    });
+  it('Test loading url is /', done => {
+    router.events
+      .pipe(
+        filter(e => e instanceof NavigationEnd),
+        take(1),
+        delay(200)
+      )
+      .subscribe(() => {
+        expect(bitRouter.title).toEqual(null);
+        expect(bitRouter.breadcrumb).toEqual([]);
+        expect(bitRouter.navActive).toEqual([]);
+        bitRouter.uninstall();
+        done();
+      });
     router.navigate(['/']);
   });
 
-  it('Test initialization breadcrumb when url is not /', (done) => {
+  it('Test initialization breadcrumb when url is not /', done => {
     setData();
-    router.events.pipe(
-      filter(e => e instanceof NavigationEnd),
-      take(1),
-      delay(200)
-    ).subscribe(() => {
-      expect(bitRouter.title.zh_cn).toBe('测试修改页');
-      expect(bitRouter.breadcrumb.length).toBe(3);
-      for (const value of bitRouter.breadcrumb) {
-        expect(
-          Reflect.has(value, 'key') &&
-          Reflect.has(value, 'name') &&
-          Reflect.has(value, 'router')
-        ).toBeTruthy();
-      }
-      expect(bitRouter.breadcrumb[0].name.zh_cn).toBe('系统设置');
-      expect(bitRouter.breadcrumb[0].key).toBe('system');
-      expect(bitRouter.breadcrumb[0].router).toBe(0);
-      expect(bitRouter.breadcrumb[1].name.zh_cn).toBe('测试主页');
-      expect(bitRouter.breadcrumb[1].key).toBe('example-index');
-      expect(bitRouter.breadcrumb[1].router).toBe(1);
-      expect(bitRouter.breadcrumb[2].name.zh_cn).toBe('测试修改页');
-      expect(bitRouter.breadcrumb[2].key).toBe('example-edit');
-      expect(bitRouter.breadcrumb[2].router).toBe(1);
-      expect(bitRouter.navActive).toEqual(['system', 'example-index', 'example-edit']);
-      done();
-    });
+    router.events
+      .pipe(
+        filter(e => e instanceof NavigationEnd),
+        take(1),
+        delay(200)
+      )
+      .subscribe(() => {
+        expect(bitRouter.title.zh_cn).toBe('测试修改页');
+        expect(bitRouter.breadcrumb!.length).toBe(3);
+        for (const value of bitRouter.breadcrumb!) {
+          expect(Reflect.has(value, 'key') && Reflect.has(value, 'name') && Reflect.has(value, 'router')).toBeTruthy();
+        }
+        expect(bitRouter.breadcrumb![0].name.zh_cn).toBe('系统设置');
+        expect(bitRouter.breadcrumb![0].key).toBe('system');
+        expect(bitRouter.breadcrumb![0].router).toBe(0);
+        expect(bitRouter.breadcrumb![1].name.zh_cn).toBe('测试主页');
+        expect(bitRouter.breadcrumb![1].key).toBe('example-index');
+        expect(bitRouter.breadcrumb![1].router).toBe(1);
+        expect(bitRouter.breadcrumb![2].name.zh_cn).toBe('测试修改页');
+        expect(bitRouter.breadcrumb![2].key).toBe('example-edit');
+        expect(bitRouter.breadcrumb![2].router).toBe(1);
+        expect(bitRouter.navActive).toEqual(['system', 'example-index', 'example-edit']);
+        done();
+      });
     router.navigate(['example-edit', '123']);
   });
 
-  it('Test not exists router link', (done) => {
-    router.events.pipe(
-      filter(e => e instanceof NavigationEnd),
-      take(1),
-      delay(200)
-    ).subscribe(() => {
-      expect(bitRouter.title).toEqual(null);
-      expect(bitRouter.breadcrumb).toEqual([]);
-      expect(bitRouter.navActive).toEqual([]);
-      done();
-    });
+  it('Test not exists router link', done => {
+    router.events
+      .pipe(
+        filter(e => e instanceof NavigationEnd),
+        take(1),
+        delay(200)
+      )
+      .subscribe(() => {
+        expect(bitRouter.title).toEqual(null);
+        expect(bitRouter.breadcrumb).toEqual([]);
+        expect(bitRouter.navActive).toEqual([]);
+        done();
+      });
     router.navigate(['not_exists_path']);
   });
 });

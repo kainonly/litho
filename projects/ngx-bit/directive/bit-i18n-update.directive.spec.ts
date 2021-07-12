@@ -1,4 +1,3 @@
-/* tslint:disable:component-class-suffix */
 import { Component, DebugElement, OnInit } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -18,9 +17,7 @@ describe('BitI18nUpdateDirective', () => {
   beforeEach(() => {
     if (!component) {
       TestBed.configureTestingModule({
-        declarations: [
-          TestComponent
-        ],
+        declarations: [TestComponent],
         imports: [
           HttpClientModule,
           FormsModule,
@@ -71,22 +68,20 @@ describe('BitI18nUpdateDirective', () => {
   `
 })
 class TestComponent implements OnInit {
-  form: FormGroup;
+  form!: FormGroup;
 
-  constructor(
-    private fb: FormBuilder,
-    public bit: BitService
-  ) {
-  }
+  constructor(private fb: FormBuilder, public bit: BitService) {}
 
   ngOnInit(): void {
     this.form = this.fb.group({
-      name: this.fb.group(this.bit.i18nGroup({
-        validate: {
-          zh_cn: [Validators.required],
-          en_us: [Validators.required]
-        }
-      }))
+      name: this.fb.group(
+        this.bit.i18nGroup({
+          validate: {
+            zh_cn: [Validators.required],
+            en_us: [Validators.required]
+          }
+        })
+      )
     });
   }
 }

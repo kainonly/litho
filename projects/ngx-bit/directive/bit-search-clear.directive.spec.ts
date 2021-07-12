@@ -1,4 +1,3 @@
-/* tslint:disable:component-class-suffix */
 import { Component, DebugElement, OnInit } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
@@ -19,9 +18,7 @@ describe('BitSearchClearDirective', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [
-        TestComponent
-      ],
+      declarations: [TestComponent],
       imports: [
         HttpClientModule,
         FormsModule,
@@ -66,25 +63,17 @@ describe('BitSearchClearDirective', () => {
 @Component({
   template: `
     <ng-container *ngIf="lists.hasSearch('type')">
-      <select
-        [bitSearchChange]="lists"
-        [(ngModel)]="lists.search['type'].value"
-      >
+      <select [bitSearchChange]="lists" [(ngModel)]="lists.search['type'].value">
         <ng-container *ngFor="let option of options">
           <option [label]="option.label" [value]="option.value"></option>
         </ng-container>
       </select>
-      <button
-        [bitSearchClear]="lists"
-        (after)="after()"
-      >
-        Clear
-      </button>
+      <button [bitSearchClear]="lists" (after)="after()"> Clear </button>
     </ng-container>
   `
 })
 class TestComponent implements OnInit {
-  lists: ListByPage;
+  lists!: ListByPage;
   options: any[] = [
     { label: 'type0', value: 0 },
     { label: 'type1', value: 1 },
@@ -92,17 +81,12 @@ class TestComponent implements OnInit {
   ];
   triggered = false;
 
-  constructor(
-    private bit: BitService
-  ) {
-  }
+  constructor(private bit: BitService) {}
 
   ngOnInit(): void {
     this.lists = this.bit.listByPage({
       id: 'test-clear',
-      query: [
-        { field: 'type', op: '=', value: 0 }
-      ]
+      query: [{ field: 'type', op: '=', value: 0 }]
     });
   }
 

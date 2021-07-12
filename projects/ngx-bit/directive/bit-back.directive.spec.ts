@@ -1,4 +1,3 @@
-/* tslint:disable:component-class-suffix */
 import { Location } from '@angular/common';
 import { Component } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
@@ -22,9 +21,7 @@ describe('BitBackDirective', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [
-        TestComponent
-      ],
+      declarations: [TestComponent],
       imports: [
         HttpClientModule,
         NzButtonModule,
@@ -43,25 +40,27 @@ describe('BitBackDirective', () => {
     fixture.detectChanges();
   });
 
-  it('Test click trigger to route back', (done) => {
+  it('Test click trigger to route back', done => {
     let count = 2;
-    router.events.pipe(
-      filter(e => e instanceof NavigationEnd),
-      take(count)
-    ).subscribe((e: RouterEvent) => {
-      switch (2 - count) {
-        case 0:
-          expect(e.url).toBe('/example-index');
-          bit.open(['example-add']);
-          break;
-        case 1:
-          expect(e.url).toBe('/example-add');
-          const button = fixture.debugElement.query(By.directive(BitBackDirective));
-          button.triggerEventHandler('click', null);
-          break;
-      }
-      count--;
-    });
+    router.events
+      .pipe(
+        filter(e => e instanceof NavigationEnd),
+        take(count)
+      )
+      .subscribe((e: any) => {
+        switch (2 - count) {
+          case 0:
+            expect(e.url).toBe('/example-index');
+            bit.open(['example-add']);
+            break;
+          case 1:
+            expect(e.url).toBe('/example-add');
+            const button = fixture.debugElement.query(By.directive(BitBackDirective));
+            button.triggerEventHandler('click', null);
+            break;
+        }
+        count--;
+      });
     location.subscribe(e => {
       setTimeout(() => {
         expect(e.url).toBe('/example-index');
@@ -73,9 +72,6 @@ describe('BitBackDirective', () => {
 });
 
 @Component({
-  template: `
-    <button nz-button nzType="primary" bitBack>Test</button>
-  `
+  template: ` <button nz-button nzType="primary" bitBack>Test</button> `
 })
-class TestComponent {
-}
+class TestComponent {}

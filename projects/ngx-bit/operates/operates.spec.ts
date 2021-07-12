@@ -3,16 +3,18 @@ import { asyncValidator, empty, print, privacy } from 'ngx-bit/operates';
 import { switchMap } from 'rxjs/operators';
 
 describe('operates module', () => {
-  it('Test asyncValidator', (done) => {
-    asyncValidator(of(true)).pipe(
-      switchMap(result => {
-        expect(result).toEqual(null);
-        return asyncValidator(of(false));
-      })
-    ).subscribe(result => {
-      expect(result).toEqual({ error: true, duplicated: true });
-      done();
-    });
+  it('Test asyncValidator', done => {
+    asyncValidator(of(true))
+      .pipe(
+        switchMap(result => {
+          expect(result).toEqual(null);
+          return asyncValidator(of(false));
+        })
+      )
+      .subscribe(result => {
+        expect(result).toEqual({ error: true, duplicated: true });
+        done();
+      });
   });
 
   it('Test empty', () => {
@@ -32,10 +34,9 @@ describe('operates module', () => {
 
   it('Test print', () => {
     expect(print('')).toEqual('');
-    expect(print(
-      '$0 是遵循 $1 设计规范的 $2 组件库',
-      'ng-zorro-antd', 'Ant Design', 'Angular UI'
-    )).toEqual('ng-zorro-antd 是遵循 Ant Design 设计规范的 Angular UI 组件库');
+    expect(print('$0 是遵循 $1 设计规范的 $2 组件库', 'ng-zorro-antd', 'Ant Design', 'Angular UI')).toEqual(
+      'ng-zorro-antd 是遵循 Ant Design 设计规范的 Angular UI 组件库'
+    );
   });
 
   it('Test privacy', () => {

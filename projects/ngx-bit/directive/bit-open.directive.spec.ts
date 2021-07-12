@@ -1,4 +1,3 @@
-/* tslint:disable:component-class-suffix */
 import { Component } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
@@ -18,12 +17,9 @@ describe('BitOpenDirective', () => {
   let component: TestComponent;
   let fixture: ComponentFixture<TestComponent>;
 
-
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [
-        TestComponent
-      ],
+      declarations: [TestComponent],
       imports: [
         HttpClientModule,
         BitDirectiveModule,
@@ -40,23 +36,22 @@ describe('BitOpenDirective', () => {
     fixture.detectChanges();
   });
 
-  it('Test open routerlink', (done) => {
-    router.events.pipe(
-      filter(e => e instanceof NavigationEnd),
-      take(1)
-    ).subscribe((e: RouterEvent) => {
-      expect(e.url).toBe('/example-add');
-      done();
-    });
+  it('Test open routerlink', done => {
+    router.events
+      .pipe(
+        filter(e => e instanceof NavigationEnd),
+        take(1)
+      )
+      .subscribe((e: any) => {
+        expect(e.url).toBe('/example-add');
+        done();
+      });
     const button = fixture.debugElement.query(By.directive(BitOpenDirective));
     button.triggerEventHandler('click', null);
   });
 });
 
 @Component({
-  template: `
-    <button nz-button nzType="primary" [bitOpen]="['example-add']">Test</button>
-  `
+  template: ` <button nz-button nzType="primary" [bitOpen]="['example-add']">Test</button> `
 })
-class TestComponent {
-}
+class TestComponent {}
