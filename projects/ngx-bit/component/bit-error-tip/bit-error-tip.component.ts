@@ -5,7 +5,7 @@ import { Component, Input, OnChanges, SimpleChanges, TemplateRef, ViewChild } fr
   templateUrl: './bit-error-tip.component.html'
 })
 export class BitErrorTipComponent implements OnChanges {
-  @ViewChild('ref', { static: true }) ref: TemplateRef<any>;
+  @ViewChild('ref', { static: true }) ref!: TemplateRef<any>;
   @Input() hasError: any = {};
 
   values: any[] = [];

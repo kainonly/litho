@@ -5,9 +5,9 @@ import { Component, Input, OnChanges, SimpleChanges, TemplateRef, ViewChild } fr
   templateUrl: './bit-print.component.html'
 })
 export class BitPrintComponent implements OnChanges {
-  @ViewChild('ref', { static: true }) ref: TemplateRef<any>;
-  @Input() text: string;
-  @Input() vars: any[];
+  @ViewChild('ref', { static: true }) ref!: TemplateRef<any>;
+  @Input() text!: string;
+  @Input() vars!: any[];
 
   values: any[] = [];
   private varsMap = new Map<any, any>();
@@ -16,7 +16,7 @@ export class BitPrintComponent implements OnChanges {
     if (changes.hasOwnProperty('vars')) {
       if (changes.vars.currentValue) {
         this.varsMap = new Map<any, any>();
-        changes.vars.currentValue.forEach((value, index) => {
+        changes.vars.currentValue.forEach((value: any, index: any) => {
           this.varsMap.set('$' + index, value);
         });
       }
@@ -24,7 +24,7 @@ export class BitPrintComponent implements OnChanges {
     if (changes.hasOwnProperty('text')) {
       if (changes.text.currentValue) {
         const semi = changes.text.currentValue.replace(/\$[0-9]+/g, '**$&**');
-        this.values = semi.split('**').map(v => {
+        this.values = semi.split('**').map((v: any) => {
           return this.varsMap.has(v) ? this.varsMap.get(v) : v;
         });
       }

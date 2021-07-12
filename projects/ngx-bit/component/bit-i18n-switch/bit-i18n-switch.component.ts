@@ -6,10 +6,7 @@ import { BitService } from 'ngx-bit';
   templateUrl: './bit-i18n-switch.component.html'
 })
 export class BitI18nSwitchComponent {
-  constructor(
-    public bit: BitService
-  ) {
-  }
+  constructor(public bit: BitService) {}
 
   i18nChanged(value: any): void {
     this.bit.i18nChanged.next(value);

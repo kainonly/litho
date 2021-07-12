@@ -6,11 +6,8 @@ import { BitService } from 'ngx-bit';
   templateUrl: './bit-i18n-tooltip.component.html'
 })
 export class BitI18nTooltipComponent {
-  @ViewChild('ref', { static: true }) ref: TemplateRef<any>;
-  @Input() groupName: string;
+  @ViewChild('ref', { static: true }) ref!: TemplateRef<any>;
+  @Input() groupName!: string;
 
-  constructor(
-    public bit: BitService
-  ) {
-  }
+  constructor(public bit: BitService) {}
 }

@@ -8,23 +8,8 @@ import { BitI18nTooltipComponent } from './bit-i18n-tooltip/bit-i18n-tooltip.com
 import { BitPrintComponent } from './bit-print/bit-print.component';
 
 @NgModule({
-  imports: [
-    FormsModule,
-    CommonModule,
-    NzRadioModule
-  ],
-  declarations: [
-    BitErrorTipComponent,
-    BitI18nSwitchComponent,
-    BitI18nTooltipComponent,
-    BitPrintComponent
-  ],
-  exports: [
-    BitErrorTipComponent,
-    BitI18nSwitchComponent,
-    BitI18nTooltipComponent,
-    BitPrintComponent
-  ]
+  imports: [FormsModule, CommonModule, NzRadioModule],
+  declarations: [BitErrorTipComponent, BitI18nSwitchComponent, BitI18nTooltipComponent, BitPrintComponent],
+  exports: [BitErrorTipComponent, BitI18nSwitchComponent, BitI18nTooltipComponent, BitPrintComponent]
 })
-export class BitComponentModule {
-}
+export class BitComponentModule {}

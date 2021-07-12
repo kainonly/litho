@@ -9,9 +9,7 @@ describe('BitErrorTipComponent', () => {
   beforeEach(() => {
     if (!component) {
       TestBed.configureTestingModule({
-        imports: [
-          BitComponentModule
-        ]
+        imports: [BitComponentModule]
       });
       fixture = TestBed.createComponent(BitErrorTipComponent);
       component = fixture.componentInstance;

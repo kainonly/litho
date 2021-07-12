@@ -1,7 +1,7 @@
 <ng-template #ref let-control>
   <ng-container *ngFor="let value of values">
     <ng-container *ngIf="control.hasError(value.key)">
-      {{value.error}}
+      {{ value.error }}
     </ng-container>
   </ng-container>
 </ng-template>

@@ -1,7 +1,7 @@
 <ng-template #ref>
   <ng-container *ngFor="let value of values">
-    <ng-container *ngIf="!is(value);else template">
-      {{value}}
+    <ng-container *ngIf="!is(value); else template">
+      {{ value }}
     </ng-container>
     <ng-template #template>
       <ng-container *ngTemplateOutlet="value"></ng-container>
