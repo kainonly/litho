@@ -30,15 +30,8 @@
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.app.json",
             "inlineStyleLanguage": "scss",
-            "assets": [
-              "src/favicon.ico",
-              "src/assets",
-              "src/manifest.webmanifest"
-            ],
-            "styles": [
-              "./node_modules/ng-zorro-antd/ng-zorro-antd.min.css",
-              "src/styles.scss"
-            ],
+            "assets": ["src/favicon.ico", "src/assets", "src/manifest.webmanifest"],
+            "styles": ["./node_modules/ng-zorro-antd/ng-zorro-antd.min.css", "src/styles.scss"],
             "scripts": [],
             "serviceWorker": true,
             "ngswConfigPath": "ngsw-config.json"
@@ -102,25 +95,15 @@
             "tsConfig": "tsconfig.spec.json",
             "karmaConfig": "karma.conf.js",
             "inlineStyleLanguage": "scss",
-            "assets": [
-              "src/favicon.ico",
-              "src/assets",
-              "src/manifest.webmanifest"
-            ],
-            "styles": [
-              "./node_modules/ng-zorro-antd/ng-zorro-antd.min.css",
-              "src/styles.scss"
-            ],
+            "assets": ["src/favicon.ico", "src/assets", "src/manifest.webmanifest"],
+            "styles": ["./node_modules/ng-zorro-antd/ng-zorro-antd.min.css", "src/styles.scss"],
             "scripts": []
           }
         },
         "lint": {
           "builder": "@angular-eslint/builder:lint",
           "options": {
-            "lintFilePatterns": [
-              "src/**/*.ts",
-              "src/**/*.html"
-            ]
+            "lintFilePatterns": ["src/**/*.ts", "src/**/*.html"]
           }
         }
       }
@@ -157,10 +140,7 @@
         "lint": {
           "builder": "@angular-eslint/builder:lint",
           "options": {
-            "lintFilePatterns": [
-              "projects/ngx-bit/**/*.ts",
-              "projects/ngx-bit/**/*.html"
-            ]
+            "lintFilePatterns": ["projects/ngx-bit/**/*.ts", "projects/ngx-bit/**/*.html"]
           }
         }
       }
@@ -168,8 +148,8 @@
     "@vanx/framework": {
       "projectType": "library",
       "root": "projects/vanx/framework",
-      "sourceRoot": "projects/vanx/framework/src",
-      "prefix": "lib",
+      "sourceRoot": "projects/vanx/framework",
+      "prefix": "v",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:ng-packagr",
@@ -185,31 +165,14 @@
             }
           },
           "defaultConfiguration": "production"
-        },
-        "test": {
-          "builder": "@angular-devkit/build-angular:karma",
-          "options": {
-            "main": "projects/vanx/framework/src/test.ts",
-            "tsConfig": "projects/vanx/framework/tsconfig.spec.json",
-            "karmaConfig": "projects/vanx/framework/karma.conf.js"
-          }
-        },
-        "lint": {
-          "builder": "@angular-eslint/builder:lint",
-          "options": {
-            "lintFilePatterns": [
-              "projects/vanx/framework/**/*.ts",
-              "projects/vanx/framework/**/*.html"
-            ]
-          }
         }
       }
     },
     "@vanx/cms": {
       "projectType": "library",
       "root": "projects/vanx/cms",
-      "sourceRoot": "projects/vanx/cms/src",
-      "prefix": "lib",
+      "sourceRoot": "projects/vanx/cms",
+      "prefix": "v",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:ng-packagr",
@@ -225,23 +188,6 @@
             }
           },
           "defaultConfiguration": "production"
-        },
-        "test": {
-          "builder": "@angular-devkit/build-angular:karma",
-          "options": {
-            "main": "projects/vanx/cms/src/test.ts",
-            "tsConfig": "projects/vanx/cms/tsconfig.spec.json",
-            "karmaConfig": "projects/vanx/cms/karma.conf.js"
-          }
-        },
-        "lint": {
-          "builder": "@angular-eslint/builder:lint",
-          "options": {
-            "lintFilePatterns": [
-              "projects/vanx/cms/**/*.ts",
-              "projects/vanx/cms/**/*.html"
-            ]
-          }
         }
       }
     }
