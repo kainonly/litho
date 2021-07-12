@@ -1,0 +1,6 @@
+[submodule "projects/vanx/framework"]
+	path = projects/vanx/framework
+	url = git@github.com:van-skeleton/framework.git
+[submodule "projects/vanx/cms"]
+	path = projects/vanx/cms
+	url = git@github.com:van-skeleton/cms.git

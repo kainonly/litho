@@ -164,6 +164,86 @@
           }
         }
       }
+    },
+    "@vanx/framework": {
+      "projectType": "library",
+      "root": "projects/vanx/framework",
+      "sourceRoot": "projects/vanx/framework/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "project": "projects/vanx/framework/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/vanx/framework/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/vanx/framework/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/vanx/framework/src/test.ts",
+            "tsConfig": "projects/vanx/framework/tsconfig.spec.json",
+            "karmaConfig": "projects/vanx/framework/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "projects/vanx/framework/**/*.ts",
+              "projects/vanx/framework/**/*.html"
+            ]
+          }
+        }
+      }
+    },
+    "@vanx/cms": {
+      "projectType": "library",
+      "root": "projects/vanx/cms",
+      "sourceRoot": "projects/vanx/cms/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "project": "projects/vanx/cms/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/vanx/cms/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/vanx/cms/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/vanx/cms/src/test.ts",
+            "tsConfig": "projects/vanx/cms/tsconfig.spec.json",
+            "karmaConfig": "projects/vanx/cms/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "projects/vanx/cms/**/*.ts",
+              "projects/vanx/cms/**/*.html"
+            ]
+          }
+        }
+      }
     }
   },
   "defaultProject": "ngx-bit-example"
