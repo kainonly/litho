@@ -7,22 +7,7 @@ import { PrintPipe } from './print.pipe';
 import { PrivacyPipe } from './privacy.pipe';
 
 @NgModule({
-  exports: [
-    EmptyPipe,
-    JoinPipe,
-    SplitPipe,
-    ObjectPipe,
-    PrintPipe,
-    PrivacyPipe
-  ],
-  declarations: [
-    EmptyPipe,
-    JoinPipe,
-    SplitPipe,
-    ObjectPipe,
-    PrintPipe,
-    PrivacyPipe
-  ]
+  exports: [EmptyPipe, JoinPipe, SplitPipe, ObjectPipe, PrintPipe, PrivacyPipe],
+  declarations: [EmptyPipe, JoinPipe, SplitPipe, ObjectPipe, PrintPipe, PrivacyPipe]
 })
-export class BitPipeModule {
-}
+export class BitPipeModule {}
