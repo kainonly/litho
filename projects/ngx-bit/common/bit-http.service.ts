@@ -18,12 +18,9 @@ export class BitHttpService {
    * 请求拦截器
    * Http interceptor
    */
-  private interceptor: OperatorFunction<any, any>;
+  private interceptor!: OperatorFunction<any, any>;
 
-  constructor(
-    bitConfig: BitConfig,
-    private http: HttpClient
-  ) {
+  constructor(bitConfig: BitConfig, private http: HttpClient) {
     this.baseUri = bitConfig.url.api + bitConfig.api.namespace + '/';
     this.withCredentials = bitConfig.api.withCredentials;
   }
@@ -41,12 +38,10 @@ export class BitHttpService {
    * Http client
    */
   req(url: string, body: any = {}, method = 'post'): Observable<any> {
-    let httpClient = this.http.request(method, this.baseUri + url,
-      {
-        body,
-        withCredentials: this.withCredentials
-      }
-    );
+    let httpClient = this.http.request(method, this.baseUri + url, {
+      body,
+      withCredentials: this.withCredentials
+    });
     if (this.interceptor) {
       httpClient = httpClient.pipe(this.interceptor);
     }

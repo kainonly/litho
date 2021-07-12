@@ -16,10 +16,7 @@ export class BitCurdService {
    */
   protected curd: CurdOption;
 
-  constructor(
-    bitConfig: BitConfig,
-    protected http: BitHttpService
-  ) {
+  constructor(bitConfig: BitConfig, protected http: BitHttpService) {
     this.mode = bitConfig.query;
     this.curd = bitConfig.curd;
   }
@@ -31,6 +28,8 @@ export class BitCurdService {
   getQuerySchema(options: SearchOption[]): any[] {
     switch (this.mode) {
       case 'sql-orm':
+        return this.common(options);
+      default:
         return this.common(options);
     }
   }
@@ -45,11 +44,7 @@ export class BitCurdService {
   protected common(options: SearchOption[]): any[] {
     const schema = [];
     for (const search of options) {
-      if (
-        search.value !== null &&
-        typeof search.value === 'object' &&
-        Object.keys(search.value).length === 0
-      ) {
+      if (search.value !== null && typeof search.value === 'object' && Object.keys(search.value).length === 0) {
         continue;
       }
       if (typeof search.value === 'string') {
@@ -62,8 +57,9 @@ export class BitCurdService {
           value = `%${value}%`;
         }
         if (search.format !== undefined && search.format === 'unixtime') {
-          value = Array.isArray(value) ?
-            value.map(v => Math.trunc(v.getTime() / 1000)) : Math.trunc(value.getTime() / 1000);
+          value = Array.isArray(value)
+            ? value.map(v => Math.trunc(v.getTime() / 1000))
+            : Math.trunc(value.getTime() / 1000);
         }
         schema.push([search.field, search.op, value]);
       }

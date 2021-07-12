@@ -22,7 +22,7 @@ export class BitConfig {
   locale!: {
     default: string;
     mapping: string[];
-    bind: unknown[];
+    bind: any[];
   };
   i18n!: {
     default: string;

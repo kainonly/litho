@@ -76,13 +76,9 @@ export class ListByPage {
    */
   checkedNumber = 0;
 
-  constructor(
-    private curd: BitCurdService,
-    private storage: StorageMap,
-    private option: ListByPageOption
-  ) {
-    this.limit = option.limit;
-    this.order = option.order;
+  constructor(private curd: BitCurdService, private storage: StorageMap, private option: ListByPageOption) {
+    this.limit = option.limit!;
+    this.order = option.order!;
     this.storage.get('search:' + option.id).subscribe((data: any) => {
       if (!data) {
         for (const value of option.query) {
@@ -143,12 +139,12 @@ export class ListByPage {
    * Update the status of the paging list
    */
   refreshStatus(): void {
-    const allChecked = this.data.every((value) => value.checked === true);
-    const allUnchecked = this.data.every((value) => !value.checked);
+    const allChecked = this.data.every(value => value.checked === true);
+    const allUnchecked = this.data.every(value => !value.checked);
     this.checked = this.data.length !== 0 && allChecked;
     this.indeterminate = !allChecked && !allUnchecked;
     this.batch = this.checked || this.indeterminate;
-    this.checkedNumber = this.data.filter((value) => value.checked).length;
+    this.checkedNumber = this.data.filter(value => value.checked).length;
   }
 
   /**
@@ -156,7 +152,7 @@ export class ListByPage {
    * Change the selected state of all tabbed lists
    */
   checkedAll(event: boolean): void {
-    this.data.forEach((data) => (data.checked = event));
+    this.data.forEach(data => (data.checked = event));
     this.refreshStatus();
   }
 

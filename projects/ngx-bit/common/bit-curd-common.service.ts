@@ -24,9 +24,7 @@ export class BitCurdCommonService extends BitCurdService implements CurdInterfac
         id: condition
       });
     }
-    return http.pipe(
-      map(res => !res.error ? res.data : null)
-    );
+    return http.pipe(map(res => (!res.error ? res.data : null)));
   }
 
   /**
@@ -71,12 +69,12 @@ export class BitCurdCommonService extends BitCurdService implements CurdInterfac
    */
   originLists(model: string, condition: SearchOption[] = [], order?: OrderOption, path?: string): Observable<any> {
     const url = path || this.curd.originLists;
-    return this.http.req(model + url, {
-      where: this.getQuerySchema(condition),
-      order
-    }).pipe(
-      map(res => !res.error ? res.data : null)
-    );
+    return this.http
+      .req(model + url, {
+        where: this.getQuerySchema(condition),
+        order
+      })
+      .pipe(map(res => (!res.error ? res.data : null)));
   }
 
   /**
@@ -95,12 +93,14 @@ export class BitCurdCommonService extends BitCurdService implements CurdInterfac
   edit(model: string, data: any, condition?: SearchOption[], path?: string): Observable<any> {
     const url = path || this.curd.edit;
     data.switch = false;
-    return !condition ?
-      this.http.req(model + url, data) :
-      this.http.req(model + url, Object.assign(data, {
-          where: this.getQuerySchema(condition)
-        })
-      );
+    return !condition
+      ? this.http.req(model + url, data)
+      : this.http.req(
+          model + url,
+          Object.assign(data, {
+            where: this.getQuerySchema(condition)
+          })
+        );
   }
 
   /**
@@ -118,7 +118,7 @@ export class BitCurdCommonService extends BitCurdService implements CurdInterfac
       Object.assign(body, extra);
     }
     return this.http.req(model + url, body).pipe(
-      map((res) => {
+      map(res => {
         if (!res.error) {
           data[field] = !data[field];
         }
