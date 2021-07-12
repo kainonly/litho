@@ -9,11 +9,7 @@ import { map } from 'rxjs/operators';
   selector: 'nz-upload[bitUpload]'
 })
 export class BitUploadDirective {
-  constructor(
-    config: BitConfig,
-    http: HttpClient,
-    nzUploadComponent: NzUploadComponent
-  ) {
+  constructor(config: BitConfig, http: HttpClient, nzUploadComponent: NzUploadComponent) {
     nzUploadComponent.nzSize = !config.api.uploadSize ? 5120 : config.api.uploadSize;
     nzUploadComponent.nzShowUploadList = false;
     if (config.api.uploadStorage === 'default') {
@@ -24,40 +20,46 @@ export class BitUploadDirective {
     nzUploadComponent.nzAction = config.api.upload;
     nzUploadComponent.nzData = (file: NzUploadFile): Observable<any> => {
       const url = config.url.api + config.api.uploadFetchSigned;
-      return http.request(config.api.uploadFetchSignedMethod, url, {
-        withCredentials: config.api.withCredentials
-      }).pipe(
-        map((res: any) => {
-          const sep = file.name.split('.');
-          const ext = sep.length > 1 ? '.' + sep.pop().toLowerCase() : '';
-          file.key = res.filename + ext;
-          switch (config.api.uploadStorage) {
-            case 'oss':
-              return {
-                key: file.key,
-                policy: res.option.policy,
-                OSSAccessKeyId: res.option.access_key_id,
-                Signature: res.option.signature
-              };
-            case 'obs':
-              return {
-                key: file.key,
-                policy: res.option.policy,
-                AccessKeyId: res.option.access_key_id,
-                signature: res.option.signature
-              };
-            case 'cos':
-              return {
-                key: file.key,
-                policy: res.option.policy,
-                'q-sign-algorithm': res.option.sign_algorithm,
-                'q-ak': res.option.ak,
-                'q-key-time': res.option.key_time,
-                'q-signature': res.option.signature
-              };
-          }
+      return http
+        .request(config.api.uploadFetchSignedMethod!, url, {
+          withCredentials: config.api.withCredentials
         })
-      );
+        .pipe(
+          map((res: any) => {
+            const sep: any[] = file.name.split('.');
+            const ext = sep.length > 1 ? '.' + sep.pop().toLowerCase() : '';
+            file.key = res.filename + ext;
+            switch (config.api.uploadStorage) {
+              case 'oss':
+                return {
+                  key: file.key,
+                  policy: res.option.policy,
+                  OSSAccessKeyId: res.option.access_key_id,
+                  Signature: res.option.signature
+                };
+              case 'obs':
+                return {
+                  key: file.key,
+                  policy: res.option.policy,
+                  AccessKeyId: res.option.access_key_id,
+                  signature: res.option.signature
+                };
+              case 'cos':
+                return {
+                  key: file.key,
+                  policy: res.option.policy,
+                  'q-sign-algorithm': res.option.sign_algorithm,
+                  'q-ak': res.option.ak,
+                  'q-key-time': res.option.key_time,
+                  'q-signature': res.option.signature
+                };
+              default:
+                return {
+                  key: file.key
+                };
+            }
+          })
+        );
     };
   }
 }

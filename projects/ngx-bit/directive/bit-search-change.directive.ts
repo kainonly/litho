@@ -7,19 +7,13 @@ import { ListByPage } from 'ngx-bit';
   selector: '[bitSearchChange]'
 })
 export class BitSearchChangeDirective implements OnInit {
-  @Input() bitSearchChange: ListByPage;
+  @Input() bitSearchChange!: ListByPage;
   @Output() after: EventEmitter<any> = new EventEmitter<any>();
 
-  constructor(
-    private model: NgModel
-  ) {
-  }
+  constructor(private model: NgModel) {}
 
   ngOnInit(): void {
-    this.model.update.pipe(
-      switchMap(_ => this.bitSearchChange.afterSearch()
-      )
-    ).subscribe(_ => {
+    this.model.update.pipe(switchMap(_ => this.bitSearchChange.afterSearch())).subscribe(_ => {
       this.after.emit(true);
     });
   }

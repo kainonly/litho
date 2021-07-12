@@ -18,7 +18,7 @@ export class BitConfig {
     uploadSize?: number;
   };
   curd!: CurdOption;
-  col!: Record<string, unknown>;
+  col!: Record<string, any>;
   locale!: {
     default: string;
     mapping: string[];
