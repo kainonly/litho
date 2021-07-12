@@ -11,19 +11,13 @@ export class BitSwalModule {
   static forRoot(config?: Config): ModuleWithProviders<BitSwalModule> {
     return {
       ngModule: BitSwalModule,
-      providers: [
-        { provide: Config, useValue: config },
-        BitSwalService
-      ]
+      providers: [{ provide: Config, useValue: config }, BitSwalService]
     };
   }
 
-  constructor(
-    config: Config,
-    swal: BitSwalService,
-    @Inject(DOCUMENT) readonly document: any
-  ) {
+  constructor(config: Config, swal: BitSwalService, @Inject(DOCUMENT) readonly document: any) {
     loadScript(document, config?.url || this.url).subscribe(_ => {
+      // @ts-ignore
       swal.ready.next(window['Swal']);
       swal.ready.complete();
     });
