@@ -4,40 +4,34 @@ import { Component } from '@angular/core';
   selector: 'app-example',
   template: ``
 })
-export class ExampleComponent {
-}
+export class ExampleComponent {}
 
 @Component({
   selector: 'app-example-index',
   template: ``
 })
-export class ExampleIndexComponent {
-}
+export class ExampleIndexComponent {}
 
 @Component({
   selector: 'app-example-add',
   template: ``
 })
-export class ExampleAddComponent {
-}
+export class ExampleAddComponent {}
 
 @Component({
   selector: 'app-example-edit',
   template: ``
 })
-export class ExampleEditComponent {
-}
+export class ExampleEditComponent {}
 
 @Component({
   selector: 'app-example-opt',
   template: ``
 })
-export class ExampleOptComponent {
-}
+export class ExampleOptComponent {}
 
 @Component({
   selector: 'app-empty',
   template: ``
 })
-export class EmptyComponent {
-}
+export class EmptyComponent {}

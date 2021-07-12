@@ -6,15 +6,10 @@ import { BitCurdCommonService } from 'ngx-bit';
 export class ExampleService {
   private model = 'example';
 
-  constructor(
-    private curd: BitCurdCommonService
-  ) {
-  }
+  constructor(private curd: BitCurdCommonService) {}
 
   originLists(type: number): Observable<any> {
-    return this.curd.originLists(this.model, [
-      { field: 'type', op: '=', value: type }
-    ]);
+    return this.curd.originLists(this.model, [{ field: 'type', op: '=', value: type }]);
   }
 
   lists(search: any, refresh: boolean, persistence: boolean): Observable<any> {
@@ -29,9 +24,7 @@ export class ExampleService {
   }
 
   getFromUsername(username: string): Observable<any> {
-    return this.curd.get(this.model, [
-      { field: 'username', op: '=', value: username }
-    ]);
+    return this.curd.get(this.model, [{ field: 'username', op: '=', value: username }]);
   }
 
   add(data: any): Observable<any> {
@@ -43,9 +36,7 @@ export class ExampleService {
   }
 
   editFormUsername(username: string, data: any): Observable<any> {
-    return this.curd.edit(this.model, data, [
-      { field: 'username', op: '=', value: username }
-    ]);
+    return this.curd.edit(this.model, data, [{ field: 'username', op: '=', value: username }]);
   }
 
   status(data: any): Observable<any> {
@@ -63,9 +54,7 @@ export class ExampleService {
   }
 
   deleteFormUsername(username: string): Observable<any> {
-    return this.curd.delete(this.model, undefined, [
-      { field: 'username', op: '=', value: username }
-    ]);
+    return this.curd.delete(this.model, undefined, [{ field: 'username', op: '=', value: username }]);
   }
 
   deleteNothing(): Observable<any> {

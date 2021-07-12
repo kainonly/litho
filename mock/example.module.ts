@@ -26,5 +26,4 @@ import {
     EmptyComponent
   ]
 })
-export class ExampleModule {
-}
+export class ExampleModule {}
