@@ -4,7 +4,7 @@
   "scripts": {
     "start": "ng serve --host 0.0.0.0 --port 4201 --disable-host-check",
     "build": "ng build --configuration production",
-    "build:ngx-bit": "ng build ngx-bit --configuration production && npm run build:schematics && npm run postbuild",
+    "build:ngx-bit": "ng build ngx-bit --configuration production",
     "release:ngx-bit": "cd dist/ngx-bit && npm publish",
     "build:schematics": "tsc -p projects/ngx-bit/tsconfig.schematics.json",
     "copy:schemas": "cpy --parents projects/ngx-bit/schematics/*/schema.json dist/ngx-bit/",

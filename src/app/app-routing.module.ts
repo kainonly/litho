@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { LayoutComponent, LayoutModule } from '@vanx/framework/layout';
 import { AppShareModule } from '@share';
 import { IRoutes, MainModule } from './skeleton/main.module';
+import { CmsModule, CmsRoutes } from './skeleton/cms.module';
 
 const routes: Routes = [
   {
@@ -18,7 +19,7 @@ const routes: Routes = [
         loadChildren: () => import('./pages/empty/empty.module').then(m => m.EmptyModule)
       },
       ...IRoutes,
-      // ...CmsRoutes,
+      ...CmsRoutes,
       {
         path: 'cms-example',
         loadChildren: () => import('./pages/cms-example/cms-example.module').then(m => m.CmsExampleModule)
@@ -28,6 +29,6 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [AppShareModule, LayoutModule, MainModule, RouterModule.forChild(routes)]
+  imports: [AppShareModule, LayoutModule, MainModule, CmsModule, RouterModule.forChild(routes)]
 })
 export class AppRoutingModule {}
