@@ -39,7 +39,6 @@ describe('BitSiderComponent', () => {
     fixture.detectChanges();
   });
 
-
   it('Test sider', () => {
     router.navActive = ['system'];
     fixture.detectChanges();
@@ -51,29 +50,27 @@ describe('BitSiderComponent', () => {
       key: v.attributes['ng-reflect-bit-open'],
       text: v.query(By.css('.nav-text')).nativeElement.innerHTML
     }));
-    const check = {};
+    const check: Record<string, any> = {};
     for (const x of resourceData) {
-      x.name = JSON.parse(x.name);
-      check[x.key] = x.name['zh_cn'];
+      const data = JSON.parse(x.name);
+      check[x.key] = data['zh_cn'];
     }
     menuItems.forEach(value => {
-      expect(value.text).toBe(check[value.key]);
+      expect(value.text).toBe(check[value.key!]);
     });
   });
 });
 
 @Component({
   selector: 'test',
-  template: `
-    <bit-sider [collapsed]="collapsed" [data]="nav"></bit-sider>
-  `
+  template: ` <bit-sider [collapsed]="collapsed" [data]="nav"></bit-sider> `
 })
 class TestComponent implements OnInit {
   collapsed = true;
-  nav: any[];
+  nav!: any[];
 
   ngOnInit(): void {
-    const resource: object = {};
+    const resource: Record<string, any> = {};
     const nav: any = [];
     for (const x of resourceData) {
       resource[x.key] = x;
@@ -91,7 +88,7 @@ class TestComponent implements OnInit {
           if (!rows.hasOwnProperty('children')) {
             rows.children = [];
           }
-          x['parentNode'] = rows;
+          Reflect.set(x, 'parentNode', rows);
           rows.children.push(x);
         }
       }

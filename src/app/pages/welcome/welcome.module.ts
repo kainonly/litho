@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { WelcomeComponent } from './welcome.component';
 import { RouterModule, Routes } from '@angular/router';
-import { AppExtModule } from '@ext';
+import { AppShareModule } from '@share';
 
 const routes: Routes = [
   {
@@ -11,8 +11,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [AppExtModule, RouterModule.forChild(routes)],
+  imports: [AppShareModule, RouterModule.forChild(routes)],
   declarations: [WelcomeComponent]
 })
-export class WelcomeModule {
-}
+export class WelcomeModule {}

@@ -62,12 +62,6 @@ export const CmsRoutes: Routes = [
 ];
 
 @NgModule({
-  exports: [
-    CmsComponentModule,
-    MediaModule,
-    SchemaModule,
-    TemplateModule
-  ]
+  exports: [CmsComponentModule, MediaModule, SchemaModule, TemplateModule]
 })
-export class CmsModule {
-}
+export class CmsModule {}

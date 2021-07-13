@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AppExtModule } from '@ext';
+import { AppShareModule } from '@share';
 import { CmsExampleComponent } from './cms-example.component';
 
 const routes: Routes = [
@@ -11,13 +11,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [
-    AppExtModule,
-    RouterModule.forChild(routes)
-  ],
-  declarations: [
-    CmsExampleComponent
-  ]
+  imports: [AppShareModule, RouterModule.forChild(routes)],
+  declarations: [CmsExampleComponent]
 })
-export class CmsExampleModule {
-}
+export class CmsExampleModule {}

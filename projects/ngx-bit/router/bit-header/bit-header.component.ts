@@ -15,6 +15,7 @@ import { BitHeaderBannerDirective } from './bit-header-banner.directive';
 import { BitHeaderActionDirective } from './bit-header-action.directive';
 import { BitHeaderFooterDirective } from './bit-header-footer.directive';
 import { BitRouterService } from '../bit-router.service';
+import { InputBoolean } from 'ng-zorro-antd/core/util';
 
 @Component({
   selector: 'bit-header',
@@ -26,7 +27,7 @@ import { BitRouterService } from '../bit-router.service';
 })
 export class BitHeaderComponent implements OnInit, AfterViewInit, OnDestroy {
   @Input() subTitle: any;
-  @Input() back = false;
+  @Input() back?: string;
   @ViewChild('ContentTpl') content?: TemplateRef<any>;
   @ContentChild(BitHeaderBannerDirective) banner?: BitHeaderBannerDirective;
   @ContentChild(BitHeaderTagsDirective) tags?: BitHeaderTagsDirective;

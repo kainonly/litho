@@ -7,17 +7,14 @@ import { BitService } from 'ngx-bit';
     <nz-result nzStatus="403" nzTitle="403" [nzSubTitle]="bit.l['tips']">
       <div nz-result-extra>
         <button nz-button nzType="primary" routerLink="/">
-          {{ bit.l["home"] }}
+          {{ bit.l['home'] }}
         </button>
       </div>
     </nz-result>
   `
 })
 export class EmptyComponent implements OnInit {
-  constructor(
-    public bit: BitService
-  ) {
-  }
+  constructor(public bit: BitService) {}
 
   ngOnInit(): void {
     this.bit.registerLocales(import('./language'));

@@ -1,7 +1,7 @@
 import { Directive, EventEmitter, HostListener, Input, Output } from '@angular/core';
 import { NzSwitchComponent } from 'ng-zorro-antd/switch';
 import { NzMessageService } from 'ng-zorro-antd/message';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { BitService } from 'ngx-bit';
 
 @Directive({
@@ -18,7 +18,7 @@ export class BitStatusChangeDirective {
 
   @HostListener('click')
   onclick(): void {
-    this.bitStatusChange.subscribe(res => {
+    this.bitStatusChange!.subscribe(res => {
       if (!res.error) {
         this.message.success(this.bit.l.StatusSuccess);
       } else {

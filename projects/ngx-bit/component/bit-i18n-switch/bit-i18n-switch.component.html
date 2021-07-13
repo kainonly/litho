@@ -3,7 +3,7 @@
     <ng-container *ngFor="let item of bit.i18nSwitch">
       <label nz-radio-button [nzValue]="item.i18n">
         <span>
-          <b>{{ item.name[bit.locale] }}</b>
+          <b>{{ item.name | object: bit.locale }}</b>
         </span>
       </label>
     </ng-container>

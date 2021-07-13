@@ -4,8 +4,9 @@
   "overrides": [
     {
       "files": ["*.ts"],
+      "excludedFiles": ["**/*.spec.ts"],
       "parserOptions": {
-        "project": ["./tsconfig.lib.json", "./tsconfig.spec.json"],
+        "project": ["./tsconfig.lib.json"],
         "createDefaultProgram": true
       },
       "rules": {

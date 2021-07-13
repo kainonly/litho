@@ -7,13 +7,9 @@ import { FormBuilder, FormGroup } from '@angular/forms';
   templateUrl: './cms-example.component.html'
 })
 export class CmsExampleComponent implements OnInit {
-  form: FormGroup;
+  form!: FormGroup;
 
-  constructor(
-    public bit: BitService,
-    private fb: FormBuilder
-  ) {
-  }
+  constructor(public bit: BitService, private fb: FormBuilder) {}
 
   ngOnInit(): void {
     this.bit.registerLocales(import('./language'));
@@ -24,7 +20,7 @@ export class CmsExampleComponent implements OnInit {
     });
   }
 
-  submit(data): void {
+  submit(data: any): void {
     console.log(data);
   }
 }

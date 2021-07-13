@@ -4,12 +4,7 @@ import { CmsComponentModule } from '@vanx/cms/component';
 import { FrameworkComponentModule } from '@vanx/framework/component';
 
 @NgModule({
-  exports: [
-    ShareModule,
-    FrameworkComponentModule,
-    CmsComponentModule
-  ],
+  exports: [ShareModule, FrameworkComponentModule, CmsComponentModule],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
-export class AppExtModule {
-}
+export class AppShareModule {}

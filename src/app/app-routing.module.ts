@@ -1,10 +1,32 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { LayoutComponent, LayoutModule } from '@vanx/framework/layout';
+import { AppShareModule } from '@share';
 
-const routes: Routes = [];
+const routes: Routes = [
+  {
+    path: '',
+    component: LayoutComponent,
+    children: [
+      {
+        path: '',
+        loadChildren: () => import('./pages/welcome/welcome.module').then(m => m.WelcomeModule)
+      },
+      {
+        path: 'empty',
+        loadChildren: () => import('./pages/empty/empty.module').then(m => m.EmptyModule)
+      }
+      // ...IRoutes,
+      // ...CmsRoutes,
+      // {
+      //   path: 'cms-example',
+      //   loadChildren: () => import('./pages/cms-example/cms-example.module').then(m => m.CmsExampleModule)
+      // }
+    ]
+  }
+];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  imports: [AppShareModule, LayoutModule, RouterModule.forRoot(routes)]
 })
 export class AppRoutingModule {}

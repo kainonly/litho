@@ -84,15 +84,6 @@ export const IRoutes: Routes = [
 ];
 
 @NgModule({
-  exports: [
-    ProfileModule,
-    AclModule,
-    ResourceModule,
-    PermissionModule,
-    RoleModule,
-    UserModule,
-    SecurityModule
-  ]
+  exports: [ProfileModule, AclModule, ResourceModule, PermissionModule, RoleModule, UserModule, SecurityModule]
 })
-export class MainModule {
-}
+export class MainModule {}

@@ -21,7 +21,7 @@
       "@env": ["src/environments/environment.ts"],
       "@common/*": ["src/app/common/*"],
       "@api/*": ["src/app/api/*"],
-      "@ext": ["src/app/app.ext.module.ts"],
+      "@share": ["src/app/app-share.module.ts"],
       "ngx-bit": ["projects/ngx-bit/public-api.ts"],
       "ngx-bit/component": ["projects/ngx-bit/component/public-api.ts"],
       "ngx-bit/directive": ["projects/ngx-bit/directive/public-api.ts"],

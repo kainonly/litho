@@ -6,33 +6,25 @@
   <form nz-form [formGroup]="form" (bitFormSubmit)="submit($event)">
     <nz-form-item>
       <nz-form-label bitCol="label">
-        {{bit.l['picture']}}
+        {{ bit.l['picture'] }}
       </nz-form-label>
       <nz-form-control bitCol="control">
-        <v-picture
-          formControlName="picture"
-          [allowSort]="true"
-          [limit]="5"
-        ></v-picture>
+        <v-picture formControlName="picture" [allowSort]="true" [limit]="5"></v-picture>
       </nz-form-control>
     </nz-form-item>
 
     <nz-form-item>
       <nz-form-label bitCol="label">
-        {{bit.l['video']}}
+        {{ bit.l['video'] }}
       </nz-form-label>
       <nz-form-control bitCol="control">
-        <v-video
-          formControlName="video"
-          [allowSort]="true"
-          [limit]="5"
-        ></v-video>
+        <v-video formControlName="video" [allowSort]="true" [limit]="5"></v-video>
       </nz-form-control>
     </nz-form-item>
 
     <nz-form-item>
       <nz-form-label bitCol="label">
-        {{bit.l['richtext']}}
+        {{ bit.l['richtext'] }}
       </nz-form-label>
       <nz-form-control bitCol="control">
         <v-richtext formControlName="richtext"></v-richtext>
@@ -45,10 +37,10 @@
       <nz-form-control bitCol="submit">
         <nz-space>
           <button *nzSpaceItem nz-button nzType="primary" [disabled]="!form.valid">
-            <i nz-icon nzType="check"></i> {{ bit.l["submit"] }}
+            <i nz-icon nzType="check"></i> {{ bit.l['submit'] }}
           </button>
           <button *nzSpaceItem nz-button type="button" bitBack>
-            <i nz-icon nzType="close"></i> {{ bit.l["cancel"] }}
+            <i nz-icon nzType="close"></i> {{ bit.l['cancel'] }}
           </button>
         </nz-space>
       </nz-form-control>

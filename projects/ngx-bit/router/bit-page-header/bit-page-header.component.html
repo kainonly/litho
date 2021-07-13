@@ -1,4 +1,6 @@
-<ng-container *ngTemplateOutlet="router.banner"></ng-container>
+<ng-container *ngIf="router.banner">
+  <ng-container *ngTemplateOutlet="router.banner"></ng-container>
+</ng-container>
 <nz-page-header [nzGhost]="false" [nzBackIcon]="!router.back ? null : ''" (nzBack)="bit.back()">
   <nz-breadcrumb [nzSeparator]="breadcrumbIcon" nz-page-header-breadcrumb>
     <ng-template #breadcrumbIcon>
@@ -22,7 +24,9 @@
   <nz-page-header-title>{{ router.title | object: bit.locale }}</nz-page-header-title>
   <nz-page-header-subtitle>{{ router.subTitle | object: bit.locale }}</nz-page-header-subtitle>
   <nz-page-header-tags>
-    <ng-container *ngTemplateOutlet="router.tags"></ng-container>
+    <ng-container *ngIf="router.tags">
+      <ng-container *ngTemplateOutlet="router.tags"></ng-container>
+    </ng-container>
   </nz-page-header-tags>
   <nz-page-header-extra>
     <nz-space>
@@ -34,9 +38,13 @@
     </nz-space>
   </nz-page-header-extra>
   <nz-page-header-content>
-    <ng-container *ngTemplateOutlet="router.content"></ng-container>
+    <ng-container *ngIf="router.content">
+      <ng-container *ngTemplateOutlet="router.content"></ng-container>
+    </ng-container>
   </nz-page-header-content>
   <nz-page-header-footer>
-    <ng-container *ngTemplateOutlet="router.footer"></ng-container>
+    <ng-container *ngIf="router.footer">
+      <ng-container *ngTemplateOutlet="router.footer"></ng-container>
+    </ng-container>
   </nz-page-header-footer>
 </nz-page-header>

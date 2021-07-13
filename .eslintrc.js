@@ -4,8 +4,10 @@ module.exports = {
   overrides: [
     {
       files: ['*.ts'],
+      excludedFiles: ['*.spec.ts'],
       parser: '@typescript-eslint/parser',
       parserOptions: {
+        tsconfigRootDir: __dirname,
         project: ['tsconfig.json'],
         createDefaultProgram: true
       },
@@ -32,7 +34,19 @@ module.exports = {
             prefix: 'app',
             style: 'kebab-case'
           }
-        ]
+        ],
+        'no-bitwise': 'off',
+        'no-duplicate-imports': 'error',
+        'no-invalid-this': 'off',
+        'no-irregular-whitespace': 'error',
+        'no-magic-numbers': 'off',
+        'no-multiple-empty-lines': 'error',
+        'no-redeclare': 'off',
+        'no-underscore-dangle': 'off',
+        'no-sparse-arrays': 'error',
+        'no-template-curly-in-string': 'off',
+        'prefer-object-spread': 'error',
+        'prefer-template': 'error'
       }
     },
     {
