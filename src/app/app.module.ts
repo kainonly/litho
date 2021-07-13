@@ -16,6 +16,7 @@ import { BitSwalModule } from 'ngx-bit/swal';
 import { AppShareModule } from '@share';
 import { RouterModule, Routes } from '@angular/router';
 import { NZ_CONFIG, NzConfig } from 'ng-zorro-antd/core/config';
+import { NzIconService } from 'ng-zorro-antd/icon';
 
 registerLocaleData(en);
 
@@ -58,4 +59,8 @@ const ngZorroConfig: NzConfig = {
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule {}
+export class AppModule {
+  constructor(nzIconService: NzIconService) {
+    nzIconService.changeAssetsSource(environment.bit.url.icon!);
+  }
+}
