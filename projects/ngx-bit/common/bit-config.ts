@@ -6,7 +6,6 @@ export class BitConfig {
   url!: {
     api: string;
     static: string;
-    icon?: string;
   };
   api!: {
     namespace: string;

@@ -18,7 +18,7 @@ export class AppComponent implements OnInit {
 
   ngOnInit(): void {
     this.bit.setupLocale();
-    this.bit.registerLocales(import('./app.language'));
+    this.bit.registerLocales(import('./app-language'));
     this.http.setupInterceptor(
       map(res => {
         if (res.error) {

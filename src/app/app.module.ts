@@ -1,5 +1,5 @@
 import { registerLocaleData } from '@angular/common';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import en from '@angular/common/locales/en';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
@@ -17,6 +17,7 @@ import { AppShareModule } from '@share';
 import { RouterModule, Routes } from '@angular/router';
 import { NZ_CONFIG, NzConfig } from 'ng-zorro-antd/core/config';
 import { NzIconService } from 'ng-zorro-antd/icon';
+import { AppInterceptors } from './app-interceptors';
 
 registerLocaleData(en);
 
@@ -54,6 +55,7 @@ const ngZorroConfig: NzConfig = {
     RouterModule.forRoot(routes, { useHash: true })
   ],
   providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: AppInterceptors, multi: true },
     { provide: NZ_I18N, useValue: en_US },
     { provide: NZ_CONFIG, useValue: ngZorroConfig }
   ],
@@ -61,6 +63,6 @@ const ngZorroConfig: NzConfig = {
 })
 export class AppModule {
   constructor(nzIconService: NzIconService) {
-    nzIconService.changeAssetsSource(environment.bit.url.icon!);
+    nzIconService.changeAssetsSource(environment.iconUrl);
   }
 }

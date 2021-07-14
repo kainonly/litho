@@ -4,8 +4,7 @@ import { BitConfig } from 'ngx-bit';
 const bit: BitConfig = {
   url: {
     api: 'https://api.kainonly.com',
-    static: 'https://cdn.kainonly.com/',
-    icon: 'https://cdn.kainonly.com/'
+    static: 'https://cdn.kainonly.com/'
   },
   api: {
     namespace: '/system',
