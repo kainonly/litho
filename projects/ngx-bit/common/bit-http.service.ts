@@ -1,9 +1,11 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, OperatorFunction } from 'rxjs';
-
 import { BitConfig } from './bit-config';
 
+/**
+ * @deprecated
+ */
 @Injectable({ providedIn: 'root' })
 export class BitHttpService {
   /**
@@ -19,7 +21,7 @@ export class BitHttpService {
    * 请求拦截器
    * Http interceptor
    */
-  private interceptor?: OperatorFunction<unknown, unknown>;
+  private interceptor?: OperatorFunction<any, any>;
 
   constructor(bitConfig: BitConfig, private http: HttpClient) {
     this.baseUri = `${bitConfig.url.api + bitConfig.api.namespace}/`;
@@ -30,7 +32,7 @@ export class BitHttpService {
    * 设置请求拦截器
    * Http interceptor
    */
-  setupInterceptor(operate: OperatorFunction<unknown, unknown>): void {
+  setupInterceptor(operate: OperatorFunction<any, any>): void {
     this.interceptor = operate;
   }
 
@@ -38,7 +40,7 @@ export class BitHttpService {
    * 发起请求客户端
    * Http client
    */
-  req(url: string, body: Record<string, unknown> = {}, method = 'post'): Observable<Record<string, unknown>> {
+  req(url: string, body: Record<string, any> = {}, method = 'post'): Observable<any> {
     let httpClient = this.http.request(method, this.baseUri + url, {
       body,
       withCredentials: this.withCredentials

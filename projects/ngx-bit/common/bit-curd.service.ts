@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-
 import { BitConfig } from './bit-config';
 import { BitHttpService } from './bit-http.service';
 import { CurdOption, QueryMode, SearchOption } from './types';
@@ -26,7 +25,7 @@ export class BitCurdService {
    * 获取查询语句
    * Get query statement
    */
-  getQuerySchema(options: SearchOption[]): unknown[] {
+  getQuerySchema(options: SearchOption[]): any[] {
     switch (this.mode) {
       case 'sql-orm':
         return this.common(options);
@@ -42,7 +41,7 @@ export class BitCurdService {
    *  - https://github.com/kainonly/hyperf-curd
    * golang: https://github.com/kainonly/gin-curd
    */
-  protected common(options: SearchOption[]): unknown[] {
+  protected common(options: SearchOption[]): any[] {
     const schema = [];
     for (const search of options) {
       if (search.value !== null && typeof search.value === 'object' && Object.keys(search.value).length === 0) {
