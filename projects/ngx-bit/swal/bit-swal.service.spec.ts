@@ -1,7 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { BitModule, Bit } from 'ngx-bit';
+import { BitModule, BitService } from 'ngx-bit';
 import { of } from 'rxjs';
 import { BitSwalModule, BitSwalService } from 'ngx-bit/swal';
 import { HttpClientModule } from '@angular/common/http';
@@ -11,7 +11,7 @@ import { routes } from '@mock/routes';
 import { ExampleModule } from '@mock/example.module';
 
 describe('BitSwalService', () => {
-  let bit: Bit;
+  let bit: BitService;
   let swal: BitSwalService;
   let form: FormGroup;
   const responseOk = {
@@ -38,7 +38,7 @@ describe('BitSwalService', () => {
           ExampleModule
         ]
       });
-      bit = TestBed.inject(Bit);
+      bit = TestBed.inject(BitService);
       swal = TestBed.inject(BitSwalService);
       bit.setupLocale();
       bit.registerLocales(import('@mock/common.language'));

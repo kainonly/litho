@@ -1,14 +1,14 @@
 import { DebugElement } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterModule } from '@angular/router';
-import { BitModule, Bit } from 'ngx-bit';
+import { BitModule, BitService } from 'ngx-bit';
 import { BitI18nSwitchComponent, BitComponentModule } from 'ngx-bit/component';
 import { By } from '@angular/platform-browser';
 import { environment } from '@mock/env';
 import { HttpClientModule } from '@angular/common/http';
 
 describe('BitI18nSwitchComponent', () => {
-  let bit: Bit;
+  let bit: BitService;
   let component: BitI18nSwitchComponent;
   let fixture: ComponentFixture<BitI18nSwitchComponent>;
   let debugElement: DebugElement;
@@ -18,7 +18,7 @@ describe('BitI18nSwitchComponent', () => {
       TestBed.configureTestingModule({
         imports: [HttpClientModule, BitComponentModule, RouterModule.forRoot([]), BitModule.forRoot(environment.bit)]
       });
-      bit = TestBed.inject(Bit);
+      bit = TestBed.inject(BitService);
       fixture = TestBed.createComponent(BitI18nSwitchComponent);
       component = fixture.componentInstance;
       debugElement = fixture.debugElement;

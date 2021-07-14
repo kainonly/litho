@@ -1,14 +1,14 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterModule } from '@angular/router';
-import { BitConfig, BitModule, Bit } from 'ngx-bit';
+import { BitConfig, BitModule, BitService } from 'ngx-bit';
 import { BitComponentModule, BitI18nTooltipComponent } from 'ngx-bit/component';
 import { environment } from '@mock/env';
 import { HttpClientModule } from '@angular/common/http';
 
 describe('BitI18nTooltipComponent', () => {
   let config: BitOptions;
-  let bit: Bit;
+  let bit: BitService;
   let component: TestComponent;
   let fixture: ComponentFixture<TestComponent>;
 
@@ -19,7 +19,7 @@ describe('BitI18nTooltipComponent', () => {
         imports: [HttpClientModule, BitComponentModule, RouterModule.forRoot([]), BitModule.forRoot(environment.bit)]
       });
       config = TestBed.inject(BitOptions);
-      bit = TestBed.inject(Bit);
+      bit = TestBed.inject(BitService);
       fixture = TestBed.createComponent(TestComponent);
       component = fixture.componentInstance;
       bit.registerLocales(import('@mock/common.language'));

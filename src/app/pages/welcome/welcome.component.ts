@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
-import { Bit } from 'ngx-bit';
+import { BitService } from 'ngx-bit';
 
 @Component({
   selector: 'app-welcome',
   template: ``
 })
 export class WelcomeComponent {
-  constructor(public bit: Bit) {}
+  constructor(public bit: BitService) {}
 }

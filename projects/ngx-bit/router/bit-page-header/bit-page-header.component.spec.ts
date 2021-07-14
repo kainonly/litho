@@ -1,6 +1,6 @@
 import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { BitModule, Bit } from 'ngx-bit';
+import { BitModule, BitService } from 'ngx-bit';
 import { BitComponentModule } from 'ngx-bit/component';
 import { environment } from '@mock/env';
 import { BitRouterModule, BitRouterService } from 'ngx-bit/router';
@@ -13,7 +13,7 @@ import { NzPageHeaderBreadcrumbDirective } from 'ng-zorro-antd/page-header';
 import { NzBreadCrumbItemComponent } from 'ng-zorro-antd/breadcrumb';
 
 describe('BitPageHeaderComponent', () => {
-  let bit: Bit;
+  let bit: BitService;
   let router: BitRouterService;
   let component: TestComponent;
   let fixture: ComponentFixture<TestComponent>;
@@ -30,7 +30,7 @@ describe('BitPageHeaderComponent', () => {
         NoopAnimationsModule
       ]
     });
-    bit = TestBed.inject(Bit);
+    bit = TestBed.inject(BitService);
     router = TestBed.inject(BitRouterService);
     fixture = TestBed.createComponent(TestComponent);
     bit.setupLocale();
@@ -39,7 +39,6 @@ describe('BitPageHeaderComponent', () => {
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
-
 
   it('Test sider', () => {
     router.title = {
@@ -80,30 +79,27 @@ describe('BitPageHeaderComponent', () => {
     const debugEl = fixture.debugElement;
     expect(debugEl.query(By.css('.ant-page-header-heading-title')).nativeElement.innerHTML).toBe('你好');
     expect(debugEl.query(By.css('.ant-page-header-heading-sub-title')).nativeElement.innerHTML).toBe('小标题');
-    const items = debugEl.queryAll(By.directive(NzBreadCrumbItemComponent)).slice(1).map(v => {
-      return v.query(By.css('.ant-breadcrumb-link')).nativeElement.innerText.trim();
-    });
+    const items = debugEl
+      .queryAll(By.directive(NzBreadCrumbItemComponent))
+      .slice(1)
+      .map(v => {
+        return v.query(By.css('.ant-breadcrumb-link')).nativeElement.innerText.trim();
+      });
     expect(items[0]).toBe('测试1');
     expect(items[1]).toBe('测试2');
     expect(items[2]).toBe('测试3');
-    expect(
-      debugEl.query(By.css('.test-banner')).nativeElement.innerHTML
-    ).toBe('Banner');
-    expect(
-      debugEl.query(By.css('.ant-page-header-content'))
-        .query(By.css('span')).nativeElement.innerHTML
-    ).toBe('Content');
-    expect(
-      debugEl.query(By.css('.ant-page-header-heading-tags'))
-        .query(By.css('span')).nativeElement.innerHTML
-    ).toBe('Tags');
-    const actions = debugEl.query(By.css('.ant-page-header-heading-extra'))
-      .queryAll(By.css('.ant-space-item'));
+    expect(debugEl.query(By.css('.test-banner')).nativeElement.innerHTML).toBe('Banner');
+    expect(debugEl.query(By.css('.ant-page-header-content')).query(By.css('span')).nativeElement.innerHTML).toBe(
+      'Content'
+    );
+    expect(debugEl.query(By.css('.ant-page-header-heading-tags')).query(By.css('span')).nativeElement.innerHTML).toBe(
+      'Tags'
+    );
+    const actions = debugEl.query(By.css('.ant-page-header-heading-extra')).queryAll(By.css('.ant-space-item'));
     expect(actions[0].query(By.css('span')).nativeElement.innerHTML).toBe('Action1');
-    expect(
-      debugEl.query(By.css('.ant-page-header-footer'))
-        .query(By.css('span')).nativeElement.innerHTML
-    ).toBe('Footer');
+    expect(debugEl.query(By.css('.ant-page-header-footer')).query(By.css('span')).nativeElement.innerHTML).toBe(
+      'Footer'
+    );
   });
 });
 

@@ -3,13 +3,13 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
-import { BitModule, Bit } from 'ngx-bit';
+import { BitModule, BitService } from 'ngx-bit';
 import { BitDirectiveModule } from 'ngx-bit/directive';
 import { environment } from '@mock/env';
 import { HttpClientModule } from '@angular/common/http';
 
 describe('BitI18nUpdateDirective', () => {
-  let bit: Bit;
+  let bit: BitService;
   let component: TestComponent;
   let fixture: ComponentFixture<TestComponent>;
   let debugElement: DebugElement;
@@ -27,7 +27,7 @@ describe('BitI18nUpdateDirective', () => {
           RouterModule.forRoot([])
         ]
       });
-      bit = TestBed.inject(Bit);
+      bit = TestBed.inject(BitService);
       fixture = TestBed.createComponent(TestComponent);
       component = fixture.componentInstance;
       debugElement = fixture.debugElement;
@@ -70,7 +70,7 @@ describe('BitI18nUpdateDirective', () => {
 class TestComponent implements OnInit {
   form!: FormGroup;
 
-  constructor(private fb: FormBuilder, public bit: Bit) {}
+  constructor(private fb: FormBuilder, public bit: BitService) {}
 
   ngOnInit(): void {
     this.form = this.fb.group({

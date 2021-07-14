@@ -1,12 +1,12 @@
 import { Directive, HostListener } from '@angular/core';
 
-import { Bit } from 'ngx-bit';
+import { BitService } from 'ngx-bit';
 
 @Directive({
   selector: '[bitBack]'
 })
 export class BitBackDirective {
-  constructor(private bit: Bit) {}
+  constructor(private bit: BitService) {}
 
   @HostListener('click')
   onClick(): void {

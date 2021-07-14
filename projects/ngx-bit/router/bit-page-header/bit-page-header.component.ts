@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Bit } from 'ngx-bit';
+import { BitService } from 'ngx-bit';
 import { BitRouterService } from '../bit-router.service';
 
 @Component({
@@ -8,5 +8,5 @@ import { BitRouterService } from '../bit-router.service';
   styleUrls: ['./bit-page-header.component.scss']
 })
 export class BitPageHeaderComponent {
-  constructor(public bit: Bit, public router: BitRouterService) {}
+  constructor(public bit: BitService, public router: BitRouterService) {}
 }

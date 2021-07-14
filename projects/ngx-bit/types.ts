@@ -26,17 +26,20 @@ export type GridOption = {
   nzXXl?: string | number | EmbeddedProperty;
 };
 
-export type SearchOption = {
-  field: string;
-  op: string;
-  value: any;
-  exclude?: any[];
-  format?: string;
+export type Locale = {
+  default: string;
+  mapping: string[];
+  bind: any[];
 };
 
-export type OrderOption = Record<string, Order>;
-export type Order = 'asc' | 'desc';
-
+export type I18n = {
+  // 默认国际化 ID
+  default: string;
+  // 国际化包含语言 ID
+  contain: string[];
+  // 国际化设置
+  switch: I18nOption[];
+};
 export type I18nOption = {
   i18n: string;
   name: Record<string, any>;
@@ -47,6 +50,17 @@ export type I18nGroupOption = {
   validate?: any;
   asyncValidate?: any;
 };
+
+export type SearchOption = {
+  field: string;
+  op: string;
+  value: any;
+  exclude?: any[];
+  format?: string;
+};
+
+export type OrderOption = Record<string, Order>;
+export type Order = 'asc' | 'desc';
 
 export type ListByPageOption = {
   id: string;

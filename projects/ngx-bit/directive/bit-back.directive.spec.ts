@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { NavigationEnd, Router, RouterEvent, RouterModule } from '@angular/router';
-import { BitModule, Bit } from 'ngx-bit';
+import { BitModule, BitService } from 'ngx-bit';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { BitBackDirective, BitDirectiveModule } from 'ngx-bit/directive';
 import { environment } from '@mock/env';
@@ -14,7 +14,7 @@ import { ExampleModule } from '@mock/example.module';
 
 describe('BitBackDirective', () => {
   let router: Router;
-  let bit: Bit;
+  let bit: BitService;
   let location: Location;
   let component: TestComponent;
   let fixture: ComponentFixture<TestComponent>;
@@ -33,7 +33,7 @@ describe('BitBackDirective', () => {
     });
     router = TestBed.inject(Router);
     location = TestBed.inject(Location);
-    bit = TestBed.inject(Bit);
+    bit = TestBed.inject(BitService);
     fixture = TestBed.createComponent(TestComponent);
     router.navigate(['/']);
     component = fixture.componentInstance;

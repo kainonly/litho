@@ -3,7 +3,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { NavigationEnd, Router, RouterModule } from '@angular/router';
 import { NzButtonModule } from 'ng-zorro-antd/button';
-import { BitModule, Bit } from 'ngx-bit';
+import { BitModule, BitService } from 'ngx-bit';
 import { BitDirectiveModule, BitOpenDirective } from 'ngx-bit/directive';
 import { environment } from '@mock/env';
 import { HttpClientModule } from '@angular/common/http';
@@ -13,7 +13,7 @@ import { ExampleModule } from '@mock/example.module';
 
 describe('BitOpenDirective', () => {
   let router: Router;
-  let bit: Bit;
+  let bit: BitService;
   let component: TestComponent;
   let fixture: ComponentFixture<TestComponent>;
 
@@ -30,7 +30,7 @@ describe('BitOpenDirective', () => {
       ]
     });
     router = TestBed.inject(Router);
-    bit = TestBed.inject(Bit);
+    bit = TestBed.inject(BitService);
     fixture = TestBed.createComponent(TestComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

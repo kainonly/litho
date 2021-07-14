@@ -1,11 +1,23 @@
 import { Injectable } from '@angular/core';
-import { Grid, I18nOption, Upload } from './types';
+import { Grid, I18n, Locale, Upload } from './types';
 
 @Injectable({ providedIn: 'root' })
 export class BITCONFIG {
+  /**
+   * 基础路径
+   */
   baseUrl: string = '/api/';
+  /**
+   * 静态资源地址
+   */
   assets: string = '/assets/';
-  upload?: Upload;
+  /**
+   * 默认分页限制
+   */
+  page: number = 10;
+  /**
+   * 栅格标识
+   */
   grid: Grid = {
     label: {
       nzXXl: 4,
@@ -29,15 +41,16 @@ export class BITCONFIG {
       nzSm: { span: 24, offset: 0 }
     }
   };
-  locale!: {
-    default: string;
-    mapping: string[];
-    bind: any[];
-  };
-  i18n!: {
-    default: string;
-    contain: string[];
-    switch: I18nOption[];
-  };
-  page!: number;
+  /**
+   * 上传
+   */
+  upload?: Upload;
+  /**
+   * 本地语言包
+   */
+  locale?: Locale;
+  /**
+   * 国际化输入
+   */
+  i18n?: I18n;
 }

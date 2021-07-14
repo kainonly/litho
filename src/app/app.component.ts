@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { BitHttpService, Bit } from 'ngx-bit';
+import { BitHttpService, BitService } from 'ngx-bit';
 import { map } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
@@ -10,7 +10,7 @@ import { NzNotificationService } from 'ng-zorro-antd/notification';
 })
 export class AppComponent implements OnInit {
   constructor(
-    private bit: Bit,
+    private bit: BitService,
     private http: BitHttpService,
     private notification: NzNotificationService,
     private router: Router

@@ -1,5 +1,5 @@
 import { Directive, HostListener, Input } from '@angular/core';
-import { Bit } from 'ngx-bit';
+import { BitService } from 'ngx-bit';
 
 @Directive({
   selector: '[bitHistory]'
@@ -7,7 +7,7 @@ import { Bit } from 'ngx-bit';
 export class BitHistoryDirective {
   @Input() bitHistory!: string;
 
-  constructor(private bit: Bit) {}
+  constructor(private bit: BitService) {}
 
   @HostListener('click')
   onClick(): void {

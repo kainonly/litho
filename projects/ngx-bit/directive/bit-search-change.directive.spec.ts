@@ -1,7 +1,7 @@
 import { Component, DebugElement, OnInit } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
-import { BitModule, Bit, ListByPage } from 'ngx-bit';
+import { BitModule, BitService, ListByPage } from 'ngx-bit';
 import { BitDirectiveModule, BitSearchChangeDirective } from 'ngx-bit/directive';
 import { RouterModule } from '@angular/router';
 import { By } from '@angular/platform-browser';
@@ -10,7 +10,7 @@ import { environment } from '@mock/env';
 import { HttpClientModule } from '@angular/common/http';
 
 describe('BitSearchChangeDirective', () => {
-  let bit: Bit;
+  let bit: BitService;
   let storage: StorageMap;
   let component: TestComponent;
   let fixture: ComponentFixture<TestComponent>;
@@ -27,7 +27,7 @@ describe('BitSearchChangeDirective', () => {
         RouterModule.forRoot([])
       ]
     });
-    bit = TestBed.inject(Bit);
+    bit = TestBed.inject(BitService);
     storage = TestBed.inject(StorageMap);
     fixture = TestBed.createComponent(TestComponent);
     component = fixture.componentInstance;
@@ -74,7 +74,7 @@ class TestComponent implements OnInit {
   ];
   triggered = false;
 
-  constructor(private bit: Bit) {}
+  constructor(private bit: BitService) {}
 
   ngOnInit(): void {
     this.lists = this.bit.listByPage({
