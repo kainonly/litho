@@ -51,16 +51,21 @@ export type I18nGroupOption = {
   asyncValidate?: any;
 };
 
-export type SearchOption = {
+export interface SearchOption {
   field: string;
   op: string;
   value: any;
   exclude?: any[];
   format?: string;
-};
+}
 
 export type OrderOption = Record<string, Order>;
 export type Order = 'asc' | 'desc';
+
+export type ApiOption = {
+  baseUrl: string;
+  model: string;
+};
 
 export type ListByPageOption = {
   id: string;

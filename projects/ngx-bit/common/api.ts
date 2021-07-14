@@ -1,1 +1,137 @@
-export class Api {}
+import { Observable } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
+import { ApiOption, ListsOption, OrderOption, SearchOption } from '../types';
+import { getQuerySchema } from './utils';
+import { map, switchMap } from 'rxjs/operators';
+import { ListByPage } from './list-by-page';
+
+export class Api {
+  constructor(private http: HttpClient, private option: ApiOption) {}
+
+  /**
+   * 发起统一请求
+   */
+  send(path: string, body: Record<string, any> = {}): Observable<any> {
+    return this.http.post(this.option.baseUrl + path, {
+      body
+    });
+  }
+
+  /**
+   * 获取单条数据请求
+   */
+  get(condition: number | string | SearchOption[], order?: OrderOption): Observable<any> {
+    const body: Record<string, any> = {};
+    if (!Array.isArray(condition)) {
+      body['id'] = condition;
+    } else {
+      body['where'] = getQuerySchema(condition);
+      if (order) {
+        body['order'] = order;
+      }
+    }
+    return this.send(this.option.model + '/get', body).pipe(map(v => (!v.error ? v.data : null)));
+  }
+
+  /**
+   * 获取分页数据请求
+   */
+  lists(factory: ListByPage, option: ListsOption): Observable<any> {
+    if (option.refresh || option.persistence) {
+      if (option.refresh) {
+        factory.index = 1;
+      }
+      factory.persistence();
+    }
+    return factory.getPage().pipe(
+      switchMap(index => {
+        factory.index = index ? index : 1;
+        return this.send(this.option.model + '/lists', {
+          page: {
+            limit: factory.limit,
+            index: factory.index
+          },
+          where: getQuerySchema(factory.toQuery()),
+          order: factory.order
+        });
+      }),
+      map(v => {
+        factory.totals = !v.error ? v.data.total : 0;
+        factory.loading = false;
+        factory.checked = false;
+        factory.indeterminate = false;
+        factory.batch = false;
+        factory.checkedNumber = 0;
+        return !v.error ? v.data.lists : null;
+      })
+    );
+  }
+
+  /**
+   * 获取原始列表数据请求
+   */
+  originLists(condition: SearchOption[] = [], order?: OrderOption): Observable<any> {
+    return this.send(this.option.model + '/originLists', {
+      where: getQuerySchema(condition),
+      order
+    }).pipe(map(v => (!v.error ? v.data : null)));
+  }
+
+  /**
+   * 新增数据请求
+   */
+  add(data: Record<string, any>): Observable<any> {
+    return this.send(this.option.model + '/add', data);
+  }
+
+  /**
+   * 修改数据请求
+   */
+  edit(data: Record<string, any>, condition?: SearchOption[]): Observable<any> {
+    data.switch = false;
+    if (condition) {
+      Object.assign(data, {
+        where: getQuerySchema(condition)
+      });
+    }
+    return this.send(this.option.model + '/edit', data);
+  }
+
+  /**
+   * 状态切换请求
+   */
+  status(data: Record<string, any>, field = 'status', extra?: Record<string, any>): Observable<any> {
+    const body = {
+      id: data.id,
+      switch: true,
+      [field]: !data[field]
+    };
+    if (extra) {
+      Object.assign(body, extra);
+    }
+    return this.send(this.option.model + '/edit', body).pipe(
+      map(v => {
+        if (!v.error) {
+          data[field] = !data[field];
+        }
+        return v;
+      })
+    );
+  }
+
+  /**
+   * 删除数据请求
+   */
+  delete(condition: string[] | number[] | SearchOption[]): Observable<any> {
+    if (condition.length === 0) {
+      throw '数组不能为空';
+    }
+    const body: Record<string, any> = {};
+    if (typeof condition[0] === 'string' || typeof condition[0] === 'number') {
+      body['id'] = condition;
+    } else {
+      body['where'] = getQuerySchema(condition as SearchOption[]);
+    }
+    return this.send(this.option.model + '/delete', body);
+  }
+}

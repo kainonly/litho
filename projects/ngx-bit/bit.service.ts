@@ -8,6 +8,8 @@ import { NzI18nService } from 'ng-zorro-antd/i18n';
 import { ListByPageOption, I18nGroupOption, I18nTooltipOption } from './types';
 import { ListByPage } from './common/list-by-page';
 import { BITCONFIG } from './config';
+import { Api } from './common/api';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({ providedIn: 'root' })
 export class BitService {
@@ -53,6 +55,7 @@ export class BitService {
     @Optional() private storage: StorageMap,
     @Optional() private router: Router,
     @Optional() private location: Location,
+    @Optional() private http: HttpClient,
     @Optional() private nzI18nService: NzI18nService
   ) {
     this.assets = config.assets;
@@ -196,7 +199,17 @@ export class BitService {
   }
 
   /**
-   * 生产分页数据对象
+   * 创建 CRUD 请求
+   */
+  api(model: string): Api {
+    return new Api(this.http, {
+      baseUrl: this.config.baseUrl,
+      model
+    });
+  }
+
+  /**
+   * 创建分页处理
    */
   listByPage(option: ListByPageOption): ListByPage {
     option.limit = option.limit || this.config.page;

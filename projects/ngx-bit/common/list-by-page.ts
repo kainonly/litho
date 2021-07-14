@@ -1,7 +1,6 @@
 import { AsyncSubject, Observable } from 'rxjs';
 import { StorageMap } from '@ngx-pwa/local-storage';
 import { ListByPageOption, SearchOption, OrderOption } from '../types';
-import { getQuerySchema } from './utils';
 
 export class ListByPage {
   /**
@@ -26,7 +25,6 @@ export class ListByPage {
 
   /**
    * 加载状态
-   * Loading status
    */
   loading = true;
 
@@ -83,7 +81,6 @@ export class ListByPage {
 
   /**
    * 设置数据
-   * Set data
    */
   setData(data: any[]): void {
     this.data = data;
@@ -166,12 +163,5 @@ export class ListByPage {
    */
   toQuery(): SearchOption[] {
     return Object.values(this.search);
-  }
-
-  /**
-   * 返回查询语句
-   */
-  toQuerySchema(): any[] {
-    return getQuerySchema(this.toQuery());
   }
 }
