@@ -7,7 +7,7 @@ import { environment } from '@mock/env';
 import { NzGridModule } from 'ng-zorro-antd/grid';
 
 describe('BitColDirective', () => {
-  let config: BitConfig;
+  let config: BitOptions;
   let component: TestComponent;
   let fixture: ComponentFixture<TestComponent>;
   let debugElement: DebugElement;
@@ -18,7 +18,7 @@ describe('BitColDirective', () => {
         declarations: [TestComponent],
         imports: [NzGridModule, BitDirectiveModule, BitModule.forRoot(environment.bit)]
       });
-      config = TestBed.inject(BitConfig);
+      config = TestBed.inject(BitOptions);
       fixture = TestBed.createComponent(TestComponent);
       component = fixture.componentInstance;
       debugElement = fixture.debugElement;

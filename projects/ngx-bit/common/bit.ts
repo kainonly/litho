@@ -5,13 +5,12 @@ import { Subject } from 'rxjs';
 import { filter, switchMap } from 'rxjs/operators';
 import { StorageMap } from '@ngx-pwa/local-storage';
 import { NzI18nService } from 'ng-zorro-antd/i18n';
-import { BitConfig } from './bit-config';
-import { BitCurdService } from './bit-curd.service';
 import { ListByPageOption, I18nGroupOption, I18nTooltipOption, I18nOption } from './types';
 import { ListByPage } from './utils/list-by-page';
+import { BITCONFIG } from './bit-config';
 
 @Injectable({ providedIn: 'root' })
-export class BitService {
+export class Bit {
   /**
    * 静态资源地址
    * Static resource address
@@ -94,8 +93,7 @@ export class BitService {
   readonly pageDefault: number;
 
   constructor(
-    bitConfig: BitConfig,
-    @Optional() private curd: BitCurdService,
+    private config: BITCONFIG,
     @Optional() private storage: StorageMap,
     @Optional() private router: Router,
     @Optional() private location: Location,

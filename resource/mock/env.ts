@@ -1,7 +1,7 @@
 import { en_US, zh_CN } from 'ng-zorro-antd/i18n';
 import { BitConfig } from 'ngx-bit';
 
-const bit: BitConfig = {
+const bit: BitOptions = {
   url: {
     api: 'http://localhost:9501',
     static: 'https://cdn.kainonly.com/',

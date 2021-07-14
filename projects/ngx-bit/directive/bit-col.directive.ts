@@ -10,7 +10,7 @@ import { NzColDirective } from 'ng-zorro-antd/grid';
 export class BitColDirective implements OnInit {
   @Input() bitCol!: string;
 
-  constructor(private nzColDirective: NzColDirective, private config: BitConfig) {}
+  constructor(private nzColDirective: NzColDirective, private config: BitOptions) {}
 
   ngOnInit(): void {
     if (!this.config.col.hasOwnProperty(this.bitCol)) {

@@ -14,7 +14,7 @@ import { NzMessageModule } from 'ng-zorro-antd/message';
 
 describe('BitStatusChangeDirective', () => {
   let httpTestingController: HttpTestingController;
-  let config: BitConfig;
+  let config: BitOptions;
   let component: TestComponent;
   let fixture: ComponentFixture<TestComponent>;
   let debugElement: DebugElement;
@@ -35,7 +35,7 @@ describe('BitStatusChangeDirective', () => {
       providers: [ExampleService]
     });
     httpTestingController = TestBed.inject(HttpTestingController);
-    config = TestBed.inject(BitConfig);
+    config = TestBed.inject(BitOptions);
     fixture = TestBed.createComponent(TestComponent);
     component = fixture.componentInstance;
     debugElement = fixture.debugElement;

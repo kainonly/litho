@@ -45,6 +45,6 @@ testem.log
 .DS_Store
 Thumbs.db
 node_modules
-package-lock.json
-debug.log
-deploy.json
+/package-lock.json
+/deploy.json
+/ssl

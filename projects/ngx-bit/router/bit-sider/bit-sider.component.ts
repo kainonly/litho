@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { BitRouterService } from '../bit-router.service';
-import { BitService } from 'ngx-bit';
+import { Bit } from 'ngx-bit';
 
 @Component({
   selector: 'bit-sider',
@@ -11,7 +11,7 @@ export class BitSiderComponent {
   @Input() collapsed = false;
   @Input() data: any[] = [];
 
-  constructor(public bit: BitService, public router: BitRouterService) {}
+  constructor(public bit: Bit, public router: BitRouterService) {}
 
   /**
    * 返回层级

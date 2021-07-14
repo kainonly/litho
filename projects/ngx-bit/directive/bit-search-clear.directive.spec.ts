@@ -4,13 +4,13 @@ import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
 import { StorageMap } from '@ngx-pwa/local-storage';
-import { BitModule, BitService, ListByPage } from 'ngx-bit';
+import { BitModule, Bit, ListByPage } from 'ngx-bit';
 import { BitDirectiveModule, BitSearchChangeDirective, BitSearchClearDirective } from 'ngx-bit/directive';
 import { environment } from '@mock/env';
 import { HttpClientModule } from '@angular/common/http';
 
 describe('BitSearchClearDirective', () => {
-  let bit: BitService;
+  let bit: Bit;
   let storage: StorageMap;
   let component: TestComponent;
   let fixture: ComponentFixture<TestComponent>;
@@ -27,7 +27,7 @@ describe('BitSearchClearDirective', () => {
         RouterModule.forRoot([])
       ]
     });
-    bit = TestBed.inject(BitService);
+    bit = TestBed.inject(Bit);
     storage = TestBed.inject(StorageMap);
     fixture = TestBed.createComponent(TestComponent);
     component = fixture.componentInstance;
@@ -81,7 +81,7 @@ class TestComponent implements OnInit {
   ];
   triggered = false;
 
-  constructor(private bit: BitService) {}
+  constructor(private bit: Bit) {}
 
   ngOnInit(): void {
     this.lists = this.bit.listByPage({

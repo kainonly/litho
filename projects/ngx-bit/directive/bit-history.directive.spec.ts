@@ -3,7 +3,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { NavigationEnd, Router, RouterEvent, RouterModule } from '@angular/router';
 import { NzButtonModule } from 'ng-zorro-antd/button';
-import { BitModule, BitService } from 'ngx-bit';
+import { BitModule, Bit } from 'ngx-bit';
 import { BitHistoryDirective, BitDirectiveModule } from 'ngx-bit/directive';
 import { filter, take } from 'rxjs/operators';
 import { environment } from '@mock/env';
@@ -13,7 +13,7 @@ import { ExampleModule } from '@mock/example.module';
 
 describe('BitCrossLevelDirective', () => {
   let router: Router;
-  let bit: BitService;
+  let bit: Bit;
   let component: TestComponent;
   let fixture: ComponentFixture<TestComponent>;
 
@@ -30,7 +30,7 @@ describe('BitCrossLevelDirective', () => {
       ]
     });
     router = TestBed.inject(Router);
-    bit = TestBed.inject(BitService);
+    bit = TestBed.inject(Bit);
     fixture = TestBed.createComponent(TestComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

@@ -9,7 +9,7 @@ import { map } from 'rxjs/operators';
   selector: 'nz-upload[bitUpload]'
 })
 export class BitUploadDirective {
-  constructor(config: BitConfig, http: HttpClient, nzUploadComponent: NzUploadComponent) {
+  constructor(config: BitOptions, http: HttpClient, nzUploadComponent: NzUploadComponent) {
     nzUploadComponent.nzSize = !config.api.uploadSize ? 5120 : config.api.uploadSize;
     nzUploadComponent.nzShowUploadList = false;
     if (config.api.uploadStorage === 'default') {

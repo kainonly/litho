@@ -2,7 +2,7 @@ import { Directive, EventEmitter, HostListener, Input, Output } from '@angular/c
 import { NzSwitchComponent } from 'ng-zorro-antd/switch';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { Observable, of } from 'rxjs';
-import { BitService } from 'ngx-bit';
+import { Bit } from 'ngx-bit';
 
 @Directive({
   selector: 'nz-switch[bitStatusChange]'
@@ -12,7 +12,7 @@ export class BitStatusChangeDirective {
   @Input() bitControl = false;
   @Output() response: EventEmitter<any> = new EventEmitter();
 
-  constructor(nzSwitchComponent: NzSwitchComponent, private bit: BitService, private message: NzMessageService) {
+  constructor(nzSwitchComponent: NzSwitchComponent, private bit: Bit, private message: NzMessageService) {
     nzSwitchComponent.nzControl = true;
   }
 

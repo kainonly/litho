@@ -7,7 +7,7 @@ import { HttpClientTestingModule, HttpTestingController } from '@angular/common/
 import { environment } from '@mock/env';
 
 describe('BitUploadDirective', () => {
-  let config: BitConfig;
+  let config: BitOptions;
   let httpTestingController: HttpTestingController;
   let component: TestComponent;
   let fixture: ComponentFixture<TestComponent>;
@@ -19,7 +19,7 @@ describe('BitUploadDirective', () => {
       declarations: [TestComponent],
       imports: [NzUploadModule, HttpClientTestingModule, BitDirectiveModule, BitModule.forRoot(environment.bit)]
     });
-    config = TestBed.inject(BitConfig);
+    config = TestBed.inject(BitOptions);
     httpTestingController = TestBed.inject(HttpTestingController);
     fixture = TestBed.createComponent(TestComponent);
     component = fixture.componentInstance;

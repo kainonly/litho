@@ -1,6 +1,6 @@
 import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { BitModule, BitService } from 'ngx-bit';
+import { BitModule, Bit } from 'ngx-bit';
 import { BitComponentModule } from 'ngx-bit/component';
 import { environment } from '@mock/env';
 import { BitRouterModule, BitRouterService } from 'ngx-bit/router';
@@ -13,7 +13,7 @@ import { NzPageHeaderBreadcrumbDirective } from 'ng-zorro-antd/page-header';
 import { NzBreadCrumbItemComponent } from 'ng-zorro-antd/breadcrumb';
 
 describe('BitPageHeaderComponent', () => {
-  let bit: BitService;
+  let bit: Bit;
   let router: BitRouterService;
   let component: TestComponent;
   let fixture: ComponentFixture<TestComponent>;
@@ -30,7 +30,7 @@ describe('BitPageHeaderComponent', () => {
         NoopAnimationsModule
       ]
     });
-    bit = TestBed.inject(BitService);
+    bit = TestBed.inject(Bit);
     router = TestBed.inject(BitRouterService);
     fixture = TestBed.createComponent(TestComponent);
     bit.setupLocale();

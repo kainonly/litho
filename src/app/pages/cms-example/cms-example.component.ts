@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { BitService } from 'ngx-bit';
+import { Bit } from 'ngx-bit';
 import { FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
@@ -9,7 +9,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 export class CmsExampleComponent implements OnInit {
   form!: FormGroup;
 
-  constructor(public bit: BitService, private fb: FormBuilder) {}
+  constructor(public bit: Bit, private fb: FormBuilder) {}
 
   ngOnInit(): void {
     this.bit.registerLocales(import('./language'));

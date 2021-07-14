@@ -3,7 +3,7 @@ import { FormGroup } from '@angular/forms';
 import { Location } from '@angular/common';
 import { AsyncSubject, Observable, of } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
-import { BitService } from 'ngx-bit';
+import { Bit } from 'ngx-bit';
 import { fromPromise } from 'rxjs/internal-compatibility';
 import { AlertOption } from './types';
 
@@ -11,7 +11,7 @@ import { AlertOption } from './types';
 export class BitSwalService {
   ready: AsyncSubject<any> = new AsyncSubject();
 
-  constructor(private bit: BitService, private location: Location) {}
+  constructor(private bit: Bit, private location: Location) {}
 
   /**
    * 创建提示框

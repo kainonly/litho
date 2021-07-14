@@ -1,73 +1,60 @@
-import { Observable } from 'rxjs';
+import { EmbeddedProperty } from 'ng-zorro-antd/grid';
 
-import { ListByPage } from './utils/list-by-page';
-
+export type Upload = string | UploadOption;
+export type UploadOption = {
+  url: string;
+  storage?: UploadStorage;
+  fetchSigned?: string;
+  fetchSignedMethod?: string;
+  size?: number;
+};
 export type UploadStorage = 'default' | 'oss' | 'obs' | 'cos';
-export type QueryMode = 'sql-orm' | 'mongo' | 'cloud';
 
-export interface CurdOption {
-  get: string;
-  lists: string;
-  originLists: string;
-  add: string;
-  edit: string;
-  status: string;
-  delete: string;
-}
+export type Grid = Record<string, GridOption>;
+export type GridOption = {
+  nzFlex?: string | number;
+  nzSpan?: string | number;
+  nzOrder?: string | number;
+  nzOffset?: string | number;
+  nzPush?: string | number;
+  nzPull?: string | number;
+  nzXs?: string | number | EmbeddedProperty;
+  nzSm?: string | number | EmbeddedProperty;
+  nzMd?: string | number | EmbeddedProperty;
+  nzLg?: string | number | EmbeddedProperty;
+  nzXl?: string | number | EmbeddedProperty;
+  nzXXl?: string | number | EmbeddedProperty;
+};
 
-export interface CurdInterface {
-  get?(model: string, condition: number | string | SearchOption[], order?: OrderOption, path?: string): Observable<any>;
-
-  lists?(model: string, factory: ListByPage, option: ListsOption, path?: string): Observable<any>;
-
-  originLists?(model: string, condition: SearchOption[], order?: OrderOption, path?: string): Observable<any>;
-
-  add?(model: string, data: any, path?: string): Observable<any>;
-
-  edit?(model: string, data: any, condition?: SearchOption[], path?: string): Observable<any>;
-
-  status?(model: string, data: any, field: string, extra?: any, path?: string): Observable<any>;
-
-  delete?(model: string, id?: any[], condition?: SearchOption[], path?: string): Observable<any>;
-}
-
-export interface SearchOption {
+export type SearchOption = {
   field: string;
   op: string;
   value: any;
   exclude?: any[];
   format?: string;
-}
+};
 
-export interface OrderOption {
-  [field: string]: 'asc' | 'desc';
-}
+export type OrderOption = Record<string, Order>;
+export type Order = 'asc' | 'desc';
 
-export interface I18nOption {
+export type I18nOption = {
   i18n: string;
-  name: object;
-}
-
-export type I18nTooltipOption =
-  | {
-      [key: string]: string[];
-    }
-  | any;
-
-export interface I18nGroupOption {
+  name: Record<string, any>;
+};
+export type I18nTooltipOption = Record<string, string[]>;
+export type I18nGroupOption = {
   value?: any;
   validate?: any;
   asyncValidate?: any;
-}
+};
 
-export interface ListByPageOption {
+export type ListByPageOption = {
   id: string;
-  limit?: number;
   query: SearchOption[];
   order?: OrderOption;
-}
-
-export interface ListsOption {
+  limit?: number;
+};
+export type ListsOption = {
   refresh: boolean;
   persistence: boolean;
-}
+};

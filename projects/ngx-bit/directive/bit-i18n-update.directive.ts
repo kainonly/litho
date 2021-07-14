@@ -1,6 +1,6 @@
 import { Directive, OnDestroy, OnInit } from '@angular/core';
 import { FormGroupName } from '@angular/forms';
-import { BitService } from 'ngx-bit';
+import { Bit } from 'ngx-bit';
 import { Subscription } from 'rxjs';
 
 @Directive({
@@ -9,7 +9,7 @@ import { Subscription } from 'rxjs';
 export class BitI18nUpdateDirective implements OnInit, OnDestroy {
   private changes!: Subscription;
 
-  constructor(private bit: BitService, private formGroupName: FormGroupName) {}
+  constructor(private bit: Bit, private formGroupName: FormGroupName) {}
 
   ngOnInit(): void {
     this.changes = this.formGroupName.valueChanges!.subscribe(value => {
