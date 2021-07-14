@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { NavigationEnd, Router, RouterEvent, RouterModule } from '@angular/router';
+import { NavigationEnd, Router, RouterModule } from '@angular/router';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { BitModule, BitService } from 'ngx-bit';
 import { BitDirectiveModule, BitOpenDirective } from 'ngx-bit/directive';

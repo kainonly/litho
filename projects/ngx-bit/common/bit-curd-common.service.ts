@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
-import { CurdInterface, ListsOption, OrderOption, SearchOption } from './types';
 import { Observable, of } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
-import { ListByPage } from './utils/list-by-page';
+
 import { BitCurdService } from './bit-curd.service';
+import { CurdInterface, ListsOption, OrderOption, SearchOption } from './types';
+import { ListByPage } from './utils/list-by-page';
 
 @Injectable({ providedIn: 'root' })
 export class BitCurdCommonService extends BitCurdService implements CurdInterface {
@@ -11,8 +12,13 @@ export class BitCurdCommonService extends BitCurdService implements CurdInterfac
    * 获取单条数据请求
    * Get a single data request
    */
-  get(model: string, condition: number | string | SearchOption[], order?: OrderOption, path?: string): Observable<any> {
-    let http: Observable<any>;
+  get(
+    model: string,
+    condition: number | string | SearchOption[],
+    order?: OrderOption,
+    path?: string
+  ): Observable<Record<string, unknown>> {
+    let http: Observable<Record<string, unknown>>;
     const url = path || this.curd.get;
     if (Array.isArray(condition)) {
       http = this.http.req(model + url, {
@@ -31,7 +37,7 @@ export class BitCurdCommonService extends BitCurdService implements CurdInterfac
    * 获取分页数据请求
    * Get pagination data request
    */
-  lists(model: string, factory: ListByPage, option: ListsOption, path?: string): Observable<any> {
+  lists(model: string, factory: ListByPage, option: ListsOption, path?: string): Observable<Record<string, unknown>> {
     const url = path || this.curd.lists;
     if (option.refresh || option.persistence) {
       if (option.refresh) {
@@ -67,7 +73,12 @@ export class BitCurdCommonService extends BitCurdService implements CurdInterfac
    * 获取原始列表数据请求
    * Get original list data request
    */
-  originLists(model: string, condition: SearchOption[] = [], order?: OrderOption, path?: string): Observable<any> {
+  originLists(
+    model: string,
+    condition: SearchOption[] = [],
+    order?: OrderOption,
+    path?: string
+  ): Observable<Record<string, unknown>> {
     const url = path || this.curd.originLists;
     return this.http
       .req(model + url, {
@@ -81,7 +92,7 @@ export class BitCurdCommonService extends BitCurdService implements CurdInterfac
    * 新增数据请求
    * New data request
    */
-  add(model: string, data: any, path?: string): Observable<any> {
+  add(model: string, data: Record<string, unknown>, path?: string): Observable<Record<string, unknown>> {
     const url = path || this.curd.add;
     return this.http.req(model + url, data);
   }
@@ -90,7 +101,12 @@ export class BitCurdCommonService extends BitCurdService implements CurdInterfac
    * 修改数据请求
    * Modify data request
    */
-  edit(model: string, data: any, condition?: SearchOption[], path?: string): Observable<any> {
+  edit(
+    model: string,
+    data: Record<string, unknown>,
+    condition?: SearchOption[],
+    path?: string
+  ): Observable<Record<string, unknown>> {
     const url = path || this.curd.edit;
     data.switch = false;
     return !condition

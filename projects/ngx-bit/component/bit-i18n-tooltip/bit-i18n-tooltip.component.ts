@@ -1,4 +1,5 @@
 import { Component, Input, TemplateRef, ViewChild } from '@angular/core';
+
 import { BitService } from 'ngx-bit';
 
 @Component({

@@ -5,7 +5,7 @@ import { FormGroupDirective } from '@angular/forms';
   selector: 'form[bitFormSubmit]'
 })
 export class BitFormSubmitDirective implements OnInit {
-  @Output() bitFormSubmit: EventEmitter<any> = new EventEmitter();
+  @Output() readonly bitFormSubmit: EventEmitter<any> = new EventEmitter();
 
   constructor(private form: FormGroupDirective) {}
 

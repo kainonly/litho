@@ -1,7 +1,8 @@
-import { AsyncSubject, Observable } from 'rxjs';
-import { ListByPageOption, SearchOption, OrderOption } from '../types';
-import { BitCurdService } from '../bit-curd.service';
 import { StorageMap } from '@ngx-pwa/local-storage';
+import { AsyncSubject, Observable } from 'rxjs';
+
+import { BitCurdService } from '../bit-curd.service';
+import { ListByPageOption, SearchOption, OrderOption } from '../types';
 
 export class ListByPage {
   /**
@@ -79,7 +80,7 @@ export class ListByPage {
   constructor(private curd: BitCurdService, private storage: StorageMap, private option: ListByPageOption) {
     this.limit = option.limit!;
     this.order = option.order!;
-    this.storage.get('search:' + option.id).subscribe((data: any) => {
+    this.storage.get(`search:${option.id}`).subscribe((data: any) => {
       if (!data) {
         for (const value of option.query) {
           this.search[value.field] = value;
@@ -113,7 +114,7 @@ export class ListByPage {
    * After actively triggering the search change
    */
   afterSearch(): Observable<any> {
-    return this.storage.set('search:' + this.option.id, this.search);
+    return this.storage.set(`search:${this.option.id}`, this.search);
   }
 
   /**
@@ -131,7 +132,7 @@ export class ListByPage {
         }
       }
     }
-    return this.storage.delete('search:' + this.option.id);
+    return this.storage.delete(`search:${this.option.id}`);
   }
 
   /**
@@ -169,7 +170,7 @@ export class ListByPage {
    * Get the current page number
    */
   getPage(): Observable<any> {
-    return this.storage.get('page:' + this.option.id);
+    return this.storage.get(`page:${this.option.id}`);
   }
 
   /**
@@ -177,7 +178,7 @@ export class ListByPage {
    * Actively execute persistent records of paging page numbers
    */
   persistence(): void {
-    this.storage.set('page:' + this.option.id, this.index).subscribe(_ => _);
+    this.storage.set(`page:${this.option.id}`, this.index).subscribe(_ => _);
   }
 
   /**

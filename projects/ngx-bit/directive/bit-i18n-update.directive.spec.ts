@@ -4,7 +4,7 @@ import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } 
 import { By } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
 import { BitModule, BitService } from 'ngx-bit';
-import { BitDirectiveModule, BitI18nUpdateDirective } from 'ngx-bit/directive';
+import { BitDirectiveModule } from 'ngx-bit/directive';
 import { environment } from '@mock/env';
 import { HttpClientModule } from '@angular/common/http';
 

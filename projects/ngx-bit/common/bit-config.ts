@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+
 import { CurdOption, I18nOption, UploadStorage } from './types';
 
 @Injectable({ providedIn: 'root' })
@@ -18,11 +19,11 @@ export class BitConfig {
     uploadSize?: number;
   };
   curd!: CurdOption;
-  col!: Record<string, any>;
+  col!: Record<string, unknown>;
   locale!: {
     default: string;
     mapping: string[];
-    bind: any[];
+    bind: unknown[];
   };
   i18n!: {
     default: string;
