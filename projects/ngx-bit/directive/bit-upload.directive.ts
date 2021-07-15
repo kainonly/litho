@@ -4,13 +4,13 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { NzUploadComponent, NzUploadFile } from 'ng-zorro-antd/upload';
-import { BITCONFIG, UploadOption, UploadSignedResponse } from 'ngx-bit';
+import { BitConfig, UploadOption, UploadSignedResponse } from 'ngx-bit';
 
 @Directive({
   selector: 'nz-upload[bitUpload]'
 })
 export class BitUploadDirective {
-  constructor(config: BITCONFIG, http: HttpClient, nzUploadComponent: NzUploadComponent) {
+  constructor(config: BitConfig, http: HttpClient, nzUploadComponent: NzUploadComponent) {
     const option = config.upload! as UploadOption;
     nzUploadComponent.nzSize = option.size ?? 5120;
     nzUploadComponent.nzShowUploadList = false;

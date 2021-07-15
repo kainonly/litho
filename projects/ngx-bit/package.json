@@ -8,7 +8,8 @@
     "@ngx-pwa/local-storage": "^12.0.0"
   },
   "dependencies": {
-    "tslib": "^2.2.0"
+    "tslib": "^2.2.0",
+    "merge": "^2.1.1"
   },
   "keywords": [
     "angular",

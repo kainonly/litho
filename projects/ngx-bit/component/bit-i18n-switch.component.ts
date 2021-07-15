@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 
-import { BITCONFIG, BitService } from 'ngx-bit';
+import { BitConfig, BitService } from 'ngx-bit';
 
 @Component({
   selector: 'bit-i18n-switch',
@@ -19,7 +19,7 @@ import { BITCONFIG, BitService } from 'ngx-bit';
   `
 })
 export class BitI18nSwitchComponent {
-  constructor(public bit: BitService, public config: BITCONFIG) {}
+  constructor(public bit: BitService, public config: BitConfig) {}
 
   i18nChanged(value: string): void {
     this.bit.i18nChanged!.next(value);

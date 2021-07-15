@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Grid, I18n, Locale, Upload } from './types';
 
 @Injectable({ providedIn: 'root' })
-export class BITCONFIG {
+export class BitConfig {
   /**
    * 基础路径
    */

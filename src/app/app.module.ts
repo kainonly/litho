@@ -14,6 +14,7 @@ import { LoginComponent, LoginModule } from '@vanx/framework/login';
 import { NZ_CONFIG, NzConfig } from 'ng-zorro-antd/core/config';
 import { en_US, NZ_I18N } from 'ng-zorro-antd/i18n';
 import { NzIconService } from 'ng-zorro-antd/icon';
+import { BitModule, BitService } from 'ngx-bit';
 import { BitSwalModule } from 'ngx-bit/swal';
 
 import { AppInterceptors } from './app-interceptors';
@@ -46,6 +47,7 @@ const ngZorroConfig: NzConfig = {
     AppShareModule,
     FrameworkModule,
     LoginModule,
+    BitModule.forRoot(environment.bit),
     BitSwalModule.forRoot(),
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: environment.production,
@@ -54,6 +56,7 @@ const ngZorroConfig: NzConfig = {
     RouterModule.forRoot(routes, { useHash: true })
   ],
   providers: [
+    BitService,
     { provide: HTTP_INTERCEPTORS, useClass: AppInterceptors, multi: true },
     { provide: NZ_I18N, useValue: en_US },
     { provide: NZ_CONFIG, useValue: ngZorroConfig }

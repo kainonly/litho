@@ -9,9 +9,9 @@ import { filter, switchMap } from 'rxjs/operators';
 import { StorageMap } from '@ngx-pwa/local-storage';
 import { NzI18nService } from 'ng-zorro-antd/i18n';
 
+import { BitConfig } from './bit-config';
 import { Api } from './common/api';
 import { ListByPage } from './common/list-by-page';
-import { BITCONFIG } from './config';
 import { ListByPageOption, I18nGroupOption, I18nTooltipOption } from './types';
 
 @Injectable({ providedIn: 'root' })
@@ -54,7 +54,7 @@ export class BitService {
   i18nTooltip: I18nTooltipOption = {};
 
   constructor(
-    private config: BITCONFIG,
+    private config: BitConfig,
     @Optional() private storage: StorageMap,
     @Optional() private router: Router,
     @Optional() private location: Location,
