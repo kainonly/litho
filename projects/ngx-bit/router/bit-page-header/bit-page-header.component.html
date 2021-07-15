@@ -21,8 +21,16 @@
       </ng-template>
     </nz-breadcrumb-item>
   </nz-breadcrumb>
-  <nz-page-header-title>{{ router.title | object: bit.locale }}</nz-page-header-title>
-  <nz-page-header-subtitle>{{ router.subTitle | object: bit.locale }}</nz-page-header-subtitle>
+  <nz-page-header-title>
+    <ng-container *ngIf="router.title">
+      {{ router.title | object: bit.locale }}
+    </ng-container>
+  </nz-page-header-title>
+  <nz-page-header-subtitle>
+    <ng-container *ngIf="router.subTitle">
+      {{ router.subTitle | object: bit.locale }}
+    </ng-container>
+  </nz-page-header-subtitle>
   <nz-page-header-tags>
     <ng-container *ngIf="router.tags">
       <ng-container *ngTemplateOutlet="router.tags"></ng-container>

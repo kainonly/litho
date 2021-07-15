@@ -1,5 +1,5 @@
 import { Injectable, TemplateRef } from '@angular/core';
-import { NavigationEnd, PRIMARY_OUTLET, Router } from '@angular/router';
+import { NavigationEnd, PRIMARY_OUTLET, Router, RouterEvent } from '@angular/router';
 import { Subject, Subscription } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
 
@@ -12,7 +12,7 @@ export class BitRouterService {
   /**
    * 被激活的导航
    */
-  navActive: any[] = [];
+  navActive: unknown[] = [];
   /**
    * 允许返回
    */
@@ -20,15 +20,15 @@ export class BitRouterService {
   /**
    * 页头标题部分
    */
-  title: any = null;
+  title?: string | Record<string, string>;
   /**
    * 页头子标题部分
    */
-  subTitle: any = null;
+  subTitle?: string | Record<string, string>;
   /**
    * 面包屑默认顶点
    */
-  breadcrumbRoot: any = 0;
+  breadcrumbRoot: unknown = 0;
   /**
    * 面包屑数据
    */
@@ -36,27 +36,27 @@ export class BitRouterService {
   /**
    * 顶部公告
    */
-  banner?: TemplateRef<any>;
+  banner?: TemplateRef<unknown>;
   /**
    * 页头标题 Tags
    */
-  tags?: TemplateRef<any>;
+  tags?: TemplateRef<unknown>;
   /**
    * 页头操作部分
    */
-  actions?: TemplateRef<any>[] = [];
+  actions?: Array<TemplateRef<unknown>> = [];
   /**
    * 页头内容部分
    */
-  content?: TemplateRef<any>;
+  content?: TemplateRef<unknown>;
   /**
    * 页头底部部分
    */
-  footer?: TemplateRef<any>;
+  footer?: TemplateRef<unknown>;
   /**
    * 平行路由状态
    */
-  changed: Subject<any> = new Subject();
+  readonly changed: Subject<unknown> = new Subject();
   private events$!: Subscription;
 
   constructor(private router: Router, private storage: StorageMap) {}
@@ -71,9 +71,9 @@ export class BitRouterService {
     if (this.router.url !== '/') {
       this.match(this.router, this.router.url);
     }
-    this.events$ = this.router.events.pipe(filter(e => e instanceof NavigationEnd)).subscribe((event: any) => {
-      if (event.url !== '/') {
-        this.match(this.router, event.url);
+    this.events$ = this.router.events.pipe(filter(e => e instanceof NavigationEnd)).subscribe(event => {
+      if ((<RouterEvent>event).url !== '/') {
+        this.match(this.router, (<RouterEvent>event).url);
       } else {
         this.clearBreadcrumb();
       }
@@ -103,16 +103,14 @@ export class BitRouterService {
     this.storage
       .get('router')
       .pipe(
-        map((data: any) => {
-          if (data) {
-            for (let i = 0; i < segments.length; i++) {
-              const key = segments
-                .slice(0, i + 1)
-                .map(v => v.path)
-                .join('/');
-              if (data.hasOwnProperty(key)) {
-                return key;
-              }
+        map(v => {
+          for (let i = 0; i < segments.length; i++) {
+            const key = segments
+              .slice(0, i + 1)
+              .map(v => v.path)
+              .join('/');
+            if ((<Record<string, unknown>>v).hasOwnProperty(key)) {
+              return key;
             }
           }
           return null;
@@ -129,34 +127,34 @@ export class BitRouterService {
   }
 
   private dynamicBreadcrumb(key: string): void {
-    this.storage.get('resource').subscribe((data: any) => {
+    this.storage.get('resource').subscribe(v => {
       const queue = [];
       const breadcrumb: BreadcrumbOption[] = [];
       const navActive = [];
+      const data = v as Record<string, unknown>;
       if (data.hasOwnProperty(key)) {
-        const node = data[key];
-        const name = JSON.parse(node.name);
+        const node = data[key] as Record<string, unknown>;
+        const name = JSON.parse(node.name as string);
         this.title = name;
         navActive.unshift(node.key);
         breadcrumb.unshift({
           name,
-          key: node.key,
-          router: node.router
+          key: node.key as string,
+          router: Boolean(node.router)
         });
         if (node.parent !== this.breadcrumbRoot) {
           queue.push(node.parent);
         }
       }
       while (queue.length !== this.breadcrumbRoot) {
-        const parentKey: string = queue.pop();
-
+        const parentKey = queue.pop() as string;
         if (data.hasOwnProperty(parentKey)) {
-          const next = data[parentKey];
+          const next = data[parentKey] as Record<string, unknown>;
           navActive.unshift(next.key);
           breadcrumb.unshift({
-            name: JSON.parse(next.name),
-            key: next.key,
-            router: next.router
+            name: JSON.parse(next.name as string),
+            key: next.key as string,
+            router: Boolean(next.router)
           });
           if (next.parent !== this.breadcrumbRoot) {
             queue.push(next.parent);
@@ -171,6 +169,6 @@ export class BitRouterService {
   private clearBreadcrumb(): void {
     this.navActive = [];
     this.breadcrumb = [];
-    this.title = null;
+    this.title = undefined;
   }
 }

@@ -11,18 +11,18 @@ import { BitRouterService } from '../bit-router.service';
 })
 export class BitSiderComponent {
   @Input() collapsed = false;
-  @Input() data: any[] = [];
+  @Input() data: unknown[] = [];
 
   constructor(public bit: BitService, public router: BitRouterService) {}
 
   /**
    * 返回层级
    */
-  level(data: any): number {
+  level(data: Record<string, unknown>): number {
     let deep = 0;
     while (data.hasOwnProperty('parentNode')) {
       deep++;
-      data = data.parentNode;
+      data = data.parentNode as Record<string, unknown>;
     }
     return deep * 24;
   }

@@ -4,5 +4,5 @@ import { Directive, TemplateRef } from '@angular/core';
   selector: '[bitHeaderAction]'
 })
 export class BitHeaderActionDirective {
-  constructor(public ref: TemplateRef<any>) {}
+  constructor(public ref: TemplateRef<unknown>) {}
 }

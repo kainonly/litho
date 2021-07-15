@@ -1,10 +1,10 @@
 export interface BreadcrumbOption {
-  name: any;
+  name: string | Record<string, string>;
   key: string;
-  router: number;
+  router: boolean;
 }
 
 export interface RouterData {
-  resource: object;
-  router: object;
+  resource: Record<string, unknown>;
+  router: Record<string, unknown>;
 }
