@@ -1,6 +1,7 @@
 import { Directive, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { NgModel } from '@angular/forms';
 import { switchMap } from 'rxjs/operators';
+
 import { ListByPage } from 'ngx-bit';
 
 @Directive({
@@ -8,12 +9,12 @@ import { ListByPage } from 'ngx-bit';
 })
 export class BitSearchChangeDirective implements OnInit {
   @Input() bitSearchChange!: ListByPage;
-  @Output() after: EventEmitter<any> = new EventEmitter<any>();
+  @Output() readonly after: EventEmitter<boolean> = new EventEmitter<boolean>();
 
   constructor(private model: NgModel) {}
 
   ngOnInit(): void {
-    this.model.update.pipe(switchMap(_ => this.bitSearchChange.afterSearch())).subscribe(_ => {
+    this.model.update.pipe(switchMap(() => this.bitSearchChange.afterSearch())).subscribe(() => {
       this.after.emit(true);
     });
   }

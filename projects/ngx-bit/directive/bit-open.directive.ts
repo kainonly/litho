@@ -1,5 +1,6 @@
 import { Directive, HostListener, Input } from '@angular/core';
 import { NavigationExtras } from '@angular/router';
+
 import { BitService } from 'ngx-bit';
 
 @Directive({

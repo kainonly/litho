@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 
 import { BitBackDirective } from './bit-back.directive';
-import { BitColDirective } from './bit-col.directive';
 import { BitFormSubmitDirective } from './bit-form-submit.directive';
+import { BitGridDirective } from './bit-grid.directive';
 import { BitHistoryDirective } from './bit-history.directive';
 import { BitI18nUpdateDirective } from './bit-i18n-update.directive';
 import { BitOpenDirective } from './bit-open.directive';
@@ -15,7 +15,7 @@ import { BitUploadDirective } from './bit-upload.directive';
 @NgModule({
   declarations: [
     BitBackDirective,
-    BitColDirective,
+    BitGridDirective,
     BitFormSubmitDirective,
     BitHistoryDirective,
     BitI18nUpdateDirective,
@@ -28,7 +28,7 @@ import { BitUploadDirective } from './bit-upload.directive';
   ],
   exports: [
     BitBackDirective,
-    BitColDirective,
+    BitGridDirective,
     BitFormSubmitDirective,
     BitHistoryDirective,
     BitI18nUpdateDirective,

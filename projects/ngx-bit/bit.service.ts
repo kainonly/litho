@@ -1,6 +1,7 @@
 import { Location } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Injectable, Optional } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { NavigationExtras, PRIMARY_OUTLET, Router, UrlSegment } from '@angular/router';
 import { Subject } from 'rxjs';
 import { filter, switchMap } from 'rxjs/operators';
@@ -34,11 +35,11 @@ export class BitService {
   /**
    * 语言包
    */
-  private language?: Map<string, any>;
+  private language?: Map<string, unknown>;
   /**
    * 语言包模板变量
    */
-  l: Record<string, any> = {};
+  l: Record<string, unknown> = {};
   /**
    * 国际化 ID
    */
@@ -58,6 +59,7 @@ export class BitService {
     @Optional() private router: Router,
     @Optional() private location: Location,
     @Optional() private http: HttpClient,
+    @Optional() private fb: FormBuilder,
     @Optional() private nzI18nService: NzI18nService
   ) {
     this.assets = config.assets;
@@ -78,9 +80,9 @@ export class BitService {
   /**
    * 路由导航
    */
-  open(path: any[], extras?: NavigationExtras): void {
-    if (path.length === 0) {
-      return;
+  open(commands: string[], extras?: NavigationExtras): void {
+    if (commands.length === 0) {
+      throw new Error('路由导航 URL 数组不能为空');
     }
     const url = this.router.url;
     if (url !== '/') {
@@ -91,14 +93,6 @@ export class BitService {
         this.storage.set(`history:${key}`, segments.splice(1)).subscribe(_ => _);
       }
     }
-    const commands: any[] = [];
-    path.forEach(value => {
-      if (typeof value === 'string') {
-        commands.push(...value.split('/'));
-      } else {
-        commands.push(value);
-      }
-    });
     this.router.navigate(commands, extras);
   }
 
@@ -128,10 +122,11 @@ export class BitService {
   /**
    * 载入语言包
    */
-  registerLocales(packer: Record<string, any>): void {
+  registerLocales(packer: Record<string, unknown>): void {
     this.language = new Map([...this.language!, ...Object.entries(packer)]);
     const index = this.config.locale!.mapping.indexOf(this.locale!)!;
-    for (const [key, data] of this.language.entries()) {
+    for (const [key, value] of this.language.entries()) {
+      const data = value as Record<string, unknown>;
       this.l[key] = data[index];
     }
   }
@@ -143,7 +138,8 @@ export class BitService {
     this.locale = locale;
     localStorage.setItem('locale', locale);
     const index = this.config.locale!.mapping.indexOf(this.locale)!;
-    for (const [key, data] of this.language!.entries()) {
+    for (const [key, value] of this.language!.entries()) {
+      const data = value as Record<string, unknown>;
       this.l[key] = data[index];
     }
     this.nzI18nService.setLocale(this.config.locale!.bind[index]);
@@ -167,34 +163,25 @@ export class BitService {
   /**
    * 创建国际化 FormGroup
    */
-  i18nGroup(options: I18nGroupOption): any {
-    const controls: Record<string, any> = {};
-    if (options) {
-      for (const ID of this.config.i18n!.contain) {
-        controls[ID] = [null, [], []];
-        if (options.value !== undefined && options.value.hasOwnProperty(ID)) {
-          controls[ID][0] = options.value[ID];
-        }
-        if (options.validate !== undefined && options.validate.hasOwnProperty(ID)) {
-          controls[ID][1] = options.validate[ID];
-        }
-        if (options.asyncValidate !== undefined && options.asyncValidate.hasOwnProperty(ID)) {
-          controls[ID][2] = options.asyncValidate[ID];
-        }
-      }
+  i18nGroup(options: Partial<I18nGroupOption>): FormGroup {
+    const controls: Record<string, unknown[]> = {};
+    for (const ID of this.config.i18n!.contain) {
+      controls[ID] = new Array(3).fill(null);
+      controls[ID][0] = options.value?.[ID];
+      controls[ID][1] = options.validate?.[ID];
+      controls[ID][2] = options.asyncValidate?.[ID];
     }
-    return controls;
+    return this.fb.group(controls);
   }
 
   /**
-   * 解析国际化数据
+   * 国际化数据转化
    */
-  i18nParse(text: string): any {
-    const json: any = JSON.parse(text);
-    const data: any = {};
-    for (const ID of this.config.i18n!.contain) {
-      if (json.hasOwnProperty(ID)) {
-        data[ID] = json[ID];
+  i18nParse(value: string): Record<string, unknown> {
+    const data: Record<string, unknown> = JSON.parse(value);
+    for (const key of Object(data).keys) {
+      if (!this.config.i18n!.contain.includes(key)) {
+        Reflect.deleteProperty(data, key);
       }
     }
     return data;
@@ -234,6 +221,6 @@ export class BitService {
         ),
         switchMap(key => this.storage.delete(key))
       )
-      .subscribe(_ => _);
+      .subscribe(() => {});
   }
 }

@@ -2,7 +2,7 @@ import { Component, DebugElement } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { BitConfig, BitModule } from 'ngx-bit';
-import { BitColDirective, BitDirectiveModule } from 'ngx-bit/directive';
+import { BitGridDirective, BitDirectiveModule } from 'ngx-bit/directive';
 import { environment } from '@mock/env';
 import { NzGridModule } from 'ng-zorro-antd/grid';
 
@@ -27,7 +27,7 @@ describe('BitColDirective', () => {
   });
 
   it('Test grid group identification directive', () => {
-    const all: DebugElement[] = debugElement.queryAll(By.directive(BitColDirective));
+    const all: DebugElement[] = debugElement.queryAll(By.directive(BitGridDirective));
     for (const debug of all) {
       const map = new Map([
         ['nzSm', 'sm'],

@@ -8,7 +8,7 @@ export class ListByPage {
   /**
    * 完成初始化
    */
-  readonly ready: AsyncSubject<any> = new AsyncSubject<any>();
+  readonly ready: AsyncSubject<undefined> = new AsyncSubject<undefined>();
 
   /**
    * 搜索字段定义
@@ -23,7 +23,7 @@ export class ListByPage {
   /**
    * 分页数据
    */
-  data: any[] = [];
+  data: Array<Record<string, unknown>> = [];
 
   /**
    * 加载状态
@@ -68,15 +68,15 @@ export class ListByPage {
   constructor(private storage: StorageMap, private option: ListByPageOption) {
     this.limit = option.limit!;
     this.order = option.order!;
-    this.storage.get(`search:${option.id}`).subscribe((data: any) => {
-      if (!data) {
+    this.storage.get(`search:${option.id}`).subscribe(search => {
+      if (!search) {
         for (const value of option.query) {
           this.search[value.field] = value;
         }
       } else {
-        this.search = data;
+        this.search = search as { [field: string]: SearchOption };
       }
-      this.ready.next(data);
+      this.ready.next(undefined);
       this.ready.complete();
     });
   }
@@ -84,7 +84,7 @@ export class ListByPage {
   /**
    * 设置数据
    */
-  setData(data: any[]): void {
+  setData(data: Array<Record<string, unknown>>): void {
     this.data = data;
   }
 
@@ -98,14 +98,14 @@ export class ListByPage {
   /**
    * 主动触发搜索变动之后
    */
-  afterSearch(): Observable<any> {
+  afterSearch(): Observable<undefined> {
     return this.storage.set(`search:${this.option.id}`, this.search);
   }
 
   /**
    * 主动触发搜索清空之后
    */
-  clearSearch(reset: any = {}): Observable<any> {
+  clearSearch(reset: Record<string, unknown> = {}): Observable<undefined> {
     for (const key in this.search) {
       if (this.search.hasOwnProperty(key)) {
         const search = this.search[key];
@@ -142,14 +142,14 @@ export class ListByPage {
   /**
    * 返回所有被选中的列表
    */
-  getChecked(): any[] {
+  getChecked(): Array<Record<string, unknown>> {
     return this.data.filter(value => value.checked);
   }
 
   /**
    * 获取当前的页码
    */
-  getPage(): Observable<any> {
+  getPage(): Observable<unknown> {
     return this.storage.get(`page:${this.option.id}`);
   }
 
@@ -157,7 +157,7 @@ export class ListByPage {
    * 主动执行分页页码的持久化记录
    */
   persistence(): void {
-    this.storage.set(`page:${this.option.id}`, this.index).subscribe(_ => _);
+    this.storage.set(`page:${this.option.id}`, this.index).subscribe(() => {});
   }
 
   /**

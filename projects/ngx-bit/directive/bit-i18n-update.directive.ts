@@ -1,8 +1,12 @@
 import { Directive, OnDestroy, OnInit } from '@angular/core';
 import { FormGroupName } from '@angular/forms';
-import { BitService } from 'ngx-bit';
 import { Subscription } from 'rxjs';
 
+import { BitService } from 'ngx-bit';
+
+/**
+ * TODO: 待完善
+ */
 @Directive({
   selector: '[formGroupName][bitI18nUpdate]'
 })

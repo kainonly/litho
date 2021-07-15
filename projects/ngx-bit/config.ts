@@ -7,15 +7,15 @@ export class BITCONFIG {
   /**
    * 基础路径
    */
-  baseUrl: string = '/api/';
+  baseUrl = '/api/';
   /**
    * 静态资源地址
    */
-  assets: string = '/assets/';
+  assets = '/assets/';
   /**
    * 默认分页限制
    */
-  page: number = 10;
+  page = 10;
   /**
    * 栅格标识
    */
