@@ -9,13 +9,13 @@ import { ListByPage } from 'ngx-bit';
 })
 export class BitSearchChangeDirective implements OnInit {
   @Input() bitSearchChange!: ListByPage;
-  @Output() readonly after: EventEmitter<boolean> = new EventEmitter<boolean>();
+  @Output() readonly bitAfter: EventEmitter<undefined> = new EventEmitter<undefined>();
 
   constructor(private model: NgModel) {}
 
   ngOnInit(): void {
     this.model.update.pipe(switchMap(() => this.bitSearchChange.afterSearch())).subscribe(() => {
-      this.after.emit(true);
+      this.bitAfter.emit(undefined);
     });
   }
 }

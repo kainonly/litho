@@ -13,6 +13,11 @@ export interface UploadOption {
   size?: number;
 }
 
+export interface UploadSignedResponse {
+  filename: string;
+  option: Record<string, unknown>;
+}
+
 export type UploadStorage = 'default' | 'oss' | 'obs' | 'cos';
 
 export type Grid = Record<string, Partial<GridOption>>;

@@ -7,7 +7,7 @@ import { ListByPage } from 'ngx-bit';
 })
 export class BitSearchStartDirective {
   @Input() bitSearchStart!: ListByPage;
-  @Output() after: EventEmitter<any> = new EventEmitter<any>();
+  @Output() readonly bitAfter: EventEmitter<undefined> = new EventEmitter<undefined>();
 
   @HostListener('keydown.enter', ['$event.target']) onenter(el: Element): void {
     if (el.tagName.toLowerCase() !== 'input') {
@@ -25,7 +25,7 @@ export class BitSearchStartDirective {
 
   private afterSearch(): void {
     this.bitSearchStart.afterSearch().subscribe(() => {
-      this.after.emit(true);
+      this.bitAfter.emit(undefined);
     });
   }
 }

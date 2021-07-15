@@ -5,18 +5,15 @@ import { FormGroupDirective } from '@angular/forms';
   selector: 'form[bitFormSubmit]'
 })
 export class BitFormSubmitDirective implements OnInit {
-  @Output() readonly bitFormSubmit: EventEmitter<any> = new EventEmitter();
+  @Output() readonly bitFormSubmit: EventEmitter<Record<string, unknown>> = new EventEmitter();
 
   constructor(private form: FormGroupDirective) {}
 
   ngOnInit(): void {
-    this.form.ngSubmit.subscribe(_ => {
-      const controls = this.form.control.controls;
-      for (const key in controls) {
-        if (controls.hasOwnProperty(key)) {
-          controls[key].markAsDirty();
-          controls[key].updateValueAndValidity();
-        }
+    this.form.ngSubmit.subscribe(() => {
+      for (const control of Object(this.form.control.controls)) {
+        control.markAsDirty();
+        control.updateValueAndValidity();
       }
       this.bitFormSubmit.emit(this.form.value);
     });

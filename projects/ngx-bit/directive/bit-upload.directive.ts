@@ -1,62 +1,72 @@
-import { Directive } from '@angular/core';
-import { NzUploadComponent, NzUploadFile } from 'ng-zorro-antd/upload';
-import { BitConfig } from 'ngx-bit';
-import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
+import { Directive } from '@angular/core';
+import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+
+import { NzUploadComponent, NzUploadFile } from 'ng-zorro-antd/upload';
+import { BITCONFIG, UploadOption, UploadSignedResponse } from 'ngx-bit';
 
 @Directive({
   selector: 'nz-upload[bitUpload]'
 })
 export class BitUploadDirective {
-  constructor(config: BitOptions, http: HttpClient, nzUploadComponent: NzUploadComponent) {
-    nzUploadComponent.nzSize = !config.api.uploadSize ? 5120 : config.api.uploadSize;
+  constructor(config: BITCONFIG, http: HttpClient, nzUploadComponent: NzUploadComponent) {
+    const option = config.upload! as UploadOption;
+    nzUploadComponent.nzSize = option.size ?? 5120;
     nzUploadComponent.nzShowUploadList = false;
-    if (config.api.uploadStorage === 'default') {
-      nzUploadComponent.nzAction = config.url.api + config.api.upload;
-      nzUploadComponent.nzWithCredentials = config.api.withCredentials;
+    nzUploadComponent.nzAction = option.url;
+    if (option.storage === 'default') {
+      /**
+       * 默认上传终止设置
+       */
       return;
     }
-    nzUploadComponent.nzAction = config.api.upload;
-    nzUploadComponent.nzData = (file: NzUploadFile): Observable<any> => {
-      const url = config.url.api + config.api.uploadFetchSigned;
+    nzUploadComponent.nzData = (file: NzUploadFile): Observable<Record<string, unknown>> => {
       return http
-        .request(config.api.uploadFetchSignedMethod!, url, {
-          withCredentials: config.api.withCredentials
+        .request(option.fetchSignedMethod!, option.fetchSigned!, {
+          withCredentials: true
         })
         .pipe(
-          map((res: any) => {
-            const sep: any[] = file.name.split('.');
-            const ext = sep.length > 1 ? '.' + sep.pop().toLowerCase() : '';
-            file.key = res.filename + ext;
-            switch (config.api.uploadStorage) {
+          map(v => {
+            const response = v as UploadSignedResponse;
+            const sep = file.name.split('.');
+            const ext = sep.length > 1 ? `.${sep.pop()?.toLowerCase()}` : '';
+            file.key = response.filename + ext;
+            switch (option.storage) {
+              /**
+               * 阿里云对象存储
+               */
               case 'oss':
                 return {
                   key: file.key,
-                  policy: res.option.policy,
-                  OSSAccessKeyId: res.option.access_key_id,
-                  Signature: res.option.signature
+                  policy: response.option.policy,
+                  OSSAccessKeyId: response.option.access_key_id,
+                  Signature: response.option.signature
                 };
+              /**
+               * 华为云对象存储
+               */
               case 'obs':
                 return {
                   key: file.key,
-                  policy: res.option.policy,
-                  AccessKeyId: res.option.access_key_id,
-                  signature: res.option.signature
+                  policy: response.option.policy,
+                  AccessKeyId: response.option.access_key_id,
+                  signature: response.option.signature
                 };
+              /**
+               * 腾讯云对象存储
+               */
               case 'cos':
                 return {
                   key: file.key,
-                  policy: res.option.policy,
-                  'q-sign-algorithm': res.option.sign_algorithm,
-                  'q-ak': res.option.ak,
-                  'q-key-time': res.option.key_time,
-                  'q-signature': res.option.signature
+                  policy: response.option.policy,
+                  'q-sign-algorithm': response.option.sign_algorithm,
+                  'q-ak': response.option.ak,
+                  'q-key-time': response.option.key_time,
+                  'q-signature': response.option.signature
                 };
               default:
-                return {
-                  key: file.key
-                };
+                throw new Error('默认上传到后端服务器，无需签名配置');
             }
           })
         );
