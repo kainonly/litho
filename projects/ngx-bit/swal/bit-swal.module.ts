@@ -1,6 +1,6 @@
 import { Inject, ModuleWithProviders, NgModule } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
-import { loadScript } from 'ngx-bit/operates';
+import { loadScript } from 'ngx-bit';
 import { Config } from './config';
 import { BitSwalService } from './bit-swal.service';
 
@@ -17,8 +17,7 @@ export class BitSwalModule {
 
   constructor(config: Config, swal: BitSwalService, @Inject(DOCUMENT) readonly document: any) {
     loadScript(document, config?.url || this.url).subscribe(_ => {
-      // @ts-ignore
-      swal.ready.next(window['Swal']);
+      swal.ready.next(Reflect.get(window, 'Swal'));
       swal.ready.complete();
     });
   }

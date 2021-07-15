@@ -9,65 +9,58 @@ import { StorageMap } from '@ngx-pwa/local-storage';
 export class BitRouterService {
   /**
    * 被激活的导航
-   * Activated navigation
    */
   navActive: any[] = [];
   /**
    * 允许返回
-   * Allow back
    */
   back = false;
   /**
-   * Title
+   * 页头标题部分
    */
   title: any = null;
   /**
-   * SubTitle
+   * 页头子标题部分
    */
   subTitle: any = null;
   /**
-   * default breadcrumb Root
+   * 面包屑默认顶点
    */
   breadcrumbRoot: any = 0;
   /**
-   * Breadcrumb array
+   * 面包屑数据
    */
   breadcrumb?: BreadcrumbOption[];
   /**
-   * Header banner
+   * 顶部公告
    */
   banner?: TemplateRef<any>;
   /**
-   * Header banner
+   * 页头标题 Tags
    */
   tags?: TemplateRef<any>;
   /**
-   * Header actions
+   * 页头操作部分
    */
   actions?: TemplateRef<any>[] = [];
   /**
-   * Header banner
+   * 页头内容部分
    */
   content?: TemplateRef<any>;
   /**
-   * Header banner
+   * 页头底部部分
    */
   footer?: TemplateRef<any>;
   /**
-   * Status
+   * 平行路由状态
    */
   changed: Subject<any> = new Subject();
-
-  /**
-   * Angular routed event subscription
-   */
   private events$!: Subscription;
 
   constructor(private router: Router, private storage: StorageMap) {}
 
   /**
    * 初始化平行路由
-   * Initialize parallel routing
    */
   setup(): void {
     if (this.events$) {
@@ -87,7 +80,6 @@ export class BitRouterService {
 
   /**
    * 设置平行路由数据，同步导航与页头
-   * Set parallel routing data, synchronize navigation and page header
    */
   setData(data: RouterData): void {
     this.storage.set('resource', data.resource).subscribe(_ => _);
@@ -96,7 +88,6 @@ export class BitRouterService {
 
   /**
    * 取消平行路由逻辑
-   * Cancel parallel routing logic
    */
   uninstall(): void {
     if (this.events$) {

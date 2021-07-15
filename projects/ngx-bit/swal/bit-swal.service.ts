@@ -9,35 +9,35 @@ import { AlertOption } from './types';
 
 @Injectable()
 export class BitSwalService {
-  ready: AsyncSubject<any> = new AsyncSubject();
+  readonly ready: AsyncSubject<any> = new AsyncSubject();
 
   constructor(private bit: BitService, private location: Location) {}
 
   /**
    * 创建提示框
-   * create alert
    */
   create(option: AlertOption): Observable<any> {
+    const html = `
+      <div class='ant-result-title ng-star-inserted'> ${option.title} </div>
+      <div class='ant-result-subtitle ng-star-inserted'> ${option.content} </div>
+    `;
     return this.ready.pipe(
       switchMap(plugin =>
         fromPromise(
           plugin.fire({
             heightAuto: false,
-            html: `
-            <div class="ant-result-title ng-star-inserted"> ${option.title} </div>
-            <div class="ant-result-subtitle ng-star-inserted"> ${option.content} </div>
-          `,
+            html,
             icon: option.type,
-            width: !option.width ? 520 : option.width,
-            confirmButtonText: !option.okText ? 'ok' : option.okText,
-            cancelButtonText: !option.cancelText ? 'cancel' : option.cancelText,
+            width: option.width ?? 520,
+            confirmButtonText: option.okText ?? 'ok',
+            cancelButtonText: option.cancelText ?? 'cancel',
             buttonsStyling: false,
             showConfirmButton: option.okShow === undefined ? true : option.cancelShow,
             showCancelButton: option.cancelShow === undefined ? true : option.cancelShow,
             customClass: {
               popup: 'swal2-ant-modal',
               actions: 'ant-result-extra ng-star-inserted',
-              confirmButton: 'ant-btn ant-btn-primary ' + (!option.okDanger ? '' : 'ant-btn-dangerous'),
+              confirmButton: `ant-btn ant-btn-primary ${!option.okDanger ? '' : 'ant-btn-dangerous'}`,
               cancelButton: 'ant-btn'
             }
           })
@@ -48,7 +48,6 @@ export class BitSwalService {
 
   /**
    * 新增响应提示框
-   * Add response prompt box
    */
   addAlert(res: any, form: FormGroup, reset?: any): Observable<any> {
     return !res.error
@@ -61,7 +60,7 @@ export class BitSwalService {
         }).pipe(
           map(result => {
             if (result.value) {
-              form.reset(reset ? reset : undefined);
+              form.reset(reset);
               return true;
             }
             this.location.back();
@@ -79,7 +78,6 @@ export class BitSwalService {
 
   /**
    * 修改响应提示框
-   * Edit response prompt box
    */
   editAlert(res: any): Observable<any> {
     return !res.error
@@ -109,7 +107,6 @@ export class BitSwalService {
 
   /**
    * 删除响应提示框
-   * Delete response prompt box
    */
   deleteAlert(observable: Observable<any>): Observable<any> {
     return this.create({

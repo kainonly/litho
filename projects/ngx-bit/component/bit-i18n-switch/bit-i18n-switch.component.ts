@@ -10,6 +10,6 @@ export class BitI18nSwitchComponent {
   constructor(public bit: BitService) {}
 
   i18nChanged(value: any): void {
-    this.bit.i18nChanged.next(value);
+    this.bit.i18nChanged!.next(value);
   }
 }
