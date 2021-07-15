@@ -73,7 +73,3 @@ export type ListByPageOption = {
   order?: OrderOption;
   limit?: number;
 };
-export type ListsOption = {
-  refresh: boolean;
-  persistence: boolean;
-};

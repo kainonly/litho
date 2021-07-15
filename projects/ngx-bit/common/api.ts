@@ -1,6 +1,6 @@
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-import { ApiOption, ListsOption, OrderOption, SearchOption } from '../types';
+import { ApiOption, OrderOption, SearchOption } from '../types';
 import { getQuerySchema } from './utils';
 import { map, switchMap } from 'rxjs/operators';
 import { ListByPage } from './list-by-page';
@@ -9,10 +9,17 @@ export class Api {
   constructor(private http: HttpClient, private option: ApiOption) {}
 
   /**
+   * 获取 URL
+   */
+  get url(): string {
+    return this.option.baseUrl + this.option.model;
+  }
+
+  /**
    * 发起统一请求
    */
-  send(path: string, body: Record<string, any> = {}): Observable<any> {
-    return this.http.post(this.option.baseUrl + path, {
+  send(path: string, body: Record<string, any>): Observable<any> {
+    return this.http.post(this.url + path, {
       body
     });
   }
@@ -30,15 +37,15 @@ export class Api {
         body['order'] = order;
       }
     }
-    return this.send(this.option.model + '/get', body).pipe(map(v => (!v.error ? v.data : null)));
+    return this.send('/get', body).pipe(map(v => (!v.error ? v.data : null)));
   }
 
   /**
    * 获取分页数据请求
    */
-  lists(factory: ListByPage, option: ListsOption): Observable<any> {
-    if (option.refresh || option.persistence) {
-      if (option.refresh) {
+  lists(factory: ListByPage, refresh: boolean, persistence: boolean): Observable<any> {
+    if (refresh || persistence) {
+      if (refresh) {
         factory.index = 1;
       }
       factory.persistence();
@@ -46,7 +53,7 @@ export class Api {
     return factory.getPage().pipe(
       switchMap(index => {
         factory.index = index ? index : 1;
-        return this.send(this.option.model + '/lists', {
+        return this.send('/lists', {
           page: {
             limit: factory.limit,
             index: factory.index
@@ -71,17 +78,21 @@ export class Api {
    * 获取原始列表数据请求
    */
   originLists(condition: SearchOption[] = [], order?: OrderOption): Observable<any> {
-    return this.send(this.option.model + '/originLists', {
-      where: getQuerySchema(condition),
-      order
-    }).pipe(map(v => (!v.error ? v.data : null)));
+    const body: Record<string, any> = {};
+    if (condition.length !== 0) {
+      body['where'] = getQuerySchema(condition);
+    }
+    if (order) {
+      body['order'] = order;
+    }
+    return this.send('/originLists', body).pipe(map(v => (!v.error ? v.data : null)));
   }
 
   /**
    * 新增数据请求
    */
   add(data: Record<string, any>): Observable<any> {
-    return this.send(this.option.model + '/add', data);
+    return this.send('/add', data);
   }
 
   /**
@@ -94,14 +105,14 @@ export class Api {
         where: getQuerySchema(condition)
       });
     }
-    return this.send(this.option.model + '/edit', data);
+    return this.send('/edit', data);
   }
 
   /**
    * 状态切换请求
    */
   status(data: Record<string, any>, field = 'status', extra?: Record<string, any>): Observable<any> {
-    const body = {
+    const body: Record<string, any> = {
       id: data.id,
       switch: true,
       [field]: !data[field]
@@ -109,7 +120,7 @@ export class Api {
     if (extra) {
       Object.assign(body, extra);
     }
-    return this.send(this.option.model + '/edit', body).pipe(
+    return this.send('/edit', body).pipe(
       map(v => {
         if (!v.error) {
           data[field] = !data[field];
@@ -124,7 +135,7 @@ export class Api {
    */
   delete(condition: string[] | number[] | SearchOption[]): Observable<any> {
     if (condition.length === 0) {
-      throw '数组不能为空';
+      throw new Error(`[ID] 或 [SearchOption] 数组不能为空`);
     }
     const body: Record<string, any> = {};
     if (typeof condition[0] === 'string' || typeof condition[0] === 'number') {
@@ -132,6 +143,6 @@ export class Api {
     } else {
       body['where'] = getQuerySchema(condition as SearchOption[]);
     }
-    return this.send(this.option.model + '/delete', body);
+    return this.send('/delete', body);
   }
 }
