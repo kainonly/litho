@@ -4,20 +4,20 @@ import en from '@angular/common/locales/en';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { RouterModule, Routes } from '@angular/router';
 import { ServiceWorkerModule } from '@angular/service-worker';
-import { environment } from '@env';
-import { en_US, NZ_I18N } from 'ng-zorro-antd/i18n';
 
-import { AppComponent } from './app.component';
+import { environment } from '@env';
+import { AppShareModule } from '@share';
 import { FrameworkModule, TokenService } from '@vanx/framework';
 import { LoginComponent, LoginModule } from '@vanx/framework/login';
-import { BitModule } from 'ngx-bit';
-import { BitSwalModule } from 'ngx-bit/swal';
-import { AppShareModule } from '@share';
-import { RouterModule, Routes } from '@angular/router';
 import { NZ_CONFIG, NzConfig } from 'ng-zorro-antd/core/config';
+import { en_US, NZ_I18N } from 'ng-zorro-antd/i18n';
 import { NzIconService } from 'ng-zorro-antd/icon';
+import { BitSwalModule } from 'ngx-bit/swal';
+
 import { AppInterceptors } from './app-interceptors';
+import { AppComponent } from './app.component';
 
 registerLocaleData(en);
 
@@ -46,7 +46,6 @@ const ngZorroConfig: NzConfig = {
     AppShareModule,
     FrameworkModule,
     LoginModule,
-    BitModule.forRoot(environment.bit),
     BitSwalModule.forRoot(),
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: environment.production,

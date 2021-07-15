@@ -1,7 +1,9 @@
 import { NgModule } from '@angular/core';
-import { WelcomeComponent } from './welcome.component';
 import { RouterModule, Routes } from '@angular/router';
+
 import { AppShareModule } from '@share';
+
+import { WelcomeComponent } from './welcome.component';
 
 const routes: Routes = [
   {

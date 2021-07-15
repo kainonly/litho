@@ -1,9 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { LayoutComponent, LayoutModule } from '@vanx/framework/layout';
+
 import { AppShareModule } from '@share';
-import { IRoutes, MainModule } from './skeleton/main.module';
+import { LayoutComponent, LayoutModule } from '@vanx/framework/layout';
+
 import { CmsModule, CmsRoutes } from './skeleton/cms.module';
+import { IRoutes, MainModule } from './skeleton/main.module';
 
 const routes: Routes = [
   {

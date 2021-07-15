@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+
 import { BitService } from 'ngx-bit';
+
+import * as packer from './language';
 
 @Component({
   selector: 'app-empty',
@@ -17,6 +20,6 @@ export class EmptyComponent implements OnInit {
   constructor(public bit: BitService) {}
 
   ngOnInit(): void {
-    this.bit.registerLocales(import('./language'));
+    this.bit.registerLocales(packer);
   }
 }

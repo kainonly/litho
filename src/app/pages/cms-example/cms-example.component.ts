@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { BitService } from 'ngx-bit';
 import { FormBuilder, FormGroup } from '@angular/forms';
+
+import { BitService } from 'ngx-bit';
+
+import * as packer from './language';
 
 @Component({
   selector: 'app-cms-example',
@@ -12,7 +15,7 @@ export class CmsExampleComponent implements OnInit {
   constructor(public bit: BitService, private fb: FormBuilder) {}
 
   ngOnInit(): void {
-    this.bit.registerLocales(import('./language'));
+    this.bit.registerLocales(packer);
     this.form = this.fb.group({
       picture: [],
       video: [],

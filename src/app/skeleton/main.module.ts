@@ -1,12 +1,13 @@
 import { NgModule } from '@angular/core';
 import { Routes } from '@angular/router';
-import { ProfileComponent, ProfileModule } from '@vanx/framework/profile';
-import { PermissionPageComponent, PermissionIndexComponent, PermissionModule } from '@vanx/framework/permission';
-import { UserIndexComponent, UserModule, UserPageComponent } from '@vanx/framework/user';
-import { LogsComponent, ActivitiesComponent, SecurityModule } from '@vanx/framework/security';
+
 import { AclPageComponent, AclIndexComponent, AclModule } from '@vanx/framework/acl';
+import { PermissionPageComponent, PermissionIndexComponent, PermissionModule } from '@vanx/framework/permission';
+import { ProfileComponent, ProfileModule } from '@vanx/framework/profile';
 import { ResourceIndexComponent, ResourceModule, ResourcePageComponent } from '@vanx/framework/resource';
 import { RoleIndexComponent, RoleModule, RolePageComponent } from '@vanx/framework/role';
+import { LogsComponent, ActivitiesComponent, SecurityModule } from '@vanx/framework/security';
+import { UserIndexComponent, UserModule, UserPageComponent } from '@vanx/framework/user';
 
 export const IRoutes: Routes = [
   {

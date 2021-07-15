@@ -1,4 +1,6 @@
+import { NgModule } from '@angular/core';
 import { Routes } from '@angular/router';
+
 import { CmsComponentModule } from '@vanx/cms/component';
 import { MediaComponent, MediaModule } from '@vanx/cms/media';
 import {
@@ -16,7 +18,6 @@ import {
   TemplateModule,
   TemplatePageComponent
 } from '@vanx/cms/template';
-import { NgModule } from '@angular/core';
 
 export const CmsRoutes: Routes = [
   {

@@ -4,15 +4,15 @@ import { NzColDirective } from 'ng-zorro-antd/grid';
 import { BITCONFIG } from 'ngx-bit';
 
 @Directive({
-  selector: '[bitGrid]'
+  selector: '[bitCol]'
 })
-export class BitGridDirective implements OnInit {
-  @Input() bitGrid!: string;
+export class BitColDirective implements OnInit {
+  @Input() bitCol!: string;
 
   constructor(private nzColDirective: NzColDirective, private config: BITCONFIG) {}
 
   ngOnInit(): void {
-    const grid = this.config.grid[this.bitGrid]!;
+    const grid = this.config.grid[this.bitCol]!;
     this.nzColDirective.nzFlex = grid.nzFlex ?? null;
     this.nzColDirective.nzSpan = grid.nzSpan ?? null;
     this.nzColDirective.nzOrder = grid.nzOrder ?? null;
