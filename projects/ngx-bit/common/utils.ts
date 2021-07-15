@@ -1,4 +1,5 @@
 import { SearchOption } from '../types';
+import { Observable } from 'rxjs';
 
 /**
  * 返回查询数组
@@ -27,4 +28,20 @@ export function getQuerySchema(options: SearchOption[]): any[] {
     }
   }
   return schema;
+}
+
+/**
+ * 加载脚本
+ */
+export function loadScript(doc: Document, url: string): Observable<any> {
+  const script = doc.createElement('script');
+  script.type = 'text/javascript';
+  script.src = url;
+  doc.body.appendChild(script);
+  return new Observable<boolean>(observer => {
+    script.onload = () => {
+      observer.next(true);
+      observer.complete();
+    };
+  });
 }

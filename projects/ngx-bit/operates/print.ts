@@ -1,9 +1,9 @@
-export function print(str: string, ...vars: any): string {
-  if (!str) {
+export function print(text: string, ...vars: any): string {
+  if (!text) {
     return '';
   }
   vars.forEach((value: any, index: any) => {
-    str = str.replace('$' + index, value);
+    text = text.replace('$' + index, value);
   });
-  return str;
+  return text;
 }

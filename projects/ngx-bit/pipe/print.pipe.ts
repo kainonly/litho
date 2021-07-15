@@ -3,7 +3,7 @@ import { print } from 'ngx-bit/operates';
 
 @Pipe({ name: 'Print' })
 export class PrintPipe implements PipeTransform {
-  transform(str: string, vars: any[]): string {
-    return print(str, ...vars);
+  transform(value: string, vars: any[]): string {
+    return print(value, ...vars);
   }
 }

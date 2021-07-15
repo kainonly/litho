@@ -3,7 +3,7 @@ import { empty } from 'ngx-bit/operates';
 
 @Pipe({ name: 'Empty' })
 export class EmptyPipe implements PipeTransform {
-  transform(value: any): boolean {
+  transform(value: unknown): boolean {
     return empty(value);
   }
 }
