@@ -1,6 +1,7 @@
 import { Observable } from 'rxjs';
 
 import { SearchOption } from '../types';
+import { TemplateRef } from '@angular/core';
 
 /**
  * 返回查询数组
