@@ -19,7 +19,7 @@ export class Api {
   /**
    * 发起统一请求
    */
-  send(path: string, body: Record<string, unknown>): Observable<unknown> {
+  send(path: string, body: Record<string, unknown> = {}): Observable<unknown> {
     return this.http.post(this.url + path, {
       body
     });

@@ -39,7 +39,7 @@ export class BitService {
   /**
    * 语言包模板变量
    */
-  l: Record<string, unknown> = {};
+  l: Record<string, string> = {};
   /**
    * 国际化 ID
    */
@@ -127,7 +127,7 @@ export class BitService {
     const index = this.config.locale!.mapping.indexOf(this.locale!)!;
     for (const [key, value] of this.language.entries()) {
       const data = value as Record<string, unknown>;
-      this.l[key] = data[index];
+      this.l[key] = data[index] as string;
     }
   }
 
@@ -140,10 +140,14 @@ export class BitService {
     const index = this.config.locale!.mapping.indexOf(this.locale)!;
     for (const [key, value] of this.language!.entries()) {
       const data = value as Record<string, unknown>;
-      this.l[key] = data[index];
+      this.l[key] = data[index] as string;
     }
     this.nzI18nService.setLocale(this.config.locale!.bind[index]);
     this.localeChanged!.next(locale);
+  }
+
+  get i18nContain(): string[] {
+    return this.config.i18n!.contain;
   }
 
   /**
