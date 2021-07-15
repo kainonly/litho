@@ -1,5 +1,8 @@
 import { Component, Input, OnChanges, SimpleChanges, TemplateRef, ViewChild } from '@angular/core';
 
+/**
+ * TODO: 需要改进
+ */
 @Component({
   selector: 'bit-print',
   templateUrl: './bit-print.component.html'
