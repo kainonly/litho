@@ -9,3 +9,7 @@ export interface AlertOption {
   cancelText?: string;
   cancelShow?: boolean;
 }
+
+export interface SwalFn {
+  fire(args: Record<string, unknown>): Promise<Record<string, unknown>>;
+}
