@@ -1,22 +1,24 @@
+import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { CommonModule } from '@angular/common';
-import { NzMenuModule } from 'ng-zorro-antd/menu';
-import { NzIconModule } from 'ng-zorro-antd/icon';
-import { BitPipeModule } from 'ngx-bit/pipe';
-import { BitDirectiveModule } from 'ngx-bit/directive';
-import { NzLayoutModule } from 'ng-zorro-antd/layout';
-import { NzPageHeaderModule } from 'ng-zorro-antd/page-header';
+
 import { NzBreadCrumbModule } from 'ng-zorro-antd/breadcrumb';
-import { BitRouterService } from './bit-router.service';
-import { BitSiderComponent } from './bit-sider/bit-sider.component';
-import { BitHeaderComponent } from './bit-header/bit-header.component';
-import { BitPageHeaderComponent } from './bit-page-header/bit-page-header.component';
+import { NzIconModule } from 'ng-zorro-antd/icon';
+import { NzLayoutModule } from 'ng-zorro-antd/layout';
+import { NzMenuModule } from 'ng-zorro-antd/menu';
+import { NzPageHeaderModule } from 'ng-zorro-antd/page-header';
+import { NzSpaceModule } from 'ng-zorro-antd/space';
+import { BitDirectiveModule } from 'ngx-bit/directive';
+import { BitPipeModule } from 'ngx-bit/pipe';
+
 import { BitHeaderActionDirective } from './bit-header/bit-header-action.directive';
 import { BitHeaderBannerDirective } from './bit-header/bit-header-banner.directive';
-import { BitHeaderTagsDirective } from './bit-header/bit-header-tags.directive';
 import { BitHeaderFooterDirective } from './bit-header/bit-header-footer.directive';
-import { NzSpaceModule } from 'ng-zorro-antd/space';
+import { BitHeaderTagsDirective } from './bit-header/bit-header-tags.directive';
+import { BitHeaderComponent } from './bit-header/bit-header.component';
+import { BitPageHeaderComponent } from './bit-page-header/bit-page-header.component';
+import { BitRouterService } from './bit-router.service';
+import { BitSiderComponent } from './bit-sider/bit-sider.component';
 
 @NgModule({
   imports: [

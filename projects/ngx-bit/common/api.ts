@@ -1,9 +1,10 @@
-import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-import { ApiOption, OrderOption, SearchOption } from '../types';
-import { getQuerySchema } from './utils';
+import { Observable } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
+
+import { ApiOption, OrderOption, SearchOption } from '../types';
 import { ListByPage } from './list-by-page';
+import { getQuerySchema } from './utils';
 
 export class Api {
   constructor(private http: HttpClient, private option: ApiOption) {}

@@ -1,6 +1,8 @@
 import { Component, Input } from '@angular/core';
-import { BitRouterService } from '../bit-router.service';
+
 import { BitService } from 'ngx-bit';
+
+import { BitRouterService } from '../bit-router.service';
 
 @Component({
   selector: 'bit-sider',

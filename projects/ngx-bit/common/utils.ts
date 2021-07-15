@@ -1,5 +1,6 @@
-import { SearchOption } from '../types';
 import { Observable } from 'rxjs';
+
+import { SearchOption } from '../types';
 
 /**
  * 返回查询数组

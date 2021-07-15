@@ -8,9 +8,13 @@
       "files": [
         "*.ts"
       ],
+      "plugins": [
+        "@typescript-eslint",
+        "import"
+      ],
       "parserOptions": {
         "project": [
-          "projects/ngx-bit/tsconfig.lib.json"
+          "./tsconfig.lib.json"
         ],
         "createDefaultProgram": true
       },
@@ -29,6 +33,37 @@
             "type": "element",
             "prefix": "bit",
             "style": "kebab-case"
+          }
+        ],
+        "import/no-duplicates": "error",
+        "import/no-unused-modules": "error",
+        "import/no-unassigned-import": "error",
+        "import/order": [
+          "error",
+          {
+            "alphabetize": {
+              "order": "asc",
+              "caseInsensitive": false
+            },
+            "newlines-between": "always",
+            "groups": [
+              "external",
+              "builtin",
+              "internal",
+              [
+                "parent",
+                "sibling",
+                "index"
+              ]
+            ],
+            "pathGroups": [
+              {
+                "pattern": "{@angular/**,rxjs,rxjs/operators}",
+                "group": "external",
+                "position": "before"
+              }
+            ],
+            "pathGroupsExcludedImportTypes": []
           }
         ]
       }

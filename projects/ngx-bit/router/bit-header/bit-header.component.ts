@@ -10,11 +10,12 @@ import {
   TemplateRef,
   ViewChild
 } from '@angular/core';
-import { BitHeaderTagsDirective } from './bit-header-tags.directive';
-import { BitHeaderBannerDirective } from './bit-header-banner.directive';
-import { BitHeaderActionDirective } from './bit-header-action.directive';
-import { BitHeaderFooterDirective } from './bit-header-footer.directive';
+
 import { BitRouterService } from '../bit-router.service';
+import { BitHeaderActionDirective } from './bit-header-action.directive';
+import { BitHeaderBannerDirective } from './bit-header-banner.directive';
+import { BitHeaderFooterDirective } from './bit-header-footer.directive';
+import { BitHeaderTagsDirective } from './bit-header-tags.directive';
 
 @Component({
   selector: 'bit-header',

@@ -1,4 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
+
 import { print } from 'ngx-bit/operates';
 
 @Pipe({ name: 'Print' })

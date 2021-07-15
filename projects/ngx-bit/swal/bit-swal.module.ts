@@ -1,8 +1,10 @@
-import { Inject, ModuleWithProviders, NgModule } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
+import { Inject, ModuleWithProviders, NgModule } from '@angular/core';
+
 import { loadScript } from 'ngx-bit';
-import { Config } from './config';
+
 import { BitSwalService } from './bit-swal.service';
+import { Config } from './config';
 
 @NgModule()
 export class BitSwalModule {

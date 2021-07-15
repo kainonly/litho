@@ -1,15 +1,17 @@
 import { Location } from '@angular/common';
+import { HttpClient } from '@angular/common/http';
 import { Injectable, Optional } from '@angular/core';
 import { NavigationExtras, PRIMARY_OUTLET, Router, UrlSegment } from '@angular/router';
 import { Subject } from 'rxjs';
 import { filter, switchMap } from 'rxjs/operators';
+
 import { StorageMap } from '@ngx-pwa/local-storage';
 import { NzI18nService } from 'ng-zorro-antd/i18n';
-import { ListByPageOption, I18nGroupOption, I18nTooltipOption } from './types';
+
+import { Api } from './common/api';
 import { ListByPage } from './common/list-by-page';
 import { BITCONFIG } from './config';
-import { Api } from './common/api';
-import { HttpClient } from '@angular/common/http';
+import { ListByPageOption, I18nGroupOption, I18nTooltipOption } from './types';
 
 @Injectable({ providedIn: 'root' })
 export class BitService {

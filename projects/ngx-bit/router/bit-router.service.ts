@@ -2,8 +2,10 @@ import { Injectable, TemplateRef } from '@angular/core';
 import { NavigationEnd, PRIMARY_OUTLET, Router } from '@angular/router';
 import { Subject, Subscription } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
-import { BreadcrumbOption, RouterData } from './types';
+
 import { StorageMap } from '@ngx-pwa/local-storage';
+
+import { BreadcrumbOption, RouterData } from './types';
 
 @Injectable({ providedIn: 'root' })
 export class BitRouterService {

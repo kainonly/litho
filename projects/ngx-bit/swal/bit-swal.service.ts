@@ -1,10 +1,12 @@
+import { Location } from '@angular/common';
 import { Injectable } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { Location } from '@angular/common';
 import { AsyncSubject, Observable, of } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
+
 import { BitService } from 'ngx-bit';
 import { fromPromise } from 'rxjs/internal-compatibility';
+
 import { AlertOption } from './types';
 
 @Injectable()

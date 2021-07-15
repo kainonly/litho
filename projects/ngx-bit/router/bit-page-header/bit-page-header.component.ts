@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
+
 import { BitService } from 'ngx-bit';
+
 import { BitRouterService } from '../bit-router.service';
 
 @Component({
