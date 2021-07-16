@@ -12,7 +12,7 @@ import { NzI18nService } from 'ng-zorro-antd/i18n';
 import { BitConfig } from './bit-config';
 import { Api } from './common/api';
 import { ListByPage } from './common/list-by-page';
-import { ListByPageOption, I18nGroupOption, I18nTooltipOption } from './types';
+import { ListByPageOption, I18nGroupOption } from './types';
 
 @Injectable({ providedIn: 'root' })
 export class BitService {
@@ -124,7 +124,7 @@ export class BitService {
         this.importLocales(value.default as Record<string, any>);
       });
     } else {
-      this.importLocales(packer.default);
+      this.importLocales(packer.default ?? {});
     }
   }
 

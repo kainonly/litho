@@ -5,6 +5,9 @@ import { Observable } from 'rxjs';
 @Injectable({ providedIn: 'root' })
 export class AppInterceptors implements HttpInterceptor {
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    return next.handle(req);
+    const request = req.clone({
+      withCredentials: true
+    });
+    return next.handle(request);
   }
 }

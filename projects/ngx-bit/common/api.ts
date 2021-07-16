@@ -36,7 +36,7 @@ export class Api {
         body['order'] = order;
       }
     }
-    return this.send('/get', body).pipe(map(v => (!v.error ? v.data : null)));
+    return this.send('get', body).pipe(map(v => (!v.error ? v.data : null)));
   }
 
   /**
@@ -51,8 +51,8 @@ export class Api {
     }
     return factory.getPage().pipe(
       switchMap(index => {
-        factory.index = index ? (index as number) : 1;
-        return this.send('/lists', {
+        factory.index = index ?? 1;
+        return this.send('lists', {
           page: {
             limit: factory.limit,
             index: factory.index
@@ -68,7 +68,7 @@ export class Api {
         factory.indeterminate = false;
         factory.batch = false;
         factory.checkedNumber = 0;
-        return !v.error ? (v.data.lists as Record<string, any>) : null;
+        return !v.error ? v.data.lists : null;
       })
     );
   }
@@ -84,14 +84,14 @@ export class Api {
     if (order) {
       body['order'] = order;
     }
-    return this.send('/originLists', body).pipe(map(v => (!v.error ? v.data : null)));
+    return this.send('originLists', body).pipe(map(v => (!v.error ? v.data : null)));
   }
 
   /**
    * 新增数据请求
    */
   add(data: Record<string, any>): Observable<any> {
-    return this.send('/add', data);
+    return this.send('add', data);
   }
 
   /**
@@ -104,7 +104,7 @@ export class Api {
         where: getQuerySchema(condition)
       });
     }
-    return this.send('/edit', data);
+    return this.send('edit', data);
   }
 
   /**
@@ -119,7 +119,7 @@ export class Api {
     if (extra) {
       Object.assign(body, extra);
     }
-    return this.send('/edit', body).pipe(
+    return this.send('edit', body).pipe(
       map(v => {
         if (!v.error) {
           data[field] = !data[field];
@@ -142,6 +142,6 @@ export class Api {
     } else {
       body['where'] = getQuerySchema(condition as SearchOption[]);
     }
-    return this.send('/delete', body);
+    return this.send('delete', body);
   }
 }
