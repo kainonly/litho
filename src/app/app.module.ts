@@ -14,9 +14,10 @@ import { LoginComponent, LoginModule } from '@vanx/framework/login';
 import { NZ_CONFIG, NzConfig } from 'ng-zorro-antd/core/config';
 import { en_US, NZ_I18N } from 'ng-zorro-antd/i18n';
 import { NzIconService } from 'ng-zorro-antd/icon';
-import { BitModule, BitService } from 'ngx-bit';
+import { BitModule } from 'ngx-bit';
 import { BitSwalModule } from 'ngx-bit/swal';
 
+import { AppGuard } from './app-guard';
 import { AppInterceptors } from './app-interceptors';
 import { AppComponent } from './app.component';
 
@@ -26,7 +27,7 @@ const routes: Routes = [
   {
     path: '',
     loadChildren: () => import('./app-routing.module').then(m => m.AppRoutingModule),
-    canActivate: []
+    canActivate: [AppGuard]
   },
   {
     path: 'login',
@@ -56,7 +57,7 @@ const ngZorroConfig: NzConfig = {
     RouterModule.forRoot(routes, { useHash: true })
   ],
   providers: [
-    BitService,
+    AppGuard,
     { provide: HTTP_INTERCEPTORS, useClass: AppInterceptors, multi: true },
     { provide: NZ_I18N, useValue: en_US },
     { provide: NZ_CONFIG, useValue: ngZorroConfig }

@@ -11,10 +11,10 @@ export class BitFormSubmitDirective implements OnInit {
 
   ngOnInit(): void {
     this.form.ngSubmit.subscribe(() => {
-      for (const control of Object(this.form.control.controls)) {
+      Object.values(this.form.control.controls).forEach(control => {
         control.markAsDirty();
         control.updateValueAndValidity();
-      }
+      });
       this.bitFormSubmit.emit(this.form.value);
     });
   }

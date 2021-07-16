@@ -13,16 +13,14 @@ export class Api {
    * 获取 URL
    */
   get url(): string {
-    return this.option.baseUrl + this.option.model;
+    return `${this.option.baseUrl + this.option.model}/`;
   }
 
   /**
    * 发起统一请求
    */
   send(path: string, body: Record<string, any> = {}): Observable<any> {
-    return this.http.post(this.url + path, {
-      body
-    });
+    return this.http.post(this.url + path, body);
   }
 
   /**

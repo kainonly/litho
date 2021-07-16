@@ -48,10 +48,6 @@ export class BitService {
    * 国际化状态
    */
   readonly i18nChanged?: Subject<string>;
-  /**
-   * 国际化输入提示状态
-   */
-  i18nTooltip: I18nTooltipOption = {};
 
   constructor(
     private config: BitConfig,
@@ -68,19 +64,19 @@ export class BitService {
     }
     if (config.locale) {
       this.language = new Map();
-      this.setLocale(localStorage.getItem('locale') || config.locale.default);
       this.localeChanged = new Subject<string>();
+      this.setLocale(localStorage.getItem('locale') || config.locale.default);
     }
     if (config.i18n) {
-      this.i18n = config.i18n.default;
       this.i18nChanged = new Subject<string>();
+      this.i18n = config.i18n.default;
     }
   }
 
   /**
    * 路由导航
    */
-  open(commands: string[], extras?: NavigationExtras): void {
+  open(commands: Array<string | Record<string, any>>, extras?: NavigationExtras): void {
     if (commands.length === 0) {
       throw new Error('路由导航 URL 数组不能为空');
     }
@@ -120,16 +116,21 @@ export class BitService {
   }
 
   /**
-   * 载入语言包
+   * 注册语言包
    */
   registerLocales(packer: Record<string, any> | Promise<any>): void {
     if (packer instanceof Promise) {
-      packer.then(value => this.importLocales(value.default as Record<string, any>));
+      packer.then(value => {
+        this.importLocales(value.default as Record<string, any>);
+      });
     } else {
-      this.importLocales(packer);
+      this.importLocales(packer.default);
     }
   }
 
+  /**
+   * 载入语言包
+   */
   private importLocales(packer: Record<string, any>): void {
     this.language = new Map([...this.language!, ...Object.entries(packer)]);
     const index = this.config.locale!.mapping.indexOf(this.locale!)!;
