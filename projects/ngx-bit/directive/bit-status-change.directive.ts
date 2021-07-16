@@ -12,13 +12,10 @@ import { BitService } from 'ngx-bit';
 export class BitStatusChangeDirective {
   @Input() bitStatusChange!: Observable<any>;
   @Input() @InputBoolean() bitControl = false;
-  @Output() readonly bitResponse?: EventEmitter<any>;
+  @Output() readonly bitResponse: EventEmitter<any> = new EventEmitter<any>();
 
   constructor(nzSwitchComponent: NzSwitchComponent, private bit: BitService, private message: NzMessageService) {
     nzSwitchComponent.nzControl = true;
-    if (this.bitControl) {
-      this.bitResponse = new EventEmitter<any>();
-    }
   }
 
   @HostListener('click')

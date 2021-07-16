@@ -7,7 +7,7 @@ import { BitService } from 'ngx-bit';
   selector: '[bitOpen]'
 })
 export class BitOpenDirective {
-  @Input() bitOpen!: string[];
+  @Input() bitOpen!: Array<string | Record<string, any>>;
   @Input() bitExtras?: NavigationExtras;
 
   constructor(private bit: BitService) {}
