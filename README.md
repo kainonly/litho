@@ -31,9 +31,9 @@ interested in this, you can work together to improve it.
 
 The API can choose the following items:
 
-- [lab-api(Go-Gin)](https://github.com/kain-lab/lab-api) *Use case of tool set to assist Gin framework*
-- [hyperf-api-case(PHP~Swoole)](https://github.com/kainonly/hyperf-api-case) *辅助 Hyperf 框架的工具集合使用案例*
-- [think-api-case(PHP)](https://github.com/kainonly/think-api-case) *辅助 ThinkPHP 框架的工具集合使用案例*
+- [lab-api(Go-Gin)](https://github.com/kain-lab/lab-api) _Use case of tool set to assist Gin framework_
+- [hyperf-api-case(PHP~Swoole)](https://github.com/kainonly/hyperf-api-case) _辅助 Hyperf 框架的工具集合使用案例_
+- [think-api-case(PHP)](https://github.com/kainonly/think-api-case) _辅助 ThinkPHP 框架的工具集合使用案例_
 
 ## License
 

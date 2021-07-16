@@ -16,99 +16,40 @@
     "importHelpers": true,
     "target": "es2017",
     "module": "es2020",
-    "lib": [
-      "es2018",
-      "dom"
-    ],
+    "lib": ["es2018", "dom"],
     "paths": {
-      "@env": [
-        "src/environments/environment.ts"
-      ],
-      "@common/*": [
-        "src/app/common/*"
-      ],
-      "@api/*": [
-        "src/app/api/*"
-      ],
-      "@share": [
-        "src/app/app-share.module.ts"
-      ],
-      "ngx-bit": [
-        "projects/ngx-bit/public-api.ts"
-      ],
-      "ngx-bit/component": [
-        "projects/ngx-bit/component/public-api.ts"
-      ],
-      "ngx-bit/directive": [
-        "projects/ngx-bit/directive/public-api.ts"
-      ],
-      "ngx-bit/operates": [
-        "projects/ngx-bit/operates/public-api.ts"
-      ],
-      "ngx-bit/pipe": [
-        "projects/ngx-bit/pipe/public-api.ts"
-      ],
-      "ngx-bit/router": [
-        "projects/ngx-bit/router/public-api.ts"
-      ],
-      "ngx-bit/swal": [
-        "projects/ngx-bit/swal/public-api.ts"
-      ],
+      "@env": ["src/environments/environment.ts"],
+      "@common/*": ["src/app/common/*"],
+      "@api/*": ["src/app/api/*"],
+      "@share": ["src/app/app-share.module.ts"],
+      "ngx-bit": ["projects/ngx-bit/public-api.ts"],
+      "ngx-bit/component": ["projects/ngx-bit/component/public-api.ts"],
+      "ngx-bit/directive": ["projects/ngx-bit/directive/public-api.ts"],
+      "ngx-bit/operates": ["projects/ngx-bit/operates/public-api.ts"],
+      "ngx-bit/pipe": ["projects/ngx-bit/pipe/public-api.ts"],
+      "ngx-bit/router": ["projects/ngx-bit/router/public-api.ts"],
+      "ngx-bit/swal": ["projects/ngx-bit/swal/public-api.ts"],
       "@vanx/framework": [
         "projects/vanx/framework/public-api.ts",
         "dist/vanx/framework/vanx-framework",
         "dist/vanx/framework"
       ],
-      "@vanx/framework/component": [
-        "projects/vanx/framework/component/public-api.ts"
-      ],
-      "@vanx/framework/layout": [
-        "projects/vanx/framework/layout/public-api.ts"
-      ],
-      "@vanx/framework/login": [
-        "projects/vanx/framework/login/public-api.ts"
-      ],
-      "@vanx/framework/profile": [
-        "projects/vanx/framework/profile/public-api.ts"
-      ],
-      "@vanx/framework/acl": [
-        "projects/vanx/framework/acl/public-api.ts"
-      ],
-      "@vanx/framework/resource": [
-        "projects/vanx/framework/resource/public-api.ts"
-      ],
-      "@vanx/framework/role": [
-        "projects/vanx/framework/role/public-api.ts"
-      ],
-      "@vanx/framework/user": [
-        "projects/vanx/framework/user/public-api.ts"
-      ],
-      "@vanx/framework/permission": [
-        "projects/vanx/framework/permission/public-api.ts"
-      ],
-      "@vanx/framework/security": [
-        "projects/vanx/framework/security/public-api.ts"
-      ],
-      "@vanx/cms": [
-        "projects/vanx/cms/public-api.ts",
-        "dist/vanx/cms/vanx-cms",
-        "dist/vanx/cms"
-      ],
-      "@vanx/cms/component": [
-        "projects/vanx/cms/component/public-api.ts"
-      ],
-      "@vanx/cms/media": [
-        "projects/vanx/cms/media/public-api.ts"
-      ],
-      "@vanx/cms/schema": [
-        "projects/vanx/cms/schema/public-api.ts"
-      ],
-      "@vanx/cms/template": [
-        "projects/vanx/cms/template/public-api.ts"
-      ],
-      "@mock/*": [
-        "resource/mock/*"
-      ]
+      "@vanx/framework/component": ["projects/vanx/framework/component/public-api.ts"],
+      "@vanx/framework/layout": ["projects/vanx/framework/layout/public-api.ts"],
+      "@vanx/framework/login": ["projects/vanx/framework/login/public-api.ts"],
+      "@vanx/framework/profile": ["projects/vanx/framework/profile/public-api.ts"],
+      "@vanx/framework/acl": ["projects/vanx/framework/acl/public-api.ts"],
+      "@vanx/framework/resource": ["projects/vanx/framework/resource/public-api.ts"],
+      "@vanx/framework/role": ["projects/vanx/framework/role/public-api.ts"],
+      "@vanx/framework/user": ["projects/vanx/framework/user/public-api.ts"],
+      "@vanx/framework/permission": ["projects/vanx/framework/permission/public-api.ts"],
+      "@vanx/framework/security": ["projects/vanx/framework/security/public-api.ts"],
+      "@vanx/cms": ["projects/vanx/cms/public-api.ts", "dist/vanx/cms/vanx-cms", "dist/vanx/cms"],
+      "@vanx/cms/component": ["projects/vanx/cms/component/public-api.ts"],
+      "@vanx/cms/media": ["projects/vanx/cms/media/public-api.ts"],
+      "@vanx/cms/schema": ["projects/vanx/cms/schema/public-api.ts"],
+      "@vanx/cms/template": ["projects/vanx/cms/template/public-api.ts"],
+      "@mock/*": ["resource/mock/*"]
     },
     "plugins": [
       {

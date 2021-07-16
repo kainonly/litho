@@ -8,5 +8,6 @@ module.exports = {
   arrowParens: 'avoid',
   bracketSpacing: true,
   proseWrap: 'preserve',
-  trailingComma: 'none'
+  trailingComma: 'none',
+  endOfLine: 'lf'
 };
