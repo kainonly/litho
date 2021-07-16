@@ -5,7 +5,7 @@ export function asyncValidator(
   handle: Observable<boolean>,
   field = 'duplicated',
   dueTime = 500
-): Observable<Record<string, unknown> | null> {
+): Observable<Record<string, any> | null> {
   return timer(dueTime).pipe(
     switchMap(() => handle),
     map(result => {

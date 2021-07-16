@@ -15,7 +15,7 @@ export interface UploadOption {
 
 export interface UploadSignedResponse {
   filename: string;
-  option: Record<string, unknown>;
+  option: Record<string, any>;
 }
 
 export type UploadStorage = 'default' | 'oss' | 'obs' | 'cos';
@@ -54,13 +54,13 @@ export interface I18n {
 
 export interface I18nOption {
   i18n: string;
-  name: Record<string, unknown>;
+  name: Record<string, any>;
 }
 
 export type I18nTooltipOption = Record<string, string[]>;
 
 export interface I18nGroupOption {
-  value: Record<string, unknown>;
+  value: Record<string, any>;
   validate: Record<string, ValidatorFn | ValidatorFn[] | AbstractControlOptions | null>;
   asyncValidate: Record<string, AsyncValidatorFn | AsyncValidatorFn[] | null>;
 }
@@ -68,12 +68,12 @@ export interface I18nGroupOption {
 export interface SearchOption {
   field: string;
   op: string;
-  value: unknown;
+  value: any;
   exclude?: SearchExclude[];
   format?: SearchFormat;
 }
 
-export type SearchExclude = '' | 0 | null | unknown;
+export type SearchExclude = '' | 0 | null | any;
 export type SearchFormat = 'unixtime';
 
 export type OrderOption = Record<string, Order>;
@@ -82,12 +82,6 @@ export type Order = 'asc' | 'desc';
 export interface ApiOption {
   baseUrl: string;
   model: string;
-}
-
-export interface ApiResponse {
-  error: number;
-  data: Record<string, unknown>;
-  msg?: string;
 }
 
 export interface ListByPageOption {

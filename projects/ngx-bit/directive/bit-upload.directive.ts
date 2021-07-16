@@ -21,7 +21,7 @@ export class BitUploadDirective {
        */
       return;
     }
-    nzUploadComponent.nzData = (file: NzUploadFile): Observable<Record<string, unknown>> => {
+    nzUploadComponent.nzData = (file: NzUploadFile): Observable<Record<string, any>> => {
       return http
         .request(option.fetchSignedMethod!, option.fetchSigned!, {
           withCredentials: true

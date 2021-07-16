@@ -12,7 +12,7 @@ export class BitRouterService {
   /**
    * 被激活的导航
    */
-  navActive: unknown[] = [];
+  navActive: any[] = [];
   /**
    * 允许返回
    */
@@ -28,7 +28,7 @@ export class BitRouterService {
   /**
    * 面包屑默认顶点
    */
-  breadcrumbRoot: unknown = 0;
+  breadcrumbRoot: any = 0;
   /**
    * 面包屑数据
    */
@@ -36,27 +36,27 @@ export class BitRouterService {
   /**
    * 顶部公告
    */
-  banner?: TemplateRef<unknown>;
+  banner?: TemplateRef<any>;
   /**
    * 页头标题 Tags
    */
-  tags?: TemplateRef<unknown>;
+  tags?: TemplateRef<any>;
   /**
    * 页头操作部分
    */
-  actions?: Array<TemplateRef<unknown>> = [];
+  actions?: Array<TemplateRef<any>> = [];
   /**
    * 页头内容部分
    */
-  content?: TemplateRef<unknown>;
+  content?: TemplateRef<any>;
   /**
    * 页头底部部分
    */
-  footer?: TemplateRef<unknown>;
+  footer?: TemplateRef<any>;
   /**
    * 平行路由状态
    */
-  readonly changed: Subject<unknown> = new Subject();
+  readonly changed: Subject<any> = new Subject();
   private events$!: Subscription;
 
   constructor(private router: Router, private storage: StorageMap) {}
@@ -109,7 +109,7 @@ export class BitRouterService {
               .slice(0, i + 1)
               .map(v => v.path)
               .join('/');
-            if ((<Record<string, unknown>>v).hasOwnProperty(key)) {
+            if ((<Record<string, any>>v).hasOwnProperty(key)) {
               return key;
             }
           }
@@ -131,9 +131,9 @@ export class BitRouterService {
       const queue = [];
       const breadcrumb: BreadcrumbOption[] = [];
       const navActive = [];
-      const data = v as Record<string, unknown>;
+      const data = v as Record<string, any>;
       if (data.hasOwnProperty(key)) {
-        const node = data[key] as Record<string, unknown>;
+        const node = data[key] as Record<string, any>;
         const name = JSON.parse(node.name as string);
         this.title = name;
         navActive.unshift(node.key);
@@ -149,7 +149,7 @@ export class BitRouterService {
       while (queue.length !== this.breadcrumbRoot) {
         const parentKey = queue.pop() as string;
         if (data.hasOwnProperty(parentKey)) {
-          const next = data[parentKey] as Record<string, unknown>;
+          const next = data[parentKey] as Record<string, any>;
           navActive.unshift(next.key);
           breadcrumb.unshift({
             name: JSON.parse(next.name as string),

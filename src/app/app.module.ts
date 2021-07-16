@@ -9,7 +9,7 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 
 import { environment } from '@env';
 import { AppShareModule } from '@share';
-import { FrameworkModule, TokenService } from '@vanx/framework';
+import { FrameworkModule } from '@vanx/framework';
 import { LoginComponent, LoginModule } from '@vanx/framework/login';
 import { NZ_CONFIG, NzConfig } from 'ng-zorro-antd/core/config';
 import { en_US, NZ_I18N } from 'ng-zorro-antd/i18n';
@@ -26,7 +26,7 @@ const routes: Routes = [
   {
     path: '',
     loadChildren: () => import('./app-routing.module').then(m => m.AppRoutingModule),
-    canActivate: [TokenService]
+    canActivate: []
   },
   {
     path: 'login',

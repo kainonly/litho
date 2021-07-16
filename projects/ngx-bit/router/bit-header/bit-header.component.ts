@@ -28,7 +28,7 @@ import { BitHeaderTagsDirective } from './bit-header-tags.directive';
 export class BitHeaderComponent implements OnInit, AfterViewInit, OnDestroy {
   @Input() subTitle?: string | Record<string, string>;
   @Input() back?: string;
-  @ViewChild('ContentTpl') content?: TemplateRef<unknown>;
+  @ViewChild('ContentTpl') content?: TemplateRef<any>;
   @ContentChild(BitHeaderBannerDirective) banner?: BitHeaderBannerDirective;
   @ContentChild(BitHeaderTagsDirective) tags?: BitHeaderTagsDirective;
   @ContentChildren(BitHeaderActionDirective) actions?: QueryList<BitHeaderActionDirective>;

@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
 
-import { ApiOption, ApiResponse, OrderOption, SearchOption } from '../types';
+import { ApiOption, OrderOption, SearchOption } from '../types';
 import { ListByPage } from './list-by-page';
 import { getQuerySchema } from './utils';
 
@@ -19,7 +19,7 @@ export class Api {
   /**
    * 发起统一请求
    */
-  send(path: string, body: Record<string, unknown> = {}): Observable<unknown> {
+  send(path: string, body: Record<string, any> = {}): Observable<any> {
     return this.http.post(this.url + path, {
       body
     });
@@ -28,8 +28,8 @@ export class Api {
   /**
    * 获取单条数据请求
    */
-  get(condition: number | string | SearchOption[], order?: OrderOption): Observable<Record<string, unknown> | null> {
-    const body: Record<string, unknown> = {};
+  get(condition: number | string | SearchOption[], order?: OrderOption): Observable<Record<string, any> | null> {
+    const body: Record<string, any> = {};
     if (!Array.isArray(condition)) {
       body['id'] = condition;
     } else {
@@ -38,18 +38,13 @@ export class Api {
         body['order'] = order;
       }
     }
-    return this.send('/get', body).pipe(
-      map(v => {
-        const response = v as ApiResponse;
-        return !response.error ? response.data : null;
-      })
-    );
+    return this.send('/get', body).pipe(map(v => (!v.error ? v.data : null)));
   }
 
   /**
    * 获取分页数据请求
    */
-  lists(factory: ListByPage, refresh: boolean, persistence: boolean): Observable<Record<string, unknown> | null> {
+  lists(factory: ListByPage, refresh: boolean, persistence: boolean): Observable<Record<string, any> | null> {
     if (refresh || persistence) {
       if (refresh) {
         factory.index = 1;
@@ -69,14 +64,13 @@ export class Api {
         });
       }),
       map(v => {
-        const response = v as ApiResponse;
-        factory.totals = !response.error ? (response.data.total as number) : 0;
+        factory.totals = !v.error ? v.data.total : 0;
         factory.loading = false;
         factory.checked = false;
         factory.indeterminate = false;
         factory.batch = false;
         factory.checkedNumber = 0;
-        return !response.error ? (response.data.lists as Record<string, unknown>) : null;
+        return !v.error ? (v.data.lists as Record<string, any>) : null;
       })
     );
   }
@@ -84,33 +78,28 @@ export class Api {
   /**
    * 获取原始列表数据请求
    */
-  originLists(condition: SearchOption[] = [], order?: OrderOption): Observable<Record<string, unknown> | null> {
-    const body: Record<string, unknown> = {};
+  originLists(condition: SearchOption[] = [], order?: OrderOption): Observable<Record<string, any> | null> {
+    const body: Record<string, any> = {};
     if (condition.length !== 0) {
       body['where'] = getQuerySchema(condition);
     }
     if (order) {
       body['order'] = order;
     }
-    return this.send('/originLists', body).pipe(
-      map(v => {
-        const response = v as ApiResponse;
-        return !response.error ? response.data : null;
-      })
-    );
+    return this.send('/originLists', body).pipe(map(v => (!v.error ? v.data : null)));
   }
 
   /**
    * 新增数据请求
    */
-  add(data: Record<string, unknown>): Observable<unknown> {
+  add(data: Record<string, any>): Observable<any> {
     return this.send('/add', data);
   }
 
   /**
    * 修改数据请求
    */
-  edit(data: Record<string, unknown>, condition?: SearchOption[]): Observable<unknown> {
+  edit(data: Record<string, any>, condition?: SearchOption[]): Observable<any> {
     data.switch = false;
     if (condition) {
       Object.assign(data, {
@@ -123,8 +112,8 @@ export class Api {
   /**
    * 状态切换请求
    */
-  status(data: Record<string, unknown>, field = 'status', extra?: Record<string, unknown>): Observable<unknown> {
-    const body: Record<string, unknown> = {
+  status(data: Record<string, any>, field = 'status', extra?: Record<string, any>): Observable<any> {
+    const body: Record<string, any> = {
       id: data.id,
       switch: true,
       [field]: !data[field]
@@ -134,11 +123,10 @@ export class Api {
     }
     return this.send('/edit', body).pipe(
       map(v => {
-        const response = v as ApiResponse;
-        if (!response.error) {
+        if (!v.error) {
           data[field] = !data[field];
         }
-        return response;
+        return v;
       })
     );
   }
@@ -146,11 +134,11 @@ export class Api {
   /**
    * 删除数据请求
    */
-  delete(condition: string[] | number[] | SearchOption[]): Observable<unknown> {
+  delete(condition: string[] | number[] | SearchOption[]): Observable<any> {
     if (condition.length === 0) {
       throw new Error(`[ID] 或 [SearchOption] 数组不能为空`);
     }
-    const body: Record<string, unknown> = {};
+    const body: Record<string, any> = {};
     if (typeof condition[0] === 'string' || typeof condition[0] === 'number') {
       body['id'] = condition;
     } else {

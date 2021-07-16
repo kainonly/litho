@@ -11,5 +11,5 @@ export interface AlertOption {
 }
 
 export interface SwalFn {
-  fire(args: Record<string, unknown>): Promise<Record<string, unknown>>;
+  fire(args: Record<string, any>): Promise<Record<string, any>>;
 }

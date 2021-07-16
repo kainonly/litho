@@ -35,7 +35,7 @@ export class BitService {
   /**
    * 语言包
    */
-  private language?: Map<string, unknown>;
+  private language?: Map<string, any>;
   /**
    * 语言包模板变量
    */
@@ -122,12 +122,19 @@ export class BitService {
   /**
    * 载入语言包
    */
-  registerLocales(packer: Record<string, unknown>): void {
+  registerLocales(packer: Record<string, any> | Promise<any>): void {
+    if (packer instanceof Promise) {
+      packer.then(value => this.importLocales(value.default as Record<string, any>));
+    } else {
+      this.importLocales(packer);
+    }
+  }
+
+  private importLocales(packer: Record<string, any>): void {
     this.language = new Map([...this.language!, ...Object.entries(packer)]);
     const index = this.config.locale!.mapping.indexOf(this.locale!)!;
-    for (const [key, value] of this.language.entries()) {
-      const data = value as Record<string, unknown>;
-      this.l[key] = data[index] as string;
+    for (const [key, data] of this.language.entries()) {
+      this.l[key] = data[index];
     }
   }
 
@@ -138,9 +145,8 @@ export class BitService {
     this.locale = locale;
     localStorage.setItem('locale', locale);
     const index = this.config.locale!.mapping.indexOf(this.locale)!;
-    for (const [key, value] of this.language!.entries()) {
-      const data = value as Record<string, unknown>;
-      this.l[key] = data[index] as string;
+    for (const [key, data] of this.language!.entries()) {
+      this.l[key] = data[index];
     }
     this.nzI18nService.setLocale(this.config.locale!.bind[index]);
     this.localeChanged!.next(locale);
@@ -168,7 +174,7 @@ export class BitService {
    * 创建国际化 FormGroup
    */
   i18nGroup(options: Partial<I18nGroupOption>): FormGroup {
-    const controls: Record<string, unknown[]> = {};
+    const controls: Record<string, any[]> = {};
     for (const ID of this.config.i18n!.contain) {
       controls[ID] = new Array(3).fill(null);
       controls[ID][0] = options.value?.[ID];
@@ -181,8 +187,8 @@ export class BitService {
   /**
    * 国际化数据转化
    */
-  i18nParse(value: string): Record<string, unknown> {
-    const data: Record<string, unknown> = JSON.parse(value);
+  i18nParse(value: string): Record<string, any> {
+    const data: Record<string, any> = JSON.parse(value);
     for (const key of Object(data).keys) {
       if (!this.config.i18n!.contain.includes(key)) {
         Reflect.deleteProperty(data, key);

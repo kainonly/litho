@@ -7,6 +7,7 @@ module.exports = {
       excludedFiles: ['*.spec.ts'],
       parser: '@typescript-eslint/parser',
       parserOptions: {
+        tsconfigRootDir: __dirname,
         project: ['tsconfig.json'],
         createDefaultProgram: true
       },

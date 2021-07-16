@@ -9,7 +9,7 @@ module.exports = {
       files: ['*.ts'],
       plugins: ['@typescript-eslint', 'import'],
       parserOptions: {
-        project: ['./tsconfig.lib.json'],
+        project: ['projects/ngx-bit/tsconfig.lib.json'],
         createDefaultProgram: true
       },
       rules: {
@@ -70,7 +70,6 @@ module.exports = {
             accessibility: 'explicit'
           }
         ],
-        '@typescript-eslint/no-explicit-any': 'error',
         '@typescript-eslint/no-floating-promises': 'off',
         '@typescript-eslint/no-for-in-array': 'error',
         '@typescript-eslint/no-inferrable-types': [

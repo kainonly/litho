@@ -18,7 +18,7 @@ export class BitSwalService {
   /**
    * 创建提示框
    */
-  create(option: AlertOption): Observable<Record<string, unknown>> {
+  create(option: AlertOption): Observable<Record<string, any>> {
     return this.ready.pipe(
       switchMap(plugin =>
         fromPromise(
@@ -50,18 +50,14 @@ export class BitSwalService {
   /**
    * 新增响应提示框
    */
-  addAlert(
-    response: Record<string, unknown>,
-    form: FormGroup,
-    reset?: Record<string, unknown>
-  ): Observable<boolean | null> {
+  addAlert(response: Record<string, any>, form: FormGroup, reset?: Record<string, any>): Observable<boolean | null> {
     if (!response.error) {
       return this.create({
-        title: this.bit.l.AddAlertSuccessTitle as string,
-        content: this.bit.l.AddAlertSuccessContent as string,
+        title: this.bit.l.AddAlertSuccessTitle,
+        content: this.bit.l.AddAlertSuccessContent,
         type: 'success',
-        okText: this.bit.l.AddAlertSuccessOk as string,
-        cancelText: this.bit.l.AddAlertSuccessCancel as string
+        okText: this.bit.l.AddAlertSuccessOk,
+        cancelText: this.bit.l.AddAlertSuccessCancel
       }).pipe(
         map(result => {
           if (result.value) {
@@ -74,10 +70,10 @@ export class BitSwalService {
       );
     }
     return this.create({
-      title: this.bit.l.AddAlertErrorTitle as string,
-      content: (!response.msg ? this.bit.l.AddAlertErrorContent : response.msg) as string,
+      title: this.bit.l.AddAlertErrorTitle,
+      content: !response.msg ? this.bit.l.AddAlertErrorContent : response.msg,
       type: 'error',
-      okText: this.bit.l.AddAlertErrorOk as string,
+      okText: this.bit.l.AddAlertErrorOk,
       cancelShow: false
     }).pipe(map(() => null));
   }
@@ -85,14 +81,14 @@ export class BitSwalService {
   /**
    * 修改响应提示框
    */
-  editAlert(response: Record<string, unknown>): Observable<boolean | null> {
+  editAlert(response: Record<string, any>): Observable<boolean | null> {
     if (!response.error) {
       return this.create({
-        title: this.bit.l.EditAlertSuccessTitle as string,
-        content: this.bit.l.EditAlertSuccessContent as string,
+        title: this.bit.l.EditAlertSuccessTitle,
+        content: this.bit.l.EditAlertSuccessContent,
         type: 'success',
-        okText: this.bit.l.EditAlertSuccessOk as string,
-        cancelText: this.bit.l.EditAlertSuccessCancel as string
+        okText: this.bit.l.EditAlertSuccessOk,
+        cancelText: this.bit.l.EditAlertSuccessCancel
       }).pipe(
         map(result => {
           if (result.value) {
@@ -105,10 +101,10 @@ export class BitSwalService {
     }
 
     return this.create({
-      title: this.bit.l.EditAlertErrorTitle as string,
-      content: (!response.msg ? this.bit.l.EditAlertErrorContent : response.msg) as string,
+      title: this.bit.l.EditAlertErrorTitle,
+      content: !response.msg ? this.bit.l.EditAlertErrorContent : response.msg,
       type: 'error',
-      okText: this.bit.l.EditAlertErrorOk as string,
+      okText: this.bit.l.EditAlertErrorOk,
       cancelShow: false
     }).pipe(map(() => null));
   }
@@ -116,14 +112,14 @@ export class BitSwalService {
   /**
    * 删除响应提示框
    */
-  deleteAlert(observable: Observable<Record<string, unknown>>): Observable<Record<string, unknown>> {
+  deleteAlert(observable: Observable<Record<string, any>>): Observable<Record<string, any>> {
     return this.create({
-      title: this.bit.l.DeleteAlertTitle as string,
-      content: this.bit.l.DeleteAlertContent as string,
+      title: this.bit.l.DeleteAlertTitle,
+      content: this.bit.l.DeleteAlertContent,
       type: 'question',
-      okText: this.bit.l.DeleteAlertOk as string,
+      okText: this.bit.l.DeleteAlertOk,
       okDanger: true,
-      cancelText: this.bit.l.DeleteAlertCancel as string
+      cancelText: this.bit.l.DeleteAlertCancel
     }).pipe(switchMap(result => (!result.value ? of({}) : observable)));
   }
 }

@@ -1,6 +1,6 @@
-export function empty(value: unknown): boolean {
+export function empty(value: any): boolean {
   if (typeof value === 'object') {
-    return Object.keys(<Record<string, unknown>>value).length === 0;
+    return Object.keys(value).length === 0;
   }
-  return ['', 0, false, null, undefined].includes(<string | number | boolean | null | undefined>value);
+  return ['', 0, false, null, undefined].includes(value);
 }

@@ -13,7 +13,7 @@ export class ListByPage {
   /**
    * 搜索字段定义
    */
-  search: { [field: string]: SearchOption } = {};
+  search: Record<string, SearchOption> = {};
 
   /**
    * 排序字段定义
@@ -23,7 +23,7 @@ export class ListByPage {
   /**
    * 分页数据
    */
-  data: Array<Record<string, unknown>> = [];
+  data: Array<Record<string, any>> = [];
 
   /**
    * 加载状态
@@ -48,7 +48,7 @@ export class ListByPage {
   /**
    * 是否全被选中
    */
-  checked = false;
+  checked: boolean = false;
 
   /**
    * 是否不完全被选中
@@ -84,7 +84,7 @@ export class ListByPage {
   /**
    * 设置数据
    */
-  setData(data: Array<Record<string, unknown>>): void {
+  setData(data: Array<Record<string, any>>): void {
     this.data = data;
   }
 
@@ -105,7 +105,7 @@ export class ListByPage {
   /**
    * 主动触发搜索清空之后
    */
-  clearSearch(reset: Record<string, unknown> = {}): Observable<undefined> {
+  clearSearch(reset: Record<string, any> = {}): Observable<undefined> {
     for (const key in this.search) {
       if (this.search.hasOwnProperty(key)) {
         const search = this.search[key];
@@ -142,14 +142,14 @@ export class ListByPage {
   /**
    * 返回所有被选中的列表
    */
-  getChecked(): Array<Record<string, unknown>> {
+  getChecked(): Array<Record<string, any>> {
     return this.data.filter(value => value.checked);
   }
 
   /**
    * 获取当前的页码
    */
-  getPage(): Observable<unknown> {
+  getPage(): Observable<any> {
     return this.storage.get(`page:${this.option.id}`);
   }
 

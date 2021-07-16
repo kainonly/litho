@@ -7,7 +7,7 @@ import { ListByPage } from 'ngx-bit';
 })
 export class BitSearchClearDirective {
   @Input() bitSearchClear!: ListByPage;
-  @Input() bitReset?: Record<string, unknown>;
+  @Input() bitReset?: Record<string, any>;
   @Output() readonly bitAfter: EventEmitter<undefined> = new EventEmitter<undefined>();
 
   @HostListener('click')

@@ -1,15 +1,14 @@
 import { Observable } from 'rxjs';
 
 import { SearchOption } from '../types';
-import { TemplateRef } from '@angular/core';
 
 /**
  * 返回查询数组
  */
-export function getQuerySchema(options: SearchOption[]): unknown[] {
+export function getQuerySchema(options: SearchOption[]): any[] {
   const schema = [];
   for (const search of options) {
-    if (typeof search.value === 'object' && Object.keys(<Record<string, unknown>>search.value).length === 0) {
+    if (typeof search.value === 'object' && Object.keys(<Record<string, any>>search.value).length === 0) {
       continue;
     }
     if (typeof search.value === 'string') {

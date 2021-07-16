@@ -7,7 +7,7 @@ import { BitConfig, BitService } from 'ngx-bit';
   template: `
     <ng-container *ngIf="bit.i18nContain.length > 1">
       <nz-radio-group [(ngModel)]="bit.i18n" (ngModelChange)="i18nChanged($event)">
-        <ng-container *ngFor="let item of config.i18n.switch">
+        <ng-container *ngFor="let item of config.i18n!.switch">
           <label nz-radio-button [nzValue]="item.i18n">
             <span>
               <b>{{ item.name | object: bit.locale }}</b>

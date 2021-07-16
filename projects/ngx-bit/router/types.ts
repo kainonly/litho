@@ -5,6 +5,6 @@ export interface BreadcrumbOption {
 }
 
 export interface RouterData {
-  resource: Record<string, unknown>;
-  router: Record<string, unknown>;
+  resource: Record<string, any>;
+  router: Record<string, any>;
 }
