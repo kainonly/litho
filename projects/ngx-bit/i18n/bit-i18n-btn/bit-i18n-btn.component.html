@@ -1,0 +1,11 @@
+<button style="margin-left: 12px" nz-button nzType="text" type="button" (click)="open()">
+  <i nz-icon nzType="translation"> </i> 国际化
+</button>
+
+<nz-drawer [nzWidth]="540" [nzClosable]="false" [nzVisible]="i18nVisable" (nzOnClose)="close()">
+  <ng-container *nzDrawerContent>
+    <nz-tabset>
+      <nz-tab *ngFor="let x of ['中文', '英文']" [nzTitle]="x"></nz-tab>
+    </nz-tabset>
+  </ng-container>
+</nz-drawer>
