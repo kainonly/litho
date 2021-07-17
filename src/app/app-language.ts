@@ -3,7 +3,7 @@ export default {
   welcome: ['欢迎访问企业测试系统', 'Welcome to Your Compony'],
   subTitle: ['遵循 Ant Design 设计规范的 Angular 企业系统', 'An Angular enterprise system based on Ant Design'],
   footer: [
-    '基于 ng-zorro-antd 强力驱动，由 kain 整合开发的系统解决方案',
+    '基于 ng-zorro-antd 强力驱动，由 kain 整合开发的中后台前端解决方案',
     'Based on the drive of ng-zorro-antd, a system solution integrated and developed by kain'
   ],
 
@@ -24,7 +24,7 @@ export default {
   back: ['返回', 'Back'],
   status: ['状态', 'Status'],
   on: ['开启', 'On'],
-  off: ['冻结', 'Off'],
+  off: ['关闭', 'Off'],
   yes: ['是', 'Yes'],
   no: ['否', 'No'],
   action: ['操作', 'Action'],

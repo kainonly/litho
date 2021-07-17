@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 import { BitService } from 'ngx-bit';
 
@@ -13,7 +13,13 @@ export class BitSiderComponent {
   @Input() collapsed = false;
   @Input() data: any[] = [];
 
+  @Output() readonly collapsedChange: EventEmitter<boolean> = new EventEmitter<boolean>();
+
   constructor(public bit: BitService, public router: BitRouterService) {}
+
+  change(value: any) {
+    this.collapsedChange.emit(value);
+  }
 
   /**
    * 返回层级

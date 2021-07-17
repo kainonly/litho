@@ -15,7 +15,7 @@ export class BitConfig {
   /**
    * 默认分页限制
    */
-  page = 10;
+  page = 20;
   /**
    * 栅格标识
    */

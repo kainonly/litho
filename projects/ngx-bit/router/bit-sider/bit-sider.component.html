@@ -1,6 +1,6 @@
-<nz-sider nzCollapsible [(nzCollapsed)]="collapsed" [nzBreakpoint]="'lg'">
+<nz-sider nzBreakpoint="lg" nzCollapsible [(nzCollapsed)]="collapsed" (nzCollapsedChange)="change($event)">
   <div class="scroll-bar">
-    <ul nz-menu [nzTheme]="'dark'" [nzInlineCollapsed]="collapsed" [nzMode]="collapsed ? 'vertical' : 'inline'">
+    <ul nzTheme="dark" nz-menu [nzInlineCollapsed]="collapsed" [nzMode]="collapsed ? 'vertical' : 'inline'">
       <ng-container *ngTemplateOutlet="navTemplate; context: { $implicit: data }"></ng-container>
       <ng-template #navTemplate let-navs>
         <ng-container *ngFor="let nav of navs">

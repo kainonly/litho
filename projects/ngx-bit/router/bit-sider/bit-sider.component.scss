@@ -1,11 +1,11 @@
 nz-sider {
-  overflow: hidden;
+  overflow: auto;
   height: 100%;
   position: fixed;
   left: 0;
+}
 
-  .scroll-bar {
-    height: calc(100% - 48px);
-    overflow: auto;
-  }
+.scroll-bar {
+  height: calc(100% - 48px);
+  overflow: auto;
 }
