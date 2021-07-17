@@ -1,6 +1,18 @@
 <nz-sider nzBreakpoint="lg" nzCollapsible [(nzCollapsed)]="collapsed" (nzCollapsedChange)="change($event)">
-  <div class="scroll-bar">
-    <ul nzTheme="dark" nz-menu [nzInlineCollapsed]="collapsed" [nzMode]="collapsed ? 'vertical' : 'inline'">
+  <div class="sider-logo" [ngClass]="{ collapsed: collapsed }">
+    <a href="#">
+      <img src="/assets/logo.svg" alt="ng-zorro-antd" />
+      <h1>Angular Bit</h1>
+    </a>
+  </div>
+  <div class="sider-scroll-bar">
+    <ul
+      nz-menu
+      nzTheme="dark"
+      [nzInlineIndent]="16"
+      [nzInlineCollapsed]="collapsed"
+      [nzMode]="collapsed ? 'vertical' : 'inline'"
+    >
       <ng-container *ngTemplateOutlet="navTemplate; context: { $implicit: data }"></ng-container>
       <ng-template #navTemplate let-navs>
         <ng-container *ngFor="let nav of navs">

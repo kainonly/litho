@@ -37,6 +37,7 @@ const routes: Routes = [
 
 const ngZorroConfig: NzConfig = {
   notification: { nzPlacement: 'bottomRight' },
+  table: { nzSize: 'middle' },
   card: { nzBorderless: true }
 };
 

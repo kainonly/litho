@@ -21,14 +21,22 @@ export class BitConfig {
    */
   grid: Grid = {
     label: {
-      nzSpan: 7
+      nzXXl: 4,
+      nzXl: 6,
+      nzLg: 6,
+      nzSm: 7
     },
     control: {
-      nzSpan: 12
+      nzXXl: 6,
+      nzXl: 8,
+      nzLg: 10,
+      nzSm: 12
     },
     submit: {
-      nzOffset: 7,
-      nzSpan: 12
+      nzXXl: { offset: 4, span: 6 },
+      nzXl: { offset: 6, span: 8 },
+      nzLg: { offset: 6, span: 10 },
+      nzSm: { offset: 7, span: 12 }
     }
   };
   /**

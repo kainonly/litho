@@ -30,6 +30,6 @@ export class BitSiderComponent {
       deep++;
       data = data.parentNode as Record<string, any>;
     }
-    return deep * 24;
+    return deep * 16;
   }
 }
