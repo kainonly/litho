@@ -32,6 +32,12 @@ export class BitConfig {
       nzLg: 10,
       nzSm: 12
     },
+    i18n: {
+      nzXXl: 8,
+      nzXl: 10,
+      nzLg: 12,
+      nzSm: 14
+    },
     submit: {
       nzXXl: { offset: 4, span: 6 },
       nzXl: { offset: 6, span: 8 },

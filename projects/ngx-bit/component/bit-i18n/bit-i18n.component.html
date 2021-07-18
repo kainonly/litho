@@ -1,0 +1,21 @@
+<nz-list nzBordered nzSize="small">
+  <nz-list-item *ngFor="let item of test">
+    {{ item.content | nzEllipsis: 100:'...' }}
+    <ul nz-list-item-actions>
+      <nz-list-item-action>
+        <button nz-button nzType="text" type="button" (click)="open()">
+          <i nz-icon nzType="translation"> </i>{{ item.id }}
+        </button>
+      </nz-list-item-action>
+    </ul>
+  </nz-list-item>
+</nz-list>
+
+<nz-modal [(nzVisible)]="i18nVisable" [nzTitle]="title" (nzOnCancel)="close()">
+  <ng-template #title>
+    {{ bitTitle }}
+  </ng-template>
+  <ng-container *nzModalContent>
+    <ng-content></ng-content>
+  </ng-container>
+</nz-modal>

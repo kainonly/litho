@@ -7,7 +7,7 @@ import { BitConfig } from 'ngx-bit';
   selector: '[bitCol]'
 })
 export class BitColDirective implements OnInit {
-  @Input() bitCol!: 'label' | 'control' | 'submit' | string;
+  @Input() bitCol!: 'label' | 'control' | 'i18n' | 'submit' | string;
 
   constructor(private nzColDirective: NzColDirective, private config: BitConfig) {}
 
