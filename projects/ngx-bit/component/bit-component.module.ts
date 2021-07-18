@@ -10,12 +10,14 @@ import { NzListModule } from 'ng-zorro-antd/list';
 import { NzModalModule } from 'ng-zorro-antd/modal';
 import { NzPipesModule } from 'ng-zorro-antd/pipes';
 import { NzRadioModule } from 'ng-zorro-antd/radio';
+import { NzTabsModule } from 'ng-zorro-antd/tabs';
+import { NzTagModule } from 'ng-zorro-antd/tag';
 import { NzTypographyModule } from 'ng-zorro-antd/typography';
 import { BitPipeModule } from 'ngx-bit/pipe';
 
 import { BitI18nSwitchComponent } from './bit-i18n-switch.component';
-import { BitI18nComponent } from './bit-i18n/bit-i18n.component';
-import { NzTagModule } from 'ng-zorro-antd/tag';
+import { BitI18nComponent } from './bit-i18n.component';
+import { BitI18nTabDirective } from './bit-i18n-tab.directive';
 
 @NgModule({
   imports: [
@@ -31,9 +33,10 @@ import { NzTagModule } from 'ng-zorro-antd/tag';
     NzFormModule,
     NzTypographyModule,
     NzDescriptionsModule,
-    NzTagModule
+    NzTagModule,
+    NzTabsModule
   ],
-  declarations: [BitI18nSwitchComponent, BitI18nComponent],
-  exports: [BitI18nSwitchComponent, BitI18nComponent]
+  declarations: [BitI18nSwitchComponent, BitI18nComponent, BitI18nTabDirective],
+  exports: [BitI18nSwitchComponent, BitI18nComponent, BitI18nTabDirective]
 })
 export class BitComponentModule {}

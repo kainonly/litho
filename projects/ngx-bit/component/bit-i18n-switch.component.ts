@@ -2,6 +2,9 @@ import { Component } from '@angular/core';
 
 import { BitConfig, BitService } from 'ngx-bit';
 
+/**
+ * @deprecated
+ */
 @Component({
   selector: 'bit-i18n-switch',
   template: `
