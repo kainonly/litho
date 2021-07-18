@@ -16,8 +16,6 @@ import { NzTypographyModule } from 'ng-zorro-antd/typography';
 import { BitPipeModule } from 'ngx-bit/pipe';
 
 import { BitI18nSwitchComponent } from './bit-i18n-switch.component';
-import { BitI18nComponent } from './bit-i18n.component';
-import { BitI18nTabDirective } from './bit-i18n-tab.directive';
 
 @NgModule({
   imports: [
@@ -36,7 +34,7 @@ import { BitI18nTabDirective } from './bit-i18n-tab.directive';
     NzTagModule,
     NzTabsModule
   ],
-  declarations: [BitI18nSwitchComponent, BitI18nComponent, BitI18nTabDirective],
-  exports: [BitI18nSwitchComponent, BitI18nComponent, BitI18nTabDirective]
+  declarations: [BitI18nSwitchComponent],
+  exports: [BitI18nSwitchComponent]
 })
 export class BitComponentModule {}

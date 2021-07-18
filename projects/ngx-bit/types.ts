@@ -62,8 +62,6 @@ export interface I18nOption {
   name: Record<string, any>;
 }
 
-export type I18nTooltipOption = Record<string, string[]>;
-
 export interface I18nGroupOption {
   value: Record<string, any>;
   validate: Record<string, ValidatorFn | ValidatorFn[] | AbstractControlOptions | null>;
