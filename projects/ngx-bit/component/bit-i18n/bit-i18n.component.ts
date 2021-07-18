@@ -1,29 +1,31 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { AfterViewInit, Component, ContentChild, Input, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { AbstractControl, FormControl, FormGroupDirective } from '@angular/forms';
 
-import { BitService } from 'ngx-bit';
+import { BitConfig, BitService } from 'ngx-bit';
 
 @Component({
   selector: 'bit-i18n',
-  templateUrl: './bit-i18n.component.html'
+  templateUrl: './bit-i18n.component.html',
+  exportAs: 'bitI18n'
 })
-export class BitI18nComponent implements OnInit {
+export class BitI18nComponent {
   @Input() bitTitle!: string;
-  @Input() formGroup!: AbstractControl;
   i18nVisable = false;
   test: any[] = [
-    { id: '中文', content: '资源控制模块' },
-    { id: '英文', content: 'Resource Module' }
+    { id: 'zh_cn', name: '中文', content: '资源控制模块' },
+    { id: 'en_us', name: '英文', content: 'Resource Module' }
   ];
+  id!: string;
 
-  constructor(private bit: BitService, private group: FormGroupDirective) {}
+  constructor(private config: BitConfig, private bit: BitService) {}
 
-  ngOnInit(): void {
-    console.log(this.group);
+  get contain(): string[] {
+    return this.config.i18n!.contain;
   }
 
-  open(): void {
+  open(id: string): void {
     this.i18nVisable = true;
+    this.id = id;
   }
 
   close(): void {

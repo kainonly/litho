@@ -3,9 +3,7 @@
     {{ item.content | nzEllipsis: 100:'...' }}
     <ul nz-list-item-actions>
       <nz-list-item-action>
-        <button nz-button nzType="text" type="button" (click)="open()">
-          <i nz-icon nzType="translation"> </i>{{ item.id }}
-        </button>
+        <a (click)="open(item.id)">{{ item.name }}</a>
       </nz-list-item-action>
     </ul>
   </nz-list-item>
