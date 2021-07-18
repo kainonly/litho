@@ -1,7 +1,6 @@
-import { AfterViewInit, Component, ContentChild, Input, OnInit, TemplateRef, ViewChild } from '@angular/core';
-import { AbstractControl, FormControl, FormGroupDirective } from '@angular/forms';
+import { Component } from '@angular/core';
 
-import { BitConfig, BitService } from 'ngx-bit';
+import { BitConfig, BitService, Language } from 'ngx-bit';
 
 @Component({
   selector: 'bit-i18n',
@@ -9,26 +8,30 @@ import { BitConfig, BitService } from 'ngx-bit';
   exportAs: 'bitI18n'
 })
 export class BitI18nComponent {
-  @Input() bitTitle!: string;
-  i18nVisable = false;
+  visable = false;
+  id!: string;
+
   test: any[] = [
     { id: 'zh_cn', name: '中文', content: '资源控制模块' },
     { id: 'en_us', name: '英文', content: 'Resource Module' }
   ];
-  id!: string;
 
   constructor(private config: BitConfig, private bit: BitService) {}
 
-  get contain(): string[] {
-    return this.config.i18n!.contain;
+  get languages(): Language[] {
+    return this.config.i18n!.languages;
+  }
+
+  eq(language: Language): boolean {
+    return this.id === language.id;
   }
 
   open(id: string): void {
-    this.i18nVisable = true;
+    this.visable = true;
     this.id = id;
   }
 
   close(): void {
-    this.i18nVisable = false;
+    this.visable = false;
   }
 }

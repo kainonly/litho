@@ -18,6 +18,7 @@ export class BitConfig {
   page = 20;
   /**
    * 栅格标识
+   * @deprecated
    */
   grid: Grid = {
     label: {

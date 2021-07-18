@@ -46,10 +46,15 @@ export interface Locale {
 export interface I18n {
   // 默认国际化 ID
   default: string;
-  // 国际化包含语言 ID
   contain: string[];
-  // 国际化设置
   switch: I18nOption[];
+  // 国际化设置
+  languages: Language[];
+}
+
+export interface Language {
+  id: string;
+  name: string | Record<string, any>;
 }
 
 export interface I18nOption {

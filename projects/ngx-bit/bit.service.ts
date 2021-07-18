@@ -35,13 +35,14 @@ export class BitService {
   /**
    * 语言包
    */
-  private language?: Map<string, any>;
+  private packer?: Map<string, any>;
   /**
    * 语言包模板变量
    */
   l: Record<string, string> = {};
   /**
    * 国际化 ID
+   * @deprecated
    */
   i18n?: string;
   /**
@@ -63,7 +64,7 @@ export class BitService {
       this.upload = typeof config.upload === 'string' ? config.upload : config.upload.url;
     }
     if (config.locale) {
-      this.language = new Map();
+      this.packer = new Map();
       this.localeChanged = new Subject<string>();
       this.setLocale(localStorage.getItem('locale') || config.locale.default);
     }
@@ -109,6 +110,7 @@ export class BitService {
 
   /**
    * 导航返回
+   * @deprecated
    */
   back(): void {
     this.location.back();
@@ -118,23 +120,23 @@ export class BitService {
   /**
    * 注册语言包
    */
-  registerLocales(packer: Record<string, any> | Promise<any>): void {
-    if (packer instanceof Promise) {
-      packer.then(value => {
+  registerLocales(args: Record<string, any> | Promise<any>): void {
+    if (args instanceof Promise) {
+      args.then(value => {
         this.importLocales(value.default as Record<string, any>);
       });
     } else {
-      this.importLocales(packer.default ?? {});
+      this.importLocales(args.default ?? {});
     }
   }
 
   /**
    * 载入语言包
    */
-  private importLocales(packer: Record<string, any>): void {
-    this.language = new Map([...this.language!, ...Object.entries(packer)]);
+  private importLocales(data: Record<string, any>): void {
+    this.packer = new Map([...this.packer!, ...Object.entries(data)]);
     const index = this.config.locale!.mapping.indexOf(this.locale!)!;
-    for (const [key, data] of this.language.entries()) {
+    for (const [key, data] of this.packer.entries()) {
       this.l[key] = data[index];
     }
   }
@@ -146,19 +148,23 @@ export class BitService {
     this.locale = locale;
     localStorage.setItem('locale', locale);
     const index = this.config.locale!.mapping.indexOf(this.locale)!;
-    for (const [key, data] of this.language!.entries()) {
+    for (const [key, data] of this.packer!.entries()) {
       this.l[key] = data[index];
     }
     this.nzI18nService.setLocale(this.config.locale!.bind[index]);
     this.localeChanged!.next(locale);
   }
 
+  /**
+   * @deprecated
+   */
   get i18nContain(): string[] {
     return this.config.i18n!.contain;
   }
 
   /**
    * 国际化 ID 是否相等
+   * @deprecated
    */
   equalI18n(i18n: string): boolean {
     return this.i18n === i18n;
@@ -166,6 +172,7 @@ export class BitService {
 
   /**
    * 重置国际化 ID
+   * @deprecated
    */
   resetI18n(): void {
     this.i18n = this.config.i18n!.default;
@@ -187,6 +194,7 @@ export class BitService {
 
   /**
    * 国际化数据转化
+   * @deprecated i18nData
    */
   i18nParse(value: string): Record<string, any> {
     const data: Record<string, any> = JSON.parse(value);

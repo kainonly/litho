@@ -29,6 +29,22 @@ const bit: Partial<BitConfig> = {
           en_us: 'English'
         }
       }
+    ],
+    languages: [
+      {
+        id: 'zh_cn',
+        name: {
+          zh_cn: '中文',
+          en_us: 'Chinese'
+        }
+      },
+      {
+        id: 'en_us',
+        name: {
+          zh_cn: '英文',
+          en_us: 'English'
+        }
+      }
     ]
   }
 };
