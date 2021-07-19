@@ -1,5 +1,4 @@
 export * from './bit-back.directive';
-export * from './bit-col.directive';
 export * from './bit-form-submit.directive';
 export * from './bit-history.directive';
 export * from './bit-open.directive';
