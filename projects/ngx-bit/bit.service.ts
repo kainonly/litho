@@ -40,15 +40,6 @@ export class BitService {
    * 语言包模板变量
    */
   l: Record<string, string> = {};
-  /**
-   * 国际化 ID
-   * @deprecated
-   */
-  i18n?: string;
-  /**
-   * 国际化状态
-   */
-  readonly i18nChanged?: Subject<string>;
 
   constructor(
     private config: BitConfig,
@@ -67,10 +58,6 @@ export class BitService {
       this.packer = new Map();
       this.localeChanged = new Subject<string>();
       this.setLocale(localStorage.getItem('locale') || config.locale.default);
-    }
-    if (config.i18n) {
-      this.i18nChanged = new Subject<string>();
-      this.i18n = config.i18n.default;
     }
   }
 
@@ -110,11 +97,9 @@ export class BitService {
 
   /**
    * 导航返回
-   * @deprecated
    */
   back(): void {
     this.location.back();
-    this.resetI18n();
   }
 
   /**
@@ -156,29 +141,6 @@ export class BitService {
   }
 
   /**
-   * @deprecated
-   */
-  get i18nContain(): string[] {
-    return this.config.i18n!.contain;
-  }
-
-  /**
-   * 国际化 ID 是否相等
-   * @deprecated
-   */
-  equalI18n(i18n: string): boolean {
-    return this.i18n === i18n;
-  }
-
-  /**
-   * 重置国际化 ID
-   * @deprecated
-   */
-  resetI18n(): void {
-    this.i18n = this.config.i18n!.default;
-  }
-
-  /**
    * 创建国际化 FormGroup
    */
   i18nGroup(options: Partial<I18nGroupOption>): FormGroup {
@@ -194,9 +156,8 @@ export class BitService {
 
   /**
    * 国际化数据转化
-   * @deprecated i18nData
    */
-  i18nParse(value: string): Record<string, any> {
+  i18nData(value: string): Record<string, any> {
     const data: Record<string, any> = JSON.parse(value);
     for (const key of Object(data).keys) {
       if (!this.config.i18n!.contain.includes(key)) {
