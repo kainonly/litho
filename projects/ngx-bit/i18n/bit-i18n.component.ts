@@ -8,7 +8,7 @@ import { BitI18nItemDirective } from './bit-i18n-item.directive';
   selector: 'bit-i18n',
   exportAs: 'bitI18n',
   template: `
-    <nz-tabset>
+    <nz-tabset nzSize="small">
       <ng-container *ngFor="let item of items">
         <ng-template #title>
           <ng-container *ngIf="isSingle; else multi">
