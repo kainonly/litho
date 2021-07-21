@@ -1,12 +1,4 @@
 export default {
-  // 登录页面语言包
-  welcome: ['打造云端一体化数据运营平台', 'Welcome to Your Compony'],
-  subTitle: ['遵循 Ant Design 设计规范的 Angular 企业系统', 'An Angular enterprise system based on Ant Design'],
-  footer: [
-    'kain',
-    'Based on the drive of ng-zorro-antd, a system solution integrated and developed by kain'
-  ],
-
   // 仪表盘语言包
   dashboard: ['仪表盘', 'Dashboard'],
   language: ['切换语言', 'Language'],
@@ -29,13 +21,14 @@ export default {
   no: ['否', 'No'],
   action: ['操作', 'Action'],
   upload: ['上传', 'Upload'],
+  validating: ['正在验证...', 'Validating...'],
   refreshLists: ['刷新列表', 'Refresh Lists'],
   clearSearch: ['清除搜索', 'Clear Search'],
   bulkDelete: ['批量删除', 'Bulk Delete'],
   startTime: ['开始日期', 'Start Time'],
   endTime: ['结束日期', 'End Time'],
 
-  // The Notification or Message Language Pack
+  // 全局提示与通知提示框
   success: ['操作成功', 'Operation Success'],
   error: ['操作失败', 'Operation Failed'],
   updateSuccess: [
@@ -57,15 +50,6 @@ export default {
     '您没有权限加载此模块或当前模块已被屏蔽',
     `You do not have permission to load this module or the current module has been blocked`
   ],
-
-  // The Tooltip Language Pack
-  I18nNoTip: ['无提示', 'No prompt'],
-  I18nZHCN: ['中文为空', 'Chinese empty'],
-  I18nENUS: ['英文为空', 'English empty'],
-  i18nTip: ['多语言输入框', 'A multilingual input box'],
-
-  // The Async Validate
-  validating: ['正在验证...', 'Validating...'],
 
   // The Status Language Pack
   StatusSuccess: [

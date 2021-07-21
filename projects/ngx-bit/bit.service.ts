@@ -103,23 +103,10 @@ export class BitService {
   }
 
   /**
-   * 注册语言包
-   */
-  registerLocales(args: Record<string, any> | Promise<any>): void {
-    if (args instanceof Promise) {
-      args.then(value => {
-        this.importLocales(value.default as Record<string, any>);
-      });
-    } else {
-      this.importLocales(args.default ?? {});
-    }
-  }
-
-  /**
    * 载入语言包
    */
-  private importLocales(data: Record<string, any>): void {
-    this.packer = new Map([...this.packer!, ...Object.entries(data)]);
+  registerLocales(packer: Record<string, any>): void {
+    this.packer = new Map([...this.packer!, ...Object.entries(packer)]);
     const index = this.config.locale!.mapping.indexOf(this.locale!)!;
     for (const [key, data] of this.packer.entries()) {
       this.l[key] = data[index];

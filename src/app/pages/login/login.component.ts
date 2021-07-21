@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
-import { AppService } from '@vanx/framework';
+import { AppService } from '@common/app.service';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { BitService } from 'ngx-bit';
 
-import * as packer from './language';
+import packer from './language';
 
 @Component({
   selector: 'app-login',
@@ -15,8 +15,7 @@ import * as packer from './language';
 })
 export class LoginComponent implements OnInit {
   form!: FormGroup;
-  users: any[] = [];
-  logining = false;
+  now = new Date().getFullYear();
 
   constructor(
     public bit: BitService,
@@ -30,13 +29,12 @@ export class LoginComponent implements OnInit {
     this.bit.clear();
     this.bit.registerLocales(packer);
     this.form = this.fb.group({
-      username: [null, [Validators.required]],
+      username: [null, [Validators.required, Validators.minLength(4), Validators.maxLength(20)]],
       password: [null, [Validators.required, Validators.minLength(12), Validators.maxLength(20)]]
     });
   }
 
   submit(data: any): void {
-    this.logining = true;
     this.appService.login(data.email, data.password).subscribe(res => {
       switch (res.error) {
         case 0:
@@ -51,7 +49,6 @@ export class LoginComponent implements OnInit {
           this.notification.error(this.bit.l.auth, this.bit.l.loginManyTimes);
           break;
       }
-      this.logining = false;
     });
   }
 }

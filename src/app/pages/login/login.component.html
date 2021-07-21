@@ -4,15 +4,20 @@
       <div class="logo">
         <img src="/assets/logo.svg" alt="vanx" />
       </div>
-      <h1>打造一体化数据运营平台</h1>
-      <form nz-form [formGroup]="form" (bitFormSubmit)="submit($event)">
+      <h1>{{ bit.l['title'] }}</h1>
+      <form [formGroup]="form" nz-form (bitFormSubmit)="submit($event)">
         <nz-form-item>
-          <nz-form-control>
-            <nz-input-group [nzSuffix]="usernameSuffix" [nzPrefix]="userPrefix">
-              <input type="text" nz-input formControlName="username" placeholder="用户名" />
-              <ng-template #userPrefix>
-                <i nz-icon nzType="user"></i>
-              </ng-template>
+          <nz-form-control
+            [nzAutoTips]="{
+              default: {
+                required: bit.l['usernameRequire'],
+                minlength: bit.l['usernameCorrectly'],
+                maxlength: bit.l['usernameCorrectly']
+              }
+            }"
+          >
+            <nz-input-group [nzSuffix]="usernameSuffix" nzPrefixIcon="user">
+              <input type="text" nz-input formControlName="username" [placeholder]="bit.l['usernamePlaceholder']" />
               <ng-template #usernameSuffix>
                 <i
                   *ngIf="form.get('username')!.value"
@@ -27,14 +32,22 @@
         </nz-form-item>
 
         <nz-form-item>
-          <nz-form-control>
+          <nz-form-control
+            [nzAutoTips]="{
+              default: {
+                required: bit.l['passwordRequire'],
+                minlength: bit.l['passwordCorrectly'],
+                maxlength: bit.l['passwordCorrectly']
+              }
+            }"
+          >
             <nz-input-group [nzSuffix]="passwordSuffix" nzPrefixIcon="lock">
               <input
                 nz-input
                 type="password"
                 formControlName="password"
                 autocomplete="new-password"
-                placeholder="口令"
+                [placeholder]="bit.l['passwordPlaceholder']"
               />
             </nz-input-group>
             <ng-template #passwordSuffix>
@@ -51,18 +64,14 @@
 
         <nz-form-item>
           <nz-form-control>
-            <button nz-button [nzLoading]="logining" nzBlock nzType="primary">
+            <button nz-button nzBlock nzType="primary">
               <i nz-icon nzType="login"></i>
-              登 录
+              {{ bit.l['login'] }}
             </button>
           </nz-form-control>
         </nz-form-item>
       </form>
     </nz-card>
-
-    <!--    <div class="login-content">-->
-    <!--      -->
-    <!--    </div>-->
     <footer>
       <nz-space [nzSplit]="split">
         <ng-template #split>
@@ -70,12 +79,12 @@
         </ng-template>
         <a *nzSpaceItem nz-typography>Vanx CMS 1.0</a>
         <a *nzSpaceItem nz-typography>BSD-3-Clause License</a>
-        <a *nzSpaceItem nz-typography><i nz-icon nzType="github"></i> </a>
+        <a *nzSpaceItem nz-typography> </a>
       </nz-space>
       <p nz-typography>
         <i nz-icon nzType="copyright"></i>
-        <span> 2021 Design By </span>
-        <a href="https://github.com/kainonly" target="_blank"> Kain </a>
+        <span> {{ now }} Developed by </span>
+        <a href="https://github.com/kainonly" target="_blank"> <b>kain </b> <i nz-icon nzType="github"></i></a>
       </p>
     </footer>
   </div>
