@@ -25,11 +25,11 @@ import { LoginComponent } from './pages/login/login.component';
 registerLocaleData(en);
 
 const routes: Routes = [
-  // {
-  //   path: '',
-  //   loadChildren: () => import('./app-routing.module').then(m => m.AppRoutingModule),
-  //   canActivate: [AppGuard]
-  // },
+  {
+    path: '',
+    loadChildren: () => import('./app-routing.module').then(m => m.AppRoutingModule),
+    canActivate: [AppGuard]
+  },
   {
     path: 'login',
     component: LoginComponent

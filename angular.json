@@ -160,29 +160,6 @@
           "defaultConfiguration": "production"
         }
       }
-    },
-    "@vanx/cms": {
-      "projectType": "library",
-      "root": "projects/vanx/cms",
-      "sourceRoot": "projects/vanx/cms",
-      "prefix": "v",
-      "architect": {
-        "build": {
-          "builder": "@angular-devkit/build-angular:ng-packagr",
-          "options": {
-            "project": "projects/vanx/cms/ng-package.json"
-          },
-          "configurations": {
-            "production": {
-              "tsConfig": "projects/vanx/cms/tsconfig.lib.prod.json"
-            },
-            "development": {
-              "tsConfig": "projects/vanx/cms/tsconfig.lib.json"
-            }
-          },
-          "defaultConfiguration": "production"
-        }
-      }
     }
   },
   "defaultProject": "ngx-bit-example"
