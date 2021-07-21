@@ -35,7 +35,7 @@ export class LoginComponent implements OnInit {
   }
 
   submit(data: any): void {
-    this.appService.login(data.email, data.password).subscribe(res => {
+    this.appService.login(data.username, data.password).subscribe(res => {
       switch (res.error) {
         case 0:
           this.bit.clear();

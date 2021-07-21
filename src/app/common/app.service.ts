@@ -1,5 +1,5 @@
 import { ElementRef, Injectable } from '@angular/core';
-import { AsyncSubject, Observable } from 'rxjs';
+import { AsyncSubject, Observable, Subject } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { Api, BitService } from 'ngx-bit';
@@ -11,6 +11,10 @@ export class AppService {
    * 内容节点
    */
   readonly content: AsyncSubject<ElementRef> = new AsyncSubject();
+  /**
+   * 刷新导航目录状态
+   */
+  readonly refreshMenu = new Subject();
 
   constructor(private bit: BitService) {
     this.api = bit.api('main');
@@ -74,5 +78,12 @@ export class AppService {
         }
       })
     );
+  }
+
+  /**
+   * 通知刷新导航目录
+   */
+  refreshMenuStart(): void {
+    this.refreshMenu.next(1);
   }
 }

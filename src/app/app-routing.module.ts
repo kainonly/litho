@@ -4,8 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { AppShareModule } from '@share';
 
 import { LayoutComponent } from './pages/layout/layout.component';
-import { BitRouterModule } from 'ngx-bit/router';
-import {NzAvatarModule} from "ng-zorro-antd/avatar";
+import { LayoutModule } from './pages/layout/layout.module';
 
 const routes: Routes = [
   {
@@ -25,7 +24,6 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [AppShareModule, BitRouterModule, RouterModule.forChild(routes), NzAvatarModule],
-  declarations: [LayoutComponent]
+  imports: [AppShareModule, LayoutModule, RouterModule.forChild(routes)]
 })
 export class AppRoutingModule {}

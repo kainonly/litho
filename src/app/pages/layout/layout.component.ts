@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy, ViewChild, ChangeDetectorRef, ElementRef 
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription, timer } from 'rxjs';
 
-import { AppService } from '@vanx/framework';
+import { AppService } from '@common/app.service';
 import { NzContentComponent } from 'ng-zorro-antd/layout';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { BitService } from 'ngx-bit';

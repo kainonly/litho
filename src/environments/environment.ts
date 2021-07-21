@@ -4,7 +4,7 @@ import { BitConfig } from 'ngx-bit';
 const cdn = 'https://cdn.kainonly.com/';
 
 const bit: Partial<BitConfig> = {
-  baseUrl: 'http://localhost:8000/system/',
+  baseUrl: 'https://dev.kainonly.com/system/',
   assets: cdn,
   locale: {
     default: 'zh_cn',
