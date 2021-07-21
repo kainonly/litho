@@ -79,12 +79,21 @@
         </ng-template>
         <a *nzSpaceItem nz-typography>Vanx CMS 1.0</a>
         <a *nzSpaceItem nz-typography>BSD-3-Clause License</a>
-        <a *nzSpaceItem nz-typography> </a>
+        <a *nzSpaceItem nz-typography nz-dropdown [nzDropdownMenu]="language">
+          <i nz-icon nzType="translation"></i>
+          {{ bit.l['language'] }}
+        </a>
+        <nz-dropdown-menu #language>
+          <ul nz-menu>
+            <li nz-menu-item (click)="bit.setLocale('zh_cn')"> <small>[ cn ]</small><span>&nbsp;- 简体中文</span> </li>
+            <li nz-menu-item (click)="bit.setLocale('en_us')"> <small>[ us ]</small><span>&nbsp;- English</span> </li>
+          </ul>
+        </nz-dropdown-menu>
       </nz-space>
       <p nz-typography>
         <i nz-icon nzType="copyright"></i>
         <span> {{ now }} Developed by </span>
-        <a href="https://github.com/kainonly" target="_blank"> <b>kain </b> <i nz-icon nzType="github"></i></a>
+        <a href="https://github.com/kainonly" target="_blank"> <b>KAIN </b> <i nz-icon nzType="github"></i></a>
       </p>
     </footer>
   </div>
