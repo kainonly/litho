@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { switchMap } from 'rxjs/operators';
 
-import { StorageMap } from '@ngx-pwa/local-storage';
 import { AppService } from '@vanx/framework';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { BitService } from 'ngx-bit';
@@ -25,59 +23,24 @@ export class LoginComponent implements OnInit {
     private appService: AppService,
     private notification: NzNotificationService,
     private router: Router,
-    private fb: FormBuilder,
-    private storage: StorageMap
+    private fb: FormBuilder
   ) {}
 
   ngOnInit(): void {
     this.bit.clear();
     this.bit.registerLocales(packer);
     this.form = this.fb.group({
-      username: [null, [Validators.required, Validators.minLength(4), Validators.maxLength(20)]],
-      password: [null, [Validators.required, Validators.minLength(12), Validators.maxLength(20)]],
-      remember: [1, [Validators.required]]
+      username: [null, [Validators.required]],
+      password: [null, [Validators.required, Validators.minLength(12), Validators.maxLength(20)]]
     });
-    this.storage.get('users').subscribe((data: unknown) => {
-      if (data) {
-        this.users = [...(<Set<string>>data).keys()];
-      }
-    });
-  }
-
-  addUsername(username: string): void {
-    this.storage
-      .get('users')
-      .pipe(
-        switchMap((data: unknown) =>
-          this.storage.set('users', data ? (<Set<string>>data).add(username) : new Set([username]))
-        )
-      )
-      .subscribe(() => {});
-  }
-
-  deleteUsername(event: any, username: string): void {
-    this.storage
-      .get('users')
-      .pipe(
-        switchMap((data: unknown) => {
-          (<Set<string>>data).delete(username);
-          this.users = [...(<Set<string>>data).keys()];
-          return this.storage.set('users', data);
-        })
-      )
-      .subscribe(() => {});
-    event.stopPropagation();
   }
 
   submit(data: any): void {
     this.logining = true;
-    this.appService.login(data.username, data.password).subscribe(res => {
+    this.appService.login(data.email, data.password).subscribe(res => {
       switch (res.error) {
         case 0:
           this.bit.clear();
-          if (data.remember) {
-            this.addUsername(data.username);
-          }
           this.notification.success(this.bit.l.auth, this.bit.l.loginSuccess);
           this.router.navigateByUrl('/');
           break;

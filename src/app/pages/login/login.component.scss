@@ -1,59 +1,45 @@
-.container-login {
+.login-layout {
   height: 100%;
   background: #fbfbfb;
-  position: relative;
-  overflow: hidden;
 }
 
-.i18n-btn {
-  position: absolute;
-  top: 30px;
-  right: 30px;
-}
-
-.login-wrapper {
-  position: absolute;
-  top: 10%;
-  left: 50%;
-  width: 360px;
-  margin-left: -180px;
-  padding: 40px 25px 25px 25px;
-  background: #fff;
+.login-content {
+  text-align: center;
+  margin: 20% auto 0;
+  width: 390px;
   border-radius: 3px;
   box-shadow: 0 7px 25px rgba(0, 0, 0, 0.08);
 
-  h1 {
-    padding-bottom: 25px;
-    text-align: center;
-    transition: 1s;
+  .logo {
+    width: 100%;
+    padding: 36px 0 24px;
 
     img {
-      height: 120px;
-      width: 120px;
+      height: 128px;
     }
+  }
 
-    &:hover {
-      cursor: pointer;
-      animation: heartBeat;
-      animation-duration: 2s;
-    }
+  h1 {
+    padding-bottom: 24px;
   }
 }
 
-.login-title {
-  text-align: center;
-  padding-bottom: 25px;
-}
-
-.user-del {
-  float: right;
-  margin-top: 3px;
-}
-
 footer {
+  text-align: center;
   position: absolute;
   bottom: 20px;
   left: 0;
   width: 100%;
-  text-align: center;
+
+  p {
+    padding-top: 10px;
+  }
+
+  a {
+    color: rgba(0, 0, 0, 0.85);
+  }
+
+  a:hover {
+    text-decoration: underline;
+  }
 }
