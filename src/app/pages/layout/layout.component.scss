@@ -1,0 +1,78 @@
+:host ::ng-deep {
+  .trigger {
+    font-size: 18px;
+    line-height: 64px;
+    padding: 0 24px;
+    cursor: pointer;
+    transition: color 0.3s;
+
+    &:hover {
+      color: #1890ff;
+    }
+  }
+}
+
+.main-layout {
+  height: 100%;
+  nz-sider {
+    overflow: auto;
+    height: 100%;
+    position: fixed;
+    left: 0;
+  }
+}
+
+$header: 56px;
+
+.right-layout {
+  overflow: auto;
+  transition: margin-left 0.2s;
+  margin-left: 200px;
+  margin-top: $header;
+
+  &.collapsed {
+    margin-left: 80px;
+  }
+}
+
+nz-header {
+  position: fixed;
+  top: 0;
+  right: 0;
+
+  height: $header;
+  line-height: $header;
+  width: calc(100% - 200px);
+
+  padding: 0 8px;
+  z-index: 999;
+  box-shadow: 0 1px 4px rgb(0 21 41 / 8%);
+  background: #fff;
+  transition: width 0.2s;
+
+  button {
+    height: 100%;
+  }
+
+  &.collapsed {
+    width: calc(100% - 80px);
+  }
+}
+
+.profile {
+  padding: 0 24px;
+
+  &:hover,
+  &:focus {
+    cursor: pointer;
+    background: rgba(0, 0, 0, 0.018);
+  }
+
+  span.name {
+    margin-left: 16px;
+  }
+}
+
+.content {
+  padding: 15px 12px;
+}

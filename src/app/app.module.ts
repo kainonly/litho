@@ -10,7 +10,6 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '@env';
 import { AppShareModule } from '@share';
 import { FrameworkModule } from '@vanx/framework';
-import { LoginComponent, LoginModule } from '@vanx/framework/login';
 import { NZ_CONFIG, NzConfig } from 'ng-zorro-antd/core/config';
 import { en_US, NZ_I18N } from 'ng-zorro-antd/i18n';
 import { NzIconService } from 'ng-zorro-antd/icon';
@@ -20,15 +19,16 @@ import { BitSwalModule } from 'ngx-bit/swal';
 import { AppGuard } from './app-guard';
 import { AppInterceptors } from './app-interceptors';
 import { AppComponent } from './app.component';
+import { LoginComponent } from './pages/login/login.component';
 
 registerLocaleData(en);
 
 const routes: Routes = [
-  {
-    path: '',
-    loadChildren: () => import('./app-routing.module').then(m => m.AppRoutingModule),
-    canActivate: [AppGuard]
-  },
+  // {
+  //   path: '',
+  //   loadChildren: () => import('./app-routing.module').then(m => m.AppRoutingModule),
+  //   canActivate: [AppGuard]
+  // },
   {
     path: 'login',
     component: LoginComponent
@@ -42,14 +42,13 @@ const ngZorroConfig: NzConfig = {
 };
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, LoginComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     HttpClientModule,
     AppShareModule,
     FrameworkModule,
-    LoginModule,
     BitModule.forRoot(environment.bit),
     BitSwalModule.forRoot(),
     ServiceWorkerModule.register('ngsw-worker.js', {

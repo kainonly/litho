@@ -1,0 +1,108 @@
+<div class="container-login">
+  <div class="i18n-btn">
+    <button nz-button nzType="text" nzSize="large" nz-dropdown [nzDropdownMenu]="i18nMenu">
+      <i nz-icon nzType="translation"></i> {{ bit.l['language'] }}
+    </button>
+    <nz-dropdown-menu #i18nMenu>
+      <ul nz-menu>
+        <li nz-menu-item (click)="bit.setLocale('zh_cn')">
+          <a title>中文</a>
+        </li>
+        <li nz-menu-item (click)="bit.setLocale('en_us')">
+          <a title>English(US)</a>
+        </li>
+      </ul>
+    </nz-dropdown-menu>
+  </div>
+  <div class="login-wrapper">
+    <h1 class="animate__animated animate__rubberBand">
+      <img src="/assets/logo.svg" alt="ng-zorro" />
+    </h1>
+    <h3 class="login-title">{{ bit.l['welcome'] }}</h3>
+    <form [formGroup]="form" (bitFormSubmit)="submit($event)">
+      <nz-form-item>
+        <nz-form-control>
+          <nz-input-group [nzSuffix]="usernameSuffix" [nzPrefix]="userPrefix">
+            <input
+              type="text"
+              nz-input
+              formControlName="username"
+              [nzAutocomplete]="auto"
+              [placeholder]="bit.l['usernamePlaceholder']"
+            />
+            <nz-autocomplete #auto>
+              <ng-container *ngFor="let x of users">
+                <nz-auto-option [nzValue]="x">
+                  {{ x }}
+                  <i class="user-del" nz-icon nzType="delete" (click)="deleteUsername($event, x)"></i>
+                </nz-auto-option>
+              </ng-container>
+            </nz-autocomplete>
+            <ng-template #userPrefix>
+              <i nz-icon nzType="user"></i>
+            </ng-template>
+            <ng-template #usernameSuffix>
+              <i
+                *ngIf="form.get('username')!.value"
+                nz-icon
+                nzType="close-circle"
+                (click)="form.get('username')!.reset()"
+              >
+              </i>
+            </ng-template>
+          </nz-input-group>
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item>
+        <nz-form-control>
+          <nz-input-group [nzSuffix]="passwordSuffix" [nzPrefix]="passwordPrefix">
+            <input
+              nz-input
+              type="password"
+              formControlName="password"
+              autocomplete="new-password"
+              [placeholder]="bit.l['passwordPlaceholder']"
+            />
+          </nz-input-group>
+          <ng-template #passwordPrefix>
+            <i nz-icon nzType="lock"></i>
+          </ng-template>
+          <ng-template #passwordSuffix>
+            <i
+              *ngIf="form.get('password')!.value"
+              nz-icon
+              nzType="close-circle"
+              (click)="form.get('password')!.reset()"
+            >
+            </i>
+          </ng-template>
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item>
+        <nz-form-control>
+          <label nz-checkbox formControlName="remember">
+            <span>{{ bit.l['loginRemember'] }}</span>
+          </label>
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item>
+        <nz-form-control>
+          <button nz-button [nzLoading]="logining" nzType="primary" [nzBlock]="true">
+            {{ bit.l['login'] }}
+          </button>
+        </nz-form-control>
+      </nz-form-item>
+    </form>
+  </div>
+
+  <footer>
+    <span nz-typography>
+      <strong>{{ bit.l['subTitle'] }}</strong>
+    </span>
+    <br />
+    <span nz-typography>{{ bit.l['footer'] }}</span>
+  </footer>
+</div>

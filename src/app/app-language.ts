@@ -1,9 +1,9 @@
 export default {
   // 登录页面语言包
-  welcome: ['欢迎访问企业测试系统', 'Welcome to Your Compony'],
+  welcome: ['打造云端一体化数据运营平台', 'Welcome to Your Compony'],
   subTitle: ['遵循 Ant Design 设计规范的 Angular 企业系统', 'An Angular enterprise system based on Ant Design'],
   footer: [
-    '基于 ng-zorro-antd 强力驱动，由 kain 整合开发的中后台前端解决方案',
+    'kain',
     'Based on the drive of ng-zorro-antd, a system solution integrated and developed by kain'
   ],
 

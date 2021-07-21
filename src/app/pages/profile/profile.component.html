@@ -1,0 +1,100 @@
+<v-page-form [formGroup]="form" [submit]="submit" [cancelDisabled]="true">
+  <nz-form-item *vPageFormItem>
+    <nz-form-label>
+      {{ bit.l['call'] }}
+    </nz-form-label>
+    <nz-form-control nzHasFeedback>
+      <input nz-input formControlName="call" [placeholder]="bit.l['callPlaceholder']" />
+    </nz-form-control>
+  </nz-form-item>
+
+  <nz-form-item *vPageFormItem>
+    <nz-form-label>
+      {{ bit.l['email'] }}
+    </nz-form-label>
+    <nz-form-control nzHasFeedback>
+      <input nz-input formControlName="email" [placeholder]="bit.l['emailPlaceholder']" />
+    </nz-form-control>
+  </nz-form-item>
+
+  <nz-form-item *vPageFormItem>
+    <nz-form-label>
+      {{ bit.l['phone'] }}
+    </nz-form-label>
+    <nz-form-control nzHasFeedback>
+      <input nz-input formControlName="phone" [placeholder]="bit.l['phonePlaceholder']" />
+    </nz-form-control>
+  </nz-form-item>
+
+  <nz-form-item *vPageFormItem>
+    <nz-form-label>
+      {{ bit.l['avatar'] }}
+    </nz-form-label>
+    <nz-form-control>
+      <nz-upload class="single-uploader" bitUpload nzName="file" nzListType="picture-card" (nzChange)="upload($event)">
+        <ng-container *ngIf="!avatar">
+          <i nz-icon nzType="plus"></i>
+          <div class="ant-upload-text">{{ bit.l['upload'] }}</div>
+        </ng-container>
+        <img *ngIf="avatar" [src]="bit.assets + avatar" class="avatar" />
+      </nz-upload>
+    </nz-form-control>
+  </nz-form-item>
+
+  <nz-form-item *vPageFormItem>
+    <nz-form-label>
+      {{ bit.l['editPassword'] }}
+    </nz-form-label>
+    <nz-form-control>
+      <nz-switch
+        [(ngModel)]="editPassword"
+        (ngModelChange)="editPasswordChange($event)"
+        [ngModelOptions]="{ standalone: true }"
+      >
+      </nz-switch>
+    </nz-form-control>
+  </nz-form-item>
+
+  <ng-container *ngIf="editPassword">
+    <nz-form-item *vPageFormItem>
+      <nz-form-label nzRequired>
+        {{ bit.l['oldPassword'] }}
+      </nz-form-label>
+      <nz-form-control nzHasFeedback>
+        <input
+          nz-input
+          type="password"
+          formControlName="old_password"
+          autocomplete="new-password"
+          [placeholder]="bit.l['passwordPlaceholder']"
+        />
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item *vPageFormItem>
+      <nz-form-label nzRequired>
+        <span>
+          {{ bit.l['newPassword'] }}
+          <i nz-icon nzType="question-circle" [nz-tooltip]="bit.l['passwordTips']"> </i>
+        </span>
+      </nz-form-label>
+      <nz-form-control nzHasFeedback>
+        <input nz-input type="password" formControlName="new_password" [placeholder]="bit.l['passwordPlaceholder']" />
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item *vPageFormItem>
+      <nz-form-label nzRequired>
+        {{ bit.l['passwordCheck'] }}
+      </nz-form-label>
+      <nz-form-control nzHasFeedback>
+        <input
+          nz-input
+          type="password"
+          formControlName="new_password_check"
+          [placeholder]="bit.l['passwordPlaceholder']"
+        />
+      </nz-form-control>
+    </nz-form-item>
+  </ng-container>
+</v-page-form>

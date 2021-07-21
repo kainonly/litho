@@ -1,0 +1,21 @@
+<v-page-table #pageTable [lists]="lists" [columns]="columns" [api]="logsService.api">
+  <nz-input-group *vPageTableSearch="'username'" [nzSuffixIcon]="'search'" style="width: 320px">
+    <input
+      nz-input
+      [placeholder]="bit.l['search']"
+      [(ngModel)]="lists.search['username'].value"
+      [bitSearchStart]="lists"
+      (bitAfter)="pageTable.getLists(true)"
+    />
+  </nz-input-group>
+  <nz-range-picker
+    *vPageTableSearch="'time'"
+    nzFormat="yyyy-MM-dd HH:mm:ss"
+    [bitSearchChange]="lists"
+    [nzShowTime]="{ nzFormat: 'HH:mm:ss' }"
+    [nzPlaceHolder]="[bit.l['startTime'], bit.l['endTime']]"
+    [(ngModel)]="lists.search['time'].value"
+    (after)="pageTable.getLists(true)"
+  >
+  </nz-range-picker>
+</v-page-table>
