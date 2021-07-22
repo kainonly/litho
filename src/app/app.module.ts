@@ -7,6 +7,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule, Routes } from '@angular/router';
 import { ServiceWorkerModule } from '@angular/service-worker';
 
+import { AppGuard } from '@common/app.guard';
+import { AppInterceptors } from '@common/app.interceptors';
 import { AppService } from '@common/app.service';
 import { environment } from '@env';
 import { AppShareModule } from '@share';
@@ -17,8 +19,6 @@ import { NzIconService } from 'ng-zorro-antd/icon';
 import { BitModule } from 'ngx-bit';
 import { BitSwalModule } from 'ngx-bit/swal';
 
-import { AppGuard } from './app-guard';
-import { AppInterceptors } from './app-interceptors';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './pages/login/login.component';
 

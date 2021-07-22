@@ -57,13 +57,13 @@ export class LayoutComponent implements OnInit, OnDestroy {
    * Get Menu Lists
    */
   private getMenuLists(): void {
-    this.appService.resource().subscribe(data => {
-      this.bitRouter.setData({
-        resource: data.resource,
-        router: data.router
-      });
-      this.navLists = data.nav;
-    });
+    // this.appService.resource().subscribe(data => {
+    //   this.bitRouter.setData({
+    //     resource: data.resource,
+    //     router: data.router
+    //   });
+    //   this.navLists = data.nav;
+    // });
   }
 
   private dispatch(): void {

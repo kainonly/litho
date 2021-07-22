@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
+import packer from '@common/app.language';
 import { BitService } from 'ngx-bit';
-
-import packer from './app-language';
 
 @Component({
   selector: 'app-root',

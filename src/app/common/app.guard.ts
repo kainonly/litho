@@ -4,14 +4,14 @@ import { CanActivate, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { BitConfig } from 'ngx-bit';
+import { AppService } from '@common/app.service';
 
 @Injectable({ providedIn: 'root' })
 export class AppGuard implements CanActivate {
-  constructor(private config: BitConfig, private http: HttpClient, private router: Router) {}
+  constructor(private app: AppService, private router: Router) {}
 
   canActivate(): Observable<any> {
-    return this.http.get(`${this.config.baseUrl}verify`).pipe(
+    return this.app.verify().pipe(
       map((res: any) => {
         if (res.error) {
           this.router.navigateByUrl('/login');
