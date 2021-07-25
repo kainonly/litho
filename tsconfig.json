@@ -29,17 +29,6 @@
       "ngx-bit/pipe": ["projects/ngx-bit/pipe/public-api.ts"],
       "ngx-bit/router": ["projects/ngx-bit/router/public-api.ts"],
       "ngx-bit/swal": ["projects/ngx-bit/swal/public-api.ts"],
-      "@vanx/framework": [
-        "projects/vanx/framework/public-api.ts",
-        "dist/vanx/framework/vanx-framework",
-        "dist/vanx/framework"
-      ],
-      "@vanx/framework/component": ["projects/vanx/framework/component/public-api.ts"],
-      "@vanx/framework/acl": ["projects/vanx/framework/acl/public-api.ts"],
-      "@vanx/framework/resource": ["projects/vanx/framework/resource/public-api.ts"],
-      "@vanx/framework/role": ["projects/vanx/framework/role/public-api.ts"],
-      "@vanx/framework/user": ["projects/vanx/framework/user/public-api.ts"],
-      "@vanx/framework/permission": ["projects/vanx/framework/permission/public-api.ts"],
       "@mock/*": ["resource/mock/*"]
     },
     "plugins": [

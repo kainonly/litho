@@ -137,29 +137,6 @@
           }
         }
       }
-    },
-    "@vanx/framework": {
-      "projectType": "library",
-      "root": "projects/vanx/framework",
-      "sourceRoot": "projects/vanx/framework",
-      "prefix": "v",
-      "architect": {
-        "build": {
-          "builder": "@angular-devkit/build-angular:ng-packagr",
-          "options": {
-            "project": "projects/vanx/framework/ng-package.json"
-          },
-          "configurations": {
-            "production": {
-              "tsConfig": "projects/vanx/framework/tsconfig.lib.prod.json"
-            },
-            "development": {
-              "tsConfig": "projects/vanx/framework/tsconfig.lib.json"
-            }
-          },
-          "defaultConfiguration": "production"
-        }
-      }
     }
   },
   "defaultProject": "ngx-bit-example"
