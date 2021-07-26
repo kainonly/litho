@@ -12,7 +12,6 @@ import { AppInterceptors } from '@common/app.interceptors';
 import { AppService } from '@common/app.service';
 import { environment } from '@env';
 import { AppShareModule } from '@share';
-import { FrameworkModule } from '@vanx/framework';
 import { NZ_CONFIG, NzConfig } from 'ng-zorro-antd/core/config';
 import { en_US, NZ_I18N } from 'ng-zorro-antd/i18n';
 import { NzIconService } from 'ng-zorro-antd/icon';
@@ -49,7 +48,6 @@ const ngZorroConfig: NzConfig = {
     BrowserAnimationsModule,
     HttpClientModule,
     AppShareModule,
-    FrameworkModule,
     BitModule.forRoot(environment.bit),
     BitSwalModule.forRoot(),
     ServiceWorkerModule.register('ngsw-worker.js', {
