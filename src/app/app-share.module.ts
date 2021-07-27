@@ -10,6 +10,7 @@ import { NzBadgeModule } from 'ng-zorro-antd/badge';
 import { NzBreadCrumbModule } from 'ng-zorro-antd/breadcrumb';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzCardModule } from 'ng-zorro-antd/card';
+import { NzCascaderModule } from 'ng-zorro-antd/cascader';
 import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
 import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
 import { NzDescriptionsModule } from 'ng-zorro-antd/descriptions';
@@ -51,8 +52,6 @@ import { NzUploadModule } from 'ng-zorro-antd/upload';
 import { BitDirectiveModule } from 'ngx-bit/directive';
 import { BitI18nModule } from 'ngx-bit/i18n';
 import { BitPipeModule } from 'ngx-bit/pipe';
-import { NzCascaderModule } from 'ng-zorro-antd/cascader';
-import { BitRouterModule } from 'ngx-bit/router';
 
 @NgModule({
   exports: [
@@ -111,8 +110,7 @@ import { BitRouterModule } from 'ngx-bit/router';
     PortalModule,
     BitDirectiveModule,
     BitPipeModule,
-    BitI18nModule,
-    BitRouterModule
+    BitI18nModule
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

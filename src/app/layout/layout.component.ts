@@ -17,4 +17,16 @@ export class LayoutComponent implements OnInit {
   ngOnInit(): void {
     this.bit.registerLocales(packer);
   }
+
+  /**
+   * 返回层级
+   */
+  level(data: Record<string, any>): number {
+    let deep = 0;
+    while (data.hasOwnProperty('parentNode')) {
+      deep++;
+      data = data.parentNode as Record<string, any>;
+    }
+    return deep * 16;
+  }
 }

@@ -1,142 +1,174 @@
 <nz-layout class="main-layout">
-  <bit-sider [(collapsed)]="collapsed" [data]="navs"></bit-sider>
-  <nz-layout class="right-layout" [ngClass]="{ collapsed: collapsed }">
-    <nz-header [ngClass]="{ collapsed: collapsed }">
-      <div nz-row nzJustify="space-between">
-        <div nz-col>
-          <input type="text" nz-input [placeholder]="bit.l['navigation']" nzBorderless />
+  <nz-header>
+    <div nz-row nzJustify="space-between">
+      <div nz-col>
+        <div class="logo">
+          <a href="#">
+            <img src="/assets/logo.svg" alt="ng-zorro-antd" />
+            <h1>NGX BIT</h1>
+          </a>
         </div>
-        <div nz-col> </div>
-        <div nz-col>
-          <nz-space>
-            <button
-              style="width: 56px"
-              *nzSpaceItem
-              nz-button
-              nzType="text"
-              nz-dropdown
-              [nzDropdownMenu]="translation"
-              nzPlacement="bottomRight"
-            >
-              <i nz-icon nzType="translation"></i>
-              <nz-dropdown-menu #translation>
-                <ul nz-menu style="width: 150px">
-                  <li nz-menu-item (click)="bit.setLocale('zh_cn')">
-                    <small>[ cn ]</small><span>&nbsp;- 简体中文</span>
-                  </li>
-                  <li nz-menu-item (click)="bit.setLocale('en_us')">
-                    <small>[ us ]</small><span>&nbsp;- English</span>
-                  </li>
-                </ul>
-              </nz-dropdown-menu>
-            </button>
-            <div *nzSpaceItem class="profile" nz-popover [nzPopoverContent]="center" nzPopoverPlacement="bottomRight">
-              <nz-badge nzDot>
-                <nz-avatar nzShape="square" [nzSize]="24" nzSrc="/assets/user.png"> </nz-avatar>
-              </nz-badge>
-              <span class="name">KAIN</span>
-              <ng-template #center>
-                <nz-tabset style="width: 360px" [nzTabBarExtraContent]="extraTemplate">
-                  <nz-tab nzTitle="通知(4)">
-                    <nz-list nzItemLayout="horizontal">
-                      <nz-list-item>
-                        <nz-list-item-meta>
-                          <nz-list-item-meta-title>你收到了14份周报</nz-list-item-meta-title>
-                          <nz-list-item-meta-description>1 天前</nz-list-item-meta-description>
-                        </nz-list-item-meta>
-                      </nz-list-item>
-                      <nz-list-item>
-                        <nz-list-item-meta>
-                          <nz-list-item-meta-title>合同协议已更新</nz-list-item-meta-title>
-                          <nz-list-item-meta-description>5 天前</nz-list-item-meta-description>
-                        </nz-list-item-meta>
-                      </nz-list-item>
-                      <nz-list-item>
-                        <nz-list-item-meta>
-                          <nz-list-item-meta-title>工作内容</nz-list-item-meta-title>
-                          <nz-list-item-meta-description>2 周前</nz-list-item-meta-description>
-                        </nz-list-item-meta>
-                      </nz-list-item>
-                    </nz-list>
-                    <button nz-button nzType="text" nzBlock>查看更多</button>
-                  </nz-tab>
-                  <nz-tab nzTitle="消息(3)">
-                    <nz-list nzItemLayout="horizontal">
-                      <nz-list-item>
-                        <nz-list-item-meta>
-                          <nz-list-item-meta-title>你收到了14份周报</nz-list-item-meta-title>
-                          <nz-list-item-meta-description>1 天前</nz-list-item-meta-description>
-                        </nz-list-item-meta>
-                      </nz-list-item>
-                      <nz-list-item>
-                        <nz-list-item-meta>
-                          <nz-list-item-meta-title>合同协议已更新</nz-list-item-meta-title>
-                          <nz-list-item-meta-description>5 天前</nz-list-item-meta-description>
-                        </nz-list-item-meta>
-                      </nz-list-item>
-                      <nz-list-item>
-                        <nz-list-item-meta>
-                          <nz-list-item-meta-title>工作内容</nz-list-item-meta-title>
-                          <nz-list-item-meta-description>2 周前</nz-list-item-meta-description>
-                        </nz-list-item-meta>
-                      </nz-list-item>
-                    </nz-list>
-                    <button nz-button nzType="text" nzBlock nzSize="large">查看更多</button>
-                  </nz-tab>
-                  <nz-tab nzTitle="待办(4)">
-                    <nz-list nzItemLayout="horizontal">
-                      <nz-list-item>
-                        <nz-list-item-meta>
-                          <nz-list-item-meta-title>你收到了14份周报</nz-list-item-meta-title>
-                          <nz-list-item-meta-description>1 天前</nz-list-item-meta-description>
-                        </nz-list-item-meta>
-                      </nz-list-item>
-                      <nz-list-item>
-                        <nz-list-item-meta>
-                          <nz-list-item-meta-title>合同协议已更新</nz-list-item-meta-title>
-                          <nz-list-item-meta-description>5 天前</nz-list-item-meta-description>
-                        </nz-list-item-meta>
-                      </nz-list-item>
-                      <nz-list-item>
-                        <nz-list-item-meta>
-                          <nz-list-item-meta-title>工作内容</nz-list-item-meta-title>
-                          <nz-list-item-meta-description>2 周前</nz-list-item-meta-description>
-                        </nz-list-item-meta>
-                      </nz-list-item>
-                    </nz-list>
-                    <button nz-button nzType="text" nzBlock>查看更多</button>
-                  </nz-tab>
-                </nz-tabset>
-                <ng-template #extraTemplate>
-                  <nz-space>
-                    <button
-                      *nzSpaceItem
-                      routerLink="/center/logs"
-                      nz-button
-                      nzType="text"
-                      [nz-tooltip]="bit.l['center']"
-                    >
-                      <i nz-icon nzType="user"></i>
-                    </button>
-                    <button *nzSpaceItem nz-button nzType="text" [nz-tooltip]="bit.l['setting']">
-                      <i nz-icon nzType="setting"></i>
-                    </button>
-                    <button *nzSpaceItem nz-button nzType="text" [nz-tooltip]="bit.l['exit']">
-                      <i nz-icon nzType="logout"></i>
-                    </button>
-                  </nz-space>
-                </ng-template>
+      </div>
+      <div nz-col> </div>
+      <div nz-col>
+        <nz-space>
+          <button
+            style="width: 56px"
+            *nzSpaceItem
+            nz-button
+            nzType="text"
+            nz-dropdown
+            [nzDropdownMenu]="translation"
+            nzPlacement="bottomRight"
+          >
+            <i nz-icon nzType="translation"></i>
+            <nz-dropdown-menu #translation>
+              <ul nz-menu style="width: 150px">
+                <li nz-menu-item (click)="bit.setLocale('zh_cn')">
+                  <small>[ cn ]</small><span>&nbsp;- 简体中文</span>
+                </li>
+                <li nz-menu-item (click)="bit.setLocale('en_us')">
+                  <small>[ us ]</small><span>&nbsp;- English</span>
+                </li>
+              </ul>
+            </nz-dropdown-menu>
+          </button>
+          <div *nzSpaceItem class="profile" nz-popover [nzPopoverContent]="center" nzPopoverPlacement="bottomRight">
+            <nz-badge nzDot>
+              <nz-avatar nzShape="square" [nzSize]="24" nzSrc="/assets/user.png"> </nz-avatar>
+            </nz-badge>
+            <span class="name">KAIN</span>
+            <ng-template #center>
+              <nz-tabset style="width: 360px" [nzTabBarExtraContent]="extraTemplate">
+                <nz-tab nzTitle="通知(4)">
+                  <nz-list nzItemLayout="horizontal">
+                    <nz-list-item>
+                      <nz-list-item-meta>
+                        <nz-list-item-meta-title>你收到了14份周报</nz-list-item-meta-title>
+                        <nz-list-item-meta-description>1 天前</nz-list-item-meta-description>
+                      </nz-list-item-meta>
+                    </nz-list-item>
+                    <nz-list-item>
+                      <nz-list-item-meta>
+                        <nz-list-item-meta-title>合同协议已更新</nz-list-item-meta-title>
+                        <nz-list-item-meta-description>5 天前</nz-list-item-meta-description>
+                      </nz-list-item-meta>
+                    </nz-list-item>
+                    <nz-list-item>
+                      <nz-list-item-meta>
+                        <nz-list-item-meta-title>工作内容</nz-list-item-meta-title>
+                        <nz-list-item-meta-description>2 周前</nz-list-item-meta-description>
+                      </nz-list-item-meta>
+                    </nz-list-item>
+                  </nz-list>
+                  <button nz-button nzType="text" nzBlock>查看更多</button>
+                </nz-tab>
+                <nz-tab nzTitle="消息(3)">
+                  <nz-list nzItemLayout="horizontal">
+                    <nz-list-item>
+                      <nz-list-item-meta>
+                        <nz-list-item-meta-title>你收到了14份周报</nz-list-item-meta-title>
+                        <nz-list-item-meta-description>1 天前</nz-list-item-meta-description>
+                      </nz-list-item-meta>
+                    </nz-list-item>
+                    <nz-list-item>
+                      <nz-list-item-meta>
+                        <nz-list-item-meta-title>合同协议已更新</nz-list-item-meta-title>
+                        <nz-list-item-meta-description>5 天前</nz-list-item-meta-description>
+                      </nz-list-item-meta>
+                    </nz-list-item>
+                    <nz-list-item>
+                      <nz-list-item-meta>
+                        <nz-list-item-meta-title>工作内容</nz-list-item-meta-title>
+                        <nz-list-item-meta-description>2 周前</nz-list-item-meta-description>
+                      </nz-list-item-meta>
+                    </nz-list-item>
+                  </nz-list>
+                  <button nz-button nzType="text" nzBlock nzSize="large">查看更多</button>
+                </nz-tab>
+                <nz-tab nzTitle="待办(4)">
+                  <nz-list nzItemLayout="horizontal">
+                    <nz-list-item>
+                      <nz-list-item-meta>
+                        <nz-list-item-meta-title>你收到了14份周报</nz-list-item-meta-title>
+                        <nz-list-item-meta-description>1 天前</nz-list-item-meta-description>
+                      </nz-list-item-meta>
+                    </nz-list-item>
+                    <nz-list-item>
+                      <nz-list-item-meta>
+                        <nz-list-item-meta-title>合同协议已更新</nz-list-item-meta-title>
+                        <nz-list-item-meta-description>5 天前</nz-list-item-meta-description>
+                      </nz-list-item-meta>
+                    </nz-list-item>
+                    <nz-list-item>
+                      <nz-list-item-meta>
+                        <nz-list-item-meta-title>工作内容</nz-list-item-meta-title>
+                        <nz-list-item-meta-description>2 周前</nz-list-item-meta-description>
+                      </nz-list-item-meta>
+                    </nz-list-item>
+                  </nz-list>
+                  <button nz-button nzType="text" nzBlock>查看更多</button>
+                </nz-tab>
+              </nz-tabset>
+              <ng-template #extraTemplate>
+                <nz-space>
+                  <button *nzSpaceItem routerLink="/center/logs" nz-button nzType="text" [nz-tooltip]="bit.l['center']">
+                    <i nz-icon nzType="user"></i>
+                  </button>
+                  <button *nzSpaceItem nz-button nzType="text" [nz-tooltip]="bit.l['setting']">
+                    <i nz-icon nzType="setting"></i>
+                  </button>
+                  <button *nzSpaceItem nz-button nzType="text" [nz-tooltip]="bit.l['exit']">
+                    <i nz-icon nzType="logout"></i>
+                  </button>
+                </nz-space>
               </ng-template>
-            </div>
-          </nz-space>
+            </ng-template>
+          </div>
+        </nz-space>
+      </div>
+    </div>
+  </nz-header>
+
+  <nz-layout class="section-layout">
+    <nz-sider nzTheme="light" [nzWidth]="240">
+      <ul
+        nz-menu
+        nzTheme="light"
+        [nzInlineIndent]="16"
+        [nzInlineCollapsed]="collapsed"
+        [nzMode]="collapsed ? 'vertical' : 'inline'"
+      >
+        <ng-container *ngTemplateOutlet="navTemplate; context: { $implicit: navs }"></ng-container>
+        <ng-template #navTemplate let-navs>
+          <ng-container *ngFor="let nav of navs">
+            <ng-container *ngIf="nav.router; else notRouter">
+              <li nz-menu-item [nzPaddingLeft]="level(nav)" [bitOpen]="[nav.key]">
+                <i nz-icon [nzType]="nav.icon"></i>
+                <span class="nav-text">{{ nav.name | object: bit.locale }}</span>
+              </li>
+            </ng-container>
+            <ng-template #notRouter>
+              <li nz-submenu [nzPaddingLeft]="level(nav)">
+                <span title>
+                  <i nz-icon [nzType]="nav.icon"></i>
+                  <span>{{ nav.name | object: bit.locale }}</span>
+                </span>
+                <ul>
+                  <ng-container *ngTemplateOutlet="navTemplate; context: { $implicit: nav.children }"></ng-container>
+                </ul>
+              </li>
+            </ng-template>
+          </ng-container>
+        </ng-template>
+      </ul>
+    </nz-sider>
+    <nz-layout class="inner-layout">
+      <nz-content>
+        <div class="content">
+          <router-outlet></router-outlet>
         </div>
-      </div>
-    </nz-header>
-    <nz-content>
-      <!--      <bit-page-header></bit-page-header>-->
-      <div class="content">
-        <router-outlet></router-outlet>
-      </div>
-    </nz-content>
+      </nz-content>
+    </nz-layout>
   </nz-layout>
 </nz-layout>
