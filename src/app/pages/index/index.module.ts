@@ -3,17 +3,17 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { AppShareModule } from '@share';
 
-import { WelcomeComponent } from './welcome.component';
+import { IndexComponent } from './index.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: WelcomeComponent
+    component: IndexComponent
   }
 ];
 
 @NgModule({
   imports: [AppShareModule, RouterModule.forChild(routes)],
-  declarations: [WelcomeComponent]
+  declarations: [IndexComponent]
 })
-export class WelcomeModule {}
+export class IndexModule {}

@@ -72,11 +72,6 @@
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
-          "options": {
-            "host": "0.0.0.0",
-            "port": 4201,
-            "disableHostCheck": true
-          },
           "configurations": {
             "production": {
               "browserTarget": "ngx-bit-example:build:production"

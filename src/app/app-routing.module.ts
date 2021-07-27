@@ -3,8 +3,8 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { AppShareModule } from '@share';
 
-import { LayoutComponent } from './pages/layout/layout.component';
-import { LayoutModule } from './pages/layout/layout.module';
+import { LayoutComponent } from './layout/layout.component';
+import { LayoutModule } from './layout/layout.module';
 
 const routes: Routes = [
   {
@@ -13,7 +13,14 @@ const routes: Routes = [
     children: [
       {
         path: '',
-        loadChildren: () => import('./pages/welcome/welcome.module').then(m => m.WelcomeModule)
+        loadChildren: () => import('./pages/index/index.module').then(m => m.IndexModule),
+        data: {
+          disabled: ['pageHeader']
+        }
+      },
+      {
+        path: 'center',
+        loadChildren: () => import('./pages/center/center.module').then(m => m.CenterModule)
       },
       {
         path: 'empty',

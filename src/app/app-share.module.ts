@@ -49,10 +49,10 @@ import { NzTreeViewModule } from 'ng-zorro-antd/tree-view';
 import { NzTypographyModule } from 'ng-zorro-antd/typography';
 import { NzUploadModule } from 'ng-zorro-antd/upload';
 import { BitDirectiveModule } from 'ngx-bit/directive';
+import { BitI18nModule } from 'ngx-bit/i18n';
 import { BitPipeModule } from 'ngx-bit/pipe';
+import { NzCascaderModule } from 'ng-zorro-antd/cascader';
 import { BitRouterModule } from 'ngx-bit/router';
-
-import { BitI18nModule } from '../../projects/ngx-bit/i18n/bit-i18n.module';
 
 @NgModule({
   exports: [
@@ -107,6 +107,7 @@ import { BitI18nModule } from '../../projects/ngx-bit/i18n/bit-i18n.module';
     NzInputNumberModule,
     NzPopoverModule,
     NzAvatarModule,
+    NzCascaderModule,
     PortalModule,
     BitDirectiveModule,
     BitPipeModule,

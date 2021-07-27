@@ -1,0 +1,16 @@
+<nz-table #activitiesTable [nzData]="activities">
+  <thead>
+    <tr>
+      <th>登录地址</th>
+      <th>登录设备</th>
+      <th>操作时间</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let item of activitiesTable.data">
+      <td>{{ item.address }}({{ item.ip }})</td>
+      <td>{{ item.device }}</td>
+      <td>{{ item.date }}</td>
+    </tr>
+  </tbody>
+</nz-table>

@@ -1,6 +1,6 @@
 import { registerLocaleData } from '@angular/common';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
-import en from '@angular/common/locales/en';
+import zh from '@angular/common/locales/zh';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -13,15 +13,12 @@ import { AppService } from '@common/app.service';
 import { environment } from '@env';
 import { AppShareModule } from '@share';
 import { NZ_CONFIG, NzConfig } from 'ng-zorro-antd/core/config';
-import { en_US, NZ_I18N } from 'ng-zorro-antd/i18n';
-import { NzIconService } from 'ng-zorro-antd/icon';
+import { NZ_I18N, zh_CN } from 'ng-zorro-antd/i18n';
 import { BitModule } from 'ngx-bit';
-import { BitSwalModule } from 'ngx-bit/swal';
 
 import { AppComponent } from './app.component';
-import { LoginComponent } from './pages/login/login.component';
 
-registerLocaleData(en);
+registerLocaleData(zh);
 
 const routes: Routes = [
   {
@@ -31,7 +28,7 @@ const routes: Routes = [
   },
   {
     path: 'login',
-    component: LoginComponent
+    loadChildren: () => import('./login/login.module').then(m => m.LoginModule)
   }
 ];
 
@@ -42,14 +39,13 @@ const ngZorroConfig: NzConfig = {
 };
 
 @NgModule({
-  declarations: [AppComponent, LoginComponent],
+  declarations: [AppComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     HttpClientModule,
     AppShareModule,
     BitModule.forRoot(environment.bit),
-    BitSwalModule.forRoot(),
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: environment.production,
       registrationStrategy: 'registerWhenStable:30000'
@@ -60,13 +56,9 @@ const ngZorroConfig: NzConfig = {
     AppGuard,
     AppService,
     { provide: HTTP_INTERCEPTORS, useClass: AppInterceptors, multi: true },
-    { provide: NZ_I18N, useValue: en_US },
+    { provide: NZ_I18N, useValue: zh_CN },
     { provide: NZ_CONFIG, useValue: ngZorroConfig }
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule {
-  constructor(nzIconService: NzIconService) {
-    nzIconService.changeAssetsSource(environment.iconUrl);
-  }
-}
+export class AppModule {}

@@ -1,8 +1,11 @@
 <nz-layout class="main-layout">
-  <bit-sider [(collapsed)]="collapsed" [data]="navLists"></bit-sider>
+  <bit-sider [(collapsed)]="collapsed" [data]="navs"></bit-sider>
   <nz-layout class="right-layout" [ngClass]="{ collapsed: collapsed }">
     <nz-header [ngClass]="{ collapsed: collapsed }">
       <div nz-row nzJustify="space-between">
+        <div nz-col>
+          <input type="text" nz-input [placeholder]="bit.l['navigation']" nzBorderless />
+        </div>
         <div nz-col> </div>
         <div nz-col>
           <div class="profile" nz-dropdown [nzDropdownMenu]="center">
@@ -13,7 +16,7 @@
 
             <nz-dropdown-menu #center>
               <ul nz-menu>
-                <li nz-menu-item routerLink="/profile">
+                <li nz-menu-item routerLink="/center/logs">
                   <i nz-icon nzType="user"></i>
                   <span>&nbsp; {{ bit.l['center'] }} </span>
                 </li>
@@ -32,7 +35,7 @@
                   </ul>
                 </li>
                 <li nz-menu-divider></li>
-                <li nz-menu-item (click)="logout()">
+                <li nz-menu-item>
                   <i nz-icon nzType="logout"></i>
                   <span>&nbsp; {{ bit.l['exit'] }} </span>
                 </li>
@@ -43,7 +46,7 @@
       </div>
     </nz-header>
     <nz-content>
-      <bit-page-header></bit-page-header>
+      <!--      <bit-page-header></bit-page-header>-->
       <div class="content">
         <router-outlet></router-outlet>
       </div>

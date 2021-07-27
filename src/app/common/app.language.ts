@@ -1,11 +1,4 @@
 export default {
-  // 仪表盘语言包
-  dashboard: ['仪表盘', 'Dashboard'],
-  language: ['切换语言', 'Language'],
-  center: ['个人中心', 'Center'],
-  profile: ['信息修改', 'Profile'],
-  exit: ['退出系统', 'Exit'],
-
   // 公共语言包
   add: ['新增', 'Add'],
   edit: ['编辑', 'Edit'],
