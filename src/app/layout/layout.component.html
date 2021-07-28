@@ -143,7 +143,7 @@
               </li>
             </ng-container>
             <ng-template #notRouter>
-              <li nz-submenu [nzPaddingLeft]="level(nav)">
+              <li nz-submenu [nzOpen]="nav.url[0] === actived" [nzPaddingLeft]="level(nav)">
                 <span title>
                   <i *ngIf="!!nav.icon" nz-icon [nzType]="nav.icon"></i>
                   <span>{{ nav.name | object: bit.locale }}</span>

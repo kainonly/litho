@@ -12,8 +12,8 @@ const routes: Routes = [
     component: LayoutComponent,
     children: [
       {
-        path: '',
-        loadChildren: () => import('./pages/index/index.module').then(m => m.IndexModule),
+        path: 'dashboard',
+        loadChildren: () => import('./pages/dashboard/dashboard.module').then(m => m.DashboardModule),
         data: {
           disabled: ['pageHeader']
         }
@@ -25,7 +25,8 @@ const routes: Routes = [
       {
         path: 'empty',
         loadChildren: () => import('./pages/empty/empty.module').then(m => m.EmptyModule)
-      }
+      },
+      { path: '', redirectTo: '/dashboard/analysis', pathMatch: 'full' }
     ]
   }
 ];

@@ -19,7 +19,8 @@ const routes: Routes = [
   {
     path: 'workbench',
     component: WorkbenchComponent
-  }
+  },
+  { path: '', redirectTo: '/dashboard/analysis', pathMatch: 'full' }
 ];
 
 @NgModule({
