@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
+import { AppService } from '@common/app.service';
+import { Resource } from '@common/data';
 import { BitService } from 'ngx-bit';
 
 import packer from './language';
@@ -10,23 +12,25 @@ import packer from './language';
   styleUrls: ['./layout.component.scss']
 })
 export class LayoutComponent implements OnInit {
-  navs: any[] = [];
+  navs: Resource[] = [];
   collapsed = false;
-  constructor(public bit: BitService) {}
+  constructor(public bit: BitService, private app: AppService) {}
 
   ngOnInit(): void {
     this.bit.registerLocales(packer);
+    this.getResource();
+  }
+
+  private getResource(): void {
+    this.app.resource().subscribe(data => {
+      this.navs = data.navs;
+    });
   }
 
   /**
    * 返回层级
    */
-  level(data: Record<string, any>): number {
-    let deep = 0;
-    while (data.hasOwnProperty('parentNode')) {
-      deep++;
-      data = data.parentNode as Record<string, any>;
-    }
-    return deep * 16;
+  level(nav: Resource): number {
+    return nav.url.length * 16;
   }
 }

@@ -132,26 +132,20 @@
 
   <nz-layout class="section-layout">
     <nz-sider nzTheme="light" [nzWidth]="240">
-      <ul
-        nz-menu
-        nzTheme="light"
-        [nzInlineIndent]="16"
-        [nzInlineCollapsed]="collapsed"
-        [nzMode]="collapsed ? 'vertical' : 'inline'"
-      >
+      <ul nz-menu nzTheme="light" nzMode="inline">
         <ng-container *ngTemplateOutlet="navTemplate; context: { $implicit: navs }"></ng-container>
         <ng-template #navTemplate let-navs>
           <ng-container *ngFor="let nav of navs">
             <ng-container *ngIf="nav.router; else notRouter">
-              <li nz-menu-item [nzPaddingLeft]="level(nav)" [bitOpen]="[nav.key]">
-                <i nz-icon [nzType]="nav.icon"></i>
-                <span class="nav-text">{{ nav.name | object: bit.locale }}</span>
+              <li nz-menu-item nzMatchRouter [nzPaddingLeft]="level(nav)" [routerLink]="nav.url">
+                <i *ngIf="!!nav.icon" nz-icon [nzType]="nav.icon"></i>
+                <span>{{ nav.name | object: bit.locale }}</span>
               </li>
             </ng-container>
             <ng-template #notRouter>
               <li nz-submenu [nzPaddingLeft]="level(nav)">
                 <span title>
-                  <i nz-icon [nzType]="nav.icon"></i>
+                  <i *ngIf="!!nav.icon" nz-icon [nzType]="nav.icon"></i>
                   <span>{{ nav.name | object: bit.locale }}</span>
                 </span>
                 <ul>
