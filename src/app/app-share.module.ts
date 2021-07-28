@@ -38,6 +38,7 @@ import { NzResultModule } from 'ng-zorro-antd/result';
 import { NzSelectModule } from 'ng-zorro-antd/select';
 import { NzSpaceModule } from 'ng-zorro-antd/space';
 import { NzSpinModule } from 'ng-zorro-antd/spin';
+import { NzStepsModule } from 'ng-zorro-antd/steps';
 import { NzSwitchModule } from 'ng-zorro-antd/switch';
 import { NzTableModule } from 'ng-zorro-antd/table';
 import { NzTabsModule } from 'ng-zorro-antd/tabs';
@@ -107,6 +108,7 @@ import { BitPipeModule } from 'ngx-bit/pipe';
     NzPopoverModule,
     NzAvatarModule,
     NzCascaderModule,
+    NzStepsModule,
     PortalModule,
     BitDirectiveModule,
     BitPipeModule,

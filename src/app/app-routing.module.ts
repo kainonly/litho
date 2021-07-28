@@ -19,6 +19,10 @@ const routes: Routes = [
         }
       },
       {
+        path: 'result',
+        loadChildren: () => import('./pages/result/result.module').then(m => m.ResultModule)
+      },
+      {
         path: 'exception',
         loadChildren: () => import('./pages/exception/exception.module').then(m => m.ExceptionModule)
       },
