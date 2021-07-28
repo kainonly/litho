@@ -2,12 +2,12 @@ import { Component, OnInit } from '@angular/core';
 
 import { BitService } from 'ngx-bit';
 
-import * as packer from './language';
+import packer from './language';
 
 @Component({
-  selector: 'app-empty',
+  selector: 'app-exception-404',
   template: `
-    <nz-result nzStatus="403" nzTitle="403" [nzSubTitle]="bit.l['tips']">
+    <nz-result nzStatus="404" nzTitle="404" [nzSubTitle]="bit.l['notFound']">
       <div nz-result-extra>
         <button nz-button nzType="primary" routerLink="/">
           {{ bit.l['home'] }}
@@ -16,7 +16,7 @@ import * as packer from './language';
     </nz-result>
   `
 })
-export class EmptyComponent implements OnInit {
+export class NotFoundComponent implements OnInit {
   constructor(public bit: BitService) {}
 
   ngOnInit(): void {

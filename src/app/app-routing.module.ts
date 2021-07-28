@@ -19,12 +19,12 @@ const routes: Routes = [
         }
       },
       {
-        path: 'center',
-        loadChildren: () => import('./pages/center/center.module').then(m => m.CenterModule)
+        path: 'exception',
+        loadChildren: () => import('./pages/exception/exception.module').then(m => m.ExceptionModule)
       },
       {
-        path: 'empty',
-        loadChildren: () => import('./pages/empty/empty.module').then(m => m.EmptyModule)
+        path: 'center',
+        loadChildren: () => import('./pages/center/center.module').then(m => m.CenterModule)
       },
       { path: '', redirectTo: '/dashboard/analysis', pathMatch: 'full' }
     ]
