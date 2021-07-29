@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { filter } from 'rxjs/operators';
@@ -19,7 +19,12 @@ export class LayoutComponent implements OnInit, OnDestroy {
   actived!: string;
   private events$!: Subscription;
 
-  constructor(public bit: BitService, private app: AppService, private router: Router) {}
+  constructor(
+    public bit: BitService,
+    public app: AppService,
+    private router: Router,
+    private changeDetectorRef: ChangeDetectorRef
+  ) {}
 
   ngOnInit(): void {
     this.bit.registerLocales(packer);
@@ -28,6 +33,8 @@ export class LayoutComponent implements OnInit, OnDestroy {
     });
     this.setActived(this.router.url);
     this.events$ = this.router.events.pipe(filter(e => e instanceof NavigationEnd)).subscribe((event: any) => {
+      this.app.resetHeaderPage();
+      this.changeDetectorRef.detectChanges();
       this.setActived(event.urlAfterRedirects);
     });
   }

@@ -55,6 +55,7 @@ import { BitDirectiveModule } from 'ngx-bit/directive';
 import { BitI18nModule } from 'ngx-bit/i18n';
 import { BitPipeModule } from 'ngx-bit/pipe';
 import { NzEmptyModule } from 'ng-zorro-antd/empty';
+import { DirectiveModule } from './directive/directive.module';
 
 @NgModule({
   exports: [
@@ -116,7 +117,8 @@ import { NzEmptyModule } from 'ng-zorro-antd/empty';
     PortalModule,
     BitDirectiveModule,
     BitPipeModule,
-    BitI18nModule
+    BitI18nModule,
+    DirectiveModule
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

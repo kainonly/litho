@@ -1,9 +1,10 @@
 import { HttpClient } from '@angular/common/http';
-import { ElementRef, Injectable } from '@angular/core';
+import { ElementRef, Injectable, TemplateRef } from '@angular/core';
 import { AsyncSubject, Observable, of, Subject } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { Resource, resource } from '@common/data';
+import { BreadcrumbOption } from 'ng-zorro-antd/breadcrumb';
 import { BitConfig } from 'ngx-bit';
 
 @Injectable()
@@ -12,6 +13,22 @@ export class AppService {
    * 内容节点
    */
   readonly content: AsyncSubject<ElementRef> = new AsyncSubject();
+  /**
+   * 标题
+   */
+  title?: string;
+  /**
+   * 面包屑
+   */
+  breadcrumb: BreadcrumbOption[] = [];
+  /**
+   * 页头操作版块
+   */
+  extra?: TemplateRef<any>;
+  /**
+   * 页头底部版块
+   */
+  footer?: TemplateRef<any>;
   /**
    * 刷新导航目录状态
    */
@@ -23,6 +40,13 @@ export class AppService {
 
   constructor(private http: HttpClient, private config: BitConfig) {
     this.authURL = `${config.baseUrl}auth`;
+  }
+
+  resetHeaderPage(): void {
+    this.title = undefined;
+    this.extra = undefined;
+    this.breadcrumb = [];
+    this.footer = undefined;
   }
 
   /**

@@ -14,9 +14,9 @@ import { SalesTypeComponent } from './analysis/chart/sales-type.component';
 import { TargetComponent } from './analysis/chart/target.component';
 import { TimelineComponent } from './analysis/chart/timeline.component';
 import { HealthComponent } from './monitor/chart/health.component';
+import { LoadComponent } from './monitor/chart/load.component';
 import { MonitorComponent } from './monitor/monitor.component';
 import { WorkbenchComponent } from './workbench/workbench.component';
-import { LoadComponent } from './monitor/chart/load.component';
 
 const routes: Routes = [
   {
