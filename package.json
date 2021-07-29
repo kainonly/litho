@@ -29,7 +29,6 @@
     "@angular/service-worker": "~12.1.1",
     "@antv/g2plot": "^2.3.27",
     "@ngx-pwa/local-storage": "^12.0.0",
-    "@swimlane/ngx-charts": "^18.0.1",
     "merge": "^2.1.1",
     "ng-zorro-antd": "^12.0.1",
     "ngx-tinymce": "^12.0.0",

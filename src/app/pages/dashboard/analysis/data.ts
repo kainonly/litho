@@ -263,7 +263,7 @@ export const keyword = [
   { value: 2, name: '顾倾' },
 
   { value: 2, name: 'Domo' },
-  { value: 2, name: 'GPL' },
+  { value: 2, name: 'No' },
   { value: 2, name: 'PAI' },
   { value: 2, name: 'SPSS' },
   { value: 2, name: 'SYSTAT' },

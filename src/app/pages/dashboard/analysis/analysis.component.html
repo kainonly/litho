@@ -20,7 +20,7 @@
           <nz-statistic [nzValueTemplate]="effectStatistic" [nzTitle]="effect">
             <ng-template #effect>运营活动效果 <i nz-icon nzType="info-circle" nz-tooltip="指标说明"></i></ng-template>
             <ng-template #effectStatistic>
-              <div #effectChart></div>
+              <app-analysis-chart-effect></app-analysis-chart-effect>
             </ng-template>
           </nz-statistic>
         </div>
@@ -51,7 +51,7 @@
           </nz-statistic>
         </div>
         <div nz-col [nzSpan]="24">
-          <div #conversionChart></div>
+          <app-analysis-charts-conversion></app-analysis-charts-conversion>
         </div>
       </div>
     </nz-card>
@@ -70,10 +70,10 @@
       </nz-card-tab>
       <div nz-row [nzGutter]="[16, 16]">
         <div nz-col [nzSpan]="14">
-          <div #salesTrendChart></div>
+          <app-analysis-charts-sales-trend></app-analysis-charts-sales-trend>
         </div>
         <div nz-col [nzSpan]="10">
-          <div #characterChart></div>
+          <app-analysis-chart-character></app-analysis-chart-character>
         </div>
       </div>
     </nz-card>
@@ -91,7 +91,7 @@
           <i nz-icon nzType="ellipsis"></i>
         </button>
       </ng-template>
-      <div #keywordChart></div>
+      <app-analysis-chart-keyword></app-analysis-chart-keyword>
       <nz-table style="margin-top: 24px" #hotTable [nzData]="hots">
         <thead>
           <tr>
@@ -135,21 +135,21 @@
           </button>
         </nz-space>
       </ng-template>
-      <div #salesPerChart></div>
-      <div #salesTypeChart></div>
+      <app-analysis-chart-sales-per></app-analysis-chart-sales-per>
+      <app-analysis-chart-sales-type></app-analysis-chart-sales-type>
     </nz-card>
   </div>
 
   <div nz-col [nzSpan]="24">
     <nz-card>
-      <nz-tabset [(nzSelectedIndex)]="statisticsIndex" (nzSelectedIndexChange)="reRender()">
+      <nz-tabset [(nzSelectedIndex)]="statisticsIndex">
         <nz-tab nzTitle="目标转化"></nz-tab>
         <nz-tab nzTitle="时段统计"></nz-tab>
       </nz-tabset>
-      <div #targetChart> </div>
-<!--      <ng-container [ngSwitch]="statisticsIndex">-->
-<!--        <ng-container *ngSwitchCase="0"> </ng-container>-->
-<!--      </ng-container>-->
+      <ng-container [ngSwitch]="statisticsIndex">
+        <ng-container *ngSwitchCase="0"><app-analysis-charts-target></app-analysis-charts-target></ng-container>
+        <ng-container *ngSwitchCase="1"><app-analysis-chart-timeline></app-analysis-chart-timeline></ng-container>
+      </ng-container>
     </nz-card>
   </div>
 </div>

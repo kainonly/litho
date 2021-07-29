@@ -2,11 +2,19 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { AppShareModule } from '@share';
-import { NgxChartsModule } from '@swimlane/ngx-charts';
 
 import { AnalysisComponent } from './analysis/analysis.component';
+import { TargetComponent } from './analysis/chart/target.component';
 import { MonitorComponent } from './monitor/monitor.component';
 import { WorkbenchComponent } from './workbench/workbench.component';
+import { TimelineComponent } from './analysis/chart/timeline.component';
+import { EffectComponent } from './analysis/chart/effect.component';
+import { ConversionComponent } from './analysis/chart/conversion.component';
+import { SalesTrendComponent } from './analysis/chart/sales-trend.component';
+import { CharacterComponent } from './analysis/chart/character.component';
+import { KeywordComponent } from './analysis/chart/keyword.component';
+import { SalesPerComponent } from './analysis/chart/sales-per.component';
+import { SalesTypeComponent } from './analysis/chart/sales-type.component';
 
 const routes: Routes = [
   {
@@ -25,7 +33,20 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [AppShareModule, NgxChartsModule, RouterModule.forChild(routes)],
-  declarations: [AnalysisComponent, MonitorComponent, WorkbenchComponent]
+  imports: [AppShareModule, RouterModule.forChild(routes)],
+  declarations: [
+    AnalysisComponent,
+    MonitorComponent,
+    WorkbenchComponent,
+    TargetComponent,
+    TimelineComponent,
+    EffectComponent,
+    ConversionComponent,
+    SalesTrendComponent,
+    CharacterComponent,
+    KeywordComponent,
+    SalesPerComponent,
+    SalesTypeComponent
+  ]
 })
 export class DashboardModule {}
