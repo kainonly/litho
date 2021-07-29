@@ -306,7 +306,7 @@ export const resource: Resource[] = [
     icon: ''
   },
   {
-    id: 101,
+    id: 102,
     pid: 100,
     fragment: '404',
     name: {
@@ -318,7 +318,7 @@ export const resource: Resource[] = [
     icon: ''
   },
   {
-    id: 101,
+    id: 103,
     pid: 100,
     fragment: '500',
     name: {

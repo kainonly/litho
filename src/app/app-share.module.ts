@@ -17,6 +17,7 @@ import { NzDescriptionsModule } from 'ng-zorro-antd/descriptions';
 import { NzDividerModule } from 'ng-zorro-antd/divider';
 import { NzDrawerModule } from 'ng-zorro-antd/drawer';
 import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
+import { NzEmptyModule } from 'ng-zorro-antd/empty';
 import { NzFormModule } from 'ng-zorro-antd/form';
 import { NzGridModule } from 'ng-zorro-antd/grid';
 import { NzIconModule } from 'ng-zorro-antd/icon';
@@ -54,8 +55,6 @@ import { NzUploadModule } from 'ng-zorro-antd/upload';
 import { BitDirectiveModule } from 'ngx-bit/directive';
 import { BitI18nModule } from 'ngx-bit/i18n';
 import { BitPipeModule } from 'ngx-bit/pipe';
-import { NzEmptyModule } from 'ng-zorro-antd/empty';
-import { DirectiveModule } from './directive/directive.module';
 
 @NgModule({
   exports: [
@@ -117,8 +116,7 @@ import { DirectiveModule } from './directive/directive.module';
     PortalModule,
     BitDirectiveModule,
     BitPipeModule,
-    BitI18nModule,
-    DirectiveModule
+    BitI18nModule
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

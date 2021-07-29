@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { AppService } from '@common/app.service';
@@ -13,15 +13,23 @@ import packer from './language';
   styleUrls: ['./layout.component.scss']
 })
 export class LayoutComponent implements OnInit {
-  navs: Resource[] = [];
-  actived!: string;
+  navs!: Resource[];
+  dict!: Record<string, Resource>;
+  paths!: Record<string, number>;
 
-  constructor(public bit: BitService, public app: AppService, private router: Router) {}
+  actived!: string[];
+  breadcrumbs: any[] = [];
+
+  constructor(
+    public bit: BitService,
+    public app: AppService,
+    private router: Router,
+    private changeDetector: ChangeDetectorRef
+  ) {}
 
   ngOnInit(): void {
     this.bit.registerLocales(packer);
     this.getResource();
-    this.onActived();
   }
 
   /**
@@ -30,14 +38,27 @@ export class LayoutComponent implements OnInit {
   private getResource(): void {
     this.app.resource().subscribe(data => {
       this.navs = data.navs;
+      this.dict = data.dict;
+      this.paths = data.paths;
     });
+  }
+
+  /**
+   * 获取标题
+   */
+  get title(): any {
+    return this.dict[this.paths[this.actived.join('/')]].name;
   }
 
   /**
    * 监听激活导航
    */
   onActived(): void {
-    this.actived = this.router.url.slice(1).split('/')[0];
+    this.actived = this.router.url.slice(1).split('/');
+    this.breadcrumbs = [];
+    for (let i = 0; i < this.actived.length; i++) {
+      this.breadcrumbs.push(this.actived.slice(0, i + 1).join('/'));
+    }
   }
 
   /**

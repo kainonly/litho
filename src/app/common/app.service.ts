@@ -4,23 +4,18 @@ import { AsyncSubject, BehaviorSubject, Observable, of, Subject } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { Resource, resource } from '@common/data';
-import { BreadcrumbOption } from 'ng-zorro-antd/breadcrumb';
 import { BitConfig } from 'ngx-bit';
 
 @Injectable()
 export class AppService {
   /**
-   * 内容节点
+   * 鉴权地址
    */
-  readonly content: AsyncSubject<ElementRef> = new AsyncSubject();
+  private authURL: string;
   /**
-   * 标题
+   * 刷新资源
    */
-  title: BehaviorSubject<string> = new BehaviorSubject<string>('');
-  /**
-   * 面包屑
-   */
-  breadcrumb: BreadcrumbOption[] = [];
+  readonly refresh$: Subject<undefined> = new Subject<undefined>();
   /**
    * 页头操作版块
    */
@@ -29,24 +24,9 @@ export class AppService {
    * 页头底部版块
    */
   footer?: TemplateRef<any>;
-  /**
-   * 刷新导航目录状态
-   */
-  readonly refreshMenu = new Subject();
-  /**
-   * 鉴权地址
-   */
-  private authURL: string;
 
   constructor(private http: HttpClient, private config: BitConfig) {
     this.authURL = `${config.baseUrl}auth`;
-  }
-
-  resetHeaderPage(): void {
-    this.title.next('');
-    this.extra = undefined;
-    this.breadcrumb = [];
-    this.footer = undefined;
   }
 
   /**
@@ -79,10 +59,11 @@ export class AppService {
   resource(): Observable<any> {
     return of(resource).pipe(
       map(data => {
-        const resource: Record<string, Resource> = {};
         const navs: Record<string, any>[] = [];
+        const dict: Record<string, Resource> = {};
+        const paths: Record<string, number> = {};
         for (const x of data) {
-          resource[x.id] = x;
+          dict[x.id] = x;
           if (!x.nav) {
             continue;
           }
@@ -90,27 +71,28 @@ export class AppService {
             x.url = [x.fragment];
             navs.push(x);
           } else {
-            if (resource.hasOwnProperty(x.pid)) {
+            if (dict.hasOwnProperty(x.pid)) {
               if (!x.hasOwnProperty('url')) {
-                x.url = [...resource[x.pid].url];
+                x.url = [...dict[x.pid].url];
               }
               x.url.push(x.fragment);
-              if (!resource[x.pid].hasOwnProperty('children')) {
-                resource[x.pid].children = [];
+              if (!dict[x.pid].hasOwnProperty('children')) {
+                dict[x.pid].children = [];
               }
-              resource[x.pid].children.push(x);
+              dict[x.pid].children.push(x);
             }
           }
+          paths[x.url.join('/')] = x.id;
         }
-        return { resource, navs };
+        return { navs, dict, paths };
       })
     );
   }
 
   /**
-   * 通知刷新导航目录
+   * 刷新资源
    */
-  refreshMenuStart(): void {
-    this.refreshMenu.next(1);
+  refresh(): void {
+    this.refresh$.next(undefined);
   }
 }

@@ -140,7 +140,7 @@
               </li>
             </ng-container>
             <ng-template #notRouter>
-              <li nz-submenu [nzOpen]="nav.url[0] === actived" [nzPaddingLeft]="level(nav)">
+              <li nz-submenu [nzOpen]="nav.url[0] === actived[0]" [nzPaddingLeft]="level(nav)">
                 <span title>
                   <i *ngIf="!!nav.icon" nz-icon [nzType]="nav.icon"></i>
                   <span>{{ nav.name | object: bit.locale }}</span>
@@ -155,6 +155,16 @@
       </ul>
     </nz-sider>
     <nz-layout class="inner-layout">
+      <nz-page-header [nzGhost]="false">
+        <nz-breadcrumb nz-page-header-breadcrumb>
+          <ng-container *ngFor="let breadcrumb of breadcrumbs">
+            <nz-breadcrumb-item>
+              {{ dict[paths[breadcrumb]].name | object: bit.locale }}
+            </nz-breadcrumb-item>
+          </ng-container>
+        </nz-breadcrumb>
+        <nz-page-header-title>{{ title | object: bit.locale }}</nz-page-header-title>
+      </nz-page-header>
       <nz-content>
         <div class="content">
           <router-outlet (activate)="onActived()"></router-outlet>
