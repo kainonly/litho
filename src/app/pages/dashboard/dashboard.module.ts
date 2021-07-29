@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { AppShareModule } from '@share';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
 
 import { AnalysisComponent } from './analysis/analysis.component';
 import { MonitorComponent } from './monitor/monitor.component';
@@ -24,7 +25,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [AppShareModule, RouterModule.forChild(routes)],
+  imports: [AppShareModule, NgxChartsModule, RouterModule.forChild(routes)],
   declarations: [AnalysisComponent, MonitorComponent, WorkbenchComponent]
 })
 export class DashboardModule {}

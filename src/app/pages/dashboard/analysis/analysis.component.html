@@ -1,0 +1,76 @@
+<div nz-row [nzGutter]="[16, 16]">
+  <div nz-col [nzSpan]="9">
+    <nz-card style="height: 345px">
+      <div nz-row [nzGutter]="[16, 16]">
+        <div nz-col nzFlex="1">
+          <nz-space nzSize="large" nzDirection="vertical">
+            <nz-statistic
+              *nzSpaceItem
+              nzPrefix="￥"
+              [nzValue]="(126560 | number)!"
+              [nzTitle]="'总销售额'"
+            ></nz-statistic>
+            <nz-statistic
+              *nzSpaceItem
+              nzPrefix="￥"
+              [nzValue]="(12423 | number)!"
+              [nzTitle]="'日销售额'"
+            ></nz-statistic>
+            <div style="padding: 12px" *nzSpaceItem>
+              <h3>周同比 12% <i nz-icon nzType="caret-up" style="color: #cf1322"></i></h3>
+              <h3>日同比 11% <i nz-icon nzType="caret-down" style="color: #3f8600"></i></h3>
+            </div>
+          </nz-space>
+        </div>
+        <div nz-col nzFlex="1">
+          <nz-statistic [nzValueTemplate]="effectStatistic" [nzTitle]="'运营活动效果'">
+            <ng-template #effectStatistic>
+              <div #effectChart></div>
+            </ng-template>
+          </nz-statistic>
+        </div>
+      </div>
+    </nz-card>
+  </div>
+  <div nz-col [nzSpan]="15">
+    <nz-card style="height: 345px">
+      <div nz-row [nzGutter]="[16, 16]">
+        <div nz-col [nzSpan]="4">
+          <nz-statistic [nzValue]="(31568 | number)!" [nzTitle]="'访问量'"></nz-statistic>
+        </div>
+        <div nz-col [nzSpan]="4">
+          <nz-statistic [nzValue]="(2198 | number)!" [nzTitle]="'用户数'"></nz-statistic>
+        </div>
+        <div nz-col [nzSpan]="4">
+          <nz-statistic [nzValue]="(573 | number)!" [nzTitle]="'成交量'"></nz-statistic>
+        </div>
+        <div nz-col [nzSpan]="4">
+          <nz-statistic [nzValue]="12" nzSuffix="%" [nzTitle]="'转化率'"></nz-statistic>
+        </div>
+        <div nz-col [nzSpan]="24">
+          <div #conversionChart></div>
+        </div>
+      </div>
+    </nz-card>
+  </div>
+
+  <div nz-col [nzSpan]="24">
+    <nz-card>
+      <nz-card-tab>
+        <nz-tabset [nzTabBarExtraContent]="searchForDate" nzSize="large">
+          <nz-tab nzTitle="销售额"></nz-tab>
+          <nz-tab nzTitle="访问量"></nz-tab>
+        </nz-tabset>
+        <ng-template #searchForDate>
+          <nz-range-picker nzBorderless></nz-range-picker>
+        </ng-template>
+      </nz-card-tab>
+      <div nz-row [nzGutter]="[16, 16]">
+        <div nz-col nzFlex="800px">
+          <div #salesTrend></div>
+        </div>
+        <div nz-col nzFlex="auto"> asd </div>
+      </div>
+    </nz-card>
+  </div>
+</div>
