@@ -54,6 +54,7 @@ import { NzUploadModule } from 'ng-zorro-antd/upload';
 import { BitDirectiveModule } from 'ngx-bit/directive';
 import { BitI18nModule } from 'ngx-bit/i18n';
 import { BitPipeModule } from 'ngx-bit/pipe';
+import { NzEmptyModule } from 'ng-zorro-antd/empty';
 
 @NgModule({
   exports: [
@@ -111,6 +112,7 @@ import { BitPipeModule } from 'ngx-bit/pipe';
     NzCascaderModule,
     NzStepsModule,
     NzStatisticModule,
+    NzEmptyModule,
     PortalModule,
     BitDirectiveModule,
     BitPipeModule,

@@ -1,0 +1,120 @@
+<nz-row [nzGutter]="[16, 16]">
+  <nz-col [nzSpan]="14">
+    <nz-row [nzGutter]="[16, 16]">
+      <nz-col [nzSpan]="24">
+        <nz-card nzTitle="近24小时服务负载状态">
+          <app-monitor-load></app-monitor-load>
+        </nz-card>
+      </nz-col>
+      <nz-col [nzSpan]="24">
+        <nz-card nzTitle="近24小时服务健康监控">
+          <app-monitor-health></app-monitor-health>
+        </nz-card>
+      </nz-col>
+    </nz-row>
+  </nz-col>
+  <nz-col [nzSpan]="10">
+    <nz-row [nzGutter]="[16, 16]">
+      <nz-col [nzSpan]="24">
+        <nz-card nzTitle="构建信息">
+          <nz-list nzSize="small">
+            <nz-list-item>
+              <span>
+                <nz-tag nzColor="success">
+                  <i nz-icon nzType="check-circle"></i>
+                  <span>正常</span>
+                </nz-tag>
+                微服务 A
+              </span>
+              <b>( 16 / 16 )</b>
+            </nz-list-item>
+            <nz-list-item>
+              <span>
+                <nz-tag nzColor="success">
+                  <i nz-icon nzType="check-circle"></i>
+                  <span>正常</span>
+                </nz-tag>
+                微服务 B
+              </span>
+              <b>( 1 / 1 )</b>
+            </nz-list-item>
+            <nz-list-item>
+              <span>
+                <nz-tag nzColor="success">
+                  <i nz-icon nzType="check-circle"></i>
+                  <span>正常</span>
+                </nz-tag>
+                微服务 C
+              </span>
+              <b>( 15 / 15 )</b>
+            </nz-list-item>
+            <nz-list-item>
+              <span>
+                <nz-tag nzColor="success">
+                  <i nz-icon nzType="check-circle"></i>
+                  <span>正常</span>
+                </nz-tag>
+                Web 应用 （测试）
+              </span>
+              <b>( 99 / 99 )</b>
+            </nz-list-item>
+            <nz-list-item>
+              <span>
+                <nz-tag nzColor="success">
+                  <i nz-icon nzType="check-circle"></i>
+                  <span>正常</span>
+                </nz-tag>
+                Web 应用 （生产）
+              </span>
+              <b>( 10 / 10 )</b>
+            </nz-list-item>
+            <nz-list-item>
+              <span>
+                <nz-tag nzColor="error">
+                  <i nz-icon nzType="check-circle"></i>
+                  <span>异常</span>
+                </nz-tag>
+                容器服务 A
+              </span>
+              <b>( 0 / 15 )</b>
+            </nz-list-item>
+            <nz-list-item>
+              <span>
+                <nz-tag nzColor="warning">
+                  <i nz-icon nzType="check-circle"></i>
+                  <span>告警</span>
+                </nz-tag>
+                容器服务 B
+              </span>
+              <b>( 45 / 50 )</b>
+            </nz-list-item>
+            <nz-list-item>
+              <span>
+                <nz-tag nzColor="success">
+                  <i nz-icon nzType="check-circle"></i>
+                  <span>正常</span>
+                </nz-tag>
+                容器服务 C
+              </span>
+              <b>( 7 / 7 )</b>
+            </nz-list-item>
+          </nz-list>
+        </nz-card>
+      </nz-col>
+      <nz-col [nzSpan]="24">
+        <nz-card nzTitle="异常告警">
+          <nz-list nzSize="small">
+            <nz-empty></nz-empty>
+          </nz-list>
+        </nz-card>
+      </nz-col>
+    </nz-row>
+  </nz-col>
+  <nz-col [nzSpan]="24">
+    <nz-card nzTitle="消息中心">
+      <nz-list nzSize="small">
+        <nz-empty></nz-empty>
+      </nz-list>
+    </nz-card>
+  </nz-col>
+</nz-row>

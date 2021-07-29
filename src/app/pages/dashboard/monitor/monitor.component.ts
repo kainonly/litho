@@ -4,4 +4,6 @@ import { Component } from '@angular/core';
   selector: 'app-dashboard-monitor',
   templateUrl: './monitor.component.html'
 })
-export class MonitorComponent {}
+export class MonitorComponent {
+  deadline = Date.now() + 1000 * 60 * 60 * 24 * 2 + 1000 * 30;
+}

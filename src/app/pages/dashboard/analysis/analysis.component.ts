@@ -1,16 +1,10 @@
-import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
-
-import { Bar, Pie, WordCloud } from '@antv/g2plot';
-
-import { keyword } from './data';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-dashboard-analysis',
   templateUrl: './analysis.component.html'
 })
-export class AnalysisComponent implements AfterViewInit {
-  @ViewChild('salesTypeChart') salesTypeChart!: ElementRef;
-
+export class AnalysisComponent {
   salesChannel = 0;
   hots = [
     { keyword: '搜索关键词-A', users: 176, increase: 0.28 },
@@ -20,27 +14,4 @@ export class AnalysisComponent implements AfterViewInit {
     { keyword: '搜索关键词-E', users: 246, increase: 0.42 }
   ];
   statisticsIndex = 0;
-
-  ngAfterViewInit(): void {
-    this.drawSalesTypeChart();
-  }
-
-  private drawSalesTypeChart(): void {
-    new Bar(this.salesTypeChart.nativeElement, {
-      data: [
-        { type: '分类一', value: 27 },
-        { type: '分类二', value: 25 },
-        { type: '分类三', value: 18 },
-        { type: '分类四', value: 15 },
-        { type: '分类五', value: 10 },
-        { type: '其他', value: 5 }
-      ],
-      xField: 'value',
-      yField: 'type',
-      seriesField: 'type',
-      legend: {
-        position: 'top-left'
-      }
-    }).render();
-  }
 }
