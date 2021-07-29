@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { ElementRef, Injectable, TemplateRef } from '@angular/core';
-import { AsyncSubject, Observable, of, Subject } from 'rxjs';
+import { AsyncSubject, BehaviorSubject, Observable, of, Subject } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { Resource, resource } from '@common/data';
@@ -16,7 +16,7 @@ export class AppService {
   /**
    * 标题
    */
-  title?: string;
+  title: BehaviorSubject<string> = new BehaviorSubject<string>('');
   /**
    * 面包屑
    */
@@ -43,7 +43,7 @@ export class AppService {
   }
 
   resetHeaderPage(): void {
-    this.title = undefined;
+    this.title.next('');
     this.extra = undefined;
     this.breadcrumb = [];
     this.footer = undefined;

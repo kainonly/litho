@@ -1,7 +1,5 @@
-import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
-import { NavigationEnd, Router } from '@angular/router';
-import { Subscription } from 'rxjs';
-import { filter } from 'rxjs/operators';
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { AppService } from '@common/app.service';
 import { Resource } from '@common/data';
@@ -14,37 +12,32 @@ import packer from './language';
   templateUrl: './layout.component.html',
   styleUrls: ['./layout.component.scss']
 })
-export class LayoutComponent implements OnInit, OnDestroy {
+export class LayoutComponent implements OnInit {
   navs: Resource[] = [];
   actived!: string;
-  private events$!: Subscription;
 
-  constructor(
-    public bit: BitService,
-    public app: AppService,
-    private router: Router,
-    private changeDetectorRef: ChangeDetectorRef
-  ) {}
+  constructor(public bit: BitService, public app: AppService, private router: Router) {}
 
   ngOnInit(): void {
     this.bit.registerLocales(packer);
+    this.getResource();
+    this.onActived();
+  }
+
+  /**
+   * 获取资源
+   */
+  private getResource(): void {
     this.app.resource().subscribe(data => {
       this.navs = data.navs;
     });
-    this.setActived(this.router.url);
-    this.events$ = this.router.events.pipe(filter(e => e instanceof NavigationEnd)).subscribe((event: any) => {
-      this.app.resetHeaderPage();
-      this.changeDetectorRef.detectChanges();
-      this.setActived(event.urlAfterRedirects);
-    });
   }
 
-  ngOnDestroy(): void {
-    this.events$.unsubscribe();
-  }
-
-  private setActived(url: string): void {
-    this.actived = url.slice(1).split('/')[0];
+  /**
+   * 监听激活导航
+   */
+  onActived(): void {
+    this.actived = this.router.url.slice(1).split('/')[0];
   }
 
   /**

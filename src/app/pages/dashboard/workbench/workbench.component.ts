@@ -12,6 +12,6 @@ export class WorkbenchComponent implements OnInit {
   constructor(private app: AppService) {}
 
   ngOnInit(): void {
-    this.app.title = '工作台'!;
+    this.app.title.next('工作台');
   }
 }

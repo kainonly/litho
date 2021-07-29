@@ -156,34 +156,8 @@
     </nz-sider>
     <nz-layout class="inner-layout">
       <nz-content>
-        <nz-page-header *ngIf="app.title" [nzTitle]="app.title" [nzGhost]="false">
-          <nz-breadcrumb *ngIf="app.breadcrumb.length !== 0" nz-page-header-breadcrumb nzSeparator=">">
-            <nz-breadcrumb-item>
-              <a [routerLink]="['/']">
-                <i nz-icon nzType="home"></i>
-              </a>
-            </nz-breadcrumb-item>
-            <ng-container *ngFor="let item of app.breadcrumb; last as isLast">
-              <nz-breadcrumb-item>
-                <a [routerLink]="item?.url" *ngIf="!isLast; else last">
-                  {{ item.label }}
-                </a>
-                <ng-template #last>
-                  {{ item.label }}
-                </ng-template>
-              </nz-breadcrumb-item>
-            </ng-container>
-          </nz-breadcrumb>
-          <nz-page-header-extra *ngIf="app.extra">
-            <ng-container *ngTemplateOutlet="app.extra"></ng-container>
-          </nz-page-header-extra>
-          <nz-page-header-footer *ngIf="app.footer">
-            <ng-container *ngTemplateOutlet="app.footer"></ng-container>
-          </nz-page-header-footer>
-        </nz-page-header>
-
         <div class="content">
-          <router-outlet></router-outlet>
+          <router-outlet (activate)="onActived()"></router-outlet>
         </div>
       </nz-content>
     </nz-layout>
