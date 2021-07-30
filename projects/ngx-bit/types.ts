@@ -58,29 +58,6 @@ export interface Language {
   name: string | Record<string, any>;
 }
 
-export interface PageHeader {
-  /**
-   * 页头子标题
-   */
-  subTitle: string;
-  /**
-   * 页头标签
-   */
-  tags: TemplateRef<any>;
-  /**
-   * 页头操作区
-   */
-  actions: Array<TemplateRef<any>>;
-  /**
-   * 页头内容
-   */
-  content: TemplateRef<any>;
-  /**
-   * 页头底部
-   */
-  footer: TemplateRef<any>;
-}
-
 export interface I18nOption {
   i18n: string;
   name: Record<string, any>;

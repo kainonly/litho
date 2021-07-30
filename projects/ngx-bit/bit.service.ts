@@ -11,7 +11,7 @@ import { NzI18nService } from 'ng-zorro-antd/i18n';
 import { BitConfig } from './bit-config';
 import { Api } from './common/api';
 import { ListByPage } from './common/list-by-page';
-import { ListByPageOption, I18nGroupOption, PageHeader } from './types';
+import { ListByPageOption, I18nGroupOption } from './types';
 
 @Injectable({
   providedIn: 'root'

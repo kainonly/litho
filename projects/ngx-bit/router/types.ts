@@ -1,3 +1,5 @@
+import { TemplateRef } from '@angular/core';
+
 export type ID = number | string;
 
 export interface Resource {
@@ -52,4 +54,27 @@ export interface Resources {
    * 扩展定义
    */
   [key: string]: any;
+}
+
+export interface PageHeader {
+  /**
+   * 页头子标题
+   */
+  subTitle: string | Record<string, any>;
+  /**
+   * 页头标签
+   */
+  tags: TemplateRef<any>;
+  /**
+   * 页头操作区
+   */
+  actions: Array<TemplateRef<any>>;
+  /**
+   * 页头内容
+   */
+  content: TemplateRef<any>;
+  /**
+   * 页头底部
+   */
+  footer: TemplateRef<any>;
 }

@@ -1,9 +1,9 @@
 <ul nz-menu [nzTheme]="theme" nzMode="inline">
-  <ng-container *ngTemplateOutlet="navTemplate; context: { $implicit: navs }"></ng-container>
+  <ng-container *ngTemplateOutlet="navTemplate; context: { $implicit: router.resources.navs }"></ng-container>
   <ng-template #navTemplate let-navs>
     <ng-container *ngFor="let nav of navs">
       <ng-container *ngIf="nav.router; else not">
-        <li nz-menu-item nzMatchRouter [nzPaddingLeft]="padding(nav)" [routerLink]="nav.url">
+        <li nz-menu-item nzMatchRouter [nzPaddingLeft]="nav.url.length * 16" [routerLink]="nav.url">
           <i *ngIf="!!nav.icon" nz-icon [nzType]="nav.icon"></i>
           <span>
             <ng-container *ngIf="!bit.locale; else isMultiple">
@@ -16,7 +16,7 @@
         </li>
       </ng-container>
       <ng-template #not>
-        <li nz-submenu [nzOpen]="nav.url[0] === actived" [nzPaddingLeft]="padding(nav)">
+        <li nz-submenu [nzOpen]="nav.url[0] === router.fragments[0]" [nzPaddingLeft]="nav.url.length * 16">
           <span title>
             <i *ngIf="!!nav.icon" nz-icon [nzType]="nav.icon"></i>
             <span>

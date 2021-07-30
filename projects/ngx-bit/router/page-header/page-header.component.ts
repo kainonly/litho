@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 import { BitService } from 'ngx-bit';
 import { BitRouterService, ID, Resource } from 'ngx-bit/router';
@@ -7,29 +7,14 @@ import { BitRouterService, ID, Resource } from 'ngx-bit/router';
   selector: 'bit-page-header',
   templateUrl: './page-header.component.html'
 })
-export class PageHeaderComponent {
-  constructor(public bit: BitService, private router: BitRouterService) {}
+export class PageHeaderComponent implements OnInit {
+  data!: Record<ID, Resource>;
+  dict!: Record<string, ID>;
 
-  get urls(): string[] {
-    return this.router.urls;
-  }
+  constructor(public bit: BitService, public router: BitRouterService) {}
 
-  get fragments(): string[] {
-    return this.router.fragments;
-  }
-
-  get data(): Record<ID, Resource> {
-    return this.router.resources.data;
-  }
-
-  get dict(): Record<string, ID> {
-    return this.router.resources.dict;
-  }
-
-  /**
-   * 获取标题
-   */
-  get title(): any {
-    return this.data[this.dict[this.fragments.join('/')]].name;
+  ngOnInit(): void {
+    this.data = this.router.resources.data;
+    this.dict = this.router.resources.dict;
   }
 }

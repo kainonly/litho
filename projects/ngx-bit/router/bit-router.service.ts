@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import { BehaviorSubject } from 'rxjs';
 
-import { Resources } from './types';
+import { PageHeader, Resources } from './types';
 
 @Injectable({
   providedIn: 'root'
@@ -19,6 +20,10 @@ export class BitRouterService {
    * URL层级数组
    */
   urls: string[] = [];
+  /**
+   * 页头变量
+   */
+  readonly ph: BehaviorSubject<Partial<PageHeader>> = new BehaviorSubject<Partial<PageHeader>>({});
 
   constructor(private router: Router) {}
 
