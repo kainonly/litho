@@ -2,6 +2,7 @@ import { AbstractControlOptions, AsyncValidatorFn, ValidatorFn } from '@angular/
 
 import { EmbeddedProperty } from 'ng-zorro-antd/grid';
 import { NzI18nInterface } from 'ng-zorro-antd/i18n';
+import { TemplateRef } from '@angular/core';
 
 export type Upload = string | UploadOption;
 
@@ -55,6 +56,29 @@ export interface I18n {
 export interface Language {
   id: string;
   name: string | Record<string, any>;
+}
+
+export interface PageHeader {
+  /**
+   * 页头子标题
+   */
+  subTitle: string;
+  /**
+   * 页头标签
+   */
+  tags: TemplateRef<any>;
+  /**
+   * 页头操作区
+   */
+  actions: Array<TemplateRef<any>>;
+  /**
+   * 页头内容
+   */
+  content: TemplateRef<any>;
+  /**
+   * 页头底部
+   */
+  footer: TemplateRef<any>;
 }
 
 export interface I18nOption {

@@ -1,8 +1,8 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { AppService } from '@common/app.service';
-import { Resource } from '@common/data';
+import { Resource, Resources } from '@common/types';
 import { BitService } from 'ngx-bit';
 
 import packer from './language';
@@ -13,33 +13,16 @@ import packer from './language';
   styleUrls: ['./layout.component.scss']
 })
 export class LayoutComponent implements OnInit {
-  navs!: Resource[];
-  dict!: Record<string, Resource>;
-  paths!: Record<string, number>;
-
-  actived!: string[];
+  resources!: Resources;
+  fragments!: string[];
   breadcrumbs: any[] = [];
 
-  constructor(
-    public bit: BitService,
-    public app: AppService,
-    private router: Router,
-    private changeDetector: ChangeDetectorRef
-  ) {}
+  constructor(public bit: BitService, public app: AppService, private router: Router) {}
 
   ngOnInit(): void {
     this.bit.registerLocales(packer);
-    this.getResource();
-  }
-
-  /**
-   * 获取资源
-   */
-  private getResource(): void {
-    this.app.resource().subscribe(data => {
-      this.navs = data.navs;
-      this.dict = data.dict;
-      this.paths = data.paths;
+    this.app.resources().subscribe(data => {
+      this.resources = data;
     });
   }
 
@@ -47,24 +30,18 @@ export class LayoutComponent implements OnInit {
    * 获取标题
    */
   get title(): any {
-    return this.dict[this.paths[this.actived.join('/')]].name;
+    return this.resources.dict[this.resources.paths[this.fragments.join('/')]].name;
   }
 
   /**
-   * 监听激活导航
+   * 监听路由状态
    */
   onActived(): void {
-    this.actived = this.router.url.slice(1).split('/');
+    this.bit.ph = {};
+    this.fragments = this.router.url.slice(1).split('/');
     this.breadcrumbs = [];
-    for (let i = 0; i < this.actived.length; i++) {
-      this.breadcrumbs.push(this.actived.slice(0, i + 1).join('/'));
+    for (let i = 0; i < this.fragments.length; i++) {
+      this.breadcrumbs.push(this.fragments.slice(0, i + 1).join('/'));
     }
-  }
-
-  /**
-   * 返回层级
-   */
-  level(nav: Resource): number {
-    return nav.url.length * 16;
   }
 }

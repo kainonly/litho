@@ -1,85 +1,9 @@
-:host ::ng-deep {
-  .trigger {
-    font-size: 18px;
-    line-height: 64px;
-    padding: 0 24px;
-    cursor: pointer;
-    transition: color 0.3s;
-
-    &:hover {
-      color: #1890ff;
-    }
-  }
-}
-
 .main-layout {
   height: 100%;
 }
 
-$header: 64px;
-
-nz-header {
-  position: fixed;
-  top: 0;
-
-  width: 100%;
-  height: $header;
-  line-height: $header;
-
-  padding: 0 24px;
-  z-index: 999;
-  box-shadow: 0 1px 4px rgb(0 21 41 / 8%);
-  background: #fff;
-  transition: width 0.2s;
-
-  button {
-    height: 100%;
-  }
-}
-
-.logo {
-  padding: 0 24px;
-  cursor: pointer;
-
-  h1 {
-    display: inline-block;
-    height: 32px;
-    line-height: 32px;
-    margin: 0 0 0 12px;
-    font-weight: 600;
-    font-size: 18px;
-    vertical-align: middle;
-  }
-
-  img {
-    display: inline-block;
-    height: 32px;
-    vertical-align: middle;
-  }
-}
-
-.profile {
-  padding: 0 24px;
-
-  &:hover,
-  &:focus {
-    cursor: pointer;
-    background: rgba(0, 0, 0, 0.018);
-  }
-
-  span.name {
-    margin-left: 16px;
-  }
-}
-
 .section-layout {
-  margin-top: $header;
-}
-
-nz-sider {
-  overflow: auto;
-  height: 100%;
-  border-right: 1px solid #f0f0f0;
+  margin-top: 64px;
 }
 
 .inner-layout {
@@ -88,8 +12,4 @@ nz-sider {
 
 .content {
   padding: 16px;
-}
-
-.hide {
-  display: none;
 }

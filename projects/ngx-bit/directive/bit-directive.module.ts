@@ -1,9 +1,6 @@
 import { NgModule } from '@angular/core';
 
-import { BitBackDirective } from './bit-back.directive';
 import { BitFormSubmitDirective } from './bit-form-submit.directive';
-import { BitHistoryDirective } from './bit-history.directive';
-import { BitOpenDirective } from './bit-open.directive';
 import { BitSearchChangeDirective } from './bit-search-change.directive';
 import { BitSearchClearDirective } from './bit-search-clear.directive';
 import { BitSearchStartDirective } from './bit-search-start.directive';
@@ -12,10 +9,7 @@ import { BitUploadDirective } from './bit-upload.directive';
 
 @NgModule({
   declarations: [
-    BitBackDirective,
     BitFormSubmitDirective,
-    BitHistoryDirective,
-    BitOpenDirective,
     BitSearchChangeDirective,
     BitSearchClearDirective,
     BitSearchStartDirective,
@@ -23,10 +17,7 @@ import { BitUploadDirective } from './bit-upload.directive';
     BitUploadDirective
   ],
   exports: [
-    BitBackDirective,
     BitFormSubmitDirective,
-    BitHistoryDirective,
-    BitOpenDirective,
     BitSearchChangeDirective,
     BitSearchClearDirective,
     BitSearchStartDirective,

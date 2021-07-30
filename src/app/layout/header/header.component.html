@@ -1,0 +1,125 @@
+<nz-header>
+  <div nz-row nzJustify="space-between">
+    <div nz-col>
+      <div class="logo">
+        <a href="#">
+          <img src="/assets/logo.svg" alt="ng-zorro-antd" />
+          <h1>NGX BIT</h1>
+        </a>
+      </div>
+    </div>
+    <div nz-col> </div>
+    <div nz-col>
+      <nz-space>
+        <button
+          style="width: 56px"
+          *nzSpaceItem
+          nz-button
+          nzType="text"
+          nz-dropdown
+          [nzDropdownMenu]="translation"
+          nzPlacement="bottomRight"
+        >
+          <i nz-icon nzType="translation"></i>
+          <nz-dropdown-menu #translation>
+            <ul nz-menu style="width: 150px">
+              <li nz-menu-item (click)="bit.setLocale('zh_cn')">
+                <small>[ cn ]</small><span>&nbsp;- 简体中文</span>
+              </li>
+              <li nz-menu-item (click)="bit.setLocale('en_us')"> <small>[ us ]</small><span>&nbsp;- English</span> </li>
+            </ul>
+          </nz-dropdown-menu>
+        </button>
+        <div *nzSpaceItem class="profile" nz-popover [nzPopoverContent]="center" nzPopoverPlacement="bottomRight">
+          <nz-badge nzDot>
+            <nz-avatar nzShape="square" [nzSize]="24" nzSrc="/assets/user.png"> </nz-avatar>
+          </nz-badge>
+          <span class="name">KAIN</span>
+          <ng-template #center>
+            <nz-tabset style="width: 360px" [nzTabBarExtraContent]="extraTemplate">
+              <nz-tab nzTitle="通知(4)">
+                <nz-list nzItemLayout="horizontal">
+                  <nz-list-item>
+                    <nz-list-item-meta>
+                      <nz-list-item-meta-title>你收到了14份周报</nz-list-item-meta-title>
+                      <nz-list-item-meta-description>1 天前</nz-list-item-meta-description>
+                    </nz-list-item-meta>
+                  </nz-list-item>
+                  <nz-list-item>
+                    <nz-list-item-meta>
+                      <nz-list-item-meta-title>合同协议已更新</nz-list-item-meta-title>
+                      <nz-list-item-meta-description>5 天前</nz-list-item-meta-description>
+                    </nz-list-item-meta>
+                  </nz-list-item>
+                  <nz-list-item>
+                    <nz-list-item-meta>
+                      <nz-list-item-meta-title>工作内容</nz-list-item-meta-title>
+                      <nz-list-item-meta-description>2 周前</nz-list-item-meta-description>
+                    </nz-list-item-meta>
+                  </nz-list-item>
+                </nz-list>
+                <button nz-button nzType="text" nzBlock>查看更多</button>
+              </nz-tab>
+              <nz-tab nzTitle="消息(3)">
+                <nz-list nzItemLayout="horizontal">
+                  <nz-list-item>
+                    <nz-list-item-meta>
+                      <nz-list-item-meta-title>你收到了14份周报</nz-list-item-meta-title>
+                      <nz-list-item-meta-description>1 天前</nz-list-item-meta-description>
+                    </nz-list-item-meta>
+                  </nz-list-item>
+                  <nz-list-item>
+                    <nz-list-item-meta>
+                      <nz-list-item-meta-title>合同协议已更新</nz-list-item-meta-title>
+                      <nz-list-item-meta-description>5 天前</nz-list-item-meta-description>
+                    </nz-list-item-meta>
+                  </nz-list-item>
+                  <nz-list-item>
+                    <nz-list-item-meta>
+                      <nz-list-item-meta-title>工作内容</nz-list-item-meta-title>
+                      <nz-list-item-meta-description>2 周前</nz-list-item-meta-description>
+                    </nz-list-item-meta>
+                  </nz-list-item>
+                </nz-list>
+                <button nz-button nzType="text" nzBlock nzSize="large">查看更多</button>
+              </nz-tab>
+              <nz-tab nzTitle="待办(4)">
+                <nz-list nzItemLayout="horizontal">
+                  <nz-list-item>
+                    <nz-list-item-meta>
+                      <nz-list-item-meta-title>你收到了14份周报</nz-list-item-meta-title>
+                      <nz-list-item-meta-description>1 天前</nz-list-item-meta-description>
+                    </nz-list-item-meta>
+                  </nz-list-item>
+                  <nz-list-item>
+                    <nz-list-item-meta>
+                      <nz-list-item-meta-title>合同协议已更新</nz-list-item-meta-title>
+                      <nz-list-item-meta-description>5 天前</nz-list-item-meta-description>
+                    </nz-list-item-meta>
+                  </nz-list-item>
+                  <nz-list-item>
+                    <nz-list-item-meta>
+                      <nz-list-item-meta-title>工作内容</nz-list-item-meta-title>
+                      <nz-list-item-meta-description>2 周前</nz-list-item-meta-description>
+                    </nz-list-item-meta>
+                  </nz-list-item>
+                </nz-list>
+                <button nz-button nzType="text" nzBlock>查看更多</button>
+              </nz-tab>
+            </nz-tabset>
+            <ng-template #extraTemplate>
+              <nz-space>
+                <button *nzSpaceItem routerLink="/center/logs" nz-button nzType="text" [nz-tooltip]="bit.l['center']">
+                  <i nz-icon nzType="user"></i>
+                </button>
+                <button *nzSpaceItem nz-button nzType="text" [nz-tooltip]="bit.l['exit']">
+                  <i nz-icon nzType="logout"></i>
+                </button>
+              </nz-space>
+            </ng-template>
+          </ng-template>
+        </div>
+      </nz-space>
+    </div>
+  </div>
+</nz-header>

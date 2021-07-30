@@ -1,8 +1,7 @@
-import { Location } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Injectable, Optional } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { NavigationExtras, PRIMARY_OUTLET, Router, UrlSegment } from '@angular/router';
+import { Router } from '@angular/router';
 import { Subject } from 'rxjs';
 import { filter, switchMap } from 'rxjs/operators';
 
@@ -12,7 +11,7 @@ import { NzI18nService } from 'ng-zorro-antd/i18n';
 import { BitConfig } from './bit-config';
 import { Api } from './common/api';
 import { ListByPage } from './common/list-by-page';
-import { ListByPageOption, I18nGroupOption } from './types';
+import { ListByPageOption, I18nGroupOption, PageHeader } from './types';
 
 @Injectable({ providedIn: 'root' })
 export class BitService {
@@ -37,15 +36,18 @@ export class BitService {
    */
   private packer?: Map<string, any>;
   /**
-   * 语言包模板变量
+   * 语言包引用
    */
   l: Record<string, string> = {};
+  /**
+   * 页头属性
+   */
+  ph: Partial<PageHeader> = {};
 
   constructor(
     private config: BitConfig,
     @Optional() private storage: StorageMap,
     @Optional() private router: Router,
-    @Optional() private location: Location,
     @Optional() private http: HttpClient,
     @Optional() private fb: FormBuilder,
     @Optional() private nzI18nService: NzI18nService
@@ -62,47 +64,6 @@ export class BitService {
   }
 
   /**
-   * 路由导航
-   */
-  open(commands: Array<string | Record<string, any>>, extras?: NavigationExtras): void {
-    if (commands.length === 0) {
-      throw new Error('路由导航 URL 数组不能为空');
-    }
-    const url = this.router.url;
-    if (url !== '/') {
-      const primary = this.router.parseUrl(url).root.children[PRIMARY_OUTLET];
-      const segments = primary.segments;
-      if (segments.length > 1) {
-        const key = segments[0].path;
-        this.storage.set(`history:${key}`, segments.splice(1)).subscribe(_ => _);
-      }
-    }
-    this.router.navigate(commands, extras);
-  }
-
-  /**
-   * 导航历史
-   */
-  history(key: string): void {
-    this.storage.get(`history:${key}`).subscribe(data => {
-      const segments = <UrlSegment[]>data;
-      const commands = [key];
-      if (segments && segments.length !== 0) {
-        commands.push(...segments.map(v => v.path));
-        this.storage.delete(`history:${key}`).subscribe(_ => _);
-      }
-      this.router.navigate(commands);
-    });
-  }
-
-  /**
-   * 导航返回
-   */
-  back(): void {
-    this.location.back();
-  }
-
-  /**
    * 载入语言包
    */
   registerLocales(packer: Record<string, any>): void {
@@ -116,15 +77,15 @@ export class BitService {
   /**
    * 设置语言包 ID
    */
-  setLocale(locale: string): void {
-    this.locale = locale;
-    localStorage.setItem('locale', locale);
+  setLocale(id: string): void {
+    this.locale = id;
+    localStorage.setItem('locale', id);
     const index = this.config.locale!.mapping.indexOf(this.locale)!;
     for (const [key, data] of this.packer!.entries()) {
       this.l[key] = data[index];
     }
     this.nzI18nService.setLocale(this.config.locale!.bind[index]);
-    this.localeChanged!.next(locale);
+    this.localeChanged!.next(id);
   }
 
   /**
