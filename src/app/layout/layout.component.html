@@ -1,20 +1,15 @@
 <nz-layout class="main-layout">
-  <app-layout-header></app-layout-header>
+  <app-header></app-header>
 
   <nz-layout class="section-layout">
     <nz-sider nzTheme="light" [nzWidth]="240">
-      <app-layout-sider-menu [navs]="resources.navs" [actived]="fragments[0]"></app-layout-sider-menu>
+      <bit-sider-menu></bit-sider-menu>
     </nz-sider>
     <nz-layout class="inner-layout">
-      <app-layout-page-header
-        [dict]="resources.dict"
-        [paths]="resources.paths"
-        [breadcrumbs]="breadcrumbs"
-        [title]="title"
-      ></app-layout-page-header>
+      <bit-page-header></bit-page-header>
       <nz-content>
         <div class="content">
-          <router-outlet (activate)="onActived()"></router-outlet>
+          <router-outlet (activate)="router.onActived()"></router-outlet>
         </div>
       </nz-content>
     </nz-layout>

@@ -13,7 +13,9 @@ import { Api } from './common/api';
 import { ListByPage } from './common/list-by-page';
 import { ListByPageOption, I18nGroupOption, PageHeader } from './types';
 
-@Injectable({ providedIn: 'root' })
+@Injectable({
+  providedIn: 'root'
+})
 export class BitService {
   /**
    * 静态资源地址
@@ -39,10 +41,6 @@ export class BitService {
    * 语言包引用
    */
   l: Record<string, string> = {};
-  /**
-   * 页头属性
-   */
-  ph: Partial<PageHeader> = {};
 
   constructor(
     private config: BitConfig,

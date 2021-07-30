@@ -1,0 +1,17 @@
+<nz-page-header [nzGhost]="false">
+  <nz-breadcrumb nz-page-header-breadcrumb>
+    <ng-container *ngFor="let url of urls">
+      <nz-breadcrumb-item>
+        <ng-container *ngIf="dict.hasOwnProperty(url) && data.hasOwnProperty(dict[url])">
+          <ng-container *ngIf="!bit.locale; else isMultiple">
+            {{ data[dict[url]].name }}
+          </ng-container>
+          <ng-template #isMultiple>
+            {{ data[dict[url]].name | object: bit.locale }}
+          </ng-template>
+        </ng-container>
+      </nz-breadcrumb-item>
+    </ng-container>
+  </nz-breadcrumb>
+  <nz-page-header-title>{{ title | object: bit.locale }}</nz-page-header-title>
+</nz-page-header>

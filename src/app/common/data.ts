@@ -1,4 +1,4 @@
-import { Resource } from '@common/types';
+import { Resource } from 'ngx-bit/router';
 
 export const resource: Resource[] = [
   // 仪表盘

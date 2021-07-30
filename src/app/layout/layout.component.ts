@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 
 import { AppService } from '@common/app.service';
-import { Resource, Resources } from '@common/types';
 import { BitService } from 'ngx-bit';
+import { BitRouterService } from 'ngx-bit/router';
 
 import packer from './language';
 
@@ -13,35 +12,12 @@ import packer from './language';
   styleUrls: ['./layout.component.scss']
 })
 export class LayoutComponent implements OnInit {
-  resources!: Resources;
-  fragments!: string[];
-  breadcrumbs: any[] = [];
-
-  constructor(public bit: BitService, public app: AppService, private router: Router) {}
+  constructor(public bit: BitService, public app: AppService, public router: BitRouterService) {}
 
   ngOnInit(): void {
     this.bit.registerLocales(packer);
     this.app.resources().subscribe(data => {
-      this.resources = data;
+      this.router.resources = data;
     });
-  }
-
-  /**
-   * 获取标题
-   */
-  get title(): any {
-    return this.resources.dict[this.resources.paths[this.fragments.join('/')]].name;
-  }
-
-  /**
-   * 监听路由状态
-   */
-  onActived(): void {
-    this.bit.ph = {};
-    this.fragments = this.router.url.slice(1).split('/');
-    this.breadcrumbs = [];
-    for (let i = 0; i < this.fragments.length; i++) {
-      this.breadcrumbs.push(this.fragments.slice(0, i + 1).join('/'));
-    }
   }
 }

@@ -4,8 +4,8 @@ import { Observable, of, Subject } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { resource } from '@common/data';
-import { Resources, Resource } from '@common/types';
 import { BitConfig } from 'ngx-bit';
+import { ID, Resource, Resources } from 'ngx-bit/router';
 
 @Injectable()
 export class AppService {
@@ -49,14 +49,14 @@ export class AppService {
   /**
    * 获取资源数据
    */
-  resources(): Observable<any> {
+  resources(): Observable<Resources> {
     return of(resource).pipe(
-      map(data => {
+      map(result => {
         const navs: Record<string, any>[] = [];
-        const dict: Record<string, Resource> = {};
-        const paths: Record<string, number> = {};
-        for (const x of data) {
-          dict[x.id] = x;
+        const data: Record<ID, Resource> = {};
+        const dict: Record<string, ID> = {};
+        for (const x of result) {
+          data[x.id] = x;
           if (!x.nav) {
             continue;
           }
@@ -64,20 +64,24 @@ export class AppService {
             x.url = [x.fragment];
             navs.push(x);
           } else {
-            if (dict.hasOwnProperty(x.pid)) {
+            if (data.hasOwnProperty(x.pid)) {
               if (!x.hasOwnProperty('url')) {
-                x.url = [...dict[x.pid].url];
+                x.url = [...data[x.pid].url];
               }
               x.url.push(x.fragment);
-              if (!dict[x.pid].hasOwnProperty('children')) {
-                dict[x.pid].children = [];
+              if (!data[x.pid].hasOwnProperty('children')) {
+                data[x.pid].children = [];
               }
-              dict[x.pid].children.push(x);
+              data[x.pid].children.push(x);
             }
           }
-          paths[x.url.join('/')] = x.id;
+          dict[x.url.join('/')] = x.id;
         }
-        return { navs, dict, paths } as Resources;
+        return <Resources>{
+          navs,
+          data,
+          dict
+        };
       })
     );
   }

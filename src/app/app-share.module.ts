@@ -54,8 +54,8 @@ import { NzTypographyModule } from 'ng-zorro-antd/typography';
 import { NzUploadModule } from 'ng-zorro-antd/upload';
 import { BitDirectiveModule } from 'ngx-bit/directive';
 import { BitI18nModule } from 'ngx-bit/i18n';
-import { BitPageHeaderModule } from 'ngx-bit/page-header';
 import { BitPipeModule } from 'ngx-bit/pipe';
+import { BitRouterModule } from 'ngx-bit/router';
 
 @NgModule({
   exports: [
@@ -118,7 +118,7 @@ import { BitPipeModule } from 'ngx-bit/pipe';
     BitDirectiveModule,
     BitPipeModule,
     BitI18nModule,
-    BitPageHeaderModule
+    BitRouterModule
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

@@ -1,0 +1,38 @@
+<ul nz-menu [nzTheme]="theme" nzMode="inline">
+  <ng-container *ngTemplateOutlet="navTemplate; context: { $implicit: navs }"></ng-container>
+  <ng-template #navTemplate let-navs>
+    <ng-container *ngFor="let nav of navs">
+      <ng-container *ngIf="nav.router; else not">
+        <li nz-menu-item nzMatchRouter [nzPaddingLeft]="padding(nav)" [routerLink]="nav.url">
+          <i *ngIf="!!nav.icon" nz-icon [nzType]="nav.icon"></i>
+          <span>
+            <ng-container *ngIf="!bit.locale; else isMultiple">
+              {{ nav.name }}
+            </ng-container>
+            <ng-template #isMultiple>
+              {{ nav.name | object: bit.locale }}
+            </ng-template>
+          </span>
+        </li>
+      </ng-container>
+      <ng-template #not>
+        <li nz-submenu [nzOpen]="nav.url[0] === actived" [nzPaddingLeft]="padding(nav)">
+          <span title>
+            <i *ngIf="!!nav.icon" nz-icon [nzType]="nav.icon"></i>
+            <span>
+              <ng-container *ngIf="!bit.locale; else isMultiple">
+                {{ nav.name }}
+              </ng-container>
+              <ng-template #isMultiple>
+                {{ nav.name | object: bit.locale }}
+              </ng-template>
+            </span>
+          </span>
+          <ul>
+            <ng-container *ngTemplateOutlet="navTemplate; context: { $implicit: nav.children }"></ng-container>
+          </ul>
+        </li>
+      </ng-template>
+    </ng-container>
+  </ng-template>
+</ul>
