@@ -9,9 +9,10 @@ import { NzPageHeaderModule } from 'ng-zorro-antd/page-header';
 import { BitPipeModule } from 'ngx-bit/pipe';
 import { BitRouterService } from 'ngx-bit/router';
 
-import { PageHeaderMixedComponent } from './page-header/page-header-mixed.component';
-import { PageHeaderComponent } from './page-header/page-header.component';
-import { SiderMenuComponent } from './sider-menu/sider-menu.component';
+import { BitPageHeaderComponent } from './bit-page-header/bit-page-header.component';
+import { BitPhActionDirective } from './bit-page-header/bit-ph-action.directive';
+import { BitPhComponent } from './bit-page-header/bit-ph.component';
+import { BitSiderMenuComponent } from './bit-sider-menu/bit-sider-menu.component';
 
 @NgModule({
   imports: [
@@ -23,8 +24,8 @@ import { SiderMenuComponent } from './sider-menu/sider-menu.component';
     NzBreadCrumbModule,
     BitPipeModule
   ],
-  declarations: [SiderMenuComponent, PageHeaderComponent, PageHeaderMixedComponent],
-  exports: [SiderMenuComponent, PageHeaderComponent, PageHeaderMixedComponent]
+  declarations: [BitSiderMenuComponent, BitPageHeaderComponent, BitPhComponent, BitPhActionDirective],
+  exports: [BitSiderMenuComponent, BitPageHeaderComponent, BitPhComponent, BitPhActionDirective]
 })
 export class BitRouterModule {
   static forRoot(): ModuleWithProviders<BitRouterModule> {

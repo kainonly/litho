@@ -5,9 +5,9 @@ import { BitRouterService, ID, Resource } from 'ngx-bit/router';
 
 @Component({
   selector: 'bit-page-header',
-  templateUrl: './page-header.component.html'
+  templateUrl: './bit-page-header.component.html'
 })
-export class PageHeaderComponent implements OnInit {
+export class BitPageHeaderComponent implements OnInit {
   data!: Record<ID, Resource>;
   dict!: Record<string, ID>;
 

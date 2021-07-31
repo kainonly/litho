@@ -6,11 +6,11 @@ import { BitRouterService } from 'ngx-bit/router';
 
 @Component({
   selector: 'bit-sider-menu',
-  templateUrl: './sider-menu.component.html',
-  styleUrls: ['./sider-menu.component.scss'],
+  templateUrl: './bit-sider-menu.component.html',
+  styleUrls: ['./bit-sider-menu.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SiderMenuComponent {
+export class BitSiderMenuComponent {
   @Input() theme: NzMenuThemeType = 'light';
 
   constructor(public bit: BitService, public router: BitRouterService) {}
