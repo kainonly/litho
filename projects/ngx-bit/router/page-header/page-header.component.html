@@ -21,4 +21,5 @@
       {{ data[dict[router.fragments | Join: '/']].name | object: bit.locale }}
     </ng-template>
   </nz-page-header-title>
+  <nz-page-header-subtitle>{{ (router.ph | async)?.subTitle }} </nz-page-header-subtitle>
 </nz-page-header>

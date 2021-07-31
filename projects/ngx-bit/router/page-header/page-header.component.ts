@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 
 import { BitService } from 'ngx-bit';
 import { BitRouterService, ID, Resource } from 'ngx-bit/router';

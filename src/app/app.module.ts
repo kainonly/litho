@@ -17,6 +17,7 @@ import { NZ_I18N, zh_CN } from 'ng-zorro-antd/i18n';
 import { BitModule } from 'ngx-bit';
 
 import { AppComponent } from './app.component';
+import { BitRouterModule, BitRouterService } from 'ngx-bit/router';
 
 registerLocaleData(zh);
 
@@ -46,6 +47,7 @@ const ngZorroConfig: NzConfig = {
     HttpClientModule,
     AppShareModule,
     BitModule.forRoot(environment.bit),
+    BitRouterModule.forRoot(),
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: environment.production,
       registrationStrategy: 'registerWhenStable:30000'

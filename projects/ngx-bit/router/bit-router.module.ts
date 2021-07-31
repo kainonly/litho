@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { NgModule } from '@angular/core';
+import { ModuleWithProviders, NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
 import { NzBreadCrumbModule } from 'ng-zorro-antd/breadcrumb';
@@ -24,7 +24,13 @@ import { SiderMenuComponent } from './sider-menu/sider-menu.component';
     BitPipeModule
   ],
   declarations: [SiderMenuComponent, PageHeaderComponent, PageHeaderMixedComponent],
-  exports: [SiderMenuComponent, PageHeaderComponent, PageHeaderMixedComponent],
-  providers: [BitRouterService]
+  exports: [SiderMenuComponent, PageHeaderComponent, PageHeaderMixedComponent]
 })
-export class BitRouterModule {}
+export class BitRouterModule {
+  static forRoot(): ModuleWithProviders<BitRouterModule> {
+    return {
+      ngModule: BitRouterModule,
+      providers: [BitRouterService]
+    };
+  }
+}

@@ -23,7 +23,7 @@ export class BitRouterService {
   /**
    * 页头变量
    */
-  readonly ph: BehaviorSubject<Partial<PageHeader>> = new BehaviorSubject<Partial<PageHeader>>({});
+  readonly ph: BehaviorSubject<PageHeader> = new BehaviorSubject<PageHeader>({});
 
   constructor(private router: Router) {}
 
@@ -31,6 +31,7 @@ export class BitRouterService {
    * 监听路由状态
    */
   onActived(): void {
+    this.ph.next({});
     this.fragments = this.router.url.slice(1).split('/');
     this.urls = [];
     for (let i = 0; i < this.fragments.length; i++) {

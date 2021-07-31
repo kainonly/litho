@@ -1,13 +1,13 @@
 import { AfterViewInit, Component, Input, OnInit } from '@angular/core';
 
-import { BitRouterService } from 'ngx-bit/router';
+import { BitRouterService, PageHeader } from 'ngx-bit/router';
 
 @Component({
   selector: 'bit-ph',
   template: ``
 })
 export class PageHeaderMixedComponent implements OnInit {
-  @Input() subTitle?: string | Record<string, any>;
+  @Input() subTitle?: string | Record<string, string>;
 
   constructor(private router: BitRouterService) {}
 

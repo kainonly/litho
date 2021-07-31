@@ -60,21 +60,21 @@ export interface PageHeader {
   /**
    * 页头子标题
    */
-  subTitle: string | Record<string, any>;
+  subTitle?: string | Record<string, string>;
   /**
    * 页头标签
    */
-  tags: TemplateRef<any>;
+  tags?: TemplateRef<any>;
   /**
    * 页头操作区
    */
-  actions: Array<TemplateRef<any>>;
+  actions?: Array<TemplateRef<any>>;
   /**
    * 页头内容
    */
-  content: TemplateRef<any>;
+  content?: TemplateRef<any>;
   /**
    * 页头底部
    */
-  footer: TemplateRef<any>;
+  footer?: TemplateRef<any>;
 }
