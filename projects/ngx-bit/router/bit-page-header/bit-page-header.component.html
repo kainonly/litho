@@ -1,4 +1,6 @@
-<nz-page-header [nzGhost]="false">
+<ng-container *ngTemplateOutlet="router.alert | async"></ng-container>
+
+<nz-page-header [nzGhost]="false" [nzBackIcon]="(router.back | async) ? null : ''" (nzBack)="back()">
   <nz-breadcrumb nz-page-header-breadcrumb>
     <ng-container *ngFor="let url of router.urls">
       <nz-breadcrumb-item>
@@ -21,5 +23,25 @@
       {{ data[dict[router.fragments | Join: '/']].name | object: bit.locale }}
     </ng-template>
   </nz-page-header-title>
-  <nz-page-header-subtitle>{{ (router.ph | async)?.subTitle }} </nz-page-header-subtitle>
+  <nz-page-header-subtitle>
+    {{ router.subTitle | async }}
+  </nz-page-header-subtitle>
+  <nz-page-header-tags>
+    <ng-container *ngTemplateOutlet="router.tags | async"></ng-container>
+  </nz-page-header-tags>
+  <nz-page-header-extra>
+    <nz-space>
+      <ng-container *ngFor="let ref of router.actions | async">
+        <ng-container *nzSpaceItem>
+          <ng-container *ngTemplateOutlet="ref"></ng-container>
+        </ng-container>
+      </ng-container>
+    </nz-space>
+  </nz-page-header-extra>
+  <nz-page-header-content>
+    <ng-container *ngTemplateOutlet="router.content | async"></ng-container>
+  </nz-page-header-content>
+  <nz-page-header-footer>
+    <ng-container *ngTemplateOutlet="router.footer | async"></ng-container>
+  </nz-page-header-footer>
 </nz-page-header>
