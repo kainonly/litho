@@ -18,6 +18,4 @@ export class BitPageHeaderComponent implements OnInit {
     this.data = this.router.resources.data;
     this.dict = this.router.resources.dict;
   }
-
-  back(): void {}
 }
