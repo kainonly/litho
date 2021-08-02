@@ -1,83 +1,61 @@
 <bit-ph>
-  <button *bitPhAction nz-button nzType="primary" nzShape="circle">
-    <i nz-icon nzType="plus"></i>
-  </button>
-  <nz-tabset *bitPhFooter [nzSelectedIndex]="0">
-    <nz-tab nzTitle="进行中"></nz-tab>
-    <nz-tab nzTitle="已归档"></nz-tab>
-  </nz-tabset>
+  <nz-row [nzGutter]="[24, 24]" nzJustify="space-between">
+    <nz-col>
+      <nz-row [nzGutter]="[24, 24]">
+        <nz-col>
+          <nz-avatar [nzSize]="64" nzSrc="/assets/user.png"></nz-avatar>
+        </nz-col>
+        <nz-col>
+          <h5 nz-typography>早安，吴彦祖，祝你开心每一天！</h5>
+          <span nz-typography>交互专家 | 蚂蚁金服-某某某事业群-某某平台部-某某技术部-UED</span>
+        </nz-col>
+      </nz-row>
+    </nz-col>
+    <nz-col></nz-col>
+    <nz-col>
+      <nz-space nzSize="large" [nzSplit]="spaceSplit">
+        <ng-template #spaceSplit>
+          <nz-divider nzType="vertical"></nz-divider>
+        </ng-template>
+        <nz-statistic *nzSpaceItem [nzValue]="(56 | number)!" [nzTitle]="'项目数'"></nz-statistic>
+        <nz-statistic *nzSpaceItem [nzValue]="'8 / 24'" [nzTitle]="'团队内排名'"></nz-statistic>
+        <nz-statistic *nzSpaceItem [nzValue]="(2223 | number)!" [nzTitle]="'项目访问'"></nz-statistic>
+      </nz-space>
+    </nz-col>
+  </nz-row>
 </bit-ph>
 
 <nz-row [nzGutter]="[16, 16]">
   <nz-col [nzSpan]="15">
     <nz-row [nzGutter]="[16, 16]">
       <nz-col [nzSpan]="24">
-        <ng-template #search>
-          <input nzBorderless nz-input placeholder="搜索项目名称" />
-        </ng-template>
-
-        <ng-template #box>
-          <nz-button-group>
-            <button nz-button nz-tooltip="刷新">
-              <i nz-icon nzType="sync"></i>
-            </button>
-            <button nz-button nz-tooltip="清除搜索">
-              <i nz-icon nzType="clear"></i>
-            </button>
-            <button nz-button nz-tooltip="删除选中" nzDanger [disabled]="true">
-              <i nz-icon nzType="delete"></i>
-            </button>
-          </nz-button-group>
-        </ng-template>
-
-        <nz-card [nzTitle]="search" [nzExtra]="box">
-          <nz-table #basicTable [nzData]="lists">
-            <thead>
-              <tr>
-                <th nzWidth="60px" [nzChecked]="false"></th>
-                <th>项目名称</th>
-                <th>描述</th>
-                <th>参与人</th>
-                <th nzWidth="120px" nzRight>操作</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let data of basicTable.data">
-                <td [nzChecked]="false"></td>
-                <td>{{ data.name }}</td>
-                <td></td>
-                <td>
-                  <nz-avatar-group>
-                    <nz-avatar nzText="张三"></nz-avatar>
-                    <nz-avatar nzText="李四"></nz-avatar>
-                  </nz-avatar-group>
-                </td>
-                <td>
-                  <button nz-button nzType="text">
-                    <i nz-icon nzType="edit"></i>
-                  </button>
-                  <nz-divider nzType="vertical"></nz-divider>
-                  <button nz-button nzType="text" nz-dropdown [nzDropdownMenu]="actions">
-                    <i nz-icon nzType="ellipsis"></i>
-                    <nz-dropdown-menu #actions>
-                      <ul nz-menu>
-                        <li nz-menu-item nzDanger>
-                          <i nz-icon nzType="delete-row"></i>
-                          删除
-                        </li>
-                      </ul>
-                    </nz-dropdown-menu>
-                  </button>
-                </td>
-              </tr>
-            </tbody>
-          </nz-table>
+        <nz-card nzTitle="进行中的项目" [nzExtra]="more">
+          <ng-template #more><a nz-button nzType="link">全部项目</a> </ng-template>
+          <div class="project" *ngFor="let item of projects" nz-card-grid>
+            <div class="project-title">
+              <nz-avatar [nzSize]="24" [nzSrc]="item.avatar"></nz-avatar> <span>{{ item.title }}</span>
+            </div>
+            <p nz-typography>{{ item.description }}</p>
+            <div class="project-footer">
+              {{ item.group }} <span>{{ item.time }}</span>
+            </div>
+          </div>
         </nz-card>
       </nz-col>
       <nz-col [nzSpan]="24">
-        <nz-card nzTitle="消息中心">
-          <nz-list nzSize="small">
-            <nz-empty></nz-empty>
+        <nz-card nzTitle="动态">
+          <nz-list nzSize="large">
+            <nz-list-item *ngFor="let item of message">
+              <nz-list-item-meta [nzAvatar]="item.avatar">
+                <nz-list-item-meta-title>
+                  <b>{{ item.name }}</b>
+                  &nbsp;
+                  <span [innerHTML]="item.content | nzSanitizer: 'html'"></span>
+                </nz-list-item-meta-title>
+                <nz-list-item-meta-description> 几秒前 </nz-list-item-meta-description>
+              </nz-list-item-meta>
+            </nz-list-item>
+            <nz-list-empty *ngIf="message.length === 0"></nz-list-empty>
           </nz-list>
         </nz-card>
       </nz-col>
@@ -86,7 +64,40 @@
   <nz-col [nzSpan]="9">
     <nz-row [nzGutter]="[16, 16]">
       <nz-col [nzSpan]="24">
-        <nz-card nzTitle="快速开始/便捷导航"> </nz-card>
+        <nz-card nzTitle="快速开始/便捷导航">
+          <nz-row [nzGutter]="[16, 16]">
+            <ng-container *ngFor="let item of quick">
+              <nz-col [nzSpan]="6">
+                <button nz-button nzType="text">{{ item }}</button>
+              </nz-col>
+            </ng-container>
+            <nz-col [nzSpan]="6">
+              <button nz-button nzType="dashed">
+                <i nz-icon nzType="plus"></i>
+                添加
+              </button>
+            </nz-col>
+          </nz-row>
+        </nz-card>
+      </nz-col>
+      <nz-col [nzSpan]="24">
+        <nz-card nzTitle="工作状态">
+          <app-workbench-state></app-workbench-state>
+        </nz-card>
+      </nz-col>
+      <nz-col [nzSpan]="24">
+        <nz-card nzTitle="团队">
+          <nz-row [nzGutter]="[16, 16]">
+            <ng-container *ngFor="let item of groups">
+              <nz-col [nzSpan]="12">
+                <button nz-button nzType="text">
+                  <nz-avatar [nzSize]='24' [nzSrc]="item.avatar"></nz-avatar>
+                  <span class="group-name">{{ item.group }}</span>
+                </button>
+              </nz-col>
+            </ng-container>
+          </nz-row>
+        </nz-card>
       </nz-col>
     </nz-row>
   </nz-col>
