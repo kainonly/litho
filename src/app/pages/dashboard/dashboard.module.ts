@@ -18,6 +18,7 @@ import { LoadComponent } from './monitor/chart/load.component';
 import { MonitorComponent } from './monitor/monitor.component';
 import { WorkbenchComponent } from './workbench/workbench.component';
 import { StateComponent } from './workbench/chart/state.component';
+import { ResourceComponent } from './monitor/chart/resource.component';
 
 const routes: Routes = [
   {
@@ -52,7 +53,8 @@ const routes: Routes = [
     SalesTypeComponent,
     HealthComponent,
     LoadComponent,
-    StateComponent
+    StateComponent,
+    ResourceComponent
   ]
 })
 export class DashboardModule {}

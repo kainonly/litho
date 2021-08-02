@@ -5,7 +5,7 @@ import { Column } from '@antv/g2plot';
 
 @Component({
   selector: 'app-monitor-load',
-  template: `<div style="height: 300px;width: 100%" #ref></div>`
+  template: `<div style="height: 300px" #ref></div>`
 })
 export class LoadComponent implements AfterViewInit, OnDestroy {
   @ViewChild('ref') ref!: ElementRef;
