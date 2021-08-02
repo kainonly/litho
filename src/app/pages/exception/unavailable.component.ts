@@ -7,6 +7,7 @@ import packer from './language';
 @Component({
   selector: 'app-exception-500',
   template: `
+    <bit-ph skip></bit-ph>
     <nz-result nzStatus="500" nzTitle="500" [nzSubTitle]="bit.l['unavailable']">
       <div nz-result-extra>
         <button nz-button nzType="primary" routerLink="/">

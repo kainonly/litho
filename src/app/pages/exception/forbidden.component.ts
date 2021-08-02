@@ -7,6 +7,7 @@ import packer from './language';
 @Component({
   selector: 'app-exception-403',
   template: `
+    <bit-ph skip></bit-ph>
     <nz-result nzStatus="403" nzTitle="403" [nzSubTitle]="bit.l['forbidden']">
       <div nz-result-extra>
         <button nz-button nzType="primary" routerLink="/">

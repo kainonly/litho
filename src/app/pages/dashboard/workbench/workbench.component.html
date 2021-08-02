@@ -1,17 +1,12 @@
-<bit-ph back>
-  <nz-alert *bitPhAlert nzBanner nzMessage="Warning text"></nz-alert>
-  <button nz-button *bitPhAction>Default Button</button>
-  <button nz-button *bitPhAction>Default Button</button>
+<bit-ph>
+  <button *bitPhAction nz-button nzType="primary" nzShape="circle">
+    <i nz-icon nzType="plus"></i>
+  </button>
+  <nz-tabset *bitPhFooter [nzSelectedIndex]="0">
+    <nz-tab nzTitle="进行中"></nz-tab>
+    <nz-tab nzTitle="已归档"></nz-tab>
+  </nz-tabset>
 </bit-ph>
-
-<!--<button *appExtra nz-button nzType="primary" nzShape="circle">-->
-<!--  <i nz-icon nzType="plus"></i>-->
-<!--</button>-->
-
-<!--<nz-tabset *appFooter [nzSelectedIndex]="0">-->
-<!--  <nz-tab nzTitle="进行中"></nz-tab>-->
-<!--  <nz-tab nzTitle="已归档"></nz-tab>-->
-<!--</nz-tabset>-->
 
 <nz-row [nzGutter]="[16, 16]">
   <nz-col [nzSpan]="15">

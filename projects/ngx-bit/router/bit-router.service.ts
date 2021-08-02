@@ -20,6 +20,13 @@ export class BitRouterService {
    * URL层级数组
    */
   urls: string[] = [];
+  /**
+   * 忽略页头
+   */
+  readonly skip: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  /**
+   * 显示返回
+   */
   readonly back: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   /**
    * 顶部提示
@@ -68,8 +75,10 @@ export class BitRouterService {
    * 重置页头属性
    */
   private resetPageHeaderAttr(): void {
-    this.subTitle.next(null);
+    this.skip.next(false);
     this.back.next(false);
+    this.subTitle.next(null);
+    this.alert.next(null);
     this.tags.next(null);
     this.actions.next(null);
     this.content.next(null);

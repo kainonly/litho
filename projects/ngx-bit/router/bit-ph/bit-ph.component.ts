@@ -23,8 +23,9 @@ import { BitPhActionDirective } from './bit-ph-action.directive';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class BitPhComponent implements OnInit, AfterContentInit, AfterViewInit {
-  @Input() subTitle?: string | Record<string, string>;
+  @Input() @InputBoolean() skip?: any;
   @Input() @InputBoolean() back?: any;
+  @Input() subTitle?: string | Record<string, string>;
 
   @ContentChild(BitPhAlertDirective, { read: TemplateRef }) alert?: TemplateRef<any>;
   @ContentChild(BitPhTagsDirective, { read: TemplateRef }) tags?: TemplateRef<any>;
@@ -35,6 +36,7 @@ export class BitPhComponent implements OnInit, AfterContentInit, AfterViewInit {
   constructor(private router: BitRouterService) {}
 
   ngOnInit(): void {
+    this.router.skip.next(!!this.skip);
     this.router.back.next(!!this.back);
     this.router.subTitle.next(this.subTitle || null);
   }
