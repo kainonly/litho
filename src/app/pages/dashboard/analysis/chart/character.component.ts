@@ -1,6 +1,7 @@
 import { AfterViewInit, Component, ElementRef, OnDestroy, ViewChild } from '@angular/core';
 
 import { Rose } from '@antv/g2plot';
+import { timer } from 'rxjs';
 
 @Component({
   selector: 'app-analysis-chart-character',
@@ -32,7 +33,9 @@ export class CharacterComponent implements AfterViewInit, OnDestroy {
         position: 'bottom'
       }
     });
-    this.chart.render();
+    timer(200).subscribe(() => {
+      this.chart.render();
+    });
   }
 
   ngOnDestroy(): void {

@@ -1,6 +1,7 @@
 import { AfterViewInit, Component, ElementRef, OnDestroy, ViewChild } from '@angular/core';
 
 import { Radar } from '@antv/g2plot';
+import { timer } from 'rxjs';
 
 @Component({
   selector: 'app-analysis-chart-effect',
@@ -34,7 +35,9 @@ export class EffectComponent implements AfterViewInit, OnDestroy {
       },
       area: {}
     });
-    this.chart.render();
+    timer(200).subscribe(() => {
+      this.chart.render();
+    });
   }
 
   ngOnDestroy(): void {

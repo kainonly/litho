@@ -3,6 +3,7 @@ import { AfterViewInit, Component, ElementRef, OnDestroy, ViewChild } from '@ang
 import { Area } from '@antv/g2plot';
 
 import { conversion } from '../data';
+import { timer } from 'rxjs';
 
 @Component({
   selector: 'app-analysis-charts-conversion',
@@ -25,7 +26,9 @@ export class ConversionComponent implements AfterViewInit, OnDestroy {
         end: 0.9
       }
     });
-    this.chart.render();
+    timer(200).subscribe(() => {
+      this.chart.render();
+    });
   }
 
   ngOnDestroy(): void {

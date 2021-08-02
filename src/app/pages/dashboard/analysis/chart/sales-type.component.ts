@@ -1,6 +1,7 @@
 import { AfterViewInit, Component, ElementRef, OnDestroy, ViewChild } from '@angular/core';
 
 import { Bar } from '@antv/g2plot';
+import { timer } from 'rxjs';
 
 @Component({
   selector: 'app-analysis-chart-sales-type',
@@ -28,7 +29,9 @@ export class SalesTypeComponent implements AfterViewInit, OnDestroy {
         position: 'top-left'
       }
     });
-    this.chart.render();
+    timer(200).subscribe(() => {
+      this.chart.render();
+    });
   }
 
   ngOnDestroy(): void {

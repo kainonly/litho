@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-form-basic',
@@ -14,14 +14,14 @@ export class BasicComponent implements OnInit {
 
   ngOnInit(): void {
     this.form = this.fb.group({
-      title: [null],
-      date: [null],
-      description: [null],
-      standard: [null],
+      title: [null, [Validators.required]],
+      date: [null, [Validators.required]],
+      description: [null, [Validators.required]],
+      standard: [null, [Validators.required]],
       customer: [null],
       staff: [null],
       weights: [0],
-      privacy: [0]
+      privacy: [0, [Validators.required]]
     });
   }
 

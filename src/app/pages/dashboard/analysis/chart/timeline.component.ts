@@ -1,6 +1,7 @@
 import { AfterViewInit, Component, ElementRef, OnDestroy, ViewChild } from '@angular/core';
 
 import { DualAxes } from '@antv/g2plot';
+import { timer } from 'rxjs';
 
 @Component({
   selector: 'app-analysis-chart-timeline',
@@ -63,7 +64,9 @@ export class TimelineComponent implements AfterViewInit, OnDestroy {
         }
       ]
     });
-    this.chart.render();
+    timer(200).subscribe(() => {
+      this.chart.render();
+    });
   }
 
   ngOnDestroy(): void {

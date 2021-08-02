@@ -8,48 +8,68 @@
       <form nz-form nzLayout="vertical" [formGroup]="form" (bitFormSubmit)="submit($event)">
         <nz-form-item>
           <nz-form-label nzRequired>标题</nz-form-label>
-          <nz-form-control>
-            <input style="width: 320px" nz-input formControlName="title" placeholder="给目标起个名字" />
+          <nz-form-control
+            style="width: 320px"
+            nzHasFeedback
+            [nzAutoTips]="{
+              default: {
+                required: '标题不能为空'
+              }
+            }"
+          >
+            <input nz-input formControlName="title" placeholder="给目标起个名字" />
           </nz-form-control>
         </nz-form-item>
         <nz-form-item>
           <nz-form-label nzRequired>起止日期</nz-form-label>
-          <nz-form-control>
-            <nz-range-picker style="width: 320px" formControlName="date"></nz-range-picker>
+          <nz-form-control
+            style="width: 320px"
+            nzHasFeedback
+            [nzAutoTips]="{
+              default: {
+                required: '起止日期不能为空'
+              }
+            }"
+          >
+            <nz-range-picker style="width: 100%" formControlName="date"></nz-range-picker>
           </nz-form-control>
         </nz-form-item>
         <nz-form-item>
           <nz-form-label nzRequired>目标描述</nz-form-label>
-          <nz-form-control>
+          <nz-form-control
+            nzHasFeedback
+            [nzAutoTips]="{
+              default: {
+                required: '目标描述不能为空'
+              }
+            }"
+          >
             <textarea rows="4" nz-input formControlName="description" placeholder="请输入你的阶段性工作目标"></textarea>
           </nz-form-control>
         </nz-form-item>
         <nz-form-item>
           <nz-form-label nzRequired>衡量标准</nz-form-label>
-          <nz-form-control>
+          <nz-form-control
+            nzHasFeedback
+            [nzAutoTips]="{
+              default: {
+                required: '衡量标准不能为空'
+              }
+            }"
+          >
             <textarea rows="4" nz-input formControlName="standard" placeholder="请输入衡量标准"></textarea>
           </nz-form-control>
         </nz-form-item>
         <nz-form-item>
           <nz-form-label>客户</nz-form-label>
-          <nz-form-control>
-            <input
-              style="width: 320px"
-              nz-input
-              formControlName="customer"
-              placeholder="请描述你服务的客户，内部客户直接@姓名..."
-            />
+          <nz-form-control style="width: 320px" nzHasFeedback>
+            <input nz-input formControlName="customer" placeholder="请描述你服务的客户，内部客户直接@姓名..." />
           </nz-form-control>
         </nz-form-item>
         <nz-form-item>
           <nz-form-label>邀评人</nz-form-label>
-          <nz-form-control>
-            <input
-              style="width: 320px"
-              nz-input
-              formControlName="staff"
-              placeholder="请直接@姓名/工号，最多可邀请5人"
-            />
+          <nz-form-control style="width: 320px" nzHasFeedback>
+            <input nz-input formControlName="staff" placeholder="请直接@姓名/工号，最多可邀请5人" />
           </nz-form-control>
         </nz-form-item>
         <nz-form-item>
@@ -79,7 +99,6 @@
           <nz-form-control>
             <nz-space>
               <button *nzSpaceItem nz-button nzType="primary">提交</button>
-              <button *nzSpaceItem nz-button>重置</button>
             </nz-space>
           </nz-form-control>
         </nz-form-item>

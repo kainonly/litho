@@ -1,6 +1,7 @@
 import { AfterViewInit, Component, ElementRef, OnDestroy, ViewChild } from '@angular/core';
 
 import { Pie } from '@antv/g2plot';
+import { timer } from 'rxjs';
 
 @Component({
   selector: 'app-analysis-chart-sales-per',
@@ -32,7 +33,9 @@ export class SalesPerComponent implements AfterViewInit, OnDestroy {
       },
       interactions: [{ type: 'element-selected' }, { type: 'element-active' }]
     });
-    this.chart.render();
+    timer(200).subscribe(() => {
+      this.chart.render();
+    });
   }
 
   ngOnDestroy(): void {

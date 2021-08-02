@@ -1,6 +1,7 @@
 import { AfterViewInit, Component, ElementRef, OnDestroy, ViewChild } from '@angular/core';
 
 import { Sankey } from '@antv/g2plot';
+import { timer } from 'rxjs';
 
 @Component({
   selector: 'app-analysis-charts-target',
@@ -35,7 +36,9 @@ export class TargetComponent implements AfterViewInit, OnDestroy {
       nodeWidthRatio: 0.008,
       nodePaddingRatio: 0.03
     });
-    this.chart.render();
+    timer(200).subscribe(() => {
+      this.chart.render();
+    });
   }
 
   ngOnDestroy(): void {

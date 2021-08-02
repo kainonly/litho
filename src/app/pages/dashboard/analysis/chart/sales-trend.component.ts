@@ -3,6 +3,7 @@ import { AfterViewInit, Component, ElementRef, OnDestroy, ViewChild } from '@ang
 import { Column } from '@antv/g2plot';
 
 import { sales } from '../data';
+import { timer } from 'rxjs';
 
 @Component({
   selector: 'app-analysis-charts-sales-trend',
@@ -24,7 +25,9 @@ export class SalesTrendComponent implements AfterViewInit, OnDestroy {
         radius: [20, 20, 0, 0]
       }
     });
-    this.chart.render();
+    timer(200).subscribe(() => {
+      this.chart.render();
+    });
   }
 
   ngOnDestroy(): void {

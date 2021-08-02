@@ -3,6 +3,7 @@ import { AfterViewInit, Component, ElementRef, OnDestroy, ViewChild } from '@ang
 import { WordCloud } from '@antv/g2plot';
 
 import { keyword } from '../data';
+import { timer } from 'rxjs';
 
 @Component({
   selector: 'app-analysis-chart-keyword',
@@ -26,7 +27,9 @@ export class KeywordComponent implements AfterViewInit, OnDestroy {
       },
       random: () => 0.5
     });
-    this.chart.render();
+    timer(200).subscribe(() => {
+      this.chart.render();
+    });
   }
 
   ngOnDestroy(): void {
