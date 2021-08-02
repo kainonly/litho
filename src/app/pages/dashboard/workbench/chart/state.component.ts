@@ -13,7 +13,6 @@ export class StateComponent implements AfterViewInit, OnDestroy {
   async ngAfterViewInit(): Promise<void> {
     const res = await fetch('https://gw.alipayobjects.com/os/antvdemo/assets/data/github-commit.json');
     const data = await res.json();
-    console.log(data);
     this.chart = new Heatmap(this.ref.nativeElement, {
       data,
       height: 200,

@@ -1,8 +1,6 @@
 import { AbstractControlOptions, AsyncValidatorFn, ValidatorFn } from '@angular/forms';
 
-import { EmbeddedProperty } from 'ng-zorro-antd/grid';
 import { NzI18nInterface } from 'ng-zorro-antd/i18n';
-import { TemplateRef } from '@angular/core';
 
 export type Upload = string | UploadOption;
 
@@ -20,23 +18,6 @@ export interface UploadSignedResponse {
 }
 
 export type UploadStorage = 'default' | 'oss' | 'obs' | 'cos';
-
-export type Grid = Record<string, Partial<GridOption>>;
-
-export interface GridOption {
-  nzFlex: string | number;
-  nzSpan: string | number;
-  nzOrder: string | number;
-  nzOffset: string | number;
-  nzPush: string | number;
-  nzPull: string | number;
-  nzXs: string | number | EmbeddedProperty;
-  nzSm: string | number | EmbeddedProperty;
-  nzMd: string | number | EmbeddedProperty;
-  nzLg: string | number | EmbeddedProperty;
-  nzXl: string | number | EmbeddedProperty;
-  nzXXl: string | number | EmbeddedProperty;
-}
 
 export interface Locale {
   default: string;
@@ -88,7 +69,7 @@ export interface ApiOption {
   model: string;
 }
 
-export interface ListByPageOption {
+export interface ListsOption {
   id: string;
   query: SearchOption[];
   order?: OrderOption;

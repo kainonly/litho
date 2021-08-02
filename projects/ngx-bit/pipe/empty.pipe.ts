@@ -1,10 +1,11 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
-import { empty } from 'ngx-bit/operates';
-
 @Pipe({ name: 'Empty' })
 export class EmptyPipe implements PipeTransform {
-  transform(value: any): boolean {
-    return empty(value);
+  transform(value: unknown): boolean {
+    if (typeof value === 'object') {
+      return Object.keys(value as Record<string, unknown>).length === 0;
+    }
+    return !!value;
   }
 }

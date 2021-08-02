@@ -3,8 +3,8 @@ import { Observable } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
 
 import { ApiOption, OrderOption, SearchOption } from '../types';
-import { ListByPage } from './list-by-page';
-import { getQuerySchema } from './utils';
+import { Lists } from './lists';
+import { getQuerySchema } from './util';
 
 export class Api {
   constructor(private http: HttpClient, private option: ApiOption) {}
@@ -42,7 +42,7 @@ export class Api {
   /**
    * 获取分页数据请求
    */
-  lists(factory: ListByPage, refresh: boolean, persistence: boolean): Observable<Record<string, any> | null> {
+  lists(factory: Lists, refresh: boolean, persistence: boolean): Observable<Record<string, any> | null> {
     if (refresh || persistence) {
       if (refresh) {
         factory.index = 1;

@@ -2,9 +2,9 @@ import { AsyncSubject, Observable } from 'rxjs';
 
 import { StorageMap } from '@ngx-pwa/local-storage';
 
-import { ListByPageOption, SearchOption, OrderOption } from '../types';
+import { ListsOption, SearchOption, OrderOption } from '../types';
 
-export class ListByPage {
+export class Lists {
   /**
    * 完成初始化
    */
@@ -65,7 +65,7 @@ export class ListByPage {
    */
   checkedNumber = 0;
 
-  constructor(private storage: StorageMap, private option: ListByPageOption) {
+  constructor(private storage: StorageMap, private option: ListsOption) {
     this.limit = option.limit!;
     this.order = option.order!;
     this.storage.get(`search:${option.id}`).subscribe(search => {

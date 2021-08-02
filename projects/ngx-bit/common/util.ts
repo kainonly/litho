@@ -1,6 +1,7 @@
-import { Observable } from 'rxjs';
+import { Observable, timer } from 'rxjs';
 
 import { SearchOption } from '../types';
+import { map, switchMap } from 'rxjs/operators';
 
 /**
  * 返回查询数组
@@ -37,17 +38,30 @@ export function getQuerySchema(options: SearchOption[]): any[] {
   return schema;
 }
 
+export function asyncValidator(
+  handle: Observable<boolean>,
+  field = 'duplicated',
+  dueTime = 500
+): Observable<Record<string, any> | null> {
+  return timer(dueTime).pipe(
+    switchMap(() => handle),
+    map(result => {
+      return !result ? { error: true, [field]: true } : null;
+    })
+  );
+}
+
 /**
  * 加载脚本
  */
-export function loadScript(doc: Document, url: string): Observable<boolean> {
+export function loadScript(doc: Document, url: string): Observable<undefined> {
   const script = doc.createElement('script');
   script.type = 'text/javascript';
   script.src = url;
   doc.body.appendChild(script);
-  return new Observable<boolean>(observer => {
+  return new Observable<undefined>(observer => {
     script.onload = () => {
-      observer.next(true);
+      observer.next();
       observer.complete();
     };
   });

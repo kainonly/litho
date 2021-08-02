@@ -1,4 +1,3 @@
-import { PortalModule } from '@angular/cdk/portal';
 import { CommonModule } from '@angular/common';
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -53,10 +52,10 @@ import { NzTreeSelectModule } from 'ng-zorro-antd/tree-select';
 import { NzTreeViewModule } from 'ng-zorro-antd/tree-view';
 import { NzTypographyModule } from 'ng-zorro-antd/typography';
 import { NzUploadModule } from 'ng-zorro-antd/upload';
-import { BitDirectiveModule } from 'ngx-bit/directive';
 import { BitI18nModule } from 'ngx-bit/i18n';
 import { BitPipeModule } from 'ngx-bit/pipe';
 import { BitRouterModule } from 'ngx-bit/router';
+import { BitToolModule } from 'ngx-bit/tool';
 
 @NgModule({
   exports: [
@@ -116,8 +115,7 @@ import { BitRouterModule } from 'ngx-bit/router';
     NzStatisticModule,
     NzPipesModule,
     NzEmptyModule,
-    PortalModule,
-    BitDirectiveModule,
+    BitToolModule,
     BitPipeModule,
     BitI18nModule,
     BitRouterModule

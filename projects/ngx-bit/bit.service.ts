@@ -10,8 +10,8 @@ import { NzI18nService } from 'ng-zorro-antd/i18n';
 
 import { BitConfig } from './bit-config';
 import { Api } from './common/api';
-import { ListByPage } from './common/list-by-page';
-import { ListByPageOption, I18nGroupOption } from './types';
+import { Lists } from './common/lists';
+import { ListsOption, I18nGroupOption } from './types';
 
 @Injectable({
   providedIn: 'root'
@@ -114,7 +114,7 @@ export class BitService {
   }
 
   /**
-   * 创建 CRUD 请求
+   * 创建统一请求
    */
   api(model: string): Api {
     return new Api(this.http, {
@@ -126,9 +126,9 @@ export class BitService {
   /**
    * 创建分页处理
    */
-  listByPage(option: ListByPageOption): ListByPage {
+  lists(option: ListsOption): Lists {
     option.limit = option.limit || this.config.page;
-    return new ListByPage(this.storage, option);
+    return new Lists(this.storage, option);
   }
 
   /**

@@ -2,13 +2,13 @@ import { Directive, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { NgModel } from '@angular/forms';
 import { switchMap } from 'rxjs/operators';
 
-import { ListByPage } from 'ngx-bit';
+import { Lists } from 'ngx-bit';
 
 @Directive({
   selector: '[bitSearchChange]'
 })
 export class BitSearchChangeDirective implements OnInit {
-  @Input() bitSearchChange!: ListByPage;
+  @Input() bitSearchChange!: Lists;
   @Output() readonly bitAfter: EventEmitter<undefined> = new EventEmitter<undefined>();
 
   constructor(private model: NgModel) {}

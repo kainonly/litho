@@ -1,12 +1,12 @@
 import { Directive, EventEmitter, HostListener, Input, Output } from '@angular/core';
 
-import { ListByPage } from 'ngx-bit';
+import { Lists } from 'ngx-bit';
 
 @Directive({
   selector: 'button[bitSearchClear]'
 })
 export class BitSearchClearDirective {
-  @Input() bitSearchClear!: ListByPage;
+  @Input() bitSearchClear!: Lists;
   @Input() bitReset?: Record<string, any>;
   @Output() readonly bitAfter: EventEmitter<undefined> = new EventEmitter<undefined>();
 

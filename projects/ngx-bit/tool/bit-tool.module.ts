@@ -25,4 +25,4 @@ import { BitUploadDirective } from './bit-upload.directive';
     BitUploadDirective
   ]
 })
-export class BitDirectiveModule {}
+export class BitToolModule {}

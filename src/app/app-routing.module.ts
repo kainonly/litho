@@ -16,6 +16,10 @@ const routes: Routes = [
         loadChildren: () => import('./pages/dashboard/dashboard.module').then(m => m.DashboardModule)
       },
       {
+        path: 'form',
+        loadChildren: () => import('./pages/form/form.module').then(m => m.FormModule)
+      },
+      {
         path: 'result',
         loadChildren: () => import('./pages/result/result.module').then(m => m.ResultModule)
       },

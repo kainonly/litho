@@ -1,0 +1,89 @@
+<bit-ph>
+  <span nz-typography>表单页用于向用户收集或验证信息，基础表单常见于数据项较少的表单场景。 </span>
+</bit-ph>
+
+<nz-card>
+  <nz-row [nzGutter]="[16, 16]" nzJustify="center">
+    <nz-col nzFlex="600px">
+      <form nz-form nzLayout="vertical" [formGroup]="form" (bitFormSubmit)="submit($event)">
+        <nz-form-item>
+          <nz-form-label nzRequired>标题</nz-form-label>
+          <nz-form-control>
+            <input style="width: 320px" nz-input formControlName="title" placeholder="给目标起个名字" />
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-label nzRequired>起止日期</nz-form-label>
+          <nz-form-control>
+            <nz-range-picker style="width: 320px" formControlName="date"></nz-range-picker>
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-label nzRequired>目标描述</nz-form-label>
+          <nz-form-control>
+            <textarea rows="4" nz-input formControlName="description" placeholder="请输入你的阶段性工作目标"></textarea>
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-label nzRequired>衡量标准</nz-form-label>
+          <nz-form-control>
+            <textarea rows="4" nz-input formControlName="standard" placeholder="请输入衡量标准"></textarea>
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-label>客户</nz-form-label>
+          <nz-form-control>
+            <input
+              style="width: 320px"
+              nz-input
+              formControlName="customer"
+              placeholder="请描述你服务的客户，内部客户直接@姓名..."
+            />
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-label>邀评人</nz-form-label>
+          <nz-form-control>
+            <input
+              style="width: 320px"
+              nz-input
+              formControlName="staff"
+              placeholder="请直接@姓名/工号，最多可邀请5人"
+            />
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-label>权重</nz-form-label>
+          <nz-form-control>
+            <nz-input-number
+              formControlName="weights"
+              [nzMin]="1"
+              [nzMax]="100"
+              [nzStep]="1"
+              [nzFormatter]="formatterPercent"
+              [nzParser]="parserPercent"
+            ></nz-input-number>
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-label nzRequired>目标公开</nz-form-label>
+          <nz-form-control [nzExtra]="'客户、邀评人默认分享'">
+            <nz-radio-group formControlName="privacy">
+              <label nz-radio [nzValue]="0">公开</label>
+              <label nz-radio [nzValue]="1">部分公开</label>
+              <label nz-radio [nzValue]="2">不公开</label>
+            </nz-radio-group>
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-control>
+            <nz-space>
+              <button *nzSpaceItem nz-button nzType="primary">提交</button>
+              <button *nzSpaceItem nz-button>重置</button>
+            </nz-space>
+          </nz-form-control>
+        </nz-form-item>
+      </form>
+    </nz-col>
+  </nz-row>
+</nz-card>

@@ -26,10 +26,10 @@
     <nz-page-header-subtitle>
       {{ router.subTitle | async }}
     </nz-page-header-subtitle>
-    <nz-page-header-tags>
+    <nz-page-header-tags *ngIf="router.tags | async">
       <ng-container *ngTemplateOutlet="router.tags | async"></ng-container>
     </nz-page-header-tags>
-    <nz-page-header-extra>
+    <nz-page-header-extra *ngIf="router.actions | async">
       <nz-space>
         <ng-container *ngFor="let ref of router.actions | async">
           <ng-container *nzSpaceItem>
@@ -38,10 +38,10 @@
         </ng-container>
       </nz-space>
     </nz-page-header-extra>
-    <nz-page-header-content>
+    <nz-page-header-content *ngIf="router.content | async">
       <ng-container *ngTemplateOutlet="router.content | async"></ng-container>
     </nz-page-header-content>
-    <nz-page-header-footer>
+    <nz-page-header-footer *ngIf="router.footer | async">
       <ng-container *ngTemplateOutlet="router.footer | async"></ng-container>
     </nz-page-header-footer>
   </nz-page-header>

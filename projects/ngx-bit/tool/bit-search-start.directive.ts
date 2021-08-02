@@ -1,12 +1,12 @@
 import { Directive, EventEmitter, HostListener, Input, Output } from '@angular/core';
 
-import { ListByPage } from 'ngx-bit';
+import { Lists } from 'ngx-bit';
 
 @Directive({
   selector: '[bitSearchStart]'
 })
 export class BitSearchStartDirective {
-  @Input() bitSearchStart!: ListByPage;
+  @Input() bitSearchStart!: Lists;
   @Output() readonly bitAfter: EventEmitter<undefined> = new EventEmitter<undefined>();
 
   @HostListener('keydown.enter', ['$event.target']) onenter(el: Element): void {
