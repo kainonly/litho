@@ -69,6 +69,7 @@ export class BitRouterService {
    */
   private resetPageHeaderAttr(): void {
     this.subTitle.next(null);
+    this.back.next(false);
     this.tags.next(null);
     this.actions.next(null);
     this.content.next(null);

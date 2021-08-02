@@ -1,6 +1,5 @@
 <ng-container *ngTemplateOutlet="router.alert | async"></ng-container>
-
-<nz-page-header [nzGhost]="false">
+<nz-page-header [nzGhost]="false" [nzBackIcon]="(router.back | async) ? '' : null">
   <nz-breadcrumb nz-page-header-breadcrumb>
     <ng-container *ngFor="let url of router.urls">
       <nz-breadcrumb-item>

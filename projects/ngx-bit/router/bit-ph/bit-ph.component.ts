@@ -12,10 +12,10 @@ import {
   ViewChild
 } from '@angular/core';
 
+import { InputBoolean } from 'ng-zorro-antd/core/util';
 import { BitPhAlertDirective, BitPhFooterDirective, BitPhTagsDirective, BitRouterService } from 'ngx-bit/router';
 
 import { BitPhActionDirective } from './bit-ph-action.directive';
-import { InputBoolean } from 'ng-zorro-antd/core/util';
 
 @Component({
   selector: 'bit-ph',
