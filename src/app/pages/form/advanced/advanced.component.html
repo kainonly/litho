@@ -1,0 +1,169 @@
+<bit-ph>
+  <span>高级表单常见于一次性输入和提交大批量数据的场景。</span>
+</bit-ph>
+<form nz-form [formGroup]="form" (bitFormSubmit)="submit($event)">
+  <nz-row [nzGutter]="[16, 16]">
+    <nz-col nzSpan="24">
+      <nz-card nzTitle="仓库管理" formGroupName="warehouse">
+        <nz-row [nzGutter]="24">
+          <nz-col nzSpan="8">
+            <nz-form-control>
+              <nz-form-label nzRequired>仓库名</nz-form-label>
+              <nz-form-control style="width: 320px" [nzAutoTips]="{ default: { required: '不能为空' } }">
+                <input formControlName="name" nz-input placeholder="请输入仓库名称" />
+              </nz-form-control>
+            </nz-form-control>
+          </nz-col>
+          <nz-col nzSpan="8">
+            <nz-form-control>
+              <nz-form-label nzRequired>仓库域名</nz-form-label>
+              <nz-form-control style="width: 320px" [nzAutoTips]="{ default: { required: '不能为空' } }">
+                <nz-input-group [nzAddOnBefore]="'http://'" [nzAddOnAfter]="'.com'">
+                  <input formControlName="url" nz-input placeholder="请输入" />
+                </nz-input-group>
+              </nz-form-control>
+            </nz-form-control>
+          </nz-col>
+          <nz-col nzSpan="8">
+            <nz-form-control>
+              <nz-form-label nzRequired>仓库管理员</nz-form-label>
+              <nz-form-control style="width: 320px" [nzAutoTips]="{ default: { required: '不能为空' } }">
+                <nz-select style="width: 100%" formControlName="admin" nzPlaceHolder="请选择管理员">
+                  <nz-option [nzValue]="0" nzLabel="kain"></nz-option>
+                </nz-select>
+              </nz-form-control>
+            </nz-form-control>
+          </nz-col>
+          <nz-col nzSpan="8">
+            <nz-form-control>
+              <nz-form-label nzRequired>审批人</nz-form-label>
+              <nz-form-control style="width: 320px" [nzAutoTips]="{ default: { required: '不能为空' } }">
+                <nz-select style="width: 100%" formControlName="approver" nzPlaceHolder="请选择管理员">
+                  <nz-option [nzValue]="0" nzLabel="kain"></nz-option>
+                </nz-select>
+              </nz-form-control>
+            </nz-form-control>
+          </nz-col>
+          <nz-col nzSpan="8">
+            <nz-form-control>
+              <nz-form-label nzRequired>生效日期</nz-form-label>
+              <nz-form-control style="width: 320px" [nzAutoTips]="{ default: { required: '不能为空' } }">
+                <nz-range-picker style="width: 100%" formControlName="effective"></nz-range-picker>
+              </nz-form-control>
+            </nz-form-control>
+          </nz-col>
+          <nz-col nzSpan="8">
+            <nz-form-control>
+              <nz-form-label nzRequired>仓库类型</nz-form-label>
+              <nz-form-control style="width: 320px" [nzAutoTips]="{ default: { required: '不能为空' } }">
+                <nz-select style="width: 100%" formControlName="type" nzPlaceHolder="请选择仓库类型">
+                  <nz-option [nzValue]="0" nzLabel="0号"></nz-option>
+                </nz-select>
+              </nz-form-control>
+            </nz-form-control>
+          </nz-col>
+        </nz-row>
+      </nz-card>
+    </nz-col>
+    <nz-col nzSpan="24">
+      <nz-card nzTitle="任务管理" formGroupName="task">
+        <nz-row [nzGutter]="24">
+          <nz-col nzSpan="8">
+            <nz-form-control>
+              <nz-form-label nzRequired>任务名</nz-form-label>
+              <nz-form-control style="width: 320px" [nzAutoTips]="{ default: { required: '不能为空' } }">
+                <input formControlName="name" nz-input placeholder="请输入任务名称" />
+              </nz-form-control>
+            </nz-form-control>
+          </nz-col>
+          <nz-col nzSpan="8">
+            <nz-form-control>
+              <nz-form-label nzRequired>任务描述</nz-form-label>
+              <nz-form-control style="width: 320px" [nzAutoTips]="{ default: { required: '不能为空' } }">
+                <input formControlName="description" nz-input placeholder="请输入任务描述" />
+              </nz-form-control>
+            </nz-form-control>
+          </nz-col>
+          <nz-col nzSpan="8">
+            <nz-form-control>
+              <nz-form-label nzRequired>执行人</nz-form-label>
+              <nz-form-control style="width: 320px" [nzAutoTips]="{ default: { required: '不能为空' } }">
+                <nz-select style="width: 100%" formControlName="executor" nzPlaceHolder="请选择管理员">
+                  <nz-option [nzValue]="0" nzLabel="kain"></nz-option>
+                </nz-select>
+              </nz-form-control>
+            </nz-form-control>
+          </nz-col>
+          <nz-col nzSpan="8">
+            <nz-form-control>
+              <nz-form-label nzRequired>责任人</nz-form-label>
+              <nz-form-control style="width: 320px" [nzAutoTips]="{ default: { required: '不能为空' } }">
+                <nz-select style="width: 100%" formControlName="responsible" nzPlaceHolder="请选择审批员">
+                  <nz-option [nzValue]="0" nzLabel="kain"></nz-option>
+                </nz-select>
+              </nz-form-control>
+            </nz-form-control>
+          </nz-col>
+          <nz-col nzSpan="8">
+            <nz-form-control>
+              <nz-form-label nzRequired>生效日期</nz-form-label>
+              <nz-form-control style="width: 320px" [nzAutoTips]="{ default: { required: '不能为空' } }">
+                <nz-date-picker style="width: 100%" formControlName="effective"></nz-date-picker>
+              </nz-form-control>
+            </nz-form-control>
+          </nz-col>
+          <nz-col nzSpan="8">
+            <nz-form-control>
+              <nz-form-label nzRequired>任务类型</nz-form-label>
+              <nz-form-control style="width: 320px" [nzAutoTips]="{ default: { required: '不能为空' } }">
+                <nz-select style="width: 100%" formControlName="type" nzPlaceHolder="请选择任务类型">
+                  <nz-option [nzValue]="0" nzLabel="0号"></nz-option>
+                </nz-select>
+              </nz-form-control>
+            </nz-form-control>
+          </nz-col>
+        </nz-row>
+      </nz-card>
+    </nz-col>
+    <nz-col nzSpan="24">
+      <nz-card nzTitle="成员管理">
+        <nz-table #usersTable [nzData]="form.get('users')?.value">
+          <thead>
+            <tr>
+              <th>成员姓名</th>
+              <th>工号</th>
+              <th>所属部门</th>
+              <th>操作</th>
+            </tr>
+          </thead>
+          <tbody>
+            <ng-container *ngFor="let item of usersTable.data; index as i">
+              <ng-container *ngIf="!editUser.hasOwnProperty(i); else edit">
+                <tr>
+                  <td>{{ item.name }}</td>
+                  <td>{{ item.no }}</td>
+                  <td>{{ item.department }}</td>
+                  <td><a (click)="openEditUser(i)">编辑</a></td>
+                </tr>
+              </ng-container>
+              <ng-template #edit>
+                <tr>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td>
+                    <a>保存</a>
+                    <nz-divider nzType="vertical"></nz-divider>
+                    <a>删除</a>
+                    <nz-divider nzType="vertical"></nz-divider>
+                    <a (click)="cancelEditUser(i)">取消</a>
+                  </td>
+                </tr>
+              </ng-template>
+            </ng-container>
+          </tbody>
+        </nz-table>
+      </nz-card>
+    </nz-col>
+  </nz-row>
+</form>
