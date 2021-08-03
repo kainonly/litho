@@ -20,6 +20,14 @@ const routes: Routes = [
         loadChildren: () => import('./pages/form/form.module').then(m => m.FormModule)
       },
       {
+        path: 'list',
+        loadChildren: () => import('./pages/list/list.module').then(m => m.ListModule)
+      },
+      {
+        path: 'profile',
+        loadChildren: () => import('./pages/profile/profile.module').then(m => m.ProfileModule)
+      },
+      {
         path: 'result',
         loadChildren: () => import('./pages/result/result.module').then(m => m.ResultModule)
       },

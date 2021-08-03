@@ -5,7 +5,6 @@ import { AppShareModule } from '@share';
 
 import { AdvancedComponent } from './advanced/advanced.component';
 import { BasicComponent } from './basic/basic.component';
-import { StepComponent } from './step/step.component';
 
 const routes: Routes = [
   {
@@ -13,18 +12,14 @@ const routes: Routes = [
     component: BasicComponent
   },
   {
-    path: 'step',
-    component: StepComponent
-  },
-  {
     path: 'advanced',
     component: AdvancedComponent
   },
-  { path: '', redirectTo: '/form/basic', pathMatch: 'full' }
+  { path: '', redirectTo: '/profile/basic', pathMatch: 'full' }
 ];
 
 @NgModule({
   imports: [AppShareModule, RouterModule.forChild(routes)],
-  declarations: [BasicComponent, StepComponent, AdvancedComponent]
+  declarations: [BasicComponent, AdvancedComponent]
 })
-export class FormModule {}
+export class ProfileModule {}
