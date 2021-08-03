@@ -1,0 +1,14 @@
+<nz-result nzStatus="success" nzTitle="操作成功" nzSubTitle="预计两小时内到账">
+  <div nz-result-extra>
+    <button nz-button nzType="primary" (click)="again()">再转一笔</button>
+    <button nz-button>查看账单</button>
+    <div nz-result-content>
+      <nz-descriptions [nzColumn]="1">
+        <nz-descriptions-item nzTitle="付款账户">{{ data.payment }}</nz-descriptions-item>
+        <nz-descriptions-item nzTitle="收款账户">{{ data.receivable }}</nz-descriptions-item>
+        <nz-descriptions-item nzTitle="收款人姓名">{{ data.payee }}</nz-descriptions-item>
+        <nz-descriptions-item nzTitle="转账金额">{{ data.amount }}元</nz-descriptions-item>
+      </nz-descriptions>
+    </div>
+  </div>
+</nz-result>

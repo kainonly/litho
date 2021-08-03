@@ -1,0 +1,50 @@
+<nz-row [nzGutter]="[16, 16]">
+  <nz-col nzSpan="24">
+    <nz-alert nzType="info" nzMessage="确认转账后，资金将直接打入对方账户，无法退回。" nzCloseable></nz-alert>
+  </nz-col>
+  <nz-col nzSpan="24">
+    <nz-descriptions nzBordered [nzColumn]="1">
+      <nz-descriptions-item nzTitle="付款账户">{{ data.payment }}</nz-descriptions-item>
+      <nz-descriptions-item nzTitle="收款账户">{{ data.receivable }}</nz-descriptions-item>
+      <nz-descriptions-item nzTitle="收款人姓名">{{ data.payee }}</nz-descriptions-item>
+      <nz-descriptions-item nzTitle="转账金额">{{ data.amount }}</nz-descriptions-item>
+    </nz-descriptions>
+  </nz-col>
+  <nz-divider></nz-divider>
+  <nz-col nzSpan="24">
+    <form nz-form nzLayout="vertical" [formGroup]="form" (bitFormSubmit)="submit($event)">
+      <nz-form-item>
+        <nz-form-label nzRequired>支付密码</nz-form-label>
+        <nz-form-control
+          style="width: 320px"
+          nzHasFeedback
+          [nzAutoTips]="{
+            default: {
+              required: '需要支付密码才能进行支付'
+            }
+          }"
+        >
+          <nz-input-group [nzSuffix]="suffixTemplate">
+            <ng-template #suffixTemplate>
+              <i nz-icon [nzType]="visible ? 'eye-invisible' : 'eye'" (click)="visible = !visible"></i>
+            </ng-template>
+            <input
+              [type]="visible ? 'text' : 'password'"
+              nz-input
+              placeholder="请输入支付密码"
+              formControlName="password"
+            />
+          </nz-input-group>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-control>
+          <nz-space>
+            <button *nzSpaceItem nz-button nzType="default" (click)="reset()">上一步</button>
+            <button *nzSpaceItem nz-button nzType="primary" [disabled]="!form.valid">下一步</button>
+          </nz-space>
+        </nz-form-control>
+      </nz-form-item>
+    </form>
+  </nz-col>
+</nz-row>
