@@ -55,7 +55,16 @@
       <tr *ngFor="let item of loadTable.data">
         <td>{{ item.date }}</td>
         <td>{{ item.comment }}</td>
-        <td>{{ item.status }}</td>
+        <td>
+          <ng-container [ngSwitch]="item.status">
+            <ng-container *ngSwitchCase="1">
+              <nz-badge nzStatus="processing" nzText="进行中"></nz-badge>
+            </ng-container>
+            <ng-container *ngSwitchCase="2">
+              <nz-badge nzStatus="success" nzText="成功"></nz-badge>
+            </ng-container>
+          </ng-container>
+        </td>
         <td>
           <ng-container [ngSwitch]="item.user.type">
             <ng-container *ngSwitchCase="'staff'">取货员</ng-container>

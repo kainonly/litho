@@ -33,6 +33,12 @@ export class BitRouterService {
    */
   readonly alert: BehaviorSubject<TemplateRef<any> | null> = new BehaviorSubject<TemplateRef<any> | null>(null);
   /**
+   * 标题
+   */
+  readonly title: BehaviorSubject<string | Record<string, string> | null> = new BehaviorSubject<
+    string | Record<string, string> | null
+  >(null);
+  /**
    * 页头子标题
    */
   readonly subTitle: BehaviorSubject<string | Record<string, string> | null> = new BehaviorSubject<
@@ -77,6 +83,7 @@ export class BitRouterService {
   private resetPageHeaderAttr(): void {
     this.skip.next(false);
     this.back.next(false);
+    this.title.next(null);
     this.subTitle.next(null);
     this.alert.next(null);
     this.tags.next(null);

@@ -1,0 +1,219 @@
+<bit-ph title="单号：234231029431">
+  <nz-button-group *bitPhAction>
+    <button nz-button nzType="default">操作一</button>
+    <button nz-button nzType="default">操作二</button>
+    <button nz-button nzType="default" nz-dropdown [nzDropdownMenu]="menu"><i nz-icon nzType="ellipsis"></i></button>
+    <nz-dropdown-menu #menu="nzDropdownMenu">
+      <ul nz-menu>
+        <li nz-menu-item> 选项一 </li>
+        <li nz-menu-item> 选项二 </li>
+        <li nz-menu-item> 选项三 </li>
+      </ul>
+    </nz-dropdown-menu>
+  </nz-button-group>
+  <button *bitPhAction nz-button nzType="primary">主操作</button>
+  <nz-row [nzGutter]="[16, 16]" nzJustify="space-between">
+    <nz-col nzSpan="12">
+      <nz-descriptions [nzColumn]="2">
+        <nz-descriptions-item nzTitle="创建人">曲丽丽</nz-descriptions-item>
+        <nz-descriptions-item nzTitle="订购产品">XX 服务</nz-descriptions-item>
+        <nz-descriptions-item nzTitle="创建时间">2017-07-07</nz-descriptions-item>
+        <nz-descriptions-item nzTitle="关联单据">12421</nz-descriptions-item>
+        <nz-descriptions-item nzTitle="生效日期">2017-07-07 ~ 2017-08-08</nz-descriptions-item>
+        <nz-descriptions-item nzTitle="备注">请于两个工作日内确认</nz-descriptions-item>
+      </nz-descriptions>
+    </nz-col>
+    <nz-col></nz-col>
+    <nz-col>
+      <nz-space nzSize="large">
+        <nz-statistic *nzSpaceItem [nzValue]="'待审批'" [nzTitle]="'状态'"></nz-statistic>
+        <nz-statistic
+          *nzSpaceItem
+          [nzPrefix]="'￥'"
+          [nzValue]="(568.08 | number)!"
+          [nzTitle]="'订单金额'"
+        ></nz-statistic>
+      </nz-space>
+    </nz-col>
+  </nz-row>
+  <nz-tabset *bitPhFooter>
+    <nz-tab nzTitle="详情"></nz-tab>
+    <nz-tab nzTitle="规则"></nz-tab>
+  </nz-tabset>
+</bit-ph>
+
+<nz-row [nzGutter]="[16, 16]">
+  <nz-col nzSpan="24">
+    <nz-card nzTitle="流程进度">
+      <nz-steps [nzCurrent]="1" nzProgressDot nzSize="small">
+        <nz-step nzTitle="创建项目" [nzDescription]="create">
+          <ng-template #create>
+            <div class="detail">
+              <h5>曲丽丽</h5>
+              <h6>2016-12-12 12:32</h6>
+            </div>
+          </ng-template>
+        </nz-step>
+        <nz-step nzTitle="部门初审" [nzDescription]="check">
+          <ng-template #check>
+            <div class="detail">
+              <h5>周毛毛</h5>
+            </div>
+          </ng-template>
+        </nz-step>
+        <nz-step nzTitle="财务复核"></nz-step>
+        <nz-step nzTitle="完成"></nz-step>
+      </nz-steps>
+    </nz-card>
+  </nz-col>
+  <nz-col nzSpan="24">
+    <nz-card nzTitle="用户信息">
+      <nz-descriptions>
+        <nz-descriptions-item nzTitle="用户姓名">付小小</nz-descriptions-item>
+        <nz-descriptions-item nzTitle="会员卡号">32943898021309809423</nz-descriptions-item>
+        <nz-descriptions-item nzTitle="身份证">3321944288191034921</nz-descriptions-item>
+        <nz-descriptions-item nzTitle="联系方式">18112345678</nz-descriptions-item>
+        <nz-descriptions-item nzTitle="联系地址">
+          曲丽丽 18100000000 浙江省杭州市西湖区黄姑山路工专路交叉路口
+        </nz-descriptions-item>
+      </nz-descriptions>
+      <nz-descriptions nzTitle="信息组">
+        <nz-descriptions-item nzTitle="某某数据">725</nz-descriptions-item>
+        <nz-descriptions-item nzTitle="该数据更新时间">2017-08-08</nz-descriptions-item>
+        <nz-descriptions-item nzTitle="某某数据">725</nz-descriptions-item>
+        <nz-descriptions-item nzTitle="该数据更新时间">2017-08-08</nz-descriptions-item>
+      </nz-descriptions>
+      <nz-card nzTitle="多层级信息组">
+        <nz-descriptions nzTitle="组名称">
+          <nz-descriptions-item nzTitle="负责人">林东东</nz-descriptions-item>
+          <nz-descriptions-item nzTitle="角色码">1234567</nz-descriptions-item>
+          <nz-descriptions-item nzTitle="所属部门">XX公司 - YY部</nz-descriptions-item>
+          <nz-descriptions-item nzTitle="过期时间">2017-08-08</nz-descriptions-item>
+          <nz-descriptions-item nzTitle="描述">
+            这段描述很长很长很长很长很长很长很长很长很长很长很长很长很长很长...
+          </nz-descriptions-item>
+        </nz-descriptions>
+        <nz-divider></nz-divider>
+        <nz-descriptions nzTitle="组名称">
+          <nz-descriptions-item nzTitle="学名">
+            Citrullus lanatus (Thunb.) Matsum. et Nakai一年生蔓生藤本；茎、枝粗壮，具明显的棱。卷须较粗..
+          </nz-descriptions-item>
+        </nz-descriptions>
+        <nz-divider></nz-divider>
+        <nz-descriptions nzTitle="组名称">
+          <nz-descriptions-item nzTitle="负责人"> 付小小 </nz-descriptions-item>
+          <nz-descriptions-item nzTitle="角色码"> 1234578 </nz-descriptions-item>
+        </nz-descriptions>
+      </nz-card>
+    </nz-card>
+  </nz-col>
+  <nz-col nzSpan="24">
+    <nz-card nzTitle="用户近半年来电记录"> <nz-empty></nz-empty> </nz-card>
+  </nz-col>
+  <nz-col nzSpan="24">
+    <nz-card>
+      <nz-card-tab>
+        <nz-tabset nzSize="large" [(nzSelectedIndex)]="logsType">
+          <nz-tab nzTitle="操作日志一"></nz-tab>
+          <nz-tab nzTitle="操作日志二"></nz-tab>
+          <nz-tab nzTitle="操作日志三"></nz-tab>
+        </nz-tabset>
+      </nz-card-tab>
+      <ng-container [ngSwitch]="logsType">
+        <ng-container *ngSwitchCase="0">
+          <nz-table #logs1Table [nzData]="logs1">
+            <thead>
+              <tr>
+                <th>操作类型</th>
+                <th>操作人</th>
+                <th>执行结果</th>
+                <th>操作时间</th>
+                <th>备注</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of logs1Table.data">
+                <td>{{ item.type }}</td>
+                <td>{{ item.user }}</td>
+                <td>
+                  <ng-container [ngSwitch]="item.result">
+                    <ng-container *ngSwitchCase="0">
+                      <nz-badge nzStatus="error" nzText="驳回"></nz-badge>
+                    </ng-container>
+                    <ng-container *ngSwitchCase="1">
+                      <nz-badge nzStatus="success" nzText="成功"></nz-badge>
+                    </ng-container>
+                  </ng-container>
+                </td>
+                <td>{{ item.date }}</td>
+                <td>{{ item.remark }}</td>
+              </tr>
+            </tbody>
+          </nz-table>
+        </ng-container>
+        <ng-container *ngSwitchCase="1">
+          <nz-table #logs2Table [nzData]="logs2">
+            <thead>
+              <tr>
+                <th>操作类型</th>
+                <th>操作人</th>
+                <th>执行结果</th>
+                <th>操作时间</th>
+                <th>备注</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of logs2Table.data">
+                <td>{{ item.type }}</td>
+                <td>{{ item.user }}</td>
+                <td>
+                  <ng-container [ngSwitch]="item.result">
+                    <ng-container *ngSwitchCase="0">
+                      <nz-badge nzStatus="error" nzText="驳回"></nz-badge>
+                    </ng-container>
+                    <ng-container *ngSwitchCase="1">
+                      <nz-badge nzStatus="success" nzText="成功"></nz-badge>
+                    </ng-container>
+                  </ng-container>
+                </td>
+                <td>{{ item.date }}</td>
+                <td>{{ item.remark }}</td>
+              </tr>
+            </tbody>
+          </nz-table>
+        </ng-container>
+        <ng-container *ngSwitchCase="2">
+          <nz-table #logs3Table [nzData]="logs3">
+            <thead>
+              <tr>
+                <th>操作类型</th>
+                <th>操作人</th>
+                <th>执行结果</th>
+                <th>操作时间</th>
+                <th>备注</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of logs3Table.data">
+                <td>{{ item.type }}</td>
+                <td>{{ item.user }}</td>
+                <td>
+                  <ng-container [ngSwitch]="item.result">
+                    <ng-container *ngSwitchCase="0">
+                      <nz-badge nzStatus="error" nzText="驳回"></nz-badge>
+                    </ng-container>
+                    <ng-container *ngSwitchCase="1">
+                      <nz-badge nzStatus="success" nzText="成功"></nz-badge>
+                    </ng-container>
+                  </ng-container>
+                </td>
+                <td>{{ item.date }}</td>
+                <td>{{ item.remark }}</td>
+              </tr>
+            </tbody>
+          </nz-table>
+        </ng-container>
+      </ng-container>
+    </nz-card>
+  </nz-col>
+</nz-row>
