@@ -1,0 +1,25 @@
+.content {
+  flex: 1;
+}
+
+.content p {
+  margin-bottom: 1em;
+}
+
+.content-link a {
+  margin-right: 16px;
+}
+
+.content-link a img {
+  margin-right: 8px;
+}
+
+.content-image {
+  margin: -30px 0 0 60px;
+  display: flex;
+  align-items: center;
+}
+
+.content-image img {
+  width: 100%;
+}
