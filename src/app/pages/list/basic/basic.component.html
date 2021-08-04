@@ -1,0 +1,95 @@
+<nz-row [nzGutter]="[16, 16]">
+  <nz-col nzSpan="24">
+    <nz-card>
+      <nz-row nzJustify="center" style="text-align: center">
+        <nz-col nzFlex="1">
+          <nz-statistic [nzValue]="'8个任务'" [nzTitle]="'我的待办'"></nz-statistic>
+        </nz-col>
+        <nz-col nzFlex="1">
+          <nz-statistic [nzValue]="'32分钟'" [nzTitle]="'本周任务处理时间'"></nz-statistic>
+        </nz-col>
+        <nz-col nzFlex="1">
+          <nz-statistic [nzValue]="'24个任务'" [nzTitle]="'本周完成任务数'"></nz-statistic>
+        </nz-col>
+      </nz-row>
+    </nz-card>
+  </nz-col>
+  <nz-col nzSpan="24">
+    <nz-card nzTitle="基本列表" [nzExtra]="extra">
+      <ng-template #extra>
+        <nz-space>
+          <nz-radio-group *nzSpaceItem [(ngModel)]="status">
+            <label nz-radio-button [nzValue]="0">全部</label>
+            <label nz-radio-button [nzValue]="1">进行中</label>
+            <label nz-radio-button [nzValue]="2">等待中</label>
+          </nz-radio-group>
+          <nz-input-group *nzSpaceItem nzSuffixIcon="search">
+            <input style="width: 220px" type="text" nz-input placeholder="请输入" />
+          </nz-input-group>
+        </nz-space>
+      </ng-template>
+      <nz-list nzSize="large">
+        <nz-list-item *ngFor="let item of list">
+          <ng-container *ngIf="!item.loading">
+            <nz-list-item-meta>
+              <nz-list-item-meta-avatar>
+                <nz-avatar [nzSize]="48" nzShape="square" [nzSrc]="item.avatar"></nz-avatar>
+              </nz-list-item-meta-avatar>
+              <nz-list-item-meta-title>
+                {{ item.title }}
+              </nz-list-item-meta-title>
+              <nz-list-item-meta-description> {{ item.description }}</nz-list-item-meta-description>
+            </nz-list-item-meta>
+            content
+            <ul nz-list-item-actions>
+              <nz-list-item-action><a>编辑</a></nz-list-item-action>
+              <nz-list-item-action><a>更多</a></nz-list-item-action>
+            </ul>
+          </ng-container>
+        </nz-list-item>
+      </nz-list>
+      <div style="text-align: right; padding: 12px 0">
+        <nz-pagination [nzPageIndex]="3" [nzTotal]="500" nzShowSizeChanger [nzPageSize]="10"></nz-pagination>
+      </div>
+
+      <button nz-button nzType="dashed" nzBlock (click)="openAddForm()"> <i nz-icon nzType="plus"></i> 添加 </button>
+    </nz-card>
+  </nz-col>
+</nz-row>
+
+<ng-template #addForm>
+  <ng-container *ngIf="form">
+    <form id="add" [formGroup]="form" nz-form nzLayout="vertical" (bitFormSubmit)="submit($event)" #f="">
+      <nz-form-item>
+        <nz-form-label nzRequired> 任务名称 </nz-form-label>
+        <nz-form-control nzHasFeedback [nzAutoTips]="{ default: { required: '不能为空' } }">
+          <input nz-input formControlName="name" placeholder="请输入" />
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label nzRequired> 开始时间 </nz-form-label>
+        <nz-form-control nzHasFeedback [nzAutoTips]="{ default: { required: '不能为空' } }">
+          <nz-date-picker style="width: 100%" formControlName="date"></nz-date-picker>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label nzRequired> 任务负责人 </nz-form-label>
+        <nz-form-control nzHasFeedback [nzAutoTips]="{ default: { required: '不能为空' } }">
+          <nz-select style="width: 100%" formControlName="admin" nzPlaceHolder="请选择管理员">
+            <nz-option [nzLabel]="'kain'" [nzValue]="0"></nz-option>
+          </nz-select>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label> 产品描述 </nz-form-label>
+        <nz-form-control nzHasFeedback [nzAutoTips]="{ default: { required: '不能为空' } }">
+          <textarea nz-input formControlName="description" rows="4" placeholder="请输入至少五个字符"></textarea>
+        </nz-form-control>
+      </nz-form-item>
+    </form>
+  </ng-container>
+</ng-template>
+
+<ng-template #addFormFooter>
+  <button form="add" nz-button nzType="primary">提交</button>
+</ng-template>
