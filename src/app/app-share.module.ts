@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
+import { NzAffixModule } from 'ng-zorro-antd/affix';
 import { NzAlertModule } from 'ng-zorro-antd/alert';
 import { NzAutocompleteModule } from 'ng-zorro-antd/auto-complete';
 import { NzAvatarModule } from 'ng-zorro-antd/avatar';
@@ -113,6 +114,7 @@ import { BitToolModule } from 'ngx-bit/tool';
     NzCascaderModule,
     NzStepsModule,
     NzStatisticModule,
+    NzAffixModule,
     NzPipesModule,
     NzEmptyModule,
     BitToolModule,

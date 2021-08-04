@@ -1,16 +1,20 @@
-import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+
+import { NzMessageService } from 'ng-zorro-antd/message';
+
+import { User } from './user';
 
 @Component({
   selector: 'app-form-advanced',
   templateUrl: './advanced.component.html',
   styleUrls: ['./advanced.component.scss']
 })
-export class AdvancedComponent implements OnInit, OnChanges {
+export class AdvancedComponent implements OnInit {
   form!: FormGroup;
-  editUser: Record<string, any> = {};
+  userForm: Record<string, any> = {};
 
-  constructor(private fb: FormBuilder) {}
+  constructor(private fb: FormBuilder, private message: NzMessageService) {}
 
   ngOnInit() {
     this.form = this.fb.group({
@@ -31,41 +35,78 @@ export class AdvancedComponent implements OnInit, OnChanges {
         type: [null, [Validators.required]]
       }),
       users: this.fb.array([
-        this.fb.group({
-          name: ['John Brown', [Validators.required]],
-          no: ['00001', [Validators.required]],
-          department: ['New York No. 1 Lake Park', [Validators.required]]
+        this.createUser({
+          name: 'John Brown',
+          employee_id: '00001',
+          department: 'New York No. 1 Lake Park'
         }),
-        this.fb.group({
-          name: ['Jim Green', [Validators.required]],
-          no: ['00002', [Validators.required]],
-          department: ['London No. 1 Lake Park', [Validators.required]]
+        this.createUser({
+          name: 'Jim Green',
+          employee_id: '00002',
+          department: 'London No. 1 Lake Park'
         }),
-        this.fb.group({
-          name: ['Joe Black', [Validators.required]],
-          no: ['00003', [Validators.required]],
-          department: ['Sidney No. 1 Lake Park', [Validators.required]]
+        this.createUser({
+          name: 'Joe Black',
+          employee_id: '00003',
+          department: 'Sidney No. 1 Lake Park'
         })
       ])
     });
   }
 
-  ngOnChanges(changes: SimpleChanges) {
-    console.log(changes);
+  createUser(user: User): FormGroup {
+    const form = this.fb.group({
+      name: [null, [Validators.required]],
+      employee_id: [null, [Validators.required]],
+      department: [null, [Validators.required]]
+    });
+    form.patchValue(user);
+    return form;
   }
 
   openEditUser(index: number): void {
-    const users: FormArray = this.form.get('users') as FormArray;
-    this.editUser[index] = { ...users?.get([index])?.value };
+    if (Object.keys(this.userForm).length !== 0) {
+      this.message.warning('只能同时编辑一行');
+      return;
+    }
+    const user: User = this.form.get('users')?.get([index])?.value as User;
+    this.userForm[user.employee_id] = this.createUser({ ...user });
   }
 
-  cancelEditUser(index: number): void {
-    delete this.editUser[index];
+  cancelEditUser(id: number): void {
+    delete this.userForm[id];
+  }
+
+  openAddUser(): void {
+    if (Object.keys(this.userForm).length !== 0) {
+      this.message.warning('只能同时编辑一行');
+      return;
+    }
+    this.userForm[0] = this.createUser({
+      name: '',
+      employee_id: '',
+      department: ''
+    });
+  }
+
+  cancelAddUser(): void {
+    delete this.userForm[0];
   }
 
   addUser(): void {
     const users: FormArray = this.form.get('users') as FormArray;
-    users.push(this.fb.group({}));
+    users.push(this.userForm[0]);
+    this.cancelAddUser();
+  }
+
+  updateUser(index: number, user: Record<string, any>): void {
+    this.form.get('users')?.get([index])?.patchValue(user);
+    this.cancelEditUser(user.employee_id);
+  }
+
+  deleteUser(index: number): void {
+    const users: FormArray = this.form.get('users') as FormArray;
+    users.removeAt(index);
   }
 
   submit(data: any): void {
