@@ -1,8 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, Optional } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Subject } from 'rxjs';
 import { filter, switchMap } from 'rxjs/operators';
 
 import { StorageMap } from '@ngx-pwa/local-storage';
@@ -11,7 +10,7 @@ import { NzI18nService } from 'ng-zorro-antd/i18n';
 import { BitConfig } from './bit-config';
 import { Api } from './common/api';
 import { Lists } from './common/lists';
-import { ListsOption, I18nGroupOption } from './types';
+import { ListsOption } from './types';
 
 @Injectable({
   providedIn: 'root'
@@ -25,22 +24,6 @@ export class BitService {
    * 上传地址
    */
   readonly upload?: string;
-  /**
-   * 语言包 ID
-   */
-  locale?: string;
-  /**
-   * 语言包状态
-   */
-  readonly localeChanged?: Subject<string>;
-  /**
-   * 语言包
-   */
-  private packer?: Map<string, any>;
-  /**
-   * 语言包引用
-   */
-  l: Record<string, string> = {};
 
   constructor(
     private config: BitConfig,
@@ -54,63 +37,6 @@ export class BitService {
     if (config.upload) {
       this.upload = typeof config.upload === 'string' ? config.upload : config.upload.url;
     }
-    if (config.locale) {
-      this.packer = new Map();
-      this.localeChanged = new Subject<string>();
-      this.setLocale(localStorage.getItem('locale') || config.locale.default);
-    }
-  }
-
-  /**
-   * 载入语言包
-   */
-  registerLocales(packer: Record<string, any>): void {
-    this.packer = new Map([...this.packer!, ...Object.entries(packer)]);
-    const index = this.config.locale!.mapping.indexOf(this.locale!)!;
-    for (const [key, data] of this.packer.entries()) {
-      this.l[key] = data[index];
-    }
-  }
-
-  /**
-   * 设置语言包 ID
-   */
-  setLocale(id: string): void {
-    this.locale = id;
-    localStorage.setItem('locale', id);
-    const index = this.config.locale!.mapping.indexOf(this.locale)!;
-    for (const [key, data] of this.packer!.entries()) {
-      this.l[key] = data[index];
-    }
-    this.nzI18nService.setLocale(this.config.locale!.bind[index]);
-    this.localeChanged!.next(id);
-  }
-
-  /**
-   * 创建国际化 FormGroup
-   */
-  i18nGroup(options: Partial<I18nGroupOption>): FormGroup {
-    const controls: Record<string, any[]> = {};
-    for (const ID of this.config.i18n!.contain) {
-      controls[ID] = new Array(3).fill(null);
-      controls[ID][0] = options.value?.[ID];
-      controls[ID][1] = options.validate?.[ID];
-      controls[ID][2] = options.asyncValidate?.[ID];
-    }
-    return this.fb.group(controls);
-  }
-
-  /**
-   * 国际化数据转化
-   */
-  i18nData(value: string): Record<string, any> {
-    const data: Record<string, any> = JSON.parse(value);
-    for (const key of Object(data).keys) {
-      if (!this.config.i18n!.contain.includes(key)) {
-        Reflect.deleteProperty(data, key);
-      }
-    }
-    return data;
   }
 
   /**
@@ -139,11 +65,7 @@ export class BitService {
       .keys()
       .pipe(
         filter(
-          v =>
-            ['resource', 'router'].includes(v) ||
-            v.search(/^search:\S+$/) !== -1 ||
-            v.search(/^page:\S+$/) !== -1 ||
-            v.search(/^cross:\S+$/) !== -1
+          v => ['resource', 'router'].includes(v) || v.search(/^search:\S+$/) !== -1 || v.search(/^page:\S+$/) !== -1
         ),
         switchMap(key => this.storage.delete(key))
       )

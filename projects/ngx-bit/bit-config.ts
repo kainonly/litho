@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import { I18n, Locale, Upload } from './types';
+import { I18n, Upload } from './types';
 
 @Injectable({ providedIn: 'root' })
 export class BitConfig {
@@ -20,10 +20,6 @@ export class BitConfig {
    * 上传
    */
   upload?: Upload;
-  /**
-   * 本地语言包
-   */
-  locale?: Locale;
   /**
    * 国际化输入
    */

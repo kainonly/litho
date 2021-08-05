@@ -1,4 +1,3 @@
-import { en_US, zh_CN } from 'ng-zorro-antd/i18n';
 import { BitConfig } from 'ngx-bit';
 
 const cdn = 'https://cdn.kainonly.com/';
@@ -6,44 +5,16 @@ const cdn = 'https://cdn.kainonly.com/';
 const bit: Partial<BitConfig> = {
   baseUrl: 'https://dev.kainonly.com/sys/',
   assets: cdn,
-  locale: {
-    default: 'zh_cn',
-    mapping: ['zh_cn', 'en_us'],
-    bind: [zh_CN, en_US]
-  },
   i18n: {
     default: 'zh_cn',
-    contain: ['zh_cn', 'en_us'],
-    switch: [
-      {
-        i18n: 'zh_cn',
-        name: {
-          zh_cn: '中文',
-          en_us: 'Chinese'
-        }
-      },
-      {
-        i18n: 'en_us',
-        name: {
-          zh_cn: '英文',
-          en_us: 'English'
-        }
-      }
-    ],
     languages: [
       {
         id: 'zh_cn',
-        name: {
-          zh_cn: '中文',
-          en_us: 'Chinese'
-        }
+        name: '中文'
       },
       {
         id: 'en_us',
-        name: {
-          zh_cn: '英文',
-          en_us: 'English'
-        }
+        name: 'English'
       }
     ]
   }

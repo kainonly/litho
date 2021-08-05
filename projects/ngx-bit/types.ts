@@ -1,7 +1,3 @@
-import { AbstractControlOptions, AsyncValidatorFn, ValidatorFn } from '@angular/forms';
-
-import { NzI18nInterface } from 'ng-zorro-antd/i18n';
-
 export type Upload = string | UploadOption;
 
 export interface UploadOption {
@@ -19,36 +15,28 @@ export interface UploadSignedResponse {
 
 export type UploadStorage = 'default' | 'oss' | 'obs' | 'cos';
 
-export interface Locale {
-  default: string;
-  mapping: string[];
-  bind: NzI18nInterface[];
-}
-
 export interface I18n {
   // 默认国际化 ID
   default: string;
-  contain: string[];
-  switch: I18nOption[];
   // 国际化设置
   languages: Language[];
 }
 
 export interface Language {
   id: string;
-  name: string | Record<string, any>;
+  name: string;
 }
 
-export interface I18nOption {
-  i18n: string;
-  name: Record<string, any>;
-}
-
-export interface I18nGroupOption {
-  value: Record<string, any>;
-  validate: Record<string, ValidatorFn | ValidatorFn[] | AbstractControlOptions | null>;
-  asyncValidate: Record<string, AsyncValidatorFn | AsyncValidatorFn[] | null>;
-}
+// export interface I18nOption {
+//   i18n: string;
+//   name: string;
+// }
+//
+// export interface I18nGroupOption {
+//   value: Record<string, any>;
+//   validate: Record<string, ValidatorFn | ValidatorFn[] | AbstractControlOptions | null>;
+//   asyncValidate: Record<string, AsyncValidatorFn | AsyncValidatorFn[] | null>;
+// }
 
 export interface SearchOption {
   field: string;

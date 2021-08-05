@@ -1,7 +1,7 @@
 import { Observable, timer } from 'rxjs';
+import { map, switchMap } from 'rxjs/operators';
 
 import { SearchOption } from '../types';
-import { map, switchMap } from 'rxjs/operators';
 
 /**
  * 返回查询数组
