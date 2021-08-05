@@ -16,7 +16,7 @@ export interface Resource {
   /**
    * 资源名称
    */
-  name: string | Record<string, string>;
+  name: string;
   /**
    * 是否为导航
    */

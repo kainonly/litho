@@ -5,12 +5,7 @@
       <ng-container *ngFor="let url of router.urls">
         <nz-breadcrumb-item>
           <ng-container *ngIf="dict.hasOwnProperty(url) && data.hasOwnProperty(dict[url])">
-            <ng-container *ngIf="!bit.locale; else isMultiple">
-              {{ data[dict[url]].name }}
-            </ng-container>
-            <ng-template #isMultiple>
-              {{ data[dict[url]].name | object: bit.locale }}
-            </ng-template>
+            {{ data[dict[url]].name }}
           </ng-container>
         </nz-breadcrumb-item>
       </ng-container>
@@ -20,7 +15,7 @@
         {{ router.title | async }}
       </ng-container>
       <ng-template #defaultTitle>
-        {{ data[dict[router.fragments | Join: '/']].name | object: bit.locale }}
+        {{ data[dict[router.fragments | Join: '/']].name }}
       </ng-template>
     </nz-page-header-title>
     <nz-page-header-subtitle *ngIf="router.subTitle | async">

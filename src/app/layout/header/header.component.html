@@ -11,25 +11,6 @@
     <nz-col> </nz-col>
     <nz-col>
       <nz-space>
-        <button
-          style="width: 56px"
-          *nzSpaceItem
-          nz-button
-          nzType="text"
-          nz-dropdown
-          [nzDropdownMenu]="translation"
-          nzPlacement="bottomRight"
-        >
-          <i nz-icon nzType="translation"></i>
-          <nz-dropdown-menu #translation>
-            <ul nz-menu style="width: 150px">
-              <li nz-menu-item (click)="bit.setLocale('zh_cn')">
-                <small>[ cn ]</small><span>&nbsp;- 简体中文</span>
-              </li>
-              <li nz-menu-item (click)="bit.setLocale('en_us')"> <small>[ us ]</small><span>&nbsp;- English</span> </li>
-            </ul>
-          </nz-dropdown-menu>
-        </button>
         <div *nzSpaceItem class="profile" nz-popover [nzPopoverContent]="center" nzPopoverPlacement="bottomRight">
           <nz-badge nzDot>
             <nz-avatar nzShape="square" [nzSize]="24" nzSrc="/assets/user.png"> </nz-avatar>
@@ -109,10 +90,10 @@
             </nz-tabset>
             <ng-template #extraTemplate>
               <nz-space>
-                <button *nzSpaceItem routerLink="/center/logs" nz-button nzType="text" [nz-tooltip]="bit.l['center']">
+                <button *nzSpaceItem routerLink="/center/logs" nz-button nzType="text" nz-tooltip="个人中心">
                   <i nz-icon nzType="user"></i>
                 </button>
-                <button *nzSpaceItem nz-button nzType="text" [nz-tooltip]="bit.l['exit']">
+                <button *nzSpaceItem nz-button nzType="text" nz-tooltip="退出">
                   <i nz-icon nzType="logout"></i>
                 </button>
               </nz-space>

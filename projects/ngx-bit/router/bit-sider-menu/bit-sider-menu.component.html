@@ -5,14 +5,7 @@
       <ng-container *ngIf="nav.router; else not">
         <li nz-menu-item nzMatchRouter [nzPaddingLeft]="nav.url.length * 16" [routerLink]="nav.url">
           <i *ngIf="!!nav.icon" nz-icon [nzType]="nav.icon"></i>
-          <span>
-            <ng-container *ngIf="!bit.locale; else isMultiple">
-              {{ nav.name }}
-            </ng-container>
-            <ng-template #isMultiple>
-              {{ nav.name | object: bit.locale }}
-            </ng-template>
-          </span>
+          <span>{{ nav.name }}</span>
         </li>
       </ng-container>
       <ng-template #not>
@@ -23,14 +16,7 @@
         >
           <span title>
             <i *ngIf="!!nav.icon" nz-icon [nzType]="nav.icon"></i>
-            <span>
-              <ng-container *ngIf="!bit.locale; else isMultiple">
-                {{ nav.name }}
-              </ng-container>
-              <ng-template #isMultiple>
-                {{ nav.name | object: bit.locale }}
-              </ng-template>
-            </span>
+            <span>{{ nav.name }}</span>
           </span>
           <ul>
             <ng-container *ngTemplateOutlet="navTemplate; context: { $implicit: nav.children }"></ng-container>

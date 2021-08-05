@@ -1,26 +1,15 @@
-import { Component, OnInit } from '@angular/core';
-
-import { BitService } from 'ngx-bit';
-
-import packer from './language';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-exception-404',
   template: `
     <bit-ph skip></bit-ph>
-    <nz-result nzStatus="404" nzTitle="404" [nzSubTitle]="bit.l['notFound']">
+    <nz-result nzStatus="404" nzTitle="404" [nzSubTitle]="subTitle">
+      <ng-template #subTitle> 抱歉，您访问的页面不存在 </ng-template>
       <div nz-result-extra>
-        <button nz-button nzType="primary" routerLink="/">
-          {{ bit.l['home'] }}
-        </button>
+        <button nz-button nzType="primary" routerLink="/"> 回到主页 </button>
       </div>
     </nz-result>
   `
 })
-export class NotFoundComponent implements OnInit {
-  constructor(public bit: BitService) {}
-
-  ngOnInit(): void {
-    this.bit.registerLocales(packer);
-  }
-}
+export class NotFoundComponent {}

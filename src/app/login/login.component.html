@@ -4,20 +4,20 @@
       <div class="logo">
         <img src="/assets/logo.svg" alt="vanx" />
       </div>
-      <h1>{{ bit.l['title'] }}</h1>
+      <h1>打造一体化数据运营平台</h1>
       <form [formGroup]="form" nz-form (bitFormSubmit)="submit($event)">
         <nz-form-item>
           <nz-form-control
             [nzAutoTips]="{
               default: {
-                required: bit.l['usernameRequire'],
-                minlength: bit.l['usernameCorrectly'],
-                maxlength: bit.l['usernameCorrectly']
+                required: '用户名是必填项',
+                minlength: '用户名格式不规范',
+                maxlength: '用户名格式不规范'
               }
             }"
           >
             <nz-input-group [nzSuffix]="usernameSuffix" nzPrefixIcon="user">
-              <input type="text" nz-input formControlName="username" [placeholder]="bit.l['usernamePlaceholder']" />
+              <input type="text" nz-input formControlName="username" placeholder="用户名" />
               <ng-template #usernameSuffix>
                 <i
                   *ngIf="form.get('username')!.value"
@@ -35,9 +35,9 @@
           <nz-form-control
             [nzAutoTips]="{
               default: {
-                required: bit.l['passwordRequire'],
-                minlength: bit.l['passwordCorrectly'],
-                maxlength: bit.l['passwordCorrectly']
+                required: '口令是必填项',
+                minlength: '口令格式不规范',
+                maxlength: '口令格式不规范'
               }
             }"
           >
@@ -47,7 +47,7 @@
                 type="password"
                 formControlName="password"
                 autocomplete="new-password"
-                [placeholder]="bit.l['passwordPlaceholder']"
+                placeholder="口令"
               />
             </nz-input-group>
             <ng-template #passwordSuffix>
@@ -66,7 +66,7 @@
           <nz-form-control>
             <button nz-button nzBlock nzType="primary">
               <i nz-icon nzType="login"></i>
-              {{ bit.l['login'] }}
+              登 录
             </button>
           </nz-form-control>
         </nz-form-item>
@@ -79,16 +79,6 @@
         </ng-template>
         <a *nzSpaceItem nz-typography>案例</a>
         <a *nzSpaceItem nz-typography>BSD-3-Clause License</a>
-        <a *nzSpaceItem nz-typography nz-dropdown [nzDropdownMenu]="language">
-          <i nz-icon nzType="translation"></i>
-          {{ bit.l['language'] }}
-        </a>
-        <nz-dropdown-menu #language>
-          <ul nz-menu>
-            <li nz-menu-item (click)="bit.setLocale('zh_cn')"> <small>[ cn ]</small><span>&nbsp;- 简体中文</span> </li>
-            <li nz-menu-item (click)="bit.setLocale('en_us')"> <small>[ us ]</small><span>&nbsp;- English</span> </li>
-          </ul>
-        </nz-dropdown-menu>
       </nz-space>
       <p nz-typography>
         <i nz-icon nzType="copyright"></i>

@@ -6,10 +6,7 @@ export const resource: Resource[] = [
     id: 1,
     pid: 0,
     fragment: 'dashboard',
-    name: {
-      zh_cn: '仪表盘',
-      en_us: 'Dashboard'
-    },
+    name: '仪表盘',
     nav: true,
     router: false,
     icon: 'dashboard'
@@ -18,10 +15,7 @@ export const resource: Resource[] = [
     id: 2,
     pid: 1,
     fragment: 'analysis',
-    name: {
-      zh_cn: '分析页',
-      en_us: 'Analysis'
-    },
+    name: '分析页',
     nav: true,
     router: true,
     icon: ''
@@ -30,10 +24,7 @@ export const resource: Resource[] = [
     id: 3,
     pid: 1,
     fragment: 'monitor',
-    name: {
-      zh_cn: '监控页',
-      en_us: 'Monitor'
-    },
+    name: '监控页',
     nav: true,
     router: true,
     icon: ''
@@ -42,10 +33,7 @@ export const resource: Resource[] = [
     id: 4,
     pid: 1,
     fragment: 'workbench',
-    name: {
-      zh_cn: '工作台',
-      en_us: 'Workbench'
-    },
+    name: '工作台',
     nav: true,
     router: true,
     icon: ''
@@ -55,10 +43,7 @@ export const resource: Resource[] = [
     id: 20,
     pid: 0,
     fragment: 'form',
-    name: {
-      zh_cn: '表单页',
-      en_us: 'Form'
-    },
+    name: '表单页',
     nav: true,
     router: false,
     icon: 'form'
@@ -67,10 +52,7 @@ export const resource: Resource[] = [
     id: 21,
     pid: 20,
     fragment: 'basic',
-    name: {
-      zh_cn: '基础表单',
-      en_us: 'Basic Form'
-    },
+    name: '基础表单',
     nav: true,
     router: true,
     icon: ''
@@ -79,10 +61,7 @@ export const resource: Resource[] = [
     id: 22,
     pid: 20,
     fragment: 'step',
-    name: {
-      zh_cn: '分步表单',
-      en_us: 'Step Form'
-    },
+    name: '分步表单',
     nav: true,
     router: true,
     icon: ''
@@ -91,10 +70,7 @@ export const resource: Resource[] = [
     id: 23,
     pid: 20,
     fragment: 'advanced',
-    name: {
-      zh_cn: '高级表单',
-      en_us: 'Advanced Form'
-    },
+    name: '高级表单',
     nav: true,
     router: true,
     icon: ''
@@ -104,10 +80,7 @@ export const resource: Resource[] = [
     id: 40,
     pid: 0,
     fragment: 'list',
-    name: {
-      zh_cn: '列表页',
-      en_us: 'List'
-    },
+    name: '列表页',
     nav: true,
     router: false,
     icon: 'table'
@@ -116,10 +89,7 @@ export const resource: Resource[] = [
     id: 41,
     pid: 40,
     fragment: 'table',
-    name: {
-      zh_cn: '查询表格',
-      en_us: 'Table'
-    },
+    name: '查询表格',
     nav: true,
     router: true,
     icon: ''
@@ -128,10 +98,7 @@ export const resource: Resource[] = [
     id: 42,
     pid: 40,
     fragment: 'basic',
-    name: {
-      zh_cn: '标准列表',
-      en_us: 'Basic'
-    },
+    name: '标准列表',
     nav: true,
     router: true,
     icon: ''
@@ -140,10 +107,7 @@ export const resource: Resource[] = [
     id: 43,
     pid: 40,
     fragment: 'card',
-    name: {
-      zh_cn: '卡片列表',
-      en_us: 'Card'
-    },
+    name: '卡片列表',
     nav: true,
     router: true,
     icon: ''
@@ -153,10 +117,7 @@ export const resource: Resource[] = [
     id: 60,
     pid: 0,
     fragment: 'profile',
-    name: {
-      zh_cn: '详情页',
-      en_us: 'Profile'
-    },
+    name: '详情页',
     nav: true,
     router: false,
     icon: 'profile'
@@ -165,10 +126,7 @@ export const resource: Resource[] = [
     id: 61,
     pid: 60,
     fragment: 'basic',
-    name: {
-      zh_cn: '基础详情页',
-      en_us: 'Basic'
-    },
+    name: '基础详情页',
     nav: true,
     router: true,
     icon: ''
@@ -177,10 +135,7 @@ export const resource: Resource[] = [
     id: 62,
     pid: 60,
     fragment: 'advanced',
-    name: {
-      zh_cn: '高级详情页',
-      en_us: 'Advanced'
-    },
+    name: '高级详情页',
     nav: true,
     router: true,
     icon: ''
@@ -190,10 +145,7 @@ export const resource: Resource[] = [
     id: 80,
     pid: 0,
     fragment: 'result',
-    name: {
-      zh_cn: '结果页',
-      en_us: 'Result'
-    },
+    name: '结果页',
     nav: true,
     router: false,
     icon: 'check-circle'
@@ -202,10 +154,7 @@ export const resource: Resource[] = [
     id: 81,
     pid: 80,
     fragment: 'success',
-    name: {
-      zh_cn: '成功页',
-      en_us: 'Success'
-    },
+    name: '成功页',
     nav: true,
     router: true,
     icon: ''
@@ -214,10 +163,7 @@ export const resource: Resource[] = [
     id: 82,
     pid: 80,
     fragment: 'fail',
-    name: {
-      zh_cn: '失败页',
-      en_us: 'Fail'
-    },
+    name: '失败页',
     nav: true,
     router: true,
     icon: ''
@@ -227,10 +173,7 @@ export const resource: Resource[] = [
     id: 100,
     pid: 0,
     fragment: 'exception',
-    name: {
-      zh_cn: '异常页',
-      en_us: 'Exception'
-    },
+    name: '异常页',
     nav: true,
     router: false,
     icon: 'warning'
@@ -239,10 +182,7 @@ export const resource: Resource[] = [
     id: 101,
     pid: 100,
     fragment: '403',
-    name: {
-      zh_cn: '403',
-      en_us: '403'
-    },
+    name: '403',
     nav: true,
     router: true,
     icon: ''
@@ -251,10 +191,7 @@ export const resource: Resource[] = [
     id: 102,
     pid: 100,
     fragment: '404',
-    name: {
-      zh_cn: '404',
-      en_us: '404'
-    },
+    name: '404',
     nav: true,
     router: true,
     icon: ''
@@ -263,10 +200,7 @@ export const resource: Resource[] = [
     id: 103,
     pid: 100,
     fragment: '500',
-    name: {
-      zh_cn: '500',
-      en_us: '500'
-    },
+    name: '500',
     nav: true,
     router: true,
     icon: ''

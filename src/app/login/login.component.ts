@@ -6,8 +6,6 @@ import { AppService } from '@common/app.service';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { BitService } from 'ngx-bit';
 
-import packer from './language';
-
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -27,7 +25,6 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     this.bit.clear();
-    this.bit.registerLocales(packer);
     this.form = this.fb.group({
       username: [null, [Validators.required, Validators.minLength(4), Validators.maxLength(20)]],
       password: [null, [Validators.required, Validators.minLength(12), Validators.maxLength(20)]]
@@ -39,14 +36,14 @@ export class LoginComponent implements OnInit {
       switch (res.error) {
         case 0:
           this.bit.clear();
-          this.notification.success(this.bit.l.auth, this.bit.l.loginSuccess);
+          this.notification.success('认证状态', '登录成功，正在加载数据~');
           this.router.navigateByUrl('/');
           break;
         case 1:
-          this.notification.error(this.bit.l.auth, this.bit.l.loginError);
+          this.notification.error('认证状态', '您的登录失败，请确实账户口令是否正确');
           break;
         case 2:
-          this.notification.error(this.bit.l.auth, this.bit.l.loginManyTimes);
+          this.notification.error('认证状态', '您登录失败的次数过多，请稍后再试');
           break;
       }
     });

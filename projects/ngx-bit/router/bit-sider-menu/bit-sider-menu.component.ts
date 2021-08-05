@@ -1,7 +1,6 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 
 import { NzMenuThemeType } from 'ng-zorro-antd/menu/menu.types';
-import { BitService } from 'ngx-bit';
 import { BitRouterService } from 'ngx-bit/router';
 
 @Component({
@@ -13,5 +12,5 @@ import { BitRouterService } from 'ngx-bit/router';
 export class BitSiderMenuComponent {
   @Input() theme: NzMenuThemeType = 'light';
 
-  constructor(public bit: BitService, public router: BitRouterService) {}
+  constructor(public router: BitRouterService) {}
 }

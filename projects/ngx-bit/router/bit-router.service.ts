@@ -64,7 +64,6 @@ export class BitRouterService {
   readonly footer: BehaviorSubject<TemplateRef<any> | null> = new BehaviorSubject<TemplateRef<any> | null>(null);
 
   constructor(private router: Router) {}
-
   /**
    * 监听路由状态
    */
@@ -76,7 +75,6 @@ export class BitRouterService {
       this.urls.push(this.fragments.slice(0, i + 1).join('/'));
     }
   }
-
   /**
    * 重置页头属性
    */

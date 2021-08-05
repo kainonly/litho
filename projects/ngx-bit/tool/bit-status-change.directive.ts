@@ -22,12 +22,12 @@ export class BitStatusChangeDirective {
   onclick(): void {
     this.bitStatusChange!.subscribe(v => {
       if (!v.error) {
-        this.message.success(this.bit.l.StatusSuccess as string);
+        this.message.success('您的请求提交成功，已更新数据状态');
       } else {
         if (this.bitControl) {
           this.bitResponse!.emit(v);
         } else {
-          this.message.error(this.bit.l.StatusError as string);
+          this.message.error('您的请求提交异常，请稍后再试');
         }
       }
     });
