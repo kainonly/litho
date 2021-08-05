@@ -4,4 +4,6 @@ import { Component } from '@angular/core';
   selector: 'app-list-table',
   templateUrl: './table.component.html'
 })
-export class TableComponent {}
+export class TableComponent {
+  lists: any[] = [];
+}

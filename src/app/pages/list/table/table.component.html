@@ -1,0 +1,27 @@
+<nz-card nzTitle="查询表格" [nzExtra]="extra">
+  <ng-template #extra> </ng-template>
+  <nz-table #basicTable [nzData]="lists">
+    <thead>
+      <tr>
+        <th nzWidth="65px" nzLeft></th>
+        <th>规则名称</th>
+        <th>描述</th>
+        <th>服务调用次数</th>
+        <th>状态</th>
+        <th>上次调用时间</th>
+        <th>操作</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let data of basicTable.data">
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </nz-table>
+</nz-card>

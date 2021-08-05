@@ -115,54 +115,6 @@ export const resource: Resource[] = [
   {
     id: 41,
     pid: 40,
-    fragment: 'search',
-    name: {
-      zh_cn: '搜索列表',
-      en_us: 'Search'
-    },
-    nav: true,
-    router: false,
-    icon: ''
-  },
-  {
-    id: 42,
-    pid: 41,
-    fragment: 'articles',
-    name: {
-      zh_cn: '搜索列表（文章）',
-      en_us: 'Search (Articles)'
-    },
-    nav: true,
-    router: true,
-    icon: ''
-  },
-  {
-    id: 43,
-    pid: 41,
-    fragment: 'projects',
-    name: {
-      zh_cn: '搜索列表（项目）',
-      en_us: 'Search (Projects)'
-    },
-    nav: true,
-    router: true,
-    icon: ''
-  },
-  {
-    id: 44,
-    pid: 41,
-    fragment: 'applications',
-    name: {
-      zh_cn: '搜索列表（应用）',
-      en_us: 'Search (Applications)'
-    },
-    nav: true,
-    router: true,
-    icon: ''
-  },
-  {
-    id: 45,
-    pid: 40,
     fragment: 'table',
     name: {
       zh_cn: '查询表格',
@@ -173,7 +125,7 @@ export const resource: Resource[] = [
     icon: ''
   },
   {
-    id: 46,
+    id: 42,
     pid: 40,
     fragment: 'basic',
     name: {
@@ -185,7 +137,7 @@ export const resource: Resource[] = [
     icon: ''
   },
   {
-    id: 47,
+    id: 43,
     pid: 40,
     fragment: 'card',
     name: {
