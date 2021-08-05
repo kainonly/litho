@@ -1,11 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, Optional } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 import { filter, switchMap } from 'rxjs/operators';
 
 import { StorageMap } from '@ngx-pwa/local-storage';
-import { NzI18nService } from 'ng-zorro-antd/i18n';
 
 import { BitConfig } from './bit-config';
 import { Api } from './common/api';
@@ -29,9 +27,7 @@ export class BitService {
     private config: BitConfig,
     @Optional() private storage: StorageMap,
     @Optional() private router: Router,
-    @Optional() private http: HttpClient,
-    @Optional() private fb: FormBuilder,
-    @Optional() private nzI18nService: NzI18nService
+    @Optional() private http: HttpClient
   ) {
     this.assets = config.assets;
     if (config.upload) {

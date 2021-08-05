@@ -1,12 +1,12 @@
 import { Directive, Input, TemplateRef } from '@angular/core';
 
-import { Language } from 'ngx-bit';
+import { Locale } from './types';
 
 @Directive({
   selector: '[bitI18nItem]'
 })
 export class BitI18nItemDirective {
-  @Input() bitI18nItem!: Language;
+  @Input() bitI18nItem!: Locale;
 
   constructor(public ref: TemplateRef<any>) {}
 }

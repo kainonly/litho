@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import { I18n, Upload } from './types';
+import { Upload } from './types';
 
 @Injectable({ providedIn: 'root' })
 export class BitConfig {
@@ -13,15 +13,11 @@ export class BitConfig {
    */
   assets = '/assets/';
   /**
-   * 默认分页限制
-   */
-  page = 20;
-  /**
    * 上传
    */
   upload?: Upload;
   /**
-   * 国际化输入
+   * 默认分页限制
    */
-  i18n?: I18n;
+  page = 20;
 }

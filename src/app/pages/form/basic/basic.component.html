@@ -6,19 +6,24 @@
   <nz-row [nzGutter]="[16, 16]" nzJustify="center">
     <nz-col nzFlex="600px">
       <form nz-form nzLayout="vertical" [formGroup]="form" (bitFormSubmit)="submit($event)">
-        <nz-form-item>
+        <nz-form-item formGroupName="title">
           <nz-form-label nzRequired>标题</nz-form-label>
-          <nz-form-control
-            style="width: 320px"
-            nzHasFeedback
-            [nzAutoTips]="{
-              default: {
-                required: '标题不能为空'
-              }
-            }"
-          >
-            <input nz-input formControlName="title" placeholder="给目标起个名字" />
-          </nz-form-control>
+          <bit-i18n-tab>
+            <ng-container *ngFor="let locale of i18n.locales">
+              <nz-form-control
+                *bitI18nItem="locale"
+                style="width: 320px"
+                nzHasFeedback
+                [nzAutoTips]="{
+                  default: {
+                    required: '标题不能为空'
+                  }
+                }"
+              >
+                <input nz-input [formControlName]="locale.id" placeholder="给目标起个名字" />
+              </nz-form-control>
+            </ng-container>
+          </bit-i18n-tab>
         </nz-form-item>
         <nz-form-item>
           <nz-form-label nzRequired>起止日期</nz-form-label>

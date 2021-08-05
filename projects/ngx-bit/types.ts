@@ -19,24 +19,13 @@ export interface I18n {
   // 默认国际化 ID
   default: string;
   // 国际化设置
-  languages: Language[];
+  locales: Locale[];
 }
 
-export interface Language {
+export interface Locale {
   id: string;
   name: string;
 }
-
-// export interface I18nOption {
-//   i18n: string;
-//   name: string;
-// }
-//
-// export interface I18nGroupOption {
-//   value: Record<string, any>;
-//   validate: Record<string, ValidatorFn | ValidatorFn[] | AbstractControlOptions | null>;
-//   asyncValidate: Record<string, AsyncValidatorFn | AsyncValidatorFn[] | null>;
-// }
 
 export interface SearchOption {
   field: string;

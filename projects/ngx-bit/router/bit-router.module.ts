@@ -12,11 +12,11 @@ import { BitRouterService } from 'ngx-bit/router';
 
 import { BitPageHeaderComponent } from './bit-page-header/bit-page-header.component';
 import { BitPhActionDirective } from './bit-ph/bit-ph-action.directive';
+import { BitPhAlertDirective } from './bit-ph/bit-ph-alert.directive';
+import { BitPhFooterDirective } from './bit-ph/bit-ph-footer.directive';
+import { BitPhTagsDirective } from './bit-ph/bit-ph-tags.directive';
 import { BitPhComponent } from './bit-ph/bit-ph.component';
 import { BitSiderMenuComponent } from './bit-sider-menu/bit-sider-menu.component';
-import { BitPhTagsDirective } from './bit-ph/bit-ph-tags.directive';
-import { BitPhFooterDirective } from './bit-ph/bit-ph-footer.directive';
-import { BitPhAlertDirective } from './bit-ph/bit-ph-alert.directive';
 
 @NgModule({
   imports: [

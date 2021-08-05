@@ -1,7 +1,5 @@
 import { Component } from '@angular/core';
 
-import { AppService } from '@common/app.service';
-
 @Component({
   selector: 'app-dashboard-workbench',
   templateUrl: './workbench.component.html',
@@ -111,6 +109,4 @@ export class WorkbenchComponent {
       group: '骗你来学计算机'
     }
   ];
-
-  constructor(private app: AppService) {}
 }
