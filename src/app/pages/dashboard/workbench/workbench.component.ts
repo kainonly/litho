@@ -85,27 +85,27 @@ export class WorkbenchComponent {
   quick: string[] = ['操作一', '操作二', '操作三', '操作四', '操作五', '操作六'];
   groups: any[] = [
     {
-      avatar: '/assets/workbench/alipay.png',
+      avatar: '/assets/logo/alipay.png',
       group: '科学搬砖组'
     },
     {
-      avatar: '/assets/workbench/angular.png',
+      avatar: '/assets/logo/angular.png',
       group: '全组都是吴彦祖'
     },
     {
-      avatar: '/assets/workbench/antd.png',
+      avatar: '/assets/logo/antd.png',
       group: '中二少女团'
     },
     {
-      avatar: '/assets/workbench/antd-pro.png',
+      avatar: '/assets/logo/antd-pro.png',
       group: '程序员日常'
     },
     {
-      avatar: '/assets/workbench/bootstrap.png',
+      avatar: '/assets/logo/bootstrap.png',
       group: '高逼格设计天团'
     },
     {
-      avatar: '/assets/workbench/react.png',
+      avatar: '/assets/logo/react.png',
       group: '骗你来学计算机'
     }
   ];
