@@ -1,3 +1,4 @@
+import { AbstractControl, FormGroup } from '@angular/forms';
 import { Observable, timer } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
 
@@ -49,6 +50,17 @@ export function asyncValidator(
       return !result ? { error: true, [field]: true } : null;
     })
   );
+}
+
+export function updateFormGroup(controls: AbstractControl[]) {
+  controls.forEach(control => {
+    if (control instanceof FormGroup) {
+      updateFormGroup(Object.values(control.controls));
+    } else {
+      control.markAsDirty();
+      control.updateValueAndValidity();
+    }
+  });
 }
 
 /**
