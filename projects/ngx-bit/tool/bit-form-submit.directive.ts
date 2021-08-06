@@ -1,5 +1,5 @@
 import { Directive, EventEmitter, OnInit, Output } from '@angular/core';
-import { FormGroupDirective } from '@angular/forms';
+import { AbstractControl, FormGroup, FormGroupDirective } from '@angular/forms';
 
 @Directive({
   selector: 'form[bitFormSubmit]'
@@ -7,15 +7,23 @@ import { FormGroupDirective } from '@angular/forms';
 export class BitFormSubmitDirective implements OnInit {
   @Output() readonly bitFormSubmit: EventEmitter<Record<string, any>> = new EventEmitter<Record<string, any>>();
 
-  constructor(private form: FormGroupDirective) {}
+  constructor(private formGroup: FormGroupDirective) {}
 
   ngOnInit(): void {
-    this.form.ngSubmit.subscribe(() => {
-      Object.values(this.form.control.controls).forEach(control => {
+    this.formGroup.ngSubmit.subscribe(() => {
+      BitFormSubmitDirective.update(Object.values(this.formGroup.control.controls));
+      this.bitFormSubmit.emit(this.formGroup.value);
+    });
+  }
+
+  private static update(controls: AbstractControl[]): void {
+    controls.forEach(control => {
+      if (control instanceof FormGroup) {
+        BitFormSubmitDirective.update(Object.values(control.controls));
+      } else {
         control.markAsDirty();
         control.updateValueAndValidity();
-      });
-      this.bitFormSubmit.emit(this.form.value);
+      }
     });
   }
 }

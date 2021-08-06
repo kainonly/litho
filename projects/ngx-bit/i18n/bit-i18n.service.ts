@@ -1,4 +1,4 @@
-import { Injectable, Optional } from '@angular/core';
+import { Injectable } from '@angular/core';
 
 import { Config } from './config';
 import { Locale } from './types';

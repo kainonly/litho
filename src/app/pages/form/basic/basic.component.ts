@@ -16,10 +16,11 @@ export class BasicComponent implements OnInit {
 
   ngOnInit(): void {
     this.form = this.fb.group({
-      title: this.fb.group({
-        zh_cn: [null, [Validators.required]],
-        en_us: []
-      }),
+      title: this.fb.group(
+        this.i18n.controls({
+          zh_cn: [null, [Validators.required]]
+        })
+      ),
       date: [null, [Validators.required]],
       description: [null, [Validators.required]],
       standard: [null, [Validators.required]],
@@ -28,7 +29,6 @@ export class BasicComponent implements OnInit {
       weights: [0],
       privacy: [0, [Validators.required]]
     });
-    console.log(this.form);
   }
 
   submit(data: any): void {

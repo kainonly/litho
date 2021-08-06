@@ -6,9 +6,9 @@
   <nz-row [nzGutter]="[16, 16]" nzJustify="center">
     <nz-col nzFlex="600px">
       <form nz-form nzLayout="vertical" [formGroup]="form" (bitFormSubmit)="submit($event)">
-        <nz-form-item formGroupName="title">
+        <nz-form-item>
           <nz-form-label nzRequired>标题</nz-form-label>
-          <bit-i18n-tab>
+          <bit-i18n-tab formGroupName="title">
             <ng-container *ngFor="let locale of i18n.locales">
               <nz-form-control
                 *bitI18nItem="locale"
