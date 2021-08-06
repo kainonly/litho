@@ -107,6 +107,7 @@ export class AdvancedComponent implements OnInit {
   deleteUser(index: number): void {
     const users: FormArray = this.form.get('users') as FormArray;
     users.removeAt(index);
+    this.userForm = {};
   }
 
   submit(data: any): void {
