@@ -16,13 +16,13 @@ export class BasicComponent implements OnInit {
 
   ngOnInit(): void {
     this.form = this.fb.group({
-      title: this.fb.group(
-        this.i18n.controls({
-          zh_cn: [null, [Validators.required]]
-        })
-      ),
+      title: this.i18n.group({
+        zh_cn: [null, [Validators.required]]
+      }),
       date: [null, [Validators.required]],
-      description: [null, [Validators.required]],
+      description: this.i18n.group({
+        zh_cn: [null, [Validators.required]]
+      }),
       standard: [null, [Validators.required]],
       customer: [null],
       staff: [null],

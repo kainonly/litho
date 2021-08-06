@@ -41,16 +41,26 @@
         </nz-form-item>
         <nz-form-item>
           <nz-form-label nzRequired>目标描述</nz-form-label>
-          <nz-form-control
-            nzHasFeedback
-            [nzAutoTips]="{
-              default: {
-                required: '目标描述不能为空'
-              }
-            }"
-          >
-            <textarea rows="4" nz-input formControlName="description" placeholder="请输入你的阶段性工作目标"></textarea>
-          </nz-form-control>
+          <bit-i18n-tab formGroupName="description">
+            <ng-container *ngFor="let locale of i18n.locales">
+              <nz-form-control
+                *bitI18nItem="locale"
+                nzHasFeedback
+                [nzAutoTips]="{
+                  default: {
+                    required: '目标描述不能为空'
+                  }
+                }"
+              >
+                <textarea
+                  rows="4"
+                  nz-input
+                  [formControlName]="locale.id"
+                  placeholder="请输入你的阶段性工作目标"
+                ></textarea>
+              </nz-form-control>
+            </ng-container>
+          </bit-i18n-tab>
         </nz-form-item>
         <nz-form-item>
           <nz-form-label nzRequired>衡量标准</nz-form-label>

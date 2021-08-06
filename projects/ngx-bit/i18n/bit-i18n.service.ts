@@ -1,4 +1,5 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Optional } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
 import { Config } from './config';
 import { Locale } from './types';
@@ -8,15 +9,17 @@ import { Locale } from './types';
 })
 export class BitI18nService {
   readonly locales!: Locale[];
+  readonly ids!: string[];
 
-  constructor(private config: Config) {
+  constructor(private config: Config, @Optional() private fb: FormBuilder) {
     this.locales = config.locales;
+    this.ids = this.locales.map(v => v.id);
   }
 
   /**
-   * 创建国际化 controls
+   * 创建国际化 group
    */
-  controls(options?: Record<string, any[]>): Record<string, any[]> {
+  group(options?: Record<string, any[]>): FormGroup {
     const controls: Record<string, any[]> = {};
     this.locales.forEach(value => {
       if (options?.hasOwnProperty(value.id)) {
@@ -25,7 +28,7 @@ export class BitI18nService {
         controls[value.id] = new Array(3).fill(null);
       }
     });
-    return controls;
+    return this.fb.group(controls);
   }
 
   /**
@@ -33,11 +36,11 @@ export class BitI18nService {
    */
   parse(value: string): Record<string, any> {
     const data: Record<string, any> = JSON.parse(value);
-    for (const locale of Object(data).keys) {
-      if (!this.locales.includes(locale)) {
-        Reflect.deleteProperty(data, locale);
+    Object.keys(data).forEach(id => {
+      if (!this.ids.includes(id)) {
+        Reflect.deleteProperty(data, id);
       }
-    }
+    });
     return data;
   }
 }
