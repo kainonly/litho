@@ -1,6 +1,6 @@
 # NGX-BIT
 
-一个灵活的 NgZorro 辅助工具
+NGX-BIT 是一个辅助 NG-ZORRO 的助手，目标是帮助项目解决前后端统一开发
 
 [![Github Actions](https://img.shields.io/github/workflow/status/kainonly/ngx-bit/bit_test?style=flat-square)](https://github.com/kainonly/ngx-bit/actions)
 [![Coveralls github](https://img.shields.io/coveralls/github/kainonly/ngx-bit.svg?style=flat-square)](https://coveralls.io/github/kainonly/ngx-bit)
@@ -9,9 +9,9 @@
 [![TypeScript](https://img.shields.io/badge/%3C%2F%3E-TypeScript-blue.svg?style=flat-square)](https://www.typescriptlang.org/)
 [![GitHub license](https://img.shields.io/github/license/kainonly/ngx-bit?style=flat-square)](https://raw.githubusercontent.com/kainonly/ngx-bit.js/main/LICENSE)
 
-**开发手册** https://doc.kainonly.com/#/ngx-bit/
+**开发手册：** www.yuque.com/kainonly/ngx-bit
 
-> Thanks to [JetBrains](https://www.jetbrains.com/?from=ngx-bit) for providing free open source license sponsorship
+> 感谢 [JetBrains](https://www.jetbrains.com/?from=ngx-bit) 提供免费的开源许可赞助
 >
 > [![JetBrains](https://raw.githubusercontent.com/kainonly/ngx-bit/main/resource/jetbrains.svg)](https://www.jetbrains.com/?from=ngx-bit)
 
