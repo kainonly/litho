@@ -25,8 +25,8 @@ registerLocaleData(zh);
 const routes: Routes = [
   {
     path: '',
-    loadChildren: () => import('./app-routing.module').then(m => m.AppRoutingModule)
-    // canActivate: [AppGuard]
+    loadChildren: () => import('./app-routing.module').then(m => m.AppRoutingModule),
+    canActivate: [AppGuard]
   },
   {
     path: 'login',
