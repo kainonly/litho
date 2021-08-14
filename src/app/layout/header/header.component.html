@@ -93,7 +93,7 @@
                 <button *nzSpaceItem routerLink="/center/logs" nz-button nzType="text" nz-tooltip="个人中心">
                   <i nz-icon nzType="user"></i>
                 </button>
-                <button *nzSpaceItem nz-button nzType="text" nz-tooltip="退出">
+                <button *nzSpaceItem nz-button nzType="text" nz-tooltip="退出" (click)="logout()">
                   <i nz-icon nzType="logout"></i>
                 </button>
               </nz-space>

@@ -37,6 +37,7 @@ export class LoginComponent implements OnInit {
         case 0:
           this.bit.clear();
           this.notification.success('认证状态', '登录成功，正在加载数据~');
+          this.appService.browserRefresh = false;
           this.router.navigateByUrl('/');
           break;
         case 1:

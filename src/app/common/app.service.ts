@@ -17,6 +17,7 @@ export class AppService {
    * 刷新资源
    */
   readonly refresh$: Subject<undefined> = new Subject<undefined>();
+  browserRefresh = true;
 
   constructor(private http: HttpClient, private config: BitConfig) {
     this.authURL = `${config.baseUrl}auth`;
@@ -37,6 +38,16 @@ export class AppService {
    */
   verify(): Observable<any> {
     return this.http.get(this.authURL);
+  }
+
+  code(): Observable<any> {
+    return this.http.get(`${this.config.baseUrl}code`);
+  }
+
+  refreshToken(code: string): Observable<any> {
+    return this.http.put(this.authURL, {
+      code
+    });
   }
 
   /**
