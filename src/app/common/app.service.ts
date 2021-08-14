@@ -23,7 +23,7 @@ export class AppService {
   }
 
   /**
-   * 登录
+   * 登录鉴权
    */
   login(username: string, password: string): Observable<any> {
     return this.http.post(this.authURL, {
@@ -33,14 +33,14 @@ export class AppService {
   }
 
   /**
-   * 验证鉴权状态
+   * 验证鉴权
    */
   verify(): Observable<any> {
     return this.http.get(this.authURL);
   }
 
   /**
-   * 登出
+   * 注销鉴权
    */
   logout(): Observable<boolean> {
     return this.http.delete(this.authURL).pipe(map((v: any) => !v.error));

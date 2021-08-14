@@ -4,7 +4,7 @@ import { Locale } from 'ngx-bit/i18n';
 const cdn = 'https://cdn.kainonly.com/';
 
 const bit: Partial<BitConfig> = {
-  baseUrl: 'http://localhost:3000/sys/',
+  baseUrl: 'https://dev.kainonly.com/system',
   assets: cdn
 };
 
