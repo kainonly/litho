@@ -1,33 +1,26 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, of, Subject } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { resource } from '@common/data';
 import { BitConfig } from 'ngx-bit';
 import { ID, Resource, Resources } from 'ngx-bit/router';
 
 @Injectable()
 export class AppService {
   /**
-   * 鉴权地址
-   */
-  private authURL: string;
-  /**
    * 刷新资源
    */
   readonly refresh$: Subject<undefined> = new Subject<undefined>();
   browserRefresh = true;
 
-  constructor(private http: HttpClient, private config: BitConfig) {
-    this.authURL = `${config.baseUrl}auth`;
-  }
+  constructor(private http: HttpClient, private config: BitConfig) {}
 
   /**
    * 登录鉴权
    */
   login(username: string, password: string): Observable<any> {
-    return this.http.post(this.authURL, {
+    return this.http.post(`${this.config.baseUrl}auth`, {
       username,
       password
     });
@@ -37,7 +30,7 @@ export class AppService {
    * 验证鉴权
    */
   verify(): Observable<any> {
-    return this.http.get(this.authURL);
+    return this.http.get(`${this.config.baseUrl}auth`);
   }
 
   code(): Observable<any> {
@@ -45,7 +38,7 @@ export class AppService {
   }
 
   refreshToken(code: string): Observable<any> {
-    return this.http.put(this.authURL, {
+    return this.http.put(`${this.config.baseUrl}auth`, {
       code
     });
   }
@@ -54,15 +47,15 @@ export class AppService {
    * 注销鉴权
    */
   logout(): Observable<boolean> {
-    return this.http.delete(this.authURL).pipe(map((v: any) => !v.error));
+    return this.http.delete(`${this.config.baseUrl}auth`).pipe(map((v: any) => !v.error));
   }
 
   /**
    * 获取资源数据
    */
   resources(): Observable<Resources> {
-    return of(resource).pipe(
-      map(result => {
+    return this.http.get(`${this.config.baseUrl}resource`).pipe(
+      map((result: any) => {
         const navs: Record<string, any>[] = [];
         const data: Record<ID, Resource> = {};
         const dict: Record<string, ID> = {};
