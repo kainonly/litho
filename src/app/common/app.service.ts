@@ -20,7 +20,7 @@ export class AppService {
    * 登录鉴权
    */
   login(username: string, password: string): Observable<any> {
-    return this.http.post(`${this.config.baseUrl}auth`, {
+    return this.http.post(`${this.config.baseUrl}login`, {
       username,
       password
     });
@@ -30,15 +30,15 @@ export class AppService {
    * 验证鉴权
    */
   verify(): Observable<any> {
-    return this.http.get(`${this.config.baseUrl}auth`);
+    return this.http.post(`${this.config.baseUrl}verify`, {});
   }
 
   code(): Observable<any> {
-    return this.http.get(`${this.config.baseUrl}code`);
+    return this.http.post(`${this.config.baseUrl}code`, {});
   }
 
   refreshToken(code: string): Observable<any> {
-    return this.http.put(`${this.config.baseUrl}auth`, {
+    return this.http.post(`${this.config.baseUrl}refresh`, {
       code
     });
   }
@@ -47,14 +47,14 @@ export class AppService {
    * 注销鉴权
    */
   logout(): Observable<boolean> {
-    return this.http.delete(`${this.config.baseUrl}auth`).pipe(map((v: any) => !v.error));
+    return this.http.post(`${this.config.baseUrl}logout`, {}).pipe(map((v: any) => !v.error));
   }
 
   /**
    * 获取资源数据
    */
   resources(): Observable<Resources> {
-    return this.http.get(`${this.config.baseUrl}resource`).pipe(
+    return this.http.post(`${this.config.baseUrl}resource`, {}).pipe(
       map((result: any) => {
         const navs: Record<string, any>[] = [];
         const data: Record<ID, Resource> = {};
