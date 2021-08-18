@@ -1,5 +1,5 @@
 <ul nz-menu [nzTheme]="theme" nzMode="inline">
-  <ng-container *ngTemplateOutlet="navTemplate; context: { $implicit: router.resources.navs }"></ng-container>
+  <ng-container *ngTemplateOutlet="navTemplate; context: { $implicit: navs }"></ng-container>
   <ng-template #navTemplate let-navs>
     <ng-container *ngFor="let nav of navs">
       <ng-container *ngIf="nav.router; else not">

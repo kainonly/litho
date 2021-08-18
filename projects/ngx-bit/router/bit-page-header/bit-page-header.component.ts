@@ -14,7 +14,9 @@ export class BitPageHeaderComponent implements OnInit {
   constructor(public router: BitRouterService) {}
 
   ngOnInit(): void {
-    this.data = this.router.resources.data;
-    this.dict = this.router.resources.dict;
+    this.router.resources.subscribe(result => {
+      this.data = result.data;
+      this.dict = result.dict;
+    });
   }
 }

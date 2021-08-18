@@ -11,7 +11,11 @@ export class BitRouterService {
   /**
    * 驱动资源
    */
-  resources!: Resources;
+  readonly resources: BehaviorSubject<Resources> = new BehaviorSubject<Resources>({
+    navs: [],
+    data: {},
+    dict: {}
+  });
   /**
    * URL片段
    */

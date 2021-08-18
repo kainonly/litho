@@ -59,24 +59,24 @@ export class AppService {
         const navs: Record<string, any>[] = [];
         const data: Record<ID, Resource> = {};
         const dict: Record<string, ID> = {};
-        for (const x of result) {
+        for (const x of result.data) {
           data[x.id] = x;
           if (!x.nav) {
             continue;
           }
-          if (x.pid === 0) {
+          if (x.parent === 0) {
             x.url = [x.fragment];
             navs.push(x);
           } else {
-            if (data.hasOwnProperty(x.pid)) {
+            if (data.hasOwnProperty(x.parent)) {
               if (!x.hasOwnProperty('url')) {
-                x.url = [...data[x.pid].url];
+                x.url = [...data[x.parent].url];
               }
               x.url.push(x.fragment);
-              if (!data[x.pid].hasOwnProperty('children')) {
-                data[x.pid].children = [];
+              if (!data[x.parent].hasOwnProperty('children')) {
+                data[x.parent].children = [];
               }
-              data[x.pid].children.push(x);
+              data[x.parent].children.push(x);
             }
           }
           dict[x.url.join('/')] = x.id;
