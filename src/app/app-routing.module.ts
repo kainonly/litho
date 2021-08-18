@@ -39,6 +39,10 @@ const routes: Routes = [
         path: 'center',
         loadChildren: () => import('./pages/center/center.module').then(m => m.CenterModule)
       },
+      {
+        path: 'system',
+        loadChildren: () => import('./pages/system/system.module').then(m => m.SystemModule)
+      },
       { path: '', redirectTo: '/dashboard/analysis', pathMatch: 'full' }
     ]
   }

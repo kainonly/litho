@@ -11,13 +11,26 @@
     <nz-col> </nz-col>
     <nz-col>
       <nz-space>
-        <div *nzSpaceItem class="profile" nz-popover [nzPopoverContent]="center" nzPopoverPlacement="bottomRight">
+        <div *nzSpaceItem class="center" nz-popover [nzPopoverContent]="center" nzPopoverPlacement="bottomRight">
           <nz-badge nzDot>
             <nz-avatar nzShape="square" [nzSize]="24" nzSrc="/assets/user.png"> </nz-avatar>
           </nz-badge>
           <span class="name">KAIN</span>
           <ng-template #center>
-            <nz-tabset style="width: 360px" [nzTabBarExtraContent]="extraTemplate">
+            <nz-tabset style="width: 360px" [nzTabBarExtraContent]="actions">
+              <ng-template #actions>
+                <nz-space>
+                  <button *nzSpaceItem routerLink="/center/logs" nz-button nzType="text" nz-tooltip="个人中心">
+                    <i nz-icon nzType="user"></i>
+                  </button>
+                  <button *nzSpaceItem routerLink="/system" nz-button nzType="text" nz-tooltip="系统设置">
+                    <i nz-icon nzType="setting"></i>
+                  </button>
+                  <button *nzSpaceItem nz-button nzType="text" nz-tooltip="退出" (click)="logout()">
+                    <i nz-icon nzType="logout"></i>
+                  </button>
+                </nz-space>
+              </ng-template>
               <nz-tab nzTitle="通知(4)">
                 <nz-list nzItemLayout="horizontal">
                   <nz-list-item>
@@ -88,16 +101,6 @@
                 <button nz-button nzType="text" nzBlock>查看更多</button>
               </nz-tab>
             </nz-tabset>
-            <ng-template #extraTemplate>
-              <nz-space>
-                <button *nzSpaceItem routerLink="/center/logs" nz-button nzType="text" nz-tooltip="个人中心">
-                  <i nz-icon nzType="user"></i>
-                </button>
-                <button *nzSpaceItem nz-button nzType="text" nz-tooltip="退出" (click)="logout()">
-                  <i nz-icon nzType="logout"></i>
-                </button>
-              </nz-space>
-            </ng-template>
           </ng-template>
         </div>
       </nz-space>
