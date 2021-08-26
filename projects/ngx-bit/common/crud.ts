@@ -2,18 +2,18 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
 
-import { ApiOption, OrderOption, SearchOption } from '../types';
+import { CrudOption, OrderOption, SearchOption } from '../types';
 import { Lists } from './lists';
 import { getQuerySchema } from './util';
 
-export class Api {
-  constructor(private http: HttpClient, private option: ApiOption) {}
+export class Crud {
+  constructor(private http: HttpClient, private option: CrudOption) {}
 
   /**
    * 获取 URL
    */
   get url(): string {
-    return `${this.option.baseUrl + this.option.model}/`;
+    return this.option.baseUrl + this.option.model;
   }
 
   /**
@@ -36,7 +36,7 @@ export class Api {
         body['order'] = order;
       }
     }
-    return this.send('get', body).pipe(map(v => (!v.error ? v.data : null)));
+    return this.send('/get', body).pipe(map(v => (!v.error ? v.data : null)));
   }
 
   /**
@@ -52,7 +52,7 @@ export class Api {
     return factory.getPage().pipe(
       switchMap(index => {
         factory.index = index ?? 1;
-        return this.send('lists', {
+        return this.send('/lists', {
           page: {
             limit: factory.limit,
             index: factory.index
@@ -84,14 +84,14 @@ export class Api {
     if (order) {
       body['order'] = order;
     }
-    return this.send('originLists', body).pipe(map(v => (!v.error ? v.data : null)));
+    return this.send('/originLists', body).pipe(map(v => (!v.error ? v.data : null)));
   }
 
   /**
    * 新增数据请求
    */
   add(data: Record<string, any>): Observable<any> {
-    return this.send('add', data);
+    return this.send('/add', data);
   }
 
   /**
@@ -104,7 +104,7 @@ export class Api {
         where: getQuerySchema(condition)
       });
     }
-    return this.send('edit', data);
+    return this.send('/edit', data);
   }
 
   /**
@@ -119,7 +119,7 @@ export class Api {
     if (extra) {
       Object.assign(body, extra);
     }
-    return this.send('edit', body).pipe(
+    return this.send('/edit', body).pipe(
       map(v => {
         if (!v.error) {
           data[field] = !data[field];
@@ -142,6 +142,6 @@ export class Api {
     } else {
       body['where'] = getQuerySchema(condition as SearchOption[]);
     }
-    return this.send('delete', body);
+    return this.send('/delete', body);
   }
 }

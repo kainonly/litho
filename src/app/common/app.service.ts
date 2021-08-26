@@ -56,7 +56,7 @@ export class AppService {
   resources(): Observable<Resources> {
     return this.http.post(`${this.config.baseUrl}resource`, {}).pipe(
       map((result: any) => {
-        const navs: Record<string, any>[] = [];
+        const navs: Record<string, Resource>[] = [];
         const data: Record<ID, Resource> = {};
         const dict: Record<string, ID> = {};
         for (const x of result.data) {

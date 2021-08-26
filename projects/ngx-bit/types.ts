@@ -41,7 +41,7 @@ export type SearchFormat = 'unixtime';
 export type OrderOption = Record<string, Order>;
 export type Order = 'asc' | 'desc';
 
-export interface ApiOption {
+export interface CrudOption {
   baseUrl: string;
   model: string;
 }

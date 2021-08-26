@@ -1,7 +1,7 @@
 <ul nz-menu [nzTheme]="theme" nzMode="inline">
   <ng-container *ngTemplateOutlet="navTemplate; context: { $implicit: navs }"></ng-container>
   <ng-template #navTemplate let-navs>
-    <ng-container *ngFor="let nav of navs">
+    <ng-container *ngFor="let nav of navs | Sort: 'sort'">
       <ng-container *ngIf="nav.router; else not">
         <li nz-menu-item nzMatchRouter [nzPaddingLeft]="nav.url.length * 16" [routerLink]="nav.url">
           <i *ngIf="!!nav.icon" nz-icon [nzType]="nav.icon"></i>

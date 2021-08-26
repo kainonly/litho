@@ -6,7 +6,7 @@ import { filter, switchMap } from 'rxjs/operators';
 import { StorageMap } from '@ngx-pwa/local-storage';
 
 import { BitConfig } from './bit-config';
-import { Api } from './common/api';
+import { Crud } from './common/crud';
 import { Lists } from './common/lists';
 import { ListsOption } from './types';
 
@@ -38,8 +38,8 @@ export class BitService {
   /**
    * 创建统一请求
    */
-  api(model: string): Api {
-    return new Api(this.http, {
+  api(model: string): Crud {
+    return new Crud(this.http, {
       baseUrl: this.config.baseUrl,
       model
     });
