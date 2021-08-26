@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 
 import { BitRouterService, ID, Resource } from 'ngx-bit/router';
 
@@ -11,12 +11,13 @@ export class BitPageHeaderComponent implements OnInit {
   data!: Record<ID, Resource>;
   dict!: Record<string, ID>;
 
-  constructor(public router: BitRouterService) {}
+  constructor(public router: BitRouterService, private cd: ChangeDetectorRef) {}
 
   ngOnInit(): void {
     this.router.resources.subscribe(result => {
       this.data = result.data;
       this.dict = result.dict;
+      this.cd.detectChanges();
     });
   }
 }
