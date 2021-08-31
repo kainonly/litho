@@ -71,7 +71,7 @@ export class BitRouterService {
   /**
    * 监听路由状态
    */
-  onActived(): void {
+  activated(): void {
     this.resetPageHeaderAttr();
     this.path = this.router.url.slice(1);
     this.fragments = this.path.split('/');

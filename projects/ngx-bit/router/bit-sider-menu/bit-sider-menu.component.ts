@@ -8,7 +8,6 @@ import { ResourceStruct } from '../types';
 @Component({
   selector: 'bit-sider-menu',
   templateUrl: './bit-sider-menu.component.html',
-  styleUrls: ['./bit-sider-menu.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class BitSiderMenuComponent implements OnInit {

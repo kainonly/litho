@@ -56,7 +56,9 @@ const ngZorroConfig: NzConfig = {
       enabled: environment.production,
       registrationStrategy: 'registerWhenStable:30000'
     }),
-    RouterModule.forRoot(routes, { useHash: true })
+    RouterModule.forRoot(routes, {
+      useHash: true
+    })
   ],
   providers: [
     AppGuard,

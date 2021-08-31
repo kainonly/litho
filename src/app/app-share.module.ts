@@ -58,6 +58,7 @@ import { BitI18nModule } from 'ngx-bit/i18n';
 import { BitPipeModule } from 'ngx-bit/pipe';
 import { BitRouterModule } from 'ngx-bit/router';
 import { BitToolModule } from 'ngx-bit/tool';
+import { NgScrollbarModule } from 'ngx-scrollbar';
 
 @NgModule({
   exports: [
@@ -119,6 +120,7 @@ import { BitToolModule } from 'ngx-bit/tool';
     NzPipesModule,
     NzPaginationModule,
     NzEmptyModule,
+    NgScrollbarModule,
     BitToolModule,
     BitPipeModule,
     BitI18nModule,

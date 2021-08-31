@@ -1,4 +1,4 @@
-<ul nz-menu [nzTheme]="theme" nzMode="inline">
+<ul nz-menu nzMode="inline">
   <ng-container *ngTemplateOutlet="navTemplate; context: { $implicit: navs }"></ng-container>
   <ng-template #navTemplate let-navs>
     <ng-container *ngFor="let nav of navs | Sort: 'sort'">

@@ -3,15 +3,17 @@
 
   <nz-layout class="section-layout">
     <nz-sider nzTheme="light" [nzWidth]="240">
-      <bit-sider-menu></bit-sider-menu>
+      <ng-scrollbar visibility="hover">
+        <bit-sider-menu></bit-sider-menu>
+      </ng-scrollbar>
     </nz-sider>
-    <nz-layout class="inner-layout">
-      <bit-page-header></bit-page-header>
-      <nz-content>
-        <div class="content">
-          <router-outlet (activate)="router.onActived()"></router-outlet>
-        </div>
-      </nz-content>
+    <nz-layout>
+      <ng-scrollbar>
+        <bit-page-header></bit-page-header>
+        <nz-content>
+          <router-outlet (activate)="router.activated()"></router-outlet>
+        </nz-content>
+      </ng-scrollbar>
     </nz-layout>
   </nz-layout>
 </nz-layout>

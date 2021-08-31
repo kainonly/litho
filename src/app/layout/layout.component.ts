@@ -1,9 +1,10 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Subscription, timer } from 'rxjs';
-import { map, switchMap } from 'rxjs/operators';
+import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Subject, Subscription, timer } from 'rxjs';
+import { map, switchMap, throttleTime } from 'rxjs/operators';
 
 import { AppService } from '@common/app.service';
 import { BitRouterService } from 'ngx-bit/router';
+import { NgScrollbar } from 'ngx-scrollbar';
 
 @Component({
   selector: 'app-layout',
