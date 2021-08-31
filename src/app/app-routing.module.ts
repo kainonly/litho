@@ -12,38 +12,14 @@ const routes: Routes = [
     component: LayoutComponent,
     children: [
       {
-        path: 'dashboard',
-        loadChildren: () => import('./pages/dashboard/dashboard.module').then(m => m.DashboardModule)
+        path: 'workbench',
+        loadChildren: () => import('./pages/workbench/workbench.module').then(m => m.WorkbenchModule)
       },
       {
-        path: 'form',
-        loadChildren: () => import('./pages/form/form.module').then(m => m.FormModule)
+        path: 'settings',
+        loadChildren: () => import('./pages/settings/settings.module').then(m => m.SettingsModule)
       },
-      {
-        path: 'list',
-        loadChildren: () => import('./pages/list/list.module').then(m => m.ListModule)
-      },
-      {
-        path: 'profile',
-        loadChildren: () => import('./pages/profile/profile.module').then(m => m.ProfileModule)
-      },
-      {
-        path: 'result',
-        loadChildren: () => import('./pages/result/result.module').then(m => m.ResultModule)
-      },
-      {
-        path: 'exception',
-        loadChildren: () => import('./pages/exception/exception.module').then(m => m.ExceptionModule)
-      },
-      {
-        path: 'center',
-        loadChildren: () => import('./pages/center/center.module').then(m => m.CenterModule)
-      },
-      {
-        path: 'system',
-        loadChildren: () => import('./pages/system/system.module').then(m => m.SystemModule)
-      },
-      { path: '', redirectTo: '/dashboard/analysis', pathMatch: 'full' }
+      { path: '', redirectTo: '/workbench/dashboard', pathMatch: 'full' }
     ]
   }
 ];
