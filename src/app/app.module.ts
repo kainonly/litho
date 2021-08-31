@@ -16,7 +16,7 @@ import { NZ_CONFIG, NzConfig } from 'ng-zorro-antd/core/config';
 import { NZ_I18N, zh_CN } from 'ng-zorro-antd/i18n';
 import { BitModule } from 'ngx-bit';
 import { BitI18nModule } from 'ngx-bit/i18n';
-import { BitRouterModule, BitRouterService } from 'ngx-bit/router';
+import { BitRouterModule } from 'ngx-bit/router';
 
 import { AppComponent } from './app.component';
 
