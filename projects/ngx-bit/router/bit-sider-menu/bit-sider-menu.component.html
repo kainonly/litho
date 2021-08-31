@@ -3,7 +3,7 @@
   <ng-template #navTemplate let-navs>
     <ng-container *ngFor="let nav of navs | Sort: 'sort'">
       <ng-container *ngIf="nav.router; else not">
-        <li nz-menu-item nzMatchRouter [nzPaddingLeft]="nav.url.length * 16" [routerLink]="nav.url">
+        <li nz-menu-item nzMatchRouter [nzPaddingLeft]="nav.level * 16" [routerLink]="nav.path">
           <i *ngIf="!!nav.icon" nz-icon [nzType]="nav.icon"></i>
           <span>{{ nav.name }}</span>
         </li>
@@ -11,8 +11,8 @@
       <ng-template #not>
         <li
           nz-submenu
-          [nzOpen]="nav.url[0] === router.fragments[0] && nav.url.length < router.fragments.length"
-          [nzPaddingLeft]="nav.url.length * 16"
+          [nzOpen]="nav.fragments[0] === router.fragments[0] && nav.level < router.fragments.length"
+          [nzPaddingLeft]="nav.level * 16"
         >
           <span title>
             <i *ngIf="!!nav.icon" nz-icon [nzType]="nav.icon"></i>

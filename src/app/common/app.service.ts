@@ -4,7 +4,7 @@ import { Observable, Subject } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { BitConfig } from 'ngx-bit';
-import { ID, Resource, Resources } from 'ngx-bit/router';
+import { Resources, ResourceStruct } from 'ngx-bit/router';
 
 @Injectable()
 export class AppService {
@@ -56,34 +56,28 @@ export class AppService {
   resources(): Observable<Resources> {
     return this.http.post(`${this.config.baseUrl}resource`, {}).pipe(
       map((result: any) => {
-        const navs: Record<string, Resource>[] = [];
-        const data: Record<ID, Resource> = {};
-        const dict: Record<string, ID> = {};
+        const navs: ResourceStruct[] = [];
+        const dict: Record<string, ResourceStruct> = {};
         for (const x of result.data) {
-          data[x.id] = x;
+          x.fragments = x.path.split('/');
+          x.level = x.fragments.length;
+          dict[x.path] = x;
           if (!x.nav) {
             continue;
           }
-          if (x.parent === 0) {
-            x.url = [x.fragment];
+          if (x.parent === 'root') {
             navs.push(x);
           } else {
-            if (data.hasOwnProperty(x.parent)) {
-              if (!x.hasOwnProperty('url')) {
-                x.url = [...data[x.parent].url];
+            if (dict.hasOwnProperty(x.parent)) {
+              if (!dict[x.parent].hasOwnProperty('children')) {
+                dict[x.parent].children = [];
               }
-              x.url.push(x.fragment);
-              if (!data[x.parent].hasOwnProperty('children')) {
-                data[x.parent].children = [];
-              }
-              data[x.parent].children.push(x);
+              dict[x.parent].children.push(x);
             }
           }
-          dict[x.url.join('/')] = x.id;
         }
         return <Resources>{
           navs,
-          data,
           dict
         };
       })

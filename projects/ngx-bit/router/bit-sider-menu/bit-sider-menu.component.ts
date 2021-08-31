@@ -3,7 +3,7 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit } 
 import { NzMenuThemeType } from 'ng-zorro-antd/menu/menu.types';
 import { BitRouterService } from 'ngx-bit/router';
 
-import { Resource } from '../types';
+import { ResourceStruct } from '../types';
 
 @Component({
   selector: 'bit-sider-menu',
@@ -13,7 +13,7 @@ import { Resource } from '../types';
 })
 export class BitSiderMenuComponent implements OnInit {
   @Input() theme: NzMenuThemeType = 'light';
-  navs: Resource[] = [];
+  navs: ResourceStruct[] = [];
 
   constructor(public router: BitRouterService, private cd: ChangeDetectorRef) {}
 

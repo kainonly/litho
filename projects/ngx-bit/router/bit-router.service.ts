@@ -13,9 +13,9 @@ export class BitRouterService {
    */
   readonly resources: BehaviorSubject<Resources> = new BehaviorSubject<Resources>({
     navs: [],
-    data: {},
     dict: {}
   });
+  path!: string;
   /**
    * URL片段
    */
@@ -73,7 +73,8 @@ export class BitRouterService {
    */
   onActived(): void {
     this.resetPageHeaderAttr();
-    this.fragments = this.router.url.slice(1).split('/');
+    this.path = this.router.url.slice(1);
+    this.fragments = this.path.split('/');
     this.urls = [];
     for (let i = 0; i < this.fragments.length; i++) {
       this.urls.push(this.fragments.slice(0, i + 1).join('/'));

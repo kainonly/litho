@@ -5,10 +5,10 @@ import { AppShareModule } from '@share';
 
 import { AdvancedComponent } from './advanced/advanced.component';
 import { BasicComponent } from './basic/basic.component';
-import { StepComponent } from './step/step.component';
-import { FormComponent } from './step/form/form.component';
 import { ConfirmComponent } from './step/confirm/confirm.component';
 import { FinishComponent } from './step/finish/finish.component';
+import { FormComponent } from './step/form/form.component';
+import { StepComponent } from './step/step.component';
 
 const routes: Routes = [
   {

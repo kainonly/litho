@@ -1,18 +1,12 @@
-export type ID = number | string;
-
-export interface Resource {
+export interface ResourceStruct {
   /**
-   * 节点 ID
+   * 父节点
    */
-  id: ID;
+  parent: string;
   /**
-   * 父节点 ID
+   * PATH
    */
-  pid: ID;
-  /**
-   * URL 片段
-   */
-  fragment: string;
+  path: string;
   /**
    * 资源名称
    */
@@ -39,15 +33,11 @@ export interface Resources {
   /**
    * 导航资源
    */
-  navs: Resource[];
+  navs: ResourceStruct[];
   /**
    * 源数据，通过ID得到资源
    */
-  data: Record<ID, Resource>;
-  /**
-   * 字典，通过URL获得资源ID
-   */
-  dict: Record<string, ID>;
+  dict: Record<string, ResourceStruct>;
   /**
    * 扩展定义
    */
