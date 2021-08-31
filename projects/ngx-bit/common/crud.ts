@@ -76,7 +76,7 @@ export class Crud {
   /**
    * 获取原始列表数据请求
    */
-  originLists(condition: SearchOption[] = [], order?: OrderOption): Observable<Record<string, any> | null> {
+  originLists(condition: SearchOption[] = [], order?: OrderOption): Observable<Array<Record<string, any>>> {
     const body: Record<string, any> = {};
     if (condition.length !== 0) {
       body['where'] = getQuerySchema(condition);
@@ -84,7 +84,7 @@ export class Crud {
     if (order) {
       body['order'] = order;
     }
-    return this.send('/originLists', body).pipe(map(v => (!v.error ? v.data : null)));
+    return this.send('/originLists', body).pipe(map(v => (!v.error ? v.data : [])));
   }
 
   /**

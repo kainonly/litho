@@ -1,0 +1,12 @@
+<bit-ph skip></bit-ph>
+<nz-card>
+  <nz-row [nzGutter]="12">
+    <nz-col nzFlex="420px">
+      <nz-input-group style="margin-bottom: 12px" nzSuffixIcon="search">
+        <input type="text" nz-input placeholder="搜索资源名称" [(ngModel)]="name" />
+      </nz-input-group>
+      <nz-tree [nzData]="nodes" [nzSearchValue]="name" nzBlockNode nzShowLine></nz-tree>
+    </nz-col>
+    <nz-col nzFlex="auto"> </nz-col>
+  </nz-row>
+</nz-card>
