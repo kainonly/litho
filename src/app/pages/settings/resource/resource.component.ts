@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { NzTreeNodeOptions } from 'ng-zorro-antd/tree';
+import { NzFormatEmitEvent, NzTreeNode, NzTreeNodeOptions } from 'ng-zorro-antd/tree';
 import { ResourceStruct } from 'ngx-bit/router';
 
 import { ResourceService } from './resource.service';
@@ -12,6 +12,8 @@ import { ResourceService } from './resource.service';
 export class ResourceComponent implements OnInit {
   name = '';
   nodes: NzTreeNodeOptions[] = [];
+  schema: any[] = [{ type: 'string', field: 'name' }];
+  data?: Record<string, any>;
 
   constructor(private resource: ResourceService) {}
 
@@ -49,5 +51,18 @@ export class ResourceComponent implements OnInit {
       }
       this.nodes = [...nodes];
     });
+  }
+
+  fetch(e: NzFormatEmitEvent) {
+    this.data = e.node?.origin.originData;
+  }
+
+  setExpanded(nodes: NzTreeNode[], value: boolean): void {
+    for (const node of nodes) {
+      node.isExpanded = value;
+      if (node.children.length !== 0) {
+        this.setExpanded(node.children, value);
+      }
+    }
   }
 }

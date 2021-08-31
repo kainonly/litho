@@ -1,12 +1,125 @@
-<bit-ph skip></bit-ph>
-<nz-card>
-  <nz-row [nzGutter]="12">
-    <nz-col nzFlex="420px">
-      <nz-input-group style="margin-bottom: 12px" nzSuffixIcon="search">
-        <input type="text" nz-input placeholder="搜索资源名称" [(ngModel)]="name" />
-      </nz-input-group>
-      <nz-tree [nzData]="nodes" [nzSearchValue]="name" nzBlockNode nzShowLine></nz-tree>
-    </nz-col>
-    <nz-col nzFlex="auto"> </nz-col>
-  </nz-row>
-</nz-card>
+<bit-ph>
+  <button *bitPhAction nz-button nzType="primary" nzShape="circle">
+    <i nz-icon nzType="plus"></i>
+  </button>
+</bit-ph>
+
+<nz-row [nzGutter]="12" nzJustify="space-between">
+  <nz-col nzFlex="320px">
+    <nz-card>
+      <nz-space style="margin-bottom: 12px">
+        <nz-input-group *nzSpaceItem nzSuffixIcon="search">
+          <input type="text" nz-input placeholder="搜索资源名称" [(ngModel)]="name" />
+        </nz-input-group>
+        <nz-button-group *nzSpaceItem>
+          <button nz-button nz-tooltip="全部收起" (click)="setExpanded(tree.getTreeNodes(), false)">
+            <i nz-icon nzType="node-collapse"></i>
+          </button>
+          <button nz-button nz-tooltip="全部展开" (click)="setExpanded(tree.getTreeNodes(), true)">
+            <i nz-icon nzType="node-expand"></i>
+          </button>
+        </nz-button-group>
+      </nz-space>
+      <nz-tree #tree nzBlockNode nzShowLine [nzData]="nodes" [nzSearchValue]="name" (nzClick)="fetch($event)"></nz-tree>
+    </nz-card>
+  </nz-col>
+  <nz-col nzFlex="auto">
+    <nz-card [nzTitle]="schemaTitle" [nzExtra]="schemaExtra">
+      <ng-template #schemaTitle>
+        <b>内容模型</b>
+      </ng-template>
+      <ng-template #schemaExtra>
+        <a>添加一个新字段</a>
+      </ng-template>
+      <nz-list nzItemLayout="vertical">
+        <nz-list-item>
+          <nz-list-item-meta>
+            <nz-list-item-meta-title> <nz-tag nzColor="blue">文本</nz-tag> name </nz-list-item-meta-title>
+            <nz-list-item-meta-description>
+              <nz-space nzSize="large">
+                <span *nzSpaceItem>显示名称：姓名</span>
+                <span *nzSpaceItem>默认值：无</span>
+              </nz-space>
+            </nz-list-item-meta-description>
+          </nz-list-item-meta>
+          <nz-space [nzSplit]="split">
+            <ng-template #split>
+              <nz-divider nzType="vertical"></nz-divider>
+            </ng-template>
+            <span *nzSpaceItem nz-typography>必须的</span>
+            <span *nzSpaceItem nz-typography>唯一的</span>
+            <span *nzSpaceItem nz-typography>最大长度:100</span>
+            <span *nzSpaceItem nz-typography>私有字段</span>
+          </nz-space>
+          <nz-list-item-extra>
+            <button nz-button nzType="text"><i nz-icon nzType="edit"></i></button>
+            <button nz-button nzType="text"><i nz-icon nzType="delete"></i></button>
+          </nz-list-item-extra>
+        </nz-list-item>
+        <nz-list-item>
+          <nz-list-item-meta>
+            <nz-list-item-meta-title> <nz-tag nzColor="blue">文本</nz-tag> name </nz-list-item-meta-title>
+            <nz-list-item-meta-description>
+              <nz-space nzSize="large">
+                <span *nzSpaceItem>显示名称：姓名</span>
+                <span *nzSpaceItem>默认值：无</span>
+              </nz-space>
+            </nz-list-item-meta-description>
+          </nz-list-item-meta>
+          <nz-space [nzSplit]="split">
+            <ng-template #split>
+              <nz-divider nzType="vertical"></nz-divider>
+            </ng-template>
+            <span *nzSpaceItem nz-typography>必须的</span>
+            <span *nzSpaceItem nz-typography>唯一的</span>
+            <span *nzSpaceItem nz-typography>最大长度:100</span>
+            <span *nzSpaceItem nz-typography>私有字段</span>
+          </nz-space>
+          <nz-list-item-extra>
+            <button nz-button nzType="text"><i nz-icon nzType="edit"></i></button>
+            <button nz-button nzType="text"><i nz-icon nzType="delete"></i></button>
+          </nz-list-item-extra>
+        </nz-list-item>
+      </nz-list>
+    </nz-card>
+  </nz-col>
+  <nz-col nzFlex="320px">
+    <nz-card>
+      <nz-empty *ngIf="!data"></nz-empty>
+      <nz-descriptions *ngIf="data" nzTitle="信息" [nzColumn]="1">
+        <nz-descriptions-item nzTitle="资源名称">{{ data.name }}</nz-descriptions-item>
+        <nz-descriptions-item nzTitle="资源路径">{{ data.path }}</nz-descriptions-item>
+        <nz-descriptions-item nzTitle="导航图标">
+          <ng-container *ngIf="data.icon !== ''; else empty">
+            <i nz-icon [nzType]="data.icon"></i>
+          </ng-container>
+          <ng-template #empty>无</ng-template>
+        </nz-descriptions-item>
+        <nz-descriptions-item nzTitle="是否为导航">
+          <ng-container *ngIf="data.nav; else no">
+            <i nz-icon nzType="check"></i>
+          </ng-container>
+          <ng-template #no>
+            <i nz-icon nzType="close"></i>
+          </ng-template>
+        </nz-descriptions-item>
+        <nz-descriptions-item nzTitle="是否为路由">
+          <ng-container *ngIf="data.router; else no">
+            <i nz-icon nzType="check"></i>
+          </ng-container>
+        </nz-descriptions-item>
+        <nz-descriptions-item nzTitle="内容模型">
+          <ng-container *ngIf="data.model !== ''; else empty">
+            {{ data.model }}
+          </ng-container>
+        </nz-descriptions-item>
+        <nz-descriptions-item nzTitle="创建时间">
+          {{ data.create_time | date: 'yyyy-MM-dd HH:mm:ss' }}
+        </nz-descriptions-item>
+        <nz-descriptions-item nzTitle="更新时间">
+          {{ data.update_time | date: 'yyyy-MM-dd HH:mm:ss' }}
+        </nz-descriptions-item>
+      </nz-descriptions>
+    </nz-card>
+  </nz-col>
+</nz-row>
