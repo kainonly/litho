@@ -36,7 +36,7 @@ export class Crud {
         body['order'] = order;
       }
     }
-    return this.send('/get', body).pipe(map(v => (!v.error ? v.data : null)));
+    return this.send('/r/get', body).pipe(map(v => (!v.error ? v.data : null)));
   }
 
   /**
@@ -52,7 +52,7 @@ export class Crud {
     return factory.getPage().pipe(
       switchMap(index => {
         factory.index = index ?? 1;
-        return this.send('/lists', {
+        return this.send('/r/lists', {
           page: {
             limit: factory.limit,
             index: factory.index
@@ -84,14 +84,14 @@ export class Crud {
     if (order) {
       body['order'] = order;
     }
-    return this.send('/originLists', body).pipe(map(v => (!v.error ? v.data : [])));
+    return this.send('/r/originLists', body).pipe(map(v => (!v.error ? v.data : [])));
   }
 
   /**
    * 新增数据请求
    */
   add(data: Record<string, any>): Observable<any> {
-    return this.send('/add', data);
+    return this.send('/w/add', data);
   }
 
   /**
@@ -104,7 +104,7 @@ export class Crud {
         where: getQuerySchema(condition)
       });
     }
-    return this.send('/edit', data);
+    return this.send('/w/edit', data);
   }
 
   /**
@@ -119,7 +119,7 @@ export class Crud {
     if (extra) {
       Object.assign(body, extra);
     }
-    return this.send('/edit', body).pipe(
+    return this.send('/w/edit', body).pipe(
       map(v => {
         if (!v.error) {
           data[field] = !data[field];
@@ -142,6 +142,6 @@ export class Crud {
     } else {
       body['where'] = getQuerySchema(condition as SearchOption[]);
     }
-    return this.send('/delete', body);
+    return this.send('/w/delete', body);
   }
 }
