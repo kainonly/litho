@@ -15,15 +15,10 @@ export class BitRouterService {
     navs: [],
     dict: {}
   });
-  path!: string;
   /**
    * URL片段
    */
   fragments!: string[];
-  /**
-   * URL层级数组
-   */
-  urls: string[] = [];
   /**
    * 忽略页头
    */
@@ -73,12 +68,7 @@ export class BitRouterService {
    */
   activated(): void {
     this.resetPageHeaderAttr();
-    this.path = this.router.url.slice(1);
-    this.fragments = this.path.split('/');
-    this.urls = [];
-    for (let i = 0; i < this.fragments.length; i++) {
-      this.urls.push(this.fragments.slice(0, i + 1).join('/'));
-    }
+    this.fragments = this.router.url.slice(1).split('/');
   }
   /**
    * 重置页头属性

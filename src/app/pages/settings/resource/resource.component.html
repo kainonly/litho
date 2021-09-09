@@ -24,63 +24,76 @@
     </nz-card>
   </nz-col>
   <nz-col nzFlex="auto">
-    <nz-card [nzTitle]="schemaTitle" [nzExtra]="schemaExtra">
-      <ng-template #schemaTitle>
-        <b>内容模型</b>
-      </ng-template>
-      <ng-template #schemaExtra>
-        <a>添加一个新字段</a>
-      </ng-template>
-      <nz-list nzItemLayout="vertical">
-        <nz-list-item>
-          <nz-list-item-meta>
-            <nz-list-item-meta-title> <nz-tag nzColor="blue">文本</nz-tag> name </nz-list-item-meta-title>
-            <nz-list-item-meta-description>
-              <nz-space nzSize="large">
-                <span *nzSpaceItem>显示名称：姓名</span>
-                <span *nzSpaceItem>默认值：无</span>
-              </nz-space>
-            </nz-list-item-meta-description>
-          </nz-list-item-meta>
-          <nz-space [nzSplit]="split">
-            <ng-template #split>
-              <nz-divider nzType="vertical"></nz-divider>
-            </ng-template>
-            <span *nzSpaceItem nz-typography>必须的</span>
-            <span *nzSpaceItem nz-typography>唯一的</span>
-            <span *nzSpaceItem nz-typography>最大长度:100</span>
-            <span *nzSpaceItem nz-typography>私有字段</span>
-          </nz-space>
-          <nz-list-item-extra>
-            <button nz-button nzType="text"><i nz-icon nzType="edit"></i></button>
-            <button nz-button nzType="text"><i nz-icon nzType="delete"></i></button>
-          </nz-list-item-extra>
-        </nz-list-item>
-        <nz-list-item>
-          <nz-list-item-meta>
-            <nz-list-item-meta-title> <nz-tag nzColor="blue">文本</nz-tag> name </nz-list-item-meta-title>
-            <nz-list-item-meta-description>
-              <nz-space nzSize="large">
-                <span *nzSpaceItem>显示名称：姓名</span>
-                <span *nzSpaceItem>默认值：无</span>
-              </nz-space>
-            </nz-list-item-meta-description>
-          </nz-list-item-meta>
-          <nz-space [nzSplit]="split">
-            <ng-template #split>
-              <nz-divider nzType="vertical"></nz-divider>
-            </ng-template>
-            <span *nzSpaceItem nz-typography>必须的</span>
-            <span *nzSpaceItem nz-typography>唯一的</span>
-            <span *nzSpaceItem nz-typography>最大长度:100</span>
-            <span *nzSpaceItem nz-typography>私有字段</span>
-          </nz-space>
-          <nz-list-item-extra>
-            <button nz-button nzType="text"><i nz-icon nzType="edit"></i></button>
-            <button nz-button nzType="text"><i nz-icon nzType="delete"></i></button>
-          </nz-list-item-extra>
-        </nz-list-item>
-      </nz-list>
+    <!--    <nz-card [nzTitle]="schemaTitle" [nzExtra]="schemaExtra">-->
+    <!--      <ng-template #schemaTitle>-->
+    <!--        <b>内容模型</b>-->
+    <!--      </ng-template>-->
+    <!--      <ng-template #schemaExtra>-->
+    <!--        <a>添加一个新字段</a>-->
+    <!--      </ng-template>-->
+    <!--      <nz-list nzItemLayout="vertical">-->
+    <!--        <nz-list-item>-->
+    <!--          <nz-list-item-meta>-->
+    <!--            <nz-list-item-meta-title> <nz-tag nzColor="blue">文本</nz-tag> name </nz-list-item-meta-title>-->
+    <!--            <nz-list-item-meta-description>-->
+    <!--              <nz-space nzSize="large">-->
+    <!--                <span *nzSpaceItem>显示名称：姓名</span>-->
+    <!--                <span *nzSpaceItem>默认值：无</span>-->
+    <!--              </nz-space>-->
+    <!--            </nz-list-item-meta-description>-->
+    <!--          </nz-list-item-meta>-->
+    <!--          <nz-space [nzSplit]="split">-->
+    <!--            <ng-template #split>-->
+    <!--              <nz-divider nzType="vertical"></nz-divider>-->
+    <!--            </ng-template>-->
+    <!--            <span *nzSpaceItem nz-typography>必须的</span>-->
+    <!--            <span *nzSpaceItem nz-typography>唯一的</span>-->
+    <!--            <span *nzSpaceItem nz-typography>最大长度:100</span>-->
+    <!--            <span *nzSpaceItem nz-typography>私有字段</span>-->
+    <!--          </nz-space>-->
+    <!--          <nz-list-item-extra>-->
+    <!--            <button nz-button nzType="text"><i nz-icon nzType="edit"></i></button>-->
+    <!--            <button nz-button nzType="text"><i nz-icon nzType="delete"></i></button>-->
+    <!--          </nz-list-item-extra>-->
+    <!--        </nz-list-item>-->
+    <!--        <nz-list-item>-->
+    <!--          <nz-list-item-meta>-->
+    <!--            <nz-list-item-meta-title> <nz-tag nzColor="blue">文本</nz-tag> name </nz-list-item-meta-title>-->
+    <!--            <nz-list-item-meta-description>-->
+    <!--              <nz-space nzSize="large">-->
+    <!--                <span *nzSpaceItem>显示名称：姓名</span>-->
+    <!--                <span *nzSpaceItem>默认值：无</span>-->
+    <!--              </nz-space>-->
+    <!--            </nz-list-item-meta-description>-->
+    <!--          </nz-list-item-meta>-->
+    <!--          <nz-space [nzSplit]="split">-->
+    <!--            <ng-template #split>-->
+    <!--              <nz-divider nzType="vertical"></nz-divider>-->
+    <!--            </ng-template>-->
+    <!--            <span *nzSpaceItem nz-typography>必须的</span>-->
+    <!--            <span *nzSpaceItem nz-typography>唯一的</span>-->
+    <!--            <span *nzSpaceItem nz-typography>最大长度:100</span>-->
+    <!--            <span *nzSpaceItem nz-typography>私有字段</span>-->
+    <!--          </nz-space>-->
+    <!--          <nz-list-item-extra>-->
+    <!--            <button nz-button nzType="text"><i nz-icon nzType="edit"></i></button>-->
+    <!--            <button nz-button nzType="text"><i nz-icon nzType="delete"></i></button>-->
+    <!--          </nz-list-item-extra>-->
+    <!--        </nz-list-item>-->
+    <!--      </nz-list>-->
+    <!--    </nz-card>-->
+    <nz-card>
+      <nz-result nzTitle="开发离线" nzStatus="error" nzSubTitle="您的本地开发服务已失去连接将不能操作内容模型">
+        <!--        <div nz-result-content>-->
+        <!--          <h4 nz-title>The content you submitted has the following error:</h4>-->
+        <!--          <p nz-paragraph> 1. Your account has been frozen </p>-->
+        <!--          <p nz-paragraph> 2. Your account is not yet eligible to apply </p>-->
+        <!--        </div>-->
+        <!--        <div nz-result-extra>-->
+        <!--          <button nz-button nzType="primary">重试</button>-->
+        <!--          <button nz-button>反馈</button>-->
+        <!--        </div>-->
+      </nz-result>
     </nz-card>
   </nz-col>
   <nz-col nzFlex="320px">

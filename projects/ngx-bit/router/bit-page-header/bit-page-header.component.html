@@ -2,9 +2,9 @@
   <ng-container *ngTemplateOutlet="router.alert | async"></ng-container>
   <nz-page-header [nzGhost]="false" [nzBackIcon]="(router.back | async) ? '' : null">
     <nz-breadcrumb nz-page-header-breadcrumb>
-      <ng-container *ngFor="let url of router.urls">
+      <ng-container *ngFor="let fragment of router.fragments">
         <nz-breadcrumb-item>
-          {{ dict[url]?.name }}
+          {{ dict[fragment]?.name }}
         </nz-breadcrumb-item>
       </ng-container>
     </nz-breadcrumb>
@@ -13,7 +13,7 @@
         {{ router.title | async }}
       </ng-container>
       <ng-template #defaultTitle>
-        {{ dict[router.path]?.name }}
+        {{ dict[router.fragments[router.fragments.length - 1]]?.name }}
       </ng-template>
     </nz-page-header-title>
     <nz-page-header-subtitle *ngIf="router.subTitle | async">

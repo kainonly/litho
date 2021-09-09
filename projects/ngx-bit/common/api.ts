@@ -6,7 +6,7 @@ import { CrudOption, OrderOption, SearchOption } from '../types';
 import { Lists } from './lists';
 import { getQuerySchema } from './util';
 
-export class Crud {
+export class Api {
   constructor(private http: HttpClient, private option: CrudOption) {}
 
   /**

@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 
-import { BitService, Crud } from 'ngx-bit';
+import { BitService, Api } from 'ngx-bit';
 
 @Injectable()
 export class ResourceService {
-  crud!: Crud;
+  crud!: Api;
 
   constructor(private bit: BitService) {
-    this.crud = bit.api('resource');
+    this.crud = bit.api('/resource');
   }
 }

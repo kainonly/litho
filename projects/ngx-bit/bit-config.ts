@@ -7,11 +7,11 @@ export class BitConfig {
   /**
    * 基础路径
    */
-  baseUrl = '/api/';
+  baseUrl = '/api';
   /**
    * 静态资源地址
    */
-  assets = '/assets/';
+  assets = '/assets';
   /**
    * 上传
    */
