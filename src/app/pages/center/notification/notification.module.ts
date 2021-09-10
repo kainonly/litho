@@ -3,17 +3,17 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { AppShareModule } from '@share';
 
-import { MessageComponent } from './message.component';
+import { NotificationComponent } from './notification.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: MessageComponent
+    component: NotificationComponent
   }
 ];
 
 @NgModule({
   imports: [AppShareModule, RouterModule.forChild(routes)],
-  declarations: [MessageComponent]
+  declarations: [NotificationComponent]
 })
-export class MessageModule {}
+export class NotificationModule {}

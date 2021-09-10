@@ -9,8 +9,8 @@ const routes: Routes = [
     loadChildren: () => import('./profile/profile.module').then(m => m.ProfileModule)
   },
   {
-    path: 'message',
-    loadChildren: () => import('./message/message.module').then(m => m.MessageModule)
+    path: 'notification',
+    loadChildren: () => import('./notification/notification.module').then(m => m.NotificationModule)
   },
   { path: '', redirectTo: '/center/profile', pathMatch: 'full' }
 ];
