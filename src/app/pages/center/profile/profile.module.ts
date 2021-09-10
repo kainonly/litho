@@ -3,19 +3,17 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { AppShareModule } from '@share';
 
-import { AdminComponent } from './admin.component';
-import { AdminService } from './admin.service';
+import { ProfileComponent } from './profile.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: AdminComponent
+    component: ProfileComponent
   }
 ];
 
 @NgModule({
   imports: [AppShareModule, RouterModule.forChild(routes)],
-  declarations: [AdminComponent],
-  providers: [AdminService]
+  declarations: [ProfileComponent]
 })
-export class AdminModule {}
+export class ProfileModule {}

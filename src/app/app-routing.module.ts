@@ -12,14 +12,18 @@ const routes: Routes = [
     component: LayoutComponent,
     children: [
       {
-        path: 'workbench',
-        loadChildren: () => import('./pages/workbench/workbench.module').then(m => m.WorkbenchModule)
+        path: 'dashboard',
+        loadChildren: () => import('./pages/dashboard/dashboard.module').then(m => m.DashboardModule)
+      },
+      {
+        path: 'center',
+        loadChildren: () => import('./pages/center/center.module').then(m => m.CenterModule)
       },
       {
         path: 'settings',
         loadChildren: () => import('./pages/settings/settings.module').then(m => m.SettingsModule)
       },
-      { path: '', redirectTo: '/workbench/dashboard', pathMatch: 'full' }
+      { path: '', redirectTo: '/dashboard', pathMatch: 'full' }
     ]
   }
 ];
