@@ -33,10 +33,16 @@ export class AppService {
     return this.http.post(`${this.config.baseUrl}/verify`, {});
   }
 
+  /**
+   * 获取验证
+   */
   code(): Observable<any> {
     return this.http.post(`${this.config.baseUrl}/code`, {});
   }
 
+  /**
+   * 刷新令牌
+   */
   refreshToken(code: string): Observable<any> {
     return this.http.post(`${this.config.baseUrl}/refresh`, {
       code

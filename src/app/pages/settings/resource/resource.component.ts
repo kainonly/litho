@@ -22,7 +22,7 @@ export class ResourceComponent implements OnInit {
   }
 
   private getData(): void {
-    this.resource.crud.originLists().subscribe(data => {
+    this.resource.api.findMany().subscribe(data => {
       const nodes: NzTreeNodeOptions[] = [];
       const dict: Record<string, NzTreeNodeOptions> = {};
       for (const x of data as ResourceStruct[]) {
