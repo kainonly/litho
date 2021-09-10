@@ -1,28 +1,28 @@
 <ul nz-menu nzMode="inline">
-  <ng-container *ngTemplateOutlet="navTemplate; context: { $implicit: navs }"></ng-container>
-  <ng-template #navTemplate let-navs>
-    <ng-container *ngFor="let nav of navs | Sort: 'sort'">
-      <ng-container *ngIf="nav.router; else not">
-        <li nz-menu-item nzMatchRouter [nzPaddingLeft]="nav.fragments.length * 16" [routerLink]="nav.fragments">
-          <i *ngIf="!!nav.icon" nz-icon [nzType]="nav.icon"></i>
-          <span>{{ nav.name }}</span>
-        </li>
+  <ng-container
+    *ngTemplateOutlet="navTemplate; context: { $implicit: (router.resources | async)?.routers }"
+  ></ng-container>
+  <ng-template #navTemplate let-routers>
+    <ng-container *ngFor="let x of routers | Sort: 'sort'">
+      <ng-container *ngIf="x.nav">
+        <ng-container *ngIf="x.router; else not">
+          <li nz-menu-item nzMatchRouter [nzPaddingLeft]="x.level * 16" [routerLink]="x.fragments">
+            <i *ngIf="!!x.icon" nz-icon [nzType]="x.icon"></i>
+            <span>{{ x.name }}</span>
+          </li>
+        </ng-container>
+        <ng-template #not>
+          <li nz-submenu [nzOpen]="x.fragments | AutoOpen: router.fragments" [nzPaddingLeft]="x.level * 16">
+            <span title>
+              <i *ngIf="!!x.icon" nz-icon [nzType]="x.icon"></i>
+              <span>{{ x.name }}</span>
+            </span>
+            <ul>
+              <ng-container *ngTemplateOutlet="navTemplate; context: { $implicit: x.children }"></ng-container>
+            </ul>
+          </li>
+        </ng-template>
       </ng-container>
-      <ng-template #not>
-        <li
-          nz-submenu
-          [nzOpen]="nav.fragments[0] === router.fragments[0] && nav.fragments.length < router.fragments.length"
-          [nzPaddingLeft]="nav.fragments.length * 16"
-        >
-          <span title>
-            <i *ngIf="!!nav.icon" nz-icon [nzType]="nav.icon"></i>
-            <span>{{ nav.name }}</span>
-          </span>
-          <ul>
-            <ng-container *ngTemplateOutlet="navTemplate; context: { $implicit: nav.children }"></ng-container>
-          </ul>
-        </li>
-      </ng-template>
     </ng-container>
   </ng-template>
 </ul>

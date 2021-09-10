@@ -62,28 +62,29 @@ export class AppService {
   resources(): Observable<Resources> {
     return this.http.post(`${this.config.baseUrl}/resource`, {}).pipe(
       map((result: any) => {
-        const navs: ResourceStruct[] = [];
+        const resource: Record<number, ResourceStruct> = {};
+        const routers: ResourceStruct[] = [];
         const dict: Record<string, ResourceStruct> = {};
         for (const x of result.data) {
-          dict[x.key] = x;
-          if (!x.nav) {
-            continue;
-          }
-          if (x.parent === 'root') {
-            x.fragments = [x.key];
-            navs.push(x);
+          resource[x.id] = x;
+          if (x.parent === 0) {
+            x.fragments = [x.fragment];
+            routers.push(x);
           } else {
-            if (dict.hasOwnProperty(x.parent)) {
-              x.fragments = [...dict[x.parent].fragments, x.key];
-              if (!dict[x.parent].hasOwnProperty('children')) {
-                dict[x.parent].children = [];
+            if (resource.hasOwnProperty(x.parent)) {
+              x.fragments = [...resource[x.parent].fragments, x.fragment];
+              if (!resource[x.parent].hasOwnProperty('children')) {
+                resource[x.parent].children = [];
               }
-              dict[x.parent].children.push(x);
+              resource[x.parent].children.push(x);
             }
           }
+          x.level = x.fragments.length;
+          dict[x.fragments?.join('/')] = x;
         }
+        console.log(dict);
         return <Resources>{
-          navs,
+          routers,
           dict
         };
       })

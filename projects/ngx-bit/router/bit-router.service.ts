@@ -12,13 +12,14 @@ export class BitRouterService {
    * 驱动资源
    */
   readonly resources: BehaviorSubject<Resources> = new BehaviorSubject<Resources>({
-    navs: [],
+    routers: [],
     dict: {}
   });
   /**
    * URL片段
    */
   fragments!: string[];
+  paths!: string[];
   /**
    * 忽略页头
    */
@@ -69,6 +70,10 @@ export class BitRouterService {
   activated(): void {
     this.resetPageHeaderAttr();
     this.fragments = this.router.url.slice(1).split('/');
+    console.log(this.fragments);
+    // for(const fragment of this.fragments){
+    //   this.paths =
+    // }
   }
   /**
    * 重置页头属性

@@ -2,9 +2,14 @@
   <ng-container *ngTemplateOutlet="router.alert | async"></ng-container>
   <nz-page-header [nzGhost]="false" [nzBackIcon]="(router.back | async) ? '' : null">
     <nz-breadcrumb nz-page-header-breadcrumb>
-      <ng-container *ngFor="let fragment of router.fragments">
+      <ng-container *ngFor="let _ of router.fragments; index as i">
         <nz-breadcrumb-item>
-          {{ dict[fragment]?.name }}
+          <ng-container *ngIf="dict[router.fragments | slice: 0:i + 1 | Join: '/'] as x">
+            <ng-container *ngIf="x.router; else text">
+              <a [routerLink]="x.fragments">{{ x.name }}</a>
+            </ng-container>
+            <ng-template #text>{{ x.name }}</ng-template>
+          </ng-container>
         </nz-breadcrumb-item>
       </ng-container>
     </nz-breadcrumb>
@@ -13,7 +18,7 @@
         {{ router.title | async }}
       </ng-container>
       <ng-template #defaultTitle>
-        {{ dict[router.fragments[router.fragments.length - 1]]?.name }}
+        {{ dict[router.fragments | Join: '/']?.name }}
       </ng-template>
     </nz-page-header-title>
     <nz-page-header-subtitle *ngIf="router.subTitle | async">

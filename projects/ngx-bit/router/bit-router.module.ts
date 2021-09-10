@@ -16,6 +16,7 @@ import { BitPhAlertDirective } from './bit-ph/bit-ph-alert.directive';
 import { BitPhFooterDirective } from './bit-ph/bit-ph-footer.directive';
 import { BitPhTagsDirective } from './bit-ph/bit-ph-tags.directive';
 import { BitPhComponent } from './bit-ph/bit-ph.component';
+import { AutoOpenPipe } from './bit-sider-menu/auto-open.pipe';
 import { BitSiderMenuComponent } from './bit-sider-menu/bit-sider-menu.component';
 
 @NgModule({
@@ -36,7 +37,8 @@ import { BitSiderMenuComponent } from './bit-sider-menu/bit-sider-menu.component
     BitPhAlertDirective,
     BitPhTagsDirective,
     BitPhActionDirective,
-    BitPhFooterDirective
+    BitPhFooterDirective,
+    AutoOpenPipe
   ],
   exports: [
     BitSiderMenuComponent,

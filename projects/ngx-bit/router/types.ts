@@ -31,11 +31,11 @@ export interface ResourceStruct {
 
 export interface Resources {
   /**
-   * 导航资源
+   * 路由
    */
-  navs: ResourceStruct[];
+  routers: ResourceStruct[];
   /**
-   * 源数据，通过ID得到资源
+   * 资源字典
    */
   dict: Record<string, ResourceStruct>;
   /**

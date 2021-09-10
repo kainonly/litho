@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 import { NzMenuThemeType } from 'ng-zorro-antd/menu/menu.types';
 import { BitRouterService } from 'ngx-bit/router';
@@ -7,19 +7,11 @@ import { ResourceStruct } from '../types';
 
 @Component({
   selector: 'bit-sider-menu',
-  templateUrl: './bit-sider-menu.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  templateUrl: './bit-sider-menu.component.html'
 })
-export class BitSiderMenuComponent implements OnInit {
+export class BitSiderMenuComponent {
   @Input() theme: NzMenuThemeType = 'light';
-  navs: ResourceStruct[] = [];
+  routers: ResourceStruct[] = [];
 
-  constructor(public router: BitRouterService, private cd: ChangeDetectorRef) {}
-
-  ngOnInit(): void {
-    this.router.resources.subscribe(result => {
-      this.navs = result.navs;
-      this.cd.detectChanges();
-    });
-  }
+  constructor(public router: BitRouterService) {}
 }
