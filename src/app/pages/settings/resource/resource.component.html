@@ -101,7 +101,7 @@
       <nz-empty *ngIf="!data"></nz-empty>
       <nz-descriptions *ngIf="data" nzTitle="信息" [nzColumn]="1">
         <nz-descriptions-item nzTitle="资源名称">{{ data.name }}</nz-descriptions-item>
-        <nz-descriptions-item nzTitle="资源路径">{{ data.path }}</nz-descriptions-item>
+        <nz-descriptions-item nzTitle="路由片段">{{ data.fragment }}</nz-descriptions-item>
         <nz-descriptions-item nzTitle="导航图标">
           <ng-container *ngIf="data.icon !== ''; else empty">
             <i nz-icon [nzType]="data.icon"></i>
@@ -120,17 +120,6 @@
           <ng-container *ngIf="data.router; else no">
             <i nz-icon nzType="check"></i>
           </ng-container>
-        </nz-descriptions-item>
-        <nz-descriptions-item nzTitle="内容模型">
-          <ng-container *ngIf="data.model !== ''; else empty">
-            {{ data.model }}
-          </ng-container>
-        </nz-descriptions-item>
-        <nz-descriptions-item nzTitle="创建时间">
-          {{ data.create_time | date: 'yyyy-MM-dd HH:mm:ss' }}
-        </nz-descriptions-item>
-        <nz-descriptions-item nzTitle="更新时间">
-          {{ data.update_time | date: 'yyyy-MM-dd HH:mm:ss' }}
         </nz-descriptions-item>
       </nz-descriptions>
     </nz-card>

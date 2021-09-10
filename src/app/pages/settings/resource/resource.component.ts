@@ -26,9 +26,9 @@ export class ResourceComponent implements OnInit {
       const nodes: NzTreeNodeOptions[] = [];
       const dict: Record<string, NzTreeNodeOptions> = {};
       for (const x of data as ResourceStruct[]) {
-        dict[x.key] = {
+        dict[x.id] = {
           title: `${x.name}`,
-          key: x.key,
+          key: x.id,
           parent: x.parent,
           isLeaf: true,
           expanded: true,
@@ -36,8 +36,8 @@ export class ResourceComponent implements OnInit {
         };
       }
       for (const x of data as ResourceStruct[]) {
-        const options = dict[x.key];
-        if (x.parent === 'root') {
+        const options = dict[x.id];
+        if (x.parent === 0) {
           nodes.push(options);
         } else {
           if (dict.hasOwnProperty(x.parent)) {

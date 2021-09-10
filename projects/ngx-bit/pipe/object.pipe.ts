@@ -2,12 +2,11 @@ import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({ name: 'object' })
 export class ObjectPipe implements PipeTransform {
-  transform(value: string | Record<string, any> | null, locale?: string): any {
+  transform(value: string): any {
     try {
-      const data = typeof value === 'string' ? JSON.parse(value) : value;
-      return !locale ? data : data[locale];
+      return JSON.parse(value);
     } catch (e) {
-      return null;
+      return {};
     }
   }
 }

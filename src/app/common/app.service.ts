@@ -82,7 +82,6 @@ export class AppService {
           x.level = x.fragments.length;
           dict[x.fragments?.join('/')] = x;
         }
-        console.log(dict);
         return <Resources>{
           routers,
           dict

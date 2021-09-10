@@ -2,7 +2,7 @@ export interface ResourceStruct {
   /**
    * 父节点
    */
-  parent: string;
+  parent: number | string;
   /**
    * PATH
    */
