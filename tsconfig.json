@@ -22,7 +22,7 @@
       "@common/*": ["src/app/common/*"],
       "@share": ["src/app/app-share.module.ts"],
       "ngx-bit": ["projects/ngx-bit/public-api.ts"],
-      "ngx-bit/tool": ["projects/ngx-bit/tool/public-api.ts"],
+      "ngx-bit/box": ["projects/ngx-bit/box/public-api.ts"],
       "ngx-bit/pipe": ["projects/ngx-bit/pipe/public-api.ts"],
       "ngx-bit/router": ["projects/ngx-bit/router/public-api.ts"],
       "ngx-bit/i18n": ["projects/ngx-bit/i18n/public-api.ts"],

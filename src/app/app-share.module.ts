@@ -54,10 +54,10 @@ import { NzTreeSelectModule } from 'ng-zorro-antd/tree-select';
 import { NzTreeViewModule } from 'ng-zorro-antd/tree-view';
 import { NzTypographyModule } from 'ng-zorro-antd/typography';
 import { NzUploadModule } from 'ng-zorro-antd/upload';
+import { BitBoxModule } from 'ngx-bit/box';
 import { BitI18nModule } from 'ngx-bit/i18n';
 import { BitPipeModule } from 'ngx-bit/pipe';
 import { BitRouterModule } from 'ngx-bit/router';
-import { BitToolModule } from 'ngx-bit/tool';
 import { NgScrollbarModule } from 'ngx-scrollbar';
 
 @NgModule({
@@ -121,7 +121,7 @@ import { NgScrollbarModule } from 'ngx-scrollbar';
     NzPaginationModule,
     NzEmptyModule,
     NgScrollbarModule,
-    BitToolModule,
+    BitBoxModule,
     BitPipeModule,
     BitI18nModule,
     BitRouterModule

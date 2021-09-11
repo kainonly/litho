@@ -23,13 +23,15 @@ export class ResourceComponent implements OnInit {
 
   private getData(): void {
     this.resource.api.findMany().subscribe(data => {
+      console.log(data);
       const nodes: NzTreeNodeOptions[] = [];
       const dict: Record<string, NzTreeNodeOptions> = {};
       for (const x of data as ResourceStruct[]) {
         dict[x.id] = {
-          title: `${x.name}`,
+          title: `${x.name} [${x.fragment}] ${x.schema.key ? '+' : ''}`,
           key: x.id,
           parent: x.parent,
+          icon: x.icon,
           isLeaf: true,
           expanded: true,
           originData: x
@@ -55,6 +57,7 @@ export class ResourceComponent implements OnInit {
 
   fetch(e: NzFormatEmitEvent) {
     this.data = e.node?.origin.originData;
+    console.log(this.data);
   }
 
   setExpanded(nodes: NzTreeNode[], value: boolean): void {
