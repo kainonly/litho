@@ -2,7 +2,7 @@
   "name": "ngx-bit-example",
   "version": "0.0.0-NOT-USED",
   "scripts": {
-    "start": "ng serve",
+    "start": "ng serve --host 0.0.0.0 --disable-host-check",
     "build": "ng build --configuration production",
     "build:ngx-bit": "ng build ngx-bit --configuration production",
     "release:ngx-bit": "cd dist/ngx-bit && npm publish",
