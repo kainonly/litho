@@ -2,7 +2,7 @@ import { Injectable, QueryList, TemplateRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
 
-import { Resources } from './types';
+import { Pages } from './types';
 
 @Injectable({
   providedIn: 'root'
@@ -11,9 +11,9 @@ export class BitRouterService {
   /**
    * 驱动资源
    */
-  readonly resources: BehaviorSubject<Resources> = new BehaviorSubject<Resources>({
-    routers: [],
-    dict: {}
+  readonly pages: BehaviorSubject<Pages> = new BehaviorSubject<Pages>({
+    dict: {},
+    nodes: []
   });
   /**
    * URL片段
@@ -68,7 +68,7 @@ export class BitRouterService {
    */
   activated(): void {
     this.resetPageHeaderAttr();
-    this.fragments = this.router.url.slice(1).split('/');
+    // this.fragments = this.router.url.slice(1).split('/');
   }
   /**
    * 重置页头属性

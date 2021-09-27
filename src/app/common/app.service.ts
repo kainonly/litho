@@ -4,7 +4,7 @@ import { Observable, Subject } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { BitConfig } from 'ngx-bit';
-import { Resources, ResourceStruct } from 'ngx-bit/router';
+import { Pages, PageStruct } from 'ngx-bit/router';
 
 @Injectable()
 export class AppService {
@@ -57,34 +57,32 @@ export class AppService {
   }
 
   /**
-   * 获取资源数据
+   * 获取页面数据
    */
-  resources(): Observable<Resources> {
-    return this.http.post(`${this.config.baseUrl}/resource`, {}).pipe(
+  pages(): Observable<Pages> {
+    return this.http.post(`${this.config.baseUrl}/pages`, {}).pipe(
       map((result: any) => {
-        const resource: Record<number, ResourceStruct> = {};
-        const routers: ResourceStruct[] = [];
-        const dict: Record<string, ResourceStruct> = {};
+        const map: Record<string, PageStruct> = {};
+        const dict: Record<string, PageStruct> = {};
+        const nodes: PageStruct[] = [];
         for (const x of result.data) {
-          resource[x.id] = x;
+          map[x.id] = x;
+          x.children = [];
           if (x.parent === 0) {
             x.fragments = [x.fragment];
-            routers.push(x);
+            nodes.push(x);
           } else {
-            if (resource.hasOwnProperty(x.parent)) {
-              x.fragments = [...resource[x.parent].fragments, x.fragment];
-              if (!resource[x.parent].hasOwnProperty('children')) {
-                resource[x.parent].children = [];
-              }
-              resource[x.parent].children.push(x);
+            if (map.hasOwnProperty(x.parent)) {
+              x.fragments = [...map[x.parent].fragments, x.fragment];
+              map[x.parent].children.push(x);
             }
           }
           x.level = x.fragments.length;
-          dict[x.fragments?.join('/')] = x;
+          dict[x.fragments.join('/')] = x;
         }
-        return <Resources>{
-          routers,
-          dict
+        return <Pages>{
+          dict,
+          nodes
         };
       })
     );

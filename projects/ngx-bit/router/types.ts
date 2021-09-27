@@ -1,45 +1,73 @@
-export interface ResourceStruct {
+export interface RouterOption {
+  /**
+   * 引用模型
+   */
+  schema: string;
+  /**
+   * 使用模板
+   */
+  template: string;
+}
+
+export interface PageStruct {
+  id: unknown;
   /**
    * 父节点
    */
-  parent: number | string;
+  parent: unknown;
   /**
-   * PATH
+   * URL片段
    */
-  path: string;
+  fragment: string;
   /**
-   * 资源名称
+   * URL片段组
+   */
+  fragments: string[];
+  /**
+   * 层级
+   */
+  level: number;
+  /**
+   * 节点名称
    */
   name: string;
+  /**
+   * 路由配置
+   */
+  router: RouterOption;
   /**
    * 是否为导航
    */
   nav: boolean;
   /**
-   * 是否为路由
-   */
-  router: boolean;
-  /**
    * 字体图标
    */
   icon: string;
   /**
+   * 排序
+   */
+  sort: number;
+  /**
+   * 子集
+   */
+  children: PageStruct[];
+  /**
    * 扩展定义
    */
-  [key: string]: any;
+  [key: string]: unknown;
 }
 
-export interface Resources {
+export interface Pages {
   /**
-   * 路由
+   * 路径字典
    */
-  routers: ResourceStruct[];
+  dict: Record<string, PageStruct>;
   /**
-   * 资源字典
+   * 树节点
    */
-  dict: Record<string, ResourceStruct>;
+  nodes: PageStruct[];
   /**
    * 扩展定义
    */
-  [key: string]: any;
+  [key: string]: unknown;
 }

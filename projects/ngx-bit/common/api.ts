@@ -10,24 +10,17 @@ export class Api {
   constructor(private http: HttpClient, private option: CrudOption) {}
 
   /**
-   * 获取 URL
-   */
-  get url(): string {
-    return this.option.baseUrl + this.option.model;
-  }
-
-  /**
    * 发起统一请求
    */
   send(path: string, body: Record<string, any> = {}): Observable<any> {
-    return this.http.post(this.url + path, body);
+    return this.http.post(`${this.option.baseUrl}/${this.option.model}${path}`, body);
   }
 
   /**
    * 获取单条数据请求
    */
   findOne(condition: SearchOption[], order?: OrderOption): Observable<Record<string, any> | null> {
-    return this.send('/r/find/one', {
+    return this.send('/find_one', {
       where: getQuerySchema(condition),
       order
     }).pipe(map(v => (!v.error ? v.data : null)));
@@ -36,8 +29,8 @@ export class Api {
   /**
    * 获取原始列表数据请求
    */
-  findMany(condition: SearchOption[] = [], order?: OrderOption): Observable<Array<Record<string, any>>> {
-    return this.send('/r/find/many', {
+  find(condition: SearchOption[] = [], order?: OrderOption): Observable<Array<Record<string, any>>> {
+    return this.send('/find', {
       where: getQuerySchema(condition),
       order
     }).pipe(map(v => (!v.error ? v.data : [])));
@@ -46,7 +39,7 @@ export class Api {
   /**
    * 获取分页数据请求
    */
-  findPage(factory: Lists, refresh: boolean, persistence: boolean): Observable<Record<string, any> | null> {
+  page(factory: Lists, refresh: boolean, persistence: boolean): Observable<Record<string, any> | null> {
     if (refresh || persistence) {
       if (refresh) {
         factory.index = 1;
@@ -56,7 +49,7 @@ export class Api {
     return factory.getPage().pipe(
       switchMap(index => {
         factory.index = index ?? 1;
-        return this.send('/r/find/page', {
+        return this.send('/page', {
           page: {
             limit: factory.limit,
             index: factory.index
@@ -81,16 +74,18 @@ export class Api {
    * 新增数据请求
    */
   create(data: Record<string, any>): Observable<any> {
-    return this.send('/w/create', data);
+    return this.send('/create', {
+      data
+    });
   }
 
   /**
    * 修改数据请求
    */
   update(condition: SearchOption[], data: Record<string, any>): Observable<any> {
-    return this.send('/w/update', {
+    return this.send('/update', {
       where: getQuerySchema(condition),
-      updates: data
+      data
     });
   }
 
@@ -98,7 +93,7 @@ export class Api {
    * 删除数据请求
    */
   delete(condition: SearchOption[]): Observable<any> {
-    return this.send('/w/delete', {
+    return this.send('/delete', {
       where: getQuerySchema(condition)
     });
   }

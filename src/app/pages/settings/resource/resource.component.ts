@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
 import { NzFormatEmitEvent, NzTreeNode, NzTreeNodeOptions } from 'ng-zorro-antd/tree';
-import { ResourceStruct } from 'ngx-bit/router';
 
 import { ResourceService } from './resource.service';
 
@@ -23,36 +22,36 @@ export class ResourceComponent implements OnInit {
   }
 
   private getData(): void {
-    this.resource.api.findMany().subscribe(data => {
-      const nodes: NzTreeNodeOptions[] = [];
-      const dict: Record<string, NzTreeNodeOptions> = {};
-      for (const x of data as ResourceStruct[]) {
-        dict[x.id] = {
-          title: `${x.name} [${x.fragment}] ${x.schema.key ? '+' : ''}`,
-          key: x.id,
-          parent: x.parent,
-          icon: x.icon,
-          isLeaf: true,
-          expanded: true,
-          originData: x
-        };
-      }
-      for (const x of data as ResourceStruct[]) {
-        const options = dict[x.id];
-        if (x.parent === 0) {
-          nodes.push(options);
-        } else {
-          if (dict.hasOwnProperty(x.parent)) {
-            if (!dict[x.parent].hasOwnProperty('children')) {
-              dict[x.parent].children = [];
-            }
-            dict[x.parent].children!.push(options);
-            dict[x.parent].isLeaf = false;
-          }
-        }
-      }
-      this.nodes = [...nodes];
-    });
+    // this.resource.api.find().subscribe(data => {
+    //   const nodes: NzTreeNodeOptions[] = [];
+    //   const dict: Record<string, NzTreeNodeOptions> = {};
+    //   for (const x of data as NodeStruct[]) {
+    //     dict[x.id] = {
+    //       title: `${x.name} [${x.fragment}] ${x.schema.key ? '+' : ''}`,
+    //       key: x.id,
+    //       parent: x.parent,
+    //       icon: x.icon,
+    //       isLeaf: true,
+    //       expanded: true,
+    //       originData: x
+    //     };
+    //   }
+    //   for (const x of data as NodeStruct[]) {
+    //     const options = dict[x.id];
+    //     if (x.parent === 0) {
+    //       nodes.push(options);
+    //     } else {
+    //       if (dict.hasOwnProperty(x.parent)) {
+    //         if (!dict[x.parent].hasOwnProperty('children')) {
+    //           dict[x.parent].children = [];
+    //         }
+    //         dict[x.parent].children!.push(options);
+    //         dict[x.parent].isLeaf = false;
+    //       }
+    //     }
+    //   }
+    //   this.nodes = [...nodes];
+    // });
   }
 
   fetch(e: NzFormatEmitEvent) {
