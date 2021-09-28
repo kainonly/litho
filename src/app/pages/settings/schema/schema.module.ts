@@ -3,19 +3,19 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { AppShareModule } from '@share';
 
-import { ResourceComponent } from './resource.component';
-import { ResourceService } from './resource.service';
+import { SchemaComponent } from './schema.component';
+import { SchemaService } from './schema.service';
 
 const routes: Routes = [
   {
     path: '',
-    component: ResourceComponent
+    component: SchemaComponent
   }
 ];
 
 @NgModule({
   imports: [AppShareModule, RouterModule.forChild(routes)],
-  declarations: [ResourceComponent],
-  providers: [ResourceService]
+  declarations: [SchemaComponent],
+  providers: [SchemaService]
 })
-export class ResourceModule {}
+export class SchemaModule {}

@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 
-import { BitService, Api } from 'ngx-bit';
+import { Api, BitService } from 'ngx-bit';
 
 @Injectable()
-export class ResourceService {
+export class SchemaService {
   api!: Api;
 
   constructor(private bit: BitService) {
-    this.api = bit.api('/resource');
+    this.api = bit.api('/schema');
   }
 }

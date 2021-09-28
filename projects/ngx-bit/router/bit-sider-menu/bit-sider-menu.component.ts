@@ -1,7 +1,8 @@
 import { Component, Input } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { NzMenuThemeType } from 'ng-zorro-antd/menu/menu.types';
-import { BitRouterService } from 'ngx-bit/router';
+import { BitRouterService, PageStruct } from 'ngx-bit/router';
 
 @Component({
   selector: 'bit-sider-menu',
@@ -10,5 +11,18 @@ import { BitRouterService } from 'ngx-bit/router';
 export class BitSiderMenuComponent {
   @Input() theme: NzMenuThemeType = 'light';
 
-  constructor(public router: BitRouterService) {}
+  constructor(public bitRouter: BitRouterService, private router: Router) {}
+
+  open(page: PageStruct): void {
+    if (page.router.template === 'manual') {
+      this.router.navigate(page.fragments);
+    } else {
+      this.router.navigate([
+        'pages',
+        {
+          fragments: page.fragments
+        }
+      ]);
+    }
+  }
 }

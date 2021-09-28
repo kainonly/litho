@@ -5,16 +5,12 @@ import { AppShareModule } from '@share';
 
 const routes: Routes = [
   {
-    path: 'resource',
-    loadChildren: () => import('./resource/resource.module').then(m => m.ResourceModule)
+    path: 'schema',
+    loadChildren: () => import('./schema/schema.module').then(m => m.SchemaModule)
   },
   {
-    path: 'role',
-    loadChildren: () => import('./role/role.module').then(m => m.RoleModule)
-  },
-  {
-    path: 'admin',
-    loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule)
+    path: 'page',
+    loadChildren: () => import('./page/page.module').then(m => m.PageModule)
   },
   { path: '', redirectTo: '/settings/resource', pathMatch: 'full' }
 ];

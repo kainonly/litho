@@ -1,10 +1,12 @@
 <ul nz-menu nzMode="inline">
-  <ng-container *ngTemplateOutlet="navTemplate; context: { $implicit: (router.pages | async)?.nodes }"></ng-container>
+  <ng-container
+    *ngTemplateOutlet="navTemplate; context: { $implicit: (bitRouter.pages | async)?.nodes }"
+  ></ng-container>
   <ng-template #navTemplate let-nodes>
     <ng-container *ngFor="let node of nodes | Sort: 'sort'">
       <ng-container *ngIf="node.nav">
         <ng-container *ngIf="!(node.router | Empty); else not">
-          <li nz-menu-item nzMatchRouter [nzPaddingLeft]="node.level * 16" [routerLink]="node.fragments">
+          <li nz-menu-item nzMatchRouter [nzPaddingLeft]="node.level * 16" (click)="open(node)">
             <i *ngIf="!!node.icon" nz-icon [nzType]="node.icon"></i>
             <span>{{ node.name }}</span>
           </li>

@@ -6,10 +6,12 @@ import { ActivatedRoute } from '@angular/router';
   templateUrl: './pages.component.html'
 })
 export class PagesComponent implements OnInit {
+  fragments: string[] = [];
   constructor(private route: ActivatedRoute) {}
 
   ngOnInit(): void {
     this.route.paramMap.subscribe(data => {
+      this.fragments = data.get('fragments')?.split(',')!;
       console.log(data);
     });
   }

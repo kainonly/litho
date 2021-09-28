@@ -2,20 +2,20 @@ import { Component, OnInit } from '@angular/core';
 
 import { NzFormatEmitEvent, NzTreeNode, NzTreeNodeOptions } from 'ng-zorro-antd/tree';
 
-import { ResourceService } from './resource.service';
+import { PageService } from './page.service';
 
 @Component({
-  selector: 'app-settings-resource',
-  templateUrl: './resource.component.html'
+  selector: 'app-settings-page',
+  templateUrl: './page.component.html'
 })
-export class ResourceComponent implements OnInit {
+export class PageComponent implements OnInit {
   name = '';
   nodes: NzTreeNodeOptions[] = [];
   tabIndex = 0;
   schema: any[] = [{ type: 'string', field: 'name' }];
   data?: Record<string, any>;
 
-  constructor(private resource: ResourceService) {}
+  constructor(private resource: PageService) {}
 
   ngOnInit(): void {
     this.getData();
