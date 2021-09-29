@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
+import { WpxPageNode } from '@weplanx/framework/layout';
 import { NzFormatEmitEvent, NzTreeNode, NzTreeNodeOptions } from 'ng-zorro-antd/tree';
-import { PageStruct } from 'ngx-bit/router';
 
 import { PageService } from './page.service';
 
@@ -23,10 +23,10 @@ export class PageComponent implements OnInit {
   }
 
   private getData(): void {
-    this.page.api.find().subscribe(data => {
+    this.page.api.find().subscribe((data: any) => {
       const nodes: NzTreeNodeOptions[] = [];
       const dict: Record<string, NzTreeNodeOptions> = {};
-      for (const x of data as PageStruct[]) {
+      for (const x of data as WpxPageNode[]) {
         dict[x.id] = {
           title: `${x.name} [${x.fragment}]`,
           key: x.id,
@@ -37,7 +37,7 @@ export class PageComponent implements OnInit {
           originData: x
         };
       }
-      for (const x of data as PageStruct[]) {
+      for (const x of data as WpxPageNode[]) {
         const options = dict[x.id];
         if (x.parent === 0) {
           nodes.push(options);

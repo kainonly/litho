@@ -2,6 +2,9 @@ import { CommonModule } from '@angular/common';
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
+import { WpxHelperModule } from '@weplanx/framework/helper';
+import { WpxLayoutModule } from '@weplanx/framework/layout';
+import { WpxPipesModule } from '@weplanx/framework/pipes';
 import { NzAffixModule } from 'ng-zorro-antd/affix';
 import { NzAlertModule } from 'ng-zorro-antd/alert';
 import { NzAutocompleteModule } from 'ng-zorro-antd/auto-complete';
@@ -54,10 +57,6 @@ import { NzTreeSelectModule } from 'ng-zorro-antd/tree-select';
 import { NzTreeViewModule } from 'ng-zorro-antd/tree-view';
 import { NzTypographyModule } from 'ng-zorro-antd/typography';
 import { NzUploadModule } from 'ng-zorro-antd/upload';
-import { BitBoxModule } from 'ngx-bit/box';
-import { BitI18nModule } from 'ngx-bit/i18n';
-import { BitPipeModule } from 'ngx-bit/pipe';
-import { BitRouterModule } from 'ngx-bit/router';
 import { NgScrollbarModule } from 'ngx-scrollbar';
 
 @NgModule({
@@ -121,10 +120,9 @@ import { NgScrollbarModule } from 'ngx-scrollbar';
     NzPaginationModule,
     NzEmptyModule,
     NgScrollbarModule,
-    BitBoxModule,
-    BitPipeModule,
-    BitI18nModule,
-    BitRouterModule
+    WpxLayoutModule,
+    WpxHelperModule,
+    WpxPipesModule
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

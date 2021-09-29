@@ -7,7 +7,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "ngx-bit-example": {
+    "console": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -24,7 +24,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/ngx-bit-example",
+            "outputPath": "dist/console",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -78,10 +78,10 @@
           },
           "configurations": {
             "production": {
-              "browserTarget": "ngx-bit-example:build:production"
+              "browserTarget": "console:build:production"
             },
             "development": {
-              "browserTarget": "ngx-bit-example:build:development"
+              "browserTarget": "console:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -89,7 +89,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "ngx-bit-example:build"
+            "browserTarget": "console:build"
           }
         },
         "lint": {
@@ -100,23 +100,23 @@
         }
       }
     },
-    "ngx-bit": {
+    "weplanx": {
       "projectType": "library",
-      "root": "projects/ngx-bit",
-      "sourceRoot": "projects/ngx-bit",
+      "root": "projects/weplanx",
+      "sourceRoot": "projects/weplanx",
       "prefix": "bit",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:ng-packagr",
           "options": {
-            "project": "projects/ngx-bit/ng-package.json"
+            "project": "projects/weplanx/ng-package.json"
           },
           "configurations": {
             "production": {
-              "tsConfig": "projects/ngx-bit/tsconfig.lib.prod.json"
+              "tsConfig": "projects/weplanx/tsconfig.lib.prod.json"
             },
             "development": {
-              "tsConfig": "projects/ngx-bit/tsconfig.lib.json"
+              "tsConfig": "projects/weplanx/tsconfig.lib.json"
             }
           },
           "defaultConfiguration": "production"
@@ -124,19 +124,19 @@
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
-            "main": "projects/ngx-bit/test.ts",
-            "tsConfig": "projects/ngx-bit/tsconfig.spec.json",
-            "karmaConfig": "projects/ngx-bit/karma.conf.js"
+            "main": "projects/weplanx/test.ts",
+            "tsConfig": "projects/weplanx/tsconfig.spec.json",
+            "karmaConfig": "projects/weplanx/karma.conf.js"
           }
         },
         "lint": {
           "builder": "@angular-eslint/builder:lint",
           "options": {
-            "lintFilePatterns": ["projects/ngx-bit/**/*.ts", "projects/ngx-bit/**/*.html"]
+            "lintFilePatterns": ["projects/weplanx/**/*.ts", "projects/weplanx/**/*.html"]
           }
         }
       }
     }
   },
-  "defaultProject": "ngx-bit-example"
+  "defaultProject": "console"
 }

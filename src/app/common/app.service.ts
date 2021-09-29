@@ -3,8 +3,11 @@ import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { BitConfig } from 'ngx-bit';
-import { Pages, PageStruct } from 'ngx-bit/router';
+import { WpxConfig } from '@weplanx/framework';
+import { WpxPageNode, WpxPageNodes } from '@weplanx/framework/layout';
+
+// import { BitConfig } from 'ngx-bit';
+// import { Pages, PageStruct } from 'ngx-bit/router';
 
 @Injectable()
 export class AppService {
@@ -14,7 +17,7 @@ export class AppService {
   readonly refresh$: Subject<undefined> = new Subject<undefined>();
   browserRefresh = true;
 
-  constructor(private http: HttpClient, private config: BitConfig) {}
+  constructor(private http: HttpClient, private config: WpxConfig) {}
 
   /**
    * 登录鉴权
@@ -59,12 +62,12 @@ export class AppService {
   /**
    * 获取页面数据
    */
-  pages(): Observable<Pages> {
+  pages(): Observable<WpxPageNodes> {
     return this.http.post(`${this.config.baseUrl}/pages`, {}).pipe(
       map((result: any) => {
-        const map: Record<string, PageStruct> = {};
-        const dict: Record<string, PageStruct> = {};
-        const nodes: PageStruct[] = [];
+        const map: Record<string, WpxPageNode> = {};
+        const dict: Record<string, WpxPageNode> = {};
+        const nodes: WpxPageNode[] = [];
         for (const x of result.data) {
           map[x.id] = x;
           x.children = [];
@@ -80,7 +83,7 @@ export class AppService {
           x.level = x.fragments.length;
           dict[x.fragments.join('/')] = x;
         }
-        return <Pages>{
+        return <WpxPageNodes>{
           dict,
           nodes
         };

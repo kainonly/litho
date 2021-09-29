@@ -3,7 +3,7 @@ import { Subject, Subscription, timer } from 'rxjs';
 import { map, switchMap, throttleTime } from 'rxjs/operators';
 
 import { AppService } from '@common/app.service';
-import { BitRouterService } from 'ngx-bit/router';
+import { WpxLayoutService } from '@weplanx/framework/layout';
 import { NgScrollbar } from 'ngx-scrollbar';
 
 @Component({
@@ -14,12 +14,12 @@ import { NgScrollbar } from 'ngx-scrollbar';
 export class LayoutComponent implements OnInit, OnDestroy {
   private autoRefreshToken!: Subscription;
 
-  constructor(public app: AppService, public router: BitRouterService) {}
+  constructor(public app: AppService, public wpxLayout: WpxLayoutService) {}
 
   ngOnInit(): void {
     // this.taskToRefreshToken();
     this.app.pages().subscribe(data => {
-      this.router.pages.next(data);
+      this.wpxLayout.pages.next(data);
     });
   }
 

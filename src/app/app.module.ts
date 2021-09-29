@@ -12,11 +12,10 @@ import { AppInterceptors } from '@common/app.interceptors';
 import { AppService } from '@common/app.service';
 import { environment } from '@env';
 import { AppShareModule } from '@share';
+import { WpxModule } from '@weplanx/framework';
+import { WpxLayoutModule } from '@weplanx/framework/layout';
 import { NZ_CONFIG, NzConfig } from 'ng-zorro-antd/core/config';
 import { NZ_I18N, zh_CN } from 'ng-zorro-antd/i18n';
-import { BitModule } from 'ngx-bit';
-import { BitI18nModule } from 'ngx-bit/i18n';
-import { BitRouterModule } from 'ngx-bit/router';
 
 import { AppComponent } from './app.component';
 
@@ -47,11 +46,8 @@ const ngZorroConfig: NzConfig = {
     BrowserAnimationsModule,
     HttpClientModule,
     AppShareModule,
-    BitModule.forRoot(environment.bit),
-    BitRouterModule.forRoot(),
-    BitI18nModule.forRoot({
-      locales: environment.locales
-    }),
+    WpxModule.forRoot(environment.bit),
+    WpxLayoutModule.forRoot(),
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: environment.production,
       registrationStrategy: 'registerWhenStable:30000'

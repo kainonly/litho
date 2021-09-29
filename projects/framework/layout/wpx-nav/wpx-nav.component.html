@@ -1,0 +1,28 @@
+<ul nz-menu nzMode="inline">
+  <ng-container
+    *ngTemplateOutlet="navTemplate; context: { $implicit: (wpxLayout.pages | async)?.nodes }"
+  ></ng-container>
+  <ng-template #navTemplate let-nodes>
+    <ng-container *ngFor="let node of nodes | wpxSort: 'sort'">
+      <ng-container *ngIf="node.nav">
+        <ng-container *ngIf="!(node.router | wpxEmpty); else not">
+          <li nz-menu-item [nzPaddingLeft]="node.level * 16" (click)="open(node)">
+            <i *ngIf="!!node.icon" nz-icon [nzType]="node.icon"></i>
+            <span>{{ node.name }}</span>
+          </li>
+        </ng-container>
+        <ng-template #not>
+          <li nz-submenu [nzOpen]="node.fragments" [nzPaddingLeft]="node.level * 16">
+            <span title>
+              <i *ngIf="!!node.icon" nz-icon [nzType]="node.icon"></i>
+              <span>{{ node.name }}</span>
+            </span>
+            <ul>
+              <ng-container *ngTemplateOutlet="navTemplate; context: { $implicit: node.children }"></ng-container>
+            </ul>
+          </li>
+        </ng-template>
+      </ng-container>
+    </ng-container>
+  </ng-template>
+</ul>
