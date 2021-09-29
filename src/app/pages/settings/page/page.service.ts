@@ -7,6 +7,6 @@ export class PageService {
   api!: Api;
 
   constructor(private bit: BitService) {
-    this.api = bit.api('/page');
+    this.api = bit.api('page');
   }
 }

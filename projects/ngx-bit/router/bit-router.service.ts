@@ -1,6 +1,7 @@
 import { Injectable, QueryList, TemplateRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
+import { take, takeUntil } from 'rxjs/operators';
 
 import { Pages } from './types';
 
@@ -68,6 +69,13 @@ export class BitRouterService {
    */
   activated(): void {
     this.resetPageHeaderAttr();
+
+    const root = this.router.routerState.root.snapshot.firstChild;
+    console.log(root);
+
+    // this.router.events.pipe(take(1)).subscribe(e => {
+    //   console.log(e);
+    // });
     // this.fragments = this.router.url.slice(1).split('/');
   }
   /**

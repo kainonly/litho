@@ -12,7 +12,6 @@ export class PagesComponent implements OnInit {
   ngOnInit(): void {
     this.route.paramMap.subscribe(data => {
       this.fragments = data.get('fragments')?.split(',')!;
-      console.log(data);
     });
   }
 }

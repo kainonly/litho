@@ -6,7 +6,7 @@
     <ng-container *ngFor="let node of nodes | Sort: 'sort'">
       <ng-container *ngIf="node.nav">
         <ng-container *ngIf="!(node.router | Empty); else not">
-          <li nz-menu-item nzMatchRouter [nzPaddingLeft]="node.level * 16" (click)="open(node)">
+          <li nz-menu-item [nzPaddingLeft]="node.level * 16" (click)="open(node)">
             <i *ngIf="!!node.icon" nz-icon [nzType]="node.icon"></i>
             <span>{{ node.name }}</span>
           </li>

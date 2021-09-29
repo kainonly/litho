@@ -44,123 +44,123 @@
   <!--    </nz-card>-->
   <!--  </nz-col>-->
   <nz-col nzFlex="auto">
-    <nz-card>
-      <nz-card-tab>
-        <nz-tabset nzSize="large" [(nzSelectedIndex)]="tabIndex" [nzTabBarExtraContent]="actions">
-          <ng-template #actions>
-            <ng-container *ngIf="tabIndex > 0">
-              <ng-container *ngIf="data?.schema?.key; else noSchema">
-                <button nz-button nzDanger>同步模型</button>
-              </ng-container>
-              <ng-template #noSchema>
-                <button nz-button nzType="primary">新建模型</button>
-              </ng-template>
-            </ng-container>
-          </ng-template>
-          <nz-tab nzTitle="主页"></nz-tab>
-          <nz-tab *ngIf="data" nzTitle="详情"> </nz-tab>
-          <nz-tab *ngIf="data?.schema?.key" nzTitle="模型"> </nz-tab>
-        </nz-tabset>
-      </nz-card-tab>
+    <!--    <nz-card>-->
+    <!--      <nz-card-tab>-->
+    <!--        <nz-tabset nzSize="large" [(nzSelectedIndex)]="tabIndex" [nzTabBarExtraContent]="actions">-->
+    <!--          <ng-template #actions>-->
+    <!--            <ng-container *ngIf="tabIndex > 0">-->
+    <!--              <ng-container *ngIf="data?.schema?.key; else noSchema">-->
+    <!--                <button nz-button nzDanger>同步模型</button>-->
+    <!--              </ng-container>-->
+    <!--              <ng-template #noSchema>-->
+    <!--                <button nz-button nzType="primary">新建模型</button>-->
+    <!--              </ng-template>-->
+    <!--            </ng-container>-->
+    <!--          </ng-template>-->
+    <!--          <nz-tab nzTitle="主页"></nz-tab>-->
+    <!--          <nz-tab *ngIf="data" nzTitle="详情"> </nz-tab>-->
+    <!--          <nz-tab *ngIf="data?.schema?.key" nzTitle="模型"> </nz-tab>-->
+    <!--        </nz-tabset>-->
+    <!--      </nz-card-tab>-->
 
-      <ng-container [ngSwitch]="tabIndex">
-        <ng-container *ngSwitchCase="0">
-          <nz-result>
-            <i nz-result-icon nz-icon nzType="smile" nzTheme="twotone"></i>
-            <div nz-result-title> Hello, There! </div>
-            <div nz-result-content>
-              <h5 nz-typography style="padding-bottom: 1em">[资源管理] 为项目准备了内容类型生成器功能：</h5>
-              <p nz-paragraph>
-                <i nz-icon nzType="bulb" nzTheme="twotone"></i>
-                树视图中的资源节点将为系统提供导航、路由与模型等基础，<code>+</code> 代表包含 Schema 它用于控制模型
-              </p>
-              <p nz-paragraph>
-                <i nz-icon nzType="bulb" nzTheme="twotone"></i>
-                您可以使用 🖱 在树视图选中一个资源节点获取详情，也可以点击 <code>右键</code> 获取更多操作
-              </p>
-              <p nz-paragraph>
-                <i nz-icon nzType="bulb" nzTheme="twotone"></i>
-                左侧导航与资源管理中树视图的排列顺序一致，您可以通过拖拽进行排序
-              </p>
-              <p nz-paragraph>
-                <i nz-icon nzType="bulb" nzTheme="twotone"></i>
-                内容类型生成器需要在开发环境中使用，项目生产后该功能将失效
-              </p>
-            </div>
-            <div nz-result-extra>
-              <button nz-button>导入资源</button>
-              <button nz-button>导出资源</button>
-            </div>
-          </nz-result>
-        </ng-container>
-        <ng-container *ngSwitchCase="1">
-          <nz-descriptions nzBordered nzLayout="vertical" [nzColumn]="2">
-            <nz-descriptions-item nzTitle="是否为导航">
-              <ng-container *ngIf="data?.nav; else no">
-                <i nz-icon nzType="check"></i>
-              </ng-container>
-              <ng-template #no>
-                <i nz-icon nzType="close"></i>
-              </ng-template>
-            </nz-descriptions-item>
-            <nz-descriptions-item nzTitle="是否为路由">
-              <ng-container *ngIf="data?.router; else no">
-                <i nz-icon nzType="check"></i>
-              </ng-container>
-            </nz-descriptions-item>
-          </nz-descriptions>
-        </ng-container>
-        <ng-container *ngSwitchCase="2">
-          <nz-list nzItemLayout="vertical">
-            <nz-list-item>
-              <nz-list-item-meta>
-                <nz-list-item-meta-title> <nz-tag nzColor="blue">文本</nz-tag> name </nz-list-item-meta-title>
-                <!--                <nz-list-item-meta-description>-->
-                <!--                  <nz-space nzSize="large">-->
-                <!--                    <span *nzSpaceItem>显示名称：姓名</span>-->
-                <!--                    <span *nzSpaceItem>默认值：无</span>-->
-                <!--                  </nz-space>-->
-                <!--                </nz-list-item-meta-description>-->
-              </nz-list-item-meta>
-              <nz-space [nzSplit]="split">
-                <ng-template #split>
-                  <nz-divider nzType="vertical"></nz-divider>
-                </ng-template>
-                <span *nzSpaceItem nz-typography>必须的</span>
-                <span *nzSpaceItem nz-typography>唯一的</span>
-              </nz-space>
-              <nz-list-item-extra>
-                <button nz-button nzType="text"><i nz-icon nzType="edit"></i></button>
-                <button nz-button nzType="text"><i nz-icon nzType="delete"></i></button>
-              </nz-list-item-extra>
-            </nz-list-item>
-            <nz-list-item>
-              <nz-list-item-meta>
-                <nz-list-item-meta-title> <nz-tag nzColor="blue">文本</nz-tag> name </nz-list-item-meta-title>
-                <!--                <nz-list-item-meta-description>-->
-                <!--                  <nz-space nzSize="large">-->
-                <!--                    <span *nzSpaceItem>显示名称：姓名</span>-->
-                <!--                    <span *nzSpaceItem>默认值：无</span>-->
-                <!--                  </nz-space>-->
-                <!--                </nz-list-item-meta-description>-->
-              </nz-list-item-meta>
-              <nz-space [nzSplit]="split">
-                <ng-template #split>
-                  <nz-divider nzType="vertical"></nz-divider>
-                </ng-template>
-                <span *nzSpaceItem nz-typography>必须的</span>
-                <span *nzSpaceItem nz-typography>唯一的</span>
-                <span *nzSpaceItem nz-typography>最大长度:100</span>
-                <span *nzSpaceItem nz-typography>私有字段</span>
-              </nz-space>
-              <nz-list-item-extra>
-                <button nz-button nzType="text"><i nz-icon nzType="edit"></i></button>
-                <button nz-button nzType="text"><i nz-icon nzType="delete"></i></button>
-              </nz-list-item-extra>
-            </nz-list-item>
-          </nz-list>
-        </ng-container>
-      </ng-container>
-    </nz-card>
+    <!--      <ng-container [ngSwitch]="tabIndex">-->
+    <!--        <ng-container *ngSwitchCase="0">-->
+    <!--          <nz-result>-->
+    <!--            <i nz-result-icon nz-icon nzType="smile" nzTheme="twotone"></i>-->
+    <!--            <div nz-result-title> Hello, There! </div>-->
+    <!--            <div nz-result-content>-->
+    <!--              <h5 nz-typography style="padding-bottom: 1em">[资源管理] 为项目准备了内容类型生成器功能：</h5>-->
+    <!--              <p nz-paragraph>-->
+    <!--                <i nz-icon nzType="bulb" nzTheme="twotone"></i>-->
+    <!--                树视图中的资源节点将为系统提供导航、路由与模型等基础，<code>+</code> 代表包含 Schema 它用于控制模型-->
+    <!--              </p>-->
+    <!--              <p nz-paragraph>-->
+    <!--                <i nz-icon nzType="bulb" nzTheme="twotone"></i>-->
+    <!--                您可以使用 🖱 在树视图选中一个资源节点获取详情，也可以点击 <code>右键</code> 获取更多操作-->
+    <!--              </p>-->
+    <!--              <p nz-paragraph>-->
+    <!--                <i nz-icon nzType="bulb" nzTheme="twotone"></i>-->
+    <!--                左侧导航与资源管理中树视图的排列顺序一致，您可以通过拖拽进行排序-->
+    <!--              </p>-->
+    <!--              <p nz-paragraph>-->
+    <!--                <i nz-icon nzType="bulb" nzTheme="twotone"></i>-->
+    <!--                内容类型生成器需要在开发环境中使用，项目生产后该功能将失效-->
+    <!--              </p>-->
+    <!--            </div>-->
+    <!--            <div nz-result-extra>-->
+    <!--              <button nz-button>导入资源</button>-->
+    <!--              <button nz-button>导出资源</button>-->
+    <!--            </div>-->
+    <!--          </nz-result>-->
+    <!--        </ng-container>-->
+    <!--        <ng-container *ngSwitchCase="1">-->
+    <!--          <nz-descriptions nzBordered nzLayout="vertical" [nzColumn]="2">-->
+    <!--            <nz-descriptions-item nzTitle="是否为导航">-->
+    <!--              <ng-container *ngIf="data?.nav; else no">-->
+    <!--                <i nz-icon nzType="check"></i>-->
+    <!--              </ng-container>-->
+    <!--              <ng-template #no>-->
+    <!--                <i nz-icon nzType="close"></i>-->
+    <!--              </ng-template>-->
+    <!--            </nz-descriptions-item>-->
+    <!--            <nz-descriptions-item nzTitle="是否为路由">-->
+    <!--              <ng-container *ngIf="data?.router; else no">-->
+    <!--                <i nz-icon nzType="check"></i>-->
+    <!--              </ng-container>-->
+    <!--            </nz-descriptions-item>-->
+    <!--          </nz-descriptions>-->
+    <!--        </ng-container>-->
+    <!--        <ng-container *ngSwitchCase="2">-->
+    <!--          <nz-list nzItemLayout="vertical">-->
+    <!--            <nz-list-item>-->
+    <!--              <nz-list-item-meta>-->
+    <!--                <nz-list-item-meta-title> <nz-tag nzColor="blue">文本</nz-tag> name </nz-list-item-meta-title>-->
+    <!--                &lt;!&ndash;                <nz-list-item-meta-description>&ndash;&gt;-->
+    <!--                &lt;!&ndash;                  <nz-space nzSize="large">&ndash;&gt;-->
+    <!--                &lt;!&ndash;                    <span *nzSpaceItem>显示名称：姓名</span>&ndash;&gt;-->
+    <!--                &lt;!&ndash;                    <span *nzSpaceItem>默认值：无</span>&ndash;&gt;-->
+    <!--                &lt;!&ndash;                  </nz-space>&ndash;&gt;-->
+    <!--                &lt;!&ndash;                </nz-list-item-meta-description>&ndash;&gt;-->
+    <!--              </nz-list-item-meta>-->
+    <!--              <nz-space [nzSplit]="split">-->
+    <!--                <ng-template #split>-->
+    <!--                  <nz-divider nzType="vertical"></nz-divider>-->
+    <!--                </ng-template>-->
+    <!--                <span *nzSpaceItem nz-typography>必须的</span>-->
+    <!--                <span *nzSpaceItem nz-typography>唯一的</span>-->
+    <!--              </nz-space>-->
+    <!--              <nz-list-item-extra>-->
+    <!--                <button nz-button nzType="text"><i nz-icon nzType="edit"></i></button>-->
+    <!--                <button nz-button nzType="text"><i nz-icon nzType="delete"></i></button>-->
+    <!--              </nz-list-item-extra>-->
+    <!--            </nz-list-item>-->
+    <!--            <nz-list-item>-->
+    <!--              <nz-list-item-meta>-->
+    <!--                <nz-list-item-meta-title> <nz-tag nzColor="blue">文本</nz-tag> name </nz-list-item-meta-title>-->
+    <!--                &lt;!&ndash;                <nz-list-item-meta-description>&ndash;&gt;-->
+    <!--                &lt;!&ndash;                  <nz-space nzSize="large">&ndash;&gt;-->
+    <!--                &lt;!&ndash;                    <span *nzSpaceItem>显示名称：姓名</span>&ndash;&gt;-->
+    <!--                &lt;!&ndash;                    <span *nzSpaceItem>默认值：无</span>&ndash;&gt;-->
+    <!--                &lt;!&ndash;                  </nz-space>&ndash;&gt;-->
+    <!--                &lt;!&ndash;                </nz-list-item-meta-description>&ndash;&gt;-->
+    <!--              </nz-list-item-meta>-->
+    <!--              <nz-space [nzSplit]="split">-->
+    <!--                <ng-template #split>-->
+    <!--                  <nz-divider nzType="vertical"></nz-divider>-->
+    <!--                </ng-template>-->
+    <!--                <span *nzSpaceItem nz-typography>必须的</span>-->
+    <!--                <span *nzSpaceItem nz-typography>唯一的</span>-->
+    <!--                <span *nzSpaceItem nz-typography>最大长度:100</span>-->
+    <!--                <span *nzSpaceItem nz-typography>私有字段</span>-->
+    <!--              </nz-space>-->
+    <!--              <nz-list-item-extra>-->
+    <!--                <button nz-button nzType="text"><i nz-icon nzType="edit"></i></button>-->
+    <!--                <button nz-button nzType="text"><i nz-icon nzType="delete"></i></button>-->
+    <!--              </nz-list-item-extra>-->
+    <!--            </nz-list-item>-->
+    <!--          </nz-list>-->
+    <!--        </ng-container>-->
+    <!--      </ng-container>-->
+    <!--    </nz-card>-->
   </nz-col>
 </nz-row>

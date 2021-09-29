@@ -10,11 +10,11 @@ export interface RouterOption {
 }
 
 export interface PageStruct {
-  id: unknown;
+  id: any;
   /**
    * 父节点
    */
-  parent: unknown;
+  parent: any;
   /**
    * URL片段
    */
@@ -54,7 +54,7 @@ export interface PageStruct {
   /**
    * 扩展定义
    */
-  [key: string]: unknown;
+  [key: string]: any;
 }
 
 export interface Pages {
@@ -69,5 +69,5 @@ export interface Pages {
   /**
    * 扩展定义
    */
-  [key: string]: unknown;
+  [key: string]: any;
 }
