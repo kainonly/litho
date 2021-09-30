@@ -16,11 +16,9 @@ export class WpxPagesComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.pageSubscription = this.wpxPages.page.subscribe(page => {
-      if (!!page.router) {
-        this.router = page.router;
-        console.log(page);
-        console.log(this.route.snapshot.params);
-      }
+      this.router = page.router;
+      // console.log(page);
+      // console.log(this.route.snapshot.params);
     });
   }
 
