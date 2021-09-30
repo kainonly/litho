@@ -9,3 +9,4 @@ export * from './wpx-layout-tags.directive';
 export * from './wpx-layout-action.directive';
 export * from './wpx-layout-footer.directive';
 export * from './wpx-pages/wpx-pages.component';
+export * from './wpx-pages/wpx-pages.service';

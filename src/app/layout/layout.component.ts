@@ -19,9 +19,6 @@ export class LayoutComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     // this.taskToRefreshToken();
-    // this.router.resetConfig([
-    //   { path: 'role', loadChildren: () => import('../pages/pages.module').then(m => m.PagesModule) }
-    // ]);
     this.app.pages().subscribe(data => {
       this.wpxLayout.pages.next(data);
     });
@@ -31,9 +28,7 @@ export class LayoutComponent implements OnInit, OnDestroy {
     this.autoRefreshToken.unsubscribe();
   }
 
-  activated(): void {
-    this.wpxLayout.matchRouter();
-  }
+  activated(): void {}
 
   private taskToRefreshToken(): void {
     this.autoRefreshToken = timer(this.app.browserRefresh ? 0 : 600000)

@@ -19,6 +19,7 @@ import { WpxAutoOpenPipe } from './wpx-nav/wpx-auto-open.pipe';
 import { WpxNavComponent } from './wpx-nav/wpx-nav.component';
 import { WpxPageHeaderComponent } from './wpx-page-header/wpx-page-header.component';
 import { WpxPagesComponent } from './wpx-pages/wpx-pages.component';
+import { WpxPagesService } from './wpx-pages/wpx-pages.service';
 
 @NgModule({
   imports: [
@@ -57,7 +58,7 @@ export class WpxLayoutModule {
   static forRoot(): ModuleWithProviders<WpxLayoutModule> {
     return {
       ngModule: WpxLayoutModule,
-      providers: [WpxLayoutService]
+      providers: [WpxLayoutService, WpxPagesService]
     };
   }
 }
