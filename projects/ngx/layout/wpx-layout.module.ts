@@ -18,6 +18,7 @@ import { WpxLayoutService } from './wpx-layout.service';
 import { WpxAutoOpenPipe } from './wpx-nav/wpx-auto-open.pipe';
 import { WpxNavComponent } from './wpx-nav/wpx-nav.component';
 import { WpxPageHeaderComponent } from './wpx-page-header/wpx-page-header.component';
+import { WpxPagesComponent } from './wpx-pages/wpx-pages.component';
 
 @NgModule({
   imports: [
@@ -38,7 +39,8 @@ import { WpxPageHeaderComponent } from './wpx-page-header/wpx-page-header.compon
     WpxLayoutComponent,
     WpxNavComponent,
     WpxPageHeaderComponent,
-    WpxAutoOpenPipe
+    WpxAutoOpenPipe,
+    WpxPagesComponent
   ],
   exports: [
     WpxLayoutActionDirective,
@@ -47,7 +49,8 @@ import { WpxPageHeaderComponent } from './wpx-page-header/wpx-page-header.compon
     WpxLayoutTagsDirective,
     WpxLayoutComponent,
     WpxNavComponent,
-    WpxPageHeaderComponent
+    WpxPageHeaderComponent,
+    WpxPagesComponent
   ]
 })
 export class WpxLayoutModule {

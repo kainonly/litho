@@ -7,6 +7,6 @@ export class PageService {
   api!: WpxApi;
 
   constructor(private wpx: WpxService) {
-    this.api = wpx.api('page');
+    this.api = wpx.createApi('page');
   }
 }

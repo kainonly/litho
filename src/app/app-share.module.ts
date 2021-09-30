@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
+import { WpxComponentsModule } from '@weplanx/ngx/components';
 import { WpxHelperModule } from '@weplanx/ngx/helper';
 import { WpxLayoutModule } from '@weplanx/ngx/layout';
 import { WpxPipesModule } from '@weplanx/ngx/pipes';
@@ -119,10 +120,12 @@ import { NgScrollbarModule } from 'ngx-scrollbar';
     NzPipesModule,
     NzPaginationModule,
     NzEmptyModule,
+    NzResultModule,
     NgScrollbarModule,
     WpxLayoutModule,
     WpxHelperModule,
-    WpxPipesModule
+    WpxPipesModule,
+    WpxComponentsModule
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

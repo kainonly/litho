@@ -1,4 +1,5 @@
 import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Subject, Subscription, timer } from 'rxjs';
 import { map, switchMap, throttleTime } from 'rxjs/operators';
 
@@ -14,10 +15,13 @@ import { NgScrollbar } from 'ngx-scrollbar';
 export class LayoutComponent implements OnInit, OnDestroy {
   private autoRefreshToken!: Subscription;
 
-  constructor(public app: AppService, public wpxLayout: WpxLayoutService) {}
+  constructor(public app: AppService, public wpxLayout: WpxLayoutService, private router: Router) {}
 
   ngOnInit(): void {
     // this.taskToRefreshToken();
+    // this.router.resetConfig([
+    //   { path: 'role', loadChildren: () => import('../pages/pages.module').then(m => m.PagesModule) }
+    // ]);
     this.app.pages().subscribe(data => {
       this.wpxLayout.pages.next(data);
     });
@@ -25,6 +29,10 @@ export class LayoutComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.autoRefreshToken.unsubscribe();
+  }
+
+  activated(): void {
+    this.wpxLayout.matchRouter();
   }
 
   private taskToRefreshToken(): void {

@@ -6,9 +6,6 @@ import { map } from 'rxjs/operators';
 import { WpxConfig } from '@weplanx/ngx';
 import { WpxPageNode, WpxPageNodes } from '@weplanx/ngx/layout';
 
-// import { BitConfig } from 'ngx-bit';
-// import { Pages, PageStruct } from 'ngx-bit/router';
-
 @Injectable()
 export class AppService {
   /**

@@ -38,7 +38,7 @@ export class WpxService {
   /**
    * 创建统一请求
    */
-  api(model: string): WpxApi {
+  createApi(model: string): WpxApi {
     return new WpxApi(this.http, {
       baseUrl: this.config.baseUrl,
       model
@@ -48,7 +48,7 @@ export class WpxService {
   /**
    * 创建数据源
    */
-  data(option: ListsOption): WpxListByPage {
+  createListByPage(option: ListsOption): WpxListByPage {
     option.limit = option.limit || this.config.page;
     return new WpxListByPage(this.storage, option);
   }

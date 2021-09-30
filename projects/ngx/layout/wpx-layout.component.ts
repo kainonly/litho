@@ -40,20 +40,20 @@ export class WpxLayoutComponent implements OnInit, AfterContentInit, AfterViewIn
   constructor(private wpxLayout: WpxLayoutService) {}
 
   ngOnInit(): void {
-    this.wpxLayout.skip.next(!!this.skip);
-    this.wpxLayout.back.next(!!this.back);
-    this.wpxLayout.title.next(this.title || null);
-    this.wpxLayout.subTitle.next(this.subTitle || null);
+    // this.wpxLayout.skip.next(!!this.skip);
+    // this.wpxLayout.back.next(!!this.back);
+    // this.wpxLayout.title.next(this.title || null);
+    // this.wpxLayout.subTitle.next(this.subTitle || null);
   }
 
   ngAfterContentInit() {
-    this.wpxLayout.alert.next(this.alert || null);
-    this.wpxLayout.tags.next(this.tags || null);
-    this.wpxLayout.actions.next(this.actions || null);
-    this.wpxLayout.footer.next(this.footer || null);
+    // this.wpxLayout.alert.next(this.alert || null);
+    // this.wpxLayout.tags.next(this.tags || null);
+    // this.wpxLayout.actions.next(this.actions || null);
+    // this.wpxLayout.footer.next(this.footer || null);
   }
 
   ngAfterViewInit() {
-    this.wpxLayout.content.next(this.content || null);
+    // this.wpxLayout.content.next(this.content || null);
   }
 }

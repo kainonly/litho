@@ -3,17 +3,17 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { AppShareModule } from '@share';
 
-import { PagesComponent } from './pages.component';
+import { EmptyComponent } from './empty.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: PagesComponent
+    component: EmptyComponent
   }
 ];
 
 @NgModule({
   imports: [AppShareModule, RouterModule.forChild(routes)],
-  declarations: [PagesComponent]
+  declarations: [EmptyComponent]
 })
-export class PagesModule {}
+export class EmptyModule {}

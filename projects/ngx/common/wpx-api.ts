@@ -2,12 +2,12 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
 
-import { CrudOption, OrderOption, SearchOption } from '../types';
+import { ApiOption, OrderOption, SearchOption } from '../types';
 import { getQuerySchema } from './util';
 import { WpxListByPage } from './wpx-list-by-page';
 
 export class WpxApi {
-  constructor(private http: HttpClient, private option: CrudOption) {}
+  constructor(private http: HttpClient, private option: ApiOption) {}
 
   /**
    * 发起统一请求
