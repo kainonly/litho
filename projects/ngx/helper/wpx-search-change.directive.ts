@@ -2,13 +2,13 @@ import { Directive, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { NgModel } from '@angular/forms';
 import { switchMap } from 'rxjs/operators';
 
-import { WpxData } from '@weplanx/ngx';
+import { WpxListByPage } from '@weplanx/ngx';
 
 @Directive({
   selector: '[wpxSearchChange]'
 })
 export class WpxSearchChangeDirective implements OnInit {
-  @Input() bitSearchChange!: WpxData;
+  @Input() bitSearchChange!: WpxListByPage;
   @Output() readonly bitAfter: EventEmitter<undefined> = new EventEmitter<undefined>();
 
   constructor(private model: NgModel) {}

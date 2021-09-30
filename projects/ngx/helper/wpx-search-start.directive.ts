@@ -1,12 +1,12 @@
 import { Directive, EventEmitter, HostListener, Input, Output } from '@angular/core';
 
-import { WpxData } from '@weplanx/ngx';
+import { WpxListByPage } from '@weplanx/ngx';
 
 @Directive({
   selector: '[wpxSearchStart]'
 })
 export class WpxSearchStartDirective {
-  @Input() bitSearchStart!: WpxData;
+  @Input() bitSearchStart!: WpxListByPage;
   @Output() readonly bitAfter: EventEmitter<undefined> = new EventEmitter<undefined>();
 
   @HostListener('keydown.enter', ['$event.target']) onenter(el: Element): void {

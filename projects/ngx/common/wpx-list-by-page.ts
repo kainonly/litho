@@ -4,7 +4,7 @@ import { StorageMap } from '@ngx-pwa/local-storage';
 
 import { ListsOption, SearchOption, OrderOption } from '../types';
 
-export class WpxData {
+export class WpxListByPage {
   /**
    * 完成初始化
    */

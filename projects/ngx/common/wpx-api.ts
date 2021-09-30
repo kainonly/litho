@@ -4,7 +4,7 @@ import { map, switchMap } from 'rxjs/operators';
 
 import { CrudOption, OrderOption, SearchOption } from '../types';
 import { getQuerySchema } from './util';
-import { WpxData } from './wpx-data';
+import { WpxListByPage } from './wpx-list-by-page';
 
 export class WpxApi {
   constructor(private http: HttpClient, private option: CrudOption) {}
@@ -39,7 +39,7 @@ export class WpxApi {
   /**
    * 获取分页数据请求
    */
-  page(data: WpxData, refresh: boolean, persistence: boolean): Observable<Record<string, any> | null> {
+  findByPage(data: WpxListByPage, refresh: boolean, persistence: boolean): Observable<Record<string, any> | null> {
     if (refresh || persistence) {
       if (refresh) {
         data.index = 1;
@@ -49,7 +49,7 @@ export class WpxApi {
     return data.getPage().pipe(
       switchMap(index => {
         data.index = index ?? 1;
-        return this.send('/page', {
+        return this.send('/find_by_page', {
           page: {
             limit: data.limit,
             index: data.index

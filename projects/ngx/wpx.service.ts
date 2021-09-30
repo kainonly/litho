@@ -6,7 +6,7 @@ import { filter, switchMap } from 'rxjs/operators';
 import { StorageMap } from '@ngx-pwa/local-storage';
 
 import { WpxApi } from './common/wpx-api';
-import { WpxData } from './common/wpx-data';
+import { WpxListByPage } from './common/wpx-list-by-page';
 import { ListsOption } from './types';
 import { WpxConfig } from './wpx-config';
 
@@ -48,9 +48,9 @@ export class WpxService {
   /**
    * 创建数据源
    */
-  data(option: ListsOption): WpxData {
+  data(option: ListsOption): WpxListByPage {
     option.limit = option.limit || this.config.page;
-    return new WpxData(this.storage, option);
+    return new WpxListByPage(this.storage, option);
   }
 
   /**
