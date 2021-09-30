@@ -2,9 +2,9 @@ import { CommonModule } from '@angular/common';
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-import { WpxHelperModule } from '@weplanx/framework/helper';
-import { WpxLayoutModule } from '@weplanx/framework/layout';
-import { WpxPipesModule } from '@weplanx/framework/pipes';
+import { WpxHelperModule } from '@weplanx/ngx/helper';
+import { WpxLayoutModule } from '@weplanx/ngx/layout';
+import { WpxPipesModule } from '@weplanx/ngx/pipes';
 import { NzAffixModule } from 'ng-zorro-antd/affix';
 import { NzAlertModule } from 'ng-zorro-antd/alert';
 import { NzAutocompleteModule } from 'ng-zorro-antd/auto-complete';

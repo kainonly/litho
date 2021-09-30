@@ -9,7 +9,7 @@ module.exports = {
       files: ['*.ts'],
       plugins: ['@typescript-eslint', 'import'],
       parserOptions: {
-        project: ['projects/framework/tsconfig.lib.json'],
+        project: ['projects/ngx/tsconfig.lib.json'],
         createDefaultProgram: true
       },
       rules: {

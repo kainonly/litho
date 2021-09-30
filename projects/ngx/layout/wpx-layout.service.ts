@@ -2,7 +2,7 @@ import { Injectable, QueryList, TemplateRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
 
-import { Pages } from './types';
+import { WpxPageNodes } from './types';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +11,7 @@ export class WpxLayoutService {
   /**
    * 驱动资源
    */
-  readonly pages: BehaviorSubject<Pages> = new BehaviorSubject<Pages>({
+  readonly pages: BehaviorSubject<WpxPageNodes> = new BehaviorSubject<WpxPageNodes>({
     dict: {},
     nodes: []
   });

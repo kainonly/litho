@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 
-import { BitService, Api } from 'ngx-bit';
+import { WpxService, WpxApi } from '@weplanx/ngx';
 
 @Injectable()
 export class PageService {
-  api!: Api;
+  api!: WpxApi;
 
-  constructor(private bit: BitService) {
-    this.api = bit.api('page');
+  constructor(private wpx: WpxService) {
+    this.api = wpx.api('page');
   }
 }

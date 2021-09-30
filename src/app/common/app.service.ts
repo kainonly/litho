@@ -3,8 +3,8 @@ import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { WpxConfig } from '@weplanx/framework';
-import { WpxPageNode, WpxPageNodes } from '@weplanx/framework/layout';
+import { WpxConfig } from '@weplanx/ngx';
+import { WpxPageNode, WpxPageNodes } from '@weplanx/ngx/layout';
 
 // import { BitConfig } from 'ngx-bit';
 // import { Pages, PageStruct } from 'ngx-bit/router';

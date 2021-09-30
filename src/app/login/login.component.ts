@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
 import { AppService } from '@common/app.service';
-import { WpxService } from '@weplanx/framework';
+import { WpxService } from '@weplanx/ngx';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 
 @Component({

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { WpxPageNode } from '@weplanx/framework/layout';
+import { WpxPageNode } from '@weplanx/ngx/layout';
 import { NzFormatEmitEvent, NzTreeNode, NzTreeNodeOptions } from 'ng-zorro-antd/tree';
 
 import { PageService } from './page.service';

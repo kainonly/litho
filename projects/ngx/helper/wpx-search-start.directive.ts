@@ -1,9 +1,9 @@
 import { Directive, EventEmitter, HostListener, Input, Output } from '@angular/core';
 
-import { WpxData } from '@weplanx/framework';
+import { WpxData } from '@weplanx/ngx';
 
 @Directive({
-  selector: '[bitSearchStart]'
+  selector: '[wpxSearchStart]'
 })
 export class WpxSearchStartDirective {
   @Input() bitSearchStart!: WpxData;

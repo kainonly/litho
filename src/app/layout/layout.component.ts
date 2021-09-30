@@ -3,7 +3,7 @@ import { Subject, Subscription, timer } from 'rxjs';
 import { map, switchMap, throttleTime } from 'rxjs/operators';
 
 import { AppService } from '@common/app.service';
-import { WpxLayoutService } from '@weplanx/framework/layout';
+import { WpxLayoutService } from '@weplanx/ngx/layout';
 import { NgScrollbar } from 'ngx-scrollbar';
 
 @Component({

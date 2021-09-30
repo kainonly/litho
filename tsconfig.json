@@ -21,10 +21,10 @@
       "@env": ["src/environments/environment.ts"],
       "@common/*": ["src/app/common/*"],
       "@share": ["src/app/app-share.module.ts"],
-      "@weplanx/framework": ["projects/framework/public-api.ts"],
-      "@weplanx/framework/layout": ["projects/framework/layout/public-api.ts"],
-      "@weplanx/framework/pipes": ["projects/framework/pipes/public-api.ts"],
-      "@weplanx/framework/helper": ["projects/framework/helper/public-api.ts"]
+      "@weplanx/ngx": ["projects/ngx/public-api.ts"],
+      "@weplanx/ngx/layout": ["projects/ngx/layout/public-api.ts"],
+      "@weplanx/ngx/pipes": ["projects/ngx/pipes/public-api.ts"],
+      "@weplanx/ngx/helper": ["projects/ngx/helper/public-api.ts"]
     },
     "plugins": [
       {

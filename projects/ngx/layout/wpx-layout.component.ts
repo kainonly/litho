@@ -14,28 +14,28 @@ import {
 
 import { InputBoolean } from 'ng-zorro-antd/core/util';
 
-import { WpxLayoutService } from '../wpx-layout.service';
-import { WpxElementActionDirective } from './wpx-element-action.directive';
-import { WpxElementAlertDirective } from './wpx-element-alert.directive';
-import { WpxElementFooterDirective } from './wpx-element-footer.directive';
-import { WpxElementTagsDirective } from './wpx-element-tags.directive';
+import { WpxLayoutActionDirective } from './wpx-layout-action.directive';
+import { WpxLayoutAlertDirective } from './wpx-layout-alert.directive';
+import { WpxLayoutFooterDirective } from './wpx-layout-footer.directive';
+import { WpxLayoutTagsDirective } from './wpx-layout-tags.directive';
+import { WpxLayoutService } from './wpx-layout.service';
 
 @Component({
-  selector: 'wpx-element',
+  selector: 'wpx-layout',
   template: `<ng-template><ng-content></ng-content></ng-template>`,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class WpxElementComponent implements OnInit, AfterContentInit, AfterViewInit {
+export class WpxLayoutComponent implements OnInit, AfterContentInit, AfterViewInit {
   @Input() @InputBoolean() skip?: any;
   @Input() @InputBoolean() back?: any;
   @Input() title?: string | Record<string, string>;
   @Input() subTitle?: string | Record<string, string>;
 
-  @ContentChild(WpxElementAlertDirective, { read: TemplateRef }) alert?: TemplateRef<any>;
-  @ContentChild(WpxElementTagsDirective, { read: TemplateRef }) tags?: TemplateRef<any>;
-  @ContentChildren(WpxElementActionDirective, { read: TemplateRef }) actions?: QueryList<TemplateRef<any>>;
+  @ContentChild(WpxLayoutAlertDirective, { read: TemplateRef }) alert?: TemplateRef<any>;
+  @ContentChild(WpxLayoutTagsDirective, { read: TemplateRef }) tags?: TemplateRef<any>;
+  @ContentChildren(WpxLayoutActionDirective, { read: TemplateRef }) actions?: QueryList<TemplateRef<any>>;
   @ViewChild(TemplateRef) content?: TemplateRef<any>;
-  @ContentChild(WpxElementFooterDirective, { read: TemplateRef }) footer?: TemplateRef<any>;
+  @ContentChild(WpxLayoutFooterDirective, { read: TemplateRef }) footer?: TemplateRef<any>;
 
   constructor(private wpxLayout: WpxLayoutService) {}
 

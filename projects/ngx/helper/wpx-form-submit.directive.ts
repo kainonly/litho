@@ -1,10 +1,10 @@
 import { Directive, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormGroupDirective } from '@angular/forms';
 
-import { updateFormGroup } from '@weplanx/framework';
+import { updateFormGroup } from '@weplanx/ngx';
 
 @Directive({
-  selector: 'form[bitFormSubmit]'
+  selector: 'form[wpxFormSubmit]'
 })
 export class WpxFormSubmitDirective implements OnInit {
   @Output() readonly bitFormSubmit: EventEmitter<Record<string, any>> = new EventEmitter<Record<string, any>>();

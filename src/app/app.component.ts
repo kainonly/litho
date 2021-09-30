@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { environment } from '@env';
-import { WpxService } from '@weplanx/framework';
+import { WpxService } from '@weplanx/ngx';
 import { NzIconService } from 'ng-zorro-antd/icon';
 
 @Component({
