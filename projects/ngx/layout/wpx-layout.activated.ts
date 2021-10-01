@@ -12,6 +12,7 @@ export class WpxLayoutActivated implements CanActivateChild {
     childRoute: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
+    this.wpxLayout.reset();
     if (childRoute.params.hasOwnProperty('pages')) {
       this.wpxLayout.activated = childRoute.params.pages.split(',');
     } else {

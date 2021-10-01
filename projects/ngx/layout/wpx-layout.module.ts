@@ -9,6 +9,8 @@ import { NzMenuModule } from 'ng-zorro-antd/menu';
 import { NzPageHeaderModule } from 'ng-zorro-antd/page-header';
 import { NzSpaceModule } from 'ng-zorro-antd/space';
 
+import { WpxAutoOpenPipe } from './wpx-auto-open.pipe';
+import { WpxAutoRouterPipe } from './wpx-auto-router.pipe';
 import { WpxLayoutActionDirective } from './wpx-layout-action.directive';
 import { WpxLayoutAlertDirective } from './wpx-layout-alert.directive';
 import { WpxLayoutFooterDirective } from './wpx-layout-footer.directive';
@@ -16,8 +18,6 @@ import { WpxLayoutTagsDirective } from './wpx-layout-tags.directive';
 import { WpxLayoutActivated } from './wpx-layout.activated';
 import { WpxLayoutComponent } from './wpx-layout.component';
 import { WpxLayoutService } from './wpx-layout.service';
-import { WpxAutoOpenPipe } from './wpx-nav/wpx-auto-open.pipe';
-import { WpxAutoRouterPipe } from './wpx-nav/wpx-auto-router.pipe';
 import { WpxNavComponent } from './wpx-nav/wpx-nav.component';
 import { WpxPageHeaderComponent } from './wpx-page-header/wpx-page-header.component';
 import { WpxPagesComponent } from './wpx-pages/wpx-pages.component';

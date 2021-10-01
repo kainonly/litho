@@ -1,7 +1,7 @@
-<nz-layout class="main-layout">
+<nz-layout class="main">
   <app-header></app-header>
 
-  <nz-layout class="section-layout">
+  <nz-layout class="content">
     <nz-sider nzTheme="light" [nzWidth]="240">
       <ng-scrollbar visibility="hover">
         <wpx-nav></wpx-nav>
@@ -9,6 +9,7 @@
     </nz-sider>
     <nz-layout>
       <ng-scrollbar>
+        <wpx-page-header></wpx-page-header>
         <nz-content>
           <router-outlet></router-outlet>
         </nz-content>

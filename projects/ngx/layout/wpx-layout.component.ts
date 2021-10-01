@@ -28,8 +28,8 @@ import { WpxLayoutService } from './wpx-layout.service';
 export class WpxLayoutComponent implements OnInit, AfterContentInit, AfterViewInit {
   @Input() @InputBoolean() skip?: any;
   @Input() @InputBoolean() back?: any;
-  @Input() title?: string | Record<string, string>;
-  @Input() subTitle?: string | Record<string, string>;
+  @Input() title?: string;
+  @Input() subTitle?: string;
 
   @ContentChild(WpxLayoutAlertDirective, { read: TemplateRef }) alert?: TemplateRef<any>;
   @ContentChild(WpxLayoutTagsDirective, { read: TemplateRef }) tags?: TemplateRef<any>;
@@ -40,20 +40,20 @@ export class WpxLayoutComponent implements OnInit, AfterContentInit, AfterViewIn
   constructor(private wpxLayout: WpxLayoutService) {}
 
   ngOnInit(): void {
-    // this.wpxLayout.skip.next(!!this.skip);
-    // this.wpxLayout.back.next(!!this.back);
-    // this.wpxLayout.title.next(this.title || null);
-    // this.wpxLayout.subTitle.next(this.subTitle || null);
+    this.wpxLayout.skip = !!this.skip;
+    this.wpxLayout.back = !!this.back;
+    this.wpxLayout.title = this.title;
+    this.wpxLayout.subTitle = this.subTitle;
   }
 
   ngAfterContentInit() {
-    // this.wpxLayout.alert.next(this.alert || null);
-    // this.wpxLayout.tags.next(this.tags || null);
-    // this.wpxLayout.actions.next(this.actions || null);
-    // this.wpxLayout.footer.next(this.footer || null);
+    this.wpxLayout.alert = this.alert;
+    this.wpxLayout.tags = this.alert;
+    this.wpxLayout.actions = this.actions;
+    this.wpxLayout.footer = this.footer;
   }
 
   ngAfterViewInit() {
-    // this.wpxLayout.content.next(this.content || null);
+    this.wpxLayout.content = this.content;
   }
 }

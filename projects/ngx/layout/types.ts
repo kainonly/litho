@@ -1,17 +1,3 @@
-import { QueryList, TemplateRef } from '@angular/core';
-
-export interface WpxLayout {
-  skip: boolean;
-  back: boolean;
-  title: string;
-  subTitle: string;
-  alert: TemplateRef<unknown>;
-  tags: TemplateRef<unknown>;
-  actions: QueryList<TemplateRef<unknown>>;
-  content: TemplateRef<unknown>;
-  footer: TemplateRef<any>;
-}
-
 export interface WpxPageNodes {
   /**
    * 路径字典
