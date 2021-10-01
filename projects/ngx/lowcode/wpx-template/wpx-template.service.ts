@@ -2,12 +2,10 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 
 import { WpxApi, WpxService } from '@weplanx/ngx';
-
-import { WpxPageNode } from '../types';
-import { WpxLayoutService } from '../wpx-layout.service';
+import { WpxPageNode, WpxLayoutService } from '@weplanx/ngx/layout';
 
 @Injectable()
-export class WpxPagesService {
+export class WpxTemplateService {
   page: BehaviorSubject<WpxPageNode> = new BehaviorSubject<WpxPageNode>(<WpxPageNode>{});
   api!: WpxApi;
 

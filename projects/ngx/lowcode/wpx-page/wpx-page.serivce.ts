@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 
-import { WpxService, WpxApi } from '@weplanx/ngx';
+import { WpxApi, WpxService } from '@weplanx/ngx';
 
 @Injectable()
-export class PageService {
+export class WpxPageSerivce {
   api!: WpxApi;
 
   constructor(private wpx: WpxService) {

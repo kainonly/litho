@@ -2,9 +2,9 @@ import { CommonModule } from '@angular/common';
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-import { WpxComponentsModule } from '@weplanx/ngx/components';
 import { WpxHelperModule } from '@weplanx/ngx/helper';
 import { WpxLayoutModule } from '@weplanx/ngx/layout';
+import { WpxLowcodeModule } from '@weplanx/ngx/lowcode';
 import { WpxPipesModule } from '@weplanx/ngx/pipes';
 import { NzAffixModule } from 'ng-zorro-antd/affix';
 import { NzAlertModule } from 'ng-zorro-antd/alert';
@@ -125,7 +125,7 @@ import { NgScrollbarModule } from 'ngx-scrollbar';
     WpxLayoutModule,
     WpxHelperModule,
     WpxPipesModule,
-    WpxComponentsModule
+    WpxLowcodeModule
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

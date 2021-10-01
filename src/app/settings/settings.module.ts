@@ -2,17 +2,18 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { AppShareModule } from '@share';
+import { WpxPageComponent, WpxSchemaComponent } from '@weplanx/ngx/lowcode';
 
 const routes: Routes = [
   {
     path: 'schema',
-    loadChildren: () => import('./schema/schema.module').then(m => m.SchemaModule)
+    component: WpxSchemaComponent
   },
   {
     path: 'page',
-    loadChildren: () => import('./page/page.module').then(m => m.PageModule)
+    component: WpxPageComponent
   },
-  { path: '', redirectTo: '/settings/resource', pathMatch: 'full' }
+  { path: '', redirectTo: '/settings/schema', pathMatch: 'full' }
 ];
 
 @NgModule({

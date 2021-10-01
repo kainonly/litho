@@ -20,8 +20,6 @@ import { WpxLayoutComponent } from './wpx-layout.component';
 import { WpxLayoutService } from './wpx-layout.service';
 import { WpxNavComponent } from './wpx-nav/wpx-nav.component';
 import { WpxPageHeaderComponent } from './wpx-page-header/wpx-page-header.component';
-import { WpxPagesComponent } from './wpx-pages/wpx-pages.component';
-import { WpxPagesService } from './wpx-pages/wpx-pages.service';
 
 @NgModule({
   imports: [
@@ -43,8 +41,7 @@ import { WpxPagesService } from './wpx-pages/wpx-pages.service';
     WpxNavComponent,
     WpxPageHeaderComponent,
     WpxAutoOpenPipe,
-    WpxAutoRouterPipe,
-    WpxPagesComponent
+    WpxAutoRouterPipe
   ],
   exports: [
     WpxLayoutActionDirective,
@@ -53,15 +50,14 @@ import { WpxPagesService } from './wpx-pages/wpx-pages.service';
     WpxLayoutTagsDirective,
     WpxLayoutComponent,
     WpxNavComponent,
-    WpxPageHeaderComponent,
-    WpxPagesComponent
+    WpxPageHeaderComponent
   ]
 })
 export class WpxLayoutModule {
   static forRoot(): ModuleWithProviders<WpxLayoutModule> {
     return {
       ngModule: WpxLayoutModule,
-      providers: [WpxLayoutService, WpxLayoutActivated, WpxPagesService]
+      providers: [WpxLayoutService, WpxLayoutActivated]
     };
   }
 }

@@ -3,20 +3,20 @@ import { Component, OnInit } from '@angular/core';
 import { WpxPageNode } from '@weplanx/ngx/layout';
 import { NzFormatEmitEvent, NzTreeNode, NzTreeNodeOptions } from 'ng-zorro-antd/tree';
 
-import { PageService } from './page.service';
+import { WpxPageSerivce } from './wpx-page.serivce';
 
 @Component({
-  selector: 'app-settings-page',
-  templateUrl: './page.component.html'
+  selector: 'wpx-page',
+  templateUrl: './wpx-page.component.html'
 })
-export class PageComponent implements OnInit {
+export class WpxPageComponent implements OnInit {
   name = '';
   nodes: NzTreeNodeOptions[] = [];
   tabIndex = 0;
   schema: any[] = [{ type: 'string', field: 'name' }];
   data?: Record<string, any>;
 
-  constructor(private page: PageService) {}
+  constructor(private page: WpxPageSerivce) {}
 
   ngOnInit(): void {
     this.getData();

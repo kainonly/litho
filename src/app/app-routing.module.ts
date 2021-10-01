@@ -2,7 +2,8 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { AppShareModule } from '@share';
-import { WpxPagesComponent, WpxLayoutActivated } from '@weplanx/ngx/layout';
+import { WpxLayoutActivated } from '@weplanx/ngx/layout';
+import { WpxTemplateComponent } from '@weplanx/ngx/lowcode';
 
 import { LayoutComponent } from './layout/layout.component';
 import { LayoutModule } from './layout/layout.module';
@@ -27,7 +28,7 @@ const routes: Routes = [
       },
       {
         path: ':pages',
-        component: WpxPagesComponent
+        component: WpxTemplateComponent
       },
       { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
       { path: '**', loadChildren: () => import('./empty/empty.module').then(m => m.EmptyModule) }
