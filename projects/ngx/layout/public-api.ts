@@ -1,5 +1,6 @@
 export * from './types';
 export * from './wpx-layout.service';
+export * from './wpx-layout.activated';
 export * from './wpx-layout.module';
 export * from './wpx-nav/wpx-nav.component';
 export * from './wpx-page-header/wpx-page-header.component';

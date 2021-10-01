@@ -10,7 +10,5 @@ import { WpxLayout, WpxPageNode, WpxPageNodes } from './types';
 export class WpxLayoutService {
   root?: Partial<WpxLayout>;
   readonly pages: BehaviorSubject<WpxPageNodes> = new BehaviorSubject<WpxPageNodes>(<WpxPageNodes>{});
-  fragments!: string[];
-
-  constructor(private router: Router) {}
+  activated: string[] = [];
 }

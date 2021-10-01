@@ -12,7 +12,7 @@
           </li>
         </ng-container>
         <ng-template #not>
-          <li nz-submenu [nzOpen]="node.fragments" [nzPaddingLeft]="node.level * 16">
+          <li nz-submenu [nzOpen]="node.fragments | wpxAutoOpen: wpxLayout.activated" [nzPaddingLeft]="node.level * 16">
             <span title>
               <i *ngIf="!!node.icon" nz-icon [nzType]="node.icon"></i>
               <span>{{ node.name }}</span>

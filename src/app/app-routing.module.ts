@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { AppShareModule } from '@share';
-import { WpxPagesComponent } from '@weplanx/ngx/layout';
+import { WpxPagesComponent, WpxLayoutActivated } from '@weplanx/ngx/layout';
 
 import { LayoutComponent } from './layout/layout.component';
 import { LayoutModule } from './layout/layout.module';
@@ -11,6 +11,7 @@ const routes: Routes = [
   {
     path: '',
     component: LayoutComponent,
+    canActivateChild: [WpxLayoutActivated],
     children: [
       {
         path: 'dashboard',

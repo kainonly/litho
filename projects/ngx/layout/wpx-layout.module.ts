@@ -13,6 +13,7 @@ import { WpxLayoutActionDirective } from './wpx-layout-action.directive';
 import { WpxLayoutAlertDirective } from './wpx-layout-alert.directive';
 import { WpxLayoutFooterDirective } from './wpx-layout-footer.directive';
 import { WpxLayoutTagsDirective } from './wpx-layout-tags.directive';
+import { WpxLayoutActivated } from './wpx-layout.activated';
 import { WpxLayoutComponent } from './wpx-layout.component';
 import { WpxLayoutService } from './wpx-layout.service';
 import { WpxAutoOpenPipe } from './wpx-nav/wpx-auto-open.pipe';
@@ -60,7 +61,7 @@ export class WpxLayoutModule {
   static forRoot(): ModuleWithProviders<WpxLayoutModule> {
     return {
       ngModule: WpxLayoutModule,
-      providers: [WpxLayoutService, WpxPagesService]
+      providers: [WpxLayoutService, WpxLayoutActivated, WpxPagesService]
     };
   }
 }
