@@ -12,9 +12,6 @@ import { WpxPageSerivce } from './wpx-page.serivce';
 export class WpxPageComponent implements OnInit {
   name = '';
   nodes: NzTreeNodeOptions[] = [];
-  tabIndex = 0;
-  schema: any[] = [{ type: 'string', field: 'name' }];
-  data?: Record<string, any>;
 
   constructor(private page: WpxPageSerivce) {}
 
@@ -55,15 +52,7 @@ export class WpxPageComponent implements OnInit {
     });
   }
 
-  fetch(e: NzFormatEmitEvent) {
-    if (e.keys?.length !== 0) {
-      this.data = e.node?.origin.originData;
-      this.tabIndex = 1;
-    } else {
-      this.data = undefined;
-      this.tabIndex = 0;
-    }
-  }
+  fetch(e: NzFormatEmitEvent) {}
 
   setExpanded(nodes: NzTreeNode[], value: boolean): void {
     for (const node of nodes) {
