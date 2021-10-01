@@ -16,6 +16,7 @@ import { WpxLayoutTagsDirective } from './wpx-layout-tags.directive';
 import { WpxLayoutComponent } from './wpx-layout.component';
 import { WpxLayoutService } from './wpx-layout.service';
 import { WpxAutoOpenPipe } from './wpx-nav/wpx-auto-open.pipe';
+import { WpxAutoRouterPipe } from './wpx-nav/wpx-auto-router.pipe';
 import { WpxNavComponent } from './wpx-nav/wpx-nav.component';
 import { WpxPageHeaderComponent } from './wpx-page-header/wpx-page-header.component';
 import { WpxPagesComponent } from './wpx-pages/wpx-pages.component';
@@ -41,6 +42,7 @@ import { WpxPagesService } from './wpx-pages/wpx-pages.service';
     WpxNavComponent,
     WpxPageHeaderComponent,
     WpxAutoOpenPipe,
+    WpxAutoRouterPipe,
     WpxPagesComponent
   ],
   exports: [

@@ -7,7 +7,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule, Routes } from '@angular/router';
 import { ServiceWorkerModule } from '@angular/service-worker';
 
-import { AppDynamic } from '@common/app.dynamic';
 import { AppGuard } from '@common/app.guard';
 import { AppInterceptors } from '@common/app.interceptors';
 import { AppService } from '@common/app.service';
@@ -59,7 +58,6 @@ const ngZorroConfig: NzConfig = {
   ],
   providers: [
     AppGuard,
-    AppDynamic,
     AppService,
     { provide: HTTP_INTERCEPTORS, useClass: AppInterceptors, multi: true },
     { provide: NZ_I18N, useValue: zh_CN },

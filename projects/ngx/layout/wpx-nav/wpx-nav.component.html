@@ -1,12 +1,12 @@
 <ul nz-menu nzMode="inline">
   <ng-container
-    *ngTemplateOutlet="navTemplate; context: { $implicit: (wpxLayout.pages | async)?.nodes }"
+    *ngTemplateOutlet="navTemplate; context: { $implicit: (wpxLayout.pages | async)!.nodes }"
   ></ng-container>
   <ng-template #navTemplate let-nodes>
     <ng-container *ngFor="let node of nodes | wpxSort: 'sort'">
       <ng-container *ngIf="node.nav">
         <ng-container *ngIf="!(node.router | wpxEmpty); else not">
-          <li nz-menu-item nzMatchRouter [nzPaddingLeft]="node.level * 16" [routerLink]="node.fragments">
+          <li nz-menu-item nzMatchRouter [nzPaddingLeft]="node.level * 16" [routerLink]="node | wpxAutoRouter">
             <i *ngIf="!!node.icon" nz-icon [nzType]="node.icon"></i>
             <span>{{ node.name }}</span>
           </li>

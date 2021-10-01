@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { BehaviorSubject, Subject } from 'rxjs';
+import { AsyncSubject, BehaviorSubject, Subject } from 'rxjs';
 
 import { WpxLayout, WpxPageNode, WpxPageNodes } from './types';
 

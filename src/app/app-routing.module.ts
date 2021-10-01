@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { AppDynamic } from '@common/app.dynamic';
 import { AppShareModule } from '@share';
 import { WpxPagesComponent } from '@weplanx/ngx/layout';
 
@@ -25,13 +24,12 @@ const routes: Routes = [
         path: 'settings',
         loadChildren: () => import('./settings/settings.module').then(m => m.SettingsModule)
       },
-      { path: 'empty', loadChildren: () => import('./empty/empty.module').then(m => m.EmptyModule) },
-      { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
       {
-        path: '**',
-        component: WpxPagesComponent,
-        canActivate: [AppDynamic]
-      }
+        path: ':pages',
+        component: WpxPagesComponent
+      },
+      { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
+      { path: '**', loadChildren: () => import('./empty/empty.module').then(m => m.EmptyModule) }
     ]
   }
 ];
