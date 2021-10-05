@@ -10,6 +10,7 @@ import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzSpaceModule } from 'ng-zorro-antd/space';
 import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
 import { NzTreeModule } from 'ng-zorro-antd/tree';
+import { NzTreeViewModule } from 'ng-zorro-antd/tree-view';
 
 import { WpxPageComponent } from './wpx-page/wpx-page.component';
 import { WpxPageSerivce } from './wpx-page/wpx-page.serivce';
@@ -29,7 +30,8 @@ import { WpxTemplateService } from './wpx-template/wpx-template.service';
     NzInputModule,
     NzToolTipModule,
     FormsModule,
-    NzTreeModule
+    NzTreeModule,
+    NzTreeViewModule
   ],
   declarations: [WpxSchemaComponent, WpxPageComponent, WpxTemplateComponent],
   exports: [WpxSchemaComponent, WpxPageComponent, WpxTemplateComponent],
