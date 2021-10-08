@@ -2,14 +2,17 @@
   <button *wpxLayoutAction nz-button nzType="primary" nzShape="circle">
     <i nz-icon nzType="plus"></i>
   </button>
+  <button *wpxLayoutAction nz-button nzType="primary" nzShape="circle">
+    <i nz-icon nzType="sync"></i>
+  </button>
 </wpx-layout>
 
-<nz-row [nzGutter]="12">
-  <nz-col nzFlex="360px">
-    <nz-card>
+<nz-card>
+  <nz-row [nzGutter]="12">
+    <nz-col nzFlex="300px">
       <nz-space style="margin-bottom: 12px">
         <nz-input-group *nzSpaceItem nzSuffixIcon="search">
-          <input type="text" nz-input placeholder="搜索资源名称" [(ngModel)]="name" />
+          <input type="text" nz-input placeholder="搜索" [(ngModel)]="name" />
         </nz-input-group>
         <nz-button-group *nzSpaceItem>
           <button nz-button nz-tooltip="全部收起" (click)="setExpanded(tree.getTreeNodes(), false)">
@@ -25,12 +28,93 @@
         nzBlockNode
         nzShowLine
         nzShowIcon
-        nzDraggable
+        nzExpandAll
         [nzData]="nodes"
         [nzSearchValue]="name"
+        [nzExpandedIcon]="multiExpandedIconTpl"
         (nzClick)="fetch($event)"
-      ></nz-tree>
-    </nz-card>
-  </nz-col>
-  <nz-col nzFlex="auto"> </nz-col>
-</nz-row>
+        (nzContextMenu)="actions($event, actionsMenu)"
+      >
+        <ng-template #multiExpandedIconTpl let-node let-origin="origin">
+          <i
+            *ngIf="!origin.isLeaf"
+            nz-icon
+            [nzType]="node.isExpanded ? 'folder-open' : 'folder'"
+            class="ant-tree-switcher-line-icon"
+          ></i>
+          <i *ngIf="origin.isLeaf" nz-icon nzType="file" class="ant-tree-switcher-line-icon"></i>
+        </ng-template>
+        <nz-dropdown-menu #actionsMenu="nzDropdownMenu">
+          <ul nz-menu>
+            <li nz-menu-item><i nz-icon nzType="edit"></i>&nbsp;编辑</li>
+            <li nz-menu-item><i nz-icon nzType="delete"></i>&nbsp;作废</li>
+          </ul>
+        </nz-dropdown-menu>
+      </nz-tree>
+    </nz-col>
+    <nz-col nzFlex="auto">
+      <nz-table
+        *ngIf="fields.length !== 0"
+        #fieldsTable
+        nzSize="default"
+        [nzData]="fields"
+        [nzFrontPagination]="false"
+        [nzShowPagination]="false"
+      >
+        <thead>
+          <tr>
+            <th nzWidth="65px"></th>
+            <th nzWidth="200px"><b>字段名称</b></th>
+            <th nzWidth="200px"><b>显示名称</b></th>
+            <th><b>描述</b></th>
+            <th nzWidth="120px" nzRight="0px"><b>操作</b></th>
+          </tr>
+        </thead>
+        <tbody cdkDropList (cdkDropListDropped)="sort($event)">
+          <tr *ngFor="let data of fieldsTable.data" cdkDrag>
+            <td>
+              <button nz-button nzType="dashed" nzShape="circle" cdkDragHandle>
+                <i nz-icon nzType="drag"></i>
+              </button>
+            </td>
+            <td>
+              <nz-tag nzColor="blue">{{ data.type }}</nz-tag>
+              {{ data.name }}
+            </td>
+            <td>{{ data.label }}</td>
+            <td>
+              <ng-container *ngIf="data.unique">
+                <nz-tag>唯一的</nz-tag>
+              </ng-container>
+              <ng-container *ngIf="data.required">
+                <nz-tag>必须的</nz-tag>
+              </ng-container>
+              <ng-container *ngIf="data.private">
+                <nz-tag>私属字段</nz-tag>
+              </ng-container>
+              <ng-container *ngIf="!!data.reference.mode">
+                <nz-tag>
+                  <ng-container [ngSwitch]="data.reference.mode">
+                    <span *ngSwitchCase="'manual'"> 自定义引用</span>
+                    <span *ngSwitchCase="'one'"> 单引用</span>
+                    <span *ngSwitchCase="'many'"> 多引用</span>
+                  </ng-container>
+                  <span>=>{{ data.reference.target }}</span>
+                  <span *ngIf="data.reference.to">.{{ data.reference.to }} </span>
+                </nz-tag>
+              </ng-container>
+              <ng-container *ngIf="data.default">
+                <nz-tag>默认值:{{ data.default }}</nz-tag>
+              </ng-container>
+            </td>
+            <td>
+              <button nz-button nzType="text">
+                <i nz-icon nzType="ellipsis"></i>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </nz-table>
+    </nz-col>
+  </nz-row>
+</nz-card>
