@@ -36,12 +36,11 @@ export class WpxSchemaComponent implements OnInit {
       for (const x of data) {
         if (models.hasOwnProperty(x.kind)) {
           models[x.kind].children?.push({
-            title: x.model,
-            key: x.model
+            title: x.name,
+            key: x.collection
           });
         }
       }
-      console.log(data);
       this.nodes = [...Object.values(models)];
     });
   }

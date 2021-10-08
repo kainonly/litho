@@ -66,9 +66,9 @@ export class AppService {
         const dict: Record<string, WpxPageNode> = {};
         const nodes: WpxPageNode[] = [];
         for (const x of result.data) {
-          map[x.id] = x;
+          map[x._id] = x;
           x.children = [];
-          if (x.parent === 0) {
+          if (x.parent === 'root') {
             x.fragments = [x.fragment];
             nodes.push(x);
           } else {

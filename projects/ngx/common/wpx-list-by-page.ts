@@ -2,7 +2,7 @@ import { AsyncSubject, Observable } from 'rxjs';
 
 import { StorageMap } from '@ngx-pwa/local-storage';
 
-import { ListsOption, SearchOption, OrderOption } from '../types';
+import { ListsOption } from '../types';
 
 export class WpxListByPage {
   /**
@@ -13,17 +13,17 @@ export class WpxListByPage {
   /**
    * 搜索字段定义
    */
-  search: Record<string, SearchOption> = {};
+  search: Record<string, any> = {};
 
   /**
    * 排序字段定义
    */
-  order: OrderOption;
+  sort: Record<string, number>;
 
   /**
    * 分页数据
    */
-  data: Array<Record<string, any>> = [];
+  data: any[] = [];
 
   /**
    * 加载状态
@@ -67,14 +67,12 @@ export class WpxListByPage {
 
   constructor(private storage: StorageMap, private option: ListsOption) {
     this.limit = option.limit!;
-    this.order = option.order!;
+    this.sort = option.sort!;
     this.storage.get(`search:${option.id}`).subscribe(search => {
       if (!search) {
-        for (const value of option.query) {
-          this.search[value.field] = value;
-        }
+        this.search = { ...option.where };
       } else {
-        this.search = search as { [field: string]: SearchOption };
+        this.search = search as Record<string, any>;
       }
       this.ready.next(undefined);
       this.ready.complete();
@@ -158,12 +156,5 @@ export class WpxListByPage {
    */
   persistence(): void {
     this.storage.set(`page:${this.option.id}`, this.index).subscribe(() => {});
-  }
-
-  /**
-   * 返回查询定义数组
-   */
-  toQuery(): SearchOption[] {
-    return Object.values(this.search);
   }
 }

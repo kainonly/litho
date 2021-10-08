@@ -2,8 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
 
-import { ApiOption, OrderOption, SearchOption } from '../types';
-import { getQuerySchema } from './util';
+import { ApiOption } from '../types';
 import { WpxListByPage } from './wpx-list-by-page';
 
 export class WpxApi {
@@ -19,52 +18,52 @@ export class WpxApi {
   /**
    * 获取单条数据请求
    */
-  findOne(condition: SearchOption[], order?: OrderOption): Observable<Record<string, any> | null> {
+  findOne(where: Record<string, any>, sort?: Record<string, number>): Observable<Record<string, any> | null> {
     return this.send('/find_one', {
-      where: getQuerySchema(condition),
-      order
+      where,
+      sort
     }).pipe(map(v => (!v.error ? v.data : null)));
   }
 
   /**
    * 获取原始列表数据请求
    */
-  find(condition: SearchOption[] = [], order?: OrderOption): Observable<Array<Record<string, any>>> {
+  find(where?: Record<string, any>, sort?: Record<string, number>): Observable<Array<Record<string, any>>> {
     return this.send('/find', {
-      where: getQuerySchema(condition),
-      order
+      where,
+      sort
     }).pipe(map(v => (!v.error ? v.data : [])));
   }
 
   /**
    * 获取分页数据请求
    */
-  findByPage(data: WpxListByPage, refresh: boolean, persistence: boolean): Observable<Record<string, any> | null> {
+  findByPage(list: WpxListByPage, refresh: boolean, persistence: boolean): Observable<Record<string, any> | null> {
     if (refresh || persistence) {
       if (refresh) {
-        data.index = 1;
+        list.index = 1;
       }
-      data.persistence();
+      list.persistence();
     }
-    return data.getPage().pipe(
+    return list.getPage().pipe(
       switchMap(index => {
-        data.index = index ?? 1;
+        list.index = index ?? 1;
         return this.send('/find_by_page', {
           page: {
-            limit: data.limit,
-            index: data.index
+            limit: list.limit,
+            index: list.index
           },
-          where: getQuerySchema(data.toQuery()),
-          order: data.order
+          where: list.search,
+          order: list.sort
         });
       }),
       map(v => {
-        data.totals = !v.error ? v.data.total : 0;
-        data.loading = false;
-        data.checked = false;
-        data.indeterminate = false;
-        data.batch = false;
-        data.checkedNumber = 0;
+        list.totals = !v.error ? v.data.total : 0;
+        list.loading = false;
+        list.checked = false;
+        list.indeterminate = false;
+        list.batch = false;
+        list.checkedNumber = 0;
         return !v.error ? v.data.lists : null;
       })
     );
@@ -73,28 +72,28 @@ export class WpxApi {
   /**
    * 新增数据请求
    */
-  create(data: Record<string, any>): Observable<any> {
-    return this.send('/create', {
-      data
-    });
+  create(body: Record<string, any>): Observable<any> {
+    return this.send('/create', body);
   }
 
   /**
    * 修改数据请求
    */
-  update(condition: SearchOption[], data: Record<string, any>): Observable<any> {
+  update(where: Record<string, any>, data: Record<string, any>): Observable<any> {
     return this.send('/update', {
-      where: getQuerySchema(condition),
-      data
+      where,
+      update: {
+        $set: data
+      }
     });
   }
 
   /**
    * 删除数据请求
    */
-  delete(condition: SearchOption[]): Observable<any> {
+  delete(where: Record<string, any>): Observable<any> {
     return this.send('/delete', {
-      where: getQuerySchema(condition)
+      where
     });
   }
 }
