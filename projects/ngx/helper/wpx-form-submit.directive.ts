@@ -7,14 +7,14 @@ import { updateFormGroup } from '@weplanx/ngx';
   selector: 'form[wpxFormSubmit]'
 })
 export class WpxFormSubmitDirective implements OnInit {
-  @Output() readonly bitFormSubmit: EventEmitter<Record<string, any>> = new EventEmitter<Record<string, any>>();
+  @Output() readonly wpxFormSubmit: EventEmitter<Record<string, any>> = new EventEmitter<Record<string, any>>();
 
   constructor(private formGroup: FormGroupDirective) {}
 
   ngOnInit(): void {
     this.formGroup.ngSubmit.subscribe(() => {
       updateFormGroup(Object.values(this.formGroup.control.controls));
-      this.bitFormSubmit.emit(this.formGroup.value);
+      this.wpxFormSubmit.emit(this.formGroup.value);
     });
   }
 }

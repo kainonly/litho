@@ -1,11 +1,63 @@
 <wpx-layout>
-  <button *wpxLayoutAction nz-button nzType="primary" nzShape="circle">
+  <button *wpxLayoutAction nz-button nzType="primary" nzShape="circle" nz-tooltip="新增" (click)="openForm()">
     <i nz-icon nzType="plus"></i>
   </button>
-  <button *wpxLayoutAction nz-button nzType="primary" nzShape="circle">
-    <i nz-icon nzType="sync"></i>
+  <button *wpxLayoutAction nz-button nzType="primary" nzShape="circle" nz-tooltip="发布">
+    <i nz-icon nzType="cloud-upload"></i>
   </button>
 </wpx-layout>
+
+<nz-modal [(nzVisible)]="formVisible" [nzTitle]="formTitle" [nzFooter]="formFooter" (nzOnCancel)="cancelForm()">
+  <ng-template #formTitle>创建一个新的集合</ng-template>
+  <ng-container *nzModalContent>
+    <form *ngIf="form" nz-form nzLayout="vertical" id="schema" [formGroup]="form" (wpxFormSubmit)="submit($event)">
+      <nz-form-item>
+        <nz-form-label nzRequired>集合名称</nz-form-label>
+        <nz-form-control
+          style="width: 320px"
+          nzHasFeedback
+          [nzAutoTips]="{
+            default: {
+              required: '集合名称是必填项',
+              pattern: '仅允许小写字母与下划线组合',
+              duplicated: '集合名称已存在'
+            }
+          }"
+        >
+          <input nz-input type="text" formControlName="collection" placeholder="数据库实体集合名称" />
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label nzRequired>显示名称</nz-form-label>
+        <nz-form-control
+          style="width: 320px"
+          nzHasFeedback
+          [nzAutoTips]="{
+            default: {
+              required: '显示名称是必填项'
+            }
+          }"
+        >
+          <input nz-input type="text" formControlName="name" />
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label nzRequired>内容类型</nz-form-label>
+        <nz-form-control>
+          <nz-radio-group formControlName="kind">
+            <label nz-radio-button nzValue="collection">集合类型</label>
+            <label nz-radio-button nzValue="single">单一类型</label>
+            <label nz-radio-button nzValue="manual">自定义类型</label>
+          </nz-radio-group>
+        </nz-form-control>
+      </nz-form-item>
+    </form>
+  </ng-container>
+  <ng-template #formFooter>
+    <button nz-button nzType="default" (click)="cancelForm()">取消</button>
+    <button nz-button nzType="primary" form="schema" [disabled]="!form?.valid">提交</button>
+  </ng-template>
+</nz-modal>
 
 <nz-card>
   <nz-row [nzGutter]="12">
@@ -46,75 +98,103 @@
         </ng-template>
         <nz-dropdown-menu #actionsMenu="nzDropdownMenu">
           <ul nz-menu>
-            <li nz-menu-item><i nz-icon nzType="edit"></i>&nbsp;编辑</li>
-            <li nz-menu-item><i nz-icon nzType="delete"></i>&nbsp;作废</li>
+            <li nz-menu-item>{{ node?.title }}</li>
+            <li nz-menu-divider></li>
+            <li nz-menu-item> <i nz-icon nzType="edit"></i>&nbsp;编辑 </li>
+            <li nz-menu-item nzDanger (click)="delete()"> <i nz-icon nzType="delete"></i>&nbsp;作废 </li>
           </ul>
         </nz-dropdown-menu>
       </nz-tree>
     </nz-col>
     <nz-col nzFlex="auto">
-      <nz-table
-        *ngIf="fields.length !== 0"
-        #fieldsTable
-        nzSize="default"
-        [nzData]="fields"
-        [nzFrontPagination]="false"
-        [nzShowPagination]="false"
-      >
-        <thead>
-          <tr>
-            <th nzWidth="65px"></th>
-            <th nzWidth="200px"><b>字段名称</b></th>
-            <th nzWidth="200px"><b>显示名称</b></th>
-            <th><b>描述</b></th>
-            <th nzWidth="120px" nzRight="0px"><b>操作</b></th>
-          </tr>
-        </thead>
-        <tbody cdkDropList (cdkDropListDropped)="sort($event)">
-          <tr *ngFor="let data of fieldsTable.data" cdkDrag>
-            <td>
-              <button nz-button nzType="dashed" nzShape="circle" cdkDragHandle>
-                <i nz-icon nzType="drag"></i>
-              </button>
-            </td>
-            <td>
-              <nz-tag nzColor="blue">{{ data.type }}</nz-tag>
-              {{ data.name }}
-            </td>
-            <td>{{ data.label }}</td>
-            <td>
-              <ng-container *ngIf="data.unique">
-                <nz-tag>唯一的</nz-tag>
-              </ng-container>
-              <ng-container *ngIf="data.required">
-                <nz-tag>必须的</nz-tag>
-              </ng-container>
-              <ng-container *ngIf="data.private">
-                <nz-tag>私属字段</nz-tag>
-              </ng-container>
-              <ng-container *ngIf="!!data.reference.mode">
-                <nz-tag>
-                  <ng-container [ngSwitch]="data.reference.mode">
-                    <span *ngSwitchCase="'manual'"> 自定义引用</span>
-                    <span *ngSwitchCase="'one'"> 单引用</span>
-                    <span *ngSwitchCase="'many'"> 多引用</span>
-                  </ng-container>
-                  <span>=>{{ data.reference.target }}</span>
-                  <span *ngIf="data.reference.to">.{{ data.reference.to }} </span>
-                </nz-tag>
-              </ng-container>
-              <ng-container *ngIf="data.default">
-                <nz-tag>默认值:{{ data.default }}</nz-tag>
-              </ng-container>
-            </td>
-            <td>
-              <button nz-button nzType="text">
-                <i nz-icon nzType="ellipsis"></i>
-              </button>
-            </td>
-          </tr>
-        </tbody>
-      </nz-table>
+      <ng-container *ngIf="fields.length === 0; else notEmpty">
+        <nz-result>
+          <div nz-result-content>
+            <h5 nz-typography style="padding-bottom: 1em">[模式管理] 为项目提供快速统一的内容生成功能：</h5>
+            <p nz-paragraph>
+              <i nz-icon nzType="bulb" nzTheme="twotone"></i>
+              主要包含三类：集合类型、单一类型、自定义类型，基本概念可参考指南...
+            </p>
+            <p nz-paragraph>
+              <i nz-icon nzType="bulb" nzTheme="twotone"></i>
+              在树视图中使用 🖱 选中节点获取详情，也可以 <code>右键</code> 获取更多操作，
+              <code><i nz-icon nzType="lock"></i></code>
+              代表属于系统组件
+            </p>
+            <p nz-paragraph>
+              <i nz-icon nzType="bulb" nzTheme="twotone"></i>
+              执行操作 <code><i nz-icon nzType="sync"></i></code> 当前开发模式配置将发布至生成环境
+            </p>
+          </div>
+        </nz-result>
+      </ng-container>
+      <ng-template #notEmpty>
+        <ng-template #fieldsTitle>
+          <button nzBlock nz-button nzType="link"> <i nz-icon nzType="plus"></i> 新增一个字段到该集合类型 </button>
+        </ng-template>
+        <nz-table
+          #fieldsTable
+          nzSize="default"
+          [nzFooter]="fieldsTitle"
+          [nzData]="fields"
+          [nzFrontPagination]="false"
+          [nzShowPagination]="false"
+        >
+          <thead>
+            <tr>
+              <th nzWidth="65px"> </th>
+              <th nzWidth="200px"><b>字段名称</b></th>
+              <th nzWidth="200px"><b>显示名称</b></th>
+              <th><b>描述</b></th>
+              <th nzWidth="120px" nzRight="0px"><b>操作</b></th>
+            </tr>
+          </thead>
+          <tbody cdkDropList (cdkDropListDropped)="sort($event)">
+            <tr *ngFor="let data of fieldsTable.data" cdkDrag>
+              <td>
+                <button nz-button nzType="dashed" nzShape="circle" cdkDragHandle>
+                  <i nz-icon nzType="drag"></i>
+                </button>
+              </td>
+              <td>
+                <nz-tag nzColor="blue">{{ data.type }}</nz-tag>
+                {{ data.name }}
+              </td>
+              <td>{{ data.label }}</td>
+              <td>
+                <ng-container *ngIf="data.unique">
+                  <nz-tag>唯一的</nz-tag>
+                </ng-container>
+                <ng-container *ngIf="data.required">
+                  <nz-tag>必须的</nz-tag>
+                </ng-container>
+                <ng-container *ngIf="data.private">
+                  <nz-tag>私属字段</nz-tag>
+                </ng-container>
+                <ng-container *ngIf="!!data.reference.mode">
+                  <nz-tag>
+                    <ng-container [ngSwitch]="data.reference.mode">
+                      <span *ngSwitchCase="'manual'"> 自定义引用</span>
+                      <span *ngSwitchCase="'one'"> 单引用</span>
+                      <span *ngSwitchCase="'many'"> 多引用</span>
+                    </ng-container>
+                    <span>=>{{ data.reference.target }}</span>
+                    <span *ngIf="data.reference.to">.{{ data.reference.to }} </span>
+                  </nz-tag>
+                </ng-container>
+                <ng-container *ngIf="data.default">
+                  <nz-tag>默认值:{{ data.default }}</nz-tag>
+                </ng-container>
+              </td>
+              <td>
+                <button nz-button nzType="text">
+                  <i nz-icon nzType="ellipsis"></i>
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </nz-table>
+      </ng-template>
     </nz-col>
   </nz-row>
 </nz-card>
