@@ -1,5 +1,5 @@
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
-import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { asyncValidator } from '@weplanx/ngx';
@@ -21,13 +21,16 @@ export class WpxSchemaComponent implements OnInit {
   nodes: NzTreeNodeOptions[] = [];
   actionNode?: NzTreeNodeOptions;
 
-  @ViewChild('createSchemaContent') createSchemaContent!: TemplateRef<any>;
-  form?: FormGroup;
-  formVisible = false;
-  editable?: Record<string, any>;
+  schemaForm?: FormGroup;
+  schemaFormVisible = false;
+  schemaEditable?: Record<string, any>;
 
   data?: Record<string, any>;
   fields: Field[] = [];
+
+  fieldForm?: FormGroup;
+  fieldFormVisible = false;
+  fieldEditable?: Record<string, any>;
 
   constructor(
     private schema: WpxSchemaService,
@@ -81,45 +84,57 @@ export class WpxSchemaComponent implements OnInit {
     });
   }
 
-  openForm(data?: Record<string, any>): void {
-    this.form = this.fb.group({
+  setExpanded(nodes: NzTreeNode[], value: boolean): void {
+    for (const node of nodes) {
+      node.isExpanded = value;
+      if (node.children.length !== 0) {
+        this.setExpanded(node.children, value);
+      }
+    }
+  }
+
+  openSchemaForm(data?: Record<string, any>): void {
+    if (data && data.system) {
+      return;
+    }
+    this.schemaForm = this.fb.group({
       collection: [null, [Validators.required, Validators.pattern(/^[a-z_]+$/)], [this.existsCollection]],
       name: [null, [Validators.required]],
       kind: ['collection', [Validators.required]]
     });
-    this.formVisible = true;
+    this.schemaFormVisible = true;
     if (data) {
-      this.editable = data;
-      this.form.patchValue(data);
-      this.form.get('collection')?.disable();
+      this.schemaEditable = data;
+      this.schemaForm.patchValue(data);
+      this.schemaForm.get('collection')?.disable();
     }
   }
 
   existsCollection = (control: AbstractControl) => asyncValidator(this.schema.existsCollection(control.value));
 
-  closeForm(): void {
-    this.form = undefined;
-    this.formVisible = false;
-    this.editable = undefined;
+  closeSchemaForm(): void {
+    this.schemaForm = undefined;
+    this.schemaFormVisible = false;
+    this.schemaEditable = undefined;
   }
 
-  submit(data: any): void {
-    if (!this.editable) {
+  submitSchema(data: any): void {
+    if (!this.schemaEditable) {
       this.schema.api.create(data).subscribe(v => {
         if (v.code === 0) {
           this.notification.success('操作成功', '内容类型创建完成');
           this.getData();
-          this.closeForm();
+          this.closeSchemaForm();
         } else {
           this.notification.error('操作失败', v.message);
         }
       });
     } else {
-      this.schema.api.update({ _id: this.editable._id }, data).subscribe(v => {
+      this.schema.api.update({ _id: this.schemaEditable._id }, data).subscribe(v => {
         if (v.code === 0) {
           this.notification.success('操作成功', '内容类型更新完成');
           this.getData();
-          this.closeForm();
+          this.closeSchemaForm();
         } else {
           this.notification.error('操作失败', v.message);
         }
@@ -135,15 +150,19 @@ export class WpxSchemaComponent implements OnInit {
     this.nzContextMenuService.create($event.event as MouseEvent, menu);
   }
 
-  delete(): void {
+  delete(data: any): void {
+    if (data.system) {
+      return;
+    }
     this.modal.confirm({
       nzTitle: '您确定要作废该内容类型吗?',
       nzContent: '该操作不会真实删除数据库集合，如必须删除需要通过数据库控制完成',
       nzOkText: '是的',
       nzOkType: 'primary',
       nzOkDanger: true,
+      nzMaskClosable: true,
       nzOnOk: () => {
-        this.schema.api.delete({ _id: this.actionNode?.origin.data._id }).subscribe(v => {
+        this.schema.api.delete({ _id: data._id }).subscribe(v => {
           if (v.code === 0) {
             this.notification.success('操作成功', '表单数据已提交完成');
             this.getData();
@@ -166,14 +185,42 @@ export class WpxSchemaComponent implements OnInit {
 
   sort(event: CdkDragDrop<string[]>): void {
     moveItemInArray(this.fields, event.previousIndex, event.currentIndex);
+    this.fields = [...this.fields];
+    this.schema.sort(this.data?._id, this.fields).subscribe(v => {
+      if (v.code === 0) {
+        this.notification.success('操作成功', '字段排序刷新成功');
+        this.getData();
+      } else {
+        this.notification.error('操作失败', v.message);
+      }
+    });
   }
 
-  setExpanded(nodes: NzTreeNode[], value: boolean): void {
-    for (const node of nodes) {
-      node.isExpanded = value;
-      if (node.children.length !== 0) {
-        this.setExpanded(node.children, value);
-      }
-    }
+  openFieldForm(value?: Field): void {
+    this.fieldForm = this.fb.group({
+      name: [null, [Validators.required]],
+      label: [null, [Validators.required]],
+      type: [null, [Validators.required]],
+      default: [null],
+      unique: [false],
+      required: [false],
+      private: [false],
+      reference: this.fb.group({
+        mode: [null],
+        target: [null],
+        to: [null]
+      })
+    });
+    this.fieldFormVisible = true;
+  }
+
+  closeFieldForm(): void {
+    this.fieldForm = undefined;
+    this.fieldFormVisible = false;
+    this.fieldEditable = undefined;
+  }
+
+  submitField(data: any): void {
+    console.log(data);
   }
 }

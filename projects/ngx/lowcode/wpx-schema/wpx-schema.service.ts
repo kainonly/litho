@@ -12,6 +12,10 @@ export class WpxSchemaService {
     this.api = wpx.createApi('schema');
   }
 
+  sort(id: string, fields: any): Observable<any> {
+    return this.api.send('/sort', { id, fields });
+  }
+
   existsCollection(name: string): Observable<any> {
     return this.api.send('/exists_collection', { name }).pipe(
       map(v => {

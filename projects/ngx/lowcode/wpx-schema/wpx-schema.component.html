@@ -1,5 +1,5 @@
 <wpx-layout>
-  <button *wpxLayoutAction nz-button nzType="primary" nzShape="circle" nz-tooltip="新增" (click)="openForm()">
+  <button *wpxLayoutAction nz-button nzType="primary" nzShape="circle" nz-tooltip="新增" (click)="openSchemaForm()">
     <i nz-icon nzType="plus"></i>
   </button>
   <button *wpxLayoutAction nz-button nzType="primary" nzShape="circle" nz-tooltip="发布">
@@ -7,13 +7,25 @@
   </button>
 </wpx-layout>
 
-<nz-modal [(nzVisible)]="formVisible" [nzTitle]="formTitle" [nzFooter]="formFooter" (nzOnCancel)="closeForm()">
-  <ng-template #formTitle>
-    <ng-container *ngIf="!editable; else updateTitle"> 创建一个新的内容类型 </ng-container>
-    <ng-template #updateTitle> 更新内容类型 </ng-template>
+<nz-modal
+  [(nzVisible)]="schemaFormVisible"
+  [nzTitle]="schemaFormTitle"
+  [nzFooter]="schemaFormFooter"
+  (nzOnCancel)="closeSchemaForm()"
+>
+  <ng-template #schemaFormTitle>
+    <ng-container *ngIf="!schemaEditable; else editableTitle"> 创建一个新的内容类型 </ng-container>
+    <ng-template #editableTitle> 更新内容类型 </ng-template>
   </ng-template>
   <ng-container *nzModalContent>
-    <form *ngIf="form" nz-form nzLayout="vertical" id="schema" [formGroup]="form" (wpxFormSubmit)="submit($event)">
+    <form
+      *ngIf="schemaForm"
+      nz-form
+      nzLayout="vertical"
+      id="schema"
+      [formGroup]="schemaForm"
+      (wpxFormSubmit)="submitSchema($event)"
+    >
       <nz-form-item>
         <nz-form-label nzRequired>集合命名</nz-form-label>
         <nz-form-control
@@ -56,9 +68,9 @@
       </nz-form-item>
     </form>
   </ng-container>
-  <ng-template #formFooter>
-    <button nz-button nzType="default" (click)="closeForm()">取消</button>
-    <button nz-button nzType="primary" form="schema" [disabled]="!form?.valid">提交</button>
+  <ng-template #schemaFormFooter>
+    <button nz-button nzType="default" (click)="closeSchemaForm()">取消</button>
+    <button nz-button nzType="primary" form="schema" [disabled]="!schemaForm?.valid">提交</button>
   </ng-template>
 </nz-modal>
 
@@ -88,7 +100,7 @@
         [nzSearchValue]="name"
         [nzExpandedIcon]="multiExpandedIconTpl"
         (nzClick)="fetch($event)"
-        (nzContextMenu)="actions($event, actionsMenu)"
+        (nzContextMenu)="actions($event, treeActions)"
       >
         <ng-template #multiExpandedIconTpl let-node let-origin="origin">
           <i
@@ -99,12 +111,18 @@
           ></i>
           <i *ngIf="origin.isLeaf" nz-icon nzType="file" class="ant-tree-switcher-line-icon"></i>
         </ng-template>
-        <nz-dropdown-menu #actionsMenu="nzDropdownMenu">
+        <nz-dropdown-menu #treeActions="nzDropdownMenu">
           <ul nz-menu>
             <li nz-menu-item>{{ actionNode?.title }}</li>
             <li nz-menu-divider></li>
-            <li nz-menu-item (click)="openForm(actionNode?.origin.data)"> <i nz-icon nzType="edit"></i>&nbsp;编辑 </li>
-            <li nz-menu-item nzDanger (click)="delete()"> <i nz-icon nzType="delete"></i>&nbsp;作废 </li>
+            <ng-container *ngIf="actionNode?.origin.data as x">
+              <li nz-menu-item [nzDisabled]="!!x.system" (click)="openSchemaForm(x)">
+                <i nz-icon nzType="edit"></i>&nbsp;编辑
+              </li>
+              <li nz-menu-item [nzDisabled]="!!x.system" nzDanger (click)="delete(x)">
+                <i nz-icon nzType="delete"></i>&nbsp;删除
+              </li>
+            </ng-container>
           </ul>
         </nz-dropdown-menu>
       </nz-tree>
@@ -136,7 +154,9 @@
       <ng-template #manager>
         <ng-container *ngIf="data?.kind !== 'manual'; else manual">
           <ng-template #fieldsTitle>
-            <button nzBlock nz-button nzType="link"> <i nz-icon nzType="plus"></i> 新增一个字段到该集合类型 </button>
+            <button nzBlock nz-button nzType="link" (click)="openFieldForm()">
+              <i nz-icon nzType="plus"></i> 创建一个字段到该内容类型
+            </button>
           </ng-template>
           <nz-table
             #fieldsTable
@@ -164,6 +184,9 @@
                 </td>
                 <td>
                   <nz-tag nzColor="blue">{{ data.type }}</nz-tag>
+                  <ng-container *ngIf="data.system">
+                    <i nz-icon nzType="lock"></i>
+                  </ng-container>
                   {{ data.name }}
                 </td>
                 <td>{{ data.label }}</td>
@@ -193,9 +216,17 @@
                   </ng-container>
                 </td>
                 <td>
-                  <button nz-button nzType="text">
-                    <i nz-icon nzType="ellipsis"></i>
-                  </button>
+                  <ng-container *ngIf="!data.system">
+                    <button nz-button nzType="text" nz-dropdown [nzDropdownMenu]="actions">
+                      <i nz-icon nzType="ellipsis"></i>
+                    </button>
+                    <nz-dropdown-menu #actions="nzDropdownMenu">
+                      <ul nz-menu>
+                        <li nz-menu-item> <i nz-icon nzType="edit"></i>&nbsp;编辑 </li>
+                        <li nz-menu-item> <i nz-icon nzType="delete"></i>&nbsp;删除 </li>
+                      </ul>
+                    </nz-dropdown-menu>
+                  </ng-container>
                 </td>
               </tr>
             </tbody>
@@ -206,3 +237,67 @@
     </nz-col>
   </nz-row>
 </nz-card>
+
+<nz-modal
+  [(nzVisible)]="fieldFormVisible"
+  [nzTitle]="fieldFormTitle"
+  [nzFooter]="fieldFormFooter"
+  (nzOnCancel)="closeFieldForm()"
+>
+  <ng-template #fieldFormTitle>
+    <ng-container *ngIf="!fieldEditable; else editableTitle"> 创建一个字段到该内容类型 </ng-container>
+    <ng-template #editableTitle> 更新内容类型字段 </ng-template>
+  </ng-template>
+  <ng-container *nzModalContent>
+    <form
+      *ngIf="fieldForm"
+      nz-form
+      nzLayout="vertical"
+      id="field"
+      [formGroup]="fieldForm"
+      (wpxFormSubmit)="submitField($event)"
+    >
+      <nz-form-item>
+        <nz-form-label nzRequired>字段命名</nz-form-label>
+        <nz-form-control
+          style="width: 320px"
+          nzHasFeedback
+          [nzAutoTips]="{
+            default: {
+              required: '字段命名是必填项'
+            }
+          }"
+        >
+          <input nz-input type="text" formControlName="name" />
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label nzRequired>显示名称</nz-form-label>
+        <nz-form-control
+          style="width: 320px"
+          nzHasFeedback
+          [nzAutoTips]="{
+            default: {
+              required: '显示名称是必填项'
+            }
+          }"
+        >
+          <input nz-input type="text" formControlName="label" />
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label nzRequired>字段类型</nz-form-label>
+        <nz-form-control>
+          <nz-radio-group formControlName="type">
+            <label nz-radio-button nzValue="String">字符串</label>
+            <label nz-radio-button nzValue="Array">数组</label>
+          </nz-radio-group>
+        </nz-form-control>
+      </nz-form-item>
+    </form>
+  </ng-container>
+  <ng-template #fieldFormFooter>
+    <button nz-button nzType="default" (click)="closeFieldForm()">取消</button>
+    <button nz-button nzType="primary" form="schema" [disabled]="!fieldForm?.valid">提交</button>
+  </ng-template>
+</nz-modal>
