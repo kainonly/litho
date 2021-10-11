@@ -17,13 +17,16 @@ import { WpxSchemaService } from './wpx-schema.service';
   styleUrls: ['./wpx-schema.component.scss']
 })
 export class WpxSchemaComponent implements OnInit {
-  @ViewChild('createSchemaContent') createSchemaContent!: TemplateRef<any>;
   name = '';
   nodes: NzTreeNodeOptions[] = [];
-  node?: NzTreeNodeOptions;
+  actionNode?: NzTreeNodeOptions;
 
+  @ViewChild('createSchemaContent') createSchemaContent!: TemplateRef<any>;
   form?: FormGroup;
   formVisible = false;
+  editable?: Record<string, any>;
+
+  data?: Record<string, any>;
   fields: Field[] = [];
 
   constructor(
@@ -78,36 +81,57 @@ export class WpxSchemaComponent implements OnInit {
     });
   }
 
-  openForm(): void {
+  openForm(data?: Record<string, any>): void {
     this.form = this.fb.group({
       collection: [null, [Validators.required, Validators.pattern(/^[a-z_]+$/)], [this.existsCollection]],
       name: [null, [Validators.required]],
       kind: ['collection', [Validators.required]]
     });
     this.formVisible = true;
+    if (data) {
+      this.editable = data;
+      this.form.patchValue(data);
+      this.form.get('collection')?.disable();
+    }
   }
 
   existsCollection = (control: AbstractControl) => asyncValidator(this.schema.existsCollection(control.value));
 
-  cancelForm(): void {
+  closeForm(): void {
     this.form = undefined;
     this.formVisible = false;
+    this.editable = undefined;
   }
 
   submit(data: any): void {
-    this.schema.api.create(data).subscribe(v => {
-      if (v.code === 0) {
-        this.notification.success('操作成功', '表单数据已提交完成');
-        this.getData();
-      }
-    });
+    if (!this.editable) {
+      this.schema.api.create(data).subscribe(v => {
+        if (v.code === 0) {
+          this.notification.success('操作成功', '内容类型创建完成');
+          this.getData();
+          this.closeForm();
+        } else {
+          this.notification.error('操作失败', v.message);
+        }
+      });
+    } else {
+      this.schema.api.update({ _id: this.editable._id }, data).subscribe(v => {
+        if (v.code === 0) {
+          this.notification.success('操作成功', '内容类型更新完成');
+          this.getData();
+          this.closeForm();
+        } else {
+          this.notification.error('操作失败', v.message);
+        }
+      });
+    }
   }
 
   actions($event: NzFormatEmitEvent, menu: NzDropdownMenuComponent): void {
     if (!$event.node?.origin.data) {
       return;
     }
-    this.node = $event.node;
+    this.actionNode = $event.node;
     this.nzContextMenuService.create($event.event as MouseEvent, menu);
   }
 
@@ -119,7 +143,7 @@ export class WpxSchemaComponent implements OnInit {
       nzOkType: 'primary',
       nzOkDanger: true,
       nzOnOk: () => {
-        this.schema.api.delete({ _id: this.node?.origin.data._id }).subscribe(v => {
+        this.schema.api.delete({ _id: this.actionNode?.origin.data._id }).subscribe(v => {
           if (v.code === 0) {
             this.notification.success('操作成功', '表单数据已提交完成');
             this.getData();
@@ -136,12 +160,8 @@ export class WpxSchemaComponent implements OnInit {
     if (!$event.node?.origin.data) {
       return;
     }
-    console.log($event.node);
-    if (!$event.node.origin.data.fields) {
-      this.fields = [];
-    } else {
-      this.fields = [...$event.node.origin.data.fields];
-    }
+    this.data = $event.node?.origin.data;
+    this.fields = this.data?.fields ? [...this.data.fields] : [];
   }
 
   sort(event: CdkDragDrop<string[]>): void {
