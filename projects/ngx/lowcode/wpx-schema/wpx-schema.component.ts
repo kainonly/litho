@@ -1,6 +1,6 @@
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { Component, OnInit } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { asyncValidator } from '@weplanx/ngx';
 import { NzContextMenuService, NzDropdownMenuComponent } from 'ng-zorro-antd/dropdown';
@@ -32,22 +32,44 @@ export class WpxSchemaComponent implements OnInit {
   fieldFormVisible = false;
   fieldEditable?: Record<string, any>;
 
-  type: Map<string, string> = new Map<string, string>([
-    ['text', '文本'],
-    ['richtext', '富文本编辑器'],
-    ['email', '电子邮件'],
-    ['password', '密码输入框'],
-    ['integer', '整数类型'],
-    ['decimal', '小数类型'],
-    ['bool', '布尔类型'],
-    ['date', '日期选择器'],
-    ['time', '时间选择器'],
-    ['datetime', '日期时间选择器'],
-    ['json', 'JSON'],
-    ['enum', '列举'],
-    ['media', '媒体文件'],
-    ['reference', '引用']
-  ]);
+  group: Array<Record<string, any>> = [
+    {
+      label: '字符串',
+      values: [
+        ['text', '文本'],
+        ['richtext', '富文本编辑器'],
+        ['email', '电子邮件'],
+        ['password', '密码输入框']
+      ]
+    },
+    {
+      label: '数字',
+      values: [
+        ['integer', '整数类型'],
+        ['decimal', '小数类型']
+      ]
+    },
+    {
+      label: '日期',
+      values: [
+        ['date', '日期选择器'],
+        ['time', '时间选择器'],
+        ['datetime', '日期时间选择器']
+      ]
+    },
+    {
+      label: '其他',
+      values: [
+        ['bool', '布尔类型'],
+        ['enum', '列举'],
+        ['media', '媒体文件'],
+        ['json', 'JSON'],
+        ['reference', '引用']
+      ]
+    }
+  ];
+  type: Map<string, string> = new Map<string, string>([].concat(...this.group.map(v => v.values)));
+  readonly special = ['integer', 'decimal', 'enum', 'reference'];
 
   constructor(
     private schema: WpxSchemaService,
@@ -215,7 +237,7 @@ export class WpxSchemaComponent implements OnInit {
 
   openFieldForm(value?: Field): void {
     this.fieldForm = this.fb.group({
-      key: [null, [Validators.required]],
+      key: [null, [Validators.required, Validators.pattern(/^[a-z_]+$/)]],
       label: [null, [Validators.required]],
       type: [null, [Validators.required]],
       description: [null],
@@ -224,8 +246,10 @@ export class WpxSchemaComponent implements OnInit {
       required: [false],
       private: [false],
       option: this.fb.group({
-        max: [null],
         min: [null],
+        max: [null],
+        values: this.fb.array([]),
+        multiple: [false],
         mode: [null],
         target: [null],
         to: [null]
@@ -242,5 +266,22 @@ export class WpxSchemaComponent implements OnInit {
 
   submitField(data: any): void {
     console.log(data);
+  }
+
+  get enumValues(): FormArray {
+    return this.fieldForm?.get('option')?.get('values') as FormArray;
+  }
+
+  addEnum(): void {
+    this.enumValues.push(
+      this.fb.group({
+        label: [null, [Validators.required]],
+        value: [null, [Validators.required]]
+      })
+    );
+  }
+
+  removeEnum(index: number): void {
+    this.enumValues.removeAt(index);
   }
 }

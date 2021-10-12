@@ -291,8 +291,12 @@
             <nz-form-label nzRequired>字段类型</nz-form-label>
             <nz-form-control>
               <nz-select nzShowSearch nzAllowClear formControlName="type" nzPlaceHolder="请选择一个字段类型">
-                <ng-container *ngFor="let x of type | keyvalue">
-                  <nz-option [nzLabel]="x.value" [nzValue]="x.key"></nz-option>
+                <ng-container *ngFor="let x of group">
+                  <nz-option-group [nzLabel]="x.label">
+                    <ng-container *ngFor="let y of x.values">
+                      <nz-option [nzLabel]="y[1]" [nzValue]="y[0]"></nz-option>
+                    </ng-container>
+                  </nz-option-group>
                 </ng-container>
               </nz-select>
             </nz-form-control>
@@ -334,6 +338,107 @@
               <nz-switch formControlName="private"></nz-switch>
             </nz-form-control>
           </nz-form-item>
+        </nz-tab>
+        <nz-tab *ngIf="special.includes(fieldForm.get('type')?.value)" formGroupName="option" nzTitle="类型设置">
+          <ng-container [ngSwitch]="fieldForm.get('type')?.value">
+            <ng-container *ngSwitchCase="'integer'">
+              <nz-form-item>
+                <nz-form-label>最小值</nz-form-label>
+                <nz-form-control>
+                  <nz-input-number
+                    style="width: 100%"
+                    formControlName="min"
+                    [nzStep]="1"
+                    [nzPrecision]="0"
+                    nzPlaceHolder="最小值，如 1"
+                  ></nz-input-number>
+                </nz-form-control>
+              </nz-form-item>
+              <nz-form-item>
+                <nz-form-label>最大值</nz-form-label>
+                <nz-form-control>
+                  <nz-input-number
+                    style="width: 100%"
+                    formControlName="max"
+                    [nzStep]="1"
+                    [nzPrecision]="0"
+                    nzPlaceHolder="最大值，如 1000"
+                  ></nz-input-number>
+                </nz-form-control>
+              </nz-form-item>
+            </ng-container>
+            <ng-container *ngSwitchCase="'decimal'">
+              <nz-form-item>
+                <nz-form-label>最小值</nz-form-label>
+                <nz-form-control>
+                  <nz-input-number
+                    style="width: 100%"
+                    formControlName="min"
+                    [nzStep]="1"
+                    [nzPrecision]="2"
+                    nzPlaceHolder="最小值，如 1.25"
+                  ></nz-input-number>
+                </nz-form-control>
+              </nz-form-item>
+              <nz-form-item>
+                <nz-form-label>最大值</nz-form-label>
+                <nz-form-control>
+                  <nz-input-number
+                    style="width: 100%"
+                    formControlName="max"
+                    [nzStep]="1"
+                    [nzPrecision]="2"
+                    nzPlaceHolder="最大值，如 1000.00"
+                  ></nz-input-number>
+                </nz-form-control>
+              </nz-form-item>
+            </ng-container>
+            <ng-container *ngSwitchCase="'enum'">
+              <nz-form-item>
+                <nz-form-label>列举元素</nz-form-label>
+                <nz-form-control formArrayName="values">
+                  <ng-container *ngFor="let x of enumValues?.controls; index as i; first as isFirst">
+                    <nz-input-group [formGroupName]="i" nzCompact [ngStyle]="{ 'margin-top': isFirst ? null : '-1px' }">
+                      <ng-container>
+                        <input style="width: 45%" type="text" nz-input formControlName="label" placeholder="元素名称" />
+                      </ng-container>
+                      <input style="width: 45%" type="text" nz-input formControlName="value" placeholder="元素值" />
+                      <button nz-button nzType="default" style="width: 10%" (click)="removeEnum(i)">
+                        <i nz-icon nzType="minus-circle"></i>
+                      </button>
+                    </nz-input-group>
+                  </ng-container>
+                  <button style="margin-top: 8px" type="button" nz-button nzType="dashed" nzBlock (click)="addEnum()">
+                    <i nz-icon nzType="plus-circle"></i> 新增元素
+                  </button>
+                </nz-form-control>
+              </nz-form-item>
+            </ng-container>
+            <ng-container *ngSwitchCase="'reference'">
+              <nz-form-item>
+                <nz-form-label>引用模式</nz-form-label>
+                <nz-form-control>
+                  <nz-radio-group formControlName="mode">
+                    <label nz-radio-button nzValue="one">单引用</label>
+                    <label nz-radio-button nzValue="many">多引用</label>
+                    <label nz-radio-button nzValue="manual">自定义</label>
+                  </nz-radio-group>
+                </nz-form-control>
+              </nz-form-item>
+              <nz-form-item>
+                <nz-form-label>引用集合</nz-form-label>
+                <nz-form-control>
+                  <nz-select nzShowSearch nzAllowClear formControlName="target" nzPlaceHolder="请选择集合"> </nz-select>
+                </nz-form-control>
+              </nz-form-item>
+              <nz-form-item>
+                <nz-form-label>引用字段</nz-form-label>
+                <nz-form-control>
+                  <nz-select nzShowSearch nzAllowClear formControlName="to" nzPlaceHolder="请选择集合字段"> </nz-select>
+                </nz-form-control>
+              </nz-form-item>
+            </ng-container>
+          </ng-container>
         </nz-tab>
       </nz-tabset>
     </form>

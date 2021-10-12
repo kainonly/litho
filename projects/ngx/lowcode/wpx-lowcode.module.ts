@@ -8,12 +8,14 @@ import { WpxLayoutModule } from '@weplanx/ngx/layout';
 import { WpxPipesModule } from '@weplanx/ngx/pipes';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzCardModule } from 'ng-zorro-antd/card';
+import { NzCascaderModule } from 'ng-zorro-antd/cascader';
 import { NzDividerModule } from 'ng-zorro-antd/divider';
 import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
 import { NzFormModule } from 'ng-zorro-antd/form';
 import { NzGridModule } from 'ng-zorro-antd/grid';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzInputModule } from 'ng-zorro-antd/input';
+import { NzInputNumberModule } from 'ng-zorro-antd/input-number';
 import { NzModalModule } from 'ng-zorro-antd/modal';
 import { NzRadioModule } from 'ng-zorro-antd/radio';
 import { NzResultModule } from 'ng-zorro-antd/result';
@@ -62,9 +64,11 @@ import { WpxTemplateService } from './wpx-template/wpx-template.service';
     NzSelectModule,
     NzSwitchModule,
     NzTabsModule,
+    NzCascaderModule,
     ReactiveFormsModule,
     WpxHelperModule,
-    WpxPipesModule
+    WpxPipesModule,
+    NzInputNumberModule
   ],
   declarations: [WpxSchemaComponent, WpxPageComponent, WpxTemplateComponent],
   exports: [WpxSchemaComponent, WpxPageComponent, WpxTemplateComponent],
