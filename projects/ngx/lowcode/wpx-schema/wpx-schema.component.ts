@@ -32,6 +32,23 @@ export class WpxSchemaComponent implements OnInit {
   fieldFormVisible = false;
   fieldEditable?: Record<string, any>;
 
+  type: Map<string, string> = new Map<string, string>([
+    ['text', '文本'],
+    ['richtext', '富文本编辑器'],
+    ['email', '电子邮件'],
+    ['password', '密码输入框'],
+    ['integer', '整数类型'],
+    ['decimal', '小数类型'],
+    ['bool', '布尔类型'],
+    ['date', '日期选择器'],
+    ['time', '时间选择器'],
+    ['datetime', '日期时间选择器'],
+    ['json', 'JSON'],
+    ['enum', '列举'],
+    ['media', '媒体文件'],
+    ['reference', '引用']
+  ]);
+
   constructor(
     private schema: WpxSchemaService,
     private nzContextMenuService: NzContextMenuService,
@@ -72,8 +89,8 @@ export class WpxSchemaComponent implements OnInit {
       for (const x of data) {
         if (models.hasOwnProperty(x.kind)) {
           models[x.kind].children?.push({
-            title: `${x.name} [ ${x.collection} ]`,
-            key: x.collection,
+            title: `${x.label} [ ${x.key} ]`,
+            key: x.key,
             icon: !x.system ? '' : 'lock',
             isLeaf: true,
             data: x
@@ -98,8 +115,8 @@ export class WpxSchemaComponent implements OnInit {
       return;
     }
     this.schemaForm = this.fb.group({
-      collection: [null, [Validators.required, Validators.pattern(/^[a-z_]+$/)], [this.existsCollection]],
-      name: [null, [Validators.required]],
+      key: [null, [Validators.required, Validators.pattern(/^[a-z_]+$/)], [this.existsCollection]],
+      label: [null, [Validators.required]],
       kind: ['collection', [Validators.required]]
     });
     this.schemaFormVisible = true;
@@ -198,14 +215,17 @@ export class WpxSchemaComponent implements OnInit {
 
   openFieldForm(value?: Field): void {
     this.fieldForm = this.fb.group({
-      name: [null, [Validators.required]],
+      key: [null, [Validators.required]],
       label: [null, [Validators.required]],
       type: [null, [Validators.required]],
+      description: [null],
       default: [null],
       unique: [false],
       required: [false],
       private: [false],
-      reference: this.fb.group({
+      option: this.fb.group({
+        max: [null],
+        min: [null],
         mode: [null],
         target: [null],
         to: [null]

@@ -5,6 +5,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { WpxHelperModule } from '@weplanx/ngx/helper';
 import { WpxLayoutModule } from '@weplanx/ngx/layout';
+import { WpxPipesModule } from '@weplanx/ngx/pipes';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzCardModule } from 'ng-zorro-antd/card';
 import { NzDividerModule } from 'ng-zorro-antd/divider';
@@ -16,8 +17,11 @@ import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzModalModule } from 'ng-zorro-antd/modal';
 import { NzRadioModule } from 'ng-zorro-antd/radio';
 import { NzResultModule } from 'ng-zorro-antd/result';
+import { NzSelectModule } from 'ng-zorro-antd/select';
 import { NzSpaceModule } from 'ng-zorro-antd/space';
+import { NzSwitchModule } from 'ng-zorro-antd/switch';
 import { NzTableModule } from 'ng-zorro-antd/table';
+import { NzTabsModule } from 'ng-zorro-antd/tabs';
 import { NzTagModule } from 'ng-zorro-antd/tag';
 import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
 import { NzTreeModule } from 'ng-zorro-antd/tree';
@@ -55,8 +59,12 @@ import { WpxTemplateService } from './wpx-template/wpx-template.service';
     NzFormModule,
     NzRadioModule,
     NzModalModule,
+    NzSelectModule,
+    NzSwitchModule,
+    NzTabsModule,
     ReactiveFormsModule,
-    WpxHelperModule
+    WpxHelperModule,
+    WpxPipesModule
   ],
   declarations: [WpxSchemaComponent, WpxPageComponent, WpxTemplateComponent],
   exports: [WpxSchemaComponent, WpxPageComponent, WpxTemplateComponent],

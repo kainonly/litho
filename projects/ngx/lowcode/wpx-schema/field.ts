@@ -1,17 +1,20 @@
 export interface Field {
-  name: string;
-  type: string;
+  key: string;
   label: string;
+  type: string;
+  description?: string;
   default: string;
-  unique: boolean;
   required: boolean;
+  unique: boolean;
   private: boolean;
-  reference: Reference;
   system: boolean;
+  option?: FieldOption;
 }
 
-export interface Reference {
-  mode: string;
-  target: string;
-  to: string;
+export interface FieldOption {
+  max?: number;
+  min?: number;
+  mode?: string;
+  target?: string;
+  to?: string;
 }

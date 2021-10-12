@@ -29,31 +29,29 @@
       <nz-form-item>
         <nz-form-label nzRequired>集合命名</nz-form-label>
         <nz-form-control
-          style="width: 320px"
           nzHasFeedback
           [nzAutoTips]="{
             default: {
-              required: '集合命名是必填项',
-              pattern: '仅允许小写字母与下划线组合',
-              duplicated: '集合命名已存在'
+              required: '集合命名不能为空',
+              pattern: '请使用小写字母与下划线的组合',
+              duplicated: '集合命名必须是唯一的，若模式管理中不存在请检查数据库集合'
             }
           }"
         >
-          <input nz-input type="text" formControlName="collection" placeholder="数据库集合命名" />
+          <input nz-input type="text" formControlName="key" placeholder="数据库集合命名，如 order" />
         </nz-form-control>
       </nz-form-item>
       <nz-form-item>
         <nz-form-label nzRequired>显示名称</nz-form-label>
         <nz-form-control
-          style="width: 320px"
           nzHasFeedback
           [nzAutoTips]="{
             default: {
-              required: '显示名称是必填项'
+              required: '显示名称不能为空'
             }
           }"
         >
-          <input nz-input type="text" formControlName="name" />
+          <input nz-input type="text" formControlName="label" placeholder="显示名称，如订单" />
         </nz-form-control>
       </nz-form-item>
       <nz-form-item>
@@ -183,11 +181,8 @@
                   </button>
                 </td>
                 <td>
-                  <nz-tag nzColor="blue">{{ data.type }}</nz-tag>
-                  <ng-container *ngIf="data.system">
-                    <i nz-icon nzType="lock"></i>
-                  </ng-container>
-                  {{ data.name }}
+                  <nz-tag nzColor="blue">{{ type | wpxMap: data.type }}</nz-tag>
+                  {{ data.key }}
                 </td>
                 <td>{{ data.label }}</td>
                 <td>
@@ -200,15 +195,15 @@
                   <ng-container *ngIf="data.private">
                     <nz-tag>私属字段</nz-tag>
                   </ng-container>
-                  <ng-container *ngIf="!!data.reference.mode">
+                  <ng-container *ngIf="!!data.option?.mode">
                     <nz-tag>
-                      <ng-container [ngSwitch]="data.reference.mode">
+                      <ng-container [ngSwitch]="data.option?.mode">
                         <span *ngSwitchCase="'manual'"> 自定义引用</span>
                         <span *ngSwitchCase="'one'"> 单引用</span>
                         <span *ngSwitchCase="'many'"> 多引用</span>
                       </ng-container>
-                      <span>=>{{ data.reference.target }}</span>
-                      <span *ngIf="data.reference.to">.{{ data.reference.to }} </span>
+                      <span>=>{{ data.option?.target }}</span>
+                      <span *ngIf="data.option?.to">.{{ data.option?.to }} </span>
                     </nz-tag>
                   </ng-container>
                   <ng-container *ngIf="data.default">
@@ -216,7 +211,7 @@
                   </ng-container>
                 </td>
                 <td>
-                  <ng-container *ngIf="!data.system">
+                  <ng-container *ngIf="!data.system; else isSystem">
                     <button nz-button nzType="text" nz-dropdown [nzDropdownMenu]="actions">
                       <i nz-icon nzType="ellipsis"></i>
                     </button>
@@ -227,6 +222,11 @@
                       </ul>
                     </nz-dropdown-menu>
                   </ng-container>
+                  <ng-template #isSystem>
+                    <button nz-button nzType="text" disabled>
+                      <i nz-icon nzType="lock"></i>
+                    </button>
+                  </ng-template>
                 </td>
               </tr>
             </tbody>
@@ -257,43 +257,85 @@
       [formGroup]="fieldForm"
       (wpxFormSubmit)="submitField($event)"
     >
-      <nz-form-item>
-        <nz-form-label nzRequired>字段命名</nz-form-label>
-        <nz-form-control
-          style="width: 320px"
-          nzHasFeedback
-          [nzAutoTips]="{
-            default: {
-              required: '字段命名是必填项'
-            }
-          }"
-        >
-          <input nz-input type="text" formControlName="name" />
-        </nz-form-control>
-      </nz-form-item>
-      <nz-form-item>
-        <nz-form-label nzRequired>显示名称</nz-form-label>
-        <nz-form-control
-          style="width: 320px"
-          nzHasFeedback
-          [nzAutoTips]="{
-            default: {
-              required: '显示名称是必填项'
-            }
-          }"
-        >
-          <input nz-input type="text" formControlName="label" />
-        </nz-form-control>
-      </nz-form-item>
-      <nz-form-item>
-        <nz-form-label nzRequired>字段类型</nz-form-label>
-        <nz-form-control>
-          <nz-radio-group formControlName="type">
-            <label nz-radio-button nzValue="String">字符串</label>
-            <label nz-radio-button nzValue="Array">数组</label>
-          </nz-radio-group>
-        </nz-form-control>
-      </nz-form-item>
+      <nz-tabset>
+        <nz-tab nzTitle="基础设置">
+          <nz-form-item>
+            <nz-form-label nzRequired>字段命名</nz-form-label>
+            <nz-form-control
+              nzHasFeedback
+              [nzAutoTips]="{
+                default: {
+                  required: '字段命名不能为空',
+                  pattern: '请使用小写字母与下划线的组合',
+                  duplicated: '数据库字段必须是唯一的'
+                }
+              }"
+            >
+              <input nz-input type="text" formControlName="key" placeholder="数据库字段名，如 consumer" />
+            </nz-form-control>
+          </nz-form-item>
+          <nz-form-item>
+            <nz-form-label nzRequired>显示名称</nz-form-label>
+            <nz-form-control
+              nzHasFeedback
+              [nzAutoTips]="{
+                default: {
+                  required: '显示名称不能为空'
+                }
+              }"
+            >
+              <input nz-input type="text" formControlName="label" placeholder="显示名称，如消费者" />
+            </nz-form-control>
+          </nz-form-item>
+          <nz-form-item>
+            <nz-form-label nzRequired>字段类型</nz-form-label>
+            <nz-form-control>
+              <nz-select nzShowSearch nzAllowClear formControlName="type" nzPlaceHolder="请选择一个字段类型">
+                <ng-container *ngFor="let x of type | keyvalue">
+                  <nz-option [nzLabel]="x.value" [nzValue]="x.key"></nz-option>
+                </ng-container>
+              </nz-select>
+            </nz-form-control>
+          </nz-form-item>
+          <nz-form-item>
+            <nz-form-label>字段描述</nz-form-label>
+            <nz-form-control>
+              <textarea
+                rows="4"
+                nz-input
+                formControlName="description"
+                placeholder="字段描述，如订单的消费者"
+              ></textarea>
+            </nz-form-control>
+          </nz-form-item>
+        </nz-tab>
+        <nz-tab nzTitle="高级设置">
+          <nz-form-item>
+            <nz-form-label>默认值</nz-form-label>
+            <nz-form-control>
+              <input nz-input formControlName="default" placeholder="此值的默认值" />
+            </nz-form-control>
+          </nz-form-item>
+          <nz-form-item>
+            <nz-form-label>是否必须</nz-form-label>
+            <nz-form-control nzExtra="在创建内容时，此段是必需填写的">
+              <nz-switch formControlName="required"></nz-switch>
+            </nz-form-control>
+          </nz-form-item>
+          <nz-form-item>
+            <nz-form-label>是否唯一</nz-form-label>
+            <nz-form-control nzExtra="如果存在具有相同内容的现有记录，则无法创建记录">
+              <nz-switch formControlName="unique"></nz-switch>
+            </nz-form-control>
+          </nz-form-item>
+          <nz-form-item>
+            <nz-form-label>私有字段</nz-form-label>
+            <nz-form-control nzExtra="该字段不会显示在通用请求中">
+              <nz-switch formControlName="private"></nz-switch>
+            </nz-form-control>
+          </nz-form-item>
+        </nz-tab>
+      </nz-tabset>
     </form>
   </ng-container>
   <ng-template #fieldFormFooter>
