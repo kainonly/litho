@@ -32,6 +32,8 @@ import { NzTypographyModule } from 'ng-zorro-antd/typography';
 
 import { WpxPageComponent } from './wpx-page/wpx-page.component';
 import { WpxPageSerivce } from './wpx-page/wpx-page.serivce';
+import { WpxSchemaActComponent } from './wpx-schema/wpx-schema-act/wpx-schema-act.component';
+import { WpxSchemaFieldActComponent } from './wpx-schema/wpx-schema-field-act/wpx-schema-field-act.component';
 import { WpxSchemaComponent } from './wpx-schema/wpx-schema.component';
 import { WpxSchemaService } from './wpx-schema/wpx-schema.service';
 import { WpxTemplateComponent } from './wpx-template/wpx-template.component';
@@ -70,8 +72,20 @@ import { WpxTemplateService } from './wpx-template/wpx-template.service';
     WpxPipesModule,
     NzInputNumberModule
   ],
-  declarations: [WpxSchemaComponent, WpxPageComponent, WpxTemplateComponent],
-  exports: [WpxSchemaComponent, WpxPageComponent, WpxTemplateComponent],
+  declarations: [
+    WpxSchemaComponent,
+    WpxSchemaActComponent,
+    WpxSchemaFieldActComponent,
+    WpxPageComponent,
+    WpxTemplateComponent
+  ],
+  exports: [
+    WpxSchemaComponent,
+    WpxSchemaActComponent,
+    WpxSchemaFieldActComponent,
+    WpxPageComponent,
+    WpxTemplateComponent
+  ],
   providers: [WpxSchemaService, WpxPageSerivce, WpxTemplateService]
 })
 export class WpxLowcodeModule {}

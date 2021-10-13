@@ -1,3 +1,14 @@
+export interface Schema {
+  _id: string;
+  key: string;
+  label: string;
+  kind: SchemaKind;
+  system?: boolean;
+  fields?: Field[];
+}
+
+export type SchemaKind = 'collection' | 'single' | 'manual';
+
 export interface Field {
   key: string;
   label: string;

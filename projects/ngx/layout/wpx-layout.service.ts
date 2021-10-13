@@ -1,6 +1,8 @@
 import { Injectable, QueryList, TemplateRef } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 
+import { NzTreeNode } from 'ng-zorro-antd/tree';
+
 import { WpxPageNodes } from './types';
 
 @Injectable({
@@ -29,5 +31,14 @@ export class WpxLayoutService {
     this.actions = undefined;
     this.content = undefined;
     this.footer = undefined;
+  }
+
+  setExpanded(nodes: NzTreeNode[], value: boolean): void {
+    for (const node of nodes) {
+      node.isExpanded = value;
+      if (node.children.length !== 0) {
+        this.setExpanded(node.children, value);
+      }
+    }
   }
 }

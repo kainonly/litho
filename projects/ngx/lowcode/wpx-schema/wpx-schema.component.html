@@ -1,5 +1,5 @@
 <wpx-layout>
-  <button *wpxLayoutAction nz-button nzType="primary" nzShape="circle" nz-tooltip="新增" (click)="openSchemaForm()">
+  <button *wpxLayoutAction nz-button nzType="primary" nzShape="circle" nz-tooltip="新增" (click)="schemaAct.open()">
     <i nz-icon nzType="plus"></i>
   </button>
   <button *wpxLayoutAction nz-button nzType="primary" nzShape="circle" nz-tooltip="发布">
@@ -7,83 +7,21 @@
   </button>
 </wpx-layout>
 
-<nz-modal
-  [(nzVisible)]="schemaFormVisible"
-  [nzTitle]="schemaFormTitle"
-  [nzFooter]="schemaFormFooter"
-  (nzOnCancel)="closeSchemaForm()"
->
-  <ng-template #schemaFormTitle>
-    <ng-container *ngIf="!schemaEditable; else editableTitle"> 创建一个新的内容类型 </ng-container>
-    <ng-template #editableTitle> 更新内容类型 </ng-template>
-  </ng-template>
-  <ng-container *nzModalContent>
-    <form
-      *ngIf="schemaForm"
-      nz-form
-      nzLayout="vertical"
-      id="schema"
-      [formGroup]="schemaForm"
-      (wpxFormSubmit)="submitSchema($event)"
-    >
-      <nz-form-item>
-        <nz-form-label nzRequired>集合命名</nz-form-label>
-        <nz-form-control
-          nzHasFeedback
-          [nzAutoTips]="{
-            default: {
-              required: '集合命名不能为空',
-              pattern: '请使用小写字母与下划线的组合',
-              duplicated: '集合命名必须是唯一的，若模式管理中不存在请检查数据库集合'
-            }
-          }"
-        >
-          <input nz-input type="text" formControlName="key" placeholder="数据库集合命名，如 order" />
-        </nz-form-control>
-      </nz-form-item>
-      <nz-form-item>
-        <nz-form-label nzRequired>显示名称</nz-form-label>
-        <nz-form-control
-          nzHasFeedback
-          [nzAutoTips]="{
-            default: {
-              required: '显示名称不能为空'
-            }
-          }"
-        >
-          <input nz-input type="text" formControlName="label" placeholder="显示名称，如订单" />
-        </nz-form-control>
-      </nz-form-item>
-      <nz-form-item>
-        <nz-form-label nzRequired>内容类型</nz-form-label>
-        <nz-form-control>
-          <nz-radio-group formControlName="kind">
-            <label nz-radio-button nzValue="collection">集合类型</label>
-            <label nz-radio-button nzValue="single">单一类型</label>
-            <label nz-radio-button nzValue="manual">自定义类型</label>
-          </nz-radio-group>
-        </nz-form-control>
-      </nz-form-item>
-    </form>
-  </ng-container>
-  <ng-template #schemaFormFooter>
-    <button nz-button nzType="default" (click)="closeSchemaForm()">取消</button>
-    <button nz-button nzType="primary" form="schema" [disabled]="!schemaForm?.valid">提交</button>
-  </ng-template>
-</nz-modal>
+<wpx-schema-act #schemaAct (ok)="getSchemas()"></wpx-schema-act>
+<wpx-schema-field-act #fieldAct (ok)="getSchemas()"></wpx-schema-field-act>
 
 <nz-card>
   <nz-row [nzGutter]="12">
-    <nz-col nzFlex="300px">
+    <nz-col nzFlex="240px">
       <nz-space style="margin-bottom: 12px">
         <nz-input-group *nzSpaceItem nzSuffixIcon="search">
           <input type="text" nz-input placeholder="搜索" [(ngModel)]="name" />
         </nz-input-group>
         <nz-button-group *nzSpaceItem>
-          <button nz-button nz-tooltip="全部收起" (click)="setExpanded(tree.getTreeNodes(), false)">
+          <button nz-button nz-tooltip="全部收起" (click)="layout.setExpanded(tree.getTreeNodes(), false)">
             <i nz-icon nzType="node-collapse"></i>
           </button>
-          <button nz-button nz-tooltip="全部展开" (click)="setExpanded(tree.getTreeNodes(), true)">
+          <button nz-button nz-tooltip="全部展开" (click)="layout.setExpanded(tree.getTreeNodes(), true)">
             <i nz-icon nzType="node-expand"></i>
           </button>
         </nz-button-group>
@@ -97,7 +35,7 @@
         [nzData]="nodes"
         [nzSearchValue]="name"
         [nzExpandedIcon]="multiExpandedIconTpl"
-        (nzClick)="fetch($event)"
+        (nzClick)="fetchData($event)"
         (nzContextMenu)="actions($event, treeActions)"
       >
         <ng-template #multiExpandedIconTpl let-node let-origin="origin">
@@ -114,10 +52,10 @@
             <li nz-menu-item>{{ actionNode?.title }}</li>
             <li nz-menu-divider></li>
             <ng-container *ngIf="actionNode?.origin.data as x">
-              <li nz-menu-item [nzDisabled]="!!x.system" (click)="openSchemaForm(x)">
+              <li nz-menu-item [nzDisabled]="!!x.system" (click)="schemaAct.open(x)">
                 <i nz-icon nzType="edit"></i>&nbsp;编辑
               </li>
-              <li nz-menu-item [nzDisabled]="!!x.system" nzDanger (click)="delete(x)">
+              <li nz-menu-item [nzDisabled]="!!x.system" nzDanger (click)="schemaAct.delete(x)">
                 <i nz-icon nzType="delete"></i>&nbsp;删除
               </li>
             </ng-container>
@@ -126,7 +64,7 @@
       </nz-tree>
     </nz-col>
     <nz-col nzFlex="auto">
-      <ng-container *ngIf="!data; else manager">
+      <ng-container *ngIf="!fieldAct.data; else manager">
         <nz-result>
           <div nz-result-content>
             <h5 nz-typography style="padding-bottom: 1em">[模式管理] 为项目提供快速统一的内容生成功能：</h5>
@@ -150,9 +88,9 @@
         </nz-result>
       </ng-container>
       <ng-template #manager>
-        <ng-container *ngIf="data?.kind !== 'manual'; else manual">
+        <ng-container *ngIf="fieldAct.data?.kind !== 'manual'; else manual">
           <ng-template #fieldsTitle>
-            <button nzBlock nz-button nzType="link" (click)="openFieldForm()">
+            <button nzBlock nz-button nzType="link" (click)="fieldAct.open()">
               <i nz-icon nzType="plus"></i> 创建一个字段到该内容类型
             </button>
           </ng-template>
@@ -160,7 +98,7 @@
             #fieldsTable
             nzSize="default"
             [nzFooter]="fieldsTitle"
-            [nzData]="fields"
+            [nzData]="fieldAct.fields"
             [nzFrontPagination]="false"
             [nzShowPagination]="false"
           >
@@ -173,7 +111,7 @@
                 <th nzWidth="120px" nzRight="0px"><b>操作</b></th>
               </tr>
             </thead>
-            <tbody cdkDropList (cdkDropListDropped)="sort($event)">
+            <tbody cdkDropList (cdkDropListDropped)="fieldAct.sort($event)">
               <tr *ngFor="let data of fieldsTable.data" cdkDrag>
                 <td>
                   <button nz-button nzType="dashed" nzShape="circle" cdkDragHandle>
@@ -181,7 +119,7 @@
                   </button>
                 </td>
                 <td>
-                  <nz-tag nzColor="blue">{{ type | wpxMap: data.type }}</nz-tag>
+                  <nz-tag nzColor="blue">{{ fieldAct.type | wpxMap: data.type }}</nz-tag>
                   {{ data.key }}
                 </td>
                 <td>{{ data.label }}</td>
@@ -217,8 +155,10 @@
                     </button>
                     <nz-dropdown-menu #actions="nzDropdownMenu">
                       <ul nz-menu>
-                        <li nz-menu-item> <i nz-icon nzType="edit"></i>&nbsp;编辑 </li>
-                        <li nz-menu-item> <i nz-icon nzType="delete"></i>&nbsp;删除 </li>
+                        <li nz-menu-item (click)="fieldAct.open(data)"> <i nz-icon nzType="edit"></i>&nbsp;编辑 </li>
+                        <li nz-menu-item (click)="fieldAct.delete(data)">
+                          <i nz-icon nzType="delete"></i>&nbsp;删除
+                        </li>
                       </ul>
                     </nz-dropdown-menu>
                   </ng-container>
@@ -237,214 +177,3 @@
     </nz-col>
   </nz-row>
 </nz-card>
-
-<nz-modal
-  [(nzVisible)]="fieldFormVisible"
-  [nzTitle]="fieldFormTitle"
-  [nzFooter]="fieldFormFooter"
-  (nzOnCancel)="closeFieldForm()"
->
-  <ng-template #fieldFormTitle>
-    <ng-container *ngIf="!fieldEditable; else editableTitle"> 创建一个字段到该内容类型 </ng-container>
-    <ng-template #editableTitle> 更新内容类型字段 </ng-template>
-  </ng-template>
-  <ng-container *nzModalContent>
-    <form
-      *ngIf="fieldForm"
-      nz-form
-      nzLayout="vertical"
-      id="field"
-      [formGroup]="fieldForm"
-      (wpxFormSubmit)="submitField($event)"
-    >
-      <nz-tabset>
-        <nz-tab nzTitle="基础设置">
-          <nz-form-item>
-            <nz-form-label nzRequired>字段命名</nz-form-label>
-            <nz-form-control
-              nzHasFeedback
-              [nzAutoTips]="{
-                default: {
-                  required: '字段命名不能为空',
-                  pattern: '请使用小写字母与下划线的组合',
-                  duplicated: '数据库字段必须是唯一的'
-                }
-              }"
-            >
-              <input nz-input type="text" formControlName="key" placeholder="数据库字段名，如 consumer" />
-            </nz-form-control>
-          </nz-form-item>
-          <nz-form-item>
-            <nz-form-label nzRequired>显示名称</nz-form-label>
-            <nz-form-control
-              nzHasFeedback
-              [nzAutoTips]="{
-                default: {
-                  required: '显示名称不能为空'
-                }
-              }"
-            >
-              <input nz-input type="text" formControlName="label" placeholder="显示名称，如消费者" />
-            </nz-form-control>
-          </nz-form-item>
-          <nz-form-item>
-            <nz-form-label nzRequired>字段类型</nz-form-label>
-            <nz-form-control>
-              <nz-select nzShowSearch nzAllowClear formControlName="type" nzPlaceHolder="请选择一个字段类型">
-                <ng-container *ngFor="let x of group">
-                  <nz-option-group [nzLabel]="x.label">
-                    <ng-container *ngFor="let y of x.values">
-                      <nz-option [nzLabel]="y[1]" [nzValue]="y[0]"></nz-option>
-                    </ng-container>
-                  </nz-option-group>
-                </ng-container>
-              </nz-select>
-            </nz-form-control>
-          </nz-form-item>
-          <nz-form-item>
-            <nz-form-label>字段描述</nz-form-label>
-            <nz-form-control>
-              <textarea
-                rows="4"
-                nz-input
-                formControlName="description"
-                placeholder="字段描述，如订单的消费者"
-              ></textarea>
-            </nz-form-control>
-          </nz-form-item>
-        </nz-tab>
-        <nz-tab nzTitle="高级设置">
-          <nz-form-item>
-            <nz-form-label>默认值</nz-form-label>
-            <nz-form-control>
-              <input nz-input formControlName="default" placeholder="此值的默认值" />
-            </nz-form-control>
-          </nz-form-item>
-          <nz-form-item>
-            <nz-form-label>是否必须</nz-form-label>
-            <nz-form-control nzExtra="在创建内容时，此段是必需填写的">
-              <nz-switch formControlName="required"></nz-switch>
-            </nz-form-control>
-          </nz-form-item>
-          <nz-form-item>
-            <nz-form-label>是否唯一</nz-form-label>
-            <nz-form-control nzExtra="如果存在具有相同内容的现有记录，则无法创建记录">
-              <nz-switch formControlName="unique"></nz-switch>
-            </nz-form-control>
-          </nz-form-item>
-          <nz-form-item>
-            <nz-form-label>私有字段</nz-form-label>
-            <nz-form-control nzExtra="该字段不会显示在通用请求中">
-              <nz-switch formControlName="private"></nz-switch>
-            </nz-form-control>
-          </nz-form-item>
-        </nz-tab>
-        <nz-tab *ngIf="special.includes(fieldForm.get('type')?.value)" formGroupName="option" nzTitle="类型设置">
-          <ng-container [ngSwitch]="fieldForm.get('type')?.value">
-            <ng-container *ngSwitchCase="'integer'">
-              <nz-form-item>
-                <nz-form-label>最小值</nz-form-label>
-                <nz-form-control>
-                  <nz-input-number
-                    style="width: 100%"
-                    formControlName="min"
-                    [nzStep]="1"
-                    [nzPrecision]="0"
-                    nzPlaceHolder="最小值，如 1"
-                  ></nz-input-number>
-                </nz-form-control>
-              </nz-form-item>
-              <nz-form-item>
-                <nz-form-label>最大值</nz-form-label>
-                <nz-form-control>
-                  <nz-input-number
-                    style="width: 100%"
-                    formControlName="max"
-                    [nzStep]="1"
-                    [nzPrecision]="0"
-                    nzPlaceHolder="最大值，如 1000"
-                  ></nz-input-number>
-                </nz-form-control>
-              </nz-form-item>
-            </ng-container>
-            <ng-container *ngSwitchCase="'decimal'">
-              <nz-form-item>
-                <nz-form-label>最小值</nz-form-label>
-                <nz-form-control>
-                  <nz-input-number
-                    style="width: 100%"
-                    formControlName="min"
-                    [nzStep]="1"
-                    [nzPrecision]="2"
-                    nzPlaceHolder="最小值，如 1.25"
-                  ></nz-input-number>
-                </nz-form-control>
-              </nz-form-item>
-              <nz-form-item>
-                <nz-form-label>最大值</nz-form-label>
-                <nz-form-control>
-                  <nz-input-number
-                    style="width: 100%"
-                    formControlName="max"
-                    [nzStep]="1"
-                    [nzPrecision]="2"
-                    nzPlaceHolder="最大值，如 1000.00"
-                  ></nz-input-number>
-                </nz-form-control>
-              </nz-form-item>
-            </ng-container>
-            <ng-container *ngSwitchCase="'enum'">
-              <nz-form-item>
-                <nz-form-label>列举元素</nz-form-label>
-                <nz-form-control formArrayName="values">
-                  <ng-container *ngFor="let x of enumValues?.controls; index as i; first as isFirst">
-                    <nz-input-group [formGroupName]="i" nzCompact [ngStyle]="{ 'margin-top': isFirst ? null : '-1px' }">
-                      <ng-container>
-                        <input style="width: 45%" type="text" nz-input formControlName="label" placeholder="元素名称" />
-                      </ng-container>
-                      <input style="width: 45%" type="text" nz-input formControlName="value" placeholder="元素值" />
-                      <button nz-button nzType="default" style="width: 10%" (click)="removeEnum(i)">
-                        <i nz-icon nzType="minus-circle"></i>
-                      </button>
-                    </nz-input-group>
-                  </ng-container>
-                  <button style="margin-top: 8px" type="button" nz-button nzType="dashed" nzBlock (click)="addEnum()">
-                    <i nz-icon nzType="plus-circle"></i> 新增元素
-                  </button>
-                </nz-form-control>
-              </nz-form-item>
-            </ng-container>
-            <ng-container *ngSwitchCase="'reference'">
-              <nz-form-item>
-                <nz-form-label>引用模式</nz-form-label>
-                <nz-form-control>
-                  <nz-radio-group formControlName="mode">
-                    <label nz-radio-button nzValue="one">单引用</label>
-                    <label nz-radio-button nzValue="many">多引用</label>
-                    <label nz-radio-button nzValue="manual">自定义</label>
-                  </nz-radio-group>
-                </nz-form-control>
-              </nz-form-item>
-              <nz-form-item>
-                <nz-form-label>引用集合</nz-form-label>
-                <nz-form-control>
-                  <nz-select nzShowSearch nzAllowClear formControlName="target" nzPlaceHolder="请选择集合"> </nz-select>
-                </nz-form-control>
-              </nz-form-item>
-              <nz-form-item>
-                <nz-form-label>引用字段</nz-form-label>
-                <nz-form-control>
-                  <nz-select nzShowSearch nzAllowClear formControlName="to" nzPlaceHolder="请选择集合字段"> </nz-select>
-                </nz-form-control>
-              </nz-form-item>
-            </ng-container>
-          </ng-container>
-        </nz-tab>
-      </nz-tabset>
-    </form>
-  </ng-container>
-  <ng-template #fieldFormFooter>
-    <button nz-button nzType="default" (click)="closeFieldForm()">取消</button>
-    <button nz-button nzType="primary" form="schema" [disabled]="!fieldForm?.valid">提交</button>
-  </ng-template>
-</nz-modal>
