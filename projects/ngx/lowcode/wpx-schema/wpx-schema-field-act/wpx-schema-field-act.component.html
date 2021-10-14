@@ -1,6 +1,6 @@
 <ng-template #title>
-  <ng-container *ngIf="!editable; else isEditable"> 创建一个字段到该内容类型 </ng-container>
-  <ng-template #isEditable> 更新内容类型字段 </ng-template>
+  <ng-container *ngIf="!editable; else isEditable"> 创建字段到该内容类型 </ng-container>
+  <ng-template #isEditable> 更新字段 </ng-template>
 </ng-template>
 
 <nz-modal [(nzVisible)]="visible" [nzTitle]="title" [nzFooter]="fieldFormFooter" (nzOnCancel)="close()">

@@ -17,7 +17,10 @@ export class WpxSchemaComponent implements OnInit {
   name = '';
   nodes: NzTreeNodeOptions[] = [];
   actionNode?: NzTreeNodeOptions;
+
   @ViewChild(WpxSchemaFieldActComponent) fieldAct!: WpxSchemaFieldActComponent;
+
+  manuals: Schema[] = [];
 
   constructor(
     public layout: WpxLayoutService,
@@ -32,6 +35,12 @@ export class WpxSchemaComponent implements OnInit {
   getSchemas(): void {
     this.schema.api.find<Schema[]>().subscribe(result => {
       const models: Record<string, NzTreeNodeOptions> = {
+        home: {
+          title: '模式组件',
+          key: 'home',
+          isLeaf: true,
+          selectable: false
+        },
         collection: {
           title: '集合类型',
           key: 'collection',
@@ -45,21 +54,17 @@ export class WpxSchemaComponent implements OnInit {
           expanded: true,
           selectable: false,
           children: []
-        },
-        manual: {
-          title: '自定义类型',
-          key: 'manual',
-          expanded: true,
-          selectable: false,
-          children: []
         }
       };
+      const manuals = [];
       for (const x of result) {
+        if (x.kind === 'manual') {
+          manuals.push(x);
+        }
         if (models.hasOwnProperty(x.kind)) {
           models[x.kind].children?.push({
             title: `${x.label} [ ${x.key} ]`,
             key: x.key,
-            icon: !x.system ? '' : 'lock',
             isLeaf: true,
             data: x
           });
@@ -68,6 +73,7 @@ export class WpxSchemaComponent implements OnInit {
           this.fieldAct.setData(x as Schema);
         }
       }
+      this.manuals = [...manuals];
       this.nodes = [...Object.values(models)];
     });
   }
@@ -81,6 +87,12 @@ export class WpxSchemaComponent implements OnInit {
   }
 
   fetchData($event: NzFormatEmitEvent) {
+    if ($event.node?.key === 'home') {
+      this.fieldAct.resetData();
+      for (const x of $event.nodes!) {
+        x.isSelected = false;
+      }
+    }
     if ($event.node?.level === 0) {
       return;
     }
