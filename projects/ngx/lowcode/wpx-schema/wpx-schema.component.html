@@ -48,12 +48,7 @@
                 <i nz-icon nzType="database" class="ant-tree-switcher-line-icon"></i>
               </ng-container>
               <ng-container *ngSwitchDefault>
-                <ng-container *ngIf="!origin.data?.system; else isSystem">
-                  <i nz-icon nzType="file" class="ant-tree-switcher-line-icon"></i>
-                </ng-container>
-                <ng-template #isSystem>
-                  <i nz-icon nzType="file-protect" class="ant-tree-switcher-line-icon"></i>
-                </ng-template>
+                <i nz-icon nzType="table" class="ant-tree-switcher-line-icon"></i>
               </ng-container>
             </ng-container>
           </ng-template>

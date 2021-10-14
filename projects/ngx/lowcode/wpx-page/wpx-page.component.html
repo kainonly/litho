@@ -4,33 +4,35 @@
   </button>
 </wpx-layout>
 
-<nz-row [nzGutter]="12">
-  <nz-col nzFlex="360px">
-    <nz-card>
+<nz-card>
+  <nz-row [nzGutter]="12">
+    <nz-col nzFlex="240px">
       <nz-space style="margin-bottom: 12px">
         <nz-input-group *nzSpaceItem nzSuffixIcon="search">
-          <input type="text" nz-input placeholder="搜索资源名称" [(ngModel)]="name" />
+          <input type="text" nz-input placeholder="搜索" [(ngModel)]="name" />
         </nz-input-group>
         <nz-button-group *nzSpaceItem>
-          <button nz-button nz-tooltip="全部收起" (click)="setExpanded(tree.getTreeNodes(), false)">
+          <button nz-button nz-tooltip="全部收起" (click)="layout.setExpanded(pageTree.getTreeNodes(), false)">
             <i nz-icon nzType="node-collapse"></i>
           </button>
-          <button nz-button nz-tooltip="全部展开" (click)="setExpanded(tree.getTreeNodes(), true)">
+          <button nz-button nz-tooltip="全部展开" (click)="layout.setExpanded(pageTree.getTreeNodes(), true)">
             <i nz-icon nzType="node-expand"></i>
           </button>
         </nz-button-group>
       </nz-space>
       <nz-tree
-        #tree
+        #pageTree
         nzBlockNode
         nzShowLine
         nzShowIcon
+        nzExpandAll
         nzDraggable
         [nzData]="nodes"
         [nzSearchValue]="name"
-        (nzClick)="fetch($event)"
-      ></nz-tree>
-    </nz-card>
-  </nz-col>
-  <nz-col nzFlex="auto"> </nz-col>
-</nz-row>
+        (nzClick)="fetchData($event)"
+      >
+      </nz-tree>
+    </nz-col>
+    <nz-col nzFlex="auto"> </nz-col>
+  </nz-row>
+</nz-card>

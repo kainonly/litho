@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
-import { WpxPageNode } from '@weplanx/ngx/layout';
+import { WpxLayoutService, WpxPageNode } from '@weplanx/ngx/layout';
 import { NzFormatEmitEvent, NzTreeNode, NzTreeNodeOptions } from 'ng-zorro-antd/tree';
 
 import { WpxPageSerivce } from './wpx-page.serivce';
@@ -12,31 +13,32 @@ import { WpxPageSerivce } from './wpx-page.serivce';
 export class WpxPageComponent implements OnInit {
   name = '';
   nodes: NzTreeNodeOptions[] = [];
+  form?: FormGroup;
 
-  constructor(private page: WpxPageSerivce) {}
+  constructor(public layout: WpxLayoutService, private page: WpxPageSerivce, private fb: FormBuilder) {}
 
   ngOnInit(): void {
     this.getData();
   }
 
   private getData(): void {
-    this.page.api.find().subscribe((data: any) => {
+    this.page.api.find().subscribe(data => {
       const nodes: NzTreeNodeOptions[] = [];
       const dict: Record<string, NzTreeNodeOptions> = {};
       for (const x of data as WpxPageNode[]) {
-        dict[x.id] = {
+        dict[x._id] = {
           title: `${x.name} [${x.fragment}]`,
-          key: x.id,
+          key: x._id,
           parent: x.parent,
           icon: x.icon,
           isLeaf: true,
           expanded: true,
-          originData: x
+          data: x
         };
       }
       for (const x of data as WpxPageNode[]) {
-        const options = dict[x.id];
-        if (x.parent === 0) {
+        const options = dict[x._id];
+        if (x.parent === 'root') {
           nodes.push(options);
         } else {
           if (dict.hasOwnProperty(x.parent)) {
@@ -52,14 +54,8 @@ export class WpxPageComponent implements OnInit {
     });
   }
 
-  fetch(e: NzFormatEmitEvent) {}
-
-  setExpanded(nodes: NzTreeNode[], value: boolean): void {
-    for (const node of nodes) {
-      node.isExpanded = value;
-      if (node.children.length !== 0) {
-        this.setExpanded(node.children, value);
-      }
-    }
+  fetchData($event: NzFormatEmitEvent) {
+    console.log($event.node?.origin.data);
+    this.form = this.fb.group({});
   }
 }
