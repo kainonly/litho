@@ -1,6 +1,6 @@
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { Component, EventEmitter, Output } from '@angular/core';
-import { AbstractControl, FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
 import { WpxSchemaService } from '@weplanx/ngx/lowcode';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
@@ -23,6 +23,9 @@ export class WpxSchemaFieldActComponent {
   form?: FormGroup;
   visible = false;
   editable?: Field;
+
+  collections?: Schema[];
+  targetFields?: Map<string, Field[]>;
 
   @Output() readonly ok: EventEmitter<any> = new EventEmitter<any>();
 
@@ -94,6 +97,17 @@ export class WpxSchemaFieldActComponent {
 
   removeEnum(index: number): void {
     this.enumValues.removeAt(index);
+  }
+
+  getCollections(): void {
+    this.schema.getCollections().subscribe(result => {
+      this.collections = result;
+      this.targetFields = new Map<string, Field[]>(result.map(v => [v.key, v.fields as Field[]]));
+    });
+  }
+
+  get referenceTarget(): FormControl {
+    return this.form?.get('option')?.get('target') as FormControl;
   }
 
   submit(data: any): void {

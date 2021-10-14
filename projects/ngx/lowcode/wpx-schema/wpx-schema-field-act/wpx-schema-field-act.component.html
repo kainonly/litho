@@ -177,13 +177,36 @@
               <nz-form-item>
                 <nz-form-label>引用集合</nz-form-label>
                 <nz-form-control>
-                  <nz-select nzShowSearch nzAllowClear formControlName="target" nzPlaceHolder="请选择集合"> </nz-select>
+                  <nz-input-group nzCompact>
+                    <nz-select
+                      style="width: 90%"
+                      nzShowSearch
+                      nzAllowClear
+                      formControlName="target"
+                      nzPlaceHolder="请选择集合"
+                      (nzOpenChange)="getCollections()"
+                    >
+                      <ng-container *ngFor="let x of collections">
+                        <nz-option [nzLabel]="x.label + ' [ ' + x.key + ' ]'" [nzValue]="x.key"></nz-option>
+                      </ng-container>
+                    </nz-select>
+                    <button style="width: 10%" nz-button type="button" (click)="getCollections()">
+                      <i nz-icon nzType="sync"></i>
+                    </button>
+                  </nz-input-group>
                 </nz-form-control>
               </nz-form-item>
-              <nz-form-item>
+              <nz-form-item *ngIf="!!referenceTarget.value">
                 <nz-form-label>引用字段</nz-form-label>
                 <nz-form-control>
-                  <nz-select nzShowSearch nzAllowClear formControlName="to" nzPlaceHolder="请选择集合字段"> </nz-select>
+                  <nz-select nzShowSearch nzAllowClear formControlName="to" nzPlaceHolder="请选择集合字段">
+                    <nz-option [nzLabel]="'[ _id ]'" [nzValue]="'_id'"></nz-option>
+                    <ng-container *ngIf="targetFields">
+                      <ng-container *ngFor="let x of targetFields | wpxMap: referenceTarget.value">
+                        <nz-option [nzLabel]="x.label + ' [ ' + x.key + ' ]'" [nzValue]="x.key"></nz-option>
+                      </ng-container>
+                    </ng-container>
+                  </nz-select>
                 </nz-form-control>
               </nz-form-item>
             </ng-container>

@@ -31,3 +31,9 @@ export interface ListsOption {
   sort?: Record<string, any>;
   limit?: number;
 }
+
+export interface APIResponse {
+  code: number;
+  data: Record<string, unknown>;
+  message: string;
+}

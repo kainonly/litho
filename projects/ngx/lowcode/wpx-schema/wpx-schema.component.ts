@@ -30,7 +30,7 @@ export class WpxSchemaComponent implements OnInit {
   }
 
   getSchemas(): void {
-    this.schema.api.find().subscribe(result => {
+    this.schema.api.find<Schema[]>().subscribe(result => {
       const models: Record<string, NzTreeNodeOptions> = {
         collection: {
           title: '集合类型',

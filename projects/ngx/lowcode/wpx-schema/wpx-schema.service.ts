@@ -4,6 +4,8 @@ import { map } from 'rxjs/operators';
 
 import { WpxApi, WpxService } from '@weplanx/ngx';
 
+import { Schema } from './types';
+
 @Injectable()
 export class WpxSchemaService {
   api!: WpxApi;
@@ -56,6 +58,12 @@ export class WpxSchemaService {
       update: {
         $pull: { fields: { key } }
       }
+    });
+  }
+
+  getCollections(): Observable<Schema[]> {
+    return this.api.find<Schema[]>({
+      kind: 'collection'
     });
   }
 }
