@@ -10,9 +10,9 @@
 <wpx-schema-act #schemaAct (ok)="getSchemas()"></wpx-schema-act>
 <wpx-schema-field-act #fieldAct (ok)="getSchemas()"></wpx-schema-field-act>
 
-<nz-card>
-  <nz-row [nzGutter]="12">
-    <nz-col nzFlex="240px">
+<nz-row [nzGutter]="12">
+  <nz-col nzFlex="360px">
+    <nz-card>
       <nz-space style="margin-bottom: 12px">
         <nz-input-group *nzSpaceItem nzSuffixIcon="search">
           <input type="text" nz-input placeholder="搜索" [(ngModel)]="name" />
@@ -68,57 +68,72 @@
           </ul>
         </nz-dropdown-menu>
       </nz-tree>
-    </nz-col>
-    <nz-col nzFlex="auto">
-      <ng-container *ngIf="!fieldAct.data; else content">
-        <nz-tabset nzType="card">
-          <nz-tab nzTitle="自定义组件">
-            <nz-table #manualTable [nzData]="manuals" [nzFrontPagination]="false" [nzShowPagination]="false">
-              <thead>
-                <tr>
-                  <th nzWidth="65px"> </th>
-                  <th nzWidth="200px"><b>集合命名</b></th>
-                  <th nzWidth="200px"><b>显示名称</b></th>
-                  <th><b>描述</b></th>
-                  <th nzWidth="120px" nzRight="0px"><b>操作</b></th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr *ngFor="let data of manualTable.data">
-                  <td>
-                    <ng-container *ngIf="!!data.system">
-                      <nz-tag nzColor="blue">SYS</nz-tag>
-                    </ng-container>
-                  </td>
-                  <td>{{ data.key }}</td>
-                  <td>{{ data.label }}</td>
-                  <td> - </td>
-                  <td>
-                    <button nz-button nzType="text" nz-dropdown [nzDropdownMenu]="actions">
-                      <i nz-icon nzType="ellipsis"></i>
-                    </button>
-                    <nz-dropdown-menu #actions="nzDropdownMenu">
-                      <ul nz-menu>
-                        <li nz-menu-item> <i nz-icon nzType="setting"></i>&nbsp;设置 </li>
-                        <li nz-menu-item [nzDisabled]="!!data.system" (click)="schemaAct.delete(data)">
-                          <i nz-icon nzType="delete"></i>&nbsp;删除
-                        </li>
-                      </ul>
-                    </nz-dropdown-menu>
-                  </td>
-                </tr>
-              </tbody>
-            </nz-table>
-          </nz-tab>
-          <nz-tab nzTitle="数据库集合" nzDisabled> </nz-tab>
+    </nz-card>
+  </nz-col>
+  <nz-col nzFlex="auto">
+    <nz-card *ngIf="!fieldAct.data; else content">
+      <nz-card-tab>
+        <nz-tabset nzSize="large" [(nzSelectedIndex)]="tabs">
+          <nz-tab nzTitle="自定义组件"></nz-tab>
+          <nz-tab nzTitle="数据库集合" nzDisabled></nz-tab>
         </nz-tabset>
+      </nz-card-tab>
+
+      <ng-container [ngSwitch]="tabs">
+        <ng-container *ngSwitchCase="0">
+          <nz-table #manualTable [nzData]="manuals" [nzFrontPagination]="false" [nzShowPagination]="false">
+            <thead>
+              <tr>
+                <th nzWidth="65px"> </th>
+                <th nzWidth="180px"><b>集合命名</b></th>
+                <th nzWidth="180px"><b>显示名称</b></th>
+                <th><b>描述</b></th>
+                <th nzWidth="100px" nzRight="0px"><b>操作</b></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let data of manualTable.data">
+                <td>
+                  <ng-container *ngIf="!!data.system">
+                    <nz-tag nzColor="blue">SYS</nz-tag>
+                  </ng-container>
+                </td>
+                <td>{{ data.key }}</td>
+                <td>{{ data.label }}</td>
+                <td> - </td>
+                <td>
+                  <button nz-button nzType="text" nz-dropdown [nzDropdownMenu]="actions">
+                    <i nz-icon nzType="ellipsis"></i>
+                  </button>
+                  <nz-dropdown-menu #actions="nzDropdownMenu">
+                    <ul nz-menu>
+                      <li nz-menu-item> <i nz-icon nzType="setting"></i>&nbsp;设置 </li>
+                      <li nz-menu-item [nzDisabled]="!!data.system" (click)="schemaAct.delete(data)">
+                        <i nz-icon nzType="delete"></i>&nbsp;删除
+                      </li>
+                    </ul>
+                  </nz-dropdown-menu>
+                </td>
+              </tr>
+            </tbody>
+          </nz-table>
+        </ng-container>
       </ng-container>
-      <ng-template #content>
-        <nz-tabset nzType="card" [nzTabBarExtraContent]="contentTabExtra">
-          <ng-template #contentTabExtra>
-            <button nz-button nzType="text"><i nz-icon nzType="ellipsis"></i></button>
-          </ng-template>
-          <nz-tab nzTitle="内容类型">
+    </nz-card>
+    <ng-template #content>
+      <nz-card>
+        <nz-card-tab>
+          <nz-tabset nzSize="large" [(nzSelectedIndex)]="tabs" [nzTabBarExtraContent]="contentTabExtra">
+            <ng-template #contentTabExtra>
+              <button nz-button nzType="text"><i nz-icon nzType="ellipsis"></i></button>
+            </ng-template>
+            <nz-tab nzTitle="内容类型"></nz-tab>
+            <nz-tab nzTitle="索引" nzDisabled> </nz-tab>
+          </nz-tabset>
+        </nz-card-tab>
+
+        <ng-container [ngSwitch]="tabs">
+          <ng-container *ngSwitchCase="0">
             <nz-table
               #contentTable
               [nzData]="fieldAct.fields"
@@ -129,10 +144,10 @@
               <thead>
                 <tr>
                   <th nzWidth="65px"> </th>
-                  <th nzWidth="200px"><b>字段名称</b></th>
-                  <th nzWidth="200px"><b>显示名称</b></th>
+                  <th nzWidth="180px"><b>字段名称</b></th>
+                  <th nzWidth="180px"><b>显示名称</b></th>
                   <th><b>描述</b></th>
-                  <th nzWidth="120px" nzRight="0px"><b>操作</b></th>
+                  <th nzWidth="100px" nzRight="0px"><b>操作</b></th>
                 </tr>
               </thead>
               <tbody cdkDropList (cdkDropListDropped)="fieldAct.sort($event)">
@@ -200,10 +215,9 @@
                 </button>
               </ng-template>
             </nz-table>
-          </nz-tab>
-          <nz-tab nzTitle="索引" nzDisabled> </nz-tab>
-        </nz-tabset>
-      </ng-template>
-    </nz-col>
-  </nz-row>
-</nz-card>
+          </ng-container>
+        </ng-container>
+      </nz-card>
+    </ng-template>
+  </nz-col>
+</nz-row>

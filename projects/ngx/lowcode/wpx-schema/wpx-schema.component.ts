@@ -20,6 +20,7 @@ export class WpxSchemaComponent implements OnInit {
 
   @ViewChild(WpxSchemaFieldActComponent) fieldAct!: WpxSchemaFieldActComponent;
 
+  tabs = 0;
   manuals: Schema[] = [];
 
   constructor(
@@ -93,6 +94,7 @@ export class WpxSchemaComponent implements OnInit {
         x.isSelected = false;
       }
     }
+    this.tabs = 0;
     if ($event.node?.level === 0) {
       return;
     }
