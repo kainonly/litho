@@ -1,6 +1,6 @@
 import { CdkDragDrop } from '@angular/cdk/drag-drop';
 import { Component, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
 
 import { WpxLayoutService, WpxPageNode } from '@weplanx/ngx/layout';
 import { NzFormatEmitEvent, NzTreeNodeOptions } from 'ng-zorro-antd/tree';
@@ -117,13 +117,17 @@ export class WpxPageComponent implements OnInit {
     return this.form?.get('router')?.get('fields') as FormArray;
   }
 
+  get routerFieldsControls(): any[] {
+    return [...this.routerFields?.controls];
+  }
+
   setRouterFields(key: string): void {
     const schema = this.schemas.find(v => v.key === key);
     for (const x of schema?.fields!) {
       this.routerFields.push(
         this.fb.group({
-          key: [],
-          label: [],
+          key: [x.key],
+          label: [x.label],
           display: [true]
         })
       );

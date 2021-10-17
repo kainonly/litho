@@ -131,32 +131,41 @@
 
               <nz-form-item>
                 <nz-form-label nzRequired>字段设置</nz-form-label>
-                <nz-form-control>
+                <nz-form-control formArrayName="fields">
                   <nz-table
-                    #fieldTable
-                    [nzData]="routerFields.value"
+                    #fieldsTable
                     nzFooter="* 请选择页面需要显示的字段，通过拖拽可进行显示排序"
+                    [nzData]="routerFieldsControls"
                     [nzFrontPagination]="false"
                     [nzShowPagination]="false"
                   >
                     <thead>
                       <tr>
-                        <th nzWidth="80px"> </th>
+                        <th nzWidth="50px"> </th>
                         <th nzWidth="180px"><b>字段名称</b></th>
                         <th nzWidth="180px"><b>显示名称</b></th>
-                        <th><b>描述</b></th>
+                        <th><b>是否显示</b></th>
                       </tr>
                     </thead>
-                    <tbody cdkDropList (cdkDropListDropped)="sort($event)">
-                      <tr *ngFor="let data of fieldTable.data" cdkDrag>
-                        <td>
-                          <button nz-button nzType="dashed" nzShape="circle" cdkDragHandle>
-                            <i nz-icon nzType="drag"></i>
-                          </button>
-                        </td>
-                        <td>{{ data.key }}</td>
-                        <td>{{ data.label }}</td>
-                      </tr>
+                    <tbody>
+                      <ng-container *ngFor="let data of fieldsTable.data; index as i">
+                        <tr [formGroupName]="i">
+                          <td>
+                            <button nz-button nzType="dashed" nzShape="circle">
+                              <i nz-icon nzType="drag"></i>
+                            </button>
+                          </td>
+                          <td>
+                            <input nz-input formControlName="key" readonly />
+                          </td>
+                          <td>
+                            <input nz-input formControlName="label" />
+                          </td>
+                          <td>
+                            <nz-switch formControlName="display"></nz-switch>
+                          </td>
+                        </tr>
+                      </ng-container>
                     </tbody>
                   </nz-table>
                 </nz-form-control>
