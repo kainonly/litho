@@ -142,16 +142,16 @@
                     <thead>
                       <tr>
                         <th nzWidth="50px"> </th>
-                        <th nzWidth="180px"><b>字段名称</b></th>
-                        <th nzWidth="180px"><b>显示名称</b></th>
+                        <th nzWidth="200px"><b>字段名称</b></th>
+                        <th nzWidth="200px"><b>显示名称</b></th>
                         <th><b>是否显示</b></th>
                       </tr>
                     </thead>
-                    <tbody>
+                    <tbody cdkDropList (cdkDropListDropped)="sort($event)">
                       <ng-container *ngFor="let data of fieldsTable.data; index as i">
-                        <tr [formGroupName]="i">
+                        <tr [formGroupName]="i" cdkDrag>
                           <td>
-                            <button nz-button nzType="dashed" nzShape="circle">
+                            <button nz-button nzType="dashed" nzShape="circle" cdkDragHandle>
                               <i nz-icon nzType="drag"></i>
                             </button>
                           </td>

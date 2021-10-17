@@ -1,11 +1,11 @@
-import { CdkDragDrop } from '@angular/cdk/drag-drop';
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { Component, OnInit } from '@angular/core';
-import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
 
 import { WpxLayoutService, WpxPageNode } from '@weplanx/ngx/layout';
 import { NzFormatEmitEvent, NzTreeNodeOptions } from 'ng-zorro-antd/tree';
 
-import { Field, Schema } from '../wpx-schema/types';
+import { Schema } from '../wpx-schema/types';
 import { WpxSchemaService } from '../wpx-schema/wpx-schema.service';
 import { WpxPageSerivce } from './wpx-page.serivce';
 
@@ -132,20 +132,11 @@ export class WpxPageComponent implements OnInit {
         })
       );
     }
-    console.log(schema?.fields);
   }
 
   sort(event: CdkDragDrop<string[]>): void {
-    // moveItemInArray(this.fields, event.previousIndex, event.currentIndex);
-    // this.fields = [...this.fields];
-    // this.schema.sort(this.data!._id, this.fields).subscribe(v => {
-    //   if (v.code === 0) {
-    //     this.notification.success('操作成功', '字段排序刷新成功');
-    //     this.ok.emit(v);
-    //   } else {
-    //     this.notification.error('操作失败', v.message);
-    //   }
-    // });
+    moveItemInArray(this.routerFields.controls, event.previousIndex, event.currentIndex);
+    Reflect.set(this.routerFields, 'controls', [...this.routerFields.controls]);
   }
 
   submit(data: any): void {
