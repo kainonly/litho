@@ -14,7 +14,7 @@ export interface WpxPageNodes {
 }
 
 export interface WpxPageNode {
-  id: any;
+  _id: string;
   /**
    * 父节点
    */

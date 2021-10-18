@@ -16,6 +16,7 @@ import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzCardModule } from 'ng-zorro-antd/card';
 import { NzCascaderModule } from 'ng-zorro-antd/cascader';
 import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
+import { NzCodeEditorModule } from 'ng-zorro-antd/code-editor';
 import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
 import { NzDescriptionsModule } from 'ng-zorro-antd/descriptions';
 import { NzDividerModule } from 'ng-zorro-antd/divider';
@@ -121,6 +122,7 @@ import { NgScrollbarModule } from 'ngx-scrollbar';
     NzPaginationModule,
     NzEmptyModule,
     NzResultModule,
+    NzCodeEditorModule,
     NgScrollbarModule,
     WpxLayoutModule,
     WpxHelperModule,

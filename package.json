@@ -23,6 +23,7 @@
     "@angular/service-worker": "~12.1.1",
     "@ngx-pwa/local-storage": "^12.1.0",
     "merge": "^2.1.1",
+    "monaco-editor": "^0.29.1",
     "ng-zorro-antd": "^12.0.1",
     "ngx-scrollbar": "^8.0.0",
     "rxjs": "~6.6.0",

@@ -9,6 +9,6 @@ const wpx: Partial<WpxConfig> = {
 
 export const environment = {
   production: false,
-  iconUrl: cdn,
+  cdn,
   wpx
 };

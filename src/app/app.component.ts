@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 import { environment } from '@env';
 import { WpxService } from '@weplanx/ngx';
+import { NzConfigService } from 'ng-zorro-antd/core/config';
 import { NzIconService } from 'ng-zorro-antd/icon';
 
 @Component({
@@ -12,6 +13,6 @@ export class AppComponent implements OnInit {
   constructor(private wpx: WpxService, private nzIconService: NzIconService) {}
 
   ngOnInit() {
-    this.nzIconService.changeAssetsSource(environment.iconUrl);
+    this.nzIconService.changeAssetsSource(environment.cdn);
   }
 }

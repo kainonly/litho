@@ -9,6 +9,7 @@ import { WpxPipesModule } from '@weplanx/ngx/pipes';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzCardModule } from 'ng-zorro-antd/card';
 import { NzCascaderModule } from 'ng-zorro-antd/cascader';
+import { NzCodeEditorModule } from 'ng-zorro-antd/code-editor';
 import { NzDescriptionsModule } from 'ng-zorro-antd/descriptions';
 import { NzDividerModule } from 'ng-zorro-antd/divider';
 import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
@@ -29,6 +30,7 @@ import { NzTabsModule } from 'ng-zorro-antd/tabs';
 import { NzTagModule } from 'ng-zorro-antd/tag';
 import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
 import { NzTreeModule } from 'ng-zorro-antd/tree';
+import { NzTreeSelectModule } from 'ng-zorro-antd/tree-select';
 import { NzTreeViewModule } from 'ng-zorro-antd/tree-view';
 import { NzTypographyModule } from 'ng-zorro-antd/typography';
 
@@ -44,7 +46,8 @@ import { WpxTemplateService } from './wpx-template/wpx-template.service';
 @NgModule({
   imports: [
     CommonModule,
-    WpxLayoutModule,
+    FormsModule,
+    ReactiveFormsModule,
     NzButtonModule,
     NzIconModule,
     NzGridModule,
@@ -52,7 +55,6 @@ import { WpxTemplateService } from './wpx-template/wpx-template.service';
     NzSpaceModule,
     NzInputModule,
     NzToolTipModule,
-    FormsModule,
     NzTreeModule,
     NzTreeViewModule,
     NzTableModule,
@@ -60,7 +62,6 @@ import { WpxTemplateService } from './wpx-template/wpx-template.service';
     NzDividerModule,
     NzDropDownModule,
     NzResultModule,
-    DragDropModule,
     NzTypographyModule,
     NzFormModule,
     NzRadioModule,
@@ -69,12 +70,15 @@ import { WpxTemplateService } from './wpx-template/wpx-template.service';
     NzSwitchModule,
     NzTabsModule,
     NzCascaderModule,
-    ReactiveFormsModule,
-    WpxHelperModule,
-    WpxPipesModule,
     NzInputNumberModule,
     NzDescriptionsModule,
-    NzListModule
+    NzListModule,
+    NzCodeEditorModule,
+    NzTreeSelectModule,
+    DragDropModule,
+    WpxHelperModule,
+    WpxPipesModule,
+    WpxLayoutModule
   ],
   declarations: [
     WpxSchemaComponent,

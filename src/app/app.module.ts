@@ -36,7 +36,10 @@ const routes: Routes = [
 const ngZorroConfig: NzConfig = {
   notification: { nzPlacement: 'bottomLeft' },
   table: { nzSize: 'middle' },
-  card: { nzBorderless: true }
+  card: { nzBorderless: true },
+  codeEditor: {
+    assetsRoot: `${environment.cdn}/assets`
+  }
 };
 
 @NgModule({
