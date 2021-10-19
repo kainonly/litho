@@ -1,11 +1,8 @@
-import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { Subject, Subscription, timer } from 'rxjs';
-import { map, switchMap, throttleTime } from 'rxjs/operators';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Subscription, timer } from 'rxjs';
+import { map, switchMap } from 'rxjs/operators';
 
 import { AppService } from '@common/app.service';
-import { WpxLayoutService } from '@weplanx/ngx/layout';
-import { NgScrollbar } from 'ngx-scrollbar';
 
 @Component({
   selector: 'app-layout',
@@ -15,20 +12,16 @@ import { NgScrollbar } from 'ngx-scrollbar';
 export class LayoutComponent implements OnInit, OnDestroy {
   private autoRefreshToken!: Subscription;
 
-  constructor(public app: AppService, public wpxLayout: WpxLayoutService, private router: Router) {}
+  constructor(public app: AppService) {}
 
   ngOnInit(): void {
     // this.taskToRefreshToken();
-    this.app.pages().subscribe(data => {
-      this.wpxLayout.pages.next(data);
-    });
+    this.app.pages().subscribe(() => {});
   }
 
   ngOnDestroy(): void {
     this.autoRefreshToken.unsubscribe();
   }
-
-  activated(): void {}
 
   private taskToRefreshToken(): void {
     this.autoRefreshToken = timer(this.app.browserRefresh ? 0 : 600000)

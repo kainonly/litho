@@ -15,14 +15,20 @@ export interface UploadSignedResponse {
 
 export type UploadStorage = 'default' | 'oss' | 'obs' | 'cos';
 
-export interface Locale {
-  id: string;
-  name: string;
-}
-
 export interface ApiOption {
   baseUrl: string;
   model: string;
+}
+
+export interface APIResponse<T> {
+  code: number;
+  data?: T;
+  message: string;
+}
+
+export interface DataLists<T> {
+  total: number;
+  lists: T;
 }
 
 export interface ListsOption {
@@ -30,10 +36,4 @@ export interface ListsOption {
   where: Record<string, any>;
   sort?: Record<string, any>;
   limit?: number;
-}
-
-export interface APIResponse {
-  code: number;
-  data: Record<string, unknown>;
-  message: string;
 }

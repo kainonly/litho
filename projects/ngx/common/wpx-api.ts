@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
 
-import { ApiOption, APIResponse } from '../types';
+import { ApiOption, APIResponse, DataLists } from '../types';
 import { WpxListByPage } from './wpx-list-by-page';
 
 export class WpxApi {
@@ -11,8 +11,8 @@ export class WpxApi {
   /**
    * 发起统一请求
    */
-  send(path: string, body: Record<string, any> = {}): Observable<APIResponse> {
-    return this.http.post(`${this.option.baseUrl}/${this.option.model}${path}`, body) as Observable<APIResponse>;
+  send<T>(path: string, body: Record<string, any> = {}): Observable<APIResponse<T>> {
+    return this.http.post(`${this.option.baseUrl}/${this.option.model}${path}`, body) as Observable<APIResponse<T>>;
   }
 
   /**
@@ -58,13 +58,14 @@ export class WpxApi {
         });
       }),
       map(v => {
-        list.totals = !v.code ? (v.data.total as number) : 0;
+        const data = v.data as DataLists<T>;
+        list.totals = !v.code ? (data.total as number) : 0;
         list.loading = false;
         list.checked = false;
         list.indeterminate = false;
         list.batch = false;
         list.checkedNumber = 0;
-        return !v.code ? v.data.lists : null;
+        return !v.code ? data.lists : [];
       })
     ) as Observable<T>;
   }
@@ -72,14 +73,14 @@ export class WpxApi {
   /**
    * 新增数据请求
    */
-  create(body: Record<string, any>): Observable<APIResponse> {
+  create(body: Record<string, any>): Observable<APIResponse<never>> {
     return this.send('/create', body);
   }
 
   /**
    * 修改数据请求
    */
-  update(where: Record<string, any>, data: Record<string, any>): Observable<APIResponse> {
+  update(where: Record<string, any>, data: Record<string, any>): Observable<APIResponse<never>> {
     return this.send('/update', {
       where,
       update: {
@@ -91,7 +92,7 @@ export class WpxApi {
   /**
    * 删除数据请求
    */
-  delete(where: Record<string, any>): Observable<APIResponse> {
+  delete(where: Record<string, any>): Observable<APIResponse<never>> {
     return this.send('/delete', {
       where
     });

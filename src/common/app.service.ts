@@ -1,10 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, switchMap } from 'rxjs/operators';
 
-import { WpxConfig } from '@weplanx/ngx';
-import { Page, PageNodes } from '@weplanx/ngx/layout';
+import { APIResponse, WpxConfig } from '@weplanx/ngx';
+import { Page, WpxLayoutService } from '@weplanx/ngx/layout';
 
 @Injectable()
 export class AppService {
@@ -14,7 +14,7 @@ export class AppService {
   readonly refresh$: Subject<undefined> = new Subject<undefined>();
   browserRefresh = true;
 
-  constructor(private http: HttpClient, private config: WpxConfig) {}
+  constructor(private http: HttpClient, private config: WpxConfig, private layout: WpxLayoutService) {}
 
   /**
    * 登录鉴权
@@ -59,33 +59,10 @@ export class AppService {
   /**
    * 获取页面数据
    */
-  pages(): Observable<PageNodes> {
-    return this.http.post(`${this.config.baseUrl}/pages`, {}).pipe(
-      map((v: Record<string, any>) => {
-        const map: Record<string, Page> = {};
-        const dict: Record<string, Page> = {};
-        const nodes: Page[] = [];
-        for (const x of v.data) {
-          map[x._id] = x;
-          x.children = [];
-          if (x.parent === 'root') {
-            x.fragments = [x.fragment];
-            nodes.push(x);
-          } else {
-            if (map.hasOwnProperty(x.parent)) {
-              x.fragments = [...map[x.parent].fragments, x.fragment];
-              map[x.parent].children.push(x);
-            }
-          }
-          x.level = x.fragments.length;
-          dict[x.fragments.join('/')] = x;
-        }
-        return <PageNodes>{
-          dict,
-          nodes
-        };
-      })
-    );
+  pages(): Observable<any> {
+    return this.http
+      .post(`${this.config.baseUrl}/pages`, {})
+      .pipe(switchMap(v => this.layout.setPages(v as APIResponse<Page[]>)));
   }
 
   /**

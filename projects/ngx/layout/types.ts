@@ -1,18 +1,3 @@
-export interface PageNodes {
-  /**
-   * 路径字典
-   */
-  dict: Record<string, Page>;
-  /**
-   * 树节点
-   */
-  nodes: Page[];
-  /**
-   * 扩展定义
-   */
-  [key: string]: any;
-}
-
 export interface Page {
   /**
    * 主键

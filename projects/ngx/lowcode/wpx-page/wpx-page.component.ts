@@ -89,7 +89,7 @@ export class WpxPageComponent implements OnInit {
       fragment: [null, [Validators.required]],
       nav: [false, [Validators.required]],
       icon: [null],
-      router: [null, [Validators.required]],
+      router: [null],
       option: this.fb.group({
         schema: [null],
         fetch: [false],
@@ -97,8 +97,8 @@ export class WpxPageComponent implements OnInit {
         validation: []
       })
     });
-    if (data?.router?.fields) {
-      this.setRouterFields(data.router.fields);
+    if (data?.option?.fields) {
+      this.setRouterFields(data.option.fields);
     }
     this.form.patchValue(data);
     this.tabs = 0;

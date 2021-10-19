@@ -39,7 +39,7 @@
       <nz-card-tab>
         <nz-tabset nzSize="large" [(nzSelectedIndex)]="tabs">
           <nz-tab nzTitle="基础设置"></nz-tab>
-          <nz-tab nzTitle="页面设置"></nz-tab>
+          <nz-tab nzTitle="高级设置" [nzDisabled]="['', 'manual'].includes(router?.value)"></nz-tab>
           <nz-tab nzTitle="验证器" [nzDisabled]="router?.value !== 'form'"></nz-tab>
         </nz-tabset>
       </nz-card-tab>
@@ -82,10 +82,9 @@
               </nz-form-control>
             </nz-form-item>
             <nz-form-item>
-              <nz-form-label nzRequired>路由类型</nz-form-label>
+              <nz-form-label>路由类型</nz-form-label>
               <nz-form-control style="width: 420px">
-                <nz-select formControlName="router" nzPlaceHolder="请选择路由类型">
-                  <nz-option nzLabel="无" nzValue=""></nz-option>
+                <nz-select formControlName="router" nzPlaceHolder="请选择路由类型，默认无">
                   <nz-option nzLabel="自定义" nzValue="manual"></nz-option>
                   <nz-option nzLabel="表单" nzValue="form"></nz-option>
                   <nz-option nzLabel="数据表" nzValue="table"></nz-option>
@@ -95,75 +94,73 @@
           </ng-container>
           <ng-container *ngSwitchCase="1">
             <ng-container formGroupName="option">
-              <ng-container *ngIf="router.value !== 'manual'">
-                <nz-form-item>
-                  <nz-form-label nzRequired>关联内容类型</nz-form-label>
-                  <nz-form-control style="width: 420px">
-                    <nz-input-group nzCompact>
-                      <nz-select
-                        style="width: 90%"
-                        formControlName="schema"
-                        nzPlaceHolder="请选择内容类型"
-                        (ngModelChange)="schemaChanged($event)"
-                      >
-                        <ng-container *ngFor="let x of schemas">
-                          <nz-option [nzLabel]="x.label + ' [ ' + x.key + ' ]'" [nzValue]="x.key"></nz-option>
-                        </ng-container>
-                      </nz-select>
-                      <button nz-button style="width: 10%" type="button" (click)="getSchemas()">
-                        <i nz-icon nzType="sync"></i>
-                      </button>
-                    </nz-input-group>
-                  </nz-form-control>
-                </nz-form-item>
-                <nz-form-item>
-                  <nz-form-label nzRequired>是否预加载</nz-form-label>
-                  <nz-form-control style="width: 420px" nzExtra="需要优先获取数据，例如更新类表单">
-                    <nz-switch formControlName="fetch"></nz-switch>
-                  </nz-form-control>
-                </nz-form-item>
-                <nz-form-item>
-                  <nz-form-label nzRequired>字段设置</nz-form-label>
-                  <nz-form-control formArrayName="fields">
-                    <nz-table
-                      #fieldsTable
-                      nzFooter="* 请选择页面需要显示的字段，通过拖拽可进行显示排序"
-                      [nzData]="optionFieldsControls"
-                      [nzFrontPagination]="false"
-                      [nzShowPagination]="false"
+              <nz-form-item>
+                <nz-form-label nzRequired>引用内容类型</nz-form-label>
+                <nz-form-control style="width: 420px">
+                  <nz-input-group nzCompact>
+                    <nz-select
+                      style="width: 90%"
+                      formControlName="schema"
+                      nzPlaceHolder="请选择内容类型"
+                      (ngModelChange)="schemaChanged($event)"
                     >
-                      <thead>
-                        <tr>
-                          <th nzWidth="50px"> </th>
-                          <th nzWidth="200px"><b>字段名称</b></th>
-                          <th nzWidth="200px"><b>显示名称</b></th>
-                          <th><b>是否显示</b></th>
+                      <ng-container *ngFor="let x of schemas">
+                        <nz-option [nzLabel]="x.label + ' [ ' + x.key + ' ]'" [nzValue]="x.key"></nz-option>
+                      </ng-container>
+                    </nz-select>
+                    <button nz-button style="width: 10%" type="button" (click)="getSchemas()">
+                      <i nz-icon nzType="sync"></i>
+                    </button>
+                  </nz-input-group>
+                </nz-form-control>
+              </nz-form-item>
+              <nz-form-item>
+                <nz-form-label>是否预加载</nz-form-label>
+                <nz-form-control style="width: 420px" nzExtra="需要优先获取数据，例如更新类表单">
+                  <nz-switch formControlName="fetch"></nz-switch>
+                </nz-form-control>
+              </nz-form-item>
+              <nz-form-item>
+                <nz-form-label nzRequired>字段设置</nz-form-label>
+                <nz-form-control formArrayName="fields">
+                  <nz-table
+                    #fieldsTable
+                    nzFooter="* 请选择页面需要显示的字段，通过拖拽可进行显示排序"
+                    [nzData]="optionFieldsControls"
+                    [nzFrontPagination]="false"
+                    [nzShowPagination]="false"
+                  >
+                    <thead>
+                      <tr>
+                        <th nzWidth="50px"> </th>
+                        <th nzWidth="200px"><b>字段名称</b></th>
+                        <th nzWidth="200px"><b>显示名称</b></th>
+                        <th><b>是否显示</b></th>
+                      </tr>
+                    </thead>
+                    <tbody cdkDropList (cdkDropListDropped)="sort($event)">
+                      <ng-container *ngFor="let data of fieldsTable.data; index as i">
+                        <tr [formGroupName]="i" cdkDrag>
+                          <td>
+                            <button nz-button nzType="dashed" nzShape="circle" cdkDragHandle>
+                              <i nz-icon nzType="drag"></i>
+                            </button>
+                          </td>
+                          <td>
+                            <input nz-input formControlName="key" readonly />
+                          </td>
+                          <td>
+                            <input nz-input formControlName="label" />
+                          </td>
+                          <td>
+                            <nz-switch formControlName="display"></nz-switch>
+                          </td>
                         </tr>
-                      </thead>
-                      <tbody cdkDropList (cdkDropListDropped)="sort($event)">
-                        <ng-container *ngFor="let data of fieldsTable.data; index as i">
-                          <tr [formGroupName]="i" cdkDrag>
-                            <td>
-                              <button nz-button nzType="dashed" nzShape="circle" cdkDragHandle>
-                                <i nz-icon nzType="drag"></i>
-                              </button>
-                            </td>
-                            <td>
-                              <input nz-input formControlName="key" readonly />
-                            </td>
-                            <td>
-                              <input nz-input formControlName="label" />
-                            </td>
-                            <td>
-                              <nz-switch formControlName="display"></nz-switch>
-                            </td>
-                          </tr>
-                        </ng-container>
-                      </tbody>
-                    </nz-table>
-                  </nz-form-control>
-                </nz-form-item>
-              </ng-container>
+                      </ng-container>
+                    </tbody>
+                  </nz-table>
+                </nz-form-control>
+              </nz-form-item>
             </ng-container>
           </ng-container>
           <ng-container *ngSwitchCase="2">

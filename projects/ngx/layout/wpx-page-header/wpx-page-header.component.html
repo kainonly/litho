@@ -3,10 +3,10 @@
     <ng-container *ngTemplateOutlet="wpxLayout.alert"></ng-container>
   </ng-container>
   <nz-page-header [nzGhost]="false" [nzBackIcon]="wpxLayout.back ? '' : null">
-    <nz-breadcrumb *ngIf="dict" nz-page-header-breadcrumb>
+    <nz-breadcrumb *ngIf="paths" nz-page-header-breadcrumb>
       <ng-container *ngFor="let _ of wpxLayout.activated; index as i">
         <nz-breadcrumb-item>
-          <ng-container *ngIf="dict[wpxLayout.activated | slice: 0:i + 1 | wpxJoin: '/'] as node">
+          <ng-container *ngIf="paths | wpxMap: (wpxLayout.activated | slice: 0:i + 1 | wpxJoin: '/') as node">
             <ng-container *ngIf="!node.router; else text">
               <a [routerLink]="node | wpxAutoRouter">{{ node.name }}</a>
             </ng-container>
@@ -20,8 +20,8 @@
         {{ wpxLayout.title }}
       </ng-container>
       <ng-template #defaultTitle>
-        <ng-container *ngIf="dict">
-          {{ dict[wpxLayout.activated | wpxJoin: '/']?.name }}
+        <ng-container *ngIf="paths">
+          {{ (paths | wpxMap: (wpxLayout.activated | wpxJoin: '/')).name }}
         </ng-container>
       </ng-template>
     </nz-page-header-title>
@@ -40,9 +40,9 @@
         </ng-container>
       </nz-space>
     </nz-page-header-extra>
-    <!--    <nz-page-header-content *ngIf="router.content | async">-->
-    <!--      <ng-container *ngTemplateOutlet="router.content | async"></ng-container>-->
-    <!--    </nz-page-header-content>-->
+    <nz-page-header-content *ngIf="wpxLayout.content">
+      <ng-container *ngTemplateOutlet="wpxLayout.content"></ng-container>
+    </nz-page-header-content>
     <nz-page-header-footer *ngIf="!!wpxLayout.footer">
       <ng-container *ngTemplateOutlet="wpxLayout.footer"></ng-container>
     </nz-page-header-footer>

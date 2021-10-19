@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { switchMap } from 'rxjs/operators';
 
-import { Page } from '@weplanx/ngx/layout';
+import { PageOption, WpxLayoutService } from '@weplanx/ngx/layout';
 
 import { WpxPageSerivce } from '../wpx-page/wpx-page.serivce';
 
@@ -12,15 +11,21 @@ import { WpxPageSerivce } from '../wpx-page/wpx-page.serivce';
 })
 export class WpxTemplateComponent implements OnInit {
   router?: string;
-  schema?: string;
+  option?: PageOption;
 
-  constructor(private route: ActivatedRoute, private page: WpxPageSerivce) {}
+  constructor(private route: ActivatedRoute, private page: WpxPageSerivce, private layout: WpxLayoutService) {}
 
   ngOnInit(): void {
-    this.route.params.pipe(switchMap(v => this.page.api.findOne<Page>({ _id: v.id }))).subscribe(v => {
-      console.log(v);
-      this.router = v.router;
-      this.schema = v.option?.schema;
+    this.route.params.subscribe(v => {
+      this.getPage(v.pages.replace(',', '/'));
+    });
+  }
+
+  getPage(path: string): void {
+    this.layout.paths.subscribe(v => {
+      const data = v.get(path);
+      this.router = data!.router;
+      this.option = data!.option;
     });
   }
 }

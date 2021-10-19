@@ -1,7 +1,5 @@
 <ul nz-menu nzMode="inline">
-  <ng-container
-    *ngTemplateOutlet="navTemplate; context: { $implicit: (wpxLayout.pages | async)!.nodes }"
-  ></ng-container>
+  <ng-container *ngTemplateOutlet="navTemplate; context: { $implicit: wpxLayout.pages | async }"></ng-container>
   <ng-template #navTemplate let-nodes>
     <ng-container *ngFor="let node of nodes | wpxSort: 'sort'">
       <ng-container *ngIf="node.nav">
