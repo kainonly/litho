@@ -4,7 +4,7 @@ import { Observable, Subject } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { WpxConfig } from '@weplanx/ngx';
-import { WpxPageNode, WpxPageNodes } from '@weplanx/ngx/layout';
+import { Page, PageNodes } from '@weplanx/ngx/layout';
 
 @Injectable()
 export class AppService {
@@ -59,13 +59,13 @@ export class AppService {
   /**
    * 获取页面数据
    */
-  pages(): Observable<WpxPageNodes> {
+  pages(): Observable<PageNodes> {
     return this.http.post(`${this.config.baseUrl}/pages`, {}).pipe(
-      map((result: any) => {
-        const map: Record<string, WpxPageNode> = {};
-        const dict: Record<string, WpxPageNode> = {};
-        const nodes: WpxPageNode[] = [];
-        for (const x of result.data) {
+      map((v: Record<string, any>) => {
+        const map: Record<string, Page> = {};
+        const dict: Record<string, Page> = {};
+        const nodes: Page[] = [];
+        for (const x of v.data) {
           map[x._id] = x;
           x.children = [];
           if (x.parent === 'root') {
@@ -80,7 +80,7 @@ export class AppService {
           x.level = x.fragments.length;
           dict[x.fragments.join('/')] = x;
         }
-        return <WpxPageNodes>{
+        return <PageNodes>{
           dict,
           nodes
         };

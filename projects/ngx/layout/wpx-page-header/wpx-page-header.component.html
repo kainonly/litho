@@ -7,7 +7,7 @@
       <ng-container *ngFor="let _ of wpxLayout.activated; index as i">
         <nz-breadcrumb-item>
           <ng-container *ngIf="dict[wpxLayout.activated | slice: 0:i + 1 | wpxJoin: '/'] as node">
-            <ng-container *ngIf="!(node.router | wpxEmpty); else text">
+            <ng-container *ngIf="!node.router; else text">
               <a [routerLink]="node | wpxAutoRouter">{{ node.name }}</a>
             </ng-container>
             <ng-template #text>{{ node.name }}</ng-template>

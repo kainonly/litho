@@ -3,13 +3,13 @@ import { BehaviorSubject } from 'rxjs';
 
 import { NzTreeNode } from 'ng-zorro-antd/tree';
 
-import { WpxPageNodes } from './types';
+import { PageNodes } from './types';
 
 @Injectable({
   providedIn: 'root'
 })
 export class WpxLayoutService {
-  readonly pages: BehaviorSubject<WpxPageNodes> = new BehaviorSubject<WpxPageNodes>(<WpxPageNodes>{});
+  readonly pages: BehaviorSubject<PageNodes> = new BehaviorSubject<PageNodes>(<PageNodes>{});
   activated: string[] = [];
   skip = false;
   back = false;

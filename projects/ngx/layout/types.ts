@@ -1,24 +1,27 @@
-export interface WpxPageNodes {
+export interface PageNodes {
   /**
    * 路径字典
    */
-  dict: Record<string, WpxPageNode>;
+  dict: Record<string, Page>;
   /**
    * 树节点
    */
-  nodes: WpxPageNode[];
+  nodes: Page[];
   /**
    * 扩展定义
    */
   [key: string]: any;
 }
 
-export interface WpxPageNode {
+export interface Page {
+  /**
+   * 主键
+   */
   _id: string;
   /**
    * 父节点
    */
-  parent: any;
+  parent: string;
   /**
    * URL片段
    */
@@ -36,10 +39,6 @@ export interface WpxPageNode {
    */
   name: string;
   /**
-   * 路由配置
-   */
-  router: WpxRouter;
-  /**
    * 是否为导航
    */
   nav: boolean;
@@ -52,22 +51,53 @@ export interface WpxPageNode {
    */
   sort: number;
   /**
+   * 是否为路由
+   */
+  router?: 'manual' | 'table' | 'form';
+  /**
+   * 页面设置
+   */
+  option?: PageOption;
+  /**
    * 子集
    */
-  children: WpxPageNode[];
+  children: Page[];
   /**
    * 扩展定义
    */
   [key: string]: any;
 }
 
-export interface WpxRouter {
+export interface PageOption {
   /**
-   * 引用模型
+   * 引用内容类型
    */
   schema: string;
   /**
-   * 使用模板
+   * 是否预加载
    */
-  template: string;
+  fetch: boolean;
+  /**
+   * 视图字段
+   */
+  fields: ViewField[];
+  /**
+   * JSON Schema 验证
+   */
+  validation: unknown;
+}
+
+export interface ViewField {
+  /**
+   * 字段名
+   */
+  key: string;
+  /**
+   * 显示名称
+   */
+  label: string;
+  /**
+   * 是否显示
+   */
+  display: boolean;
 }

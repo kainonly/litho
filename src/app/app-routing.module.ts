@@ -27,7 +27,7 @@ const routes: Routes = [
         loadChildren: () => import('./settings/settings.module').then(m => m.SettingsModule)
       },
       {
-        path: ':pages',
+        path: ':pages/:id',
         component: WpxTemplateComponent
       },
       { path: '', redirectTo: '/dashboard', pathMatch: 'full' },

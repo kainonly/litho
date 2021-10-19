@@ -39,8 +39,8 @@
       <nz-card-tab>
         <nz-tabset nzSize="large" [(nzSelectedIndex)]="tabs">
           <nz-tab nzTitle="基础设置"></nz-tab>
-          <nz-tab nzTitle="路由设置"></nz-tab>
-          <nz-tab nzTitle="验证器" [nzDisabled]="routerTemplate?.value !== 'form'"></nz-tab>
+          <nz-tab nzTitle="页面设置"></nz-tab>
+          <nz-tab nzTitle="验证器" [nzDisabled]="router?.value !== 'form'"></nz-tab>
         </nz-tabset>
       </nz-card-tab>
 
@@ -81,20 +81,21 @@
                 </nz-input-group>
               </nz-form-control>
             </nz-form-item>
+            <nz-form-item>
+              <nz-form-label nzRequired>路由类型</nz-form-label>
+              <nz-form-control style="width: 420px">
+                <nz-select formControlName="router" nzPlaceHolder="请选择路由类型">
+                  <nz-option nzLabel="无" nzValue=""></nz-option>
+                  <nz-option nzLabel="自定义" nzValue="manual"></nz-option>
+                  <nz-option nzLabel="表单" nzValue="form"></nz-option>
+                  <nz-option nzLabel="数据表" nzValue="table"></nz-option>
+                </nz-select>
+              </nz-form-control>
+            </nz-form-item>
           </ng-container>
           <ng-container *ngSwitchCase="1">
-            <ng-container formGroupName="router">
-              <nz-form-item>
-                <nz-form-label nzRequired>模板类型</nz-form-label>
-                <nz-form-control style="width: 420px">
-                  <nz-select formControlName="template" nzPlaceHolder="请选择模板类型">
-                    <nz-option nzLabel="自定义" nzValue="manual"></nz-option>
-                    <nz-option nzLabel="表单" nzValue="form"></nz-option>
-                    <nz-option nzLabel="数据表" nzValue="table"></nz-option>
-                  </nz-select>
-                </nz-form-control>
-              </nz-form-item>
-              <ng-container *ngIf="routerTemplate?.value !== 'manual'">
+            <ng-container formGroupName="option">
+              <ng-container *ngIf="router.value !== 'manual'">
                 <nz-form-item>
                   <nz-form-label nzRequired>关联内容类型</nz-form-label>
                   <nz-form-control style="width: 420px">
@@ -127,7 +128,7 @@
                     <nz-table
                       #fieldsTable
                       nzFooter="* 请选择页面需要显示的字段，通过拖拽可进行显示排序"
-                      [nzData]="routerFieldsControls"
+                      [nzData]="optionFieldsControls"
                       [nzFrontPagination]="false"
                       [nzShowPagination]="false"
                     >
@@ -166,7 +167,7 @@
             </ng-container>
           </ng-container>
           <ng-container *ngSwitchCase="2">
-            <nz-form-item>
+            <nz-form-item formGroupName="option">
               <nz-form-control [nzExtra]="extra">
                 <ng-template #extra>
                   <p>

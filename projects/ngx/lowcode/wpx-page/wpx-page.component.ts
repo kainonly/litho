@@ -2,7 +2,7 @@ import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
-import { WpxLayoutService, WpxPageNode } from '@weplanx/ngx/layout';
+import { WpxLayoutService, Page } from '@weplanx/ngx/layout';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { NzFormatEmitEvent, NzTreeNodeOptions } from 'ng-zorro-antd/tree';
 
@@ -22,7 +22,7 @@ export class WpxPageComponent implements OnInit {
 
   tabs = 0;
   form?: FormGroup;
-  editable?: WpxPageNode;
+  editable?: Page;
 
   constructor(
     public layout: WpxLayoutService,
@@ -38,10 +38,10 @@ export class WpxPageComponent implements OnInit {
   }
 
   private getPages(): void {
-    this.page.api.find<WpxPageNode[]>().subscribe(result => {
+    this.page.api.find<Page[]>().subscribe(result => {
       const nodes: NzTreeNodeOptions[] = [];
       const dict: Record<string, NzTreeNodeOptions> = {};
-      for (const x of result as WpxPageNode[]) {
+      for (const x of result as Page[]) {
         dict[x._id] = {
           title: `${x.name} [ ${x.fragment} ]`,
           key: x._id,
@@ -52,7 +52,7 @@ export class WpxPageComponent implements OnInit {
           data: x
         };
       }
-      for (const x of result as WpxPageNode[]) {
+      for (const x of result as Page[]) {
         const options = dict[x._id];
         if (x.parent === 'root') {
           nodes.push(options);
@@ -89,13 +89,13 @@ export class WpxPageComponent implements OnInit {
       fragment: [null, [Validators.required]],
       nav: [false, [Validators.required]],
       icon: [null],
-      router: this.fb.group({
-        template: [null, [Validators.required]],
+      router: [null, [Validators.required]],
+      option: this.fb.group({
         schema: [null],
         fetch: [false],
-        fields: this.fb.array([])
-      }),
-      validation: []
+        fields: this.fb.array([]),
+        validation: []
+      })
     });
     if (data?.router?.fields) {
       this.setRouterFields(data.router.fields);
@@ -105,21 +105,21 @@ export class WpxPageComponent implements OnInit {
     this.editable = data;
   }
 
-  get routerTemplate(): FormControl {
-    return this.form?.get('router')?.get('template') as FormControl;
+  get router(): FormControl {
+    return this.form?.get('router') as FormControl;
   }
 
-  get routerFields(): FormArray {
-    return this.form?.get('router')?.get('fields') as FormArray;
+  get optionFields(): FormArray {
+    return this.form?.get('option')?.get('fields') as FormArray;
   }
 
-  get routerFieldsControls(): any[] {
-    return [...this.routerFields?.controls];
+  get optionFieldsControls(): any[] {
+    return [...this.optionFields?.controls];
   }
 
   setRouterFields(fields: Field[]): void {
     for (const x of fields) {
-      this.routerFields.push(
+      this.optionFields.push(
         this.fb.group({
           key: [x.key],
           label: [x.label],
@@ -130,13 +130,13 @@ export class WpxPageComponent implements OnInit {
   }
 
   schemaChanged(key: string): void {
-    this.routerFields.clear();
+    this.optionFields.clear();
     this.setRouterFields(this.schemas.find(v => v.key === key)?.fields!);
   }
 
   sort(event: CdkDragDrop<string[]>): void {
-    moveItemInArray(this.routerFields.controls, event.previousIndex, event.currentIndex);
-    Reflect.set(this.routerFields, 'controls', [...this.routerFields.controls]);
+    moveItemInArray(this.optionFields.controls, event.previousIndex, event.currentIndex);
+    Reflect.set(this.optionFields, 'controls', [...this.optionFields.controls]);
   }
 
   submit(data: any): void {
