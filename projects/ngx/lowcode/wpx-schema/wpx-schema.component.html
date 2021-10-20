@@ -81,12 +81,18 @@
 
       <ng-container [ngSwitch]="tabs">
         <ng-container *ngSwitchCase="0">
-          <nz-table #manualTable [nzData]="manuals" [nzFrontPagination]="false" [nzShowPagination]="false">
+          <nz-table
+            #manualTable
+            [nzData]="manuals"
+            [nzFrontPagination]="false"
+            [nzShowPagination]="false"
+            [nzScroll]="{ x: '1200px' }"
+          >
             <thead>
               <tr>
                 <th nzWidth="65px"> </th>
-                <th nzWidth="180px"><b>集合命名</b></th>
-                <th nzWidth="180px"><b>显示名称</b></th>
+                <th nzWidth="240px"><b>集合命名</b></th>
+                <th nzWidth="240px"><b>显示名称</b></th>
                 <th><b>描述</b></th>
                 <th nzWidth="100px" nzRight="0px"><b>操作</b></th>
               </tr>
@@ -145,8 +151,8 @@
               <thead>
                 <tr>
                   <th nzWidth="65px"> </th>
-                  <th nzWidth="180px"><b>字段名称</b></th>
-                  <th nzWidth="180px"><b>显示名称</b></th>
+                  <th nzWidth="240px"><b>字段名称</b></th>
+                  <th nzWidth="240px"><b>显示名称</b></th>
                   <th><b>描述</b></th>
                   <th nzWidth="100px" nzRight="0px"><b>操作</b></th>
                 </tr>
