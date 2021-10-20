@@ -6,6 +6,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { WpxHelperModule } from '@weplanx/ngx/helper';
 import { WpxLayoutModule } from '@weplanx/ngx/layout';
 import { WpxPipesModule } from '@weplanx/ngx/pipes';
+import { NzAlertModule } from 'ng-zorro-antd/alert';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzCardModule } from 'ng-zorro-antd/card';
 import { NzCascaderModule } from 'ng-zorro-antd/cascader';
@@ -40,6 +41,7 @@ import { WpxSchemaActComponent } from './wpx-schema/wpx-schema-act/wpx-schema-ac
 import { WpxSchemaFieldActComponent } from './wpx-schema/wpx-schema-field-act/wpx-schema-field-act.component';
 import { WpxSchemaComponent } from './wpx-schema/wpx-schema.component';
 import { WpxSchemaService } from './wpx-schema/wpx-schema.service';
+import { WpxTemplateTableComponent } from './wpx-template/wpx-template-table/wpx-template-table.component';
 import { WpxTemplateComponent } from './wpx-template/wpx-template.component';
 import { WpxTemplateService } from './wpx-template/wpx-template.service';
 
@@ -75,6 +77,7 @@ import { WpxTemplateService } from './wpx-template/wpx-template.service';
     NzListModule,
     NzCodeEditorModule,
     NzTreeSelectModule,
+    NzAlertModule,
     DragDropModule,
     WpxHelperModule,
     WpxPipesModule,
@@ -85,14 +88,16 @@ import { WpxTemplateService } from './wpx-template/wpx-template.service';
     WpxSchemaActComponent,
     WpxSchemaFieldActComponent,
     WpxPageComponent,
-    WpxTemplateComponent
+    WpxTemplateComponent,
+    WpxTemplateTableComponent
   ],
   exports: [
     WpxSchemaComponent,
     WpxSchemaActComponent,
     WpxSchemaFieldActComponent,
     WpxPageComponent,
-    WpxTemplateComponent
+    WpxTemplateComponent,
+    WpxTemplateTableComponent
   ],
   providers: [WpxSchemaService, WpxPageSerivce, WpxTemplateService]
 })

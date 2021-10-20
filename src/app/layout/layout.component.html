@@ -3,17 +3,13 @@
 
   <nz-layout class="content">
     <nz-sider nzTheme="light" [nzWidth]="240">
-      <ng-scrollbar visibility="hover">
-        <wpx-nav></wpx-nav>
-      </ng-scrollbar>
+      <wpx-nav></wpx-nav>
     </nz-sider>
     <nz-layout>
-      <ng-scrollbar>
-        <wpx-page-header></wpx-page-header>
-        <nz-content>
-          <router-outlet></router-outlet>
-        </nz-content>
-      </ng-scrollbar>
+      <wpx-page-header></wpx-page-header>
+      <nz-content>
+        <router-outlet></router-outlet>
+      </nz-content>
     </nz-layout>
   </nz-layout>
 </nz-layout>

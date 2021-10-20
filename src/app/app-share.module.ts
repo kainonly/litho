@@ -59,7 +59,6 @@ import { NzTreeSelectModule } from 'ng-zorro-antd/tree-select';
 import { NzTreeViewModule } from 'ng-zorro-antd/tree-view';
 import { NzTypographyModule } from 'ng-zorro-antd/typography';
 import { NzUploadModule } from 'ng-zorro-antd/upload';
-import { NgScrollbarModule } from 'ngx-scrollbar';
 
 @NgModule({
   exports: [
@@ -123,7 +122,6 @@ import { NgScrollbarModule } from 'ngx-scrollbar';
     NzEmptyModule,
     NzResultModule,
     NzCodeEditorModule,
-    NgScrollbarModule,
     WpxLayoutModule,
     WpxHelperModule,
     WpxPipesModule,

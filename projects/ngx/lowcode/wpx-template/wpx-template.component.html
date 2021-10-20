@@ -1,1 +1,5 @@
-Router: {{ router }} Schema: {{ option?.schema }}
+<ng-container [ngSwitch]="router">
+  <ng-container *ngSwitchCase="'table'">
+    <wpx-template-table [fields]="fields"></wpx-template-table>
+  </ng-container>
+</ng-container>

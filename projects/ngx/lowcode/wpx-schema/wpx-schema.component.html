@@ -11,7 +11,7 @@
 <wpx-schema-field-act #fieldAct (ok)="getSchemas()"></wpx-schema-field-act>
 
 <nz-row [nzGutter]="12">
-  <nz-col nzFlex="360px">
+  <nz-col [nzXXl]="6" [nzXl]="8" [nzLg]="12">
     <nz-card>
       <nz-space style="margin-bottom: 12px">
         <nz-input-group *nzSpaceItem nzSuffixIcon="search">
@@ -70,7 +70,7 @@
       </nz-tree>
     </nz-card>
   </nz-col>
-  <nz-col nzFlex="auto">
+  <nz-col [nzXXl]="18" [nzXl]="16" [nzLg]="12">
     <nz-card *ngIf="!fieldAct.data; else content">
       <nz-card-tab>
         <nz-tabset nzSize="large" [(nzSelectedIndex)]="tabs">
@@ -140,6 +140,7 @@
               [nzFrontPagination]="false"
               [nzShowPagination]="false"
               [nzFooter]="fieldsFooter"
+              [nzScroll]="{ x: '1200px' }"
             >
               <thead>
                 <tr>

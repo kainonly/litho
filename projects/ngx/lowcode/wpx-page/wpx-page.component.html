@@ -5,7 +5,7 @@
 </wpx-layout>
 
 <nz-row [nzGutter]="12">
-  <nz-col nzFlex="360px">
+  <nz-col [nzXXl]="6" [nzXl]="8" [nzLg]="12">
     <nz-card>
       <nz-space style="margin-bottom: 12px">
         <nz-input-group *nzSpaceItem nzSuffixIcon="search">
@@ -34,7 +34,7 @@
       </nz-tree>
     </nz-card>
   </nz-col>
-  <nz-col nzFlex="auto">
+  <nz-col [nzXXl]="18" [nzXl]="16" [nzLg]="12">
     <nz-card *ngIf="form">
       <nz-card-tab>
         <nz-tabset nzSize="large" [(nzSelectedIndex)]="tabs">
