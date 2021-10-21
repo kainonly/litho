@@ -33,7 +33,7 @@ export interface DataLists<T> {
 
 export interface ListsOption {
   id: string;
-  where: Record<string, any>;
+  where?: Record<string, any>;
   sort?: Record<string, any>;
   limit?: number;
 }

@@ -82,7 +82,7 @@ export class WpxListByPage {
   /**
    * 设置数据
    */
-  setData(data: Array<Record<string, any>>): void {
+  setData(data: any[]): void {
     this.data = data;
   }
 

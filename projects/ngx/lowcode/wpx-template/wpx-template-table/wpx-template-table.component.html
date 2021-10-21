@@ -79,7 +79,7 @@
 </ng-template>
 
 <nz-card [nzTitle]="title" [nzExtra]="actions">
-  <nz-table #basicTable [nzData]="listOfData" [nzScroll]="{ x: '1200px' }">
+  <nz-table #basicTable [nzData]="lists.data" [nzScroll]="{ x: '1200px' }">
     <thead>
       <tr>
         <th nzWidth="65px" nzLeft [nzChecked]="false" [nzIndeterminate]="false"></th>
@@ -93,7 +93,7 @@
       <tr *ngFor="let data of basicTable.data">
         <td nzLeft [nzChecked]="false" [nzDisabled]="data.disabled"></td>
         <ng-container *ngFor="let x of fields">
-          <td>{{ x.key }}</td>
+          <td>{{ data[x.key] }}</td>
         </ng-container>
         <td nzRight>
           <button nz-button nzType="text">

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
+import { WpxListByPage, WpxService } from '@weplanx/ngx';
 import { PageOption, WpxLayoutService } from '@weplanx/ngx/layout';
 
 import { Field, Schema } from '../wpx-schema/types';
@@ -13,10 +14,13 @@ import { WpxTemplateService } from './wpx-template.service';
 })
 export class WpxTemplateComponent implements OnInit {
   router?: string;
-  option?: PageOption;
+  private option?: PageOption;
+
   fields: Field[] = [];
+  lists?: WpxListByPage;
 
   constructor(
+    private wpx: WpxService,
     private route: ActivatedRoute,
     private layout: WpxLayoutService,
     private schema: WpxSchemaService,
@@ -34,8 +38,15 @@ export class WpxTemplateComponent implements OnInit {
       const data = v.get(path);
       this.router = data!.router;
       this.option = data!.option;
-      this.getSchema(this.option?.schema!);
-      this.getData(this.option?.schema!);
+      const schema = this.option!.schema;
+      if (this.router === 'table') {
+        this.lists = this.wpx.createListByPage({
+          id: `search:${schema}`
+        });
+      }
+      this.getSchema(schema);
+      this.template.setModel(schema);
+      this.getData();
     });
   }
 
@@ -44,7 +55,7 @@ export class WpxTemplateComponent implements OnInit {
       const map: Map<string, Field> = new Map<string, Field>(data.fields?.map(v => [v.key, v]));
       this.fields = [
         ...(this.option?.fields
-          .filter(v => v.display && map.has(v.key))
+          .filter(v => v.display && !map.get(v.key)!.private)
           .map(v => {
             const field = map.get(v.key);
             field!.label = v.label;
@@ -54,10 +65,9 @@ export class WpxTemplateComponent implements OnInit {
     });
   }
 
-  getData(key: string): void {
-    this.template.setModel(key);
+  getData(): void {
     this.template.api.find().subscribe(data => {
-      console.log(data);
+      this.lists?.setData(data as any[]);
     });
   }
 }
