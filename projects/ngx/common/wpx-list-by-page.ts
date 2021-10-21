@@ -45,6 +45,8 @@ export class WpxListByPage {
    */
   index = 1;
 
+  checkedIds: Set<string> = new Set<string>();
+
   /**
    * 是否全被选中
    */
@@ -54,11 +56,6 @@ export class WpxListByPage {
    * 是否不完全被选中
    */
   indeterminate = false;
-
-  /**
-   * 是否可进行批量处理
-   */
-  batch = false;
 
   /**
    * 被选中的数量
@@ -118,23 +115,40 @@ export class WpxListByPage {
   }
 
   /**
-   * 更新分页列表状态
+   * 更新状态属性
    */
-  refreshStatus(): void {
-    const allChecked = this.data.every(value => value.checked === true);
-    const allUnchecked = this.data.every(value => !value.checked);
-    this.checked = this.data.length !== 0 && allChecked;
-    this.indeterminate = !allChecked && !allUnchecked;
-    this.batch = this.checked || this.indeterminate;
-    this.checkedNumber = this.data.filter(value => value.checked).length;
+  updateStatus(): void {
+    const data = this.data.filter(v => !v.disabled);
+    this.checked = data.every(v => this.checkedIds.has(v._id));
+    this.indeterminate = data.some(v => this.checkedIds.has(v._id)) && !this.checked;
+    this.checkedNumber = this.checkedIds.size;
   }
 
   /**
-   * 更改所有分页列表选中状态
+   * 设置选中集合
    */
-  checkedAll(event: boolean): void {
-    this.data.forEach(data => (data.checked = event));
-    this.refreshStatus();
+  setCheckedIds(id: string, checked: boolean) {
+    if (checked) {
+      this.checkedIds.add(id);
+    } else {
+      this.checkedIds.delete(id);
+    }
+  }
+
+  /**
+   * 设置项目选中
+   */
+  setChecked(id: string, checked: boolean): void {
+    this.setCheckedIds(id, checked);
+    this.updateStatus();
+  }
+
+  /**
+   * 设置当前页所有选中
+   */
+  setAllChecked(checked: boolean): void {
+    this.data.filter(v => !v.disabled).forEach(v => this.setCheckedIds(v._id, checked));
+    this.updateStatus();
   }
 
   /**

@@ -63,7 +63,6 @@ export class WpxApi {
         list.loading = false;
         list.checked = false;
         list.indeterminate = false;
-        list.batch = false;
         list.checkedNumber = 0;
         return !v.code ? data.lists : [];
       })

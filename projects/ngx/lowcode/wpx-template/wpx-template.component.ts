@@ -39,14 +39,16 @@ export class WpxTemplateComponent implements OnInit {
       this.router = data!.router;
       this.option = data!.option;
       const schema = this.option!.schema;
-      if (this.router === 'table') {
-        this.lists = this.wpx.createListByPage({
-          id: `search:${schema}`
-        });
-      }
       this.getSchema(schema);
       this.template.setModel(schema);
-      this.getData();
+      switch (this.router) {
+        case 'table':
+          this.lists = this.wpx.createListByPage({
+            id: `search:${schema}`
+          });
+          this.getData();
+          break;
+      }
     });
   }
 
@@ -66,7 +68,7 @@ export class WpxTemplateComponent implements OnInit {
   }
 
   getData(): void {
-    this.template.api.find().subscribe(data => {
+    this.template.api.findByPage(this.lists!, true, true).subscribe(data => {
       this.lists?.setData(data as any[]);
     });
   }

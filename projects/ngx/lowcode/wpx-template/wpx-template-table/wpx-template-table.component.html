@@ -7,56 +7,56 @@
 <ng-template #title>
   <form nz-form style="width: 90%; padding-top: 16px">
     <nz-row [nzGutter]="24">
-      <nz-col [nzSpan]="8">
-        <nz-form-item>
-          <nz-form-label>Field A</nz-form-label>
-          <nz-form-control>
-            <input nz-input placeholder="请输入" />
-          </nz-form-control>
-        </nz-form-item>
-      </nz-col>
-      <nz-col [nzSpan]="8">
-        <nz-form-item>
-          <nz-form-label>Field A</nz-form-label>
-          <nz-form-control>
-            <input nz-input placeholder="请输入" />
-          </nz-form-control>
-        </nz-form-item>
-      </nz-col>
-      <nz-col [nzSpan]="8">
-        <nz-form-item>
-          <nz-form-label>Field A</nz-form-label>
-          <nz-form-control>
-            <input nz-input placeholder="请输入" />
-          </nz-form-control>
-        </nz-form-item>
-      </nz-col>
-      <nz-col [nzSpan]="8">
-        <nz-form-item>
-          <nz-form-label>Field A</nz-form-label>
-          <nz-form-control>
-            <input nz-input placeholder="请输入" />
-          </nz-form-control>
-        </nz-form-item>
-      </nz-col>
-      <nz-col [nzSpan]="8">
-        <nz-form-item>
-          <nz-form-label>Field A</nz-form-label>
-          <nz-form-control>
-            <input nz-input placeholder="请输入" />
-          </nz-form-control>
-        </nz-form-item>
-      </nz-col>
-      <nz-col [nzSpan]="8">
-        <nz-form-item>
-          <nz-form-control style="text-align: right">
-            <nz-space>
-              <button *nzSpaceItem nz-button> <i nz-icon nzType="search"></i> 搜索 </button>
-              <button *nzSpaceItem nz-button> <i nz-icon nzType="clear"></i> 重置 </button>
-            </nz-space>
-          </nz-form-control>
-        </nz-form-item>
-      </nz-col>
+      <!--      <nz-col [nzSpan]="8">-->
+      <!--        <nz-form-item>-->
+      <!--          <nz-form-label>Field A</nz-form-label>-->
+      <!--          <nz-form-control>-->
+      <!--            <input nz-input placeholder="请输入" />-->
+      <!--          </nz-form-control>-->
+      <!--        </nz-form-item>-->
+      <!--      </nz-col>-->
+      <!--      <nz-col [nzSpan]="8">-->
+      <!--        <nz-form-item>-->
+      <!--          <nz-form-label>Field A</nz-form-label>-->
+      <!--          <nz-form-control>-->
+      <!--            <input nz-input placeholder="请输入" />-->
+      <!--          </nz-form-control>-->
+      <!--        </nz-form-item>-->
+      <!--      </nz-col>-->
+      <!--      <nz-col [nzSpan]="8">-->
+      <!--        <nz-form-item>-->
+      <!--          <nz-form-label>Field A</nz-form-label>-->
+      <!--          <nz-form-control>-->
+      <!--            <input nz-input placeholder="请输入" />-->
+      <!--          </nz-form-control>-->
+      <!--        </nz-form-item>-->
+      <!--      </nz-col>-->
+      <!--      <nz-col [nzSpan]="8">-->
+      <!--        <nz-form-item>-->
+      <!--          <nz-form-label>Field A</nz-form-label>-->
+      <!--          <nz-form-control>-->
+      <!--            <input nz-input placeholder="请输入" />-->
+      <!--          </nz-form-control>-->
+      <!--        </nz-form-item>-->
+      <!--      </nz-col>-->
+      <!--      <nz-col [nzSpan]="8">-->
+      <!--        <nz-form-item>-->
+      <!--          <nz-form-label>Field A</nz-form-label>-->
+      <!--          <nz-form-control>-->
+      <!--            <input nz-input placeholder="请输入" />-->
+      <!--          </nz-form-control>-->
+      <!--        </nz-form-item>-->
+      <!--      </nz-col>-->
+      <!--      <nz-col [nzSpan]="8">-->
+      <!--        <nz-form-item>-->
+      <!--          <nz-form-control style="text-align: right">-->
+      <!--            <nz-space>-->
+      <!--              <button *nzSpaceItem nz-button> <i nz-icon nzType="search"></i> 搜索 </button>-->
+      <!--              <button *nzSpaceItem nz-button> <i nz-icon nzType="clear"></i> 重置 </button>-->
+      <!--            </nz-space>-->
+      <!--          </nz-form-control>-->
+      <!--        </nz-form-item>-->
+      <!--      </nz-col>-->
     </nz-row>
   </form>
 </ng-template>
@@ -68,8 +68,23 @@
       <button nz-button nzType="text" nz-tooltip="刷新">
         <i nz-icon nzType="reload"></i>
       </button>
-      <button nz-button nzType="text" nz-tooltip="密度">
+      <button
+        nz-button
+        nzType="text"
+        nz-tooltip="密度"
+        nz-popover
+        nzPopoverPlacement="bottom"
+        nzPopoverTrigger="click"
+        [nzPopoverContent]="sizeContent"
+      >
         <i nz-icon nzType="column-height"></i>
+        <ng-template #sizeContent>
+          <nz-radio-group [(ngModel)]="size">
+            <label nz-radio nzValue="default">默认</label>
+            <label nz-radio nzValue="middle">中等</label>
+            <label nz-radio nzValue="small">紧凑</label>
+          </nz-radio-group>
+        </ng-template>
       </button>
       <button nz-button nzType="text" nz-tooltip="列设置">
         <i nz-icon nzType="setting"></i>
@@ -79,23 +94,56 @@
 </ng-template>
 
 <nz-card [nzTitle]="title" [nzExtra]="actions">
-  <nz-table #basicTable [nzData]="lists.data" [nzScroll]="{ x: '1200px' }">
+  <nz-table
+    #basicTable
+    [nzSize]="size"
+    [nzData]="lists.data"
+    [nzLoading]="lists.loading"
+    [nzScroll]="{ x: '1600px' }"
+    [nzTitle]="lists.checkedNumber ? footer : null"
+  >
+    <ng-template #footer>
+      <nz-alert nzType="info" nzBanner [nzMessage]="message"></nz-alert>
+      <ng-template #message>
+        <nz-row nzJustify="space-between">
+          <nz-col> 已选中 {{ lists.checkedNumber }} 项 </nz-col>
+          <nz-col></nz-col>
+          <nz-col style="text-align: right">
+            <a nz-button nzType="link" nzSize="small">操作<i nz-icon nzType="down"></i></a>
+            <a nz-button nzType="link" nzSize="small">取消选择</a>
+          </nz-col>
+        </nz-row>
+      </ng-template>
+    </ng-template>
     <thead>
       <tr>
-        <th nzWidth="65px" nzLeft [nzChecked]="false" [nzIndeterminate]="false"></th>
+        <th
+          nzWidth="65px"
+          nzLeft
+          nzAlign="center"
+          [nzChecked]="lists.checked"
+          [nzIndeterminate]="lists.indeterminate"
+          (nzCheckedChange)="lists.setAllChecked($event)"
+        ></th>
         <ng-container *ngFor="let x of fields">
           <th>{{ x.label }}</th>
         </ng-container>
-        <th nzWidth="100px" nzRight>操作</th>
+        <th nzWidth="100px" nzRight nzAlign="center">操作</th>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let data of basicTable.data">
-        <td nzLeft [nzChecked]="false" [nzDisabled]="data.disabled"></td>
+        <td
+          nzLeft
+          nzAlign="center"
+          [nzDisabled]="data.disabled"
+          [nzChecked]="lists.checkedIds.has(data._id)"
+          (nzCheckedChange)="lists.setChecked(data._id, $event)"
+        ></td>
         <ng-container *ngFor="let x of fields">
           <td>{{ data[x.key] }}</td>
         </ng-container>
-        <td nzRight>
+        <td nzRight nzAlign="center">
           <button nz-button nzType="text">
             <i nz-icon nzType="ellipsis"></i>
           </button>

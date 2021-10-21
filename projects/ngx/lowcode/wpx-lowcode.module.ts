@@ -21,6 +21,7 @@ import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzInputNumberModule } from 'ng-zorro-antd/input-number';
 import { NzListModule } from 'ng-zorro-antd/list';
 import { NzModalModule } from 'ng-zorro-antd/modal';
+import { NzPopoverModule } from 'ng-zorro-antd/popover';
 import { NzRadioModule } from 'ng-zorro-antd/radio';
 import { NzResultModule } from 'ng-zorro-antd/result';
 import { NzSelectModule } from 'ng-zorro-antd/select';
@@ -78,6 +79,7 @@ import { WpxTemplateService } from './wpx-template/wpx-template.service';
     NzCodeEditorModule,
     NzTreeSelectModule,
     NzAlertModule,
+    NzPopoverModule,
     DragDropModule,
     WpxHelperModule,
     WpxPipesModule,
