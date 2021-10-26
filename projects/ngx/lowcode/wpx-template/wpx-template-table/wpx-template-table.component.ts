@@ -21,7 +21,7 @@ export class WpxTemplateTableComponent implements OnChanges {
   searchOptions: NzCheckBoxOptionInterface[] = [];
 
   search: Field[] = [];
-  searchForm!: FormGroup;
+  searchForm?: FormGroup;
 
   size: NzTableSize = 'middle';
 
@@ -34,6 +34,9 @@ export class WpxTemplateTableComponent implements OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes.hasOwnProperty('fields')) {
+      console.log('ok');
+      this.search = [];
+      this.searchForm = undefined;
       this.fieldsMap = new Map<string, Field>((changes.fields.currentValue as Field[]).map(v => [v.key, v]));
       this.searchOptions = [
         ...(changes.fields.currentValue as Field[])

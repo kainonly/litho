@@ -17,7 +17,13 @@
       <nz-form-item style="margin-bottom: 1em">
         <nz-form-label>{{ x.label }}</nz-form-label>
         <nz-form-control>
-          <input nz-input [formControlName]="x.key" />
+          <nz-input-group nzCompact>
+            <nz-select style="width: 40%">
+              <nz-option [nzValue]="0" nzLabel="模糊"></nz-option>
+              <nz-option [nzValue]="1" nzLabel="精确"></nz-option>
+            </nz-select>
+            <input style="width: 60%" nz-input [formControlName]="x.key" />
+          </nz-input-group>
         </nz-form-control>
       </nz-form-item>
     </ng-container>
