@@ -5,65 +5,51 @@
 </wpx-layout>
 
 <ng-template #title>
-  <form nz-form style="width: 90%; padding-top: 16px">
-    <nz-row [nzGutter]="24">
-      <!--      <nz-col [nzSpan]="8">-->
-      <!--        <nz-form-item>-->
-      <!--          <nz-form-label>Field A</nz-form-label>-->
-      <!--          <nz-form-control>-->
-      <!--            <input nz-input placeholder="请输入" />-->
-      <!--          </nz-form-control>-->
-      <!--        </nz-form-item>-->
-      <!--      </nz-col>-->
-      <!--      <nz-col [nzSpan]="8">-->
-      <!--        <nz-form-item>-->
-      <!--          <nz-form-label>Field A</nz-form-label>-->
-      <!--          <nz-form-control>-->
-      <!--            <input nz-input placeholder="请输入" />-->
-      <!--          </nz-form-control>-->
-      <!--        </nz-form-item>-->
-      <!--      </nz-col>-->
-      <!--      <nz-col [nzSpan]="8">-->
-      <!--        <nz-form-item>-->
-      <!--          <nz-form-label>Field A</nz-form-label>-->
-      <!--          <nz-form-control>-->
-      <!--            <input nz-input placeholder="请输入" />-->
-      <!--          </nz-form-control>-->
-      <!--        </nz-form-item>-->
-      <!--      </nz-col>-->
-      <!--      <nz-col [nzSpan]="8">-->
-      <!--        <nz-form-item>-->
-      <!--          <nz-form-label>Field A</nz-form-label>-->
-      <!--          <nz-form-control>-->
-      <!--            <input nz-input placeholder="请输入" />-->
-      <!--          </nz-form-control>-->
-      <!--        </nz-form-item>-->
-      <!--      </nz-col>-->
-      <!--      <nz-col [nzSpan]="8">-->
-      <!--        <nz-form-item>-->
-      <!--          <nz-form-label>Field A</nz-form-label>-->
-      <!--          <nz-form-control>-->
-      <!--            <input nz-input placeholder="请输入" />-->
-      <!--          </nz-form-control>-->
-      <!--        </nz-form-item>-->
-      <!--      </nz-col>-->
-      <!--      <nz-col [nzSpan]="8">-->
-      <!--        <nz-form-item>-->
-      <!--          <nz-form-control style="text-align: right">-->
-      <!--            <nz-space>-->
-      <!--              <button *nzSpaceItem nz-button> <i nz-icon nzType="search"></i> 搜索 </button>-->
-      <!--              <button *nzSpaceItem nz-button> <i nz-icon nzType="clear"></i> 重置 </button>-->
-      <!--            </nz-space>-->
-      <!--          </nz-form-control>-->
-      <!--        </nz-form-item>-->
-      <!--      </nz-col>-->
-    </nz-row>
+  <form
+    *ngIf="searchForm"
+    nzLayout="inline"
+    class="search"
+    nz-form
+    [formGroup]="searchForm"
+    (wpxFormSubmit)="submit($event)"
+  >
+    <ng-container *ngFor="let x of search">
+      <nz-form-item style="margin-bottom: 1em">
+        <nz-form-label>{{ x.label }}</nz-form-label>
+        <nz-form-control>
+          <input nz-input [formControlName]="x.key" />
+        </nz-form-control>
+      </nz-form-item>
+    </ng-container>
+
+    <nz-form-item *ngIf="!(search | wpxEmpty)">
+      <nz-form-control>
+        <nz-space>
+          <button *nzSpaceItem nz-button> <i nz-icon nzType="search"></i> 搜索 </button>
+          <button *nzSpaceItem nz-button type="reset"> <i nz-icon nzType="clear"></i> 重置 </button>
+        </nz-space>
+      </nz-form-control>
+    </nz-form-item>
   </form>
 </ng-template>
 
 <ng-template #actions>
   <nz-space>
-    <button *nzSpaceItem nz-button nzType="primary"> <i nz-icon nzType="filter"></i> 检索 </button>
+    <button
+      *nzSpaceItem
+      nz-button
+      nzType="primary"
+      nz-popover
+      nzPopoverPlacement="bottomRight"
+      nzPopoverTrigger="click"
+      nzPopoverTitle="设置检索条件"
+      [nzPopoverContent]="searchPopover"
+    >
+      <i nz-icon nzType="filter"></i> 检索
+      <ng-template #searchPopover>
+        <nz-checkbox-group [(ngModel)]="searchOptions" (ngModelChange)="updateSearch()"></nz-checkbox-group>
+      </ng-template>
+    </button>
     <nz-button-group *nzSpaceItem>
       <button nz-button nzType="text" nz-tooltip="刷新" (click)="refresh.emit()">
         <i nz-icon nzType="reload"></i>
@@ -73,12 +59,13 @@
         nzType="text"
         nz-tooltip="密度"
         nz-popover
-        nzPopoverPlacement="bottom"
+        nzPopoverPlacement="bottomRight"
         nzPopoverTrigger="click"
-        [nzPopoverContent]="sizeContent"
+        nzPopoverTitle="设置密度"
+        [nzPopoverContent]="sizePopover"
       >
         <i nz-icon nzType="column-height"></i>
-        <ng-template #sizeContent>
+        <ng-template #sizePopover>
           <nz-radio-group [(ngModel)]="size">
             <label nz-radio-button nzValue="default">默认</label>
             <label nz-radio-button nzValue="middle">中等</label>
@@ -91,23 +78,23 @@
         nzType="text"
         nz-tooltip="列设置"
         nz-popover
-        nzPopoverPlacement="bottom"
+        nzPopoverPlacement="bottomRight"
         nzPopoverTrigger="click"
-        [nzPopoverTitle]="fieldContentTitle"
-        [nzPopoverContent]="fieldContent"
+        [nzPopoverTitle]="fieldPopoverTitle"
+        [nzPopoverContent]="fieldPopoverContent"
       >
         <i nz-icon nzType="setting"></i>
-        <ng-template #fieldContentTitle>
+        <ng-template #fieldPopoverTitle>
           <label
             nz-checkbox
             [(ngModel)]="columnsChecked"
             (ngModelChange)="updateColumnsChecked()"
             [nzIndeterminate]="columnsIndeterminate"
           >
-            列展示
+            全部展示
           </label>
         </ng-template>
-        <ng-template #fieldContent>
+        <ng-template #fieldPopoverContent>
           <nz-checkbox-group [(ngModel)]="columns" (ngModelChange)="updateColumnChecked()"></nz-checkbox-group>
         </ng-template>
       </button>
