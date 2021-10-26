@@ -1,5 +1,10 @@
-[nz-radio] {
-  display: block;
-  height: 32px;
-  line-height: 32px;
+.resize-trigger {
+  width: 1px;
+  height: 30px;
+  margin-top: 12px;
+  background: #e8e8e8;
+}
+.nz-resizable-preview {
+  border-width: 0;
+  border-right-width: 1px;
 }

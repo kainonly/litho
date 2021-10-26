@@ -65,7 +65,7 @@
   <nz-space>
     <button *nzSpaceItem nz-button nzType="primary"> <i nz-icon nzType="filter"></i> 检索 </button>
     <nz-button-group *nzSpaceItem>
-      <button nz-button nzType="text" nz-tooltip="刷新">
+      <button nz-button nzType="text" nz-tooltip="刷新" (click)="refresh.emit()">
         <i nz-icon nzType="reload"></i>
       </button>
       <button
@@ -80,14 +80,36 @@
         <i nz-icon nzType="column-height"></i>
         <ng-template #sizeContent>
           <nz-radio-group [(ngModel)]="size">
-            <label nz-radio nzValue="default">默认</label>
-            <label nz-radio nzValue="middle">中等</label>
-            <label nz-radio nzValue="small">紧凑</label>
+            <label nz-radio-button nzValue="default">默认</label>
+            <label nz-radio-button nzValue="middle">中等</label>
+            <label nz-radio-button nzValue="small">紧凑</label>
           </nz-radio-group>
         </ng-template>
       </button>
-      <button nz-button nzType="text" nz-tooltip="列设置">
+      <button
+        nz-button
+        nzType="text"
+        nz-tooltip="列设置"
+        nz-popover
+        nzPopoverPlacement="bottom"
+        nzPopoverTrigger="click"
+        [nzPopoverTitle]="fieldContentTitle"
+        [nzPopoverContent]="fieldContent"
+      >
         <i nz-icon nzType="setting"></i>
+        <ng-template #fieldContentTitle>
+          <label
+            nz-checkbox
+            [(ngModel)]="columnsChecked"
+            (ngModelChange)="updateColumnsChecked()"
+            [nzIndeterminate]="columnsIndeterminate"
+          >
+            列展示
+          </label>
+        </ng-template>
+        <ng-template #fieldContent>
+          <nz-checkbox-group [(ngModel)]="columns" (ngModelChange)="updateColumnChecked()"></nz-checkbox-group>
+        </ng-template>
       </button>
     </nz-button-group>
   </nz-space>
@@ -125,9 +147,7 @@
           [nzIndeterminate]="lists.indeterminate"
           (nzCheckedChange)="lists.setAllChecked($event)"
         ></th>
-        <ng-container *ngFor="let x of fields">
-          <th>{{ x.label }}</th>
-        </ng-container>
+        <th *ngFor="let x of displayColumns">{{ x.label }}</th>
         <th nzWidth="100px" nzRight nzAlign="center">操作</th>
       </tr>
     </thead>
@@ -140,9 +160,7 @@
           [nzChecked]="lists.checkedIds.has(data._id)"
           (nzCheckedChange)="lists.setChecked(data._id, $event)"
         ></td>
-        <ng-container *ngFor="let x of fields">
-          <td>{{ data[x.key] }}</td>
-        </ng-container>
+        <td *ngFor="let x of displayColumns">{{ data[x.value] }}</td>
         <td nzRight nzAlign="center">
           <button nz-button nzType="text">
             <i nz-icon nzType="ellipsis"></i>

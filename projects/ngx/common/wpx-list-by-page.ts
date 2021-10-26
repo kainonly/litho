@@ -46,17 +46,14 @@ export class WpxListByPage {
   index = 1;
 
   checkedIds: Set<string> = new Set<string>();
-
   /**
    * 是否全被选中
    */
   checked: boolean = false;
-
   /**
    * 是否不完全被选中
    */
   indeterminate = false;
-
   /**
    * 被选中的数量
    */
@@ -80,7 +77,7 @@ export class WpxListByPage {
    * 设置数据
    */
   setData(data: any[]): void {
-    this.data = data;
+    this.data = [...data];
   }
 
   /**
@@ -154,8 +151,8 @@ export class WpxListByPage {
   /**
    * 返回所有被选中的列表
    */
-  getChecked(): Array<Record<string, any>> {
-    return this.data.filter(value => value.checked);
+  getCheckedData(): any[] {
+    return this.data.filter(value => this.checkedIds.has(value._id));
   }
 
   /**
