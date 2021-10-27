@@ -16,13 +16,14 @@ export class WpxTemplateTableComponent implements OnChanges {
   @Input() fields!: Field[];
   @Input() lists!: WpxListByPage;
   @Output() readonly refresh: EventEmitter<void> = new EventEmitter<void>();
-  private fieldsMap: Map<string, Field> = new Map<string, Field>();
-
-  searchOptions: NzCheckBoxOptionInterface[] = [];
 
   search: Field[] = [];
-  searchForm?: FormGroup;
-  searchOperate: any = {};
+  searchQuick: any = {
+    field: '',
+    value: ''
+  };
+  searchAdvancedVisible = false;
+  searchAdvancedForm?: FormGroup;
 
   size: NzTableSize = 'middle';
 
@@ -35,15 +36,11 @@ export class WpxTemplateTableComponent implements OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes.hasOwnProperty('fields')) {
-      this.search = [];
-      this.searchForm = undefined;
-      this.searchOperate = {};
-      this.fieldsMap = new Map<string, Field>((changes.fields.currentValue as Field[]).map(v => [v.key, v]));
-      this.searchOptions = [
-        ...(changes.fields.currentValue as Field[])
-          .filter(v => !['media'].includes(v.type))
-          .map(v => <NzCheckBoxOptionInterface>{ label: v.label, value: v.key })
-      ];
+      this.search = [...(changes.fields.currentValue as Field[]).filter(v => !['media'].includes(v.type))];
+      this.searchQuick = {
+        field: this.search[0]?.key,
+        value: ''
+      };
       this.columns = [
         ...(changes.fields.currentValue as Field[]).map(
           v => <NzCheckBoxOptionInterface>{ label: v.label, value: v.key, checked: true }
@@ -67,19 +64,25 @@ export class WpxTemplateTableComponent implements OnChanges {
     this.displayColumns = [...this.columns.filter(v => v.checked)];
   }
 
-  updateSearch(): void {
+  quickSearch(): void {
+    console.log(this.searchQuick);
+  }
+
+  openSearchAdvanced(): void {
+    this.searchAdvancedVisible = true;
     const controls: any = {};
-    this.search = this.searchOptions
-      .filter(v => v.checked)
-      .map(v => {
-        const field = this.fieldsMap.get(v.value)!;
-        controls[field.key] = this.fb.group({
-          operator: ['$eq'],
-          value: []
-        });
-        return field;
+    for (const x of this.search) {
+      controls[x.key] = this.fb.group({
+        operator: [],
+        value: []
       });
-    this.searchForm = this.fb.group(controls);
+    }
+    this.searchAdvancedForm = this.fb.group(controls);
+  }
+
+  closeSearchAdvanced(): void {
+    this.searchAdvancedVisible = false;
+    this.searchAdvancedForm = undefined;
   }
 
   submit(data: any): void {
