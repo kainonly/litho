@@ -16,7 +16,7 @@ export class WpxLayoutActivated implements CanActivateChild {
     if (childRoute.params.hasOwnProperty('pages')) {
       this.wpxLayout.activated = childRoute.params.pages.split(',');
     } else {
-      this.wpxLayout.activated = state.url.split('/').splice(1);
+      this.wpxLayout.activated = state.url.split('/').splice(2);
     }
     return true;
   }

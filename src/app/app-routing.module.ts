@@ -30,7 +30,7 @@ const routes: Routes = [
         path: ':pages',
         component: WpxTemplateComponent
       },
-      { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
+      { path: '', redirectTo: '/pages/dashboard', pathMatch: 'full' },
       { path: '**', loadChildren: () => import('./empty/empty.module').then(m => m.EmptyModule) }
     ]
   }

@@ -82,7 +82,6 @@
         <ng-container [ngSwitch]="tabs">
           <ng-container *ngSwitchCase="0">
             <nz-table
-              style="width: 100%"
               #manualTable
               [nzData]="manuals"
               [nzFrontPagination]="false"
@@ -91,16 +90,16 @@
             >
               <thead>
                 <tr>
-                  <th nzWidth="65px"> </th>
+                  <th nzWidth="65px" nzLeft nzAlign="center"> </th>
                   <th nzWidth="240px"><b>集合命名</b></th>
                   <th nzWidth="240px"><b>显示名称</b></th>
                   <th><b>描述</b></th>
-                  <th nzWidth="100px" nzRight="0px"><b>操作</b></th>
+                  <th nzWidth="100px" nzRight nzAlign="center"><b>操作</b></th>
                 </tr>
               </thead>
               <tbody>
                 <tr *ngFor="let data of manualTable.data">
-                  <td>
+                  <td nzLeft nzAlign="center">
                     <ng-container *ngIf="!!data.system">
                       <nz-tag nzColor="blue">SYS</nz-tag>
                     </ng-container>
@@ -108,7 +107,7 @@
                   <td>{{ data.key }}</td>
                   <td>{{ data.label }}</td>
                   <td> - </td>
-                  <td>
+                  <td nzRight nzAlign="center">
                     <button nz-button nzType="text" nz-dropdown [nzDropdownMenu]="actions">
                       <i nz-icon nzType="ellipsis"></i>
                     </button>
@@ -148,16 +147,16 @@
             >
               <thead>
                 <tr>
-                  <th nzWidth="65px"> </th>
+                  <th nzWidth="65px" nzLeft nzAlign="center"> </th>
                   <th nzWidth="240px"><b>字段名称</b></th>
                   <th nzWidth="240px"><b>显示名称</b></th>
                   <th><b>描述</b></th>
-                  <th nzWidth="100px" nzRight="0px"><b>操作</b></th>
+                  <th nzWidth="100px" nzRight nzAlign="center"><b>操作</b></th>
                 </tr>
               </thead>
               <tbody cdkDropList (cdkDropListDropped)="fieldAct.sort($event)">
                 <tr *ngFor="let data of contentTable.data" cdkDrag>
-                  <td>
+                  <td nzLeft nzAlign="center">
                     <button nz-button nzType="dashed" nzShape="circle" cdkDragHandle>
                       <i nz-icon nzType="drag"></i>
                     </button>
@@ -192,7 +191,7 @@
                       <nz-tag>默认值:{{ data.default }}</nz-tag>
                     </ng-container>
                   </td>
-                  <td>
+                  <td nzRight nzAlign="center">
                     <ng-container *ngIf="!data.system; else isSystem">
                       <button nz-button nzType="text" nz-dropdown [nzDropdownMenu]="actions">
                         <i nz-icon nzType="ellipsis"></i>

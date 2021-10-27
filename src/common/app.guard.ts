@@ -13,14 +13,13 @@ export class AppGuard implements CanActivate {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    // return this.app.verify().pipe(
-    //   map((res: any) => {
-    //     if (res.error) {
-    //       this.router.navigateByUrl('/login');
-    //     }
-    //     return true;
-    //   })
-    // );
-    return of(true);
+    return this.app.verify().pipe(
+      map((res: any) => {
+        if (res.code) {
+          this.router.navigateByUrl('/login');
+        }
+        return true;
+      })
+    );
   }
 }

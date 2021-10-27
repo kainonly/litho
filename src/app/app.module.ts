@@ -23,14 +23,15 @@ registerLocaleData(zh);
 
 const routes: Routes = [
   {
-    path: '',
+    path: 'pages',
     loadChildren: () => import('./app-routing.module').then(m => m.AppRoutingModule),
     canActivate: [AppGuard]
   },
   {
     path: 'login',
     loadChildren: () => import('./login/login.module').then(m => m.LoginModule)
-  }
+  },
+  { path: '', redirectTo: '/pages', pathMatch: 'full' }
 ];
 
 const ngZorroConfig: NzConfig = {

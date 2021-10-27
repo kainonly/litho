@@ -15,7 +15,7 @@ export class LayoutComponent implements OnInit, OnDestroy {
   constructor(public app: AppService) {}
 
   ngOnInit(): void {
-    // this.taskToRefreshToken();
+    this.taskToRefreshToken();
     this.app.pages().subscribe(() => {});
   }
 
@@ -28,18 +28,18 @@ export class LayoutComponent implements OnInit, OnDestroy {
       .pipe(
         switchMap(() =>
           this.app.code().pipe(
-            map(res => {
-              if (res.error) {
+            map(v => {
+              if (v.code) {
                 this.autoRefreshToken.unsubscribe();
                 return;
               }
-              return res.data.code;
+              return v.data.code;
             })
           )
         ),
         switchMap(code => this.app.refreshToken(code))
       )
-      .subscribe(res => {
+      .subscribe(() => {
         this.app.browserRefresh = false;
         this.taskToRefreshToken();
       });

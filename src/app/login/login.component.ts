@@ -32,8 +32,8 @@ export class LoginComponent implements OnInit {
   }
 
   submit(data: any): void {
-    this.appService.login(data.username, data.password).subscribe(res => {
-      switch (res.error) {
+    this.appService.login(data.username, data.password).subscribe(v => {
+      switch (v.code) {
         case 0:
           this.wpx.clear();
           this.notification.success('认证状态', '登录成功，正在加载数据~');
