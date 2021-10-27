@@ -22,6 +22,7 @@ export class WpxTemplateTableComponent implements OnChanges {
 
   search: Field[] = [];
   searchForm?: FormGroup;
+  searchOperate: any = {};
 
   size: NzTableSize = 'middle';
 
@@ -34,9 +35,9 @@ export class WpxTemplateTableComponent implements OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes.hasOwnProperty('fields')) {
-      console.log('ok');
       this.search = [];
       this.searchForm = undefined;
+      this.searchOperate = {};
       this.fieldsMap = new Map<string, Field>((changes.fields.currentValue as Field[]).map(v => [v.key, v]));
       this.searchOptions = [
         ...(changes.fields.currentValue as Field[])
@@ -72,7 +73,10 @@ export class WpxTemplateTableComponent implements OnChanges {
       .filter(v => v.checked)
       .map(v => {
         const field = this.fieldsMap.get(v.value)!;
-        controls[field.key] = [];
+        controls[field.key] = this.fb.group({
+          operator: ['$eq'],
+          value: []
+        });
         return field;
       });
     this.searchForm = this.fb.group(controls);

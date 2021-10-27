@@ -4,22 +4,25 @@
   </button>
 </wpx-layout>
 
-<nz-row [nzGutter]="12">
-  <nz-col [nzXXl]="6" [nzXl]="8" [nzLg]="12">
-    <nz-card>
-      <nz-space style="margin-bottom: 12px">
-        <nz-input-group *nzSpaceItem nzSuffixIcon="search">
-          <input type="text" nz-input placeholder="搜索" [(ngModel)]="name" />
-        </nz-input-group>
-        <nz-button-group *nzSpaceItem>
-          <button nz-button nz-tooltip="全部收起" (click)="layout.setExpanded(pageTree.getTreeNodes(), false)">
-            <i nz-icon nzType="node-collapse"></i>
-          </button>
-          <button nz-button nz-tooltip="全部展开" (click)="layout.setExpanded(pageTree.getTreeNodes(), true)">
-            <i nz-icon nzType="node-expand"></i>
-          </button>
-        </nz-button-group>
-      </nz-space>
+<ng-template #title>
+  <nz-space>
+    <nz-button-group *nzSpaceItem>
+      <button nz-button nz-tooltip="全部收起" (click)="layout.setExpanded(pageTree.getTreeNodes(), false)">
+        <i nz-icon nzType="node-collapse"></i>
+      </button>
+      <button nz-button nz-tooltip="全部展开" (click)="layout.setExpanded(pageTree.getTreeNodes(), true)">
+        <i nz-icon nzType="node-expand"></i>
+      </button>
+    </nz-button-group>
+    <nz-input-group *nzSpaceItem nzSuffixIcon="search">
+      <input type="text" style="width: 240px" nz-input placeholder="搜索" [(ngModel)]="name" />
+    </nz-input-group>
+  </nz-space>
+</ng-template>
+
+<nz-card [nzTitle]="title">
+  <nz-row [nzGutter]="16">
+    <nz-col [nzXXl]="4" [nzXl]="5" [nzLg]="6">
       <nz-tree
         #pageTree
         nzBlockNode
@@ -32,173 +35,170 @@
         (nzClick)="fetchData($event)"
       >
       </nz-tree>
-    </nz-card>
-  </nz-col>
-  <nz-col [nzXXl]="18" [nzXl]="16" [nzLg]="12">
-    <nz-card *ngIf="form">
-      <nz-card-tab>
-        <nz-tabset nzSize="large" [(nzSelectedIndex)]="tabs">
+    </nz-col>
+    <nz-col [nzXXl]="20" [nzXl]="19" [nzLg]="18">
+      <ng-container *ngIf="form">
+        <nz-tabset nzType="card" [(nzSelectedIndex)]="tabs">
           <nz-tab nzTitle="基础设置"></nz-tab>
           <nz-tab nzTitle="高级设置" [nzDisabled]="['', 'manual'].includes(router?.value)"></nz-tab>
           <nz-tab nzTitle="验证器" [nzDisabled]="router?.value !== 'form'"></nz-tab>
         </nz-tabset>
-      </nz-card-tab>
-
-      <form nz-form nzLayout="vertical" [formGroup]="form" (wpxFormSubmit)="submit($event)">
-        <ng-container [ngSwitch]="tabs">
-          <ng-container *ngSwitchCase="0">
-            <nz-form-item>
-              <nz-form-label nzRequired>页面名称</nz-form-label>
-              <nz-form-control style="width: 420px">
-                <input nz-input formControlName="name" placeholder="请输入页面名称，例如订单管理" />
-              </nz-form-control>
-            </nz-form-item>
-            <nz-form-item>
-              <nz-form-label nzRequired>URL片段</nz-form-label>
-              <nz-form-control style="width: 420px">
-                <input nz-input formControlName="fragment" placeholder="请输入URL片段，例如 order" />
-              </nz-form-control>
-            </nz-form-item>
-            <nz-form-item>
-              <nz-form-label nzRequired>是否为导航</nz-form-label>
-              <nz-form-control style="width: 420px" nzExtra="开启后将在左侧导航中显示">
-                <nz-switch formControlName="nav"></nz-switch>
-              </nz-form-control>
-            </nz-form-item>
-            <nz-form-item>
-              <nz-form-label>字体图标</nz-form-label>
-              <nz-form-control style="width: 420px">
-                <nz-input-group nzCompact>
-                  <input
-                    nz-input
-                    formControlName="icon"
-                    placeholder="请填写字体图标，遵循图标 nzType 命名规范"
-                    style="width: 90%"
-                  />
-                  <a nz-button style="width: 10%" href="https://ng-zorro.gitee.io/components/icon/zh" target="_blank">
-                    <i nz-icon nzType="link"></i>
-                  </a>
-                </nz-input-group>
-              </nz-form-control>
-            </nz-form-item>
-            <nz-form-item>
-              <nz-form-label>路由类型</nz-form-label>
-              <nz-form-control style="width: 420px">
-                <nz-select formControlName="router" nzPlaceHolder="请选择路由类型，默认无">
-                  <nz-option nzLabel="自定义" nzValue="manual"></nz-option>
-                  <nz-option nzLabel="表单" nzValue="form"></nz-option>
-                  <nz-option nzLabel="数据表" nzValue="table"></nz-option>
-                </nz-select>
-              </nz-form-control>
-            </nz-form-item>
-          </ng-container>
-          <ng-container *ngSwitchCase="1">
-            <ng-container formGroupName="option">
+        <form nz-form nzLayout="vertical" [formGroup]="form" (wpxFormSubmit)="submit($event)">
+          <ng-container [ngSwitch]="tabs">
+            <ng-container *ngSwitchCase="0">
               <nz-form-item>
-                <nz-form-label nzRequired>引用内容类型</nz-form-label>
+                <nz-form-label nzRequired>页面名称</nz-form-label>
+                <nz-form-control style="width: 420px">
+                  <input nz-input formControlName="name" placeholder="请输入页面名称，例如订单管理" />
+                </nz-form-control>
+              </nz-form-item>
+              <nz-form-item>
+                <nz-form-label nzRequired>URL片段</nz-form-label>
+                <nz-form-control style="width: 420px">
+                  <input nz-input formControlName="fragment" placeholder="请输入URL片段，例如 order" />
+                </nz-form-control>
+              </nz-form-item>
+              <nz-form-item>
+                <nz-form-label nzRequired>是否为导航</nz-form-label>
+                <nz-form-control style="width: 420px" nzExtra="开启后将在左侧导航中显示">
+                  <nz-switch formControlName="nav"></nz-switch>
+                </nz-form-control>
+              </nz-form-item>
+              <nz-form-item>
+                <nz-form-label>字体图标</nz-form-label>
                 <nz-form-control style="width: 420px">
                   <nz-input-group nzCompact>
-                    <nz-select
+                    <input
+                      nz-input
+                      formControlName="icon"
+                      placeholder="请填写字体图标，遵循图标 nzType 命名规范"
                       style="width: 90%"
-                      formControlName="schema"
-                      nzPlaceHolder="请选择内容类型"
-                      (ngModelChange)="schemaChanged($event)"
-                    >
-                      <ng-container *ngFor="let x of schemas">
-                        <nz-option [nzLabel]="x.label + ' [ ' + x.key + ' ]'" [nzValue]="x.key"></nz-option>
-                      </ng-container>
-                    </nz-select>
-                    <button nz-button style="width: 10%" type="button" (click)="getSchemas()">
-                      <i nz-icon nzType="sync"></i>
-                    </button>
+                    />
+                    <a nz-button style="width: 10%" href="https://ng-zorro.gitee.io/components/icon/zh" target="_blank">
+                      <i nz-icon nzType="link"></i>
+                    </a>
                   </nz-input-group>
                 </nz-form-control>
               </nz-form-item>
               <nz-form-item>
-                <nz-form-label>是否预加载</nz-form-label>
-                <nz-form-control style="width: 420px" nzExtra="需要优先获取数据，例如更新类表单">
-                  <nz-switch formControlName="fetch"></nz-switch>
+                <nz-form-label>路由类型</nz-form-label>
+                <nz-form-control style="width: 420px">
+                  <nz-select formControlName="router" nzPlaceHolder="请选择路由类型，默认无">
+                    <nz-option nzLabel="自定义" nzValue="manual"></nz-option>
+                    <nz-option nzLabel="表单" nzValue="form"></nz-option>
+                    <nz-option nzLabel="数据表" nzValue="table"></nz-option>
+                  </nz-select>
                 </nz-form-control>
               </nz-form-item>
-              <nz-form-item>
-                <nz-form-label nzRequired>字段设置</nz-form-label>
-                <nz-form-control formArrayName="fields">
-                  <nz-table
-                    #fieldsTable
-                    nzFooter="* 请选择页面需要显示的字段，通过拖拽可进行显示排序"
-                    [nzData]="optionFieldsControls"
-                    [nzFrontPagination]="false"
-                    [nzShowPagination]="false"
-                  >
-                    <thead>
-                      <tr>
-                        <th nzWidth="50px"> </th>
-                        <th nzWidth="200px"><b>字段名称</b></th>
-                        <th nzWidth="200px"><b>显示名称</b></th>
-                        <th><b>是否显示</b></th>
-                      </tr>
-                    </thead>
-                    <tbody cdkDropList (cdkDropListDropped)="sort($event)">
-                      <ng-container *ngFor="let data of fieldsTable.data; index as i">
-                        <tr [formGroupName]="i" cdkDrag>
-                          <td>
-                            <button nz-button nzType="dashed" nzShape="circle" cdkDragHandle>
-                              <i nz-icon nzType="drag"></i>
-                            </button>
-                          </td>
-                          <td>
-                            <input nz-input formControlName="key" readonly />
-                          </td>
-                          <td>
-                            <input nz-input formControlName="label" />
-                          </td>
-                          <td>
-                            <nz-switch formControlName="display"></nz-switch>
-                          </td>
+            </ng-container>
+            <ng-container *ngSwitchCase="1">
+              <ng-container formGroupName="option">
+                <nz-form-item>
+                  <nz-form-label nzRequired>引用内容类型</nz-form-label>
+                  <nz-form-control style="width: 420px">
+                    <nz-input-group nzCompact>
+                      <nz-select
+                        style="width: 90%"
+                        formControlName="schema"
+                        nzPlaceHolder="请选择内容类型"
+                        (ngModelChange)="schemaChanged($event)"
+                      >
+                        <ng-container *ngFor="let x of schemas">
+                          <nz-option [nzLabel]="x.label + ' [ ' + x.key + ' ]'" [nzValue]="x.key"></nz-option>
+                        </ng-container>
+                      </nz-select>
+                      <button nz-button style="width: 10%" type="button" (click)="getSchemas()">
+                        <i nz-icon nzType="sync"></i>
+                      </button>
+                    </nz-input-group>
+                  </nz-form-control>
+                </nz-form-item>
+                <nz-form-item>
+                  <nz-form-label>是否预加载</nz-form-label>
+                  <nz-form-control style="width: 420px" nzExtra="需要优先获取数据，例如更新类表单">
+                    <nz-switch formControlName="fetch"></nz-switch>
+                  </nz-form-control>
+                </nz-form-item>
+                <nz-form-item>
+                  <nz-form-label nzRequired>字段设置</nz-form-label>
+                  <nz-form-control formArrayName="fields">
+                    <nz-table
+                      #fieldsTable
+                      nzFooter="* 请选择页面需要显示的字段，通过拖拽可进行显示排序"
+                      [nzData]="optionFieldsControls"
+                      [nzFrontPagination]="false"
+                      [nzShowPagination]="false"
+                    >
+                      <thead>
+                        <tr>
+                          <th nzWidth="50px"> </th>
+                          <th nzWidth="200px"><b>字段名称</b></th>
+                          <th nzWidth="200px"><b>显示名称</b></th>
+                          <th><b>是否显示</b></th>
                         </tr>
-                      </ng-container>
-                    </tbody>
-                  </nz-table>
+                      </thead>
+                      <tbody cdkDropList (cdkDropListDropped)="sort($event)">
+                        <ng-container *ngFor="let data of fieldsTable.data; index as i">
+                          <tr [formGroupName]="i" cdkDrag>
+                            <td>
+                              <button nz-button nzType="dashed" nzShape="circle" cdkDragHandle>
+                                <i nz-icon nzType="drag"></i>
+                              </button>
+                            </td>
+                            <td>
+                              <input nz-input formControlName="key" readonly />
+                            </td>
+                            <td>
+                              <input nz-input formControlName="label" />
+                            </td>
+                            <td>
+                              <nz-switch formControlName="display"></nz-switch>
+                            </td>
+                          </tr>
+                        </ng-container>
+                      </tbody>
+                    </nz-table>
+                  </nz-form-control>
+                </nz-form-item>
+              </ng-container>
+            </ng-container>
+            <ng-container *ngSwitchCase="2">
+              <nz-form-item formGroupName="option">
+                <nz-form-control [nzExtra]="extra">
+                  <ng-template #extra>
+                    <p>
+                      请遵循 JSON Schema 规则设置表单验证
+                      <a href="https://json-schema.org/draft/2020-12/json-schema-validation.html" target="_blank">
+                        查看
+                      </a>
+                    </p>
+                  </ng-template>
+                  <nz-code-editor
+                    style="height: 500px"
+                    formControlName="validation"
+                    [nzEditorOption]="{ language: 'json' }"
+                  ></nz-code-editor>
                 </nz-form-control>
               </nz-form-item>
             </ng-container>
           </ng-container>
-          <ng-container *ngSwitchCase="2">
-            <nz-form-item formGroupName="option">
-              <nz-form-control [nzExtra]="extra">
-                <ng-template #extra>
-                  <p>
-                    请遵循 JSON Schema 规则设置表单验证
-                    <a href="https://json-schema.org/draft/2020-12/json-schema-validation.html" target="_blank">
-                      查看
-                    </a>
-                  </p>
-                </ng-template>
-                <nz-code-editor
-                  style="height: 500px"
-                  formControlName="validation"
-                  [nzEditorOption]="{ language: 'json' }"
-                ></nz-code-editor>
-              </nz-form-control>
-            </nz-form-item>
-          </ng-container>
-        </ng-container>
 
-        <nz-form-item style="padding-top: 1em">
-          <nz-form-control>
-            <nz-space>
-              <button *nzSpaceItem nz-button nzType="default" type="button">
-                <i nz-icon nzType="close"></i>
-                取消
-              </button>
-              <button *nzSpaceItem nz-button nzType="primary" [disabled]="!form?.valid">
-                <i nz-icon nzType="check"></i>
-                提交
-              </button>
-            </nz-space>
-          </nz-form-control>
-        </nz-form-item>
-      </form>
-    </nz-card>
-  </nz-col>
-</nz-row>
+          <nz-form-item style="padding-top: 1em">
+            <nz-form-control>
+              <nz-space>
+                <button *nzSpaceItem nz-button nzType="default" type="button">
+                  <i nz-icon nzType="close"></i>
+                  取消
+                </button>
+                <button *nzSpaceItem nz-button nzType="primary" [disabled]="!form?.valid">
+                  <i nz-icon nzType="check"></i>
+                  提交
+                </button>
+              </nz-space>
+            </nz-form-control>
+          </nz-form-item>
+        </form>
+      </ng-container>
+    </nz-col>
+  </nz-row>
+</nz-card>

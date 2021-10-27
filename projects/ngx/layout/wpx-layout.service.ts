@@ -32,29 +32,13 @@ export class WpxLayoutService {
    */
   title?: string;
   /**
-   * 页头子标题
-   */
-  subTitle?: string;
-  /**
    * 页头全局提示区域
    */
   alert?: TemplateRef<unknown>;
   /**
-   * 页头标签区域
-   */
-  tags?: TemplateRef<unknown>;
-  /**
    * 页头操作区域
    */
   actions?: QueryList<TemplateRef<unknown>>;
-  /**
-   * 页头内容区域
-   */
-  content?: TemplateRef<unknown>;
-  /**
-   * 页头尾部区域
-   */
-  footer?: TemplateRef<unknown>;
 
   constructor(private storage: StorageMap) {}
 
@@ -102,12 +86,8 @@ export class WpxLayoutService {
     this.skip = false;
     this.back = false;
     this.title = undefined;
-    this.subTitle = undefined;
     this.alert = undefined;
-    this.tags = undefined;
     this.actions = undefined;
-    this.content = undefined;
-    this.footer = undefined;
   }
 
   /**
