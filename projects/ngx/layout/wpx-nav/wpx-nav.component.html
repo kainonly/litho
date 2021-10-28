@@ -1,5 +1,5 @@
 <ul nz-menu nzMode="inline">
-  <ng-container *ngTemplateOutlet="navTemplate; context: { $implicit: wpxLayout.pages | async }"></ng-container>
+  <ng-container *ngTemplateOutlet="navTemplate; context: { $implicit: layout.pages | async }"></ng-container>
   <ng-template #navTemplate let-nodes>
     <ng-container *ngFor="let node of nodes | wpxSort: 'sort'">
       <ng-container *ngIf="node.nav">
@@ -10,7 +10,7 @@
           </li>
         </ng-container>
         <ng-template #not>
-          <li nz-submenu [nzOpen]="node.fragments | wpxAutoOpen: wpxLayout.activated" [nzPaddingLeft]="node.level * 16">
+          <li nz-submenu [nzOpen]="node.fragments | wpxAutoOpen: layout.activated" [nzPaddingLeft]="node.level * 16">
             <span title>
               <i *ngIf="!!node.icon" nz-icon [nzType]="node.icon"></i>
               <span>{{ node.name }}</span>

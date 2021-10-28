@@ -1,12 +1,12 @@
-<ng-container *ngIf="wpxLayout.skip === false">
-  <ng-container *ngIf="!!wpxLayout.alert">
-    <ng-container *ngTemplateOutlet="wpxLayout.alert"></ng-container>
+<ng-container *ngIf="layout.skip === false">
+  <ng-container *ngIf="!!layout.alert">
+    <ng-container *ngTemplateOutlet="layout.alert"></ng-container>
   </ng-container>
-  <nz-page-header [nzGhost]="false" [nzBackIcon]="wpxLayout.back ? '' : null">
+  <nz-page-header [nzGhost]="false" [nzBackIcon]="layout.back ? '' : null">
     <nz-breadcrumb *ngIf="paths" nz-page-header-breadcrumb>
-      <ng-container *ngFor="let _ of wpxLayout.activated; index as i">
+      <ng-container *ngFor="let _ of layout.activated; index as i">
         <nz-breadcrumb-item>
-          <ng-container *ngIf="paths | wpxMap: (wpxLayout.activated | slice: 0:i + 1 | wpxJoin: '/') as node">
+          <ng-container *ngIf="paths | wpxMap: (layout.activated | slice: 0:i + 1 | wpxJoin: '/') as node">
             <ng-container *ngIf="!node.router; else text">
               <a [routerLink]="node | wpxAutoRouter">{{ node.name }}</a>
             </ng-container>
@@ -16,18 +16,18 @@
       </ng-container>
     </nz-breadcrumb>
     <nz-page-header-title>
-      <ng-container *ngIf="!!wpxLayout.title; else defaultTitle">
-        {{ wpxLayout.title }}
+      <ng-container *ngIf="!!layout.title; else defaultTitle">
+        {{ layout.title }}
       </ng-container>
       <ng-template #defaultTitle>
         <ng-container *ngIf="paths">
-          {{ (paths | wpxMap: (wpxLayout.activated | wpxJoin: '/')).name }}
+          {{ (paths | wpxMap: (layout.activated | wpxJoin: '/')).name }}
         </ng-container>
       </ng-template>
     </nz-page-header-title>
-    <nz-page-header-extra *ngIf="!!wpxLayout.actions">
+    <nz-page-header-extra *ngIf="!!layout.actions">
       <nz-space>
-        <ng-container *ngFor="let ref of wpxLayout.actions">
+        <ng-container *ngFor="let ref of layout.actions">
           <ng-container *nzSpaceItem>
             <ng-container *ngTemplateOutlet="ref"></ng-container>
           </ng-container>

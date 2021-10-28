@@ -11,5 +11,5 @@ import { WpxLayoutService } from '../wpx-layout.service';
 export class WpxNavComponent {
   @Input() theme: NzMenuThemeType = 'light';
 
-  constructor(public wpxLayout: WpxLayoutService) {}
+  constructor(public layout: WpxLayoutService) {}
 }

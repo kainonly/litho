@@ -1,7 +1,6 @@
 import { Injectable, QueryList, TemplateRef } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 
-import { StorageMap } from '@ngx-pwa/local-storage';
 import { APIResponse } from '@weplanx/ngx';
 import { NzTreeNode } from 'ng-zorro-antd/tree';
 
@@ -15,6 +14,7 @@ export class WpxLayoutService {
    * 页面数据
    */
   readonly pages: BehaviorSubject<Page[]> = new BehaviorSubject<Page[]>([]);
+  readonly paths: BehaviorSubject<Map<string, Page>> = new BehaviorSubject<Map<string, Page>>(new Map<string, Page>());
   /**
    * 当前路径
    */
@@ -40,8 +40,6 @@ export class WpxLayoutService {
    */
   actions?: QueryList<TemplateRef<unknown>>;
 
-  constructor(private storage: StorageMap) {}
-
   /**
    * 设置页面数据
    */
@@ -62,21 +60,11 @@ export class WpxLayoutService {
         }
       }
       x.level = x.fragments.length;
-      const data = { ...x };
-      Reflect.deleteProperty(data, '_id');
-      paths.set(x.fragments.join('/'), data);
+      paths.set(x.fragments.join('/'), { ...x });
     }
-    this.storage.set('paths', paths).subscribe(() => {
-      this.pages.next(pages);
-    });
+    this.pages.next(pages);
+    this.paths.next(paths);
     return this.pages.asObservable();
-  }
-
-  /**
-   * 获取路径字典
-   */
-  get paths(): Observable<Map<string, Page>> {
-    return this.storage.get('paths') as Observable<Map<string, Page>>;
   }
 
   /**

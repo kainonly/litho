@@ -8,13 +8,15 @@ import { WpxLayoutService } from '../wpx-layout.service';
   templateUrl: './wpx-page-header.component.html'
 })
 export class WpxPageHeaderComponent implements OnInit {
-  paths?: Map<string, Page>;
+  paths!: Map<string, Page>;
 
-  constructor(public wpxLayout: WpxLayoutService) {}
+  constructor(public layout: WpxLayoutService) {}
 
   ngOnInit(): void {
-    this.wpxLayout.paths.subscribe(v => {
-      this.paths = v;
+    this.layout.paths.subscribe(v => {
+      if (v.size) {
+        this.paths = v;
+      }
     });
   }
 }

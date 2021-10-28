@@ -13,8 +13,7 @@ import { Field } from '../../wpx-schema/types';
   templateUrl: './wpx-template-table.component.html',
   styleUrls: ['./wpx-template-table.component.scss']
 })
-export class WpxTemplateTableComponent implements OnInit, OnChanges {
-  @Input() fields!: Field[];
+export class WpxTemplateTableComponent implements OnInit {
   lists!: WpxListByPage;
 
   search: Field[] = [];
@@ -35,28 +34,19 @@ export class WpxTemplateTableComponent implements OnInit, OnChanges {
   constructor(private wpx: WpxService, private template: WpxTemplateService, private fb: FormBuilder) {}
 
   ngOnInit(): void {
-    this.lists = this.wpx.createListByPage({
-      id: `asd`
-    });
-    this.getData();
-  }
-
-  ngOnChanges(changes: SimpleChanges): void {
-    if (changes.hasOwnProperty('fields')) {
-      console.log(changes);
-      console.log(changes.fields.currentValue);
-      this.search = [...(changes.fields.currentValue as Field[]).filter(v => !['media'].includes(v.type))];
+    this.template.fields.subscribe(v => {
+      this.search = [...v.filter(v => !['media'].includes(v.type))];
       this.searchQuick = {
         field: this.search[0]?.key,
         value: ''
       };
-      this.columns = [
-        ...(changes.fields.currentValue as Field[]).map(
-          v => <NzCheckBoxOptionInterface>{ label: v.label, value: v.key, checked: true }
-        )
-      ];
+      this.columns = [...v.map(v => <NzCheckBoxOptionInterface>{ label: v.label, value: v.key, checked: true })];
       this.displayColumns = this.columns;
-    }
+    });
+    this.lists = this.wpx.createListByPage({
+      id: this.template.option!.schema
+    });
+    this.getData();
   }
 
   getData(): void {
