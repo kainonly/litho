@@ -1,7 +1,8 @@
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 
-import { WpxListByPage } from '@weplanx/ngx';
+import { WpxListByPage, WpxService } from '@weplanx/ngx';
+import { WpxTemplateService } from '@weplanx/ngx/lowcode';
 import { NzCheckBoxOptionInterface } from 'ng-zorro-antd/checkbox';
 import { NzTableSize } from 'ng-zorro-antd/table/src/table.types';
 
@@ -12,10 +13,9 @@ import { Field } from '../../wpx-schema/types';
   templateUrl: './wpx-template-table.component.html',
   styleUrls: ['./wpx-template-table.component.scss']
 })
-export class WpxTemplateTableComponent implements OnChanges {
+export class WpxTemplateTableComponent implements OnInit, OnChanges {
   @Input() fields!: Field[];
-  @Input() lists!: WpxListByPage;
-  @Output() readonly refresh: EventEmitter<void> = new EventEmitter<void>();
+  lists!: WpxListByPage;
 
   search: Field[] = [];
   searchQuick: any = {
@@ -32,10 +32,19 @@ export class WpxTemplateTableComponent implements OnChanges {
   columns: NzCheckBoxOptionInterface[] = [];
   displayColumns: NzCheckBoxOptionInterface[] = [];
 
-  constructor(private fb: FormBuilder) {}
+  constructor(private wpx: WpxService, private template: WpxTemplateService, private fb: FormBuilder) {}
+
+  ngOnInit(): void {
+    this.lists = this.wpx.createListByPage({
+      id: `asd`
+    });
+    this.getData();
+  }
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes.hasOwnProperty('fields')) {
+      console.log(changes);
+      console.log(changes.fields.currentValue);
       this.search = [...(changes.fields.currentValue as Field[]).filter(v => !['media'].includes(v.type))];
       this.searchQuick = {
         field: this.search[0]?.key,
@@ -48,6 +57,12 @@ export class WpxTemplateTableComponent implements OnChanges {
       ];
       this.displayColumns = this.columns;
     }
+  }
+
+  getData(): void {
+    this.template.api.findByPage(this.lists!, true, true).subscribe(data => {
+      this.lists?.setData(data as any[]);
+    });
   }
 
   updateColumnsChecked(): void {

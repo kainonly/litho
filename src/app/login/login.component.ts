@@ -38,7 +38,7 @@ export class LoginComponent implements OnInit {
           this.wpx.clear();
           this.notification.success('认证状态', '登录成功，正在加载数据~');
           this.appService.browserRefresh = false;
-          this.router.navigateByUrl('/');
+          this.router.navigateByUrl('/pages');
           break;
         case 1:
           this.notification.error('认证状态', '您的登录失败，请确实账户口令是否正确');

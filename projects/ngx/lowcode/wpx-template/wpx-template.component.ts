@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
-import { WpxListByPage, WpxService } from '@weplanx/ngx';
+import { WpxService } from '@weplanx/ngx';
 import { PageOption, WpxLayoutService } from '@weplanx/ngx/layout';
 
 import { Field, Schema } from '../wpx-schema/types';
@@ -10,14 +10,19 @@ import { WpxTemplateService } from './wpx-template.service';
 
 @Component({
   selector: 'wpx-template',
-  templateUrl: './wpx-template.component.html'
+  template: `
+    <ng-container [ngSwitch]="router">
+      <ng-container *ngSwitchCase="'table'">
+        <wpx-template-table [fields]="fields"></wpx-template-table>
+      </ng-container>
+    </ng-container>
+  `
 })
 export class WpxTemplateComponent implements OnInit {
   router?: string;
   private option?: PageOption;
 
   fields: Field[] = [];
-  lists?: WpxListByPage;
 
   constructor(
     private wpx: WpxService,
@@ -29,6 +34,7 @@ export class WpxTemplateComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.params.subscribe(v => {
+      this.router = '';
       this.getPage(v.pages.replace(',', '/'));
     });
   }
@@ -41,14 +47,6 @@ export class WpxTemplateComponent implements OnInit {
       const schema = this.option!.schema;
       this.getSchema(schema);
       this.template.setModel(schema);
-      switch (this.router) {
-        case 'table':
-          this.lists = this.wpx.createListByPage({
-            id: `search:${schema}`
-          });
-          this.getData();
-          break;
-      }
     });
   }
 
@@ -64,12 +62,6 @@ export class WpxTemplateComponent implements OnInit {
             return field;
           }) as Field[])
       ];
-    });
-  }
-
-  getData(): void {
-    this.template.api.findByPage(this.lists!, true, true).subscribe(data => {
-      this.lists?.setData(data as any[]);
     });
   }
 }

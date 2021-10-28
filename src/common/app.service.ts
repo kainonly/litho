@@ -44,7 +44,7 @@ export class AppService {
    * 刷新令牌
    */
   refreshToken(code: string): Observable<any> {
-    return this.http.post(`${this.config.baseUrl}/refresh`, {
+    return this.http.post(`${this.config.baseUrl}/refresh_token`, {
       code
     });
   }
