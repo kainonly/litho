@@ -1,4 +1,5 @@
 import { DragDropModule } from '@angular/cdk/drag-drop';
+import { PortalModule } from '@angular/cdk/portal';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -84,6 +85,7 @@ import { WpxTemplateService } from './wpx-template/wpx-template.service';
     NzPopoverModule,
     NzCheckboxModule,
     NzDrawerModule,
+    PortalModule,
     DragDropModule,
     WpxHelperModule,
     WpxPipesModule,
