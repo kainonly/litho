@@ -3,6 +3,7 @@ import { BehaviorSubject } from 'rxjs';
 
 import { WpxApi, WpxService } from '@weplanx/ngx';
 import { PageOption } from '@weplanx/ngx/layout';
+import { NzTableSize } from 'ng-zorro-antd/table/src/table.types';
 
 import { Field } from '../wpx-schema/types';
 
@@ -11,7 +12,9 @@ export class WpxTemplateService {
   router!: string;
   option!: PageOption;
   api!: WpxApi;
+
   fields: BehaviorSubject<Field[]> = new BehaviorSubject<Field[]>([]);
+  tableSize: NzTableSize = 'middle';
 
   constructor(private wpx: WpxService) {}
 

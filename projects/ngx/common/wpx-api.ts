@@ -38,32 +38,32 @@ export class WpxApi {
   /**
    * 获取分页数据请求
    */
-  findByPage<T>(list: WpxListByPage, refresh: boolean, persistence: boolean): Observable<T> {
+  findByPage<T>(lists: WpxListByPage, refresh: boolean, persistence: boolean): Observable<T> {
     if (refresh || persistence) {
       if (refresh) {
-        list.index = 1;
+        lists.index = 1;
       }
-      list.persistence();
+      lists.persistence();
     }
-    return list.getPage().pipe(
+    return lists.getPage().pipe(
       switchMap(index => {
-        list.index = index ?? 1;
+        lists.index = index ?? 1;
         return this.send('/find_by_page', {
           page: {
-            limit: list.limit,
-            index: list.index
+            limit: lists.limit,
+            index: lists.index
           },
-          where: list.search,
-          order: list.sort
+          where: lists.search,
+          sort: lists.sort
         });
       }),
       map(v => {
         const data = v.data as DataLists<T>;
-        list.totals = !v.code ? (data.total as number) : 0;
-        list.loading = false;
-        list.checked = false;
-        list.indeterminate = false;
-        list.checkedNumber = 0;
+        lists.totals = !v.code ? (data.total as number) : 0;
+        lists.loading = false;
+        lists.checked = false;
+        lists.indeterminate = false;
+        lists.checkedNumber = 0;
         return !v.code ? data.lists : [];
       })
     ) as Observable<T>;

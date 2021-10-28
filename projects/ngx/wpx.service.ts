@@ -1,7 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, Optional } from '@angular/core';
 import { Router } from '@angular/router';
-import { filter, switchMap } from 'rxjs/operators';
 
 import { StorageMap } from '@ngx-pwa/local-storage';
 
@@ -51,20 +50,5 @@ export class WpxService {
   createListByPage(option: ListsOption): WpxListByPage {
     option.limit = option.limit || this.config.page;
     return new WpxListByPage(this.storage, option);
-  }
-
-  /**
-   * 清除应用本地存储
-   */
-  clear(): void {
-    this.storage
-      .keys()
-      .pipe(
-        filter(
-          v => ['resource', 'router'].includes(v) || v.search(/^search:\S+$/) !== -1 || v.search(/^page:\S+$/) !== -1
-        ),
-        switchMap(key => this.storage.delete(key))
-      )
-      .subscribe(() => {});
   }
 }

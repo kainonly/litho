@@ -4,28 +4,39 @@
   </button>
 </wpx-layout>
 
-<ng-template #title>
-  <nz-input-group nzCompact>
-    <nz-select style="width: 120px" [(ngModel)]="searchQuick.field">
-      <ng-container *ngFor="let x of search">
-        <nz-option [nzLabel]="x.label" [nzValue]="x.key"></nz-option>
-      </ng-container>
-    </nz-select>
-    <input
-      (keyup.enter)="quickSearch()"
-      [(ngModel)]="searchQuick.value"
-      style="width: 240px"
-      type="text"
-      nz-input
-      [placeholder]="'快速搜索'"
-    />
-    <button (click)="quickSearch()" nz-button nzSearch><i nz-icon nzType="search"></i></button>
-  </nz-input-group>
+<ng-template #searchTpl>
+  <nz-row [nzGutter]="12">
+    <nz-col>
+      <nz-input-group nzCompact>
+        <nz-select style="width: 160px" [(ngModel)]="searchQuick.field" nzPlaceHolder="请选择查询字段" nzAllowClear>
+          <ng-container *ngFor="let x of search">
+            <nz-option [nzLabel]="x.label" [nzValue]="x.key"></nz-option>
+          </ng-container>
+        </nz-select>
+        <input
+          (keyup.enter)="quickSearch()"
+          [(ngModel)]="searchQuick.value"
+          style="width: 260px"
+          type="text"
+          nz-input
+          [placeholder]="'请输入查询关键词'"
+        />
+        <button (click)="quickSearch()" nz-button nzSearch><i nz-icon nzType="search"></i></button>
+      </nz-input-group>
+    </nz-col>
+    <nz-col>
+      <nz-button-group>
+        <button nz-button (click)="openSearchAdvanced()"> 高级搜索 </button>
+        <button nz-button nzType="dashed" nz-tooltip="重置搜索">
+          <i nz-icon nzType="clear"></i>
+        </button>
+      </nz-button-group>
+    </nz-col>
+  </nz-row>
 </ng-template>
 
 <ng-template #actions>
   <nz-space>
-    <button *nzSpaceItem nz-button nzType="link" (click)="openSearchAdvanced()"> 高级搜索 </button>
     <nz-button-group *nzSpaceItem>
       <button nz-button nzType="text" nz-tooltip="刷新" (click)="getData()">
         <i nz-icon nzType="reload"></i>
@@ -42,7 +53,7 @@
       >
         <i nz-icon nzType="column-height"></i>
         <ng-template #sizePopover>
-          <nz-radio-group [(ngModel)]="size">
+          <nz-radio-group [(ngModel)]="template.tableSize">
             <label nz-radio-button nzValue="default">默认</label>
             <label nz-radio-button nzValue="middle">中等</label>
             <label nz-radio-button nzValue="small">紧凑</label>
@@ -78,51 +89,10 @@
   </nz-space>
 </ng-template>
 
-<nz-drawer
-  nzTitle="高级搜索"
-  [nzVisible]="searchAdvancedVisible"
-  [nzWidth]="420"
-  [nzFooter]="footerTpl"
-  [nzBodyStyle]="{ overflow: 'auto' }"
-  (nzOnClose)="closeSearchAdvanced()"
->
-  <ng-container *nzDrawerContent>
-    <form
-      *ngIf="searchAdvancedForm"
-      [formGroup]="searchAdvancedForm"
-      nzLayout="vertical"
-      nz-form
-      (wpxFormSubmit)="submit($event)"
-    >
-      <ng-container *ngFor="let x of search">
-        <nz-form-item [formGroupName]="x.key">
-          <nz-form-label>{{ x.label }}</nz-form-label>
-          <nz-form-control>
-            <nz-input-group nzCompact>
-              <nz-select style="width: 120px" formControlName="operator">
-                <nz-option [nzLabel]="'精确'" [nzValue]="'Between'"></nz-option>
-                <nz-option [nzLabel]="'模糊'" [nzValue]="'Except'"></nz-option>
-              </nz-select>
-              <input style="width: 200px" nz-input formControlName="value" />
-            </nz-input-group>
-          </nz-form-control>
-        </nz-form-item>
-      </ng-container>
-    </form>
-  </ng-container>
-
-  <ng-template #footerTpl>
-    <nz-space>
-      <button *nzSpaceItem nz-button> <i nz-icon nzType="search"></i> 搜索 </button>
-      <button *nzSpaceItem nz-button type="reset"> <i nz-icon nzType="clear"></i> 重置 </button>
-    </nz-space>
-  </ng-template>
-</nz-drawer>
-
-<nz-card [nzTitle]="title" [nzExtra]="actions">
+<nz-card [nzTitle]="searchTpl" [nzExtra]="actions">
   <nz-table
     #basicTable
-    [nzSize]="size"
+    [nzSize]="template.tableSize"
     [nzData]="lists.data"
     [nzLoading]="lists.loading"
     [nzScroll]="{ x: '1600px' }"
@@ -174,3 +144,45 @@
     </tbody>
   </nz-table>
 </nz-card>
+
+<nz-drawer
+  nzTitle="高级搜索"
+  [nzVisible]="searchAdvancedVisible"
+  [nzWidth]="450"
+  [nzMask]="false"
+  [nzFooter]="footerTpl"
+  [nzBodyStyle]="{ overflow: 'auto' }"
+  (nzOnClose)="closeSearchAdvanced()"
+>
+  <ng-container *nzDrawerContent>
+    <form
+      *ngIf="searchAdvancedForm"
+      nzLayout="vertical"
+      [formGroup]="searchAdvancedForm"
+      nz-form
+      (wpxFormSubmit)="submit($event)"
+    >
+      <ng-container *ngFor="let x of search">
+        <nz-form-item [formGroupName]="x.key" style="margin-bottom: 1em">
+          <nz-form-label>{{ x.label }}</nz-form-label>
+          <nz-form-control>
+            <nz-input-group nzCompact>
+              <nz-select style="width: 30%" formControlName="operator">
+                <nz-option [nzLabel]="'精确'" [nzValue]="'$eq'"></nz-option>
+                <nz-option [nzLabel]="'模糊'" [nzValue]="'Except'"></nz-option>
+              </nz-select>
+              <input style="width: 70%" nz-input formControlName="value" />
+            </nz-input-group>
+          </nz-form-control>
+        </nz-form-item>
+      </ng-container>
+    </form>
+  </ng-container>
+
+  <ng-template #footerTpl>
+    <nz-space>
+      <button *nzSpaceItem nz-button> <i nz-icon nzType="search"></i> 搜索 </button>
+      <button *nzSpaceItem nz-button type="reset"> <i nz-icon nzType="clear"></i> 重置 </button>
+    </nz-space>
+  </ng-template>
+</nz-drawer>

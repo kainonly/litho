@@ -24,7 +24,6 @@ export class LoginComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.wpx.clear();
     this.form = this.fb.group({
       username: [null, [Validators.required, Validators.minLength(4), Validators.maxLength(20)]],
       password: [null, [Validators.required, Validators.minLength(12), Validators.maxLength(20)]]
@@ -35,7 +34,6 @@ export class LoginComponent implements OnInit {
     this.appService.login(data.username, data.password).subscribe(v => {
       switch (v.code) {
         case 0:
-          this.wpx.clear();
           this.notification.success('认证状态', '登录成功，正在加载数据~');
           this.appService.browserRefresh = false;
           this.router.navigateByUrl('/pages');

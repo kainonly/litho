@@ -8,6 +8,7 @@ import { WpxHelperModule } from '@weplanx/ngx/helper';
 import { WpxLayoutModule } from '@weplanx/ngx/layout';
 import { WpxPipesModule } from '@weplanx/ngx/pipes';
 import { NzAlertModule } from 'ng-zorro-antd/alert';
+import { NzBadgeModule } from 'ng-zorro-antd/badge';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzCardModule } from 'ng-zorro-antd/card';
 import { NzCascaderModule } from 'ng-zorro-antd/cascader';
@@ -85,6 +86,7 @@ import { WpxTemplateService } from './wpx-template/wpx-template.service';
     NzPopoverModule,
     NzCheckboxModule,
     NzDrawerModule,
+    NzBadgeModule,
     PortalModule,
     DragDropModule,
     WpxHelperModule,

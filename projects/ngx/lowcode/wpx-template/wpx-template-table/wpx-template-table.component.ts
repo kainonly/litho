@@ -24,20 +24,18 @@ export class WpxTemplateTableComponent implements OnInit {
   searchAdvancedVisible = false;
   searchAdvancedForm?: FormGroup;
 
-  size: NzTableSize = 'middle';
-
   columnsChecked = true;
   columnsIndeterminate = false;
   columns: NzCheckBoxOptionInterface[] = [];
   displayColumns: NzCheckBoxOptionInterface[] = [];
 
-  constructor(private wpx: WpxService, private template: WpxTemplateService, private fb: FormBuilder) {}
+  constructor(private wpx: WpxService, public template: WpxTemplateService, private fb: FormBuilder) {}
 
   ngOnInit(): void {
     this.template.fields.subscribe(v => {
       this.search = [...v.filter(v => !['media'].includes(v.type))];
       this.searchQuick = {
-        field: this.search[0]?.key,
+        field: '',
         value: ''
       };
       this.columns = [...v.map(v => <NzCheckBoxOptionInterface>{ label: v.label, value: v.key, checked: true })];
@@ -78,7 +76,7 @@ export class WpxTemplateTableComponent implements OnInit {
     const controls: any = {};
     for (const x of this.search) {
       controls[x.key] = this.fb.group({
-        operator: [],
+        operator: ['$eq'],
         value: []
       });
     }

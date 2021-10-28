@@ -22,19 +22,18 @@ import { WpxLayoutService } from './wpx-layout.service';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class WpxLayoutComponent implements OnInit, AfterContentInit {
+  @Input() title?: string;
   @Input() @InputBoolean() skip?: any;
   @Input() @InputBoolean() back?: any;
-  @Input() title?: string;
-
   @ContentChild(WpxLayoutAlertDirective, { read: TemplateRef }) alert?: TemplateRef<any>;
   @ContentChildren(WpxLayoutActionDirective, { read: TemplateRef }) actions?: QueryList<TemplateRef<any>>;
 
   constructor(private wpxLayout: WpxLayoutService) {}
 
   ngOnInit(): void {
+    this.wpxLayout.title = this.title;
     this.wpxLayout.skip = !!this.skip;
     this.wpxLayout.back = !!this.back;
-    this.wpxLayout.title = this.title;
   }
 
   ngAfterContentInit() {
