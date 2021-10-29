@@ -53,7 +53,7 @@ export class AppService {
    * 注销鉴权
    */
   logout(): Observable<boolean> {
-    return this.http.post(`${this.config.baseUrl}/logout`, {}).pipe(map((v: any) => !v.error));
+    return this.http.post(`${this.config.baseUrl}/logout`, {}).pipe(map((v: any) => !v.code));
   }
 
   /**
