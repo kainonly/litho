@@ -55,8 +55,8 @@ export class WpxTemplateComponent implements OnInit {
         option.fields
           .filter(v => v.display && !map.get(v.key)!.private)
           .map(v => {
-            const field = map.get(v.key);
-            field!.label = v.label;
+            const field = map.get(v.key)!;
+            field.label = v.label;
             return field;
           }) as Field[]
       );

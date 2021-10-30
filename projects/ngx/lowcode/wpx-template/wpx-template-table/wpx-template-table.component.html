@@ -121,7 +121,7 @@
           [nzIndeterminate]="lists.indeterminate"
           (nzCheckedChange)="lists.setAllChecked($event)"
         ></th>
-        <th *ngFor="let x of displayColumns">{{ x.label }}</th>
+        <th *ngFor="let x of displayColumns" nzWidth="300px">{{ x.label }}</th>
         <th nzWidth="100px" nzRight nzAlign="center">操作</th>
       </tr>
     </thead>
