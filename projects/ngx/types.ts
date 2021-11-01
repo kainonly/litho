@@ -1,3 +1,7 @@
+import { HttpClient } from '@angular/common/http';
+
+import { StorageMap } from '@ngx-pwa/local-storage';
+
 export type Upload = string | UploadOption;
 
 export interface UploadOption {
@@ -16,6 +20,7 @@ export interface UploadSignedResponse {
 export type UploadStorage = 'default' | 'oss' | 'obs' | 'cos';
 
 export interface ApiOption {
+  http: HttpClient;
   baseUrl: string;
   model: string;
 }
@@ -36,4 +41,29 @@ export interface ListsOption {
   where?: Record<string, any>;
   sort?: Record<string, any>;
   limit?: number;
+}
+
+export interface CollectionType {
+  _id: string;
+  disabled: boolean;
+}
+
+export interface FindOption {
+  where?: Record<string, any>;
+  sort?: Record<string, number>;
+}
+
+export interface PageOption {
+  limit: 10 | 20 | 30 | 40 | 50;
+  index: number;
+}
+
+export interface CollectionOption {
+  key: string;
+  storage: StorageMap;
+}
+
+export interface StorageOption {
+  key: string;
+  storage: StorageMap;
 }

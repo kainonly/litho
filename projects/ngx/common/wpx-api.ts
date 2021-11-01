@@ -2,11 +2,16 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
 
-import { ApiOption, APIResponse, DataLists } from '../types';
+import { ApiOption, APIResponse, DataLists, FindOption, PageOption } from '../types';
+import { WpxCollection } from './wpx-collection';
 import { WpxListByPage } from './wpx-list-by-page';
 
 export class WpxApi {
-  constructor(private http: HttpClient, private option: ApiOption) {}
+  private http!: HttpClient;
+
+  constructor(private option: ApiOption) {
+    this.http = option.http;
+  }
 
   /**
    * 发起统一请求
@@ -33,6 +38,21 @@ export class WpxApi {
       where,
       sort
     }).pipe(map(v => (!v.code ? v.data : []))) as Observable<T>;
+  }
+
+  page<T>(coll: WpxCollection<any>, refresh: boolean): Observable<T> {
+    return this.send('/find_by_page', {
+      page: {
+        limit: coll.limit,
+        index: coll.index
+      }
+    }).pipe(
+      map(v => {
+        if (!v.code) {
+        }
+        return v.data;
+      })
+    ) as Observable<T>;
   }
 
   /**

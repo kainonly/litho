@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, CanActivateChild, RouterStateSnapshot, UrlTree } from '@angular/router';
+import { ActivatedRouteSnapshot, CanActivateChild, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
 import { Observable } from 'rxjs';
 
 import { WpxLayoutService } from '@weplanx/ngx/layout';
 
 @Injectable({ providedIn: 'root' })
 export class WpxLayoutActivated implements CanActivateChild {
-  constructor(private wpxLayout: WpxLayoutService) {}
+  constructor(private wpxLayout: WpxLayoutService, private router: Router) {}
 
   canActivateChild(
     childRoute: ActivatedRouteSnapshot,
@@ -16,7 +16,8 @@ export class WpxLayoutActivated implements CanActivateChild {
     if (childRoute.params.hasOwnProperty('fragments')) {
       this.wpxLayout.activated = childRoute.params.fragments.split(',');
     } else {
-      this.wpxLayout.activated = state.url.split('/').splice(2);
+      const path = state.url.match(/\/pages\/([\w|\/]+);?/)!;
+      this.wpxLayout.activated = path[1].split('/');
     }
     return true;
   }

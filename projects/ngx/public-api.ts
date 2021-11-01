@@ -5,3 +5,4 @@ export * from './wpx.service';
 export * from './common/util';
 export * from './common/wpx-api';
 export * from './common/wpx-list-by-page';
+export * from './common/wpx-collection';

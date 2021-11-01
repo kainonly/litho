@@ -1,0 +1,73 @@
+<wpx-layout>
+  <button *wpxLayoutAction nz-button nzType="primary" nzShape="circle" nz-tooltip="新增">
+    <i nz-icon nzType="plus"></i>
+  </button>
+</wpx-layout>
+
+<nz-card>
+  <nz-table
+    #basicTable
+    [nzData]="coll.data"
+    [nzLoading]="coll.loading"
+    [nzTotal]="coll.total"
+    [(nzPageSize)]="coll.limit"
+    [(nzPageIndex)]="coll.index"
+    [nzFrontPagination]="false"
+    [nzScroll]="{ x: '1600px' }"
+    [nzTitle]="coll.checkedNumber ? bulk : null"
+    (nzPageIndexChange)="getOrders()"
+  >
+    <ng-template #bulk>
+      <nz-alert nzType="info" nzBanner [nzMessage]="message"></nz-alert>
+      <ng-template #message>
+        <nz-row nzJustify="space-between">
+          <nz-col> 已选中 {{ coll.checkedNumber }} 项 </nz-col>
+          <nz-col></nz-col>
+          <nz-col style="text-align: right">
+            <a nz-button nzType="link" nzSize="small">操作<i nz-icon nzType="down"></i></a>
+            <a nz-button nzType="link" nzSize="small">取消选择</a>
+          </nz-col>
+        </nz-row>
+      </ng-template>
+    </ng-template>
+    <thead>
+      <tr>
+        <th
+          nzWidth="65px"
+          nzLeft
+          nzAlign="center"
+          [nzChecked]="coll.checked"
+          [nzIndeterminate]="coll.indeterminate"
+          (nzCheckedChange)="coll.setAllChecked($event)"
+        ></th>
+        <th nzWidth="300px">订单号</th>
+        <th nzWidth="300px">服务号</th>
+        <th nzWidth="300px">服务名称</th>
+        <th nzWidth="300px">服务描述</th>
+        <th nzWidth="300px">服务码</th>
+        <th nzWidth="100px" nzRight nzAlign="center">操作</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let data of basicTable.data">
+        <td
+          nzLeft
+          nzAlign="center"
+          [nzDisabled]="data.disabled"
+          [nzChecked]="coll.checkedIds.has(data._id)"
+          (nzCheckedChange)="coll.setChecked(data._id, $event)"
+        ></td>
+        <td>{{ data.order_number }}</td>
+        <td>{{ data.service_number }}</td>
+        <td>{{ data.service_name }}</td>
+        <td>{{ data.service_description }}</td>
+        <td>{{ data.service_code }}</td>
+        <td nzRight nzAlign="center">
+          <button nz-button nzType="text">
+            <i nz-icon nzType="ellipsis"></i>
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </nz-table>
+</nz-card>

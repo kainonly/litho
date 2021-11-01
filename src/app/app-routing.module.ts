@@ -27,6 +27,10 @@ const routes: Routes = [
         loadChildren: () => import('./settings/settings.module').then(m => m.SettingsModule)
       },
       {
+        path: 'order',
+        loadChildren: () => import('./order/order.module').then(m => m.OrderModule)
+      },
+      {
         path: ':fragments',
         component: WpxTemplateComponent
       },

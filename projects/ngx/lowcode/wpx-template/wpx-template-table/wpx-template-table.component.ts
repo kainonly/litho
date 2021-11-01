@@ -1,10 +1,9 @@
-import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 
 import { WpxListByPage, WpxService } from '@weplanx/ngx';
 import { WpxTemplateService } from '@weplanx/ngx/lowcode';
 import { NzCheckBoxOptionInterface } from 'ng-zorro-antd/checkbox';
-import { NzTableSize } from 'ng-zorro-antd/table/src/table.types';
 
 import { Field } from '../../wpx-schema/types';
 
