@@ -34,17 +34,6 @@ export class WpxService {
     }
   }
 
-  /**
-   * 创建统一请求
-   */
-  createApi(model: string): WpxApi {
-    return new WpxApi({
-      http: this.http,
-      baseUrl: this.config.baseUrl,
-      model
-    });
-  }
-
   api(model: string): WpxApi {
     return new WpxApi({
       http: this.http,

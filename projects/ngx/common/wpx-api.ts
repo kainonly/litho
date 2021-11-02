@@ -42,7 +42,7 @@ export class WpxApi {
   /**
    * 获取分页数据请求
    */
-  findByPage<T, CT extends CollectionType>(coll: WpxCollection<CT>): Observable<PageData<T>> {
+  findByPage<T extends CollectionType>(coll: WpxCollection<T>): Observable<PageData<T>> {
     return this.send('/find_by_page', {
       page: {
         limit: coll.limit,

@@ -1,4 +1,3 @@
-import { SelectionModel } from '@angular/cdk/collections';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -45,12 +44,8 @@ export class OrderComponent implements OnInit {
   }
 
   getOrders(refresh = false) {
-    this.coll.loading = true;
-    if (refresh) {
-      this.coll.refresh();
-    }
-    this.order.api.findByPage(this.coll).subscribe(v => {
-      this.coll.set(v);
+    this.coll.bind(this.order.api, refresh).subscribe(v => {
+      console.log(v);
     });
   }
 

@@ -1,7 +1,8 @@
-import { AsyncSubject } from 'rxjs';
+import { AsyncSubject, Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 import { StorageMap } from '@ngx-pwa/local-storage';
-import { CollectionOption, CollectionType, PageData, PageOption } from '@weplanx/ngx';
+import { CollectionOption, CollectionType, PageData, PageOption, WpxApi } from '@weplanx/ngx';
 
 export class WpxCollection<T extends CollectionType> {
   private key!: string;
@@ -55,7 +56,7 @@ export class WpxCollection<T extends CollectionType> {
       if (!v) {
         this.limit = 10;
         this.index = 1;
-        this.updateStorageValue();
+        this.updateState();
       } else {
         this.limit = v.limit;
         this.index = v.index;
@@ -72,7 +73,7 @@ export class WpxCollection<T extends CollectionType> {
     this.value = [...data.value];
     this.total = data.total;
     this.loading = false;
-    this.updateStorageValue();
+    this.updateState();
   }
 
   /**
@@ -112,7 +113,7 @@ export class WpxCollection<T extends CollectionType> {
     this.updateStatus();
   }
 
-  updateStorageValue(): void {
+  updateState(): void {
     this.storage
       .set(this.key, <PageOption>{
         limit: this.limit,
@@ -124,5 +125,18 @@ export class WpxCollection<T extends CollectionType> {
   refresh(): void {
     this.index = 1;
     this.storage.delete(this.key).subscribe(() => {});
+  }
+
+  bind(api: WpxApi, refresh: boolean): Observable<PageData<T>> {
+    this.loading = true;
+    if (refresh) {
+      this.refresh();
+    }
+    return api.findByPage<T>(this).pipe(
+      map(v => {
+        this.set(v);
+        return v;
+      })
+    ) as Observable<PageData<T>>;
   }
 }

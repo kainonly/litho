@@ -11,7 +11,7 @@ export class WpxSchemaService {
   api!: WpxApi;
 
   constructor(private wpx: WpxService) {
-    this.api = wpx.createApi('schema');
+    this.api = wpx.api('schema');
   }
 
   sort(id: string, fields: any): Observable<any> {

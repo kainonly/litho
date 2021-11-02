@@ -21,7 +21,7 @@ export class WpxTemplateService {
   setTemplate(router: string, option: PageOption): void {
     this.router = router;
     this.option = option;
-    this.api = this.wpx.createApi(this.option.schema);
+    this.api = this.wpx.api(this.option.schema);
   }
 
   setFields(value: Field[]): void {
