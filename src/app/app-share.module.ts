@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-import { WpxHelperModule } from '@weplanx/ngx/helper';
+import { WpxModule } from '@weplanx/ngx';
 import { WpxLayoutModule } from '@weplanx/ngx/layout';
 import { WpxLowcodeModule } from '@weplanx/ngx/lowcode';
 import { WpxPipesModule } from '@weplanx/ngx/pipes';
@@ -122,8 +122,8 @@ import { NzUploadModule } from 'ng-zorro-antd/upload';
     NzEmptyModule,
     NzResultModule,
     NzCodeEditorModule,
+    WpxModule,
     WpxLayoutModule,
-    WpxHelperModule,
     WpxPipesModule,
     WpxLowcodeModule
   ],

@@ -3,14 +3,14 @@ import { Directive } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { WpxConfig, UploadOption, UploadSignedResponse } from '@weplanx/ngx';
+import { Config, UploadOption, UploadSignedResponse } from '@weplanx/ngx';
 import { NzUploadComponent, NzUploadFile } from 'ng-zorro-antd/upload';
 
 @Directive({
   selector: 'nz-upload[wpxUpload]'
 })
 export class WpxUploadDirective {
-  constructor(config: WpxConfig, http: HttpClient, nzUploadComponent: NzUploadComponent) {
+  constructor(config: Config, http: HttpClient, nzUploadComponent: NzUploadComponent) {
     const option = config.upload! as UploadOption;
     nzUploadComponent.nzSize = option.size ?? 5120;
     nzUploadComponent.nzShowUploadList = false;

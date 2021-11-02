@@ -1,8 +1,8 @@
-import { WpxConfig } from '@weplanx/ngx';
+import { Config } from '@weplanx/ngx';
 
 const cdn = 'https://cdn.kainonly.com';
 
-const wpx: Partial<WpxConfig> = {
+const wpx: Partial<Config> = {
   baseUrl: 'https://api.kainonly.com/xapi',
   assets: cdn
 };

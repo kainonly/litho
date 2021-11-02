@@ -39,14 +39,12 @@ export class OrderComponent implements OnInit {
   ngOnInit(): void {
     this.coll = this.wpx.collection('order');
     this.coll.ready.subscribe(() => {
-      this.getOrders();
+      this.getData();
     });
   }
 
-  getOrders(refresh = false) {
-    this.coll.bind(this.order.api, refresh).subscribe(v => {
-      console.log(v);
-    });
+  getData(refresh = false) {
+    this.coll.bind(this.order.api, refresh).subscribe(v => {});
   }
 
   updateColumnsChecked(): void {

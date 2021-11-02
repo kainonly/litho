@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Upload } from './types';
 
 @Injectable({ providedIn: 'root' })
-export class WpxConfig {
+export class Config {
   /**
    * 基础路径
    */
@@ -16,8 +16,4 @@ export class WpxConfig {
    * 上传
    */
   upload?: Upload;
-  /**
-   * 默认分页限制
-   */
-  page = 20;
 }

@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
 
-import { APIResponse, WpxConfig } from '@weplanx/ngx';
+import { APIResponse, Config } from '@weplanx/ngx';
 import { Page, WpxLayoutService } from '@weplanx/ngx/layout';
 
 @Injectable()
@@ -14,7 +14,7 @@ export class AppService {
   readonly refresh$: Subject<undefined> = new Subject<undefined>();
   browserRefresh = true;
 
-  constructor(private http: HttpClient, private config: WpxConfig, private layout: WpxLayoutService) {}
+  constructor(private http: HttpClient, private config: Config, private layout: WpxLayoutService) {}
 
   /**
    * 登录鉴权

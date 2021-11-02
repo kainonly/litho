@@ -56,7 +56,7 @@ export class WpxCollection<T extends CollectionType> {
       if (!v) {
         this.limit = 10;
         this.index = 1;
-        this.updateState();
+        this.updateStorage();
       } else {
         this.limit = v.limit;
         this.index = v.index;
@@ -72,8 +72,6 @@ export class WpxCollection<T extends CollectionType> {
   set(data: PageData<T>) {
     this.value = [...data.value];
     this.total = data.total;
-    this.loading = false;
-    this.updateState();
   }
 
   /**
@@ -113,7 +111,7 @@ export class WpxCollection<T extends CollectionType> {
     this.updateStatus();
   }
 
-  updateState(): void {
+  updateStorage(): void {
     this.storage
       .set(this.key, <PageOption>{
         limit: this.limit,
@@ -135,6 +133,8 @@ export class WpxCollection<T extends CollectionType> {
     return api.findByPage<T>(this).pipe(
       map(v => {
         this.set(v);
+        this.loading = false;
+        this.updateStorage();
         return v;
       })
     ) as Observable<PageData<T>>;

@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-import { WpxHelperModule } from '@weplanx/ngx/helper';
+import { WpxModule } from '@weplanx/ngx';
 import { WpxLayoutModule } from '@weplanx/ngx/layout';
 import { WpxPipesModule } from '@weplanx/ngx/pipes';
 import { NzAlertModule } from 'ng-zorro-antd/alert';
@@ -89,7 +89,7 @@ import { WpxTemplateService } from './wpx-template/wpx-template.service';
     NzBadgeModule,
     PortalModule,
     DragDropModule,
-    WpxHelperModule,
+    WpxModule,
     WpxPipesModule,
     WpxLayoutModule
   ],

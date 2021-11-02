@@ -38,7 +38,7 @@
 <ng-template #actions>
   <nz-space>
     <nz-button-group *nzSpaceItem>
-      <button nz-button nzType="text" nz-tooltip="刷新" (click)="getOrders(true)">
+      <button nz-button nzType="text" nz-tooltip="刷新" (click)="getData(true)">
         <i nz-icon nzType="reload"></i>
       </button>
       <button
@@ -100,7 +100,7 @@
     [nzFrontPagination]="false"
     [nzScroll]="{ x: '1600px' }"
     [nzTitle]="coll.checkedNumber ? bulk : null"
-    (nzPageIndexChange)="getOrders()"
+    (nzPageIndexChange)="getData()"
   >
     <ng-template #bulk>
       <nz-alert nzType="info" nzBanner [nzMessage]="message"></nz-alert>

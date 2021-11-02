@@ -4,14 +4,12 @@ import { Router } from '@angular/router';
 
 import { StorageMap } from '@ngx-pwa/local-storage';
 
-import { WpxApi } from './common/wpx-api';
-import { WpxCollection } from './common/wpx-collection';
+import { Config } from './config';
+import { WpxApi } from './helper/wpx-api';
+import { WpxCollection } from './helper/wpx-collection';
 import { CollectionType } from './types';
-import { WpxConfig } from './wpx-config';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable({ providedIn: 'root' })
 export class WpxService {
   /**
    * 静态资源地址
@@ -23,10 +21,10 @@ export class WpxService {
   readonly upload?: string;
 
   constructor(
-    private config: WpxConfig,
-    @Optional() private storage: StorageMap,
+    private config: Config,
     @Optional() private router: Router,
-    @Optional() private http: HttpClient
+    @Optional() private http: HttpClient,
+    @Optional() private storage: StorageMap
   ) {
     this.assets = config.assets;
     if (config.upload) {

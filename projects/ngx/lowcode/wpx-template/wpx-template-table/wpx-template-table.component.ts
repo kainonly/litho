@@ -2,10 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 
 import { WpxCollection, WpxService } from '@weplanx/ngx';
-import { WpxTemplateService } from '@weplanx/ngx/lowcode';
+import { WpxTemplateService, Field } from '@weplanx/ngx/lowcode';
 import { NzCheckBoxOptionInterface } from 'ng-zorro-antd/checkbox';
-
-import { Field } from '../../wpx-schema/types';
 
 @Component({
   selector: 'wpx-template-table',
