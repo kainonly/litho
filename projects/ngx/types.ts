@@ -19,7 +19,7 @@ export interface UploadSignedResponse {
 
 export type UploadStorage = 'default' | 'oss' | 'obs' | 'cos';
 
-export interface ApiOption {
+export interface APIOption {
   http: HttpClient;
   baseUrl: string;
   model: string;
@@ -27,35 +27,8 @@ export interface ApiOption {
 
 export interface APIResponse<T> {
   code: number;
-  data?: T;
   message: string;
-}
-
-export interface DataLists<T> {
-  total: number;
-  lists: T;
-}
-
-export interface ListsOption {
-  id: string;
-  where?: Record<string, any>;
-  sort?: Record<string, any>;
-  limit?: number;
-}
-
-export interface CollectionType {
-  _id: string;
-  disabled: boolean;
-}
-
-export interface FindOption {
-  where?: Record<string, any>;
-  sort?: Record<string, number>;
-}
-
-export interface PageOption {
-  limit: 10 | 20 | 30 | 40 | 50;
-  index: number;
+  data?: T;
 }
 
 export interface CollectionOption {
@@ -63,7 +36,17 @@ export interface CollectionOption {
   storage: StorageMap;
 }
 
-export interface StorageOption {
-  key: string;
-  storage: StorageMap;
+export interface CollectionType {
+  _id: string;
+  disabled: boolean;
+}
+
+export interface PageData<T> {
+  value: T[];
+  total: number;
+}
+
+export interface PageOption {
+  limit: 10 | 20 | 30 | 40 | 50;
+  index: number;
 }

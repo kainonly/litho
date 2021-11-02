@@ -38,10 +38,10 @@ export class WpxPageComponent implements OnInit {
   }
 
   private getPages(): void {
-    this.page.api.find<Page[]>().subscribe(result => {
+    this.page.api.find<Page>().subscribe(result => {
       const nodes: NzTreeNodeOptions[] = [];
       const dict: Record<string, NzTreeNodeOptions> = {};
-      for (const x of result as Page[]) {
+      for (const x of result) {
         dict[x._id] = {
           title: `${x.name} [ ${x.fragment} ]`,
           key: x._id,
@@ -52,7 +52,7 @@ export class WpxPageComponent implements OnInit {
           data: x
         };
       }
-      for (const x of result as Page[]) {
+      for (const x of result) {
         const options = dict[x._id];
         if (x.parent === 'root') {
           nodes.push(options);
@@ -72,7 +72,7 @@ export class WpxPageComponent implements OnInit {
 
   getSchemas(): void {
     this.schema.api
-      .find<Schema[]>({
+      .find<Schema>({
         kind: {
           $in: ['collection', 'single']
         }

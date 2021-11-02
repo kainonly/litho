@@ -62,7 +62,7 @@ export class WpxSchemaService {
   }
 
   getCollections(): Observable<Schema[]> {
-    return this.api.find<Schema[]>({
+    return this.api.find<Schema>({
       kind: 'collection'
     });
   }

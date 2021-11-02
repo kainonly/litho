@@ -93,16 +93,16 @@
   <nz-table
     #basicTable
     [nzSize]="template.tableSize"
-    [nzData]="lists.data"
-    [nzLoading]="lists.loading"
+    [nzData]="coll.value"
+    [nzLoading]="coll.loading"
     [nzScroll]="{ x: '1600px' }"
-    [nzTitle]="lists.checkedNumber ? bulk : null"
+    [nzTitle]="coll.checkedNumber ? bulk : null"
   >
     <ng-template #bulk>
       <nz-alert nzType="info" nzBanner [nzMessage]="message"></nz-alert>
       <ng-template #message>
         <nz-row nzJustify="space-between">
-          <nz-col> 已选中 {{ lists.checkedNumber }} 项 </nz-col>
+          <nz-col> 已选中 {{ coll.checkedNumber }} 项 </nz-col>
           <nz-col></nz-col>
           <nz-col style="text-align: right">
             <a nz-button nzType="link" nzSize="small">操作<i nz-icon nzType="down"></i></a>
@@ -117,9 +117,9 @@
           nzWidth="65px"
           nzLeft
           nzAlign="center"
-          [nzChecked]="lists.checked"
-          [nzIndeterminate]="lists.indeterminate"
-          (nzCheckedChange)="lists.setAllChecked($event)"
+          [nzChecked]="coll.checked"
+          [nzIndeterminate]="coll.indeterminate"
+          (nzCheckedChange)="coll.setAllChecked($event)"
         ></th>
         <th *ngFor="let x of displayColumns" nzWidth="300px">{{ x.label }}</th>
         <th nzWidth="100px" nzRight nzAlign="center">操作</th>
@@ -131,8 +131,8 @@
           nzLeft
           nzAlign="center"
           [nzDisabled]="data.disabled"
-          [nzChecked]="lists.checkedIds.has(data._id)"
-          (nzCheckedChange)="lists.setChecked(data._id, $event)"
+          [nzChecked]="coll.checkedIds.has(data._id)"
+          (nzCheckedChange)="coll.setChecked(data._id, $event)"
         ></td>
         <td *ngFor="let x of displayColumns">{{ data[x.value] }}</td>
         <td nzRight nzAlign="center">

@@ -1,11 +1,12 @@
+import { SelectionModel } from '@angular/cdk/collections';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 
-import { WpxService, WpxCollection, DataLists } from '@weplanx/ngx';
+import { WpxService, WpxCollection } from '@weplanx/ngx';
+import { Field } from '@weplanx/ngx/lowcode';
 import { NzCheckBoxOptionInterface } from 'ng-zorro-antd/checkbox';
 
-import { Field } from '../../../projects/ngx/lowcode/wpx-schema/types';
 import { OrderService } from './order.service';
 
 @Component({
@@ -46,12 +47,10 @@ export class OrderComponent implements OnInit {
   getOrders(refresh = false) {
     this.coll.loading = true;
     if (refresh) {
-      this.coll.clear();
+      this.coll.refresh();
     }
-    this.order.api.page(this.coll).subscribe(v => {
-      const data = v as DataLists<any>;
-      this.coll.setData(data.lists, data.total);
-      this.coll.updateStorageValue();
+    this.order.api.findByPage(this.coll).subscribe(v => {
+      this.coll.set(v);
     });
   }
 

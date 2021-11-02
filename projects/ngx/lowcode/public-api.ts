@@ -1,4 +1,5 @@
 export * from './wpx-lowcode.module';
+export * from './wpx-schema/types';
 export * from './wpx-schema/wpx-schema.component';
 export * from './wpx-schema/wpx-schema.service';
 export * from './wpx-page/wpx-page.component';

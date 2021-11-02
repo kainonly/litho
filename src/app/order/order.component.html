@@ -92,7 +92,7 @@
 <nz-card [nzTitle]="searchTpl" [nzExtra]="actions">
   <nz-table
     #basicTable
-    [nzData]="coll.data"
+    [nzData]="coll.value"
     [nzLoading]="coll.loading"
     [nzTotal]="coll.total"
     [(nzPageSize)]="coll.limit"

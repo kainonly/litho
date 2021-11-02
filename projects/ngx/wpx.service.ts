@@ -2,12 +2,11 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable, Optional } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { JSONSchema, StorageMap } from '@ngx-pwa/local-storage';
+import { StorageMap } from '@ngx-pwa/local-storage';
 
 import { WpxApi } from './common/wpx-api';
 import { WpxCollection } from './common/wpx-collection';
-import { WpxListByPage } from './common/wpx-list-by-page';
-import { CollectionType, ListsOption, PageOption } from './types';
+import { CollectionType } from './types';
 import { WpxConfig } from './wpx-config';
 
 @Injectable({
@@ -52,14 +51,6 @@ export class WpxService {
       baseUrl: this.config.baseUrl,
       model
     });
-  }
-
-  /**
-   * 创建数据源
-   */
-  createListByPage(option: ListsOption): WpxListByPage {
-    option.limit = option.limit || this.config.page;
-    return new WpxListByPage(this.storage, option);
   }
 
   /**

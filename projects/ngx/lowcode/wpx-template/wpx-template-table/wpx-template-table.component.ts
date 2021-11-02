@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 
-import { WpxListByPage, WpxService } from '@weplanx/ngx';
+import { WpxCollection, WpxService } from '@weplanx/ngx';
 import { WpxTemplateService } from '@weplanx/ngx/lowcode';
 import { NzCheckBoxOptionInterface } from 'ng-zorro-antd/checkbox';
 
@@ -13,7 +13,7 @@ import { Field } from '../../wpx-schema/types';
   styleUrls: ['./wpx-template-table.component.scss']
 })
 export class WpxTemplateTableComponent implements OnInit {
-  lists!: WpxListByPage;
+  coll!: WpxCollection<any>;
 
   search: Field[] = [];
   searchQuick: any = {
@@ -40,16 +40,14 @@ export class WpxTemplateTableComponent implements OnInit {
       this.columns = [...v.map(v => <NzCheckBoxOptionInterface>{ label: v.label, value: v.key, checked: true })];
       this.displayColumns = this.columns;
     });
-    this.lists = this.wpx.createListByPage({
-      id: this.template.option!.schema
-    });
+    // this.coll = this.wpx.collection(this.template.option!.schema);
     this.getData();
   }
 
   getData(): void {
-    this.template.api.findByPage(this.lists!, true, true).subscribe(data => {
-      this.lists?.setData(data as any[]);
-    });
+    // this.template.api.findByPage(this.lists!, true, true).subscribe(data => {
+    //   this.lists?.setData(data as any[]);
+    // });
   }
 
   updateColumnsChecked(): void {

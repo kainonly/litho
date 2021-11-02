@@ -1,29 +1,28 @@
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { map, switchMap } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 
-import { ApiOption, APIResponse, DataLists, FindOption, PageOption } from '../types';
+import { APIOption, APIResponse, CollectionType, PageData } from '../types';
 import { WpxCollection } from './wpx-collection';
-import { WpxListByPage } from './wpx-list-by-page';
 
 export class WpxApi {
   private http!: HttpClient;
 
-  constructor(private option: ApiOption) {
+  constructor(private option: APIOption) {
     this.http = option.http;
   }
 
   /**
    * 发起统一请求
    */
-  send<T>(path: string, body: Record<string, any> = {}): Observable<APIResponse<T>> {
+  send<T>(path: string, body: Record<string, unknown> = {}): Observable<APIResponse<T>> {
     return this.http.post(`${this.option.baseUrl}/${this.option.model}${path}`, body) as Observable<APIResponse<T>>;
   }
 
   /**
    * 获取单条数据请求
    */
-  findOne<T>(where: Record<string, any>, sort?: Record<string, number>): Observable<T> {
+  findOne<T>(where: Record<string, unknown>, sort?: Record<string, number>): Observable<T> {
     return this.send('/find_one', {
       where,
       sort
@@ -33,14 +32,17 @@ export class WpxApi {
   /**
    * 获取原始列表数据请求
    */
-  find<T>(where?: Record<string, any>, sort?: Record<string, number>): Observable<T> {
+  find<T>(where?: Record<string, unknown>, sort?: Record<string, number>): Observable<T[]> {
     return this.send('/find', {
       where,
       sort
-    }).pipe(map(v => (!v.code ? v.data : []))) as Observable<T>;
+    }).pipe(map(v => (!v.code ? v.data : []))) as Observable<T[]>;
   }
 
-  page<T>(coll: WpxCollection<any>): Observable<T> {
+  /**
+   * 获取分页数据请求
+   */
+  findByPage<T, CT extends CollectionType>(coll: WpxCollection<CT>): Observable<PageData<T>> {
     return this.send('/find_by_page', {
       page: {
         limit: coll.limit,
@@ -52,54 +54,20 @@ export class WpxApi {
         }
         return v.data;
       })
-    ) as Observable<T>;
-  }
-
-  /**
-   * 获取分页数据请求
-   */
-  findByPage<T>(lists: WpxListByPage, refresh: boolean, persistence: boolean): Observable<T> {
-    if (refresh || persistence) {
-      if (refresh) {
-        lists.index = 1;
-      }
-      lists.persistence();
-    }
-    return lists.getPage().pipe(
-      switchMap(index => {
-        lists.index = index ?? 1;
-        return this.send('/find_by_page', {
-          page: {
-            limit: lists.limit,
-            index: lists.index
-          },
-          where: lists.search,
-          sort: lists.sort
-        });
-      }),
-      map(v => {
-        const data = v.data as DataLists<T>;
-        lists.totals = !v.code ? (data.total as number) : 0;
-        lists.loading = false;
-        lists.checked = false;
-        lists.indeterminate = false;
-        lists.checkedNumber = 0;
-        return !v.code ? data.lists : [];
-      })
-    ) as Observable<T>;
+    ) as Observable<PageData<T>>;
   }
 
   /**
    * 新增数据请求
    */
-  create(body: Record<string, any>): Observable<APIResponse<never>> {
+  create(body: Record<string, unknown>): Observable<APIResponse<never>> {
     return this.send('/create', body);
   }
 
   /**
    * 修改数据请求
    */
-  update(where: Record<string, any>, data: Record<string, any>): Observable<APIResponse<never>> {
+  update(where: Record<string, unknown>, data: Record<string, unknown>): Observable<APIResponse<never>> {
     return this.send('/update', {
       where,
       update: {
@@ -111,7 +79,7 @@ export class WpxApi {
   /**
    * 删除数据请求
    */
-  delete(where: Record<string, any>): Observable<APIResponse<never>> {
+  delete(where: Record<string, unknown>): Observable<APIResponse<never>> {
     return this.send('/delete', {
       where
     });

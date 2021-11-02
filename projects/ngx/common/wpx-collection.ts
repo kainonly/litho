@@ -1,7 +1,7 @@
-import { AsyncSubject, Observable } from 'rxjs';
+import { AsyncSubject } from 'rxjs';
 
-import { JSONSchema, StorageMap } from '@ngx-pwa/local-storage';
-import { CollectionType, PageOption, StorageOption } from '@weplanx/ngx';
+import { StorageMap } from '@ngx-pwa/local-storage';
+import { CollectionOption, CollectionType, PageData, PageOption } from '@weplanx/ngx';
 
 export class WpxCollection<T extends CollectionType> {
   private key!: string;
@@ -21,7 +21,7 @@ export class WpxCollection<T extends CollectionType> {
   /**
    * 集合数据
    */
-  data: T[] = [];
+  value: T[] = [];
   /**
    * 每页的数量
    */
@@ -47,7 +47,7 @@ export class WpxCollection<T extends CollectionType> {
    */
   checkedNumber = 0;
 
-  constructor(option: StorageOption) {
+  constructor(option: CollectionOption) {
     this.key = option.key;
     this.storage = option.storage;
     this.storage.get(option.key).subscribe(unkonw => {
@@ -65,17 +65,21 @@ export class WpxCollection<T extends CollectionType> {
     });
   }
 
-  setData(values: T[], total: number) {
-    this.data = [...values];
-    this.total = total;
+  /**
+   * 设置数据
+   */
+  set(data: PageData<T>) {
+    this.value = [...data.value];
+    this.total = data.total;
     this.loading = false;
+    this.updateStorageValue();
   }
 
   /**
    * 更新状态属性
    */
   updateStatus(): void {
-    const data = this.data.filter(v => !v.disabled);
+    const data = this.value.filter(v => !v.disabled);
     this.checked = data.every(v => this.checkedIds.has(v._id));
     this.indeterminate = data.some(v => this.checkedIds.has(v._id)) && !this.checked;
     this.checkedNumber = this.checkedIds.size;
@@ -104,7 +108,7 @@ export class WpxCollection<T extends CollectionType> {
    * 设置当前页所有选中
    */
   setAllChecked(checked: boolean): void {
-    this.data.filter(v => !v.disabled).forEach(v => this.setCheckedIds(v._id, checked));
+    this.value.filter(v => !v.disabled).forEach(v => this.setCheckedIds(v._id, checked));
     this.updateStatus();
   }
 
@@ -117,7 +121,7 @@ export class WpxCollection<T extends CollectionType> {
       .subscribe(() => {});
   }
 
-  clear(): void {
+  refresh(): void {
     this.index = 1;
     this.storage.delete(this.key).subscribe(() => {});
   }
