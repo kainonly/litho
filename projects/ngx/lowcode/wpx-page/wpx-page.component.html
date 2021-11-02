@@ -43,7 +43,7 @@
           <nz-tab nzTitle="高级设置" [nzDisabled]="['', 'manual'].includes(router?.value)"></nz-tab>
           <nz-tab nzTitle="验证器" [nzDisabled]="router?.value !== 'form'"></nz-tab>
         </nz-tabset>
-        <form nz-form nzLayout="vertical" [formGroup]="form" (wpxFormSubmit)="submit($event)">
+        <form nz-form nzLayout="vertical" [formGroup]="form" (wpxSubmit)="submit($event)">
           <ng-container [ngSwitch]="tabs">
             <ng-container *ngSwitchCase="0">
               <nz-form-item>

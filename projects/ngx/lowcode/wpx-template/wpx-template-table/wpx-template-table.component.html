@@ -160,7 +160,7 @@
       nzLayout="vertical"
       [formGroup]="searchAdvancedForm"
       nz-form
-      (wpxFormSubmit)="submit($event)"
+      (wpxSubmit)="submit($event)"
     >
       <ng-container *ngFor="let x of search">
         <nz-form-item [formGroupName]="x.key" style="margin-bottom: 1em">

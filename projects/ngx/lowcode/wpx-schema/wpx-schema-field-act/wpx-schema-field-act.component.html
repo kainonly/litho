@@ -5,7 +5,7 @@
 
 <nz-modal [(nzVisible)]="visible" [nzTitle]="title" [nzFooter]="fieldFormFooter" (nzOnCancel)="close()">
   <ng-container *nzModalContent>
-    <form *ngIf="form" nz-form nzLayout="vertical" id="field" [formGroup]="form" (wpxFormSubmit)="submit($event)">
+    <form *ngIf="form" nz-form nzLayout="vertical" id="field" [formGroup]="form" (wpxSubmit)="submit($event)">
       <nz-tabset>
         <nz-tab nzTitle="基础设置">
           <nz-form-item>

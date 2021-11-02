@@ -40,7 +40,7 @@ export class WpxApi {
     }).pipe(map(v => (!v.code ? v.data : []))) as Observable<T>;
   }
 
-  page<T>(coll: WpxCollection<any>, refresh: boolean): Observable<T> {
+  page<T>(coll: WpxCollection<any>): Observable<T> {
     return this.send('/find_by_page', {
       page: {
         limit: coll.limit,

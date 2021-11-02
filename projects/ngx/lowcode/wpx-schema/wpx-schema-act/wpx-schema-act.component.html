@@ -5,7 +5,7 @@
 
 <nz-modal [(nzVisible)]="visible" [nzTitle]="title" [nzFooter]="footer" (nzOnCancel)="close()">
   <ng-container *nzModalContent>
-    <form *ngIf="form" nz-form nzLayout="vertical" id="schema" [formGroup]="form" (wpxFormSubmit)="submit($event)">
+    <form *ngIf="form" nz-form nzLayout="vertical" id="schema" [formGroup]="form" (wpxSubmit)="submit($event)">
       <nz-form-item>
         <nz-form-label nzRequired>集合命名</nz-form-label>
         <nz-form-control
