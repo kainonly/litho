@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 
 import { StorageMap } from '@ngx-pwa/local-storage';
+import { NzCheckBoxOptionInterface } from 'ng-zorro-antd/checkbox';
 import { NzTableSize } from 'ng-zorro-antd/table/src/table.types';
 
 export type Upload = string | UploadOption;
@@ -35,6 +36,7 @@ export interface APIResponse<T> {
 export interface CollectionOption {
   key: string;
   storage: StorageMap;
+  columns: NzCheckBoxOptionInterface[];
 }
 
 export interface CollectionValue {
@@ -48,7 +50,8 @@ export interface PageData<T> {
 }
 
 export interface CollectionStorageValue {
-  limit: 10 | 20 | 30 | 40 | 50;
-  index: number;
-  height: NzTableSize;
+  pageSize: 10 | 20 | 30 | 40 | 50;
+  pageIndex: number;
+  columns: NzCheckBoxOptionInterface[];
+  displaySize: NzTableSize;
 }

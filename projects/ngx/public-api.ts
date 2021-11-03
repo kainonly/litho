@@ -7,5 +7,4 @@ export * from './common/helper/wpx-api';
 export * from './common/helper/wpx-collection';
 export * from './common/directives/wpx-submit.directive';
 export * from './common/directives/wpx-upload.directive';
-export * from './common/wpx-search-box/wpx-search-box.component';
-export * from './common/wpx-table-box/wpx-table-box.component';
+export * from './common/wpx-table/wpx-table.component';

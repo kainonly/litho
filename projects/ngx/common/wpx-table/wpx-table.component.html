@@ -1,0 +1,143 @@
+<ng-template #searchbox>
+  <nz-row [nzGutter]="12">
+    <nz-col>
+      <nz-input-group nzCompact>
+        <nz-select style="width: 160px" [(ngModel)]="searchQuick.field" nzPlaceHolder="请选择查询字段" nzAllowClear>
+          <ng-container *ngFor="let x of search">
+            <nz-option [nzLabel]="x.label" [nzValue]="x.key"></nz-option>
+          </ng-container>
+        </nz-select>
+        <input
+          (keyup.enter)="quickSearch()"
+          [(ngModel)]="searchQuick.value"
+          style="width: 260px"
+          type="text"
+          nz-input
+          [placeholder]="'请输入查询关键词'"
+        />
+        <button (click)="quickSearch()" nz-button nzSearch><i nz-icon nzType="search"></i></button>
+      </nz-input-group>
+    </nz-col>
+    <nz-col>
+      <nz-button-group>
+        <button nz-button (click)="openSearchAdvanced()"> 高级搜索 </button>
+        <button nz-button nzType="dashed" nz-tooltip="重置搜索">
+          <i nz-icon nzType="clear"></i>
+        </button>
+      </nz-button-group>
+    </nz-col>
+  </nz-row>
+</ng-template>
+
+<ng-template #toolbox>
+  <nz-button-group>
+    <button nz-button nzType="text" nz-tooltip="刷新" (click)="fetch.emit(true)">
+      <i nz-icon nzType="reload"></i>
+    </button>
+    <button
+      nz-button
+      nzType="text"
+      nz-tooltip="密度"
+      nz-popover
+      nzPopoverPlacement="bottomRight"
+      nzPopoverTrigger="click"
+      nzPopoverTitle="设置密度"
+      [nzPopoverContent]="displaySizeContent"
+    >
+      <i nz-icon nzType="column-height"></i>
+      <ng-template #displaySizeContent>
+        <nz-radio-group [(ngModel)]="coll.displaySize" (ngModelChange)="coll.updateStorage()">
+          <label nz-radio-button nzValue="default">默认</label>
+          <label nz-radio-button nzValue="middle">中等</label>
+          <label nz-radio-button nzValue="small">紧凑</label>
+        </nz-radio-group>
+      </ng-template>
+    </button>
+    <button
+      nz-button
+      nzType="text"
+      nz-tooltip="列设置"
+      nz-popover
+      nzPopoverPlacement="bottomRight"
+      nzPopoverTrigger="click"
+      [nzPopoverTitle]="columnsTitle"
+      [nzPopoverContent]="columnsContent"
+    >
+      <i nz-icon nzType="setting"></i>
+      <ng-template #columnsTitle>
+        <label
+          nz-checkbox
+          [(ngModel)]="coll.columnsChecked"
+          (ngModelChange)="coll.updateColumnsChecked()"
+          [nzIndeterminate]="coll.columnsIndeterminate"
+        >
+          全部展示
+        </label>
+      </ng-template>
+      <ng-template #columnsContent>
+        <nz-checkbox-group [(ngModel)]="coll.columns" (ngModelChange)="coll.updateColumnChecked()"></nz-checkbox-group>
+      </ng-template>
+    </button>
+  </nz-button-group>
+</ng-template>
+
+<nz-table
+  #basicTable
+  [nzTitle]="coll.checkedNumber ? bulk : null"
+  [nzLoading]="coll.loading"
+  [nzSize]="coll.displaySize"
+  [nzData]="coll.value"
+  [nzScroll]="scroll"
+  [nzFrontPagination]="false"
+  [nzShowSizeChanger]="true"
+  [nzTotal]="coll.total"
+  [(nzPageSize)]="coll.pageSize"
+  [(nzPageIndex)]="coll.pageIndex"
+  (nzPageIndexChange)="fetch.emit(false)"
+  (nzPageSizeChange)="fetch.emit(true)"
+>
+  <ng-template #bulk>
+    <nz-alert nzType="info" nzBanner [nzMessage]="message"></nz-alert>
+    <ng-template #message>
+      <nz-row nzJustify="space-between">
+        <nz-col> 已选中 {{ coll.checkedNumber }} 项 </nz-col>
+        <nz-col></nz-col>
+        <nz-col style="text-align: right">
+          <a nz-button nzType="link" nzSize="small">操作<i nz-icon nzType="down"></i></a>
+          <a nz-button nzType="link" nzSize="small">取消选择</a>
+        </nz-col>
+      </nz-row>
+    </ng-template>
+  </ng-template>
+  <thead>
+    <tr>
+      <th
+        nzWidth="65px"
+        nzLeft
+        nzAlign="center"
+        [nzChecked]="coll.checked"
+        [nzIndeterminate]="coll.indeterminate"
+        (nzCheckedChange)="coll.setAllChecked($event)"
+      ></th>
+      <th *ngFor="let x of coll.displayColumns" nzWidth="300px">{{ x.label }}</th>
+      <th nzWidth="100px" nzRight nzAlign="center">操作</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let data of basicTable.data">
+      <td
+        nzLeft
+        nzAlign="center"
+        [nzDisabled]="data.disabled"
+        [nzChecked]="coll.checkedIds.has(data._id)"
+        (nzCheckedChange)="coll.setChecked(data._id, $event)"
+      ></td>
+      <td *ngFor="let x of coll.displayColumns">{{ data[x.value] }}</td>
+      <td nzRight nzAlign="center">
+        <button nz-button nzType="text">
+          <i nz-icon nzType="ellipsis"></i>
+        </button>
+      </td>
+    </tr>
+  </tbody>
+</nz-table>

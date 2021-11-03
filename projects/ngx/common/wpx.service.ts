@@ -3,6 +3,7 @@ import { Injectable, Optional } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { StorageMap } from '@ngx-pwa/local-storage';
+import { NzCheckBoxOptionInterface } from 'ng-zorro-antd/checkbox';
 
 import { Config } from './config';
 import { WpxApi } from './helper/wpx-api';
@@ -43,10 +44,11 @@ export class WpxService {
   /**
    * 创建数据集合
    */
-  collection<T extends CollectionValue>(key: string): WpxCollection<T> {
+  collection<T extends CollectionValue>(key: string, columns: NzCheckBoxOptionInterface[]): WpxCollection<T> {
     return new WpxCollection<T>({
       key: `collection:${key}`,
-      storage: this.storage
+      storage: this.storage,
+      columns
     });
   }
 }

@@ -3,6 +3,7 @@ import { map } from 'rxjs/operators';
 
 import { StorageMap } from '@ngx-pwa/local-storage';
 import { CollectionOption, CollectionValue, PageData, CollectionStorageValue, WpxApi } from '@weplanx/ngx';
+import { NzCheckBoxOptionInterface } from 'ng-zorro-antd/checkbox';
 import { NzTableSize } from 'ng-zorro-antd/table/src/table.types';
 
 export class WpxCollection<T extends CollectionValue> {
@@ -33,11 +34,11 @@ export class WpxCollection<T extends CollectionValue> {
   /**
    * 每页的数量
    */
-  limit = 0;
+  pageSize = 10;
   /**
    * 当前页码
    */
-  index = 1;
+  pageIndex = 1;
   /**
    * 选中的集合ID
    */
@@ -55,9 +56,25 @@ export class WpxCollection<T extends CollectionValue> {
    */
   checkedNumber = 0;
   /**
-   * 行高
+   * 列设置
    */
-  height: NzTableSize = 'middle';
+  columns: NzCheckBoxOptionInterface[] = [];
+  /**
+   * 显示全部列
+   */
+  columnsChecked = true;
+  /**
+   * 显示部分列
+   */
+  columnsIndeterminate = false;
+  /**
+   * 显示列
+   */
+  displayColumns: NzCheckBoxOptionInterface[] = [];
+  /**
+   * 显示大小
+   */
+  displaySize: NzTableSize = 'middle';
 
   constructor(option: CollectionOption) {
     this.key = option.key;
@@ -65,12 +82,18 @@ export class WpxCollection<T extends CollectionValue> {
     this.storage.get(option.key).subscribe(unkonw => {
       const v = unkonw as CollectionStorageValue;
       if (!v) {
-        this.limit = 10;
-        this.index = 1;
+        this.pageSize = 10;
+        this.pageIndex = 1;
+        this.columns = option.columns;
+        this.displaySize = 'middle';
+        this.updateColumnsChecked();
         this.updateStorage();
       } else {
-        this.limit = v.limit;
-        this.index = v.index;
+        this.pageSize = v.pageSize;
+        this.pageIndex = v.pageIndex;
+        this.columns = v.columns;
+        this.displaySize = v.displaySize;
+        this.updateColumnChecked();
       }
       this.ready.next(undefined);
       this.ready.complete();
@@ -125,15 +148,16 @@ export class WpxCollection<T extends CollectionValue> {
   updateStorage(): void {
     this.storage
       .set(this.key, <CollectionStorageValue>{
-        limit: this.limit,
-        index: this.index,
-        height: this.height
+        pageSize: this.pageSize,
+        pageIndex: this.pageIndex,
+        columns: this.columns,
+        displaySize: this.displaySize
       })
       .subscribe(() => {});
   }
 
   refresh(): void {
-    this.index = 1;
+    this.pageIndex = 1;
     this.storage.delete(this.key).subscribe(() => {});
   }
 
@@ -150,5 +174,20 @@ export class WpxCollection<T extends CollectionValue> {
         return v;
       })
     ) as Observable<PageData<T>>;
+  }
+
+  updateColumnsChecked(): void {
+    this.columnsIndeterminate = false;
+    this.columns.forEach(v => {
+      v.checked = this.columnsChecked;
+    });
+    this.displayColumns = [...this.columns.filter(v => v.checked)];
+  }
+
+  updateColumnChecked(): void {
+    this.columnsChecked = this.columns.every(v => v.checked);
+    this.columnsIndeterminate = !this.columnsChecked && this.columns.some(v => v.checked);
+    this.displayColumns = [...this.columns.filter(v => v.checked)];
+    this.updateStorage();
   }
 }

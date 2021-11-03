@@ -45,8 +45,8 @@ export class WpxApi {
   findByPage<T extends CollectionValue>(coll: WpxCollection<T>): Observable<PageData<T>> {
     return this.send('/find_by_page', {
       page: {
-        limit: coll.limit,
-        index: coll.index
+        size: coll.pageSize,
+        index: coll.pageIndex
       }
     }).pipe(
       map(v => {
