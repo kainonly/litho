@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, Optional } from '@angular/core';
+import { FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 
 import { StorageMap } from '@ngx-pwa/local-storage';
@@ -25,6 +26,7 @@ export class WpxService {
     private config: Config,
     @Optional() private router: Router,
     @Optional() private http: HttpClient,
+    @Optional() private fb: FormBuilder,
     @Optional() private storage: StorageMap
   ) {
     this.assets = config.assets;
@@ -48,6 +50,7 @@ export class WpxService {
     return new WpxCollection<T>({
       key: `collection:${key}`,
       storage: this.storage,
+      fb: this.fb,
       columns
     });
   }

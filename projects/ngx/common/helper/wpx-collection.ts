@@ -1,16 +1,28 @@
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { AsyncSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { StorageMap } from '@ngx-pwa/local-storage';
-import { CollectionOption, CollectionValue, PageData, CollectionStorageValue, WpxApi } from '@weplanx/ngx';
+import {
+  CollectionOption,
+  CollectionValue,
+  PageData,
+  CollectionStorageValue,
+  WpxApi,
+  SearchOption
+} from '@weplanx/ngx';
 import { NzCheckBoxOptionInterface } from 'ng-zorro-antd/checkbox';
 import { NzTableSize } from 'ng-zorro-antd/table/src/table.types';
 
 export class WpxCollection<T extends CollectionValue> {
   /**
-   * 本地存储
+   * 本地存储依赖
    */
   private storage!: StorageMap;
+  /**
+   * 表单依赖
+   */
+  private fb!: FormBuilder;
   /**
    * 本地存储键名称
    */
@@ -76,9 +88,13 @@ export class WpxCollection<T extends CollectionValue> {
    */
   displaySize: NzTableSize = 'middle';
 
+  searchText = '';
+  searchOptions: Record<string, SearchOption> = {};
+
   constructor(option: CollectionOption) {
     this.key = option.key;
     this.storage = option.storage;
+    this.fb = option.fb;
     this.storage.get(option.key).subscribe(unkonw => {
       const v = unkonw as CollectionStorageValue;
       if (!v) {
@@ -86,6 +102,8 @@ export class WpxCollection<T extends CollectionValue> {
         this.pageIndex = 1;
         this.columns = option.columns;
         this.displaySize = 'middle';
+        this.searchText = '';
+        this.searchOptions = {};
         this.updateColumnsChecked();
         this.updateStorage();
       } else {
@@ -93,6 +111,8 @@ export class WpxCollection<T extends CollectionValue> {
         this.pageIndex = v.pageIndex;
         this.columns = v.columns;
         this.displaySize = v.displaySize;
+        this.searchText = v.searchText;
+        this.searchOptions = v.searchOptions;
         this.updateColumnChecked();
       }
       this.ready.next(undefined);
@@ -109,62 +129,20 @@ export class WpxCollection<T extends CollectionValue> {
   }
 
   /**
-   * 更新选中状态属性
+   * 重置数据内容
    */
-  updateCheckedStatus(): void {
-    const data = this.value.filter(v => !v.disabled);
-    this.checked = data.every(v => this.checkedIds.has(v._id));
-    this.indeterminate = data.some(v => this.checkedIds.has(v._id)) && !this.checked;
-    this.checkedNumber = this.checkedIds.size;
-  }
-
-  /**
-   * 设置选中集合
-   */
-  setCheckedIds(id: string, checked: boolean) {
-    if (checked) {
-      this.checkedIds.add(id);
-    } else {
-      this.checkedIds.delete(id);
-    }
-  }
-
-  /**
-   * 设置项目选中
-   */
-  setChecked(id: string, checked: boolean): void {
-    this.setCheckedIds(id, checked);
-    this.updateCheckedStatus();
-  }
-
-  /**
-   * 设置当前页所有选中
-   */
-  setAllChecked(checked: boolean): void {
-    this.value.filter(v => !v.disabled).forEach(v => this.setCheckedIds(v._id, checked));
-    this.updateCheckedStatus();
-  }
-
-  updateStorage(): void {
-    this.storage
-      .set(this.key, <CollectionStorageValue>{
-        pageSize: this.pageSize,
-        pageIndex: this.pageIndex,
-        columns: this.columns,
-        displaySize: this.displaySize
-      })
-      .subscribe(() => {});
-  }
-
-  refresh(): void {
+  reset(): void {
     this.pageIndex = 1;
     this.storage.delete(this.key).subscribe(() => {});
   }
 
+  /**
+   * 从请求资源设置数据
+   */
   from(api: WpxApi, refresh?: boolean): Observable<PageData<T>> {
     this.loading = true;
     if (!!refresh) {
-      this.refresh();
+      this.reset();
     }
     return api.findByPage<T>(this).pipe(
       map(v => {
@@ -176,6 +154,46 @@ export class WpxCollection<T extends CollectionValue> {
     ) as Observable<PageData<T>>;
   }
 
+  /**
+   * 更新数据选中状态
+   */
+  updateCheckedStatus(): void {
+    const data = this.value.filter(v => !v.disabled);
+    this.checked = data.every(v => this.checkedIds.has(v._id));
+    this.indeterminate = data.some(v => this.checkedIds.has(v._id)) && !this.checked;
+    this.checkedNumber = this.checkedIds.size;
+  }
+
+  /**
+   * 设置数据选中ID
+   */
+  setCheckedIds(id: string, checked: boolean) {
+    if (checked) {
+      this.checkedIds.add(id);
+    } else {
+      this.checkedIds.delete(id);
+    }
+  }
+
+  /**
+   * 设置数据选中
+   */
+  setChecked(id: string, checked: boolean): void {
+    this.setCheckedIds(id, checked);
+    this.updateCheckedStatus();
+  }
+
+  /**
+   * 设置数据全部选中
+   */
+  setAllChecked(checked: boolean): void {
+    this.value.filter(v => !v.disabled).forEach(v => this.setCheckedIds(v._id, checked));
+    this.updateCheckedStatus();
+  }
+
+  /**
+   * 更新列设置全部选中状态
+   */
   updateColumnsChecked(): void {
     this.columnsIndeterminate = false;
     this.columns.forEach(v => {
@@ -184,10 +202,29 @@ export class WpxCollection<T extends CollectionValue> {
     this.displayColumns = [...this.columns.filter(v => v.checked)];
   }
 
+  /**
+   * 更新列设置选中状态
+   */
   updateColumnChecked(): void {
     this.columnsChecked = this.columns.every(v => v.checked);
     this.columnsIndeterminate = !this.columnsChecked && this.columns.some(v => v.checked);
     this.displayColumns = [...this.columns.filter(v => v.checked)];
     this.updateStorage();
+  }
+
+  /**
+   * 更新本地存储
+   */
+  updateStorage(): void {
+    this.storage
+      .set(this.key, <CollectionStorageValue>{
+        pageSize: this.pageSize,
+        pageIndex: this.pageIndex,
+        columns: this.columns,
+        displaySize: this.displaySize,
+        searchText: this.searchText,
+        searchOptions: this.searchOptions
+      })
+      .subscribe(() => {});
   }
 }

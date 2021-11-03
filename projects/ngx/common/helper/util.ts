@@ -2,6 +2,8 @@ import { AbstractControl, FormGroup } from '@angular/forms';
 import { Observable, timer } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
 
+import { SearchOption, SearchValue } from '../types';
+
 export function asyncValidator(
   handle: Observable<boolean>,
   field = 'duplicated',
@@ -24,6 +26,18 @@ export function updateFormGroup(controls: AbstractControl[]) {
       control.updateValueAndValidity();
     }
   });
+}
+
+export function getSearchValues(options: Record<string, SearchOption>): Record<string, SearchValue> {
+  const search: Record<string, SearchValue> = {};
+  for (const [key, opt] of Object.entries(options)) {
+    if (opt.value) {
+      search[key] = {
+        [opt.operator]: opt.operator === '$regex' ? `^${opt.value}` : opt.value
+      };
+    }
+  }
+  return search;
 }
 
 /**

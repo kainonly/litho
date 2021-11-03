@@ -3,6 +3,7 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { APIOption, APIResponse, CollectionValue, PageData } from '../types';
+import { getSearchValues } from './util';
 import { WpxCollection } from './wpx-collection';
 
 export class WpxApi {
@@ -47,7 +48,8 @@ export class WpxApi {
       page: {
         size: coll.pageSize,
         index: coll.pageIndex
-      }
+      },
+      where: !coll.searchText ? getSearchValues(coll.searchOptions) : { $text: { $search: coll.searchText } }
     }).pipe(
       map(v => {
         if (!v.code) {

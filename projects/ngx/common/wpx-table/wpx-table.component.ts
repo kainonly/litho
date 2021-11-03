@@ -1,54 +1,72 @@
-import { Component, EventEmitter, Input, OnInit, Output, TemplateRef, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, Output, TemplateRef, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 
-import { WpxCollection } from '@weplanx/ngx';
-import { Field } from '@weplanx/ngx/lowcode';
+import { SearchOption, SearchValue, WpxCollection } from '@weplanx/ngx';
 
 @Component({
   selector: 'wpx-table',
   templateUrl: './wpx-table.component.html'
 })
-export class WpxTableComponent implements OnInit {
+export class WpxTableComponent {
   @Input() coll!: WpxCollection<any>;
   @Input() scroll: {
     x?: string | null;
     y?: string | null;
   } = { x: '1600px' };
+
   @Output() readonly fetch: EventEmitter<boolean> = new EventEmitter<boolean>();
 
   @ViewChild('searchbox', { static: true }) searchbox!: TemplateRef<any>;
   @ViewChild('toolbox', { static: true }) toolbox!: TemplateRef<any>;
 
-  search: Field[] = [];
-  searchQuick: any = {
-    field: '',
-    value: ''
-  };
-  searchAdvancedVisible = false;
-  searchAdvancedForm?: FormGroup;
+  searchForm?: FormGroup;
+  searchVisible = false;
 
   constructor(private fb: FormBuilder) {}
 
-  ngOnInit(): void {}
-
-  quickSearch(): void {
-    console.log(this.searchQuick);
-  }
-
-  openSearchAdvanced(): void {
-    this.searchAdvancedVisible = true;
-    const controls: any = {};
-    for (const x of this.search) {
-      controls[x.key] = this.fb.group({
-        operator: ['$eq'],
+  openSearchForm(): void {
+    const controls: Record<string, FormGroup> = {};
+    for (const x of this.coll.columns) {
+      controls[x.value] = this.fb.group({
+        operator: ['$regex'],
         value: []
       });
     }
-    this.searchAdvancedForm = this.fb.group(controls);
+    this.searchForm = this.fb.group(controls);
+    this.searchForm.patchValue(this.coll.searchOptions);
+    this.searchVisible = true;
   }
 
-  closeSearchAdvanced(): void {
-    this.searchAdvancedVisible = false;
-    this.searchAdvancedForm = undefined;
+  closeSearchForm(): void {
+    this.searchVisible = false;
+    this.searchForm = undefined;
+  }
+
+  searchSubmit(data?: unknown): void {
+    if (!!data) {
+      this.coll.searchText = '';
+      this.coll.searchOptions = data as Record<string, SearchOption>;
+    } else {
+      this.coll.searchOptions = {};
+    }
+    this.coll.updateStorage();
+    this.fetch.emit(true);
+  }
+
+  searchReset(): void {
+    const data: any = {};
+    for (const x of this.coll.columns) {
+      data[x.value] = {
+        operator: '$regex',
+        value: ''
+      };
+    }
+    this.searchForm?.patchValue(data);
+  }
+
+  searchClear(): void {
+    this.coll.searchText = '';
+    this.coll.searchOptions = {};
+    this.fetch.emit(true);
   }
 }
