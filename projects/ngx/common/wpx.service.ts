@@ -7,7 +7,7 @@ import { StorageMap } from '@ngx-pwa/local-storage';
 import { Config } from './config';
 import { WpxApi } from './helper/wpx-api';
 import { WpxCollection } from './helper/wpx-collection';
-import { CollectionType } from './types';
+import { CollectionValue } from './types';
 
 @Injectable({ providedIn: 'root' })
 export class WpxService {
@@ -43,7 +43,7 @@ export class WpxService {
   /**
    * 创建数据集合
    */
-  collection<T extends CollectionType>(key: string): WpxCollection<T> {
+  collection<T extends CollectionValue>(key: string): WpxCollection<T> {
     return new WpxCollection<T>({
       key: `collection:${key}`,
       storage: this.storage

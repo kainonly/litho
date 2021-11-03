@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { APIOption, APIResponse, CollectionType, PageData } from '../types';
+import { APIOption, APIResponse, CollectionValue, PageData } from '../types';
 import { WpxCollection } from './wpx-collection';
 
 export class WpxApi {
@@ -42,7 +42,7 @@ export class WpxApi {
   /**
    * 获取分页数据请求
    */
-  findByPage<T extends CollectionType>(coll: WpxCollection<T>): Observable<PageData<T>> {
+  findByPage<T extends CollectionValue>(coll: WpxCollection<T>): Observable<PageData<T>> {
     return this.send('/find_by_page', {
       page: {
         limit: coll.limit,

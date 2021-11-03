@@ -44,7 +44,7 @@ export class OrderComponent implements OnInit {
   }
 
   getData(refresh = false) {
-    this.coll.bind(this.order.api, refresh).subscribe(v => {});
+    this.coll.from(this.order.api, refresh).subscribe(v => {});
   }
 
   updateColumnsChecked(): void {

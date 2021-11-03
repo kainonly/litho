@@ -35,61 +35,11 @@
   </nz-row>
 </ng-template>
 
-<ng-template #actions>
-  <nz-space>
-    <nz-button-group *nzSpaceItem>
-      <button nz-button nzType="text" nz-tooltip="刷新" (click)="getData(true)">
-        <i nz-icon nzType="reload"></i>
-      </button>
-      <button
-        nz-button
-        nzType="text"
-        nz-tooltip="密度"
-        nz-popover
-        nzPopoverPlacement="bottomRight"
-        nzPopoverTrigger="click"
-        nzPopoverTitle="设置密度"
-        [nzPopoverContent]="sizePopover"
-      >
-        <i nz-icon nzType="column-height"></i>
-        <ng-template #sizePopover>
-          <nz-radio-group>
-            <label nz-radio-button nzValue="default">默认</label>
-            <label nz-radio-button nzValue="middle">中等</label>
-            <label nz-radio-button nzValue="small">紧凑</label>
-          </nz-radio-group>
-        </ng-template>
-      </button>
-      <!--      <button-->
-      <!--        nz-button-->
-      <!--        nzType="text"-->
-      <!--        nz-tooltip="列设置"-->
-      <!--        nz-popover-->
-      <!--        nzPopoverPlacement="bottomRight"-->
-      <!--        nzPopoverTrigger="click"-->
-      <!--        [nzPopoverTitle]="fieldPopoverTitle"-->
-      <!--        [nzPopoverContent]="fieldPopoverContent"-->
-      <!--      >-->
-      <!--        <i nz-icon nzType="setting"></i>-->
-      <!--        <ng-template #fieldPopoverTitle>-->
-      <!--          <label-->
-      <!--            nz-checkbox-->
-      <!--            [(ngModel)]="columnsChecked"-->
-      <!--            (ngModelChange)="updateColumnsChecked()"-->
-      <!--            [nzIndeterminate]="columnsIndeterminate"-->
-      <!--          >-->
-      <!--            全部展示-->
-      <!--          </label>-->
-      <!--        </ng-template>-->
-      <!--        <ng-template #fieldPopoverContent>-->
-      <!--          <nz-checkbox-group [(ngModel)]="columns" (ngModelChange)="updateColumnChecked()"></nz-checkbox-group>-->
-      <!--        </ng-template>-->
-      <!--      </button>-->
-    </nz-button-group>
-  </nz-space>
+<ng-template #extra>
+  <wpx-table-box (refresh)="getData(true)" [size]="coll.height"></wpx-table-box>
 </ng-template>
 
-<nz-card [nzTitle]="searchTpl" [nzExtra]="actions">
+<nz-card [nzTitle]="searchTpl" [nzExtra]="extra">
   <nz-table
     #basicTable
     [nzData]="coll.value"

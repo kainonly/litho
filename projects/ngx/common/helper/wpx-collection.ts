@@ -2,13 +2,20 @@ import { AsyncSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { StorageMap } from '@ngx-pwa/local-storage';
-import { CollectionOption, CollectionType, PageData, PageOption, WpxApi } from '@weplanx/ngx';
+import { CollectionOption, CollectionValue, PageData, CollectionStorageValue, WpxApi } from '@weplanx/ngx';
+import { NzTableSize } from 'ng-zorro-antd/table/src/table.types';
 
-export class WpxCollection<T extends CollectionType> {
-  private key!: string;
+export class WpxCollection<T extends CollectionValue> {
+  /**
+   * 本地存储
+   */
   private storage!: StorageMap;
   /**
-   * 完成初始化
+   * 本地存储键名称
+   */
+  private key!: string;
+  /**
+   * 初始化完毕
    */
   readonly ready: AsyncSubject<undefined> = new AsyncSubject<undefined>();
   /**
@@ -47,12 +54,16 @@ export class WpxCollection<T extends CollectionType> {
    * 被选中的数量
    */
   checkedNumber = 0;
+  /**
+   * 行高
+   */
+  height: NzTableSize = 'middle';
 
   constructor(option: CollectionOption) {
     this.key = option.key;
     this.storage = option.storage;
     this.storage.get(option.key).subscribe(unkonw => {
-      const v = unkonw as PageOption;
+      const v = unkonw as CollectionStorageValue;
       if (!v) {
         this.limit = 10;
         this.index = 1;
@@ -75,9 +86,9 @@ export class WpxCollection<T extends CollectionType> {
   }
 
   /**
-   * 更新状态属性
+   * 更新选中状态属性
    */
-  updateStatus(): void {
+  updateCheckedStatus(): void {
     const data = this.value.filter(v => !v.disabled);
     this.checked = data.every(v => this.checkedIds.has(v._id));
     this.indeterminate = data.some(v => this.checkedIds.has(v._id)) && !this.checked;
@@ -100,7 +111,7 @@ export class WpxCollection<T extends CollectionType> {
    */
   setChecked(id: string, checked: boolean): void {
     this.setCheckedIds(id, checked);
-    this.updateStatus();
+    this.updateCheckedStatus();
   }
 
   /**
@@ -108,14 +119,15 @@ export class WpxCollection<T extends CollectionType> {
    */
   setAllChecked(checked: boolean): void {
     this.value.filter(v => !v.disabled).forEach(v => this.setCheckedIds(v._id, checked));
-    this.updateStatus();
+    this.updateCheckedStatus();
   }
 
   updateStorage(): void {
     this.storage
-      .set(this.key, <PageOption>{
+      .set(this.key, <CollectionStorageValue>{
         limit: this.limit,
-        index: this.index
+        index: this.index,
+        height: this.height
       })
       .subscribe(() => {});
   }
@@ -125,9 +137,9 @@ export class WpxCollection<T extends CollectionType> {
     this.storage.delete(this.key).subscribe(() => {});
   }
 
-  bind(api: WpxApi, refresh: boolean): Observable<PageData<T>> {
+  from(api: WpxApi, refresh?: boolean): Observable<PageData<T>> {
     this.loading = true;
-    if (refresh) {
+    if (!!refresh) {
       this.refresh();
     }
     return api.findByPage<T>(this).pipe(
