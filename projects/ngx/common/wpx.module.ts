@@ -19,6 +19,7 @@ import { NzSelectModule } from 'ng-zorro-antd/select';
 import { NzSpaceModule } from 'ng-zorro-antd/space';
 import { NzTableModule } from 'ng-zorro-antd/table';
 import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
+import { NzTypographyModule } from 'ng-zorro-antd/typography';
 
 import { Config } from './config';
 import { WpxSubmitDirective } from './directives/wpx-submit.directive';
@@ -46,6 +47,7 @@ import { WpxService } from './wpx.service';
     NzFormModule,
     NzSpaceModule,
     NzMessageModule,
+    NzTypographyModule,
     NzResizableModule
   ],
   declarations: [WpxSubmitDirective, WpxUploadDirective, WpxTableComponent],

@@ -28,6 +28,7 @@ export interface Field {
   label: string;
   type: string;
   description?: string;
+  keyword?: boolean;
 }
 
 export interface CollectionOption {

@@ -219,6 +219,9 @@ export class WpxCollection<T extends CollectionValue> {
     this.checkedNumber = 0;
   }
 
+  /**
+   * 更新显示列
+   */
   updateDisplayColumns(): void {
     this.displayColumns = [...this.columns.filter(v => v.checked)];
   }
@@ -244,6 +247,9 @@ export class WpxCollection<T extends CollectionValue> {
     this.updateStorage();
   }
 
+  /**
+   * 列设置重置
+   */
   columnsReset(): void {
     this.columnsHeight = 'middle';
     this.columnsWidth = {};

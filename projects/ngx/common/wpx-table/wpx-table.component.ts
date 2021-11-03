@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output, TemplateRef, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, TemplateRef, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 
 import { SearchOption, SearchValue, WpxCollection } from '@weplanx/ngx';
@@ -10,7 +10,7 @@ import { NzResizeEvent } from 'ng-zorro-antd/resizable';
   templateUrl: './wpx-table.component.html',
   styleUrls: ['./wpx-table.component.scss']
 })
-export class WpxTableComponent {
+export class WpxTableComponent implements OnInit {
   @Input() coll!: WpxCollection<any>;
   @Input() scroll: {
     x?: string | null;
@@ -22,6 +22,8 @@ export class WpxTableComponent {
   @ViewChild('searchbox', { static: true }) searchbox!: TemplateRef<any>;
   @ViewChild('toolbox', { static: true }) toolbox!: TemplateRef<any>;
 
+  keywords: Set<string> = new Set();
+
   customWidth = false;
   customWidthMessageId?: string;
 
@@ -29,6 +31,14 @@ export class WpxTableComponent {
   searchVisible = false;
 
   constructor(private fb: FormBuilder, private message: NzMessageService) {}
+
+  ngOnInit(): void {
+    this.coll.fields.forEach(v => {
+      if (!!v.keyword) {
+        this.keywords.add(v.key);
+      }
+    });
+  }
 
   openSearchForm(): void {
     const controls: Record<string, FormGroup> = {};

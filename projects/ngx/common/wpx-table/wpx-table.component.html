@@ -184,6 +184,10 @@
           (nzSortOrderChange)="fetch.emit(true)"
         >
           {{ x.label }}
+          <ng-container *ngIf="keywords.has(x.value)">
+            <i nz-icon nzType="tag" nz-tooltip="关键词"></i>
+          </ng-container>
+
           <nz-resize-handle nzDirection="right" *ngIf="customWidth">
             <div class="resize-trigger"></div>
           </nz-resize-handle>
@@ -201,7 +205,13 @@
         [nzChecked]="coll.checkedIds.has(data._id)"
         (nzCheckedChange)="coll.setChecked(data._id, $event)"
       ></td>
-      <td *ngFor="let x of coll.displayColumns">{{ data[x.value] }}</td>
+      <ng-container *ngFor="let x of coll.displayColumns">
+        <td>
+          <p style="margin: 0" nz-typography nzEllipsis [nzEllipsisRows]="2">
+            {{ data[x.value] }}
+          </p>
+        </td>
+      </ng-container>
       <td nzRight nzAlign="center">
         <button nz-button nzType="text">
           <i nz-icon nzType="ellipsis"></i>
