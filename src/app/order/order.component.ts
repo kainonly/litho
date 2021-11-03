@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
 
 import { WpxService, WpxCollection } from '@weplanx/ngx';
-import { NzCheckBoxOptionInterface } from 'ng-zorro-antd/checkbox';
 
 import { OrderService } from './order.service';
 
@@ -12,28 +10,16 @@ import { OrderService } from './order.service';
 })
 export class OrderComponent implements OnInit {
   coll!: WpxCollection<any>;
-  columns: NzCheckBoxOptionInterface[] = [
-    { label: '订单号', value: 'order_number' },
-    { label: '服务号', value: 'service_number' },
-    { label: '服务名称', value: 'service_name' },
-    { label: '服务描述', value: 'service_description' },
-    { label: '服务码', value: 'service_code' }
-  ];
 
-  constructor(
-    private router: Router,
-    private route: ActivatedRoute,
-    private wpx: WpxService,
-    private order: OrderService
-  ) {}
+  constructor(private wpx: WpxService, private order: OrderService) {}
 
   ngOnInit(): void {
     this.coll = this.wpx.collection('order', [
-      { label: '订单号', value: 'order_number' },
-      { label: '服务号', value: 'service_number' },
-      { label: '服务名称', value: 'service_name' },
-      { label: '服务描述', value: 'service_description' },
-      { label: '服务码', value: 'service_code' }
+      { label: '订单号', key: 'order_number', type: 'text' },
+      { label: '服务号', key: 'service_number', type: 'text' },
+      { label: '服务名称', key: 'service_name', type: 'text' },
+      { label: '服务描述', key: 'service_description', type: 'text' },
+      { label: '服务码', key: 'service_code', type: 'text' }
     ]);
     this.coll.ready.subscribe(() => {
       this.getData();

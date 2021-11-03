@@ -2,10 +2,13 @@ import { Component, EventEmitter, Input, Output, TemplateRef, ViewChild } from '
 import { FormBuilder, FormGroup } from '@angular/forms';
 
 import { SearchOption, SearchValue, WpxCollection } from '@weplanx/ngx';
+import { NzMessageService } from 'ng-zorro-antd/message';
+import { NzResizeEvent } from 'ng-zorro-antd/resizable';
 
 @Component({
   selector: 'wpx-table',
-  templateUrl: './wpx-table.component.html'
+  templateUrl: './wpx-table.component.html',
+  styleUrls: ['./wpx-table.component.scss']
 })
 export class WpxTableComponent {
   @Input() coll!: WpxCollection<any>;
@@ -19,10 +22,13 @@ export class WpxTableComponent {
   @ViewChild('searchbox', { static: true }) searchbox!: TemplateRef<any>;
   @ViewChild('toolbox', { static: true }) toolbox!: TemplateRef<any>;
 
+  customWidth = false;
+  customWidthMessageId?: string;
+
   searchForm?: FormGroup;
   searchVisible = false;
 
-  constructor(private fb: FormBuilder) {}
+  constructor(private fb: FormBuilder, private message: NzMessageService) {}
 
   openSearchForm(): void {
     const controls: Record<string, FormGroup> = {};
@@ -42,7 +48,7 @@ export class WpxTableComponent {
     this.searchForm = undefined;
   }
 
-  searchSubmit(data?: unknown): void {
+  submitSearch(data?: unknown): void {
     if (!!data) {
       this.coll.searchText = '';
       this.coll.searchOptions = data as Record<string, SearchOption>;
@@ -53,7 +59,7 @@ export class WpxTableComponent {
     this.fetch.emit(true);
   }
 
-  searchReset(): void {
+  resetSearch(): void {
     const data: any = {};
     for (const x of this.coll.columns) {
       data[x.value] = {
@@ -64,9 +70,24 @@ export class WpxTableComponent {
     this.searchForm?.patchValue(data);
   }
 
-  searchClear(): void {
+  clearSearch(): void {
     this.coll.searchText = '';
     this.coll.searchOptions = {};
     this.fetch.emit(true);
+  }
+
+  onMessage(): void {
+    if (this.customWidth) {
+      this.customWidthMessageId = this.message.create('info', '您正在自定义列宽度，该状态不能进行字段排序', {
+        nzDuration: 0
+      }).messageId;
+    } else {
+      this.message.remove(this.customWidthMessageId);
+    }
+  }
+
+  resize({ width }: NzResizeEvent, value: string): void {
+    this.coll.columnsWidth[value] = `${width}px`;
+    this.coll.updateStorage();
   }
 }

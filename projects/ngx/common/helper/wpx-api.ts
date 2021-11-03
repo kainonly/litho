@@ -3,21 +3,34 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { APIOption, APIResponse, CollectionValue, PageData } from '../types';
-import { getSearchValues } from './util';
+import { getSearchValues, getSortValues } from './util';
 import { WpxCollection } from './wpx-collection';
 
 export class WpxApi {
+  /**
+   * HTTPClient 依赖
+   */
   private http!: HttpClient;
+  /**
+   * 基础路径
+   */
+  private baseUrl!: string;
+  /**
+   * 模型路径
+   */
+  private model!: string;
 
-  constructor(private option: APIOption) {
+  constructor(option: APIOption) {
     this.http = option.http;
+    this.baseUrl = option.baseUrl;
+    this.model = option.model;
   }
 
   /**
    * 发起统一请求
    */
   send<T>(path: string, body: Record<string, unknown> = {}): Observable<APIResponse<T>> {
-    return this.http.post(`${this.option.baseUrl}/${this.option.model}${path}`, body) as Observable<APIResponse<T>>;
+    return this.http.post(`${this.baseUrl}/${this.model}${path}`, body) as Observable<APIResponse<T>>;
   }
 
   /**
@@ -49,7 +62,8 @@ export class WpxApi {
         size: coll.pageSize,
         index: coll.pageIndex
       },
-      where: !coll.searchText ? getSearchValues(coll.searchOptions) : { $text: { $search: coll.searchText } }
+      where: !coll.searchText ? getSearchValues(coll.searchOptions) : { $text: { $search: coll.searchText } },
+      sort: getSortValues(coll.sortOptions)
     }).pipe(
       map(v => {
         if (!v.code) {

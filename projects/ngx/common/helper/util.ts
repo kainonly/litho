@@ -2,6 +2,8 @@ import { AbstractControl, FormGroup } from '@angular/forms';
 import { Observable, timer } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
 
+import { NzTableSortOrder } from 'ng-zorro-antd/table/src/table.types';
+
 import { SearchOption, SearchValue } from '../types';
 
 export function asyncValidator(
@@ -38,6 +40,20 @@ export function getSearchValues(options: Record<string, SearchOption>): Record<s
     }
   }
   return search;
+}
+
+export function getSortValues(options: Record<string, NzTableSortOrder>): Record<string, number> {
+  const sort: Record<string, number> = {};
+  for (const [key, opt] of Object.entries(options)) {
+    switch (opt) {
+      case 'ascend':
+        sort[key] = 1;
+        break;
+      case 'descend':
+        sort[key] = -1;
+    }
+  }
+  return sort;
 }
 
 /**

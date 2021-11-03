@@ -11,8 +11,10 @@ import { NzFormModule } from 'ng-zorro-antd/form';
 import { NzGridModule } from 'ng-zorro-antd/grid';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzInputModule } from 'ng-zorro-antd/input';
+import { NzMessageModule } from 'ng-zorro-antd/message';
 import { NzPopoverModule } from 'ng-zorro-antd/popover';
 import { NzRadioModule } from 'ng-zorro-antd/radio';
+import { NzResizableModule } from 'ng-zorro-antd/resizable';
 import { NzSelectModule } from 'ng-zorro-antd/select';
 import { NzSpaceModule } from 'ng-zorro-antd/space';
 import { NzTableModule } from 'ng-zorro-antd/table';
@@ -42,7 +44,9 @@ import { WpxService } from './wpx.service';
     NzDrawerModule,
     NzCheckboxModule,
     NzFormModule,
-    NzSpaceModule
+    NzSpaceModule,
+    NzMessageModule,
+    NzResizableModule
   ],
   declarations: [WpxSubmitDirective, WpxUploadDirective, WpxTableComponent],
   exports: [WpxSubmitDirective, WpxUploadDirective, WpxTableComponent]

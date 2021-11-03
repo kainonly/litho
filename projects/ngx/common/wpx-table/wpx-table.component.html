@@ -3,26 +3,25 @@
     <nz-col>
       <nz-input-group nzCompact>
         <input
-          (keyup.enter)="searchSubmit()"
+          (keyup.enter)="submitSearch()"
           [(ngModel)]="coll.searchText"
           style="width: 420px"
           type="text"
           nz-input
           placeholder="请输入关键词（ 多个关键词使用逗号分隔 ）"
         />
-        <button (click)="searchSubmit()" nz-button nzSearch><i nz-icon nzType="search"></i></button>
+        <button (click)="submitSearch()" nz-button nzSearch><i nz-icon nzType="search"></i></button>
       </nz-input-group>
     </nz-col>
     <nz-col>
       <nz-button-group>
         <button nz-button (click)="openSearchForm()"> 高级搜索 </button>
-        <button nz-button nzType="dashed" nz-tooltip="清除搜索" (click)="searchClear()">
+        <button nz-button nzType="dashed" nz-tooltip="清除搜索" (click)="clearSearch()">
           <i nz-icon nzType="clear"></i>
         </button>
       </nz-button-group>
     </nz-col>
   </nz-row>
-
   <nz-drawer
     nzTitle="高级搜索"
     [nzVisible]="searchVisible"
@@ -39,7 +38,7 @@
         nzLayout="vertical"
         nz-form
         [formGroup]="searchForm"
-        (wpxSubmit)="searchSubmit($event)"
+        (wpxSubmit)="submitSearch($event)"
       >
         <ng-container *ngFor="let x of coll.columns">
           <nz-form-item [formGroupName]="x.value" style="margin-bottom: 1em">
@@ -61,7 +60,7 @@
     <ng-template #footerTpl>
       <nz-space>
         <button *nzSpaceItem nz-button form="search"> <i nz-icon nzType="search"></i> 搜索 </button>
-        <button *nzSpaceItem nz-button (click)="searchReset()" type="reset">
+        <button *nzSpaceItem nz-button (click)="resetSearch()" type="reset">
           <i nz-icon nzType="clear"></i> 重置
         </button>
       </nz-space>
@@ -81,12 +80,15 @@
       nz-popover
       nzPopoverPlacement="bottomRight"
       nzPopoverTrigger="click"
-      nzPopoverTitle="设置密度"
-      [nzPopoverContent]="displaySizeContent"
+      [nzPopoverTitle]="columnsSizeTitle"
+      [nzPopoverContent]="columnsSizeContent"
     >
       <i nz-icon nzType="column-height"></i>
-      <ng-template #displaySizeContent>
-        <nz-radio-group [(ngModel)]="coll.displaySize" (ngModelChange)="coll.updateStorage()">
+      <ng-template #columnsSizeTitle>
+        <label nz-checkbox [(ngModel)]="customWidth" (ngModelChange)="onMessage()"> 自定义宽度 </label>
+      </ng-template>
+      <ng-template #columnsSizeContent>
+        <nz-radio-group [(ngModel)]="coll.columnsHeight" (ngModelChange)="coll.updateStorage()">
           <label nz-radio-button nzValue="default">默认</label>
           <label nz-radio-button nzValue="middle">中等</label>
           <label nz-radio-button nzValue="small">紧凑</label>
@@ -105,14 +107,22 @@
     >
       <i nz-icon nzType="setting"></i>
       <ng-template #columnsTitle>
-        <label
-          nz-checkbox
-          [(ngModel)]="coll.columnsChecked"
-          (ngModelChange)="coll.updateColumnsChecked()"
-          [nzIndeterminate]="coll.columnsIndeterminate"
-        >
-          全部展示
-        </label>
+        <nz-row nzJustify="space-between">
+          <nz-col>
+            <label
+              nz-checkbox
+              [(ngModel)]="coll.columnsChecked"
+              (ngModelChange)="coll.updateColumnsChecked()"
+              [nzIndeterminate]="coll.columnsIndeterminate"
+            >
+              全部展示
+            </label>
+          </nz-col>
+          <nz-col></nz-col>
+          <nz-col>
+            <button nzSize="small" nz-button nzType="text" (click)="coll.columnsReset()">重置</button>
+          </nz-col>
+        </nz-row>
       </ng-template>
       <ng-template #columnsContent>
         <nz-checkbox-group [(ngModel)]="coll.columns" (ngModelChange)="coll.updateColumnChecked()"></nz-checkbox-group>
@@ -125,7 +135,7 @@
   #basicTable
   [nzTitle]="coll.checkedNumber ? bulk : null"
   [nzLoading]="coll.loading"
-  [nzSize]="coll.displaySize"
+  [nzSize]="coll.columnsHeight"
   [nzData]="coll.value"
   [nzScroll]="scroll"
   [nzFrontPagination]="false"
@@ -144,7 +154,7 @@
         <nz-col></nz-col>
         <nz-col style="text-align: right">
           <a nz-button nzType="link" nzSize="small">操作<i nz-icon nzType="down"></i></a>
-          <a nz-button nzType="link" nzSize="small">取消选择</a>
+          <a nz-button nzType="link" nzSize="small" (click)="coll.clearChecked()">取消选择</a>
         </nz-col>
       </nz-row>
     </ng-template>
@@ -157,9 +167,28 @@
         nzAlign="center"
         [nzChecked]="coll.checked"
         [nzIndeterminate]="coll.indeterminate"
-        (nzCheckedChange)="coll.setAllChecked($event)"
+        (nzCheckedChange)="coll.setNChecked($event)"
       ></th>
-      <th *ngFor="let x of coll.displayColumns" nzWidth="300px">{{ x.label }}</th>
+      <ng-container *ngFor="let x of coll.displayColumns">
+        <th
+          nz-resizable
+          nzBounds="window"
+          [nzDisabled]="!customWidth"
+          [nzPreview]="customWidth"
+          [nzMaxWidth]="420"
+          [nzMinWidth]="100"
+          (nzResizeEnd)="resize($event, x.value)"
+          [nzWidth]="coll.columnsWidth[x.value] ?? '300px'"
+          [nzShowSort]="!customWidth"
+          [(nzSortOrder)]="coll.sortOptions[x.value]"
+          (nzSortOrderChange)="fetch.emit(true)"
+        >
+          {{ x.label }}
+          <nz-resize-handle nzDirection="right" *ngIf="customWidth">
+            <div class="resize-trigger"></div>
+          </nz-resize-handle>
+        </th>
+      </ng-container>
       <th nzWidth="100px" nzRight nzAlign="center">操作</th>
     </tr>
   </thead>

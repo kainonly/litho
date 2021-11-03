@@ -1,6 +1,5 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, Optional } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 
 import { StorageMap } from '@ngx-pwa/local-storage';
@@ -9,7 +8,7 @@ import { NzCheckBoxOptionInterface } from 'ng-zorro-antd/checkbox';
 import { Config } from './config';
 import { WpxApi } from './helper/wpx-api';
 import { WpxCollection } from './helper/wpx-collection';
-import { CollectionValue } from './types';
+import { CollectionValue, Field } from './types';
 
 @Injectable({ providedIn: 'root' })
 export class WpxService {
@@ -26,7 +25,6 @@ export class WpxService {
     private config: Config,
     @Optional() private router: Router,
     @Optional() private http: HttpClient,
-    @Optional() private fb: FormBuilder,
     @Optional() private storage: StorageMap
   ) {
     this.assets = config.assets;
@@ -46,12 +44,11 @@ export class WpxService {
   /**
    * 创建数据集合
    */
-  collection<T extends CollectionValue>(key: string, columns: NzCheckBoxOptionInterface[]): WpxCollection<T> {
+  collection<T extends CollectionValue>(key: string, fields: Field[]): WpxCollection<T> {
     return new WpxCollection<T>({
       key: `collection:${key}`,
       storage: this.storage,
-      fb: this.fb,
-      columns
+      fields
     });
   }
 }

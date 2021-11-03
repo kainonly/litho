@@ -119,7 +119,7 @@
           nzAlign="center"
           [nzChecked]="coll.checked"
           [nzIndeterminate]="coll.indeterminate"
-          (nzCheckedChange)="coll.setAllChecked($event)"
+          (nzCheckedChange)="coll.setNChecked($event)"
         ></th>
         <th *ngFor="let x of displayColumns" nzWidth="300px">{{ x.label }}</th>
         <th nzWidth="100px" nzRight nzAlign="center">操作</th>
