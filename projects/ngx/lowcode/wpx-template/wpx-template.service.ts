@@ -5,7 +5,7 @@ import { WpxApi, WpxService } from '@weplanx/ngx';
 import { PageOption } from '@weplanx/ngx/layout';
 import { NzTableSize } from 'ng-zorro-antd/table/src/table.types';
 
-import { Field } from '../wpx-schema/types';
+import { SchemaField } from '../types';
 
 @Injectable()
 export class WpxTemplateService {
@@ -13,7 +13,7 @@ export class WpxTemplateService {
   option!: PageOption;
   api!: WpxApi;
 
-  fields: BehaviorSubject<Field[]> = new BehaviorSubject<Field[]>([]);
+  fields: BehaviorSubject<SchemaField[]> = new BehaviorSubject<SchemaField[]>([]);
   tableSize: NzTableSize = 'middle';
 
   constructor(private wpx: WpxService) {}
@@ -24,7 +24,7 @@ export class WpxTemplateService {
     this.api = this.wpx.api(this.option.schema);
   }
 
-  setFields(value: Field[]): void {
+  setFields(value: SchemaField[]): void {
     this.fields.next(value);
   }
 }

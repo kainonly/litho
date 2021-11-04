@@ -6,7 +6,7 @@ import { WpxSchemaService } from '@weplanx/ngx/lowcode';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 
-import { Schema } from '../types';
+import { Schema } from '../../types';
 
 @Component({
   selector: 'wpx-schema-act',

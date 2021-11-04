@@ -6,7 +6,7 @@ import { WpxLayoutService, Page } from '@weplanx/ngx/layout';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { NzFormatEmitEvent, NzTreeNodeOptions } from 'ng-zorro-antd/tree';
 
-import { Field, Schema } from '../wpx-schema/types';
+import { SchemaField, Schema } from '../types';
 import { WpxSchemaService } from '../wpx-schema/wpx-schema.service';
 import { WpxPageSerivce } from './wpx-page.serivce';
 
@@ -117,7 +117,7 @@ export class WpxPageComponent implements OnInit {
     return [...this.optionFields?.controls];
   }
 
-  setRouterFields(fields: Field[]): void {
+  setRouterFields(fields: SchemaField[]): void {
     for (const x of fields) {
       this.optionFields.push(
         this.fb.group({

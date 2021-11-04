@@ -1,31 +1,29 @@
+import { Field } from '@weplanx/ngx';
+
 export interface Schema {
   _id: string;
   key: string;
   label: string;
   kind: SchemaKind;
   system?: boolean;
-  fields?: Field[];
+  fields?: SchemaField[];
 }
 
 export type SchemaKind = 'collection' | 'single' | 'manual';
 
-export interface Field {
-  key: string;
-  label: string;
-  type: string;
-  description?: string;
+export interface SchemaField extends Field {
   default: string;
   required: boolean;
   unique: boolean;
   private: boolean;
   system: boolean;
-  option?: FieldOption;
+  option?: Partial<SchemaFieldOption>;
 }
 
-export interface FieldOption {
-  max?: number;
-  min?: number;
-  mode?: string;
-  target?: string;
-  to?: string;
+export interface SchemaFieldOption {
+  max: number;
+  min: number;
+  mode: string;
+  target: string;
+  to: string;
 }

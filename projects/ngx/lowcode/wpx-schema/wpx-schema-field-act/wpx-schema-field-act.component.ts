@@ -5,7 +5,7 @@ import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Valida
 import { WpxSchemaService } from '@weplanx/ngx/lowcode';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 
-import { Field, Schema } from '../types';
+import { SchemaField, Schema } from '../../types';
 import { group } from './group';
 
 @Component({
@@ -18,14 +18,14 @@ export class WpxSchemaFieldActComponent {
   readonly special = ['integer', 'decimal', 'enum', 'reference'];
 
   data?: Schema;
-  fields: Field[] = [];
+  fields: SchemaField[] = [];
 
   form?: FormGroup;
   visible = false;
-  editable?: Field;
+  editable?: SchemaField;
 
   collections?: Schema[];
-  targetFields?: Map<string, Field[]>;
+  targetFields?: Map<string, SchemaField[]>;
 
   @Output() readonly ok: EventEmitter<any> = new EventEmitter<any>();
 
@@ -41,7 +41,7 @@ export class WpxSchemaFieldActComponent {
     this.fields = [];
   }
 
-  open(value?: Field): void {
+  open(value?: SchemaField): void {
     this.form = this.fb.group({
       key: [null, [Validators.required, Validators.pattern(/^[a-z_]+$/), this.existsField]],
       label: [null, [Validators.required]],
@@ -102,7 +102,7 @@ export class WpxSchemaFieldActComponent {
   getCollections(): void {
     this.schema.getCollections().subscribe(result => {
       this.collections = result;
-      this.targetFields = new Map<string, Field[]>(result.map(v => [v.key, v.fields as Field[]]));
+      this.targetFields = new Map<string, SchemaField[]>(result.map(v => [v.key, v.fields as SchemaField[]]));
     });
   }
 

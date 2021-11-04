@@ -3,7 +3,6 @@ import { Injectable, Optional } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { StorageMap } from '@ngx-pwa/local-storage';
-import { NzCheckBoxOptionInterface } from 'ng-zorro-antd/checkbox';
 
 import { Config } from './config';
 import { WpxApi } from './helper/wpx-api';

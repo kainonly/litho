@@ -4,7 +4,7 @@ import { WpxLayoutService } from '@weplanx/ngx/layout';
 import { NzContextMenuService, NzDropdownMenuComponent } from 'ng-zorro-antd/dropdown';
 import { NzFormatEmitEvent, NzTreeNodeOptions } from 'ng-zorro-antd/tree';
 
-import { Schema } from './types';
+import { Schema } from '../types';
 import { WpxSchemaFieldActComponent } from './wpx-schema-field-act/wpx-schema-field-act.component';
 import { WpxSchemaService } from './wpx-schema.service';
 

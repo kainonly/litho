@@ -4,7 +4,7 @@ import { map } from 'rxjs/operators';
 
 import { WpxApi, WpxService } from '@weplanx/ngx';
 
-import { Schema } from './types';
+import { Schema } from '../types';
 
 @Injectable()
 export class WpxSchemaService {

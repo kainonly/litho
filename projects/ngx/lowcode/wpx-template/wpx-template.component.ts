@@ -6,7 +6,7 @@ import { map } from 'rxjs/operators';
 import { WpxService } from '@weplanx/ngx';
 import { PageOption, WpxLayoutService } from '@weplanx/ngx/layout';
 
-import { Field, Schema } from '../wpx-schema/types';
+import { SchemaField, Schema } from '../types';
 import { WpxSchemaService } from '../wpx-schema/wpx-schema.service';
 import { WpxTemplateTableComponent } from './wpx-template-table/wpx-template-table.component';
 import { WpxTemplateService } from './wpx-template.service';
@@ -50,7 +50,7 @@ export class WpxTemplateComponent implements OnInit {
 
   private getSchema(option: PageOption): void {
     this.schema.api.findOne<Schema>({ key: option.schema }).subscribe(data => {
-      const map: Map<string, Field> = new Map<string, Field>(data.fields?.map(v => [v.key, v]));
+      const map: Map<string, SchemaField> = new Map<string, SchemaField>(data.fields?.map(v => [v.key, v]));
       this.template.setFields(
         option.fields
           .filter(v => v.display && !map.get(v.key)!.private)
@@ -58,7 +58,7 @@ export class WpxTemplateComponent implements OnInit {
             const field = map.get(v.key)!;
             field.label = v.label;
             return field;
-          }) as Field[]
+          }) as SchemaField[]
       );
     });
   }
