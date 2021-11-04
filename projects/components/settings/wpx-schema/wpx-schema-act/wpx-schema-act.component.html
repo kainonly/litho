@@ -1,0 +1,54 @@
+<ng-template #title>
+  <ng-container *ngIf="!editable; else isEditable"> 创建新的内容类型 </ng-container>
+  <ng-template #isEditable> 更新内容类型 </ng-template>
+</ng-template>
+
+<nz-modal [(nzVisible)]="visible" [nzTitle]="title" [nzFooter]="footer" (nzOnCancel)="close()">
+  <ng-container *nzModalContent>
+    <form *ngIf="form" nz-form nzLayout="vertical" id="schema" [formGroup]="form" (wpxSubmit)="submit($event)">
+      <nz-form-item>
+        <nz-form-label nzRequired>集合命名</nz-form-label>
+        <nz-form-control
+          nzHasFeedback
+          [nzAutoTips]="{
+            default: {
+              required: '集合命名不能为空',
+              pattern: '请使用小写字母与下划线的组合',
+              duplicated: '集合命名必须是唯一的，若模式管理中不存在请检查数据库集合'
+            }
+          }"
+        >
+          <input nz-input type="text" formControlName="key" placeholder="数据库集合命名，如 order" />
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label nzRequired>显示名称</nz-form-label>
+        <nz-form-control
+          nzHasFeedback
+          [nzAutoTips]="{
+            default: {
+              required: '显示名称不能为空'
+            }
+          }"
+        >
+          <input nz-input type="text" formControlName="label" placeholder="显示名称，如订单" />
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label nzRequired>内容类型</nz-form-label>
+        <nz-form-control>
+          <nz-radio-group formControlName="kind">
+            <label nz-radio-button nzValue="collection">集合类型</label>
+            <label nz-radio-button nzValue="single">单一类型</label>
+            <label nz-radio-button nzValue="manual">自定义类型</label>
+          </nz-radio-group>
+        </nz-form-control>
+      </nz-form-item>
+    </form>
+  </ng-container>
+</nz-modal>
+
+<ng-template #footer>
+  <button nz-button nzType="default" (click)="close()">取消</button>
+  <button nz-button nzType="primary" form="schema" [disabled]="!form?.valid">提交</button>
+</ng-template>
