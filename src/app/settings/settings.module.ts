@@ -17,6 +17,6 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [AppShareModule, WpxSettingsModule, RouterModule.forChild(routes)]
+  imports: [AppShareModule, RouterModule.forChild(routes)]
 })
 export class SettingsModule {}

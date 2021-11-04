@@ -4,6 +4,8 @@ import { RouterModule, Routes } from '@angular/router';
 import { AppShareModule } from '@share';
 import { WpxActivated } from '@weplanx/components';
 
+import { WpxTemplateComponent } from '../../projects/components/template/wpx-template.component';
+import { WpxTemplateModule } from '../../projects/components/template/wpx-template.module';
 import { LayoutComponent } from './layout/layout.component';
 import { LayoutModule } from './layout/layout.module';
 
@@ -25,14 +27,14 @@ const routes: Routes = [
         path: 'settings',
         loadChildren: () => import('./settings/settings.module').then(m => m.SettingsModule)
       },
-      {
-        path: 'order',
-        loadChildren: () => import('./order/order.module').then(m => m.OrderModule)
-      },
       // {
-      //   path: ':fragments',
-      //   component: WpxDynamicComponent
+      //   path: 'order',
+      //   loadChildren: () => import('./order/order.module').then(m => m.OrderModule)
       // },
+      {
+        path: ':fragments',
+        component: WpxTemplateComponent
+      },
       { path: '', redirectTo: '/pages/dashboard', pathMatch: 'full' },
       { path: '**', loadChildren: () => import('./empty/empty.module').then(m => m.EmptyModule) }
     ]
@@ -40,6 +42,6 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [AppShareModule, LayoutModule, RouterModule.forChild(routes)]
+  imports: [AppShareModule, LayoutModule, WpxTemplateModule, RouterModule.forChild(routes)]
 })
 export class AppRoutingModule {}
