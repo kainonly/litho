@@ -2,8 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { AppShareModule } from '@share';
-import { WpxLayoutActivated } from '@weplanx/ngx/layout';
-import { WpxTemplateComponent } from '@weplanx/ngx/lowcode';
+import { WpxActivated } from '@weplanx/components';
 
 import { LayoutComponent } from './layout/layout.component';
 import { LayoutModule } from './layout/layout.module';
@@ -12,7 +11,7 @@ const routes: Routes = [
   {
     path: '',
     component: LayoutComponent,
-    canActivateChild: [WpxLayoutActivated],
+    canActivateChild: [WpxActivated],
     children: [
       {
         path: 'dashboard',
@@ -30,10 +29,10 @@ const routes: Routes = [
       //   path: 'order',
       //   loadChildren: () => import('./order/order.module').then(m => m.OrderModule)
       // },
-      {
-        path: ':fragments',
-        component: WpxTemplateComponent
-      },
+      // {
+      //   path: ':fragments',
+      //   component: WpxDynamicComponent
+      // },
       { path: '', redirectTo: '/pages/dashboard', pathMatch: 'full' },
       { path: '**', loadChildren: () => import('./empty/empty.module').then(m => m.EmptyModule) }
     ]

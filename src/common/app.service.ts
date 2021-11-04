@@ -3,10 +3,9 @@ import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
 
-import { APIResponse, Config } from '@weplanx/ngx';
-import { Page, WpxLayoutService } from '@weplanx/ngx/layout';
+import { APIResponse, Page, WpxService } from '@weplanx/components';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class AppService {
   /**
    * 刷新资源
@@ -14,13 +13,13 @@ export class AppService {
   readonly refresh$: Subject<undefined> = new Subject<undefined>();
   browserRefresh = true;
 
-  constructor(private http: HttpClient, private config: Config, private layout: WpxLayoutService) {}
+  constructor(private http: HttpClient, private wpx: WpxService) {}
 
   /**
    * 登录鉴权
    */
   login(username: string, password: string): Observable<any> {
-    return this.http.post(`${this.config.baseUrl}/login`, {
+    return this.http.post(`${this.wpx.baseUrl}/login`, {
       username,
       password
     });
@@ -30,21 +29,21 @@ export class AppService {
    * 验证鉴权
    */
   verify(): Observable<any> {
-    return this.http.post(`${this.config.baseUrl}/verify`, {});
+    return this.http.post(`${this.wpx.baseUrl}/verify`, {});
   }
 
   /**
    * 获取验证
    */
   code(): Observable<any> {
-    return this.http.post(`${this.config.baseUrl}/code`, {});
+    return this.http.post(`${this.wpx.baseUrl}/code`, {});
   }
 
   /**
    * 刷新令牌
    */
   refreshToken(code: string): Observable<any> {
-    return this.http.post(`${this.config.baseUrl}/refresh_token`, {
+    return this.http.post(`${this.wpx.baseUrl}/refresh_token`, {
       code
     });
   }
@@ -53,7 +52,7 @@ export class AppService {
    * 注销鉴权
    */
   logout(): Observable<boolean> {
-    return this.http.post(`${this.config.baseUrl}/logout`, {}).pipe(map((v: any) => !v.code));
+    return this.http.post(`${this.wpx.baseUrl}/logout`, {}).pipe(map((v: any) => !v.code));
   }
 
   /**
@@ -61,8 +60,8 @@ export class AppService {
    */
   pages(): Observable<any> {
     return this.http
-      .post(`${this.config.baseUrl}/pages`, {})
-      .pipe(switchMap(v => this.layout.setPages(v as APIResponse<Page[]>)));
+      .post(`${this.wpx.baseUrl}/pages`, {})
+      .pipe(switchMap(v => this.wpx.fetchPages(v as APIResponse<Page[]>)));
   }
 
   /**

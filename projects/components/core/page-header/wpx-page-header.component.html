@@ -1,0 +1,38 @@
+<ng-container *ngIf="!wpx.layout.skipPageHeader">
+  <ng-container *ngIf="!!wpx.layout.alert">
+    <ng-container *ngTemplateOutlet="wpx.layout.alert"></ng-container>
+  </ng-container>
+  <nz-page-header [nzGhost]="false" [nzBackIcon]="wpx.layout.showBack ? '' : null">
+    <nz-breadcrumb *ngIf="paths" nz-page-header-breadcrumb>
+      <ng-container *ngFor="let _ of wpx.fragments; index as i">
+        <nz-breadcrumb-item>
+          <ng-container *ngIf="paths | wpxMap: (wpx.fragments | slice: 0:i + 1 | wpxJoin: '/') as node">
+            <ng-container *ngIf="!node.router; else text">
+              <a [routerLink]="node | AutoRouter">{{ node.name }}</a>
+            </ng-container>
+            <ng-template #text>{{ node.name }}</ng-template>
+          </ng-container>
+        </nz-breadcrumb-item>
+      </ng-container>
+    </nz-breadcrumb>
+    <nz-page-header-title>
+      <ng-container *ngIf="!!wpx.layout.title; else defaultTitle">
+        {{ wpx.layout.title }}
+      </ng-container>
+      <ng-template #defaultTitle>
+        <ng-container *ngIf="paths">
+          {{ (paths | wpxMap: (wpx.fragments | wpxJoin: '/')).name }}
+        </ng-container>
+      </ng-template>
+    </nz-page-header-title>
+    <nz-page-header-extra *ngIf="!!wpx.layout.actions">
+      <nz-space>
+        <ng-container *ngFor="let ref of wpx.layout.actions">
+          <ng-container *nzSpaceItem>
+            <ng-container *ngTemplateOutlet="ref"></ng-container>
+          </ng-container>
+        </ng-container>
+      </nz-space>
+    </nz-page-header-extra>
+  </nz-page-header>
+</ng-container>

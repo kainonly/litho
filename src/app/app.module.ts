@@ -12,8 +12,7 @@ import { AppInterceptors } from '@common/app.interceptors';
 import { AppService } from '@common/app.service';
 import { environment } from '@env';
 import { AppShareModule } from '@share';
-import { WpxModule } from '@weplanx/ngx';
-import { WpxLayoutModule } from '@weplanx/ngx/layout';
+import { WpxActivated } from '@weplanx/components';
 import { NZ_CONFIG, NzConfig } from 'ng-zorro-antd/core/config';
 import { NZ_I18N, zh_CN } from 'ng-zorro-antd/i18n';
 
@@ -48,8 +47,6 @@ const ngZorroConfig: NzConfig = {
     BrowserAnimationsModule,
     HttpClientModule,
     AppShareModule,
-    WpxModule.forRoot(environment.wpx),
-    WpxLayoutModule.forRoot(),
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: environment.production,
       registrationStrategy: 'registerWhenStable:30000'
@@ -59,8 +56,6 @@ const ngZorroConfig: NzConfig = {
     })
   ],
   providers: [
-    AppGuard,
-    AppService,
     { provide: HTTP_INTERCEPTORS, useClass: AppInterceptors, multi: true },
     { provide: NZ_I18N, useValue: zh_CN },
     { provide: NZ_CONFIG, useValue: ngZorroConfig }
