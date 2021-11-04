@@ -27,6 +27,7 @@ import { NzListModule } from 'ng-zorro-antd/list';
 import { NzModalModule } from 'ng-zorro-antd/modal';
 import { NzPopoverModule } from 'ng-zorro-antd/popover';
 import { NzRadioModule } from 'ng-zorro-antd/radio';
+import { NzResizableModule } from 'ng-zorro-antd/resizable';
 import { NzResultModule } from 'ng-zorro-antd/result';
 import { NzSelectModule } from 'ng-zorro-antd/select';
 import { NzSpaceModule } from 'ng-zorro-antd/space';
@@ -46,6 +47,7 @@ import { WpxSchemaActComponent } from './wpx-schema/wpx-schema-act/wpx-schema-ac
 import { WpxSchemaFieldActComponent } from './wpx-schema/wpx-schema-field-act/wpx-schema-field-act.component';
 import { WpxSchemaComponent } from './wpx-schema/wpx-schema.component';
 import { WpxSchemaService } from './wpx-schema/wpx-schema.service';
+import { WpxTableComponent } from './wpx-table/wpx-table.component';
 import { WpxTemplateTableComponent } from './wpx-template/wpx-template-table/wpx-template-table.component';
 import { WpxTemplateComponent } from './wpx-template/wpx-template.component';
 import { WpxTemplateService } from './wpx-template/wpx-template.service';
@@ -87,6 +89,7 @@ import { WpxTemplateService } from './wpx-template/wpx-template.service';
     NzCheckboxModule,
     NzDrawerModule,
     NzBadgeModule,
+    NzResizableModule,
     PortalModule,
     DragDropModule,
     WpxModule,
@@ -98,6 +101,7 @@ import { WpxTemplateService } from './wpx-template/wpx-template.service';
     WpxSchemaActComponent,
     WpxSchemaFieldActComponent,
     WpxPageComponent,
+    WpxTableComponent,
     WpxTemplateComponent,
     WpxTemplateTableComponent
   ],
@@ -106,6 +110,7 @@ import { WpxTemplateService } from './wpx-template/wpx-template.service';
     WpxSchemaActComponent,
     WpxSchemaFieldActComponent,
     WpxPageComponent,
+    WpxTableComponent,
     WpxTemplateComponent,
     WpxTemplateTableComponent
   ],
