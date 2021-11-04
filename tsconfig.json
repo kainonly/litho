@@ -22,7 +22,7 @@
       "@common/*": ["src/common/*"],
       "@share": ["src/app/app-share.module.ts"],
       "@weplanx/components": ["projects/components/public-api.ts"],
-      "@weplanx/components/pipes": ["projects/components/pipes/public-api.ts"]
+      "@weplanx/components/table": ["projects/components/table/public-api.ts"]
     },
     "plugins": [
       {
