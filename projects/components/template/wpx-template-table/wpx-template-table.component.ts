@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { take } from 'rxjs/operators';
+import { delay, switchMap } from 'rxjs/operators';
 
 import { Collection, WpxService } from '@weplanx/components';
 
@@ -15,16 +15,21 @@ export class WpxTemplateTableComponent implements OnInit {
   constructor(private wpx: WpxService, public common: CommonService) {}
 
   ngOnInit(): void {
-    this.common.fields.pipe(take(1)).subscribe(v => {
-      console.log(v);
-    });
-    // this.coll = this.wpx.collection(this.template.option!.schema);
-    this.getData();
+    this.common
+      .fields()
+      .pipe(
+        delay(200),
+        switchMap(v => {
+          this.coll = this.wpx.collection(this.common.option!.schema, v);
+          return this.coll.ready;
+        })
+      )
+      .subscribe(() => {
+        this.getData();
+      });
   }
 
-  getData(): void {
-    // this.template.api.findByPage(this.lists!, true, true).subscribe(data => {
-    //   this.lists?.setData(data as any[]);
-    // });
+  getData(refresh = false): void {
+    this.coll.from(this.common.api, refresh).subscribe(v => {});
   }
 }

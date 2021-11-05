@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { AppShareModule } from '@share';
 import { WpxActivated } from '@weplanx/components';
+import { WpxSettingsModule } from '@weplanx/components/settings';
 
 import { WpxTemplateComponent } from '../../projects/components/template/wpx-template.component';
 import { WpxTemplateModule } from '../../projects/components/template/wpx-template.module';
@@ -42,6 +43,6 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [AppShareModule, LayoutModule, WpxTemplateModule, RouterModule.forChild(routes)]
+  imports: [AppShareModule, LayoutModule, WpxSettingsModule, WpxTemplateModule, RouterModule.forChild(routes)]
 })
 export class AppRoutingModule {}

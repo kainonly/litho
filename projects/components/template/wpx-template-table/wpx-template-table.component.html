@@ -3,3 +3,11 @@
     <i nz-icon nzType="plus"></i>
   </button>
 </wpx-layout>
+
+<nz-card *ngIf="coll; else loading" [nzTitle]="table.searchbox" [nzExtra]="table.toolbox">
+  <wpx-table #table [coll]="coll" (fetch)="getData($event)"></wpx-table>
+</nz-card>
+
+<ng-template #loading>
+  <nz-card [nzLoading]="true"></nz-card>
+</ng-template>

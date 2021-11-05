@@ -3,8 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { map } from 'rxjs/operators';
 
-import { PageOption, WpxService } from '@weplanx/components';
-import { Schema, SchemaField, WpxSchemaService } from '@weplanx/components/settings';
+import { WpxService } from '@weplanx/components';
 
 import { CommonService } from './common.service';
 import { WpxTemplateTableComponent } from './wpx-template-table/wpx-template-table.component';
@@ -16,12 +15,7 @@ import { WpxTemplateTableComponent } from './wpx-template-table/wpx-template-tab
 export class WpxTemplateComponent implements OnInit {
   component!: ComponentPortal<unknown>;
 
-  constructor(
-    private wpx: WpxService,
-    private route: ActivatedRoute,
-    private common: CommonService,
-    private schema: WpxSchemaService
-  ) {}
+  constructor(private wpx: WpxService, private route: ActivatedRoute, private common: CommonService) {}
 
   ngOnInit(): void {
     this.route.paramMap.pipe(map(v => v.get('fragments'))).subscribe(fragments => {
@@ -41,22 +35,6 @@ export class WpxTemplateComponent implements OnInit {
           this.component = new ComponentPortal(WpxTemplateTableComponent);
           break;
       }
-      this.getSchema(page.option!);
-    });
-  }
-
-  private getSchema(option: PageOption): void {
-    this.schema.api.findOne<Schema>({ key: option.schema }).subscribe(data => {
-      const map: Map<string, SchemaField> = new Map<string, SchemaField>(data.fields?.map(v => [v.key, v]));
-      this.common.setFields(
-        option.fields
-          .filter(v => v.display && !map.get(v.key)!.private)
-          .map(v => {
-            const field = map.get(v.key)!;
-            field.label = v.label;
-            return field;
-          }) as SchemaField[]
-      );
     });
   }
 }
