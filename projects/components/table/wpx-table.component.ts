@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output, TemplateRef, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { timeout } from 'rxjs/operators';
 
 import { SearchOption, Collection } from '@weplanx/components';
 import { NzMessageService } from 'ng-zorro-antd/message';
@@ -93,14 +94,6 @@ export class WpxTableComponent implements OnInit {
   clearSearch(): void {
     this.coll.searchText = '';
     this.coll.searchOptions = {};
-    this.fetch.emit(true);
-  }
-
-  /**
-   * 刷新提示
-   */
-  refresh(): void {
-    this.message.loading('正在刷新数据中，请稍后~', { nzDuration: 1200 });
     this.fetch.emit(true);
   }
 

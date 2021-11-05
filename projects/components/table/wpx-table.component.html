@@ -70,7 +70,7 @@
 
 <ng-template #toolbox>
   <nz-button-group>
-    <button nz-button nzType="text" nz-tooltip="刷新" (click)="refresh()">
+    <button nz-button nzType="text" nz-tooltip="刷新" (click)="fetch.emit(true)">
       <i nz-icon nzType="reload"></i>
     </button>
     <button
@@ -143,7 +143,6 @@
   #basicTable
   [nzTitle]="coll.checkedNumber ? bulk : null"
   [nzLoading]="coll.loading"
-  [nzLoadingDelay]="200"
   [nzSize]="coll.columnsHeight"
   [nzData]="coll.value"
   [nzScroll]="scroll"

@@ -11,6 +11,7 @@ import { CommonService } from '../common.service';
 })
 export class WpxTemplateTableComponent implements OnInit {
   coll!: Collection<any>;
+  loading = true;
 
   constructor(private wpx: WpxService, public common: CommonService) {}
 
@@ -18,13 +19,14 @@ export class WpxTemplateTableComponent implements OnInit {
     this.common
       .fields()
       .pipe(
-        delay(200),
         switchMap(v => {
           this.coll = this.wpx.collection(this.common.option!.schema, v);
           return this.coll.ready;
-        })
+        }),
+        delay(300)
       )
       .subscribe(() => {
+        this.loading = false;
         this.getData();
       });
   }
