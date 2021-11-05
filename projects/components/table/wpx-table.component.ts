@@ -12,23 +12,18 @@ import { NzResizeEvent } from 'ng-zorro-antd/resizable';
 })
 export class WpxTableComponent implements OnInit {
   @Input() coll!: Collection<any>;
-  @Input() scroll: {
-    x?: string | null;
-    y?: string | null;
-  } = { x: '1600px' };
-
+  @Input() scroll: { x?: string | null; y?: string | null } = { x: '1600px' };
   @Output() readonly fetch: EventEmitter<boolean> = new EventEmitter<boolean>();
 
   @ViewChild('searchbox', { static: true }) searchbox!: TemplateRef<any>;
   @ViewChild('toolbox', { static: true }) toolbox!: TemplateRef<any>;
 
   keywords: Set<string> = new Set();
+  searchForm?: FormGroup;
+  searchVisible = false;
 
   customWidth = false;
   customWidthMessageId?: string;
-
-  searchForm?: FormGroup;
-  searchVisible = false;
 
   constructor(private fb: FormBuilder, private message: NzMessageService) {}
 
@@ -40,6 +35,9 @@ export class WpxTableComponent implements OnInit {
     });
   }
 
+  /**
+   * 打开搜索表单
+   */
   openSearchForm(): void {
     const controls: Record<string, FormGroup> = {};
     for (const x of this.coll.columns) {
@@ -53,11 +51,17 @@ export class WpxTableComponent implements OnInit {
     this.searchVisible = true;
   }
 
+  /**
+   * 关闭搜索表单
+   */
   closeSearchForm(): void {
     this.searchVisible = false;
     this.searchForm = undefined;
   }
 
+  /**
+   * 提交搜索
+   */
   submitSearch(data?: unknown): void {
     if (!!data) {
       this.coll.searchText = '';
@@ -69,6 +73,9 @@ export class WpxTableComponent implements OnInit {
     this.fetch.emit(true);
   }
 
+  /**
+   * 重置搜索
+   */
   resetSearch(): void {
     const data: any = {};
     for (const x of this.coll.columns) {
@@ -80,13 +87,35 @@ export class WpxTableComponent implements OnInit {
     this.searchForm?.patchValue(data);
   }
 
+  /**
+   * 清除搜索
+   */
   clearSearch(): void {
     this.coll.searchText = '';
     this.coll.searchOptions = {};
     this.fetch.emit(true);
   }
 
-  onMessage(): void {
+  /**
+   * 刷新提示
+   */
+  refresh(): void {
+    this.message.loading('正在刷新数据中，请稍后~', { nzDuration: 1200 });
+    this.fetch.emit(true);
+  }
+
+  /**
+   * 自定义列宽
+   */
+  resize({ width }: NzResizeEvent, value: string): void {
+    this.coll.columnsWidth[value] = `${width}px`;
+    this.coll.updateStorage();
+  }
+
+  /**
+   * 自定义列宽提示
+   */
+  onResizeMessage(): void {
     if (this.customWidth) {
       this.customWidthMessageId = this.message.create('info', '您正在自定义列宽度，该状态不能进行字段排序', {
         nzDuration: 0
@@ -94,10 +123,5 @@ export class WpxTableComponent implements OnInit {
     } else {
       this.message.remove(this.customWidthMessageId);
     }
-  }
-
-  resize({ width }: NzResizeEvent, value: string): void {
-    this.coll.columnsWidth[value] = `${width}px`;
-    this.coll.updateStorage();
   }
 }

@@ -70,7 +70,7 @@
 
 <ng-template #toolbox>
   <nz-button-group>
-    <button nz-button nzType="text" nz-tooltip="刷新" (click)="fetch.emit(true)">
+    <button nz-button nzType="text" nz-tooltip="刷新" (click)="refresh()">
       <i nz-icon nzType="reload"></i>
     </button>
     <button
@@ -85,7 +85,7 @@
     >
       <i nz-icon nzType="column-height"></i>
       <ng-template #columnsSizeTitle>
-        <label nz-checkbox [(ngModel)]="customWidth" (ngModelChange)="onMessage()"> 自定义宽度 </label>
+        <label nz-checkbox [(ngModel)]="customWidth" (ngModelChange)="onResizeMessage()"> 自定义宽度 </label>
       </ng-template>
       <ng-template #columnsSizeContent>
         <nz-radio-group [(ngModel)]="coll.columnsHeight" (ngModelChange)="coll.updateStorage()">
@@ -125,7 +125,15 @@
         </nz-row>
       </ng-template>
       <ng-template #columnsContent>
-        <nz-checkbox-group [(ngModel)]="coll.columns" (ngModelChange)="coll.updateColumnChecked()"></nz-checkbox-group>
+        <nz-checkbox-wrapper (nzOnChange)="coll.updateColumnChecked()">
+          <nz-space nzDirection="vertical">
+            <ng-container *ngFor="let column of coll.columns">
+              <label *nzSpaceItem nz-checkbox [nzValue]="column.value" [(ngModel)]="column.checked">
+                {{ column.label }}
+              </label>
+            </ng-container>
+          </nz-space>
+        </nz-checkbox-wrapper>
       </ng-template>
     </button>
   </nz-button-group>
