@@ -1,4 +1,4 @@
-# Weplanx
+# Weplanx Angular Components
 
 > Thanks to [JetBrains](https://www.jetbrains.com/?from=ngx-bit) for providing free open source license sponsorship
 >
