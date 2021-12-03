@@ -31,7 +31,7 @@ export class WpxSchemaService {
 
   addField(id: string, data: Record<string, any>): Observable<any> {
     return this.api.send('/update', {
-      where: { _id: id },
+      id,
       update: {
         $push: { fields: data }
       }
@@ -40,7 +40,8 @@ export class WpxSchemaService {
 
   updateField(id: string, key: string, data: Record<string, any>): Observable<any> {
     return this.api.send('/update', {
-      where: { _id: id, 'fields.key': key },
+      id,
+      where: { 'fields.key': key },
       update: {
         $set: {
           'fields.$': {
@@ -54,7 +55,7 @@ export class WpxSchemaService {
 
   removeField(id: string, key: string): Observable<any> {
     return this.api.send('/update', {
-      where: { _id: id },
+      id,
       update: {
         $pull: { fields: { key } }
       }

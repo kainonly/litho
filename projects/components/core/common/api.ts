@@ -43,12 +43,26 @@ export class Api {
     }).pipe(map(v => (!v.code ? v.data : null))) as Observable<T>;
   }
 
+  findOneById<T>(id: string, sort?: Record<string, number>): Observable<T> {
+    return this.send('/find_one', {
+      id,
+      sort
+    }).pipe(map(v => (!v.code ? v.data : null))) as Observable<T>;
+  }
+
   /**
    * 获取原始列表数据请求
    */
   find<T>(where?: Record<string, unknown>, sort?: Record<string, number>): Observable<T[]> {
     return this.send('/find', {
       where,
+      sort
+    }).pipe(map(v => (!v.code ? v.data : []))) as Observable<T[]>;
+  }
+
+  findById<T>(id: string[], sort?: Record<string, number>): Observable<T[]> {
+    return this.send('/find', {
+      id,
       sort
     }).pipe(map(v => (!v.code ? v.data : []))) as Observable<T[]>;
   }
@@ -92,12 +106,27 @@ export class Api {
     });
   }
 
+  updateById(id: string, data: Record<string, unknown>): Observable<APIResponse<never>> {
+    return this.send('/update', {
+      id,
+      update: {
+        $set: data
+      }
+    });
+  }
+
   /**
    * 删除数据请求
    */
   delete(where: Record<string, unknown>): Observable<APIResponse<never>> {
     return this.send('/delete', {
       where
+    });
+  }
+
+  deleteById(id: string[]): Observable<APIResponse<never>> {
+    return this.send('/delete', {
+      id
     });
   }
 }
