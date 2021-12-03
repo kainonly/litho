@@ -28,8 +28,8 @@ export class AppService {
   /**
    * 验证鉴权
    */
-  verify(): Observable<any> {
-    return this.http.post(`${this.wpx.baseUrl}/verify`, {});
+  verify(): Observable<APIResponse<any>> {
+    return this.http.post(`${this.wpx.baseUrl}/verify`, {}) as Observable<APIResponse<any>>;
   }
 
   /**
