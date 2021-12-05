@@ -1,9 +1,30 @@
 <nz-header>
   <nz-row nzJustify="space-between">
     <nz-col>
-      <button nz-button nzType="text">
-        <i nz-icon nzType="appstore"></i>
-      </button>
+      <nz-space [nzSplit]="spaceSplit">
+        <ng-template #spaceSplit>
+          <nz-divider nzType="vertical"></nz-divider>
+        </ng-template>
+        <button *nzSpaceItem nz-button nzType="text">
+          <i nz-icon nzType="appstore"></i>
+        </button>
+        <nz-breadcrumb *nzSpaceItem>
+          <nz-breadcrumb-item>Home</nz-breadcrumb-item>
+          <nz-breadcrumb-item [nzOverlay]="menu">
+            <a>Application List</a>
+            <nz-dropdown-menu #menu="nzDropdownMenu">
+              <ul nz-menu nzSelectable>
+                <li nz-menu-item>General</li>
+                <li nz-menu-item>Layout</li>
+                <li nz-menu-item>Navigation</li>
+              </ul>
+            </nz-dropdown-menu>
+          </nz-breadcrumb-item>
+          <nz-breadcrumb-item>An Application</nz-breadcrumb-item>
+        </nz-breadcrumb>
+      </nz-space>
+
+      <!--      <nz-divider nzType="vertical"></nz-divider>-->
     </nz-col>
     <nz-col>
       <nz-space>
