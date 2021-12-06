@@ -26,7 +26,10 @@ const routes: Routes = [
   },
   {
     path: 'admin',
-    loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule)
+    loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule),
+    data: {
+      breadcrumb: '经营者工具'
+    }
   },
   {
     path: 'login',
@@ -36,6 +39,7 @@ const routes: Routes = [
 
 const ngZorroConfig: NzConfig = {
   notification: { nzPlacement: 'bottomLeft' },
+  pageHeader: { nzGhost: false },
   card: { nzBorderless: true },
   table: { nzSize: 'middle' },
   codeEditor: { assetsRoot: `${environment.cdn}/assets` }

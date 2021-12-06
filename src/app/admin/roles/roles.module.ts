@@ -4,6 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { AppShareModule } from '@share';
 
 import { RolesComponent } from './roles.component';
+import { RolesService } from './roles.service';
 
 const routes: Routes = [
   {
@@ -14,6 +15,7 @@ const routes: Routes = [
 
 @NgModule({
   imports: [AppShareModule, RouterModule.forChild(routes)],
-  declarations: [RolesComponent]
+  declarations: [RolesComponent],
+  providers: [RolesService]
 })
 export class RolesModule {}

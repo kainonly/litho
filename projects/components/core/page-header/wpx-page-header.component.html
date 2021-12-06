@@ -3,18 +3,19 @@
     <ng-container *ngTemplateOutlet="wpx.layout.alert"></ng-container>
   </ng-container>
   <nz-page-header [nzGhost]="false" [nzBackIcon]="wpx.layout.showBack ? '' : null">
-    <nz-breadcrumb *ngIf="paths" nz-page-header-breadcrumb>
-      <ng-container *ngFor="let _ of wpx.fragments; index as i">
-        <nz-breadcrumb-item>
-          <ng-container *ngIf="paths | wpxMap: (wpx.fragments | slice: 0:i + 1 | wpxJoin: '/') as node">
-            <ng-container *ngIf="!node.router; else text">
-              <a [routerLink]="node | AutoRouter">{{ node.name }}</a>
-            </ng-container>
-            <ng-template #text>{{ node.name }}</ng-template>
-          </ng-container>
-        </nz-breadcrumb-item>
-      </ng-container>
-    </nz-breadcrumb>
+    <!--    <nz-breadcrumb *ngIf="paths" nz-page-header-breadcrumb>-->
+    <!--      <ng-container *ngFor="let _ of wpx.fragments; index as i">-->
+    <!--        <nz-breadcrumb-item>-->
+    <!--          <ng-container *ngIf="paths | wpxMap: (wpx.fragments | slice: 0:i + 1 | wpxJoin: '/') as node">-->
+    <!--            <ng-container *ngIf="!node.router; else text">-->
+    <!--              <a [routerLink]="node | AutoRouter">{{ node.name }}</a>-->
+    <!--            </ng-container>-->
+    <!--            <ng-template #text>{{ node.name }}</ng-template>-->
+    <!--          </ng-container>-->
+    <!--        </nz-breadcrumb-item>-->
+    <!--      </ng-container>-->
+    <!--    </nz-breadcrumb>-->
+    <nz-breadcrumb nz-page-header-breadcrumb [nzAutoGenerate]="true"> </nz-breadcrumb>
     <nz-page-header-title>
       <ng-container *ngIf="!!wpx.layout.title; else defaultTitle">
         {{ wpx.layout.title }}

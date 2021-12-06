@@ -1,20 +1,24 @@
-<ng-template #title></ng-template>
+<wpx-layout title="页面管理">
+  <button *wpxLayoutAction nz-button nzType="primary" nzShape="circle" nz-tooltip="新增">
+    <i nz-icon nzType="plus"></i>
+  </button>
+</wpx-layout>
 
-<nz-card [nzTitle]="title">
+<nz-card>
   <nz-row [nzGutter]="16">
     <nz-col [nzXXl]="4" [nzXl]="5" [nzLg]="6">
-      <nz-tree
-        #tree
-        nzBlockNode
-        nzShowLine
-        nzShowIcon
-        nzExpandAll
-        nzDraggable
-        [nzData]="nodes"
-        [nzSearchValue]="name"
-        (nzClick)="fetchData($event)"
-      >
-      </nz-tree>
+      <!--      <nz-tree-->
+      <!--        #tree-->
+      <!--        nzBlockNode-->
+      <!--        nzShowLine-->
+      <!--        nzShowIcon-->
+      <!--        nzExpandAll-->
+      <!--        nzDraggable-->
+      <!--        [nzData]="nodes"-->
+      <!--        [nzSearchValue]="name"-->
+      <!--        (nzClick)="fetchData($event)"-->
+      <!--      >-->
+      <!--      </nz-tree>-->
     </nz-col>
     <nz-col [nzXXl]="20" [nzXl]="19" [nzLg]="18"> </nz-col>
   </nz-row>
