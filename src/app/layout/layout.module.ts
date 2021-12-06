@@ -3,12 +3,12 @@ import { RouterModule } from '@angular/router';
 
 import { AppShareModule } from '@share';
 
-import { HeaderComponent } from './header/header.component';
+import { HeaderModule } from '../header/header.module';
 import { LayoutComponent } from './layout.component';
 
 @NgModule({
-  imports: [AppShareModule, RouterModule],
-  declarations: [LayoutComponent, HeaderComponent],
+  imports: [AppShareModule, RouterModule, HeaderModule],
+  declarations: [LayoutComponent],
   exports: [LayoutComponent]
 })
 export class LayoutModule {}

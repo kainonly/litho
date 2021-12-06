@@ -3,10 +3,10 @@ import { Injectable } from '@angular/core';
 import { Api, WpxService } from '@weplanx/components';
 
 @Injectable()
-export class OrderService {
+export class PagesSerivce {
   api!: Api;
 
   constructor(private wpx: WpxService) {
-    this.api = wpx.api('order');
+    this.api = wpx.api('pages');
   }
 }

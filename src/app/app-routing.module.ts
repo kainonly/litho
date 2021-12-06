@@ -14,7 +14,7 @@ const routes: Routes = [
   {
     path: '',
     component: LayoutComponent,
-    canActivateChild: [WpxActivated],
+    // canActivateChild: [WpxActivated],
     children: [
       {
         path: 'dashboard',
@@ -25,19 +25,11 @@ const routes: Routes = [
         loadChildren: () => import('./center/center.module').then(m => m.CenterModule)
       },
       {
-        path: 'settings',
-        loadChildren: () => import('./settings/settings.module').then(m => m.SettingsModule)
-      },
-      // {
-      //   path: 'order',
-      //   loadChildren: () => import('./order/order.module').then(m => m.OrderModule)
-      // },
-      {
         path: ':fragments',
         component: WpxTemplateComponent
-      },
-      { path: '', redirectTo: '/pages/dashboard', pathMatch: 'full' },
-      { path: '**', loadChildren: () => import('./empty/empty.module').then(m => m.EmptyModule) }
+      }
+      // { path: '', redirectTo: '/app/dashboard', pathMatch: 'full' },
+      // { path: '**', loadChildren: () => import('./empty/empty.module').then(m => m.EmptyModule) }
     ]
   }
 ];

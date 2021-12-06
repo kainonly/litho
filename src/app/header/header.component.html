@@ -5,26 +5,41 @@
         <ng-template #spaceSplit>
           <nz-divider nzType="vertical"></nz-divider>
         </ng-template>
-        <button *nzSpaceItem nz-button nzType="text">
+        <button *nzSpaceItem nz-button nzType="text" nz-dropdown [nzDropdownMenu]="menu">
           <i nz-icon nzType="appstore"></i>
+          <nz-dropdown-menu #menu="nzDropdownMenu">
+            <ul class="app-menu" nz-menu nzSelectable>
+              <li nz-submenu>
+                <span title><i nz-icon nzType="inbox"></i><span class="name">我的应用</span></span>
+                <ul>
+                  <li nz-menu-item>默认</li>
+                  <li nz-menu-item>自定义工单</li>
+                  <li nz-menu-item>产品系统</li>
+                </ul>
+              </li>
+              <li nz-menu-item> <i nz-icon nzType="project"></i> &nbsp;<span class="name">CRM</span> </li>
+              <li nz-menu-item>
+                <i nz-icon nzType="tool"></i>
+                <span class="name">经营者工具</span>
+              </li>
+            </ul>
+          </nz-dropdown-menu>
         </button>
         <nz-breadcrumb *nzSpaceItem>
-          <nz-breadcrumb-item>Home</nz-breadcrumb-item>
+          <nz-breadcrumb-item>我的应用</nz-breadcrumb-item>
           <nz-breadcrumb-item [nzOverlay]="menu">
-            <a>Application List</a>
+            <a>默认</a>
             <nz-dropdown-menu #menu="nzDropdownMenu">
               <ul nz-menu nzSelectable>
-                <li nz-menu-item>General</li>
-                <li nz-menu-item>Layout</li>
-                <li nz-menu-item>Navigation</li>
+                <li nz-menu-item>默认</li>
+                <li nz-menu-item>自定义工单</li>
+                <li nz-menu-item>产品系统</li>
               </ul>
             </nz-dropdown-menu>
           </nz-breadcrumb-item>
-          <nz-breadcrumb-item>An Application</nz-breadcrumb-item>
+          <nz-breadcrumb-item>仪表盘</nz-breadcrumb-item>
         </nz-breadcrumb>
       </nz-space>
-
-      <!--      <nz-divider nzType="vertical"></nz-divider>-->
     </nz-col>
     <nz-col>
       <nz-space>

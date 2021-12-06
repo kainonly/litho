@@ -9,10 +9,8 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 
 import { AppGuard } from '@common/app.guard';
 import { AppInterceptors } from '@common/app.interceptors';
-import { AppService } from '@common/app.service';
 import { environment } from '@env';
 import { AppShareModule } from '@share';
-import { WpxActivated } from '@weplanx/components';
 import { NZ_CONFIG, NzConfig } from 'ng-zorro-antd/core/config';
 import { NZ_I18N, zh_CN } from 'ng-zorro-antd/i18n';
 
@@ -22,15 +20,18 @@ registerLocaleData(zh);
 
 const routes: Routes = [
   {
-    path: 'pages',
+    path: 'app',
     loadChildren: () => import('./app-routing.module').then(m => m.AppRoutingModule),
     canActivate: [AppGuard]
   },
   {
+    path: 'admin',
+    loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule)
+  },
+  {
     path: 'login',
     loadChildren: () => import('./login/login.module').then(m => m.LoginModule)
-  },
-  { path: '', redirectTo: '/pages', pathMatch: 'full' }
+  }
 ];
 
 const ngZorroConfig: NzConfig = {
@@ -51,9 +52,7 @@ const ngZorroConfig: NzConfig = {
       enabled: environment.production,
       registrationStrategy: 'registerWhenStable:30000'
     }),
-    RouterModule.forRoot(routes, {
-      useHash: true
-    })
+    RouterModule.forRoot(routes, { useHash: true })
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AppInterceptors, multi: true },

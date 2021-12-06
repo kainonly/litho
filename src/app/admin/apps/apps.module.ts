@@ -3,19 +3,17 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { AppShareModule } from '@share';
 
-import { OrderComponent } from './order.component';
-import { OrderService } from './order.service';
+import { AppsComponent } from './apps.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: OrderComponent
+    component: AppsComponent
   }
 ];
 
 @NgModule({
   imports: [AppShareModule, RouterModule.forChild(routes)],
-  declarations: [OrderComponent],
-  providers: [OrderService]
+  declarations: [AppsComponent]
 })
-export class OrderModule {}
+export class AppsModule {}

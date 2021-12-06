@@ -1,9 +1,0 @@
-<wpx-layout>
-  <button *wpxLayoutAction nz-button nzType="primary" nzShape="circle" nz-tooltip="新增">
-    <i nz-icon nzType="plus"></i>
-  </button>
-</wpx-layout>
-
-<nz-card [nzTitle]="table.searchbox" [nzExtra]="table.toolbox">
-  <wpx-table #table [coll]="coll" (fetch)="getData($event)"></wpx-table>
-</nz-card>

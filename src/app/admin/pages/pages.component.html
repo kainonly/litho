@@ -1,0 +1,19 @@
+<nz-card>
+  <nz-row [nzGutter]="16">
+    <nz-col [nzXXl]="4" [nzXl]="5" [nzLg]="6">
+      <nz-tree
+        #tree
+        nzBlockNode
+        nzShowLine
+        nzShowIcon
+        nzExpandAll
+        nzDraggable
+        [nzData]="nodes"
+        [nzSearchValue]="name"
+        (nzClick)="fetchData($event)"
+      >
+      </nz-tree>
+    </nz-col>
+    <nz-col [nzXXl]="20" [nzXl]="19" [nzLg]="18"> </nz-col>
+  </nz-row>
+</nz-card>

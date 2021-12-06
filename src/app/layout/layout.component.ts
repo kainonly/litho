@@ -16,7 +16,7 @@ export class LayoutComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.taskToRefreshToken();
-    this.app.pages().subscribe(() => {});
+    // this.app.pages().subscribe(() => {});
   }
 
   ngOnDestroy(): void {
