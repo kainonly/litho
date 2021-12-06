@@ -1,0 +1,3 @@
+<nz-card [nzTitle]="table.searchbox" [nzExtra]="table.toolbox">
+  <wpx-table #table [coll]="coll" (fetch)="getData($event)"></wpx-table>
+</nz-card>

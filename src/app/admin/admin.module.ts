@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { AppShareModule } from '@share';
+import { NzAutocompleteModule } from 'ng-zorro-antd/auto-complete';
 
 import { HeaderModule } from '../header/header.module';
 import { AdminComponent } from './admin.component';

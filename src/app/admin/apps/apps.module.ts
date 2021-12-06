@@ -4,6 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { AppShareModule } from '@share';
 
 import { AppsComponent } from './apps.component';
+import { AppsSerivce } from './apps.serivce';
 
 const routes: Routes = [
   {
@@ -14,6 +15,7 @@ const routes: Routes = [
 
 @NgModule({
   imports: [AppShareModule, RouterModule.forChild(routes)],
-  declarations: [AppsComponent]
+  declarations: [AppsComponent],
+  providers: [AppsSerivce]
 })
 export class AppsModule {}

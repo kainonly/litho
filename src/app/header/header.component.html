@@ -25,20 +25,15 @@
             </ul>
           </nz-dropdown-menu>
         </button>
-        <nz-breadcrumb *nzSpaceItem>
-          <nz-breadcrumb-item>我的应用</nz-breadcrumb-item>
-          <nz-breadcrumb-item [nzOverlay]="menu">
-            <a>默认</a>
-            <nz-dropdown-menu #menu="nzDropdownMenu">
-              <ul nz-menu nzSelectable>
-                <li nz-menu-item>默认</li>
-                <li nz-menu-item>自定义工单</li>
-                <li nz-menu-item>产品系统</li>
-              </ul>
-            </nz-dropdown-menu>
-          </nz-breadcrumb-item>
-          <nz-breadcrumb-item>仪表盘</nz-breadcrumb-item>
-        </nz-breadcrumb>
+        <input *nzSpaceItem nz-input placeholder="应用导航搜索" nzBorderless nz-dropdown [nzDropdownMenu]="menu" />
+        <nz-dropdown-menu #menu="nzDropdownMenu">
+          <ul nz-menu nzSelectable>
+            <li nz-menu-item>1st menu item</li>
+            <li nz-menu-item>2nd menu item</li>
+            <li nz-menu-item>3rd menu item</li>
+            <li nz-menu-item nzDanger>4th danger item</li>
+          </ul>
+        </nz-dropdown-menu>
       </nz-space>
     </nz-col>
     <nz-col>

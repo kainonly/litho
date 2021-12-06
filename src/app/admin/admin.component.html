@@ -22,6 +22,21 @@
       </ul>
     </nz-sider>
     <nz-layout style="overflow: auto">
+      <nz-page-header [nzGhost]="false" nzTitle="应用管理">
+        <nz-breadcrumb nz-page-header-breadcrumb>
+          <nz-breadcrumb-item>经营者工具</nz-breadcrumb-item>
+          <nz-breadcrumb-item>应用设置</nz-breadcrumb-item>
+          <nz-breadcrumb-item>应用管理</nz-breadcrumb-item>
+        </nz-breadcrumb>
+        <nz-page-header-extra>
+          <button nz-button nzType="primary" nzShape="circle" nz-tooltip="新增">
+            <i nz-icon nzType="plus"></i>
+          </button>
+          <button nz-button nzShape="circle">
+            <i nz-icon nzType="ellipsis"></i>
+          </button>
+        </nz-page-header-extra>
+      </nz-page-header>
       <nz-content>
         <router-outlet></router-outlet>
       </nz-content>
