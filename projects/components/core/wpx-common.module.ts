@@ -24,6 +24,7 @@ import { NzMessageModule } from 'ng-zorro-antd/message';
 import { NzModalModule } from 'ng-zorro-antd/modal';
 import { NzNotificationModule } from 'ng-zorro-antd/notification';
 import { NzPageHeaderModule } from 'ng-zorro-antd/page-header';
+import { NzPopconfirmModule } from 'ng-zorro-antd/popconfirm';
 import { NzPopoverModule } from 'ng-zorro-antd/popover';
 import { NzRadioModule } from 'ng-zorro-antd/radio';
 import { NzSelectModule } from 'ng-zorro-antd/select';
@@ -71,7 +72,8 @@ import { NzUploadModule } from 'ng-zorro-antd/upload';
     NzDrawerModule,
     NzMessageModule,
     NzModalModule,
-    NzNotificationModule
+    NzNotificationModule,
+    NzPopconfirmModule
   ]
 })
 export class WpxCommonModule {}

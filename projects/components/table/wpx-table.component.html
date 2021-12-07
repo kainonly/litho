@@ -229,9 +229,9 @@
         </td>
       </ng-container>
       <td nzRight nzAlign="center">
-        <button nz-button nzType="text">
-          <i nz-icon nzType="ellipsis"></i>
-        </button>
+        <ng-container *ngIf="actions">
+          <ng-container *ngTemplateOutlet="actions; context: { $implicit: data }"></ng-container>
+        </ng-container>
       </td>
     </tr>
   </tbody>

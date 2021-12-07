@@ -25,6 +25,10 @@ const routes: Routes = [
     canActivate: [AppGuard]
   },
   {
+    path: 'center',
+    loadChildren: () => import('./center/center.module').then(m => m.CenterModule)
+  },
+  {
     path: 'admin',
     loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule),
     data: {

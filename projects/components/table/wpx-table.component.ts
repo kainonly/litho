@@ -1,6 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output, TemplateRef, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { timeout } from 'rxjs/operators';
 
 import { SearchOption, Collection } from '@weplanx/components';
 import { NzMessageService } from 'ng-zorro-antd/message';
@@ -14,6 +13,7 @@ import { NzResizeEvent } from 'ng-zorro-antd/resizable';
 export class WpxTableComponent implements OnInit {
   @Input() coll!: Collection<any>;
   @Input() scroll: { x?: string | null; y?: string | null } = { x: '1600px' };
+  @Input() actions?: TemplateRef<any>;
   @Output() readonly fetch: EventEmitter<boolean> = new EventEmitter<boolean>();
 
   @ViewChild('searchbox', { static: true }) searchbox!: TemplateRef<any>;

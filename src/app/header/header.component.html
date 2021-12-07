@@ -9,15 +9,16 @@
           <i nz-icon nzType="appstore"></i>
           <nz-dropdown-menu #menu="nzDropdownMenu">
             <ul class="app-menu" nz-menu nzSelectable>
+              <li nz-menu-item> <i nz-icon nzType="laptop"></i> <span class="name">工作区</span> </li>
               <li nz-submenu>
-                <span title><i nz-icon nzType="inbox"></i><span class="name">我的应用</span></span>
+                <span title><i nz-icon nzType="project"></i><span class="name">我的项目</span></span>
                 <ul>
                   <li nz-menu-item>默认</li>
                   <li nz-menu-item>自定义工单</li>
                   <li nz-menu-item>产品系统</li>
                 </ul>
               </li>
-              <li nz-menu-item> <i nz-icon nzType="project"></i> &nbsp;<span class="name">CRM</span> </li>
+              <li nz-menu-item> <i nz-icon nzType="inbox"></i> <span class="name">多媒体资源</span> </li>
               <li nz-menu-item>
                 <i nz-icon nzType="tool"></i>
                 <span class="name">经营者工具</span>
@@ -47,7 +48,7 @@
             <nz-tabset style="width: 360px" [nzTabBarExtraContent]="actions">
               <ng-template #actions>
                 <nz-space>
-                  <button *nzSpaceItem [routerLink]="['center']" nz-button nzType="text" nz-tooltip="个人中心">
+                  <button *nzSpaceItem [routerLink]="['/center']" nz-button nzType="text" nz-tooltip="个人中心">
                     <i nz-icon nzType="user"></i>
                   </button>
                   <button *nzSpaceItem nz-button nzType="text" nz-tooltip="退出" (click)="logout()">
