@@ -5,7 +5,8 @@ import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 
-import { FormComponent } from './form.component';
+import { Project } from './dto/project';
+import { FormComponent } from './form/form.component';
 import { ProjectsSerivce } from './projects.serivce';
 
 @Component({
@@ -13,7 +14,7 @@ import { ProjectsSerivce } from './projects.serivce';
   templateUrl: './projects.component.html'
 })
 export class ProjectsComponent implements OnInit {
-  coll!: Collection<any>;
+  coll!: Collection<Project>;
 
   constructor(
     private wpx: WpxService,

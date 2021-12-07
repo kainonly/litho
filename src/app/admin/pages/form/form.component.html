@@ -1,30 +1,39 @@
 <form *ngIf="form" nz-form nzLayout="vertical" id="form" [formGroup]="form" (wpxSubmit)="submit($event)">
   <nz-form-item>
-    <nz-form-label nzRequired>项目名称</nz-form-label>
+    <nz-form-label nzRequired>页面名称</nz-form-label>
     <nz-form-control
       nzHasFeedback
       [nzAutoTips]="{
         default: {
-          required: '项目名称不能为空'
+          required: '页面名称不能为空'
         }
       }"
     >
-      <input nz-input type="text" formControlName="name" placeholder="给项目起个名称" />
+      <input nz-input type="text" formControlName="name" placeholder="请填写页面名称" />
     </nz-form-control>
   </nz-form-item>
   <nz-form-item>
-    <nz-form-label>项目描述</nz-form-label>
+    <nz-form-label nzRequired>父节点</nz-form-label>
     <nz-form-control
       nzHasFeedback
       [nzAutoTips]="{
         default: {
-          maxlength: '项目描述不能超出 100 字'
+          required: '父节点不能为空'
         }
       }"
     >
-      <nz-textarea-count [nzMaxCharacterCount]="100">
-        <textarea rows="4" formControlName="description" nz-input placeholder="项目描述"></textarea>
-      </nz-textarea-count>
+      <nz-tree-select
+        [nzNodes]="nodes"
+        nzShowSearch
+        formControlName="parent"
+        nzPlaceHolder="请选择页面父节点"
+      ></nz-tree-select>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label>字体图标</nz-form-label>
+    <nz-form-control>
+      <input nz-input formControlName="icon" placeholder="请填写字体图标，遵循图标 nzType 命名规范" />
     </nz-form-control>
   </nz-form-item>
   <nz-form-item>

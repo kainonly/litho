@@ -5,7 +5,7 @@ import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalRef } from 'ng-zorro-antd/modal';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 
-import { ProjectsSerivce } from './projects.serivce';
+import { ProjectsSerivce } from '../projects.serivce';
 
 @Component({
   selector: 'app-admin-projects-form',

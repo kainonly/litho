@@ -3,7 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { AppShareModule } from '@share';
 
-import { FormComponent } from './form.component';
+import { FormComponent } from './form/form.component';
 import { ProjectsComponent } from './projects.component';
 import { ProjectsSerivce } from './projects.serivce';
 
