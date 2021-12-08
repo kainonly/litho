@@ -3,15 +3,15 @@ import { Schema } from './schema';
 export interface Page {
   _id: string;
   /**
-   * 项目引用
+   * 种类
    */
-  project: string;
+  kind: string;
   /**
    * 父节点
    */
   parent: string;
   /**
-   * 页面名称
+   * 显示名称
    */
   name: string;
   /**

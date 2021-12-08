@@ -11,16 +11,9 @@ const routes: Routes = [
     path: 'settings',
     component: AdminComponent,
     data: {
-      breadcrumb: '项目设置'
+      breadcrumb: '应用设置'
     },
     children: [
-      {
-        path: 'projects',
-        loadChildren: () => import('./projects/projects.module').then(m => m.ProjectsModule),
-        data: {
-          breadcrumb: '项目管理'
-        }
-      },
       {
         path: 'pages',
         loadChildren: () => import('./pages/pages.module').then(m => m.PagesModule),
@@ -45,7 +38,7 @@ const routes: Routes = [
       { path: '', redirectTo: '/admin/settings/projects', pathMatch: 'full' }
     ]
   },
-  { path: '', redirectTo: '/admin/settings/projects', pathMatch: 'full' }
+  { path: '', redirectTo: '/admin/settings/pages', pathMatch: 'full' }
 ];
 
 @NgModule({

@@ -7,10 +7,10 @@
 <ng-template #title>
   <nz-space>
     <nz-button-group *nzSpaceItem>
-      <button nz-button nz-tooltip="全部收起" (click)="setExpanded(tree.getTreeNodes(), false)">
+      <button nz-button nz-tooltip="全部收起" (click)="expanded(tree.getTreeNodes(), false)">
         <i nz-icon nzType="node-collapse"></i>
       </button>
-      <button nz-button nz-tooltip="全部展开" (click)="setExpanded(tree.getTreeNodes(), true)">
+      <button nz-button nz-tooltip="全部展开" (click)="expanded(tree.getTreeNodes(), true)">
         <i nz-icon nzType="node-expand"></i>
       </button>
     </nz-button-group>
@@ -20,28 +20,46 @@
   </nz-space>
 </ng-template>
 
-<ng-template #extra>
-  <nz-select [(ngModel)]="project" style="width: 240px">
-    <ng-container *ngFor="let x of projectList">
-      <nz-option [nzValue]="x._id" [nzLabel]="x.name"></nz-option>
-    </ng-container>
-  </nz-select>
-</ng-template>
-
-<nz-card [nzTitle]="title" [nzExtra]="extra">
+<nz-card [nzTitle]="title">
   <nz-row [nzGutter]="16">
     <nz-col [nzXXl]="4" [nzXl]="5" [nzLg]="6">
       <nz-tree
         #tree
         nzBlockNode
-        nzShowLine
-        nzShowIcon
         nzExpandAll
         nzDraggable
+        nzShowLine
         [nzData]="nodes"
         [nzSearchValue]="name"
+        [nzTreeTemplate]="nzTreeTemplate"
         (nzClick)="fetchData($event)"
       >
+        <ng-template #nzTreeTemplate let-node let-origin="origin">
+          <nz-space>
+            <span *nzSpaceItem>{{ node.title }}</span>
+            <ng-container *ngIf="node.icon">
+              <i *nzSpaceItem nz-icon [nzType]="node.icon"></i>
+            </ng-container>
+            <nz-tag *nzSpaceItem nzColor="blue">
+              <ng-container [ngSwitch]="origin.data.kind">
+                <ng-container *ngSwitchCase="'form'"> 表单 </ng-container>
+                <ng-container *ngSwitchCase="'dashboard'"> 仪表盘 </ng-container>
+                <ng-container *ngSwitchCase="'group'"> 分组 </ng-container>
+                <ng-container *ngSwitchDefault>集合</ng-container>
+              </ng-container>
+            </nz-tag>
+          </nz-space>
+        </ng-template>
+        <ng-template #nzExpandedIconTpl let-node let-origin="origin">
+          <ng-container [ngSwitch]="origin.data.kind">
+            <ng-container *ngSwitchCase="'group'">
+              <i nz-icon [nzType]="node.isExpanded ? 'folder-open' : 'folder'" class="ant-tree-switcher-line-icon"></i>
+            </ng-container>
+            <ng-container *ngSwitchDefault>
+              <i nz-icon nzType="file-text" class="ant-tree-switcher-line-icon"></i>
+            </ng-container>
+          </ng-container>
+        </ng-template>
       </nz-tree>
     </nz-col>
     <nz-col [nzXXl]="20" [nzXl]="19" [nzLg]="18"> <nz-empty></nz-empty> </nz-col>

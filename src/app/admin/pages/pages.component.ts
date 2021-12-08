@@ -4,8 +4,6 @@ import { TreeNodesExpanded } from '@weplanx/components';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { NzFormatEmitEvent, NzTreeNode, NzTreeNodeOptions } from 'ng-zorro-antd/tree';
 
-import { Project } from '../projects/dto/project';
-import { ProjectsSerivce } from '../projects/projects.serivce';
 import { Page } from './dto/page';
 import { FormComponent } from './form/form.component';
 import { PagesSerivce } from './pages.serivce';
@@ -16,30 +14,16 @@ import { PagesSerivce } from './pages.serivce';
   styleUrls: ['./pages.component.scss']
 })
 export class PagesComponent implements OnInit {
-  project = '';
-  projectList: Project[] = [];
   name = '';
   nodes: NzTreeNodeOptions[] = [];
 
-  constructor(private pages: PagesSerivce, private modal: NzModalService, private projects: ProjectsSerivce) {}
+  constructor(private pages: PagesSerivce, private modal: NzModalService) {}
 
   ngOnInit(): void {
-    this.getProjects();
+    this.getData();
   }
 
-  private getProjects(): void {
-    this.projects.api.find<Project>().subscribe(v => {
-      this.projectList = v.map(v => {
-        if (v.default) {
-          this.project = v._id;
-        }
-        return v;
-      });
-      this.getPages();
-    });
-  }
-
-  private getPages(): void {
+  getData(): void {
     this.pages.api.find<Page>().subscribe(result => {
       const nodes: NzTreeNodeOptions[] = [];
       const dict: Record<string, NzTreeNodeOptions> = {};
@@ -69,25 +53,27 @@ export class PagesComponent implements OnInit {
         }
       }
       this.nodes = [...nodes];
-      console.log(this.nodes);
     });
   }
 
-  setExpanded(nodes: NzTreeNode[], value: boolean): void {
+  expanded(nodes: NzTreeNode[], value: boolean): void {
     TreeNodesExpanded(nodes, value);
   }
 
-  fetchData($event: NzFormatEmitEvent) {}
+  fetchData($event: NzFormatEmitEvent) {
+    console.log($event.node);
+  }
 
   form(editable?: any) {
     this.modal.create({
-      nzTitle: !editable ? '新增数据' : '编辑数据',
+      nzTitle: !editable ? '新增' : '编辑',
       nzContent: FormComponent,
       nzComponentParams: {
-        editable
+        editable,
+        nodes: this.nodes
       },
       nzOnOk: () => {
-        // this.getData();
+        this.getData();
       }
     });
   }

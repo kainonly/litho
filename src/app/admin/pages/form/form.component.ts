@@ -14,8 +14,10 @@ import { PagesSerivce } from '../pages.serivce';
 })
 export class FormComponent implements OnInit {
   @Input() editable?: Record<string, any>;
+  @Input() nodes?: NzTreeNodeOptions[];
+  parentNodes?: NzTreeNodeOptions[];
+
   form?: FormGroup;
-  nodes: NzTreeNodeOptions[] = [];
 
   constructor(
     private modal: NzModalRef,
@@ -26,9 +28,13 @@ export class FormComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    if (this.nodes) {
+      this.parentNodes = [{ title: '最高级', key: 'root', isLeaf: true }, ...this.nodes];
+    }
     this.form = this.fb.group({
       name: [null, [Validators.required]],
       parent: ['root', [Validators.required]],
+      kind: ['default', [Validators.required]],
       icon: [],
       status: [false, [Validators.required]]
     });

@@ -1,15 +1,33 @@
 <form *ngIf="form" nz-form nzLayout="vertical" id="form" [formGroup]="form" (wpxSubmit)="submit($event)">
   <nz-form-item>
-    <nz-form-label nzRequired>页面名称</nz-form-label>
+    <nz-form-label nzRequired>种类</nz-form-label>
     <nz-form-control
       nzHasFeedback
       [nzAutoTips]="{
         default: {
-          required: '页面名称不能为空'
+          required: '种类不能为空'
         }
       }"
     >
-      <input nz-input type="text" formControlName="name" placeholder="请填写页面名称" />
+      <nz-select formControlName="kind" nzPlaceHolder="请选择一种新增种类">
+        <nz-option nzValue="default" nzLabel="集合"></nz-option>
+        <nz-option nzValue="form" nzLabel="表单"></nz-option>
+        <nz-option nzValue="dashboard" nzLabel="仪表盘"></nz-option>
+        <nz-option nzValue="group" nzLabel="分组"></nz-option>
+      </nz-select>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label nzRequired>显示名称</nz-form-label>
+    <nz-form-control
+      nzHasFeedback
+      [nzAutoTips]="{
+        default: {
+          required: '显示名称不能为空'
+        }
+      }"
+    >
+      <input nz-input type="text" formControlName="name" placeholder="请填写显示名称" />
     </nz-form-control>
   </nz-form-item>
   <nz-form-item>
@@ -23,7 +41,8 @@
       }"
     >
       <nz-tree-select
-        [nzNodes]="nodes"
+        *ngIf="parentNodes"
+        [nzNodes]="parentNodes"
         nzShowSearch
         formControlName="parent"
         nzPlaceHolder="请选择页面父节点"
