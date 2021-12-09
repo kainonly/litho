@@ -1,9 +1,12 @@
 import { Component, OnInit } from '@angular/core';
+import { AbstractControl } from '@angular/forms';
 
-import { TreeNodesExpanded } from '@weplanx/components';
+import { asyncValidator, TreeNodesExpanded } from '@weplanx/components';
+import { NzContextMenuService, NzDropdownMenuComponent } from 'ng-zorro-antd/dropdown';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { NzFormatEmitEvent, NzTreeNode, NzTreeNodeOptions } from 'ng-zorro-antd/tree';
 
+import { Field } from './dto/field';
 import { Page } from './dto/page';
 import { FormComponent } from './form/form.component';
 import { PagesSerivce } from './pages.serivce';
@@ -16,11 +19,32 @@ import { PagesSerivce } from './pages.serivce';
 export class PagesComponent implements OnInit {
   name = '';
   nodes: NzTreeNodeOptions[] = [];
+  actionNode?: NzTreeNodeOptions;
+  selectedNode?: NzTreeNodeOptions;
+  fields: Field[] = [];
 
-  constructor(private pages: PagesSerivce, private modal: NzModalService) {}
+  constructor(
+    private pages: PagesSerivce,
+    private modal: NzModalService,
+    private nzContextMenuService: NzContextMenuService
+  ) {}
 
   ngOnInit(): void {
     this.getData();
+  }
+
+  form(editable?: any) {
+    this.modal.create({
+      nzTitle: !editable ? '新增' : '编辑',
+      nzContent: FormComponent,
+      nzComponentParams: {
+        editable,
+        nodes: this.nodes
+      },
+      nzOnOk: () => {
+        this.getData();
+      }
+    });
   }
 
   getData(): void {
@@ -35,6 +59,7 @@ export class PagesComponent implements OnInit {
           icon: x.icon,
           isLeaf: true,
           expanded: true,
+          selectable: x.kind !== 'group',
           data: x
         };
       }
@@ -60,21 +85,33 @@ export class PagesComponent implements OnInit {
     TreeNodesExpanded(nodes, value);
   }
 
-  fetchData($event: NzFormatEmitEvent) {
-    console.log($event.node);
+  selected($event: NzFormatEmitEvent): void {
+    if ($event.node?.origin.data.kind === 'group') {
+      return;
+    }
+    if ($event.node?.isSelected) {
+      this.selectedNode = $event.node;
+      this.fields = [...$event.node?.origin.data.schema.fields];
+    } else {
+      this.selectedNode = undefined;
+      this.fields = [];
+    }
   }
 
-  form(editable?: any) {
-    this.modal.create({
-      nzTitle: !editable ? '新增' : '编辑',
-      nzContent: FormComponent,
-      nzComponentParams: {
-        editable,
-        nodes: this.nodes
-      },
-      nzOnOk: () => {
-        this.getData();
-      }
-    });
+  actions($event: NzFormatEmitEvent, menu: NzDropdownMenuComponent): void {
+    this.actionNode = $event.node!;
+    this.nzContextMenuService.create($event.event as MouseEvent, menu);
+  }
+
+  delete(data: any): void {
+    console.log(data);
+    // this.schema.removeField(this.data!._id, data.key).subscribe(v => {
+    //   if (v.code === 0) {
+    //     this.notification.success('操作成功', '内容类型更新完成');
+    //     this.ok.emit(v);
+    //   } else {
+    //     this.notification.error('操作失败', v.message);
+    //   }
+    // });
   }
 }

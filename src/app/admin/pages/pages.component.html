@@ -6,6 +6,9 @@
 
 <ng-template #title>
   <nz-space>
+    <nz-input-group *nzSpaceItem nzSuffixIcon="search">
+      <input type="text" style="width: 200px" nz-input placeholder="搜索" [(ngModel)]="name" />
+    </nz-input-group>
     <nz-button-group *nzSpaceItem>
       <button nz-button nz-tooltip="全部收起" (click)="expanded(tree.getTreeNodes(), false)">
         <i nz-icon nzType="node-collapse"></i>
@@ -14,9 +17,6 @@
         <i nz-icon nzType="node-expand"></i>
       </button>
     </nz-button-group>
-    <nz-input-group *nzSpaceItem nzSuffixIcon="search">
-      <input type="text" style="width: 240px" nz-input placeholder="搜索" [(ngModel)]="name" />
-    </nz-input-group>
   </nz-space>
 </ng-template>
 
@@ -31,37 +31,68 @@
         nzShowLine
         [nzData]="nodes"
         [nzSearchValue]="name"
+        [nzExpandedIcon]="nzExpandedIcon"
         [nzTreeTemplate]="nzTreeTemplate"
-        (nzClick)="fetchData($event)"
+        (nzClick)="selected($event)"
+        (nzContextMenu)="actions($event, treeActions)"
       >
+        <ng-template #nzExpandedIcon let-node let-origin="origin">
+          <ng-container [ngSwitch]="origin.data.kind">
+            <ng-container *ngSwitchCase="'form'">
+              <i nz-icon nzType="form" nz-tooltip="表单"></i>
+            </ng-container>
+            <ng-container *ngSwitchCase="'dashboard'">
+              <i nz-icon nzType="dashboard" nz-tooltip="仪表盘"></i>
+            </ng-container>
+            <ng-container *ngSwitchCase="'group'">
+              <i nz-icon [nzType]="node.isExpanded ? 'ungroup' : 'group'" nz-tooltip="分组"></i>
+            </ng-container>
+            <ng-container *ngSwitchDefault>
+              <i nz-icon nzType="database" nz-tooltip="集合"></i>
+            </ng-container>
+          </ng-container>
+        </ng-template>
         <ng-template #nzTreeTemplate let-node let-origin="origin">
           <nz-space>
             <span *nzSpaceItem>{{ node.title }}</span>
             <ng-container *ngIf="node.icon">
               <i *nzSpaceItem nz-icon [nzType]="node.icon"></i>
             </ng-container>
-            <nz-tag *nzSpaceItem nzColor="blue">
-              <ng-container [ngSwitch]="origin.data.kind">
-                <ng-container *ngSwitchCase="'form'"> 表单 </ng-container>
-                <ng-container *ngSwitchCase="'dashboard'"> 仪表盘 </ng-container>
-                <ng-container *ngSwitchCase="'group'"> 分组 </ng-container>
-                <ng-container *ngSwitchDefault>集合</ng-container>
-              </ng-container>
-            </nz-tag>
           </nz-space>
         </ng-template>
-        <ng-template #nzExpandedIconTpl let-node let-origin="origin">
-          <ng-container [ngSwitch]="origin.data.kind">
-            <ng-container *ngSwitchCase="'group'">
-              <i nz-icon [nzType]="node.isExpanded ? 'folder-open' : 'folder'" class="ant-tree-switcher-line-icon"></i>
+        <nz-dropdown-menu #treeActions="nzDropdownMenu">
+          <ul nz-menu>
+            <li nz-menu-item [nzSelected]="false">{{ actionNode?.title }}</li>
+            <li nz-menu-divider></li>
+            <ng-container *ngIf="actionNode?.origin.data as x">
+              <li nz-menu-item [nzDisabled]="!!x.system" (click)="form(x)"> 编辑 </li>
+              <li nz-menu-item [nzDisabled]="!!x.system" nzDanger (click)="delete(x)"> 删除 </li>
             </ng-container>
-            <ng-container *ngSwitchDefault>
-              <i nz-icon nzType="file-text" class="ant-tree-switcher-line-icon"></i>
-            </ng-container>
-          </ng-container>
-        </ng-template>
+          </ul>
+        </nz-dropdown-menu>
       </nz-tree>
     </nz-col>
-    <nz-col [nzXXl]="20" [nzXl]="19" [nzLg]="18"> <nz-empty></nz-empty> </nz-col>
+    <nz-col [nzXXl]="20" [nzXl]="19" [nzLg]="18">
+      <nz-result *ngIf="!selectedNode; else schemaContent" [nzIcon]="nzIcon">
+        <ng-template #nzIcon><i nz-icon nzType="question-circle"></i></ng-template>
+        <div nz-result-title> 使用提示 </div>
+        <div nz-result-content>
+          <p nz-typography>
+            * 您可以在树视图中点击节点查看内容模型，也可以右键点击获得更多操作，同时支持拖拽进行排序。
+          </p>
+          <div nz-typography>
+            <ul>
+              <li> 『集合』 作为数据源，包含数据列表与数据填充等功能。</li>
+              <li> 『表单』 独立的数据填充页面。</li>
+              <li> 『仪表盘』 数据分析处理、结果展示功能，如数据汇总、趋势分析。</li>
+              <li> 『分组』导航中将其他种类分组显示。</li>
+            </ul>
+          </div>
+        </div>
+      </nz-result>
+      <ng-template #schemaContent>
+        <app-admin-pages-schema [fields]="fields"></app-admin-pages-schema>
+      </ng-template>
+    </nz-col>
   </nz-row>
 </nz-card>

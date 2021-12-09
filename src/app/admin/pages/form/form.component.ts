@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 
+import { asyncValidator } from '@weplanx/components';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalRef } from 'ng-zorro-antd/modal';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
@@ -36,10 +37,28 @@ export class FormComponent implements OnInit {
       parent: ['root', [Validators.required]],
       kind: ['default', [Validators.required]],
       icon: [],
-      status: [false, [Validators.required]]
+      status: [true, [Validators.required]],
+      schema: this.schema
     });
     if (this.editable) {
+      this.changedKind(this.editable.kind);
       this.form.patchValue(this.editable);
+    }
+  }
+
+  get schema(): FormGroup {
+    return this.fb.group({
+      key: [null, [Validators.required, Validators.pattern(/^[a-z_]+$/)], [this.existsKey]]
+    });
+  }
+
+  existsKey = (control: AbstractControl) => asyncValidator(this.pages.existsKey(control.value));
+
+  changedKind(value: string): void {
+    if (value === 'group') {
+      this.form?.removeControl('schema');
+    } else {
+      this.form?.addControl('schema', this.schema);
     }
   }
 

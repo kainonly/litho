@@ -3,10 +3,6 @@ import { Schema } from './schema';
 export interface Page {
   _id: string;
   /**
-   * 种类
-   */
-  kind: string;
-  /**
    * 父节点
    */
   parent: string;
@@ -17,11 +13,16 @@ export interface Page {
   /**
    * 字体图标
    */
-  icon: string;
+  icon?: string;
+  /**
+   * 种类
+   */
+  kind: string;
   /**
    * 数据源
    */
-  schema: Schema;
+  schema?: Schema;
+
   /**
    * 排序
    */

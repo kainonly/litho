@@ -1,23 +1,5 @@
 <form *ngIf="form" nz-form nzLayout="vertical" id="form" [formGroup]="form" (wpxSubmit)="submit($event)">
   <nz-form-item>
-    <nz-form-label nzRequired>种类</nz-form-label>
-    <nz-form-control
-      nzHasFeedback
-      [nzAutoTips]="{
-        default: {
-          required: '种类不能为空'
-        }
-      }"
-    >
-      <nz-select formControlName="kind" nzPlaceHolder="请选择一种新增种类">
-        <nz-option nzValue="default" nzLabel="集合"></nz-option>
-        <nz-option nzValue="form" nzLabel="表单"></nz-option>
-        <nz-option nzValue="dashboard" nzLabel="仪表盘"></nz-option>
-        <nz-option nzValue="group" nzLabel="分组"></nz-option>
-      </nz-select>
-    </nz-form-control>
-  </nz-form-item>
-  <nz-form-item>
     <nz-form-label nzRequired>显示名称</nz-form-label>
     <nz-form-control
       nzHasFeedback
@@ -49,12 +31,51 @@
       ></nz-tree-select>
     </nz-form-control>
   </nz-form-item>
+
   <nz-form-item>
     <nz-form-label>字体图标</nz-form-label>
     <nz-form-control>
       <input nz-input formControlName="icon" placeholder="请填写字体图标，遵循图标 nzType 命名规范" />
     </nz-form-control>
   </nz-form-item>
+
+  <nz-form-item>
+    <nz-form-label nzRequired>种类</nz-form-label>
+    <nz-form-control
+      nzHasFeedback
+      [nzAutoTips]="{
+        default: {
+          required: '种类不能为空'
+        }
+      }"
+    >
+      <nz-select formControlName="kind" nzPlaceHolder="请选择一种新增种类" (ngModelChange)="changedKind($event)">
+        <nz-option nzValue="default" nzLabel="集合"></nz-option>
+        <nz-option nzValue="form" nzLabel="表单"></nz-option>
+        <nz-option nzValue="dashboard" nzLabel="仪表盘"></nz-option>
+        <nz-option nzValue="group" nzLabel="分组"></nz-option>
+      </nz-select>
+    </nz-form-control>
+  </nz-form-item>
+
+  <ng-container *ngIf="form.get('kind')?.value !== 'group'" formGroupName="schema">
+    <nz-form-item>
+      <nz-form-label nzRequired>数据源命名</nz-form-label>
+      <nz-form-control
+        nzHasFeedback
+        [nzAutoTips]="{
+          default: {
+            required: '数据源命名不能为空',
+            pattern: '请使用小写字母与下划线的组合',
+            duplicated: '数据源命名必须是唯一的'
+          }
+        }"
+      >
+        <input nz-input type="text" formControlName="key" placeholder="请填写数据源命名，如 order" />
+      </nz-form-control>
+    </nz-form-item>
+  </ng-container>
+
   <nz-form-item>
     <nz-form-label nzRequired>状态</nz-form-label>
     <nz-form-control>

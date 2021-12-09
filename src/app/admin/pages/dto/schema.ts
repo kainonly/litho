@@ -6,9 +6,9 @@ export interface Schema {
    */
   key: string;
   /**
-   * 可修改
+   * 可编辑
    */
-  modified: boolean;
+  actions: any[];
   /**
    * 字段设置
    */
