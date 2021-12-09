@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { Observable, timer } from 'rxjs';
+import { map, switchMap } from 'rxjs/operators';
 
 import { Api, WpxService } from '@weplanx/components';
 
@@ -12,14 +12,29 @@ export class PagesSerivce {
     this.api = wpx.api('pages');
   }
 
-  existsKey(value: string): Observable<any> {
-    return this.api.send('/exists_key', { value }).pipe(
+  sort(id: string, fields: any): Observable<any> {
+    return this.api.send('/sort', { id, fields });
+  }
+
+  checkKey(value: string): Observable<any> {
+    return timer(500).pipe(
+      switchMap(() => this.api.send('/check_key', { value })),
       map(v => {
-        if (!!v.code) {
-          return false;
+        if (v.code !== 0) {
+          return { error: true };
         }
-        return !v.data;
+        switch (v.data) {
+          case 'duplicated':
+            return { error: true, duplicated: true };
+          case 'history':
+            return { error: true, history: true };
+        }
+        return null;
       })
     );
+  }
+
+  sortFields(id: string, fields: any): Observable<any> {
+    return this.api.send('/sort_fields', { id, fields });
   }
 }

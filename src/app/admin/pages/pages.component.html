@@ -29,44 +29,37 @@
         nzExpandAll
         nzDraggable
         nzShowLine
+        nzShowIcon
         [nzData]="nodes"
         [nzSearchValue]="name"
         [nzExpandedIcon]="nzExpandedIcon"
-        [nzTreeTemplate]="nzTreeTemplate"
         (nzClick)="selected($event)"
         (nzContextMenu)="actions($event, treeActions)"
       >
         <ng-template #nzExpandedIcon let-node let-origin="origin">
           <ng-container [ngSwitch]="origin.data.kind">
             <ng-container *ngSwitchCase="'form'">
-              <i nz-icon nzType="form" nz-tooltip="表单"></i>
+              <i nz-icon nzType="form"></i>
             </ng-container>
             <ng-container *ngSwitchCase="'dashboard'">
-              <i nz-icon nzType="dashboard" nz-tooltip="仪表盘"></i>
+              <i nz-icon nzType="dashboard"></i>
             </ng-container>
             <ng-container *ngSwitchCase="'group'">
-              <i nz-icon [nzType]="node.isExpanded ? 'ungroup' : 'group'" nz-tooltip="分组"></i>
+              <i nz-icon [nzType]="node.isExpanded ? 'ungroup' : 'group'"></i>
             </ng-container>
             <ng-container *ngSwitchDefault>
-              <i nz-icon nzType="database" nz-tooltip="集合"></i>
+              <i nz-icon nzType="database"></i>
             </ng-container>
           </ng-container>
         </ng-template>
-        <ng-template #nzTreeTemplate let-node let-origin="origin">
-          <nz-space>
-            <span *nzSpaceItem>{{ node.title }}</span>
-            <ng-container *ngIf="node.icon">
-              <i *nzSpaceItem nz-icon [nzType]="node.icon"></i>
-            </ng-container>
-          </nz-space>
-        </ng-template>
+
         <nz-dropdown-menu #treeActions="nzDropdownMenu">
           <ul nz-menu>
             <li nz-menu-item [nzSelected]="false">{{ actionNode?.title }}</li>
             <li nz-menu-divider></li>
             <ng-container *ngIf="actionNode?.origin.data as x">
-              <li nz-menu-item [nzDisabled]="!!x.system" (click)="form(x)"> 编辑 </li>
-              <li nz-menu-item [nzDisabled]="!!x.system" nzDanger (click)="delete(x)"> 删除 </li>
+              <li nz-menu-item (click)="form(x)"> 编辑 </li>
+              <li nz-menu-item nzDanger (click)="delete(x)"> 删除 </li>
             </ng-container>
           </ul>
         </nz-dropdown-menu>

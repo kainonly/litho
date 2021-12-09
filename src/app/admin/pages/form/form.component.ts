@@ -1,5 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { timer } from 'rxjs';
+import { map, switchMap } from 'rxjs/operators';
 
 import { asyncValidator } from '@weplanx/components';
 import { NzMessageService } from 'ng-zorro-antd/message';
@@ -52,7 +54,9 @@ export class FormComponent implements OnInit {
     });
   }
 
-  existsKey = (control: AbstractControl) => asyncValidator(this.pages.existsKey(control.value));
+  existsKey = (control: AbstractControl) => {
+    return this.pages.checkKey(control.value);
+  };
 
   changedKind(value: string): void {
     if (value === 'group') {

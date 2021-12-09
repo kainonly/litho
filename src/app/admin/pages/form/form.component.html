@@ -67,7 +67,8 @@
           default: {
             required: '数据源命名不能为空',
             pattern: '请使用小写字母与下划线的组合',
-            duplicated: '数据源命名必须是唯一的'
+            duplicated: '存在重复的定义，数据源必须是唯一的',
+            history: '存在历史集合，请通过数据库管理工具核实'
           }
         }"
       >

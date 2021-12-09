@@ -3,7 +3,9 @@ import { AbstractControl } from '@angular/forms';
 
 import { asyncValidator, TreeNodesExpanded } from '@weplanx/components';
 import { NzContextMenuService, NzDropdownMenuComponent } from 'ng-zorro-antd/dropdown';
+import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalService } from 'ng-zorro-antd/modal';
+import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { NzFormatEmitEvent, NzTreeNode, NzTreeNodeOptions } from 'ng-zorro-antd/tree';
 
 import { Field } from './dto/field';
@@ -26,7 +28,9 @@ export class PagesComponent implements OnInit {
   constructor(
     private pages: PagesSerivce,
     private modal: NzModalService,
-    private nzContextMenuService: NzContextMenuService
+    private nzContextMenuService: NzContextMenuService,
+    private message: NzMessageService,
+    private notification: NzNotificationService
   ) {}
 
   ngOnInit(): void {
@@ -103,15 +107,25 @@ export class PagesComponent implements OnInit {
     this.nzContextMenuService.create($event.event as MouseEvent, menu);
   }
 
-  delete(data: any): void {
-    console.log(data);
-    // this.schema.removeField(this.data!._id, data.key).subscribe(v => {
-    //   if (v.code === 0) {
-    //     this.notification.success('操作成功', '内容类型更新完成');
-    //     this.ok.emit(v);
-    //   } else {
-    //     this.notification.error('操作失败', v.message);
-    //   }
-    // });
+  delete(data: Page): void {
+    this.modal.confirm({
+      nzTitle: '您确定要作废该页面吗?',
+      nzContent: '该操作不会真实删除实体集合，如必须删除需要数据库工具控制完成',
+      nzOkText: '是的',
+      nzOkType: 'primary',
+      nzOkDanger: true,
+      nzMaskClosable: true,
+      nzOnOk: () => {
+        this.pages.api.deleteById([data._id]).subscribe(v => {
+          if (!v.code) {
+            this.message.success('数据删除完成');
+            this.getData();
+          } else {
+            this.notification.error('操作失败', v.message);
+          }
+        });
+      },
+      nzCancelText: '再想想'
+    });
   }
 }
