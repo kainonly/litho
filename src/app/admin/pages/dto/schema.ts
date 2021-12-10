@@ -6,11 +6,11 @@ export interface Schema {
    */
   key: string;
   /**
-   * 可编辑
-   */
-  actions: any[];
-  /**
    * 字段设置
    */
-  fields: Field[];
+  fields: Record<string, Field>;
+  /**
+   * 规则
+   */
+  rules: any[];
 }

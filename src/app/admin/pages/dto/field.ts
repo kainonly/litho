@@ -42,6 +42,10 @@ export interface Field {
    */
   modified?: string;
   /**
+   * 排序
+   */
+  sort: number;
+  /**
    * 扩展配置
    */
   option?: Partial<FieldOption>;

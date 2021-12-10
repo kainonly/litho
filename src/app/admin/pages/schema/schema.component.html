@@ -1,6 +1,6 @@
 <nz-table
   #contentTable
-  [nzData]="fields"
+  [nzData]="fieldList"
   [nzFrontPagination]="false"
   [nzShowPagination]="false"
   [nzFooter]="fieldsFooter"
@@ -14,7 +14,7 @@
       <th nzWidth="100px" nzRight nzAlign="center">操作</th>
     </tr>
   </thead>
-  <tbody cdkDropList>
+  <tbody cdkDropList (cdkDropListDropped)="sort($event)">
     <tr *ngFor="let data of contentTable.data" cdkDrag>
       <td nzLeft nzAlign="center">
         <button nz-button nzType="dashed" nzShape="circle" cdkDragHandle>

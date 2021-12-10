@@ -1,3 +1,4 @@
+import { DragDropModule } from '@angular/cdk/drag-drop';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
@@ -18,7 +19,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [AppShareModule, NzTreeModule, NzTreeSelectModule, RouterModule.forChild(routes)],
+  imports: [AppShareModule, NzTreeModule, NzTreeSelectModule, DragDropModule, RouterModule.forChild(routes)],
   declarations: [PagesComponent, FormComponent, SchemaComponent],
   providers: [PagesSerivce]
 })

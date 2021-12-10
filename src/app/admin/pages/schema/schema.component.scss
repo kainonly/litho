@@ -4,3 +4,11 @@
     background-color: #f5f5f5;
   }
 }
+
+::ng-deep .cdk-drag-preview {
+  display: table;
+}
+
+::ng-deep .cdk-drag-placeholder {
+  opacity: 0;
+}

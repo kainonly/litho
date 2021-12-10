@@ -22,7 +22,7 @@ export class PagesComponent implements OnInit {
   nodes: NzTreeNodeOptions[] = [];
   actionNode?: NzTreeNodeOptions;
   selectedNode?: NzTreeNodeOptions;
-  fields: Field[] = [];
+  fieldList: Field[] = [];
 
   constructor(
     private pages: PagesSerivce,
@@ -68,7 +68,7 @@ export class PagesComponent implements OnInit {
       }
       for (const x of result) {
         const options = dict[x._id];
-        if (x.parent === 'root') {
+        if (!x.parent) {
           nodes.push(options);
         } else {
           if (dict.hasOwnProperty(x.parent)) {
@@ -94,10 +94,19 @@ export class PagesComponent implements OnInit {
     }
     if ($event.node?.isSelected) {
       this.selectedNode = $event.node;
-      this.fields = [...$event.node?.origin.data.schema.fields];
+      const fields = $event.node?.origin.data.schema.fields as Record<string, Field>;
+      this.fieldList = [
+        ...Object.entries(fields)
+          .map(v =>
+            Object.assign(v[1], {
+              key: v[0]
+            })
+          )
+          .sort((a, b) => a.sort - b.sort)
+      ];
     } else {
       this.selectedNode = undefined;
-      this.fields = [];
+      this.fieldList = [];
     }
   }
 

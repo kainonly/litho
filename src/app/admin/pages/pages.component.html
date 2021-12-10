@@ -84,7 +84,7 @@
         </div>
       </nz-result>
       <ng-template #schemaContent>
-        <app-admin-pages-schema [fields]="fields"></app-admin-pages-schema>
+        <app-admin-pages-schema [page]="selectedNode?.origin.data" [fieldList]="fieldList"></app-admin-pages-schema>
       </ng-template>
     </nz-col>
   </nz-row>
