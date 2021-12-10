@@ -63,6 +63,8 @@
     </tr>
   </tbody>
   <ng-template #fieldsFooter>
-    <button nzBlock nz-button nzType="link"> <i nz-icon nzType="plus"></i> 创建字段到该内容类型 </button>
+    <button nzBlock nz-button nzType="link" (click)="fieldForm()">
+      <i nz-icon nzType="plus"></i> 创建字段到该内容类型
+    </button>
   </ng-template>
 </nz-table>

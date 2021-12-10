@@ -2,10 +2,12 @@ import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 import { NzMessageService } from 'ng-zorro-antd/message';
+import { NzModalService } from 'ng-zorro-antd/modal';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 
 import { Field } from '../dto/field';
 import { Page } from '../dto/page';
+import { FieldComponent } from '../field/field.component';
 import { PagesSerivce } from '../pages.serivce';
 import { fieldTypeValues } from '../values';
 
@@ -17,13 +19,30 @@ import { fieldTypeValues } from '../values';
 export class SchemaComponent {
   @Input() page?: Page;
   @Input() fieldList: Field[] = [];
+  @Output() readonly changed: EventEmitter<any> = new EventEmitter<any>();
   type: Map<string, string> = new Map<string, string>([].concat(...(fieldTypeValues.map(v => v.values) as any[])));
 
   constructor(
     private pages: PagesSerivce,
+    private modal: NzModalService,
     private message: NzMessageService,
     private notification: NzNotificationService
   ) {}
+
+  fieldForm(editable?: any) {
+    this.modal.create({
+      nzTitle: !editable ? '创建字段到该内容类型' : '编辑字段',
+      nzWidth: 800,
+      nzContent: FieldComponent,
+      nzComponentParams: {
+        editable,
+        page: this.page
+      },
+      nzOnOk: () => {
+        this.changed.next(true);
+      }
+    });
+  }
 
   sort(event: CdkDragDrop<string[]>): void {
     moveItemInArray(this.fieldList, event.previousIndex, event.currentIndex);

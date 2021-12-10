@@ -6,6 +6,7 @@ import { AppShareModule } from '@share';
 import { NzTreeModule } from 'ng-zorro-antd/tree';
 import { NzTreeSelectModule } from 'ng-zorro-antd/tree-select';
 
+import { FieldComponent } from './field/field.component';
 import { FormComponent } from './form/form.component';
 import { PagesComponent } from './pages.component';
 import { PagesSerivce } from './pages.serivce';
@@ -20,7 +21,7 @@ const routes: Routes = [
 
 @NgModule({
   imports: [AppShareModule, NzTreeModule, NzTreeSelectModule, DragDropModule, RouterModule.forChild(routes)],
-  declarations: [PagesComponent, FormComponent, SchemaComponent],
+  declarations: [PagesComponent, FormComponent, SchemaComponent, FieldComponent],
   providers: [PagesSerivce]
 })
 export class PagesModule {}

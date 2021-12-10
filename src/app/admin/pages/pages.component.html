@@ -7,7 +7,7 @@
 <ng-template #title>
   <nz-space>
     <nz-input-group *nzSpaceItem nzSuffixIcon="search">
-      <input type="text" style="width: 200px" nz-input placeholder="搜索" [(ngModel)]="name" />
+      <input type="text" nz-input placeholder="搜索" [(ngModel)]="name" />
     </nz-input-group>
     <nz-button-group *nzSpaceItem>
       <button nz-button nz-tooltip="全部收起" (click)="expanded(tree.getTreeNodes(), false)">
@@ -20,9 +20,9 @@
   </nz-space>
 </ng-template>
 
-<nz-card [nzTitle]="title">
-  <nz-row [nzGutter]="16">
-    <nz-col [nzXXl]="4" [nzXl]="5" [nzLg]="6">
+<nz-row [nzGutter]="16">
+  <nz-col [nzXl]="5" [nzLg]="6">
+    <nz-card [nzTitle]="title">
       <nz-tree
         #tree
         nzBlockNode
@@ -64,9 +64,11 @@
           </ul>
         </nz-dropdown-menu>
       </nz-tree>
-    </nz-col>
-    <nz-col [nzXXl]="20" [nzXl]="19" [nzLg]="18">
-      <nz-result *ngIf="!selectedNode; else schemaContent" [nzIcon]="nzIcon">
+    </nz-card>
+  </nz-col>
+  <nz-col [nzXl]="19" [nzLg]="18">
+    <nz-card *ngIf="!selectedNode; else schemaContent">
+      <nz-result [nzIcon]="nzIcon">
         <ng-template #nzIcon><i nz-icon nzType="question-circle"></i></ng-template>
         <div nz-result-title> 使用提示 </div>
         <div nz-result-content>
@@ -83,9 +85,22 @@
           </div>
         </div>
       </nz-result>
-      <ng-template #schemaContent>
-        <app-admin-pages-schema [page]="selectedNode?.origin.data" [fieldList]="fieldList"></app-admin-pages-schema>
-      </ng-template>
-    </nz-col>
-  </nz-row>
-</nz-card>
+    </nz-card>
+    <ng-template #schemaContent>
+      <nz-card>
+        <nz-card-tab>
+          <nz-tabset nzSize="large">
+            <nz-tab nzTitle="数据源"></nz-tab>
+            <nz-tab nzTitle="显隐规则"></nz-tab>
+            <nz-tab nzTitle="全文索引"></nz-tab>
+          </nz-tabset>
+        </nz-card-tab>
+        <app-admin-pages-schema
+          [page]="selectedNode?.origin?.data"
+          [fieldList]="fieldList"
+          (changed)="schemaChanged()"
+        ></app-admin-pages-schema>
+      </nz-card>
+    </ng-template>
+  </nz-col>
+</nz-row>

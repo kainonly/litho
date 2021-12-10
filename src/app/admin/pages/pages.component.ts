@@ -1,11 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterContentInit, AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 
 import { TreeNodesExpanded } from '@weplanx/components';
 import { NzContextMenuService, NzDropdownMenuComponent } from 'ng-zorro-antd/dropdown';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
-import { NzFormatEmitEvent, NzTreeNode, NzTreeNodeOptions } from 'ng-zorro-antd/tree';
+import { NzFormatEmitEvent, NzTreeComponent, NzTreeNode, NzTreeNodeOptions } from 'ng-zorro-antd/tree';
 
 import { Field } from './dto/field';
 import { Page } from './dto/page';
@@ -18,10 +18,11 @@ import { PagesSerivce } from './pages.serivce';
   styleUrls: ['./pages.component.scss']
 })
 export class PagesComponent implements OnInit {
+  @ViewChild('tree') tree!: NzTreeComponent;
   name = '';
   nodes: NzTreeNodeOptions[] = [];
   actionNode?: NzTreeNodeOptions;
-  selectedNode?: NzTreeNodeOptions;
+  selectedNode?: NzTreeNode;
   fieldList: Field[] = [];
 
   constructor(
@@ -63,6 +64,7 @@ export class PagesComponent implements OnInit {
           isLeaf: true,
           expanded: true,
           selectable: x.kind !== 'group',
+          selected: this.selectedNode?.key === x._id,
           data: x
         };
       }
@@ -93,21 +95,25 @@ export class PagesComponent implements OnInit {
       return;
     }
     if ($event.node?.isSelected) {
-      this.selectedNode = $event.node;
-      const fields = $event.node?.origin.data.schema.fields as Record<string, Field>;
-      this.fieldList = [
-        ...Object.entries(fields)
-          .map(v =>
-            Object.assign(v[1], {
-              key: v[0]
-            })
-          )
-          .sort((a, b) => a.sort - b.sort)
-      ];
+      this.selectedNode = $event.node!;
+      const fields = this.selectedNode.origin.data.schema.fields as Record<string, Field>;
+      this.setFieldList(fields);
     } else {
       this.selectedNode = undefined;
       this.fieldList = [];
     }
+  }
+
+  setFieldList(fields: Record<string, Field>): void {
+    this.fieldList = [
+      ...Object.entries(fields)
+        .map(v =>
+          Object.assign(v[1], {
+            key: v[0]
+          })
+        )
+        .sort((a, b) => a.sort - b.sort)
+    ];
   }
 
   actions($event: NzFormatEmitEvent, menu: NzDropdownMenuComponent): void {
@@ -160,5 +166,14 @@ export class PagesComponent implements OnInit {
         this.notification.error('操作失败', v.message);
       }
     });
+  }
+
+  schemaChanged() {
+    this.getData();
+    if (this.selectedNode) {
+      this.selectedNode = this.tree.getTreeNodeByKey(this.selectedNode.key)!;
+      const fields = this.selectedNode.origin.data.schema.fields as Record<string, Field>;
+      this.setFieldList(fields);
+    }
   }
 }

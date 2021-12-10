@@ -4,6 +4,8 @@ import { map, switchMap } from 'rxjs/operators';
 
 import { Api, WpxService } from '@weplanx/components';
 
+import { Field } from './dto/field';
+
 @Injectable()
 export class PagesSerivce {
   api!: Api;
@@ -32,6 +34,12 @@ export class PagesSerivce {
 
   reorganization(id: string, parent: string, sort: string[]): Observable<any> {
     return this.api.send('/reorganization', { id, parent, sort });
+  }
+
+  updateSchemaField(id: string, key: string, data: Field): Observable<any> {
+    return this.api.updateById(id, {
+      [`schema.fields.${key}`]: data
+    });
   }
 
   sortSchemaFields(id: string, fields: string[]): Observable<any> {
