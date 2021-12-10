@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { AbstractControl } from '@angular/forms';
 
-import { asyncValidator, TreeNodesExpanded } from '@weplanx/components';
+import { TreeNodesExpanded } from '@weplanx/components';
 import { NzContextMenuService, NzDropdownMenuComponent } from 'ng-zorro-antd/dropdown';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalService } from 'ng-zorro-antd/modal';
@@ -52,7 +51,7 @@ export class PagesComponent implements OnInit {
   }
 
   getData(): void {
-    this.pages.api.find<Page>().subscribe(result => {
+    this.pages.api.find<Page>({}, { sort: 1 }).subscribe(result => {
       const nodes: NzTreeNodeOptions[] = [];
       const dict: Record<string, NzTreeNodeOptions> = {};
       for (const x of result) {
@@ -126,6 +125,31 @@ export class PagesComponent implements OnInit {
         });
       },
       nzCancelText: '再想想'
+    });
+  }
+
+  drop(event: NzFormatEmitEvent) {
+    if (!event.dragNode) {
+      return;
+    }
+    const node = event.dragNode;
+    const parentNode = node.getParentNode();
+    let parent: string;
+    let sort: string[];
+    if (!parentNode) {
+      parent = 'root';
+      sort = node.treeService!.rootNodes.map(v => v.key);
+    } else {
+      parent = parentNode.key;
+      sort = parentNode.children.map(v => v.key);
+    }
+    this.pages.reorganization(node.key, parent, sort).subscribe(v => {
+      if (!v.code) {
+        this.message.success('数据更新完成');
+        this.getData();
+      } else {
+        this.notification.error('操作失败', v.message);
+      }
     });
   }
 }

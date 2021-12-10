@@ -35,6 +35,7 @@
         [nzExpandedIcon]="nzExpandedIcon"
         (nzClick)="selected($event)"
         (nzContextMenu)="actions($event, treeActions)"
+        (nzOnDrop)="drop($event)"
       >
         <ng-template #nzExpandedIcon let-node let-origin="origin">
           <ng-container [ngSwitch]="origin.data.kind">
@@ -52,7 +53,6 @@
             </ng-container>
           </ng-container>
         </ng-template>
-
         <nz-dropdown-menu #treeActions="nzDropdownMenu">
           <ul nz-menu>
             <li nz-menu-item [nzSelected]="false">{{ actionNode?.title }}</li>

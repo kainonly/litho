@@ -12,10 +12,6 @@ export class PagesSerivce {
     this.api = wpx.api('pages');
   }
 
-  sort(id: string, fields: any): Observable<any> {
-    return this.api.send('/sort', { id, fields });
-  }
-
   checkKey(value: string): Observable<any> {
     return timer(500).pipe(
       switchMap(() => this.api.send('/check_key', { value })),
@@ -32,6 +28,10 @@ export class PagesSerivce {
         return null;
       })
     );
+  }
+
+  reorganization(id: string, parent: string, sort: string[]): Observable<any> {
+    return this.api.send('/reorganization', { id, parent, sort });
   }
 
   sortFields(id: string, fields: any): Observable<any> {
