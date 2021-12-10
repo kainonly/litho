@@ -34,7 +34,11 @@ export class PagesSerivce {
     return this.api.send('/reorganization', { id, parent, sort });
   }
 
-  fieldSort(id: string, fields: string[]): Observable<any> {
-    return this.api.send('/field_sort', { id, fields });
+  sortSchemaFields(id: string, fields: string[]): Observable<any> {
+    return this.api.send('/sort_schema_fields', { id, fields });
+  }
+
+  deleteSchemaField(id: string, key: string) {
+    return this.api.send('/delete_schema_field', { id, key });
   }
 }

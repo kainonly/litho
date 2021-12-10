@@ -15,7 +15,7 @@
     </tr>
   </thead>
   <tbody cdkDropList (cdkDropListDropped)="sort($event)">
-    <tr *ngFor="let data of contentTable.data" cdkDrag>
+    <tr *ngFor="let data of contentTable.data; index as i" cdkDrag>
       <td nzLeft nzAlign="center">
         <button nz-button nzType="dashed" nzShape="circle" cdkDragHandle>
           <i nz-icon nzType="drag"></i>
@@ -45,22 +45,20 @@
         </ng-container>
       </td>
       <td nzRight nzAlign="center">
-        <!--            <ng-container *ngIf="!data.system; else isSystem">-->
-        <!--              <button nz-button nzType="text" nz-dropdown [nzDropdownMenu]="actions">-->
-        <!--                <i nz-icon nzType="ellipsis"></i>-->
-        <!--              </button>-->
-        <!--              <nz-dropdown-menu #actions="nzDropdownMenu">-->
-        <!--                <ul nz-menu>-->
-        <!--                  <li nz-menu-item> <i nz-icon nzType="edit"></i>&nbsp;编辑 </li>-->
-        <!--                  <li nz-menu-item (click)="delete(data)"> <i nz-icon nzType="delete"></i>&nbsp;删除 </li>-->
-        <!--                </ul>-->
-        <!--              </nz-dropdown-menu>-->
-        <!--            </ng-container>-->
-        <!--            <ng-template #isSystem>-->
-        <!--              <button nz-button nzType="text" disabled>-->
-        <!--                <i nz-icon nzType="lock"></i>-->
-        <!--              </button>-->
-        <!--            </ng-template>-->
+        <button nz-button nzType="text" nz-tooltip="编辑">
+          <i nz-icon nzType="edit"></i>
+        </button>
+        <button
+          nz-button
+          nzType="text"
+          nz-tooltip="删除"
+          nz-popconfirm
+          nzPopconfirmTitle="您确定移除该字段吗?"
+          nzPopconfirmPlacement="bottomRight"
+          (nzOnConfirm)="delete(data, i)"
+        >
+          <i nz-icon nzType="delete"></i>
+        </button>
       </td>
     </tr>
   </tbody>

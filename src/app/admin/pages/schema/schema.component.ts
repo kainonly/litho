@@ -1,5 +1,5 @@
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
@@ -27,18 +27,30 @@ export class SchemaComponent {
 
   sort(event: CdkDragDrop<string[]>): void {
     moveItemInArray(this.fieldList, event.previousIndex, event.currentIndex);
-    this.fieldList = [...this.fieldList];
     this.pages
-      .fieldSort(
+      .sortSchemaFields(
         this.page!._id,
         this.fieldList.map(v => v.key)
       )
       .subscribe(v => {
         if (v.code === 0) {
+          this.fieldList = [...this.fieldList];
           this.message.success('字段排序刷新成功');
         } else {
           this.notification.error('操作失败', v.message);
         }
       });
+  }
+
+  delete(data: Field, i: number): void {
+    this.pages.deleteSchemaField(this.page!._id, data.key).subscribe(v => {
+      if (v.code === 0) {
+        this.fieldList.splice(i, 1);
+        this.fieldList = [...this.fieldList];
+        this.message.success('字段移除成功');
+      } else {
+        this.notification.error('操作失败', v.message);
+      }
+    });
   }
 }
