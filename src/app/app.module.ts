@@ -20,7 +20,7 @@ registerLocaleData(zh);
 
 const routes: Routes = [
   {
-    path: 'app',
+    path: 'pages',
     loadChildren: () => import('./app-routing.module').then(m => m.AppRoutingModule),
     canActivate: [AppGuard]
   },
