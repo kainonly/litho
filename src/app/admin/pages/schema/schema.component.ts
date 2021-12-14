@@ -20,7 +20,7 @@ export class SchemaComponent {
   @Input() page?: Page;
   @Input() fieldList: Field[] = [];
   @Output() readonly changed: EventEmitter<any> = new EventEmitter<any>();
-  type: Map<string, string> = new Map<string, string>([].concat(...(fieldTypeValues.map(v => v.values) as any[])));
+  datatype: Record<string, string> = Object.fromEntries([].concat(...(fieldTypeValues.map(v => v.values) as any[])));
 
   constructor(
     private pages: PagesSerivce,

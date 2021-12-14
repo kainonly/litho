@@ -22,7 +22,7 @@
         </button>
       </td>
       <td>
-        <nz-tag nzColor="blue">{{ type | wpxMap: data.type }}</nz-tag>
+        <nz-tag nzColor="blue">{{ datatype[data.type] }}</nz-tag>
         {{ data.label }} [ {{ data.key }} ]
       </td>
       <td>
@@ -45,7 +45,7 @@
         </ng-container>
       </td>
       <td nzRight nzAlign="center">
-        <button nz-button nzType="text" nz-tooltip="编辑">
+        <button nz-button nzType="text" nz-tooltip="编辑" (click)="fieldForm(data)">
           <i nz-icon nzType="edit"></i>
         </button>
         <button

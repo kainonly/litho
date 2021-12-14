@@ -53,7 +53,6 @@ export class FormComponent implements OnInit {
 
   existsKey = (control: AbstractControl) => {
     if (control.value === this.editable?.key) {
-      console.log('ok');
       return null;
     }
     return this.pages.checkKey(control.value);

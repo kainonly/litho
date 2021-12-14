@@ -99,6 +99,9 @@ export class PagesComponent implements OnInit {
     if (!$event.node?.isSelectable) {
       return;
     }
+    if (this.selectedData) {
+      this.tree.getTreeNodeByKey(this.selectedData._id)!.isSelected = false;
+    }
     if ($event.node?.isSelected) {
       const key = $event.node!.key;
       this.selectedData = this.data[key];

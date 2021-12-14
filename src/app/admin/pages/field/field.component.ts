@@ -50,9 +50,16 @@ export class FieldComponent implements OnInit {
         multiple: [false]
       })
     });
+    if (this.editable) {
+      this.form.patchValue(this.editable);
+      this.form.markAsTouched();
+    }
   }
 
   existsField = (control: AbstractControl) => {
+    if (control.value === this.editable?.key) {
+      return null;
+    }
     if (this.page?.schema?.fields.hasOwnProperty(control.value)) {
       return { error: true, duplicated: true };
     }
@@ -85,8 +92,8 @@ export class FieldComponent implements OnInit {
     delete data.key;
     this.pages.updateSchemaField(this.page!._id, key, data).subscribe(v => {
       if (!v.code) {
-        this.message.success('数据新增完成');
         this.modal.triggerOk();
+        this.message.success('字段更新完成');
       } else {
         this.notification.error('操作失败', v.message);
       }
