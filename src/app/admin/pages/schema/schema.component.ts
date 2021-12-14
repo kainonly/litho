@@ -53,7 +53,7 @@ export class SchemaComponent {
       )
       .subscribe(v => {
         if (v.code === 0) {
-          this.fieldList = [...this.fieldList];
+          this.changed.next(true);
           this.message.success('字段排序刷新成功');
         } else {
           this.notification.error('操作失败', v.message);
@@ -61,11 +61,10 @@ export class SchemaComponent {
       });
   }
 
-  delete(data: Field, i: number): void {
+  delete(data: Field): void {
     this.pages.deleteSchemaField(this.page!._id, data.key).subscribe(v => {
       if (v.code === 0) {
-        this.fieldList.splice(i, 1);
-        this.fieldList = [...this.fieldList];
+        this.changed.next(true);
         this.message.success('字段移除成功');
       } else {
         this.notification.error('操作失败', v.message);

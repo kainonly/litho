@@ -15,7 +15,7 @@
     </tr>
   </thead>
   <tbody cdkDropList (cdkDropListDropped)="sort($event)">
-    <tr *ngFor="let data of contentTable.data; index as i" cdkDrag>
+    <tr *ngFor="let data of contentTable.data" cdkDrag>
       <td nzLeft nzAlign="center">
         <button nz-button nzType="dashed" nzShape="circle" cdkDragHandle>
           <i nz-icon nzType="drag"></i>
@@ -55,7 +55,7 @@
           nz-popconfirm
           nzPopconfirmTitle="您确定移除该字段吗?"
           nzPopconfirmPlacement="bottomRight"
-          (nzOnConfirm)="delete(data, i)"
+          (nzOnConfirm)="delete(data)"
         >
           <i nz-icon nzType="delete"></i>
         </button>

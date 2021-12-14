@@ -1,4 +1,4 @@
-import { AfterContentInit, AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 
 import { TreeNodesExpanded } from '@weplanx/components';
 import { NzContextMenuService, NzDropdownMenuComponent } from 'ng-zorro-antd/dropdown';
@@ -14,15 +14,16 @@ import { PagesSerivce } from './pages.serivce';
 
 @Component({
   selector: 'app-admin-pages',
-  templateUrl: './pages.component.html',
-  styleUrls: ['./pages.component.scss']
+  templateUrl: './pages.component.html'
 })
 export class PagesComponent implements OnInit {
   @ViewChild('tree') tree!: NzTreeComponent;
-  name = '';
   nodes: NzTreeNodeOptions[] = [];
-  actionNode?: NzTreeNodeOptions;
-  selectedNode?: NzTreeNode;
+  name = '';
+
+  data: Record<string, Page> = {};
+  actionData?: Page;
+  selectedData?: Page;
   fieldList: Field[] = [];
 
   constructor(
@@ -56,6 +57,7 @@ export class PagesComponent implements OnInit {
       const nodes: NzTreeNodeOptions[] = [];
       const dict: Record<string, NzTreeNodeOptions> = {};
       for (const x of result) {
+        this.data[x._id] = x;
         dict[x._id] = {
           title: `${x.name}`,
           key: x._id,
@@ -64,8 +66,7 @@ export class PagesComponent implements OnInit {
           isLeaf: true,
           expanded: true,
           selectable: x.kind !== 'group',
-          selected: this.selectedNode?.key === x._id,
-          data: x
+          selected: this.selectedData?._id === x._id
         };
       }
       for (const x of result) {
@@ -83,6 +84,10 @@ export class PagesComponent implements OnInit {
         }
       }
       this.nodes = [...nodes];
+      if (this.selectedData) {
+        this.selectedData = this.data[this.selectedData._id];
+        this.setFieldList();
+      }
     });
   }
 
@@ -91,20 +96,21 @@ export class PagesComponent implements OnInit {
   }
 
   selected($event: NzFormatEmitEvent): void {
-    if ($event.node?.origin.data.kind === 'group') {
+    if (!$event.node?.isSelectable) {
       return;
     }
     if ($event.node?.isSelected) {
-      this.selectedNode = $event.node!;
-      const fields = this.selectedNode.origin.data.schema.fields as Record<string, Field>;
-      this.setFieldList(fields);
+      const key = $event.node!.key;
+      this.selectedData = this.data[key];
+      this.setFieldList();
     } else {
-      this.selectedNode = undefined;
+      this.selectedData = undefined;
       this.fieldList = [];
     }
   }
 
-  setFieldList(fields: Record<string, Field>): void {
+  private setFieldList() {
+    const fields = this.selectedData!.schema!.fields;
     this.fieldList = [
       ...Object.entries(fields)
         .map(v =>
@@ -117,7 +123,7 @@ export class PagesComponent implements OnInit {
   }
 
   actions($event: NzFormatEmitEvent, menu: NzDropdownMenuComponent): void {
-    this.actionNode = $event.node!;
+    this.actionData = this.data[$event.node!.key];
     this.nzContextMenuService.create($event.event as MouseEvent, menu);
   }
 
@@ -166,14 +172,5 @@ export class PagesComponent implements OnInit {
         this.notification.error('操作失败', v.message);
       }
     });
-  }
-
-  schemaChanged() {
-    this.getData();
-    if (this.selectedNode) {
-      this.selectedNode = this.tree.getTreeNodeByKey(this.selectedNode.key)!;
-      const fields = this.selectedNode.origin.data.schema.fields as Record<string, Field>;
-      this.setFieldList(fields);
-    }
   }
 }
