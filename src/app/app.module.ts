@@ -46,7 +46,9 @@ const ngZorroConfig: NzConfig = {
   pageHeader: { nzGhost: false },
   card: { nzBorderless: true },
   table: { nzSize: 'middle' },
-  codeEditor: { assetsRoot: `${environment.cdn}/assets` }
+  codeEditor: {
+    assetsRoot: `${environment.cdn}/assets`
+  }
 };
 
 @NgModule({

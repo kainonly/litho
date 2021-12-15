@@ -89,17 +89,31 @@
     <ng-template #schemaContent>
       <nz-card>
         <nz-card-tab>
-          <nz-tabset nzSize="large">
+          <nz-tabset nzSize="large" [(nzSelectedIndex)]="tabIndex">
             <nz-tab nzTitle="数据源"></nz-tab>
+            <nz-tab nzTitle="索引规则"></nz-tab>
             <nz-tab nzTitle="显隐规则"></nz-tab>
-            <nz-tab nzTitle="全文索引"></nz-tab>
+            <nz-tab nzTitle="验证器"></nz-tab>
           </nz-tabset>
         </nz-card-tab>
-        <app-admin-pages-schema
-          [page]="selectedData"
-          [fieldList]="fieldList"
-          (changed)="getData()"
-        ></app-admin-pages-schema>
+        <ng-container [ngSwitch]="tabIndex">
+          <ng-container *ngSwitchCase="0">
+            <app-admin-pages-schema
+              [page]="selectedData"
+              [fieldList]="fieldList"
+              (changed)="getData()"
+            ></app-admin-pages-schema>
+          </ng-container>
+          <ng-container *ngSwitchCase="1">
+            <app-admin-pages-indexes></app-admin-pages-indexes>
+          </ng-container>
+          <ng-container *ngSwitchCase="2">
+            <app-admin-pages-rules></app-admin-pages-rules>
+          </ng-container>
+          <ng-container *ngSwitchCase="3">
+            <app-admin-pages-validator></app-admin-pages-validator>
+          </ng-container>
+        </ng-container>
       </nz-card>
     </ng-template>
   </nz-col>

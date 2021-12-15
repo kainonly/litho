@@ -21,6 +21,8 @@ export class PagesComponent implements OnInit {
   nodes: NzTreeNodeOptions[] = [];
   name = '';
 
+  tabIndex = 3;
+
   data: Record<string, Page> = {};
   actionData?: Page;
   selectedData?: Page;
@@ -100,7 +102,10 @@ export class PagesComponent implements OnInit {
       return;
     }
     if (this.selectedData) {
-      this.tree.getTreeNodeByKey(this.selectedData._id)!.isSelected = false;
+      const node = this.tree.getTreeNodeByKey(this.selectedData._id);
+      if (node) {
+        node.isSelected = false;
+      }
     }
     if ($event.node?.isSelected) {
       const key = $event.node!.key;
