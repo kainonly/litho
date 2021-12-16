@@ -1,4 +1,6 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { AfterContentInit, AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { ActivatedRoute, Route, Router } from '@angular/router';
+import { delay, throttleTime } from 'rxjs/operators';
 
 import { TreeNodesExpanded } from '@weplanx/components';
 import { NzContextMenuService, NzDropdownMenuComponent } from 'ng-zorro-antd/dropdown';
@@ -21,23 +23,28 @@ export class PagesComponent implements OnInit {
   nodes: NzTreeNodeOptions[] = [];
   name = '';
 
-  tabIndex = 3;
-
-  data: Record<string, Page> = {};
-  actionData?: Page;
-  selectedData?: Page;
-  fieldList: Field[] = [];
+  actionKey?: string;
 
   constructor(
-    private pages: PagesSerivce,
+    public pages: PagesSerivce,
     private modal: NzModalService,
     private nzContextMenuService: NzContextMenuService,
     private message: NzMessageService,
-    private notification: NzNotificationService
+    private notification: NzNotificationService,
+    private router: Router,
+    private route: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
-    this.getData();
+    this.route.params.subscribe(v => {
+      this.pages.key = v.key;
+      if (v.key !== 'home') {
+        this.getData();
+      }
+    });
+    this.pages.refresh.subscribe(() => {
+      this.getData();
+    });
   }
 
   form(editable?: any) {
@@ -58,8 +65,9 @@ export class PagesComponent implements OnInit {
     this.pages.api.find<Page>({}, { sort: 1 }).subscribe(result => {
       const nodes: NzTreeNodeOptions[] = [];
       const dict: Record<string, NzTreeNodeOptions> = {};
+      const data: Record<string, Page> = {};
       for (const x of result) {
-        this.data[x._id] = x;
+        data[x._id] = x;
         dict[x._id] = {
           title: `${x.name}`,
           key: x._id,
@@ -68,7 +76,7 @@ export class PagesComponent implements OnInit {
           isLeaf: true,
           expanded: true,
           selectable: x.kind !== 'group',
-          selected: this.selectedData?._id === x._id
+          selected: this.pages.key === x._id
         };
       }
       for (const x of result) {
@@ -86,10 +94,7 @@ export class PagesComponent implements OnInit {
         }
       }
       this.nodes = [...nodes];
-      if (this.selectedData) {
-        this.selectedData = this.data[this.selectedData._id];
-        this.setFieldList();
-      }
+      this.pages.data$.next(data);
     });
   }
 
@@ -101,37 +106,21 @@ export class PagesComponent implements OnInit {
     if (!$event.node?.isSelectable) {
       return;
     }
-    if (this.selectedData) {
-      const node = this.tree.getTreeNodeByKey(this.selectedData._id);
+    if (this.pages.key && this.pages.key !== 'home') {
+      const node = this.tree.getTreeNodeByKey(this.pages.key);
       if (node) {
         node.isSelected = false;
       }
     }
     if ($event.node?.isSelected) {
-      const key = $event.node!.key;
-      this.selectedData = this.data[key];
-      this.setFieldList();
+      this.router.navigate(['admin', 'settings', 'pages', $event.node!.key, 'schema']);
     } else {
-      this.selectedData = undefined;
-      this.fieldList = [];
+      this.router.navigate(['admin', 'settings', 'pages', 'home']);
     }
   }
 
-  private setFieldList() {
-    const fields = this.selectedData!.schema!.fields;
-    this.fieldList = [
-      ...Object.entries(fields)
-        .map(v =>
-          Object.assign(v[1], {
-            key: v[0]
-          })
-        )
-        .sort((a, b) => a.sort - b.sort)
-    ];
-  }
-
   actions($event: NzFormatEmitEvent, menu: NzDropdownMenuComponent): void {
-    this.actionData = this.data[$event.node!.key];
+    this.actionKey = $event.node!.key;
     this.nzContextMenuService.create($event.event as MouseEvent, menu);
   }
 

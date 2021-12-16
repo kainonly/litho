@@ -1,5 +1,7 @@
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
+import { skip } from 'rxjs/operators';
 
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalService } from 'ng-zorro-antd/modal';
@@ -7,20 +9,20 @@ import { NzNotificationService } from 'ng-zorro-antd/notification';
 
 import { Field } from '../dto/field';
 import { Page } from '../dto/page';
-import { FieldComponent } from '../field/field.component';
 import { PagesSerivce } from '../pages.serivce';
 import { fieldTypeValues } from '../values';
+import { FieldComponent } from './field/field.component';
 
 @Component({
   selector: 'app-admin-pages-schema',
   templateUrl: './schema.component.html',
   styleUrls: ['./schema.component.scss']
 })
-export class SchemaComponent {
-  @Input() page?: Page;
-  @Input() fieldList: Field[] = [];
-  @Output() readonly changed: EventEmitter<any> = new EventEmitter<any>();
+export class SchemaComponent implements OnInit, OnDestroy {
+  private page?: Page;
+  fieldList: Field[] = [];
   datatype: Record<string, string> = Object.fromEntries([].concat(...(fieldTypeValues.map(v => v.values) as any[])));
+  private data$!: Subscription;
 
   constructor(
     private pages: PagesSerivce,
@@ -28,6 +30,30 @@ export class SchemaComponent {
     private message: NzMessageService,
     private notification: NzNotificationService
   ) {}
+
+  ngOnInit(): void {
+    this.data$ = this.pages.data$.pipe(skip(1)).subscribe(v => {
+      this.page = v[this.pages.key];
+      this.setFieldList();
+    });
+  }
+
+  ngOnDestroy() {
+    this.data$.unsubscribe();
+  }
+
+  private setFieldList() {
+    const fields = this.page!.schema!.fields;
+    this.fieldList = [
+      ...Object.entries(fields)
+        .map(v =>
+          Object.assign(v[1], {
+            key: v[0]
+          })
+        )
+        .sort((a, b) => a.sort - b.sort)
+    ];
+  }
 
   fieldForm(editable?: any) {
     this.modal.create({
@@ -39,7 +65,7 @@ export class SchemaComponent {
         page: this.page
       },
       nzOnOk: () => {
-        this.changed.next(true);
+        this.pages.refresh.next(true);
       }
     });
   }
@@ -53,7 +79,7 @@ export class SchemaComponent {
       )
       .subscribe(v => {
         if (v.code === 0) {
-          this.changed.next(true);
+          this.pages.refresh.next(true);
           this.message.success('字段排序刷新成功');
         } else {
           this.notification.error('操作失败', v.message);
@@ -64,7 +90,7 @@ export class SchemaComponent {
   delete(data: Field): void {
     this.pages.deleteSchemaField(this.page!._id, data.key).subscribe(v => {
       if (v.code === 0) {
-        this.changed.next(true);
+        this.pages.refresh.next(true);
         this.message.success('字段移除成功');
       } else {
         this.notification.error('操作失败', v.message);

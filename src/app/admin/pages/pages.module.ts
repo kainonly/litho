@@ -1,46 +1,58 @@
-import { DragDropModule } from '@angular/cdk/drag-drop';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { AppShareModule } from '@share';
-import { NzCodeEditorModule } from 'ng-zorro-antd/code-editor';
 import { NzTreeModule } from 'ng-zorro-antd/tree';
 import { NzTreeSelectModule } from 'ng-zorro-antd/tree-select';
 
-import { FieldComponent } from './field/field.component';
 import { FormComponent } from './form/form.component';
-import { IndexesComponent } from './indexes/indexes.component';
 import { PagesComponent } from './pages.component';
 import { PagesSerivce } from './pages.serivce';
-import { RulesComponent } from './rules/rules.component';
-import { SchemaComponent } from './schema/schema.component';
-import { ValidatorComponent } from './validator/validator.component';
 
 const routes: Routes = [
   {
-    path: '',
-    component: PagesComponent
-  }
+    path: ':key',
+    component: PagesComponent,
+    data: {
+      breadcrumb: 'NO'
+    },
+    children: [
+      {
+        path: 'schema',
+        loadChildren: () => import('./tab-schema/schema.module').then(m => m.SchemaModule),
+        data: {
+          breadcrumb: '数据源'
+        }
+      },
+      {
+        path: 'indexes',
+        loadChildren: () => import('./tab-indexes/indexes.module').then(m => m.IndexesModule),
+        data: {
+          breadcrumb: '索引规则'
+        }
+      },
+      {
+        path: 'rules',
+        loadChildren: () => import('./tab-rules/rules.module').then(m => m.RulesModule),
+        data: {
+          breadcrumb: '显隐规则'
+        }
+      },
+      {
+        path: 'validator',
+        loadChildren: () => import('./tab-validator/validator.module').then(m => m.ValidatorModule),
+        data: {
+          breadcrumb: '验证器'
+        }
+      }
+    ]
+  },
+  { path: '', redirectTo: '/admin/settings/pages/home', pathMatch: 'full' }
 ];
 
 @NgModule({
-  imports: [
-    AppShareModule,
-    NzTreeModule,
-    NzTreeSelectModule,
-    DragDropModule,
-    NzCodeEditorModule,
-    RouterModule.forChild(routes)
-  ],
-  declarations: [
-    PagesComponent,
-    FormComponent,
-    SchemaComponent,
-    FieldComponent,
-    IndexesComponent,
-    RulesComponent,
-    ValidatorComponent
-  ],
+  imports: [AppShareModule, NzTreeModule, NzTreeSelectModule, RouterModule.forChild(routes)],
+  declarations: [PagesComponent, FormComponent],
   providers: [PagesSerivce]
 })
 export class PagesModule {}

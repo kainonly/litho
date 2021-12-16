@@ -5,9 +5,9 @@ import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalRef } from 'ng-zorro-antd/modal';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 
-import { Page } from '../dto/page';
-import { PagesSerivce } from '../pages.serivce';
-import { fieldTypeValues } from '../values';
+import { Page } from '../../dto/page';
+import { PagesSerivce } from '../../pages.serivce';
+import { fieldTypeValues } from '../../values';
 
 @Component({
   selector: 'app-admin-pages-field',

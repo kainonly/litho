@@ -1,5 +1,5 @@
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
+import { Component, Input, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { updateFormGroup } from '@weplanx/components';
 import { JoinedEditorOptions } from 'ng-zorro-antd/code-editor/typings';
@@ -17,8 +17,6 @@ declare const monaco: any;
 })
 export class ValidatorComponent implements OnInit {
   @Input() page?: Page;
-  @ViewChild(NgForm) ngForm!: NgForm;
-
   form?: FormGroup;
 
   option: JoinedEditorOptions = {

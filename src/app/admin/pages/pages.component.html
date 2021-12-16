@@ -38,8 +38,8 @@
         (nzOnDrop)="drop($event)"
       >
         <ng-template #nzExpandedIcon let-node>
-          <ng-container *ngIf="data.hasOwnProperty(node.key)">
-            <ng-container [ngSwitch]="data[node.key].kind">
+          <ng-container *ngIf="(pages.data$ | async)?.[node.key] as page">
+            <ng-container [ngSwitch]="page.kind">
               <ng-container *ngSwitchCase="'form'">
                 <i nz-icon nzType="form"></i>
               </ng-container>
@@ -56,18 +56,20 @@
           </ng-container>
         </ng-template>
         <nz-dropdown-menu #treeActions="nzDropdownMenu">
-          <ul *ngIf="actionData as x" nz-menu>
-            <li nz-menu-item [nzSelected]="false">{{ x.name }}</li>
-            <li nz-menu-divider></li>
-            <li nz-menu-item (click)="form(x)"> 编辑 </li>
-            <li nz-menu-item nzDanger (click)="delete(x)"> 删除 </li>
+          <ul *ngIf="actionKey" nz-menu>
+            <ng-container *ngIf="(pages.data$ | async)?.[actionKey] as page">
+              <li nz-menu-item [nzSelected]="false">{{ page.name }}</li>
+              <li nz-menu-divider></li>
+              <li nz-menu-item (click)="form(page)"> 编辑 </li>
+              <li nz-menu-item nzDanger (click)="delete(page)"> 删除 </li>
+            </ng-container>
           </ul>
         </nz-dropdown-menu>
       </nz-tree>
     </nz-card>
   </nz-col>
   <nz-col [nzXl]="19" [nzLg]="18">
-    <nz-card *ngIf="!selectedData; else schemaContent">
+    <nz-card *ngIf="pages.key === 'home'; else schemaContent">
       <nz-result [nzIcon]="nzIcon">
         <ng-template #nzIcon><i nz-icon nzType="question-circle"></i></ng-template>
         <div nz-result-title> 使用提示 </div>
@@ -89,31 +91,28 @@
     <ng-template #schemaContent>
       <nz-card>
         <nz-card-tab>
-          <nz-tabset nzSize="large" [(nzSelectedIndex)]="tabIndex">
-            <nz-tab nzTitle="数据源"></nz-tab>
-            <nz-tab nzTitle="索引规则"></nz-tab>
-            <nz-tab nzTitle="显隐规则"></nz-tab>
-            <nz-tab nzTitle="验证器"></nz-tab>
+          <nz-tabset nzSize="large" nzLinkRouter>
+            <nz-tab>
+              <a *nzTabLink nz-tab-link [routerLink]="['/admin', 'settings', 'pages', pages.key, 'schema']"> 数据源 </a>
+            </nz-tab>
+            <nz-tab>
+              <a *nzTabLink nz-tab-link [routerLink]="['/admin', 'settings', 'pages', pages.key, 'indexes']">
+                索引规则
+              </a>
+            </nz-tab>
+            <nz-tab>
+              <a *nzTabLink nz-tab-link [routerLink]="['/admin', 'settings', 'pages', pages.key, 'rules']">
+                显隐规则
+              </a>
+            </nz-tab>
+            <nz-tab>
+              <a *nzTabLink nz-tab-link [routerLink]="['/admin', 'settings', 'pages', pages.key, 'validator']">
+                验证器
+              </a>
+            </nz-tab>
           </nz-tabset>
         </nz-card-tab>
-        <ng-container [ngSwitch]="tabIndex">
-          <ng-container *ngSwitchCase="0">
-            <app-admin-pages-schema
-              [page]="selectedData"
-              [fieldList]="fieldList"
-              (changed)="getData()"
-            ></app-admin-pages-schema>
-          </ng-container>
-          <ng-container *ngSwitchCase="1">
-            <app-admin-pages-indexes></app-admin-pages-indexes>
-          </ng-container>
-          <ng-container *ngSwitchCase="2">
-            <app-admin-pages-rules></app-admin-pages-rules>
-          </ng-container>
-          <ng-container *ngSwitchCase="3">
-            <app-admin-pages-validator [page]="selectedData"></app-admin-pages-validator>
-          </ng-container>
-        </ng-container>
+        <router-outlet></router-outlet>
       </nz-card>
     </ng-template>
   </nz-col>

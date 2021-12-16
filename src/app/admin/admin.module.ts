@@ -38,7 +38,7 @@ const routes: Routes = [
       { path: '', redirectTo: '/admin/settings/projects', pathMatch: 'full' }
     ]
   },
-  { path: '', redirectTo: '/admin/settings/pages', pathMatch: 'full' }
+  { path: '', redirectTo: '/admin/settings/pages/home', pathMatch: 'full' }
 ];
 
 @NgModule({
