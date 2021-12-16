@@ -1,1 +1,23 @@
-<nz-code-editor style="height: 500px" [nzEditorOption]="option"></nz-code-editor>
+<form *ngIf="form" #formRef nz-form nzLayout="vertical" [formGroup]="form" (wpxSubmit)="submit($event)">
+  <nz-form-item>
+    <nz-form-control
+      [nzAutoTips]="{
+        default: {
+          required: '验证器内容不能为空'
+        }
+      }"
+    >
+      <nz-code-editor
+        style="height: 500px"
+        formControlName="validator"
+        [nzEditorOption]="option"
+        (nzEditorInitialized)="initialized($event)"
+      ></nz-code-editor>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-control>
+      <button #submitBtn nz-button nzType="primary" [disabled]="!form?.valid">更新</button>
+    </nz-form-control>
+  </nz-form-item>
+</form>

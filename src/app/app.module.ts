@@ -47,7 +47,7 @@ const ngZorroConfig: NzConfig = {
   card: { nzBorderless: true },
   table: { nzSize: 'middle' },
   codeEditor: {
-    assetsRoot: `${environment.cdn}/assets`
+    assetsRoot: `https://cdn.jsdelivr.net/npm/monaco-editor@latest/min`
   }
 };
 

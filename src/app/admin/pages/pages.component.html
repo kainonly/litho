@@ -111,7 +111,7 @@
             <app-admin-pages-rules></app-admin-pages-rules>
           </ng-container>
           <ng-container *ngSwitchCase="3">
-            <app-admin-pages-validator></app-admin-pages-validator>
+            <app-admin-pages-validator [page]="selectedData"></app-admin-pages-validator>
           </ng-container>
         </ng-container>
       </nz-card>

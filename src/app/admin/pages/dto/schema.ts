@@ -12,5 +12,9 @@ export interface Schema {
   /**
    * 规则
    */
-  rules: any[];
+  rules?: any[];
+  /**
+   * 验证器
+   */
+  validator?: string;
 }

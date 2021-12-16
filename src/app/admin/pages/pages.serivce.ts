@@ -49,4 +49,8 @@ export class PagesSerivce {
   deleteSchemaField(id: string, key: string) {
     return this.api.send('/delete_schema_field', { id, key });
   }
+
+  updateValidator(id: string, validator: string) {
+    return this.api.send('/update_validator', { id, validator });
+  }
 }
