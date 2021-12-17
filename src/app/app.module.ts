@@ -26,11 +26,11 @@ const routes: Routes = [
   },
   {
     path: 'center',
-    loadChildren: () => import('./center/center.module').then(m => m.CenterModule)
+    loadChildren: () => import('@center/center.module').then(m => m.CenterModule)
   },
   {
-    path: 'admin',
-    loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule),
+    path: 'settings',
+    loadChildren: () => import('@settings/settings.module').then(m => m.SettingsModule),
     data: {
       breadcrumb: '管理者工具'
     }

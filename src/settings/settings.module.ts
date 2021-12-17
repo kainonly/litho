@@ -1,18 +1,15 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
+import { HeaderModule } from '@common/header/header.module';
 import { AppShareModule } from '@share';
 
-import { HeaderModule } from '../header/header.module';
-import { AdminComponent } from './admin.component';
+import { SettingsComponent } from './settings.component';
 
 const routes: Routes = [
   {
-    path: 'settings',
-    component: AdminComponent,
-    data: {
-      breadcrumb: '应用设置'
-    },
+    path: '',
+    component: SettingsComponent,
     children: [
       {
         path: 'pages',
@@ -34,14 +31,14 @@ const routes: Routes = [
         data: {
           breadcrumb: '成员管理'
         }
-      }
+      },
+      { path: '', redirectTo: '/settings/pages/home', pathMatch: 'full' }
     ]
-  },
-  { path: '', redirectTo: '/admin/settings/pages', pathMatch: 'full' }
+  }
 ];
 
 @NgModule({
   imports: [AppShareModule, HeaderModule, RouterModule.forChild(routes)],
-  declarations: [AdminComponent]
+  declarations: [SettingsComponent]
 })
-export class AdminModule {}
+export class SettingsModule {}

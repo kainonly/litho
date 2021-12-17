@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 
 import { environment } from '@env';
 import { WpxService } from '@weplanx/components';
-import { NzCodeEditorService } from 'ng-zorro-antd/code-editor';
 import { NzIconService } from 'ng-zorro-antd/icon';
 
 @Component({
@@ -10,7 +9,7 @@ import { NzIconService } from 'ng-zorro-antd/icon';
   template: ` <router-outlet></router-outlet> `
 })
 export class AppComponent implements OnInit {
-  constructor(private wpx: WpxService, private nzIconService: NzIconService, private codeEditor: NzCodeEditorService) {}
+  constructor(private wpx: WpxService, private nzIconService: NzIconService) {}
 
   ngOnInit() {
     this.wpx.setBaseUrl(environment.baseUrl);

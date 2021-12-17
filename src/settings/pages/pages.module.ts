@@ -49,7 +49,7 @@ const routes: Routes = [
           breadcrumb: '验证器'
         }
       },
-      { path: '', redirectTo: '/admin/settings/pages/home', pathMatch: 'full' }
+      { path: '', redirectTo: '/settings/pages/home', pathMatch: 'full' }
     ]
   }
 ];

@@ -20,11 +20,11 @@
     "paths": {
       "@env": ["src/environments/environment.ts"],
       "@common/*": ["src/common/*"],
+      "@settings/*": ["src/settings/*"],
+      "@center/*": ["src/center/*"],
       "@share": ["src/app/app-share.module.ts"],
       "@weplanx/components": ["projects/components/public-api.ts"],
-      "@weplanx/components/table": ["projects/components/table/public-api.ts"],
-      "@weplanx/components/settings": ["projects/components/settings/public-api.ts"],
-      "@weplanx/components/template": ["projects/components/template/public-api.ts"]
+      "@weplanx/components/table": ["projects/components/table/public-api.ts"]
     },
     "plugins": [
       {

@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
+import { HeaderModule } from '@common/header/header.module';
 import { AppShareModule } from '@share';
 
-import { HeaderModule } from '../header/header.module';
 import { LayoutComponent } from './layout.component';
 
 @NgModule({

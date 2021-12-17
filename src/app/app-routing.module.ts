@@ -14,10 +14,6 @@ const routes: Routes = [
       {
         path: 'dashboard',
         loadChildren: () => import('./dashboard/dashboard.module').then(m => m.DashboardModule)
-      },
-      {
-        path: 'center',
-        loadChildren: () => import('./center/center.module').then(m => m.CenterModule)
       }
       // {
       //   path: ':fragments',
