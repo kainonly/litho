@@ -1,70 +1,72 @@
-<nz-table
-  #contentTable
-  [nzData]="fieldList"
-  [nzFrontPagination]="false"
-  [nzShowPagination]="false"
-  [nzFooter]="fieldsFooter"
-  [nzScroll]="{ x: '1200px' }"
->
-  <thead>
-    <tr>
-      <th nzWidth="65px" nzLeft nzAlign="center"> </th>
-      <th nzWidth="420px">字段</th>
-      <th>描述</th>
-      <th nzWidth="100px" nzRight nzAlign="center">操作</th>
-    </tr>
-  </thead>
-  <tbody cdkDropList (cdkDropListDropped)="sort($event)">
-    <tr *ngFor="let data of contentTable.data" cdkDrag>
-      <td nzLeft nzAlign="center">
-        <button nz-button nzType="dashed" nzShape="circle" cdkDragHandle>
-          <i nz-icon nzType="drag"></i>
-        </button>
-      </td>
-      <td>
-        <nz-tag nzColor="blue">{{ datatype[data.type] }}</nz-tag>
-        {{ data.label }} [ {{ data.key }} ]
-      </td>
-      <td>
-        <ng-container *ngIf="data.unique">
-          <nz-tag>唯一的</nz-tag>
-        </ng-container>
-        <ng-container *ngIf="data.required">
-          <nz-tag>必须的</nz-tag>
-        </ng-container>
-        <ng-container *ngIf="data.hide">
-          <nz-tag>隐藏字段</nz-tag>
-        </ng-container>
-        <ng-container *ngIf="!!data.option?.reference">
-          <nz-tag>
-            <span>{{ data.option?.reference }}=>{{ data.option?.target }}</span>
-          </nz-tag>
-        </ng-container>
-        <ng-container *ngIf="data.default">
-          <nz-tag>默认值:{{ data.default }}</nz-tag>
-        </ng-container>
-      </td>
-      <td nzRight nzAlign="center">
-        <button nz-button nzType="text" nz-tooltip="编辑" (click)="fieldForm(data)">
-          <i nz-icon nzType="edit"></i>
-        </button>
-        <button
-          nz-button
-          nzType="text"
-          nz-tooltip="删除"
-          nz-popconfirm
-          nzPopconfirmTitle="您确定移除该字段吗?"
-          nzPopconfirmPlacement="bottomRight"
-          (nzOnConfirm)="delete(data)"
-        >
-          <i nz-icon nzType="delete"></i>
-        </button>
-      </td>
-    </tr>
-  </tbody>
-  <ng-template #fieldsFooter>
-    <button nzBlock nz-button nzType="link" (click)="fieldForm()">
-      <i nz-icon nzType="plus"></i> 创建字段到该内容类型
-    </button>
-  </ng-template>
-</nz-table>
+<app-admin-pages-tabs [key]="key">
+  <nz-table
+    #contentTable
+    [nzData]="fieldList"
+    [nzFrontPagination]="false"
+    [nzShowPagination]="false"
+    [nzFooter]="fieldsFooter"
+    [nzScroll]="{ x: '1200px' }"
+  >
+    <thead>
+      <tr>
+        <th nzWidth="65px" nzLeft nzAlign="center"> </th>
+        <th nzWidth="420px">字段</th>
+        <th>描述</th>
+        <th nzWidth="100px" nzRight nzAlign="center">操作</th>
+      </tr>
+    </thead>
+    <tbody cdkDropList (cdkDropListDropped)="sort($event)">
+      <tr *ngFor="let data of contentTable.data" cdkDrag>
+        <td nzLeft nzAlign="center">
+          <button nz-button nzType="dashed" nzShape="circle" cdkDragHandle>
+            <i nz-icon nzType="drag"></i>
+          </button>
+        </td>
+        <td>
+          <nz-tag nzColor="blue">{{ datatype[data.type] }}</nz-tag>
+          {{ data.label }} [ {{ data.key }} ]
+        </td>
+        <td>
+          <ng-container *ngIf="data.unique">
+            <nz-tag>唯一的</nz-tag>
+          </ng-container>
+          <ng-container *ngIf="data.required">
+            <nz-tag>必须的</nz-tag>
+          </ng-container>
+          <ng-container *ngIf="data.hide">
+            <nz-tag>隐藏字段</nz-tag>
+          </ng-container>
+          <ng-container *ngIf="!!data.option?.reference">
+            <nz-tag>
+              <span>{{ data.option?.reference }}=>{{ data.option?.target }}</span>
+            </nz-tag>
+          </ng-container>
+          <ng-container *ngIf="data.default">
+            <nz-tag>默认值:{{ data.default }}</nz-tag>
+          </ng-container>
+        </td>
+        <td nzRight nzAlign="center">
+          <button nz-button nzType="text" nz-tooltip="编辑" (click)="fieldForm(data)">
+            <i nz-icon nzType="edit"></i>
+          </button>
+          <button
+            nz-button
+            nzType="text"
+            nz-tooltip="删除"
+            nz-popconfirm
+            nzPopconfirmTitle="您确定移除该字段吗?"
+            nzPopconfirmPlacement="bottomRight"
+            (nzOnConfirm)="delete(data)"
+          >
+            <i nz-icon nzType="delete"></i>
+          </button>
+        </td>
+      </tr>
+    </tbody>
+    <ng-template #fieldsFooter>
+      <button nzBlock nz-button nzType="link" (click)="fieldForm()">
+        <i nz-icon nzType="plus"></i> 创建字段到该内容类型
+      </button>
+    </ng-template>
+  </nz-table>
+</app-admin-pages-tabs>

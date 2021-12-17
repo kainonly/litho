@@ -1,6 +1,5 @@
-import { AfterContentInit, AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
-import { ActivatedRoute, Route, Router } from '@angular/router';
-import { delay, throttleTime } from 'rxjs/operators';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { TreeNodesExpanded } from '@weplanx/components';
 import { NzContextMenuService, NzDropdownMenuComponent } from 'ng-zorro-antd/dropdown';
@@ -9,7 +8,6 @@ import { NzModalService } from 'ng-zorro-antd/modal';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { NzFormatEmitEvent, NzTreeComponent, NzTreeNode, NzTreeNodeOptions } from 'ng-zorro-antd/tree';
 
-import { Field } from './dto/field';
 import { Page } from './dto/page';
 import { FormComponent } from './form/form.component';
 import { PagesSerivce } from './pages.serivce';
@@ -23,7 +21,9 @@ export class PagesComponent implements OnInit {
   nodes: NzTreeNodeOptions[] = [];
   name = '';
 
+  data: Record<string, Page> = {};
   actionKey?: string;
+  selectedKeys: string[] = [];
 
   constructor(
     public pages: PagesSerivce,
@@ -31,32 +31,14 @@ export class PagesComponent implements OnInit {
     private nzContextMenuService: NzContextMenuService,
     private message: NzMessageService,
     private notification: NzNotificationService,
-    private router: Router,
-    private route: ActivatedRoute
+    private router: Router
   ) {}
 
   ngOnInit(): void {
-    this.route.params.subscribe(v => {
-      this.pages.key = v.key;
-      if (v.key !== 'home') {
-        this.getData();
-      }
-    });
-    this.pages.refresh.subscribe(() => {
-      this.getData();
-    });
-  }
-
-  form(editable?: any) {
-    this.modal.create({
-      nzTitle: !editable ? '新增' : '编辑',
-      nzContent: FormComponent,
-      nzComponentParams: {
-        editable,
-        nodes: this.nodes
-      },
-      nzOnOk: () => {
-        this.getData();
+    this.getData();
+    this.pages.key$.subscribe(key => {
+      if (key) {
+        this.selectedKeys = [key];
       }
     });
   }
@@ -65,9 +47,8 @@ export class PagesComponent implements OnInit {
     this.pages.api.find<Page>({}, { sort: 1 }).subscribe(result => {
       const nodes: NzTreeNodeOptions[] = [];
       const dict: Record<string, NzTreeNodeOptions> = {};
-      const data: Record<string, Page> = {};
       for (const x of result) {
-        data[x._id] = x;
+        this.data[x._id] = x;
         dict[x._id] = {
           title: `${x.name}`,
           key: x._id,
@@ -75,8 +56,7 @@ export class PagesComponent implements OnInit {
           icon: x.icon,
           isLeaf: true,
           expanded: true,
-          selectable: x.kind !== 'group',
-          selected: this.pages.key === x._id
+          selectable: x.kind !== 'group'
         };
       }
       for (const x of result) {
@@ -94,7 +74,7 @@ export class PagesComponent implements OnInit {
         }
       }
       this.nodes = [...nodes];
-      this.pages.data$.next(data);
+      this.pages.key$.complete();
     });
   }
 
@@ -106,12 +86,6 @@ export class PagesComponent implements OnInit {
     if (!$event.node?.isSelectable) {
       return;
     }
-    if (this.pages.key && this.pages.key !== 'home') {
-      const node = this.tree.getTreeNodeByKey(this.pages.key);
-      if (node) {
-        node.isSelected = false;
-      }
-    }
     if ($event.node?.isSelected) {
       this.router.navigate(['admin', 'settings', 'pages', $event.node!.key, 'schema']);
     } else {
@@ -122,6 +96,20 @@ export class PagesComponent implements OnInit {
   actions($event: NzFormatEmitEvent, menu: NzDropdownMenuComponent): void {
     this.actionKey = $event.node!.key;
     this.nzContextMenuService.create($event.event as MouseEvent, menu);
+  }
+
+  form(editable?: any) {
+    this.modal.create({
+      nzTitle: !editable ? '新增' : '编辑',
+      nzContent: FormComponent,
+      nzComponentParams: {
+        editable,
+        nodes: this.nodes
+      },
+      nzOnOk: () => {
+        this.getData();
+      }
+    });
   }
 
   delete(data: Page): void {

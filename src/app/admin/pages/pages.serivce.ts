@@ -1,16 +1,14 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, Subject, timer } from 'rxjs';
-import { map, skip, switchMap } from 'rxjs/operators';
+import { AsyncSubject, Observable, Subject, timer } from 'rxjs';
+import { map, switchMap } from 'rxjs/operators';
 
 import { Api, WpxService } from '@weplanx/components';
 
 import { Field } from './dto/field';
-import { Page } from './dto/page';
 
 @Injectable()
 export class PagesSerivce {
-  key = 'home';
-  data$: BehaviorSubject<Record<string, Page>> = new BehaviorSubject<Record<string, Page>>({});
+  key$: AsyncSubject<string> = new AsyncSubject<string>();
   refresh: Subject<any> = new Subject<any>();
 
   api!: Api;

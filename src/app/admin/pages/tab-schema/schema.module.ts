@@ -4,6 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { AppShareModule } from '@share';
 
+import { TabsModule } from '../tabs/tabs.module';
 import { FieldComponent } from './field/field.component';
 import { SchemaComponent } from './schema.component';
 
@@ -15,7 +16,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [AppShareModule, DragDropModule, RouterModule.forChild(routes)],
+  imports: [AppShareModule, DragDropModule, TabsModule, RouterModule.forChild(routes)],
   declarations: [SchemaComponent, FieldComponent]
 })
 export class SchemaModule {}

@@ -34,11 +34,10 @@ const routes: Routes = [
         data: {
           breadcrumb: '成员管理'
         }
-      },
-      { path: '', redirectTo: '/admin/settings/projects', pathMatch: 'full' }
+      }
     ]
   },
-  { path: '', redirectTo: '/admin/settings/pages/home', pathMatch: 'full' }
+  { path: '', redirectTo: '/admin/settings/pages', pathMatch: 'full' }
 ];
 
 @NgModule({

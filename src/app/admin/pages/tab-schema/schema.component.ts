@@ -1,7 +1,6 @@
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Subscription } from 'rxjs';
-import { skip } from 'rxjs/operators';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalService } from 'ng-zorro-antd/modal';
@@ -18,28 +17,34 @@ import { FieldComponent } from './field/field.component';
   templateUrl: './schema.component.html',
   styleUrls: ['./schema.component.scss']
 })
-export class SchemaComponent implements OnInit, OnDestroy {
-  private page?: Page;
+export class SchemaComponent implements OnInit {
+  key!: string;
+  private page!: Page;
+
   fieldList: Field[] = [];
   datatype: Record<string, string> = Object.fromEntries([].concat(...(fieldTypeValues.map(v => v.values) as any[])));
-  private data$!: Subscription;
 
   constructor(
     private pages: PagesSerivce,
     private modal: NzModalService,
     private message: NzMessageService,
-    private notification: NzNotificationService
+    private notification: NzNotificationService,
+    private route: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
-    this.data$ = this.pages.data$.pipe(skip(1)).subscribe(v => {
-      this.page = v[this.pages.key];
-      this.setFieldList();
+    this.route.params.subscribe(v => {
+      this.key = v.key;
+      this.pages.key$.next(v.key);
+      this.getData();
     });
   }
 
-  ngOnDestroy() {
-    this.data$.unsubscribe();
+  getData(): void {
+    this.pages.api.findOneById<Page>(this.key).subscribe(v => {
+      this.page = v;
+      this.setFieldList();
+    });
   }
 
   private setFieldList() {
@@ -74,7 +79,7 @@ export class SchemaComponent implements OnInit, OnDestroy {
     moveItemInArray(this.fieldList, event.previousIndex, event.currentIndex);
     this.pages
       .sortSchemaFields(
-        this.page!._id,
+        this.key,
         this.fieldList.map(v => v.key)
       )
       .subscribe(v => {
@@ -88,7 +93,7 @@ export class SchemaComponent implements OnInit, OnDestroy {
   }
 
   delete(data: Field): void {
-    this.pages.deleteSchemaField(this.page!._id, data.key).subscribe(v => {
+    this.pages.deleteSchemaField(this.key, data.key).subscribe(v => {
       if (v.code === 0) {
         this.pages.refresh.next(true);
         this.message.success('字段移除成功');

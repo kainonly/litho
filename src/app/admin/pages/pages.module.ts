@@ -11,43 +11,43 @@ import { PagesSerivce } from './pages.serivce';
 
 const routes: Routes = [
   {
-    path: ':key',
+    path: '',
     component: PagesComponent,
-    data: {
-      breadcrumb: 'NO'
-    },
     children: [
       {
-        path: 'schema',
+        path: 'home',
+        loadChildren: () => import('./home/home.module').then(m => m.HomeModule)
+      },
+      {
+        path: ':key/schema',
         loadChildren: () => import('./tab-schema/schema.module').then(m => m.SchemaModule),
         data: {
           breadcrumb: '数据源'
         }
       },
       {
-        path: 'indexes',
+        path: ':key/indexes',
         loadChildren: () => import('./tab-indexes/indexes.module').then(m => m.IndexesModule),
         data: {
           breadcrumb: '索引规则'
         }
       },
       {
-        path: 'rules',
+        path: ':key/rules',
         loadChildren: () => import('./tab-rules/rules.module').then(m => m.RulesModule),
         data: {
           breadcrumb: '显隐规则'
         }
       },
       {
-        path: 'validator',
+        path: ':key/validator',
         loadChildren: () => import('./tab-validator/validator.module').then(m => m.ValidatorModule),
         data: {
           breadcrumb: '验证器'
         }
       }
     ]
-  },
-  { path: '', redirectTo: '/admin/settings/pages/home', pathMatch: 'full' }
+  }
 ];
 
 @NgModule({

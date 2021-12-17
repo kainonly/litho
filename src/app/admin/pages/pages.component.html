@@ -33,12 +33,13 @@
         [nzData]="nodes"
         [nzSearchValue]="name"
         [nzExpandedIcon]="nzExpandedIcon"
+        [nzSelectedKeys]="selectedKeys"
         (nzClick)="selected($event)"
         (nzContextMenu)="actions($event, treeActions)"
         (nzOnDrop)="drop($event)"
       >
         <ng-template #nzExpandedIcon let-node>
-          <ng-container *ngIf="(pages.data$ | async)?.[node.key] as page">
+          <ng-container *ngIf="data?.[node.key] as page">
             <ng-container [ngSwitch]="page.kind">
               <ng-container *ngSwitchCase="'form'">
                 <i nz-icon nzType="form"></i>
@@ -57,7 +58,7 @@
         </ng-template>
         <nz-dropdown-menu #treeActions="nzDropdownMenu">
           <ul *ngIf="actionKey" nz-menu>
-            <ng-container *ngIf="(pages.data$ | async)?.[actionKey] as page">
+            <ng-container *ngIf="data?.[actionKey] as page">
               <li nz-menu-item [nzSelected]="false">{{ page.name }}</li>
               <li nz-menu-divider></li>
               <li nz-menu-item (click)="form(page)"> 编辑 </li>
@@ -69,51 +70,6 @@
     </nz-card>
   </nz-col>
   <nz-col [nzXl]="19" [nzLg]="18">
-    <nz-card *ngIf="pages.key === 'home'; else schemaContent">
-      <nz-result [nzIcon]="nzIcon">
-        <ng-template #nzIcon><i nz-icon nzType="question-circle"></i></ng-template>
-        <div nz-result-title> 使用提示 </div>
-        <div nz-result-content>
-          <p nz-typography>
-            * 您可以在树视图中点击节点查看内容模型，也可以右键点击获得更多操作，同时支持拖拽进行排序。
-          </p>
-          <div nz-typography>
-            <ul>
-              <li> 『集合』 作为数据源，包含数据列表与数据填充等功能。</li>
-              <li> 『表单』 独立的数据填充页面。</li>
-              <li> 『仪表盘』 数据分析处理、结果展示功能，如数据汇总、趋势分析。</li>
-              <li> 『分组』导航中将其他种类分组显示。</li>
-            </ul>
-          </div>
-        </div>
-      </nz-result>
-    </nz-card>
-    <ng-template #schemaContent>
-      <nz-card>
-        <nz-card-tab>
-          <nz-tabset nzSize="large" nzLinkRouter>
-            <nz-tab>
-              <a *nzTabLink nz-tab-link [routerLink]="['/admin', 'settings', 'pages', pages.key, 'schema']"> 数据源 </a>
-            </nz-tab>
-            <nz-tab>
-              <a *nzTabLink nz-tab-link [routerLink]="['/admin', 'settings', 'pages', pages.key, 'indexes']">
-                索引规则
-              </a>
-            </nz-tab>
-            <nz-tab>
-              <a *nzTabLink nz-tab-link [routerLink]="['/admin', 'settings', 'pages', pages.key, 'rules']">
-                显隐规则
-              </a>
-            </nz-tab>
-            <nz-tab>
-              <a *nzTabLink nz-tab-link [routerLink]="['/admin', 'settings', 'pages', pages.key, 'validator']">
-                验证器
-              </a>
-            </nz-tab>
-          </nz-tabset>
-        </nz-card-tab>
-        <router-outlet></router-outlet>
-      </nz-card>
-    </ng-template>
+    <router-outlet></router-outlet>
   </nz-col>
 </nz-row>
