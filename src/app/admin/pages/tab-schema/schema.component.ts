@@ -10,7 +10,7 @@ import { Field } from '../dto/field';
 import { Page } from '../dto/page';
 import { PagesSerivce } from '../pages.serivce';
 import { fieldTypeValues } from '../values';
-import { FieldComponent } from './field/field.component';
+import { FormComponent } from './form/form.component';
 
 @Component({
   selector: 'app-admin-pages-schema',
@@ -60,17 +60,17 @@ export class SchemaComponent implements OnInit {
     ];
   }
 
-  fieldForm(editable?: any) {
+  form(editable?: any) {
     this.modal.create({
       nzTitle: !editable ? '创建字段到该内容类型' : '编辑字段',
       nzWidth: 800,
-      nzContent: FieldComponent,
+      nzContent: FormComponent,
       nzComponentParams: {
         editable,
         page: this.page
       },
       nzOnOk: () => {
-        this.pages.refresh.next(true);
+        this.getData();
       }
     });
   }
@@ -84,7 +84,7 @@ export class SchemaComponent implements OnInit {
       )
       .subscribe(v => {
         if (v.code === 0) {
-          this.pages.refresh.next(true);
+          this.getData();
           this.message.success('字段排序刷新成功');
         } else {
           this.notification.error('操作失败', v.message);
@@ -95,7 +95,7 @@ export class SchemaComponent implements OnInit {
   delete(data: Field): void {
     this.pages.deleteSchemaField(this.key, data.key).subscribe(v => {
       if (v.code === 0) {
-        this.pages.refresh.next(true);
+        this.getData();
         this.message.success('字段移除成功');
       } else {
         this.notification.error('操作失败', v.message);

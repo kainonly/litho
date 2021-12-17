@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { AppShareModule } from '@share';
 
+import { TabsModule } from '../tabs/tabs.module';
 import { RulesComponent } from './rules.component';
 
 const routes: Routes = [
@@ -13,7 +14,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [AppShareModule, RouterModule.forChild(routes)],
+  imports: [AppShareModule, TabsModule, RouterModule.forChild(routes)],
   declarations: [RulesComponent]
 })
 export class RulesModule {}

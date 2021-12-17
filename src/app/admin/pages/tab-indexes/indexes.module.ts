@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { AppShareModule } from '@share';
 
+import { TabsModule } from '../tabs/tabs.module';
 import { IndexesComponent } from './indexes.component';
 
 const routes: Routes = [
@@ -13,7 +14,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [AppShareModule, RouterModule.forChild(routes)],
+  imports: [AppShareModule, RouterModule.forChild(routes), TabsModule],
   declarations: [IndexesComponent]
 })
 export class IndexesModule {}

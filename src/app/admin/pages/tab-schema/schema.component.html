@@ -1,10 +1,18 @@
-<app-admin-pages-tabs [key]="key">
+<app-admin-pages-tabs [key]="key" [extra]="extra">
+  <ng-template #extra>
+    <button nz-button (click)="form()"> 创建字段 </button>
+  </ng-template>
+  <ng-template #footer>
+    <button nzBlock nz-button nzType="link" (click)="form()">
+      <i nz-icon nzType="plus"></i> 创建字段到该内容类型
+    </button>
+  </ng-template>
   <nz-table
     #contentTable
     [nzData]="fieldList"
     [nzFrontPagination]="false"
     [nzShowPagination]="false"
-    [nzFooter]="fieldsFooter"
+    [nzFooter]="footer"
     [nzScroll]="{ x: '1200px' }"
   >
     <thead>
@@ -46,7 +54,7 @@
           </ng-container>
         </td>
         <td nzRight nzAlign="center">
-          <button nz-button nzType="text" nz-tooltip="编辑" (click)="fieldForm(data)">
+          <button nz-button nzType="text" nz-tooltip="编辑" (click)="form(data)">
             <i nz-icon nzType="edit"></i>
           </button>
           <button
@@ -63,10 +71,5 @@
         </td>
       </tr>
     </tbody>
-    <ng-template #fieldsFooter>
-      <button nzBlock nz-button nzType="link" (click)="fieldForm()">
-        <i nz-icon nzType="plus"></i> 创建字段到该内容类型
-      </button>
-    </ng-template>
   </nz-table>
 </app-admin-pages-tabs>

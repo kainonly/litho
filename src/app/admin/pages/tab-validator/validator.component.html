@@ -1,23 +1,23 @@
-<form *ngIf="form" nz-form nzLayout="vertical" [formGroup]="form" (wpxSubmit)="submit($event)">
-  <nz-form-item>
-    <nz-form-control
-      [nzAutoTips]="{
-        default: {
-          required: '验证器内容不能为空'
-        }
-      }"
-    >
-      <nz-code-editor
-        style="height: 500px"
-        formControlName="validator"
-        [nzEditorOption]="option"
-        (nzEditorInitialized)="initialized($event)"
-      ></nz-code-editor>
-    </nz-form-control>
-  </nz-form-item>
-  <nz-form-item>
-    <nz-form-control>
-      <button nz-button nzType="primary" [disabled]="!form?.valid">更新</button>
-    </nz-form-control>
-  </nz-form-item>
-</form>
+<app-admin-pages-tabs [key]="key" [extra]="extra">
+  <ng-template #extra>
+    <button form="form" nz-button nzType="primary" [disabled]="!form?.valid">更新验证</button>
+  </ng-template>
+  <form *ngIf="form" id="form" nz-form nzLayout="vertical" [formGroup]="form" (wpxSubmit)="submit($event)">
+    <nz-form-item>
+      <nz-form-control
+        [nzAutoTips]="{
+          default: {
+            required: '验证器内容不能为空'
+          }
+        }"
+      >
+        <nz-code-editor
+          style="height: 500px"
+          formControlName="validator"
+          [nzEditorOption]="option"
+          (nzEditorInitialized)="initialized($event)"
+        ></nz-code-editor>
+      </nz-form-control>
+    </nz-form-item>
+  </form>
+</app-admin-pages-tabs>

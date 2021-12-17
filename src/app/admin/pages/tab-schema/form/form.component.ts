@@ -10,10 +10,10 @@ import { PagesSerivce } from '../../pages.serivce';
 import { fieldTypeValues } from '../../values';
 
 @Component({
-  selector: 'app-admin-pages-field',
-  templateUrl: './field.component.html'
+  selector: 'app-admin-pages-schema-form',
+  templateUrl: './form.component.html'
 })
-export class FieldComponent implements OnInit {
+export class FormComponent implements OnInit {
   @Input() editable?: Record<string, any>;
   @Input() page?: Page;
   form?: FormGroup;

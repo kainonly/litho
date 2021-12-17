@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, TemplateRef } from '@angular/core';
 
 @Component({
   selector: 'app-admin-pages-tabs',
@@ -6,4 +6,5 @@ import { Component, Input } from '@angular/core';
 })
 export class TabsComponent {
   @Input() key!: string;
+  @Input() extra?: TemplateRef<any>;
 }

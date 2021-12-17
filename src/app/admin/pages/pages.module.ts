@@ -16,7 +16,10 @@ const routes: Routes = [
     children: [
       {
         path: 'home',
-        loadChildren: () => import('./home/home.module').then(m => m.HomeModule)
+        loadChildren: () => import('./home/home.module').then(m => m.HomeModule),
+        data: {
+          breadcrumb: '使用提示'
+        }
       },
       {
         path: ':key/schema',
@@ -45,7 +48,8 @@ const routes: Routes = [
         data: {
           breadcrumb: '验证器'
         }
-      }
+      },
+      { path: '', redirectTo: '/admin/settings/pages/home', pathMatch: 'full' }
     ]
   }
 ];

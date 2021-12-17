@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
+import { Page } from '../dto/page';
 import { PagesSerivce } from '../pages.serivce';
 
 @Component({
@@ -7,7 +9,15 @@ import { PagesSerivce } from '../pages.serivce';
   templateUrl: './rules.component.html'
 })
 export class RulesComponent implements OnInit {
-  constructor(private pages: PagesSerivce) {}
+  key!: string;
+  private page!: Page;
 
-  ngOnInit(): void {}
+  constructor(private pages: PagesSerivce, private route: ActivatedRoute) {}
+
+  ngOnInit(): void {
+    this.route.params.subscribe(v => {
+      this.key = v.key;
+      this.pages.key$.next(v.key);
+    });
+  }
 }

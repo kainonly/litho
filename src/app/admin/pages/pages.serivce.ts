@@ -49,11 +49,23 @@ export class PagesSerivce {
     return this.api.send('/sort_schema_fields', { id, fields });
   }
 
-  deleteSchemaField(id: string, key: string) {
+  deleteSchemaField(id: string, key: string): Observable<any> {
     return this.api.send('/delete_schema_field', { id, key });
   }
 
-  updateValidator(id: string, validator: string) {
+  findIndexes(id: string): Observable<any> {
+    return this.api.send('/find_indexes', { id }).pipe(map(v => (!v.code ? v.data : null)));
+  }
+
+  createIndex(id: string, name: string, keys: any[], unique: boolean): Observable<any> {
+    return this.api.send('/create_index', { id, name, keys, unique });
+  }
+
+  deleteIndex(id: string, name: string): Observable<any> {
+    return this.api.send('/delete_index', { id, name });
+  }
+
+  updateValidator(id: string, validator: string): Observable<any> {
     return this.api.send('/update_validator', { id, validator });
   }
 }

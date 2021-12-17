@@ -1,0 +1,47 @@
+<app-admin-pages-tabs [key]="key" [extra]="extra">
+  <ng-template #extra>
+    <button nz-button (click)="form()"> 创建索引 </button>
+  </ng-template>
+  <ng-template #footer>
+    <button nzBlock nz-button nzType="link" (click)="form()">
+      <i nz-icon nzType="plus"></i> 创建索引到该内容类型
+    </button>
+  </ng-template>
+  <nz-table
+    #contentTable
+    [nzData]="indexesList"
+    [nzFrontPagination]="false"
+    [nzShowPagination]="false"
+    [nzFooter]="footer"
+    [nzScroll]="{ x: '1200px' }"
+  >
+    <thead>
+      <tr>
+        <th nzWidth="200px" nzLeft nzAlign="center">索引名称</th>
+        <th>索引信息</th>
+        <th nzWidth="100px" nzRight nzAlign="center">操作</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let data of contentTable.data" cdkDrag>
+        <td nzLeft nzAlign="center">{{ data.name }}</td>
+        <td>
+          <nz-tag>唯一</nz-tag>
+          <nz-tag>唯一</nz-tag>
+        </td>
+        <td nzRight nzAlign="center">
+          <button
+            nz-button
+            nzType="text"
+            nz-tooltip="删除"
+            nz-popconfirm
+            nzPopconfirmTitle="您确定移除该索引吗?"
+            nzPopconfirmPlacement="bottomRight"
+          >
+            <i nz-icon nzType="delete"></i>
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </nz-table>
+</app-admin-pages-tabs>

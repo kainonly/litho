@@ -1,5 +1,6 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 
 import { updateFormGroup } from '@weplanx/components';
 import { JoinedEditorOptions } from 'ng-zorro-antd/code-editor/typings';
@@ -16,7 +17,8 @@ declare const monaco: any;
   templateUrl: './validator.component.html'
 })
 export class ValidatorComponent implements OnInit {
-  @Input() page?: Page;
+  key!: string;
+  private page!: Page;
   form?: FormGroup;
 
   option: JoinedEditorOptions = {
@@ -27,19 +29,31 @@ export class ValidatorComponent implements OnInit {
     private pages: PagesSerivce,
     private fb: FormBuilder,
     private message: NzMessageService,
-    private notification: NzNotificationService
+    private notification: NzNotificationService,
+    private route: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
-    const value = `{"$schema": "http://json-schema.org/draft-04/schema"}`;
-    this.form = this.fb.group({
-      validator: [value, [Validators.required]]
+    this.route.params.subscribe(v => {
+      this.key = v.key;
+      this.pages.key$.next(v.key);
+      this.getData();
     });
-    if (this.page?.schema?.validator) {
-      this.form.setValue({
-        validator: JSON.stringify(this.page.schema.validator)
+  }
+
+  getData(): void {
+    this.pages.api.findOneById<Page>(this.key).subscribe(v => {
+      this.page = v;
+      const value = `{"$schema": "http://json-schema.org/draft-04/schema"}`;
+      this.form = this.fb.group({
+        validator: [value, [Validators.required]]
       });
-    }
+      if (this.page?.schema?.validator) {
+        this.form.setValue({
+          validator: JSON.stringify(this.page.schema.validator)
+        });
+      }
+    });
   }
 
   initialized(e: any): void {

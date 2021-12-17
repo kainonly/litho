@@ -1,6 +1,6 @@
 <nz-card>
   <nz-card-tab>
-    <nz-tabset nzSize="large" nzLinkRouter>
+    <nz-tabset nzSize="large" nzLinkRouter [nzAnimated]="false" [nzTabBarExtraContent]="extra">
       <nz-tab>
         <a *nzTabLink nz-tab-link [routerLink]="['/admin', 'settings', 'pages', key, 'schema']"> 数据源 </a>
       </nz-tab>
