@@ -87,9 +87,9 @@ export class PagesComponent implements OnInit {
       return;
     }
     if ($event.node?.isSelected) {
-      this.router.navigate(['admin', 'settings', 'pages', $event.node!.key, 'schema']);
+      this.router.navigate(['settings', 'pages', $event.node!.key, 'schema']);
     } else {
-      this.router.navigate(['admin', 'settings', 'pages', 'home']);
+      this.router.navigate(['settings', 'pages', 'home']);
     }
   }
 

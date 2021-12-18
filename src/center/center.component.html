@@ -1,0 +1,34 @@
+<nz-layout class="main">
+  <app-header></app-header>
+  <nz-layout class="content">
+    <nz-sider nzTheme="light" [nzWidth]="240">
+      <ul nz-menu nzMode="inline">
+        <li nz-menu-group nzTitle="个人设置">
+          <ul>
+            <li nz-menu-item> <i nz-icon nzType="solution"></i> <span>基本信息</span> </li>
+            <li nz-menu-item> <i nz-icon nzType="mail"></i> <span>业务邮箱</span> </li>
+            <li nz-menu-item> <i nz-icon nzType="verified"></i> <span>密码设置</span> </li>
+          </ul>
+        </li>
+        <li nz-menu-group nzTitle="消息中心">
+          <ul>
+            <li nz-menu-item> <i nz-icon nzType="notification"></i> <span>消息列表</span> </li>
+            <li nz-menu-item> <i nz-icon nzType="bell"></i> <span>告警设置</span> </li>
+          </ul>
+        </li>
+        <li nz-menu-group nzTitle="其他设置">
+          <ul>
+            <li nz-menu-item> <i nz-icon nzType="link"></i> <span>第三方绑定</span> </li>
+            <li nz-menu-item> <i nz-icon nzType="insurance"></i> <span>审计日志</span> </li>
+          </ul>
+        </li>
+      </ul>
+    </nz-sider>
+    <nz-layout style="overflow: auto">
+      <wpx-page-header></wpx-page-header>
+      <nz-content>
+        <router-outlet></router-outlet>
+      </nz-content>
+    </nz-layout>
+  </nz-layout>
+</nz-layout>
