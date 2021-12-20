@@ -13,7 +13,7 @@ import { FormComponent } from './form/form.component';
 import { PagesSerivce } from './pages.serivce';
 
 @Component({
-  selector: 'app-admin-pages',
+  selector: 'settings-pages',
   templateUrl: './pages.component.html'
 })
 export class PagesComponent implements OnInit {

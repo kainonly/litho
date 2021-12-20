@@ -9,7 +9,7 @@ import { NzTreeNodeOptions } from 'ng-zorro-antd/tree';
 import { PagesSerivce } from '../pages.serivce';
 
 @Component({
-  selector: 'app-admin-pages-form',
+  selector: 'settings-pages-form',
   templateUrl: './form.component.html'
 })
 export class FormComponent implements OnInit {

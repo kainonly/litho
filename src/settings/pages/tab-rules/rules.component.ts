@@ -5,7 +5,7 @@ import { Page } from '../dto/page';
 import { PagesSerivce } from '../pages.serivce';
 
 @Component({
-  selector: 'app-admin-pages-rules',
+  selector: 'settings-pages-rules',
   templateUrl: './rules.component.html'
 })
 export class RulesComponent implements OnInit {

@@ -13,7 +13,7 @@ import { PagesSerivce } from '../pages.serivce';
 declare const monaco: any;
 
 @Component({
-  selector: 'app-admin-pages-validator',
+  selector: 'settings-pages-validator',
   templateUrl: './validator.component.html'
 })
 export class ValidatorComponent implements OnInit {

@@ -10,7 +10,7 @@ import { PagesSerivce } from '../../pages.serivce';
 import { fieldTypeValues } from '../../values';
 
 @Component({
-  selector: 'app-admin-pages-schema-form',
+  selector: 'settings-pages-schema-form',
   templateUrl: './form.component.html'
 })
 export class FormComponent implements OnInit {

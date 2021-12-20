@@ -1,4 +1,4 @@
-<app-admin-pages-tabs [key]="key" [extra]="extra">
+<settings-pages-tabs [key]="key" [extra]="extra">
   <ng-template #extra>
     <button nz-button (click)="form()"> 创建索引 </button>
   </ng-template>
@@ -18,8 +18,8 @@
     <thead>
       <tr>
         <th nzWidth="65px" nzLeft nzAlign="center"> </th>
-        <th nzWidth="200px" nzLeft>名称</th>
-        <th>信息</th>
+        <th nzWidth="200px" nzLeft>索引名称</th>
+        <th>索引信息</th>
         <th nzWidth="100px" nzRight nzAlign="center">操作</th>
       </tr>
     </thead>
@@ -67,6 +67,7 @@
             nz-popconfirm
             nzPopconfirmTitle="您确定移除该索引吗?"
             nzPopconfirmPlacement="bottomRight"
+            (nzOnConfirm)="delete(data.name)"
           >
             <i nz-icon nzType="delete"></i>
           </button>
@@ -74,4 +75,4 @@
       </tr>
     </tbody>
   </nz-table>
-</app-admin-pages-tabs>
+</settings-pages-tabs>

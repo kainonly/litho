@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'app-admin-users',
+  selector: 'settings-users',
   templateUrl: './users.component.html'
 })
 export class UsersComponent {}

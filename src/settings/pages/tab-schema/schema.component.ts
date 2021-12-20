@@ -13,7 +13,7 @@ import { fieldTypeValues } from '../values';
 import { FormComponent } from './form/form.component';
 
 @Component({
-  selector: 'app-admin-pages-schema',
+  selector: 'settings-pages-schema',
   templateUrl: './schema.component.html',
   styleUrls: ['./schema.component.scss']
 })

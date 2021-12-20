@@ -8,7 +8,7 @@ import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { PagesSerivce } from '../pages.serivce';
 
 @Component({
-  selector: 'app-admin-pages-indexes',
+  selector: 'settings-pages-indexes',
   templateUrl: './indexes.component.html'
 })
 export class IndexesComponent implements OnInit {
@@ -33,7 +33,6 @@ export class IndexesComponent implements OnInit {
 
   getData(): void {
     this.pages.findIndexes(this.key).subscribe(data => {
-      console.log(data);
       this.indexesList = [...data];
     });
   }
@@ -41,13 +40,23 @@ export class IndexesComponent implements OnInit {
   form() {
     this.modal.create({
       nzTitle: '创建索引到该内容类型',
-      nzWidth: 800,
       // nzContent: FieldComponent,
       // nzComponentParams: {
       //   page: this.page
       // },
       nzOnOk: () => {
         this.getData();
+      }
+    });
+  }
+
+  delete(name: string): void {
+    this.pages.deleteIndex(this.key, name).subscribe(v => {
+      if (v.code === 0) {
+        this.getData();
+        this.message.success('索引移除成功');
+      } else {
+        this.notification.error('操作失败', v.message);
       }
     });
   }

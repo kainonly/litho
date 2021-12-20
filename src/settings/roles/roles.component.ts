@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'app-admin-roles',
+  selector: 'settings-roles',
   templateUrl: './roles.component.html'
 })
 export class RolesComponent {}
