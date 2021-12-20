@@ -4,6 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { AppShareModule } from '@share';
 
 import { TabsModule } from '../tabs/tabs.module';
+import { IndexTypePipe } from './index-type.pipe';
 import { IndexesComponent } from './indexes.component';
 
 const routes: Routes = [
@@ -15,6 +16,6 @@ const routes: Routes = [
 
 @NgModule({
   imports: [AppShareModule, RouterModule.forChild(routes), TabsModule],
-  declarations: [IndexesComponent]
+  declarations: [IndexesComponent, IndexTypePipe]
 })
 export class IndexesModule {}

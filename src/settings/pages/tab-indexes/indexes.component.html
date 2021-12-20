@@ -17,17 +17,47 @@
   >
     <thead>
       <tr>
-        <th nzWidth="200px" nzLeft nzAlign="center">索引名称</th>
-        <th>索引信息</th>
+        <th nzWidth="65px" nzLeft nzAlign="center"> </th>
+        <th nzWidth="200px" nzLeft>名称</th>
+        <th>信息</th>
         <th nzWidth="100px" nzRight nzAlign="center">操作</th>
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let data of contentTable.data" cdkDrag>
-        <td nzLeft nzAlign="center">{{ data.name }}</td>
+      <tr *ngFor="let data of contentTable.data">
+        <td nzLeft nzAlign="center">
+          <nz-tag nzColor="blue">
+            <ng-container [ngSwitch]="data | IndexType">
+              <ng-container *ngSwitchCase="'text'">全文</ng-container>
+              <ng-container *ngSwitchCase="'2dsphere'">地理</ng-container>
+              <ng-container *ngSwitchDefault>常规</ng-container>
+            </ng-container>
+          </nz-tag>
+        </td>
+        <td nzLeft>{{ data.name }}</td>
         <td>
-          <nz-tag>唯一</nz-tag>
-          <nz-tag>唯一</nz-tag>
+          <ng-container *ngIf="data.unique">
+            <nz-tag>唯一</nz-tag>
+          </ng-container>
+          <ng-container *ngFor="let item of data.key | keyvalue">
+            <ng-container *ngTemplateOutlet="fieldTags; context: { $implicit: item }"></ng-container>
+          </ng-container>
+          <ng-container *ngIf="data.hasOwnProperty('weights')">
+            <ng-container *ngFor="let item of data.weights | keyvalue">
+              <ng-container *ngTemplateOutlet="fieldTags; context: { $implicit: item }"></ng-container>
+            </ng-container>
+          </ng-container>
+          <ng-template #fieldTags let-item>
+            <nz-tag>
+              {{ item.key }} :
+              <ng-container [ngSwitch]="item.value">
+                <ng-container *ngSwitchCase="1">asc</ng-container>
+                <ng-container *ngSwitchCase="-1">desc</ng-container>
+                <ng-container *ngSwitchCase="'text'">text</ng-container>
+                <ng-container *ngSwitchCase="'2dsphere'">2dsphere</ng-container>
+              </ng-container>
+            </nz-tag>
+          </ng-template>
         </td>
         <td nzRight nzAlign="center">
           <button
