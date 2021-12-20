@@ -57,8 +57,8 @@ export class PagesSerivce {
     return this.api.send('/find_indexes', { id }).pipe(map(v => (!v.code ? v.data : null)));
   }
 
-  createIndex(id: string, name: string, keys: any[], unique: boolean): Observable<any> {
-    return this.api.send('/create_index', { id, name, keys, unique });
+  createIndex(id: string, data: any): Observable<any> {
+    return this.api.send('/create_index', { id, ...data });
   }
 
   deleteIndex(id: string, name: string): Observable<any> {

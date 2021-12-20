@@ -79,7 +79,7 @@ export class FormComponent implements OnInit {
     );
   }
 
-  removeEnum(index: number): void {
+  removeValues(index: number): void {
     this.specValues.removeAt(index);
   }
 

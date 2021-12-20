@@ -6,6 +6,7 @@ import { NzModalService } from 'ng-zorro-antd/modal';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 
 import { PagesSerivce } from '../pages.serivce';
+import { FormComponent } from './form/form.component';
 
 @Component({
   selector: 'settings-pages-indexes',
@@ -40,10 +41,10 @@ export class IndexesComponent implements OnInit {
   form() {
     this.modal.create({
       nzTitle: '创建索引到该内容类型',
-      // nzContent: FieldComponent,
-      // nzComponentParams: {
-      //   page: this.page
-      // },
+      nzContent: FormComponent,
+      nzComponentParams: {
+        key: this.key
+      },
       nzOnOk: () => {
         this.getData();
       }
