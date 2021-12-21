@@ -20,6 +20,7 @@ export class PagesComponent implements OnInit {
   @ViewChild('tree') tree!: NzTreeComponent;
   nodes: NzTreeNodeOptions[] = [];
   name = '';
+  expand = true;
 
   data: Record<string, Page> = {};
   actionKey?: string;
@@ -78,8 +79,9 @@ export class PagesComponent implements OnInit {
     });
   }
 
-  expanded(nodes: NzTreeNode[], value: boolean): void {
-    TreeNodesExpanded(nodes, value);
+  expanded(): void {
+    this.expand = !this.expand;
+    TreeNodesExpanded(this.tree.getTreeNodes(), this.expand);
   }
 
   selected($event: NzFormatEmitEvent): void {

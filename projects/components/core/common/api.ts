@@ -97,21 +97,27 @@ export class Api {
   /**
    * 修改数据请求
    */
-  update(where: Record<string, unknown>, data: Record<string, unknown>): Observable<APIResponse<never>> {
+  update(
+    where: Record<string, unknown>,
+    data: Record<string, unknown>,
+    refs?: string[]
+  ): Observable<APIResponse<never>> {
     return this.send('/update', {
       where,
       update: {
         $set: data
-      }
+      },
+      refs
     });
   }
 
-  updateById(id: string, data: Record<string, unknown>): Observable<APIResponse<never>> {
+  updateById(id: string, data: Record<string, unknown>, refs?: string[]): Observable<APIResponse<never>> {
     return this.send('/update', {
       id,
       update: {
         $set: data
-      }
+      },
+      refs
     });
   }
 
