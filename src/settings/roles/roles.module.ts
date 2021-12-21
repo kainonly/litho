@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { PagesSerivce } from '@settings/pages/pages.serivce';
+import { FormComponent } from '@settings/roles/form/form.component';
 import { AppShareModule } from '@share';
 import { NzTreeModule } from 'ng-zorro-antd/tree';
 import { NzTreeSelectModule } from 'ng-zorro-antd/tree-select';
@@ -35,7 +36,7 @@ const routes: Routes = [
 
 @NgModule({
   imports: [AppShareModule, NzTreeModule, NzTreeSelectModule, RouterModule.forChild(routes)],
-  declarations: [RolesComponent],
+  declarations: [RolesComponent, FormComponent],
   providers: [RolesService, PagesSerivce]
 })
 export class RolesModule {}

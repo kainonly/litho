@@ -9,6 +9,7 @@ import { NzModalService } from 'ng-zorro-antd/modal';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { NzFormatEmitEvent, NzTreeComponent, NzTreeNodeOptions } from 'ng-zorro-antd/tree';
 
+import { FormComponent } from './form/form.component';
 import { RolesService } from './roles.service';
 
 @Component({
@@ -101,11 +102,11 @@ export class RolesComponent implements OnInit {
   form(editable?: any) {
     this.modal.create({
       nzTitle: !editable ? '新增' : '编辑',
-      // nzContent: FormComponent,
-      // nzComponentParams: {
-      //   editable,
-      //   nodes: this.nodes
-      // },
+      nzContent: FormComponent,
+      nzComponentParams: {
+        editable,
+        nodes: this.nodes
+      },
       nzOnOk: () => {
         this.getData();
       }
