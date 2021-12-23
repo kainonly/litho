@@ -29,12 +29,12 @@ export class FormComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.nodes) {
-      this.parentNodes = [{ title: '最高级', key: 'root', isLeaf: true }, ...this.nodes];
+      this.parentNodes = [...this.nodes];
     }
     this.form = this.fb.group({
       name: [null, [Validators.required]],
       key: [null, [Validators.required]],
-      parent: [null, [Validators.required]],
+      parent: [null],
       status: [true, [Validators.required]]
     });
     if (this.editable) {

@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { APIOption, APIResponse, CollectionValue, PageData } from '../types';
+import { APIOption, APIResponse, CollectionValue, FindByPageResult, FindResult } from '../types';
 import { Collection } from './collection';
 import { getSearchValues, getSortValues } from './helper';
 
@@ -53,24 +53,36 @@ export class Api {
   /**
    * 获取原始列表数据请求
    */
-  find<T>(where?: Record<string, unknown>, sort?: Record<string, number>): Observable<T[]> {
+  find<T>(where?: Record<string, unknown>, sort?: any[]): Observable<FindResult<T>> {
     return this.send('/find', {
       where,
       sort
-    }).pipe(map(v => (!v.code ? v.data : []))) as Observable<T[]>;
+    }).pipe(
+      map(v => {
+        if (!v.code) {
+        }
+        return v.data;
+      })
+    ) as Observable<FindResult<T>>;
   }
 
-  findById<T>(id: string[], sort?: Record<string, number>): Observable<T[]> {
+  findById<T>(id: string[], sort?: Record<string, number>): Observable<FindResult<T>> {
     return this.send('/find', {
       id,
       sort
-    }).pipe(map(v => (!v.code ? v.data : []))) as Observable<T[]>;
+    }).pipe(
+      map(v => {
+        if (!v.code) {
+        }
+        return v.data;
+      })
+    ) as Observable<FindResult<T>>;
   }
 
   /**
    * 获取分页数据请求
    */
-  findByPage<T extends CollectionValue>(coll: Collection<T>): Observable<PageData<T>> {
+  findByPage<T extends CollectionValue>(coll: Collection<T>): Observable<FindByPageResult<T>> {
     return this.send('/find_by_page', {
       page: {
         size: coll.pageSize,
@@ -84,7 +96,7 @@ export class Api {
         }
         return v.data;
       })
-    ) as Observable<PageData<T>>;
+    ) as Observable<FindByPageResult<T>>;
   }
 
   /**

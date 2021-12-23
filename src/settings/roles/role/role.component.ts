@@ -48,10 +48,10 @@ export class RoleComponent implements OnInit {
   }
 
   getPages(pages: string[], readonly: string[]): void {
-    this.pages.api.find<Page>({}, { sort: 1 }).subscribe(result => {
+    this.pages.api.find<Page>({}, [['sort', 1]]).subscribe(data => {
       const nodes: NzTreeNodeOptions[] = [];
       const dict: Record<string, NzTreeNodeOptions> = {};
-      for (const x of result) {
+      for (const x of data.value) {
         dict[x._id] = {
           title: `${x.name}`,
           key: x._id,
@@ -67,7 +67,7 @@ export class RoleComponent implements OnInit {
           }
         }
       }
-      for (const x of result) {
+      for (const x of data.value) {
         const options = dict[x._id];
         if (!x.parent) {
           nodes.push(options);

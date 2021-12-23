@@ -5,7 +5,14 @@ import { StorageMap } from '@ngx-pwa/local-storage';
 import { NzCheckBoxOptionInterface } from 'ng-zorro-antd/checkbox';
 import { NzTableSize, NzTableSortOrder } from 'ng-zorro-antd/table/src/table.types';
 
-import { CollectionOption, CollectionValue, PageData, CollectionStorageValue, SearchOption, Field } from '../types';
+import {
+  CollectionOption,
+  CollectionValue,
+  CollectionStorageValue,
+  SearchOption,
+  Field,
+  FindByPageResult
+} from '../types';
 import { Api } from './api';
 
 export class Collection<T extends CollectionValue> {
@@ -134,7 +141,7 @@ export class Collection<T extends CollectionValue> {
   /**
    * 设置数据
    */
-  set(data: PageData<T>) {
+  set(data: FindByPageResult<T>) {
     this.value = [...data.value];
     this.total = data.total;
   }
@@ -150,7 +157,7 @@ export class Collection<T extends CollectionValue> {
   /**
    * 从请求资源设置数据
    */
-  from(api: Api, refresh?: boolean): Observable<PageData<T>> {
+  from(api: Api, refresh?: boolean): Observable<FindByPageResult<T>> {
     this.loading = true;
     if (!!refresh) {
       this.reset();
@@ -163,7 +170,7 @@ export class Collection<T extends CollectionValue> {
         this.updateStorage();
         return v;
       })
-    ) as Observable<PageData<T>>;
+    ) as Observable<FindByPageResult<T>>;
   }
 
   /**

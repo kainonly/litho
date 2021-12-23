@@ -45,10 +45,10 @@ export class RolesComponent implements OnInit {
   }
 
   getData(): void {
-    this.roles.api.find<Role>().subscribe(result => {
+    this.roles.api.find<Role>().subscribe(data => {
       const nodes: NzTreeNodeOptions[] = [];
       const dict: Record<string, NzTreeNodeOptions> = {};
-      for (const x of result) {
+      for (const x of data.value) {
         this.data[x._id] = x;
         dict[x._id] = {
           title: `${x.name} [${x.key}]`,
@@ -59,7 +59,7 @@ export class RolesComponent implements OnInit {
           selectable: x.kind !== 'group'
         };
       }
-      for (const x of result) {
+      for (const x of data.value) {
         const options = dict[x._id];
         if (!x.parent) {
           nodes.push(options);

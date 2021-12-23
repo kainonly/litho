@@ -17,7 +17,12 @@ export interface APIResponse<T> {
   data?: T;
 }
 
-export interface PageData<T> {
+export interface FindResult<T> {
+  value: T[];
+  next: number;
+}
+
+export interface FindByPageResult<T> {
   value: T[];
   total: number;
 }

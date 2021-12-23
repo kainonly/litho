@@ -45,10 +45,11 @@ export class PagesComponent implements OnInit {
   }
 
   getData(): void {
-    this.pages.api.find<Page>({}, { sort: 1 }).subscribe(result => {
+    this.pages.api.find<Page>({}, [['sort', 1]]).subscribe(data => {
       const nodes: NzTreeNodeOptions[] = [];
       const dict: Record<string, NzTreeNodeOptions> = {};
-      for (const x of result) {
+      console.log(data);
+      for (const x of data.value) {
         this.data[x._id] = x;
         dict[x._id] = {
           title: `${x.name}`,
@@ -60,7 +61,7 @@ export class PagesComponent implements OnInit {
           selectable: x.kind !== 'group'
         };
       }
-      for (const x of result) {
+      for (const x of data.value) {
         const options = dict[x._id];
         if (!x.parent) {
           nodes.push(options);
