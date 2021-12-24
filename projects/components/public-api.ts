@@ -5,7 +5,7 @@ export * from './core/wpx-activated';
 export * from './core/wpx-common.module';
 
 export * from './core/common/api';
-export * from './core/common/collection';
+export * from './core/common/dataset';
 export * from './core/common/helper';
 
 export * from './core/directives/wpx-submit.directive';

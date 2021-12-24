@@ -1,7 +1,6 @@
 import { Schema } from './schema';
 
 export interface Page {
-  _id: string;
   /**
    * 父节点
    */
@@ -31,17 +30,4 @@ export interface Page {
    * 状态
    */
   status: boolean;
-  /**
-   * 创建时间
-   */
-  create_time: Date;
-  /**
-   * 修改时间
-   */
-  update_time: Date;
-
-  /**
-   * 自定义
-   */
-  [key: string]: any;
 }

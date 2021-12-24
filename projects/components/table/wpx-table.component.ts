@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output, TemplateRef, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 
-import { SearchOption, Collection } from '@weplanx/components';
+import { SearchOption, Dataset } from '@weplanx/components';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzResizeEvent } from 'ng-zorro-antd/resizable';
 
@@ -11,7 +11,7 @@ import { NzResizeEvent } from 'ng-zorro-antd/resizable';
   styleUrls: ['./wpx-table.component.scss']
 })
 export class WpxTableComponent implements OnInit {
-  @Input() coll!: Collection<any>;
+  @Input() ds!: Dataset<any>;
   @Input() scroll: { x?: string | null; y?: string | null } = { x: '1600px' };
   @Input() actions?: TemplateRef<any>;
   @Output() readonly fetch: EventEmitter<boolean> = new EventEmitter<boolean>();
@@ -29,7 +29,7 @@ export class WpxTableComponent implements OnInit {
   constructor(private fb: FormBuilder, private message: NzMessageService) {}
 
   ngOnInit(): void {
-    this.coll.fields.forEach(v => {
+    this.ds.fields.forEach(v => {
       if (!!v.keyword) {
         this.keywords.add(v.key);
       }
@@ -41,14 +41,14 @@ export class WpxTableComponent implements OnInit {
    */
   openSearchForm(): void {
     const controls: Record<string, FormGroup> = {};
-    for (const x of this.coll.columns) {
+    for (const x of this.ds.columns) {
       controls[x.value] = this.fb.group({
         operator: ['$regex'],
         value: []
       });
     }
     this.searchForm = this.fb.group(controls);
-    this.searchForm.patchValue(this.coll.searchOptions);
+    this.searchForm.patchValue(this.ds.searchOptions);
     this.searchVisible = true;
   }
 
@@ -65,12 +65,12 @@ export class WpxTableComponent implements OnInit {
    */
   submitSearch(data?: unknown): void {
     if (!!data) {
-      this.coll.searchText = '';
-      this.coll.searchOptions = data as Record<string, SearchOption>;
+      this.ds.searchText = '';
+      this.ds.searchOptions = data as Record<string, SearchOption>;
     } else {
-      this.coll.searchOptions = {};
+      this.ds.searchOptions = {};
     }
-    this.coll.updateStorage();
+    this.ds.updateStorage();
     this.fetch.emit(true);
   }
 
@@ -79,7 +79,7 @@ export class WpxTableComponent implements OnInit {
    */
   resetSearch(): void {
     const data: any = {};
-    for (const x of this.coll.columns) {
+    for (const x of this.ds.columns) {
       data[x.value] = {
         operator: '$regex',
         value: ''
@@ -92,8 +92,8 @@ export class WpxTableComponent implements OnInit {
    * 清除搜索
    */
   clearSearch(): void {
-    this.coll.searchText = '';
-    this.coll.searchOptions = {};
+    this.ds.searchText = '';
+    this.ds.searchOptions = {};
     this.fetch.emit(true);
   }
 
@@ -101,8 +101,8 @@ export class WpxTableComponent implements OnInit {
    * 自定义列宽
    */
   resize({ width }: NzResizeEvent, value: string): void {
-    this.coll.columnsWidth[value] = `${width}px`;
-    this.coll.updateStorage();
+    this.ds.columnsWidth[value] = `${width}px`;
+    this.ds.updateStorage();
   }
 
   /**

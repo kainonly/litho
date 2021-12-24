@@ -5,7 +5,7 @@ import { map, switchMap } from 'rxjs/operators';
 import { NzTableSortOrder } from 'ng-zorro-antd/table/src/table.types';
 import { NzTreeNode } from 'ng-zorro-antd/tree';
 
-import { SearchOption, SearchValue } from '../types';
+import { SearchOption, Where } from '../types';
 
 export function asyncValidator(
   handle: Observable<boolean>,
@@ -31,8 +31,8 @@ export function updateFormGroup(controls: AbstractControl[]) {
   });
 }
 
-export function getSearchValues(options: Record<string, SearchOption>): Record<string, SearchValue> {
-  const search: Record<string, SearchValue> = {};
+export function getSearchValues(options: Record<string, SearchOption>): Where<any> {
+  const search: Where<any> = {};
   for (const [key, opt] of Object.entries(options)) {
     if (opt.value) {
       search[key] = {

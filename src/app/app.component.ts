@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { tap } from 'rxjs/operators';
 
 import { environment } from '@env';
-import { Collection, WpxService } from '@weplanx/components';
+import { Dataset, WpxService } from '@weplanx/components';
 import { NzIconService } from 'ng-zorro-antd/icon';
 
 import { TestService } from './test.service';
@@ -12,14 +11,19 @@ import { TestService } from './test.service';
   template: ` <router-outlet></router-outlet> `
 })
 export class AppComponent implements OnInit {
-  coll!: Collection<any>;
+  coll!: Dataset<any>;
 
   constructor(private wpx: WpxService, private nzIconService: NzIconService, private test: TestService) {}
 
   ngOnInit() {
-    this.wpx.setBaseUrl(environment.baseUrl);
     this.wpx.setAssets(environment.cdn);
     this.nzIconService.changeAssetsSource(environment.cdn);
+    this.test.findOneById('61c0833dd1bba158d20fd8f4').subscribe(data => {
+      console.log(data);
+    });
+    // this.test.replace('sd', {
+    //   kind: 'group'
+    // });
     // this.test
     //   .find({
     //     kind: 'group'

@@ -5,18 +5,10 @@ import { StorageMap } from '@ngx-pwa/local-storage';
 import { NzCheckBoxOptionInterface } from 'ng-zorro-antd/checkbox';
 import { NzTableSize, NzTableSortOrder } from 'ng-zorro-antd/table/src/table.types';
 
-import { CollectionOption, CollectionValue, CollectionStorageValue, SearchOption, Field } from '../types';
+import { DatasetControl, SearchOption, Field, BasicDto } from '../types';
 import { Api } from './api';
 
-export class Collection<T extends CollectionValue> {
-  /**
-   * 本地存储依赖
-   */
-  private storage!: StorageMap;
-  /**
-   * 本地存储键名称
-   */
-  private key!: string;
+export class Dataset<T extends BasicDto> {
   /**
    * 初始化完毕
    */
@@ -58,10 +50,6 @@ export class Collection<T extends CollectionValue> {
    */
   checkedNumber = 0;
   /**
-   * 字段
-   */
-  readonly fields!: Field[];
-  /**
    * 列设置
    */
   columns: NzCheckBoxOptionInterface[] = [];
@@ -98,12 +86,9 @@ export class Collection<T extends CollectionValue> {
    */
   sortOptions: Record<string, NzTableSortOrder> = {};
 
-  constructor(option: CollectionOption) {
-    this.key = option.key;
-    this.storage = option.storage;
-    this.fields = option.fields;
-    this.storage.get(option.key).subscribe(unkonw => {
-      const v = unkonw as CollectionStorageValue;
+  constructor(private storage: StorageMap, private key: string, public fields: Field[]) {
+    storage.get(key).subscribe(unkonw => {
+      const v = unkonw as DatasetControl;
       if (!v) {
         this.pageSize = 10;
         this.pageIndex = 1;
@@ -158,7 +143,7 @@ export class Collection<T extends CollectionValue> {
     if (!!refresh) {
       this.reset();
     }
-    return api.findByPage<T>(this).pipe(
+    return api.findByPage(this).pipe(
       map(data => {
         this.setData(data);
         this.loading = false;
@@ -192,7 +177,7 @@ export class Collection<T extends CollectionValue> {
    * 设置数据全部选中
    */
   setNChecked(checked: boolean): void {
-    this.values.filter(v => !v.disabled).forEach(v => this.setCheckedIds(v._id, checked));
+    this.values.filter(v => !v.disabled).forEach(v => this.setCheckedIds(v._id!, checked));
     this.updateCheckedStatus();
   }
 
@@ -201,8 +186,8 @@ export class Collection<T extends CollectionValue> {
    */
   updateCheckedStatus(): void {
     const data = this.values.filter(v => !v.disabled);
-    this.checked = data.every(v => this.checkedIds.has(v._id));
-    this.indeterminate = data.some(v => this.checkedIds.has(v._id)) && !this.checked;
+    this.checked = data.every(v => this.checkedIds.has(v._id!));
+    this.indeterminate = data.some(v => this.checkedIds.has(v._id!)) && !this.checked;
     this.checkedNumber = this.checkedIds.size;
   }
 
@@ -260,7 +245,7 @@ export class Collection<T extends CollectionValue> {
    */
   updateStorage(): void {
     this.storage
-      .set(this.key, <CollectionStorageValue>{
+      .set(this.key, <DatasetControl>{
         pageSize: this.pageSize,
         pageIndex: this.pageIndex,
         columns: this.columns,

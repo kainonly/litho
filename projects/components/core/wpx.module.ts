@@ -23,8 +23,6 @@ import { WpxSortPipe } from './pipes/wpx-sort.pipe';
 import { WpxSplitPipe } from './pipes/wpx-split.pipe';
 import { AutoRouterPipe } from './utils/auto-router.pipe';
 import { OpenStatePipe } from './utils/open-state.pipe';
-import { WpxActivated } from './wpx-activated';
-import { WpxService } from './wpx.service';
 
 @NgModule({
   imports: [

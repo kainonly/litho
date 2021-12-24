@@ -3,14 +3,17 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { CollectionValue } from '../types';
-import { Collection } from './collection';
+import { AnyDto, CreateResult, DeleteResult, UpdateResult, Where } from '../types';
+import { Dataset } from './dataset';
 import { getSearchValues, toSortValues } from './helper';
 
 @Injectable()
 export class Api<T> {
   private static __resource__: string;
 
+  /**
+   * 设定资源
+   */
   static resource(name: string): typeof Api {
     this.__resource__ = name;
     return this;
@@ -21,36 +24,36 @@ export class Api<T> {
   /**
    * URL生成
    */
-  url(fragments: string[] = []): string {
+  protected url(...fragments: string[]): string {
     return [Api.__resource__, ...fragments].join('/');
   }
 
   /**
-   * 筛选获取单个文档
+   * 获取单个文档（筛选）
    */
-  findOne(where: Record<keyof T, any>): Observable<T> {
+  findOne(where: Where<T>): Observable<AnyDto<T>> {
     if (Object.keys(where).length === 0) {
       throw new Error('the [where] cannot be empty');
     }
     return this.http.get(this.url(), {
       params: new HttpParams().set('where', JSON.stringify(where)).set('single', true)
-    }) as Observable<T>;
+    }) as Observable<AnyDto<T>>;
   }
 
   /**
-   * ID获取单个文档
+   * 获取单个文档（ID）
    */
-  findOneById(id: string): Observable<T> {
+  findOneById(id: string): Observable<AnyDto<T>> {
     if (!id) {
       throw new Error('the [id] cannot be empty');
     }
-    return this.http.get(this.url([id])) as Observable<T>;
+    return this.http.get(this.url(id)) as Observable<AnyDto<T>>;
   }
 
   /**
-   * 筛选获取文档
+   * 获取多个文档（筛选）
    */
-  find(where?: Record<keyof T, any>, sort?: Record<string, 1 | -1>): Observable<T[]> {
+  find(where?: Where<T>, sort?: Record<string, 1 | -1>): Observable<Array<AnyDto<T>>> {
     let params = new HttpParams();
     if (where) {
       params = params.set('where', JSON.stringify(where));
@@ -62,13 +65,13 @@ export class Api<T> {
     }
     return this.http.get(this.url(), {
       params
-    }) as Observable<T[]>;
+    }) as Observable<Array<AnyDto<T>>>;
   }
 
   /**
-   * ID集合获取文档
+   * 获取多个文档（ID集合）
    */
-  findById(ids: string[], sort?: Record<string, 1 | -1>): Observable<T[]> {
+  findById(ids: string[], sort?: Record<string, 1 | -1>): Observable<Array<AnyDto<T>>> {
     if (ids.length === 0) {
       throw new Error('the [ids] cannot be empty');
     }
@@ -81,13 +84,13 @@ export class Api<T> {
         params = params.append('sort', `${k}.${v}`);
       }
     }
-    return this.http.get(this.url(), { params }) as Observable<T[]>;
+    return this.http.get(this.url(), { params }) as Observable<Array<AnyDto<T>>>;
   }
 
   /**
    * 获取分页文档
    */
-  findByPage<T extends CollectionValue>(coll: Collection<T>): Observable<T[]> {
+  findByPage(coll: Dataset<AnyDto<T>>): Observable<Array<AnyDto<T>>> {
     let params = new HttpParams();
     const where = !coll.searchText ? getSearchValues(coll.searchOptions) : { $text: { $search: coll.searchText } };
     if (Object.keys(where).length !== 0) {
@@ -113,20 +116,20 @@ export class Api<T> {
           coll.setTotal(parseInt(res.headers.get('x-page-total')!, 0));
           return res.body;
         })
-      ) as Observable<T[]>;
+      ) as Observable<Array<AnyDto<T>>>;
   }
 
   /**
    * 创建文档
    */
-  create(body: Record<string, any>): Observable<any> {
-    return this.http.post(this.url(), body);
+  create(body: T): Observable<CreateResult> {
+    return this.http.post(this.url(), body) as Observable<CreateResult>;
   }
 
   /**
-   * 更新筛选文档
+   * 更新多个文档（筛选）
    */
-  update(where: Record<keyof T, any>, data: Record<string, any>, multiple = true): Observable<any> {
+  update(where: Where<T>, data: Partial<T>, multiple = true): Observable<UpdateResult> {
     if (Object.keys(where).length === 0) {
       throw new Error('the [where] cannot be empty');
     }
@@ -140,37 +143,69 @@ export class Api<T> {
       {
         params: new HttpParams().set('where', JSON.stringify(where)).set('multiple', multiple)
       }
-    );
+    ) as Observable<UpdateResult>;
   }
 
   /**
-   * 更新
+   * 更新多个文档（ID）
    */
-  updateOne(where: Record<keyof T, any>, data: Record<string, any>): Observable<any> {
+  updateById(ids: string[], data: Partial<T>): Observable<UpdateResult> {
+    if (ids.length === 0) {
+      throw new Error('the [ids] cannot be empty');
+    }
+    let params = new HttpParams();
+    for (const id of ids) {
+      params = params.append('id', id);
+    }
+    return this.http.patch(
+      this.url(),
+      {
+        update: {
+          $set: data
+        }
+      },
+      { params }
+    ) as Observable<UpdateResult>;
+  }
+
+  /**
+   * 更新单个文档（筛选）
+   */
+  updateOne(where: Where<T>, data: Partial<T>): Observable<UpdateResult> {
     return this.update(where, data, false);
   }
 
   /**
-   * 更新ID文档
+   * 更新单个文档（ID）
    */
-  updateOneById(id: string, data: Record<string, any>): Observable<any> {
+  updateOneById(id: string, data: Partial<T>): Observable<UpdateResult> {
     if (!id) {
       throw new Error('the [id] cannot be empty');
     }
-    return this.http.patch(this.url([id]), {
+    return this.http.patch(this.url(id), {
       update: {
         $set: data
       }
-    });
+    }) as Observable<UpdateResult>;
+  }
+
+  /**
+   * 替换单个文档
+   */
+  replace(id: string, data: T): Observable<UpdateResult> {
+    if (!id) {
+      throw new Error('the [id] cannot be empty');
+    }
+    return this.http.put(this.url(id), data) as Observable<UpdateResult>;
   }
 
   /**
    * 删除文档
    */
-  delete(id: string): Observable<any> {
+  delete(id: string): Observable<DeleteResult> {
     if (!id) {
       throw new Error('the [id] cannot be empty');
     }
-    return this.http.delete(this.url([id]));
+    return this.http.delete(this.url(id)) as Observable<DeleteResult>;
   }
 }

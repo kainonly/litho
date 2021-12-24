@@ -1,14 +1,39 @@
-import { HttpClient } from '@angular/common/http';
 import { QueryList, TemplateRef } from '@angular/core';
 
-import { StorageMap } from '@ngx-pwa/local-storage';
 import { NzCheckBoxOptionInterface } from 'ng-zorro-antd/checkbox';
 import { NzTableSize, NzTableSortOrder } from 'ng-zorro-antd/table/src/table.types';
 
-export interface APIResponse<T> {
-  code: number;
-  message: string;
-  data?: T;
+export interface BasicDto {
+  /**
+   * 对象 ID
+   */
+  _id: string;
+  /**
+   * 创建时间
+   */
+  create_time: Date;
+  /**
+   * 修改时间
+   */
+  update_time: Date;
+  /**
+   * 扩展字段
+   */
+  [key: string]: any;
+}
+export type AnyDto<T> = T & BasicDto;
+export type Where<T> = Partial<{ [P in keyof AnyDto<T>]: any }>;
+export interface CreateResult {
+  InsertedID: string;
+}
+export interface UpdateResult {
+  MatchedCount: number;
+  ModifiedCount: number;
+  UpsertedCount: number;
+  UpsertedID?: string;
+}
+export interface DeleteResult {
+  DeletedCount: number;
 }
 
 export interface Field {
@@ -18,19 +43,7 @@ export interface Field {
   description?: string;
   keyword?: boolean;
 }
-
-export interface CollectionOption {
-  key: string;
-  storage: StorageMap;
-  fields: Field[];
-}
-
-export interface CollectionValue {
-  _id: string;
-  disabled?: boolean;
-}
-
-export interface CollectionStorageValue {
+export interface DatasetControl {
   pageSize: 10 | 20 | 30 | 40 | 50;
   pageIndex: number;
   columns: NzCheckBoxOptionInterface[];
@@ -40,14 +53,9 @@ export interface CollectionStorageValue {
   searchOptions: Record<string, SearchOption>;
   sortOptions: Record<string, NzTableSortOrder>;
 }
-
 export interface SearchOption {
   operator: string;
-  value: unknown;
-}
-
-export interface SearchValue {
-  [operator: string]: unknown;
+  value: any;
 }
 
 export interface UploadOption {
@@ -57,12 +65,10 @@ export interface UploadOption {
   fetchSignedMethod?: string;
   size?: number;
 }
-
 export interface UploadSignedResponse {
   filename: string;
   option: Record<string, any>;
 }
-
 export type UploadStorage = 'default' | 'oss' | 'obs' | 'cos';
 
 export interface LayoutOption {
@@ -86,93 +92,4 @@ export interface LayoutOption {
    * 操作区域
    */
   actions: QueryList<TemplateRef<unknown>>;
-}
-
-export interface Page {
-  /**
-   * 主键
-   */
-  _id: string;
-  /**
-   * 父节点
-   */
-  parent: string;
-  /**
-   * URL片段
-   */
-  fragment: string;
-  /**
-   * URL片段组
-   */
-  fragments: string[];
-  /**
-   * 层级
-   */
-  level: number;
-  /**
-   * 节点名称
-   */
-  name: string;
-  /**
-   * 是否为导航
-   */
-  nav: boolean;
-  /**
-   * 字体图标
-   */
-  icon: string;
-  /**
-   * 排序
-   */
-  sort: number;
-  /**
-   * 是否为路由
-   */
-  router?: 'manual' | 'table' | 'form';
-  /**
-   * 页面设置
-   */
-  option?: PageOption;
-  /**
-   * 子集
-   */
-  children: Page[];
-  /**
-   * 扩展定义
-   */
-  [key: string]: any;
-}
-
-export interface PageOption {
-  /**
-   * 引用内容类型
-   */
-  schema: string;
-  /**
-   * 是否预加载
-   */
-  fetch: boolean;
-  /**
-   * 视图字段
-   */
-  fields: ViewField[];
-  /**
-   * JSON Schema 验证
-   */
-  validation: unknown;
-}
-
-export interface ViewField {
-  /**
-   * 字段名
-   */
-  key: string;
-  /**
-   * 显示名称
-   */
-  label: string;
-  /**
-   * 是否显示
-   */
-  display: boolean;
 }

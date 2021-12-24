@@ -13,9 +13,9 @@ export class HeaderComponent {
   constructor(public app: AppService, private router: Router, private notification: NzNotificationService) {}
 
   logout(): void {
-    this.app.logout().subscribe(() => {
-      this.router.navigateByUrl('/login');
-      this.notification.info('认证状态', '您已退出管理系统');
-    });
+    // this.app.logout().subscribe(() => {
+    //   this.router.navigateByUrl('/login');
+    //   this.notification.info('认证状态', '您已退出管理系统');
+    // });
   }
 }
