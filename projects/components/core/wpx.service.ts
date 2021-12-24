@@ -86,17 +86,6 @@ export class WpxService {
   }
 
   /**
-   * 创建资源请求
-   */
-  api(model: string): Api {
-    return new Api({
-      http: this.http,
-      baseUrl: this.baseUrl,
-      model
-    });
-  }
-
-  /**
    * 创建数据集合
    */
   collection<T extends CollectionValue>(key: string, fields: Field[]): Collection<T> {

@@ -5,26 +5,10 @@ import { StorageMap } from '@ngx-pwa/local-storage';
 import { NzCheckBoxOptionInterface } from 'ng-zorro-antd/checkbox';
 import { NzTableSize, NzTableSortOrder } from 'ng-zorro-antd/table/src/table.types';
 
-export interface APIOption {
-  http: HttpClient;
-  baseUrl: string;
-  model: string;
-}
-
 export interface APIResponse<T> {
   code: number;
   message: string;
   data?: T;
-}
-
-export interface FindResult<T> {
-  value: T[];
-  next: number;
-}
-
-export interface FindByPageResult<T> {
-  value: T[];
-  total: number;
 }
 
 export interface Field {

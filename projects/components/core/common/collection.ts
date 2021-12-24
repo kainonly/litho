@@ -5,14 +5,7 @@ import { StorageMap } from '@ngx-pwa/local-storage';
 import { NzCheckBoxOptionInterface } from 'ng-zorro-antd/checkbox';
 import { NzTableSize, NzTableSortOrder } from 'ng-zorro-antd/table/src/table.types';
 
-import {
-  CollectionOption,
-  CollectionValue,
-  CollectionStorageValue,
-  SearchOption,
-  Field,
-  FindByPageResult
-} from '../types';
+import { CollectionOption, CollectionValue, CollectionStorageValue, SearchOption, Field } from '../types';
 import { Api } from './api';
 
 export class Collection<T extends CollectionValue> {
@@ -39,7 +32,7 @@ export class Collection<T extends CollectionValue> {
   /**
    * 集合数据
    */
-  value: T[] = [];
+  values: T[] = [];
   /**
    * 每页的数量
    */
@@ -138,12 +131,15 @@ export class Collection<T extends CollectionValue> {
     });
   }
 
+  setTotal(value: number) {
+    this.total = value;
+  }
+
   /**
    * 设置数据
    */
-  set(data: FindByPageResult<T>) {
-    this.value = [...data.value];
-    this.total = data.total;
+  setData(values: T[]) {
+    this.values = [...values];
   }
 
   /**
@@ -157,20 +153,20 @@ export class Collection<T extends CollectionValue> {
   /**
    * 从请求资源设置数据
    */
-  from(api: Api, refresh?: boolean): Observable<FindByPageResult<T>> {
+  from(api: Api<T>, refresh?: boolean): Observable<T[]> {
     this.loading = true;
     if (!!refresh) {
       this.reset();
     }
     return api.findByPage<T>(this).pipe(
-      map(v => {
-        this.set(v);
+      map(data => {
+        this.setData(data);
         this.loading = false;
         this.updateCheckedStatus();
         this.updateStorage();
-        return v;
+        return data;
       })
-    ) as Observable<FindByPageResult<T>>;
+    );
   }
 
   /**
@@ -196,7 +192,7 @@ export class Collection<T extends CollectionValue> {
    * 设置数据全部选中
    */
   setNChecked(checked: boolean): void {
-    this.value.filter(v => !v.disabled).forEach(v => this.setCheckedIds(v._id, checked));
+    this.values.filter(v => !v.disabled).forEach(v => this.setCheckedIds(v._id, checked));
     this.updateCheckedStatus();
   }
 
@@ -204,7 +200,7 @@ export class Collection<T extends CollectionValue> {
    * 更新数据选中状态
    */
   updateCheckedStatus(): void {
-    const data = this.value.filter(v => !v.disabled);
+    const data = this.values.filter(v => !v.disabled);
     this.checked = data.every(v => this.checkedIds.has(v._id));
     this.indeterminate = data.some(v => this.checkedIds.has(v._id)) && !this.checked;
     this.checkedNumber = this.checkedIds.size;

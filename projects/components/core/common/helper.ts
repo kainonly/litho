@@ -43,12 +43,26 @@ export function getSearchValues(options: Record<string, SearchOption>): Record<s
   return search;
 }
 
-export function getSortValues(options: Record<string, NzTableSortOrder>): any[] {
-  const sorts: any[] = [];
-  for (const [key, opt] of Object.entries(options)) {
-    sorts.push([key, opt === 'descend' ? -1 : 1]);
+export function toSortValues(options: Record<string, NzTableSortOrder | 1 | -1>): string[] {
+  const sort: string[] = [];
+  for (const [field, value] of Object.entries(options)) {
+    if (!value) {
+      continue;
+    }
+    let order: number;
+    switch (value) {
+      case 'ascend':
+        order = 1;
+        break;
+      case 'descend':
+        order = -1;
+        break;
+      default:
+        order = value as number;
+    }
+    sort.push(`${field}.${order}`);
   }
-  return sorts;
+  return sort;
 }
 
 /**

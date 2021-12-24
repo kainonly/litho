@@ -64,7 +64,7 @@ export class FormComponent implements OnInit {
         }
       });
     } else {
-      this.roles.api.updateById(this.editable._id, data).subscribe(v => {
+      this.roles.api.updateOneById(this.editable._id, data).subscribe(v => {
         if (!v.code) {
           this.message.success('数据更新完成');
           this.modal.triggerOk();

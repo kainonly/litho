@@ -45,11 +45,11 @@ export class PagesComponent implements OnInit {
   }
 
   getData(): void {
-    this.pages.api.find<Page>({}, [['sort', 1]]).subscribe(data => {
+    this.pages.api.find<Page>({}, { sort: 1 }).subscribe(data => {
       const nodes: NzTreeNodeOptions[] = [];
       const dict: Record<string, NzTreeNodeOptions> = {};
       console.log(data);
-      for (const x of data.value) {
+      for (const x of data) {
         this.data[x._id] = x;
         dict[x._id] = {
           title: `${x.name}`,
@@ -61,7 +61,7 @@ export class PagesComponent implements OnInit {
           selectable: x.kind !== 'group'
         };
       }
-      for (const x of data.value) {
+      for (const x of data) {
         const options = dict[x._id];
         if (!x.parent) {
           nodes.push(options);
@@ -124,7 +124,7 @@ export class PagesComponent implements OnInit {
       nzOkDanger: true,
       nzMaskClosable: true,
       nzOnOk: () => {
-        this.pages.api.deleteById([data._id]).subscribe(v => {
+        this.pages.api.delete(data._id).subscribe(v => {
           if (!v.code) {
             this.message.success('数据删除完成');
             this.getData();

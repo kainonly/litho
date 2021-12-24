@@ -1,25 +1,68 @@
-import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest, HttpResponse } from '@angular/common/http';
+import {
+  HttpErrorResponse,
+  HttpEvent,
+  HttpHandler,
+  HttpInterceptor,
+  HttpRequest,
+  HttpResponse
+} from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
-import { tap } from 'rxjs/operators';
+import { Observable, throwError } from 'rxjs';
+import { catchError, tap } from 'rxjs/operators';
+
+import { environment } from '@env';
+import { NzMessageService } from 'ng-zorro-antd/message';
 
 @Injectable()
 export class AppInterceptors implements HttpInterceptor {
-  constructor(private router: Router) {}
+  constructor(private router: Router, private message: NzMessageService) {}
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     const request = req.clone({
+      url: AppInterceptors.getUrl(req.url),
       withCredentials: true
     });
     return next.handle(request).pipe(
       tap(event => {
         if (event instanceof HttpResponse) {
-          if (event.body?.code === 401) {
-            this.router.navigateByUrl('/login');
-          }
+          // TODO: RBAC Code...
         }
-      })
+      }),
+      catchError(this.handleError)
     );
+  }
+
+  private handleError = (e: HttpErrorResponse) => {
+    switch (e.status) {
+      case 400:
+        this.message.error(`操作失败 [${e.error.code}] ${e.error.message}`);
+        break;
+      case 401:
+        this.message.error(`认证已失效，请重新登录`);
+        this.router.navigateByUrl('/login');
+        break;
+      case 403:
+        this.message.error(`访问权限被禁用，请联系管理员`);
+        break;
+      case 404:
+        this.message.error(`访问请求不存在`);
+        break;
+      case 500:
+        this.message.error(`操作异常`);
+        break;
+      case 503:
+        this.message.error(`服务器运行异常`);
+        break;
+    }
+    return throwError(e);
+  };
+
+  private static getUrl(url: string): string {
+    const regex = new RegExp('^http(|s)://');
+    if (!regex.test(url)) {
+      return `${environment.baseUrl}/${url}`;
+    }
+    return url;
   }
 }
