@@ -1,26 +1,26 @@
-<ul nz-menu nzMode="inline">
-  <ng-container *ngTemplateOutlet="navTemplate; context: { $implicit: wpx.pages | async }"></ng-container>
-  <ng-template #navTemplate let-nodes>
-    <ng-container *ngFor="let node of nodes | wpxSort: 'sort'">
-      <ng-container *ngIf="node.nav">
-        <ng-container *ngIf="!!node.router; else not">
-          <li nz-menu-item nzMatchRouter [nzPaddingLeft]="node.level * 16" [routerLink]="node | AutoRouter">
-            <i *ngIf="!!node.icon" nz-icon [nzType]="node.icon"></i>
-            <span>{{ node.name }}</span>
-          </li>
-        </ng-container>
-        <ng-template #not>
-          <li nz-submenu [nzOpen]="node.fragments | OpenState: wpx.fragments" [nzPaddingLeft]="node.level * 16">
-            <span title>
-              <i *ngIf="!!node.icon" nz-icon [nzType]="node.icon"></i>
-              <span>{{ node.name }}</span>
-            </span>
-            <ul>
-              <ng-container *ngTemplateOutlet="navTemplate; context: { $implicit: node.children }"></ng-container>
-            </ul>
-          </li>
-        </ng-template>
-      </ng-container>
-    </ng-container>
-  </ng-template>
-</ul>
+<!--<ul nz-menu nzMode="inline">-->
+<!--  <ng-container *ngTemplateOutlet="navTemplate; context: { $implicit: wpx.pages | async }"></ng-container>-->
+<!--  <ng-template #navTemplate let-nodes>-->
+<!--    <ng-container *ngFor="let node of nodes | wpxSort: 'sort'">-->
+<!--      <ng-container *ngIf="node.nav">-->
+<!--        <ng-container *ngIf="!!node.router; else not">-->
+<!--          <li nz-menu-item nzMatchRouter [nzPaddingLeft]="node.level * 16" [routerLink]="node | AutoRouter">-->
+<!--            <i *ngIf="!!node.icon" nz-icon [nzType]="node.icon"></i>-->
+<!--            <span>{{ node.name }}</span>-->
+<!--          </li>-->
+<!--        </ng-container>-->
+<!--        <ng-template #not>-->
+<!--          <li nz-submenu [nzOpen]="node.fragments | OpenState: wpx.fragments" [nzPaddingLeft]="node.level * 16">-->
+<!--            <span title>-->
+<!--              <i *ngIf="!!node.icon" nz-icon [nzType]="node.icon"></i>-->
+<!--              <span>{{ node.name }}</span>-->
+<!--            </span>-->
+<!--            <ul>-->
+<!--              <ng-container *ngTemplateOutlet="navTemplate; context: { $implicit: node.children }"></ng-container>-->
+<!--            </ul>-->
+<!--          </li>-->
+<!--        </ng-template>-->
+<!--      </ng-container>-->
+<!--    </ng-container>-->
+<!--  </ng-template>-->
+<!--</ul>-->

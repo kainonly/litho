@@ -13,7 +13,7 @@ import { WpxUploadDirective } from './directives/wpx-upload.directive';
 import { WpxLayoutActionDirective } from './layout/wpx-layout-action.directive';
 import { WpxLayoutAlertDirective } from './layout/wpx-layout-alert.directive';
 import { WpxLayoutComponent } from './layout/wpx-layout.component';
-import { WpxNavComponent } from './nav/wpx-nav.component';
+// import { WpxNavComponent } from './nav/wpx-nav.component';
 import { WpxPageHeaderComponent } from './page-header/wpx-page-header.component';
 import { WpxEmptyPipe } from './pipes/wpx-empty.pipe';
 import { WpxJoinPipe } from './pipes/wpx-join.pipe';
@@ -40,7 +40,7 @@ import { OpenStatePipe } from './utils/open-state.pipe';
     WpxLayoutComponent,
     WpxLayoutAlertDirective,
     WpxLayoutActionDirective,
-    WpxNavComponent,
+    // WpxNavComponent,
     WpxPageHeaderComponent,
     WpxEmptyPipe,
     WpxJoinPipe,
@@ -57,7 +57,7 @@ import { OpenStatePipe } from './utils/open-state.pipe';
     WpxLayoutComponent,
     WpxLayoutAlertDirective,
     WpxLayoutActionDirective,
-    WpxNavComponent,
+    // WpxNavComponent,
     WpxPageHeaderComponent,
     WpxEmptyPipe,
     WpxJoinPipe,
