@@ -2,70 +2,90 @@ import { Injectable } from '@angular/core';
 import { AsyncSubject, Observable, Subject, timer } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
 
-import { Api, WpxService } from '@weplanx/components';
+import { Page } from '@settings/pages/dto/page';
+import { Api } from '@weplanx/components';
 
 import { Field } from './dto/field';
 
 @Injectable()
-export class PagesSerivce {
+export class PagesSerivce extends Api.resource('pages')<Page> {
   key$: AsyncSubject<string> = new AsyncSubject<string>();
   refresh: Subject<any> = new Subject<any>();
 
-  api!: Api;
-
-  constructor(private wpx: WpxService) {
-    this.api = wpx.api('pages');
-  }
-
-  checkKey(value: string): Observable<any> {
+  hasSchemaKey(key: string): Observable<any> {
     return timer(500).pipe(
-      switchMap(() => this.api.send('/check_key', { value })),
+      switchMap(
+        () =>
+          this.http.get(this.url('has-schema-key'), {
+            params: { key }
+          }) as Observable<any>
+      ),
       map(v => {
-        if (v.code !== 0) {
-          return { error: true };
+        if (v.status === '') {
+          return null;
         }
-        switch (v.data) {
-          case 'duplicated':
-            return { error: true, duplicated: true };
-          case 'history':
-            return { error: true, history: true };
-        }
-        return null;
+        return { error: true, [v.status]: true };
       })
     );
   }
 
-  reorganization(id: string, parent: string, sort: string[]): Observable<any> {
-    return this.api.send('/reorganization', { id, parent, sort });
+  reorganization(id: string, parent: string): Observable<any> {
+    return this.updateOneById(id, {
+      update: {
+        $set: {
+          parent
+        }
+      }
+    });
+  }
+
+  sort(sort: string[]): Observable<any> {
+    return this.http.patch(this.url('sort'), { sort });
   }
 
   updateSchemaField(id: string, key: string, data: Field): Observable<any> {
-    return this.api.updateById(id, {
-      [`schema.fields.${key}`]: data
+    return this.updateOneById(id, {
+      update: {
+        $set: {
+          [`schema.fields.${key}`]: data
+        }
+      }
     });
   }
 
   sortSchemaFields(id: string, fields: string[]): Observable<any> {
-    return this.api.send('/sort_schema_fields', { id, fields });
+    return this.updateOneById(id, {
+      update: {
+        $set: fields.map((key, index) => ({
+          [`schema.fields.${key}.sort`]: index
+        })) as Record<string, any>
+      }
+    });
   }
 
   deleteSchemaField(id: string, key: string): Observable<any> {
-    return this.api.send('/delete_schema_field', { id, key });
+    return this.updateOneById(id, {
+      update: {
+        $unset: {
+          [`schema.fields.${key}`]: ''
+        }
+      }
+    });
   }
 
   findIndexes(id: string): Observable<any> {
-    return this.api.send('/find_indexes', { id }).pipe(map(v => (!v.code ? v.data : null)));
+    return this.http.get(this.url(id, 'indexes'));
   }
 
-  createIndex(id: string, data: any): Observable<any> {
-    return this.api.send('/create_index', { id, ...data });
+  createIndex(id: string, name: string, data: any): Observable<any> {
+    return this.http.put(this.url(id, 'indexes', name), data);
   }
 
   deleteIndex(id: string, name: string): Observable<any> {
-    return this.api.send('/delete_index', { id, name });
+    return this.http.delete(this.url(id, 'indexes', name));
   }
 
-  updateValidator(id: string, validator: string): Observable<any> {
-    return this.api.send('/update_validator', { id, validator });
-  }
+  // updateValidator(id: string, validator: string): Observable<any> {
+  //   return this.api.send('/update_validator', { id, validator });
+  // }
 }

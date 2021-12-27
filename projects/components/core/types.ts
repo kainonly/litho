@@ -26,6 +26,9 @@ export type Where<T> = Partial<{ [P in keyof AnyDto<T>]: any }>;
 export interface CreateResult {
   InsertedID: string;
 }
+export interface UpdateDto<T> {
+  update: Record<string, Partial<T>>;
+}
 export interface UpdateResult {
   MatchedCount: number;
   ModifiedCount: number;

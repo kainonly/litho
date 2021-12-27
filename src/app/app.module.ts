@@ -15,7 +15,6 @@ import { NZ_CONFIG, NzConfig } from 'ng-zorro-antd/core/config';
 import { NZ_I18N, zh_CN } from 'ng-zorro-antd/i18n';
 
 import { AppComponent } from './app.component';
-import { TestService } from './test.service';
 
 registerLocaleData(zh);
 
@@ -68,8 +67,7 @@ const ngZorroConfig: NzConfig = {
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AppInterceptors, multi: true },
     { provide: NZ_I18N, useValue: zh_CN },
-    { provide: NZ_CONFIG, useValue: ngZorroConfig },
-    TestService
+    { provide: NZ_CONFIG, useValue: ngZorroConfig }
   ],
   bootstrap: [AppComponent]
 })

@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { AnyDto, CreateResult, DeleteResult, UpdateResult, Where } from '../types';
+import { AnyDto, CreateResult, DeleteResult, UpdateDto, UpdateResult, Where } from '../types';
 import { Dataset } from './dataset';
 import { getSearchValues, toSortValues } from './helper';
 
@@ -129,27 +129,19 @@ export class Api<T> {
   /**
    * 更新多个文档（筛选）
    */
-  update(where: Where<T>, data: Partial<T>, multiple = true): Observable<UpdateResult> {
+  update(where: Where<T>, body: UpdateDto<T>, multiple = true): Observable<UpdateResult> {
     if (Object.keys(where).length === 0) {
       throw new Error('the [where] cannot be empty');
     }
-    return this.http.patch(
-      this.url(),
-      {
-        update: {
-          $set: data
-        }
-      },
-      {
-        params: new HttpParams().set('where', JSON.stringify(where)).set('multiple', multiple)
-      }
-    ) as Observable<UpdateResult>;
+    return this.http.patch(this.url(), body, {
+      params: new HttpParams().set('where', JSON.stringify(where)).set('multiple', multiple)
+    }) as Observable<UpdateResult>;
   }
 
   /**
    * 更新多个文档（ID）
    */
-  updateById(ids: string[], data: Partial<T>): Observable<UpdateResult> {
+  updateById(ids: string[], body: UpdateDto<T>): Observable<UpdateResult> {
     if (ids.length === 0) {
       throw new Error('the [ids] cannot be empty');
     }
@@ -157,36 +149,24 @@ export class Api<T> {
     for (const id of ids) {
       params = params.append('id', id);
     }
-    return this.http.patch(
-      this.url(),
-      {
-        update: {
-          $set: data
-        }
-      },
-      { params }
-    ) as Observable<UpdateResult>;
+    return this.http.patch(this.url(), body, { params }) as Observable<UpdateResult>;
   }
 
   /**
    * 更新单个文档（筛选）
    */
-  updateOne(where: Where<T>, data: Partial<T>): Observable<UpdateResult> {
-    return this.update(where, data, false);
+  updateOne(where: Where<T>, body: UpdateDto<T>): Observable<UpdateResult> {
+    return this.update(where, body, false);
   }
 
   /**
    * 更新单个文档（ID）
    */
-  updateOneById(id: string, data: Partial<T>): Observable<UpdateResult> {
+  updateOneById(id: string, body: UpdateDto<T>): Observable<UpdateResult> {
     if (!id) {
       throw new Error('the [id] cannot be empty');
     }
-    return this.http.patch(this.url(id), {
-      update: {
-        $set: data
-      }
-    }) as Observable<UpdateResult>;
+    return this.http.patch(this.url(id), body) as Observable<UpdateResult>;
   }
 
   /**
