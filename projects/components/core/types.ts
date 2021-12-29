@@ -27,7 +27,7 @@ export interface CreateResult {
   InsertedID: string;
 }
 export interface UpdateDto<T> {
-  update: Record<string, Partial<T>>;
+  update: Record<string, Partial<T & Record<string, any>>>;
 }
 export interface UpdateResult {
   MatchedCount: number;

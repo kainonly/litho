@@ -85,7 +85,13 @@ export class PagesSerivce extends Api.resource('pages')<Page> {
     return this.http.delete(this.url(id, 'indexes', name));
   }
 
-  // updateValidator(id: string, validator: string): Observable<any> {
-  //   return this.api.send('/update_validator', { id, validator });
-  // }
+  updateValidator(id: string, validator: string): Observable<any> {
+    return this.updateOneById(id, {
+      update: {
+        $set: {
+          [`schema.validator`]: validator
+        }
+      }
+    });
+  }
 }
