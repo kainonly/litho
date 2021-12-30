@@ -52,13 +52,13 @@ export class FormComponent implements OnInit {
   }
 
   submit(data: any): void {
-    this.pages.createIndex(this.key!, data).subscribe(v => {
-      if (!v.code) {
-        this.modal.triggerOk();
-        this.message.success('索引更新完成');
-      } else {
-        this.notification.error('操作失败', v.message);
-      }
-    });
+    // this.pages.createIndex(this.key!, data).subscribe(v => {
+    //   if (!v.code) {
+    //     this.modal.triggerOk();
+    //     this.message.success('索引更新完成');
+    //   } else {
+    //     this.notification.error('操作失败', v.message);
+    //   }
+    // });
   }
 }

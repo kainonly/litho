@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 
-import { updateFormGroup } from '@weplanx/components';
+import { AnyDto, updateFormGroup } from '@weplanx/components';
 import { JoinedEditorOptions } from 'ng-zorro-antd/code-editor/typings';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
@@ -18,7 +18,7 @@ declare const monaco: any;
 })
 export class ValidatorComponent implements OnInit {
   key!: string;
-  private page!: Page;
+  private page!: AnyDto<Page>;
   form?: FormGroup;
 
   option: JoinedEditorOptions = {
@@ -42,7 +42,7 @@ export class ValidatorComponent implements OnInit {
   }
 
   getData(): void {
-    this.pages.api.findOneById<Page>(this.key).subscribe(v => {
+    this.pages.findOneById(this.key).subscribe(v => {
       this.page = v;
       const value = `{"$schema": "http://json-schema.org/draft-04/schema"}`;
       this.form = this.fb.group({
@@ -79,7 +79,7 @@ export class ValidatorComponent implements OnInit {
   }
 
   submit(data: any): void {
-    this.pages.updateValidator(this.page!._id, data.validator).subscribe(v => {
+    this.pages.updateValidator(this.page._id, data.validator).subscribe(v => {
       if (!v.code) {
         this.message.success('验证器已更新');
       } else {

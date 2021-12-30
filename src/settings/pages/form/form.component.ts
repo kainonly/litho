@@ -55,7 +55,7 @@ export class FormComponent implements OnInit {
     if (control.value === this.editable?.key) {
       return null;
     }
-    return this.pages.checkKey(control.value);
+    return this.pages.hasSchemaKey(control.value);
   };
 
   changedKind(value: string): void {
@@ -72,22 +72,14 @@ export class FormComponent implements OnInit {
 
   submit(data: any): void {
     if (!this.editable) {
-      this.pages.api.create(data).subscribe(v => {
-        if (!v.code) {
-          this.message.success('数据新增完成');
-          this.modal.triggerOk();
-        } else {
-          this.notification.error('操作失败', v.message);
-        }
+      this.pages.create(data).subscribe(v => {
+        this.message.success('数据新增完成');
+        this.modal.triggerOk();
       });
     } else {
-      this.pages.api.updateById(this.editable._id, data).subscribe(v => {
-        if (!v.code) {
-          this.message.success('数据更新完成');
-          this.modal.triggerOk();
-        } else {
-          this.notification.error('操作失败', v.message);
-        }
+      this.pages.updateById(this.editable._id, data).subscribe(v => {
+        this.message.success('数据更新完成');
+        this.modal.triggerOk();
       });
     }
   }

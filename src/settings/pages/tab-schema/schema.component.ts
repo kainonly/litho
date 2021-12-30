@@ -2,6 +2,7 @@ import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
+import { AnyDto } from '@weplanx/components';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
@@ -19,7 +20,7 @@ import { FormComponent } from './form/form.component';
 })
 export class SchemaComponent implements OnInit {
   key!: string;
-  private page!: Page;
+  private page!: AnyDto<Page>;
 
   fieldList: Field[] = [];
   datatype: Record<string, string> = Object.fromEntries([].concat(...(fieldTypeValues.map(v => v.values) as any[])));
@@ -41,7 +42,7 @@ export class SchemaComponent implements OnInit {
   }
 
   getData(): void {
-    this.pages.api.findOneById<Page>(this.key).subscribe(v => {
+    this.pages.findOneById(this.key).subscribe(v => {
       this.page = v;
       this.setFieldList();
     });

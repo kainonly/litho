@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { AbstractControl, FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 
+import { AnyDto } from '@weplanx/components';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalRef } from 'ng-zorro-antd/modal';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
@@ -15,7 +16,7 @@ import { fieldTypeValues } from '../../values';
 })
 export class FormComponent implements OnInit {
   @Input() editable?: Record<string, any>;
-  @Input() page?: Page;
+  @Input() page?: AnyDto<Page>;
   form?: FormGroup;
   typeValues: Array<Record<string, any>> = fieldTypeValues;
   readonly special = ['number', 'radio', 'checkbox', 'select'];

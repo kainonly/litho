@@ -1,12 +1,12 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 
-import { TreeNodesExpanded } from '@weplanx/components';
+import { AnyDto, TreeNodesExpanded } from '@weplanx/components';
 import { NzContextMenuService, NzDropdownMenuComponent } from 'ng-zorro-antd/dropdown';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
-import { NzFormatEmitEvent, NzTreeComponent, NzTreeNode, NzTreeNodeOptions } from 'ng-zorro-antd/tree';
+import { NzFormatEmitEvent, NzTreeComponent, NzTreeNodeOptions } from 'ng-zorro-antd/tree';
 
 import { Page } from './dto/page';
 import { FormComponent } from './form/form.component';
@@ -22,7 +22,7 @@ export class PagesComponent implements OnInit {
   name = '';
   expand = true;
 
-  data: Record<string, Page> = {};
+  data: Record<string, AnyDto<Page>> = {};
   actionKey?: string;
   selectedKeys: string[] = [];
 
@@ -45,10 +45,9 @@ export class PagesComponent implements OnInit {
   }
 
   getData(): void {
-    this.pages.api.find<Page>({}, { sort: 1 }).subscribe(data => {
+    this.pages.find({}, { sort: 1 }).subscribe(data => {
       const nodes: NzTreeNodeOptions[] = [];
       const dict: Record<string, NzTreeNodeOptions> = {};
-      console.log(data);
       for (const x of data) {
         this.data[x._id] = x;
         dict[x._id] = {
@@ -115,7 +114,7 @@ export class PagesComponent implements OnInit {
     });
   }
 
-  delete(data: Page): void {
+  delete(data: AnyDto<Page>): void {
     this.modal.confirm({
       nzTitle: '您确定要作废该页面吗?',
       nzContent: '该操作不会真实删除实体集合，如必须删除需要数据库工具控制完成',
@@ -124,13 +123,9 @@ export class PagesComponent implements OnInit {
       nzOkDanger: true,
       nzMaskClosable: true,
       nzOnOk: () => {
-        this.pages.api.delete(data._id).subscribe(v => {
-          if (!v.code) {
-            this.message.success('数据删除完成');
-            this.getData();
-          } else {
-            this.notification.error('操作失败', v.message);
-          }
+        this.pages.delete(data._id).subscribe(v => {
+          this.message.success('数据删除完成');
+          this.getData();
         });
       },
       nzCancelText: '再想想'
@@ -152,13 +147,9 @@ export class PagesComponent implements OnInit {
       parent = parentNode.key;
       sort = parentNode.children.map(v => v.key);
     }
-    this.pages.reorganization(node.key, parent, sort).subscribe(v => {
-      if (!v.code) {
-        this.message.success('数据更新完成');
-        this.getData();
-      } else {
-        this.notification.error('操作失败', v.message);
-      }
+    this.pages.reorganization(node.key, parent).subscribe(v => {
+      this.message.success('数据更新完成');
+      this.getData();
     });
   }
 }
