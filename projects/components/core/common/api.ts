@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { AnyDto, CreateResult, DeleteResult, UpdateDto, UpdateResult, Where } from '../types';
+import { AnyDto, CreateDto, CreateResult, DeleteResult, UpdateDto, UpdateResult, Where } from '../types';
 import { Dataset } from './dataset';
 import { getSearchValues, toSortValues } from './helper';
 
@@ -122,7 +122,7 @@ export class Api<T> {
   /**
    * 创建文档
    */
-  create(body: T): Observable<CreateResult> {
+  create(body: CreateDto<T>): Observable<CreateResult> {
     return this.http.post(this.url(), body) as Observable<CreateResult>;
   }
 

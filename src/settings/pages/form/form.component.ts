@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 
+import { Page } from '@settings/pages/dto/page';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalRef } from 'ng-zorro-antd/modal';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
@@ -29,7 +30,7 @@ export class FormComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.nodes) {
-      this.parentNodes = [{ title: '最高级', key: 'root', isLeaf: true }, ...this.nodes];
+      this.parentNodes = [...this.nodes];
     }
     this.form = this.fb.group({
       name: [null, [Validators.required]],
@@ -70,14 +71,14 @@ export class FormComponent implements OnInit {
     this.modal.triggerCancel();
   }
 
-  submit(data: any): void {
+  submit(data: Page): void {
     if (!this.editable) {
-      this.pages.create(data).subscribe(v => {
+      this.pages.create({ doc: data }).subscribe(v => {
         this.message.success('数据新增完成');
         this.modal.triggerOk();
       });
     } else {
-      this.pages.updateById(this.editable._id, data).subscribe(v => {
+      this.pages.updateById(this.editable._id, { update: { $set: data } }).subscribe(v => {
         this.message.success('数据更新完成');
         this.modal.triggerOk();
       });

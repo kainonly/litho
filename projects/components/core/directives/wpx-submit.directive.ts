@@ -7,7 +7,7 @@ import { updateFormGroup } from '../common/helper';
   selector: 'form[wpxSubmit]'
 })
 export class WpxSubmitDirective implements OnInit {
-  @Output() readonly wpxSubmit: EventEmitter<unknown> = new EventEmitter<unknown>();
+  @Output() readonly wpxSubmit: EventEmitter<any> = new EventEmitter<any>();
 
   constructor(private formGroup: FormGroupDirective) {}
 

@@ -53,12 +53,8 @@ export class IndexesComponent implements OnInit {
 
   delete(name: string): void {
     this.pages.deleteIndex(this.key, name).subscribe(v => {
-      if (v.code === 0) {
-        this.getData();
-        this.message.success('索引移除成功');
-      } else {
-        this.notification.error('操作失败', v.message);
-      }
+      this.getData();
+      this.message.success('索引移除成功');
     });
   }
 }

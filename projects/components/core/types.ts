@@ -23,6 +23,9 @@ export interface BasicDto {
 }
 export type AnyDto<T> = T & BasicDto;
 export type Where<T> = Partial<{ [P in keyof AnyDto<T>]: any }>;
+export interface CreateDto<T> {
+  doc: T;
+}
 export interface CreateResult {
   InsertedID: string;
 }
