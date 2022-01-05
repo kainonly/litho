@@ -26,8 +26,8 @@ export class IndexesComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.params.subscribe(v => {
-      this.key = v.key;
-      this.pages.key$.next(v.key);
+      this.key = v['key'];
+      this.pages.key$.next(v['key']);
       this.getData();
     });
   }

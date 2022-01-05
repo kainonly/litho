@@ -1,14 +1,10 @@
 import { Injectable } from '@angular/core';
 import { AsyncSubject } from 'rxjs';
 
-import { Api, WpxService } from '@weplanx/components';
+import { Role } from '@settings/roles/dto/role';
+import { Api } from '@weplanx/core';
 
 @Injectable()
-export class RolesService {
+export class RolesService extends Api.resource('pages')<Role> {
   key$: AsyncSubject<string> = new AsyncSubject<string>();
-  api!: Api;
-
-  constructor(private wpx: WpxService) {
-    this.api = wpx.api('roles');
-  }
 }

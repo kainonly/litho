@@ -3,7 +3,7 @@ import { AsyncSubject, Observable, Subject, timer } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
 
 import { Page } from '@settings/pages/dto/page';
-import { Api } from '@weplanx/components';
+import { Api } from '@weplanx/core';
 
 import { Field } from './dto/field';
 

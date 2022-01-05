@@ -25,7 +25,7 @@ export class Api<T> {
    * URL生成
    */
   protected url(...fragments: string[]): string {
-    return [Api.__resource__, ...fragments].join('/');
+    return ['api', Api.__resource__, ...fragments].join('/');
   }
 
   /**

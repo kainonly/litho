@@ -2,12 +2,12 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
 import { HeaderModule } from '@common/header/header.module';
-import { AppShareModule } from '@share';
+import { ShareModule } from '@common/share.module';
 
 import { LayoutComponent } from './layout.component';
 
 @NgModule({
-  imports: [AppShareModule, RouterModule, HeaderModule],
+  imports: [ShareModule, RouterModule, HeaderModule],
   declarations: [LayoutComponent],
   exports: [LayoutComponent]
 })

@@ -9,8 +9,8 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 
 import { AppGuard } from '@common/app.guard';
 import { AppInterceptors } from '@common/app.interceptors';
+import { ShareModule } from '@common/share.module';
 import { environment } from '@env';
-import { AppShareModule } from '@share';
 import { NZ_CONFIG, NzConfig } from 'ng-zorro-antd/core/config';
 import { NZ_I18N, zh_CN } from 'ng-zorro-antd/i18n';
 
@@ -20,25 +20,28 @@ registerLocaleData(zh);
 
 const routes: Routes = [
   {
+    path: 'login',
+    loadChildren: () => import('./login/login.module').then(m => m.LoginModule)
+  },
+  {
     path: 'pages',
     loadChildren: () => import('./app-routing.module').then(m => m.AppRoutingModule),
     canActivate: [AppGuard]
   },
   {
     path: 'center',
-    loadChildren: () => import('@center/center.module').then(m => m.CenterModule)
+    loadChildren: () => import('@center/center.module').then(m => m.CenterModule),
+    canActivate: [AppGuard]
   },
   {
     path: 'settings',
     loadChildren: () => import('@settings/settings.module').then(m => m.SettingsModule),
+    canActivate: [AppGuard],
     data: {
       breadcrumb: '管理者工具'
     }
   },
-  {
-    path: 'login',
-    loadChildren: () => import('./login/login.module').then(m => m.LoginModule)
-  }
+  { path: '', redirectTo: '/pages', pathMatch: 'full' }
 ];
 
 const ngZorroConfig: NzConfig = {
@@ -57,7 +60,7 @@ const ngZorroConfig: NzConfig = {
     BrowserModule,
     BrowserAnimationsModule,
     HttpClientModule,
-    AppShareModule,
+    ShareModule,
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: environment.production,
       registrationStrategy: 'registerWhenStable:30000'

@@ -2,7 +2,7 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { AppShareModule } from '@share';
+import { ShareModule } from '@common/share.module';
 
 import { TabsModule } from '../tabs/tabs.module';
 import { FormComponent } from './form/form.component';
@@ -16,7 +16,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [AppShareModule, DragDropModule, TabsModule, RouterModule.forChild(routes)],
+  imports: [ShareModule, DragDropModule, TabsModule, RouterModule.forChild(routes)],
   declarations: [SchemaComponent, FormComponent]
 })
 export class SchemaModule {}

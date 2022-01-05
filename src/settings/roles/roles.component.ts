@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { Role } from '@settings/roles/dto/role';
-import { TreeNodesExpanded } from '@weplanx/components';
+import { TreeNodesExpanded } from '@weplanx/core';
 import { NzContextMenuService, NzDropdownMenuComponent } from 'ng-zorro-antd/dropdown';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalService } from 'ng-zorro-antd/modal';
@@ -45,7 +45,7 @@ export class RolesComponent implements OnInit {
   }
 
   getData(): void {
-    this.roles.api.find<Role>().subscribe(data => {
+    this.roles.find().subscribe(data => {
       const nodes: NzTreeNodeOptions[] = [];
       const dict: Record<string, NzTreeNodeOptions> = {};
       for (const x of data) {
@@ -55,8 +55,7 @@ export class RolesComponent implements OnInit {
           key: x._id,
           parent: x.parent,
           isLeaf: true,
-          expanded: true,
-          selectable: x.kind !== 'group'
+          expanded: true
         };
       }
       for (const x of data) {

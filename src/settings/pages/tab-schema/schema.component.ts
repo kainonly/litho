@@ -2,7 +2,7 @@ import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
-import { AnyDto } from '@weplanx/components';
+import { AnyDto } from '@weplanx/core';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
@@ -35,8 +35,8 @@ export class SchemaComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.params.subscribe(v => {
-      this.key = v.key;
-      this.pages.key$.next(v.key);
+      this.key = v['key'];
+      this.pages.key$.next(v['key']);
       this.getData();
     });
   }

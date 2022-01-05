@@ -5,8 +5,7 @@
   "scripts": {
     "start": "ng serve --host 0.0.0.0 --disable-host-check",
     "build:console": "ng build --configuration production",
-    "build": "ng build framework --configuration production",
-    "release": "cd dist/framework && npm publish",
+    "build:core": "ng build core --configuration production",
     "test": "ng test --no-watch --no-progress --browsers=ChromeHeadlessCI",
     "lint": "ng lint",
     "e2e": "ng e2e"
@@ -25,8 +24,8 @@
     "@ngx-pwa/local-storage": "^13.0.2",
     "monaco-editor": "^0.31.1",
     "ng-zorro-antd": "^13.0.0",
-    "rxjs": "~6.6.0",
-    "tslib": "^2.2.0",
+    "rxjs": "~7.4.0",
+    "tslib": "^2.3.0",
     "zone.js": "~0.11.4"
   },
   "devDependencies": {
@@ -38,7 +37,7 @@
     "@angular-eslint/template-parser": "~13.0.1",
     "@angular/cli": "~13.1.2",
     "@angular/compiler-cli": "~13.1.1",
-    "@types/jasmine": "~3.7.0",
+    "@types/jasmine": "~3.10.0",
     "@types/node": "^12.11.1",
     "@types/uuid": "^8.3.1",
     "@typescript-eslint/eslint-plugin": "5.3.0",
@@ -47,7 +46,7 @@
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-import": "2.25.2",
     "eslint-plugin-prettier": "^3.4.0",
-    "jasmine-core": "~3.8.0",
+    "jasmine-core": "~3.10.0",
     "karma": "~6.3.0",
     "karma-chrome-launcher": "~3.1.0",
     "karma-coverage": "~2.1.0",

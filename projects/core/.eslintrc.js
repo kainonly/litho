@@ -1,15 +1,12 @@
 module.exports = {
   extends: '../../.eslintrc.js',
-  parserOptions: {
-    ecmaVersion: 2021
-  },
   ignorePatterns: ['!**/*'],
   overrides: [
     {
       files: ['*.ts'],
       plugins: ['@typescript-eslint', 'import'],
       parserOptions: {
-        project: ['projects/components/tsconfig.lib.json'],
+        project: ['projects/core/tsconfig.lib.json', 'projects/core/tsconfig.spec.json'],
         createDefaultProgram: true
       },
       rules: {

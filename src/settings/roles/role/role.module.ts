@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { AppShareModule } from '@share';
+import { ShareModule } from '@common/share.module';
 import { NzTreeModule } from 'ng-zorro-antd/tree';
 
 import { RoleComponent } from './role.component';
@@ -14,7 +14,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [AppShareModule, NzTreeModule, RouterModule.forChild(routes)],
+  imports: [ShareModule, NzTreeModule, RouterModule.forChild(routes)],
   declarations: [RoleComponent]
 })
 export class RoleModule {}

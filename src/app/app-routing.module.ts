@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { AppShareModule } from '@share';
+import { ShareModule } from '@common/share.module';
 
 import { LayoutComponent } from './layout/layout.component';
 import { LayoutModule } from './layout/layout.module';
@@ -26,6 +26,6 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [AppShareModule, LayoutModule, RouterModule.forChild(routes)]
+  imports: [ShareModule, LayoutModule, RouterModule.forChild(routes)]
 })
 export class AppRoutingModule {}

@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output, TemplateRef, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 
-import { SearchOption, Dataset } from '@weplanx/components';
+import { SearchOption, Dataset } from '@weplanx/core';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzResizeEvent } from 'ng-zorro-antd/resizable';
 

@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { AppShareModule } from '@share';
+import { ShareModule } from '@common/share.module';
 
 import { TabsModule } from '../tabs/tabs.module';
 import { RulesComponent } from './rules.component';
@@ -14,7 +14,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [AppShareModule, TabsModule, RouterModule.forChild(routes)],
+  imports: [ShareModule, TabsModule, RouterModule.forChild(routes)],
   declarations: [RulesComponent]
 })
 export class RulesModule {}

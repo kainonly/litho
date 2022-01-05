@@ -13,7 +13,7 @@ import { RolesService } from '../roles.service';
   templateUrl: './form.component.html'
 })
 export class FormComponent implements OnInit {
-  @Input() editable?: Record<string, any>;
+  @Input() editable?: any;
   @Input() nodes?: NzTreeNodeOptions[];
   parentNodes?: NzTreeNodeOptions[];
 
@@ -55,22 +55,14 @@ export class FormComponent implements OnInit {
 
   submit(data: any): void {
     if (!this.editable) {
-      this.roles.api.create(data).subscribe(v => {
-        if (!v.code) {
-          this.message.success('数据新增完成');
-          this.modal.triggerOk();
-        } else {
-          this.notification.error('操作失败', v.message);
-        }
+      this.roles.create(data).subscribe(v => {
+        this.message.success('数据新增完成');
+        this.modal.triggerOk();
       });
     } else {
-      this.roles.api.updateOneById(this.editable._id, data).subscribe(v => {
-        if (!v.code) {
-          this.message.success('数据更新完成');
-          this.modal.triggerOk();
-        } else {
-          this.notification.error('操作失败', v.message);
-        }
+      this.roles.updateOneById(this.editable._id, data).subscribe(v => {
+        this.message.success('数据更新完成');
+        this.modal.triggerOk();
       });
     }
   }

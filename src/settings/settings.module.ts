@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { HeaderModule } from '@common/header/header.module';
-import { AppShareModule } from '@share';
+import { ShareModule } from '@common/share.module';
 
 import { SettingsComponent } from './settings.component';
 
@@ -38,7 +38,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [AppShareModule, HeaderModule, RouterModule.forChild(routes)],
+  imports: [ShareModule, HeaderModule, RouterModule.forChild(routes)],
   declarations: [SettingsComponent]
 })
 export class SettingsModule {}

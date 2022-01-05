@@ -1,6 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Subscription, timer } from 'rxjs';
-import { map, switchMap } from 'rxjs/operators';
+import { Subscription } from 'rxjs';
 
 import { AppService } from '@common/app.service';
 

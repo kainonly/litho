@@ -14,7 +14,7 @@ import { PagesSerivce } from '../pages.serivce';
   templateUrl: './form.component.html'
 })
 export class FormComponent implements OnInit {
-  @Input() editable?: Record<string, any>;
+  @Input() editable?: any;
   @Input() nodes?: NzTreeNodeOptions[];
   parentNodes?: NzTreeNodeOptions[];
 
