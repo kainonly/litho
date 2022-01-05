@@ -33,39 +33,39 @@ export class WpxUploadDirective {
             const response = v as UploadSignedResponse;
             const sep = file.name.split('.');
             const ext = sep.length > 1 ? `.${sep.pop()?.toLowerCase()}` : '';
-            file.key = response.filename + ext;
+            file['key'] = response.filename + ext;
             switch (option.storage) {
               /**
                * 阿里云对象存储
                */
               case 'oss':
                 return {
-                  key: file.key,
-                  policy: response.option.policy,
-                  OSSAccessKeyId: response.option.access_key_id,
-                  Signature: response.option.signature
+                  key: file['key'],
+                  policy: response.option['policy'],
+                  OSSAccessKeyId: response.option['access_key_id'],
+                  Signature: response.option['signature']
                 };
               /**
                * 华为云对象存储
                */
               case 'obs':
                 return {
-                  key: file.key,
-                  policy: response.option.policy,
-                  AccessKeyId: response.option.access_key_id,
-                  signature: response.option.signature
+                  key: file['key'],
+                  policy: response.option['policy'],
+                  AccessKeyId: response.option['access_key_id'],
+                  signature: response.option['signature']
                 };
               /**
                * 腾讯云对象存储
                */
               case 'cos':
                 return {
-                  key: file.key,
-                  policy: response.option.policy,
-                  'q-sign-algorithm': response.option.sign_algorithm,
-                  'q-ak': response.option.ak,
-                  'q-key-time': response.option.key_time,
-                  'q-signature': response.option.signature
+                  key: file['key'],
+                  policy: response.option['policy'],
+                  'q-sign-algorithm': response.option['sign_algorithm'],
+                  'q-ak': response.option['ak'],
+                  'q-key-time': response.option['key_time'],
+                  'q-signature': response.option['signature']
                 };
               default:
                 throw new Error('默认上传到后端服务器，无需签名配置');

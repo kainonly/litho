@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 
-import { AnyDto, updateFormGroup } from '@weplanx/components';
+import { AnyDto, updateFormGroup } from '@weplanx/core';
 import { JoinedEditorOptions } from 'ng-zorro-antd/code-editor/typings';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
@@ -35,8 +35,8 @@ export class ValidatorComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.params.subscribe(v => {
-      this.key = v.key;
-      this.pages.key$.next(v.key);
+      this.key = v['key'];
+      this.pages.key$.next(v['key']);
       this.getData();
     });
   }

@@ -177,7 +177,7 @@ export class Dataset<T extends BasicDto> {
    * 设置数据全部选中
    */
   setNChecked(checked: boolean): void {
-    this.values.filter(v => !v.disabled).forEach(v => this.setCheckedIds(v._id!, checked));
+    this.values.filter(v => !v['disabled']).forEach(v => this.setCheckedIds(v._id!, checked));
     this.updateCheckedStatus();
   }
 
@@ -185,7 +185,7 @@ export class Dataset<T extends BasicDto> {
    * 更新数据选中状态
    */
   updateCheckedStatus(): void {
-    const data = this.values.filter(v => !v.disabled);
+    const data = this.values.filter(v => !v['disabled']);
     this.checked = data.every(v => this.checkedIds.has(v._id!));
     this.indeterminate = data.some(v => this.checkedIds.has(v._id!)) && !this.checked;
     this.checkedNumber = this.checkedIds.size;

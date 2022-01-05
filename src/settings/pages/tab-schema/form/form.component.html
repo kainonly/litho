@@ -34,8 +34,8 @@
         <nz-form-control>
           <nz-select nzShowSearch nzAllowClear formControlName="type" nzPlaceHolder="请选择一个字段类型">
             <ng-container *ngFor="let x of typeValues">
-              <nz-option-group [nzLabel]="x.label">
-                <ng-container *ngFor="let y of x.values">
+              <nz-option-group [nzLabel]="x['label']">
+                <ng-container *ngFor="let y of x['values']">
                   <nz-option [nzLabel]="y[1]" [nzValue]="y[0]"></nz-option>
                 </ng-container>
               </nz-option-group>
