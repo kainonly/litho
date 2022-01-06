@@ -43,6 +43,7 @@ export class WpxService {
 
   /**
    * 设置静态资源
+   * @param value
    */
   setAssets(value: string): void {
     this.assets = value;
@@ -50,6 +51,7 @@ export class WpxService {
 
   /**
    * 设置上传配置
+   * @param value
    */
   setUpload(value: string | UploadOption): void {
     this.upload = value;
@@ -57,6 +59,7 @@ export class WpxService {
 
   /**
    * 载入页面数据
+   * @param data 页面传输对象
    */
   loadPages(data: Array<AnyDto<Page>>): void {
     const navs: Array<AnyDto<Page>> = [];
@@ -78,6 +81,11 @@ export class WpxService {
     this.pages.next(pages);
   }
 
+  /**
+   * 设置数据源
+   * @param key 本地存储键值
+   * @param fields 数据源字段
+   */
   dataset<T extends BasicDto>(key: string, fields: DatasetField[]): Dataset<T> {
     return new Dataset<T>(this.storage, `collection:${key}`, fields);
   }

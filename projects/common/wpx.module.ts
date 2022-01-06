@@ -1,13 +1,13 @@
 import { NgModule } from '@angular/core';
 
-import { WpxSubmitDirective } from './directives/wpx-submit.directive';
-import { WpxUploadDirective } from './directives/wpx-upload.directive';
-import { WpxEmptyPipe } from './pipes/wpx-empty.pipe';
-import { WpxJoinPipe } from './pipes/wpx-join.pipe';
-import { WpxMapPipe } from './pipes/wpx-map.pipe';
-import { WpxObjectPipe } from './pipes/wpx-object.pipe';
-import { WpxSortPipe } from './pipes/wpx-sort.pipe';
-import { WpxSplitPipe } from './pipes/wpx-split.pipe';
+import { WpxSubmitDirective } from './directives/submit.directive';
+import { WpxUploadDirective } from './directives/upload.directive';
+import { WpxEmptyPipe } from './pipes/empty.pipe';
+import { WpxJoinPipe } from './pipes/join.pipe';
+import { WpxMapPipe } from './pipes/map.pipe';
+import { WpxObjectPipe } from './pipes/object.pipe';
+import { WpxSortPipe } from './pipes/sort.pipe';
+import { WpxSplitPipe } from './pipes/split.pipe';
 
 @NgModule({
   declarations: [

@@ -13,8 +13,8 @@ import {
 import { WpxService } from '@weplanx/common';
 import { InputBoolean } from 'ng-zorro-antd/core/util';
 
-import { WpxLayoutActionDirective } from './wpx-layout-action.directive';
-import { WpxLayoutAlertDirective } from './wpx-layout-alert.directive';
+import { WpxLayoutActionDirective } from './layout-action.directive';
+import { WpxLayoutAlertDirective } from './layout-alert.directive';
 
 @Component({
   selector: 'wpx-layout',

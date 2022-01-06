@@ -10,7 +10,6 @@ import { NzBreadCrumbModule } from 'ng-zorro-antd/breadcrumb';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzDividerModule } from 'ng-zorro-antd/divider';
 import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
-import { NzFormModule } from 'ng-zorro-antd/form';
 import { NzGridModule } from 'ng-zorro-antd/grid';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzInputModule } from 'ng-zorro-antd/input';
@@ -22,14 +21,14 @@ import { NzPopoverModule } from 'ng-zorro-antd/popover';
 import { NzSpaceModule } from 'ng-zorro-antd/space';
 import { NzTabsModule } from 'ng-zorro-antd/tabs';
 
-import { WpxHeaderComponent } from './header/wpx-header.component';
+import { WpxHeaderComponent } from './header/header.component';
+import { WpxLayoutActionDirective } from './layout-action.directive';
+import { WpxLayoutAlertDirective } from './layout-alert.directive';
+import { WpxLayoutComponent } from './layout.component';
 import { IsPageArrayPipe } from './nav/is-page-array.pipe';
+import { WpxNavComponent } from './nav/nav.component';
 import { OpenStatePipe } from './nav/open-state.pipe';
-import { WpxNavComponent } from './nav/wpx-nav.component';
-import { WpxPageHeaderComponent } from './page-header/wpx-page-header.component';
-import { WpxLayoutActionDirective } from './wpx-layout-action.directive';
-import { WpxLayoutAlertDirective } from './wpx-layout-alert.directive';
-import { WpxLayoutComponent } from './wpx-layout.component';
+import { WpxPageHeaderComponent } from './page-header/page-header.component';
 
 @NgModule({
   imports: [

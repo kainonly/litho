@@ -1,10 +1,11 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 
-import { WpxPagesSerivce } from '@weplanx/settings/pages';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalRef } from 'ng-zorro-antd/modal';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
+
+import { WpxPagesSerivce } from '../../wpx-pages.serivce';
 
 @Component({
   selector: 'wpx-settings-pages-indexes-form',

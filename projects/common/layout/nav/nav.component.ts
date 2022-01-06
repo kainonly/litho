@@ -5,7 +5,7 @@ import { NzMenuThemeType } from 'ng-zorro-antd/menu/menu.types';
 
 @Component({
   selector: 'wpx-nav',
-  templateUrl: './wpx-nav.component.html',
+  templateUrl: './nav.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class WpxNavComponent {

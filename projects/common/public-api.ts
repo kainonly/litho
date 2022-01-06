@@ -6,12 +6,12 @@ export * from './utils/api';
 export * from './utils/dataset';
 export * from './utils/helper';
 
-export * from './directives/wpx-submit.directive';
-export * from './directives/wpx-upload.directive';
+export * from './directives/submit.directive';
+export * from './directives/upload.directive';
 
-export * from './pipes/wpx-empty.pipe';
-export * from './pipes/wpx-join.pipe';
-export * from './pipes/wpx-map.pipe';
-export * from './pipes/wpx-object.pipe';
-export * from './pipes/wpx-sort.pipe';
-export * from './pipes/wpx-split.pipe';
+export * from './pipes/empty.pipe';
+export * from './pipes/join.pipe';
+export * from './pipes/map.pipe';
+export * from './pipes/object.pipe';
+export * from './pipes/sort.pipe';
+export * from './pipes/split.pipe';
