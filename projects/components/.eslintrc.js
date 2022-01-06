@@ -31,55 +31,7 @@ module.exports = {
           {
             suffixes: ['Directive', 'Component', 'Base']
           }
-        ],
-        '@typescript-eslint/array-type': [
-          'error',
-          {
-            default: 'array-simple'
-          }
-        ],
-        '@typescript-eslint/ban-types': [
-          'error',
-          {
-            types: {
-              Object: {
-                message: 'Use {} instead.'
-              },
-              String: {
-                message: 'Use string instead.'
-              },
-              Number: {
-                message: 'Use number instead.'
-              },
-              Boolean: {
-                message: 'Use boolean instead.'
-              },
-              Function: {
-                message: 'Use specific callable interface instead.'
-              }
-            }
-          }
-        ],
-        '@typescript-eslint/consistent-type-definitions': 'error',
-        '@typescript-eslint/explicit-member-accessibility': [
-          'off',
-          {
-            accessibility: 'explicit'
-          }
-        ],
-        '@typescript-eslint/no-floating-promises': 'off',
-        '@typescript-eslint/no-for-in-array': 'error',
-        '@typescript-eslint/no-inferrable-types': [
-          'error',
-          {
-            ignoreParameters: true,
-            ignoreProperties: true
-          }
-        ],
-        '@typescript-eslint/no-non-null-assertion': 'off',
-        '@typescript-eslint/no-this-alias': 'error',
-        '@typescript-eslint/naming-convention': 'off',
-        '@typescript-eslint/no-unused-expressions': 'off'
+        ]
       }
     },
     {

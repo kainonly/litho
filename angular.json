@@ -103,7 +103,7 @@
     "common": {
       "projectType": "library",
       "root": "projects/common",
-      "sourceRoot": "projects/common/src",
+      "sourceRoot": "projects/common",
       "prefix": "wpx",
       "architect": {
         "build": {
@@ -124,7 +124,7 @@
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
-            "main": "projects/common/src/test.ts",
+            "main": "projects/common/test.ts",
             "tsConfig": "projects/common/tsconfig.spec.json",
             "karmaConfig": "projects/common/karma.conf.js"
           }
@@ -132,7 +132,7 @@
         "lint": {
           "builder": "@angular-eslint/builder:lint",
           "options": {
-            "lintFilePatterns": ["projects/core/**/*.ts", "projects/core/**/*.html"]
+            "lintFilePatterns": ["projects/common/**/*.ts", "projects/common/**/*.html"]
           }
         }
       }
@@ -140,7 +140,7 @@
     "components": {
       "projectType": "library",
       "root": "projects/components",
-      "sourceRoot": "projects/components/src",
+      "sourceRoot": "projects/components",
       "prefix": "wpx",
       "architect": {
         "build": {
@@ -161,7 +161,7 @@
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
-            "main": "projects/components/src/test.ts",
+            "main": "projects/components/test.ts",
             "tsConfig": "projects/components/tsconfig.spec.json",
             "karmaConfig": "projects/components/karma.conf.js"
           }
@@ -177,7 +177,7 @@
     "settings": {
       "projectType": "library",
       "root": "projects/settings",
-      "sourceRoot": "projects/settings/src",
+      "sourceRoot": "projects/settings",
       "prefix": "wpx",
       "architect": {
         "build": {
@@ -198,7 +198,7 @@
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
-            "main": "projects/settings/src/test.ts",
+            "main": "projects/settings/test.ts",
             "tsConfig": "projects/settings/tsconfig.spec.json",
             "karmaConfig": "projects/settings/karma.conf.js"
           }

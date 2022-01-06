@@ -6,6 +6,8 @@
     "start": "ng serve --host 0.0.0.0 --disable-host-check",
     "build:console": "ng build --configuration production",
     "build:common": "ng build common --configuration production",
+    "build:components": "ng build components --configuration production",
+    "build:settings": "ng build settings --configuration production",
     "test": "ng test --no-watch --no-progress --browsers=ChromeHeadlessCI",
     "lint": "ng lint",
     "e2e": "ng e2e"
