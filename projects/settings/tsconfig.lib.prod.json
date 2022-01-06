@@ -2,7 +2,12 @@
 {
   "extends": "./tsconfig.lib.json",
   "compilerOptions": {
-    "declarationMap": false
+    "declarationMap": false,
+    "paths": {
+      "@weplanx/common": ["dist/common", "dist/common/*"],
+      "@weplanx/common/layout": ["dist/common/layout", "dist/common/layout/*"],
+      "@weplanx/components": ["dist/components", "dist/components/*"]
+    }
   },
   "angularCompilerOptions": {
     "compilationMode": "partial"

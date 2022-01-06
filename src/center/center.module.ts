@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { CenterComponent } from '@center/center.component';
-import { HeaderModule } from '@common/header/header.module';
 import { ShareModule } from '@common/share.module';
 
 const routes: Routes = [
@@ -24,7 +23,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [ShareModule, HeaderModule, RouterModule.forChild(routes)],
+  imports: [ShareModule, RouterModule.forChild(routes)],
   declarations: [CenterComponent]
 })
 export class CenterModule {}

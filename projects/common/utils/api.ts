@@ -1,5 +1,5 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, Optional } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
@@ -9,15 +9,7 @@ import { toSearchValues, toSortValues } from './helper';
 
 @Injectable()
 export class Api<T> {
-  private static __resource__: string;
-
-  /**
-   * 设定资源
-   */
-  static resource(name: string): typeof Api {
-    this.__resource__ = name;
-    return this;
-  }
+  protected model: string = '';
 
   constructor(protected http: HttpClient) {}
 
@@ -25,7 +17,7 @@ export class Api<T> {
    * URL生成
    */
   protected url(...fragments: string[]): string {
-    return ['api', Api.__resource__, ...fragments].join('/');
+    return ['api', this.model, ...fragments].join('/');
   }
 
   /**
