@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 
 import { StorageMap } from '@ngx-pwa/local-storage';
 
-import { BasicDto, Field, LayoutOption, UploadOption } from './types';
+import { BasicDto, DatasetField, LayoutOption, UploadOption } from './types';
 import { Dataset } from './utils/dataset';
 
 @Injectable({ providedIn: 'root' })
@@ -40,6 +40,14 @@ export class WpxService {
     @Optional() private storage: StorageMap
   ) {}
 
+  setAssets(value: string): void {
+    this.assets = value;
+  }
+
+  setUpload(value: string | UploadOption): void {
+    this.upload = value;
+  }
+
   /**
    * 获取页面数据
    */
@@ -67,18 +75,7 @@ export class WpxService {
   //   return this.pages.asObservable();
   // }
 
-  setAssets(value: string): void {
-    this.assets = value;
-  }
-
-  setUpload(value: string | UploadOption): void {
-    this.upload = value;
-  }
-
-  /**
-   * 创建数据集合
-   */
-  dataset<T extends BasicDto>(key: string, fields: Field[]): Dataset<T> {
+  dataset<T extends BasicDto>(key: string, fields: DatasetField[]): Dataset<T> {
     return new Dataset<T>(this.storage, `collection:${key}`, fields);
   }
 }

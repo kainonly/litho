@@ -38,7 +38,7 @@ export class IndexesComponent implements OnInit {
     });
   }
 
-  form() {
+  form(): void {
     this.modal.create({
       nzTitle: '创建索引到该内容类型',
       nzContent: FormComponent,

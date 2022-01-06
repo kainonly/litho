@@ -2,13 +2,11 @@ import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
-import { AnyDto } from '@weplanx/common';
+import { AnyDto, Field, Page } from '@weplanx/common';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 
-import { Field } from '../dto/field';
-import { Page } from '../dto/page';
 import { PagesSerivce } from '../pages.serivce';
 import { fieldTypeValues } from '../values';
 import { FormComponent } from './form/form.component';
@@ -48,7 +46,7 @@ export class SchemaComponent implements OnInit {
     });
   }
 
-  private setFieldList() {
+  private setFieldList(): void {
     const fields = this.page!.schema!.fields;
     this.fieldList = [
       ...Object.entries(fields)
@@ -61,7 +59,7 @@ export class SchemaComponent implements OnInit {
     ];
   }
 
-  form(editable?: any) {
+  form(editable?: any): void {
     this.modal.create({
       nzTitle: !editable ? '创建字段到该内容类型' : '编辑字段',
       nzWidth: 800,

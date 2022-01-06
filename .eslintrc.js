@@ -44,6 +44,61 @@ module.exports = {
         '@angular-eslint/prefer-output-readonly': 'error',
         '@angular-eslint/use-component-selector': 'off',
         '@angular-eslint/use-component-view-encapsulation': 'off',
+        '@typescript-eslint/array-type': [
+          'error',
+          {
+            default: 'array-simple'
+          }
+        ],
+        '@typescript-eslint/ban-types': [
+          'error',
+          {
+            types: {
+              Object: {
+                message: 'Use {} instead.'
+              },
+              String: {
+                message: 'Use string instead.'
+              },
+              Number: {
+                message: 'Use number instead.'
+              },
+              Boolean: {
+                message: 'Use boolean instead.'
+              },
+              Function: {
+                message: 'Use specific callable interface instead.'
+              }
+            }
+          }
+        ],
+        '@typescript-eslint/consistent-type-definitions': 'error',
+        '@typescript-eslint/explicit-member-accessibility': [
+          'off',
+          {
+            accessibility: 'explicit'
+          }
+        ],
+        '@typescript-eslint/no-floating-promises': 'off',
+        '@typescript-eslint/no-for-in-array': 'error',
+        '@typescript-eslint/no-inferrable-types': [
+          'error',
+          {
+            ignoreParameters: true,
+            ignoreProperties: true
+          }
+        ],
+        '@typescript-eslint/no-non-null-assertion': 'off',
+        '@typescript-eslint/no-this-alias': 'error',
+        '@typescript-eslint/naming-convention': 'off',
+        '@typescript-eslint/no-unused-expressions': 'off',
+        '@typescript-eslint/explicit-function-return-type': [
+          'error',
+          {
+            allowExpressions: true,
+            allowConciseArrowFunctionExpressionsStartingWithVoid: true
+          }
+        ],
         'import/no-duplicates': 'error',
         'import/no-unused-modules': 'error',
         'import/no-unassigned-import': 'error',
@@ -77,7 +132,8 @@ module.exports = {
         'no-sparse-arrays': 'error',
         'no-template-curly-in-string': 'off',
         'prefer-object-spread': 'error',
-        'prefer-template': 'error'
+        'prefer-template': 'error',
+        yoda: 'error'
       }
     },
     {

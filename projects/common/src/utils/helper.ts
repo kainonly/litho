@@ -1,26 +1,12 @@
 import { AbstractControl, FormGroup } from '@angular/forms';
-import { Observable, timer } from 'rxjs';
-import { map, switchMap } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 
 import { NzTableSortOrder } from 'ng-zorro-antd/table/src/table.types';
 import { NzTreeNode } from 'ng-zorro-antd/tree';
 
 import { SearchOption, Where } from '../types';
 
-export function asyncValidator(
-  handle: Observable<boolean>,
-  field = 'duplicated',
-  dueTime = 500
-): Observable<Record<string, any> | null> {
-  return timer(dueTime).pipe(
-    switchMap(() => handle),
-    map(result => {
-      return !result ? { error: true, [field]: true } : null;
-    })
-  );
-}
-
-export function updateFormGroup(controls: AbstractControl[]) {
+export function updateFormGroup(controls: AbstractControl[]): void {
   controls.forEach(control => {
     if (control instanceof FormGroup) {
       updateFormGroup(Object.values(control.controls));

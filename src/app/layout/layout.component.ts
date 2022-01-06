@@ -15,6 +15,9 @@ export class LayoutComponent implements OnInit, OnDestroy {
   constructor(public app: AppService) {}
 
   ngOnInit(): void {
+    this.app.api().subscribe(data => {
+      console.log(data);
+    });
     this.taskToRefreshToken();
   }
 

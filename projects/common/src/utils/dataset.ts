@@ -5,10 +5,10 @@ import { StorageMap } from '@ngx-pwa/local-storage';
 import { NzCheckBoxOptionInterface } from 'ng-zorro-antd/checkbox';
 import { NzTableSize, NzTableSortOrder } from 'ng-zorro-antd/table/src/table.types';
 
-import { DatasetControl, SearchOption, Field, BasicDto } from '../types';
+import { DatasetOption, SearchOption, DatasetField, BasicDto, PageSize } from '../types';
 import { Api } from './api';
 
-export class Dataset<T extends BasicDto> {
+export class Dataset<T extends BasicDto> implements DatasetOption {
   /**
    * 初始化完毕
    */
@@ -28,7 +28,7 @@ export class Dataset<T extends BasicDto> {
   /**
    * 每页的数量
    */
-  pageSize = 10;
+  pageSize: PageSize = 10;
   /**
    * 当前页码
    */
@@ -86,9 +86,9 @@ export class Dataset<T extends BasicDto> {
    */
   sortOptions: Record<string, NzTableSortOrder> = {};
 
-  constructor(private storage: StorageMap, private key: string, public fields: Field[]) {
+  constructor(private storage: StorageMap, private key: string, public fields: DatasetField[]) {
     storage.get(key).subscribe(unkonw => {
-      const v = unkonw as DatasetControl;
+      const v = unkonw as DatasetOption;
       if (!v) {
         this.pageSize = 10;
         this.pageIndex = 1;
@@ -116,14 +116,14 @@ export class Dataset<T extends BasicDto> {
     });
   }
 
-  setTotal(value: number) {
+  setTotal(value: number): void {
     this.total = value;
   }
 
   /**
    * 设置数据
    */
-  setData(values: T[]) {
+  setData(values: T[]): void {
     this.values = [...values];
   }
 
@@ -157,7 +157,7 @@ export class Dataset<T extends BasicDto> {
   /**
    * 设置数据选中ID
    */
-  setCheckedIds(id: string, checked: boolean) {
+  setCheckedIds(id: string, checked: boolean): void {
     if (checked) {
       this.checkedIds.add(id);
     } else {
@@ -245,7 +245,7 @@ export class Dataset<T extends BasicDto> {
    */
   updateStorage(): void {
     this.storage
-      .set(this.key, <DatasetControl>{
+      .set(this.key, <DatasetOption>{
         pageSize: this.pageSize,
         pageIndex: this.pageIndex,
         columns: this.columns,

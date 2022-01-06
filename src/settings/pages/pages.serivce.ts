@@ -2,10 +2,7 @@ import { Injectable } from '@angular/core';
 import { AsyncSubject, Observable, Subject, timer } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
 
-import { Page } from '@settings/pages/dto/page';
-import { Api } from '@weplanx/common';
-
-import { Field } from './dto/field';
+import { Api, Field, Page } from '@weplanx/common';
 
 @Injectable()
 export class PagesSerivce extends Api.resource('pages')<Page> {

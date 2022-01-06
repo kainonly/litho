@@ -98,7 +98,7 @@ export class RolesComponent implements OnInit {
     this.nzContextMenuService.create($event.event as MouseEvent, menu);
   }
 
-  form(editable?: any) {
+  form(editable?: any): void {
     this.modal.create({
       nzTitle: !editable ? '新增' : '编辑',
       nzContent: FormComponent,

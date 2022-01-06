@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { AnyDto, CreateDto, CreateResult, DeleteResult, UpdateDto, UpdateResult, Where } from '../types';
+import { AnyDto, CreateDto, CreateResult, DeleteResult, ReplaceDto, UpdateDto, UpdateResult, Where } from '../types';
 import { Dataset } from './dataset';
 import { getSearchValues, toSortValues } from './helper';
 
@@ -90,13 +90,13 @@ export class Api<T> {
   /**
    * 获取分页文档
    */
-  findByPage(coll: Dataset<AnyDto<T>>): Observable<Array<AnyDto<T>>> {
+  findByPage(ds: Dataset<AnyDto<T>>): Observable<Array<AnyDto<T>>> {
     let params = new HttpParams();
-    const where = !coll.searchText ? getSearchValues(coll.searchOptions) : { $text: { $search: coll.searchText } };
+    const where = !ds.searchText ? getSearchValues(ds.searchOptions) : { $text: { $search: ds.searchText } };
     if (Object.keys(where).length !== 0) {
       params = params.set('where', JSON.stringify(where));
     }
-    const sort = toSortValues(coll.sortOptions);
+    const sort = toSortValues(ds.sortOptions);
     if (sort.length !== 0) {
       for (let [k, v] of Object.entries(sort)) {
         params = params.append('sort', `${k}.${v}`);
@@ -106,14 +106,14 @@ export class Api<T> {
       .get(this.url(), {
         observe: 'response',
         headers: {
-          'x-page-size': coll.pageSize.toString(),
-          'x-page': coll.pageIndex.toString()
+          'x-page-size': ds.pageSize.toString(),
+          'x-page': ds.pageIndex.toString()
         },
         params
       })
       .pipe(
         map(res => {
-          coll.setTotal(parseInt(res.headers.get('x-page-total')!, 0));
+          ds.setTotal(parseInt(res.headers.get('x-page-total')!));
           return res.body;
         })
       ) as Observable<Array<AnyDto<T>>>;
@@ -172,11 +172,11 @@ export class Api<T> {
   /**
    * 替换单个文档
    */
-  replace(id: string, data: T): Observable<UpdateResult> {
+  replace(id: string, body: ReplaceDto<T>): Observable<UpdateResult> {
     if (!id) {
       throw new Error('the [id] cannot be empty');
     }
-    return this.http.put(this.url(id), data) as Observable<UpdateResult>;
+    return this.http.put(this.url(id), body) as Observable<UpdateResult>;
   }
 
   /**

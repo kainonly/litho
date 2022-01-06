@@ -10,9 +10,9 @@ import {
   TemplateRef
 } from '@angular/core';
 
+import { WpxService } from '@weplanx/common';
 import { InputBoolean } from 'ng-zorro-antd/core/util';
 
-import { WpxService } from '../wpx.service';
 import { WpxLayoutActionDirective } from './wpx-layout-action.directive';
 import { WpxLayoutAlertDirective } from './wpx-layout-alert.directive';
 
@@ -22,22 +22,22 @@ import { WpxLayoutAlertDirective } from './wpx-layout-alert.directive';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class WpxLayoutComponent implements OnInit, AfterContentInit {
-  @Input() title?: string;
-  @Input() @InputBoolean() skip?: any;
-  @Input() @InputBoolean() back?: any;
-  @ContentChild(WpxLayoutAlertDirective, { read: TemplateRef }) alert?: TemplateRef<any>;
-  @ContentChildren(WpxLayoutActionDirective, { read: TemplateRef }) actions?: QueryList<TemplateRef<any>>;
+  @Input() wpxTitle?: string;
+  @Input() @InputBoolean() wpxSkip?: any;
+  @Input() @InputBoolean() wpxBack?: any;
+  @ContentChild(WpxLayoutAlertDirective, { read: TemplateRef }) wpxAlert?: TemplateRef<any>;
+  @ContentChildren(WpxLayoutActionDirective, { read: TemplateRef }) wpxActions?: QueryList<TemplateRef<any>>;
 
   constructor(private wpx: WpxService) {}
 
   ngOnInit(): void {
-    this.wpx.layout.skipPageHeader = !!this.skip;
-    this.wpx.layout.showBack = !!this.back;
-    this.wpx.layout.title = this.title;
+    this.wpx.layout.skipPageHeader = !!this.wpxSkip;
+    this.wpx.layout.showBack = !!this.wpxBack;
+    this.wpx.layout.title = this.wpxTitle;
   }
 
-  ngAfterContentInit() {
-    this.wpx.layout.alert = this.alert;
-    this.wpx.layout.actions = this.actions;
+  ngAfterContentInit(): void {
+    this.wpx.layout.alert = this.wpxAlert;
+    this.wpx.layout.actions = this.wpxActions;
   }
 }

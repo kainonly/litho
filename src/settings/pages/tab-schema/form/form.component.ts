@@ -1,12 +1,11 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { AbstractControl, FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 
-import { AnyDto } from '@weplanx/common';
+import { AnyDto, Page } from '@weplanx/common';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalRef } from 'ng-zorro-antd/modal';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 
-import { Page } from '../../dto/page';
 import { PagesSerivce } from '../../pages.serivce';
 import { fieldTypeValues } from '../../values';
 
@@ -57,7 +56,7 @@ export class FormComponent implements OnInit {
     }
   }
 
-  existsField = (control: AbstractControl) => {
+  existsField = (control: AbstractControl): any => {
     if (control.value === this.editable?.key) {
       return null;
     }

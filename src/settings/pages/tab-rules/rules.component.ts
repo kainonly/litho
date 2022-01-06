@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
-import { Page } from '../dto/page';
+import { Page } from '@weplanx/common';
+
 import { PagesSerivce } from '../pages.serivce';
 
 @Component({

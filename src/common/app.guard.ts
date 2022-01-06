@@ -9,10 +9,7 @@ import { AppService } from '@common/app.service';
 export class AppGuard implements CanActivate {
   constructor(private app: AppService, private router: Router) {}
 
-  canActivate(
-    route: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot
-  ): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
+  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
     return this.app.verify().pipe(
       map(res => {
         if (res.status !== 204) {

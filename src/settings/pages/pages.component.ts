@@ -1,14 +1,13 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { AnyDto, TreeNodesExpanded } from '@weplanx/common';
+import { AnyDto, Page, TreeNodesExpanded } from '@weplanx/common';
 import { NzContextMenuService, NzDropdownMenuComponent } from 'ng-zorro-antd/dropdown';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { NzFormatEmitEvent, NzTreeComponent, NzTreeNodeOptions } from 'ng-zorro-antd/tree';
 
-import { Page } from './dto/page';
 import { FormComponent } from './form/form.component';
 import { PagesSerivce } from './pages.serivce';
 
@@ -100,7 +99,7 @@ export class PagesComponent implements OnInit {
     this.nzContextMenuService.create($event.event as MouseEvent, menu);
   }
 
-  form(editable?: any) {
+  form(editable?: any): void {
     this.modal.create({
       nzTitle: !editable ? '新增' : '编辑',
       nzContent: FormComponent,
@@ -123,7 +122,7 @@ export class PagesComponent implements OnInit {
       nzOkDanger: true,
       nzMaskClosable: true,
       nzOnOk: () => {
-        this.pages.delete(data._id).subscribe(v => {
+        this.pages.delete(data._id).subscribe(() => {
           this.message.success('数据删除完成');
           this.getData();
         });
@@ -132,7 +131,7 @@ export class PagesComponent implements OnInit {
     });
   }
 
-  drop(event: NzFormatEmitEvent) {
+  drop(event: NzFormatEmitEvent): void {
     if (!event.dragNode) {
       return;
     }
