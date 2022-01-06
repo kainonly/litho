@@ -3,6 +3,7 @@ import { Subscription, timer } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
 
 import { AppService } from '@common/app.service';
+import { WpxService } from '@weplanx/common';
 
 @Component({
   selector: 'app-layout',
@@ -12,11 +13,11 @@ import { AppService } from '@common/app.service';
 export class LayoutComponent implements OnInit, OnDestroy {
   private autoRefreshToken!: Subscription;
 
-  constructor(public app: AppService) {}
+  constructor(public app: AppService, public wpx: WpxService) {}
 
   ngOnInit(): void {
     this.app.api().subscribe(data => {
-      console.log(data);
+      this.wpx.loadPages(data.navs);
     });
     this.taskToRefreshToken();
   }

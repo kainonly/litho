@@ -17,7 +17,7 @@ export function updateFormGroup(controls: AbstractControl[]): void {
   });
 }
 
-export function getSearchValues(options: Record<string, SearchOption>): Where<any> {
+export function toSearchValues(options: Record<string, SearchOption>): Where<any> {
   const search: Where<any> = {};
   for (const [key, opt] of Object.entries(options)) {
     if (opt.value) {

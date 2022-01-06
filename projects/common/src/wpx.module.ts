@@ -20,6 +20,15 @@ import { WpxSplitPipe } from './pipes/wpx-split.pipe';
     WpxMapPipe,
     WpxSortPipe
   ],
-  exports: [WpxSubmitDirective, WpxUploadDirective]
+  exports: [
+    WpxSubmitDirective,
+    WpxUploadDirective,
+    WpxEmptyPipe,
+    WpxJoinPipe,
+    WpxSplitPipe,
+    WpxObjectPipe,
+    WpxMapPipe,
+    WpxSortPipe
+  ]
 })
 export class WpxModule {}

@@ -58,10 +58,8 @@ export interface DatasetField {
   keyword?: boolean;
 }
 
-export type PageSize = 10 | 20 | 30 | 40 | 50;
-
 export interface DatasetOption {
-  pageSize: PageSize;
+  pageSize: number;
   pageIndex: number;
   columns: NzCheckBoxOptionInterface[];
   columnsHeight: NzTableSize;
@@ -273,4 +271,8 @@ export interface Value {
    * 数值
    */
   value: any;
+}
+
+export interface ApiResult {
+  navs: Array<AnyDto<Page>>;
 }

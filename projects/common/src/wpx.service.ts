@@ -1,10 +1,11 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Injectable, Optional } from '@angular/core';
 import { Router } from '@angular/router';
+import { BehaviorSubject, Observable, of } from 'rxjs';
 
 import { StorageMap } from '@ngx-pwa/local-storage';
 
-import { BasicDto, DatasetField, LayoutOption, UploadOption } from './types';
+import { AnyDto, BasicDto, DatasetField, LayoutOption, Page, UploadOption } from './types';
 import { Dataset } from './utils/dataset';
 
 @Injectable({ providedIn: 'root' })
@@ -17,18 +18,18 @@ export class WpxService {
    * 上传地址
    */
   upload?: string | UploadOption;
-  // /**
-  //  * 页面数据
-  //  */
-  // readonly pages: BehaviorSubject<Page[]> = new BehaviorSubject<Page[]>([]);
-  // /**
-  //  * 路径索引
-  //  */
-  // readonly paths: BehaviorSubject<Map<string, Page>> = new BehaviorSubject<Map<string, Page>>(new Map<string, Page>());
   /**
-   * 路径片段
+   * 导航数据
    */
-  fragments: string[] = [];
+  readonly navs: BehaviorSubject<Array<AnyDto<Page>>> = new BehaviorSubject<Array<AnyDto<Page>>>([]);
+  /**
+   * 动态页面索引
+   */
+  readonly pages: BehaviorSubject<Record<string, AnyDto<Page>>> = new BehaviorSubject<Record<string, AnyDto<Page>>>({});
+  /**
+   * 当前页面
+   */
+  pageId?: string;
   /**
    * 布局设置
    */
@@ -40,40 +41,42 @@ export class WpxService {
     @Optional() private storage: StorageMap
   ) {}
 
+  /**
+   * 设置静态资源
+   */
   setAssets(value: string): void {
     this.assets = value;
   }
 
+  /**
+   * 设置上传配置
+   */
   setUpload(value: string | UploadOption): void {
     this.upload = value;
   }
 
   /**
-   * 获取页面数据
+   * 载入页面数据
    */
-  // fetchPages(v: APIResponse<Page[]>): Observable<any> {
-  //   const pages: Page[] = [];
-  //   const values: Map<string, Page> = new Map<string, Page>();
-  //   const paths: Map<string, Page> = new Map<string, Page>();
-  //   for (const x of v.data!) {
-  //     values.set(x._id, x);
-  //     x.children = [];
-  //     if (x.parent === 'root') {
-  //       x.fragments = [x.fragment];
-  //       pages.push(x);
-  //     } else {
-  //       if (values.has(x.parent)) {
-  //         x.fragments = [...values.get(x.parent)!.fragments, x.fragment];
-  //         values.get(x.parent)!.children.push(x);
-  //       }
-  //     }
-  //     x.level = x.fragments.length;
-  //     paths.set(x.fragments.join('/'), { ...x });
-  //   }
-  //   this.pages.next(pages);
-  //   this.paths.next(paths);
-  //   return this.pages.asObservable();
-  // }
+  loadPages(data: Array<AnyDto<Page>>): void {
+    const navs: Array<AnyDto<Page>> = [];
+    const pages: Record<string, AnyDto<Page>> = {};
+    for (const x of data) {
+      pages[x._id] = x;
+      x['children'] = [];
+      if (!x.parent) {
+        x['path'] = [x._id];
+        navs.push(x);
+      } else {
+        if (pages.hasOwnProperty(x.parent)) {
+          x['path'] = [...pages[x.parent]['path'], x._id];
+          pages[x.parent]['children'].push(x);
+        }
+      }
+    }
+    this.navs.next(navs);
+    this.pages.next(pages);
+  }
 
   dataset<T extends BasicDto>(key: string, fields: DatasetField[]): Dataset<T> {
     return new Dataset<T>(this.storage, `collection:${key}`, fields);

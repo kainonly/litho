@@ -33,7 +33,7 @@ export class AppInterceptors implements HttpInterceptor {
     );
   }
 
-  private handleError = (e: HttpErrorResponse) => {
+  private handleError = (e: HttpErrorResponse): Observable<never> => {
     switch (e.status) {
       case 400:
         switch (e.error.code) {

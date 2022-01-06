@@ -1,14 +1,15 @@
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 
 import { WpxService } from '@weplanx/common';
 import { NzMenuThemeType } from 'ng-zorro-antd/menu/menu.types';
 
 @Component({
   selector: 'wpx-nav',
-  templateUrl: './wpx-nav.component.html'
+  templateUrl: './wpx-nav.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class WpxNavComponent {
-  @Input() theme: NzMenuThemeType = 'light';
+  @Input() nzTheme: NzMenuThemeType = 'light';
 
   constructor(public wpx: WpxService) {}
 }

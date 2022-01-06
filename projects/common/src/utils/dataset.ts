@@ -5,7 +5,7 @@ import { StorageMap } from '@ngx-pwa/local-storage';
 import { NzCheckBoxOptionInterface } from 'ng-zorro-antd/checkbox';
 import { NzTableSize, NzTableSortOrder } from 'ng-zorro-antd/table/src/table.types';
 
-import { DatasetOption, SearchOption, DatasetField, BasicDto, PageSize } from '../types';
+import { DatasetOption, SearchOption, DatasetField, BasicDto } from '../types';
 import { Api } from './api';
 
 export class Dataset<T extends BasicDto> implements DatasetOption {
@@ -28,7 +28,7 @@ export class Dataset<T extends BasicDto> implements DatasetOption {
   /**
    * 每页的数量
    */
-  pageSize: PageSize = 10;
+  pageSize = 10;
   /**
    * 当前页码
    */

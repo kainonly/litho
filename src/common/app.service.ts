@@ -2,6 +2,8 @@ import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 
+import { ApiResult } from '@weplanx/common';
+
 @Injectable({ providedIn: 'root' })
 export class AppService {
   /**
@@ -55,8 +57,8 @@ export class AppService {
   /**
    * 获取系统信息
    */
-  api(): Observable<any> {
-    return this.http.get(`api`);
+  api(): Observable<ApiResult> {
+    return this.http.get(`api`) as Observable<ApiResult>;
   }
 
   /**
