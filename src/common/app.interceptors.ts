@@ -36,7 +36,16 @@ export class AppInterceptors implements HttpInterceptor {
   private handleError = (e: HttpErrorResponse) => {
     switch (e.status) {
       case 400:
-        this.message.error(`操作失败 [${e.error.code}] ${e.error.message}`);
+        switch (e.error.code) {
+          case 'AUTH_INCORRECT':
+            this.message.error(`您的登录失败，请确实账户口令是否正确`);
+            break;
+          case 'AUTH_MANY_INCORRECT':
+            this.message.error(`您登录失败的次数过多，请稍后再试`);
+            break;
+          default:
+            this.message.error(`操作失败 [${e.error.code}] ${e.error.message}`);
+        }
         break;
       case 401:
         this.message.error(`认证已失效，请重新登录`);
@@ -55,7 +64,7 @@ export class AppInterceptors implements HttpInterceptor {
         this.message.error(`服务器运行异常`);
         break;
     }
-    return throwError(e);
+    return throwError(() => e);
   };
 
   private static getUrl(url: string): string {

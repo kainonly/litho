@@ -18,13 +18,13 @@ const routes: Routes = [
           breadcrumb: '页面管理'
         }
       },
-      // {
-      //   path: 'roles',
-      //   loadChildren: () => import('./roles/roles.module').then(m => m.RolesModule),
-      //   data: {
-      //     breadcrumb: '权限管理'
-      //   }
-      // },
+      {
+        path: 'roles',
+        loadChildren: () => import('./roles/roles.module').then(m => m.RolesModule),
+        data: {
+          breadcrumb: '权限管理'
+        }
+      },
       {
         path: 'users',
         loadChildren: () => import('./users/users.module').then(m => m.UsersModule),

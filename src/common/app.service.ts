@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 
@@ -25,8 +25,8 @@ export class AppService {
   /**
    * 验证鉴权
    */
-  verify(): Observable<any> {
-    return this.http.get(`auth`);
+  verify(): Observable<HttpResponse<any>> {
+    return this.http.get(`auth`, { observe: 'response' });
   }
 
   /**

@@ -9,9 +9,13 @@
           <i nz-icon nzType="appstore"></i>
           <nz-dropdown-menu #menu="nzDropdownMenu">
             <ul class="app-menu" nz-menu nzSelectable>
-              <li nz-menu-item> <i nz-icon nzType="home"></i> <span class="name">我的应用</span> </li>
-              <li nz-menu-item> <i nz-icon nzType="inbox"></i> <span class="name">多媒体资源</span> </li>
-              <li nz-menu-item>
+              <li nz-menu-item [routerLink]="['/pages']">
+                <i nz-icon nzType="home"></i> <span class="name">我的应用</span>
+              </li>
+              <li nz-menu-item [routerLink]="['/media']">
+                <i nz-icon nzType="inbox"></i> <span class="name">多媒体资源</span>
+              </li>
+              <li nz-menu-item [routerLink]="['/settings']">
                 <i nz-icon nzType="tool"></i>
                 <span class="name">管理者工具</span>
               </li>

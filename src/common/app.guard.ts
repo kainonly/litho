@@ -15,7 +15,7 @@ export class AppGuard implements CanActivate {
   ): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
     return this.app.verify().pipe(
       map(res => {
-        if (res.code === 401) {
+        if (res.status !== 204) {
           this.router.navigateByUrl('/login');
         }
         return true;

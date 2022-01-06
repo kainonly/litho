@@ -1,12 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { switchMap } from 'rxjs/operators';
 
-import { Page } from '@settings/pages/dto/page';
 import { PagesSerivce } from '@settings/pages/pages.serivce';
-import { Role } from '@settings/roles/dto/role';
 import { RolesService } from '@settings/roles/roles.service';
-import { TreeNodesExpanded } from '@weplanx/components';
+import { TreeNodesExpanded } from '@weplanx/core';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { NzTreeComponent, NzTreeNode, NzTreeNodeOptions } from 'ng-zorro-antd/tree';
@@ -35,20 +32,20 @@ export class RoleComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.params.subscribe(v => {
-      this.key = v.key;
-      this.roles.key$.next(v.key);
+      this.key = v['key'];
+      this.roles.key$.next(v['key']);
       this.getData();
     });
   }
 
   getData(): void {
-    this.roles.api.findOneById<Role>(this.key).subscribe(data => {
+    this.roles.findOneById(this.key).subscribe(data => {
       this.getPages(data.pages, data.readonly);
     });
   }
 
   getPages(pages: string[], readonly: string[]): void {
-    this.pages.api.find<Page>({}, { sort: 1 }).subscribe(data => {
+    this.pages.find({}, { sort: 1 }).subscribe(data => {
       const nodes: NzTreeNodeOptions[] = [];
       const dict: Record<string, NzTreeNodeOptions> = {};
       for (const x of data) {
@@ -106,20 +103,20 @@ export class RoleComponent implements OnInit {
         values.push(node.key);
       }
     }
-    this.roles.api
+    this.roles
       .updateOneById(
         this.key,
         {
-          pages: values
+          update: {
+            $set: {
+              pages: values
+            }
+          }
         }
         // ['pages']
       )
       .subscribe(v => {
-        if (!v.code) {
-          this.message.success('权限已更新');
-        } else {
-          this.notification.error('操作失败', v.message);
-        }
+        this.message.success('权限已更新');
       });
   }
 }
