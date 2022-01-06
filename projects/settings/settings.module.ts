@@ -5,30 +5,32 @@ import { WpxModule } from '@weplanx/common';
 import { WpxLayoutModule } from '@weplanx/common/layout';
 import { WpxShareModule } from '@weplanx/components';
 
-import { WpxSettingsComponent } from './wpx-settings.component';
+import { PagesSerivce } from './pages/pages.serivce';
+import { RolesService } from './roles/roles.service';
+import { SettingsComponent } from './settings.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: WpxSettingsComponent,
+    component: SettingsComponent,
     children: [
       {
         path: 'pages',
-        loadChildren: () => import('./pages/wpx-pages.module').then(m => m.WpxPagesModule),
+        loadChildren: () => import('./pages/pages.module').then(m => m.PagesModule),
         data: {
           breadcrumb: '页面管理'
         }
       },
       {
         path: 'roles',
-        loadChildren: () => import('./roles/wpx-roles.module').then(m => m.WpxRolesModule),
+        loadChildren: () => import('./roles/roles.module').then(m => m.RolesModule),
         data: {
           breadcrumb: '权限管理'
         }
       },
       {
         path: 'users',
-        loadChildren: () => import('./users/wpx-users.module').then(m => m.WpxUsersModule),
+        loadChildren: () => import('./users/users.module').then(m => m.UsersModule),
         data: {
           breadcrumb: '成员管理'
         }
@@ -40,6 +42,7 @@ const routes: Routes = [
 
 @NgModule({
   imports: [WpxShareModule, WpxModule, WpxLayoutModule, RouterModule.forChild(routes)],
-  declarations: [WpxSettingsComponent]
+  declarations: [SettingsComponent],
+  providers: [RolesService, PagesSerivce]
 })
-export class WpxSettingsModule {}
+export class SettingsModule {}

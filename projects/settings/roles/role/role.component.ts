@@ -2,11 +2,11 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { TreeNodesExpanded } from '@weplanx/common';
-import { WpxPagesSerivce } from '@weplanx/settings/pages';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzTreeComponent, NzTreeNode, NzTreeNodeOptions } from 'ng-zorro-antd/tree';
 
-import { WpxRolesService } from '../wpx-roles.service';
+import { PagesSerivce } from '../../pages/pages.serivce';
+import { RolesService } from '../roles.service';
 
 @Component({
   selector: 'wpx-settings-roles-role',
@@ -23,8 +23,8 @@ export class RoleComponent implements OnInit {
   checkedKeys: string[] = [];
 
   constructor(
-    private roles: WpxRolesService,
-    private pages: WpxPagesSerivce,
+    private roles: RolesService,
+    private pages: PagesSerivce,
     private route: ActivatedRoute,
     private message: NzMessageService
   ) {}

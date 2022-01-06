@@ -5,7 +5,7 @@ import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalRef } from 'ng-zorro-antd/modal';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 
-import { WpxPagesSerivce } from '../../wpx-pages.serivce';
+import { PagesSerivce } from '../../pages.serivce';
 
 @Component({
   selector: 'wpx-settings-pages-indexes-form',
@@ -20,7 +20,7 @@ export class FormComponent implements OnInit {
     private message: NzMessageService,
     private notification: NzNotificationService,
     private fb: FormBuilder,
-    private pages: WpxPagesSerivce
+    private pages: PagesSerivce
   ) {}
 
   ngOnInit(): void {

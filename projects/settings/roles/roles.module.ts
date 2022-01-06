@@ -4,18 +4,16 @@ import { RouterModule, Routes } from '@angular/router';
 import { WpxModule } from '@weplanx/common';
 import { WpxLayoutModule } from '@weplanx/common/layout';
 import { WpxShareModule } from '@weplanx/components';
-import { WpxPagesSerivce } from '@weplanx/settings/pages';
 import { NzTreeModule } from 'ng-zorro-antd/tree';
 import { NzTreeSelectModule } from 'ng-zorro-antd/tree-select';
 
 import { FormComponent } from './form/form.component';
-import { WpxRolesComponent } from './wpx-roles.component';
-import { WpxRolesService } from './wpx-roles.service';
+import { RolesComponent } from './roles.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: WpxRolesComponent,
+    component: RolesComponent,
     children: [
       {
         path: 'home',
@@ -45,7 +43,6 @@ const routes: Routes = [
     NzTreeSelectModule,
     RouterModule.forChild(routes)
   ],
-  declarations: [WpxRolesComponent, FormComponent],
-  providers: [WpxRolesService, WpxPagesSerivce]
+  declarations: [RolesComponent, FormComponent]
 })
-export class WpxRolesModule {}
+export class RolesModule {}

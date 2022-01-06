@@ -6,7 +6,7 @@ import { NzModalRef } from 'ng-zorro-antd/modal';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { NzTreeNodeOptions } from 'ng-zorro-antd/tree';
 
-import { WpxRolesService } from '../wpx-roles.service';
+import { RolesService } from '../roles.service';
 
 @Component({
   selector: 'wpx-settings-roles-form',
@@ -24,7 +24,7 @@ export class FormComponent implements OnInit {
     private message: NzMessageService,
     private notification: NzNotificationService,
     private fb: FormBuilder,
-    private roles: WpxRolesService
+    private roles: RolesService
   ) {}
 
   ngOnInit(): void {

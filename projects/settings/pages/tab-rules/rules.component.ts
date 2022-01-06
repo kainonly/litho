@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 
 import { Page } from '@weplanx/common';
 
-import { WpxPagesSerivce } from '../wpx-pages.serivce';
+import { PagesSerivce } from '../pages.serivce';
 
 @Component({
   selector: 'wpx-settings-pages-rules',
@@ -13,7 +13,7 @@ export class RulesComponent implements OnInit {
   key!: string;
   private page!: Page;
 
-  constructor(private pages: WpxPagesSerivce, private route: ActivatedRoute) {}
+  constructor(private pages: PagesSerivce, private route: ActivatedRoute) {}
 
   ngOnInit(): void {
     this.route.params.subscribe(v => {

@@ -1,33 +1,32 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { TreeNodesExpanded } from '@weplanx/common';
+import { AnyDto, Page, TreeNodesExpanded } from '@weplanx/common';
 import { NzContextMenuService, NzDropdownMenuComponent } from 'ng-zorro-antd/dropdown';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { NzFormatEmitEvent, NzTreeComponent, NzTreeNodeOptions } from 'ng-zorro-antd/tree';
 
-import { Role } from './dto/role';
 import { FormComponent } from './form/form.component';
-import { WpxRolesService } from './wpx-roles.service';
+import { PagesSerivce } from './pages.serivce';
 
 @Component({
-  selector: 'wpx-settings-roles',
-  templateUrl: './wpx-roles.component.html'
+  selector: 'wpx-settings-pages',
+  templateUrl: './pages.component.html'
 })
-export class WpxRolesComponent implements OnInit {
+export class PagesComponent implements OnInit {
   @ViewChild('tree') tree!: NzTreeComponent;
   nodes: NzTreeNodeOptions[] = [];
   name = '';
   expand = true;
 
-  data: Record<string, Role> = {};
+  data: Record<string, AnyDto<Page>> = {};
   actionKey?: string;
   selectedKeys: string[] = [];
 
   constructor(
-    public roles: WpxRolesService,
+    public pages: PagesSerivce,
     private modal: NzModalService,
     private nzContextMenuService: NzContextMenuService,
     private message: NzMessageService,
@@ -37,7 +36,7 @@ export class WpxRolesComponent implements OnInit {
 
   ngOnInit(): void {
     this.getData();
-    this.roles.key$.subscribe(key => {
+    this.pages.key$.subscribe(key => {
       if (key) {
         this.selectedKeys = [key];
       }
@@ -45,17 +44,19 @@ export class WpxRolesComponent implements OnInit {
   }
 
   getData(): void {
-    this.roles.find().subscribe(data => {
+    this.pages.find({}, { sort: 1 }).subscribe(data => {
       const nodes: NzTreeNodeOptions[] = [];
       const dict: Record<string, NzTreeNodeOptions> = {};
       for (const x of data) {
         this.data[x._id] = x;
         dict[x._id] = {
-          title: `${x.name} [${x.key}]`,
+          title: `${x.name}`,
           key: x._id,
           parent: x.parent,
+          icon: x.icon,
           isLeaf: true,
-          expanded: true
+          expanded: true,
+          selectable: x.kind !== 'group'
         };
       }
       for (const x of data) {
@@ -73,7 +74,7 @@ export class WpxRolesComponent implements OnInit {
         }
       }
       this.nodes = [...nodes];
-      this.roles.key$.complete();
+      this.pages.key$.complete();
     });
   }
 
@@ -87,9 +88,9 @@ export class WpxRolesComponent implements OnInit {
       return;
     }
     if ($event.node?.isSelected) {
-      this.router.navigate(['settings', 'roles', $event.node!.key]);
+      this.router.navigate(['settings', 'pages', $event.node!.key, 'schema']);
     } else {
-      this.router.navigate(['settings', 'roles', 'home']);
+      this.router.navigate(['settings', 'pages', 'home']);
     }
   }
 
@@ -112,25 +113,42 @@ export class WpxRolesComponent implements OnInit {
     });
   }
 
-  delete(data: any): void {
-    // this.modal.confirm({
-    //   nzTitle: '您确定要作废该页面吗?',
-    //   nzContent: '该操作不会真实删除实体集合，如必须删除需要数据库工具控制完成',
-    //   nzOkText: '是的',
-    //   nzOkType: 'primary',
-    //   nzOkDanger: true,
-    //   nzMaskClosable: true,
-    //   nzOnOk: () => {
-    //     this.pages.api.deleteById([data._id]).subscribe(v => {
-    //       if (!v.code) {
-    //         this.message.success('数据删除完成');
-    //         this.getData();
-    //       } else {
-    //         this.notification.error('操作失败', v.message);
-    //       }
-    //     });
-    //   },
-    //   nzCancelText: '再想想'
-    // });
+  delete(data: AnyDto<Page>): void {
+    this.modal.confirm({
+      nzTitle: '您确定要作废该页面吗?',
+      nzContent: '该操作不会真实删除实体集合，如必须删除需要数据库工具控制完成',
+      nzOkText: '是的',
+      nzOkType: 'primary',
+      nzOkDanger: true,
+      nzMaskClosable: true,
+      nzOnOk: () => {
+        this.pages.delete(data._id).subscribe(() => {
+          this.message.success('数据删除完成');
+          this.getData();
+        });
+      },
+      nzCancelText: '再想想'
+    });
+  }
+
+  drop(event: NzFormatEmitEvent): void {
+    if (!event.dragNode) {
+      return;
+    }
+    const node = event.dragNode;
+    const parentNode = node.getParentNode();
+    let parent: string;
+    let sort: string[];
+    if (!parentNode) {
+      parent = 'root';
+      sort = node.treeService!.rootNodes.map(v => v.key);
+    } else {
+      parent = parentNode.key;
+      sort = parentNode.children.map(v => v.key);
+    }
+    this.pages.reorganization(node.key, parent).subscribe(v => {
+      this.message.success('数据更新完成');
+      this.getData();
+    });
   }
 }

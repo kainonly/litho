@@ -35,7 +35,7 @@ const routes: Routes = [
   },
   {
     path: 'settings',
-    loadChildren: () => import('@weplanx/settings').then(m => m.WpxSettingsModule),
+    loadChildren: () => import('@weplanx/settings').then(m => m.SettingsModule),
     canActivate: [AppGuard],
     data: {
       breadcrumb: '管理者工具'

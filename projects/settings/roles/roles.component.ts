@@ -1,32 +1,33 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { AnyDto, Page, TreeNodesExpanded } from '@weplanx/common';
+import { TreeNodesExpanded } from '@weplanx/common';
 import { NzContextMenuService, NzDropdownMenuComponent } from 'ng-zorro-antd/dropdown';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { NzFormatEmitEvent, NzTreeComponent, NzTreeNodeOptions } from 'ng-zorro-antd/tree';
 
+import { Role } from './dto/role';
 import { FormComponent } from './form/form.component';
-import { WpxPagesSerivce } from './wpx-pages.serivce';
+import { RolesService } from './roles.service';
 
 @Component({
-  selector: 'wpx-settings-pages',
-  templateUrl: './wpx-pages.component.html'
+  selector: 'wpx-settings-roles',
+  templateUrl: './roles.component.html'
 })
-export class WpxPagesComponent implements OnInit {
+export class RolesComponent implements OnInit {
   @ViewChild('tree') tree!: NzTreeComponent;
   nodes: NzTreeNodeOptions[] = [];
   name = '';
   expand = true;
 
-  data: Record<string, AnyDto<Page>> = {};
+  data: Record<string, Role> = {};
   actionKey?: string;
   selectedKeys: string[] = [];
 
   constructor(
-    public pages: WpxPagesSerivce,
+    public roles: RolesService,
     private modal: NzModalService,
     private nzContextMenuService: NzContextMenuService,
     private message: NzMessageService,
@@ -36,7 +37,7 @@ export class WpxPagesComponent implements OnInit {
 
   ngOnInit(): void {
     this.getData();
-    this.pages.key$.subscribe(key => {
+    this.roles.key$.subscribe(key => {
       if (key) {
         this.selectedKeys = [key];
       }
@@ -44,19 +45,17 @@ export class WpxPagesComponent implements OnInit {
   }
 
   getData(): void {
-    this.pages.find({}, { sort: 1 }).subscribe(data => {
+    this.roles.find().subscribe(data => {
       const nodes: NzTreeNodeOptions[] = [];
       const dict: Record<string, NzTreeNodeOptions> = {};
       for (const x of data) {
         this.data[x._id] = x;
         dict[x._id] = {
-          title: `${x.name}`,
+          title: `${x.name} [${x.key}]`,
           key: x._id,
           parent: x.parent,
-          icon: x.icon,
           isLeaf: true,
-          expanded: true,
-          selectable: x.kind !== 'group'
+          expanded: true
         };
       }
       for (const x of data) {
@@ -74,7 +73,7 @@ export class WpxPagesComponent implements OnInit {
         }
       }
       this.nodes = [...nodes];
-      this.pages.key$.complete();
+      this.roles.key$.complete();
     });
   }
 
@@ -88,9 +87,9 @@ export class WpxPagesComponent implements OnInit {
       return;
     }
     if ($event.node?.isSelected) {
-      this.router.navigate(['settings', 'pages', $event.node!.key, 'schema']);
+      this.router.navigate(['settings', 'roles', $event.node!.key]);
     } else {
-      this.router.navigate(['settings', 'pages', 'home']);
+      this.router.navigate(['settings', 'roles', 'home']);
     }
   }
 
@@ -113,42 +112,25 @@ export class WpxPagesComponent implements OnInit {
     });
   }
 
-  delete(data: AnyDto<Page>): void {
-    this.modal.confirm({
-      nzTitle: '您确定要作废该页面吗?',
-      nzContent: '该操作不会真实删除实体集合，如必须删除需要数据库工具控制完成',
-      nzOkText: '是的',
-      nzOkType: 'primary',
-      nzOkDanger: true,
-      nzMaskClosable: true,
-      nzOnOk: () => {
-        this.pages.delete(data._id).subscribe(() => {
-          this.message.success('数据删除完成');
-          this.getData();
-        });
-      },
-      nzCancelText: '再想想'
-    });
-  }
-
-  drop(event: NzFormatEmitEvent): void {
-    if (!event.dragNode) {
-      return;
-    }
-    const node = event.dragNode;
-    const parentNode = node.getParentNode();
-    let parent: string;
-    let sort: string[];
-    if (!parentNode) {
-      parent = 'root';
-      sort = node.treeService!.rootNodes.map(v => v.key);
-    } else {
-      parent = parentNode.key;
-      sort = parentNode.children.map(v => v.key);
-    }
-    this.pages.reorganization(node.key, parent).subscribe(v => {
-      this.message.success('数据更新完成');
-      this.getData();
-    });
+  delete(data: any): void {
+    // this.modal.confirm({
+    //   nzTitle: '您确定要作废该页面吗?',
+    //   nzContent: '该操作不会真实删除实体集合，如必须删除需要数据库工具控制完成',
+    //   nzOkText: '是的',
+    //   nzOkType: 'primary',
+    //   nzOkDanger: true,
+    //   nzMaskClosable: true,
+    //   nzOnOk: () => {
+    //     this.pages.api.deleteById([data._id]).subscribe(v => {
+    //       if (!v.code) {
+    //         this.message.success('数据删除完成');
+    //         this.getData();
+    //       } else {
+    //         this.notification.error('操作失败', v.message);
+    //       }
+    //     });
+    //   },
+    //   nzCancelText: '再想想'
+    // });
   }
 }

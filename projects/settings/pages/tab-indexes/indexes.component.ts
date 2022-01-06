@@ -5,7 +5,7 @@ import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 
-import { WpxPagesSerivce } from '../wpx-pages.serivce';
+import { PagesSerivce } from '../pages.serivce';
 import { FormComponent } from './form/form.component';
 
 @Component({
@@ -17,7 +17,7 @@ export class IndexesComponent implements OnInit {
   indexesList: any[] = [];
 
   constructor(
-    private pages: WpxPagesSerivce,
+    private pages: PagesSerivce,
     private modal: NzModalService,
     private message: NzMessageService,
     private notification: NzNotificationService,

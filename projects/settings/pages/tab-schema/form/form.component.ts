@@ -6,8 +6,8 @@ import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalRef } from 'ng-zorro-antd/modal';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 
+import { PagesSerivce } from '../../pages.serivce';
 import { fieldTypeValues } from '../../values';
-import { WpxPagesSerivce } from '../../wpx-pages.serivce';
 
 @Component({
   selector: 'wpx-settings-pages-schema-form',
@@ -22,7 +22,7 @@ export class FormComponent implements OnInit {
 
   constructor(
     private modal: NzModalRef,
-    private pages: WpxPagesSerivce,
+    private pages: PagesSerivce,
     private fb: FormBuilder,
     private message: NzMessageService,
     private notification: NzNotificationService

@@ -5,7 +5,7 @@ import { map, switchMap } from 'rxjs/operators';
 import { Api, Field, Page } from '@weplanx/common';
 
 @Injectable()
-export class WpxPagesSerivce extends Api<Page> {
+export class PagesSerivce extends Api<Page> {
   protected override model = 'pages';
   key$: AsyncSubject<string> = new AsyncSubject<string>();
   refresh: Subject<any> = new Subject<any>();

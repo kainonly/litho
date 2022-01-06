@@ -7,7 +7,7 @@ import { JoinedEditorOptions } from 'ng-zorro-antd/code-editor/typings';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 
-import { WpxPagesSerivce } from '../wpx-pages.serivce';
+import { PagesSerivce } from '../pages.serivce';
 
 declare const monaco: any;
 
@@ -25,7 +25,7 @@ export class ValidatorComponent implements OnInit {
   };
 
   constructor(
-    private pages: WpxPagesSerivce,
+    private pages: PagesSerivce,
     private fb: FormBuilder,
     private message: NzMessageService,
     private notification: NzNotificationService,

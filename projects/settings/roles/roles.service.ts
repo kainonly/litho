@@ -6,7 +6,7 @@ import { Api } from '@weplanx/common';
 import { Role } from './dto/role';
 
 @Injectable()
-export class WpxRolesService extends Api<Role> {
+export class RolesService extends Api<Role> {
   protected override model = 'roles';
   key$: AsyncSubject<string> = new AsyncSubject<string>();
 }

@@ -5,19 +5,19 @@ import { WpxModule } from '@weplanx/common';
 import { WpxLayoutModule } from '@weplanx/common/layout';
 import { WpxShareModule } from '@weplanx/components';
 
-import { WpxUsersComponent } from './wpx-users.component';
-import { WpxUsersService } from './wpx-users.service';
+import { UsersComponent } from './users.component';
+import { UsersService } from './users.service';
 
 const routes: Routes = [
   {
     path: '',
-    component: WpxUsersComponent
+    component: UsersComponent
   }
 ];
 
 @NgModule({
   imports: [WpxModule, WpxLayoutModule, WpxShareModule, RouterModule.forChild(routes)],
-  declarations: [WpxUsersComponent],
-  providers: [WpxUsersService]
+  declarations: [UsersComponent],
+  providers: [UsersService]
 })
-export class WpxUsersModule {}
+export class UsersModule {}

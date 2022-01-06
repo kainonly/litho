@@ -8,13 +8,13 @@ import { NzTreeModule } from 'ng-zorro-antd/tree';
 import { NzTreeSelectModule } from 'ng-zorro-antd/tree-select';
 
 import { FormComponent } from './form/form.component';
-import { WpxPagesComponent } from './wpx-pages.component';
-import { WpxPagesSerivce } from './wpx-pages.serivce';
+import { PagesComponent } from './pages.component';
+import { PagesSerivce } from './pages.serivce';
 
 const routes: Routes = [
   {
     path: '',
-    component: WpxPagesComponent,
+    component: PagesComponent,
     children: [
       {
         path: 'home',
@@ -65,7 +65,6 @@ const routes: Routes = [
     NzTreeSelectModule,
     RouterModule.forChild(routes)
   ],
-  declarations: [WpxPagesComponent, FormComponent],
-  providers: [WpxPagesSerivce]
+  declarations: [PagesComponent, FormComponent]
 })
-export class WpxPagesModule {}
+export class PagesModule {}

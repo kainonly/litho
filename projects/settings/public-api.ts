@@ -1,2 +1,2 @@
-export * from './wpx-settings.module';
-export * from './wpx-settings.component';
+export * from './settings.module';
+export * from './settings.component';
