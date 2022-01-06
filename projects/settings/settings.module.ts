@@ -5,9 +5,13 @@ import { WpxModule } from '@weplanx/common';
 import { WpxLayoutModule } from '@weplanx/common/layout';
 import { WpxShareModule } from '@weplanx/components';
 
-import { PagesSerivce } from './pages/pages.serivce';
-import { RolesService } from './roles/roles.service';
+import { PagesComponent } from './pages/pages.component';
+import { pages, PagesModule } from './pages/pages.module';
+import { RolesComponent } from './roles/roles.component';
+import { roles, RolesModule } from './roles/roles.module';
 import { SettingsComponent } from './settings.component';
+import { UsersComponent } from './users/users.component';
+import { UsersModule } from './users/users.module';
 
 const routes: Routes = [
   {
@@ -16,21 +20,23 @@ const routes: Routes = [
     children: [
       {
         path: 'pages',
-        loadChildren: () => import('./pages/pages.module').then(m => m.PagesModule),
+        component: PagesComponent,
+        children: pages,
         data: {
           breadcrumb: '页面管理'
         }
       },
       {
         path: 'roles',
-        loadChildren: () => import('./roles/roles.module').then(m => m.RolesModule),
+        component: RolesComponent,
+        children: roles,
         data: {
           breadcrumb: '权限管理'
         }
       },
       {
         path: 'users',
-        loadChildren: () => import('./users/users.module').then(m => m.UsersModule),
+        component: UsersComponent,
         data: {
           breadcrumb: '成员管理'
         }
@@ -41,8 +47,15 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [WpxShareModule, WpxModule, WpxLayoutModule, RouterModule.forChild(routes)],
-  declarations: [SettingsComponent],
-  providers: [RolesService, PagesSerivce]
+  imports: [
+    WpxShareModule,
+    WpxModule,
+    WpxLayoutModule,
+    PagesModule,
+    RolesModule,
+    UsersModule,
+    RouterModule.forChild(routes)
+  ],
+  declarations: [SettingsComponent]
 })
 export class SettingsModule {}

@@ -8,30 +8,29 @@ import { NzTreeModule } from 'ng-zorro-antd/tree';
 import { NzTreeSelectModule } from 'ng-zorro-antd/tree-select';
 
 import { FormComponent } from './form/form.component';
+import { HomeComponent } from './home/home.component';
+import { HomeModule } from './home/home.module';
+import { RoleComponent } from './role/role.component';
+import { RoleModule } from './role/role.module';
 import { RolesComponent } from './roles.component';
+import { RolesService } from './roles.service';
 
-const routes: Routes = [
+export const roles: Routes = [
   {
-    path: '',
-    component: RolesComponent,
-    children: [
-      {
-        path: 'home',
-        loadChildren: () => import('./home/home.module').then(m => m.HomeModule),
-        data: {
-          breadcrumb: '使用提示'
-        }
-      },
-      {
-        path: ':key',
-        loadChildren: () => import('./role/role.module').then(m => m.RoleModule),
-        data: {
-          breadcrumb: '权限设置'
-        }
-      },
-      { path: '', redirectTo: '/settings/roles/home', pathMatch: 'full' }
-    ]
-  }
+    path: 'home',
+    component: HomeComponent,
+    data: {
+      breadcrumb: '使用提示'
+    }
+  },
+  {
+    path: ':key',
+    component: RoleComponent,
+    data: {
+      breadcrumb: '权限设置'
+    }
+  },
+  { path: '', redirectTo: '/settings/roles/home', pathMatch: 'full' }
 ];
 
 @NgModule({
@@ -39,10 +38,13 @@ const routes: Routes = [
     WpxModule,
     WpxLayoutModule,
     WpxShareModule,
+    RouterModule,
     NzTreeModule,
     NzTreeSelectModule,
-    RouterModule.forChild(routes)
+    HomeModule,
+    RoleModule
   ],
-  declarations: [RolesComponent, FormComponent]
+  declarations: [RolesComponent, FormComponent],
+  providers: [RolesService]
 })
 export class RolesModule {}

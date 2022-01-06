@@ -9,15 +9,8 @@ import { NzCodeEditorModule } from 'ng-zorro-antd/code-editor';
 import { TabsModule } from '../tabs/tabs.module';
 import { ValidatorComponent } from './validator.component';
 
-const routes: Routes = [
-  {
-    path: '',
-    component: ValidatorComponent
-  }
-];
-
 @NgModule({
-  imports: [WpxModule, WpxLayoutModule, WpxShareModule, NzCodeEditorModule, RouterModule.forChild(routes), TabsModule],
+  imports: [WpxModule, WpxLayoutModule, WpxShareModule, NzCodeEditorModule, TabsModule],
   declarations: [ValidatorComponent]
 })
 export class ValidatorModule {}
