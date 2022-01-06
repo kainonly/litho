@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 
 import { PagesSerivce } from '@settings/pages/pages.serivce';
 import { RolesService } from '@settings/roles/roles.service';
-import { TreeNodesExpanded } from '@weplanx/core';
+import { TreeNodesExpanded } from '@weplanx/common';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { NzTreeComponent, NzTreeNode, NzTreeNodeOptions } from 'ng-zorro-antd/tree';

@@ -4,8 +4,8 @@ import { Router } from '@angular/router';
 
 import { StorageMap } from '@ngx-pwa/local-storage';
 
-import { Dataset } from './common/dataset';
 import { BasicDto, Field, LayoutOption, UploadOption } from './types';
+import { Dataset } from './utils/dataset';
 
 @Injectable({ providedIn: 'root' })
 export class WpxService {

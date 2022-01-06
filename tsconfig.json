@@ -24,9 +24,10 @@
       "@common/*": ["src/common/*"],
       "@settings/*": ["src/settings/*"],
       "@center/*": ["src/center/*"],
-      "@weplanx/core": ["projects/core/src/public-api.ts"],
       "@weplanx/common": ["projects/common/src/public-api.ts"],
-      "@weplanx/common/table": ["projects/common/src/table/public-api.ts"],
+      "@weplanx/common/layout": ["projects/common/src/layout/public-api.ts"],
+      "@weplanx/components": ["projects/components/src/public-api.ts"],
+      "@weplanx/components/table": ["projects/components/src/table/public-api.ts"],
       "@weplanx/settings": ["projects/settings/src/public-api.ts"]
     }
   },

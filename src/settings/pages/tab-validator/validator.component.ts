@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 
-import { AnyDto, updateFormGroup } from '@weplanx/core';
+import { AnyDto, updateFormGroup } from '@weplanx/common';
 import { JoinedEditorOptions } from 'ng-zorro-antd/code-editor/typings';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzNotificationService } from 'ng-zorro-antd/notification';

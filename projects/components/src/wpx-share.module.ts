@@ -76,4 +76,4 @@ import { NzUploadModule } from 'ng-zorro-antd/upload';
     NzPopconfirmModule
   ]
 })
-export class WpxCommonModule {}
+export class WpxShareModule {}

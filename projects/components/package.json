@@ -1,5 +1,5 @@
 {
-  "name": "@weplanx/core",
+  "name": "@weplanx/components",
   "version": "13.0.0",
   "private": false,
   "peerDependencies": {

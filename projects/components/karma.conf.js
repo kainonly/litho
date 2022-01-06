@@ -14,7 +14,6 @@ module.exports = function (config) {
     ],
     client: {
       jasmine: {
-        random: false
         // you can add configuration options for Jasmine here
         // the possible options are listed at https://jasmine.github.io/api/edge/Configuration.html
         // for example, you can disable the random execution with `random: false`
@@ -26,12 +25,11 @@ module.exports = function (config) {
       suppressAll: true // removes the duplicated traces
     },
     coverageReporter: {
-      dir: require('path').join(__dirname, '../../coverage/core'),
+      dir: require('path').join(__dirname, '../../coverage/common'),
       subdir: '.',
       reporters: [
-        { type: 'html', subdir: 'report-html' },
-        { type: 'text-summary' },
-        { type: 'lcov', subdir: 'report-lcov' }
+        { type: 'html' },
+        { type: 'text-summary' }
       ]
     },
     reporters: ['progress', 'kjhtml'],
@@ -40,12 +38,6 @@ module.exports = function (config) {
     logLevel: config.LOG_INFO,
     autoWatch: true,
     browsers: ['Chrome'],
-    customLaunchers: {
-      ChromeHeadlessCI: {
-        base: 'ChromeHeadless',
-        flags: ['--no-sandbox']
-      }
-    },
     singleRun: false,
     restartOnFileChange: true
   });
