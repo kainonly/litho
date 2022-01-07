@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'app-center-notification',
+  selector: 'wpx-center-notification',
   templateUrl: './notification.component.html'
 })
 export class NotificationComponent {}

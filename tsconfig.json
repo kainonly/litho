@@ -22,11 +22,12 @@
     "paths": {
       "@env": ["src/environments/environment.ts"],
       "@common/*": ["src/app/common/*"],
-      "@center/*": ["src/center/*"],
       "@weplanx/common": ["dist/common"],
       "@weplanx/components": ["dist/components"],
       "@weplanx/components/table": ["dist/components/table"],
-      "@weplanx/settings": ["dist/settings"]
+      "@weplanx/settings": ["dist/settings"],
+      "@weplanx/center": ["dist/center"],
+      "@weplanx/resources": ["dist/resources"]
     }
   },
   "angularCompilerOptions": {

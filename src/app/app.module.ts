@@ -29,9 +29,12 @@ const routes: Routes = [
     canActivate: [AppGuard]
   },
   {
-    path: 'center',
-    loadChildren: () => import('@center/center.module').then(m => m.CenterModule),
-    canActivate: [AppGuard]
+    path: 'resources',
+    loadChildren: () => import('@weplanx/resources').then(m => m.ResourcesModule),
+    canActivate: [AppGuard],
+    data: {
+      breadcrumb: '服务资源'
+    }
   },
   {
     path: 'settings',
@@ -39,6 +42,14 @@ const routes: Routes = [
     canActivate: [AppGuard],
     data: {
       breadcrumb: '管理者工具'
+    }
+  },
+  {
+    path: 'center',
+    loadChildren: () => import('@weplanx/center').then(m => m.CenterModule),
+    canActivate: [AppGuard],
+    data: {
+      breadcrumb: '个人中心'
     }
   },
   { path: '', redirectTo: '/pages', pathMatch: 'full' }
