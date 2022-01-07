@@ -23,12 +23,12 @@
       "@env": ["src/environments/environment.ts"],
       "@common/*": ["src/common/*"],
       "@center/*": ["src/center/*"],
-      "@weplanx/common": ["dist/common", "dist/common/*"],
-      "@weplanx/common/layout": ["dist/common/layout", "dist/common/layout/*"],
-      "@weplanx/components": ["dist/components", "dist/components/*"],
-      "@weplanx/components/table": ["dist/components/table", "dist/components/table/*"],
-      "@weplanx/components/template": ["dist/components/template", "dist/components/template/*"],
-      "@weplanx/settings": ["dist/settings", "dist/settings/*"]
+      "@weplanx/common": ["dist/common"],
+      "@weplanx/common/layout": ["dist/common/layout"],
+      "@weplanx/components": ["dist/components"],
+      "@weplanx/components/table": ["dist/components/table"],
+      "@weplanx/components/template": ["dist/components/template"],
+      "@weplanx/settings": ["dist/settings"]
     }
   },
   "angularCompilerOptions": {

@@ -23,8 +23,8 @@ import { WpxLayoutAlertDirective } from './layout-alert.directive';
 })
 export class WpxLayoutComponent implements OnInit, AfterContentInit {
   @Input() wpxTitle?: string;
-  @Input() @InputBoolean() wpxSkip?: any;
-  @Input() @InputBoolean() wpxBack?: any;
+  @Input() @InputBoolean() wpxSkip?: boolean;
+  @Input() @InputBoolean() wpxBack?: boolean;
   @ContentChild(WpxLayoutAlertDirective, { read: TemplateRef }) wpxAlert?: TemplateRef<any>;
   @ContentChildren(WpxLayoutActionDirective, { read: TemplateRef }) wpxActions?: QueryList<TemplateRef<any>>;
 

@@ -4,6 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { WpxModule } from '@weplanx/common';
 import { WpxLayoutModule } from '@weplanx/common/layout';
 import { WpxShareModule } from '@weplanx/components';
+import { NzBreadCrumbModule } from 'ng-zorro-antd/breadcrumb';
 
 import { PagesComponent } from './pages/pages.component';
 import { pages, PagesModule } from './pages/pages.module';
