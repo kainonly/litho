@@ -103,7 +103,7 @@
     "common": {
       "projectType": "library",
       "root": "projects/common",
-      "sourceRoot": "projects/common",
+      "sourceRoot": "projects/common/src",
       "prefix": "wpx",
       "architect": {
         "build": {
@@ -124,7 +124,7 @@
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
-            "main": "projects/common/test.ts",
+            "main": "projects/common/src/test.ts",
             "tsConfig": "projects/common/tsconfig.spec.json",
             "karmaConfig": "projects/common/karma.conf.js"
           }
@@ -177,7 +177,7 @@
     "settings": {
       "projectType": "library",
       "root": "projects/settings",
-      "sourceRoot": "projects/settings",
+      "sourceRoot": "projects/settings/src",
       "prefix": "wpx",
       "architect": {
         "build": {
@@ -198,7 +198,7 @@
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
-            "main": "projects/settings/test.ts",
+            "main": "projects/settings/src/test.ts",
             "tsConfig": "projects/settings/tsconfig.spec.json",
             "karmaConfig": "projects/settings/karma.conf.js"
           }

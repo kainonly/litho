@@ -1,1 +1,2 @@
-export * from './wpx-share.module';
+export * from './dynamic/dynamic.component';
+export * from './dynamic/dynamic.module';
