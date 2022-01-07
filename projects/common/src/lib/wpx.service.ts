@@ -17,7 +17,7 @@ export class WpxService {
   /**
    * 上传地址
    */
-  upload?: string | UploadOption;
+  upload?: UploadOption;
   /**
    * 导航数据
    */
@@ -53,7 +53,7 @@ export class WpxService {
    * 设置上传配置
    * @param value
    */
-  setUpload(value: string | UploadOption): void {
+  setUpload(value: UploadOption): void {
     this.upload = value;
   }
 
