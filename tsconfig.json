@@ -21,11 +21,11 @@
     "lib": ["es2020", "dom"],
     "paths": {
       "@env": ["src/environments/environment.ts"],
-      "@common/*": ["src/common/*"],
+      "@common/*": ["src/app/common/*"],
       "@center/*": ["src/center/*"],
       "@weplanx/common": ["dist/common"],
+      "@weplanx/components": ["dist/components"],
       "@weplanx/components/table": ["dist/components/table"],
-      "@weplanx/components/template": ["dist/components/template"],
       "@weplanx/settings": ["dist/settings"]
     }
   },

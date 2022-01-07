@@ -6,12 +6,12 @@ import { NzIconService } from 'ng-zorro-antd/icon';
 
 @Component({
   selector: 'app-root',
-  template: ` <router-outlet></router-outlet> `
+  template: '<router-outlet></router-outlet>'
 })
 export class AppComponent implements OnInit {
   constructor(private wpx: WpxService, private nzIconService: NzIconService) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.wpx.setAssets(environment.cdn);
     this.nzIconService.changeAssetsSource(environment.cdn);
   }

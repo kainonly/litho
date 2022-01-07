@@ -6,11 +6,11 @@ import { AppService } from '@common/app.service';
 import { WpxService } from '@weplanx/common';
 
 @Component({
-  selector: 'app-layout',
-  templateUrl: './layout.component.html',
-  styleUrls: ['./layout.component.scss']
+  selector: 'app-pages',
+  templateUrl: './pages.component.html',
+  styleUrls: ['./pages.component.scss']
 })
-export class LayoutComponent implements OnInit, OnDestroy {
+export class PagesComponent implements OnInit, OnDestroy {
   private autoRefreshToken!: Subscription;
 
   constructor(public app: AppService, public wpx: WpxService) {}

@@ -15,6 +15,7 @@ export * from './lib/pipes/split.pipe';
 export * from './lib/utils/api';
 export * from './lib/utils/dataset';
 export * from './lib/utils/helper';
+export * from './lib/activated';
 export * from './lib/share.module';
 export * from './lib/types';
 export * from './lib/wpx.module';

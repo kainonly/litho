@@ -2,16 +2,16 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { ShareModule } from '@common/share.module';
-import { WpxActivated } from '@weplanx/common/layout';
-import { WpxTemplateComponent, WpxTemplateModule } from '@weplanx/components/template';
+import { WpxActivated } from '@weplanx/common';
+import { WpxDynamicComponent, WpxDynamicModule } from '@weplanx/components';
 
-import { LayoutComponent } from './layout/layout.component';
-import { LayoutModule } from './layout/layout.module';
+import { EmptyComponent } from './empty/empty.component';
+import { PagesComponent } from './pages.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: LayoutComponent,
+    component: PagesComponent,
     canActivateChild: [WpxActivated],
     children: [
       {
@@ -20,7 +20,7 @@ const routes: Routes = [
       },
       {
         path: ':pageId',
-        component: WpxTemplateComponent
+        component: WpxDynamicComponent
       },
       { path: '', redirectTo: '/pages/dashboard', pathMatch: 'full' }
     ]
@@ -28,6 +28,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [ShareModule, LayoutModule, WpxTemplateModule, RouterModule.forChild(routes)]
+  imports: [ShareModule, WpxDynamicModule, RouterModule.forChild(routes)],
+  declarations: [PagesComponent, EmptyComponent]
 })
-export class AppRoutingModule {}
+export class PagesModule {}

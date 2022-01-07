@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'app-empty',
+  selector: 'app-pages-empty',
   template: `
     <nz-result nzStatus="404" nzTitle="404" [nzSubTitle]="'抱歉，您访问的页面不存在或未授权'">
       <div nz-result-extra>
