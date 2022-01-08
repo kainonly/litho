@@ -1,14 +1,9 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
 
-import { TreeNodesExpanded } from '@weplanx/common';
-import { NzContextMenuService, NzDropdownMenuComponent } from 'ng-zorro-antd/dropdown';
-import { NzMessageService } from 'ng-zorro-antd/message';
+import { Dataset, WpxService } from '@weplanx/common';
 import { NzModalService } from 'ng-zorro-antd/modal';
-import { NzNotificationService } from 'ng-zorro-antd/notification';
-import { NzFormatEmitEvent, NzTreeComponent, NzTreeNodeOptions } from 'ng-zorro-antd/tree';
 
-import { Role } from './dto/role';
+import { RoleDto } from './dto/role';
 import { FormComponent } from './form/form.component';
 import { RolesService } from './roles.service';
 
@@ -17,95 +12,29 @@ import { RolesService } from './roles.service';
   templateUrl: './roles.component.html'
 })
 export class RolesComponent implements OnInit {
-  @ViewChild('tree') tree!: NzTreeComponent;
-  nodes: NzTreeNodeOptions[] = [];
-  name = '';
-  expand = true;
+  ds!: Dataset<RoleDto>;
 
-  data: Record<string, Role> = {};
-  actionKey?: string;
-  selectedKeys: string[] = [];
-
-  constructor(
-    public roles: RolesService,
-    private modal: NzModalService,
-    private nzContextMenuService: NzContextMenuService,
-    private message: NzMessageService,
-    private notification: NzNotificationService,
-    private router: Router
-  ) {}
+  constructor(public roles: RolesService, private wpx: WpxService, private modal: NzModalService) {}
 
   ngOnInit(): void {
-    this.getData();
-    this.roles.key$.subscribe(key => {
-      if (key) {
-        this.selectedKeys = [key];
-      }
+    this.ds = this.wpx.dataset<RoleDto>('role', [
+      { label: '名称', key: 'name', type: 'text' },
+      { label: '描述', key: 'description', type: 'text' }
+    ]);
+    this.ds.ready.subscribe(() => {
+      this.getData(true);
     });
   }
 
-  getData(): void {
-    this.roles.find().subscribe(data => {
-      const nodes: NzTreeNodeOptions[] = [];
-      const dict: Record<string, NzTreeNodeOptions> = {};
-      for (const x of data) {
-        this.data[x._id] = x;
-        dict[x._id] = {
-          title: `${x.name} [${x.key}]`,
-          key: x._id,
-          parent: x.parent,
-          isLeaf: true,
-          expanded: true
-        };
-      }
-      for (const x of data) {
-        const options = dict[x._id];
-        if (!x.parent) {
-          nodes.push(options);
-        } else {
-          if (dict.hasOwnProperty(x.parent)) {
-            if (!dict[x.parent].hasOwnProperty('children')) {
-              dict[x.parent].children = [];
-            }
-            dict[x.parent].children!.push(options);
-            dict[x.parent].isLeaf = false;
-          }
-        }
-      }
-      this.nodes = [...nodes];
-      this.roles.key$.complete();
-    });
-  }
-
-  expanded(): void {
-    this.expand = !this.expand;
-    TreeNodesExpanded(this.tree.getTreeNodes(), this.expand);
-  }
-
-  selected($event: NzFormatEmitEvent): void {
-    if (!$event.node?.isSelectable) {
-      return;
-    }
-    if ($event.node?.isSelected) {
-      this.router.navigate(['settings', 'roles', $event.node!.key]);
-    } else {
-      this.router.navigate(['settings', 'roles', 'home']);
-    }
-  }
-
-  actions($event: NzFormatEmitEvent, menu: NzDropdownMenuComponent): void {
-    this.actionKey = $event.node!.key;
-    this.nzContextMenuService.create($event.event as MouseEvent, menu);
+  getData(refresh = false): void {
+    this.ds.from(this.roles, refresh).subscribe(() => {});
   }
 
   form(editable?: any): void {
     this.modal.create({
       nzTitle: !editable ? '新增' : '编辑',
       nzContent: FormComponent,
-      nzComponentParams: {
-        editable,
-        nodes: this.nodes
-      },
+      nzComponentParams: {},
       nzOnOk: () => {
         this.getData();
       }

@@ -4,7 +4,7 @@
       <nz-input-group nzCompact>
         <input
           (keyup.enter)="submitSearch()"
-          [(ngModel)]="ds.searchText"
+          [(ngModel)]="wpxDataset.searchText"
           style="width: 420px"
           type="text"
           nz-input
@@ -45,7 +45,7 @@
         (wpxSubmit)="submitSearch($event)"
       >
         <nz-row [nzGutter]="16">
-          <ng-container *ngFor="let x of ds.columns">
+          <ng-container *ngFor="let x of wpxDataset.columns">
             <nz-col [nzSpan]="8">
               <nz-form-item [formGroupName]="x.value">
                 <nz-form-label>{{ x.label }}</nz-form-label>
@@ -78,7 +78,7 @@
 
 <ng-template #toolbox>
   <nz-button-group>
-    <button nz-button nzType="text" nz-tooltip="刷新" (click)="fetch.emit(true)">
+    <button nz-button nzType="text" nz-tooltip="刷新" (click)="wpxFetch.emit(true)">
       <i nz-icon nzType="reload"></i>
     </button>
     <button
@@ -96,7 +96,7 @@
         <label nz-checkbox [(ngModel)]="customWidth" (ngModelChange)="onResizeMessage()"> 自定义宽度 </label>
       </ng-template>
       <ng-template #columnsSizeContent>
-        <nz-radio-group [(ngModel)]="ds.columnsHeight" (ngModelChange)="ds.updateStorage()">
+        <nz-radio-group [(ngModel)]="wpxDataset.columnsHeight" (ngModelChange)="wpxDataset.updateStorage()">
           <label nz-radio-button nzValue="default">默认</label>
           <label nz-radio-button nzValue="middle">中等</label>
           <label nz-radio-button nzValue="small">紧凑</label>
@@ -119,23 +119,23 @@
           <nz-col>
             <label
               nz-checkbox
-              [(ngModel)]="ds.columnsChecked"
-              (ngModelChange)="ds.updateColumnsChecked()"
-              [nzIndeterminate]="ds.columnsIndeterminate"
+              [(ngModel)]="wpxDataset.columnsChecked"
+              (ngModelChange)="wpxDataset.updateColumnsChecked()"
+              [nzIndeterminate]="wpxDataset.columnsIndeterminate"
             >
               全部展示
             </label>
           </nz-col>
           <nz-col></nz-col>
           <nz-col>
-            <button nzSize="small" nz-button nzType="text" (click)="ds.columnsReset()">重置</button>
+            <button nzSize="small" nz-button nzType="text" (click)="wpxDataset.columnsReset()">重置</button>
           </nz-col>
         </nz-row>
       </ng-template>
       <ng-template #columnsContent>
-        <nz-checkbox-wrapper (nzOnChange)="ds.updateColumnChecked()">
+        <nz-checkbox-wrapper (nzOnChange)="wpxDataset.updateColumnChecked()">
           <nz-space nzDirection="vertical">
-            <ng-container *ngFor="let column of ds.columns">
+            <ng-container *ngFor="let column of wpxDataset.columns">
               <label *nzSpaceItem nz-checkbox [nzValue]="column.value" [(ngModel)]="column.checked">
                 {{ column.label }}
               </label>
@@ -149,28 +149,28 @@
 
 <nz-table
   #basicTable
-  [nzTitle]="ds.checkedNumber ? bulk : null"
-  [nzLoading]="ds.loading"
-  [nzSize]="ds.columnsHeight"
-  [nzData]="ds.values"
-  [nzScroll]="scroll"
+  [nzTitle]="wpxDataset.checkedNumber ? bulk : null"
+  [nzLoading]="wpxDataset.loading"
+  [nzSize]="wpxDataset.columnsHeight"
+  [nzData]="wpxDataset.values"
+  [nzScroll]="wpxScroll"
   [nzFrontPagination]="false"
   [nzShowSizeChanger]="true"
-  [nzTotal]="ds.total"
-  [(nzPageSize)]="ds.pageSize"
-  [(nzPageIndex)]="ds.pageIndex"
-  (nzPageIndexChange)="fetch.emit(false)"
-  (nzPageSizeChange)="fetch.emit(true)"
+  [nzTotal]="wpxDataset.total"
+  [(nzPageSize)]="wpxDataset.pageSize"
+  [(nzPageIndex)]="wpxDataset.pageIndex"
+  (nzPageIndexChange)="wpxFetch.emit(false)"
+  (nzPageSizeChange)="wpxFetch.emit(true)"
 >
   <ng-template #bulk>
     <nz-alert nzType="info" nzBanner [nzMessage]="message"></nz-alert>
     <ng-template #message>
       <nz-row nzJustify="space-between">
-        <nz-col> 已选中 {{ ds.checkedNumber }} 项 </nz-col>
+        <nz-col> 已选中 {{ wpxDataset.checkedNumber }} 项 </nz-col>
         <nz-col></nz-col>
         <nz-col style="text-align: right">
           <a nz-button nzType="link" nzSize="small">操作<i nz-icon nzType="down"></i></a>
-          <a nz-button nzType="link" nzSize="small" (click)="ds.clearChecked()">取消选择</a>
+          <a nz-button nzType="link" nzSize="small" (click)="wpxDataset.clearChecked()">取消选择</a>
         </nz-col>
       </nz-row>
     </ng-template>
@@ -181,11 +181,11 @@
         nzWidth="65px"
         nzLeft
         nzAlign="center"
-        [nzChecked]="ds.checked"
-        [nzIndeterminate]="ds.indeterminate"
-        (nzCheckedChange)="ds.setNChecked($event)"
+        [nzChecked]="wpxDataset.checked"
+        [nzIndeterminate]="wpxDataset.indeterminate"
+        (nzCheckedChange)="wpxDataset.setNChecked($event)"
       ></th>
-      <ng-container *ngFor="let x of ds.displayColumns">
+      <ng-container *ngFor="let x of wpxDataset.displayColumns">
         <th
           nz-resizable
           nzBounds="window"
@@ -194,10 +194,10 @@
           [nzMaxWidth]="420"
           [nzMinWidth]="100"
           (nzResizeEnd)="resize($event, x.value)"
-          [nzWidth]="ds.columnsWidth[x.value] ?? '300px'"
+          [nzWidth]="wpxDataset.columnsWidth[x.value] ?? '300px'"
           [nzShowSort]="!customWidth"
-          [(nzSortOrder)]="ds.sortOptions[x.value]"
-          (nzSortOrderChange)="fetch.emit(true)"
+          [(nzSortOrder)]="wpxDataset.sortOptions[x.value]"
+          (nzSortOrderChange)="wpxFetch.emit(true)"
         >
           {{ x.label }}
           <ng-container *ngIf="keywords.has(x.value)">
@@ -218,10 +218,10 @@
         nzLeft
         nzAlign="center"
         [nzDisabled]="data.disabled"
-        [nzChecked]="ds.checkedIds.has(data._id)"
-        (nzCheckedChange)="ds.setChecked(data._id, $event)"
+        [nzChecked]="wpxDataset.checkedIds.has(data._id)"
+        (nzCheckedChange)="wpxDataset.setChecked(data._id, $event)"
       ></td>
-      <ng-container *ngFor="let x of ds.displayColumns">
+      <ng-container *ngFor="let x of wpxDataset.displayColumns">
         <td>
           <p style="margin: 0" nz-typography nzEllipsis [nzEllipsisRows]="2">
             {{ data[x.value] }}
@@ -229,8 +229,8 @@
         </td>
       </ng-container>
       <td nzRight nzAlign="center">
-        <ng-container *ngIf="actions">
-          <ng-container *ngTemplateOutlet="actions; context: { $implicit: data }"></ng-container>
+        <ng-container *ngIf="wpxActions">
+          <ng-container *ngTemplateOutlet="wpxActions; context: { $implicit: data }"></ng-container>
         </ng-container>
       </td>
     </tr>

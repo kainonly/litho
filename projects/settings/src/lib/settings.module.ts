@@ -6,7 +6,7 @@ import { WpxModule, WpxShareModule } from '@weplanx/common';
 import { PagesComponent } from './pages/pages.component';
 import { pages, PagesModule } from './pages/pages.module';
 import { RolesComponent } from './roles/roles.component';
-import { roles, RolesModule } from './roles/roles.module';
+import { RolesModule } from './roles/roles.module';
 import { SettingsComponent } from './settings.component';
 import { UsersComponent } from './users/users.component';
 import { UsersModule } from './users/users.module';
@@ -27,7 +27,6 @@ const routes: Routes = [
       {
         path: 'roles',
         component: RolesComponent,
-        children: roles,
         data: {
           breadcrumb: '权限管理'
         }

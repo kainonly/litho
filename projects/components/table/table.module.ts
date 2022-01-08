@@ -20,7 +20,7 @@ import { NzTableModule } from 'ng-zorro-antd/table';
 import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
 import { NzTypographyModule } from 'ng-zorro-antd/typography';
 
-import { WpxTableComponent } from './wpx-table.component';
+import { WpxTableComponent } from './table.component';
 
 @NgModule({
   imports: [

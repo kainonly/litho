@@ -7,17 +7,17 @@ import { NzResizeEvent } from 'ng-zorro-antd/resizable';
 
 @Component({
   selector: 'wpx-table',
-  templateUrl: './wpx-table.component.html',
-  styleUrls: ['./wpx-table.component.scss']
+  templateUrl: './table.component.html',
+  styleUrls: ['./table.component.scss']
 })
 export class WpxTableComponent implements OnInit {
-  @Input() ds!: Dataset<any>;
-  @Input() scroll: { x?: string | null; y?: string | null } = { x: '1600px' };
-  @Input() actions?: TemplateRef<any>;
-  @Output() readonly fetch: EventEmitter<boolean> = new EventEmitter<boolean>();
+  @Input() wpxDataset!: Dataset<any>;
+  @Input() wpxScroll: { x?: string | null; y?: string | null } = { x: '1600px' };
+  @Input() wpxActions?: TemplateRef<any>;
+  @Output() readonly wpxFetch: EventEmitter<boolean> = new EventEmitter<boolean>();
 
-  @ViewChild('searchbox', { static: true }) searchbox!: TemplateRef<any>;
-  @ViewChild('toolbox', { static: true }) toolbox!: TemplateRef<any>;
+  @ViewChild('searchbox', { static: true }) wpxSearchRef!: TemplateRef<any>;
+  @ViewChild('toolbox', { static: true }) wpxToolRef!: TemplateRef<any>;
 
   keywords: Set<string> = new Set();
   searchForm?: FormGroup;
@@ -29,7 +29,7 @@ export class WpxTableComponent implements OnInit {
   constructor(private fb: FormBuilder, private message: NzMessageService) {}
 
   ngOnInit(): void {
-    this.ds.fields.forEach(v => {
+    this.wpxDataset.fields.forEach(v => {
       if (!!v.keyword) {
         this.keywords.add(v.key);
       }
@@ -41,14 +41,14 @@ export class WpxTableComponent implements OnInit {
    */
   openSearchForm(): void {
     const controls: Record<string, FormGroup> = {};
-    for (const x of this.ds.columns) {
+    for (const x of this.wpxDataset.columns) {
       controls[x.value] = this.fb.group({
         operator: ['$regex'],
         value: []
       });
     }
     this.searchForm = this.fb.group(controls);
-    this.searchForm.patchValue(this.ds.searchOptions);
+    this.searchForm.patchValue(this.wpxDataset.searchOptions);
     this.searchVisible = true;
   }
 
@@ -65,13 +65,13 @@ export class WpxTableComponent implements OnInit {
    */
   submitSearch(data?: unknown): void {
     if (!!data) {
-      this.ds.searchText = '';
-      this.ds.searchOptions = data as Record<string, SearchOption>;
+      this.wpxDataset.searchText = '';
+      this.wpxDataset.searchOptions = data as Record<string, SearchOption>;
     } else {
-      this.ds.searchOptions = {};
+      this.wpxDataset.searchOptions = {};
     }
-    this.ds.updateStorage();
-    this.fetch.emit(true);
+    this.wpxDataset.updateStorage();
+    this.wpxFetch.emit(true);
   }
 
   /**
@@ -79,7 +79,7 @@ export class WpxTableComponent implements OnInit {
    */
   resetSearch(): void {
     const data: any = {};
-    for (const x of this.ds.columns) {
+    for (const x of this.wpxDataset.columns) {
       data[x.value] = {
         operator: '$regex',
         value: ''
@@ -92,17 +92,17 @@ export class WpxTableComponent implements OnInit {
    * 清除搜索
    */
   clearSearch(): void {
-    this.ds.searchText = '';
-    this.ds.searchOptions = {};
-    this.fetch.emit(true);
+    this.wpxDataset.searchText = '';
+    this.wpxDataset.searchOptions = {};
+    this.wpxFetch.emit(true);
   }
 
   /**
    * 自定义列宽
    */
   resize({ width }: NzResizeEvent, value: string): void {
-    this.ds.columnsWidth[value] = `${width}px`;
-    this.ds.updateStorage();
+    this.wpxDataset.columnsWidth[value] = `${width}px`;
+    this.wpxDataset.updateStorage();
   }
 
   /**
