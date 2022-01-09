@@ -1,0 +1,13 @@
+<wpx-layout>
+  <button *wpxLayoutAction nz-button nzType="primary" nzShape="circle" nz-tooltip="新增">
+    <i nz-icon nzType="plus"></i>
+  </button>
+</wpx-layout>
+
+<nz-card *ngIf="!loading; else loadingCard" [nzTitle]="table.wpxSearchRef" [nzExtra]="table.wpxToolRef">
+  <wpx-table #table [wpxDataset]="ds" (wpxFetch)="getData($event)"></wpx-table>
+</nz-card>
+
+<ng-template #loadingCard>
+  <nz-card [nzLoading]="true"></nz-card>
+</ng-template>
