@@ -86,7 +86,7 @@ export class Dataset<T extends BasicDto> implements DatasetOption {
    */
   sortOptions: Record<string, NzTableSortOrder> = {};
 
-  constructor(private storage: StorageMap, private key: string, public fields: DatasetField[]) {
+  constructor(private storage: StorageMap, public key: string, public fields: DatasetField[]) {
     storage.get(key).subscribe(unkonw => {
       const v = unkonw as DatasetOption;
       if (!v) {

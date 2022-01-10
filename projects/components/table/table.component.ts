@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output, TemplateRef, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 
+import { StorageMap } from '@ngx-pwa/local-storage';
 import { SearchOption, Dataset } from '@weplanx/common';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzResizeEvent } from 'ng-zorro-antd/resizable';
@@ -26,9 +27,10 @@ export class WpxTableComponent implements OnInit {
   customWidth = false;
   customWidthMessageId?: string;
 
-  constructor(private fb: FormBuilder, private message: NzMessageService) {}
+  constructor(private storage: StorageMap, private fb: FormBuilder, private message: NzMessageService) {}
 
   ngOnInit(): void {
+    console.log(this.wpxDataset);
     this.wpxDataset.fields.forEach(v => {
       if (!!v.keyword) {
         this.keywords.add(v.key);

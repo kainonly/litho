@@ -1,41 +1,62 @@
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, Subject } from 'rxjs';
+import { Observable, switchMap } from 'rxjs';
 
+import { UserInfo } from '@common/types';
+import { StorageMap } from '@ngx-pwa/local-storage';
 import { ApiResult } from '@weplanx/common';
 
 @Injectable({ providedIn: 'root' })
 export class AppService {
-  /**
-   * 刷新资源
-   */
-  readonly refresh$: Subject<undefined> = new Subject<undefined>();
-  browserRefresh = true;
+  constructor(private http: HttpClient, private storage: StorageMap) {}
 
-  constructor(private http: HttpClient) {}
+  /**
+   * 用户信息
+   */
+  get user(): Observable<UserInfo | undefined> {
+    return this.storage.get<UserInfo>(`user`, {
+      type: 'object',
+      properties: {
+        username: {
+          type: 'string'
+        },
+        name: {
+          type: 'string'
+        },
+        avatar: {
+          type: 'string'
+        },
+        time: {
+          type: 'string'
+        }
+      }
+    });
+  }
 
   /**
    * 登录鉴权
    */
   login(username: string, password: string): Observable<any> {
-    return this.http.post(`auth`, {
-      username,
-      password
-    });
+    return this.http
+      .post<UserInfo>(`auth`, {
+        username,
+        password
+      })
+      .pipe(switchMap(v => this.storage.set(`user`, v)));
   }
 
   /**
    * 验证鉴权
    */
   verify(): Observable<HttpResponse<any>> {
-    return this.http.get(`auth`, { observe: 'response' });
+    return this.http.head(`auth`, { observe: 'response' });
   }
 
   /**
-   * 获取刷新鉴权验证码
+   * 鉴权信息
    */
   code(): Observable<any> {
-    return this.http.get(`auth/mfcode`);
+    return this.http.get(`auth`);
   }
 
   /**
@@ -50,21 +71,14 @@ export class AppService {
   /**
    * 注销鉴权
    */
-  logout(): Observable<any> {
-    return this.http.delete(`auth`);
-  }
+  logout = (): Observable<any> => {
+    return this.http.delete(`auth`).pipe(switchMap(() => this.storage.delete(`user`)));
+  };
 
   /**
    * 获取系统信息
    */
   api(): Observable<ApiResult> {
-    return this.http.get(`api`) as Observable<ApiResult>;
-  }
-
-  /**
-   * 刷新资源
-   */
-  refresh(): void {
-    this.refresh$.next(undefined);
+    return this.http.get<ApiResult>(`api`);
   }
 }

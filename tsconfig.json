@@ -22,12 +22,12 @@
     "paths": {
       "@env": ["src/environments/environment.ts"],
       "@common/*": ["src/app/common/*"],
-      "@weplanx/common": ["dist/common"],
-      "@weplanx/components": ["dist/components"],
-      "@weplanx/components/table": ["dist/components/table"],
-      "@weplanx/settings": ["dist/settings"],
-      "@weplanx/center": ["dist/center"],
-      "@weplanx/resources": ["dist/resources"]
+      "@weplanx/common": ["projects/common/src/public-api.ts"],
+      "@weplanx/components": ["projects/components/public-api.ts"],
+      "@weplanx/components/table": ["projects/components/table/public-api.ts"],
+      "@weplanx/settings": ["projects/settings/src/public-api.ts"],
+      "@weplanx/center": ["projects/center/src/public-api.ts"],
+      "@weplanx/resources": ["projects/resources/src/public-api.ts"]
     }
   },
   "angularCompilerOptions": {

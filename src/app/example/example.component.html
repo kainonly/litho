@@ -1,9 +1,17 @@
 <nz-layout class="main">
-  <wpx-header [wpxLogout]="app.logout"></wpx-header>
+  <wpx-header></wpx-header>
 
   <nz-layout class="content">
     <nz-sider nzTheme="light" [nzWidth]="240">
-      <wpx-nav></wpx-nav>
+      <ul nz-menu nzMode="inline">
+        <li nz-menu-group nzTitle="组件调试">
+          <ul>
+            <li nz-menu-item nzMatchRouter [routerLink]="['orders']">
+              <i nz-icon nzType="table"></i> <span>表格</span>
+            </li>
+          </ul>
+        </li>
+      </ul>
     </nz-sider>
     <nz-layout style="overflow: auto">
       <wpx-page-header></wpx-page-header>

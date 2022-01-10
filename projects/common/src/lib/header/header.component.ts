@@ -1,4 +1,6 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'wpx-header',
@@ -7,5 +9,13 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class WpxHeaderComponent {
-  logout(): void {}
+  @Input() wpxLogout!: () => Observable<any>;
+
+  constructor(private router: Router) {}
+
+  logout(): void {
+    this.wpxLogout().subscribe(v => {
+      this.router.navigateByUrl('/login');
+    });
+  }
 }

@@ -11,8 +11,8 @@ import { NzNotificationService } from 'ng-zorro-antd/notification';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
-  form!: FormGroup;
   now = new Date().getFullYear();
+  form!: FormGroup;
 
   constructor(
     private appService: AppService,
@@ -29,9 +29,8 @@ export class LoginComponent implements OnInit {
   }
 
   submit(data: any): void {
-    this.appService.login(data.username, data.password).subscribe(v => {
+    this.appService.login(data.username, data.password).subscribe(() => {
       this.notification.success('认证状态', '登录成功，正在加载数据~');
-      this.appService.browserRefresh = false;
       this.router.navigateByUrl('/pages');
     });
   }

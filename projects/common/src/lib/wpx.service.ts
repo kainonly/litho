@@ -87,6 +87,6 @@ export class WpxService {
    * @param fields 数据源字段
    */
   dataset<T extends BasicDto>(key: string, fields: DatasetField[]): Dataset<T> {
-    return new Dataset<T>(this.storage, `collection:${key}`, fields);
+    return new Dataset<T>(this.storage, `dataset:${key}`, fields);
   }
 }

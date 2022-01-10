@@ -30,26 +30,16 @@
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.app.json",
             "inlineStyleLanguage": "scss",
-            "assets": [
-              "src/favicon.ico",
-              "src/assets",
-              "src/manifest.webmanifest"
-            ],
-            "styles": [
-              "./node_modules/ng-zorro-antd/ng-zorro-antd.min.css",
-              "src/styles.scss"
-            ],
+            "assets": ["src/favicon.ico", "src/assets", "src/manifest.webmanifest"],
+            "styles": ["./node_modules/ng-zorro-antd/ng-zorro-antd.min.css", "src/styles.scss"],
             "scripts": [],
             "serviceWorker": true,
             "ngswConfigPath": "ngsw-config.json",
-            "allowedCommonJsDependencies": [
-              "tsparticles",
-              "size-sensor",
-              "pdfast"
-            ]
+            "allowedCommonJsDependencies": ["tsparticles", "size-sensor", "pdfast"]
           },
           "configurations": {
             "production": {
+              "tsConfig": "tsconfig.prod.json",
               "budgets": [
                 {
                   "type": "initial",
@@ -106,10 +96,7 @@
         "lint": {
           "builder": "@angular-eslint/builder:lint",
           "options": {
-            "lintFilePatterns": [
-              "src/**/*.ts",
-              "src/**/*.html"
-            ]
+            "lintFilePatterns": ["src/**/*.ts", "src/**/*.html"]
           }
         }
       }
@@ -146,10 +133,7 @@
         "lint": {
           "builder": "@angular-eslint/builder:lint",
           "options": {
-            "lintFilePatterns": [
-              "projects/common/**/*.ts",
-              "projects/common/**/*.html"
-            ]
+            "lintFilePatterns": ["projects/common/**/*.ts", "projects/common/**/*.html"]
           }
         }
       }
@@ -186,10 +170,7 @@
         "lint": {
           "builder": "@angular-eslint/builder:lint",
           "options": {
-            "lintFilePatterns": [
-              "projects/components/**/*.ts",
-              "projects/components/**/*.html"
-            ]
+            "lintFilePatterns": ["projects/components/**/*.ts", "projects/components/**/*.html"]
           }
         }
       }
@@ -226,10 +207,7 @@
         "lint": {
           "builder": "@angular-eslint/builder:lint",
           "options": {
-            "lintFilePatterns": [
-              "projects/settings/**/*.ts",
-              "projects/settings/**/*.html"
-            ]
+            "lintFilePatterns": ["projects/settings/**/*.ts", "projects/settings/**/*.html"]
           }
         }
       }
@@ -266,10 +244,7 @@
         "lint": {
           "builder": "@angular-eslint/builder:lint",
           "options": {
-            "lintFilePatterns": [
-              "projects/center/**/*.ts",
-              "projects/center/**/*.html"
-            ]
+            "lintFilePatterns": ["projects/center/**/*.ts", "projects/center/**/*.html"]
           }
         }
       }
@@ -306,10 +281,7 @@
         "lint": {
           "builder": "@angular-eslint/builder:lint",
           "options": {
-            "lintFilePatterns": [
-              "projects/resources/**/*.ts",
-              "projects/resources/**/*.html"
-            ]
+            "lintFilePatterns": ["projects/resources/**/*.ts", "projects/resources/**/*.html"]
           }
         }
       }

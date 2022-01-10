@@ -39,7 +39,7 @@ export class Api<T> {
     if (!id) {
       throw new Error('the [id] cannot be empty');
     }
-    return this.http.get(this.url(id)) as Observable<AnyDto<T>>;
+    return this.http.get<AnyDto<T>>(this.url(id));
   }
 
   /**
@@ -55,9 +55,9 @@ export class Api<T> {
         params = params.append('sort', `${k}.${v}`);
       }
     }
-    return this.http.get(this.url(), {
+    return this.http.get<Array<AnyDto<T>>>(this.url(), {
       params
-    }) as Observable<Array<AnyDto<T>>>;
+    });
   }
 
   /**
@@ -76,7 +76,7 @@ export class Api<T> {
         params = params.append('sort', `${k}.${v}`);
       }
     }
-    return this.http.get(this.url(), { params }) as Observable<Array<AnyDto<T>>>;
+    return this.http.get<Array<AnyDto<T>>>(this.url(), { params });
   }
 
   /**
@@ -95,7 +95,7 @@ export class Api<T> {
       }
     }
     return this.http
-      .get(this.url(), {
+      .get<Array<AnyDto<T>>>(this.url(), {
         observe: 'response',
         headers: {
           'x-page-size': ds.pageSize.toString(),
@@ -106,16 +106,16 @@ export class Api<T> {
       .pipe(
         map(res => {
           ds.setTotal(parseInt(res.headers.get('x-page-total')!));
-          return res.body;
+          return res.body ?? [];
         })
-      ) as Observable<Array<AnyDto<T>>>;
+      );
   }
 
   /**
    * 创建文档
    */
   create(body: CreateDto<T>): Observable<CreateResult> {
-    return this.http.post(this.url(), body) as Observable<CreateResult>;
+    return this.http.post<CreateResult>(this.url(), body);
   }
 
   /**
@@ -125,9 +125,9 @@ export class Api<T> {
     if (Object.keys(where).length === 0) {
       throw new Error('the [where] cannot be empty');
     }
-    return this.http.patch(this.url(), body, {
+    return this.http.patch<UpdateResult>(this.url(), body, {
       params: new HttpParams().set('where', JSON.stringify(where)).set('multiple', multiple)
-    }) as Observable<UpdateResult>;
+    });
   }
 
   /**
@@ -141,7 +141,7 @@ export class Api<T> {
     for (const id of ids) {
       params = params.append('id', id);
     }
-    return this.http.patch(this.url(), body, { params }) as Observable<UpdateResult>;
+    return this.http.patch<UpdateResult>(this.url(), body, { params });
   }
 
   /**
@@ -158,7 +158,7 @@ export class Api<T> {
     if (!id) {
       throw new Error('the [id] cannot be empty');
     }
-    return this.http.patch(this.url(id), body) as Observable<UpdateResult>;
+    return this.http.patch<UpdateResult>(this.url(id), body);
   }
 
   /**
@@ -168,7 +168,7 @@ export class Api<T> {
     if (!id) {
       throw new Error('the [id] cannot be empty');
     }
-    return this.http.put(this.url(id), body) as Observable<UpdateResult>;
+    return this.http.put<UpdateResult>(this.url(id), body);
   }
 
   /**
@@ -178,6 +178,6 @@ export class Api<T> {
     if (!id) {
       throw new Error('the [id] cannot be empty');
     }
-    return this.http.delete(this.url(id)) as Observable<DeleteResult>;
+    return this.http.delete<DeleteResult>(this.url(id));
   }
 }
