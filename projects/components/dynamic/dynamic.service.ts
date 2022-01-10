@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 
-import { Api, DatasetField } from '@weplanx/common';
+import { Api } from '@weplanx/common';
 
 @Injectable()
 export class DynamicService extends Api<any> {
-  fields(): Observable<DatasetField[]> {
+  fields(): Observable<any[]> {
     return of([]);
     // return this.schema.api.findOne<Schema>({ key: this.option.schema }).pipe(
     //   map(data => {

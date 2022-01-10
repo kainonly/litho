@@ -1,12 +1,7 @@
-import { HttpClient } from '@angular/common/http';
-import { Injectable, Optional } from '@angular/core';
-import { Router } from '@angular/router';
+import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 
-import { StorageMap } from '@ngx-pwa/local-storage';
-
-import { AnyDto, BasicDto, DatasetField, LayoutOption, Page, UploadOption } from './types';
-import { Dataset } from './utils/dataset';
+import { AnyDto, LayoutOption, Page, UploadOption } from './types';
 
 @Injectable({ providedIn: 'root' })
 export class WpxService {
@@ -34,12 +29,6 @@ export class WpxService {
    * 布局设置
    */
   layout: Partial<LayoutOption> = {};
-
-  constructor(
-    @Optional() private router: Router,
-    @Optional() private http: HttpClient,
-    @Optional() private storage: StorageMap
-  ) {}
 
   /**
    * 设置静态资源
@@ -79,14 +68,5 @@ export class WpxService {
     }
     this.navs.next(navs);
     this.pages.next(pages);
-  }
-
-  /**
-   * 设置数据源
-   * @param key 本地存储键值
-   * @param fields 数据源字段
-   */
-  dataset<T extends BasicDto>(key: string, fields: DatasetField[]): Dataset<T> {
-    return new Dataset<T>(this.storage, `dataset:${key}`, fields);
   }
 }

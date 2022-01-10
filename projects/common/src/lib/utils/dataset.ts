@@ -1,18 +1,12 @@
-import { AsyncSubject, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { StorageMap } from '@ngx-pwa/local-storage';
-import { NzCheckBoxOptionInterface } from 'ng-zorro-antd/checkbox';
-import { NzTableSize, NzTableSortOrder } from 'ng-zorro-antd/table/src/table.types';
+import { NzTableSortOrder } from 'ng-zorro-antd/table/src/table.types';
 
-import { DatasetOption, SearchOption, DatasetField, BasicDto } from '../types';
+import { SearchOption, BasicDto } from '../types';
 import { Api } from './api';
 
-export class Dataset<T extends BasicDto> implements DatasetOption {
-  /**
-   * 初始化完毕
-   */
-  readonly ready: AsyncSubject<undefined> = new AsyncSubject<undefined>();
+export class Dataset<T extends BasicDto> {
   /**
    * 加载状态
    */
@@ -50,30 +44,6 @@ export class Dataset<T extends BasicDto> implements DatasetOption {
    */
   checkedNumber = 0;
   /**
-   * 列设置
-   */
-  columns: NzCheckBoxOptionInterface[] = [];
-  /**
-   * 显示全部列
-   */
-  columnsChecked = true;
-  /**
-   * 显示部分列
-   */
-  columnsIndeterminate = false;
-  /**
-   * 表格密度大小
-   */
-  columnsHeight: NzTableSize = 'middle';
-  /**
-   * 表格自定义宽
-   */
-  columnsWidth: Record<string, string> = {};
-  /**
-   * 显示列
-   */
-  displayColumns: NzCheckBoxOptionInterface[] = [];
-  /**
    * 全文搜索
    */
   searchText = '';
@@ -86,36 +56,10 @@ export class Dataset<T extends BasicDto> implements DatasetOption {
    */
   sortOptions: Record<string, NzTableSortOrder> = {};
 
-  constructor(private storage: StorageMap, public key: string, public fields: DatasetField[]) {
-    storage.get(key).subscribe(unkonw => {
-      const v = unkonw as DatasetOption;
-      if (!v) {
-        this.pageSize = 10;
-        this.pageIndex = 1;
-        this.columns = [...this.fields.map(v => <NzCheckBoxOptionInterface>{ label: v.label, value: v.key })];
-        this.columnsHeight = 'middle';
-        this.columnsWidth = {};
-        this.searchText = '';
-        this.searchOptions = {};
-        this.sortOptions = {};
-        this.updateColumnsChecked();
-        this.updateStorage();
-      } else {
-        this.pageSize = v.pageSize;
-        this.pageIndex = v.pageIndex;
-        this.columns = v.columns;
-        this.columnsHeight = v.columnsHeight;
-        this.columnsWidth = v.columnsWidth;
-        this.searchText = v.searchText;
-        this.searchOptions = v.searchOptions;
-        this.sortOptions = v.sortOptions;
-        this.updateColumnChecked();
-      }
-      this.ready.next(undefined);
-      this.ready.complete();
-    });
-  }
-
+  /**
+   * 设置总数
+   * @param value
+   */
   setTotal(value: number): void {
     this.total = value;
   }
@@ -132,7 +76,7 @@ export class Dataset<T extends BasicDto> implements DatasetOption {
    */
   reset(): void {
     this.pageIndex = 1;
-    this.storage.delete(this.key).subscribe(() => {});
+    // this.storage.delete(this.key).subscribe(() => {});
   }
 
   /**
@@ -148,7 +92,7 @@ export class Dataset<T extends BasicDto> implements DatasetOption {
         this.setData(data);
         this.loading = false;
         this.updateCheckedStatus();
-        this.updateStorage();
+        // this.updateStorage();
         return data;
       })
     );
@@ -199,62 +143,5 @@ export class Dataset<T extends BasicDto> implements DatasetOption {
     this.indeterminate = false;
     this.checkedIds.clear();
     this.checkedNumber = 0;
-  }
-
-  /**
-   * 更新显示列
-   */
-  updateDisplayColumns(): void {
-    this.displayColumns = [...this.columns.filter(v => v.checked)];
-  }
-
-  /**
-   * 更新列设置全部选中状态
-   */
-  updateColumnsChecked(): void {
-    this.columnsIndeterminate = false;
-    this.columns.forEach(v => {
-      v.checked = this.columnsChecked;
-    });
-    this.updateDisplayColumns();
-  }
-
-  /**
-   * 更新列设置选中状态
-   */
-  updateColumnChecked(): void {
-    this.columnsChecked = this.columns.every(v => v.checked);
-    this.columnsIndeterminate = !this.columnsChecked && this.columns.some(v => v.checked);
-    this.updateDisplayColumns();
-    this.updateStorage();
-  }
-
-  /**
-   * 列设置重置
-   */
-  columnsReset(): void {
-    this.columnsHeight = 'middle';
-    this.columnsWidth = {};
-    this.columnsChecked = true;
-    this.updateColumnsChecked();
-    this.updateStorage();
-  }
-
-  /**
-   * 更新本地存储
-   */
-  updateStorage(): void {
-    this.storage
-      .set(this.key, <DatasetOption>{
-        pageSize: this.pageSize,
-        pageIndex: this.pageIndex,
-        columns: this.columns,
-        columnsHeight: this.columnsHeight,
-        columnsWidth: this.columnsWidth,
-        searchText: this.searchText,
-        searchOptions: this.searchOptions,
-        sortOptions: this.sortOptions
-      })
-      .subscribe(() => {});
   }
 }

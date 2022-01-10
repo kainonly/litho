@@ -17,13 +17,13 @@ export class RolesComponent implements OnInit {
   constructor(public roles: RolesService, private wpx: WpxService, private modal: NzModalService) {}
 
   ngOnInit(): void {
-    this.ds = this.wpx.dataset<RoleDto>('role', [
-      { label: '名称', key: 'name', type: 'text' },
-      { label: '描述', key: 'description', type: 'text' }
-    ]);
-    this.ds.ready.subscribe(() => {
-      this.getData(true);
-    });
+    // this.ds = this.wpx.dataset<RoleDto>('role', [
+    //   { label: '名称', key: 'name', type: 'text' },
+    //   { label: '描述', key: 'description', type: 'text' }
+    // ]);
+    // this.ds.ready.subscribe(() => {
+    //   this.getData(true);
+    // });
   }
 
   getData(refresh = false): void {

@@ -4,17 +4,11 @@
   <nz-layout class="content">
     <nz-sider nzTheme="light" [nzWidth]="240">
       <ul nz-menu nzMode="inline">
-        <li nz-menu-group nzTitle="组件调试">
-          <ul>
-            <li nz-menu-item nzMatchRouter [routerLink]="['orders']">
-              <i nz-icon nzType="table"></i> <span>表格</span>
-            </li>
-          </ul>
-        </li>
+        <li nz-menu-item nzMatchRouter [routerLink]="['orders']"> <i nz-icon nzType="table"></i> <span>表格</span> </li>
       </ul>
     </nz-sider>
     <nz-layout style="overflow: auto">
-      <wpx-page-header></wpx-page-header>
+      <wpx-page-header [wpxManual]="true"></wpx-page-header>
       <nz-content>
         <router-outlet></router-outlet>
       </nz-content>

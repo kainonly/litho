@@ -14,11 +14,17 @@ const routes: Routes = [
     children: [
       {
         path: 'home',
-        loadChildren: () => import('./home/home.module').then(m => m.HomeModule)
+        loadChildren: () => import('./home/home.module').then(m => m.HomeModule),
+        data: {
+          breadcrumb: '表格'
+        }
       },
       {
         path: 'orders',
-        loadChildren: () => import('./orders/orders.module').then(m => m.OrdersModule)
+        loadChildren: () => import('./orders/orders.module').then(m => m.OrdersModule),
+        data: {
+          breadcrumb: '表格'
+        }
       },
       { path: '', redirectTo: '/example/home', pathMatch: 'full' }
     ]

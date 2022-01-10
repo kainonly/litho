@@ -36,13 +36,16 @@ registerLocaleData(zh);
           loadChildren: () => import('./login/login.module').then(m => m.LoginModule)
         },
         {
-          path: 'example',
-          loadChildren: () => import('./example/example.module').then(m => m.ExampleModule),
+          path: 'pages',
+          loadChildren: () => import('./pages/pages.module').then(m => m.PagesModule),
           canActivate: [AppGuard]
         },
         {
-          path: 'pages',
-          loadChildren: () => import('./pages/pages.module').then(m => m.PagesModule),
+          path: 'example',
+          loadChildren: () => import('./example/example.module').then(m => m.ExampleModule),
+          data: {
+            breadcrumb: '示例'
+          },
           canActivate: [AppGuard]
         },
         {

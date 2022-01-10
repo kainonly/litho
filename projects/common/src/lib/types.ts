@@ -50,24 +50,6 @@ export interface ReplaceDto<T> {
 export interface DeleteResult {
   DeletedCount: number;
 }
-export interface DatasetField {
-  key: string;
-  label: string;
-  type: string;
-  description?: string;
-  keyword?: boolean;
-}
-
-export interface DatasetOption {
-  pageSize: number;
-  pageIndex: number;
-  columns: NzCheckBoxOptionInterface[];
-  columnsHeight: NzTableSize;
-  columnsWidth: Record<string, string>;
-  searchText: string;
-  searchOptions: Record<string, SearchOption>;
-  sortOptions: Record<string, NzTableSortOrder>;
-}
 
 export interface SearchOption {
   operator: string;
