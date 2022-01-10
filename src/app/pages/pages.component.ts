@@ -13,7 +13,7 @@ export class PagesComponent implements OnInit {
 
   ngOnInit(): void {
     this.app.api().subscribe(data => {
-      this.wpx.loadPages(data.navs);
+      this.wpx.initPages(data.navs);
     });
   }
 }

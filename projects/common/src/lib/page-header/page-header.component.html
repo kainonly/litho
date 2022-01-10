@@ -9,7 +9,7 @@
         <nz-breadcrumb-item>
           <a [routerLink]="['/pages']">我的应用</a>
         </nz-breadcrumb-item>
-        <ng-container *ngIf="(wpx.pages | async)! as pages">
+        <ng-container *ngIf="wpx.pages as pages">
           <ng-container *ngIf="wpx.pageId">
             <ng-container *ngFor="let id of pages[wpx.pageId]?.['path']">
               <nz-breadcrumb-item>
@@ -25,7 +25,7 @@
     </nz-breadcrumb>
     <nz-page-header-title>
       <ng-container *ngIf="!wpxManual; else wpxTitle">
-        <ng-container *ngIf="(wpx.pages | async)! as pages">
+        <ng-container *ngIf="wpx.pages as pages">
           <ng-container *ngIf="wpx.pageId">{{ pages[wpx.pageId]?.name }}</ng-container>
         </ng-container>
       </ng-container>

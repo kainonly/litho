@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
 
 import { AnyDto, LayoutOption, Page, UploadOption } from './types';
 
@@ -16,11 +15,11 @@ export class WpxService {
   /**
    * 导航数据
    */
-  readonly navs: BehaviorSubject<Array<AnyDto<Page>>> = new BehaviorSubject<Array<AnyDto<Page>>>([]);
+  navs?: Array<AnyDto<Page>>;
   /**
    * 动态页面索引
    */
-  readonly pages: BehaviorSubject<Record<string, AnyDto<Page>>> = new BehaviorSubject<Record<string, AnyDto<Page>>>({});
+  pages: Record<string, AnyDto<Page>> = {};
   /**
    * 当前页面
    */
@@ -47,10 +46,10 @@ export class WpxService {
   }
 
   /**
-   * 载入页面数据
+   * 初始页面数据
    * @param data 页面传输对象
    */
-  loadPages(data: Array<AnyDto<Page>>): void {
+  initPages(data: Array<AnyDto<Page>>): void {
     const navs: Array<AnyDto<Page>> = [];
     const pages: Record<string, AnyDto<Page>> = {};
     for (const x of data) {
@@ -66,7 +65,7 @@ export class WpxService {
         }
       }
     }
-    this.navs.next(navs);
-    this.pages.next(pages);
+    this.navs = navs;
+    this.pages = pages;
   }
 }

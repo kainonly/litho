@@ -102,6 +102,10 @@ export class WpxTableComponent implements OnInit {
     });
   }
 
+  /**
+   * 获取数据
+   * @param refresh
+   */
   getData(refresh = false): void {
     this.ds.from(this.wpxApi, refresh).subscribe(() => {
       this.updateStorage();

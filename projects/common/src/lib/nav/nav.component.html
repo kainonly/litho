@@ -1,5 +1,7 @@
 <ul nz-menu nzMode="inline">
-  <ng-container *ngTemplateOutlet="navTemplate; context: { $implicit: (wpx.navs | async)! }"></ng-container>
+  <ng-container *ngIf="!!wpx.navs">
+    <ng-container *ngTemplateOutlet="navTemplate; context: { $implicit: wpx.navs }"></ng-container>
+  </ng-container>
   <ng-template #navTemplate let-pages>
     <ng-container *ngFor="let page of pages | wpxSort: 'sort' | IsPageArray">
       <ng-container *ngIf="page.kind !== 'group'; else isGroup">
@@ -9,7 +11,7 @@
         </li>
       </ng-container>
       <ng-template #isGroup>
-        <li nz-submenu [nzOpen]="page._id | OpenState: wpx.pageId | async" [nzPaddingLeft]="page['path'].length * 24">
+        <li nz-submenu [nzOpen]="page._id | OpenState: wpx.pageId" [nzPaddingLeft]="page['path'].length * 24">
           <span title>
             <i *ngIf="page.hasOwnProperty('icon')" nz-icon [nzType]="page.icon!"></i>
             <span>{{ page.name }}</span>
