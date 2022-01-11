@@ -254,7 +254,3 @@ export interface Value {
    */
   value: any;
 }
-
-export interface ApiResult {
-  navs: Array<AnyDto<Page>>;
-}

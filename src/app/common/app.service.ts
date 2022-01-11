@@ -4,7 +4,7 @@ import { Observable, switchMap } from 'rxjs';
 
 import { UserInfo } from '@common/types';
 import { StorageMap } from '@ngx-pwa/local-storage';
-import { ApiResult } from '@weplanx/common';
+import { AnyDto, Page } from '@weplanx/common';
 
 @Injectable({ providedIn: 'root' })
 export class AppService {
@@ -16,6 +16,7 @@ export class AppService {
   get user(): Observable<UserInfo | undefined> {
     return this.storage.get<UserInfo>(`user`, {
       type: 'object',
+      required: ['username'],
       properties: {
         username: {
           type: 'string'
@@ -24,9 +25,6 @@ export class AppService {
           type: 'string'
         },
         avatar: {
-          type: 'string'
-        },
-        time: {
           type: 'string'
         }
       }
@@ -76,9 +74,9 @@ export class AppService {
   };
 
   /**
-   * 获取系统信息
+   * 获取导航数据
    */
-  api(): Observable<ApiResult> {
-    return this.http.get<ApiResult>(`api`);
+  navs(): Observable<Array<AnyDto<Page>>> {
+    return this.http.get<Array<AnyDto<Page>>>(`api/navs`);
   }
 }

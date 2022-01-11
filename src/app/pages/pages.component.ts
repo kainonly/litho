@@ -12,8 +12,8 @@ export class PagesComponent implements OnInit {
   constructor(public app: AppService, public wpx: WpxService) {}
 
   ngOnInit(): void {
-    this.app.api().subscribe(data => {
-      this.wpx.initPages(data.navs);
+    this.app.navs().subscribe(data => {
+      this.wpx.setNavs(data);
     });
   }
 }

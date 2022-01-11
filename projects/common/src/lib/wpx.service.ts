@@ -17,7 +17,7 @@ export class WpxService {
    */
   navs?: Array<AnyDto<Page>>;
   /**
-   * 动态页面索引
+   * 导航索引
    */
   pages: Record<string, AnyDto<Page>> = {};
   /**
@@ -46,13 +46,13 @@ export class WpxService {
   }
 
   /**
-   * 初始页面数据
-   * @param data 页面传输对象
+   * 设置导航数据
+   * @param value 页面传输对象
    */
-  initPages(data: Array<AnyDto<Page>>): void {
+  setNavs(value: Array<AnyDto<Page>>): void {
     const navs: Array<AnyDto<Page>> = [];
     const pages: Record<string, AnyDto<Page>> = {};
-    for (const x of data) {
+    for (const x of value) {
       pages[x._id] = x;
       x['children'] = [];
       if (!x.parent) {
