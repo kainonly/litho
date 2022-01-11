@@ -10,6 +10,10 @@ export interface Role {
    */
   name: string;
   /**
+   * 权限描述
+   */
+  description?: string;
+  /**
    * 所属页面
    */
   pages: string[];

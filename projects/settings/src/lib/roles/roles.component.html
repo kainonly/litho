@@ -4,6 +4,59 @@
   </button>
 </wpx-layout>
 
-<!--<nz-card [nzTitle]="table.wpxSearchRef" [nzExtra]="table.wpxToolRef">-->
-<!--  <wpx-table #table [wpxDataset]="ds" (wpxFetch)="getData($event)"></wpx-table>-->
-<!--</nz-card>-->
+<nz-card>
+  <form nz-form nzLayout="inline">
+    <nz-form-item>
+      <nz-form-label>权限名称</nz-form-label>
+      <nz-form-control>
+        <nz-input-group nzCompact>
+          <input style="width: 420px" type="text" nz-input placeholder="请输入搜索关键词" />
+          <button nz-button nzSearch><i nz-icon nzType="search"></i></button>
+        </nz-input-group>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-divider nzDashed nzPlain></nz-divider>
+    <nz-form-item>
+      <nz-form-label>标签</nz-form-label>
+      <nz-form-control>
+        <nz-tag *ngFor="let x of selector" nzMode="checkable">
+          {{ x }}
+        </nz-tag>
+      </nz-form-control>
+    </nz-form-item>
+  </form>
+</nz-card>
+
+<div style="margin-top: 12px">
+  <nz-list nzGrid>
+    <div nz-row [nzGutter]="16">
+      <div nz-col [nzSpan]="6" *ngFor="let item of items">
+        <nz-list-item>
+          <nz-card [nzActions]="[authorizeRef, editRef, deleteRef]">
+            <nz-card-meta [nzTitle]="title" [nzDescription]="item?.description ?? '没有描述'">
+              <ng-template #title>
+                <b>{{ item.name }} [{{ item.key }}]</b>
+              </ng-template>
+            </nz-card-meta>
+            <ng-template #authorizeRef>
+              <i nz-icon nzType="partition" nz-tooltip="设置权限"></i>
+            </ng-template>
+            <ng-template #editRef>
+              <i nz-icon nzType="edit" nz-tooltip="编辑"></i>
+            </ng-template>
+            <ng-template #deleteRef>
+              <i nz-icon nzType="delete" nz-tooltip="删除"></i>
+            </ng-template>
+            <nz-descriptions style="margin-top: 16px" nzSize="small" [nzColumn]="1">
+              <nz-descriptions-item nzTitle="状态">
+                <nz-badge nzStatus="success" nzText="开启"></nz-badge>
+              </nz-descriptions-item>
+              <nz-descriptions-item nzTitle="标签">无</nz-descriptions-item>
+              <nz-descriptions-item nzTitle="属性">无</nz-descriptions-item>
+            </nz-descriptions>
+          </nz-card>
+        </nz-list-item>
+      </div>
+    </div>
+  </nz-list>
+</div>

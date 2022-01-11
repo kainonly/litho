@@ -1,34 +1,29 @@
 import { Component, OnInit } from '@angular/core';
 
-import { Dataset, WpxService } from '@weplanx/common';
+import { AnyDto, WpxService } from '@weplanx/common';
 import { NzModalService } from 'ng-zorro-antd/modal';
 
-import { RoleDto } from './dto/role';
 import { FormComponent } from './form/form.component';
 import { RolesService } from './roles.service';
+import { Role } from './types';
 
 @Component({
   selector: 'wpx-settings-roles',
   templateUrl: './roles.component.html'
 })
 export class RolesComponent implements OnInit {
-  ds!: Dataset<RoleDto>;
+  selector = ['全部', '系统', '应用', '杂项', '审计'];
+  items: Array<AnyDto<Role>> = [];
 
   constructor(public roles: RolesService, private wpx: WpxService, private modal: NzModalService) {}
 
   ngOnInit(): void {
-    // this.ds = this.wpx.dataset<RoleDto>('role', [
-    //   { label: '名称', key: 'name', type: 'text' },
-    //   { label: '描述', key: 'description', type: 'text' }
-    // ]);
-    // this.ds.ready.subscribe(() => {
-    //   this.getData(true);
-    // });
+    this.roles.find().subscribe(data => {
+      this.items = [...data];
+    });
   }
 
-  getData(refresh = false): void {
-    this.ds.from(this.roles, refresh).subscribe(() => {});
-  }
+  getData(refresh = false): void {}
 
   form(editable?: any): void {
     this.modal.create({
