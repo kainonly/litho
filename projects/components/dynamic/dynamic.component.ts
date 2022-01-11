@@ -1,26 +1,37 @@
 import { ComponentPortal } from '@angular/cdk/portal';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { map } from 'rxjs';
+import { map, switchMap } from 'rxjs';
 
 import { WpxService } from '@weplanx/common';
 
 import { DynamicService } from './dynamic.service';
+import { TableComponent } from './table/table.component';
 
 @Component({
   selector: 'wpx-dynamic',
-  template: '<ng-container *cdkPortalOutlet="component"></ng-container>'
+  template: `
+    <ng-container *ngIf="component">
+      <ng-container *cdkPortalOutlet="component"></ng-container>
+    </ng-container>
+  `
 })
 export class WpxDynamicComponent implements OnInit {
-  component!: ComponentPortal<any>;
+  component?: ComponentPortal<any>;
 
   constructor(private wpx: WpxService, private route: ActivatedRoute, private dynamic: DynamicService) {}
 
   ngOnInit(): void {
-    this.route.paramMap.pipe(map(v => v.get('pageId'))).subscribe(id => {
-      // this.initialize(id!);
-    });
+    this.route.paramMap
+      .pipe(
+        map(v => v.get('pageId')!),
+        switchMap(id => this.dynamic.pages(id))
+      )
+      .subscribe(page => {
+        switch (page.kind) {
+          default:
+            this.component = new ComponentPortal<any>(TableComponent);
+        }
+      });
   }
-
-  private initialize(id: string): void {}
 }

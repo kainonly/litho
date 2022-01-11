@@ -77,6 +77,6 @@ export class AppService {
    * 获取导航数据
    */
   navs(): Observable<Array<AnyDto<Page>>> {
-    return this.http.get<Array<AnyDto<Page>>>(`api/navs`);
+    return this.http.get<Array<AnyDto<Page>>>(`navs`);
   }
 }

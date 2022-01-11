@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { delay, switchMap } from 'rxjs';
 
-import { Dataset, WpxService } from '@weplanx/common';
+import { TableField } from '@weplanx/components/table';
 
 import { DynamicService } from '../dynamic.service';
 
@@ -10,28 +9,26 @@ import { DynamicService } from '../dynamic.service';
   templateUrl: './table.component.html'
 })
 export class TableComponent implements OnInit {
-  // ds!: Dataset<any>;
-  loading = true;
+  key?: string;
+  fields: TableField[] = [];
 
-  constructor(private wpx: WpxService, public dynamic: DynamicService) {}
+  constructor(public dynamic: DynamicService) {}
 
   ngOnInit(): void {
-    // this.dynamic
-    //   .fields()
-    //   .pipe(
-    //     switchMap(fields => {
-    //       // this.ds = this.wpx.dataset(this.dynamic.option!.schema, fields);
-    //       return this.ds.ready;
-    //     }),
-    //     delay(300)
-    //   )
-    //   .subscribe(() => {
-    //     this.loading = false;
-    //     this.getData();
-    //   });
+    const schema = this.dynamic.page?.schema;
+    this.key = schema!.key;
+    this.fields = [
+      ...Object.entries(schema?.fields ?? [])
+        .filter(([k, v]) => !v.hide)
+        .sort(([ak, a], [bk, b]) => a.sort - b.sort)
+        .map<TableField>(([k, v]) => {
+          return {
+            key: k,
+            label: v.label,
+            type: v.type,
+            description: v.description
+          };
+        })
+    ];
   }
-
-  // getData(refresh = false): void {
-  //   this.ds.from(this.dynamic, refresh).subscribe(() => {});
-  // }
 }

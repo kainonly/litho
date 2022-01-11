@@ -4,10 +4,6 @@
   </button>
 </wpx-layout>
 
-<!--<nz-card *ngIf="!loading; else loadingCard" [nzTitle]="table.wpxSearchRef" [nzExtra]="table.wpxToolRef">-->
-<!--  <wpx-table #table [wpxDataset]="ds" (wpxFetch)="getData($event)"></wpx-table>-->
-<!--</nz-card>-->
-
-<!--<ng-template #loadingCard>-->
-<!--  <nz-card [nzLoading]="true"></nz-card>-->
-<!--</ng-template>-->
+<nz-card [nzLoading]="table.ds.loading" [nzTitle]="table.wpxSearch" [nzExtra]="table.wpxTool">
+  <wpx-table #table [wpxKey]="key!" [wpxApi]="dynamic" [wpxFields]="fields"></wpx-table>
+</nz-card>
