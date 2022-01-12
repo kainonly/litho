@@ -1,4 +1,4 @@
-import { AnyDto } from '@weplanx/common';
+import { AnyDto, Value } from '@weplanx/common';
 
 export interface Role {
   /**
@@ -16,11 +16,19 @@ export interface Role {
   /**
    * 所属页面
    */
-  pages: string[];
+  pages?: string[];
   /**
    * 只读权限
    */
-  readonly: string[];
+  readonly?: string[];
+  /**
+   * 标签
+   */
+  labels: Value[];
+  /**
+   * 状态
+   */
+  status: boolean;
 }
 
 export type RoleDto = AnyDto<Role>;

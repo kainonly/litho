@@ -15,22 +15,24 @@
 
   <nz-form-item>
     <nz-form-label nzRequired>权限标识</nz-form-label>
-    <nz-form-control>
+    <nz-form-control
+      nzHasFeedback
+      [nzAutoTips]="{
+        default: {
+          required: '权限标识不能为空',
+          pattern: '请使用小写字母与下划线的组合',
+          duplicated: '存在重复的定义，权限标识必须是唯一的'
+        }
+      }"
+    >
       <input nz-input formControlName="key" placeholder="请填写权限标识" />
-    </nz-form-control>
-  </nz-form-item>
-
-  <nz-form-item>
-    <nz-form-label nzRequired>状态</nz-form-label>
-    <nz-form-control>
-      <nz-switch formControlName="status"></nz-switch>
     </nz-form-control>
   </nz-form-item>
 
   <nz-form-item>
     <nz-form-label>描述</nz-form-label>
     <nz-form-control>
-      <textarea rows="4" nz-input formControlName="key"></textarea>
+      <textarea rows="4" nz-input formControlName="description" placeholder="简述一段权限的用途"></textarea>
     </nz-form-control>
   </nz-form-item>
 
@@ -38,19 +40,36 @@
     <nz-form-label>标签</nz-form-label>
     <nz-form-control formArrayName="labels">
       <ng-container *ngFor="let x of labels?.controls; index as i; first as isFirst">
-        <nz-input-group [formGroupName]="i" nzCompact [ngStyle]="{ 'margin-top': isFirst ? null : '-1px' }">
-          <ng-container>
-            <input style="width: 45%" type="text" nz-input formControlName="label" placeholder="标签名称" />
-          </ng-container>
+        <nz-input-group nzCompact [formGroupName]="i" [ngStyle]="{ 'margin-top': isFirst ? null : '-1px' }">
+          <input style="width: 45%" type="text" nz-input formControlName="label" placeholder="标签名称" />
           <input style="width: 45%" type="text" nz-input formControlName="value" placeholder="标签值" />
-          <button nz-button nzType="default" style="width: 10%" (click)="removeValues(i)">
+          <button nz-button nzType="default" style="width: 10%" (click)="removeLabel(i)">
             <i nz-icon nzType="minus-circle"></i>
           </button>
         </nz-input-group>
       </ng-container>
-      <button style="margin-top: 8px" type="button" nz-button nzType="dashed" nzBlock (click)="addValues()">
-        <i nz-icon nzType="plus-circle"></i> 新增标签
-      </button>
+      <nz-button-group style="width: 100%; margin-top: 8px">
+        <button style="width: 90%" type="button" nz-button nzType="dashed" (click)="addLabel()">
+          <i nz-icon nzType="plus-circle"></i> 新增标签
+        </button>
+        <button
+          style="width: 10%"
+          type="button"
+          nz-button
+          nzType="dashed"
+          nz-tooltip="导入标签"
+          (click)="importLabels()"
+        >
+          <i nz-icon nzType="import"></i>
+        </button>
+      </nz-button-group>
+    </nz-form-control>
+  </nz-form-item>
+
+  <nz-form-item>
+    <nz-form-label nzRequired>状态</nz-form-label>
+    <nz-form-control>
+      <nz-switch formControlName="status"></nz-switch>
     </nz-form-control>
   </nz-form-item>
 </form>

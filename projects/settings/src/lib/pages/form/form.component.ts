@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Observable, of } from 'rxjs';
 
 import { Page } from '@weplanx/common';
 import { NzMessageService } from 'ng-zorro-antd/message';
@@ -52,9 +53,9 @@ export class FormComponent implements OnInit {
     });
   }
 
-  existsKey = (control: AbstractControl): any => {
+  existsKey = (control: AbstractControl): Observable<any> => {
     if (control.value === this.editable?.key) {
-      return null;
+      return of(null);
     }
     return this.pages.hasSchemaKey(control.value);
   };

@@ -174,9 +174,7 @@
               <nz-form-control formArrayName="values">
                 <ng-container *ngFor="let x of specValues?.controls; index as i; first as isFirst">
                   <nz-input-group [formGroupName]="i" nzCompact [ngStyle]="{ 'margin-top': isFirst ? null : '-1px' }">
-                    <ng-container>
-                      <input style="width: 45%" type="text" nz-input formControlName="label" placeholder="元素名称" />
-                    </ng-container>
+                    <input style="width: 45%" type="text" nz-input formControlName="label" placeholder="元素名称" />
                     <input style="width: 45%" type="text" nz-input formControlName="value" placeholder="元素值" />
                     <button nz-button nzType="default" style="width: 10%" (click)="removeValues(i)">
                       <i nz-icon nzType="minus-circle"></i>

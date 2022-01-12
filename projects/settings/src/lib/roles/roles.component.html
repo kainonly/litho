@@ -19,8 +19,8 @@
     <nz-form-item>
       <nz-form-label>标签</nz-form-label>
       <nz-form-control>
-        <nz-tag *ngFor="let x of selector" nzMode="checkable">
-          {{ x }}
+        <nz-tag *ngFor="let x of labels" nzMode="checkable">
+          {{ x.label }}
         </nz-tag>
       </nz-form-control>
     </nz-form-item>
@@ -39,24 +39,75 @@
               </ng-template>
             </nz-card-meta>
             <ng-template #authorizeRef>
-              <i nz-icon nzType="partition" nz-tooltip="设置权限"></i>
+              <ng-container *ngIf="item.key !== '*'; else lock">
+                <i nz-icon nzType="partition" nz-tooltip="设置权限"></i>
+              </ng-container>
             </ng-template>
             <ng-template #editRef>
-              <i nz-icon nzType="edit" nz-tooltip="编辑"></i>
+              <ng-container *ngIf="item.key !== '*'; else lock">
+                <i nz-icon nzType="edit" nz-tooltip="编辑" (click)="form(item)"></i>
+              </ng-container>
             </ng-template>
             <ng-template #deleteRef>
-              <i nz-icon nzType="delete" nz-tooltip="删除"></i>
+              <ng-container *ngIf="item.key !== '*'; else lock">
+                <i
+                  nz-icon
+                  nzType="delete"
+                  nz-tooltip="删除"
+                  nz-popconfirm
+                  nzPopconfirmTitle="您确定要删除该权限吗?"
+                  nzPopconfirmPlacement="bottom"
+                  (nzOnConfirm)="delete(item)"
+                ></i>
+              </ng-container>
             </ng-template>
-            <nz-descriptions style="margin-top: 16px" nzSize="small" [nzColumn]="1">
-              <nz-descriptions-item nzTitle="状态">
-                <nz-badge nzStatus="success" nzText="开启"></nz-badge>
-              </nz-descriptions-item>
-              <nz-descriptions-item nzTitle="标签">无</nz-descriptions-item>
-              <nz-descriptions-item nzTitle="属性">无</nz-descriptions-item>
-            </nz-descriptions>
+            <nz-space nzDirection="vertical" style="margin-top: 16px">
+              <ng-container *nzSpaceItem>
+                <b>状态：</b>
+                <ng-container *ngIf="item.status; else off">
+                  <nz-badge nzStatus="success" nzText="开启"></nz-badge>
+                </ng-container>
+                <ng-template #off>
+                  <nz-badge nzStatus="default" nzText="关闭"></nz-badge>
+                </ng-template>
+              </ng-container>
+              <ng-container *nzSpaceItem>
+                <b>标签：</b>
+                <ng-container *ngIf="item.labels.length !== 0; else empty">
+                  <ng-container *ngFor="let x of item.labels">
+                    <nz-tag style="margin-bottom: 4px">{{ x.label }}</nz-tag>
+                  </ng-container>
+                </ng-container>
+              </ng-container>
+              <ng-container *nzSpaceItem>
+                <b>属性：</b>
+                <ng-container *ngIf="item.key !== '*'; else isSuper">
+                  <ng-container *ngIf="!(item.pages | wpxEmpty); else emptyPages">
+                    <nz-tag nzColor="blue" style="margin-bottom: 4px">已设置权限</nz-tag>
+                  </ng-container>
+                  <ng-container *ngIf="!(item.readonly | wpxEmpty); else emptyReadonly">
+                    <nz-tag nzColor="blue" style="margin-bottom: 4px">已设置只读</nz-tag>
+                  </ng-container>
+                </ng-container>
+              </ng-container>
+            </nz-space>
           </nz-card>
         </nz-list-item>
       </div>
     </div>
   </nz-list>
 </div>
+
+<ng-template #lock>
+  <i nz-icon nzType="lock"></i>
+</ng-template>
+<ng-template #isSuper>
+  <nz-tag nzColor="blue">最高权限</nz-tag>
+</ng-template>
+<ng-template #empty>无</ng-template>
+<ng-template #emptyPages>
+  <nz-tag style="margin-bottom: 4px">未设置权限</nz-tag>
+</ng-template>
+<ng-template #emptyReadonly>
+  <nz-tag style="margin-bottom: 4px">未设置只读</nz-tag>
+</ng-template>

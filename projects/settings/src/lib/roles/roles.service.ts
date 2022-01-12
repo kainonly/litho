@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable, timer } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
 
-import { Api } from '@weplanx/common';
+import { Api, Value } from '@weplanx/common';
 
 import { Role } from './types';
 
@@ -26,7 +26,7 @@ export class RolesService extends Api<Role> {
     );
   }
 
-  findLabels(): Observable<any> {
-    return this.http.get(this.url('labels'));
+  findLabels(): Observable<Value[]> {
+    return this.http.get<Value[]>(this.url('labels'));
   }
 }
