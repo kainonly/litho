@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalRef } from 'ng-zorro-antd/modal';
@@ -14,9 +14,6 @@ import { RolesService } from '../roles.service';
 })
 export class FormComponent implements OnInit {
   @Input() editable?: any;
-  @Input() nodes?: NzTreeNodeOptions[];
-  parentNodes?: NzTreeNodeOptions[];
-
   form?: FormGroup;
 
   constructor(
@@ -28,26 +25,41 @@ export class FormComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    if (this.nodes) {
-      this.parentNodes = [...this.nodes];
-    }
     this.form = this.fb.group({
       name: [null, [Validators.required]],
-      key: [null, [Validators.required]],
-      parent: [null],
-      status: [true, [Validators.required]]
+      key: [null, [Validators.required, Validators.pattern(/^[a-z_]+$/)], [this.existsKey]],
+      status: [true, [Validators.required]],
+      description: [],
+      labels: this.fb.array([])
     });
     if (this.editable) {
       this.form.patchValue(this.editable);
     }
   }
 
-  // existsKey = (control: AbstractControl) => {
-  //   if (control.value === this.editable?.key) {
-  //     return null;
-  //   }
-  //   return this.pages.checkKey(control.value);
-  // };
+  existsKey = (control: AbstractControl): any => {
+    if (control.value === this.editable?.key) {
+      return null;
+    }
+    return this.roles.hasKey(control.value);
+  };
+
+  get labels(): FormArray {
+    return this.form?.get('labels') as FormArray;
+  }
+
+  addValues(): void {
+    this.labels.push(
+      this.fb.group({
+        label: [null, [Validators.required]],
+        value: [null, [Validators.required]]
+      })
+    );
+  }
+
+  removeValues(index: number): void {
+    this.labels.removeAt(index);
+  }
 
   close(): void {
     this.modal.triggerCancel();

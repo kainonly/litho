@@ -12,11 +12,10 @@ export class PagesSerivce extends Api<Page> {
 
   hasSchemaKey(key: string): Observable<any> {
     return timer(500).pipe(
-      switchMap(
-        () =>
-          this.http.get(this.url('has-schema-key'), {
-            params: { key }
-          }) as Observable<any>
+      switchMap(() =>
+        this.http.get<any>(this.url('has-schema-key'), {
+          params: { key }
+        })
       ),
       map(v => {
         if (v.status === '') {
