@@ -32,6 +32,9 @@ export class PagesSerivce extends Api<Page> {
         $set: {
           parent
         }
+      },
+      format: {
+        parent: 'object_id'
       }
     });
   }

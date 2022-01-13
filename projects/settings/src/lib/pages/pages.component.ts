@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
+import { mergeMap } from 'rxjs';
 
 import { AnyDto, Page, TreeNodesExpanded } from '@weplanx/common';
 import { NzContextMenuService, NzDropdownMenuComponent } from 'ng-zorro-antd/dropdown';
@@ -140,15 +141,18 @@ export class PagesComponent implements OnInit {
     let parent: string;
     let sort: string[];
     if (!parentNode) {
-      parent = 'root';
+      parent = '';
       sort = node.treeService!.rootNodes.map(v => v.key);
     } else {
       parent = parentNode.key;
       sort = parentNode.children.map(v => v.key);
     }
-    this.pages.reorganization(node.key, parent).subscribe(v => {
-      this.message.success('数据更新完成');
-      this.getData();
-    });
+    this.pages
+      .reorganization(node.key, parent)
+      .pipe(mergeMap(() => this.pages.sort(sort)))
+      .subscribe(v => {
+        this.message.success('数据更新完成');
+        this.getData();
+      });
   }
 }

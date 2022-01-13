@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Observable, of } from 'rxjs';
 
-import { Page } from '@weplanx/common';
+import { AnyDto, Page } from '@weplanx/common';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalRef } from 'ng-zorro-antd/modal';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
@@ -15,7 +15,7 @@ import { PagesSerivce } from '../pages.serivce';
   templateUrl: './form.component.html'
 })
 export class FormComponent implements OnInit {
-  @Input() editable?: any;
+  @Input() editable?: AnyDto<Page>;
   @Input() nodes?: NzTreeNodeOptions[];
   parentNodes?: NzTreeNodeOptions[];
 
@@ -35,7 +35,7 @@ export class FormComponent implements OnInit {
     }
     this.form = this.fb.group({
       name: [null, [Validators.required]],
-      parent: ['root', [Validators.required]],
+      parent: [],
       kind: ['default', [Validators.required]],
       icon: [],
       status: [true, [Validators.required]],
@@ -54,7 +54,7 @@ export class FormComponent implements OnInit {
   }
 
   existsKey = (control: AbstractControl): Observable<any> => {
-    if (control.value === this.editable?.key) {
+    if (control.value === this.editable?.schema?.key) {
       return of(null);
     }
     return this.pages.hasSchemaKey(control.value);
@@ -79,7 +79,7 @@ export class FormComponent implements OnInit {
         this.modal.triggerOk();
       });
     } else {
-      this.pages.updateById(this.editable._id, { update: { $set: data } }).subscribe(v => {
+      this.pages.updateOneById(this.editable._id, { update: { $set: data } }).subscribe(v => {
         this.message.success('数据更新完成');
         this.modal.triggerOk();
       });
