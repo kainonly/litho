@@ -1,7 +1,126 @@
 <wpx-layout wpxTitle="成员管理">
-  <button *wpxLayoutAction nz-button nzType="primary" nzShape="circle" nz-tooltip="新增">
+  <button *wpxLayoutAction nz-button nzType="primary" nzShape="circle" nz-tooltip="新增" (click)="form()">
     <i nz-icon nzType="plus"></i>
   </button>
 </wpx-layout>
 
-<nz-card></nz-card>
+<ng-template #searchTextInput>
+  <nz-input-group nzCompact>
+    <input
+      style="width: 420px"
+      type="text"
+      nz-input
+      placeholder="请输入搜索关键词"
+      [(ngModel)]="searchText"
+      (keyup.enter)="getData()"
+    />
+    <button nz-button (click)="getData()"><i nz-icon nzType="search"></i></button>
+  </nz-input-group>
+</ng-template>
+
+<ng-template #searchExtra>
+  <button nz-button nzType="dashed" (click)="clearSearch()"><i nz-icon nzType="clear"></i> 清除筛选</button>
+</ng-template>
+
+<nz-card [nzTitle]="searchTextInput" [nzExtra]="searchExtra">
+  <nz-tag
+    nzMode="checkable"
+    [nzChecked]="selectorLabels.size === labels.length"
+    (nzCheckedChange)="selectorLabelsChangeAll($event)"
+  >
+    全部
+  </nz-tag>
+  <ng-container *ngFor="let x of labels">
+    <nz-tag
+      nzMode="checkable"
+      [nzChecked]="selectorLabels.has(x.value)"
+      (nzCheckedChange)="selectorLabelsChange($event, x)"
+    >
+      {{ x.label }}
+    </nz-tag>
+  </ng-container>
+</nz-card>
+
+<div style="margin-top: 12px">
+  <nz-list nzGrid>
+    <div nz-row [nzGutter]="16">
+      <div nz-col [nzSpan]="6" *ngFor="let item of items">
+        <nz-list-item>
+          <nz-card [nzActions]="[authorizeRef, editRef, deleteRef]">
+            <nz-card-meta [nzTitle]="title" [nzDescription]="description">
+              <ng-template #title>
+                <b>{{ item.username }}</b>
+              </ng-template>
+              <ng-template #description>
+                <ng-container *ngIf="!!item.name; else emptyName">{{ item.name }}</ng-container>
+                <ng-template #emptyName>没有称呼</ng-template>
+              </ng-template>
+            </nz-card-meta>
+            <ng-template #authorizeRef>
+              <i nz-icon nzType="sisternode" nz-tooltip="合并权限" (click)="permission(item)"></i>
+            </ng-template>
+            <ng-template #editRef>
+              <i nz-icon nzType="edit" nz-tooltip="编辑" (click)="form(item)"></i>
+            </ng-template>
+            <ng-template #deleteRef>
+              <i
+                nz-icon
+                nzType="delete"
+                nz-tooltip="删除"
+                nz-popconfirm
+                nzPopconfirmTitle="您确定要删除该成员吗?"
+                nzPopconfirmPlacement="bottom"
+                (nzOnConfirm)="delete(item)"
+              ></i>
+            </ng-template>
+
+            <nz-space nzDirection="vertical" style="margin-top: 16px">
+              <ng-container *nzSpaceItem>
+                <b>状态：</b>
+                <ng-container *ngIf="item.status; else off">
+                  <nz-badge nzStatus="success" nzText="开启"></nz-badge>
+                </ng-container>
+                <ng-template #off>
+                  <nz-badge nzStatus="default" nzText="关闭"></nz-badge>
+                </ng-template>
+              </ng-container>
+              <ng-container *nzSpaceItem>
+                <b>标签：</b>
+                <ng-container *ngIf="item.labels.length !== 0; else empty">
+                  <ng-container *ngFor="let x of item.labels">
+                    <nz-tag style="margin-bottom: 4px">{{ x.label }}</nz-tag>
+                  </ng-container>
+                </ng-container>
+              </ng-container>
+              <ng-container *nzSpaceItem>
+                <b>权限：</b>
+                <ng-container *ngIf="item.roles.length !== 0; else empty">
+                  <ng-container *ngFor="let x of item.roles">
+                    <nz-tag style="margin-bottom: 4px">{{ roleDict[x]?.name }}</nz-tag>
+                  </ng-container>
+                </ng-container>
+              </ng-container>
+              <ng-container *nzSpaceItem>
+                <b>属性：</b>
+                <ng-container *ngIf="!(item.pages | wpxEmpty); else emptyPages">
+                  <nz-tag nzColor="blue" style="margin-bottom: 4px">已设置页面</nz-tag>
+                </ng-container>
+                <ng-container *ngIf="!(item.readonly | wpxEmpty); else emptyReadonly">
+                  <nz-tag nzColor="blue" style="margin-bottom: 4px">已设置只读</nz-tag>
+                </ng-container>
+              </ng-container>
+            </nz-space>
+          </nz-card>
+        </nz-list-item>
+      </div>
+    </div>
+  </nz-list>
+</div>
+
+<ng-template #empty>无</ng-template>
+<ng-template #emptyPages>
+  <nz-tag style="margin-bottom: 4px">未设置页面</nz-tag>
+</ng-template>
+<ng-template #emptyReadonly>
+  <nz-tag style="margin-bottom: 4px">未设置只读</nz-tag>
+</ng-template>

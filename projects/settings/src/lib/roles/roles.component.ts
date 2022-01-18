@@ -14,8 +14,8 @@ import { Role } from './types';
   templateUrl: './roles.component.html'
 })
 export class RolesComponent implements OnInit {
-  searchText: string = '';
   items: Array<AnyDto<Role>> = [];
+  searchText: string = '';
   labels: Value[] = [];
   selectorLabels: Set<string> = new Set<string>();
 
@@ -44,12 +44,6 @@ export class RolesComponent implements OnInit {
     });
   }
 
-  clearSearch(): void {
-    this.searchText = '';
-    this.selectorLabels.clear();
-    this.getData();
-  }
-
   /**
    * 获取标签
    */
@@ -59,6 +53,12 @@ export class RolesComponent implements OnInit {
     });
   }
 
+  /**
+   * 设置标签状态
+   * @param checked
+   * @param data
+   * @param fetch
+   */
   selectorLabelsChange(checked: boolean, data: Value, fetch = true): void {
     if (checked) {
       this.selectorLabels.add(data.value);
@@ -70,10 +70,23 @@ export class RolesComponent implements OnInit {
     }
   }
 
+  /**
+   * 设置所有标签
+   * @param checked
+   */
   selectorLabelsChangeAll(checked: boolean): void {
     this.labels.forEach(data => {
       this.selectorLabelsChange(checked, data, false);
     });
+    this.getData();
+  }
+
+  /**
+   * 清除筛选
+   */
+  clearSearch(): void {
+    this.searchText = '';
+    this.selectorLabels.clear();
     this.getData();
   }
 

@@ -1,18 +1,18 @@
 import { Value } from '@weplanx/common';
 
-export interface Role {
+export interface User {
   /**
-   * 权限代码
+   * 用户名
    */
-  key: string;
+  username: string;
   /**
-   * 权限名称
+   * 密码
    */
-  name: string;
+  password?: string;
   /**
-   * 权限描述
+   * 所属权限
    */
-  description?: string;
+  roles: string[];
   /**
    * 所属页面
    */
@@ -21,6 +21,18 @@ export interface Role {
    * 只读权限
    */
   readonly?: string[];
+  /**
+   * 称呼
+   */
+  name?: string;
+  /**
+   * 电子邮件
+   */
+  email?: string[];
+  /**
+   * 头像
+   */
+  avatar?: string;
   /**
    * 标签
    */

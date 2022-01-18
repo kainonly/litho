@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 
 import { WpxModule, WpxShareModule } from '@weplanx/common';
-import { WpxTableModule } from '@weplanx/components/table';
 import { NzTransferModule } from 'ng-zorro-antd/transfer';
 import { NzTreeModule } from 'ng-zorro-antd/tree';
 
@@ -12,7 +11,7 @@ import { RolesComponent } from './roles.component';
 import { RolesService } from './roles.service';
 
 @NgModule({
-  imports: [WpxModule, WpxShareModule, WpxTableModule, NzTransferModule, NzTreeModule],
+  imports: [WpxModule, WpxShareModule, NzTransferModule, NzTreeModule],
   declarations: [RolesComponent, FormComponent, LabelComponent, PermissionComponent],
   providers: [RolesService]
 })

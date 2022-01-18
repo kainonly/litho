@@ -1,8 +1,5 @@
 import { QueryList, TemplateRef } from '@angular/core';
 
-import { NzCheckBoxOptionInterface } from 'ng-zorro-antd/checkbox';
-import { NzTableSize, NzTableSortOrder } from 'ng-zorro-antd/table/src/table.types';
-
 export type Where<T> = Partial<{ [P in keyof AnyDto<T>]: any }>;
 export interface BasicDto {
   /**

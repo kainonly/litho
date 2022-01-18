@@ -97,7 +97,7 @@
                 <b>属性：</b>
                 <ng-container *ngIf="item.key !== '*'; else isSuper">
                   <ng-container *ngIf="!(item.pages | wpxEmpty); else emptyPages">
-                    <nz-tag nzColor="blue" style="margin-bottom: 4px">已设置权限</nz-tag>
+                    <nz-tag nzColor="blue" style="margin-bottom: 4px">已设置页面</nz-tag>
                   </ng-container>
                   <ng-container *ngIf="!(item.readonly | wpxEmpty); else emptyReadonly">
                     <nz-tag nzColor="blue" style="margin-bottom: 4px">已设置只读</nz-tag>
@@ -120,7 +120,7 @@
 </ng-template>
 <ng-template #empty>无</ng-template>
 <ng-template #emptyPages>
-  <nz-tag style="margin-bottom: 4px">未设置权限</nz-tag>
+  <nz-tag style="margin-bottom: 4px">未设置页面</nz-tag>
 </ng-template>
 <ng-template #emptyReadonly>
   <nz-tag style="margin-bottom: 4px">未设置只读</nz-tag>
