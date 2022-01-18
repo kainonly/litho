@@ -40,7 +40,7 @@
             </nz-card-meta>
             <ng-template #authorizeRef>
               <ng-container *ngIf="item.key !== '*'; else lock">
-                <i nz-icon nzType="partition" nz-tooltip="设置权限"></i>
+                <i nz-icon nzType="partition" nz-tooltip="设置权限" (click)="permission(item)"></i>
               </ng-container>
             </ng-template>
             <ng-template #editRef>

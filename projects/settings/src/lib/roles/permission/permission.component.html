@@ -1,0 +1,38 @@
+<nz-tree [nzData]="nodes" nzCheckable nzBlockNode [nzCheckedKeys]="checked" [nzTreeTemplate]="nzTreeTemplate">
+  <ng-template #nzTreeTemplate let-node let-origin="origin">
+    <span *ngIf="data?.[node.key] as page" class="wpx-node">
+      <ng-container [ngSwitch]="page.kind">
+        <ng-container *ngSwitchCase="'form'">
+          <i nz-icon nzType="form"></i>
+        </ng-container>
+        <ng-container *ngSwitchCase="'dashboard'">
+          <i nz-icon nzType="dashboard"></i>
+        </ng-container>
+        <ng-container *ngSwitchCase="'group'">
+          <i nz-icon [nzType]="node.isExpanded ? 'ungroup' : 'group'" (click)="expanded(node)"></i>
+        </ng-container>
+        <ng-container *ngSwitchDefault>
+          <i nz-icon nzType="database"></i>
+        </ng-container>
+      </ng-container>
+      <span class="wpx-name">{{ node.title }}</span>
+      <span *ngIf="node.isChecked && (page.kind === 'default' || page.kind === 'form')" class="wpx-readonly">
+        <button
+          nz-button
+          nzSize="small"
+          [nzType]="!origin['readonly'] ? 'primary' : 'dashed'"
+          (click)="origin['readonly'] = !origin['readonly']"
+        >
+          <ng-container *ngIf="!origin['readonly']; else readonly">完全访问</ng-container>
+        </button>
+      </span>
+    </span>
+  </ng-template>
+</nz-tree>
+
+<ng-template #readonly>只读</ng-template>
+
+<div *nzModalFooter>
+  <button nz-button nzType="default" (click)="close()">取消</button>
+  <button nz-button nzType="primary" (click)="submit()">提交</button>
+</div>
