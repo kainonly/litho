@@ -4,27 +4,41 @@
   </button>
 </wpx-layout>
 
-<nz-card>
-  <form nz-form nzLayout="inline">
-    <nz-form-item>
-      <nz-form-label>权限名称</nz-form-label>
-      <nz-form-control>
-        <nz-input-group nzCompact>
-          <input style="width: 420px" type="text" nz-input placeholder="请输入搜索关键词" />
-          <button nz-button nzSearch><i nz-icon nzType="search"></i></button>
-        </nz-input-group>
-      </nz-form-control>
-    </nz-form-item>
-    <nz-divider nzDashed nzPlain></nz-divider>
-    <nz-form-item>
-      <nz-form-label>标签</nz-form-label>
-      <nz-form-control>
-        <nz-tag *ngFor="let x of labels" nzMode="checkable">
-          {{ x.label }}
-        </nz-tag>
-      </nz-form-control>
-    </nz-form-item>
-  </form>
+<ng-template #searchTextInput>
+  <nz-input-group nzCompact>
+    <input
+      style="width: 420px"
+      type="text"
+      nz-input
+      placeholder="请输入搜索关键词"
+      [(ngModel)]="searchText"
+      (keyup.enter)="getData()"
+    />
+    <button nz-button (click)="getData()"><i nz-icon nzType="search"></i></button>
+  </nz-input-group>
+</ng-template>
+
+<ng-template #searchExtra>
+  <button nz-button nzType="dashed" (click)="clearSearch()"><i nz-icon nzType="clear"></i> 清除筛选</button>
+</ng-template>
+
+<nz-card [nzTitle]="searchTextInput" [nzExtra]="searchExtra">
+  <nz-tag
+    nzMode="checkable"
+    [nzChecked]="selectorLabels.size === labels.length"
+    (nzCheckedChange)="selectorLabelsChangeAll($event)"
+  >
+    全部
+  </nz-tag>
+  <ng-container *ngFor="let x of labels">
+    <nz-tag
+      nzMode="checkable"
+      [nzChecked]="selectorLabels.has(x.value)"
+      (nzCheckedChange)="selectorLabelsChange($event, x)"
+    >
+      {{ x.label }}
+    </nz-tag>
+  </ng-container>
 </nz-card>
 
 <div style="margin-top: 12px">
