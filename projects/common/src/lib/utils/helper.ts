@@ -6,7 +6,7 @@ import { NzTreeNode } from 'ng-zorro-antd/tree';
 
 import { SearchOption, Where } from '../types';
 
-export function updateFormGroup(controls: AbstractControl[]): void {
+export const updateFormGroup = (controls: AbstractControl[]): void => {
   controls.forEach(control => {
     if (control instanceof FormGroup) {
       updateFormGroup(Object.values(control.controls));
@@ -15,9 +15,9 @@ export function updateFormGroup(controls: AbstractControl[]): void {
       control.updateValueAndValidity();
     }
   });
-}
+};
 
-export function toSearchValues(options: Record<string, SearchOption>): Where<any> {
+export const toSearchValues = (options: Record<string, SearchOption>): Where<any> => {
   const search: Where<any> = {};
   for (const [key, opt] of Object.entries(options)) {
     if (opt.value) {
@@ -27,9 +27,9 @@ export function toSearchValues(options: Record<string, SearchOption>): Where<any
     }
   }
   return search;
-}
+};
 
-export function toSortValues(options: Record<string, NzTableSortOrder | 1 | -1>): string[] {
+export const toSortValues = (options: Record<string, NzTableSortOrder | 1 | -1>): string[] => {
   const sort: string[] = [];
   for (const [field, value] of Object.entries(options)) {
     if (!value) {
@@ -49,32 +49,56 @@ export function toSortValues(options: Record<string, NzTableSortOrder | 1 | -1>)
     sort.push(`${field}.${order}`);
   }
   return sort;
-}
+};
 
 /**
  * 树视图展开状态
  */
-export function TreeNodesExpanded(nodes: NzTreeNode[], value: boolean): void {
+export const TreeNodesExpanded = (nodes: NzTreeNode[], value: boolean): void => {
   for (const node of nodes) {
     node.isExpanded = value;
     if (node.children.length !== 0) {
       TreeNodesExpanded(node.children, value);
     }
   }
-}
+};
+
+/**
+ * 密码规则
+ * @param value
+ */
+export const PasswordRule = (value: string): any => {
+  const len = value.length;
+  if (len < 12) {
+    return { min: true, error: true };
+  }
+  if (value.match(/^(?=.*[a-z])[\w|@$!%*?&-+]+$/) === null) {
+    return { lowercase: true, error: true };
+  }
+  if (value.match(/^(?=.*[A-Z])[\w|@$!%*?&-+]+$/) === null) {
+    return { uppercase: true, error: true };
+  }
+  if (value.match(/^(?=.*[0-9])[\w|@$!%*?&-+]+$/) === null) {
+    return { number: true, error: true };
+  }
+  if (value.match(/^(?=.*[@$!%*?&-+])[\w|@$!%*?&-+]+$/) === null) {
+    return { symbol: true, error: true };
+  }
+  return null;
+};
 
 /**
  * 加载脚本
  */
-export function loadScript(doc: Document, url: string): Observable<undefined> {
+export const loadScript = (doc: Document, url: string): Observable<any> => {
   const script = doc.createElement('script');
   script.type = 'text/javascript';
   script.src = url;
   doc.body.appendChild(script);
-  return new Observable<undefined>(observer => {
+  return new Observable<any>(observer => {
     script.onload = () => {
       observer.next();
       observer.complete();
     };
   });
-}
+};

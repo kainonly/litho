@@ -8,6 +8,8 @@
           [nzAutoTips]="{
             default: {
               required: '用户名不能为空',
+              minlength: '用户名长度不能小于4位',
+              maxlength: '用户名长度不能大于20位',
               pattern: '请使用小写字母与下划线的组合',
               duplicated: '存在重复的定义，用户名必须是唯一的'
             }
@@ -17,14 +19,53 @@
         </nz-form-control>
       </nz-form-item>
       <nz-form-item>
-        <nz-form-label [nzRequired]="!editable">密码</nz-form-label>
-        <nz-form-control nzHasFeedback>
-          <input nz-input formControlName="password" placeholder="请填写用户密码" />
+        <nz-form-label
+          [nzRequired]="!editable"
+          nzTooltipTitle="密码最小为12位，由大写字母、小写字母、数字、符号(@$!%*?&-+)组合"
+        >
+          密码
+        </nz-form-label>
+        <nz-form-control
+          nzHasFeedback
+          [nzAutoTips]="{
+            default: {
+              required: '用户密码不能为空',
+              minlength: '用户密码长度不能小于12位',
+              lowercase: '用户密码必须包含小写字母',
+              uppercase: '用户密码必须包含大写字母',
+              number: '用户密码必须包含数字',
+              symbol: '用户密码必须包含符号(@$!%*?&-+)'
+            }
+          }"
+        >
+          <nz-input-group [nzSuffix]="suffixTemplate">
+            <ng-template #suffixTemplate>
+              <i
+                nz-icon
+                [nzType]="passwordVisible ? 'eye-invisible' : 'eye'"
+                (click)="passwordVisible = !passwordVisible"
+              ></i>
+            </ng-template>
+            <input
+              [type]="passwordVisible ? 'text' : 'password'"
+              nz-input
+              autocomplete="new-password"
+              formControlName="password"
+              placeholder="请填写用户密码"
+            />
+          </nz-input-group>
         </nz-form-control>
       </nz-form-item>
       <nz-form-item>
         <nz-form-label nzRequired>权限</nz-form-label>
-        <nz-form-control nzHasFeedback>
+        <nz-form-control
+          nzHasFeedback
+          [nzAutoTips]="{
+            default: {
+              required: '用户权限不能为空'
+            }
+          }"
+        >
           <nz-select nzMode="multiple" formControlName="roles" nzPlaceHolder="请选择用户权限">
             <ng-container *ngFor="let x of roleList">
               <nz-option [nzLabel]="x.name" [nzValue]="x._id"></nz-option>

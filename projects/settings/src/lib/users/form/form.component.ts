@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { AbstractControl, FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Observable, of } from 'rxjs';
 
-import { AnyDto, Value, WpxService } from '@weplanx/common';
+import { AnyDto, PasswordRule, Value, WpxService } from '@weplanx/common';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalRef, NzModalService } from 'ng-zorro-antd/modal';
 import { NzUploadChangeParam } from 'ng-zorro-antd/upload';
@@ -21,6 +21,7 @@ export class FormComponent implements OnInit {
   @Input() editable?: AnyDto<User>;
   form?: FormGroup;
   roleList: Array<AnyDto<Role>> = [];
+  passwordVisible = false;
   avatar?: string;
 
   constructor(
@@ -37,11 +38,11 @@ export class FormComponent implements OnInit {
     this.form = this.fb.group({
       username: [
         null,
-        [Validators.required, Validators.min(4), Validators.pattern(/^[a-z_]+$/)],
+        [Validators.required, Validators.minLength(4), Validators.maxLength(20), Validators.pattern(/^[a-z_]+$/)],
         [this.existsUsername]
       ],
-      password: [null],
-      roles: [null],
+      password: [null, [this.validedPassword]],
+      roles: [null, [Validators.required]],
       name: [null],
       email: this.fb.array([]),
       avatar: [null],
@@ -62,6 +63,13 @@ export class FormComponent implements OnInit {
       return of(null);
     }
     return this.users.hasUsername(control.value);
+  };
+
+  validedPassword = (control: AbstractControl): any => {
+    if (!control.value) {
+      return !this.editable ? { required: true } : null;
+    }
+    return PasswordRule(control.value);
   };
 
   getRoles(): void {
@@ -133,15 +141,17 @@ export class FormComponent implements OnInit {
 
   submit(data: any): void {
     if (!this.editable) {
-      this.users.create({ doc: data }).subscribe(() => {
+      this.users.create({ doc: data, format: { password: 'password' }, ref: ['roles'] }).subscribe(() => {
         this.message.success('数据新增完成');
         this.modalRef.triggerOk();
       });
     } else {
-      this.users.updateOneById(this.editable._id, { update: { $set: data } }).subscribe(() => {
-        this.message.success('数据更新完成');
-        this.modalRef.triggerOk();
-      });
+      this.users
+        .updateOneById(this.editable._id, { update: { $set: data }, format: { password: 'password' }, ref: ['roles'] })
+        .subscribe(() => {
+          this.message.success('数据更新完成');
+          this.modalRef.triggerOk();
+        });
     }
   }
 }
