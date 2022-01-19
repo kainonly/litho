@@ -101,7 +101,7 @@
       <ng-container *ngFor="let x of email?.controls; index as i; first as isFirst">
         <nz-input-group nzCompact [ngStyle]="{ 'margin-top': isFirst ? null : '-1px' }">
           <input style="width: 90%" type="text" nz-input [formControlName]="i" placeholder="mail@example.com" />
-          <button nz-button nzType="default" style="width: 10%" (click)="removeEmail(i)">
+          <button nz-button type="button" nzType="default" style="width: 10%" (click)="removeEmail(i)">
             <i nz-icon nzType="minus-circle"></i>
           </button>
         </nz-input-group>

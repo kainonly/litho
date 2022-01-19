@@ -7,6 +7,7 @@ import { NzModalService } from 'ng-zorro-antd/modal';
 import { RolesService } from '../roles/roles.service';
 import { Role } from '../roles/types';
 import { FormComponent } from './form/form.component';
+import { PermissionComponent } from './permission/permission.component';
 import { User } from './types';
 import { UsersService } from './users.service';
 
@@ -107,16 +108,16 @@ export class UsersComponent implements OnInit {
    * @param editable
    */
   permission(editable: AnyDto<User>): void {
-    // this.modal.create({
-    //   nzTitle: `[${editable.name}] 权限设置`,
-    //   nzContent: PermissionComponent,
-    //   nzComponentParams: {
-    //     editable
-    //   },
-    //   nzOnOk: () => {
-    //     this.getData();
-    //   }
-    // });
+    this.modal.create({
+      nzTitle: `[${editable.name}] 合并权限设置`,
+      nzContent: PermissionComponent,
+      nzComponentParams: {
+        editable
+      },
+      nzOnOk: () => {
+        this.getData();
+      }
+    });
   }
 
   /**
