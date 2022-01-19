@@ -1,5 +1,3 @@
-import { Value } from '@weplanx/common';
-
 export interface User {
   /**
    * 用户名
@@ -36,7 +34,7 @@ export interface User {
   /**
    * 标签
    */
-  labels: Value[];
+  labels: string[];
   /**
    * 状态
    */

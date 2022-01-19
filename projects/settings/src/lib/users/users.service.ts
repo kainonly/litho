@@ -26,7 +26,7 @@ export class UsersService extends Api<User> {
     );
   }
 
-  findLabels(): Observable<Value[]> {
-    return this.http.get<Value[]>(this.url('labels'));
+  findLabels(): Observable<string[]> {
+    return this.http.get<string[]>(this.url('labels'));
   }
 }

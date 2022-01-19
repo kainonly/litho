@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { AnyDto, Value, Where, WpxService } from '@weplanx/common';
+import { AnyDto, Where, WpxService } from '@weplanx/common';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalService } from 'ng-zorro-antd/modal';
 
@@ -18,8 +18,8 @@ export class UsersComponent implements OnInit {
   items: Array<AnyDto<User>> = [];
   roleDict: Record<string, AnyDto<Role>> = {};
   searchText: string = '';
-  labels: Value[] = [];
-  selectorLabels: Set<string> = new Set<string>();
+  labels: string[] = [];
+  matchLabels: Set<string> = new Set<string>();
 
   constructor(
     private users: UsersService,
@@ -38,10 +38,10 @@ export class UsersComponent implements OnInit {
   getData(): void {
     const where: Where<User> = {};
     if (this.searchText) {
-      where['$or'] = [{ name: { $regex: this.searchText } }, { key: { $regex: this.searchText } }];
+      where['$or'] = [{ username: { $regex: this.searchText } }, { name: { $regex: this.searchText } }];
     }
-    if (this.selectorLabels.size !== 0) {
-      where['labels.value'] = { $in: [...this.selectorLabels.values()] };
+    if (this.matchLabels.size !== 0) {
+      where['labels'] = { $in: [...this.matchLabels.values()] };
     }
     this.users.find(where).subscribe(data => {
       this.items = [...data];
@@ -71,11 +71,11 @@ export class UsersComponent implements OnInit {
    * @param data
    * @param fetch
    */
-  selectorLabelsChange(checked: boolean, data: Value, fetch = true): void {
+  matchLabelChange(checked: boolean, data: string, fetch = true): void {
     if (checked) {
-      this.selectorLabels.add(data.value);
+      this.matchLabels.add(data);
     } else {
-      this.selectorLabels.delete(data.value);
+      this.matchLabels.delete(data);
     }
     if (fetch) {
       this.getData();
@@ -86,9 +86,9 @@ export class UsersComponent implements OnInit {
    * 设置所有标签
    * @param checked
    */
-  selectorLabelsChangeAll(checked: boolean): void {
+  matchLabelsChange(checked: boolean): void {
     this.labels.forEach(data => {
-      this.selectorLabelsChange(checked, data, false);
+      this.matchLabelChange(checked, data, false);
     });
     this.getData();
   }
@@ -98,7 +98,7 @@ export class UsersComponent implements OnInit {
    */
   clearSearch(): void {
     this.searchText = '';
-    this.selectorLabels.clear();
+    this.matchLabels.clear();
     this.getData();
   }
 

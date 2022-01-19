@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { AbstractControl, FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Observable, of } from 'rxjs';
 
-import { AnyDto, PasswordRule, Value, WpxService } from '@weplanx/common';
+import { AnyDto, PasswordRule, WpxService } from '@weplanx/common';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalRef, NzModalService } from 'ng-zorro-antd/modal';
 import { NzUploadChangeParam } from 'ng-zorro-antd/upload';
@@ -105,13 +105,8 @@ export class FormComponent implements OnInit {
     return this.form?.get('labels') as FormArray;
   }
 
-  addLabel(value?: Value): void {
-    this.labels.push(
-      this.fb.group({
-        label: [value?.label, [Validators.required]],
-        value: [value?.value, [Validators.required, Validators.pattern(/^[a-z_]+$/)]]
-      })
-    );
+  addLabel(value?: string): void {
+    this.labels.push(this.fb.control(value, [Validators.required]));
   }
 
   removeLabel(index: number): void {
@@ -120,20 +115,17 @@ export class FormComponent implements OnInit {
 
   importLabels(): void {
     this.modal.create({
-      nzTitle: '设置导入的标签',
+      nzTitle: '设置导入的标记',
       nzContent: LabelComponent,
       nzComponentParams: {
-        exists: (this.labels.value as Value[]).map(v => v.value)
+        exists: this.labels.value as string[]
       },
       nzOnOk: instance => {
-        for (const x of instance.items) {
-          if (x.direction === 'right') {
-            this.addLabel({
-              label: x.title,
-              value: x['value']
-            });
+        instance.items.forEach(v => {
+          if (v.direction === 'right') {
+            this.addLabel(v.title);
           }
-        }
+        });
       }
     });
   }
