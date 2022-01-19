@@ -51,6 +51,9 @@ export class FormComponent implements OnInit {
     });
     this.getRoles();
     if (this.editable) {
+      this.editable.email?.forEach(() => {
+        this.addEmail();
+      });
       this.editable.labels.forEach(() => {
         this.addLabel();
       });
@@ -141,13 +144,26 @@ export class FormComponent implements OnInit {
 
   submit(data: any): void {
     if (!this.editable) {
-      this.users.create({ doc: data, format: { password: 'password' }, ref: ['roles'] }).subscribe(() => {
-        this.message.success('数据新增完成');
-        this.modalRef.triggerOk();
-      });
-    } else {
       this.users
-        .updateOneById(this.editable._id, { update: { $set: data }, format: { password: 'password' }, ref: ['roles'] })
+        .create({
+          doc: data,
+          format: { password: 'password' },
+          ref: ['roles']
+        })
+        .subscribe(() => {
+          this.message.success('数据新增完成');
+          this.modalRef.triggerOk();
+        });
+    } else {
+      if (!data.password) {
+        delete data.password;
+      }
+      this.users
+        .updateOneById(this.editable._id, {
+          update: { $set: data },
+          format: { password: 'password' },
+          ref: ['roles']
+        })
         .subscribe(() => {
           this.message.success('数据更新完成');
           this.modalRef.triggerOk();

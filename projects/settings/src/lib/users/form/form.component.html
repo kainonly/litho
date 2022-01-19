@@ -51,7 +51,7 @@
               nz-input
               autocomplete="new-password"
               formControlName="password"
-              placeholder="请填写用户密码"
+              [placeholder]="!editable ? '请填写用户密码' : '非必填，将不更新用户密码'"
             />
           </nz-input-group>
         </nz-form-control>

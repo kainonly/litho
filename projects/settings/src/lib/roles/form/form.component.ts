@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { AbstractControl, FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Observable, of } from 'rxjs';
 
-import { AnyDto, Value } from '@weplanx/common';
+import { AnyDto } from '@weplanx/common';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalRef, NzModalService } from 'ng-zorro-antd/modal';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
@@ -30,8 +30,7 @@ export class FormComponent implements OnInit {
 
   ngOnInit(): void {
     this.form = this.fb.group({
-      name: [null, [Validators.required]],
-      key: [null, [Validators.required, Validators.pattern(/^[a-z_]+$/)], [this.existsKey]],
+      name: [null, [Validators.required], [this.existsName]],
       description: [],
       labels: this.fb.array([]),
       status: [true, [Validators.required]]
@@ -44,24 +43,19 @@ export class FormComponent implements OnInit {
     }
   }
 
-  existsKey = (control: AbstractControl): Observable<any> => {
-    if (control.value === this.editable?.key) {
+  existsName = (control: AbstractControl): Observable<any> => {
+    if (control.value === this.editable?.name) {
       return of(null);
     }
-    return this.roles.hasKey(control.value);
+    return this.roles.hasName(control.value);
   };
 
   get labels(): FormArray {
     return this.form?.get('labels') as FormArray;
   }
 
-  addLabel(value?: Value): void {
-    this.labels.push(
-      this.fb.group({
-        label: [value?.label, [Validators.required]],
-        value: [value?.value, [Validators.required, Validators.pattern(/^[a-z_]+$/)]]
-      })
-    );
+  addLabel(value?: string): void {
+    this.labels.push(this.fb.control(value, [Validators.required]));
   }
 
   removeLabel(index: number): void {
@@ -70,20 +64,17 @@ export class FormComponent implements OnInit {
 
   importLabels(): void {
     this.modal.create({
-      nzTitle: '设置导入的标签',
+      nzTitle: '设置导入的标记',
       nzContent: LabelComponent,
       nzComponentParams: {
-        exists: (this.labels.value as Value[]).map(v => v.value)
+        exists: this.labels.value as string[]
       },
       nzOnOk: instance => {
-        for (const x of instance.items) {
-          if (x.direction === 'right') {
-            this.addLabel({
-              label: x.title,
-              value: x['value']
-            });
+        instance.items.forEach(v => {
+          if (v.direction === 'right') {
+            this.addLabel(v.title);
           }
-        }
+        });
       }
     });
   }

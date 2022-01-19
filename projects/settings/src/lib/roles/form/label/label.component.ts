@@ -25,10 +25,9 @@ export class LabelComponent implements OnInit {
     this.roles.findLabels().subscribe(data => {
       this.items = [
         ...data.map<TransferItem>(v => ({
-          title: v.label,
+          title: v,
           direction: 'left',
-          disabled: this.exists.includes(v.value),
-          value: v.value
+          disabled: this.exists.includes(v)
         }))
       ];
     });

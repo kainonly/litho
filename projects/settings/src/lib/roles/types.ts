@@ -1,10 +1,4 @@
-import { Value } from '@weplanx/common';
-
 export interface Role {
-  /**
-   * 权限代码
-   */
-  key: string;
   /**
    * 权限名称
    */
@@ -22,9 +16,9 @@ export interface Role {
    */
   readonly?: string[];
   /**
-   * 标签
+   * 标记
    */
-  labels: Value[];
+  labels: string[];
   /**
    * 状态
    */

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable, timer } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
 
-import { Api, Value } from '@weplanx/common';
+import { Api } from '@weplanx/common';
 
 import { Role } from './types';
 
@@ -10,11 +10,11 @@ import { Role } from './types';
 export class RolesService extends Api<Role> {
   protected override model = 'roles';
 
-  hasKey(key: string): Observable<any> {
+  hasName(name: string): Observable<any> {
     return timer(500).pipe(
       switchMap(() =>
-        this.http.get<any>(this.url('has-key'), {
-          params: { key }
+        this.http.get<any>(this.url('has-name'), {
+          params: { name }
         })
       ),
       map(v => {
@@ -26,7 +26,7 @@ export class RolesService extends Api<Role> {
     );
   }
 
-  findLabels(): Observable<Value[]> {
-    return this.http.get<Value[]>(this.url('labels'));
+  findLabels(): Observable<string[]> {
+    return this.http.get<string[]>(this.url('labels'));
   }
 }

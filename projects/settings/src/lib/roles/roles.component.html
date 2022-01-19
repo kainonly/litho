@@ -25,18 +25,14 @@
 <nz-card [nzTitle]="searchTextInput" [nzExtra]="searchExtra">
   <nz-tag
     nzMode="checkable"
-    [nzChecked]="selectorLabels.size === labels.length"
-    (nzCheckedChange)="selectorLabelsChangeAll($event)"
+    [nzChecked]="labels.length === matchLabels.size"
+    (nzCheckedChange)="matchLabelsChange($event)"
   >
     全部
   </nz-tag>
   <ng-container *ngFor="let x of labels">
-    <nz-tag
-      nzMode="checkable"
-      [nzChecked]="selectorLabels.has(x.value)"
-      (nzCheckedChange)="selectorLabelsChange($event, x)"
-    >
-      {{ x.label }}
+    <nz-tag nzMode="checkable" [nzChecked]="matchLabels.has(x)" (nzCheckedChange)="matchLabelChange($event, x)">
+      {{ x }}
     </nz-tag>
   </ng-container>
 </nz-card>
@@ -46,24 +42,26 @@
     <div nz-row [nzGutter]="16">
       <div nz-col [nzSpan]="6" *ngFor="let item of items">
         <nz-list-item>
-          <nz-card [nzActions]="[authorizeRef, editRef, deleteRef]">
-            <nz-card-meta [nzTitle]="title" [nzDescription]="item?.description ?? '没有描述'">
-              <ng-template #title>
-                <b>{{ item.name }} [{{ item.key }}]</b>
+          <nz-ribbon [nzText]="permissionText" [nzColor]="!item.status ? 'red' : 'blue'">
+            <ng-template #permissionText>
+              <ng-container *ngIf="!item.status; else existsPermission">
+                <span style="color: #fff">禁用</span>
+              </ng-container>
+              <ng-template #existsPermission> <span style="color: #fff">启用</span> </ng-template>
+            </ng-template>
+            <nz-card [nzActions]="[permissionRef, editRef, deleteRef]">
+              <nz-card-meta [nzTitle]="title" [nzDescription]="item?.description ?? '没有描述'">
+                <ng-template #title>
+                  <b>{{ item.name }}</b>
+                </ng-template>
+              </nz-card-meta>
+              <ng-template #permissionRef>
+                <i nz-icon nzType="partition" nz-tooltip="权限" (click)="permission(item)"></i>
               </ng-template>
-            </nz-card-meta>
-            <ng-template #authorizeRef>
-              <ng-container *ngIf="item.key !== '*'; else lock">
-                <i nz-icon nzType="partition" nz-tooltip="设置权限" (click)="permission(item)"></i>
-              </ng-container>
-            </ng-template>
-            <ng-template #editRef>
-              <ng-container *ngIf="item.key !== '*'; else lock">
+              <ng-template #editRef>
                 <i nz-icon nzType="edit" nz-tooltip="编辑" (click)="form(item)"></i>
-              </ng-container>
-            </ng-template>
-            <ng-template #deleteRef>
-              <ng-container *ngIf="item.key !== '*'; else lock">
+              </ng-template>
+              <ng-template #deleteRef>
                 <i
                   nz-icon
                   nzType="delete"
@@ -73,55 +71,38 @@
                   nzPopconfirmPlacement="bottom"
                   (nzOnConfirm)="delete(item)"
                 ></i>
-              </ng-container>
-            </ng-template>
-            <nz-space nzDirection="vertical" style="margin-top: 16px">
-              <ng-container *nzSpaceItem>
-                <b>状态：</b>
-                <ng-container *ngIf="item.status; else off">
-                  <nz-badge nzStatus="success" nzText="开启"></nz-badge>
-                </ng-container>
-                <ng-template #off>
-                  <nz-badge nzStatus="default" nzText="关闭"></nz-badge>
-                </ng-template>
-              </ng-container>
-              <ng-container *nzSpaceItem>
-                <b>标签：</b>
-                <ng-container *ngIf="item.labels.length !== 0; else empty">
-                  <ng-container *ngFor="let x of item.labels">
-                    <nz-tag style="margin-bottom: 4px">{{ x.label }}</nz-tag>
+              </ng-template>
+              <nz-space nzDirection="vertical" style="margin-top: 16px">
+                <ng-container *nzSpaceItem>
+                  <b>标记：</b>
+                  <ng-container *ngIf="item.labels.length !== 0; else empty">
+                    <ng-container *ngFor="let x of item.labels">
+                      <nz-tag style="margin-bottom: 4px">{{ x }}</nz-tag>
+                    </ng-container>
                   </ng-container>
                 </ng-container>
-              </ng-container>
-              <ng-container *nzSpaceItem>
-                <b>属性：</b>
-                <ng-container *ngIf="item.key !== '*'; else isSuper">
-                  <ng-container *ngIf="!(item.pages | wpxEmpty); else emptyPages">
-                    <nz-tag nzColor="blue" style="margin-bottom: 4px">已设置页面</nz-tag>
-                  </ng-container>
-                  <ng-container *ngIf="!(item.readonly | wpxEmpty); else emptyReadonly">
-                    <nz-tag nzColor="blue" style="margin-bottom: 4px">已设置只读</nz-tag>
-                  </ng-container>
+                <ng-container *nzSpaceItem>
+                  <b>权限：</b>
+                  <nz-space>
+                    <nz-badge
+                      *nzSpaceItem
+                      [nzStatus]="(item?.pages | wpxEmpty) ? 'default' : 'success'"
+                      nzText="页面"
+                    ></nz-badge>
+                    <nz-badge
+                      *nzSpaceItem
+                      [nzStatus]="(item?.readonly | wpxEmpty) ? 'default' : 'success'"
+                      nzText="只读"
+                    ></nz-badge>
+                  </nz-space>
                 </ng-container>
-              </ng-container>
-            </nz-space>
-          </nz-card>
+              </nz-space>
+            </nz-card>
+          </nz-ribbon>
         </nz-list-item>
       </div>
     </div>
   </nz-list>
 </div>
 
-<ng-template #lock>
-  <i nz-icon nzType="lock"></i>
-</ng-template>
-<ng-template #isSuper>
-  <nz-tag nzColor="blue">最高权限</nz-tag>
-</ng-template>
 <ng-template #empty>无</ng-template>
-<ng-template #emptyPages>
-  <nz-tag style="margin-bottom: 4px">未设置页面</nz-tag>
-</ng-template>
-<ng-template #emptyReadonly>
-  <nz-tag style="margin-bottom: 4px">未设置只读</nz-tag>
-</ng-template>
