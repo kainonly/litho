@@ -16,14 +16,21 @@ const routes: Routes = [
         path: 'home',
         loadChildren: () => import('./home/home.module').then(m => m.HomeModule),
         data: {
-          breadcrumb: '表格'
+          breadcrumb: '主页'
+        }
+      },
+      {
+        path: 'media',
+        loadChildren: () => import('./media/media.module').then(m => m.MediaModule),
+        data: {
+          breadcrumb: '媒体表单'
         }
       },
       {
         path: 'orders',
         loadChildren: () => import('./orders/orders.module').then(m => m.OrdersModule),
         data: {
-          breadcrumb: '表格'
+          breadcrumb: '动态表格'
         }
       },
       { path: '', redirectTo: '/example/home', pathMatch: 'full' }

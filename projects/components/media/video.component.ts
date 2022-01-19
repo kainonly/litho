@@ -1,9 +1,18 @@
-import { Component } from '@angular/core';
+import { Component, forwardRef } from '@angular/core';
+import { NG_VALUE_ACCESSOR } from '@angular/forms';
 
-import { Media } from './media';
+import { MediaInput } from './media-input';
 
 @Component({
   selector: 'wpx-media-video',
-  templateUrl: './video.component.html'
+  templateUrl: './video.component.html',
+  styleUrls: ['./media.scss'],
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => WpxVideoComponent),
+      multi: true
+    }
+  ]
 })
-export class WpxVideoComponent extends Media {}
+export class WpxVideoComponent extends MediaInput {}

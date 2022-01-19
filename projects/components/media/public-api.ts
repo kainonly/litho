@@ -1,4 +1,4 @@
-export * from './media';
+export * from './media-input';
 export * from './media.module';
 export * from './media.service';
 export * from './picture.component';
