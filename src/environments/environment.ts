@@ -3,9 +3,8 @@ export const environment = {
   baseUrl: 'https://dev.kainonly.com',
   cdn: 'https://cdn.kainonly.com',
   upload: {
-    url: 'https://cdn-1252852151.cos.ap-guangzhou.myqcloud.com',
-    storage: 'cos',
-    fetchSigned: '/storage/signed',
+    url: 'https://cdn-1251113164.cos.ap-guangzhou.myqcloud.com',
+    presignedUrl: 'uploader',
     size: 5120
   }
 };

@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 
+import { WpxAssetsDirective } from './directives/assets.directive';
 import { WpxSubmitDirective } from './directives/submit.directive';
 import { WpxUploadDirective } from './directives/upload.directive';
 import { WpxHeaderComponent } from './header/header.component';
@@ -23,6 +24,7 @@ import { WpxShareModule } from './share.module';
   declarations: [
     WpxSubmitDirective,
     WpxUploadDirective,
+    WpxAssetsDirective,
     WpxHeaderComponent,
     WpxLayoutComponent,
     WpxLayoutActionDirective,
@@ -41,6 +43,7 @@ import { WpxShareModule } from './share.module';
   exports: [
     WpxSubmitDirective,
     WpxUploadDirective,
+    WpxAssetsDirective,
     WpxHeaderComponent,
     WpxLayoutComponent,
     WpxLayoutActionDirective,

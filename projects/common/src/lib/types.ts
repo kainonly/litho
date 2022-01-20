@@ -54,10 +54,8 @@ export interface SearchOption {
 }
 
 export interface UploadOption {
-  url: string;
-  storage?: UploadStorage;
-  fetchSigned?: string;
-  fetchSignedMethod?: string;
+  url?: string;
+  presignedUrl?: string;
   size?: number;
 }
 

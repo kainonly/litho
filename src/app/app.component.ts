@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { environment } from '@env';
-import { UploadStorage, WpxService } from '@weplanx/common';
+import { WpxService } from '@weplanx/common';
 import { NzIconService } from 'ng-zorro-antd/icon';
 
 @Component({
@@ -15,9 +15,7 @@ export class AppComponent implements OnInit {
     this.wpx.setAssets(environment.cdn);
     this.wpx.setUpload({
       url: environment.upload.url,
-      storage: environment.upload.storage as UploadStorage,
-      fetchSignedMethod: 'GET',
-      fetchSigned: environment.upload.fetchSigned,
+      presignedUrl: environment.upload.presignedUrl,
       size: environment.upload.size
     });
     this.nzIconService.changeAssetsSource(environment.cdn);

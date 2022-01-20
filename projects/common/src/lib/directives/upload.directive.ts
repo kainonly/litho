@@ -1,76 +1,71 @@
 import { HttpClient } from '@angular/common/http';
-import { Directive } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Directive, forwardRef, OnDestroy, OnInit } from '@angular/core';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { Observable, Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
 
+import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzUploadComponent, NzUploadFile } from 'ng-zorro-antd/upload';
 
-import { UploadOption, UploadSignedResponse } from '../types';
 import { WpxService } from '../wpx.service';
 
 @Directive({
-  selector: 'nz-upload[wpxUpload]'
+  selector: 'nz-upload[wpxUpload]',
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => WpxUploadDirective),
+      multi: true
+    }
+  ]
 })
-export class WpxUploadDirective {
-  constructor(wpx: WpxService, http: HttpClient, nzUploadComponent: NzUploadComponent) {
+export class WpxUploadDirective implements ControlValueAccessor, OnInit, OnDestroy {
+  value?: string;
+  onChange?: (value: any) => void;
+  onTouched?: () => void;
+  private key?: string;
+  private nzChange$?: Subscription;
+
+  constructor(
+    private wpx: WpxService,
+    private http: HttpClient,
+    private message: NzMessageService,
+    private nzUploadComponent: NzUploadComponent
+  ) {
     if (!wpx.upload) {
-      throw new Error('配置 [wpx.upload] 不能为空');
+      throw new Error('上传配置不能为空');
     }
     const option = wpx.upload;
-    nzUploadComponent.nzAction = option.url;
-    nzUploadComponent.nzSize = option.size ?? 5120;
     nzUploadComponent.nzShowUploadList = false;
-    if (option.storage === 'default') {
-      /**
-       * 默认终止自定义
-       */
-      return;
-    }
-    nzUploadComponent.nzData = (file: NzUploadFile): Observable<Record<string, any>> => {
-      return http.request(option.fetchSignedMethod!, option.fetchSigned!).pipe(
+    nzUploadComponent.nzSize = option.size ?? 5120;
+    nzUploadComponent.nzAction = option.url;
+    nzUploadComponent.nzData = (file: NzUploadFile): Observable<any> =>
+      http.get<any>(option.presignedUrl!).pipe(
         map(v => {
-          const response = v as UploadSignedResponse;
-          const sep = file.name.split('.');
-          const ext = sep.length > 1 ? `.${sep.pop()?.toLowerCase()}` : '';
-          file['key'] = response.filename + ext;
-          switch (option.storage) {
-            /**
-             * 阿里云对象存储
-             */
-            case 'oss':
-              return {
-                key: file['key'],
-                policy: response.option['policy'],
-                OSSAccessKeyId: response.option['access_key_id'],
-                Signature: response.option['signature']
-              };
-            /**
-             * 华为云对象存储
-             */
-            case 'obs':
-              return {
-                key: file['key'],
-                policy: response.option['policy'],
-                AccessKeyId: response.option['access_key_id'],
-                signature: response.option['signature']
-              };
-            /**
-             * 腾讯云对象存储
-             */
-            case 'cos':
-              return {
-                key: file['key'],
-                policy: response.option['policy'],
-                'q-sign-algorithm': response.option['sign_algorithm'],
-                'q-ak': response.option['ak'],
-                'q-key-time': response.option['key_time'],
-                'q-signature': response.option['signature']
-              };
-            default:
-              throw new Error('默认上传到后端服务器，无需签名配置');
-          }
+          this.key = v.key;
+          return v;
         })
       );
-    };
   }
+  registerOnChange(fn: any): void {
+    this.onChange = fn;
+  }
+
+  registerOnTouched(fn: any): void {
+    this.onTouched = fn;
+  }
+
+  writeValue(value: any): void {
+    this.value = value;
+  }
+
+  ngOnInit(): void {
+    this.nzUploadComponent.nzChange.subscribe(info => {
+      if (info.type === 'success') {
+        this.onChange!(this.key);
+      }
+    });
+  }
+
+  ngOnDestroy(): void {}
 }
