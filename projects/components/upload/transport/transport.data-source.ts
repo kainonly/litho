@@ -4,8 +4,8 @@ import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { Transport } from '../types';
 
 export class TransportDataSource extends DataSource<Transport> {
-  private stream = new BehaviorSubject<Transport[]>([]);
-  private disconnect$ = new Subject<void>();
+  private readonly stream = new BehaviorSubject<Transport[]>([]);
+  private readonly disconnect$ = new Subject<void>();
 
   connect(collectionViewer: CollectionViewer): Observable<Transport[]> {
     return this.stream;

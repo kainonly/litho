@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 
-import { WpxAssetsDirective } from './directives/assets.directive';
 import { WpxSubmitDirective } from './directives/submit.directive';
 import { WpxUploadDirective } from './directives/upload.directive';
 import { WpxHeaderComponent } from './header/header.component';
@@ -11,6 +10,7 @@ import { IsPageArrayPipe } from './nav/is-page-array.pipe';
 import { WpxNavComponent } from './nav/nav.component';
 import { OpenStatePipe } from './nav/open-state.pipe';
 import { WpxPageHeaderComponent } from './page-header/page-header.component';
+import { WpxAssetsPipe } from './pipes/assets.pipe';
 import { WpxEmptyPipe } from './pipes/empty.pipe';
 import { WpxJoinPipe } from './pipes/join.pipe';
 import { WpxMapPipe } from './pipes/map.pipe';
@@ -24,7 +24,6 @@ import { WpxShareModule } from './share.module';
   declarations: [
     WpxSubmitDirective,
     WpxUploadDirective,
-    WpxAssetsDirective,
     WpxHeaderComponent,
     WpxLayoutComponent,
     WpxLayoutActionDirective,
@@ -37,13 +36,13 @@ import { WpxShareModule } from './share.module';
     WpxObjectPipe,
     WpxMapPipe,
     WpxSortPipe,
+    WpxAssetsPipe,
     IsPageArrayPipe,
     OpenStatePipe
   ],
   exports: [
     WpxSubmitDirective,
     WpxUploadDirective,
-    WpxAssetsDirective,
     WpxHeaderComponent,
     WpxLayoutComponent,
     WpxLayoutActionDirective,
@@ -55,7 +54,8 @@ import { WpxShareModule } from './share.module';
     WpxSplitPipe,
     WpxObjectPipe,
     WpxMapPipe,
-    WpxSortPipe
+    WpxSortPipe,
+    WpxAssetsPipe
   ]
 })
 export class WpxModule {}

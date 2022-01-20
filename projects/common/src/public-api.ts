@@ -12,6 +12,7 @@ export * from './lib/pipes/map.pipe';
 export * from './lib/pipes/object.pipe';
 export * from './lib/pipes/sort.pipe';
 export * from './lib/pipes/split.pipe';
+export * from './lib/pipes/assets.pipe';
 export * from './lib/utils/api';
 export * from './lib/utils/dataset';
 export * from './lib/utils/helper';

@@ -16,7 +16,8 @@ export class AppComponent implements OnInit {
     this.wpx.setUpload({
       url: environment.upload.url,
       presignedUrl: environment.upload.presignedUrl,
-      size: environment.upload.size
+      size: environment.upload.size,
+      storage: environment.upload.storage
     });
     this.nzIconService.changeAssetsSource(environment.cdn);
   }

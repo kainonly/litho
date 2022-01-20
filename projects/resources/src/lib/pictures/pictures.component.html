@@ -1,5 +1,5 @@
 <wpx-layout wpxTitle="图库">
-  <button *wpxLayoutAction nz-button nzType="primary" nzShape="circle" nz-tooltip="新增">
-    <i nz-icon nzType="plus"></i>
-  </button>
+  <wpx-upload-transport *wpxLayoutAction (wpxChange)="upload($event)"></wpx-upload-transport>
 </wpx-layout>
+
+<wpx-media type="picture"></wpx-media>

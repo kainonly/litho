@@ -5,6 +5,7 @@ export const environment = {
   upload: {
     url: 'https://cdn-1251113164.cos.ap-guangzhou.myqcloud.com',
     presignedUrl: 'uploader',
-    size: 5120
+    size: 5120,
+    storage: 'cos'
   }
 };

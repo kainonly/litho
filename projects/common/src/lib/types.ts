@@ -1,6 +1,5 @@
 import { QueryList, TemplateRef } from '@angular/core';
 
-export type Where<T> = Partial<{ [P in keyof AnyDto<T>]: any }>;
 export interface BasicDto {
   /**
    * 对象 ID
@@ -19,31 +18,40 @@ export interface BasicDto {
    */
   [key: string]: any;
 }
+
+export type Where<T> = Partial<{ [P in keyof AnyDto<T>]: any }>;
 export type AnyDto<T> = T & BasicDto;
+
 export interface CreateDto<T> {
-  doc: T;
+  doc?: T;
+  docs?: T[];
   format?: any;
   ref?: string[];
 }
+
 export interface CreateResult {
   InsertedID: string;
 }
+
 export interface UpdateDto<T> {
   update: Record<string, Partial<T & Record<string, any>>>;
   format?: any;
   ref?: string[];
 }
+
 export interface UpdateResult {
   MatchedCount: number;
   ModifiedCount: number;
   UpsertedCount: number;
   UpsertedID?: string;
 }
+
 export interface ReplaceDto<T> {
   doc: T;
   format?: any;
   ref?: string[];
 }
+
 export interface DeleteResult {
   DeletedCount: number;
 }
@@ -57,14 +65,13 @@ export interface UploadOption {
   url?: string;
   presignedUrl?: string;
   size?: number;
+  storage?: string | 'oss' | 'obs' | 'cos';
 }
 
-export interface UploadSignedResponse {
-  filename: string;
-  option: Record<string, any>;
+export interface AssetsOption {
+  thumbnail?: boolean;
+  css?: boolean;
 }
-
-export type UploadStorage = 'default' | 'oss' | 'obs' | 'cos';
 
 export interface LayoutOption {
   /**
