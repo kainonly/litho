@@ -2,12 +2,12 @@
   z-index: 2;
 }
 
-.transport-btn {
-  margin-left: -1px;
-}
-
-.transport-container {
+.transport {
   height: 420px;
   width: 640px;
   overflow-x: hidden;
+}
+
+.transport-btn {
+  margin-left: -1px;
 }

@@ -1,38 +1,41 @@
 <nz-button-group>
-  <nz-upload class="upload" wpxUpload nzMultiple (nzChange)="ds.update($event)">
+  <nz-upload class="upload" wpxUpload nzMultiple (nzChange)="change($event)">
     <button nz-button> <i nz-icon [nzType]="'upload'"></i><span>上传</span> </button>
   </nz-upload>
   <button
     class="transport-btn"
     nz-button
     nz-popover
-    [disabled]="ds.total === 0"
-    [nzPopoverContent]="transportContent"
+    [nzPopoverContent]="transport"
     [nzPopoverPlacement]="'bottomRight'"
     [nzPopoverTrigger]="'click'"
-    [nzPopoverVisible]="(ds.done | async) === false"
+    [(nzPopoverVisible)]="visible"
   >
-    <nz-badge [nzStatus]="(ds.done | async) ? 'default' : 'processing'">
+    <nz-badge [nzStatus]="complete ? 'default' : 'processing'">
       <i nz-icon nzType="inbox"></i>
     </nz-badge>
-
-    <ng-template #transportContent>
-      <cdk-virtual-scroll-viewport itemSize="39" class="transport-container">
-        <nz-list nzSize="small">
-          <nz-list-empty *ngIf="ds.total === 0"></nz-list-empty>
-          <nz-list-item *cdkVirtualFor="let x of ds">
-            <span nz-typography nzEllipsis style="width: 450px">{{ x.name }}</span>
-            <div style="width: 150px">
-              <nz-progress [nzPercent]="x['percent']" nzSize="small"></nz-progress>
-            </div>
-          </nz-list-item>
-        </nz-list>
-      </cdk-virtual-scroll-viewport>
-    </ng-template>
   </button>
 </nz-button-group>
 
-<ng-template #messageContent>
+<ng-template #transport>
+  <cdk-virtual-scroll-viewport itemSize="39" class="transport">
+    <nz-list nzSize="small">
+      <ng-container *ngIf="!!size; else empty">
+        <nz-list-item *cdkVirtualFor="let x of ds">
+          <span nz-typography nzEllipsis style="width: 450px">{{ x.name }}</span>
+          <div style="width: 150px">
+            <nz-progress [nzPercent]="x.percent" nzSize="small"></nz-progress>
+          </div>
+        </nz-list-item>
+      </ng-container>
+    </nz-list>
+  </cdk-virtual-scroll-viewport>
+  <ng-template #empty>
+    <nz-list-empty></nz-list-empty>
+  </ng-template>
+</ng-template>
+
+<ng-template #messageRef>
   请勿切换页面，目前正在上传文件中
-  <nz-progress [nzPercent]="ds.percent" nzStatus="active"></nz-progress>
+  <nz-progress [nzPercent]="percent" nzStatus="active"></nz-progress>
 </ng-template>
