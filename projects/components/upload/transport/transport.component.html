@@ -1,10 +1,5 @@
-<ng-template #messageTpl>
-  请勿切换页面，目前正在上传文件中
-  <nz-progress [nzPercent]="ds.percent" nzStatus="active"></nz-progress>
-</ng-template>
-
 <nz-button-group>
-  <nz-upload class="upload" nzName="file" wpxUpload nzMultiple (nzChange)="ds.update($event)">
+  <nz-upload class="upload" wpxUpload nzMultiple (nzChange)="ds.update($event)">
     <button nz-button> <i nz-icon [nzType]="'upload'"></i><span>上传</span> </button>
   </nz-upload>
   <button
@@ -36,3 +31,8 @@
     </ng-template>
   </button>
 </nz-button-group>
+
+<ng-template #messageContent>
+  请勿切换页面，目前正在上传文件中
+  <nz-progress [nzPercent]="ds.percent" nzStatus="active"></nz-progress>
+</ng-template>

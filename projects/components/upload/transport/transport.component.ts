@@ -7,14 +7,14 @@ import { NzUploadFile } from 'ng-zorro-antd/upload';
 import { TransportDataSource } from './transport.data-source';
 
 @Component({
-  selector: 'wpx-transport',
+  selector: 'wpx-upload-transport',
   templateUrl: './transport.component.html',
   styleUrls: ['./transport.component.scss']
 })
-export class WpxTransportComponent implements OnInit, AfterViewInit {
-  @ViewChild('messageTpl') messageTpl!: TemplateRef<any>;
+export class WpxUploadTransportComponent implements OnInit, AfterViewInit {
   @Input() action!: (files: NzUploadFile[]) => Observable<any>;
   @Output() readonly actionComplete: EventEmitter<string> = new EventEmitter();
+  @ViewChild('messageContent') messageContent!: TemplateRef<any>;
 
   ds: TransportDataSource = new TransportDataSource();
 
@@ -31,9 +31,7 @@ export class WpxTransportComponent implements OnInit, AfterViewInit {
     let messageId: any;
     this.ds.done.subscribe(status => {
       if (!status && !messageId) {
-        messageId = this.message.loading(this.messageTpl, {
-          nzDuration: 0
-        }).messageId;
+        messageId = this.message.loading(this.messageContent, { nzDuration: 0 }).messageId;
       }
       if (status && messageId) {
         this.message.remove(messageId);

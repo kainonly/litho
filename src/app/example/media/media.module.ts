@@ -3,7 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { ShareModule } from '@common/share.module';
 import { WpxMediaModule } from '@weplanx/components/media';
-import { WpxTransportModule } from '@weplanx/components/transport';
+import { WpxUploadModule } from '@weplanx/components/upload';
 
 import { MediaComponent } from './media.component';
 
@@ -15,7 +15,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [ShareModule, WpxTransportModule, WpxMediaModule, RouterModule.forChild(routes)],
+  imports: [ShareModule, WpxUploadModule, WpxMediaModule, RouterModule.forChild(routes)],
   declarations: [MediaComponent]
 })
 export class MediaModule {}

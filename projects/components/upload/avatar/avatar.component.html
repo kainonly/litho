@@ -1,0 +1,9 @@
+<nz-upload class="upload" wpxUpload nzListType="picture-card" (nzChange)="change($event)">
+  <ng-container *ngIf="!!value; else uploadBtn">
+    <img [wpxAssets]="[value]" alt="" />
+  </ng-container>
+  <ng-template #uploadBtn>
+    <i nz-icon [nzType]="!loading ? 'plus' : 'loading'"></i>
+    <div class="ant-upload-text">上传</div>
+  </ng-template>
+</nz-upload>
