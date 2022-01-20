@@ -8,13 +8,20 @@ export class WpxAssetsPipe implements PipeTransform {
 
   transform(values: string[], option?: AssetsOption): string {
     let url = [this.wpx.assets, ...values].join('/');
+    if (option?.compress) {
+      switch (this.wpx.upload?.storage) {
+        case 'cos':
+          url += '?imageMogr2/format/avif/quality/80';
+          break;
+      }
+    }
     if (option?.thumbnail) {
       switch (this.wpx.upload?.storage) {
         case 'oss':
-          url += '?x-oss-process=image/auto-orient,1/resize,m_lfit,w_200,limit_0/quality,q_80/format,webp';
+          url += '?x-oss-process=image/auto-orient,1/resize,m_lfit,w_200,limit_0/quality,q_90/format,webp';
           break;
         case 'cos':
-          url += '?imageMogr2/thumbnail/200x/format/webp/interlace/1/quality/80';
+          url += '?imageMogr2/format/avif/quality/10/blur/10x8';
           break;
       }
     }

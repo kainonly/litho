@@ -1,58 +1,35 @@
 <cdk-virtual-scroll-viewport class="infinite-container" itemSize="231.5">
   <nz-list nzGrid nzItemLayout="vertical">
     <nz-list-item *cdkVirtualFor="let items of ds">
-      <div nz-row [nzGutter]="8">
-        <div *ngFor="let item of items" nz-col>
-          <nz-card
-            style="width: 195px"
-            nzSize="small"
-            [nzHoverable]="true"
-            [nzCover]="coverTpl"
-            [nzActions]="[actionCopy, actionRename, actionEllipsis]"
-          >
-            <ng-template #coverTpl>
-              <div
-                class="thumb"
-                [style]="{ 'background-image': [item.url] | wpxAssets: { thumbnail: true, css: true } }"
-              >
-                <div class="thumb-actions">
-                  <i nz-icon nzType="search"></i>
-                </div>
+      <nz-row style="width: 100%" [nzGutter]="8">
+        <div *ngFor="let item of items" nz-col [nzSpan]="6">
+          <nz-card nzHoverable [nzCover]="coverRef" [nzActions]="[copyRef, renameRef, moreRef]">
+            <ng-template #coverRef>
+              <div class="photo">
+                <img
+                  nz-image
+                  [nzSrc]="[item.url] | wpxAssets: { compress: true }"
+                  [nzPlaceholder]="[item.url] | wpxAssets: { thumbnail: true }"
+                  [alt]="item.name"
+                />
               </div>
             </ng-template>
-            <ng-template #actionCopy>
-              <!--              <i-->
-              <!--                nz-icon-->
-              <!--                nzType="link"-->
-              <!--                [nz-tooltip]="item.copied ? copyTip : bit.static + item.url"-->
-              <!--                [nzTooltipMouseEnterDelay]="0.2"-->
-              <!--                (click)="copy(item)"-->
-              <!--              ></i>-->
-              <!--              <ng-template #copyTip>-->
-              <!--                <span nz-typography nzType="success">-->
-              <!--                  <i nz-icon nzType="check"></i>-->
-              <!--                </span>-->
-              <!--                {{ bit.l['copied'] }}-->
-              <!--              </ng-template>-->
+            <nz-card-meta style="height: 50px" [nzDescription]="descriptionRef">
+              <ng-template #descriptionRef>
+                <label nz-checkbox [(ngModel)]="item.checked">
+                  {{ item.name | nzEllipsis: 30:'...' }}
+                  <i nz-icon nzType="info-circle" [nz-tooltip]="item.name"></i>
+                </label>
+              </ng-template>
+            </nz-card-meta>
+            <ng-template #copyRef>
+              <i nz-icon nzType="copy" [nz-tooltip]="[item.url] | wpxAssets"></i>
             </ng-template>
-            <ng-template #actionRename>
-              <!--              <i-->
-              <!--                nz-icon-->
-              <!--                nzType="edit"-->
-              <!--                [nz-tooltip]="bit.l['rename']"-->
-              <!--                [nzTooltipMouseEnterDelay]="0.2"-->
-              <!--                (click)="openRenameModal(item)"-->
-              <!--              ></i>-->
+            <ng-template #renameRef>
+              <i nz-icon nzType="edit" nz-tooltip="编辑"></i>
             </ng-template>
-            <ng-template #actionEllipsis>
-              <!--              <i-->
-              <!--                nz-icon-->
-              <!--                nzType="ellipsis"-->
-              <!--                nz-dropdown-->
-              <!--                [nzDropdownMenu]="actionMenu"-->
-              <!--                [nzTrigger]="'click'"-->
-              <!--                [nzClickHide]="false"-->
-              <!--              ></i>-->
+            <ng-template #moreRef>
+              <i nz-icon nzType="ellipsis"></i>
               <!--              <nz-dropdown-menu #actionMenu>-->
               <!--                <ul nz-menu>-->
               <!--                  <li nz-menu-item (click)="openMoveModal([item])">-->
@@ -66,23 +43,9 @@
               <!--                </ul>-->
               <!--              </nz-dropdown-menu>-->
             </ng-template>
-
-            <nz-card-meta [nzTitle]="cardTitle">
-              <ng-template #cardTitle>
-                <!--                              <label-->
-                <!--                                nz-checkbox-->
-                <!--                                [(ngModel)]="item.checked"-->
-                <!--                                (ngModelChange)="ds.lists.refreshStatus()"-->
-                <!--                                [nz-tooltip]="item.name"-->
-                <!--                                [nzTooltipMouseEnterDelay]="0.2"-->
-                <!--                              >-->
-                <!--                                {{ item.name }}-->
-                <!--                              </label>-->
-              </ng-template>
-            </nz-card-meta>
           </nz-card>
         </div>
-      </div>
+      </nz-row>
     </nz-list-item>
   </nz-list>
 </cdk-virtual-scroll-viewport>
