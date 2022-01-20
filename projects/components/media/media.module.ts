@@ -2,14 +2,14 @@ import { NgModule } from '@angular/core';
 
 import { WpxShareModule } from '@weplanx/common';
 
+import { WpxMediaPictureComponent } from './input/picture.component';
+import { WpxMediaVideoComponent } from './input/video.component';
 import { MediaService } from './media.service';
-import { WpxPictureComponent } from './picture.component';
-import { WpxVideoComponent } from './video.component';
 
 @NgModule({
   imports: [WpxShareModule],
-  declarations: [WpxPictureComponent, WpxVideoComponent],
-  exports: [WpxPictureComponent, WpxVideoComponent],
+  declarations: [WpxMediaPictureComponent, WpxMediaVideoComponent],
+  exports: [WpxMediaPictureComponent, WpxMediaVideoComponent],
   providers: [MediaService]
 })
 export class WpxMediaModule {}

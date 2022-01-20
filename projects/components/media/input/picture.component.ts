@@ -1,18 +1,18 @@
 import { Component, forwardRef } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 
-import { MediaInput } from './media-input';
+import { Common } from './common';
 
 @Component({
   selector: 'wpx-media-picture',
   templateUrl: './picture.component.html',
-  styleUrls: ['./media.scss'],
+  styleUrls: ['./common.scss'],
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => WpxPictureComponent),
+      useExisting: forwardRef(() => WpxMediaPictureComponent),
       multi: true
     }
   ]
 })
-export class WpxPictureComponent extends MediaInput {}
+export class WpxMediaPictureComponent extends Common {}
