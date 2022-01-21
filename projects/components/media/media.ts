@@ -2,7 +2,7 @@ import { Directive } from '@angular/core';
 import { ControlValueAccessor } from '@angular/forms';
 
 @Directive()
-export class Common implements ControlValueAccessor {
+export class WpxMedia implements ControlValueAccessor {
   protected wpxChanged!: (value: any[]) => void;
   protected wpxTouched!: () => void;
 

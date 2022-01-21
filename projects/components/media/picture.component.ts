@@ -1,12 +1,12 @@
 import { Component, forwardRef } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 
-import { Common } from './common';
+import { WpxMedia } from './media';
 
 @Component({
   selector: 'wpx-media-picture',
   templateUrl: './picture.component.html',
-  styleUrls: ['./common.scss'],
+  styleUrls: ['./media.scss'],
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
@@ -15,4 +15,4 @@ import { Common } from './common';
     }
   ]
 })
-export class WpxMediaPictureComponent extends Common {}
+export class WpxMediaPictureComponent extends WpxMedia {}

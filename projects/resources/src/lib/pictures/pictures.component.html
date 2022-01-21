@@ -32,11 +32,11 @@
             <button nz-button nzType="text" nz-tooltip="清除搜索" (click)="clearSearch()">
               <i nz-icon nzType="clear"></i>
             </button>
-            <nz-badge [nzCount]="mediaRef.ds.checkedNumber">
+            <nz-badge [nzCount]="mediaView.ds.checkedNumber">
               <button
                 nz-button
                 nzType="text"
-                [nzDisabled]="!mediaRef.ds.checkedNumber"
+                [nzDisabled]="!mediaView.ds.checkedNumber"
                 nz-tooltip="批量操作"
                 nz-dropdown
                 [nzDropdownMenu]="bulkRef"
@@ -57,4 +57,4 @@
   </nz-row>
 </wpx-layout>
 
-<wpx-media #mediaRef type="picture" fallback="/loading"></wpx-media>
+<wpx-media-view #mediaView type="picture" fallback="/loading"></wpx-media-view>

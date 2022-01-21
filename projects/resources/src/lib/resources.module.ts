@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { WpxModule, WpxShareModule } from '@weplanx/common';
+import { WpxMediaModule } from '@weplanx/components/media';
 
 import { PicturesComponent } from './pictures/pictures.component';
 import { PicturesModule } from './pictures/pictures.module';
@@ -34,7 +35,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [WpxModule, WpxShareModule, PicturesModule, VideosModule, RouterModule.forChild(routes)],
+  imports: [WpxModule, WpxShareModule, WpxMediaModule, PicturesModule, VideosModule, RouterModule.forChild(routes)],
   declarations: [ResourcesComponent]
 })
 export class ResourcesModule {}

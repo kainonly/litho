@@ -1,6 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 
-import { Media, MediaService, WpxMediaComponent } from '@weplanx/components/media';
+import { Media, MediaService, WpxMediaViewComponent } from '@weplanx/components/media';
 import { Transport } from '@weplanx/components/upload';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalService } from 'ng-zorro-antd/modal';
@@ -10,7 +10,7 @@ import { NzModalService } from 'ng-zorro-antd/modal';
   templateUrl: './pictures.component.html'
 })
 export class PicturesComponent {
-  @ViewChild('mediaRef') mediaRef!: WpxMediaComponent;
+  @ViewChild('mediaView') mediaView!: WpxMediaViewComponent;
   searchText: string = '';
   labels: string[] = [];
   matchLabels: Set<string> = new Set<string>();
@@ -19,9 +19,9 @@ export class PicturesComponent {
 
   getData(refresh = false): void {
     if (this.searchText) {
-      this.mediaRef.ds.setSearchText(this.searchText);
+      this.mediaView.ds.setSearchText(this.searchText);
     }
-    this.mediaRef.ds.fetch(refresh);
+    this.mediaView.ds.fetch(refresh);
   }
 
   /**
@@ -66,7 +66,7 @@ export class PicturesComponent {
    */
   clearSearch(): void {
     this.searchText = '';
-    this.mediaRef.ds.clearSearchText();
+    this.mediaView.ds.clearSearchText();
     this.matchLabels.clear();
     this.getData(true);
   }
@@ -83,8 +83,8 @@ export class PicturesComponent {
   }
 
   bulkUnchecked(): void {
-    this.mediaRef.ds.checkedIds.clear();
-    this.mediaRef.ds.updateCheckedStatus();
+    this.mediaView.ds.checkedIds.clear();
+    this.mediaView.ds.updateCheckedStatus();
   }
 
   bulkDelete(): void {
@@ -94,10 +94,10 @@ export class PicturesComponent {
       nzOkType: 'primary',
       nzOkDanger: true,
       nzOnOk: () => {
-        this.media.bulkDelete([...this.mediaRef.ds.checkedIds.values()]).subscribe(() => {
-          this.mediaRef.ds.checkedIds.clear();
-          this.mediaRef.ds.updateCheckedStatus();
-          this.mediaRef.ds.fetch(true);
+        this.media.bulkDelete([...this.mediaView.ds.checkedIds.values()]).subscribe(() => {
+          this.mediaView.ds.checkedIds.clear();
+          this.mediaView.ds.updateCheckedStatus();
+          this.mediaView.ds.fetch(true);
           this.message.success('数据删除完成');
         });
       },

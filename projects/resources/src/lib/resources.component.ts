@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 
 import { WpxService } from '@weplanx/common';
 
@@ -26,7 +26,8 @@ import { WpxService } from '@weplanx/common';
         </nz-layout>
       </nz-layout>
     </nz-layout>
-  `
+  `,
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ResourcesComponent {
   constructor(public wpx: WpxService) {}

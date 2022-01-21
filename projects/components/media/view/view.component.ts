@@ -5,22 +5,22 @@ import { AnyDto, WpxService } from '@weplanx/common';
 import { NzImageService } from 'ng-zorro-antd/image';
 import { NzMessageService } from 'ng-zorro-antd/message';
 
-import { MediaDataSource } from './media.data-source';
-import { MediaService } from './media.service';
-import { Media } from './types';
+import { MediaService } from '../media.service';
+import { Media } from '../types';
+import { WpxMediaViewDataSource } from './view.data-source';
 
 @Component({
-  selector: 'wpx-media',
-  templateUrl: './media.component.html',
-  styleUrls: ['./media.component.scss']
+  selector: 'wpx-media-view',
+  templateUrl: './view.component.html',
+  styleUrls: ['./view.component.scss']
 })
-export class WpxMediaComponent implements OnInit, AfterViewInit {
+export class WpxMediaViewComponent implements OnInit, AfterViewInit {
   @Input() type!: string;
   @Input() fallback?: string;
   @ViewChild(CdkVirtualScrollViewport) viewport!: CdkVirtualScrollViewport;
   private resizeObserver!: ResizeObserver;
 
-  ds!: MediaDataSource;
+  ds!: WpxMediaViewDataSource;
 
   constructor(
     private wpx: WpxService,
@@ -28,7 +28,7 @@ export class WpxMediaComponent implements OnInit, AfterViewInit {
     private image: NzImageService,
     private message: NzMessageService
   ) {
-    this.ds = new MediaDataSource(media);
+    this.ds = new WpxMediaViewDataSource(media);
   }
 
   ngOnInit(): void {
