@@ -69,7 +69,7 @@ export class Api<T> {
       params = params.set('where', JSON.stringify(where));
     }
     if (sort) {
-      for (const v of Object.values(sort)) {
+      for (const v of toSortValues(sort)) {
         params = params.append('sort', v);
       }
     }
@@ -92,8 +92,8 @@ export class Api<T> {
       params = params.append('id', id);
     }
     if (sort) {
-      for (let [k, v] of Object.entries(sort)) {
-        params = params.append('sort', `${k}.${v}`);
+      for (const v of toSortValues(sort)) {
+        params = params.append('sort', v);
       }
     }
     return this.http.get<Array<AnyDto<T>>>(this.url(), { params });
@@ -109,8 +109,7 @@ export class Api<T> {
       params = params.set('where', JSON.stringify(ds.where));
     }
     if (Object.keys(ds.sort).length !== 0) {
-      const sort = toSortValues(ds.sort);
-      for (const v of Object.values(sort)) {
+      for (const v of toSortValues(ds.sort)) {
         params = params.append('sort', v);
       }
     }
