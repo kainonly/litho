@@ -65,13 +65,10 @@ export interface UploadOption {
   url?: string;
   presignedUrl?: string;
   size?: number;
-  storage?: string | 'oss' | 'obs' | 'cos';
 }
 
 export interface AssetsOption {
-  thumbnail?: boolean;
   css?: boolean;
-  compress?: boolean;
 }
 
 export interface LayoutOption {

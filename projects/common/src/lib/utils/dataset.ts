@@ -76,7 +76,6 @@ export class Dataset<T extends BasicDto> {
    */
   reset(): void {
     this.pageIndex = 1;
-    // this.storage.delete(this.key).subscribe(() => {});
   }
 
   /**
@@ -92,7 +91,6 @@ export class Dataset<T extends BasicDto> {
         this.setData(data);
         this.loading = false;
         this.updateCheckedStatus();
-        // this.updateStorage();
         return data;
       })
     );

@@ -2,4 +2,4 @@
   <wpx-upload-transport *wpxLayoutAction (wpxChange)="upload($event)"></wpx-upload-transport>
 </wpx-layout>
 
-<wpx-media type="picture"></wpx-media>
+<wpx-media #mediaRef type="picture" fallback="/loading"></wpx-media>

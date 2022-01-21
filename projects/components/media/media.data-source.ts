@@ -1,21 +1,34 @@
 import { CollectionViewer, DataSource } from '@angular/cdk/collections';
-import { BehaviorSubject, map, Observable, Subject, takeUntil } from 'rxjs';
+import { BehaviorSubject, Observable, Subject, takeUntil } from 'rxjs';
 
-import { AnyDto, Api, Dataset } from '@weplanx/common';
+import { AnyDto, Dataset } from '@weplanx/common';
 
+import { MediaService } from './media.service';
 import { Media } from './types';
 
-export class MediaDataSource extends DataSource<Array<AnyDto<Media>[number]>> {
-  private readonly dataset: Dataset<AnyDto<Media>> = new Dataset<AnyDto<Media>>();
-  private readonly stream = new BehaviorSubject<Array<AnyDto<Media>[number]>>([]);
+export class MediaDataSource extends DataSource<Array<AnyDto<Media>>> {
+  private readonly stream = new BehaviorSubject<Array<Array<AnyDto<Media>>>>([]);
   private readonly disconnect$ = new Subject<void>();
-  private readonly pageIndexs = new Set();
-  fetch$ = new Subject();
+  private readonly ds: Dataset<AnyDto<Media>> = new Dataset<AnyDto<Media>>();
+  private readonly indexs: Set<number> = new Set<number>();
+  private cache: Array<AnyDto<Media>> = [];
+  /**
+   * 每个列表包含卡片数量
+   */
+  itemSize: number = 0;
 
-  connect(collectionViewer: CollectionViewer): Observable<Array<AnyDto<Media>[number]>> {
+  constructor(private media: MediaService) {
+    super();
+  }
+
+  connect(collectionViewer: CollectionViewer): Observable<Array<Array<AnyDto<Media>>>> {
     collectionViewer.viewChange.pipe(takeUntil(this.disconnect$)).subscribe(range => {
-      // this.lists.index = Math.floor((range.end * this.size) / this.lists.limit) + 1;
-      this.fetch$.next(null);
+      const index = Math.floor((range.end * this.itemSize) / this.ds.pageSize) + 1;
+      if (this.indexs.has(index)) {
+        return;
+      }
+      this.ds.pageIndex = index;
+      this.fetch(false);
     });
     return this.stream;
   }
@@ -25,22 +38,24 @@ export class MediaDataSource extends DataSource<Array<AnyDto<Media>[number]>> {
     this.disconnect$.complete();
   }
 
-  from(api: Api<AnyDto<Media>>): Observable<Array<AnyDto<Media>>> {
-    return this.dataset.from(api).pipe(
-      map(v => {
-        const values: Array<Array<AnyDto<Media>>> = [];
-        this.pageIndexs.add(this.dataset.pageIndex);
-        v.forEach((value, index) => {
-          const n = Math.trunc(index / 4);
-          if (!values[n]) {
-            values[n] = [];
-          }
-          values[n].push(value);
-        });
-        console.log(values);
-        this.stream.next(values);
-        return v;
-      })
-    );
+  fetch(refresh = false): void {
+    if (refresh) {
+      this.cache = [];
+      this.stream.next([]);
+      this.indexs.clear();
+    }
+    this.ds.from(this.media, refresh).subscribe(data => {
+      const values: Array<Array<AnyDto<Media>>> = [];
+      this.cache.splice(this.ds.pageIndex * this.ds.pageSize, this.ds.pageSize, ...data);
+      this.cache.forEach((value, index) => {
+        const n = Math.trunc(index / this.itemSize);
+        if (!values[n]) {
+          values[n] = [];
+        }
+        values[n].push(value);
+      });
+      this.indexs.add(this.ds.pageIndex);
+      this.stream.next(values);
+    });
   }
 }
