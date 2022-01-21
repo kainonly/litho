@@ -38,6 +38,18 @@ export class MediaDataSource extends DataSource<Array<AnyDto<Media>>> {
     this.disconnect$.complete();
   }
 
+  setSearchText(v: string): void {
+    this.ds.searchOptions = {
+      name: {
+        $regex: v
+      }
+    };
+  }
+
+  clearSearchText(): void {
+    this.ds.searchOptions = {};
+  }
+
   fetch(refresh = false): void {
     if (refresh) {
       this.cache = [];

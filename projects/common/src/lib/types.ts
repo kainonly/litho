@@ -56,11 +56,6 @@ export interface DeleteResult {
   DeletedCount: number;
 }
 
-export interface SearchOption {
-  operator: string;
-  value: any;
-}
-
 export interface UploadOption {
   url?: string;
   presignedUrl?: string;
@@ -88,6 +83,10 @@ export interface LayoutOption {
    * 全局提示区域
    */
   alert: TemplateRef<any>;
+  /**
+   * 页头内容
+   */
+  content: TemplateRef<any>;
   /**
    * 操作区域
    */

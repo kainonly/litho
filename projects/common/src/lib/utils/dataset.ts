@@ -3,7 +3,7 @@ import { map } from 'rxjs/operators';
 
 import { NzTableSortOrder } from 'ng-zorro-antd/table/src/table.types';
 
-import { SearchOption, BasicDto } from '../types';
+import { BasicDto, Where } from '../types';
 import { Api } from './api';
 
 export class Dataset<T extends BasicDto> {
@@ -50,7 +50,7 @@ export class Dataset<T extends BasicDto> {
   /**
    * 字段搜索
    */
-  searchOptions: Record<string, SearchOption> = {};
+  searchOptions: Where<T> = {};
   /**
    * 字段排序
    */

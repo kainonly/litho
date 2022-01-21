@@ -5,6 +5,7 @@ import { WpxUploadDirective } from './directives/upload.directive';
 import { WpxHeaderComponent } from './header/header.component';
 import { WpxLayoutActionDirective } from './layout/layout-action.directive';
 import { WpxLayoutAlertDirective } from './layout/layout-alert.directive';
+import { WpxLayoutContentDirective } from './layout/layout-content.directive';
 import { WpxLayoutComponent } from './layout/layout.component';
 import { IsPageArrayPipe } from './nav/is-page-array.pipe';
 import { WpxNavComponent } from './nav/nav.component';
@@ -28,6 +29,7 @@ import { WpxShareModule } from './share.module';
     WpxLayoutComponent,
     WpxLayoutActionDirective,
     WpxLayoutAlertDirective,
+    WpxLayoutContentDirective,
     WpxNavComponent,
     WpxPageHeaderComponent,
     WpxEmptyPipe,
@@ -47,6 +49,7 @@ import { WpxShareModule } from './share.module';
     WpxLayoutComponent,
     WpxLayoutActionDirective,
     WpxLayoutAlertDirective,
+    WpxLayoutContentDirective,
     WpxNavComponent,
     WpxPageHeaderComponent,
     WpxEmptyPipe,

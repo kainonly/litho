@@ -3,6 +3,7 @@ export * from './lib/directives/upload.directive';
 export * from './lib/header/header.component';
 export * from './lib/layout/layout.component';
 export * from './lib/layout/layout-action.directive';
+export * from './lib/layout/layout-content.directive';
 export * from './lib/layout/layout-alert.directive';
 export * from './lib/nav/nav.component';
 export * from './lib/page-header/page-header.component';

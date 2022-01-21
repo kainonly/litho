@@ -5,7 +5,7 @@ import { map } from 'rxjs/operators';
 
 import { AnyDto, CreateDto, CreateResult, DeleteResult, ReplaceDto, UpdateDto, UpdateResult, Where } from '../types';
 import { Dataset } from './dataset';
-import { toSearchValues, toSortValues } from './helper';
+import { toSortValues } from './helper';
 
 @Injectable()
 export class Api<T> {
@@ -84,9 +84,8 @@ export class Api<T> {
    */
   findByPage(ds: Dataset<AnyDto<T>>): Observable<Array<AnyDto<T>>> {
     let params = new HttpParams();
-    const where = !ds.searchText ? toSearchValues(ds.searchOptions) : { $text: { $search: ds.searchText } };
-    if (Object.keys(where).length !== 0) {
-      params = params.set('where', JSON.stringify(where));
+    if (Object.keys(ds.searchOptions).length !== 0) {
+      params = params.set('where', JSON.stringify(ds.searchOptions));
     }
     const sort = toSortValues(ds.sortOptions);
     if (sort.length !== 0) {

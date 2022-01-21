@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { NzTableSortOrder } from 'ng-zorro-antd/table/src/table.types';
 import { NzTreeNode } from 'ng-zorro-antd/tree';
 
-import { SearchOption, Where } from '../types';
+import { Where } from '../types';
 
 export const updateFormGroup = (controls: AbstractControl[]): void => {
   controls.forEach(control => {
@@ -15,18 +15,6 @@ export const updateFormGroup = (controls: AbstractControl[]): void => {
       control.updateValueAndValidity();
     }
   });
-};
-
-export const toSearchValues = (options: Record<string, SearchOption>): Where<any> => {
-  const search: Where<any> = {};
-  for (const [key, opt] of Object.entries(options)) {
-    if (opt.value) {
-      search[key] = {
-        [opt.operator]: opt.operator === '$regex' ? `^${opt.value}` : opt.value
-      };
-    }
-  }
-  return search;
 };
 
 export const toSortValues = (options: Record<string, NzTableSortOrder | 1 | -1>): string[] => {

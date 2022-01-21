@@ -2,7 +2,7 @@ import { Component, Input, OnInit, TemplateRef, ViewChild } from '@angular/core'
 import { FormBuilder, FormGroup } from '@angular/forms';
 
 import { StorageMap } from '@ngx-pwa/local-storage';
-import { SearchOption, Dataset, Api } from '@weplanx/common';
+import { Dataset, Api } from '@weplanx/common';
 import { NzCheckBoxOptionInterface } from 'ng-zorro-antd/checkbox';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzResizeEvent } from 'ng-zorro-antd/resizable';
@@ -139,10 +139,10 @@ export class WpxTableComponent implements OnInit {
   /**
    * 提交搜索
    */
-  submitSearch(data?: unknown): void {
+  submitSearch(data?: any): void {
     if (!!data) {
       this.ds.searchText = '';
-      this.ds.searchOptions = data as Record<string, SearchOption>;
+      this.ds.searchOptions = data;
     } else {
       this.ds.searchOptions = {};
     }
