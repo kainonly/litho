@@ -87,7 +87,6 @@ export class WpxTableComponent implements OnInit {
         this.updateColumnsChecked();
       } else {
         const v = data as TableOption;
-
         this.ds.pageSize = v.pageSize;
         this.ds.pageIndex = v.pageIndex;
         this.ds.where = v.where;
@@ -124,8 +123,8 @@ export class WpxTableComponent implements OnInit {
     const controls: Record<string, FormGroup> = {};
     for (const x of this.columns) {
       controls[x.value] = this.fb.group({
-        operator: ['$regex'],
-        value: []
+        // operator: ['$regex'],
+        // value: []
       });
     }
     this.searchForm = this.fb.group(controls);
@@ -148,7 +147,7 @@ export class WpxTableComponent implements OnInit {
     if (!!data) {
       this.ds.where = data;
     } else {
-      this.ds.where = undefined;
+      this.ds.where = {};
     }
     this.updateStorage();
     this.getData(true);
@@ -173,7 +172,7 @@ export class WpxTableComponent implements OnInit {
    */
   clearSearch(): void {
     this.searchText = '';
-    this.ds.where = undefined;
+    this.ds.where = {};
     this.getData(true);
   }
 

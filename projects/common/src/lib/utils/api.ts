@@ -105,10 +105,10 @@ export class Api<T> {
    */
   findByPage(ds: Dataset<AnyDto<T>>): Observable<Array<AnyDto<T>>> {
     let params = new HttpParams();
-    if (ds.where) {
+    if (Object.keys(ds.where).length !== 0) {
       params = params.set('where', JSON.stringify(ds.where));
     }
-    if (ds.sort) {
+    if (Object.keys(ds.sort).length !== 0) {
       const sort = toSortValues(ds.sort);
       for (const v of Object.values(sort)) {
         params = params.append('sort', v);

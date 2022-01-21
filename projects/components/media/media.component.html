@@ -19,19 +19,12 @@
             <nz-card-meta style="height: 50px" [nzDescription]="descriptionRef">
               <ng-template #descriptionRef>
                 <label nz-checkbox [(ngModel)]="x.checked">
-                  {{ x.name | nzEllipsis: 30:'...' }}
-                  <a [nz-tooltip]="info" [nzTooltipMouseEnterDelay]="0.2">
-                    <i nz-icon nzType="link"></i>
-                  </a>
-                  <ng-template #info>
-                    <p>名称：{{ x.name }}</p>
-                    <p>地址：{{ [x.url] | wpxAssets }}</p>
-                  </ng-template>
+                  <p nz-typography nzEllipsis [nzEllipsisRows]="2" [nzContent]="x.name"></p>
                 </label>
               </ng-template>
             </nz-card-meta>
             <ng-template #tagsRef>
-              <i nz-icon nzType="tags" nz-tooltip="标签"></i>
+              <i nz-icon nzType="profile" nz-tooltip="详情"></i>
             </ng-template>
             <ng-template #editRef>
               <i nz-icon nzType="edit" nz-tooltip="编辑"></i>

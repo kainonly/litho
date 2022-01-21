@@ -1,37 +1,3 @@
-//:host ::ng-deep {
-//  .ant-card-meta-title {
-//    font-size: 14px;
-//  }
-//
-//  .ant-card-actions > li {
-//    margin: 6px 0;
-//  }
-//
-//  .ant-checkbox-wrapper {
-//    width: 100%;
-//    overflow: hidden;
-//    white-space: nowrap;
-//    text-overflow: ellipsis;
-//  }
-//
-//  .cdk-drag-preview {
-//    display: table;
-//  }
-//
-//  .cdk-drag-placeholder {
-//    opacity: 0;
-//  }
-//}
-
-//.custom-badge {
-//  float: right;
-//  margin-top: 0.5px;
-//}
-//
-//.drag-cursor {
-//  cursor: move;
-//}
-
 .infinite-container {
   height: 100%;
   width: 100%;
@@ -52,16 +18,6 @@
   }
 }
 
-.video,
-.audio {
-  height: 135px;
-  width: 100%;
-  overflow: hidden;
-  position: relative;
-
-  video,
-  audio {
-    height: 100%;
-    width: 100%;
-  }
+.label-text {
+  height: 45px;
 }

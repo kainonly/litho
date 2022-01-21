@@ -46,11 +46,11 @@ export class Dataset<T extends BasicDto> {
   /**
    * 搜索
    */
-  where?: Where<T>;
+  where: Where<T> = {};
   /**
    * 排序
    */
-  sort?: Record<string, NzTableSortOrder>;
+  sort: Record<string, NzTableSortOrder> = {};
 
   /**
    * 设置总数

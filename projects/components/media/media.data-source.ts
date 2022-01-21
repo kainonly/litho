@@ -43,7 +43,7 @@ export class MediaDataSource extends DataSource<Array<AnyDto<Media>>> {
   }
 
   clearSearchText(): void {
-    this.ds.where = undefined;
+    this.ds.where = {};
   }
 
   fetch(refresh = false): void {
