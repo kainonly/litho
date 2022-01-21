@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { Component } from '@angular/core';
 
 import { WpxService } from '@weplanx/common';
 
@@ -21,7 +21,7 @@ import { WpxService } from '@weplanx/common';
         </nz-sider>
         <nz-layout style="overflow: auto">
           <wpx-page-header [wpxManual]="true"></wpx-page-header>
-          <nz-content [ngClass]="{ content: !wpx.layout.noPadding }">
+          <nz-content class="content">
             <router-outlet></router-outlet>
           </nz-content>
         </nz-layout>

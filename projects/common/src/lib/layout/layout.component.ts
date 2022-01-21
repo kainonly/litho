@@ -5,7 +5,6 @@ import {
   ContentChild,
   ContentChildren,
   Input,
-  OnInit,
   QueryList,
   TemplateRef
 } from '@angular/core';
@@ -20,7 +19,7 @@ import { WpxLayoutContentDirective } from './layout-content.directive';
   template: '',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class WpxLayoutComponent implements OnInit, AfterContentInit {
+export class WpxLayoutComponent implements AfterContentInit {
   @Input() wpxNoPadding?: boolean;
   @Input() wpxTitle?: string;
   @Input() wpxSkip = false;
@@ -31,16 +30,15 @@ export class WpxLayoutComponent implements OnInit, AfterContentInit {
 
   constructor(private wpx: WpxService) {}
 
-  ngOnInit(): void {
-    this.wpx.layout.noPadding = this.wpxNoPadding;
-    this.wpx.layout.skipPageHeader = this.wpxSkip;
-    this.wpx.layout.showBack = this.wpxBack;
-    this.wpx.layout.title = this.wpxTitle;
-  }
-
   ngAfterContentInit(): void {
-    this.wpx.layout.alert = this.wpxAlert;
-    this.wpx.layout.content = this.wpxContent;
-    this.wpx.layout.actions = this.wpxActions;
+    this.wpx.layout.next({
+      noPadding: this.wpxNoPadding,
+      skipPageHeader: this.wpxSkip,
+      showBack: this.wpxBack,
+      title: this.wpxTitle,
+      alert: this.wpxAlert,
+      content: this.wpxContent,
+      actions: this.wpxActions
+    });
   }
 }

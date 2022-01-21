@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 import { AppService } from '@common/app.service';
 import { WpxService } from '@weplanx/common';

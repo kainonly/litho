@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 
 import { WpxService } from '@weplanx/common';
 
@@ -26,8 +26,8 @@ import { WpxService } from '@weplanx/common';
           </ul>
         </nz-sider>
         <nz-layout style="overflow: auto">
-          <wpx-page-header [wpxManual]="true"> </wpx-page-header>
-          <nz-content [ngClass]="{ content: !wpx.layout.noPadding ?? false }">
+          <wpx-page-header [wpxManual]="true"></wpx-page-header>
+          <nz-content [class.content]="!noPadding">
             <router-outlet></router-outlet>
           </nz-content>
         </nz-layout>
@@ -35,6 +35,15 @@ import { WpxService } from '@weplanx/common';
     </nz-layout>
   `
 })
-export class SettingsComponent {
-  constructor(public wpx: WpxService) {}
+export class SettingsComponent implements OnInit {
+  noPadding = false;
+
+  constructor(public wpx: WpxService, private cd: ChangeDetectorRef) {}
+
+  ngOnInit(): void {
+    this.wpx.layout.subscribe(option => {
+      this.noPadding = option.noPadding ?? false;
+      this.cd.detectChanges();
+    });
+  }
 }

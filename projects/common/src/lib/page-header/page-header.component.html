@@ -1,47 +1,49 @@
-<ng-container *ngIf="!wpx.layout.skipPageHeader">
-  <ng-container *ngIf="!!wpx.layout.alert">
-    <ng-container *ngTemplateOutlet="wpx.layout.alert"></ng-container>
-  </ng-container>
+<ng-container *ngIf="wpx.layout | async as layout">
+  <ng-container *ngIf="!layout.skipPageHeader">
+    <ng-container *ngIf="!!layout.alert">
+      <ng-container *ngTemplateOutlet="layout.alert"></ng-container>
+    </ng-container>
 
-  <nz-page-header [nzGhost]="false" [nzBackIcon]="wpx.layout.showBack ? '' : null">
-    <nz-breadcrumb nz-page-header-breadcrumb [nzAutoGenerate]="wpxManual">
-      <ng-container *ngIf="!wpxManual">
-        <nz-breadcrumb-item>
-          <a [routerLink]="['/pages']">我的应用</a>
-        </nz-breadcrumb-item>
-        <ng-container *ngIf="wpx.pages as pages">
-          <ng-container *ngIf="wpx.pageId">
-            <ng-container *ngFor="let id of pages[wpx.pageId]?.['path']">
-              <nz-breadcrumb-item>
-                <ng-container *ngIf="pages[id]?.kind !== 'group'; else textName">
-                  <a [routerLink]="['/pages', id]">{{ pages[id]?.name }}</a>
-                </ng-container>
-                <ng-template #textName>{{ pages[id]?.name }}</ng-template>
-              </nz-breadcrumb-item>
+    <nz-page-header [nzGhost]="false" [nzBackIcon]="layout.showBack ? '' : null">
+      <nz-breadcrumb nz-page-header-breadcrumb [nzAutoGenerate]="wpxManual">
+        <ng-container *ngIf="!wpxManual">
+          <nz-breadcrumb-item>
+            <a [routerLink]="['/pages']">我的应用</a>
+          </nz-breadcrumb-item>
+          <ng-container *ngIf="wpx.pages as pages">
+            <ng-container *ngIf="wpx.pageId">
+              <ng-container *ngFor="let id of pages[wpx.pageId]?.['path']">
+                <nz-breadcrumb-item>
+                  <ng-container *ngIf="pages[id]?.kind !== 'group'; else textName">
+                    <a [routerLink]="['/pages', id]">{{ pages[id]?.name }}</a>
+                  </ng-container>
+                  <ng-template #textName>{{ pages[id]?.name }}</ng-template>
+                </nz-breadcrumb-item>
+              </ng-container>
             </ng-container>
           </ng-container>
         </ng-container>
-      </ng-container>
-    </nz-breadcrumb>
-    <nz-page-header-title>
-      <ng-container *ngIf="!wpxManual; else wpxTitle">
-        <ng-container *ngIf="wpx.pages as pages">
-          <ng-container *ngIf="wpx.pageId">{{ pages[wpx.pageId]?.name }}</ng-container>
-        </ng-container>
-      </ng-container>
-      <ng-template #wpxTitle>{{ wpx.layout.title }}</ng-template>
-    </nz-page-header-title>
-    <nz-page-header-extra *ngIf="!!wpx.layout.actions">
-      <nz-space>
-        <ng-container *ngFor="let action of wpx.layout.actions">
-          <ng-container *nzSpaceItem>
-            <ng-container *ngTemplateOutlet="action"></ng-container>
+      </nz-breadcrumb>
+      <nz-page-header-title>
+        <ng-container *ngIf="!wpxManual; else wpxTitle">
+          <ng-container *ngIf="wpx.pages as pages">
+            <ng-container *ngIf="wpx.pageId">{{ pages[wpx.pageId]?.name }}</ng-container>
           </ng-container>
         </ng-container>
-      </nz-space>
-    </nz-page-header-extra>
-    <nz-page-header-content *ngIf="!!wpx.layout.content">
-      <ng-container *ngTemplateOutlet="wpx.layout.content"></ng-container>
-    </nz-page-header-content>
-  </nz-page-header>
+        <ng-template #wpxTitle>{{ layout.title }}</ng-template>
+      </nz-page-header-title>
+      <nz-page-header-extra *ngIf="!!layout.actions">
+        <nz-space>
+          <ng-container *ngFor="let action of layout.actions">
+            <ng-container *nzSpaceItem>
+              <ng-container *ngTemplateOutlet="action"></ng-container>
+            </ng-container>
+          </ng-container>
+        </nz-space>
+      </nz-page-header-extra>
+      <nz-page-header-content *ngIf="!!layout.content">
+        <ng-container *ngTemplateOutlet="layout.content"></ng-container>
+      </nz-page-header-content>
+    </nz-page-header>
+  </ng-container>
 </ng-container>

@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
 
 import { AnyDto, LayoutOption, Page, UploadOption } from './types';
 
@@ -27,7 +28,7 @@ export class WpxService {
   /**
    * 布局设置
    */
-  layout: Partial<LayoutOption> = {};
+  layout: BehaviorSubject<Partial<LayoutOption>> = new BehaviorSubject<Partial<LayoutOption>>({});
 
   /**
    * 设置静态资源
