@@ -54,6 +54,10 @@ export interface AssetsOption {
 
 export interface LayoutOption {
   /**
+   * 无留白
+   */
+  noPadding: boolean;
+  /**
    * 是否忽略页头
    */
   skipPageHeader: boolean;

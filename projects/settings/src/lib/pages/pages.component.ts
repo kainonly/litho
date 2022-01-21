@@ -14,7 +14,8 @@ import { PagesSerivce } from './pages.serivce';
 
 @Component({
   selector: 'wpx-settings-pages',
-  templateUrl: './pages.component.html'
+  templateUrl: './pages.component.html',
+  styleUrls: ['./pages.component.scss']
 })
 export class PagesComponent implements OnInit {
   @ViewChild('tree') tree!: NzTreeComponent;

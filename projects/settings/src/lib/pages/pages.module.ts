@@ -3,6 +3,7 @@ import { Routes } from '@angular/router';
 
 import { WpxModule, WpxShareModule } from '@weplanx/common';
 import { NzResultModule } from 'ng-zorro-antd/result';
+import { NzSliderModule } from 'ng-zorro-antd/slider';
 import { NzTreeModule } from 'ng-zorro-antd/tree';
 import { NzTreeSelectModule } from 'ng-zorro-antd/tree-select';
 
@@ -68,7 +69,8 @@ export const pages: Routes = [
     IndexesModule,
     RulesModule,
     SchemaModule,
-    ValidatorModule
+    ValidatorModule,
+    NzSliderModule
   ],
   declarations: [PagesComponent, HomeComponent, FormComponent],
   providers: [PagesSerivce]

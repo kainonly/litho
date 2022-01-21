@@ -41,7 +41,7 @@ export class WpxMediaComponent implements OnInit, AfterViewInit {
     const size = width >= 1600 ? 6 : 4;
     if (this.ds.itemSize !== size) {
       this.ds.itemSize = size;
-      this.ds.fetch();
+      this.ds.fetch(true);
     }
   }
 

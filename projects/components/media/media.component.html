@@ -1,6 +1,6 @@
-<cdk-virtual-scroll-viewport class="infinite-container" itemSize="363">
+<cdk-virtual-scroll-viewport class="infinite-container" itemSize="351">
   <nz-list nzGrid nzItemLayout="vertical">
-    <nz-list-item *cdkVirtualFor="let item of ds">
+    <nz-list-item *cdkVirtualFor="let item of ds" style="padding-top: 0">
       <nz-row style="width: 100%" [nzGutter]="8">
         <div *ngFor="let x of item" nz-col [nzSpan]="24 / ds.itemSize">
           <nz-card nzHoverable [nzCover]="coverRef" [nzActions]="[tagsRef, editRef, deleteRef]">
