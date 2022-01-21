@@ -20,3 +20,8 @@ export interface TableOption {
   columnsHeight: NzTableSize;
   columnsWidth: Record<string, string>;
 }
+
+export interface Search {
+  operator: string;
+  value: any;
+}

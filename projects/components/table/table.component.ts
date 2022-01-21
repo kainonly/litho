@@ -8,7 +8,7 @@ import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzResizeEvent } from 'ng-zorro-antd/resizable';
 import { NzTableSize } from 'ng-zorro-antd/table';
 
-import { TableField, TableOption } from './types';
+import { Search, TableField, TableOption } from './types';
 
 @Component({
   selector: 'wpx-table',
@@ -26,11 +26,11 @@ export class WpxTableComponent implements OnInit {
   /**
    * 数据源
    */
-  ds = new Dataset();
+  ds: Dataset<any> = new Dataset<any>();
   /**
    * 关键词集合
    */
-  keywords: Set<string> = new Set();
+  keywords: Set<string> = new Set<string>();
   /**
    * 关键词搜索
    */
@@ -111,6 +111,9 @@ export class WpxTableComponent implements OnInit {
    * @param refresh
    */
   getData(refresh = false): void {
+    if (this.searchText) {
+      this.ds.where = { $or: [...this.keywords.values()].map(v => ({ [v]: { $regex: this.searchText } })) };
+    }
     this.ds.from(this.wpxApi, refresh).subscribe(() => {
       this.updateStorage();
     });
@@ -123,8 +126,8 @@ export class WpxTableComponent implements OnInit {
     const controls: Record<string, FormGroup> = {};
     for (const x of this.columns) {
       controls[x.value] = this.fb.group({
-        // operator: ['$regex'],
-        // value: []
+        operator: ['$regex'],
+        value: []
       });
     }
     this.searchForm = this.fb.group(controls);
@@ -143,11 +146,15 @@ export class WpxTableComponent implements OnInit {
   /**
    * 提交搜索
    */
-  submitSearch(data?: any): void {
-    if (!!data) {
-      this.ds.where = data;
-    } else {
+  submitSearch(data?: Record<string, Search>): void {
+    if (!data) {
       this.ds.where = {};
+    } else {
+      for (const [key, search] of Object.entries(data)) {
+        if (search.value) {
+          this.ds.where[key] = { [search.operator]: search.value };
+        }
+      }
     }
     this.updateStorage();
     this.getData(true);
