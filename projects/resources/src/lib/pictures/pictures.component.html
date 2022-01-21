@@ -33,7 +33,14 @@
               <i nz-icon nzType="clear"></i>
             </button>
             <nz-badge [nzCount]="mediaRef.ds.checkedNumber">
-              <button nz-button nzType="text" nz-tooltip="批量操作" nz-dropdown [nzDropdownMenu]="bulkRef">
+              <button
+                nz-button
+                nzType="text"
+                [nzDisabled]="!mediaRef.ds.checkedNumber"
+                nz-tooltip="批量操作"
+                nz-dropdown
+                [nzDropdownMenu]="bulkRef"
+              >
                 <i nz-icon nzType="inbox"></i>
               </button>
             </nz-badge>

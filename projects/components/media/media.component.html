@@ -30,7 +30,15 @@
               <i nz-icon nzType="edit" nz-tooltip="编辑"></i>
             </ng-template>
             <ng-template #deleteRef>
-              <i nz-icon nzType="delete" nz-tooltip="删除"></i>
+              <i
+                nz-icon
+                nzType="delete"
+                nz-tooltip="删除"
+                nz-popconfirm
+                nzPopconfirmTitle="您确定要删除该图片吗?"
+                nzPopconfirmPlacement="bottom"
+                (nzOnConfirm)="delete(x)"
+              ></i>
             </ng-template>
           </nz-card>
         </div>

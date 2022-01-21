@@ -12,4 +12,12 @@ export class MediaService extends Api<Media> {
   findLabels(): Observable<string[]> {
     return this.http.get<string[]>(this.url('labels'));
   }
+
+  /**
+   * 批量删除
+   * @param id
+   */
+  bulkDelete(id: string[]): Observable<any> {
+    return this.http.post(this.url('bulk-delete'), { id });
+  }
 }

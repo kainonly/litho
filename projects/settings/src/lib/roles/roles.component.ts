@@ -16,6 +16,7 @@ import { Role } from './types';
 export class RolesComponent implements OnInit {
   items: Array<AnyDto<Role>> = [];
   searchText: string = '';
+  filter = true;
   labels: string[] = [];
   matchLabels: Set<string> = new Set<string>();
 

@@ -19,6 +19,7 @@ export class UsersComponent implements OnInit {
   items: Array<AnyDto<User>> = [];
   roleDict: Record<string, AnyDto<Role>> = {};
   searchText: string = '';
+  filter = true;
   labels: string[] = [];
   matchLabels: Set<string> = new Set<string>();
 

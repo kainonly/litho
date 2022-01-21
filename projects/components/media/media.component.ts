@@ -3,6 +3,7 @@ import { AfterViewInit, Component, Input, OnInit, ViewChild } from '@angular/cor
 
 import { AnyDto, WpxService } from '@weplanx/common';
 import { NzImageService } from 'ng-zorro-antd/image';
+import { NzMessageService } from 'ng-zorro-antd/message';
 
 import { MediaDataSource } from './media.data-source';
 import { MediaService } from './media.service';
@@ -21,7 +22,12 @@ export class WpxMediaComponent implements OnInit, AfterViewInit {
 
   ds!: MediaDataSource;
 
-  constructor(private wpx: WpxService, private media: MediaService, private image: NzImageService) {
+  constructor(
+    private wpx: WpxService,
+    private media: MediaService,
+    private image: NzImageService,
+    private message: NzMessageService
+  ) {
     this.ds = new MediaDataSource(media);
   }
 
@@ -52,5 +58,12 @@ export class WpxMediaComponent implements OnInit, AfterViewInit {
         alt: data.name
       }
     ]);
+  }
+
+  delete(data: AnyDto<Media>): void {
+    this.media.delete(data._id).subscribe(() => {
+      this.message.success('数据删除完成');
+      this.ds.fetch(true);
+    });
   }
 }
