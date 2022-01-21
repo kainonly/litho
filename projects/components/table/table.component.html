@@ -1,4 +1,4 @@
-<ng-template #searchbox>
+<ng-template #searchRef>
   <nz-row [nzGutter]="12">
     <nz-col>
       <nz-input-group nzCompact>
@@ -66,8 +66,7 @@
     </ng-template>
   </nz-drawer>
 </ng-template>
-
-<ng-template #toolbox>
+<ng-template #toolRef>
   <nz-button-group>
     <button nz-button nzType="text" nz-tooltip="刷新" (click)="getData(true)">
       <i nz-icon nzType="reload"></i>
@@ -125,10 +124,21 @@
     </button>
   </nz-button-group>
 </ng-template>
-
+<ng-template #bulkRef>
+  <nz-alert nzType="info" nzBanner [nzMessage]="message"></nz-alert>
+  <ng-template #message>
+    <nz-row nzJustify="space-between">
+      <nz-col> 已选中 {{ ds.checkedNumber }} 项 </nz-col>
+      <nz-col></nz-col>
+      <nz-col style="text-align: right">
+        <a nz-button nzType="link" nzSize="small">操作<i nz-icon nzType="down"></i></a>
+        <a nz-button nzType="link" nzSize="small" (click)="ds.clearChecked()">取消选择</a>
+      </nz-col>
+    </nz-row>
+  </ng-template>
+</ng-template>
 <nz-table
   #basicTable
-  [nzTitle]="ds.checkedNumber ? bulk : null"
   [nzLoading]="ds.loading"
   [nzSize]="columnsHeight"
   [nzData]="ds.values"
@@ -141,19 +151,6 @@
   (nzPageIndexChange)="getData(false)"
   (nzPageSizeChange)="getData(true)"
 >
-  <ng-template #bulk>
-    <nz-alert nzType="info" nzBanner [nzMessage]="message"></nz-alert>
-    <ng-template #message>
-      <nz-row nzJustify="space-between">
-        <nz-col> 已选中 {{ ds.checkedNumber }} 项 </nz-col>
-        <nz-col></nz-col>
-        <nz-col style="text-align: right">
-          <a nz-button nzType="link" nzSize="small">操作<i nz-icon nzType="down"></i></a>
-          <a nz-button nzType="link" nzSize="small" (click)="ds.clearChecked()">取消选择</a>
-        </nz-col>
-      </nz-row>
-    </ng-template>
-  </ng-template>
   <thead>
     <tr>
       <th

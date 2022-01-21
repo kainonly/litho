@@ -21,8 +21,9 @@ export class WpxTableComponent implements OnInit {
   @Input() wpxFields: TableField[] = [];
   @Input() wpxScroll: { x?: string | null; y?: string | null } = { x: '1600px' };
   @Input() wpxActions?: TemplateRef<any>;
-  @ViewChild('searchbox', { static: true }) wpxSearch!: TemplateRef<any>;
-  @ViewChild('toolbox', { static: true }) wpxTool!: TemplateRef<any>;
+  @ViewChild('searchRef', { static: true }) wpxSearch!: TemplateRef<any>;
+  @ViewChild('toolRef', { static: true }) wpxTool!: TemplateRef<any>;
+  @ViewChild('bulkRef', { static: true }) wpxBulk!: TemplateRef<any>;
   /**
    * 数据源
    */

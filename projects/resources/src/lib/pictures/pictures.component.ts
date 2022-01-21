@@ -83,4 +83,11 @@ export class PicturesComponent implements OnInit {
       this.getData(true);
     });
   }
+
+  bulkUnchecked(): void {
+    this.mediaRef.ds.checkedIds.clear();
+    this.mediaRef.ds.updateCheckedStatus();
+  }
+
+  bulkDelete(): void {}
 }

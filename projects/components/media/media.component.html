@@ -18,7 +18,7 @@
             </ng-template>
             <nz-card-meta style="height: 50px" [nzDescription]="descriptionRef">
               <ng-template #descriptionRef>
-                <label nz-checkbox [(ngModel)]="x.checked">
+                <label nz-checkbox [ngModel]="ds.checkedIds.has(x._id)" (ngModelChange)="ds.setChecked(x._id, $event)">
                   <p nz-typography nzEllipsis [nzEllipsisRows]="2" [nzContent]="x.name"></p>
                 </label>
               </ng-template>

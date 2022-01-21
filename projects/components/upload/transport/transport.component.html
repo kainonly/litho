@@ -1,6 +1,6 @@
 <nz-button-group>
   <nz-upload class="upload" wpxUpload nzMultiple (nzChange)="change($event)">
-    <button nz-button> <i nz-icon [nzType]="'upload'"></i><span>上传</span> </button>
+    <button nz-button> <i nz-icon [nzType]="'upload'"></i> 上传 </button>
   </nz-upload>
   <button
     class="transport-btn"
@@ -12,7 +12,7 @@
     [(nzPopoverVisible)]="visible"
   >
     <nz-badge [nzStatus]="complete ? 'default' : 'processing'">
-      <i nz-icon nzType="inbox"></i>
+      <i nz-icon nzType="cloud-sync"></i>
     </nz-badge>
   </button>
 </nz-button-group>
