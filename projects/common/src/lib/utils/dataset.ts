@@ -44,17 +44,13 @@ export class Dataset<T extends BasicDto> {
    */
   checkedNumber = 0;
   /**
-   * 全文搜索
+   * 搜索
    */
-  searchText = '';
+  where?: Where<T>;
   /**
-   * 字段搜索
+   * 排序
    */
-  searchOptions: Where<T> = {};
-  /**
-   * 字段排序
-   */
-  sortOptions: Record<string, NzTableSortOrder> = {};
+  sort?: Record<string, NzTableSortOrder>;
 
   /**
    * 设置总数

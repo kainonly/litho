@@ -19,7 +19,6 @@ export interface BasicDto {
   [key: string]: any;
 }
 
-export type Where<T> = Partial<{ [P in keyof AnyDto<T>]: any }>;
 export type AnyDto<T> = T & BasicDto;
 
 export interface CreateDto<T> {
@@ -29,9 +28,7 @@ export interface CreateDto<T> {
   ref?: string[];
 }
 
-export interface CreateResult {
-  InsertedID: string;
-}
+export type Where<T> = Partial<{ [P in keyof AnyDto<T>]: any }>;
 
 export interface UpdateDto<T> {
   update: Record<string, Partial<T & Record<string, any>>>;
@@ -39,21 +36,10 @@ export interface UpdateDto<T> {
   ref?: string[];
 }
 
-export interface UpdateResult {
-  MatchedCount: number;
-  ModifiedCount: number;
-  UpsertedCount: number;
-  UpsertedID?: string;
-}
-
 export interface ReplaceDto<T> {
   doc: T;
   format?: any;
   ref?: string[];
-}
-
-export interface DeleteResult {
-  DeletedCount: number;
 }
 
 export interface UploadOption {

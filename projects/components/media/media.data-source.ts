@@ -39,15 +39,11 @@ export class MediaDataSource extends DataSource<Array<AnyDto<Media>>> {
   }
 
   setSearchText(v: string): void {
-    this.ds.searchOptions = {
-      name: {
-        $regex: v
-      }
-    };
+    this.ds.where = { name: { $regex: v } };
   }
 
   clearSearchText(): void {
-    this.ds.searchOptions = {};
+    this.ds.where = undefined;
   }
 
   fetch(refresh = false): void {

@@ -32,6 +32,10 @@ export class WpxTableComponent implements OnInit {
    */
   keywords: Set<string> = new Set();
   /**
+   * 关键词搜索
+   */
+  searchText = '';
+  /**
    * 查询表单
    */
   searchForm?: FormGroup;
@@ -83,11 +87,12 @@ export class WpxTableComponent implements OnInit {
         this.updateColumnsChecked();
       } else {
         const v = data as TableOption;
+
         this.ds.pageSize = v.pageSize;
         this.ds.pageIndex = v.pageIndex;
-        this.ds.searchText = v.searchText;
-        this.ds.searchOptions = v.searchOptions;
-        this.ds.sortOptions = v.sortOptions;
+        this.ds.where = v.where;
+        this.ds.sort = v.sort;
+        this.searchText = v.searchText;
         this.columns = v.columns;
         this.columnsHeight = v.columnsHeight;
         this.columnsWidth = v.columnsWidth;
@@ -124,7 +129,7 @@ export class WpxTableComponent implements OnInit {
       });
     }
     this.searchForm = this.fb.group(controls);
-    this.searchForm.patchValue(this.ds.searchOptions);
+    this.searchForm.patchValue(this.ds.where!);
     this.searchVisible = true;
   }
 
@@ -141,10 +146,9 @@ export class WpxTableComponent implements OnInit {
    */
   submitSearch(data?: any): void {
     if (!!data) {
-      this.ds.searchText = '';
-      this.ds.searchOptions = data;
+      this.ds.where = data;
     } else {
-      this.ds.searchOptions = {};
+      this.ds.where = undefined;
     }
     this.updateStorage();
     this.getData(true);
@@ -168,8 +172,8 @@ export class WpxTableComponent implements OnInit {
    * 清除搜索
    */
   clearSearch(): void {
-    this.ds.searchText = '';
-    this.ds.searchOptions = {};
+    this.searchText = '';
+    this.ds.where = undefined;
     this.getData(true);
   }
 
@@ -241,9 +245,9 @@ export class WpxTableComponent implements OnInit {
       .set(this.wpxKey, <TableOption>{
         pageSize: this.ds.pageSize,
         pageIndex: this.ds.pageIndex,
-        searchText: this.ds.searchText,
-        searchOptions: this.ds.searchOptions,
-        sortOptions: this.ds.sortOptions,
+        searchText: this.searchText,
+        where: this.ds.where,
+        sort: this.ds.sort,
         columns: this.columns,
         columnsHeight: this.columnsHeight,
         columnsWidth: this.columnsWidth

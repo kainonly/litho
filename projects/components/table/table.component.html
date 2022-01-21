@@ -4,7 +4,7 @@
       <nz-input-group nzCompact>
         <input
           (keyup.enter)="submitSearch()"
-          [(ngModel)]="ds.searchText"
+          [(ngModel)]="searchText"
           style="width: 420px"
           type="text"
           nz-input
@@ -196,7 +196,7 @@
           (nzResizeEnd)="resize($event, x.value)"
           [nzWidth]="columnsWidth[x.value] ?? '300px'"
           [nzShowSort]="!columnsWidthVisible"
-          [(nzSortOrder)]="ds.sortOptions[x.value]"
+          [(nzSortOrder)]="ds.where![x.value]"
           (nzSortOrderChange)="getData(true)"
         >
           {{ x.label }}

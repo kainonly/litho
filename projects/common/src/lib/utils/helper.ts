@@ -4,8 +4,6 @@ import { Observable } from 'rxjs';
 import { NzTableSortOrder } from 'ng-zorro-antd/table/src/table.types';
 import { NzTreeNode } from 'ng-zorro-antd/tree';
 
-import { Where } from '../types';
-
 export const updateFormGroup = (controls: AbstractControl[]): void => {
   controls.forEach(control => {
     if (control instanceof FormGroup) {

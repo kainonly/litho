@@ -14,8 +14,8 @@ export interface TableOption {
   pageSize: number;
   pageIndex: number;
   searchText: string;
-  searchOptions: Where<any>;
-  sortOptions: Record<string, NzTableSortOrder>;
+  where: Where<any>;
+  sort: Record<string, NzTableSortOrder>;
   columns: NzCheckBoxOptionInterface[];
   columnsHeight: NzTableSize;
   columnsWidth: Record<string, string>;
