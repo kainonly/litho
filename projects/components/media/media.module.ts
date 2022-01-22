@@ -8,12 +8,20 @@ import { NzTypographyModule } from 'ng-zorro-antd/typography';
 import { MediaService } from './media.service';
 import { WpxMediaPictureComponent } from './picture.component';
 import { WpxMediaVideoComponent } from './video.component';
+import { DetailComponent } from './view/detail/detail.component';
+import { FormComponent } from './view/form/form.component';
 import { WpxMediaViewComponent } from './view/view.component';
 
 @NgModule({
   imports: [WpxModule, WpxShareModule, NzImageModule, NzTypographyModule, ScrollingModule],
-  declarations: [WpxMediaViewComponent, WpxMediaPictureComponent, WpxMediaVideoComponent],
-  exports: [WpxMediaViewComponent, WpxMediaPictureComponent, WpxMediaVideoComponent],
+  declarations: [
+    WpxMediaPictureComponent,
+    WpxMediaVideoComponent,
+    WpxMediaViewComponent,
+    FormComponent,
+    DetailComponent
+  ],
+  exports: [WpxMediaPictureComponent, WpxMediaVideoComponent, WpxMediaViewComponent],
   providers: [MediaService]
 })
 export class WpxMediaModule {}

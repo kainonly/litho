@@ -1,0 +1,29 @@
+<nz-row [nzGutter]="16">
+  <nz-col [nzSpan]="12">
+    <div class="photo">
+      <img nz-image [nzSrc]="[data.url, 'thumbnail'] | wpxAssets" [alt]="data.name" />
+    </div>
+  </nz-col>
+  <nz-col [nzSpan]="12">
+    <form *ngIf="form" nz-form nzLayout="vertical" id="form" [formGroup]="form" (wpxSubmit)="submit($event)">
+      <nz-form-item>
+        <nz-form-label nzRequired>名称</nz-form-label>
+        <nz-form-control
+          nzHasFeedback
+          [nzAutoTips]="{
+            default: {
+              required: '名称不能为空'
+            }
+          }"
+        >
+          <input nz-input type="text" formControlName="name" placeholder="请填写显示名称" />
+        </nz-form-control>
+      </nz-form-item>
+    </form>
+  </nz-col>
+</nz-row>
+
+<div *nzModalFooter>
+  <button nz-button type="button" nzType="default" (click)="close()">取消</button>
+  <button nz-button nzType="primary" form="form" [disabled]="!form?.valid">提交</button>
+</div>

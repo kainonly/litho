@@ -4,9 +4,12 @@ import { AfterViewInit, Component, Input, OnInit, ViewChild } from '@angular/cor
 import { AnyDto, WpxService } from '@weplanx/common';
 import { NzImageService } from 'ng-zorro-antd/image';
 import { NzMessageService } from 'ng-zorro-antd/message';
+import { NzModalService } from 'ng-zorro-antd/modal';
 
 import { MediaService } from '../media.service';
 import { Media } from '../types';
+import { DetailComponent } from './detail/detail.component';
+import { FormComponent } from './form/form.component';
 import { WpxMediaViewDataSource } from './view.data-source';
 
 @Component({
@@ -26,7 +29,8 @@ export class WpxMediaViewComponent implements OnInit, AfterViewInit {
     private wpx: WpxService,
     private media: MediaService,
     private image: NzImageService,
-    private message: NzMessageService
+    private message: NzMessageService,
+    private modal: NzModalService
   ) {
     this.ds = new WpxMediaViewDataSource(media);
   }
@@ -58,6 +62,27 @@ export class WpxMediaViewComponent implements OnInit, AfterViewInit {
         alt: data.name
       }
     ]);
+  }
+
+  form(editable: AnyDto<Media>): void {
+    this.modal.create({
+      nzTitle: '编辑',
+      nzContent: FormComponent,
+      nzComponentParams: {
+        editable
+      }
+    });
+  }
+
+  detail(data: AnyDto<Media>): void {
+    this.modal.create({
+      nzTitle: data.name,
+      nzWidth: 800,
+      nzContent: DetailComponent,
+      nzComponentParams: {
+        data
+      }
+    });
   }
 
   delete(data: AnyDto<Media>): void {
