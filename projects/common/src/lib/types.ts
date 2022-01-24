@@ -49,6 +49,7 @@ export interface UploadOption {
 }
 
 export interface AssetsOption {
+  params?: Record<string, string>;
   css?: boolean;
 }
 

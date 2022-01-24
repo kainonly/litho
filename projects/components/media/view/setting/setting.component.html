@@ -1,0 +1,107 @@
+<nz-row [nzGutter]="16">
+  <nz-col [nzSpan]="15">
+    <div class="photo">
+      <img
+        nz-image
+        [nzSrc]="[data.url, 'default'] | wpxAssets"
+        [nzPlaceholder]="[data.url, 'placeholder'] | wpxAssets"
+        [nzFallback]="[fallback!] | wpxAssets"
+        [alt]="data.name"
+      />
+    </div>
+    <nz-descriptions style="margin-top: 16px" [nzColumn]="2">
+      <nz-descriptions-item nzTitle="名称" [nzSpan]="2">{{ data.name }}</nz-descriptions-item>
+      <nz-descriptions-item nzTitle="原图宽度">{{ original?.width }} PX</nz-descriptions-item>
+      <nz-descriptions-item nzTitle="加载宽度">{{ output?.width }} PX</nz-descriptions-item>
+      <nz-descriptions-item nzTitle="原图高度">{{ original?.height }} PX</nz-descriptions-item>
+      <nz-descriptions-item nzTitle="加载高度">{{ output?.height }} PX</nz-descriptions-item>
+      <nz-descriptions-item nzTitle="原图类型">{{ original?.format }}</nz-descriptions-item>
+      <nz-descriptions-item nzTitle="加载类型">{{ output?.format }}</nz-descriptions-item>
+      <nz-descriptions-item nzTitle="原图大小">{{ original?.size | nzBytes }}</nz-descriptions-item>
+      <nz-descriptions-item nzTitle="压缩大小">{{ output?.size | nzBytes }}</nz-descriptions-item>
+      <nz-descriptions-item nzTitle="路径" [nzSpan]="2">{{ [data.url] | wpxAssets }}</nz-descriptions-item>
+    </nz-descriptions>
+  </nz-col>
+  <nz-col [nzSpan]="9">
+    <form *ngIf="form" nz-form nzLayout="vertical" id="form" [formGroup]="form" (wpxSubmit)="submit($event)">
+      <nz-form-item>
+        <nz-form-label>预览</nz-form-label>
+        <nz-form-control>
+          <div class="photo">
+            <img
+              nz-image
+              [nzSrc]="[data.url, 'default'] | wpxAssets: { params: data.params }"
+              [nzPlaceholder]="[data.url, 'placeholder'] | wpxAssets: { params: data.params }"
+              [nzFallback]="[fallback!] | wpxAssets"
+              [alt]="data.name"
+            />
+          </div>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label nzRequired>缩放方式</nz-form-label>
+        <nz-form-control>
+          <nz-radio-group formControlName="type">
+            <label nz-radio-button [nzValue]="">不缩放</label>
+            <label nz-radio-button nzValue="crop">缩放+裁剪</label>
+            <label nz-radio-button nzValue="cut">只裁剪</label>
+            <label nz-radio-button nzValue="thumbnail">只缩放</label>
+          </nz-radio-group>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label nzRequired>缩放尺寸</nz-form-label>
+        <nz-form-control nzExtra="仅设置宽或高时将等比缩放">
+          <nz-input-group>
+            <nz-input-group style="width: 50%; margin-right: -1px" nzSuffix="PX" nzPrefix="宽">
+              <input type="text" nz-input />
+            </nz-input-group>
+            <nz-input-group style="width: 50%" nzSuffix="PX" nzPrefix="高">
+              <input type="text" nz-input />
+            </nz-input-group>
+          </nz-input-group>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label nzRequired>裁剪位置</nz-form-label>
+        <nz-form-control>
+          <nz-radio-group class="position" formControlName="gravity">
+            <div class="block">
+              <label nz-radio-button nzValue="northwest">左上</label>
+              <label nz-radio-button nzValue="north">中上</label>
+              <label nz-radio-button nzValue="northeast">右上</label>
+            </div>
+            <div class="block">
+              <label nz-radio-button nzValue="west">左中</label>
+              <label nz-radio-button nzValue="center">居中</label>
+              <label nz-radio-button nzValue="east">右中</label>
+            </div>
+            <div class="block">
+              <label nz-radio-button nzValue="southwest">左下</label>
+              <label nz-radio-button nzValue="south">中下</label>
+              <label nz-radio-button nzValue="southeast">右下</label>
+            </div>
+          </nz-radio-group>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label nzRequired>裁剪尺寸</nz-form-label>
+        <nz-form-control>
+          <nz-input-group>
+            <nz-input-group style="width: 50%; margin-right: -1px" nzSuffix="PX" nzPrefix="宽">
+              <input type="text" nz-input />
+            </nz-input-group>
+            <nz-input-group style="width: 50%" nzSuffix="PX" nzPrefix="高">
+              <input type="text" nz-input />
+            </nz-input-group>
+          </nz-input-group>
+        </nz-form-control>
+      </nz-form-item>
+    </form>
+  </nz-col>
+</nz-row>
+
+<div *nzModalFooter>
+  <button nz-button type="button" nzType="default" (click)="close()">取消</button>
+  <button nz-button nzType="primary" form="form" [disabled]="true">提交</button>
+</div>

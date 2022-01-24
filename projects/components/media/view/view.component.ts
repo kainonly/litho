@@ -8,8 +8,8 @@ import { NzModalService } from 'ng-zorro-antd/modal';
 
 import { MediaService } from '../media.service';
 import { Media } from '../types';
-import { DetailComponent } from './detail/detail.component';
 import { FormComponent } from './form/form.component';
+import { SettingComponent } from './setting/setting.component';
 import { WpxMediaViewDataSource } from './view.data-source';
 
 @Component({
@@ -56,9 +56,15 @@ export class WpxMediaViewComponent implements OnInit, AfterViewInit {
   }
 
   preview(data: AnyDto<Media>): void {
+    const url = new URL(`${this.wpx.assets}/${data.url}/default`);
+    if (data.params) {
+      for (const [name, value] of Object.entries(data.params)) {
+        url.searchParams.append(name, value);
+      }
+    }
     this.image.preview([
       {
-        src: `${this.wpx.assets}/${data.url}/default`,
+        src: url.toString(),
         alt: data.name
       }
     ]);
@@ -77,10 +83,11 @@ export class WpxMediaViewComponent implements OnInit, AfterViewInit {
   detail(data: AnyDto<Media>): void {
     this.modal.create({
       nzTitle: data.name,
-      nzWidth: 800,
-      nzContent: DetailComponent,
+      nzWidth: 960,
+      nzContent: SettingComponent,
       nzComponentParams: {
-        data
+        data,
+        fallback: this.fallback
       }
     });
   }

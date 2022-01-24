@@ -12,7 +12,18 @@ export interface Media {
    */
   url: string;
   /**
+   * 数据参数
+   */
+  params?: Record<string, string>;
+  /**
    * 标记
    */
   labels?: string[];
+}
+
+export interface ImageInfoDto {
+  format: string;
+  height: number;
+  width: number;
+  size: number;
 }

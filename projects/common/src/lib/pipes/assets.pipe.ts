@@ -10,10 +10,15 @@ export class WpxAssetsPipe implements PipeTransform {
     if (values.length === 0) {
       return '';
     }
-    let url = [this.wpx.assets, ...values].join('/');
-    if (option?.css) {
-      url = `url("${url}")`;
+    const url = new URL([this.wpx.assets, ...values].join('/'));
+    if (option?.params) {
+      for (const [name, value] of Object.entries(option.params)) {
+        url.searchParams.append(name, value);
+      }
     }
-    return url;
+    if (option?.css) {
+      return `url("${url.toString()}")`;
+    }
+    return url.toString();
   }
 }
