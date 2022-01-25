@@ -8,11 +8,11 @@ import { NzModalRef } from 'ng-zorro-antd/modal';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 
 @Component({
-  selector: 'wpx-media-view-picture-settings',
-  templateUrl: './picture-settings.component.html',
-  styleUrls: ['./picture-settings.component.scss']
+  selector: 'wpx-media-view-picture',
+  templateUrl: './picture.component.html',
+  styleUrls: ['./picture.component.scss']
 })
-export class PictureSettingsComponent implements OnInit {
+export class PictureComponent implements OnInit {
   @Input() data!: AnyDto<Media>;
   @Input() fallback?: string;
   original?: ImageInfoDto;

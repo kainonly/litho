@@ -9,8 +9,9 @@ import { NzModalService } from 'ng-zorro-antd/modal';
 import { MediaService } from '../media.service';
 import { PicturesService } from '../pictures.service';
 import { Media } from '../types';
+import { VideosService } from '../videos.service';
 import { FormComponent } from './form/form.component';
-import { PictureSettingsComponent } from './picture-settings/picture-settings.component';
+import { PictureComponent } from './picture/picture.component';
 import { WpxMediaViewDataSource } from './view.data-source';
 
 @Component({
@@ -19,11 +20,12 @@ import { WpxMediaViewDataSource } from './view.data-source';
   styleUrls: ['./view.component.scss']
 })
 export class WpxMediaViewComponent implements OnInit, AfterViewInit {
+  @ViewChild(CdkVirtualScrollViewport) viewport!: CdkVirtualScrollViewport;
+  private resizeObserver!: ResizeObserver;
+  private media!: MediaService;
+
   @Input() type!: string;
   @Input() fallback?: string;
-  @ViewChild(CdkVirtualScrollViewport) viewport!: CdkVirtualScrollViewport;
-  private media!: MediaService;
-  private resizeObserver!: ResizeObserver;
 
   ds!: WpxMediaViewDataSource;
 
@@ -32,16 +34,20 @@ export class WpxMediaViewComponent implements OnInit, AfterViewInit {
     private image: NzImageService,
     private message: NzMessageService,
     private modal: NzModalService,
-    @Optional() private pictures: PicturesService
+    @Optional() private pictures: PicturesService,
+    @Optional() private videos: VideosService
   ) {}
 
   ngOnInit(): void {
     switch (this.type) {
       case 'pictures':
         this.media = this.pictures;
-        this.ds = new WpxMediaViewDataSource(this.media);
+        break;
+      case 'videos':
+        this.media = this.videos;
         break;
     }
+    this.ds = new WpxMediaViewDataSource(this.media);
     this.resizeObserver = new ResizeObserver(entries => {
       for (const entry of entries) {
         this.calculate(entry.contentRect.width);
@@ -81,16 +87,17 @@ export class WpxMediaViewComponent implements OnInit, AfterViewInit {
       nzTitle: '编辑',
       nzContent: FormComponent,
       nzComponentParams: {
-        editable
+        editable,
+        media: this.media
       }
     });
   }
 
-  pictureSettings(data: AnyDto<Media>): void {
+  picture(data: AnyDto<Media>): void {
     this.modal.create({
       nzTitle: '图片设置',
       nzWidth: 960,
-      nzContent: PictureSettingsComponent,
+      nzContent: PictureComponent,
       nzComponentParams: {
         data,
         fallback: this.fallback

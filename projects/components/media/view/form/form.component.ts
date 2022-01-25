@@ -1,13 +1,11 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, Optional } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { AnyDto, Page } from '@weplanx/common';
-import { Media } from '@weplanx/components/media';
+import { Media, MediaService } from '@weplanx/components/media';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalRef } from 'ng-zorro-antd/modal';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
-
-import { MediaService } from '../../media.service';
 
 @Component({
   selector: 'wpx-media-view-form',
@@ -15,6 +13,7 @@ import { MediaService } from '../../media.service';
 })
 export class FormComponent implements OnInit {
   @Input() editable!: AnyDto<Media>;
+  @Input() media!: MediaService;
 
   form?: FormGroup;
 
@@ -22,8 +21,7 @@ export class FormComponent implements OnInit {
     private modal: NzModalRef,
     private message: NzMessageService,
     private notification: NzNotificationService,
-    private fb: FormBuilder,
-    private media: MediaService
+    private fb: FormBuilder
   ) {}
 
   ngOnInit(): void {
