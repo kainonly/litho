@@ -7,11 +7,12 @@ import { NzImageModule } from 'ng-zorro-antd/image';
 import { NzPipesModule } from 'ng-zorro-antd/pipes';
 import { NzTypographyModule } from 'ng-zorro-antd/typography';
 
-import { MediaService } from './media.service';
-import { WpxMediaPictureComponent } from './picture.component';
-import { WpxMediaVideoComponent } from './video.component';
+import { WpxMediaPicturesComponent } from './pictures.component';
+import { PicturesService } from './pictures.service';
+import { WpxMediaVideosComponent } from './videos.component';
+import { VideosService } from './videos.service';
 import { FormComponent } from './view/form/form.component';
-import { SettingComponent } from './view/setting/setting.component';
+import { PictureSettingsComponent } from './view/picture-settings/picture-settings.component';
 import { WpxMediaViewComponent } from './view/view.component';
 
 @NgModule({
@@ -25,13 +26,13 @@ import { WpxMediaViewComponent } from './view/view.component';
     NzPipesModule
   ],
   declarations: [
-    WpxMediaPictureComponent,
-    WpxMediaVideoComponent,
+    WpxMediaPicturesComponent,
+    WpxMediaVideosComponent,
     WpxMediaViewComponent,
     FormComponent,
-    SettingComponent
+    PictureSettingsComponent
   ],
-  exports: [WpxMediaPictureComponent, WpxMediaVideoComponent, WpxMediaViewComponent],
-  providers: [MediaService]
+  exports: [WpxMediaPicturesComponent, WpxMediaVideosComponent, WpxMediaViewComponent],
+  providers: [PicturesService, VideosService]
 })
 export class WpxMediaModule {}

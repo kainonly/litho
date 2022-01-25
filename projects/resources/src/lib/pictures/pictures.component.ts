@@ -1,6 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 
-import { Media, MediaService, WpxMediaViewComponent } from '@weplanx/components/media';
+import { Media, PicturesService, WpxMediaViewComponent } from '@weplanx/components/media';
 import { Transport } from '@weplanx/components/upload';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalService } from 'ng-zorro-antd/modal';
@@ -15,7 +15,7 @@ export class PicturesComponent {
   labels: string[] = [];
   matchLabels: Set<string> = new Set<string>();
 
-  constructor(private media: MediaService, private modal: NzModalService, private message: NzMessageService) {}
+  constructor(private pictures: PicturesService, private modal: NzModalService, private message: NzMessageService) {}
 
   getData(refresh = false): void {
     if (this.searchText) {
@@ -28,7 +28,7 @@ export class PicturesComponent {
    * 获取标签
    */
   getLabels(): void {
-    this.media.findLabels().subscribe(data => {
+    this.pictures.findLabels().subscribe(data => {
       this.labels = [...data];
     });
   }
@@ -77,7 +77,7 @@ export class PicturesComponent {
       name: v.name,
       url: Reflect.get(v.file.originFileObj!, 'key')
     }));
-    this.media.create({ docs }).subscribe(v => {
+    this.pictures.create({ docs }).subscribe(v => {
       this.getData(true);
     });
   }
@@ -94,7 +94,7 @@ export class PicturesComponent {
       nzOkType: 'primary',
       nzOkDanger: true,
       nzOnOk: () => {
-        this.media.bulkDelete([...this.mediaView.ds.checkedIds.values()]).subscribe(() => {
+        this.pictures.bulkDelete([...this.mediaView.ds.checkedIds.values()]).subscribe(() => {
           this.mediaView.ds.checkedIds.clear();
           this.mediaView.ds.updateCheckedStatus();
           this.mediaView.ds.fetch(true);

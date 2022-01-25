@@ -2,17 +2,17 @@ import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 
 import { AnyDto, Page } from '@weplanx/common';
-import { ImageInfoDto, Media, MediaService } from '@weplanx/components/media';
+import { ImageInfoDto, Media, PicturesService } from '@weplanx/components/media';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalRef } from 'ng-zorro-antd/modal';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 
 @Component({
-  selector: 'wpx-media-view-setting',
-  templateUrl: './setting.component.html',
-  styleUrls: ['./setting.component.scss']
+  selector: 'wpx-media-view-picture-settings',
+  templateUrl: './picture-settings.component.html',
+  styleUrls: ['./picture-settings.component.scss']
 })
-export class SettingComponent implements OnInit {
+export class PictureSettingsComponent implements OnInit {
   @Input() data!: AnyDto<Media>;
   @Input() fallback?: string;
   original?: ImageInfoDto;
@@ -25,7 +25,7 @@ export class SettingComponent implements OnInit {
     private message: NzMessageService,
     private notification: NzNotificationService,
     private fb: FormBuilder,
-    private media: MediaService
+    private pictures: PicturesService
   ) {}
 
   ngOnInit(): void {
@@ -38,14 +38,13 @@ export class SettingComponent implements OnInit {
   }
 
   getOriginalInfo(): void {
-    this.media.imageInfo(`/${this.data.url}`).subscribe(data => {
+    this.pictures.imageInfo(`/${this.data.url}`).subscribe(data => {
       this.original = data;
     });
   }
 
   getOutputInfo(): void {
-    this.media.imageInfo(`/${this.data.url}/default`).subscribe(data => {
-      console.log(data);
+    this.pictures.imageInfo(`/${this.data.url}/default`).subscribe(data => {
       this.output = data;
     });
   }

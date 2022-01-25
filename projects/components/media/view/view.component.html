@@ -1,48 +1,57 @@
 <cdk-virtual-scroll-viewport class="infinite-container" itemSize="351">
   <nz-list nzGrid nzItemLayout="vertical">
-    <nz-list-item *cdkVirtualFor="let item of ds" style="padding-top: 0">
-      <nz-row style="width: 100%" [nzGutter]="8">
-        <div *ngFor="let x of item" nz-col [nzSpan]="24 / ds.itemSize">
-          <nz-card nzHoverable [nzCover]="coverRef" [nzActions]="[tagsRef, editRef, deleteRef]">
-            <ng-template #coverRef>
-              <div class="photo" (click)="preview(x)">
-                <img
-                  nz-image
-                  nzDisablePreview
-                  [nzSrc]="[x.url, 'thumbnail'] | wpxAssets: { params: x.params }"
-                  [nzPlaceholder]="[x.url, 'placeholder'] | wpxAssets: { params: x.params }"
-                  [nzFallback]="[fallback!] | wpxAssets"
-                  [alt]="x.name"
-                />
-              </div>
-            </ng-template>
-            <nz-card-meta style="height: 50px" [nzDescription]="descriptionRef">
-              <ng-template #descriptionRef>
-                <label nz-checkbox [ngModel]="ds.checkedIds.has(x._id)" (ngModelChange)="ds.setChecked(x._id, $event)">
-                  <p nz-typography nzEllipsis [nzEllipsisRows]="2" [nzContent]="x.name"></p>
-                </label>
+    <ng-container *ngIf="ds.empty; else notEmpty">
+      <nz-list-empty></nz-list-empty>
+    </ng-container>
+    <ng-template #notEmpty>
+      <nz-list-item *cdkVirtualFor="let item of ds" style="padding-top: 0">
+        <nz-row style="width: 100%" [nzGutter]="8">
+          <div *ngFor="let x of item" nz-col [nzSpan]="24 / ds.itemSize">
+            <nz-card nzHoverable [nzCover]="coverRef" [nzActions]="[tagsRef, editRef, deleteRef]">
+              <ng-template #coverRef>
+                <div class="photo" (click)="preview(x)">
+                  <img
+                    nz-image
+                    nzDisablePreview
+                    [nzSrc]="[x.url, 'thumbnail'] | wpxAssets: { params: x.params }"
+                    [nzPlaceholder]="[x.url, 'placeholder'] | wpxAssets: { params: x.params }"
+                    [nzFallback]="[fallback!] | wpxAssets"
+                    [alt]="x.name"
+                  />
+                </div>
               </ng-template>
-            </nz-card-meta>
-            <ng-template #tagsRef>
-              <i nz-icon nzType="setting" nz-tooltip="设置" (click)="detail(x)"></i>
-            </ng-template>
-            <ng-template #editRef>
-              <i nz-icon nzType="edit" nz-tooltip="编辑" (click)="form(x)"></i>
-            </ng-template>
-            <ng-template #deleteRef>
-              <i
-                nz-icon
-                nzType="delete"
-                nz-tooltip="删除"
-                nz-popconfirm
-                nzPopconfirmTitle="您确定要删除该图片吗?"
-                nzPopconfirmPlacement="bottom"
-                (nzOnConfirm)="delete(x)"
-              ></i>
-            </ng-template>
-          </nz-card>
-        </div>
-      </nz-row>
-    </nz-list-item>
+              <nz-card-meta style="height: 50px" [nzDescription]="descriptionRef">
+                <ng-template #descriptionRef>
+                  <label
+                    nz-checkbox
+                    [ngModel]="ds.checkedIds.has(x._id)"
+                    (ngModelChange)="ds.setChecked(x._id, $event)"
+                  >
+                    <p nz-typography nzEllipsis [nzEllipsisRows]="2" [nzContent]="x.name"></p>
+                  </label>
+                </ng-template>
+              </nz-card-meta>
+              <ng-template #tagsRef>
+                <i nz-icon nzType="setting" nz-tooltip="设置" (click)="pictureSettings(x)"></i>
+              </ng-template>
+              <ng-template #editRef>
+                <i nz-icon nzType="edit" nz-tooltip="编辑" (click)="form(x)"></i>
+              </ng-template>
+              <ng-template #deleteRef>
+                <i
+                  nz-icon
+                  nzType="delete"
+                  nz-tooltip="删除"
+                  nz-popconfirm
+                  nzPopconfirmTitle="您确定要删除该图片吗?"
+                  nzPopconfirmPlacement="bottom"
+                  (nzOnConfirm)="delete(x)"
+                ></i>
+              </ng-template>
+            </nz-card>
+          </div>
+        </nz-row>
+      </nz-list-item>
+    </ng-template>
   </nz-list>
 </cdk-virtual-scroll-viewport>

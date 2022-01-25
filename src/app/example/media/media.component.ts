@@ -16,7 +16,8 @@ export class MediaComponent implements OnInit {
 
   ngOnInit(): void {
     this.form = this.fb.group({
-      avatar: []
+      avatar: [],
+      picture: []
     });
   }
 

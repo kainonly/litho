@@ -20,6 +20,10 @@ export class WpxMediaViewDataSource extends Dataset<AnyDto<Media>> implements Da
     super();
   }
 
+  get empty(): boolean {
+    return this.cache.length === 0;
+  }
+
   connect(collectionViewer: CollectionViewer): Observable<Array<Array<AnyDto<Media>>>> {
     collectionViewer.viewChange.pipe(takeUntil(this.disconnect$)).subscribe(range => {
       const index = Math.floor((range.end * this.itemSize) / this.pageSize) + 1;

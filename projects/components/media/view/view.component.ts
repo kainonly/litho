@@ -1,5 +1,5 @@
 import { CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
-import { AfterViewInit, Component, Input, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, Input, OnInit, Optional, ViewChild } from '@angular/core';
 
 import { AnyDto, WpxService } from '@weplanx/common';
 import { NzImageService } from 'ng-zorro-antd/image';
@@ -7,9 +7,10 @@ import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalService } from 'ng-zorro-antd/modal';
 
 import { MediaService } from '../media.service';
+import { PicturesService } from '../pictures.service';
 import { Media } from '../types';
 import { FormComponent } from './form/form.component';
-import { SettingComponent } from './setting/setting.component';
+import { PictureSettingsComponent } from './picture-settings/picture-settings.component';
 import { WpxMediaViewDataSource } from './view.data-source';
 
 @Component({
@@ -21,21 +22,26 @@ export class WpxMediaViewComponent implements OnInit, AfterViewInit {
   @Input() type!: string;
   @Input() fallback?: string;
   @ViewChild(CdkVirtualScrollViewport) viewport!: CdkVirtualScrollViewport;
+  private media!: MediaService;
   private resizeObserver!: ResizeObserver;
 
   ds!: WpxMediaViewDataSource;
 
   constructor(
     private wpx: WpxService,
-    private media: MediaService,
     private image: NzImageService,
     private message: NzMessageService,
-    private modal: NzModalService
-  ) {
-    this.ds = new WpxMediaViewDataSource(media);
-  }
+    private modal: NzModalService,
+    @Optional() private pictures: PicturesService
+  ) {}
 
   ngOnInit(): void {
+    switch (this.type) {
+      case 'pictures':
+        this.media = this.pictures;
+        this.ds = new WpxMediaViewDataSource(this.media);
+        break;
+    }
     this.resizeObserver = new ResizeObserver(entries => {
       for (const entry of entries) {
         this.calculate(entry.contentRect.width);
@@ -80,11 +86,11 @@ export class WpxMediaViewComponent implements OnInit, AfterViewInit {
     });
   }
 
-  detail(data: AnyDto<Media>): void {
+  pictureSettings(data: AnyDto<Media>): void {
     this.modal.create({
-      nzTitle: data.name,
+      nzTitle: '图片设置',
       nzWidth: 960,
-      nzContent: SettingComponent,
+      nzContent: PictureSettingsComponent,
       nzComponentParams: {
         data,
         fallback: this.fallback

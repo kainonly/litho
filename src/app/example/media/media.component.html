@@ -7,22 +7,13 @@
     <nz-form-item>
       <nz-form-label nzRequired>图片上传</nz-form-label>
       <nz-form-control>
-        <!--        <nz-upload-->
-        <!--          class="upload-avatar"-->
-        <!--          wpxUpload-->
-        <!--          formControlName="avatar"-->
-        <!--          nzListType="picture-card"-->
-        <!--          (nzChange)="upload($event)"-->
-        <!--        >-->
-        <!--          <ng-container *ngIf="!avatar; else exists">-->
-        <!--            <i nz-icon nzType="plus"></i>-->
-        <!--            <div class="ant-upload-text">上传</div>-->
-        <!--          </ng-container>-->
-        <!--          <ng-template #exists>-->
-        <!--            <img [wpxAssets]="[avatar]" alt="" />-->
-        <!--          </ng-template>-->
-        <!--        </nz-upload>-->
         <wpx-upload-avatar formControlName="avatar"> </wpx-upload-avatar>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label nzRequired>图库导入</nz-form-label>
+      <nz-form-control>
+        <wpx-media-picture formControlName="picture"></wpx-media-picture>
       </nz-form-control>
     </nz-form-item>
     <nz-form-item>
