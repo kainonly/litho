@@ -1,5 +1,5 @@
 <wpx-layout wpxTitle="图库">
-  <wpx-upload-transport *wpxLayoutAction (wpxChange)="upload($event)"></wpx-upload-transport>
+  <wpx-upload-transport *wpxLayoutAction wpxExt="image" (wpxChange)="upload($event)"></wpx-upload-transport>
   <nz-row *wpxLayoutContent nzJustify="space-between">
     <nz-col>
       <nz-row [nzGutter]="8">

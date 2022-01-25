@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output, TemplateRef, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, Output, TemplateRef, ViewChild } from '@angular/core';
 
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzUploadChangeParam, NzUploadFile } from 'ng-zorro-antd/upload';
@@ -12,6 +12,7 @@ import { TransportDataSource } from './transport.data-source';
   styleUrls: ['./transport.component.scss']
 })
 export class WpxUploadTransportComponent {
+  @Input() wpxExt?: string;
   @Output() readonly wpxChange: EventEmitter<Transport[]> = new EventEmitter();
 
   ds: TransportDataSource = new TransportDataSource();

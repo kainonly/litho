@@ -50,7 +50,7 @@ export class WpxMediaViewComponent implements OnInit, AfterViewInit {
     this.ds = new WpxMediaViewDataSource(this.media);
     this.resizeObserver = new ResizeObserver(entries => {
       for (const entry of entries) {
-        this.calculate(entry.contentRect.width);
+        this.calculate(entry.contentRect);
       }
     });
   }
@@ -59,16 +59,17 @@ export class WpxMediaViewComponent implements OnInit, AfterViewInit {
     this.resizeObserver.observe(this.viewport.elementRef.nativeElement);
   }
 
-  private calculate(width: number): void {
-    const size = width >= 1600 ? 6 : 4;
-    if (this.ds.itemSize !== size) {
-      this.ds.itemSize = size;
+  private calculate(rect: DOMRectReadOnly): void {
+    const itemSize = rect.width >= 1600 ? 6 : 4;
+    if (this.ds.itemSize !== itemSize) {
+      this.ds.itemSize = itemSize;
+      this.ds.pageSize = itemSize * 3;
       this.ds.fetch(true);
     }
   }
 
   preview(data: AnyDto<Media>): void {
-    const url = new URL(`${this.wpx.assets}/${data.url}/default`);
+    const url = new URL(`${this.wpx.assets}/${data.url}`);
     if (data.params) {
       for (const [name, value] of Object.entries(data.params)) {
         url.searchParams.append(name, value);

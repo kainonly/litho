@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 
 import { AnyDto, Page } from '@weplanx/common';
 import { ImageInfoDto, Media, PicturesService } from '@weplanx/components/media';
@@ -37,14 +37,18 @@ export class PictureComponent implements OnInit {
     this.getOutputInfo();
   }
 
+  get type(): FormControl {
+    return this.form!.get('type') as FormControl;
+  }
+
   getOriginalInfo(): void {
-    this.pictures.imageInfo(`/${this.data.url}`).subscribe(data => {
+    this.pictures.imageInfo(`/${this.data.url}.image`).subscribe(data => {
       this.original = data;
     });
   }
 
   getOutputInfo(): void {
-    this.pictures.imageInfo(`/${this.data.url}/default`).subscribe(data => {
+    this.pictures.imageInfo(`/${this.data.url}`).subscribe(data => {
       this.output = data;
     });
   }

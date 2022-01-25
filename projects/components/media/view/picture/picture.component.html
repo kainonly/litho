@@ -3,7 +3,7 @@
     <div class="photo">
       <img
         nz-image
-        [nzSrc]="[data.url, 'default'] | wpxAssets"
+        [nzSrc]="[data.url] | wpxAssets"
         [nzPlaceholder]="[data.url, 'placeholder'] | wpxAssets"
         [nzFallback]="[fallback!] | wpxAssets"
         [alt]="data.name"
@@ -12,13 +12,11 @@
     <nz-descriptions style="margin-top: 16px" [nzColumn]="2">
       <nz-descriptions-item nzTitle="名称" [nzSpan]="2">{{ data.name }}</nz-descriptions-item>
       <nz-descriptions-item nzTitle="原图宽度">{{ original?.width }} PX</nz-descriptions-item>
-      <nz-descriptions-item nzTitle="加载宽度">{{ output?.width }} PX</nz-descriptions-item>
       <nz-descriptions-item nzTitle="原图高度">{{ original?.height }} PX</nz-descriptions-item>
-      <nz-descriptions-item nzTitle="加载高度">{{ output?.height }} PX</nz-descriptions-item>
       <nz-descriptions-item nzTitle="原图类型">{{ original?.format }}</nz-descriptions-item>
-      <nz-descriptions-item nzTitle="加载类型">{{ output?.format }}</nz-descriptions-item>
       <nz-descriptions-item nzTitle="原图大小">{{ original?.size | nzBytes }}</nz-descriptions-item>
-      <nz-descriptions-item nzTitle="压缩大小">{{ output?.size | nzBytes }}</nz-descriptions-item>
+      <nz-descriptions-item nzTitle="加载类型">{{ output?.format }}</nz-descriptions-item>
+      <nz-descriptions-item nzTitle="加载大小">{{ output?.size | nzBytes }}</nz-descriptions-item>
       <nz-descriptions-item nzTitle="路径" [nzSpan]="2">{{ [data.url] | wpxAssets }}</nz-descriptions-item>
     </nz-descriptions>
   </nz-col>
@@ -49,7 +47,7 @@
           </nz-radio-group>
         </nz-form-control>
       </nz-form-item>
-      <nz-form-item>
+      <nz-form-item *ngIf="['crop', 'thumbnail'].includes(type.value)">
         <nz-form-label nzRequired>缩放尺寸</nz-form-label>
         <nz-form-control nzExtra="仅设置宽或高时将等比缩放">
           <nz-input-group>
@@ -62,7 +60,7 @@
           </nz-input-group>
         </nz-form-control>
       </nz-form-item>
-      <nz-form-item>
+      <nz-form-item *ngIf="['crop', 'cut'].includes(type.value)">
         <nz-form-label nzRequired>裁剪位置</nz-form-label>
         <nz-form-control>
           <nz-radio-group class="position" formControlName="gravity">
@@ -84,7 +82,7 @@
           </nz-radio-group>
         </nz-form-control>
       </nz-form-item>
-      <nz-form-item>
+      <nz-form-item *ngIf="['crop', 'cut'].includes(type.value)">
         <nz-form-label nzRequired>裁剪尺寸</nz-form-label>
         <nz-form-control>
           <nz-input-group>
