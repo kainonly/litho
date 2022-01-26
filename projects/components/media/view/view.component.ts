@@ -25,7 +25,8 @@ export class WpxMediaViewComponent implements OnInit, AfterViewInit {
   private resizeObserver!: ResizeObserver;
   private media!: MediaService;
 
-  @Input() type!: string;
+  @Input() wpxType!: string;
+  @Input() wpxFallback!: string;
 
   ds!: WpxMediaViewDataSource;
 
@@ -39,7 +40,7 @@ export class WpxMediaViewComponent implements OnInit, AfterViewInit {
   ) {}
 
   ngOnInit(): void {
-    switch (this.type) {
+    switch (this.wpxType) {
       case 'pictures':
         this.media = this.pictures;
         break;

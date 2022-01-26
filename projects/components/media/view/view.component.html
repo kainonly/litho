@@ -5,7 +5,7 @@
         <div *ngFor="let x of item" nz-col [nzSpan]="24 / ds.itemSize">
           <nz-card nzHoverable [nzCover]="coverRef" [nzActions]="[tagsRef, editRef, deleteRef]">
             <ng-template #coverRef>
-              <ng-container [ngSwitch]="type">
+              <ng-container [ngSwitch]="wpxType">
                 <ng-container *ngSwitchCase="'pictures'">
                   <div class="photo" (click)="previewPicture(x)">
                     <img
@@ -13,13 +13,20 @@
                       nzDisablePreview
                       [nzSrc]="[x.url, 'thumbnail'] | wpxAssets: { params: x.params }"
                       [nzPlaceholder]="[x.url, 'placeholder'] | wpxAssets: { params: x.params }"
+                      [nzFallback]="wpxFallback"
                       [alt]="x.name"
                     />
                   </div>
                 </ng-container>
                 <ng-container *ngSwitchCase="'videos'">
                   <div class="photo" (click)="previewPoster(x)">
-                    <img nz-image nzDisablePreview [nzSrc]="[x.url + '.webp'] | wpxAssets" [alt]="x.name" />
+                    <img
+                      nz-image
+                      nzDisablePreview
+                      [nzSrc]="[x.url + '_chart'] | wpxAssets"
+                      [nzFallback]="wpxFallback"
+                      [alt]="x.name"
+                    />
                   </div>
                 </ng-container>
               </ng-container>
@@ -32,7 +39,7 @@
               </ng-template>
             </nz-card-meta>
             <ng-template #tagsRef>
-              <ng-container [ngSwitch]="type">
+              <ng-container [ngSwitch]="wpxType">
                 <ng-container *ngSwitchCase="'pictures'">
                   <i nz-icon nzType="setting" nz-tooltip="设置" (click)="picture(x)"></i>
                 </ng-container>
