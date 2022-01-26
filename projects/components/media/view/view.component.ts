@@ -12,6 +12,7 @@ import { Media } from '../types';
 import { VideosService } from '../videos.service';
 import { FormComponent } from './form/form.component';
 import { PictureComponent } from './picture/picture.component';
+import { VideoComponent } from './video/video.component';
 import { WpxMediaViewDataSource } from './view.data-source';
 
 @Component({
@@ -67,7 +68,7 @@ export class WpxMediaViewComponent implements OnInit, AfterViewInit {
     }
   }
 
-  preview(data: AnyDto<Media>): void {
+  previewPicture(data: AnyDto<Media>): void {
     const url = new URL(`${this.wpx.assets}/${data.url}`);
     if (data.params) {
       for (const [name, value] of Object.entries(data.params)) {
@@ -80,6 +81,14 @@ export class WpxMediaViewComponent implements OnInit, AfterViewInit {
         alt: data.name
       }
     ]);
+  }
+
+  previewPoster(data: AnyDto<Media>): void {
+    this.image.preview(
+      [0, 1, 2].map(n => ({
+        src: `${this.wpx.assets}/${data.url}_${n}.jpg`
+      }))
+    );
   }
 
   form(editable: AnyDto<Media>): void {
@@ -101,6 +110,18 @@ export class WpxMediaViewComponent implements OnInit, AfterViewInit {
       nzComponentParams: {
         data
       }
+    });
+  }
+
+  video(data: AnyDto<Media>): void {
+    this.modal.create({
+      nzTitle: data.name,
+      nzWidth: 960,
+      nzContent: VideoComponent,
+      nzComponentParams: {
+        data
+      },
+      nzFooter: null
     });
   }
 

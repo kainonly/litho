@@ -13,6 +13,7 @@ import { WpxMediaVideosComponent } from './videos.component';
 import { VideosService } from './videos.service';
 import { FormComponent } from './view/form/form.component';
 import { PictureComponent } from './view/picture/picture.component';
+import { VideoComponent } from './view/video/video.component';
 import { WpxMediaViewComponent } from './view/view.component';
 
 @NgModule({
@@ -30,7 +31,8 @@ import { WpxMediaViewComponent } from './view/view.component';
     WpxMediaVideosComponent,
     WpxMediaViewComponent,
     FormComponent,
-    PictureComponent
+    PictureComponent,
+    VideoComponent
   ],
   exports: [WpxMediaPicturesComponent, WpxMediaVideosComponent, WpxMediaViewComponent],
   providers: [PicturesService, VideosService]

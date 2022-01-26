@@ -73,7 +73,6 @@ export class VideosComponent {
 
   upload(data: Transport[]): void {
     const docs: Media[] = data.map(v => ({
-      type: 'picture',
       name: v.name,
       url: Reflect.get(v.file.originFileObj!, 'key')
     }));
