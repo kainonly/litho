@@ -14,7 +14,6 @@ import { NzNotificationService } from 'ng-zorro-antd/notification';
 })
 export class PictureComponent implements OnInit {
   @Input() data!: AnyDto<Media>;
-  @Input() fallback?: string;
   original?: ImageInfoDto;
   output?: ImageInfoDto;
 

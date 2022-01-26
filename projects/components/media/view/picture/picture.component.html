@@ -5,7 +5,6 @@
         nz-image
         [nzSrc]="[data.url] | wpxAssets"
         [nzPlaceholder]="[data.url, 'placeholder'] | wpxAssets"
-        [nzFallback]="[fallback!] | wpxAssets"
         [alt]="data.name"
       />
     </div>
@@ -28,9 +27,8 @@
           <div class="photo">
             <img
               nz-image
-              [nzSrc]="[data.url, 'default'] | wpxAssets: { params: data.params }"
+              [nzSrc]="[data.url] | wpxAssets: { params: data.params }"
               [nzPlaceholder]="[data.url, 'placeholder'] | wpxAssets: { params: data.params }"
-              [nzFallback]="[fallback!] | wpxAssets"
               [alt]="data.name"
             />
           </div>

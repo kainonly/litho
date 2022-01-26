@@ -25,7 +25,6 @@ export class WpxMediaViewComponent implements OnInit, AfterViewInit {
   private media!: MediaService;
 
   @Input() type!: string;
-  @Input() fallback?: string;
 
   ds!: WpxMediaViewDataSource;
 
@@ -50,7 +49,7 @@ export class WpxMediaViewComponent implements OnInit, AfterViewInit {
     this.ds = new WpxMediaViewDataSource(this.media);
     this.resizeObserver = new ResizeObserver(entries => {
       for (const entry of entries) {
-        this.calculate(entry.contentRect);
+        this.calculate(entry.contentRect.width);
       }
     });
   }
@@ -59,8 +58,8 @@ export class WpxMediaViewComponent implements OnInit, AfterViewInit {
     this.resizeObserver.observe(this.viewport.elementRef.nativeElement);
   }
 
-  private calculate(rect: DOMRectReadOnly): void {
-    const itemSize = rect.width >= 1600 ? 6 : 4;
+  private calculate(width: number): void {
+    const itemSize = width >= 1600 ? 6 : 4;
     if (this.ds.itemSize !== itemSize) {
       this.ds.itemSize = itemSize;
       this.ds.pageSize = itemSize * 3;
@@ -100,8 +99,7 @@ export class WpxMediaViewComponent implements OnInit, AfterViewInit {
       nzWidth: 960,
       nzContent: PictureComponent,
       nzComponentParams: {
-        data,
-        fallback: this.fallback
+        data
       }
     });
   }
