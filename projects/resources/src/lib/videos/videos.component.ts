@@ -14,6 +14,7 @@ export class VideosComponent {
   searchText: string = '';
   labels: string[] = [];
   matchLabels: Set<string> = new Set<string>();
+  accept: string[] = ['video/mp4'];
 
   constructor(private videos: VideosService, private modal: NzModalService, private message: NzMessageService) {}
 

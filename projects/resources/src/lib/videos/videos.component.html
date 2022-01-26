@@ -1,5 +1,17 @@
 <wpx-layout wpxTitle="视频">
-  <wpx-upload-transport *wpxLayoutAction wpxExt="video" (wpxChange)="upload($event)"></wpx-upload-transport>
+  <nz-alert
+    *wpxLayoutAlert
+    nzBanner
+    nzType="info"
+    nzMessage="接受 mp4 等文件类型的上传，其他文件将被阻止"
+    nzCloseable
+  ></nz-alert>
+  <wpx-upload-transport
+    *wpxLayoutAction
+    wpxExt="video"
+    [wpxAccept]="accept"
+    (wpxChange)="upload($event)"
+  ></wpx-upload-transport>
   <nz-row *wpxLayoutContent nzJustify="space-between">
     <nz-col>
       <nz-row [nzGutter]="8">

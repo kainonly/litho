@@ -14,6 +14,7 @@ export class PicturesComponent {
   searchText: string = '';
   labels: string[] = [];
   matchLabels: Set<string> = new Set<string>();
+  accept: string[] = ['image/jpeg', 'image/png', 'image/bmp', 'image/gif', 'image/webp', 'image/avif'];
 
   constructor(private pictures: PicturesService, private modal: NzModalService, private message: NzMessageService) {}
 
@@ -72,6 +73,7 @@ export class PicturesComponent {
   }
 
   upload(data: Transport[]): void {
+    console.log(data);
     const docs: Media[] = data.map(v => ({
       name: v.name,
       url: Reflect.get(v.file.originFileObj!, 'key')

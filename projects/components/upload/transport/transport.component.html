@@ -1,5 +1,13 @@
 <nz-button-group>
-  <nz-upload class="upload" wpxUpload [wpxExt]="wpxExt" nzMultiple (nzChange)="change($event)">
+  <nz-upload
+    class="upload"
+    wpxUpload
+    [wpxExt]="wpxExt"
+    nzMultiple
+    [nzAccept]="wpxAccept"
+    [nzFileType]="wpxAccept | wpxJoin: ','"
+    (nzChange)="change($event)"
+  >
     <button nz-button> <i nz-icon [nzType]="'upload'"></i> 上传 </button>
   </nz-upload>
   <button

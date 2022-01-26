@@ -13,6 +13,7 @@ import { TransportDataSource } from './transport.data-source';
 })
 export class WpxUploadTransportComponent {
   @Input() wpxExt?: string;
+  @Input() wpxAccept: string[] = [];
   @Output() readonly wpxChange: EventEmitter<Transport[]> = new EventEmitter();
 
   ds: TransportDataSource = new TransportDataSource();
