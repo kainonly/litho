@@ -8,7 +8,7 @@
   (nzChange)="change($event)"
 >
   <ng-container *ngIf="!!value; else uploadBtn">
-    <img [src]="[value] | wpxAssets" alt="" />
+    <img [src]="[value[0]] | wpxAssets" alt="" />
   </ng-container>
   <ng-template #uploadBtn>
     <i nz-icon [nzType]="!loading ? 'plus' : 'loading'"></i>

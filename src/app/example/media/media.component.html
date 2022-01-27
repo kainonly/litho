@@ -16,6 +16,7 @@
       <nz-form-control>
         <wpx-media-pictures
           formControlName="picture"
+          (ngModelChange)="test($event)"
           [wpxFallback]="['assets', 'dataflow.svg'] | wpxAssets"
         ></wpx-media-pictures>
       </nz-form-control>

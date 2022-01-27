@@ -19,6 +19,13 @@ export class MediaComponent implements OnInit {
       avatar: [],
       picture: []
     });
+    this.form.patchValue({
+      picture: [
+        'weplanx/20220126/008f4c1c-b124-47bf-9144-c38af9c9b1f8',
+        'weplanx/20220126/01ec088d-f74d-44e8-87e9-a673690387f0',
+        'weplanx/20220126/03b93f79-70ac-4606-9f6d-98e1c9a1aa88'
+      ]
+    });
   }
 
   get avatar(): string {
@@ -29,6 +36,10 @@ export class MediaComponent implements OnInit {
     if (info.type === 'success') {
       this.message.success('头像上传成功');
     }
+  }
+
+  test(e: any): void {
+    console.log(e);
   }
 
   submit(data: any): void {

@@ -1,0 +1,43 @@
+<nz-space>
+  <button *nzSpaceItem type="button" nz-button (click)="view()">
+    <i nz-icon nzType="import"></i>
+    从图库导入
+  </button>
+  <button *nzSpaceItem type="button" nz-button nzType="link">
+    <i nz-icon nzType="sort-descending"></i>
+    排序
+  </button>
+</nz-space>
+
+<nz-list nzGrid style="padding: 1em 0">
+  <nz-row [nzGutter]="[8, 8]">
+    <nz-col [nzSpan]="6" *ngFor="let x of values; index as i">
+      <nz-list-item>
+        <nz-card nzSize="small" [nzBorderless]="false">
+          <nz-row nzJustify="space-between" nzAlign="middle">
+            <nz-col>
+              <div class="meta" (click)="preview(x)">
+                <img
+                  nz-image
+                  nzDisablePreview
+                  [nzSrc]="[x, 'thumbnail'] | wpxAssets"
+                  [nzPlaceholder]="[x, 'placeholder'] | wpxAssets"
+                  [alt]="x"
+                />
+              </div>
+            </nz-col>
+            <nz-col></nz-col>
+            <nz-col>
+              <a target="_blank" [href]="[x] | wpxAssets" nz-button nzType="text" nz-tooltip="下载">
+                <i nz-icon nzType="download"></i>
+              </a>
+              <button nz-button nzType="text" nz-tooltip="移除" (click)="removeValue(i)">
+                <i nz-icon nzType="delete"></i>
+              </button>
+            </nz-col>
+          </nz-row>
+        </nz-card>
+      </nz-list-item>
+    </nz-col>
+  </nz-row>
+</nz-list>

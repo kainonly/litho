@@ -64,7 +64,7 @@
   <nz-list nzGrid nzItemLayout="vertical" [nzBordered]="false">
     <nz-list-item *cdkVirtualFor="let item of ds" style="padding-top: 0">
       <nz-row style="width: 100%" [nzGutter]="8">
-        <div *ngFor="let x of item" nz-col [nzSpan]="24 / ds.itemSize">
+        <div *ngFor="let x of item" nz-col [nzSpan]="24 / ds.n">
           <nz-card nzHoverable [nzCover]="coverRef" [nzActions]="[tagsRef, editRef, deleteRef]">
             <ng-template #coverRef>
               <ng-container [ngSwitch]="wpxType">

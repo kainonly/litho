@@ -10,11 +10,12 @@ export class WpxMediaViewDataSource extends Dataset<AnyDto<Media>> implements Da
   private readonly stream = new BehaviorSubject<Array<Array<AnyDto<Media>>>>([]);
   private readonly disconnect$ = new Subject<void>();
   private readonly indexs: Set<number> = new Set<number>();
+  private readonly dict: Map<string, AnyDto<Media>> = new Map<string, AnyDto<Media>>();
   private cache: Array<AnyDto<Media>> = [];
   /**
    * 每个列表包含卡片数量
    */
-  itemSize: number = 0;
+  n = 0;
 
   constructor(private media: MediaService) {
     super();
@@ -22,7 +23,7 @@ export class WpxMediaViewDataSource extends Dataset<AnyDto<Media>> implements Da
 
   connect(collectionViewer: CollectionViewer): Observable<Array<Array<AnyDto<Media>>>> {
     collectionViewer.viewChange.pipe(takeUntil(this.disconnect$)).subscribe(range => {
-      const index = Math.floor((range.end * this.itemSize) / this.pageSize) + 1;
+      const index = Math.floor((range.end * this.n) / this.pageSize) + 1;
       if (this.indexs.has(index)) {
         return;
       }
@@ -50,12 +51,14 @@ export class WpxMediaViewDataSource extends Dataset<AnyDto<Media>> implements Da
       this.cache = [];
       this.stream.next([]);
       this.indexs.clear();
+      this.dict.clear();
     }
     this.from(this.media, refresh).subscribe(data => {
       const values: Array<Array<AnyDto<Media>>> = [];
       this.cache.splice(this.pageIndex * this.pageSize, this.pageSize, ...data);
       this.cache.forEach((value, index) => {
-        const n = Math.trunc(index / this.itemSize);
+        this.dict.set(value._id, value);
+        const n = Math.trunc(index / this.n);
         if (!values[n]) {
           values[n] = [];
         }
@@ -64,5 +67,12 @@ export class WpxMediaViewDataSource extends Dataset<AnyDto<Media>> implements Da
       this.indexs.add(this.pageIndex);
       this.stream.next(values);
     });
+  }
+
+  /**
+   * 获取 URL
+   */
+  getUrls(ids: string[]): string[] {
+    return ids.map(v => this.dict.get(v)!.url);
   }
 }

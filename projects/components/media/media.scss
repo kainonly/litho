@@ -1,3 +1,18 @@
+.meta {
+  cursor: pointer;
+  height: 100px;
+  width: 160px;
+  overflow: hidden;
+
+  img {
+    max-height: 120%;
+    position: relative;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+}
+
 .video-list-item {
   height: 165px;
 }

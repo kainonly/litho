@@ -21,8 +21,8 @@ export class WpxUploadAvatarComponent implements ControlValueAccessor {
   @Input() wpxAccept: string[] = [];
 
   loading = false;
-  value?: string;
-  onChange?: (value: any) => void;
+  value?: string[];
+  onChange?: (value: string[]) => void;
   onTouched?: () => void;
 
   constructor(private message: NzMessageService) {}
@@ -35,7 +35,7 @@ export class WpxUploadAvatarComponent implements ControlValueAccessor {
     this.onTouched = fn;
   }
 
-  writeValue(value: any): void {
+  writeValue(value: string[]): void {
     this.value = value;
   }
 
@@ -45,8 +45,8 @@ export class WpxUploadAvatarComponent implements ControlValueAccessor {
     }
     if (info.type === 'success') {
       const value = Reflect.get(info.file.originFileObj!, 'key');
-      this.writeValue(value);
-      this.onChange!(value);
+      this.writeValue([value]);
+      this.onChange!([value]);
       this.loading = false;
       this.message.success('图片上传成功');
     }
