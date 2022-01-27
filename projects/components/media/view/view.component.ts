@@ -5,7 +5,7 @@ import { AnyDto, WpxService } from '@weplanx/common';
 import { Transport } from '@weplanx/components/upload';
 import { NzImageService } from 'ng-zorro-antd/image';
 import { NzMessageService } from 'ng-zorro-antd/message';
-import { NzModalService } from 'ng-zorro-antd/modal';
+import { NzModalRef, NzModalService } from 'ng-zorro-antd/modal';
 
 import { MediaService } from '../media.service';
 import { PicturesService } from '../pictures.service';
@@ -44,6 +44,7 @@ export class WpxMediaViewComponent implements OnInit, AfterViewInit {
     private image: NzImageService,
     private message: NzMessageService,
     private modal: NzModalService,
+    @Optional() public modalRef: NzModalRef,
     @Optional() private pictures: PicturesService,
     @Optional() private videos: VideosService
   ) {}
@@ -67,12 +68,23 @@ export class WpxMediaViewComponent implements OnInit, AfterViewInit {
         this.calculate(entry.contentRect.width);
       }
     });
+    if (this.modalRef) {
+      this.modalRef.afterOpen.subscribe(() => {
+        this.modalRef.updateConfig({
+          nzTitle: this.searchRef
+        });
+      });
+    }
   }
 
   ngAfterViewInit(): void {
     this.resizeObserver.observe(this.viewport.elementRef.nativeElement);
   }
 
+  /**
+   * 获取数据
+   * @param refresh
+   */
   getData(refresh = false): void {
     if (this.searchText) {
       this.ds.setSearchText(this.searchText);
@@ -141,6 +153,24 @@ export class WpxMediaViewComponent implements OnInit, AfterViewInit {
     }
   }
 
+  /**
+   * 关闭对话框
+   */
+  close(): void {
+    this.modalRef.triggerCancel();
+  }
+
+  /**
+   * 确认对话框
+   */
+  submit(): void {
+    this.modalRef.triggerOk();
+  }
+
+  /**
+   * 查看图片
+   * @param data
+   */
   previewPicture(data: AnyDto<Media>): void {
     const url = new URL(`${this.wpx.assets}/${data.url}`);
     if (data.params) {
@@ -156,6 +186,10 @@ export class WpxMediaViewComponent implements OnInit, AfterViewInit {
     ]);
   }
 
+  /**
+   * 查看视频封面
+   * @param data
+   */
   previewPoster(data: AnyDto<Media>): void {
     this.image.preview(
       [0, 1, 2].map(n => ({
@@ -164,6 +198,10 @@ export class WpxMediaViewComponent implements OnInit, AfterViewInit {
     );
   }
 
+  /**
+   * 编辑
+   * @param editable
+   */
   form(editable: AnyDto<Media>): void {
     this.modal.create({
       nzTitle: '编辑',
@@ -175,6 +213,10 @@ export class WpxMediaViewComponent implements OnInit, AfterViewInit {
     });
   }
 
+  /**
+   * 设置图片
+   * @param data
+   */
   picture(data: AnyDto<Media>): void {
     this.modal.create({
       nzTitle: '图片设置',
@@ -186,6 +228,10 @@ export class WpxMediaViewComponent implements OnInit, AfterViewInit {
     });
   }
 
+  /**
+   * 查看视频
+   * @param data
+   */
   video(data: AnyDto<Media>): void {
     this.modal.create({
       nzTitle: data.name,

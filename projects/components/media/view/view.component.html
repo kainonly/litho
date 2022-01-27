@@ -3,7 +3,7 @@
 </ng-template>
 
 <ng-template #searchRef>
-  <nz-row nzJustify="space-between">
+  <nz-row nzJustify="space-between" [style.width]="!modalRef ? '100%' : '95%'">
     <nz-col>
       <nz-row [nzGutter]="8">
         <nz-col>
@@ -61,7 +61,7 @@
 </ng-template>
 
 <cdk-virtual-scroll-viewport class="infinite-container" [style.height]="wpxHeight ?? '100%'" itemSize="351">
-  <nz-list nzGrid nzItemLayout="vertical">
+  <nz-list nzGrid nzItemLayout="vertical" [nzBordered]="false">
     <nz-list-item *cdkVirtualFor="let item of ds" style="padding-top: 0">
       <nz-row style="width: 100%" [nzGutter]="8">
         <div *ngFor="let x of item" nz-col [nzSpan]="24 / ds.itemSize">
@@ -130,3 +130,26 @@
     </nz-list-item>
   </nz-list>
 </cdk-virtual-scroll-viewport>
+
+<ng-template [nzModalFooter]>
+  <nz-row nzJustify="space-between">
+    <nz-col>
+      <ng-container *ngTemplateOutlet="uploadRef"></ng-container>
+    </nz-col>
+    <nz-col></nz-col>
+    <nz-col>
+      <nz-row [nzGutter]="8">
+        <nz-col>
+          <button nz-button type="button" nzType="default" (click)="close()">取消</button>
+        </nz-col>
+        <nz-col>
+          <nz-badge [nzCount]="ds.checkedNumber">
+            <button nz-button type="button" nzType="primary" [disabled]="!ds.checkedNumber" (click)="submit()">
+              确认
+            </button>
+          </nz-badge>
+        </nz-col>
+      </nz-row>
+    </nz-col>
+  </nz-row>
+</ng-template>

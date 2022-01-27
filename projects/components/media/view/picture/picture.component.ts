@@ -20,7 +20,7 @@ export class PictureComponent implements OnInit {
   form?: FormGroup;
 
   constructor(
-    private modal: NzModalRef,
+    private modalRef: NzModalRef,
     private message: NzMessageService,
     private notification: NzNotificationService,
     private fb: FormBuilder,
@@ -53,7 +53,7 @@ export class PictureComponent implements OnInit {
   }
 
   close(): void {
-    this.modal.triggerCancel();
+    this.modalRef.triggerCancel();
   }
 
   submit(data: Page): void {

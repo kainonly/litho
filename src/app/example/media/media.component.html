@@ -14,7 +14,10 @@
     <nz-form-item>
       <nz-form-label nzRequired>图库</nz-form-label>
       <nz-form-control>
-        <wpx-media-pictures formControlName="picture"></wpx-media-pictures>
+        <wpx-media-pictures
+          formControlName="picture"
+          [wpxFallback]="['assets', 'dataflow.svg'] | wpxAssets"
+        ></wpx-media-pictures>
       </nz-form-control>
     </nz-form-item>
     <nz-form-item>

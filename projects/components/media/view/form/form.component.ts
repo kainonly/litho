@@ -18,7 +18,7 @@ export class FormComponent implements OnInit {
   form?: FormGroup;
 
   constructor(
-    private modal: NzModalRef,
+    private modalRef: NzModalRef,
     private message: NzMessageService,
     private notification: NzNotificationService,
     private fb: FormBuilder
@@ -32,7 +32,7 @@ export class FormComponent implements OnInit {
   }
 
   close(): void {
-    this.modal.triggerCancel();
+    this.modalRef.triggerCancel();
   }
 
   submit(data: Page): void {
@@ -41,7 +41,7 @@ export class FormComponent implements OnInit {
         this.editable[k] = v;
       }
       this.message.success('数据更新完成');
-      this.modal.triggerOk();
+      this.modalRef.triggerOk();
     });
   }
 }
