@@ -19,11 +19,13 @@ import { NzUploadChangeParam } from 'ng-zorro-antd/upload';
 export class WpxUploadAvatarComponent implements ControlValueAccessor {
   @Input() wpxExt?: string;
   @Input() wpxAccept: string[] = [];
+  @Input() wpxFallback!: string;
 
   loading = false;
-  value?: string[];
-  onChange?: (value: string[]) => void;
-  onTouched?: () => void;
+  values?: string[];
+
+  private onChange?: (value: string[]) => void;
+  private onTouched?: () => void;
 
   constructor(private message: NzMessageService) {}
 
@@ -35,8 +37,8 @@ export class WpxUploadAvatarComponent implements ControlValueAccessor {
     this.onTouched = fn;
   }
 
-  writeValue(value: string[]): void {
-    this.value = value;
+  writeValue(v: any): void {
+    this.values = v ?? [];
   }
 
   change(info: NzUploadChangeParam): void {

@@ -7,7 +7,12 @@
     <nz-form-item>
       <nz-form-label nzRequired>图片上传</nz-form-label>
       <nz-form-control>
-        <wpx-upload-avatar formControlName="avatar" wpxExt="image" [wpxAccept]="['image/jpeg', 'image/png']">
+        <wpx-upload-avatar
+          wpxExt="image"
+          [wpxAccept]="['image/jpeg', 'image/png']"
+          [wpxFallback]="['assets', 'dataflow.svg'] | wpxAssets"
+          formControlName="avatar"
+        >
         </wpx-upload-avatar>
       </nz-form-control>
     </nz-form-item>
