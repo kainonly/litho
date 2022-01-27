@@ -1,4 +1,4 @@
-import { Component, forwardRef } from '@angular/core';
+import { Component, forwardRef, Input } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 import { NzMessageService } from 'ng-zorro-antd/message';
@@ -17,6 +17,9 @@ import { NzUploadChangeParam } from 'ng-zorro-antd/upload';
   ]
 })
 export class WpxUploadAvatarComponent implements ControlValueAccessor {
+  @Input() wpxExt?: string;
+  @Input() wpxAccept: string[] = [];
+
   loading = false;
   value?: string;
   onChange?: (value: any) => void;

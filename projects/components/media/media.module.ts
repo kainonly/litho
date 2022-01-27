@@ -2,6 +2,7 @@ import { ScrollingModule } from '@angular/cdk/scrolling';
 import { NgModule } from '@angular/core';
 
 import { WpxModule, WpxShareModule } from '@weplanx/common';
+import { WpxUploadModule } from '@weplanx/components/upload';
 import { NzDescriptionsModule } from 'ng-zorro-antd/descriptions';
 import { NzImageModule } from 'ng-zorro-antd/image';
 import { NzPipesModule } from 'ng-zorro-antd/pipes';
@@ -20,6 +21,7 @@ import { WpxMediaViewComponent } from './view/view.component';
   imports: [
     WpxModule,
     WpxShareModule,
+    WpxUploadModule,
     NzImageModule,
     NzTypographyModule,
     ScrollingModule,

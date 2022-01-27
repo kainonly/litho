@@ -1,4 +1,66 @@
-<cdk-virtual-scroll-viewport class="infinite-container" itemSize="351">
+<ng-template #uploadRef>
+  <wpx-upload-transport [wpxExt]="ext" [wpxAccept]="accept" (wpxChange)="upload($event)"></wpx-upload-transport>
+</ng-template>
+
+<ng-template #searchRef>
+  <nz-row nzJustify="space-between">
+    <nz-col>
+      <nz-row [nzGutter]="8">
+        <nz-col>
+          <nz-input-group nzCompact>
+            <input
+              style="width: 420px"
+              type="text"
+              nz-input
+              placeholder="请输入搜索关键词"
+              [(ngModel)]="searchText"
+              (keyup.enter)="getData(true)"
+            />
+            <button nz-button (click)="getData(true)"><i nz-icon nzType="search"></i></button>
+          </nz-input-group>
+        </nz-col>
+        <nz-col>
+          <a nz-button nzType="link" disabled>高级搜索</a>
+        </nz-col>
+      </nz-row>
+    </nz-col>
+    <nz-col> </nz-col>
+    <nz-col>
+      <nz-row [nzGutter]="8">
+        <nz-col>
+          <nz-button-group>
+            <button nz-button nzType="text" nz-tooltip="刷新" (click)="getData(true)">
+              <i nz-icon nzType="reload"></i>
+            </button>
+            <button nz-button nzType="text" nz-tooltip="清除搜索" (click)="clearSearch()">
+              <i nz-icon nzType="clear"></i>
+            </button>
+            <nz-badge [nzCount]="ds.checkedNumber">
+              <button
+                nz-button
+                nzType="text"
+                [nzDisabled]="!ds.checkedNumber"
+                nz-tooltip="批量操作"
+                nz-dropdown
+                [nzDropdownMenu]="bulkRef"
+              >
+                <i nz-icon nzType="inbox"></i>
+              </button>
+            </nz-badge>
+            <nz-dropdown-menu #bulkRef="nzDropdownMenu">
+              <ul nz-menu>
+                <li nz-menu-item (click)="bulkUnchecked()"> 取消选择 </li>
+                <li nz-menu-item nzDanger (click)="bulkDelete()"> 删除 </li>
+              </ul>
+            </nz-dropdown-menu>
+          </nz-button-group>
+        </nz-col>
+      </nz-row>
+    </nz-col>
+  </nz-row>
+</ng-template>
+
+<cdk-virtual-scroll-viewport class="infinite-container" [style.height]="wpxHeight ?? '100%'" itemSize="351">
   <nz-list nzGrid nzItemLayout="vertical">
     <nz-list-item *cdkVirtualFor="let item of ds" style="padding-top: 0">
       <nz-row style="width: 100%" [nzGutter]="8">

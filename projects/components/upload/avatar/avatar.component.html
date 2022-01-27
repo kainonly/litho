@@ -1,4 +1,12 @@
-<nz-upload class="upload" wpxUpload nzListType="picture-card" (nzChange)="change($event)">
+<nz-upload
+  class="upload"
+  wpxUpload
+  [wpxExt]="wpxExt"
+  nzListType="picture-card"
+  [nzAccept]="wpxAccept"
+  [nzFileType]="wpxAccept | wpxJoin: ','"
+  (nzChange)="change($event)"
+>
   <ng-container *ngIf="!!value; else uploadBtn">
     <img [src]="[value] | wpxAssets" alt="" />
   </ng-container>
