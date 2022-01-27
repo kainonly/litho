@@ -19,10 +19,17 @@ export class AppInterceptors implements HttpInterceptor {
   constructor(private router: Router, private message: NzMessageService) {}
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    const request = req.clone({
-      url: AppInterceptors.getUrl(req.url),
-      withCredentials: true
-    });
+    const regex = new RegExp('^http(|s)://');
+    let update: any;
+    if (!regex.test(req.url)) {
+      update = {
+        url: `${environment.baseUrl}/${req.url}`,
+        withCredentials: true
+      };
+    } else {
+      update = { url: req.url };
+    }
+    const request = req.clone(update);
     return next.handle(request).pipe(
       tap(event => {
         if (event instanceof HttpResponse) {
@@ -34,6 +41,10 @@ export class AppInterceptors implements HttpInterceptor {
   }
 
   private handleError = (e: HttpErrorResponse): Observable<never> => {
+    const regex = new RegExp(`^${environment.baseUrl}`);
+    if (!regex.test(e.url!)) {
+      return throwError(() => e);
+    }
     switch (e.status) {
       case 400:
         switch (e.error.code) {
@@ -66,12 +77,4 @@ export class AppInterceptors implements HttpInterceptor {
     }
     return throwError(() => e);
   };
-
-  private static getUrl(url: string): string {
-    const regex = new RegExp('^http(|s)://');
-    if (!regex.test(url)) {
-      return `${environment.baseUrl}/${url}`;
-    }
-    return url;
-  }
 }

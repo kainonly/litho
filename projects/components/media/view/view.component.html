@@ -71,6 +71,7 @@
                 <ng-container *ngSwitchCase="'pictures'">
                   <div class="photo" (click)="previewPicture(x)">
                     <img
+                      wpxRetry
                       nz-image
                       nzDisablePreview
                       [nzSrc]="[x.url, 'thumbnail'] | wpxAssets: { params: x.params }"
@@ -83,6 +84,7 @@
                 <ng-container *ngSwitchCase="'videos'">
                   <div class="photo" (click)="previewPoster(x)">
                     <img
+                      wpxRetry
                       nz-image
                       nzDisablePreview
                       [nzSrc]="[x.url + '_chart'] | wpxAssets"

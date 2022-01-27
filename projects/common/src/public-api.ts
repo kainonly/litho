@@ -1,5 +1,6 @@
 export * from './lib/directives/submit.directive';
 export * from './lib/directives/upload.directive';
+export * from './lib/directives/retry.directive';
 export * from './lib/header/header.component';
 export * from './lib/layout/layout.component';
 export * from './lib/layout/layout-action.directive';

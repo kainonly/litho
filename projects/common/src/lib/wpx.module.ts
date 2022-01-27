@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 
+import { WpxRetryDirective } from './directives/retry.directive';
 import { WpxSubmitDirective } from './directives/submit.directive';
 import { WpxUploadDirective } from './directives/upload.directive';
 import { WpxHeaderComponent } from './header/header.component';
@@ -25,6 +26,7 @@ import { WpxShareModule } from './share.module';
   declarations: [
     WpxSubmitDirective,
     WpxUploadDirective,
+    WpxRetryDirective,
     WpxHeaderComponent,
     WpxLayoutComponent,
     WpxLayoutActionDirective,
@@ -45,6 +47,7 @@ import { WpxShareModule } from './share.module';
   exports: [
     WpxSubmitDirective,
     WpxUploadDirective,
+    WpxRetryDirective,
     WpxHeaderComponent,
     WpxLayoutComponent,
     WpxLayoutActionDirective,
