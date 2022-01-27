@@ -17,13 +17,20 @@
           <nz-row nzJustify="space-between" nzAlign="middle">
             <nz-col>
               <div class="meta" (click)="preview(x)">
-                <img
-                  nz-image
-                  nzDisablePreview
-                  [nzSrc]="[x, 'thumbnail'] | wpxAssets"
-                  [nzPlaceholder]="[x, 'placeholder'] | wpxAssets"
-                  [alt]="x"
-                />
+                <ng-container [ngSwitch]="wpxType">
+                  <ng-container *ngSwitchCase="'pictures'">
+                    <img
+                      nz-image
+                      nzDisablePreview
+                      [nzSrc]="[x, 'thumbnail'] | wpxAssets"
+                      [nzPlaceholder]="[x, 'placeholder'] | wpxAssets"
+                      [alt]="x"
+                    />
+                  </ng-container>
+                  <ng-container *ngSwitchCase="'videos'">
+                    <img nz-image nzDisablePreview [nzSrc]="[x + '_chart'] | wpxAssets" [alt]="x" />
+                  </ng-container>
+                </ng-container>
               </div>
             </nz-col>
             <nz-col></nz-col>

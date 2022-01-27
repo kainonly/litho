@@ -23,6 +23,17 @@
       </nz-form-control>
     </nz-form-item>
     <nz-form-item>
+      <nz-form-label nzRequired>视频库</nz-form-label>
+      <nz-form-control>
+        <wpx-media
+          wpxType="videos"
+          [wpxFallback]="['assets', 'dataflow.svg'] | wpxAssets"
+          formControlName="video"
+          (ngModelChange)="test($event)"
+        ></wpx-media>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
       <nz-form-control>
         <button nz-button nzType="primary" [disabled]="!form?.valid">提交</button>
       </nz-form-control>

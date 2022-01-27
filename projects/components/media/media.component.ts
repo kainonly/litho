@@ -43,8 +43,8 @@ export class WpxMediaComponent implements ControlValueAccessor {
     this.onTouched = fn;
   }
 
-  writeValue(v: string[]): void {
-    this.values = v;
+  writeValue(v: any): void {
+    this.values = v ?? [];
   }
 
   /**
@@ -61,7 +61,7 @@ export class WpxMediaComponent implements ControlValueAccessor {
         wpxHeight: '600px'
       },
       nzOnOk: instance => {
-        this.values!.push(...instance.ds.getUrls([...instance.ds.checkedIds.values()]));
+        this.values = [...this.values!, ...instance.ds.getUrls([...instance.ds.checkedIds.values()])];
         this.onChanged(this.values!);
       }
     });
