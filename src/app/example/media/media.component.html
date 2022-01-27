@@ -14,11 +14,12 @@
     <nz-form-item>
       <nz-form-label nzRequired>图库</nz-form-label>
       <nz-form-control>
-        <wpx-media-pictures
+        <wpx-media
+          wpxType="pictures"
+          [wpxFallback]="['assets', 'dataflow.svg'] | wpxAssets"
           formControlName="picture"
           (ngModelChange)="test($event)"
-          [wpxFallback]="['assets', 'dataflow.svg'] | wpxAssets"
-        ></wpx-media-pictures>
+        ></wpx-media>
       </nz-form-control>
     </nz-form-item>
     <nz-form-item>

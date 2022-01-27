@@ -17,6 +17,8 @@ export interface Media {
   labels?: string[];
 }
 
+export type MediaType = 'pictures' | 'videos';
+
 export interface ImageInfoDto {
   format: string;
   height: number;

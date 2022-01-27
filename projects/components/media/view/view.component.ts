@@ -9,7 +9,7 @@ import { NzModalRef, NzModalService } from 'ng-zorro-antd/modal';
 
 import { MediaService } from '../media.service';
 import { PicturesService } from '../pictures.service';
-import { Media } from '../types';
+import { Media, MediaType } from '../types';
 import { VideosService } from '../videos.service';
 import { FormComponent } from './form/form.component';
 import { PictureComponent } from './picture/picture.component';
@@ -28,7 +28,7 @@ export class WpxMediaViewComponent implements OnInit, AfterViewInit {
   private resizeObserver!: ResizeObserver;
   private media!: MediaService;
 
-  @Input() wpxType!: string;
+  @Input() wpxType!: MediaType;
   @Input() wpxFallback!: string;
   @Input() wpxHeight?: string;
 

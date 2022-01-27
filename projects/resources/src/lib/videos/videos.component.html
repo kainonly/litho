@@ -7,11 +7,11 @@
     nzCloseable
   ></nz-alert>
   <ng-container *wpxLayoutAction>
-    <ng-container *ngTemplateOutlet="mediaViewRef.uploadRef"></ng-container>
+    <ng-container *ngTemplateOutlet="ref.uploadRef"></ng-container>
   </ng-container>
   <ng-container *wpxLayoutContent>
-    <ng-container *ngTemplateOutlet="mediaViewRef.searchRef"></ng-container>
+    <ng-container *ngTemplateOutlet="ref.searchRef"></ng-container>
   </ng-container>
 </wpx-layout>
 
-<wpx-media-view #mediaViewRef wpxType="videos" [wpxFallback]="['assets', 'dataflow.svg'] | wpxAssets"></wpx-media-view>
+<wpx-media-view #ref wpxType="videos" [wpxFallback]="['assets', 'dataflow.svg'] | wpxAssets"></wpx-media-view>
