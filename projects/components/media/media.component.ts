@@ -1,3 +1,4 @@
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { Component, forwardRef, Input, Optional } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
@@ -26,13 +27,15 @@ export class WpxMediaComponent implements ControlValueAccessor {
 
   values?: string[];
 
-  protected onChanged!: (value: any[]) => void;
-  protected onTouched!: () => void;
+  sortVisible = false;
+
+  private onChanged!: (value: any[]) => void;
+  private onTouched!: () => void;
 
   constructor(
-    protected modal: NzModalService,
-    @Optional() protected wpx: WpxService,
-    @Optional() protected image: NzImageService
+    private modal: NzModalService,
+    @Optional() private wpx: WpxService,
+    @Optional() private image: NzImageService
   ) {}
 
   registerOnChange(fn: any): void {
@@ -73,6 +76,29 @@ export class WpxMediaComponent implements ControlValueAccessor {
    */
   removeValue(i: number): void {
     this.values!.splice(i, 1);
+    this.onChanged(this.values!);
+  }
+
+  /**
+   * 开启排序
+   */
+  openSort(): void {
+    this.sortVisible = true;
+  }
+
+  /**
+   * 关闭排序
+   */
+  closeSort(): void {
+    this.sortVisible = false;
+  }
+
+  /**
+   * 排序
+   * @param event
+   */
+  sort(event: CdkDragDrop<string[]>): void {
+    moveItemInArray(this.values!, event.previousIndex, event.currentIndex);
     this.onChanged(this.values!);
   }
 

@@ -1,3 +1,4 @@
+import { DragDropModule } from '@angular/cdk/drag-drop';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { NgModule } from '@angular/core';
 
@@ -24,6 +25,7 @@ import { WpxMediaViewComponent } from './view/view.component';
     NzImageModule,
     NzTypographyModule,
     ScrollingModule,
+    DragDropModule,
     NzDescriptionsModule,
     NzPipesModule
   ],
