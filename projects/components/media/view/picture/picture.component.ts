@@ -2,10 +2,12 @@ import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 
 import { AnyDto, Page } from '@weplanx/common';
-import { ImageInfoDto, Media, PicturesService } from '@weplanx/components/media';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalRef } from 'ng-zorro-antd/modal';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
+
+import { PicturesService } from '../../pictures.service';
+import { ImageInfoDto, Media } from '../../types';
 
 @Component({
   selector: 'wpx-media-view-picture',

@@ -3,16 +3,7 @@
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "outDir": "./out-tsc/app",
-    "types": [],
-    "paths": {
-      "@weplanx/common": ["dist/common"],
-      "@weplanx/components": ["dist/components"],
-      "@weplanx/components/table": ["dist/components/table"],
-      "@weplanx/components/dynamic": ["dist/components/dynamic"],
-      "@weplanx/settings": ["dist/settings"],
-      "@weplanx/center": ["dist/center"],
-      "@weplanx/resources": ["dist/resources"]
-    }
+    "types": []
   },
   "files": ["src/main.ts", "src/polyfills.ts"],
   "include": ["src/**/*.d.ts"]

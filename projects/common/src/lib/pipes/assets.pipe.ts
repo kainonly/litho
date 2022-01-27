@@ -1,6 +1,7 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
-import { AssetsOption, WpxService } from '@weplanx/common';
+import { AssetsOption } from '../types';
+import { WpxService } from '../wpx.service';
 
 @Pipe({ name: 'wpxAssets' })
 export class WpxAssetsPipe implements PipeTransform {

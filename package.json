@@ -14,7 +14,7 @@
     "build:settings": "ng b settings --configuration production",
     "build:center": "ng b center --configuration production",
     "build:resources": "ng b resources --configuration production",
-    "build:console": "ng b --configuration production",
+    "build": "ng b --configuration production",
     "test": "ng test --no-watch --no-progress --browsers=ChromeHeadlessCI",
     "lint": "ng lint",
     "e2e": "ng e2e"
