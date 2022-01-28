@@ -52,3 +52,10 @@ jobs:
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
+
+      - name: Setup Kubectl & Patch Deployment
+        uses: steebchen/kubectl@v2.0.0
+        with:
+          config: ${{ secrets.KUBE_CONFIG }}
+          version: v1.23.1
+          command: patch deployment console-deploy --patch "$(sed "s/\${tag}/${{github.ref_name}}/" < ./patch.yml)"
