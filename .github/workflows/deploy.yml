@@ -58,4 +58,4 @@ jobs:
         with:
           config: ${{ secrets.KUBE_CONFIG }}
           version: v1.23.1
-          command: patch deployment console-deploy --patch "$(sed "s/\${tag}/${{github.ref_name}}/" < ./patch.yml)"
+          command: patch deployment console-deploy --patch "$(sed "s/\${tag}/${{steps.meta.outputs.version}}/" < ./patch.yml)"
