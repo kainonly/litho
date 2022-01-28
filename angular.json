@@ -7,7 +7,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "weplanx": {
+    "console": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -24,7 +24,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/weplanx/browser",
+            "outputPath": "dist/console/browser",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -79,10 +79,10 @@
           },
           "configurations": {
             "production": {
-              "browserTarget": "weplanx:build:production"
+              "browserTarget": "console:build:production"
             },
             "development": {
-              "browserTarget": "weplanx:build:development"
+              "browserTarget": "console:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -90,7 +90,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "weplanx:build"
+            "browserTarget": "console:build"
           }
         },
         "lint": {
@@ -102,7 +102,7 @@
         "server": {
           "builder": "@angular-devkit/build-angular:server",
           "options": {
-            "outputPath": "dist/weplanx/server",
+            "outputPath": "dist/console/server",
             "main": "server.ts",
             "tsConfig": "tsconfig.server.json",
             "inlineStyleLanguage": "scss"
@@ -129,12 +129,12 @@
           "builder": "@nguniversal/builders:ssr-dev-server",
           "configurations": {
             "development": {
-              "browserTarget": "weplanx:build:development",
-              "serverTarget": "weplanx:server:development"
+              "browserTarget": "console:build:development",
+              "serverTarget": "console:server:development"
             },
             "production": {
-              "browserTarget": "weplanx:build:production",
-              "serverTarget": "weplanx:server:production"
+              "browserTarget": "console:build:production",
+              "serverTarget": "console:server:production"
             }
           },
           "defaultConfiguration": "development"
@@ -148,12 +148,12 @@
           },
           "configurations": {
             "production": {
-              "browserTarget": "weplanx:build:production",
-              "serverTarget": "weplanx:server:production"
+              "browserTarget": "console:build:production",
+              "serverTarget": "console:server:production"
             },
             "development": {
-              "browserTarget": "weplanx:build:development",
-              "serverTarget": "weplanx:server:development"
+              "browserTarget": "console:build:development",
+              "serverTarget": "console:server:development"
             }
           },
           "defaultConfiguration": "production"
@@ -346,5 +346,5 @@
       }
     }
   },
-  "defaultProject": "weplanx"
+  "defaultProject": "console"
 }

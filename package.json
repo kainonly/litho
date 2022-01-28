@@ -1,5 +1,5 @@
 {
-  "name": "weplanx",
+  "name": "console",
   "description": "",
   "version": "0.0.0-NOT-USED",
   "scripts": {
@@ -15,10 +15,10 @@
     "build:center": "ng b center --configuration production",
     "build:resources": "ng b resources --configuration production",
     "build": "ng b --configuration production",
-    "dev:ssr": "ng run weplanx:serve-ssr",
-    "build:ssr": "ng run weplanx:server",
-    "serve:ssr": "node dist/weplanx/server/main.js",
-    "prerender": "ng run weplanx:prerender",
+    "dev:ssr": "ng run console:serve-ssr",
+    "build:ssr": "ng run console:server",
+    "serve:ssr": "node dist/console/server/main.js",
+    "prerender": "ng run console:prerender",
     "test": "ng test --no-watch --no-progress --browsers=ChromeHeadlessCI",
     "lint": "ng lint",
     "e2e": "ng e2e"

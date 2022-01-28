@@ -1,6 +1,6 @@
 FROM node:14-alpine
 
-COPY dist/weplanx /app
+COPY dist/console /app
 WORKDIR /app
 
 EXPOSE 9000
