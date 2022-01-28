@@ -21,7 +21,7 @@ registerLocaleData(zh);
 @NgModule({
   declarations: [AppComponent],
   imports: [
-    BrowserModule,
+    BrowserModule.withServerTransition({ appId: 'serverApp' }),
     BrowserAnimationsModule,
     HttpClientModule,
     ShareModule,
@@ -74,7 +74,7 @@ registerLocaleData(zh);
         },
         { path: '', redirectTo: '/pages', pathMatch: 'full' }
       ],
-      { useHash: true }
+      { useHash: true, initialNavigation: 'enabledBlocking' }
     )
   ],
   providers: [

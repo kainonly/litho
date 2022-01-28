@@ -170,7 +170,7 @@
           [nzMaxWidth]="420"
           [nzMinWidth]="100"
           (nzResizeEnd)="resize($event, x.value)"
-          [nzWidth]="columnsWidth[x.value] ?? '300px'"
+          [nzWidth]="columnsWidth[x.value]"
           [nzShowSort]="!columnsWidthVisible"
           [(nzSortOrder)]="ds.sort[x.value]"
           (nzSortOrderChange)="getData(true)"
