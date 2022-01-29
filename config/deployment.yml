@@ -15,7 +15,7 @@ spec:
         app: console
     spec:
       containers:
-        - image: ghcr.io/weplanx/console:latest
+        - image: ccr.ccs.tencentyun.com/weplanx/console:latest
           imagePullPolicy: Always
           name: console
           ports:

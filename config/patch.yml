@@ -2,5 +2,5 @@ spec:
   template:
     spec:
       containers:
-        - image: ghcr.io/weplanx/console:${tag}
+        - image: ccr.ccs.tencentyun.com/weplanx/console:${tag}
           name: console

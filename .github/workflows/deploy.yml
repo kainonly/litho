@@ -8,6 +8,7 @@ on:
 
 env:
   REGISTRY: ghcr.io
+  QCLOUD_REGISTRY: ccr.ccs.tencentyun.com
   IMAGE_NAME: ${{ github.repository }}
 
 jobs:
@@ -37,6 +38,13 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Log in to TCR
+        uses: docker/login-action@v1
+        with:
+          registry: ${{ env.QCLOUD_REGISTRY }}
+          username: ${{ secrets.QCLOUD_USERNAME }}
+          password: ${{ secrets.QCLOUD_PASSWORD }}
+
       - name: Extract metadata (tags, labels) for Docker
         id: meta
         uses: docker/metadata-action@v3
@@ -53,9 +61,17 @@ jobs:
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
 
+      - name: Push Image to multiple registries
+        uses: akhilerm/tag-push-action@v2.0.0
+        with:
+          src: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{steps.meta.outputs.version}}
+          dst: |
+            ${{ env.QCLOUD_REGISTRY }}/${{ env.IMAGE_NAME }}:latest
+            ${{ env.QCLOUD_REGISTRY }}/${{ env.IMAGE_NAME }}:${{steps.meta.outputs.version}}
+
       - name: Setup Kubectl & Patch Deployment
         uses: steebchen/kubectl@v2.0.0
         with:
           config: ${{ secrets.KUBE_CONFIG }}
           version: v1.23.1
-          command: patch deployment console-deploy --patch "$(sed "s/\${tag}/${{steps.meta.outputs.version}}/" < ./patch.yml)"
+          command: patch deployment console-deploy --patch "$(sed "s/\${tag}/${{steps.meta.outputs.version}}/" < ./config/patch.yml)"
