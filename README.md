@@ -1,9 +1,11 @@
-# Weplanx Angular Components
+# Weplanx Console
 
-> Thanks to [JetBrains](https://www.jetbrains.com/?from=ngx-bit) for providing free open source license sponsorship
+基于 Antd 集成的 Angular 组件库，低代码前端的实验项目
+
+> 感谢 [JetBrains](https://www.jetbrains.com/?from=ngx-bit) 提供的免费开源 License 赞助
 >
-> [![JetBrains](https://raw.githubusercontent.com/kainonly/ngx-bit/main/resource/jetbrains.svg)](https://www.jetbrains.com/?from=ngx-bit)
+> [![JetBrains](https://cdn.kainonly.com/assets/jetbrains.svg)](https://www.jetbrains.com/?from=ngx-bit)
 
 ## License
 
-[BSD-3-Clause License](https://github.com/kainonly/ngx-bit/blob/main/LICENSE)
+[BSD-3-Clause License](https://github.com/weplanx/console/blob/main/LICENSE)
