@@ -1,7 +1,0 @@
-import { Component } from '@angular/core';
-
-@Component({
-  selector: 'wpx-center-profile',
-  templateUrl: './profile.component.html'
-})
-export class ProfileComponent {}
