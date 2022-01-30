@@ -2,11 +2,11 @@ import { NgModule } from '@angular/core';
 
 import { WpxModule, WpxShareModule } from '@weplanx/common';
 
-import { ProfileComponent } from './profile.component';
+import { PasswordComponent } from './password.component';
 
 @NgModule({
   imports: [WpxModule, WpxShareModule],
-  declarations: [ProfileComponent],
-  exports: [ProfileComponent]
+  declarations: [PasswordComponent],
+  exports: [PasswordComponent]
 })
-export class ProfileModule {}
+export class PasswordModule {}

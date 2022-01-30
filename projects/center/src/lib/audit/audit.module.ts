@@ -2,11 +2,11 @@ import { NgModule } from '@angular/core';
 
 import { WpxModule, WpxShareModule } from '@weplanx/common';
 
-import { ProfileComponent } from './profile.component';
+import { AuditComponent } from './audit.component';
 
 @NgModule({
   imports: [WpxModule, WpxShareModule],
-  declarations: [ProfileComponent],
-  exports: [ProfileComponent]
+  declarations: [AuditComponent],
+  exports: [AuditComponent]
 })
-export class ProfileModule {}
+export class AuditModule {}

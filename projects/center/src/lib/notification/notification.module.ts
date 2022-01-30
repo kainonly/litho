@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 
-import { WpxShareModule } from '@weplanx/common';
+import { WpxModule, WpxShareModule } from '@weplanx/common';
 
 import { NotificationComponent } from './notification.component';
 
 @NgModule({
-  imports: [WpxShareModule],
+  imports: [WpxModule, WpxShareModule],
   declarations: [NotificationComponent],
   exports: [NotificationComponent]
 })

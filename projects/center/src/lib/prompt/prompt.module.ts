@@ -2,11 +2,11 @@ import { NgModule } from '@angular/core';
 
 import { WpxModule, WpxShareModule } from '@weplanx/common';
 
-import { ProfileComponent } from './profile.component';
+import { PromptComponent } from './prompt.component';
 
 @NgModule({
   imports: [WpxModule, WpxShareModule],
-  declarations: [ProfileComponent],
-  exports: [ProfileComponent]
+  declarations: [PromptComponent],
+  exports: [PromptComponent]
 })
-export class ProfileModule {}
+export class PromptModule {}
