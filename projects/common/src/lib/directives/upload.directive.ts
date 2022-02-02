@@ -13,6 +13,9 @@ import { WpxService } from '../wpx.service';
   selector: 'nz-upload[wpxUpload]'
 })
 export class WpxUploadDirective {
+  /**
+   * 自定义后缀，默认上传无后缀
+   */
   @Input() wpxExt?: string;
   private option!: UploadOption;
 

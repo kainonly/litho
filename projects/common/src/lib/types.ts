@@ -13,6 +13,7 @@ export interface BasicDto {
    * 修改时间
    */
   update_time: Date;
+
   /**
    * 扩展字段
    */
@@ -43,8 +44,17 @@ export interface ReplaceDto<T> {
 }
 
 export interface UploadOption {
+  /**
+   * 本地上传路径或对象存储路径
+   */
   url?: string;
+  /**
+   * 用于获取对象存储上传签名参数的请求地址
+   */
   presignedUrl?: string;
+  /**
+   * 限制上传大小
+   */
   size?: number;
 }
 

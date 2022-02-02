@@ -15,7 +15,9 @@ export class WpxRetryDirective implements OnInit {
 
   ngOnInit(): void {
     const retry = retryWhen(errors =>
-      errors.pipe(concatMap((e, i) => iif(() => i > 5, throwError(e), of(e).pipe(delay(5000)))))
+      errors.pipe(
+        concatMap((e, i) => iif(() => i > this.wpxRetryCount, throwError(e), of(e).pipe(delay(this.wpxDelay))))
+      )
     );
     fromEvent(this.image.backLoadImage, 'error')
       .pipe(delay(this.wpxDelay), switchMapTo(this.http.head(this.image.nzSrc, { observe: 'response' }).pipe(retry)))

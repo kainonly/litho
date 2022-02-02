@@ -30,7 +30,7 @@ class ExampleComponent implements OnInit {
   }
 }
 
-describe('WpxSubmitDirective', () => {
+describe('测试 WpxSubmitDirective', () => {
   let component: ExampleComponent;
   let fixture: ComponentFixture<ExampleComponent>;
   let debugElement: DebugElement;
@@ -48,19 +48,19 @@ describe('WpxSubmitDirective', () => {
     }
   });
 
-  it('Test form submit automatically markAsDirty and updateValueAndValidity', () => {
+  it('提交后控件状态标记为 dirty ，并更新控件的验证器状态', () => {
     const form = debugElement.query(By.css('form'));
     form.triggerEventHandler('submit', null);
     expect(component.form.valid).toBeFalsy();
     component.form.patchValue({
       name: 'kain',
-      email: 'zhangtqx@vip.qq.com'
+      email: 'kainonly@qq.com'
     });
     form.triggerEventHandler('submit', null);
     expect(component.form.valid).toBeTruthy();
     expect(component.submitData).toEqual({
       name: 'kain',
-      email: 'zhangtqx@vip.qq.com'
+      email: 'kainonly@qq.com'
     });
   });
 });
