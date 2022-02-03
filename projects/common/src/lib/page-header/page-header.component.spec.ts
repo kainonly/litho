@@ -37,7 +37,6 @@ describe('测试 WpxPageHeaderComponent', () => {
   let wpx: WpxService;
   let app: ComponentFixture<AppComponent>;
   let router: Router;
-  let example: ComponentFixture<ExampleComponent>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -71,14 +70,14 @@ describe('测试 WpxPageHeaderComponent', () => {
     router.initialNavigation();
   });
 
-  it('探测忽略页头', fakeAsync(() => {
+  it('检测忽略页头', fakeAsync(() => {
     router.navigate(['']);
     TestBed.createComponent(HomeComponent).autoDetectChanges();
     tick();
     expect(app.debugElement.query(By.directive(WpxPageHeaderComponent)).nativeElement.innerText).toBe('');
   }));
 
-  it('探测自定义页头', fakeAsync(() => {
+  it('检测自定义页头', fakeAsync(() => {
     router.navigate(['example']);
     TestBed.createComponent(ExampleComponent).autoDetectChanges();
     tick();

@@ -3,7 +3,7 @@
     <ng-container *ngTemplateOutlet="navTemplate; context: { $implicit: wpx.navs }"></ng-container>
   </ng-container>
   <ng-template #navTemplate let-pages>
-    <ng-container *ngFor="let page of pages | wpxSort: 'sort' | IsPageArray">
+    <ng-container *ngFor="let page of pages | wpxSort: 'sort'">
       <ng-container *ngIf="page.kind !== 'group'; else isGroup">
         <li nz-menu-item nzMatchRouter [routerLink]="['/pages', page._id]" [nzPaddingLeft]="page['path'].length * 24">
           <i *ngIf="page.hasOwnProperty('icon')" nz-icon [nzType]="page.icon!"></i>

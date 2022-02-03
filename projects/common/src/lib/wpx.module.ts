@@ -8,7 +8,6 @@ import { WpxLayoutActionDirective } from './layout/layout-action.directive';
 import { WpxLayoutAlertDirective } from './layout/layout-alert.directive';
 import { WpxLayoutContentDirective } from './layout/layout-content.directive';
 import { WpxLayoutComponent } from './layout/layout.component';
-import { IsPageArrayPipe } from './nav/is-page-array.pipe';
 import { WpxNavComponent } from './nav/nav.component';
 import { OpenStatePipe } from './nav/open-state.pipe';
 import { WpxPageHeaderComponent } from './page-header/page-header.component';
@@ -41,7 +40,6 @@ import { WpxShareModule } from './share.module';
     WpxMapPipe,
     WpxSortPipe,
     WpxAssetsPipe,
-    IsPageArrayPipe,
     OpenStatePipe
   ],
   exports: [

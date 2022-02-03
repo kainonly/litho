@@ -9,7 +9,7 @@ import { WpxService } from '../wpx.service';
   templateUrl: './nav.component.html'
 })
 export class WpxNavComponent {
-  @Input() nzTheme: NzMenuThemeType = 'light';
+  @Input() wpxTheme: NzMenuThemeType = 'light';
 
   constructor(public wpx: WpxService) {}
 }

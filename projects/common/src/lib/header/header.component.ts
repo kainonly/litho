@@ -14,7 +14,7 @@ export class WpxHeaderComponent {
   constructor(private router: Router) {}
 
   logout(): void {
-    this.wpxLogout().subscribe(v => {
+    this.wpxLogout().subscribe(() => {
       this.router.navigateByUrl('/login');
     });
   }
