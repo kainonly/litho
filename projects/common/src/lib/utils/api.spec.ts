@@ -1,8 +1,9 @@
-import { Api, CreateDto, ReplaceDto, toSortValues, UpdateDto, Where } from '@weplanx/common';
+import { Api, CreateDto, Dataset, ReplaceDto, toSortValues, UpdateDto, Where } from '@weplanx/common';
 import { TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { Injectable } from '@angular/core';
-import { HttpParams } from '@angular/common/http';
+import { HttpHeaders, HttpParams } from '@angular/common/http';
+import { nav } from '../mock';
 
 @Injectable()
 class ExampleService extends Api<any> {
@@ -100,7 +101,36 @@ describe('测试请求', () => {
     httpTestingController.verify();
   });
 
-  it('获取分页文档', () => {});
+  it('获取分页文档', done => {
+    const ds = new Dataset();
+    ds.where = {
+      name: '测试'
+    };
+    ds.sort = {
+      sort: 'ascend'
+    };
+    service.findByPage(ds).subscribe(data => {
+      expect(data).toEqual(nav);
+      expect(ds.total).toEqual(nav.length);
+      done();
+    });
+    let params = new HttpParams();
+    if (Object.keys(ds.where).length !== 0) {
+      params = params.set('where', JSON.stringify(ds.where));
+    }
+    if (Object.keys(ds.sort).length !== 0) {
+      for (const v of toSortValues(ds.sort)) {
+        params = params.append('sort', v);
+      }
+    }
+    const req = httpTestingController.expectOne(`api/example?${params.toString()}`);
+    expect(req.request.method).toEqual('GET');
+    expect(req.request.params).toEqual(params);
+    expect(req.request.headers.get('x-page-size')).toEqual('10');
+    expect(req.request.headers.get('x-page')).toEqual('1');
+    req.flush(nav, { headers: new HttpHeaders().set('x-page-total', nav.length.toString()) });
+    httpTestingController.verify();
+  });
 
   it('更新多个文档（筛选）', () => {
     const body: UpdateDto<any> = {
