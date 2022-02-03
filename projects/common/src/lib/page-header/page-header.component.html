@@ -1,8 +1,8 @@
 <ng-container *ngIf="wpx.layout | async as layout">
   <ng-container *ngIf="!layout.skipPageHeader">
-    <ng-container *ngIf="!!layout.alert">
+    <div class="wpx-layout-alert" *ngIf="!!layout.alert">
       <ng-container *ngTemplateOutlet="layout.alert"></ng-container>
-    </ng-container>
+    </div>
 
     <nz-page-header [nzGhost]="false" [nzBackIcon]="layout.showBack ? '' : null">
       <nz-breadcrumb nz-page-header-breadcrumb [nzAutoGenerate]="wpxManual">
