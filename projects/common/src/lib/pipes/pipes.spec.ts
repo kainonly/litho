@@ -1,6 +1,32 @@
-import { WpxEmptyPipe, WpxJoinPipe, WpxMapPipe, WpxObjectPipe, WpxSortPipe, WpxSplitPipe } from '@weplanx/common';
+import {
+  WpxAssetsPipe,
+  WpxEmptyPipe,
+  WpxJoinPipe,
+  WpxMapPipe,
+  WpxObjectPipe,
+  WpxService,
+  WpxSortPipe,
+  WpxSplitPipe
+} from '@weplanx/common';
+import { TestBed } from '@angular/core/testing';
 
-describe('pipes', () => {
+describe('测试管道', () => {
+  it('WpxAssetsPipe', () => {
+    const wpx = TestBed.inject(WpxService);
+    wpx.setAssets('https://cdn.kainonly.com');
+    const pipe = new WpxAssetsPipe(wpx);
+    expect(pipe.transform([], {})).toEqual('');
+    expect(pipe.transform(['20210203', 'a45141d1-e535-409a-9ae6-5aef38c0d69b'])).toEqual(
+      'https://cdn.kainonly.com/20210203/a45141d1-e535-409a-9ae6-5aef38c0d69b'
+    );
+    expect(pipe.transform(['20210203', 'a45141d1-e535-409a-9ae6-5aef38c0d69b'], { params: { ext: 'jpeg' } })).toEqual(
+      'https://cdn.kainonly.com/20210203/a45141d1-e535-409a-9ae6-5aef38c0d69b?ext=jpeg'
+    );
+    expect(pipe.transform(['20210203', 'a45141d1-e535-409a-9ae6-5aef38c0d69b'], { css: true })).toEqual(
+      'url("https://cdn.kainonly.com/20210203/a45141d1-e535-409a-9ae6-5aef38c0d69b")'
+    );
+  });
+
   it('WpxEmptyPipe', () => {
     const pipe = new WpxEmptyPipe();
     expect(pipe.transform('hello')).toBeFalsy();
@@ -42,21 +68,24 @@ describe('pipes', () => {
 
   it('WpxSortPipe', () => {
     const pipe = new WpxSortPipe();
-    const value = [
+    expect(pipe.transform([], 'sort')).toEqual([]);
+    const value1 = [
       { name: 'a', sort: 3 },
       { name: 'b', sort: 1 },
       { name: 'c', sort: 2 }
     ];
-    expect(pipe.transform(value, 'sort')).toEqual([
+    expect(pipe.transform(value1, 'sort')).toEqual([
       { name: 'b', sort: 1 },
       { name: 'c', sort: 2 },
       { name: 'a', sort: 3 }
     ]);
-    expect(pipe.transform(value, 'sort', -1)).toEqual([
+    expect(pipe.transform(value1, 'sort', -1)).toEqual([
       { name: 'a', sort: 3 },
       { name: 'c', sort: 2 },
       { name: 'b', sort: 1 }
     ]);
+    const value2 = [{ name: 'a', sort: 2 }, { name: 'b' }, { name: 'c', sort: 2 }];
+    expect(pipe.transform(value2, 'sort')).toEqual(value2);
   });
 
   it('WpxSplitPipe', () => {
