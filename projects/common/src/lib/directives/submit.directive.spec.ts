@@ -36,16 +36,14 @@ describe('测试 WpxSubmitDirective', () => {
   let debugElement: DebugElement;
 
   beforeEach(() => {
-    if (!component) {
-      TestBed.configureTestingModule({
-        declarations: [ExampleComponent],
-        imports: [WpxModule, WpxShareModule]
-      });
-      fixture = TestBed.createComponent(ExampleComponent);
-      component = fixture.componentInstance;
-      debugElement = fixture.debugElement;
-      fixture.detectChanges();
-    }
+    TestBed.configureTestingModule({
+      declarations: [ExampleComponent],
+      imports: [WpxModule, WpxShareModule]
+    });
+    fixture = TestBed.createComponent(ExampleComponent);
+    component = fixture.componentInstance;
+    debugElement = fixture.debugElement;
+    fixture.detectChanges();
   });
 
   it('提交后控件状态标记为 dirty ，并更新控件的验证器状态', () => {

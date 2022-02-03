@@ -9,16 +9,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { By } from '@angular/platform-browser';
 
 @Component({
-  template: `
-    <img
-      nz-image
-      nzSrc="/unknow.svg"
-      wpxRetry
-      [wpxRetryCount]="3"
-      [wpxDelay]="50"
-      alt=""
-    />
-  `
+  template: ` <img nz-image nzSrc="/unknow.svg" wpxRetry [wpxRetryCount]="3" [wpxDelay]="50" alt="" /> `
 })
 class ExampleComponent {
   @ViewChild(NzImageDirective) nzImage!: NzImageDirective;
@@ -32,17 +23,15 @@ describe('测试 WpxRetryDirective', () => {
   let debugElement: DebugElement;
 
   beforeEach(() => {
-    if (!component) {
-      TestBed.configureTestingModule({
-        declarations: [ExampleComponent],
-        imports: [WpxModule, WpxShareModule, NzImageModule, HttpClientTestingModule]
-      });
-      httpTestingController = TestBed.inject(HttpTestingController);
-      fixture = TestBed.createComponent(ExampleComponent);
-      component = fixture.componentInstance;
-      debugElement = fixture.debugElement;
-      fixture.detectChanges();
-    }
+    TestBed.configureTestingModule({
+      declarations: [ExampleComponent],
+      imports: [WpxModule, WpxShareModule, NzImageModule, HttpClientTestingModule]
+    });
+    httpTestingController = TestBed.inject(HttpTestingController);
+    fixture = TestBed.createComponent(ExampleComponent);
+    component = fixture.componentInstance;
+    debugElement = fixture.debugElement;
+    fixture.detectChanges();
   });
 
   it('图片资源重试', done => {

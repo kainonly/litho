@@ -1,5 +1,4 @@
 import { AbstractControl, FormGroup } from '@angular/forms';
-import { Observable } from 'rxjs';
 
 import { NzTableSortOrder } from 'ng-zorro-antd/table/src/table.types';
 import { NzTreeNode } from 'ng-zorro-antd/tree';
@@ -71,20 +70,4 @@ export const PasswordRule = (value: string): any => {
     return { symbol: true, error: true };
   }
   return null;
-};
-
-/**
- * 加载脚本
- */
-export const loadScript = (doc: Document, url: string): Observable<any> => {
-  const script = doc.createElement('script');
-  script.type = 'text/javascript';
-  script.src = url;
-  doc.body.appendChild(script);
-  return new Observable<any>(observer => {
-    script.onload = () => {
-      observer.next();
-      observer.complete();
-    };
-  });
 };

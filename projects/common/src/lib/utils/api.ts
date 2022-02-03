@@ -8,7 +8,7 @@ import { Dataset } from './dataset';
 import { toSortValues } from './helper';
 
 @Injectable()
-export class Api<T> {
+export abstract class Api<T> {
   /**
    * 模型名称
    * @protected
@@ -42,9 +42,9 @@ export class Api<T> {
     if (Object.keys(where).length === 0) {
       throw new Error('筛选条件不能为空');
     }
-    return this.http.get(this.url(), {
+    return this.http.get<AnyDto<T>>(this.url(), {
       params: new HttpParams().set('where', JSON.stringify(where)).set('single', true)
-    }) as Observable<AnyDto<T>>;
+    });
   }
 
   /**
@@ -134,14 +134,14 @@ export class Api<T> {
    * 更新多个文档（筛选）
    * @param where
    * @param body
-   * @param multiple
+   * @param single
    */
-  update(where: Where<T>, body: UpdateDto<T>, multiple = true): Observable<any> {
+  update(where: Where<T>, body: UpdateDto<T>, single = false): Observable<any> {
     if (Object.keys(where).length === 0) {
       throw new Error('筛选条件不能为空');
     }
     return this.http.patch(this.url(), body, {
-      params: new HttpParams().set('where', JSON.stringify(where)).set('multiple', multiple)
+      params: new HttpParams().set('where', JSON.stringify(where)).set('single', single)
     });
   }
 
@@ -167,7 +167,7 @@ export class Api<T> {
    * @param body
    */
   updateOne(where: Where<T>, body: UpdateDto<T>): Observable<any> {
-    return this.update(where, body, false);
+    return this.update(where, body, true);
   }
 
   /**
@@ -195,7 +195,7 @@ export class Api<T> {
   }
 
   /**
-   *删除文档
+   * 删除文档
    * @param id
    */
   delete(id: string): Observable<any> {
