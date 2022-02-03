@@ -19,7 +19,7 @@
     "build:ssr": "ng run console:server",
     "serve:ssr": "node dist/console/server/main.js",
     "prerender": "ng run console:prerender",
-    "test": "ng test --no-watch --no-progress --browsers=ChromeHeadlessCI",
+    "test": "ng test common --no-watch --no-progress --browsers=ChromeHeadlessCI",
     "lint": "ng lint",
     "e2e": "ng e2e"
   },
