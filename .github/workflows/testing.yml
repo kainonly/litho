@@ -1,4 +1,4 @@
-name: testing
+name: 单元测试
 
 on:
   push:
@@ -13,24 +13,25 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Check out the repo
+      - name: 检出
         uses: actions/checkout@v2
 
-      - uses: actions/setup-node@v2
+      - name: 安装 Node
+        uses: actions/setup-node@v2
         with:
           node-version: '14'
 
-      - name: Install Dependency
+      - name: 安装依赖
         run: npm install
 
-      - name: Start Common Test
+      - name: 启动单元测试
         run: npm test
 
-      - name: Coveralls GitHub Action
+      - name: 推送覆盖率至 COVERAGE
         uses: coverallsapp/github-action@master
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           path-to-lcov: ./coverage/common/report-lcov/lcov.info
 
-      - name: Push Fossas
+      - name: 推送 Fossas
         run: "curl -H 'Cache-Control: no-cache' https://raw.githubusercontent.com/fossas/fossa-cli/master/install.sh | sudo bash"

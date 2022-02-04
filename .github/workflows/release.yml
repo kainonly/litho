@@ -9,18 +9,19 @@ jobs:
   release:
     runs-on: ubuntu-latest
     steps:
-      - name: Check out the repo
+      - name: 检出
         uses: actions/checkout@v2
 
-      - uses: actions/setup-node@v2
+      - name: 安装 Node
+        uses: actions/setup-node@v2
         with:
           node-version: '14'
           registry-url: https://registry.npmjs.org
 
-      - name: Install Dependency
+      - name: 安装依赖
         run: npm install
 
-      - name: Build Library
+      - name: 构建 Angular 库
         run: |
           npm run build:common
           npm run build:components
@@ -28,7 +29,7 @@ jobs:
           npm run build:resources
           npm run build:center
 
-      - name: Publish Common
+      - name: 发布至 NPM
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
         run: |
