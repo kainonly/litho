@@ -11,12 +11,12 @@
 
 ## 快速部署
 
-快速部署是该项目的通用方案，用于解决无需定制的场景，每个 `console-.x` 都将对应容器镜像：
+该方式是低代码项目前端的通用方案，用于无需定制的场景，每个 `console-.x` 发布都将对应容器镜像 `x` 版本（预发布是测试版本）：
 
-- ccr.ccs.tencentyun.com/weplanx/console:latest（国内）
 - ghcr.io/weplanx/console:latest
+- ccr.ccs.tencentyun.com/weplanx/console:latest（国内）
 
-你可以使用 Docker 上线，案例将使用 Kubernetes 部署编排，复制部署内容（需要更具使用情况做修改）
+你可以使用 Docker 上线，案例将使用 Kubernetes 部署编排，复制部署内容（需要根据情况做修改）
 
 ```yml
 apiVersion: apps/v1

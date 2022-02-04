@@ -2,7 +2,7 @@ name: deploy
 
 on:
   release:
-    types: [published]
+    types: [ published ]
     tags:
       - console-*
 
@@ -68,6 +68,14 @@ jobs:
           dst: |
             ${{ env.QCLOUD_REGISTRY }}/${{ env.IMAGE_NAME }}:latest
             ${{ env.QCLOUD_REGISTRY }}/${{ env.IMAGE_NAME }}:${{steps.meta.outputs.version}}
+
+      - name: Build and push QCLOUD SCF image
+        uses: docker/build-push-action@v2
+        with:
+          context: ./scf
+          push: true
+          tags: ${{ env.QCLOUD_REGISTRY }}/${{ env.IMAGE_NAME }}:${{steps.meta.outputs.version}}-scf
+          labels: ${{ steps.meta.outputs.labels }}
 
       - name: Setup Kubectl & Patch Deployment
         uses: steebchen/kubectl@v2.0.0
