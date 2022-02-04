@@ -2,8 +2,9 @@
 
 [![Github Actions](https://img.shields.io/github/workflow/status/weplanx/console/testing?style=flat-square)](https://github.com/weplanx/console/testing)
 [![Coveralls github](https://img.shields.io/coveralls/github/weplanx/console.svg?style=flat-square)](https://coveralls.io/github/weplanx/console)
-[![npm](https://img.shields.io/npm/v/weplanx/common.svg?style=flat-square)](https://www.npmjs.com/package/@weplanx/common)
-[![Downloads](https://img.shields.io/npm/dm/weplanx/common.svg?style=flat-square)](https://www.npmjs.com/package/@weplanx/common)
+[![npm](https://img.shields.io/npm/v/@weplanx/common.svg?style=flat-square)](https://www.npmjs.com/package/@weplanx/common)
+[![npm bundle size (scoped)](https://img.shields.io/bundlephobia/min/@weplanx/common?style=flat-square)](https://www.npmjs.com/package/@weplanx/common)
+[![Downloads](https://img.shields.io/npm/dm/@weplanx/common.svg?style=flat-square)](https://www.npmjs.com/package/@weplanx/common)
 [![TypeScript](https://img.shields.io/badge/%3C%2F%3E-TypeScript-blue.svg?style=flat-square)](https://www.typescriptlang.org/)
 [![GitHub license](https://img.shields.io/github/license/weplanx/console?style=flat-square)](https://raw.githubusercontent.com/weplanx/console.js/main/LICENSE)
 
@@ -59,10 +60,10 @@ kind: Ingress
 metadata:
   name: console
   annotations:
-    # traefik.ingress.kubernetes.io/router.tls: "true"
-    # traefik.ingress.kubernetes.io/router.tls.certresolver: 可选
-    # traefik.ingress.kubernetes.io/router.tls.domains.0.main: 可选
-    # traefik.ingress.kubernetes.io/router.tls.domains.0.sans: 可选
+  # traefik.ingress.kubernetes.io/router.tls: "true"
+  # traefik.ingress.kubernetes.io/router.tls.certresolver: 可选
+  # traefik.ingress.kubernetes.io/router.tls.domains.0.main: 可选
+  # traefik.ingress.kubernetes.io/router.tls.domains.0.sans: 可选
 spec:
   rules:
     - host: <你的域名>
@@ -88,7 +89,8 @@ spec:
           name: console
 ```
 
-并需要自行定制触发条件，例如在 Github Actions 中 `patch deployment console-deploy --patch "$(sed "s/\${tag}/${{steps.meta.outputs.version}}/" < ./config/patch.yml)"`
+并需要自行定制触发条件，例如在 Github Actions
+中 `patch deployment console-deploy --patch "$(sed "s/\${tag}/${{steps.meta.outputs.version}}/" < ./config/patch.yml)"`
 
 ## 定制
 
