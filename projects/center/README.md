@@ -1,24 +1,9 @@
-# Center
+# Weplanx Center
 
-This library was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.1.0.
+这个包的源代码在 [Weplanx Console](https://github.com/weplanx/console) 存储库中。 请针对该存储库提交问题和拉取请求。
 
-## Code scaffolding
+Weplanx Angular 的个人中心库，可以在存储库 [README](https://github.com/weplanx/console/blob/main/README.md) 文件中找到使用信息和参考详细信息。
 
-Run `ng generate component component-name --project center` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module --project center`.
-> Note: Don't forget to add `--project center` or else it will be added to the default project in your `angular.json` file. 
+## License
 
-## Build
-
-Run `ng build center` to build the project. The build artifacts will be stored in the `dist/` directory.
-
-## Publishing
-
-After building your library with `ng build center`, go to the dist folder `cd dist/center` and run `npm publish`.
-
-## Running unit tests
-
-Run `ng test center` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+[BSD-3-Clause License](https://github.com/weplanx/console/blob/main/LICENSE)

@@ -1,8 +1,8 @@
-# Weplanx Resources
+# Weplanx Components
 
 这个包的源代码在 [Weplanx Console](https://github.com/weplanx/console) 存储库中。 请针对该存储库提交问题和拉取请求。
 
-Weplanx Angular 的服务资源库，可以在存储库 [README](https://github.com/weplanx/console/blob/main/README.md) 文件中找到使用信息和参考详细信息。
+Weplanx Angular 的组件库，可以在存储库 [README](https://github.com/weplanx/console/blob/main/README.md) 文件中找到使用信息和参考详细信息。
 
 ## License
 
