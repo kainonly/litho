@@ -80,7 +80,7 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           context: .
-          file: { context }/Dockerfile-scf
+          file: Dockerfile-scf
           push: true
           tags: ${{ env.QCLOUD_REGISTRY }}/${{ env.IMAGE_NAME }}:${{steps.meta.outputs.version}}-scf
           labels: ${{ steps.meta.outputs.labels }}
