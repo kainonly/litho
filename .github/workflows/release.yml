@@ -2,8 +2,9 @@ name: release
 
 on:
   release:
+    types: [ published ]
     tags:
-      - '!console-*'
+      - v*
 
 jobs:
   release:
