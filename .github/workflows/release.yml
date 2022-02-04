@@ -15,17 +15,36 @@ jobs:
       - uses: actions/setup-node@v2
         with:
           node-version: '14'
+          cache: 'npm'
           registry-url: https://registry.npmjs.org
 
       - name: Install Dependency
         run: npm install
 
-      - run: npm run build:common
+      - name: Build Library
+        run: |
+          npm run build:common
+          npm run build:components
+          npm run build:settings
+          npm run build:resources
+          npm run build:center
 
       - name: Publish Common
+        env:
+          NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
         run: |
           cd ./dist/common
           npm version ${{github.ref_name}}
           npm publish --access=public
-        env:
-          NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
+          cd ../components
+          npm version ${{github.ref_name}}
+          npm publish --access=public
+          cd ../settings
+          npm version ${{github.ref_name}}
+          npm publish --access=public
+          cd ../resources
+          npm version ${{github.ref_name}}
+          npm publish --access=public
+          cd ../center
+          npm version ${{github.ref_name}}
+          npm publish --access=public
