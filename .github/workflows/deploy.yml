@@ -1,9 +1,6 @@
 name: deploy
 
 on:
-  release:
-    types:
-      - published
   push:
     tags:
       - console-*
