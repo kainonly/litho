@@ -1,6 +1,5 @@
 {
   "name": "@weplanx/common",
-  "version": "13.0.0",
   "private": false,
   "peerDependencies": {
     "@angular/common": "^13.0.0",
@@ -17,6 +16,10 @@
   "author": {
     "name": "kain",
     "email": "zhangtqx@vip.qq.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/weplanx/console.git"
   },
   "license": "BSD-3-Clause License"
 }

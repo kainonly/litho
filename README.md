@@ -16,7 +16,7 @@
 - ghcr.io/weplanx/console:latest
 - ccr.ccs.tencentyun.com/weplanx/console:latest（国内）
 
-你可以使用 Docker 上线，案例将使用 Kubernetes 部署编排，复制部署内容（需要根据情况做修改）
+一般可以使用 Docker 上线，案例将使用 Kubernetes 部署编排，复制部署内容（需要根据情况做修改）
 
 ```yml
 apiVersion: apps/v1
@@ -91,8 +91,6 @@ spec:
 并需要自行定制触发条件，例如在 Github Actions 中 `patch deployment console-deploy --patch "$(sed "s/\${tag}/${{steps.meta.outputs.version}}/" < ./config/patch.yml)"`
 
 ## 定制
-
-
 
 ```shell
 npm install @weplanx/common -S

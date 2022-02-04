@@ -1,0 +1,32 @@
+name: release
+
+on:
+  release:
+    types: [ published ]
+    tags-ignore:
+      - console-*
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    permissions:
+      packages: write
+      contents: read
+    steps:
+      - name: Check out the repo
+        uses: actions/checkout@v2
+
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+          registry-url: https://npm.pkg.github.com/
+
+      - name: Install Dependency
+        run: npm install
+
+      - run: npm run build:common
+
+      - name: Publish Common
+        run: npm publish ./dist/common
+        env:
+          NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}

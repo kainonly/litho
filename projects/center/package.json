@@ -1,6 +1,5 @@
 {
   "name": "@weplanx/center",
-  "version": "13.0.0",
   "private": false,
   "peerDependencies": {
     "@angular/common": "^13.0.0",
