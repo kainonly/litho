@@ -1,0 +1,17 @@
+name: testing
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'projects/common/**'
+
+jobs:
+  testing:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out the repo
+        uses: actions/checkout@v2
