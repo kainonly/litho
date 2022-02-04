@@ -5,13 +5,11 @@ on:
     types: [ published ]
     tags:
       - v*
+      - '!console-*'
 
 jobs:
   release:
     runs-on: ubuntu-latest
-    permissions:
-      packages: write
-      contents: read
     steps:
       - name: Check out the repo
         uses: actions/checkout@v2

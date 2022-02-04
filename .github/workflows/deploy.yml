@@ -5,6 +5,7 @@ on:
     types: [ published ]
     tags:
       - console-*
+      - '!v*'
 
 env:
   REGISTRY: ghcr.io
