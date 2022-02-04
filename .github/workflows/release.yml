@@ -3,8 +3,8 @@ name: release
 on:
   release:
     types: [ published ]
-    tags-ignore:
-      - console-*
+    tags:
+      - !console-*
 
 jobs:
   release:
@@ -27,6 +27,9 @@ jobs:
       - run: npm run build:common
 
       - name: Publish Common
-        run: npm publish ./dist/common
+        run: |
+          cd ./dist/common
+          npm version ${{github.ref_name}}
+          npm publish
         env:
           NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
