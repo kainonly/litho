@@ -6,6 +6,7 @@ import { map, switchMap } from 'rxjs';
 import { WpxService } from '@weplanx/common';
 
 import { DynamicService } from './dynamic.service';
+import { FormComponent } from './form/form.component';
 import { TableComponent } from './table/table.component';
 
 @Component({
@@ -29,6 +30,9 @@ export class WpxDynamicComponent implements OnInit {
       )
       .subscribe(page => {
         switch (page.kind) {
+          case 'form':
+            this.component = new ComponentPortal<any>(FormComponent);
+            break;
           default:
             this.component = new ComponentPortal<any>(TableComponent);
         }

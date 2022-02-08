@@ -82,9 +82,11 @@ export class WpxTableComponent implements OnInit {
   ngOnInit(): void {
     this.storage.get(this.wpxKey).subscribe(data => {
       if (!data) {
-        this.columns = [...this.wpxFields.map(v => <NzCheckBoxOptionInterface>{ label: v.label, value: v.key })];
+        for (const x of this.wpxFields) {
+          this.columns.push({ label: x.label, value: x.key });
+          this.columnsWidth[x.key] = '300px';
+        }
         this.columnsHeight = 'middle';
-        this.columnsWidth = {};
         this.updateColumnsChecked();
       } else {
         const v = data as TableOption;

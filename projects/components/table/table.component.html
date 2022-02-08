@@ -66,6 +66,7 @@
     </ng-template>
   </nz-drawer>
 </ng-template>
+
 <ng-template #toolRef>
   <nz-button-group>
     <button nz-button nzType="text" nz-tooltip="刷新" (click)="getData(true)">
@@ -124,6 +125,7 @@
     </button>
   </nz-button-group>
 </ng-template>
+
 <ng-template #bulkRef>
   <nz-alert nzType="info" nzBanner [nzMessage]="message"></nz-alert>
   <ng-template #message>
@@ -137,6 +139,7 @@
     </nz-row>
   </ng-template>
 </ng-template>
+
 <nz-table
   #basicTable
   [nzLoading]="ds.loading"

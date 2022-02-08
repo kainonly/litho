@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 
 import { TableField } from '@weplanx/components/table';
+import { NzModalService } from 'ng-zorro-antd/modal';
 
 import { DynamicService } from '../dynamic.service';
+import { FormComponent } from './form/form.component';
 
 @Component({
   selector: 'wpx-dynamic-table',
@@ -12,7 +14,7 @@ export class TableComponent implements OnInit {
   key?: string;
   fields: TableField[] = [];
 
-  constructor(public dynamic: DynamicService) {}
+  constructor(public dynamic: DynamicService, private modal: NzModalService) {}
 
   ngOnInit(): void {
     const schema = this.dynamic.page?.schema;
@@ -30,5 +32,18 @@ export class TableComponent implements OnInit {
           };
         })
     ];
+  }
+
+  form(editable?: any): void {
+    this.modal.create({
+      nzTitle: !editable ? '新增' : '编辑',
+      nzContent: FormComponent,
+      nzComponentParams: {
+        editable
+      },
+      nzOnOk: () => {
+        // this.getData();
+      }
+    });
   }
 }

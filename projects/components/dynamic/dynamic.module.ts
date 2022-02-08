@@ -2,15 +2,15 @@ import { PortalModule } from '@angular/cdk/portal';
 import { NgModule } from '@angular/core';
 
 import { WpxModule, WpxShareModule } from '@weplanx/common';
-import { WpxTableModule } from '@weplanx/components/table';
 
 import { WpxDynamicComponent } from './dynamic.component';
 import { DynamicService } from './dynamic.service';
-import { TableComponent } from './table/table.component';
+import { FormModule } from './form/form.module';
+import { TableModule } from './table/table.module';
 
 @NgModule({
-  imports: [WpxModule, WpxShareModule, WpxTableModule, PortalModule],
-  declarations: [WpxDynamicComponent, TableComponent],
+  imports: [WpxModule, WpxShareModule, PortalModule, TableModule, FormModule],
+  declarations: [WpxDynamicComponent],
   exports: [WpxDynamicComponent],
   providers: [DynamicService]
 })
