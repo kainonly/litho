@@ -35,9 +35,6 @@
           {{ data.label }} [ {{ data.key }} ]
         </td>
         <td>
-          <ng-container *ngIf="data.unique">
-            <nz-tag>唯一的</nz-tag>
-          </ng-container>
           <ng-container *ngIf="data.required">
             <nz-tag>必须的</nz-tag>
           </ng-container>

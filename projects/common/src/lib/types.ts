@@ -175,10 +175,6 @@ export interface Field {
    */
   required?: boolean;
   /**
-   * 唯一
-   */
-  unique?: boolean;
-  /**
    * 隐藏字段
    */
   hide?: boolean;

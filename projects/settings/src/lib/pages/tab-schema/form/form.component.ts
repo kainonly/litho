@@ -37,7 +37,6 @@ export class FormComponent implements OnInit {
       placeholder: [null],
       default: [null],
       required: [false],
-      unique: [false],
       hide: [false],
       modified: [true],
       spec: this.fb.group({
