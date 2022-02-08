@@ -1,0 +1,53 @@
+<form *ngIf="form" nz-form nzLayout="vertical" id="form" [formGroup]="form" (wpxSubmit)="submit($event)">
+  <ng-container *ngFor="let field of wpxFields">
+    <ng-container [ngSwitch]="field.type">
+      <ng-container *ngSwitchCase="'string'">
+        <nz-form-item style="width: 420px">
+          <nz-form-label [nzRequired]="field.required">{{ field.label }}</nz-form-label>
+          <nz-form-control
+            nzHasFeedback
+            [nzExtra]="field.description ?? ''"
+            [nzAutoTips]="{
+              default: {
+                required: field.label + '不能为空'
+              }
+            }"
+          >
+            <input nz-input type="text" [formControlName]="field.key" [placeholder]="field.placeholder ?? ''" />
+          </nz-form-control>
+        </nz-form-item>
+      </ng-container>
+      <ng-container *ngSwitchCase="'text'">
+        <nz-form-item style="width: 420px">
+          <nz-form-label [nzRequired]="field.required">{{ field.label }}</nz-form-label>
+          <nz-form-control
+            nzHasFeedback
+            [nzExtra]="field.description ?? ''"
+            [nzAutoTips]="{
+              default: {
+                required: field.label + '不能为空'
+              }
+            }"
+          >
+            <nz-textarea-count [nzMaxCharacterCount]="100">
+              <textarea
+                rows="4"
+                nz-input
+                [formControlName]="field.key"
+                [placeholder]="field.placeholder ?? ''"
+              ></textarea>
+            </nz-textarea-count>
+          </nz-form-control>
+        </nz-form-item>
+      </ng-container>
+      <ng-container *ngSwitchCase="'bool'">
+        <nz-form-item>
+          <nz-form-label [nzRequired]="field.required">{{ field.label }}</nz-form-label>
+          <nz-form-control [nzExtra]="field.description ?? ''">
+            <nz-switch [formControlName]="field.key"></nz-switch>
+          </nz-form-control>
+        </nz-form-item>
+      </ng-container>
+    </ng-container>
+  </ng-container>
+</form>

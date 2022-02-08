@@ -14,6 +14,9 @@ import { WpxService } from '@weplanx/common';
             <li nz-menu-item nzMatchRouter [routerLink]="['media']">
               <i nz-icon nzType="experiment"></i> <span>媒体表单</span>
             </li>
+            <li nz-menu-item nzMatchRouter [routerLink]="['form']">
+              <i nz-icon nzType="experiment"></i> <span>动态表单</span>
+            </li>
             <li nz-menu-item nzMatchRouter [routerLink]="['orders']">
               <i nz-icon nzType="experiment"></i> <span>动态表格</span>
             </li>

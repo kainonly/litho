@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
+import { Field } from '@weplanx/common';
+
 import { DynamicService } from '../dynamic.service';
 
 @Component({
@@ -7,10 +9,14 @@ import { DynamicService } from '../dynamic.service';
   templateUrl: './form.component.html'
 })
 export class FormComponent implements OnInit {
+  fields!: Field[];
+  rules!: any[];
+
   constructor(public dynamic: DynamicService) {}
 
   ngOnInit(): void {
     const schema = this.dynamic.page?.schema;
-    console.log(schema);
+    this.fields = [...Object.values(schema!.fields).sort((a, b) => a.sort - b.sort)];
+    this.rules = [...(schema?.rules ?? [])];
   }
 }

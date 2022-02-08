@@ -5,7 +5,6 @@ import { ActivatedRoute } from '@angular/router';
 import { AnyDto, Field, Page } from '@weplanx/common';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalService } from 'ng-zorro-antd/modal';
-import { NzNotificationService } from 'ng-zorro-antd/notification';
 
 import { PagesSerivce } from '../pages.serivce';
 import { fieldTypeValues } from '../values';
@@ -27,7 +26,6 @@ export class SchemaComponent implements OnInit {
     private pages: PagesSerivce,
     private modal: NzModalService,
     private message: NzMessageService,
-    private notification: NzNotificationService,
     private route: ActivatedRoute
   ) {}
 
@@ -81,24 +79,16 @@ export class SchemaComponent implements OnInit {
         this.key,
         this.fieldList.map(v => v.key)
       )
-      .subscribe(v => {
-        if (v.code === 0) {
-          this.getData();
-          this.message.success('字段排序刷新成功');
-        } else {
-          this.notification.error('操作失败', v.message);
-        }
+      .subscribe(() => {
+        this.getData();
+        this.message.success('字段排序刷新成功');
       });
   }
 
   delete(data: Field): void {
-    this.pages.deleteSchemaField(this.key, data.key).subscribe(v => {
-      if (v.code === 0) {
-        this.getData();
-        this.message.success('字段移除成功');
-      } else {
-        this.notification.error('操作失败', v.message);
-      }
+    this.pages.deleteSchemaField(this.key, data.key).subscribe(() => {
+      this.getData();
+      this.message.success('字段移除成功');
     });
   }
 }

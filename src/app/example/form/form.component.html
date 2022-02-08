@@ -1,0 +1,19 @@
+<wpx-layout wpxTitle="动态表单"> </wpx-layout>
+
+<nz-row [nzGutter]="16">
+  <nz-col [nzSpan]="18">
+    <nz-card>
+      <wpx-form [wpxFields]="fields" [wpxRules]="rules"></wpx-form>
+    </nz-card>
+  </nz-col>
+  <nz-col [nzSpan]="6">
+    <nz-card>
+      <nz-descriptions [nzColumn]="1" nzLayout="vertical">
+        <nz-descriptions-item nzTitle="更新时间">2022-02-08 16:49</nz-descriptions-item>
+        <nz-descriptions-item nzTitle="操作">
+          <button nz-button nzType="primary">提交</button>
+        </nz-descriptions-item>
+      </nz-descriptions>
+    </nz-card>
+  </nz-col>
+</nz-row>

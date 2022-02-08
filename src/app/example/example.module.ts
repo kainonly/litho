@@ -27,6 +27,13 @@ const routes: Routes = [
         }
       },
       {
+        path: 'form',
+        loadChildren: () => import('./form/form.module').then(m => m.FormModule),
+        data: {
+          breadcrumb: '动态表单'
+        }
+      },
+      {
         path: 'orders',
         loadChildren: () => import('./orders/orders.module').then(m => m.OrdersModule),
         data: {

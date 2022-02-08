@@ -54,11 +54,13 @@ export class PagesSerivce extends Api<Page> {
   }
 
   sortSchemaFields(id: string, fields: string[]): Observable<any> {
+    const values: Record<string, number> = {};
+    fields.forEach((value, index) => {
+      values[`schema.fields.${value}.sort`] = index;
+    });
     return this.updateOneById(id, {
       update: {
-        $set: fields.map((key, index) => ({
-          [`schema.fields.${key}.sort`]: index
-        })) as Record<string, any>
+        $set: values
       }
     });
   }
