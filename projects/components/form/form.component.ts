@@ -14,6 +14,7 @@ export class WpxFormComponent implements OnInit {
 
   infinity = Infinity;
   form?: FormGroup;
+  checkBoxOptions: Record<string, NzCheckBoxOptionInterface[]> = {};
 
   constructor(private fb: FormBuilder) {}
 
@@ -26,16 +27,15 @@ export class WpxFormComponent implements OnInit {
       }
       switch (x.type) {
         case 'checkbox':
-          const values: NzCheckBoxOptionInterface[] =
+          const options: NzCheckBoxOptionInterface[] =
             x.option?.values?.map<NzCheckBoxOptionInterface>(v => ({
               label: v.label,
               value: v.value
             })) ?? [];
-          controlsConfig[x.key] = [values, validator];
+          this.checkBoxOptions[x.key] = options;
           break;
-        default:
-          controlsConfig[x.key] = [x.default, validator];
       }
+      controlsConfig[x.key] = [x.default, validator];
     }
     this.form = this.fb.group(controlsConfig);
   }

@@ -5,7 +5,7 @@ import { NzCheckBoxOptionInterface } from 'ng-zorro-antd/checkbox';
 
 @Component({
   selector: 'wpx-checkbox',
-  template: ` <nz-checkbox-group [(ngModel)]="options" (ngModelChange)="changed($event)"></nz-checkbox-group> `,
+  template: ` <nz-checkbox-group [(ngModel)]="wpxOptions" (ngModelChange)="changed($event)"></nz-checkbox-group> `,
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
@@ -15,7 +15,7 @@ import { NzCheckBoxOptionInterface } from 'ng-zorro-antd/checkbox';
   ]
 })
 export class WpxCheckboxComponent implements ControlValueAccessor {
-  @Input() options: NzCheckBoxOptionInterface[] = [];
+  @Input() wpxOptions: NzCheckBoxOptionInterface[] = [];
 
   values?: string[];
 
@@ -32,8 +32,8 @@ export class WpxCheckboxComponent implements ControlValueAccessor {
 
   writeValue(value: any): void {
     this.values = value ?? [];
-    this.options = [
-      ...this.options.map(v => {
+    this.wpxOptions = [
+      ...this.wpxOptions.map(v => {
         v.checked = this.values?.includes(v.value);
         return v;
       })

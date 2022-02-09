@@ -115,7 +115,7 @@
         <nz-form-item>
           <nz-form-label [nzRequired]="field.required">{{ field.label }}</nz-form-label>
           <nz-form-control [nzExtra]="field.description ?? ''">
-            <nz-checkbox-group [formControlName]="field.key"></nz-checkbox-group>
+            <wpx-checkbox [formControlName]="field.key" [wpxOptions]="checkBoxOptions[field.key]"></wpx-checkbox>
           </nz-form-control>
         </nz-form-item>
       </ng-container>
