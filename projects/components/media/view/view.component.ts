@@ -238,7 +238,7 @@ export class WpxMediaViewComponent implements OnInit, AfterViewInit {
       nzWidth: 960,
       nzContent: VideoComponent,
       nzComponentParams: {
-        data
+        url: data.url
       },
       nzFooter: null
     });

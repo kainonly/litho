@@ -2,11 +2,12 @@ import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { Component, forwardRef, Input, Optional } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
-import { WpxService } from '@weplanx/common';
+import { AnyDto, WpxService } from '@weplanx/common';
 import { NzImageService } from 'ng-zorro-antd/image';
 import { NzModalService } from 'ng-zorro-antd/modal';
 
-import { MediaType } from './types';
+import { Media, MediaType } from './types';
+import { VideoComponent } from './view/video/video.component';
 import { WpxMediaViewComponent } from './view/view.component';
 
 @Component({
@@ -112,5 +113,20 @@ export class WpxMediaComponent implements ControlValueAccessor {
         src: `${this.wpx.assets}/${url}`
       }
     ]);
+  }
+
+  /**
+   * 查看视频
+   * @param url
+   */
+  video(url: string): void {
+    this.modal.create({
+      nzWidth: 960,
+      nzContent: VideoComponent,
+      nzComponentParams: {
+        url
+      },
+      nzFooter: null
+    });
   }
 }

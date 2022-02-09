@@ -16,10 +16,11 @@
         <nz-card nzSize="small" [nzBorderless]="false">
           <nz-row nzJustify="space-between" nzAlign="middle">
             <nz-col>
-              <div class="meta" (click)="preview(x)">
+              <div class="meta">
                 <ng-container [ngSwitch]="wpxType">
                   <ng-container *ngSwitchCase="'pictures'">
                     <img
+                      (click)="preview(x)"
                       nz-image
                       nzDisablePreview
                       [nzSrc]="[x, 'thumbnail'] | wpxAssets"
@@ -28,7 +29,7 @@
                     />
                   </ng-container>
                   <ng-container *ngSwitchCase="'videos'">
-                    <img nz-image nzDisablePreview [nzSrc]="[x + '_chart'] | wpxAssets" [alt]="x" />
+                    <img (click)="video(x)" nz-image nzDisablePreview [nzSrc]="[x + '_chart'] | wpxAssets" [alt]="x" />
                   </ng-container>
                 </ng-container>
               </div>
