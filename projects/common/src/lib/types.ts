@@ -196,7 +196,8 @@ export type BasicType =
   | 'string' // 单行
   | 'text' // 多行
   | 'number' // 数字
-  | 'datetime' // 日期时间
+  | 'date' // 日期
+  | 'between-dates' // 日期之间
   | 'bool' // 状态
   | 'radio' // 单选
   | 'checkbox' // 复选
@@ -222,6 +223,10 @@ export interface FieldOption {
    * 保留小数
    */
   decimal: number;
+  /**
+   * 包含时间
+   */
+  time: boolean;
   /**
    * 枚举
    */

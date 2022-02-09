@@ -40,6 +40,57 @@
           </nz-form-control>
         </nz-form-item>
       </ng-container>
+      <ng-container *ngSwitchCase="'number'">
+        <nz-form-item>
+          <nz-form-label [nzRequired]="field.required">{{ field.label }}</nz-form-label>
+          <nz-form-control
+            [nzExtra]="field.description ?? ''"
+            [nzAutoTips]="{
+              default: {
+                required: field.label + '不能为空'
+              }
+            }"
+          >
+            <nz-input-number
+              [formControlName]="field.key"
+              [nzPrecision]="field?.option?.decimal"
+              [nzMax]="field?.option?.max ?? infinity"
+              [nzMin]="field?.option?.min ?? -infinity"
+              [nzStep]="1"
+            ></nz-input-number>
+          </nz-form-control>
+        </nz-form-item>
+      </ng-container>
+      <ng-container *ngSwitchCase="'date'">
+        <nz-form-item>
+          <nz-form-label [nzRequired]="field.required">{{ field.label }}</nz-form-label>
+          <nz-form-control
+            [nzExtra]="field.description ?? ''"
+            [nzAutoTips]="{
+              default: {
+                required: field.label + '不能为空'
+              }
+            }"
+          >
+            <nz-date-picker [formControlName]="field.key" [nzShowTime]="field?.option?.time"></nz-date-picker>
+          </nz-form-control>
+        </nz-form-item>
+      </ng-container>
+      <ng-container *ngSwitchCase="'between-dates'">
+        <nz-form-item>
+          <nz-form-label [nzRequired]="field.required">{{ field.label }}</nz-form-label>
+          <nz-form-control
+            [nzExtra]="field.description ?? ''"
+            [nzAutoTips]="{
+              default: {
+                required: field.label + '不能为空'
+              }
+            }"
+          >
+            <nz-range-picker [formControlName]="field.key" [nzShowTime]="field?.option?.time"></nz-range-picker>
+          </nz-form-control>
+        </nz-form-item>
+      </ng-container>
       <ng-container *ngSwitchCase="'bool'">
         <nz-form-item>
           <nz-form-label [nzRequired]="field.required">{{ field.label }}</nz-form-label>
@@ -48,6 +99,71 @@
           </nz-form-control>
         </nz-form-item>
       </ng-container>
+      <ng-container *ngSwitchCase="'radio'">
+        <nz-form-item>
+          <nz-form-label [nzRequired]="field.required">{{ field.label }}</nz-form-label>
+          <nz-form-control [nzExtra]="field.description ?? ''">
+            <nz-radio-group [formControlName]="field.key">
+              <ng-container *ngFor="let x of field?.option?.values">
+                <label nz-radio [nzValue]="x.value">{{ x.label }}</label>
+              </ng-container>
+            </nz-radio-group>
+          </nz-form-control>
+        </nz-form-item>
+      </ng-container>
+      <ng-container *ngSwitchCase="'checkbox'">
+        <nz-form-item>
+          <nz-form-label [nzRequired]="field.required">{{ field.label }}</nz-form-label>
+          <nz-form-control [nzExtra]="field.description ?? ''">
+            <nz-checkbox-group [formControlName]="field.key"></nz-checkbox-group>
+          </nz-form-control>
+        </nz-form-item>
+      </ng-container>
+      <ng-container *ngSwitchCase="'select'">
+        <nz-form-item style="width: 420px">
+          <nz-form-label [nzRequired]="field.required">{{ field.label }}</nz-form-label>
+          <nz-form-control [nzExtra]="field.description ?? ''">
+            <nz-select
+              [formControlName]="field.key"
+              [nzMode]="field?.option?.multiple ? 'tags' : 'default'"
+              [nzPlaceHolder]="field?.placeholder ?? '请选择'"
+            >
+              <ng-container *ngFor="let x of field?.option?.values">
+                <nz-option [nzLabel]="x.label" [nzValue]="x.value"></nz-option>
+              </ng-container>
+            </nz-select>
+          </nz-form-control>
+        </nz-form-item>
+      </ng-container>
+      <ng-container *ngSwitchCase="'picture'">
+        <nz-form-item>
+          <nz-form-label [nzRequired]="field.required">{{ field.label }}</nz-form-label>
+          <nz-form-control [nzExtra]="field.description ?? ''">
+            <wpx-media
+              [formControlName]="field.key"
+              [wpxType]="'pictures'"
+              [wpxFallback]="['assets', 'dataflow.svg'] | wpxAssets"
+            ></wpx-media>
+          </nz-form-control>
+        </nz-form-item>
+      </ng-container>
+      <ng-container *ngSwitchCase="'video'">
+        <nz-form-item>
+          <nz-form-label [nzRequired]="field.required">{{ field.label }}</nz-form-label>
+          <nz-form-control [nzExtra]="field.description ?? ''">
+            <wpx-media
+              [formControlName]="field.key"
+              [wpxType]="'videos'"
+              [wpxFallback]="['assets', 'dataflow.svg'] | wpxAssets"
+            ></wpx-media>
+          </nz-form-control>
+        </nz-form-item>
+      </ng-container>
     </ng-container>
   </ng-container>
+  <nz-form-item>
+    <nz-form-control>
+      <button nz-button nzType="primary">提交</button>
+    </nz-form-control>
+  </nz-form-item>
 </form>
