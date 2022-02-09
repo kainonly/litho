@@ -20,15 +20,15 @@ const routes: Routes = [
         }
       },
       {
-        path: 'media',
-        loadChildren: () => import('./media/media.module').then(m => m.MediaModule),
+        path: 'form',
+        loadChildren: () => import('./form/form.module').then(m => m.FormModule),
         data: {
           breadcrumb: '媒体表单'
         }
       },
       {
-        path: 'form',
-        loadChildren: () => import('./form/form.module').then(m => m.FormModule),
+        path: 'dynamic-form',
+        loadChildren: () => import('./dynamic-form/dynamic-form.module').then(m => m.DynamicFormModule),
         data: {
           breadcrumb: '动态表单'
         }
