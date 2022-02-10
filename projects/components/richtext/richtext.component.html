@@ -1,11 +1,18 @@
-<ng-template #title>
-  <input style="text-align: center" nz-input placeholder="标题" nzBorderless />
+<ng-template #titleRef>
+  <input
+    style="text-align: center"
+    nz-input
+    placeholder="标题"
+    nzBorderless
+    [(ngModel)]="title"
+    (ngModelChange)="titleChanged()"
+  />
 </ng-template>
 
-<ng-template #extra>
+<ng-template #extraRef>
   <button nz-button type="button" nzType="text"><i nz-icon nzType="clear"></i> </button>
 </ng-template>
 
-<nz-card [nzBorderless]="false" [nzTitle]="title" [nzExtra]="extra">
+<nz-card [nzLoading]="loading" [nzBorderless]="false" [nzTitle]="titleRef" [nzExtra]="extraRef">
   <div #article></div>
 </nz-card>

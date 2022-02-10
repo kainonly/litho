@@ -2,6 +2,7 @@ import { Platform } from '@angular/cdk/platform';
 import {
   AfterViewInit,
   ChangeDetectionStrategy,
+  ChangeDetectorRef,
   Component,
   ElementRef,
   forwardRef,
@@ -12,8 +13,7 @@ import {
   ViewEncapsulation
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-
-import { NzModalService } from 'ng-zorro-antd/modal';
+import { from } from 'rxjs';
 
 import { WpxRichtextService } from './richtext.service';
 
@@ -35,18 +35,20 @@ let EditorJS: any;
 })
 export class WpxRichtextComponent implements ControlValueAccessor, AfterViewInit, OnDestroy {
   @Input() wpxPlaceholder?: string;
-  @ViewChild('article') article!: ElementRef;
 
-  value?: any;
-
+  title = '';
+  loading = true;
+  private value?: any;
   private instance?: any;
   private onChange?: (value: any) => void;
   private onTouched?: () => void;
 
+  @ViewChild('article') article!: ElementRef;
+
   constructor(
-    private modal: NzModalService,
     private platform: Platform,
     private zone: NgZone,
+    private cd: ChangeDetectorRef,
     private richtext: WpxRichtextService
   ) {}
 
@@ -59,7 +61,7 @@ export class WpxRichtextComponent implements ControlValueAccessor, AfterViewInit
   }
 
   writeValue(value: any): void {
-    this.value = value;
+    this.value = value ?? {};
   }
 
   ngAfterViewInit(): void {
@@ -90,8 +92,29 @@ export class WpxRichtextComponent implements ControlValueAccessor, AfterViewInit
         holder: this.article.nativeElement,
         placeholder: this.wpxPlaceholder,
         logLevel: 'ERROR',
-        ...config
+        ...config,
+        onChange: () => {
+          from(this.instance?.save() as Promise<any>).subscribe(data => {
+            this.value = {
+              ...this.value,
+              ...data
+            };
+            this.onChange!(this.value);
+          });
+        }
+      });
+      from(this.instance.isReady).subscribe(() => {
+        this.loading = false;
+        this.cd.detectChanges();
       });
     });
+  }
+
+  titleChanged(): void {
+    this.value = {
+      ...this.value,
+      title: this.title
+    };
+    this.onChange!(this.value);
   }
 }
