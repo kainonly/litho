@@ -4,19 +4,19 @@ import { RouterModule, Routes } from '@angular/router';
 import { ShareModule } from '@common/share.module';
 import { WpxTableModule } from '@weplanx/components/table';
 
-import { OrdersComponent } from './orders.component';
 import { OrdersService } from './orders.service';
+import { TableComponent } from './table.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: OrdersComponent
+    component: TableComponent
   }
 ];
 
 @NgModule({
   imports: [ShareModule, WpxTableModule, RouterModule.forChild(routes)],
-  declarations: [OrdersComponent],
+  declarations: [TableComponent],
   providers: [OrdersService]
 })
-export class OrdersModule {}
+export class TableModule {}

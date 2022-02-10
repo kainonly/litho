@@ -5,10 +5,11 @@ import { TableField } from '@weplanx/components/table';
 import { OrdersService } from './orders.service';
 
 @Component({
-  selector: 'app-example-orders',
-  templateUrl: './orders.component.html'
+  selector: 'app-example-table',
+  templateUrl: './table.component.html'
 })
-export class OrdersComponent {
+export class TableComponent {
+  key = 'orders_example';
   fields: TableField[] = [
     { label: '订单号', key: 'order_number', type: 'text', keyword: true },
     { label: '服务号', key: 'service_number', type: 'text', keyword: true },

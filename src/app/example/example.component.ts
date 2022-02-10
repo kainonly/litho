@@ -17,8 +17,11 @@ import { WpxService } from '@weplanx/common';
             <li nz-menu-item nzMatchRouter [routerLink]="['dynamic-form']">
               <i nz-icon nzType="experiment"></i> <span>动态表单</span>
             </li>
-            <li nz-menu-item nzMatchRouter [routerLink]="['orders']">
+            <li nz-menu-item nzMatchRouter [routerLink]="['table']">
               <i nz-icon nzType="experiment"></i> <span>动态表格</span>
+            </li>
+            <li nz-menu-item nzMatchRouter [routerLink]="['richtext']">
+              <i nz-icon nzType="experiment"></i> <span>富文本</span>
             </li>
           </ul>
         </nz-sider>

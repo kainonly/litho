@@ -23,7 +23,7 @@ const routes: Routes = [
         path: 'form',
         loadChildren: () => import('./form/form.module').then(m => m.FormModule),
         data: {
-          breadcrumb: '媒体表单'
+          breadcrumb: '静态表单'
         }
       },
       {
@@ -34,10 +34,17 @@ const routes: Routes = [
         }
       },
       {
-        path: 'orders',
-        loadChildren: () => import('./orders/orders.module').then(m => m.OrdersModule),
+        path: 'table',
+        loadChildren: () => import('./table/table.module').then(m => m.TableModule),
         data: {
           breadcrumb: '动态表格'
+        }
+      },
+      {
+        path: 'richtext',
+        loadChildren: () => import('./richtext/richtext.module').then(m => m.RichtextModule),
+        data: {
+          breadcrumb: '富文本'
         }
       },
       { path: '', redirectTo: '/example/home', pathMatch: 'full' }
