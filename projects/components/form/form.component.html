@@ -125,12 +125,20 @@
           <nz-form-control [nzExtra]="field.description ?? ''">
             <nz-select
               [formControlName]="field.key"
-              [nzMode]="field?.option?.multiple ? 'tags' : 'default'"
+              [nzMode]="field?.option?.multiple || field?.option?.reference ? 'tags' : 'default'"
+              [nzMaxMultipleCount]="field?.option?.multiple ? infinity : 1"
               [nzPlaceHolder]="field?.placeholder ?? '请选择'"
             >
-              <ng-container *ngFor="let x of field?.option?.values">
-                <nz-option [nzLabel]="x.label" [nzValue]="x.value"></nz-option>
+              <ng-container *ngIf="field?.option?.reference; else staticValues">
+                <ng-container *ngFor="let x of refs[field.key]">
+                  <nz-option [nzLabel]="x.label" [nzValue]="x.value"></nz-option>
+                </ng-container>
               </ng-container>
+              <ng-template #staticValues>
+                <ng-container *ngFor="let x of field?.option?.values">
+                  <nz-option [nzLabel]="x.label" [nzValue]="x.value"></nz-option>
+                </ng-container>
+              </ng-template>
             </nz-select>
           </nz-form-control>
         </nz-form-item>

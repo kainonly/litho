@@ -111,16 +111,37 @@ export class DynamicFormComponent {
       }
     },
     {
-      key: 'tags',
-      label: '标签',
+      key: 'labels',
+      label: '标记',
       type: 'select',
       sort: 0,
       option: {
         values: [
-          { label: '标签1', value: 1 },
-          { label: '标签2', value: 2 },
-          { label: '标签3', value: 3 }
+          { label: '标记1', value: 1 },
+          { label: '标记2', value: 2 },
+          { label: '标记3', value: 3 }
         ],
+        multiple: true
+      }
+    },
+    {
+      key: 'pages',
+      label: '所属页面（单引用）',
+      type: 'select',
+      sort: 0,
+      option: {
+        reference: 'pages',
+        target: '_id'
+      }
+    },
+    {
+      key: 'tags',
+      label: '标签（多引用）',
+      type: 'select',
+      sort: 0,
+      option: {
+        reference: 'tags',
+        target: '_id',
         multiple: true
       }
     },
