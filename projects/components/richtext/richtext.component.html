@@ -1,0 +1,11 @@
+<ng-template #title>
+  <input style="text-align: center" nz-input placeholder="标题" nzBorderless />
+</ng-template>
+
+<ng-template #extra>
+  <button nz-button type="button" nzType="text"><i nz-icon nzType="clear"></i> </button>
+</ng-template>
+
+<nz-card [nzBorderless]="false" [nzTitle]="title" [nzExtra]="extra">
+  <div #article></div>
+</nz-card>

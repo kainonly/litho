@@ -40,13 +40,6 @@ const routes: Routes = [
           breadcrumb: '动态表格'
         }
       },
-      {
-        path: 'richtext',
-        loadChildren: () => import('./richtext/richtext.module').then(m => m.RichtextModule),
-        data: {
-          breadcrumb: '富文本'
-        }
-      },
       { path: '', redirectTo: '/example/home', pathMatch: 'full' }
     ]
   }

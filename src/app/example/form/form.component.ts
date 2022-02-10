@@ -23,6 +23,7 @@ export class FormComponent implements OnInit {
   ngOnInit(): void {
     this.form = this.fb.group({
       feature: [['1']],
+      text: [],
       avatar: [],
       picture: [],
       video: []

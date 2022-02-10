@@ -20,9 +20,6 @@ import { WpxService } from '@weplanx/common';
             <li nz-menu-item nzMatchRouter [routerLink]="['table']">
               <i nz-icon nzType="experiment"></i> <span>动态表格</span>
             </li>
-            <li nz-menu-item nzMatchRouter [routerLink]="['richtext']">
-              <i nz-icon nzType="experiment"></i> <span>富文本</span>
-            </li>
           </ul>
         </nz-sider>
         <nz-layout style="overflow: auto">
