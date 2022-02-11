@@ -2,9 +2,8 @@ import { registerLocaleData } from '@angular/common';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import zh from '@angular/common/locales/zh';
 import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { RouterModule } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
 import { ServiceWorkerModule } from '@angular/service-worker';
 
 import { ShareModule } from '@common/share.module';
@@ -18,10 +17,54 @@ import { AppInterceptors } from './app.interceptors';
 
 registerLocaleData(zh);
 
+const routes: Routes = [
+  {
+    path: 'login',
+    loadChildren: () => import('./login/login.module').then(m => m.LoginModule)
+  },
+  {
+    path: 'pages',
+    loadChildren: () => import('./pages/pages.module').then(m => m.PagesModule),
+    canActivate: [AppGuard]
+  },
+  {
+    path: 'example',
+    loadChildren: () => import('./example/example.module').then(m => m.ExampleModule),
+    data: {
+      breadcrumb: '示例'
+    },
+    canActivate: [AppGuard]
+  },
+  {
+    path: 'resources',
+    loadChildren: () => import('@weplanx/resources').then(m => m.ResourcesModule),
+    canActivate: [AppGuard],
+    data: {
+      breadcrumb: '服务资源'
+    }
+  },
+  {
+    path: 'settings',
+    loadChildren: () => import('@weplanx/settings').then(m => m.SettingsModule),
+    canActivate: [AppGuard],
+    data: {
+      breadcrumb: '管理者工具'
+    }
+  },
+  {
+    path: 'center',
+    loadChildren: () => import('@weplanx/center').then(m => m.CenterModule),
+    canActivate: [AppGuard],
+    data: {
+      breadcrumb: '个人中心'
+    }
+  },
+  { path: '', redirectTo: '/pages', pathMatch: 'full' }
+];
+
 @NgModule({
   declarations: [AppComponent],
   imports: [
-    BrowserModule.withServerTransition({ appId: 'serverApp' }),
     BrowserAnimationsModule,
     HttpClientModule,
     ShareModule,
@@ -29,53 +72,7 @@ registerLocaleData(zh);
       enabled: environment.production,
       registrationStrategy: 'registerWhenStable:30000'
     }),
-    RouterModule.forRoot(
-      [
-        {
-          path: 'login',
-          loadChildren: () => import('./login/login.module').then(m => m.LoginModule)
-        },
-        {
-          path: 'pages',
-          loadChildren: () => import('./pages/pages.module').then(m => m.PagesModule),
-          canActivate: [AppGuard]
-        },
-        {
-          path: 'example',
-          loadChildren: () => import('./example/example.module').then(m => m.ExampleModule),
-          data: {
-            breadcrumb: '示例'
-          },
-          canActivate: [AppGuard]
-        },
-        {
-          path: 'resources',
-          loadChildren: () => import('@weplanx/resources').then(m => m.ResourcesModule),
-          canActivate: [AppGuard],
-          data: {
-            breadcrumb: '服务资源'
-          }
-        },
-        {
-          path: 'settings',
-          loadChildren: () => import('@weplanx/settings').then(m => m.SettingsModule),
-          canActivate: [AppGuard],
-          data: {
-            breadcrumb: '管理者工具'
-          }
-        },
-        {
-          path: 'center',
-          loadChildren: () => import('@weplanx/center').then(m => m.CenterModule),
-          canActivate: [AppGuard],
-          data: {
-            breadcrumb: '个人中心'
-          }
-        },
-        { path: '', redirectTo: '/pages', pathMatch: 'full' }
-      ],
-      { useHash: true, initialNavigation: 'enabledBlocking' }
-    )
+    RouterModule.forRoot(routes, { useHash: true })
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AppInterceptors, multi: true },

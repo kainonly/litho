@@ -24,7 +24,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/console/browser",
+            "outputPath": "dist/console",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -34,8 +34,7 @@
             "styles": ["./node_modules/ng-zorro-antd/ng-zorro-antd.min.css", "src/styles.scss"],
             "scripts": [],
             "serviceWorker": true,
-            "ngswConfigPath": "ngsw-config.json",
-            "allowedCommonJsDependencies": ["tsparticles", "size-sensor", "pdfast"]
+            "ngswConfigPath": "ngsw-config.json"
           },
           "configurations": {
             "production": {
@@ -98,65 +97,6 @@
           "options": {
             "lintFilePatterns": ["src/**/*.ts", "src/**/*.html"]
           }
-        },
-        "server": {
-          "builder": "@angular-devkit/build-angular:server",
-          "options": {
-            "outputPath": "dist/console/server",
-            "main": "server.ts",
-            "tsConfig": "tsconfig.server.json",
-            "inlineStyleLanguage": "scss"
-          },
-          "configurations": {
-            "production": {
-              "outputHashing": "media",
-              "fileReplacements": [
-                {
-                  "replace": "src/environments/environment.ts",
-                  "with": "src/environments/environment.prod.ts"
-                }
-              ]
-            },
-            "development": {
-              "optimization": false,
-              "sourceMap": true,
-              "extractLicenses": false
-            }
-          },
-          "defaultConfiguration": "production"
-        },
-        "serve-ssr": {
-          "builder": "@nguniversal/builders:ssr-dev-server",
-          "configurations": {
-            "development": {
-              "browserTarget": "console:build:development",
-              "serverTarget": "console:server:development"
-            },
-            "production": {
-              "browserTarget": "console:build:production",
-              "serverTarget": "console:server:production"
-            }
-          },
-          "defaultConfiguration": "development"
-        },
-        "prerender": {
-          "builder": "@nguniversal/builders:prerender",
-          "options": {
-            "routes": [
-              "/"
-            ]
-          },
-          "configurations": {
-            "production": {
-              "browserTarget": "console:build:production",
-              "serverTarget": "console:server:production"
-            },
-            "development": {
-              "browserTarget": "console:build:development",
-              "serverTarget": "console:server:development"
-            }
-          },
-          "defaultConfiguration": "production"
         }
       }
     },
