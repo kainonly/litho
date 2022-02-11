@@ -22,6 +22,7 @@ import { defaultTools, zh_CN } from './helper';
 import { Image } from './image';
 import { WpxRichtextService } from './richtext.service';
 import { ResolveDone } from './types';
+import { Video } from './video';
 
 let windowAny: any = window;
 
@@ -99,6 +100,7 @@ export class WpxRichtextComponent implements ControlValueAccessor, AfterViewInit
   private initialize(): void {
     this.instance = new windowAny.EditorJS({
       holder: this.article.nativeElement,
+      data: this.value,
       placeholder: this.wpxPlaceholder,
       logLevel: 'ERROR',
       tools: {
@@ -108,6 +110,17 @@ export class WpxRichtextComponent implements ControlValueAccessor, AfterViewInit
           config: {
             resolve: (done: ResolveDone) => {
               this.openMediaView('pictures', done);
+            },
+            change: () => {
+              this.editorValue();
+            }
+          }
+        },
+        video: {
+          class: Video,
+          config: {
+            resolve: (done: ResolveDone) => {
+              this.openMediaView('videos', done);
             },
             change: () => {
               this.editorValue();

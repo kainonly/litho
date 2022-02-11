@@ -56,7 +56,8 @@ export const zh_CN = {
       Link: '链接',
       Bold: '粗体',
       Italic: '斜体',
-      Image: '图库'
+      Image: '图库',
+      Video: '视频库'
     },
 
     /**

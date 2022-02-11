@@ -23,7 +23,37 @@ export class FormComponent implements OnInit {
   ngOnInit(): void {
     this.form = this.fb.group({
       feature: [['1']],
-      text: [],
+      text: [
+        {
+          time: 1644569931179,
+          blocks: [
+            {
+              id: 'S6_dgqdy3O',
+              type: 'image',
+              data: {
+                assets: 'https://cdn.kainonly.com',
+                url: 'weplanx/20220127/f9a569df-aae1-4daa-8328-cd072a032e61'
+              }
+            },
+            {
+              id: '6hNJE1Awxj',
+              type: 'paragraph',
+              data: {
+                text: 'asdsaqwe'
+              }
+            },
+            {
+              id: 'Cg0F4czmZb',
+              type: 'video',
+              data: {
+                assets: 'https://cdn.kainonly.com',
+                url: 'weplanx/20220127/26c564a6-fce3-4cc6-abf6-ddc5194bb3ba'
+              }
+            }
+          ],
+          version: '2.23.2'
+        }
+      ],
       avatar: [],
       picture: [],
       video: []

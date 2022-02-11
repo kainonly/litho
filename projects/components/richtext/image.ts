@@ -14,7 +14,7 @@ export class Image {
    * 图片 DOM
    * @private
    */
-  private image?: HTMLElement;
+  private image?: HTMLImageElement;
   /**
    * 数据
    */
@@ -52,7 +52,9 @@ export class Image {
     this.image = document.createElement('img');
 
     if (this.data.url) {
-      this.image!.setAttribute('src', `${this.data.assets}/${this.data.url}`);
+      this.image.src = `${this.data.assets}/${this.data.url}`;
+      wrapper!.appendChild(this.image!);
+      btn.remove();
     } else {
       this.image.onload = () => {
         wrapper!.appendChild(this.image!);
@@ -79,7 +81,7 @@ export class Image {
   private setImage(): void {
     this.config.resolve(data => {
       this.data = data;
-      this.image!.setAttribute('src', `${data.assets}/${data.url}`);
+      this.image!.src = `${data.assets}/${data.url}`;
     });
   }
 }
