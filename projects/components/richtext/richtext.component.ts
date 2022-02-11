@@ -15,13 +15,13 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { from } from 'rxjs';
 
 import { WpxService } from '@weplanx/common';
-import { WpxMediaViewComponent } from '@weplanx/components/media';
+import { MediaType, WpxMediaViewComponent } from '@weplanx/components/media';
 import { NzModalService } from 'ng-zorro-antd/modal';
 
 import { defaultTools, zh_CN } from './helper';
 import { Image } from './image';
 import { WpxRichtextService } from './richtext.service';
-import { ImageData } from './types';
+import { ResolveDone } from './types';
 
 let windowAny: any = window;
 
@@ -106,25 +106,9 @@ export class WpxRichtextComponent implements ControlValueAccessor, AfterViewInit
         image: {
           class: Image,
           config: {
-            resolve: (done: (data: ImageData) => void) =>
-              this.modal.create({
-                nzBodyStyle: { background: '#f0f2f5' },
-                nzWidth: 960,
-                nzContent: WpxMediaViewComponent,
-                nzComponentParams: {
-                  wpxType: 'pictures',
-                  wpxFallback: this.wpxFallback,
-                  wpxHeight: '600px',
-                  wpxMax: 1
-                },
-                nzOnOk: instance => {
-                  const data = instance.ds.getValue([...instance.ds.checkedIds.values()][0]);
-                  done({
-                    assets: this.wpx.assets,
-                    url: data.url
-                  });
-                }
-              }),
+            resolve: (done: ResolveDone) => {
+              this.openMediaView('pictures', done);
+            },
             change: () => {
               this.editorValue();
             }
@@ -140,6 +124,27 @@ export class WpxRichtextComponent implements ControlValueAccessor, AfterViewInit
     from(this.instance.isReady).subscribe(() => {
       this.loading = false;
       this.cd.detectChanges();
+    });
+  }
+
+  private openMediaView(type: MediaType, done: ResolveDone): void {
+    this.modal.create({
+      nzBodyStyle: { background: '#f0f2f5' },
+      nzWidth: 960,
+      nzContent: WpxMediaViewComponent,
+      nzComponentParams: {
+        wpxType: type,
+        wpxFallback: this.wpxFallback,
+        wpxHeight: '600px',
+        wpxMax: 1
+      },
+      nzOnOk: instance => {
+        const data = instance.ds.getValue([...instance.ds.checkedIds.values()][0]);
+        done({
+          assets: this.wpx.assets,
+          url: data.url
+        });
+      }
     });
   }
 
@@ -165,6 +170,16 @@ export class WpxRichtextComponent implements ControlValueAccessor, AfterViewInit
       ...this.value,
       title: this.title
     };
+    this.onChange!(this.value);
+  }
+
+  /**
+   * 清除内容
+   */
+  clear(): void {
+    this.instance.blocks.clear();
+    this.title = '';
+    this.value = {};
     this.onChange!(this.value);
   }
 }

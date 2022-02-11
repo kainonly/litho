@@ -1,4 +1,4 @@
-import { ImageConfig, ImageData } from './types';
+import { Config, Data } from './types';
 
 export class Image {
   /**
@@ -9,7 +9,7 @@ export class Image {
    * 配置
    * @private
    */
-  private config: ImageConfig;
+  private config: Config;
   /**
    * 图片 DOM
    * @private
@@ -18,7 +18,7 @@ export class Image {
   /**
    * 数据
    */
-  data: ImageData;
+  data: Data;
 
   static get toolbox(): any {
     return {
@@ -41,7 +41,7 @@ export class Image {
    */
   render(): HTMLElement {
     const wrapper = document.createElement('div');
-    wrapper.classList.add(this.api.styles.block, 'cdx-image');
+    wrapper.classList.add(this.api.styles.block, 'cdx-media');
     const btn = document.createElement('button');
     btn.classList.add('cdx-button');
     btn.innerText = '请选择图片';
@@ -68,7 +68,7 @@ export class Image {
   /**
    * 保存数据
    */
-  save(): ImageData {
+  save(): Data {
     return this.data;
   }
 

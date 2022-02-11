@@ -1,9 +1,11 @@
-export interface ImageConfig {
-  resolve: (done: (data: ImageData) => void) => void;
-  change: () => void;
-}
+export type ResolveDone = (data: Data) => void;
 
-export interface ImageData {
+export interface Data {
   assets: string;
   url: string;
+}
+
+export interface Config {
+  resolve: (done: ResolveDone) => void;
+  change: () => void;
 }

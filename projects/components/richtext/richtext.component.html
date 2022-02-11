@@ -11,7 +11,16 @@
 
 <ng-template #extraRef>
   <nz-button-group>
-    <button nz-button type="button" nzType="text"><i nz-icon nzType="clear"></i> </button>
+    <button
+      nz-button
+      type="button"
+      nzType="text"
+      nz-popconfirm
+      nzPopconfirmTitle="您确认要清除编辑内容吗?"
+      nzPopconfirmPlacement="bottom"
+      (nzOnConfirm)="clear()"
+      ><i nz-icon nzType="clear"></i>
+    </button>
   </nz-button-group>
 </ng-template>
 
