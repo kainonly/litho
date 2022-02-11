@@ -23,3 +23,21 @@ jobs:
       - name: 构建应用
         run: npm run build
 
+      - name: 静态部署
+        run: |
+          cd ./dist
+          wget https://github.com/tencentyun/coscli/releases/download/v0.10.2-beta/coscli-linux
+          mv coscli-linux coscli
+          chmod 755 coscli
+          cat > cos.yml << EOF
+          cos:
+            base:
+              secretid: ${{ secrets.COS_SECRETID }}
+              secretkey: ${{ secrets.COS_SECRETKEY }}
+              sessiontoken: ""
+            buckets:
+              - name: ${{ secrets.COS_BUCKET }}
+                alias: ${{ secrets.COS_BUCKET }}
+                region: ap-guangzhou
+          EOF
+          coscli cp ./console/ cos://${{ secrets.COS_BUCKET }}/ -r -c ./cos.yml
