@@ -27,8 +27,8 @@ jobs:
         run: |
           cd ./dist
           wget https://github.com/tencentyun/coscli/releases/download/v0.10.2-beta/coscli-linux
-          mv coscli-linux coscli
-          chmod 755 coscli
+          mv ./coscli-linux ./coscli
+          chmod 755 ./coscli
           cat > cos.yml << EOF
           cos:
             base:
@@ -40,4 +40,4 @@ jobs:
                 alias: ${{ secrets.COS_BUCKET }}
                 region: ap-guangzhou
           EOF
-          coscli cp ./console/ cos://${{ secrets.COS_BUCKET }}/ -r -c ./cos.yml
+          ./coscli cp ./console/ cos://${{ secrets.COS_BUCKET }}/ -r -c ./cos.yml
