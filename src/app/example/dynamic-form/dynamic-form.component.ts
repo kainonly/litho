@@ -156,6 +156,12 @@ export class DynamicFormComponent {
       label: '视频',
       type: 'video',
       sort: 0
+    },
+    {
+      key: 'article',
+      label: '文章',
+      type: 'richtext',
+      sort: 0
     }
   ];
   rules: any[] = [];

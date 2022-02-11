@@ -167,6 +167,18 @@
           </nz-form-control>
         </nz-form-item>
       </ng-container>
+      <ng-container *ngSwitchCase="'richtext'">
+        <nz-form-item>
+          <nz-form-label [nzRequired]="field.required">{{ field.label }}</nz-form-label>
+          <nz-form-control [nzExtra]="field.description ?? ''">
+            <wpx-richtext
+              [formControlName]="field.key"
+              [wpxPlaceholder]="'请输入内容，按 TAB 唤起更多'"
+              [wpxFallback]="['assets', 'dataflow.svg'] | wpxAssets"
+            ></wpx-richtext>
+          </nz-form-control>
+        </nz-form-item>
+      </ng-container>
     </ng-container>
   </ng-container>
   <nz-form-item>
