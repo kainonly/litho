@@ -31,6 +31,10 @@ export class WpxMediaViewComponent implements OnInit, AfterViewInit {
   @Input() wpxType!: MediaType;
   @Input() wpxFallback!: string;
   @Input() wpxHeight?: string;
+  /**
+   * 最大确认数量
+   */
+  @Input() wpxMax?: number;
 
   ds!: WpxMediaViewDataSource;
   ext!: string;
@@ -38,6 +42,11 @@ export class WpxMediaViewComponent implements OnInit, AfterViewInit {
   searchText: string = '';
   labels: string[] = [];
   matchLabels: Set<string> = new Set<string>();
+  /**
+   * 超出最大确认提示
+   * @private
+   */
+  private maxMessage?: string;
 
   constructor(
     private wpx: WpxService,
@@ -140,6 +149,24 @@ export class WpxMediaViewComponent implements OnInit, AfterViewInit {
   }
 
   /**
+   * 检测确认范围
+   * @param id
+   * @param checked
+   */
+  checked(id: string, checked: boolean): void {
+    this.ds.setChecked(id, checked);
+    if (this.wpxMax && this.ds.checkedNumber > this.wpxMax) {
+      if (!this.maxMessage) {
+        this.maxMessage = this.message.info(`超出确认范围，系统将截取前${this.wpxMax}个元素，批量操作请忽略`, {
+          nzDuration: 0
+        }).messageId;
+      }
+    } else {
+      this.closeMaxMessage();
+    }
+  }
+
+  /**
    * 计算每行个数
    * @param width
    * @private
@@ -153,10 +180,18 @@ export class WpxMediaViewComponent implements OnInit, AfterViewInit {
     }
   }
 
+  private closeMaxMessage(): void {
+    if (this.maxMessage) {
+      this.message.remove(this.maxMessage);
+      this.maxMessage = undefined;
+    }
+  }
+
   /**
    * 关闭对话框
    */
   close(): void {
+    this.closeMaxMessage();
     this.modalRef.triggerCancel();
   }
 
@@ -164,6 +199,7 @@ export class WpxMediaViewComponent implements OnInit, AfterViewInit {
    * 确认对话框
    */
   submit(): void {
+    this.closeMaxMessage();
     this.modalRef.triggerOk();
   }
 

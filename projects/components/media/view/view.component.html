@@ -97,7 +97,7 @@
             </ng-template>
             <nz-card-meta style="height: 50px" [nzDescription]="descriptionRef">
               <ng-template #descriptionRef>
-                <label nz-checkbox [ngModel]="ds.checkedIds.has(x._id)" (ngModelChange)="ds.setChecked(x._id, $event)">
+                <label nz-checkbox [ngModel]="ds.checkedIds.has(x._id)" (ngModelChange)="checked(x._id, $event)">
                   <p nz-typography nzEllipsis [nzEllipsisRows]="2" [nzContent]="x.name"></p>
                 </label>
               </ng-template>
@@ -133,7 +133,7 @@
   </nz-list>
 </cdk-virtual-scroll-viewport>
 
-<ng-template [nzModalFooter]>
+<ng-container *nzModalFooter>
   <nz-row nzJustify="space-between">
     <nz-col>
       <ng-container *ngTemplateOutlet="uploadRef"></ng-container>
@@ -145,7 +145,7 @@
           <button nz-button type="button" nzType="default" (click)="close()">取消</button>
         </nz-col>
         <nz-col>
-          <nz-badge [nzCount]="ds.checkedNumber">
+          <nz-badge [nzCount]="wpxMax && ds.checkedNumber >= wpxMax ? wpxMax : ds.checkedNumber">
             <button nz-button type="button" nzType="primary" [disabled]="!ds.checkedNumber" (click)="submit()">
               确认
             </button>
@@ -154,4 +154,4 @@
       </nz-row>
     </nz-col>
   </nz-row>
-</ng-template>
+</ng-container>

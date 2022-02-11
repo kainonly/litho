@@ -40,6 +40,8 @@
         <wpx-media
           wpxType="pictures"
           [wpxFallback]="['assets', 'dataflow.svg'] | wpxAssets"
+          [wpxMax]="3"
+          [wpxLimit]="8"
           formControlName="picture"
           (ngModelChange)="test($event)"
         ></wpx-media>

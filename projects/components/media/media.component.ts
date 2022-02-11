@@ -2,11 +2,12 @@ import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { Component, forwardRef, Input, Optional } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
-import { AnyDto, WpxService } from '@weplanx/common';
+import { WpxService } from '@weplanx/common';
 import { NzImageService } from 'ng-zorro-antd/image';
+import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalService } from 'ng-zorro-antd/modal';
 
-import { Media, MediaType } from './types';
+import { MediaType } from './types';
 import { VideoComponent } from './view/video/video.component';
 import { WpxMediaViewComponent } from './view/view.component';
 
@@ -25,6 +26,8 @@ import { WpxMediaViewComponent } from './view/view.component';
 export class WpxMediaComponent implements ControlValueAccessor {
   @Input() wpxType!: MediaType;
   @Input() wpxFallback!: string;
+  @Input() wpxLimit?: number;
+  @Input() wpxMax?: number;
 
   values?: string[];
 
@@ -35,6 +38,7 @@ export class WpxMediaComponent implements ControlValueAccessor {
 
   constructor(
     private modal: NzModalService,
+    private message: NzMessageService,
     @Optional() private wpx: WpxService,
     @Optional() private image: NzImageService
   ) {}
@@ -62,10 +66,18 @@ export class WpxMediaComponent implements ControlValueAccessor {
       nzComponentParams: {
         wpxType: this.wpxType,
         wpxFallback: this.wpxFallback,
-        wpxHeight: '600px'
+        wpxHeight: '600px',
+        wpxMax: this.wpxMax
       },
       nzOnOk: instance => {
-        this.values = [...this.values!, ...instance.ds.getUrls([...instance.ds.checkedIds.values()])];
+        this.values = [
+          ...this.values!,
+          ...instance.ds.getUrls([...instance.ds.checkedIds.values()].splice(0, this.wpxMax))
+        ];
+        if (this.wpxLimit && this.wpxLimit < this.values.length) {
+          this.message.warning(`最多允许导入${this.wpxLimit}个元素`);
+          this.values = this.values.splice(0, this.wpxLimit);
+        }
         this.onChanged(this.values!);
       }
     });
