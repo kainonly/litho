@@ -10,7 +10,9 @@
 </ng-template>
 
 <ng-template #extraRef>
-  <button nz-button type="button" nzType="text"><i nz-icon nzType="clear"></i> </button>
+  <nz-button-group>
+    <button nz-button type="button" nzType="text"><i nz-icon nzType="clear"></i> </button>
+  </nz-button-group>
 </ng-template>
 
 <nz-card [nzLoading]="loading" [nzBorderless]="false" [nzTitle]="titleRef" [nzExtra]="extraRef">

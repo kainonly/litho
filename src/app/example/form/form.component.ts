@@ -56,6 +56,6 @@ export class FormComponent implements OnInit {
   }
 
   submit(data: any): void {
-    console.log(data);
+    console.log(data.text);
   }
 }

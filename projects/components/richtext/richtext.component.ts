@@ -9,20 +9,27 @@ import {
   Input,
   NgZone,
   OnDestroy,
+  Renderer2,
   ViewChild,
   ViewEncapsulation
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { from } from 'rxjs';
 
+import { WpxService } from '@weplanx/common';
+import { WpxMediaViewComponent } from '@weplanx/components/media';
+import { NzModalService } from 'ng-zorro-antd/modal';
+
+import { Image } from './image';
 import { WpxRichtextService } from './richtext.service';
 
-let EditorJS: any;
+let windowAny: any = window;
 
 @Component({
   selector: 'wpx-richtext',
   exportAs: 'wpxRichtext',
   templateUrl: './richtext.component.html',
+  styleUrls: ['./richtext.component.scss'],
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
@@ -35,6 +42,7 @@ let EditorJS: any;
 })
 export class WpxRichtextComponent implements ControlValueAccessor, AfterViewInit, OnDestroy {
   @Input() wpxPlaceholder?: string;
+  @Input() wpxFallback?: string;
 
   title = '';
   loading = true;
@@ -49,7 +57,9 @@ export class WpxRichtextComponent implements ControlValueAccessor, AfterViewInit
     private platform: Platform,
     private zone: NgZone,
     private cd: ChangeDetectorRef,
-    private richtext: WpxRichtextService
+    private wpx: WpxService,
+    private richtext: WpxRichtextService,
+    private modal: NzModalService
   ) {}
 
   registerOnChange(fn: any): void {
@@ -73,8 +83,6 @@ export class WpxRichtextComponent implements ControlValueAccessor, AfterViewInit
       return;
     }
     this.richtext.loadScript().subscribe(() => {
-      const windowAny: any = window;
-      EditorJS = windowAny.EditorJS;
       this.initialize();
     });
   }
@@ -86,27 +94,70 @@ export class WpxRichtextComponent implements ControlValueAccessor, AfterViewInit
   }
 
   private initialize(): void {
-    this.zone.runOutsideAngular(() => {
-      const config = this.richtext.config!(window);
-      this.instance = new EditorJS({
-        holder: this.article.nativeElement,
-        placeholder: this.wpxPlaceholder,
-        logLevel: 'ERROR',
-        ...config,
-        onChange: () => {
-          from(this.instance?.save() as Promise<any>).subscribe(data => {
-            this.value = {
-              ...this.value,
-              ...data
-            };
-            this.onChange!(this.value);
-          });
+    this.instance = new windowAny.EditorJS({
+      holder: this.article.nativeElement,
+      placeholder: this.wpxPlaceholder,
+      logLevel: 'ERROR',
+      tools: {
+        paragraph: {
+          class: windowAny.Paragraph,
+          inlineToolbar: true
+        },
+        header: windowAny.Header,
+        table: windowAny.Table,
+        delimiter: windowAny.Delimiter,
+        underline: windowAny.Underline,
+        list: {
+          class: windowAny.NestedList,
+          inlineToolbar: true
+        },
+        checklist: {
+          class: windowAny.Checklist,
+          inlineToolbar: true
+        },
+        // image: windowAny.SimpleImage,
+        image: {
+          class: Image,
+          config: {
+            assets: this.wpx.assets,
+            resolve: () =>
+              new Promise<any>(resolve => {
+                this.modal.create({
+                  nzBodyStyle: { background: '#f0f2f5' },
+                  nzWidth: 960,
+                  nzContent: WpxMediaViewComponent,
+                  nzComponentParams: {
+                    wpxType: 'pictures',
+                    wpxFallback: this.wpxFallback,
+                    wpxHeight: '600px'
+                  },
+                  nzOnOk: instance => {
+                    resolve({
+                      url: instance.ds.getUrls([...instance.ds.checkedIds.values()])[0],
+                      caption: 'unknow',
+                      withBorder: false,
+                      withBackground: false,
+                      stretched: true
+                    });
+                  }
+                });
+              })
+          }
         }
-      });
-      from(this.instance.isReady).subscribe(() => {
-        this.loading = false;
-        this.cd.detectChanges();
-      });
+      },
+      onChange: () => {
+        from(this.instance?.save() as Promise<any>).subscribe(data => {
+          this.value = {
+            ...this.value,
+            ...data
+          };
+          this.onChange!(this.value);
+        });
+      }
+    });
+    from(this.instance.isReady).subscribe(() => {
+      this.loading = false;
+      this.cd.detectChanges();
     });
   }
 

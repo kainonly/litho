@@ -14,7 +14,11 @@
     <nz-form-item>
       <nz-form-label nzRequired>富文本</nz-form-label>
       <nz-form-control>
-        <wpx-richtext formControlName="text" wpxPlaceholder="请输入内容"></wpx-richtext>
+        <wpx-richtext
+          formControlName="text"
+          wpxPlaceholder="请输入内容"
+          [wpxFallback]="['assets', 'dataflow.svg'] | wpxAssets"
+        ></wpx-richtext>
       </nz-form-control>
     </nz-form-item>
 
