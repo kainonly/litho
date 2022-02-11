@@ -1,6 +1,0 @@
-spec:
-  template:
-    spec:
-      containers:
-        - image: ccr.ccs.tencentyun.com/weplanx/console:${tag}
-          name: console
