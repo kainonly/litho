@@ -70,6 +70,14 @@ export class WpxMediaViewDataSource extends Dataset<AnyDto<Media>> implements Da
   }
 
   /**
+   * 获取指定数据
+   * @param id
+   */
+  getValue(id: string): AnyDto<Media> {
+    return this.dict.get(id)!;
+  }
+
+  /**
    * 获取 URL
    */
   getUrls(ids: string[]): string[] {

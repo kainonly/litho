@@ -7,9 +7,7 @@ import {
   ElementRef,
   forwardRef,
   Input,
-  NgZone,
   OnDestroy,
-  Renderer2,
   ViewChild,
   ViewEncapsulation
 } from '@angular/core';
@@ -20,8 +18,10 @@ import { WpxService } from '@weplanx/common';
 import { WpxMediaViewComponent } from '@weplanx/components/media';
 import { NzModalService } from 'ng-zorro-antd/modal';
 
+import { defaultTools, zh_CN } from './helper';
 import { Image } from './image';
 import { WpxRichtextService } from './richtext.service';
+import { ImageData } from './types';
 
 let windowAny: any = window;
 
@@ -55,7 +55,6 @@ export class WpxRichtextComponent implements ControlValueAccessor, AfterViewInit
 
   constructor(
     private platform: Platform,
-    private zone: NgZone,
     private cd: ChangeDetectorRef,
     private wpx: WpxService,
     private richtext: WpxRichtextService,
@@ -93,75 +92,75 @@ export class WpxRichtextComponent implements ControlValueAccessor, AfterViewInit
     }
   }
 
+  /**
+   * 初始化
+   * @private
+   */
   private initialize(): void {
     this.instance = new windowAny.EditorJS({
       holder: this.article.nativeElement,
       placeholder: this.wpxPlaceholder,
       logLevel: 'ERROR',
       tools: {
-        paragraph: {
-          class: windowAny.Paragraph,
-          inlineToolbar: true
-        },
-        header: windowAny.Header,
-        table: windowAny.Table,
-        delimiter: windowAny.Delimiter,
-        underline: windowAny.Underline,
-        list: {
-          class: windowAny.NestedList,
-          inlineToolbar: true
-        },
-        checklist: {
-          class: windowAny.Checklist,
-          inlineToolbar: true
-        },
-        // image: windowAny.SimpleImage,
+        ...defaultTools(windowAny),
         image: {
           class: Image,
           config: {
-            assets: this.wpx.assets,
-            resolve: () =>
-              new Promise<any>(resolve => {
-                this.modal.create({
-                  nzBodyStyle: { background: '#f0f2f5' },
-                  nzWidth: 960,
-                  nzContent: WpxMediaViewComponent,
-                  nzComponentParams: {
-                    wpxType: 'pictures',
-                    wpxFallback: this.wpxFallback,
-                    wpxHeight: '600px'
-                  },
-                  nzOnOk: instance => {
-                    resolve({
-                      url: instance.ds.getUrls([...instance.ds.checkedIds.values()])[0],
-                      caption: 'unknow',
-                      withBorder: false,
-                      withBackground: false,
-                      stretched: true
-                    });
-                  }
-                });
-              })
+            resolve: (done: (data: ImageData) => void) =>
+              this.modal.create({
+                nzBodyStyle: { background: '#f0f2f5' },
+                nzWidth: 960,
+                nzContent: WpxMediaViewComponent,
+                nzComponentParams: {
+                  wpxType: 'pictures',
+                  wpxFallback: this.wpxFallback,
+                  wpxHeight: '600px',
+                  wpxMax: 1
+                },
+                nzOnOk: instance => {
+                  const data = instance.ds.getValue([...instance.ds.checkedIds.values()][0]);
+                  done({
+                    assets: this.wpx.assets,
+                    url: data.url
+                  });
+                }
+              }),
+            change: () => {
+              this.editorValue();
+            }
           }
         }
       },
+      i18n: zh_CN,
       onChange: () => {
-        from(this.instance?.save() as Promise<any>).subscribe(data => {
-          this.value = {
-            ...this.value,
-            ...data
-          };
-          this.onChange!(this.value);
-        });
+        this.editorValue();
       }
     });
+
     from(this.instance.isReady).subscribe(() => {
       this.loading = false;
       this.cd.detectChanges();
     });
   }
 
-  titleChanged(): void {
+  /**
+   * 设置编辑器数据
+   * @private
+   */
+  private editorValue(): void {
+    from(this.instance?.save() as Promise<any>).subscribe(data => {
+      this.value = {
+        ...this.value,
+        ...data
+      };
+      this.onChange!(this.value);
+    });
+  }
+
+  /**
+   * 设置标题
+   */
+  setTitle(): void {
     this.value = {
       ...this.value,
       title: this.title

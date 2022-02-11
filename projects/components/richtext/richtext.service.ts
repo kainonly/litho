@@ -2,8 +2,6 @@ import { DOCUMENT } from '@angular/common';
 import { Inject, Injectable } from '@angular/core';
 import { concatWith, delay, fromEvent, Observable } from 'rxjs';
 
-import { Config } from './types';
-
 @Injectable({ providedIn: 'root' })
 export class WpxRichtextService {
   private url = 'https://cdn.jsdelivr.net/npm/@editorjs/editorjs@latest';
@@ -14,17 +12,14 @@ export class WpxRichtextService {
     'https://cdn.jsdelivr.net/npm/@editorjs/underline@latest',
     'https://cdn.jsdelivr.net/npm/@editorjs/nested-list@latest',
     'https://cdn.jsdelivr.net/npm/@editorjs/checklist@latest',
-    'https://cdn.jsdelivr.net/npm/@editorjs/table@latest',
-    'https://cdn.jsdelivr.net/npm/@editorjs/simple-image@latest'
+    'https://cdn.jsdelivr.net/npm/@editorjs/table@latest'
   ];
-  config?: (event: any) => Config;
 
   constructor(@Inject(DOCUMENT) private document: Document) {}
 
-  setup(url: string, plugins: string[], config: (window: any) => Config): void {
+  setup(url: string, plugins: string[]): void {
     this.url = url;
     this.plugins = plugins;
-    this.config = config;
   }
 
   loadScript(): Observable<any> {
