@@ -62,4 +62,5 @@ jobs:
 
       - name: 静态部署
         run: |
+          ~/.cache/coscli rm cos://${{ secrets.COS_BUCKET }}/ -r -f -c ~/.cache/cos.yml
           ~/.cache/coscli cp ./dist/console/ cos://${{ secrets.COS_BUCKET }}/ -r -c ~/.cache/cos.yml
