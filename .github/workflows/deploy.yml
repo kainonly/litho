@@ -1,0 +1,53 @@
+name: 自动部署
+
+on:
+  push:
+    tags:
+      - console-*
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 检出
+        uses: actions/checkout@v2
+
+      - name: 缓存
+        uses: actions/cache@v2
+        id: cache
+        with:
+          path: '~/.cache'
+
+      - name: 安装 coscli
+        if: steps.cache.outputs.cache-hit != 'true'
+        run: |
+          mkdir -p ~/.cache
+          wget https://github.com/tencentyun/coscli/releases/download/v0.10.2-beta/coscli-linux
+          mv ./coscli-linux ~/.cache/coscli
+          chmod +x ~/.cache/coscli
+          cat > ~/.cache/cos.yml << EOF
+          cos:
+            base:
+              secretid: ${{ secrets.COS_SECRETID }}
+              secretkey: ${{ secrets.COS_SECRETKEY }}
+              sessiontoken: ""
+            buckets:
+              - name: ${{ secrets.COS_BUCKET }}
+                alias: ${{ secrets.COS_BUCKET }}
+                region: accelerate
+          EOF
+
+      - name: 安装 Node
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+
+      - name: 安装依赖
+        run: npm install
+
+      - name: 构建应用
+        run: npm run build
+
+      - name: 静态部署
+        run: |
+          ~/.cache/coscli cp ./console/dist/ cos://${{ secrets.COS_BUCKET }}/ -r -c ~/.cache/cos.yml
