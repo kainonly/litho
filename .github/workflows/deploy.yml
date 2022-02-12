@@ -5,6 +5,9 @@ on:
     tags:
       - console-*
 
+env:
+  COS_VERSION: v0.10.2-beta
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
@@ -17,12 +20,13 @@ jobs:
         id: cache
         with:
           path: '~/.cache'
+          key: ${{ env.COS_VERSION }}
 
       - name: 安装 coscli
         if: steps.cache.outputs.cache-hit != 'true'
         run: |
           mkdir -p ~/.cache
-          wget https://github.com/tencentyun/coscli/releases/download/v0.10.2-beta/coscli-linux
+          wget https://github.com/tencentyun/coscli/releases/download/${{ env.COS_VERSION }}/coscli-linux
           mv ./coscli-linux ~/.cache/coscli
           chmod +x ~/.cache/coscli
           cat > ~/.cache/cos.yml << EOF
