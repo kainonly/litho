@@ -59,3 +59,13 @@ jobs:
         run: |
           ~/.cache/coscli rm cos://default/ -r -f -c ~/.cache/cos.yml
           ~/.cache/coscli cp ./dist/console/ cos://accelerate/ -r -c ~/.cache/cos.yml
+
+      - name: 静态文件打包
+        run: |
+          zip -r console-{{ github.ref_name }}.zip ./dist/console/
+
+      - name: 版本发布
+        uses: softprops/action-gh-release@v1
+        if: startsWith(github.ref, 'refs/tags/')
+        with:
+          files: console-{{ github.ref_name }}.zip
