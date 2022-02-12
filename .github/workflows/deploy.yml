@@ -46,6 +46,14 @@ jobs:
         with:
           node-version: '14'
 
+      - uses: actions/cache@v2
+        name: 缓存依赖
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
       - name: 安装依赖
         run: npm install
 
@@ -54,4 +62,4 @@ jobs:
 
       - name: 静态部署
         run: |
-          ~/.cache/coscli cp ./console/dist/ cos://${{ secrets.COS_BUCKET }}/ -r -c ~/.cache/cos.yml
+          ~/.cache/coscli cp ./dist/console/ cos://${{ secrets.COS_BUCKET }}/ -r -c ~/.cache/cos.yml
