@@ -3,12 +3,12 @@ import { Routes } from '@angular/router';
 
 import { WpxModule, WpxShareModule } from '@weplanx/common';
 import { WpxUploadModule } from '@weplanx/components/upload';
-import { NzCarouselModule } from 'ng-zorro-antd/carousel';
 import { NzCascaderModule } from 'ng-zorro-antd/cascader';
 
-import { EmailComponent } from './email/email.component';
 import { InfoComponent } from './info/info.component';
-import { PasswordComponent } from './password/password.component';
+import { LinkedComponent } from './linked/linked.component';
+import { NotifyComponent } from './notify/notify.component';
+import { SafetyComponent } from './safety/safety.component';
 
 export const profile: Routes = [
   {
@@ -19,17 +19,24 @@ export const profile: Routes = [
     }
   },
   {
-    path: 'email',
-    component: EmailComponent,
+    path: 'safety',
+    component: SafetyComponent,
     data: {
-      breadcrumb: '业务邮箱'
+      breadcrumb: '安全设置'
     }
   },
   {
-    path: 'password',
-    component: PasswordComponent,
+    path: 'linked',
+    component: LinkedComponent,
     data: {
-      breadcrumb: '密码设置'
+      breadcrumb: '帐号绑定'
+    }
+  },
+  {
+    path: 'notify',
+    component: NotifyComponent,
+    data: {
+      breadcrumb: '通知设置'
     }
   },
   { path: '', redirectTo: '/center/profile/info', pathMatch: 'full' }
@@ -37,7 +44,6 @@ export const profile: Routes = [
 
 @NgModule({
   imports: [WpxModule, WpxShareModule, WpxUploadModule, NzCascaderModule],
-  declarations: [InfoComponent, EmailComponent, PasswordComponent],
-  exports: [InfoComponent, EmailComponent, PasswordComponent]
+  declarations: [InfoComponent, SafetyComponent, LinkedComponent, NotifyComponent]
 })
 export class ProfileModule {}
