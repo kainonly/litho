@@ -8,6 +8,19 @@ import { Component } from '@angular/core';
       <nz-layout class="container">
         <nz-sider class="sider" nzTheme="light" [nzWidth]="240">
           <ul nz-menu nzMode="inline">
+            <li nz-menu-group nzTitle="我的">
+              <ul>
+                <li nz-menu-item nzMatchRouter [routerLink]="['mine', 'workbench']">
+                  <i nz-icon nzType="desktop"></i> <span>工作台</span>
+                </li>
+                <li nz-menu-item nzMatchRouter [routerLink]="['mine', 'calendar']">
+                  <i nz-icon nzType="calendar"></i> <span>日历</span>
+                </li>
+                <li nz-menu-item nzMatchRouter [routerLink]="['mine', 'notebook']">
+                  <i nz-icon nzType="book"></i> <span>记事本</span>
+                </li>
+              </ul>
+            </li>
             <li nz-menu-group nzTitle="个人设置">
               <ul>
                 <li nz-menu-item nzMatchRouter [routerLink]="['profile', 'info']">
@@ -21,6 +34,16 @@ import { Component } from '@angular/core';
                 </li>
                 <li nz-menu-item nzMatchRouter [routerLink]="['profile', 'notify']">
                   <i nz-icon nzType="notification"></i> <span>通知设置</span>
+                </li>
+              </ul>
+            </li>
+            <li nz-menu-group nzTitle="审计日志">
+              <ul>
+                <li nz-menu-item nzMatchRouter [routerLink]="['audit', 'session']">
+                  <i nz-icon nzType="audit"></i> <span>会话记录</span>
+                </li>
+                <li nz-menu-item nzMatchRouter [routerLink]="['audit', 'history']">
+                  <i nz-icon nzType="history"></i> <span>操作记录</span>
                 </li>
               </ul>
             </li>
