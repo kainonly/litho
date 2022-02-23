@@ -110,7 +110,7 @@ export class UsersComponent implements OnInit {
    */
   permission(editable: AnyDto<User>): void {
     this.modal.create({
-      nzTitle: `[${editable.name}] 合并权限设置`,
+      nzTitle: `[${editable.username}] 合并权限设置`,
       nzContent: PermissionComponent,
       nzComponentParams: {
         editable
