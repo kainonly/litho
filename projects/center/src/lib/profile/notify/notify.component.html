@@ -1,1 +1,20 @@
 <wpx-layout wpxTitle="通知设置"> </wpx-layout>
+
+<nz-card>
+  <nz-table #basicTable nzSize="default" [nzData]="notify" [nzShowPagination]="false">
+    <thead>
+      <tr>
+        <th>描述</th>
+        <th nzWidth="200px">系统提醒</th>
+        <th nzWidth="200px">邮件提醒</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let data of basicTable.data">
+        <td>{{ data.name }}</td>
+        <td><nz-switch [(ngModel)]="data.internal"></nz-switch></td>
+        <td><nz-switch [(ngModel)]="data.email"></nz-switch></td>
+      </tr>
+    </tbody>
+  </nz-table>
+</nz-card>

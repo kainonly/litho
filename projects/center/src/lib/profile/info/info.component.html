@@ -1,8 +1,6 @@
 <wpx-layout wpxTitle="基本信息"> </wpx-layout>
 
-<ng-template #title> weplanx <nz-tag>61e8198fd7488f31f838d1be</nz-tag> </ng-template>
-
-<nz-card [nzTitle]="title">
+<nz-card>
   <form nz-form nzLayout="vertical" [formGroup]="form" (wpxSubmit)="submit($event)">
     <nz-row [nzGutter]="24">
       <nz-col nzFlex="600px">
@@ -13,6 +11,33 @@
           </nz-form-control>
         </nz-form-item>
         <nz-form-item>
+          <nz-form-label>个人简介</nz-form-label>
+          <nz-form-control style="width: 448px">
+            <textarea rows="4" nz-input formControlName="introduction"></textarea>
+          </nz-form-control>
+        </nz-form-item>
+
+        <nz-form-item>
+          <nz-form-label>国家/地区</nz-form-label>
+          <nz-form-control style="width: 192px">
+            <nz-select formControlName="region" nzPlaceHolder="请选择"> </nz-select>
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-label>所在省市</nz-form-label>
+          <nz-form-control style="width: 328px">
+            <nz-cascader formControlName="city"></nz-cascader>
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-label>街道地址</nz-form-label>
+          <nz-form-control style="width: 448px">
+            <input nz-input formControlName="address" placeholder="请输入" />
+          </nz-form-control>
+        </nz-form-item>
+      </nz-col>
+      <nz-col nzFlex="auto">
+        <nz-form-item>
           <nz-form-label>头像</nz-form-label>
           <nz-form-control>
             <wpx-upload-avatar
@@ -22,32 +47,6 @@
               formControlName="avatar"
             >
             </wpx-upload-avatar>
-          </nz-form-control>
-        </nz-form-item>
-        <nz-form-item>
-          <nz-form-label>国家/地区</nz-form-label>
-          <nz-form-control style="width: 192px">
-            <nz-select formControlName="region"> </nz-select>
-          </nz-form-control>
-        </nz-form-item>
-        <nz-form-item>
-          <nz-form-label>所在省市</nz-form-label>
-          <nz-form-control style="width: 328px">
-            <nz-cascader></nz-cascader>
-          </nz-form-control>
-        </nz-form-item>
-        <nz-form-item>
-          <nz-form-label>街道地址</nz-form-label>
-          <nz-form-control style="width: 448px">
-            <input nz-input placeholder="请输入" formControlName="address" />
-          </nz-form-control>
-        </nz-form-item>
-      </nz-col>
-      <nz-col nzFlex="auto">
-        <nz-form-item>
-          <nz-form-label>个人简介</nz-form-label>
-          <nz-form-control style="width: 448px">
-            <textarea rows="4" nz-input placeholder="个人简介" formControlName="introduction"></textarea>
           </nz-form-control>
         </nz-form-item>
         <nz-form-item>
