@@ -55,8 +55,7 @@ export const pages: Routes = [
     data: {
       breadcrumb: '验证器'
     }
-  },
-  { path: '', redirectTo: '/settings/pages/home', pathMatch: 'full' }
+  }
 ];
 
 @NgModule({

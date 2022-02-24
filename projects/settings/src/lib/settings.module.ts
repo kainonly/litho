@@ -3,13 +3,8 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { WpxModule, WpxShareModule } from '@weplanx/common';
 
-import { PagesComponent } from './pages/pages.component';
-import { pages, PagesModule } from './pages/pages.module';
-import { RolesComponent } from './roles/roles.component';
-import { RolesModule } from './roles/roles.module';
+import { application, ApplicationModule } from './application/application.module';
 import { SettingsComponent } from './settings.component';
-import { UsersComponent } from './users/users.component';
-import { UsersModule } from './users/users.module';
 
 const routes: Routes = [
   {
@@ -17,34 +12,16 @@ const routes: Routes = [
     component: SettingsComponent,
     children: [
       {
-        path: 'pages',
-        component: PagesComponent,
-        children: pages,
-        data: {
-          breadcrumb: '页面管理'
-        }
+        path: 'application',
+        children: application
       },
-      {
-        path: 'roles',
-        component: RolesComponent,
-        data: {
-          breadcrumb: '权限管理'
-        }
-      },
-      {
-        path: 'users',
-        component: UsersComponent,
-        data: {
-          breadcrumb: '成员管理'
-        }
-      },
-      { path: '', redirectTo: '/settings/pages/home', pathMatch: 'full' }
+      { path: '', redirectTo: '/settings/application/pages/home', pathMatch: 'full' }
     ]
   }
 ];
 
 @NgModule({
-  imports: [WpxShareModule, WpxModule, PagesModule, RolesModule, UsersModule, RouterModule.forChild(routes)],
+  imports: [WpxShareModule, WpxModule, ApplicationModule, RouterModule.forChild(routes)],
   declarations: [SettingsComponent]
 })
 export class SettingsModule {}
