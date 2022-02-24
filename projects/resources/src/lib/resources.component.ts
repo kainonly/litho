@@ -12,8 +12,8 @@ import { WpxService } from '@weplanx/common';
           <ul nz-menu nzMode="inline">
             <li nz-menu-group nzTitle="媒体资源">
               <ul>
-                <li nz-menu-item nzMatchRouter [routerLink]="['pictures']"> <span>图库</span> </li>
-                <li nz-menu-item nzMatchRouter [routerLink]="['videos']"> <span>视频</span> </li>
+                <li nz-menu-item nzMatchRouter [routerLink]="['media', 'pictures']"> <span>图库</span> </li>
+                <li nz-menu-item nzMatchRouter [routerLink]="['media', 'videos']"> <span>视频</span> </li>
               </ul>
             </li>
           </ul>

@@ -2,13 +2,9 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { WpxModule, WpxShareModule } from '@weplanx/common';
-import { WpxMediaModule } from '@weplanx/components/media';
 
-import { PicturesComponent } from './pictures/pictures.component';
-import { PicturesModule } from './pictures/pictures.module';
+import { media, MediaModule } from './media/media.module';
 import { ResourcesComponent } from './resources.component';
-import { VideosComponent } from './videos/videos.component';
-import { VideosModule } from './videos/videos.module';
 
 const routes: Routes = [
   {
@@ -16,26 +12,19 @@ const routes: Routes = [
     component: ResourcesComponent,
     children: [
       {
-        path: 'pictures',
-        component: PicturesComponent,
+        path: 'media',
+        children: media,
         data: {
-          breadcrumb: '图库'
+          breadcrumb: '媒体资源'
         }
       },
-      {
-        path: 'videos',
-        component: VideosComponent,
-        data: {
-          breadcrumb: '视频'
-        }
-      },
-      { path: '', redirectTo: '/resources/pictures', pathMatch: 'full' }
+      { path: '', redirectTo: '/resources/media/pictures', pathMatch: 'full' }
     ]
   }
 ];
 
 @NgModule({
-  imports: [WpxModule, WpxShareModule, WpxMediaModule, PicturesModule, VideosModule, RouterModule.forChild(routes)],
+  imports: [WpxModule, WpxShareModule, MediaModule, RouterModule.forChild(routes)],
   declarations: [ResourcesComponent]
 })
 export class ResourcesModule {}
