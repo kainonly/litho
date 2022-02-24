@@ -1,0 +1,24 @@
+<wpx-layout [wpxSkip]="true"></wpx-layout>
+
+<ng-template #title><b>审计工单</b></ng-template>
+
+<nz-card [nzTitle]="title">
+  <nz-list nzSize="large" nzItemLayout="horizontal">
+    <nz-list-item>
+      <nz-list-item-meta>
+        <nz-list-item-meta-avatar>
+          <nz-avatar nzShape="square" nzSize="large" [nzSrc]="'/assets/user.png'"></nz-avatar>
+        </nz-list-item-meta-avatar>
+        <nz-list-item-meta-title>kainonly</nz-list-item-meta-title>
+        <nz-list-item-meta-description>
+          登录异常，用户汇报该 IP [67.220.90.13] 不是本人登录
+        </nz-list-item-meta-description>
+      </nz-list-item-meta>
+      <ul nz-list-item-actions>
+        <nz-list-item-action>
+          <button nz-button nzType="link">处理</button>
+        </nz-list-item-action>
+      </ul>
+    </nz-list-item>
+  </nz-list>
+</nz-card>

@@ -1,0 +1,14 @@
+<nz-table #basicTable nzSize="default" [nzShowPagination]="false">
+  <thead>
+    <tr>
+      <th nzWidth="360px">IP地址</th>
+      <th>描述</th>
+      <th nzWidth="200px">操作</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let data of basicTable.data">
+      <td>{{ data.address }}</td>
+    </tr>
+  </tbody>
+</nz-table>

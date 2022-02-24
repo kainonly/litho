@@ -25,10 +25,25 @@ import { WpxService } from '@weplanx/common';
             </li>
             <li nz-menu-group nzTitle="安全性">
               <ul>
-                <li nz-menu-item> <i nz-icon nzType="verified"></i> <span>登录策略</span> </li>
-                <li nz-menu-item> <i nz-icon nzType="lock"></i> <span>访问控制</span> </li>
-                <li nz-menu-item> <i nz-icon nzType="file-protect"></i> <span>审计工单</span> </li>
-                <li nz-menu-item> <i nz-icon nzType="file-search"></i> <span>日志检索</span> </li>
+                <li nz-menu-item nzMatchRouter [routerLink]="['security', 'policy']">
+                  <i nz-icon nzType="verified"></i> <span>登录策略</span>
+                </li>
+                <li nz-menu-item nzMatchRouter [routerLink]="['security', 'access']">
+                  <i nz-icon nzType="insurance"></i> <span>访问控制</span>
+                </li>
+                <li nz-menu-item nzMatchRouter [routerLink]="['security', 'audit']">
+                  <i nz-icon nzType="file-protect"></i> <span>审计工单</span>
+                </li>
+                <li nz-menu-item nzMatchRouter [routerLink]="['security', 'logs']">
+                  <i nz-icon nzType="file-search"></i> <span>日志检索</span>
+                </li>
+              </ul>
+            </li>
+            <li nz-menu-group nzTitle="第三方关联">
+              <ul>
+                <li nz-menu-item nzMatchRouter [routerLink]="['third-party', 'enterprise']">
+                  <i nz-icon nzType="laptop"></i> <span>企业平台</span>
+                </li>
               </ul>
             </li>
           </ul>
