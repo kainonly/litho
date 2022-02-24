@@ -1,6 +1,8 @@
-<wpx-layout wpxTitle="基本信息"> </wpx-layout>
+<wpx-layout></wpx-layout>
 
-<nz-card>
+<ng-template #title><b>基本信息</b></ng-template>
+
+<nz-card [nzTitle]="title">
   <form nz-form nzLayout="vertical" [formGroup]="form" (wpxSubmit)="submit($event)">
     <nz-row [nzGutter]="24">
       <nz-col nzFlex="600px">

@@ -1,1 +1,39 @@
-<wpx-layout wpxTitle="工作台"> </wpx-layout>
+<wpx-layout></wpx-layout>
+
+<nz-row [nzGutter]="12">
+  <nz-col nzFlex="320px">
+    <nz-card>
+      <div class="user">
+        <nz-avatar [nzSize]="128" nzSrc="/assets/user.png" nzIcon="user" nz-tooltip="更换头像"></nz-avatar>
+        <h2>KAIN</h2>
+        <p>海纳百川，有容乃大</p>
+      </div>
+      <nz-space class="user-detail" nzDirection="vertical">
+        <span *nzSpaceItem><i nz-icon nzType="idcard"></i> 运营人员</span>
+        <span *nzSpaceItem><i nz-icon nzType="partition"></i> XXX-运营部</span>
+        <span *nzSpaceItem><i nz-icon nzType="home"></i> 中国</span>
+      </nz-space>
+      <nz-divider></nz-divider>
+      <nz-space nzDirection="vertical">
+        <span *nzSpaceItem><i nz-icon nzType="team"></i> 加入时间 2018-11-08</span>
+        <span *nzSpaceItem><i nz-icon nzType="fund"></i> 您已累计进行 131 次会话登录，共计完成 1790 个任务</span>
+        <h3 *nzSpaceItem>最近登录地点</h3>
+        <div *nzSpaceItem>
+          <nz-tag>深圳</nz-tag>
+          <nz-tag>广州</nz-tag>
+          <nz-tag nzColor="warning">三亚</nz-tag>
+        </div>
+      </nz-space>
+    </nz-card>
+  </nz-col>
+  <nz-col nzFlex="auto">
+    <nz-card>
+      <nz-card-tab>
+        <nz-tabset nzSize="large">
+          <nz-tab nzTitle="通知"></nz-tab>
+          <nz-tab nzTitle="待办"></nz-tab>
+        </nz-tabset>
+      </nz-card-tab>
+    </nz-card>
+  </nz-col>
+</nz-row>

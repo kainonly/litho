@@ -4,7 +4,11 @@
       <ng-container *ngTemplateOutlet="layout.alert"></ng-container>
     </div>
 
-    <nz-page-header [nzGhost]="false" [nzBackIcon]="layout.showBack ? '' : null">
+    <nz-page-header
+      style="border-bottom: 1px solid #f0f0f0"
+      [nzGhost]="false"
+      [nzBackIcon]="layout.showBack ? '' : null"
+    >
       <nz-breadcrumb nz-page-header-breadcrumb [nzAutoGenerate]="wpxManual">
         <ng-container *ngIf="!wpxManual">
           <nz-breadcrumb-item>

@@ -1,6 +1,8 @@
-<wpx-layout wpxTitle="通知设置"> </wpx-layout>
+<wpx-layout></wpx-layout>
 
-<nz-card>
+<ng-template #title><b>通知设置</b></ng-template>
+
+<nz-card [nzTitle]="title">
   <nz-table #basicTable nzSize="default" [nzData]="notify" [nzShowPagination]="false">
     <thead>
       <tr>

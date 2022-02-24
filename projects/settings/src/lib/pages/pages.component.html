@@ -6,7 +6,7 @@
 
 <nz-layout class="pages-container">
   <nz-sider class="pages-sider" nzTheme="light" [nzWidth]="300">
-    <nz-space>
+    <nz-space style="margin-top: 12px">
       <nz-input-group *nzSpaceItem nzSuffixIcon="search">
         <input type="text" nz-input placeholder="搜索" [(ngModel)]="name" />
       </nz-input-group>
@@ -19,7 +19,7 @@
         </button>
       </nz-button-group>
     </nz-space>
-    <nz-divider></nz-divider>
+    <nz-divider style="margin: 12px 0"></nz-divider>
     <nz-tree
       #tree
       nzBlockNode

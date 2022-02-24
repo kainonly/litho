@@ -89,7 +89,9 @@ export class WpxRichtextComponent implements ControlValueAccessor, AfterViewInit
 
   ngOnDestroy(): void {
     if (this.instance) {
-      this.instance.destroy();
+      from(this.instance.isReady).subscribe(() => {
+        this.instance.destroy();
+      });
     }
   }
 
