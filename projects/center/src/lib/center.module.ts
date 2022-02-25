@@ -5,6 +5,7 @@ import { WpxModule, WpxShareModule } from '@weplanx/common';
 
 import { audit, AuditModule } from './audit/audit.module';
 import { CenterComponent } from './center.component';
+import { CenterService } from './center.service';
 import { mine, MineModule } from './mine/mine.module';
 import { profile, ProfileModule } from './profile/profile.module';
 
@@ -32,6 +33,7 @@ const routes: Routes = [
 
 @NgModule({
   imports: [WpxModule, WpxShareModule, MineModule, ProfileModule, AuditModule, RouterModule.forChild(routes)],
-  declarations: [CenterComponent]
+  declarations: [CenterComponent],
+  providers: [CenterService]
 })
 export class CenterModule {}

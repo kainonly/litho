@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 
+import { NzMessageService } from 'ng-zorro-antd/message';
+
+import { CenterService } from '../../center.service';
+
 @Component({
   selector: 'wpx-center-profile-info',
   templateUrl: './info.component.html'
@@ -8,27 +12,36 @@ import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class InfoComponent implements OnInit {
   form!: FormGroup;
 
-  constructor(private fb: FormBuilder) {}
+  constructor(private fb: FormBuilder, private center: CenterService, private message: NzMessageService) {}
 
   ngOnInit(): void {
     this.form = this.fb.group({
-      name: [],
-      avatar: [],
-      region: [],
-      city: [],
-      address: [],
-      introduction: [],
-      tel: this.fb.array([]),
+      name: [null],
+      avatar: [null],
+      region: [null],
+      city: [[]],
+      address: [null],
+      introduction: [null],
+      phone: this.fb.array([]),
       email: this.fb.array([])
+    });
+    this.center.getUserInfo().subscribe(v => {
+      this.form.patchValue(v);
+      for (const vv of v.phone) {
+        this.addPhone(vv);
+      }
+      for (const vv of v.email) {
+        this.addEmail(vv);
+      }
     });
   }
 
-  get tel(): FormArray {
-    return this.form?.get('tel') as FormArray;
+  get phone(): FormArray {
+    return this.form?.get('phone') as FormArray;
   }
 
-  addTel(value?: any): void {
-    this.tel.push(
+  addPhone(value?: any): void {
+    this.phone.push(
       this.fb.group({
         area: [null, [Validators.required]],
         number: [null, [Validators.required]]
@@ -36,8 +49,8 @@ export class InfoComponent implements OnInit {
     );
   }
 
-  removeTel(index: number): void {
-    this.tel.removeAt(index);
+  removePhone(index: number): void {
+    this.phone.removeAt(index);
   }
 
   get email(): FormArray {
@@ -54,5 +67,8 @@ export class InfoComponent implements OnInit {
 
   submit(data: any): void {
     console.log(data);
+    this.center.setUserInfo(data).subscribe(() => {
+      this.message.success('数据更新完成');
+    });
   }
 }

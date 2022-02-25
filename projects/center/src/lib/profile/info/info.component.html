@@ -53,17 +53,17 @@
         </nz-form-item>
         <nz-form-item>
           <nz-form-label>联系电话</nz-form-label>
-          <nz-form-control style="width: 448px" formArrayName="tel">
-            <ng-container *ngFor="let x of tel?.controls; index as i; first as isFirst">
+          <nz-form-control style="width: 448px" formArrayName="phone">
+            <ng-container *ngFor="let x of phone?.controls; index as i; first as isFirst">
               <nz-input-group [formGroupName]="i" nzCompact [ngStyle]="{ 'margin-top': isFirst ? null : '-1px' }">
                 <input style="width: 25%" type="text" nz-input formControlName="area" placeholder="区号" />
                 <input style="width: 65%" type="text" nz-input formControlName="number" placeholder="电话号码" />
-                <button nz-button type="button" nzType="default" style="width: 10%" (click)="removeTel(i)">
+                <button nz-button type="button" nzType="default" style="width: 10%" (click)="removePhone(i)">
                   <i nz-icon nzType="minus-circle"></i>
                 </button>
               </nz-input-group>
             </ng-container>
-            <button style="margin-top: 8px" nzBlock type="button" nz-button nzType="dashed" (click)="addTel()">
+            <button style="margin-top: 8px" nzBlock type="button" nz-button nzType="dashed" (click)="addPhone()">
               <i nz-icon nzType="plus-circle"></i> 新增联系电话
             </button>
           </nz-form-control>
