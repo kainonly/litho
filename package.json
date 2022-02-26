@@ -27,7 +27,7 @@
     "@angular/service-worker": "~13.2.0",
     "@ngx-pwa/local-storage": "^13.0.2",
     "monaco-editor": "^0.31.1",
-    "ng-zorro-antd": "^13.0.1",
+    "ng-zorro-antd": "^13.1.0",
     "rxjs": "~7.4.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.11.4"
