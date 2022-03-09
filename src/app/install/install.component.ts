@@ -15,6 +15,7 @@ export class InstallComponent implements OnInit {
   step = 1;
   form!: FormGroup;
   panels = [true, false, false];
+  install = false;
 
   constructor(
     private appService: AppService,
@@ -54,6 +55,11 @@ export class InstallComponent implements OnInit {
   }
 
   submit(data: any): void {
+    if (!data.readme) {
+      // 提示
+    }
+    this.install = true;
+    delete data.readme;
     console.log(data);
   }
 }
