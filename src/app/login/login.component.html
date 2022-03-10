@@ -1,88 +1,63 @@
-<nz-layout class="main" [ngStyle]="{ 'background-image': ['assets', 'ant-bg.svg'] | wpxAssets: { css: true } }">
-  <nz-content>
-    <nz-card class="login">
-      <div class="logo">
-        <nz-avatar [nzSize]="128" nzIcon="user"></nz-avatar>
-      </div>
-      <h2>企业数字化平台</h2>
-      <form [formGroup]="form" nz-form (wpxSubmit)="submit($event)">
-        <nz-form-item>
-          <nz-form-control>
-            <nz-input-group [nzSuffix]="usernameSuffix" nzPrefixIcon="user">
-              <ng-template #usernameSuffix>
-                <i *ngIf="username.value" nz-icon nzType="close-circle" (click)="username.reset()"> </i>
-              </ng-template>
-              <input type="text" nz-input formControlName="username" placeholder="电子邮件 / 手机 / 用户名" />
-            </nz-input-group>
-          </nz-form-control>
-        </nz-form-item>
+<app-whiteboard>
+  <nz-card class="login">
+    <div class="logo">
+      <nz-avatar [nzSize]="128" nzIcon="user"></nz-avatar>
+    </div>
+    <h2>企业数字化平台</h2>
+    <form [formGroup]="form" nz-form (wpxSubmit)="submit($event)">
+      <nz-form-item>
+        <nz-form-control>
+          <nz-input-group [nzSuffix]="usernameSuffix" nzPrefixIcon="user">
+            <ng-template #usernameSuffix>
+              <i *ngIf="username.value" nz-icon nzType="close-circle" (click)="username.reset()"> </i>
+            </ng-template>
+            <input type="text" nz-input formControlName="username" placeholder="电子邮件 / 手机 / 用户名" />
+          </nz-input-group>
+        </nz-form-control>
+      </nz-form-item>
 
-        <nz-form-item>
-          <nz-form-control>
-            <nz-input-group [nzSuffix]="passwordSuffix" nzPrefixIcon="lock">
-              <ng-template #passwordSuffix>
-                <i *ngIf="password.value" nz-icon nzType="close-circle" (click)="password.reset()"> </i>
-              </ng-template>
-              <input
-                nz-input
-                type="password"
-                formControlName="password"
-                autocomplete="new-password"
-                placeholder="密码"
-              />
-            </nz-input-group>
-          </nz-form-control>
-        </nz-form-item>
-        <nz-form-item>
-          <nz-row [nzGutter]="[12, 12]" nzJustify="space-between">
-            <nz-col>
-              <label nz-checkbox formControlName="remember" nz-tooltip="7天内登录无需二次验证">信任设备</label>
-            </nz-col>
-            <nz-col></nz-col>
-            <nz-col>
-              <a nz-button nzSize="small" nzType="link">忘记密码？</a>
-            </nz-col>
-            <nz-col [nzSpan]="24">
-              <button nz-button nzBlock nzType="primary"> 登 录 </button>
-            </nz-col>
-            <nz-col [nzSpan]="24">
-              <nz-space>
-                <span *nzSpaceItem>其他方式：</span>
-                <a *nzSpaceItem nz-tooltip="钉钉">
-                  <nz-avatar
-                    nzSize="small"
-                    nzShape="square"
-                    [nzSrc]="['assets', 'dingtalk.png'] | wpxAssets"
-                  ></nz-avatar>
-                </a>
-                <a *nzSpaceItem nz-tooltip="企业微信">
-                  <nz-avatar
-                    nzSize="small"
-                    nzShape="square"
-                    [nzSrc]="['assets', 'work-weixin.png'] | wpxAssets"
-                  ></nz-avatar>
-                </a>
-                <a *nzSpaceItem nz-tooltip="飞书">
-                  <nz-avatar nzSize="small" nzShape="square" [nzSrc]="['assets', 'feishu.png'] | wpxAssets"></nz-avatar>
-                </a>
-              </nz-space>
-            </nz-col>
-          </nz-row>
-        </nz-form-item>
-      </form>
-    </nz-card>
-  </nz-content>
-  <nz-footer class="footer">
-    <nz-space [nzSplit]="split">
-      <ng-template #split>
-        <nz-divider nzType="vertical"></nz-divider>
-      </ng-template>
-      <a *nzSpaceItem>BSD-3-Clause License</a>
-    </nz-space>
-    <p>
-      <i nz-icon nzType="copyright"></i>
-      <span> {{ now }} Developed by </span>
-      <a href="https://github.com/weplanx" target="_blank"> <b>WEPLANX </b> <i nz-icon nzType="github"></i></a>
-    </p>
-  </nz-footer>
-</nz-layout>
+      <nz-form-item>
+        <nz-form-control>
+          <nz-input-group [nzSuffix]="passwordSuffix" nzPrefixIcon="lock">
+            <ng-template #passwordSuffix>
+              <i *ngIf="password.value" nz-icon nzType="close-circle" (click)="password.reset()"> </i>
+            </ng-template>
+            <input nz-input type="password" formControlName="password" autocomplete="new-password" placeholder="密码" />
+          </nz-input-group>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-row [nzGutter]="[12, 12]" nzJustify="space-between">
+          <nz-col>
+            <label nz-checkbox formControlName="remember" nz-tooltip="7天内登录无需二次验证">信任设备</label>
+          </nz-col>
+          <nz-col></nz-col>
+          <nz-col>
+            <a nz-button nzSize="small" nzType="link">忘记密码？</a>
+          </nz-col>
+          <nz-col [nzSpan]="24">
+            <button nz-button nzBlock nzType="primary"> 登 录 </button>
+          </nz-col>
+          <nz-col [nzSpan]="24">
+            <nz-space>
+              <span *nzSpaceItem>其他方式：</span>
+              <a *nzSpaceItem nz-tooltip="钉钉">
+                <nz-avatar nzSize="small" nzShape="square" [nzSrc]="['assets', 'dingtalk.png'] | wpxAssets"></nz-avatar>
+              </a>
+              <a *nzSpaceItem nz-tooltip="企业微信">
+                <nz-avatar
+                  nzSize="small"
+                  nzShape="square"
+                  [nzSrc]="['assets', 'work-weixin.png'] | wpxAssets"
+                ></nz-avatar>
+              </a>
+              <a *nzSpaceItem nz-tooltip="飞书">
+                <nz-avatar nzSize="small" nzShape="square" [nzSrc]="['assets', 'feishu.png'] | wpxAssets"></nz-avatar>
+              </a>
+            </nz-space>
+          </nz-col>
+        </nz-row>
+      </nz-form-item>
+    </form>
+  </nz-card>
+</app-whiteboard>

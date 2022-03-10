@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
 
 import { AppService } from '@common/app.service';
-import { NzNotificationService } from 'ng-zorro-antd/notification';
+import { NzMessageService } from 'ng-zorro-antd/message';
 
 @Component({
   selector: 'app-install',
@@ -11,18 +10,20 @@ import { NzNotificationService } from 'ng-zorro-antd/notification';
   styleUrls: ['./install.component.scss']
 })
 export class InstallComponent implements OnInit {
-  now = new Date().getFullYear();
-  step = 1;
+  step = 0;
+  /**
+   * 说明须知
+   */
+  sections = [true, false, false];
   form!: FormGroup;
-  panels = [true, false, false];
-  install = false;
+  /**
+   * 密码显示
+   */
+  passwordVisible = false;
+  installing = false;
+  data: any;
 
-  constructor(
-    private appService: AppService,
-    private notification: NzNotificationService,
-    private router: Router,
-    private fb: FormBuilder
-  ) {}
+  constructor(private appService: AppService, private message: NzMessageService, private fb: FormBuilder) {}
 
   ngOnInit(): void {
     this.form = this.fb.group({
@@ -46,20 +47,40 @@ export class InstallComponent implements OnInit {
     return this.form?.get('password') as FormControl;
   }
 
+  /**
+   * 返回
+   */
   pre(): void {
     this.step -= 1;
   }
 
+  /**
+   * 下一步
+   */
   next(): void {
     this.step += 1;
   }
 
+  /**
+   * 提交初始化
+   * @param data
+   */
   submit(data: any): void {
     if (!data.readme) {
-      // 提示
+      this.message.error('请点击已阅读');
     }
-    this.install = true;
+    this.installing = true;
     delete data.readme;
-    console.log(data);
+    this.appService.install(data).subscribe({
+      next: () => {
+        this.message.success('应用初始化完成');
+        this.installing = false;
+        this.data = data;
+        this.step += 1;
+      },
+      error: () => {
+        this.installing = false;
+      }
+    });
   }
 }

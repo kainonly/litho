@@ -11,7 +11,6 @@ import { NzNotificationService } from 'ng-zorro-antd/notification';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
-  now = new Date().getFullYear();
   form!: FormGroup;
 
   constructor(

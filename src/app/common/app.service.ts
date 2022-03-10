@@ -32,6 +32,14 @@ export class AppService {
   }
 
   /**
+   * 初始化应用
+   * @param data
+   */
+  install(data: any): Observable<any> {
+    return this.http.post(`install`, data);
+  }
+
+  /**
    * 登录鉴权
    */
   login(username: string, password: string): Observable<any> {
