@@ -1,15 +1,20 @@
 <nz-card>
-  <nz-result [nzIcon]="nzIcon">
-    <ng-template #nzIcon><i nz-icon nzType="question-circle"></i></ng-template>
-    <div nz-result-title> 使用提示 </div>
+  <nz-result nzStatus="info">
+    <div nz-result-title> 使用说明 </div>
     <div nz-result-content>
-      <p nz-typography> * 您可以在树视图中点击节点查看内容模型，也可以右键点击获得更多操作，同时支持拖拽进行排序。 </p>
-      <div nz-typography>
-        <ul>
-          <li> 『集合』 作为数据源，包含数据列表与数据填充等功能。</li>
-          <li> 『表单』 独立的数据填充页面。</li>
-          <li> 『仪表盘』 数据分析处理、结果展示功能，如数据汇总、趋势分析。</li>
-          <li> 『分组』导航中将其他种类分组显示。</li>
+      <p>
+        🔥
+        在树视图中点击任意『节点』来查看内容模型，通过『鼠标右键』获得更多操作、『拖拽』进行排序，以下为内容模型主要支持类型：
+      </p>
+      <div>
+        <ul style="list-style: none">
+          <li>👉 『<i nz-icon nzType="database"></i> 数据集』 创建一个集合，生成表格页面并包含数据表单功能；</li>
+          <li>👉 『<i nz-icon nzType="form"></i> 数据表单』 创建一个集合，生成数据表单页面；</li>
+          <li>
+            👉 『<i nz-icon nzType="tags"></i> 数据标签』创建一个集合，用于支持数据标签引用，创建后在『资源』中管理；
+          </li>
+          <li>👉 『<i nz-icon nzType="database"></i> 数据统计』 引用数据聚合，生成数据汇总、趋势分析等图表；</li>
+          <li>👉 『<i nz-icon nzType="group"></i> 导航分组』导航中设置其他种类的显示分组。</li>
         </ul>
       </div>
     </div>

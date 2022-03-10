@@ -117,8 +117,8 @@ export class PagesComponent implements OnInit {
 
   delete(data: AnyDto<Page>): void {
     this.modal.confirm({
-      nzTitle: '您确定要作废该页面吗?',
-      nzContent: '该操作不会真实删除实体集合，如必须删除需要数据库工具控制完成',
+      nzTitle: `您确定要作废『${data.name}』页面吗?`,
+      nzContent: '该操作不会删除实体集合，彻底清空需要数据库工具完成',
       nzOkText: '是的',
       nzOkType: 'primary',
       nzOkDanger: true,

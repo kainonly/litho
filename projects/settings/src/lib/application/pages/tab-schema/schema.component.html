@@ -51,20 +51,15 @@
           </ng-container>
         </td>
         <td nzRight nzAlign="center">
-          <button nz-button nzType="text" nz-tooltip="编辑" (click)="form(data)">
-            <i nz-icon nzType="edit"></i>
+          <button nz-button nzType="text" nz-dropdown [nzDropdownMenu]="actions">
+            <i nz-icon nzType="ellipsis"></i>
           </button>
-          <button
-            nz-button
-            nzType="text"
-            nz-tooltip="删除"
-            nz-popconfirm
-            nzPopconfirmTitle="您确定移除该字段吗?"
-            nzPopconfirmPlacement="bottomRight"
-            (nzOnConfirm)="delete(data)"
-          >
-            <i nz-icon nzType="delete"></i>
-          </button>
+          <nz-dropdown-menu #actions="nzDropdownMenu">
+            <ul nz-menu>
+              <li nz-menu-item (click)="form(data)">编辑</li>
+              <li nz-menu-item nzDanger (click)="delete(data)">删除</li>
+            </ul>
+          </nz-dropdown-menu>
         </td>
       </tr>
     </tbody>
