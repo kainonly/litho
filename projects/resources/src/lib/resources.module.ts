@@ -5,6 +5,7 @@ import { WpxModule, WpxShareModule } from '@weplanx/common';
 
 import { media, MediaModule } from './media/media.module';
 import { ResourcesComponent } from './resources.component';
+import { third_party } from './third-party/third-party.module';
 
 const routes: Routes = [
   {
@@ -17,6 +18,10 @@ const routes: Routes = [
         data: {
           breadcrumb: '媒体资源'
         }
+      },
+      {
+        path: 'third-party',
+        children: third_party
       },
       { path: '', redirectTo: '/resources/media/pictures', pathMatch: 'full' }
     ]

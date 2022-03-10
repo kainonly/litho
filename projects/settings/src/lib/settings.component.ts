@@ -10,7 +10,7 @@ import { WpxService } from '@weplanx/common';
       <nz-layout class="container">
         <nz-sider class="sider" nzTheme="light" [nzWidth]="240">
           <ul nz-menu nzMode="inline">
-            <li nz-menu-group nzTitle="应用设置">
+            <li nz-menu-group nzTitle="应用">
               <ul>
                 <li nz-menu-item nzMatchRouter [routerLink]="['application', 'pages']">
                   <i nz-icon nzType="file-sync"></i> <span>页面管理</span>
@@ -39,11 +39,15 @@ import { WpxService } from '@weplanx/common';
                 </li>
               </ul>
             </li>
-            <li nz-menu-group nzTitle="第三方关联">
+            <li nz-menu-group nzTitle="开发者">
               <ul>
-                <li nz-menu-item nzMatchRouter [routerLink]="['third-party', 'enterprise']">
-                  <i nz-icon nzType="laptop"></i> <span>企业平台</span>
+                <li nz-menu-item nzMatchRouter [routerLink]="['developer', 'config']">
+                  <i nz-icon nzType="control"></i> <span>配置列表</span>
                 </li>
+                <li nz-menu-item> <i nz-icon nzType="build"></i> <span>版本管理</span> </li>
+                <li nz-menu-item> <i nz-icon nzType="schedule"></i> <span>定时调度</span> </li>
+                <li nz-menu-item> <i nz-icon nzType="one-to-one"></i> <span>消息队列</span> </li>
+                <li nz-menu-item> <i nz-icon nzType="monitor"></i> <span>服务状态</span> </li>
               </ul>
             </li>
           </ul>

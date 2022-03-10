@@ -16,6 +16,13 @@ import { WpxService } from '@weplanx/common';
                 <li nz-menu-item nzMatchRouter [routerLink]="['media', 'videos']"> <span>视频</span> </li>
               </ul>
             </li>
+            <li nz-menu-group nzTitle="第三方服务">
+              <ul>
+                <li nz-menu-item nzMatchRouter [routerLink]="['third-party', 'enterprise']">
+                  <i nz-icon nzType="laptop"></i> <span>企业办公</span>
+                </li>
+              </ul>
+            </li>
           </ul>
         </nz-sider>
         <nz-layout style="overflow: auto">

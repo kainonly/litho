@@ -52,7 +52,7 @@ const routes: Routes = [
     loadChildren: () => import('@weplanx/settings').then(m => m.SettingsModule),
     canActivate: [AppGuard],
     data: {
-      breadcrumb: '管理者工具'
+      breadcrumb: '设置管理'
     }
   },
   {

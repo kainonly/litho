@@ -4,9 +4,9 @@ import { RouterModule, Routes } from '@angular/router';
 import { WpxModule, WpxShareModule } from '@weplanx/common';
 
 import { application, ApplicationModule } from './application/application.module';
+import { developer, DeveloperModule } from './developer/developer.module';
 import { security, SecurityModule } from './security/security.module';
 import { SettingsComponent } from './settings.component';
-import { third_party, ThirdPartyModule } from './third-party/third-party.module';
 
 const routes: Routes = [
   {
@@ -17,7 +17,7 @@ const routes: Routes = [
         path: 'application',
         children: application,
         data: {
-          breadcrumb: '应用设置'
+          breadcrumb: '应用'
         }
       },
       {
@@ -28,8 +28,11 @@ const routes: Routes = [
         }
       },
       {
-        path: 'third-party',
-        children: third_party
+        path: 'developer',
+        children: developer,
+        data: {
+          breadcrumb: '开发者'
+        }
       },
       { path: '', redirectTo: '/settings/application/pages/home', pathMatch: 'full' }
     ]
@@ -42,7 +45,7 @@ const routes: Routes = [
     WpxModule,
     ApplicationModule,
     SecurityModule,
-    ThirdPartyModule,
+    DeveloperModule,
     RouterModule.forChild(routes)
   ],
   declarations: [SettingsComponent]
