@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 
 import { AnyDto, Where, WpxService } from '@weplanx/common';
+import { NzDrawerRef, NzDrawerService } from 'ng-zorro-antd/drawer';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalService } from 'ng-zorro-antd/modal';
 
@@ -14,6 +15,11 @@ import { Role } from './types';
   templateUrl: './roles.component.html'
 })
 export class RolesComponent implements OnInit {
+  @ViewChild('filterTemplate', { static: false }) filterTemplate?: TemplateRef<{
+    $implicit: { value: string };
+    drawerRef: NzDrawerRef<string>;
+  }>;
+
   items: Array<AnyDto<Role>> = [];
   searchText: string = '';
   filter = true;
@@ -24,7 +30,8 @@ export class RolesComponent implements OnInit {
     public roles: RolesService,
     private wpx: WpxService,
     private modal: NzModalService,
-    private message: NzMessageService
+    private message: NzMessageService,
+    private drawer: NzDrawerService
   ) {}
 
   ngOnInit(): void {
@@ -42,6 +49,14 @@ export class RolesComponent implements OnInit {
     }
     this.roles.find(where).subscribe(data => {
       this.items = [...data];
+    });
+  }
+
+  openFilter(): void {
+    this.drawer.create({
+      nzTitle: '筛选',
+      nzContent: this.filterTemplate,
+      nzPlacement: 'bottom'
     });
   }
 
