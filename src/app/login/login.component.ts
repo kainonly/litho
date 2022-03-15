@@ -14,7 +14,7 @@ export class LoginComponent implements OnInit {
   form!: FormGroup;
 
   constructor(
-    private appService: AppService,
+    public app: AppService,
     private notification: NzNotificationService,
     private router: Router,
     private fb: FormBuilder
@@ -37,7 +37,7 @@ export class LoginComponent implements OnInit {
   }
 
   submit(data: any): void {
-    this.appService.login(data.username, data.password).subscribe(() => {
+    this.app.login(data.username, data.password).subscribe(() => {
       this.notification.success('认证状态', '登录成功，正在加载数据~');
       this.router.navigateByUrl('/pages');
     });

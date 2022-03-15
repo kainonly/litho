@@ -39,22 +39,9 @@
             <button nz-button nzBlock nzType="primary"> 登 录 </button>
           </nz-col>
           <nz-col [nzSpan]="24">
-            <nz-space>
-              <span *nzSpaceItem>其他方式：</span>
-              <a *nzSpaceItem nz-tooltip="钉钉">
-                <nz-avatar nzSize="small" nzShape="square" [nzSrc]="['assets', 'dingtalk.png'] | wpxAssets"></nz-avatar>
-              </a>
-              <a *nzSpaceItem nz-tooltip="企业微信">
-                <nz-avatar
-                  nzSize="small"
-                  nzShape="square"
-                  [nzSrc]="['assets', 'work-weixin.png'] | wpxAssets"
-                ></nz-avatar>
-              </a>
-              <a *nzSpaceItem nz-tooltip="飞书">
-                <nz-avatar nzSize="small" nzShape="square" [nzSrc]="['assets', 'feishu.png'] | wpxAssets"></nz-avatar>
-              </a>
-            </nz-space>
+            <a nz-tooltip="飞书">
+              <nz-avatar nzSize="small" nzShape="square" [nzSrc]="['assets', 'feishu.png'] | wpxAssets"></nz-avatar>
+            </a>
           </nz-col>
         </nz-row>
       </nz-form-item>

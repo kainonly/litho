@@ -1,12 +1,13 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 
+import { AppService } from '@common/app.service';
 import { WpxService } from '@weplanx/common';
 
 @Component({
   selector: 'wpx-settings',
   template: `
     <nz-layout class="main">
-      <wpx-header></wpx-header>
+      <wpx-header [wpxLogout]="app.logout"></wpx-header>
       <nz-layout class="container">
         <nz-sider class="sider" nzTheme="light" [nzWidth]="240">
           <ul nz-menu nzMode="inline">
@@ -65,7 +66,7 @@ import { WpxService } from '@weplanx/common';
 export class SettingsComponent implements OnInit {
   noPadding = false;
 
-  constructor(public wpx: WpxService, private cd: ChangeDetectorRef) {}
+  constructor(public app: AppService, public wpx: WpxService, private cd: ChangeDetectorRef) {}
 
   ngOnInit(): void {
     this.wpx.layout.subscribe(option => {

@@ -8,6 +8,7 @@ import { WpxService } from '@weplanx/common';
   template: `
     <nz-layout class="main">
       <wpx-header [wpxLogout]="app.logout"></wpx-header>
+
       <nz-layout class="container">
         <nz-sider class="sider" nzTheme="light" [nzWidth]="240">
           <wpx-nav></wpx-nav>
