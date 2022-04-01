@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { AbstractControl, FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Observable, of } from 'rxjs';
 
 import { AnyDto } from '@weplanx/common';
@@ -9,7 +9,6 @@ import { NzNotificationService } from 'ng-zorro-antd/notification';
 
 import { RolesService } from '../roles.service';
 import { Role } from '../types';
-import { LabelComponent } from './label/label.component';
 
 @Component({
   selector: 'wpx-settings-roles-form',
@@ -32,13 +31,9 @@ export class FormComponent implements OnInit {
     this.form = this.fb.group({
       name: [null, [Validators.required], [this.existsName]],
       description: [],
-      labels: this.fb.array([]),
       status: [true, [Validators.required]]
     });
     if (this.editable) {
-      this.editable.labels.forEach(() => {
-        this.addLabel();
-      });
       this.form.patchValue(this.editable);
     }
   }
@@ -49,35 +44,6 @@ export class FormComponent implements OnInit {
     }
     return this.roles.hasName(control.value);
   };
-
-  get labels(): FormArray {
-    return this.form?.get('labels') as FormArray;
-  }
-
-  addLabel(value?: string): void {
-    this.labels.push(this.fb.control(value, [Validators.required]));
-  }
-
-  removeLabel(index: number): void {
-    this.labels.removeAt(index);
-  }
-
-  importLabels(): void {
-    this.modal.create({
-      nzTitle: '设置导入的标记',
-      nzContent: LabelComponent,
-      nzComponentParams: {
-        exists: this.labels.value as string[]
-      },
-      nzOnOk: instance => {
-        instance.items.forEach(v => {
-          if (v.direction === 'right') {
-            this.addLabel(v.title);
-          }
-        });
-      }
-    });
-  }
 
   close(): void {
     this.modalRef.triggerCancel();

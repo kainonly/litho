@@ -22,8 +22,14 @@ import { WpxService } from '@weplanx/common';
             </li>
             <li nz-menu-group nzTitle="安全性">
               <ul>
-                <li nz-menu-item nzMatchRouter [routerLink]="['security', 'access']">
-                  <i nz-icon nzType="insurance"></i> <span>访问控制</span>
+                <li nz-menu-item nzMatchRouter [routerLink]="['security', 'session']">
+                  <i nz-icon nzType="rocket"></i> <span>活动会话</span>
+                </li>
+                <li nz-menu-item nzMatchRouter [routerLink]="['security', 'policy']">
+                  <i nz-icon nzType="security-scan"></i> <span>登录策略</span>
+                </li>
+                <li nz-menu-item nzMatchRouter [routerLink]="['security', 'whitelist']">
+                  <i nz-icon nzType="safety-certificate"></i> <span>IP 白名单</span>
                 </li>
                 <li nz-menu-item nzMatchRouter [routerLink]="['security', 'audit']">
                   <i nz-icon nzType="file-protect"></i> <span>审计日志</span>

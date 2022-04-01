@@ -18,12 +18,11 @@ import { Search, TableField, TableOption } from './types';
 export class WpxTableComponent implements OnInit {
   @Input() wpxKey!: string;
   @Input() wpxApi!: Api<any>;
-  @Input() wpxFields: TableField[] = [];
+  @Input() wpxFields!: Map<string, TableField>;
   @Input() wpxScroll: { x?: string | null; y?: string | null } = { x: '1600px' };
   @Input() wpxActions?: TemplateRef<any>;
+  @Input() wpxBulk?: TemplateRef<any>;
   @ViewChild('searchRef', { static: true }) wpxSearch!: TemplateRef<any>;
-  @ViewChild('toolRef', { static: true }) wpxTool!: TemplateRef<any>;
-  @ViewChild('bulkRef', { static: true }) wpxBulk!: TemplateRef<any>;
   /**
    * 数据源
    */
@@ -44,6 +43,7 @@ export class WpxTableComponent implements OnInit {
    * 查询显示
    */
   searchVisible = false;
+  fields: Record<string, TableField> = {};
   /**
    * 列
    */
@@ -61,10 +61,6 @@ export class WpxTableComponent implements OnInit {
    */
   columnsIndeterminate = false;
   /**
-   * 密度大小
-   */
-  columnsHeight: NzTableSize = 'middle';
-  /**
    * 自定义宽
    */
   columnsWidth: Record<string, string> = {};
@@ -81,12 +77,14 @@ export class WpxTableComponent implements OnInit {
 
   ngOnInit(): void {
     this.storage.get(this.wpxKey).subscribe(data => {
-      if (!data) {
-        for (const x of this.wpxFields) {
-          this.columns.push({ label: x.label, value: x.key });
-          this.columnsWidth[x.key] = '240px';
+      this.wpxFields.forEach((value, key) => {
+        if (!!value.keyword) {
+          this.keywords.add(key);
         }
-        this.columnsHeight = 'middle';
+        this.columns.push({ label: value.label, value: key });
+        this.columnsWidth[key] = '240px';
+      });
+      if (!data) {
         this.updateColumnsChecked();
       } else {
         const v = data as TableOption;
@@ -96,15 +94,9 @@ export class WpxTableComponent implements OnInit {
         this.ds.sort = v.sort;
         this.searchText = v.searchText;
         this.columns = v.columns;
-        this.columnsHeight = v.columnsHeight;
         this.columnsWidth = v.columnsWidth;
         this.updateColumnChecked();
       }
-      this.wpxFields.forEach(v => {
-        if (!!v.keyword) {
-          this.keywords.add(v.key);
-        }
-      });
       this.getData();
     });
   }
@@ -239,7 +231,6 @@ export class WpxTableComponent implements OnInit {
    * 列设置重置
    */
   columnsReset(): void {
-    this.columnsHeight = 'middle';
     this.columnsWidth = {};
     this.columnsChecked = true;
     this.updateColumnsChecked();
@@ -258,7 +249,6 @@ export class WpxTableComponent implements OnInit {
         where: this.ds.where,
         sort: this.ds.sort,
         columns: this.columns,
-        columnsHeight: this.columnsHeight,
         columnsWidth: this.columnsWidth
       })
       .subscribe(() => {});

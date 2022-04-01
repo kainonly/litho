@@ -1,7 +1,8 @@
-import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
+import { forkJoin, Observable } from 'rxjs';
 
-import { AnyDto, Where, WpxService } from '@weplanx/common';
-import { NzDrawerRef, NzDrawerService } from 'ng-zorro-antd/drawer';
+import { AnyDto, WpxService } from '@weplanx/common';
+import { TableField, WpxTableComponent } from '@weplanx/components/table';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalService } from 'ng-zorro-antd/modal';
 
@@ -14,98 +15,22 @@ import { Role } from './types';
   selector: 'wpx-settings-roles',
   templateUrl: './roles.component.html'
 })
-export class RolesComponent implements OnInit {
-  @ViewChild('filterTemplate', { static: false }) filterTemplate?: TemplateRef<{
-    $implicit: { value: string };
-    drawerRef: NzDrawerRef<string>;
-  }>;
-
-  items: Array<AnyDto<Role>> = [];
-  searchText: string = '';
-  filter = true;
-  labels: string[] = [];
-  matchLabels: Set<string> = new Set<string>();
+export class RolesComponent {
+  @ViewChild(WpxTableComponent) table!: WpxTableComponent;
+  fields: Map<string, TableField> = new Map<string, TableField>([
+    ['name', { label: '权限名称', type: 'text', keyword: true }],
+    ['description', { label: '描述', type: 'text' }],
+    ['status', { label: '状态', type: 'bool' }],
+    ['create_time', { label: '创建时间', type: 'datetime' }],
+    ['update_time', { label: '修改时间', type: 'datetime' }]
+  ]);
 
   constructor(
     public roles: RolesService,
     private wpx: WpxService,
     private modal: NzModalService,
-    private message: NzMessageService,
-    private drawer: NzDrawerService
+    private message: NzMessageService
   ) {}
-
-  ngOnInit(): void {
-    this.getData();
-    this.getLabels();
-  }
-
-  getData(): void {
-    const where: Where<Role> = {};
-    if (this.searchText) {
-      where['name'] = { $regex: this.searchText };
-    }
-    if (this.matchLabels.size !== 0) {
-      where['labels'] = { $in: [...this.matchLabels.values()] };
-    }
-    this.roles.find(where).subscribe(data => {
-      this.items = [...data];
-      console.log(this.items);
-    });
-  }
-
-  openFilter(): void {
-    this.drawer.create({
-      nzTitle: '筛选',
-      nzContent: this.filterTemplate,
-      nzPlacement: 'bottom'
-    });
-  }
-
-  /**
-   * 获取标签
-   */
-  getLabels(): void {
-    this.roles.findLabels().subscribe(data => {
-      this.labels = [...data];
-    });
-  }
-
-  /**
-   * 设置标签状态
-   * @param checked
-   * @param data
-   * @param fetch
-   */
-  matchLabelChange(checked: boolean, data: string, fetch = true): void {
-    if (checked) {
-      this.matchLabels.add(data);
-    } else {
-      this.matchLabels.delete(data);
-    }
-    if (fetch) {
-      this.getData();
-    }
-  }
-
-  /**
-   * 设置所有标签
-   * @param checked
-   */
-  matchLabelsChange(checked: boolean): void {
-    this.labels.forEach(data => {
-      this.matchLabelChange(checked, data, false);
-    });
-    this.getData();
-  }
-
-  /**
-   * 清除筛选
-   */
-  clearSearch(): void {
-    this.searchText = '';
-    this.matchLabels.clear();
-    this.getData();
-  }
 
   /**
    * 权限设置表单
@@ -117,9 +42,6 @@ export class RolesComponent implements OnInit {
       nzContent: PermissionComponent,
       nzComponentParams: {
         editable
-      },
-      nzOnOk: () => {
-        this.getData();
       }
     });
   }
@@ -136,8 +58,7 @@ export class RolesComponent implements OnInit {
         editable
       },
       nzOnOk: () => {
-        this.getData();
-        this.getLabels();
+        this.table.getData(true);
       }
     });
   }
@@ -147,10 +68,39 @@ export class RolesComponent implements OnInit {
    * @param data
    */
   delete(data: AnyDto<Role>): void {
-    this.roles.delete(data._id).subscribe(() => {
-      this.message.success('数据删除完成');
-      this.getData();
-      this.getLabels();
+    this.modal.confirm({
+      nzTitle: '您确定要删除该权限吗?',
+      nzOkText: '是的',
+      nzOkType: 'primary',
+      nzOkDanger: true,
+      nzOnOk: () => {
+        this.roles.delete(data._id).subscribe(() => {
+          this.message.success('数据删除完成');
+          this.table.getData(true);
+        });
+      },
+      nzCancelText: '再想想'
+    });
+  }
+
+  bulkDelete(): void {
+    this.modal.confirm({
+      nzTitle: '您确定要删除这些权限吗?',
+      nzOkText: '是的',
+      nzOkType: 'primary',
+      nzOkDanger: true,
+      nzOnOk: () => {
+        const requests: Array<Observable<any>> = [];
+        this.table.ds.checkedIds.forEach(value => {
+          requests.push(this.roles.delete(value));
+        });
+        forkJoin(requests).subscribe(() => {
+          this.message.success('数据删除完成');
+          this.table.getData(true);
+          this.table.ds.clearChecked();
+        });
+      },
+      nzCancelText: '再想想'
     });
   }
 }

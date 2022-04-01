@@ -1,9 +1,8 @@
-import { Where } from '@weplanx/common';
+import { AdvancedType, BasicType, Where } from '@weplanx/common';
 import { NzCheckBoxOptionInterface } from 'ng-zorro-antd/checkbox';
 import { NzTableSize, NzTableSortOrder } from 'ng-zorro-antd/table';
 
 export interface TableField {
-  key: string;
   label: string;
   type: string;
   description?: string;
@@ -17,7 +16,6 @@ export interface TableOption {
   where: Where<any>;
   sort: Record<string, NzTableSortOrder>;
   columns: NzCheckBoxOptionInterface[];
-  columnsHeight: NzTableSize;
   columnsWidth: Record<string, string>;
 }
 

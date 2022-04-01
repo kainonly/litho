@@ -197,6 +197,7 @@ export type BasicType =
   | 'text' // 多行
   | 'number' // 数字
   | 'date' // 日期
+  | 'datetime'
   | 'between-dates' // 日期之间
   | 'bool' // 状态
   | 'radio' // 单选

@@ -3,18 +3,31 @@ import { Routes } from '@angular/router';
 
 import { WpxModule, WpxShareModule } from '@weplanx/common';
 
-import { AccessComponent } from './access/access.component';
-import { access, AccessModule } from './access/access.module';
 import { AuditComponent } from './audit/audit.component';
-import { AuditModule } from './audit/audit.module';
+import { PolicyComponent } from './policy/policy.component';
+import { SessionComponent } from './session/session.component';
+import { WhitelistComponent } from './whitelist/whitelist.component';
 
 export const security: Routes = [
   {
-    path: 'access',
-    component: AccessComponent,
-    children: access,
+    path: 'policy',
+    component: PolicyComponent,
     data: {
-      breadcrumb: '访问控制'
+      breadcrumb: '登录策略'
+    }
+  },
+  {
+    path: 'whitelist',
+    component: WhitelistComponent,
+    data: {
+      breadcrumb: 'IP 白名单'
+    }
+  },
+  {
+    path: 'session',
+    component: SessionComponent,
+    data: {
+      breadcrumb: '活动会话'
     }
   },
   {
@@ -27,6 +40,7 @@ export const security: Routes = [
 ];
 
 @NgModule({
-  imports: [WpxShareModule, WpxModule, AccessModule, AuditModule]
+  declarations: [PolicyComponent, WhitelistComponent, SessionComponent, AuditComponent],
+  imports: [WpxShareModule, WpxModule]
 })
 export class SecurityModule {}

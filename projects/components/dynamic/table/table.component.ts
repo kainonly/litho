@@ -12,26 +12,28 @@ import { FormComponent } from './form/form.component';
 })
 export class TableComponent implements OnInit {
   key?: string;
-  fields: TableField[] = [];
+  fields!: Map<string, TableField>;
 
   constructor(public dynamic: DynamicService, private modal: NzModalService) {}
 
   ngOnInit(): void {
     const schema = this.dynamic.page?.schema;
     this.key = schema!.key;
-    this.fields = [
+    this.fields = new Map([
       ...Object.entries(schema?.fields ?? [])
         .filter(([k, v]) => !v.hide)
         .sort(([ak, a], [bk, b]) => a.sort - b.sort)
-        .map<TableField>(([k, v]) => {
-          return {
-            key: k,
-            label: v.label,
-            type: v.type,
-            description: v.description
-          };
+        .map<[string, TableField]>(([k, v]) => {
+          return [
+            k,
+            {
+              label: v.label,
+              type: v.type,
+              description: v.description
+            }
+          ];
         })
-    ];
+    ]);
   }
 
   form(editable?: any): void {

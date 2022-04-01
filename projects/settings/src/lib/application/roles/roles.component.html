@@ -1,134 +1,33 @@
-<!--<wpx-layout wpxTitle="权限管理">-->
-<!--  <button *wpxLayoutAction nz-button nzType="primary" nzShape="circle" nz-tooltip="新增" (click)="form()">-->
-<!--    <i nz-icon nzType="plus"></i>-->
-<!--  </button>-->
-<!--  <nz-row *wpxLayoutContent nzJustify="space-between">-->
-<!--    <nz-col>-->
-<!--      <nz-input-group nzCompact>-->
-<!--        <input-->
-<!--          style="width: 420px"-->
-<!--          type="text"-->
-<!--          nz-input-->
-<!--          placeholder="请输入搜索关键词"-->
-<!--          [(ngModel)]="searchText"-->
-<!--          (keyup.enter)="getData()"-->
-<!--        />-->
-<!--        <button nz-button (click)="getData()"><i nz-icon nzType="search"></i></button>-->
-<!--      </nz-input-group>-->
-<!--    </nz-col>-->
-<!--    <nz-col></nz-col>-->
-<!--    <nz-col>-->
-<!--      <nz-button-group>-->
-<!--        <button nz-button nzType="text" nz-tooltip="刷新" (click)="getData()">-->
-<!--          <i nz-icon nzType="reload"></i>-->
-<!--        </button>-->
-<!--        <button nz-button nzType="text" nz-tooltip="清除搜索" (click)="clearSearch()">-->
-<!--          <i nz-icon nzType="clear"></i>-->
-<!--        </button>-->
-<!--        <button nz-button nzType="text" nz-tooltip="筛选" (click)="openFilter()">-->
-<!--          <i nz-icon nzType="filter"></i>-->
-<!--        </button>-->
-<!--      </nz-button-group>-->
-<!--    </nz-col>-->
-<!--  </nz-row>-->
-<!--</wpx-layout>-->
+<ng-template #extra>
+  <button nz-button nzType="primary" (click)="form()"> 新增 </button>
+</ng-template>
 
-<!--<ng-template #filterTemplate>-->
-<!--  <nz-tag-->
-<!--    nzMode="checkable"-->
-<!--    [nzChecked]="labels.length === matchLabels.size"-->
-<!--    (nzCheckedChange)="matchLabelsChange($event)"-->
-<!--  >-->
-<!--    全部-->
-<!--  </nz-tag>-->
-<!--  <ng-container *ngFor="let x of labels">-->
-<!--    <nz-tag nzMode="checkable" [nzChecked]="matchLabels.has(x)" (nzCheckedChange)="matchLabelChange($event, x)">-->
-<!--      {{ x }}-->
-<!--    </nz-tag>-->
-<!--  </ng-container>-->
-<!--</ng-template>-->
+<ng-template #actions let-data>
+  <button nz-button nzType="text" nz-dropdown [nzDropdownMenu]="menu">
+    <i nz-icon nzType="ellipsis"></i>
+  </button>
+  <nz-dropdown-menu #menu="nzDropdownMenu">
+    <ul nz-menu>
+      <li nz-menu-item (click)="permission(data)">设置权限</li>
+      <li nz-menu-item (click)="form(data)">编辑</li>
+      <li nz-menu-item nzDanger (click)="delete(data)">删除</li>
+    </ul>
+  </nz-dropdown-menu>
+</ng-template>
 
-<!--<div style="margin-top: 12px">-->
-<!--  <nz-list nzGrid nzItemLayout="vertical">-->
-<!--    <nz-row [nzGutter]="8">-->
-<!--      <nz-col [nzSpan]="6" *ngFor="let item of items">-->
-<!--        <nz-list-item>-->
-<!--          <nz-ribbon [nzText]="permissionText" [nzColor]="!item.status ? 'red' : 'blue'">-->
-<!--            <ng-template #permissionText>-->
-<!--              <ng-container *ngIf="!item.status; else existsPermission">-->
-<!--                <span style="color: #fff">禁用</span>-->
-<!--              </ng-container>-->
-<!--              <ng-template #existsPermission> <span style="color: #fff">启用</span> </ng-template>-->
-<!--            </ng-template>-->
-<!--            <nz-card [nzActions]="[permissionRef, editRef, deleteRef]">-->
-<!--              <nz-card-meta [nzTitle]="title" [nzDescription]="item?.description ?? '没有描述'">-->
-<!--                <ng-template #title>-->
-<!--                  <b>{{ item.name }}</b>-->
-<!--                </ng-template>-->
-<!--              </nz-card-meta>-->
-<!--              <ng-template #permissionRef>-->
-<!--                <i nz-icon nzType="partition" nz-tooltip="权限" (click)="permission(item)"></i>-->
-<!--              </ng-template>-->
-<!--              <ng-template #editRef>-->
-<!--                <i nz-icon nzType="edit" nz-tooltip="编辑" (click)="form(item)"></i>-->
-<!--              </ng-template>-->
-<!--              <ng-template #deleteRef>-->
-<!--                <i-->
-<!--                  nz-icon-->
-<!--                  nzType="delete"-->
-<!--                  nz-tooltip="删除"-->
-<!--                  nz-popconfirm-->
-<!--                  nzPopconfirmTitle="您确定要删除该权限吗?"-->
-<!--                  nzPopconfirmPlacement="bottom"-->
-<!--                  (nzOnConfirm)="delete(item)"-->
-<!--                ></i>-->
-<!--              </ng-template>-->
-<!--              <nz-space nzDirection="vertical" style="margin-top: 16px">-->
-<!--                <ng-container *nzSpaceItem>-->
-<!--                  <b>标记：</b>-->
-<!--                  <ng-container *ngIf="item.labels.length !== 0; else empty">-->
-<!--                    <ng-container *ngFor="let x of item.labels">-->
-<!--                      <nz-tag style="margin-bottom: 4px">{{ x }}</nz-tag>-->
-<!--                    </ng-container>-->
-<!--                  </ng-container>-->
-<!--                </ng-container>-->
-<!--                <ng-container *nzSpaceItem>-->
-<!--                  <b>权限：</b>-->
-<!--                  <nz-space>-->
-<!--                    <nz-badge-->
-<!--                      *nzSpaceItem-->
-<!--                      [nzStatus]="(item?.pages | wpxEmpty) ? 'default' : 'success'"-->
-<!--                      nzText="页面"-->
-<!--                    ></nz-badge>-->
-<!--                    <nz-badge-->
-<!--                      *nzSpaceItem-->
-<!--                      [nzStatus]="(item?.readonly | wpxEmpty) ? 'default' : 'success'"-->
-<!--                      nzText="只读"-->
-<!--                    ></nz-badge>-->
-<!--                  </nz-space>-->
-<!--                </ng-container>-->
-<!--              </nz-space>-->
-<!--            </nz-card>-->
-<!--          </nz-ribbon>-->
-<!--        </nz-list-item>-->
-<!--      </nz-col>-->
-<!--    </nz-row>-->
-<!--  </nz-list>-->
-<!--</div>-->
+<ng-template #bulk>
+  <a nz-button nzType="link" nzSize="small" (click)="table.ds.clearChecked()">取消选择</a>
+  <br />
+  <a style="float: right" nz-button nzType="link" nzSize="small" nzDanger (click)="bulkDelete()">删除</a>
+</ng-template>
 
-<!--<ng-template #empty>-->
-<!--  <nz-tag style="margin-bottom: 4px">无</nz-tag>-->
-<!--</ng-template>-->
-
-<nz-card>
-  <nz-list nzItemLayout="horizontal">
-    <nz-list-item *ngFor="let item of items">
-      <nz-list-item-meta>
-        <nz-list-item-meta-title>
-          {{ item.name }}
-        </nz-list-item-meta-title>
-      </nz-list-item-meta>
-    </nz-list-item>
-    <nz-list-empty *ngIf="items.length === 0"></nz-list-empty>
-  </nz-list>
+<nz-card [nzTitle]="table.wpxSearch" [nzExtra]="extra">
+  <wpx-table
+    #table
+    wpxKey="roles"
+    [wpxApi]="roles"
+    [wpxFields]="fields"
+    [wpxActions]="actions"
+    [wpxBulk]="bulk"
+  ></wpx-table>
 </nz-card>

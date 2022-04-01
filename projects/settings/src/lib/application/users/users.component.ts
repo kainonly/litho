@@ -1,13 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { forkJoin, Observable } from 'rxjs';
 
-import { AnyDto, Where, WpxService } from '@weplanx/common';
+import { AnyDto, WpxService } from '@weplanx/common';
+import { TableField, WpxTableComponent } from '@weplanx/components/table';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalService } from 'ng-zorro-antd/modal';
 
 import { RolesService } from '../roles/roles.service';
 import { Role } from '../roles/types';
 import { FormComponent } from './form/form.component';
-import { PermissionComponent } from './permission/permission.component';
 import { User } from './types';
 import { UsersService } from './users.service';
 
@@ -16,15 +17,19 @@ import { UsersService } from './users.service';
   templateUrl: './users.component.html'
 })
 export class UsersComponent implements OnInit {
-  items: Array<AnyDto<User>> = [];
+  @ViewChild(WpxTableComponent) table!: WpxTableComponent;
   roleDict: Record<string, AnyDto<Role>> = {};
-  searchText: string = '';
-  filter = true;
-  labels: string[] = [];
-  matchLabels: Set<string> = new Set<string>();
+  fields: Map<string, TableField> = new Map<string, TableField>([
+    ['username', { label: '用户名', type: 'string', keyword: true }],
+    ['name', { label: '称呼', type: 'string' }],
+    ['roles', { label: '权限组', type: 'select' }],
+    ['status', { label: '状态', type: 'bool' }],
+    ['create_time', { label: '创建时间', type: 'datetime' }],
+    ['update_time', { label: '修改时间', type: 'datetime' }]
+  ]);
 
   constructor(
-    private users: UsersService,
+    public users: UsersService,
     private roles: RolesService,
     private wpx: WpxService,
     private modal: NzModalService,
@@ -32,91 +37,13 @@ export class UsersComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.getData();
     this.getRoles();
-    this.getLabels();
-  }
-
-  getData(): void {
-    const where: Where<User> = {};
-    if (this.searchText) {
-      where['$or'] = [{ username: { $regex: this.searchText } }, { name: { $regex: this.searchText } }];
-    }
-    if (this.matchLabels.size !== 0) {
-      where['labels'] = { $in: [...this.matchLabels.values()] };
-    }
-    this.users.find(where).subscribe(data => {
-      this.items = [...data];
-    });
   }
 
   getRoles(): void {
     this.roles.find().subscribe(data => {
       for (const x of data) {
         this.roleDict[x._id] = x;
-      }
-    });
-  }
-
-  /**
-   * 获取标签
-   */
-  getLabels(): void {
-    this.users.findLabels().subscribe(data => {
-      this.labels = [...data];
-    });
-  }
-
-  /**
-   * 设置标签状态
-   * @param checked
-   * @param data
-   * @param fetch
-   */
-  matchLabelChange(checked: boolean, data: string, fetch = true): void {
-    if (checked) {
-      this.matchLabels.add(data);
-    } else {
-      this.matchLabels.delete(data);
-    }
-    if (fetch) {
-      this.getData();
-    }
-  }
-
-  /**
-   * 设置所有标签
-   * @param checked
-   */
-  matchLabelsChange(checked: boolean): void {
-    this.labels.forEach(data => {
-      this.matchLabelChange(checked, data, false);
-    });
-    this.getData();
-  }
-
-  /**
-   * 清除筛选
-   */
-  clearSearch(): void {
-    this.searchText = '';
-    this.matchLabels.clear();
-    this.getData();
-  }
-
-  /**
-   * 权限设置表单
-   * @param editable
-   */
-  permission(editable: AnyDto<User>): void {
-    this.modal.create({
-      nzTitle: `[${editable.username}] 合并权限设置`,
-      nzContent: PermissionComponent,
-      nzComponentParams: {
-        editable
-      },
-      nzOnOk: () => {
-        this.getData();
       }
     });
   }
@@ -133,10 +60,7 @@ export class UsersComponent implements OnInit {
       nzComponentParams: {
         editable
       },
-      nzOnOk: () => {
-        this.getData();
-        this.getLabels();
-      }
+      nzOnOk: () => {}
     });
   }
 
@@ -144,11 +68,40 @@ export class UsersComponent implements OnInit {
    * 删除
    * @param data
    */
-  delete(data: AnyDto<User>): void {
-    this.users.delete(data._id).subscribe(() => {
-      this.message.success('数据删除完成');
-      this.getData();
-      this.getLabels();
+  delete(data: AnyDto<Role>): void {
+    this.modal.confirm({
+      nzTitle: '您确定要删除该用户吗?',
+      nzOkText: '是的',
+      nzOkType: 'primary',
+      nzOkDanger: true,
+      nzOnOk: () => {
+        this.users.delete(data._id).subscribe(() => {
+          this.message.success('数据删除完成');
+          this.table.getData(true);
+        });
+      },
+      nzCancelText: '再想想'
+    });
+  }
+
+  bulkDelete(): void {
+    this.modal.confirm({
+      nzTitle: '您确定要删除这些用户吗?',
+      nzOkText: '是的',
+      nzOkType: 'primary',
+      nzOkDanger: true,
+      nzOnOk: () => {
+        const requests: Array<Observable<any>> = [];
+        this.table.ds.checkedIds.forEach(value => {
+          requests.push(this.users.delete(value));
+        });
+        forkJoin(requests).subscribe(() => {
+          this.message.success('数据删除完成');
+          this.table.getData(true);
+          this.table.ds.clearChecked();
+        });
+      },
+      nzCancelText: '再想想'
     });
   }
 }

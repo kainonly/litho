@@ -22,35 +22,6 @@
   </nz-form-item>
 
   <nz-form-item>
-    <nz-form-label>标记</nz-form-label>
-    <nz-form-control formArrayName="labels">
-      <ng-container *ngFor="let x of labels?.controls; index as i; first as isFirst">
-        <nz-input-group nzCompact [ngStyle]="{ 'margin-top': isFirst ? null : '-1px' }">
-          <input style="width: 90%" type="text" nz-input [formControlName]="i" placeholder="请输入标记名称" />
-          <button nz-button type="button" nzType="default" style="width: 10%" (click)="removeLabel(i)">
-            <i nz-icon nzType="minus-circle"></i>
-          </button>
-        </nz-input-group>
-      </ng-container>
-      <nz-button-group style="width: 100%; margin-top: 8px">
-        <button style="width: 90%" type="button" nz-button nzType="dashed" (click)="addLabel()">
-          <i nz-icon nzType="plus-circle"></i> 新增标记
-        </button>
-        <button
-          style="width: 10%"
-          type="button"
-          nz-button
-          nzType="dashed"
-          nz-tooltip="导入标记"
-          (click)="importLabels()"
-        >
-          <i nz-icon nzType="import"></i>
-        </button>
-      </nz-button-group>
-    </nz-form-control>
-  </nz-form-item>
-
-  <nz-form-item>
     <nz-form-label nzRequired>状态</nz-form-label>
     <nz-form-control>
       <nz-switch formControlName="status"></nz-switch>
