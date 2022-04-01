@@ -1,11 +1,3 @@
-<wpx-layout wpxTitle="动态表格">
-  <ng-container *wpxLayoutAlert>
-    <ng-container *ngIf="!!table.ds.checkedNumber">
-      <ng-container *ngTemplateOutlet="table.wpxBulk"></ng-container>
-    </ng-container>
-  </ng-container>
-</wpx-layout>
-
-<nz-card [nzTitle]="table.wpxSearch" [nzExtra]="table.wpxTool">
+<nz-card [nzTitle]="table.wpxSearch">
   <wpx-table #table [wpxKey]="key" [wpxApi]="orders" [wpxFields]="fields"></wpx-table>
 </nz-card>

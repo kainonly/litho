@@ -8,7 +8,7 @@ import { WpxService } from '@weplanx/common';
     <nz-layout class="main">
       <wpx-header></wpx-header>
       <nz-layout class="container">
-        <nz-sider class="sider" nzTheme="light" [nzWidth]="240">
+        <nz-sider class="sider" nzTheme="light">
           <ul nz-menu nzMode="inline">
             <li nz-menu-group nzTitle="媒体资源">
               <ul>

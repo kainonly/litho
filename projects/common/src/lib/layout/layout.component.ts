@@ -9,8 +9,6 @@ import {
   TemplateRef
 } from '@angular/core';
 
-import { InputBoolean } from 'ng-zorro-antd/core/util';
-
 import { WpxService } from '../wpx.service';
 import { WpxLayoutActionDirective } from './layout-action.directive';
 import { WpxLayoutAlertDirective } from './layout-alert.directive';

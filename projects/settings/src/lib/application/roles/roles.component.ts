@@ -49,6 +49,7 @@ export class RolesComponent implements OnInit {
     }
     this.roles.find(where).subscribe(data => {
       this.items = [...data];
+      console.log(this.items);
     });
   }
 

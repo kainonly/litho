@@ -23,7 +23,6 @@ import { WpxService } from '@weplanx/common';
           </ul>
         </nz-sider>
         <nz-layout style="overflow: auto">
-          <wpx-page-header [wpxManual]="true"></wpx-page-header>
           <nz-content class="content">
             <router-outlet></router-outlet>
           </nz-content>

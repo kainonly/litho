@@ -7,10 +7,10 @@ import { WpxService } from '@weplanx/common';
   selector: 'app-pages',
   template: `
     <nz-layout class="main">
-      <wpx-header [wpxLogout]="app.logout"></wpx-header>
+      <wpx-header></wpx-header>
 
       <nz-layout class="container">
-        <nz-sider class="sider" nzTheme="light" [nzWidth]="240">
+        <nz-sider class="sider" nzTheme="light">
           <wpx-nav></wpx-nav>
         </nz-sider>
         <nz-layout style="overflow: auto">

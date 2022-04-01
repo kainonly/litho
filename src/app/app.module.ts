@@ -44,7 +44,7 @@ const routes: Routes = [
     loadChildren: () => import('@weplanx/resources').then(m => m.ResourcesModule),
     canActivate: [AppGuard],
     data: {
-      breadcrumb: '服务资源'
+      breadcrumb: '资源中心'
     }
   },
   {
@@ -52,7 +52,7 @@ const routes: Routes = [
     loadChildren: () => import('@weplanx/settings').then(m => m.SettingsModule),
     canActivate: [AppGuard],
     data: {
-      breadcrumb: '设置管理'
+      breadcrumb: '系统设置'
     }
   },
   {
@@ -87,7 +87,6 @@ const routes: Routes = [
         notification: { nzPlacement: 'bottomLeft' },
         pageHeader: { nzGhost: false },
         card: { nzBorderless: true },
-        table: { nzSize: 'middle' },
         codeEditor: {
           assetsRoot: `https://cdn.jsdelivr.net/npm/monaco-editor@latest/min`
         }

@@ -29,6 +29,10 @@ export class WpxService {
    * 布局设置
    */
   layout: BehaviorSubject<Partial<LayoutOption>> = new BehaviorSubject<Partial<LayoutOption>>({});
+  /**
+   * 退出登录
+   */
+  onLogout = (): void => {};
 
   /**
    * 设置静态资源

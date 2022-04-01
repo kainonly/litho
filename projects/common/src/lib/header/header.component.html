@@ -5,38 +5,35 @@
         <ng-template #spaceSplit>
           <nz-divider nzType="vertical"></nz-divider>
         </ng-template>
-        <button
-          *nzSpaceItem
-          nz-button
-          nzType="text"
-          nz-popover
-          nzPopoverPlacement="bottomLeft"
-          [nzPopoverContent]="appQuickTemplate"
-        >
-          <i nz-icon nzType="appstore" nzTheme="twotone"></i>
-          <ng-template #appQuickTemplate>
-            <nz-space>
-              <button *nzSpaceItem nz-button nzType="text" nzSize="large" [routerLink]="['/pages']">
-                <i nz-icon nzType="home"></i>
-                <span class="name">主页 </span>
-              </button>
-              <button *nzSpaceItem nz-button nzType="text" nzSize="large" [routerLink]="['/resources']">
-                <i nz-icon nzType="inbox"></i>
-                <span class="name">资源</span>
-              </button>
-              <button *nzSpaceItem nz-button nzType="text" nzSize="large" [routerLink]="['/settings']">
-                <i nz-icon nzType="setting"></i>
-                <span class="name">设置</span>
-              </button>
-            </nz-space>
-          </ng-template>
+        <button *nzSpaceItem nz-button nzType="text" nz-dropdown [nzDropdownMenu]="quick">
+          <i nz-icon nzType="appstore"></i>
+          <nz-dropdown-menu #quick="nzDropdownMenu">
+            <ul nz-menu nzSelectable>
+              <li nz-menu-item [routerLink]="['/pages']">回到主页</li>
+              <li nz-menu-item [routerLink]="['/resources']">资源中心</li>
+              <li nz-menu-item [routerLink]="['/settings']">系统设置</li>
+            </ul>
+          </nz-dropdown-menu>
         </button>
-        <input *nzSpaceItem nz-input placeholder="应用导航搜索" nzBorderless nz-dropdown [nzDropdownMenu]="menu" />
-        <nz-dropdown-menu #menu="nzDropdownMenu">
-          <ul nz-menu nzSelectable>
-            <li nz-menu-item>无相关信息</li>
-          </ul>
-        </nz-dropdown-menu>
+        <nz-breadcrumb *nzSpaceItem [nzAutoGenerate]="!wpx.pageId">
+          <ng-container *ngIf="!!wpx.pageId">
+            <nz-breadcrumb-item>
+              <a [routerLink]="['/pages']">我的应用</a>
+            </nz-breadcrumb-item>
+            <ng-container *ngIf="wpx.pages as pages">
+              <ng-container *ngIf="wpx.pageId">
+                <ng-container *ngFor="let id of pages[wpx.pageId]?.['path']">
+                  <nz-breadcrumb-item>
+                    <ng-container *ngIf="pages[id]?.kind !== 'group'; else textName">
+                      <a [routerLink]="['/pages', id]">{{ pages[id]?.name }}</a>
+                    </ng-container>
+                    <ng-template #textName>{{ pages[id]?.name }}</ng-template>
+                  </nz-breadcrumb-item>
+                </ng-container>
+              </ng-container>
+            </ng-container>
+          </ng-container>
+        </nz-breadcrumb>
       </nz-space>
     </nz-col>
     <nz-col>
@@ -53,35 +50,17 @@
                   <button *nzSpaceItem [routerLink]="['/center']" nz-button nzType="text" nz-tooltip="个人中心">
                     <i nz-icon nzType="user"></i>
                   </button>
-                  <button *nzSpaceItem nz-button nzType="text" nz-tooltip="退出" (click)="logout()">
+                  <button *nzSpaceItem nz-button nzType="text" nz-tooltip="退出" (click)="wpx.onLogout()">
                     <i nz-icon nzType="logout"></i>
                   </button>
                 </nz-space>
               </ng-template>
-              <nz-tab nzTitle="通知(4)">
+              <nz-tab nzTitle="通知(0)">
                 <nz-list nzItemLayout="horizontal">
-                  <nz-list-item>
-                    <nz-list-item-meta>
-                      <nz-list-item-meta-title>你收到了14份周报</nz-list-item-meta-title>
-                      <nz-list-item-meta-description>1 天前</nz-list-item-meta-description>
-                    </nz-list-item-meta>
-                  </nz-list-item>
-                  <nz-list-item>
-                    <nz-list-item-meta>
-                      <nz-list-item-meta-title>合同协议已更新</nz-list-item-meta-title>
-                      <nz-list-item-meta-description>5 天前</nz-list-item-meta-description>
-                    </nz-list-item-meta>
-                  </nz-list-item>
-                  <nz-list-item>
-                    <nz-list-item-meta>
-                      <nz-list-item-meta-title>工作内容</nz-list-item-meta-title>
-                      <nz-list-item-meta-description>2 周前</nz-list-item-meta-description>
-                    </nz-list-item-meta>
-                  </nz-list-item>
+                  <nz-list-empty></nz-list-empty>
                 </nz-list>
-                <button nz-button nzType="text" nzBlock>查看更多</button>
               </nz-tab>
-              <nz-tab nzTitle="待办(4)">
+              <nz-tab nzTitle="待办(0)">
                 <nz-list nzItemLayout="horizontal">
                   <nz-list-item>
                     <nz-list-item-meta>
@@ -102,7 +81,6 @@
                     </nz-list-item-meta>
                   </nz-list-item>
                 </nz-list>
-                <button nz-button nzType="text" nzBlock>查看更多</button>
               </nz-tab>
             </nz-tabset>
           </ng-template>

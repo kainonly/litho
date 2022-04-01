@@ -84,7 +84,7 @@ export class WpxTableComponent implements OnInit {
       if (!data) {
         for (const x of this.wpxFields) {
           this.columns.push({ label: x.label, value: x.key });
-          this.columnsWidth[x.key] = '300px';
+          this.columnsWidth[x.key] = '240px';
         }
         this.columnsHeight = 'middle';
         this.updateColumnsChecked();

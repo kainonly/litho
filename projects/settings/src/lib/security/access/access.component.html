@@ -1,17 +1,16 @@
-<wpx-layout [wpxSkip]="true"></wpx-layout>
-
-<ng-template #extra>
-  <button nz-button>创建控制</button>
-</ng-template>
+<ng-template #extra> </ng-template>
 
 <nz-card>
   <nz-card-tab>
     <nz-tabset nzSize="large" nzLinkRouter [nzAnimated]="false" [nzTabBarExtraContent]="extra">
       <nz-tab>
-        <a *nzTabLink nz-tab-link [routerLink]="['/settings', 'security', 'access', 'whitelist']"> 白名单 </a>
+        <a *nzTabLink nz-tab-link [routerLink]="['/settings', 'security', 'access', 'policy']"> 登录策略 </a>
       </nz-tab>
       <nz-tab>
-        <a *nzTabLink nz-tab-link [routerLink]="['/settings', 'security', 'access', 'blacklist']"> 黑名单 </a>
+        <a *nzTabLink nz-tab-link [routerLink]="['/settings', 'security', 'access', 'whitelist']"> IP 白名单 </a>
+      </nz-tab>
+      <nz-tab>
+        <a *nzTabLink nz-tab-link [routerLink]="['/settings', 'security', 'access', 'session']"> 会话 </a>
       </nz-tab>
     </nz-tabset>
   </nz-card-tab>
