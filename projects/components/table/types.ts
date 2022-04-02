@@ -1,10 +1,11 @@
-import { AdvancedType, BasicType, Where } from '@weplanx/common';
+import { AdvancedType, BasicType, FieldOption, Where } from '@weplanx/common';
 import { NzCheckBoxOptionInterface } from 'ng-zorro-antd/checkbox';
-import { NzTableSize, NzTableSortOrder } from 'ng-zorro-antd/table';
+import { NzTableSortOrder } from 'ng-zorro-antd/table';
 
 export interface TableField {
   label: string;
-  type: string;
+  type: BasicType | AdvancedType;
+  option?: Partial<FieldOption>;
   description?: string;
   keyword?: boolean;
 }

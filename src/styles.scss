@@ -1,4 +1,5 @@
 /* You can add global styles to this file, and also import other style files */
+@import '~ng-zorro-antd/ng-zorro-antd.compact.min.css';
 @import 'node_modules/ng-zorro-antd/code-editor/style';
 @import 'node_modules/ng-zorro-antd/resizable/style';
 
@@ -7,11 +8,15 @@
 }
 
 .container {
-  padding-top: 64px;
+  padding-top: 45px;
 }
 
 .sider {
   overflow: auto;
   height: 100%;
   border-right: 1px solid #f0f0f0;
+}
+
+nz-content {
+  padding: 1px 0;
 }

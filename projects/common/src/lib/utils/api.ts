@@ -37,33 +37,52 @@ export abstract class Api<T> {
   /**
    * 获取单个文档（筛选）
    * @param where
+   * @param field
    */
-  findOne(where: Where<T>): Observable<AnyDto<T>> {
+  findOne(where: Where<T>, field?: Array<keyof AnyDto<T>>): Observable<AnyDto<T>> {
     if (Object.keys(where).length === 0) {
       throw new Error('筛选条件不能为空');
     }
+    let params = new HttpParams();
+    if (field) {
+      for (const v of field) {
+        params = params.append('field', v.toString());
+      }
+    }
     return this.http.get<AnyDto<T>>(this.url(), {
-      params: new HttpParams().set('where', JSON.stringify(where)).set('single', true)
+      params: params.set('where', JSON.stringify(where)).set('single', true)
     });
   }
 
   /**
    * 获取单个文档（ID）
    * @param id
+   * @param field
    */
-  findOneById(id: string): Observable<AnyDto<T>> {
+  findOneById(id: string, field?: Array<keyof AnyDto<T>>): Observable<AnyDto<T>> {
     if (!id) {
       throw new Error('文档 ID 不能为空');
     }
-    return this.http.get<AnyDto<T>>(this.url(id));
+    let params = new HttpParams();
+    if (field) {
+      for (const v of field) {
+        params = params.append('field', v.toString());
+      }
+    }
+    return this.http.get<AnyDto<T>>(this.url(id), { params });
   }
 
   /**
    * 获取多个文档（筛选）
    * @param where
    * @param sort
+   * @param field
    */
-  find(where?: Where<T>, sort?: Record<string, 1 | -1>): Observable<Array<AnyDto<T>>> {
+  find(
+    where?: Where<T>,
+    sort?: Record<keyof AnyDto<T>, 1 | -1>,
+    field?: Array<keyof AnyDto<T>>
+  ): Observable<Array<AnyDto<T>>> {
     let params = new HttpParams();
     if (where) {
       params = params.set('where', JSON.stringify(where));
@@ -71,6 +90,11 @@ export abstract class Api<T> {
     if (sort) {
       for (const v of toSortValues(sort)) {
         params = params.append('sort', v);
+      }
+    }
+    if (field) {
+      for (const v of field) {
+        params = params.append('field', v.toString());
       }
     }
     return this.http.get<Array<AnyDto<T>>>(this.url(), {
@@ -82,8 +106,13 @@ export abstract class Api<T> {
    * 获取多个文档（ID集合）
    * @param ids ID数组
    * @param sort
+   * @param field
    */
-  findById(ids: string[], sort?: Record<string, 1 | -1>): Observable<Array<AnyDto<T>>> {
+  findById(
+    ids: string[],
+    sort?: Record<keyof AnyDto<T>, 1 | -1>,
+    field?: Array<keyof AnyDto<T>>
+  ): Observable<Array<AnyDto<T>>> {
     if (ids.length === 0) {
       throw new Error('文档 ID 数组不能为空');
     }
@@ -94,6 +123,11 @@ export abstract class Api<T> {
     if (sort) {
       for (const v of toSortValues(sort)) {
         params = params.append('sort', v);
+      }
+    }
+    if (field) {
+      for (const v of field) {
+        params = params.append('field', v.toString());
       }
     }
     return this.http.get<Array<AnyDto<T>>>(this.url(), { params });

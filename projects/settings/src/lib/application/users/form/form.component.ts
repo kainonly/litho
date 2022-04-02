@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { AbstractControl, FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Observable, of } from 'rxjs';
 
 import { AnyDto, PasswordRule, WpxService } from '@weplanx/common';
@@ -67,7 +67,7 @@ export class FormComponent implements OnInit {
   };
 
   getRoles(): void {
-    this.roles.find().subscribe(data => {
+    this.roles.find({ status: true }, {}, ['_id', 'name']).subscribe(data => {
       this.roleList = [...data];
     });
   }

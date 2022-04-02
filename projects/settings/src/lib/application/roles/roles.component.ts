@@ -18,11 +18,11 @@ import { Role } from './types';
 export class RolesComponent {
   @ViewChild(WpxTableComponent) table!: WpxTableComponent;
   fields: Map<string, TableField> = new Map<string, TableField>([
-    ['name', { label: '权限名称', type: 'text', keyword: true }],
+    ['name', { label: '权限名称', type: 'string', keyword: true }],
     ['description', { label: '描述', type: 'text' }],
     ['status', { label: '状态', type: 'bool' }],
-    ['create_time', { label: '创建时间', type: 'datetime' }],
-    ['update_time', { label: '修改时间', type: 'datetime' }]
+    ['create_time', { label: '创建时间', type: 'date', option: { time: true } }],
+    ['update_time', { label: '修改时间', type: 'date', option: { time: true } }]
   ]);
 
   constructor(

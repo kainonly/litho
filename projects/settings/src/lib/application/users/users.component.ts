@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { forkJoin, Observable } from 'rxjs';
 
 import { AnyDto, WpxService } from '@weplanx/common';
@@ -6,7 +6,6 @@ import { TableField, WpxTableComponent } from '@weplanx/components/table';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalService } from 'ng-zorro-antd/modal';
 
-import { RolesService } from '../roles/roles.service';
 import { Role } from '../roles/types';
 import { FormComponent } from './form/form.component';
 import { User } from './types';
@@ -16,37 +15,24 @@ import { UsersService } from './users.service';
   selector: 'wpx-settings-users',
   templateUrl: './users.component.html'
 })
-export class UsersComponent implements OnInit {
+export class UsersComponent {
   @ViewChild(WpxTableComponent) table!: WpxTableComponent;
   roleDict: Record<string, AnyDto<Role>> = {};
   fields: Map<string, TableField> = new Map<string, TableField>([
     ['username', { label: '用户名', type: 'string', keyword: true }],
     ['name', { label: '称呼', type: 'string' }],
-    ['roles', { label: '权限组', type: 'select' }],
+    ['roles', { label: '权限组', type: 'select', option: { reference: 'roles' } }],
     ['status', { label: '状态', type: 'bool' }],
-    ['create_time', { label: '创建时间', type: 'datetime' }],
-    ['update_time', { label: '修改时间', type: 'datetime' }]
+    ['create_time', { label: '创建时间', type: 'date', option: { time: true } }],
+    ['update_time', { label: '修改时间', type: 'date', option: { time: true } }]
   ]);
 
   constructor(
     public users: UsersService,
-    private roles: RolesService,
     private wpx: WpxService,
     private modal: NzModalService,
     private message: NzMessageService
   ) {}
-
-  ngOnInit(): void {
-    this.getRoles();
-  }
-
-  getRoles(): void {
-    this.roles.find().subscribe(data => {
-      for (const x of data) {
-        this.roleDict[x._id] = x;
-      }
-    });
-  }
 
   /**
    * 编辑表单
@@ -60,7 +46,9 @@ export class UsersComponent implements OnInit {
       nzComponentParams: {
         editable
       },
-      nzOnOk: () => {}
+      nzOnOk: () => {
+        this.table.getData(true);
+      }
     });
   }
 

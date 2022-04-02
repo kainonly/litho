@@ -94,6 +94,7 @@
   [nzScroll]="wpxScroll"
   [nzFrontPagination]="false"
   [nzShowSizeChanger]="true"
+  [nzHideOnSinglePage]="true"
   [nzTotal]="ds.total"
   [(nzPageSize)]="ds.pageSize"
   [(nzPageIndex)]="ds.pageIndex"
@@ -103,7 +104,7 @@
   <thead>
     <tr>
       <th
-        nzWidth="65px"
+        nzWidth="50px"
         nzLeft
         nzAlign="center"
         [nzChecked]="ds.checked"
@@ -133,7 +134,7 @@
           </nz-resize-handle>
         </th>
       </ng-container>
-      <th nzWidth="100px" nzRight nzAlign="center">
+      <th nzWidth="50px" nzRight nzAlign="center">
         <button
           nz-button
           nzType="text"
@@ -186,15 +187,36 @@
         (nzCheckedChange)="ds.setChecked(data._id, $event)"
       ></td>
       <ng-container *ngFor="let x of columnsDisplay">
-        <td>
-          <ng-container [ngSwitch]="(wpxFields | wpxMap: x.value).type">
+        <td *ngIf="wpxFields | wpxMap: x.value as field">
+          <ng-container [ngSwitch]="field.type">
+            <ng-container *ngSwitchCase="'date'">
+              <ng-container *ngIf="field?.option?.time; else date">
+                {{ data[x.value] | date: 'yyyy-MM-dd HH:mm:ss' }}
+              </ng-container>
+              <ng-template #date>{{ data[x.value] | date: 'yyyy-MM-dd' }}</ng-template>
+            </ng-container>
             <ng-container *ngSwitchCase="'bool'">
               <ng-container *ngIf="data[x.value]; else isFalse">
                 <nz-badge nzStatus="processing"></nz-badge> 开启
               </ng-container>
               <ng-template #isFalse> <nz-badge nzStatus="default"></nz-badge> 关闭 </ng-template>
             </ng-container>
-            <ng-container *ngSwitchCase="'datetime'">{{ data[x.value] | date: 'yyyy-MM-dd HH:mm:ss' }}</ng-container>
+            <ng-container *ngSwitchCase="'select'">
+              <ng-container *ngFor="let id of data[x.value]">
+                <ng-container *ngIf="field?.option?.reference as reference; else select">
+                  <nz-tag nzColor="blue" *ngIf="references[reference] as dict">
+                    <ng-container *ngIf="field?.option?.target as target; else targetDefault">
+                      {{ dict[id]?.[target] }}
+                    </ng-container>
+                    <ng-template #targetDefault>
+                      {{ dict[id]?.name }}
+                    </ng-template>
+                  </nz-tag>
+                </ng-container>
+              </ng-container>
+
+              <ng-template #select></ng-template>
+            </ng-container>
             <ng-container *ngSwitchDefault>
               <p style="margin: 0" nz-typography nzEllipsis [nzEllipsisRows]="2">
                 {{ data[x.value] }}

@@ -1,5 +1,6 @@
 import { Component, Input, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { map, Observable } from 'rxjs';
 
 import { StorageMap } from '@ngx-pwa/local-storage';
 import { Dataset, Api } from '@weplanx/common';
@@ -8,6 +9,7 @@ import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzResizeEvent } from 'ng-zorro-antd/resizable';
 import { NzTableSize } from 'ng-zorro-antd/table';
 
+import { WpxTableService } from './table.service';
 import { Search, TableField, TableOption } from './types';
 
 @Component({
@@ -43,7 +45,6 @@ export class WpxTableComponent implements OnInit {
    * 查询显示
    */
   searchVisible = false;
-  fields: Record<string, TableField> = {};
   /**
    * 列
    */
@@ -72,14 +73,31 @@ export class WpxTableComponent implements OnInit {
    * 自定义宽提示Id
    */
   columnsWidthMessageId?: string;
+  /**
+   * 关联请求
+   */
+  requests: Record<string, (ids: string[]) => Observable<any>> = {};
+  /**
+   * 关联数据
+   */
+  references: Record<string, any> = {};
 
-  constructor(private storage: StorageMap, private fb: FormBuilder, private message: NzMessageService) {}
+  constructor(
+    private service: WpxTableService,
+    private storage: StorageMap,
+    private fb: FormBuilder,
+    private message: NzMessageService
+  ) {}
 
   ngOnInit(): void {
     this.storage.get(this.wpxKey).subscribe(data => {
       this.wpxFields.forEach((value, key) => {
         if (!!value.keyword) {
           this.keywords.add(key);
+        }
+        if (value.option?.reference) {
+          const { reference, target } = value.option;
+          this.requests[reference] = (ids: string[]) => this.service.references(reference, ids, target ?? 'name');
         }
         this.columns.push({ label: value.label, value: key });
         this.columnsWidth[key] = '240px';
@@ -109,9 +127,25 @@ export class WpxTableComponent implements OnInit {
     if (this.searchText) {
       this.ds.where = { $or: [...this.keywords.values()].map(v => ({ [v]: { $regex: this.searchText } })) };
     }
-    this.ds.from(this.wpxApi, refresh).subscribe(() => {
-      this.updateStorage();
-    });
+    this.ds
+      .from(this.wpxApi, refresh)
+      .pipe(
+        map(v => {
+          for (const [key, request] of Object.entries(this.requests)) {
+            request([...new Set([].concat(...v.map(v => v[key])))]).subscribe(data => {
+              const dict: any = {};
+              for (const x of data) {
+                dict[x._id] = x;
+              }
+              this.references[key] = dict;
+            });
+          }
+          return v;
+        })
+      )
+      .subscribe(() => {
+        this.updateStorage();
+      });
   }
 
   /**

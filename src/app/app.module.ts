@@ -87,6 +87,7 @@ const routes: Routes = [
         notification: { nzPlacement: 'bottomLeft' },
         pageHeader: { nzGhost: false },
         card: { nzBorderless: true },
+        table: { nzSize: 'small' },
         codeEditor: {
           assetsRoot: `https://cdn.jsdelivr.net/npm/monaco-editor@latest/min`
         }
