@@ -1,17 +1,17 @@
-<wpx-layout wpxTitle="视频">
-  <nz-alert
-    *wpxLayoutAlert
-    nzBanner
-    nzType="info"
-    nzMessage="接受 mp4 等文件类型的上传，其他文件将被阻止"
-    nzCloseable
-  ></nz-alert>
-  <ng-container *wpxLayoutAction>
+<nz-page-header [nzTitle]="ref.searchRef">
+  <nz-page-header-extra>
     <ng-container *ngTemplateOutlet="ref.uploadRef"></ng-container>
-  </ng-container>
-  <ng-container *wpxLayoutContent>
-    <ng-container *ngTemplateOutlet="ref.searchRef"></ng-container>
-  </ng-container>
-</wpx-layout>
+  </nz-page-header-extra>
+</nz-page-header>
 
-<wpx-media-view #ref wpxType="videos" [wpxFallback]="['assets', 'dataflow.svg'] | wpxAssets"></wpx-media-view>
+<div style="padding: 8px 8px 24px; height: calc(100% - 61px)">
+  <wpx-media-view #ref wpxType="videos" [wpxFallback]="['assets', 'dataflow.svg'] | wpxAssets"></wpx-media-view>
+</div>
+
+<nz-alert
+  style="position: fixed; bottom: 0; left: 200px; right: 0"
+  nzBanner
+  nzType="info"
+  nzMessage="接受 mp4 等文件类型的上传，其他文件将被阻止"
+  nzCloseable
+></nz-alert>

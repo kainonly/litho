@@ -18,6 +18,9 @@ import { WpxService } from '@weplanx/common';
                 <li nz-menu-item nzMatchRouter [routerLink]="['application', 'users']">
                   <i nz-icon nzType="team"></i> <span>成员管理</span>
                 </li>
+                <li nz-menu-item nzMatchRouter [routerLink]="['application', 'enterprise']">
+                  <i nz-icon nzType="laptop"></i> <span>企业办公</span>
+                </li>
               </ul>
             </li>
             <li nz-menu-group nzTitle="安全性">

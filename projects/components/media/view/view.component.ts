@@ -172,7 +172,7 @@ export class WpxMediaViewComponent implements OnInit, AfterViewInit {
    * @private
    */
   private calculate(width: number): void {
-    const n = width >= 1600 ? 6 : 4;
+    const n = width >= 1600 ? 8 : 6;
     if (this.ds.n !== n) {
       this.ds.n = n;
       this.ds.pageSize = n * 3;
