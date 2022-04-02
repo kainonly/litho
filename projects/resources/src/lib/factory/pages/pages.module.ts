@@ -25,14 +25,14 @@ export const pages: Routes = [
     path: 'home',
     component: HomeComponent,
     data: {
-      breadcrumb: '使用提示'
+      breadcrumb: '提示'
     }
   },
   {
     path: ':key/schema',
     component: SchemaComponent,
     data: {
-      breadcrumb: '数据源'
+      breadcrumb: '内容模型'
     }
   },
   {
@@ -55,8 +55,7 @@ export const pages: Routes = [
     data: {
       breadcrumb: '验证器'
     }
-  },
-  { path: '', redirectTo: '/settings/application/pages/home', pathMatch: 'full' }
+  }
 ];
 
 @NgModule({

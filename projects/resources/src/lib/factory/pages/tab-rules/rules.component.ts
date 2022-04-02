@@ -6,7 +6,7 @@ import { Page } from '@weplanx/common';
 import { PagesSerivce } from '../pages.serivce';
 
 @Component({
-  selector: 'wpx-settings-pages-rules',
+  selector: 'wpx-resources-factory-pages-rules',
   templateUrl: './rules.component.html'
 })
 export class RulesComponent implements OnInit {

@@ -1,11 +1,11 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
 
 import { AnyDto, Page } from '@weplanx/common';
+import { PagesSerivce } from '@weplanx/resources';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalRef } from 'ng-zorro-antd/modal';
 import { NzFormatEmitEvent, NzTreeComponent, NzTreeNode, NzTreeNodeOptions } from 'ng-zorro-antd/tree';
 
-import { PagesSerivce } from '../../pages/pages.serivce';
 import { RolesService } from '../roles.service';
 import { Role } from '../types';
 

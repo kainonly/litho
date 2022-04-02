@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 import { WpxService } from '@weplanx/common';
 
@@ -42,7 +42,7 @@ import { WpxService } from '@weplanx/common';
           </ul>
         </nz-sider>
         <nz-layout style="overflow: auto">
-          <nz-content class="content">
+          <nz-content>
             <router-outlet></router-outlet>
           </nz-content>
         </nz-layout>

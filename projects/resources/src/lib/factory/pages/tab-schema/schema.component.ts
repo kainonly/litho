@@ -11,7 +11,7 @@ import { fieldTypeValues } from '../values';
 import { FormComponent } from './form/form.component';
 
 @Component({
-  selector: 'wpx-settings-pages-schema',
+  selector: 'wpx-resources-factory-pages-schema',
   templateUrl: './schema.component.html',
   styleUrls: ['./schema.component.scss']
 })
@@ -45,7 +45,8 @@ export class SchemaComponent implements OnInit {
   }
 
   private setFieldList(): void {
-    const fields = this.page!.schema!.fields;
+    const fields = this.page.schema?.fields ?? {};
+
     this.fieldList = [
       ...Object.entries(fields)
         .map(v =>

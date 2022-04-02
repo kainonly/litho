@@ -10,6 +10,14 @@ import { WpxService } from '@weplanx/common';
       <nz-layout class="container">
         <nz-sider class="sider" nzTheme="light">
           <ul nz-menu nzMode="inline">
+            <li nz-menu-group nzTitle="内容生成器">
+              <ul>
+                <li nz-menu-item nzMatchRouter [routerLink]="['factory', 'pages']">
+                  <i nz-icon nzType="layout"></i> <span>页面</span>
+                </li>
+              </ul>
+            </li>
+
             <li nz-menu-group nzTitle="媒体资源">
               <ul>
                 <li nz-menu-item nzMatchRouter [routerLink]="['media', 'pictures']">

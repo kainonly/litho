@@ -13,7 +13,7 @@ import { FormComponent } from './form/form.component';
 import { PagesSerivce } from './pages.serivce';
 
 @Component({
-  selector: 'wpx-settings-pages',
+  selector: 'wpx-resources-factory-pages',
   templateUrl: './pages.component.html',
   styleUrls: ['./pages.component.scss']
 })
@@ -90,9 +90,9 @@ export class PagesComponent implements OnInit {
       return;
     }
     if ($event.node?.isSelected) {
-      this.router.navigate(['settings', 'application', 'pages', $event.node!.key, 'schema']);
+      this.router.navigate(['resources', 'factory', 'pages', $event.node!.key, 'schema']);
     } else {
-      this.router.navigate(['settings', 'application', 'pages', 'home']);
+      this.router.navigate(['resources', 'factory', 'pages', 'home']);
     }
   }
 

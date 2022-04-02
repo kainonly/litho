@@ -11,7 +11,7 @@ import { NzTreeNodeOptions } from 'ng-zorro-antd/tree';
 import { PagesSerivce } from '../pages.serivce';
 
 @Component({
-  selector: 'wpx-settings-pages-form',
+  selector: 'wpx-resources-pages-form',
   templateUrl: './form.component.html'
 })
 export class FormComponent implements OnInit {
@@ -49,7 +49,8 @@ export class FormComponent implements OnInit {
 
   get schema(): FormGroup {
     return this.fb.group({
-      key: [null, [Validators.required, Validators.pattern(/^[a-z_]+$/)], [this.existsKey]]
+      key: [null, [Validators.required, Validators.pattern(/^[a-z_]+$/)], [this.existsKey]],
+      fields: [{}]
     });
   }
 

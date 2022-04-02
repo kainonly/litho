@@ -1,4 +1,4 @@
-<wpx-settings-pages-tabs [key]="key" [extra]="extra">
+<wpx-resources-factory-pages-tabs [key]="key" [extra]="extra">
   <ng-template #extra>
     <button nz-button (click)="form()"> 创建字段 </button>
   </ng-template>
@@ -17,10 +17,10 @@
   >
     <thead>
       <tr>
-        <th nzWidth="65px" nzLeft nzAlign="center"> </th>
-        <th nzWidth="420px" nzLeft>字段</th>
+        <th nzWidth="50px" nzLeft nzAlign="center"> </th>
+        <th nzWidth="300px" nzLeft>字段</th>
         <th>描述</th>
-        <th nzWidth="100px" nzRight nzAlign="center">操作</th>
+        <th nzWidth="50px" nzRight nzAlign="center">操作</th>
       </tr>
     </thead>
     <tbody cdkDropList (cdkDropListDropped)="sort($event)">
@@ -64,4 +64,4 @@
       </tr>
     </tbody>
   </nz-table>
-</wpx-settings-pages-tabs>
+</wpx-resources-factory-pages-tabs>

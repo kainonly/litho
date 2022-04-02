@@ -12,7 +12,7 @@ import { PagesSerivce } from '../pages.serivce';
 declare const monaco: any;
 
 @Component({
-  selector: 'wpx-settings-pages-validator',
+  selector: 'wpx-resources-factory-pages-validator',
   templateUrl: './validator.component.html'
 })
 export class ValidatorComponent implements OnInit {
