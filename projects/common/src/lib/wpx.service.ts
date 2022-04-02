@@ -26,10 +26,6 @@ export class WpxService {
    */
   pageId?: string;
   /**
-   * 布局设置
-   */
-  layout: BehaviorSubject<Partial<LayoutOption>> = new BehaviorSubject<Partial<LayoutOption>>({});
-  /**
    * 退出登录
    */
   onLogout = (): void => {};

@@ -52,7 +52,7 @@ import { WpxService } from '@weplanx/common';
           </ul>
         </nz-sider>
         <nz-layout style="overflow: auto">
-          <nz-content [class.content]="!noPadding">
+          <nz-content>
             <router-outlet></router-outlet>
           </nz-content>
         </nz-layout>
@@ -60,15 +60,6 @@ import { WpxService } from '@weplanx/common';
     </nz-layout>
   `
 })
-export class CenterComponent implements OnInit {
-  noPadding = false;
-
-  constructor(public wpx: WpxService, private cd: ChangeDetectorRef) {}
-
-  ngOnInit(): void {
-    this.wpx.layout.subscribe(option => {
-      this.noPadding = option.noPadding ?? false;
-      this.cd.detectChanges();
-    });
-  }
+export class CenterComponent {
+  constructor(public wpx: WpxService) {}
 }

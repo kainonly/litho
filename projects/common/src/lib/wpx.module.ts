@@ -4,13 +4,8 @@ import { WpxRetryDirective } from './directives/retry.directive';
 import { WpxSubmitDirective } from './directives/submit.directive';
 import { WpxUploadDirective } from './directives/upload.directive';
 import { WpxHeaderComponent } from './header/header.component';
-import { WpxLayoutActionDirective } from './layout/layout-action.directive';
-import { WpxLayoutAlertDirective } from './layout/layout-alert.directive';
-import { WpxLayoutContentDirective } from './layout/layout-content.directive';
-import { WpxLayoutComponent } from './layout/layout.component';
 import { WpxNavComponent } from './nav/nav.component';
 import { OpenStatePipe } from './nav/open-state.pipe';
-import { WpxPageHeaderComponent } from './page-header/page-header.component';
 import { WpxAssetsPipe } from './pipes/assets.pipe';
 import { WpxEmptyPipe } from './pipes/empty.pipe';
 import { WpxJoinPipe } from './pipes/join.pipe';
@@ -27,12 +22,7 @@ import { WpxShareModule } from './share.module';
     WpxUploadDirective,
     WpxRetryDirective,
     WpxHeaderComponent,
-    WpxLayoutComponent,
-    WpxLayoutActionDirective,
-    WpxLayoutAlertDirective,
-    WpxLayoutContentDirective,
     WpxNavComponent,
-    WpxPageHeaderComponent,
     WpxEmptyPipe,
     WpxJoinPipe,
     WpxSplitPipe,
@@ -47,12 +37,7 @@ import { WpxShareModule } from './share.module';
     WpxUploadDirective,
     WpxRetryDirective,
     WpxHeaderComponent,
-    WpxLayoutComponent,
-    WpxLayoutActionDirective,
-    WpxLayoutAlertDirective,
-    WpxLayoutContentDirective,
     WpxNavComponent,
-    WpxPageHeaderComponent,
     WpxEmptyPipe,
     WpxJoinPipe,
     WpxSplitPipe,
