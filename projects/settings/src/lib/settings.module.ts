@@ -4,6 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { WpxModule, WpxShareModule } from '@weplanx/common';
 
 import { application, ApplicationModule } from './application/application.module';
+import { organize, OrganizeModule } from './organize/organize.module';
 import { security, SecurityModule } from './security/security.module';
 import { SettingsComponent } from './settings.component';
 
@@ -20,19 +21,33 @@ const routes: Routes = [
         }
       },
       {
+        path: 'organize',
+        children: organize,
+        data: {
+          breadcrumb: '组织'
+        }
+      },
+      {
         path: 'security',
         children: security,
         data: {
           breadcrumb: '安全性'
         }
       },
-      { path: '', redirectTo: '/settings/application/roles', pathMatch: 'full' }
+      { path: '', redirectTo: '/settings/application/overview', pathMatch: 'full' }
     ]
   }
 ];
 
 @NgModule({
-  imports: [WpxShareModule, WpxModule, ApplicationModule, SecurityModule, RouterModule.forChild(routes)],
+  imports: [
+    WpxShareModule,
+    WpxModule,
+    ApplicationModule,
+    OrganizeModule,
+    SecurityModule,
+    RouterModule.forChild(routes)
+  ],
   declarations: [SettingsComponent]
 })
 export class SettingsModule {}

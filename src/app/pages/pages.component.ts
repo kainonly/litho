@@ -9,8 +9,8 @@ import { WpxService } from '@weplanx/common';
     <nz-layout class="main">
       <wpx-header></wpx-header>
 
-      <nz-layout class="container">
-        <nz-sider class="sider" nzTheme="light">
+      <nz-layout class="wpx-container">
+        <nz-sider class="wpx-sider" nzTheme="light">
           <wpx-nav></wpx-nav>
         </nz-sider>
         <nz-layout style="overflow: auto">

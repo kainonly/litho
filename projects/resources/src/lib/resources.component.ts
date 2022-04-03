@@ -7,8 +7,8 @@ import { WpxService } from '@weplanx/common';
   template: `
     <nz-layout class="main">
       <wpx-header></wpx-header>
-      <nz-layout class="container">
-        <nz-sider class="sider" nzTheme="light">
+      <nz-layout class="wpx-container">
+        <nz-sider class="wpx-sider" nzTheme="light">
           <ul nz-menu nzMode="inline">
             <li nz-menu-group nzTitle="内容生成器">
               <ul>

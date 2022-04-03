@@ -1,0 +1,53 @@
+<nz-layout style="height: 100%">
+  <wpx-header></wpx-header>
+  <nz-layout class="wpx-container">
+    <nz-sider class="wpx-sider" nzTheme="light">
+      <ul nz-menu nzMode="inline">
+        <li nz-menu-group nzTitle="应用">
+          <ul>
+            <li nz-menu-item nzMatchRouter [routerLink]="['application', 'overview']">
+              <i nz-icon nzType="fund-view"></i> <span>概述</span>
+            </li>
+            <li nz-menu-item nzMatchRouter [routerLink]="['application', 'office']">
+              <i nz-icon nzType="coffee"></i> <span>办公</span>
+            </li>
+          </ul>
+        </li>
+        <li nz-menu-group nzTitle="组织">
+          <ul>
+            <li nz-menu-item nzMatchRouter [routerLink]="['organize', 'departments']">
+              <i nz-icon nzType="apartment"></i> <span>部门</span>
+            </li>
+            <li nz-menu-item nzMatchRouter [routerLink]="['organize', 'roles']">
+              <i nz-icon nzType="switcher"></i> <span>权限组</span>
+            </li>
+            <li nz-menu-item nzMatchRouter [routerLink]="['organize', 'users']">
+              <i nz-icon nzType="team"></i> <span>成员</span>
+            </li>
+          </ul>
+        </li>
+        <li nz-menu-group nzTitle="安全性">
+          <ul>
+            <li nz-menu-item nzMatchRouter [routerLink]="['security', 'policy']">
+              <i nz-icon nzType="security-scan"></i> <span>策略</span>
+            </li>
+            <li nz-menu-item nzMatchRouter [routerLink]="['security', 'whitelist']">
+              <i nz-icon nzType="safety-certificate"></i> <span>白名单</span>
+            </li>
+            <li nz-menu-item nzMatchRouter [routerLink]="['security', 'session']">
+              <i nz-icon nzType="rocket"></i> <span>会话</span>
+            </li>
+            <li nz-menu-item nzMatchRouter [routerLink]="['security', 'audit']">
+              <i nz-icon nzType="file-protect"></i> <span>审计</span>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </nz-sider>
+    <nz-layout style="overflow: auto">
+      <nz-content>
+        <router-outlet></router-outlet>
+      </nz-content>
+    </nz-layout>
+  </nz-layout>
+</nz-layout>

@@ -13,28 +13,28 @@ export const security: Routes = [
     path: 'policy',
     component: PolicyComponent,
     data: {
-      breadcrumb: '登录策略'
+      breadcrumb: '策略'
     }
   },
   {
     path: 'whitelist',
     component: WhitelistComponent,
     data: {
-      breadcrumb: 'IP 白名单'
+      breadcrumb: '白名单'
     }
   },
   {
     path: 'session',
     component: SessionComponent,
     data: {
-      breadcrumb: '活动会话'
+      breadcrumb: '会话'
     }
   },
   {
     path: 'audit',
     component: AuditComponent,
     data: {
-      breadcrumb: '审计日志'
+      breadcrumb: '审计'
     }
   }
 ];
