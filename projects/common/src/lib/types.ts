@@ -29,7 +29,7 @@ export interface CreateDto<T> {
   ref?: string[];
 }
 
-export type Where<T> = Partial<{ [P in keyof AnyDto<T>]: any }>;
+export type Where<T> = Partial<{ [P in keyof T]: any }> | { [k: string]: any };
 
 export interface UpdateDto<T> {
   update: Record<string, Partial<T & Record<string, any>>>;

@@ -3,11 +3,10 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { map, Observable } from 'rxjs';
 
 import { StorageMap } from '@ngx-pwa/local-storage';
-import { Dataset, Api } from '@weplanx/common';
+import { Dataset, Api, AnyDto, Where } from '@weplanx/common';
 import { NzCheckBoxOptionInterface } from 'ng-zorro-antd/checkbox';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzResizeEvent } from 'ng-zorro-antd/resizable';
-import { NzTableSize } from 'ng-zorro-antd/table';
 
 import { WpxTableService } from './table.service';
 import { Search, TableField, TableOption } from './types';
@@ -17,18 +16,19 @@ import { Search, TableField, TableOption } from './types';
   templateUrl: './table.component.html',
   styleUrls: ['./table.component.scss']
 })
-export class WpxTableComponent implements OnInit {
+export class WpxTableComponent<T> implements OnInit {
   @Input() wpxKey!: string;
-  @Input() wpxApi!: Api<any>;
+  @Input() wpxApi!: Api<T>;
   @Input() wpxFields!: Map<string, TableField>;
   @Input() wpxScroll: { x?: string | null; y?: string | null } = { x: '1600px' };
   @Input() wpxActions?: TemplateRef<any>;
   @Input() wpxBulk?: TemplateRef<any>;
+  @Input() wpxOmit: string[] = [];
   @ViewChild('searchRef', { static: true }) wpxSearch!: TemplateRef<any>;
   /**
    * 数据源
    */
-  ds: Dataset<any> = new Dataset<any>();
+  ds: Dataset<AnyDto<T>> = new Dataset<AnyDto<T>>();
   /**
    * 关键词集合
    */
@@ -136,9 +136,6 @@ export class WpxTableComponent implements OnInit {
    * @param refresh
    */
   getData(refresh = false): void {
-    if (this.searchText) {
-      this.ds.where = { $or: [...this.keywords.values()].map(v => ({ [v]: { $regex: this.searchText } })) };
-    }
     this.ds
       .from(this.wpxApi, refresh)
       .pipe(
@@ -189,11 +186,20 @@ export class WpxTableComponent implements OnInit {
    */
   submitSearch(data?: Record<string, Search>): void {
     if (!data) {
-      this.ds.where = {};
+      for (const key of Object.keys(this.ds.where)) {
+        if (!this.wpxOmit.includes(key)) {
+          delete this.ds.where[key];
+        }
+      }
+      Reflect.set(
+        this.ds.where,
+        '$or',
+        [...this.keywords.values()].map(v => ({ [v]: { $regex: this.searchText } }))
+      );
     } else {
       for (const [key, search] of Object.entries(data)) {
         if (search.value) {
-          this.ds.where[key] = { [search.operator]: search.value };
+          Reflect.set(this.ds.where, key, { [search.operator]: search.value });
         }
       }
     }
@@ -220,7 +226,11 @@ export class WpxTableComponent implements OnInit {
    */
   clearSearch(): void {
     this.searchText = '';
-    this.ds.where = {};
+    for (const key of Object.keys(this.ds.where)) {
+      if (!this.wpxOmit.includes(key)) {
+        delete this.ds.where[key];
+      }
+    }
     this.getData(true);
   }
 

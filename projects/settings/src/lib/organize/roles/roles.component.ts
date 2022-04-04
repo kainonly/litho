@@ -16,7 +16,7 @@ import { Role } from './types';
   templateUrl: './roles.component.html'
 })
 export class RolesComponent {
-  @ViewChild(WpxTableComponent) table!: WpxTableComponent;
+  @ViewChild(WpxTableComponent) table!: WpxTableComponent<Role>;
   fields: Map<string, TableField> = new Map<string, TableField>([
     ['name', { label: '权限名称', type: 'string', keyword: true }],
     ['description', { label: '描述', type: 'text' }],

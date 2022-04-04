@@ -2,7 +2,7 @@ export interface Department {
   /**
    * 父级
    */
-  parent: string;
+  parent: string | null;
   /**
    * 权限名称
    */
@@ -15,8 +15,4 @@ export interface Department {
    * 标记
    */
   labels: string[];
-  /**
-   * 状态
-   */
-  status: boolean;
 }

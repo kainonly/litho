@@ -7,9 +7,31 @@ import { Department } from './types';
 
 @Injectable()
 export class DepartmentsService extends Api<Department> {
-  protected override model = 'department';
+  protected override model = 'departments';
 
-  findLabels(): Observable<string[]> {
-    return this.http.get<string[]>(this.url('labels'));
+  /**
+   * 关系重组
+   * @param id
+   * @param parent
+   */
+  reorganization(id: string, parent: string): Observable<any> {
+    return this.updateOneById(id, {
+      update: {
+        $set: {
+          parent: parent === 'root' ? null : parent
+        }
+      },
+      format: {
+        parent: 'object_id'
+      }
+    });
+  }
+
+  /**
+   * 排序
+   * @param sort
+   */
+  sort(sort: string[]): Observable<any> {
+    return this.http.patch(this.url('sort'), { sort });
   }
 }

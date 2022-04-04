@@ -1,7 +1,8 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { forkJoin, Observable } from 'rxjs';
 
-import { AnyDto, WpxService } from '@weplanx/common';
+import { AnyDto, Where, WpxService } from '@weplanx/common';
 import { TableField, WpxTableComponent } from '@weplanx/components/table';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalService } from 'ng-zorro-antd/modal';
@@ -13,26 +14,45 @@ import { UsersService } from './users.service';
 
 @Component({
   selector: 'wpx-settings-users',
-  templateUrl: './users.component.html'
+  templateUrl: './users.component.html',
+  styleUrls: ['./users.component.scss']
 })
-export class UsersComponent {
-  @ViewChild(WpxTableComponent) table!: WpxTableComponent;
-  roleDict: Record<string, AnyDto<Role>> = {};
+export class UsersComponent implements OnInit {
+  @ViewChild(WpxTableComponent) table!: WpxTableComponent<User>;
+  department: string = '';
   fields: Map<string, TableField> = new Map<string, TableField>([
     ['username', { label: '用户名', type: 'string', keyword: true }],
     ['name', { label: '称呼', type: 'string' }],
     ['roles', { label: '权限组', type: 'select', option: { reference: 'roles' } }],
-    ['status', { label: '状态', type: 'bool' }],
-    ['create_time', { label: '创建时间', type: 'date', option: { time: true } }],
-    ['update_time', { label: '修改时间', type: 'date', option: { time: true } }]
+    ['status', { label: '状态', type: 'bool' }]
   ]);
+  where: Where<User> = {};
 
   constructor(
     public users: UsersService,
     private wpx: WpxService,
     private modal: NzModalService,
-    private message: NzMessageService
+    private message: NzMessageService,
+    private router: Router,
+    private route: ActivatedRoute
   ) {}
+
+  ngOnInit(): void {
+    this.route.params.subscribe(v => {
+      this.department = v?.['department'] ?? '';
+    });
+  }
+
+  departmentChanged(): void {
+    if (this.department) {
+      this.table.ds.where.departments = this.department;
+    } else {
+      delete this.table.ds.where.departments;
+    }
+    this.table.getData(true);
+    const params = this.department ? { department: this.department } : {};
+    this.router.navigate(['settings', 'organize', 'users', params]);
+  }
 
   /**
    * 编辑表单

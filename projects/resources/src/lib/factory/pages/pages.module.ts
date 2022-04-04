@@ -71,7 +71,6 @@ export const pages: Routes = [
     ValidatorModule,
     NzSliderModule
   ],
-  declarations: [PagesComponent, HomeComponent, FormComponent],
-  providers: [PagesSerivce]
+  declarations: [PagesComponent, HomeComponent, FormComponent]
 })
 export class PagesModule {}

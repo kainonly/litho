@@ -8,17 +8,13 @@ export interface User {
    */
   password?: string;
   /**
+   * 所属部门
+   */
+  departments: string[];
+  /**
    * 所属权限
    */
   roles: string[];
-  /**
-   * 所属页面
-   */
-  pages?: string[];
-  /**
-   * 只读权限
-   */
-  readonly?: string[];
   /**
    * 称呼
    */
@@ -26,11 +22,31 @@ export interface User {
   /**
    * 电子邮件
    */
-  email?: string[];
+  email?: string;
+  /**
+   * 联系电话
+   */
+  phone?: string;
+  /**
+   * 地区
+   */
+  region?: string;
+  /**
+   * 城市
+   */
+  city?: string;
+  /**
+   * 地址
+   */
+  address?: string;
   /**
    * 头像
    */
   avatar?: string;
+  /**
+   * 简介
+   */
+  introduction?: string;
   /**
    * 标签
    */

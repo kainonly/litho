@@ -1,6 +1,6 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 
 @Injectable()
 export class WpxTableService {
@@ -12,6 +12,9 @@ export class WpxTableService {
    * @param target 引用目标名称
    */
   references(model: string, ids: string[], target: string): Observable<any> {
+    if (ids.length === 0) {
+      return of([]);
+    }
     let params = new HttpParams();
     for (const id of ids) {
       params = params.append('id', id);

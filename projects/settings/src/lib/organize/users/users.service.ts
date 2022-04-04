@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable, timer } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
 
-import { Api, Value } from '@weplanx/common';
+import { AnyDto, Api, Dataset } from '@weplanx/common';
 
 import { User } from './types';
 
@@ -24,9 +24,5 @@ export class UsersService extends Api<User> {
         return { error: true, [v.status]: true };
       })
     );
-  }
-
-  findLabels(): Observable<string[]> {
-    return this.http.get<string[]>(this.url('labels'));
   }
 }

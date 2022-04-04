@@ -1,5 +1,5 @@
-<nz-layout class="pages-container">
-  <nz-sider class="pages-sider" nzTheme="light" [nzWidth]="300">
+<nz-layout class="nested">
+  <nz-sider nzTheme="light" [nzWidth]="300">
     <nz-row [nzGutter]="8">
       <nz-col>
         <nz-input-group nzSuffixIcon="search" style="width: 180px">
@@ -69,7 +69,7 @@
     </nz-tree>
   </nz-sider>
   <nz-layout style="overflow: auto">
-    <nz-content class="pages-content">
+    <nz-content>
       <router-outlet></router-outlet>
     </nz-content>
   </nz-layout>

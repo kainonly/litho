@@ -2,15 +2,17 @@ import { NgModule } from '@angular/core';
 
 import { WpxModule, WpxShareModule } from '@weplanx/common';
 import { WpxTableModule } from '@weplanx/components/table';
-import { NzTransferModule } from 'ng-zorro-antd/transfer';
 import { NzTreeModule } from 'ng-zorro-antd/tree';
+import { NzTreeSelectModule } from 'ng-zorro-antd/tree-select';
 
 import { DepartmentsComponent } from './departments.component';
 import { DepartmentsService } from './departments.service';
+import { FormComponent } from './form/form.component';
 
 @NgModule({
-  imports: [WpxModule, WpxShareModule, WpxTableModule, NzTransferModule, NzTreeModule],
-  declarations: [DepartmentsComponent],
+  imports: [WpxModule, WpxShareModule, WpxTableModule, NzTreeModule, NzTreeSelectModule],
+  declarations: [DepartmentsComponent, FormComponent],
+  exports: [DepartmentsComponent],
   providers: [DepartmentsService]
 })
 export class DepartmentsModule {}

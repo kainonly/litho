@@ -1,0 +1,59 @@
+<nz-row [nzGutter]="8">
+  <nz-col>
+    <nz-input-group nzSuffixIcon="search" style="width: 180px">
+      <input type="text" nz-input placeholder="搜索" [(ngModel)]="name" />
+    </nz-input-group>
+  </nz-col>
+  <nz-col>
+    <nz-button-group>
+      <button nz-button nzType="text" nz-tooltip="刷新" (click)="getData()">
+        <i nz-icon nzType="reload"></i>
+      </button>
+      <button nz-button nzType="text" [nz-tooltip]="expand ? '收起' : '展开'" (click)="expanded()">
+        <i nz-icon [nzType]="expand ? 'node-collapse' : 'node-expand'"></i>
+      </button>
+      <button nz-button nzType="text" nz-tooltip="新增" (click)="form()">
+        <i nz-icon nzType="sisternode" nzTheme="outline"></i>
+      </button>
+    </nz-button-group>
+  </nz-col>
+</nz-row>
+<nz-divider style="margin: 8px 0"></nz-divider>
+<nz-tree
+  #tree
+  nzBlockNode
+  nzExpandAll
+  nzDraggable
+  nzShowLine
+  [nzData]="nodes"
+  [nzSearchValue]="name"
+  [nzExpandedIcon]="nzExpandedIcon"
+  [nzSelectedKeys]="selectedKeys"
+  (nzClick)="selected($event)"
+  (nzContextMenu)="actions($event, treeActions)"
+  (nzOnDrop)="drop($event)"
+>
+  <ng-template #nzExpandedIcon let-node>
+    <i nz-icon [nzType]="!node.isExpanded && !node.isLeaf ? 'folder' : 'folder-open'"></i>
+  </ng-template>
+  <nz-dropdown-menu #treeActions="nzDropdownMenu">
+    <ul *ngIf="actionKey" nz-menu>
+      <ng-container *ngIf="actionKey === 'root'">
+        <li nz-menu-item [nzSelected]="false">
+          <span>默认部门</span>
+        </li>
+        <li nz-menu-divider></li>
+        <li nz-menu-item (click)="form()"> 新增 </li>
+      </ng-container>
+      <ng-container *ngIf="dict?.[actionKey] as department">
+        <li nz-menu-item [nzSelected]="false">
+          <span>{{ department.name }}</span>
+        </li>
+        <li nz-menu-divider></li>
+        <li nz-menu-item (click)="form(undefined, department._id)"> 新增 </li>
+        <li nz-menu-item (click)="form(department)"> 编辑 </li>
+        <li nz-menu-item nzDanger (click)="delete(department)"> 删除 </li>
+      </ng-container>
+    </ul>
+  </nz-dropdown-menu>
+</nz-tree>
