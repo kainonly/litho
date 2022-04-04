@@ -91,7 +91,9 @@ export class WpxTableComponent implements OnInit {
 
   ngOnInit(): void {
     this.storage.get(this.wpxKey).subscribe(data => {
-      this.wpxFields.forEach((value, key) => {
+      const columns: NzCheckBoxOptionInterface[] = [];
+      const columnsWidth: Record<string, string> = {};
+      for (const [key, value] of this.wpxFields.entries()) {
         if (!!value.keyword) {
           this.keywords.add(key);
         }
@@ -99,22 +101,32 @@ export class WpxTableComponent implements OnInit {
           const { reference, target } = value.option;
           this.requests[reference] = (ids: string[]) => this.service.references(reference, ids, target ?? 'name');
         }
-        this.columns.push({ label: value.label, value: key });
-        this.columnsWidth[key] = '240px';
-      });
-      if (!data) {
-        this.updateColumnsChecked();
-      } else {
+        columns.push({ label: value.label, value: key, checked: true });
+        columnsWidth[key] = '240px';
+      }
+      if (data) {
         const v = data as TableOption;
         this.ds.pageSize = v.pageSize;
         this.ds.pageIndex = v.pageIndex;
         this.ds.where = v.where;
         this.ds.sort = v.sort;
         this.searchText = v.searchText;
-        this.columns = v.columns;
+        if (
+          v.columns.length === this.wpxFields.size &&
+          v.columns.every(v => this.wpxFields.has(v.value) && this.wpxFields.get(v.value)!.label === v.label)
+        ) {
+          this.columns = v.columns;
+        } else {
+          this.columnsChecked = true;
+          this.columnsIndeterminate = false;
+          this.columns = columns;
+        }
         this.columnsWidth = v.columnsWidth;
-        this.updateColumnChecked();
+      } else {
+        this.columns = columns;
+        this.columnsWidth = columnsWidth;
       }
+      this.updateColumnChecked();
       this.getData();
     });
   }

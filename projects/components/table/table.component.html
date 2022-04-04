@@ -74,19 +74,6 @@
     </ng-template>
   </nz-drawer>
 </ng-template>
-<nz-alert
-  *ngIf="ds.checkedNumber !== 0 && wpxBulk"
-  class="bulk"
-  nzType="info"
-  nzBanner
-  nzMessage="批量"
-  [nzDescription]="description"
-  [nzAction]="wpxBulk"
->
-  <ng-template #description>
-    已选中 <nz-tag>{{ ds.checkedNumber }}</nz-tag> 项
-  </ng-template>
-</nz-alert>
 <nz-table
   #basicTable
   [nzLoading]="ds.loading"
@@ -233,3 +220,16 @@
     </tr>
   </tbody>
 </nz-table>
+<nz-alert
+  *ngIf="ds.checkedNumber !== 0 && wpxBulk"
+  class="bulk"
+  nzType="info"
+  nzBanner
+  nzMessage="批量"
+  [nzDescription]="description"
+  [nzAction]="wpxBulk"
+>
+  <ng-template #description>
+    已选中 <nz-tag>{{ ds.checkedNumber }}</nz-tag> 项
+  </ng-template>
+</nz-alert>
