@@ -1,12 +1,26 @@
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { NzTableSortOrder } from 'ng-zorro-antd/table/src/table.types';
-
-import { BasicDto, Where } from '../types';
 import { Api } from './api';
+import { AnyDto, ApiOptions, BasicDto, Filter, FormatFilter } from './types';
 
-export class Dataset<T extends BasicDto> {
+export class Data<T extends BasicDto> implements ApiOptions<T> {
+  /**
+   * 过滤
+   */
+  filter: Filter<T> = {};
+  /**
+   * 映射字段
+   */
+  field?: Array<keyof AnyDto<T>>;
+  /**
+   * 排序规则
+   */
+  sort: Partial<{ [P in keyof AnyDto<T>]: -1 | 1 }> = {};
+  /**
+   * 筛选转换
+   */
+  format_filter?: Record<string, FormatFilter>;
   /**
    * 加载状态
    */
@@ -20,13 +34,13 @@ export class Dataset<T extends BasicDto> {
    */
   values: T[] = [];
   /**
-   * 每页的数量
+   * 页码
    */
-  pageSize = 10;
+  index = 1;
   /**
-   * 当前页码
+   * 分页数
    */
-  pageIndex = 1;
+  size = 10;
   /**
    * 选中的集合ID
    */
@@ -43,27 +57,11 @@ export class Dataset<T extends BasicDto> {
    * 被选中的数量
    */
   checkedNumber = 0;
-  /**
-   * 搜索
-   */
-  where: Where<T> = {};
-  /**
-   * 排序
-   */
-  sort: Record<string, NzTableSortOrder> = {};
 
   /**
-   * 设置总数
-   * @param value
+   * OnPush 设置数据
    */
-  setTotal(value: number): void {
-    this.total = value;
-  }
-
-  /**
-   * 设置数据
-   */
-  setData(values: T[]): void {
+  set(values: T[]): void {
     this.values = [...values];
   }
 
@@ -71,7 +69,7 @@ export class Dataset<T extends BasicDto> {
    * 重置数据内容
    */
   reset(): void {
-    this.pageIndex = 1;
+    this.index = 1;
   }
 
   /**
@@ -84,7 +82,7 @@ export class Dataset<T extends BasicDto> {
     }
     return api.findByPage(this).pipe(
       map(data => {
-        this.setData(data);
+        this.set(data);
         this.loading = false;
         this.updateCheckedStatus();
         return data;
@@ -115,7 +113,7 @@ export class Dataset<T extends BasicDto> {
    * 设置数据全部选中
    */
   setNChecked(checked: boolean): void {
-    this.values.filter(v => !v['disabled']).forEach(v => this.setCheckedIds(v._id!, checked));
+    this.values.filter(v => !v._disabled).forEach(v => this.setCheckedIds(v._id!, checked));
     this.updateCheckedStatus();
   }
 
@@ -123,7 +121,7 @@ export class Dataset<T extends BasicDto> {
    * 更新数据选中状态
    */
   updateCheckedStatus(): void {
-    const data = this.values.filter(v => !v['disabled']);
+    const data = this.values.filter(v => !v._disabled);
     this.checked = data.every(v => this.checkedIds.has(v._id!));
     this.indeterminate = data.some(v => this.checkedIds.has(v._id!)) && !this.checked;
     this.checkedNumber = this.checkedIds.size;

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable, timer } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
 
-import { AnyDto, Api, Dataset } from '@weplanx/common';
+import { AnyDto, Api, Data } from '@weplanx/common';
 
 import { User } from './types';
 

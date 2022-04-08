@@ -1,6 +1,12 @@
-import { AnyDto, Page } from '@weplanx/common';
+import { AnyDto, Api, Page } from '@weplanx/common';
+import { Injectable } from '@angular/core';
 
-export const nav: Array<AnyDto<Page>> = [
+@Injectable()
+export class TestPagesService extends Api<Page> {
+  protected override model = 'pages';
+}
+
+export const pages: Array<AnyDto<Page>> = [
   {
     _id: '61ca6ada2e83bf89116a4799',
     parent: '',

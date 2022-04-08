@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { map, Observable } from 'rxjs';
 
 import { StorageMap } from '@ngx-pwa/local-storage';
-import { Dataset, Api, AnyDto, Where } from '@weplanx/common';
+import { Data, Api, AnyDto, Where } from '@weplanx/common';
 import { NzCheckBoxOptionInterface } from 'ng-zorro-antd/checkbox';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzResizeEvent } from 'ng-zorro-antd/resizable';
@@ -28,7 +28,7 @@ export class WpxTableComponent<T> implements OnInit {
   /**
    * 数据源
    */
-  ds: Dataset<AnyDto<T>> = new Dataset<AnyDto<T>>();
+  ds: Data<AnyDto<T>> = new Data<AnyDto<T>>();
   /**
    * 关键词集合
    */
@@ -308,5 +308,11 @@ export class WpxTableComponent<T> implements OnInit {
         columnsWidth: this.columnsWidth
       })
       .subscribe(() => {});
+  }
+
+  repair(): void {
+    this.storage.delete(this.wpxKey).subscribe(() => {
+      this.ngOnInit();
+    });
   }
 }

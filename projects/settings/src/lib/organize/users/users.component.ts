@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { forkJoin, Observable } from 'rxjs';
 
-import { AnyDto, Where, WpxService } from '@weplanx/common';
+import { AnyDto, WpxService } from '@weplanx/common';
 import { TableField, WpxTableComponent } from '@weplanx/components/table';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalService } from 'ng-zorro-antd/modal';
@@ -22,8 +22,8 @@ export class UsersComponent implements OnInit {
   department: string = '';
   fields: Map<string, TableField> = new Map<string, TableField>([
     ['username', { label: '用户名', type: 'string', keyword: true }],
-    ['name', { label: '称呼', type: 'string' }],
     ['roles', { label: '权限组', type: 'select', option: { reference: 'roles' } }],
+    ['name', { label: '称呼', type: 'string' }],
     ['status', { label: '状态', type: 'bool' }]
   ]);
   where: Where<User> = {};
@@ -45,7 +45,7 @@ export class UsersComponent implements OnInit {
 
   departmentChanged(): void {
     if (this.department) {
-      this.table.ds.where.departments = this.department;
+      this.table.ds.where.departments = { $in: [this.department] };
     } else {
       delete this.table.ds.where.departments;
     }
@@ -64,7 +64,8 @@ export class UsersComponent implements OnInit {
       nzWidth: 800,
       nzContent: FormComponent,
       nzComponentParams: {
-        editable
+        editable,
+        department: this.department
       },
       nzOnOk: () => {
         this.table.getData(true);

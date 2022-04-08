@@ -132,11 +132,20 @@
         >
           <i nz-icon nzType="setting"></i>
           <ng-template #columnsTitle>
-            <nz-row style="padding: 0.5em 0" nzJustify="space-between">
-              <nz-col> 自定义宽度 </nz-col>
+            <nz-row nzJustify="space-between">
+              <nz-col>
+                <nz-switch
+                  style="margin-top: 2px"
+                  nz-tooltip="自定义列宽度"
+                  [(ngModel)]="columnsWidthVisible"
+                  (ngModelChange)="onResizeMessage()"
+                ></nz-switch>
+              </nz-col>
               <nz-col></nz-col>
               <nz-col>
-                <nz-switch [(ngModel)]="columnsWidthVisible" (ngModelChange)="onResizeMessage()"></nz-switch>
+                <button nz-button nzType="text" nz-tooltip="同步修复" (click)="repair()">
+                  <i nz-icon nzType="sync"></i>
+                </button>
               </nz-col>
             </nz-row>
           </ng-template>

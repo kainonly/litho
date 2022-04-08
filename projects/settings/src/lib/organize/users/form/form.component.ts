@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Observable, of } from 'rxjs';
 
-import { AnyDto, PasswordRule, WpxService } from '@weplanx/common';
+import { AnyDto, WpxService, validates } from '@weplanx/common';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalRef, NzModalService } from 'ng-zorro-antd/modal';
 import { NzUploadChangeParam } from 'ng-zorro-antd/upload';
@@ -18,6 +18,7 @@ import { UsersService } from '../users.service';
 })
 export class FormComponent implements OnInit {
   @Input() editable?: AnyDto<User>;
+  @Input() department?: string;
   form?: FormGroup;
   roleList: Array<AnyDto<Role>> = [];
   passwordVisible = false;
@@ -63,13 +64,20 @@ export class FormComponent implements OnInit {
     if (!control.value) {
       return !this.editable ? { required: true } : null;
     }
-    return PasswordRule(control.value);
+    return validates.password(control.value);
   };
 
   getRoles(): void {
-    this.roles.find({ status: true }, {}, ['_id', 'name']).subscribe(data => {
-      this.roleList = [...data];
-    });
+    this.roles
+      .find(
+        { status: true },
+        {
+          field: ['_id', 'name']
+        }
+      )
+      .subscribe(data => {
+        this.roleList = [...data];
+      });
   }
 
   upload(info: NzUploadChangeParam): void {
@@ -84,13 +92,16 @@ export class FormComponent implements OnInit {
     this.modalRef.triggerCancel();
   }
 
-  submit(data: any): void {
+  submit(data: User): void {
     if (!this.editable) {
+      data.departments = [this.department!];
       this.users
-        .create({
-          doc: data,
-          format: { password: 'password' },
-          ref: ['roles']
+        .create(data, {
+          format_doc: {
+            password: 'password',
+            roles: 'oids',
+            departments: 'oids'
+          }
         })
         .subscribe(() => {
           this.message.success('数据新增完成');

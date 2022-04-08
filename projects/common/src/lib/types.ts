@@ -1,5 +1,3 @@
-import { QueryList, TemplateRef } from '@angular/core';
-
 export interface BasicDto {
   /**
    * 对象 ID
@@ -13,35 +11,52 @@ export interface BasicDto {
    * 修改时间
    */
   update_time: Date;
-
   /**
-   * 扩展字段
+   * 私有属性
    */
-  [key: string]: any;
+  _disabled?: boolean;
 }
 
-export type AnyDto<T> = T & BasicDto;
+export type R = Record<string, any>;
+export type AnyDto<T> = T & Omit<BasicDto, '_disabled'>;
 
-export interface CreateDto<T> {
-  doc?: T;
-  docs?: T[];
-  format?: any;
-  ref?: string[];
+export interface ApiOptions<T> {
+  /**
+   * 映射字段
+   */
+  field?: Array<keyof AnyDto<T>>;
+  /**
+   * 排序规则
+   */
+  sort?: Partial<{ [P in keyof AnyDto<T>]: -1 | 1 }>;
+  /**
+   * 限定数量
+   */
+  limit?: number;
+  /**
+   * 跳过数量
+   */
+  skip?: number;
+  /**
+   * 筛选转换
+   */
+  format_filter?: Record<string, FormatFilter>;
+  /**
+   * 文档转换
+   */
+  format_doc?: Record<string, FormatDoc>;
 }
 
-export type Where<T> = Partial<{ [P in keyof T]: any }> | { [k: string]: any };
-
-export interface UpdateDto<T> {
-  update: Record<string, Partial<T & Record<string, any>>>;
-  format?: any;
-  ref?: string[];
-}
-
-export interface ReplaceDto<T> {
-  doc: T;
-  format?: any;
-  ref?: string[];
-}
+export type FormatFilter = 'oid' | 'oids';
+export type FormatDoc = 'oid' | 'oids' | 'password';
+export type Filter<T> = Partial<{ [P in keyof T | string]: any }>;
+export type FilterOption<T> = Pick<ApiOptions<T>, 'format_filter'>;
+export type CreateOption<T> = Pick<ApiOptions<T>, 'format_doc'>;
+export type FindOneOption<T> = Pick<ApiOptions<T>, 'field' | 'format_filter'>;
+export type FindOneByIdOption<T> = Pick<ApiOptions<T>, 'field'>;
+export type FindOption<T> = Omit<ApiOptions<T>, 'format_doc'>;
+export type UpdateOption<T> = Pick<ApiOptions<T>, 'format_filter' | 'format_doc'>;
+export type UpdateOneByIdOption<T> = Pick<ApiOptions<T>, 'format_doc'>;
 
 export interface UploadOption {
   /**
@@ -56,42 +71,6 @@ export interface UploadOption {
    * 限制上传大小
    */
   size?: number;
-}
-
-export interface AssetsOption {
-  params?: Record<string, string>;
-  css?: boolean;
-}
-
-export interface LayoutOption {
-  /**
-   * 无留白
-   */
-  noPadding: boolean;
-  /**
-   * 是否忽略页头
-   */
-  skipPageHeader: boolean;
-  /**
-   * 是否显示返回
-   */
-  showBack: boolean;
-  /**
-   * 标题
-   */
-  title: string;
-  /**
-   * 全局提示区域
-   */
-  alert: TemplateRef<any>;
-  /**
-   * 页头内容
-   */
-  content: TemplateRef<any>;
-  /**
-   * 操作区域
-   */
-  actions: QueryList<TemplateRef<any>>;
 }
 
 export interface Page {
@@ -115,7 +94,6 @@ export interface Page {
    * 数据源
    */
   schema?: Schema;
-
   /**
    * 排序
    */
@@ -124,6 +102,11 @@ export interface Page {
    * 状态
    */
   status: boolean;
+  /**
+   * 私有属性
+   */
+  _children?: Page[];
+  _path?: string[];
 }
 
 export interface Schema {

@@ -1,12 +1,12 @@
 import { CollectionViewer, DataSource } from '@angular/cdk/collections';
 import { BehaviorSubject, Observable, Subject, takeUntil } from 'rxjs';
 
-import { AnyDto, Dataset } from '@weplanx/common';
+import { AnyDto, Data } from '@weplanx/common';
 
 import { MediaService } from '../media.service';
 import { Media } from '../types';
 
-export class WpxMediaViewDataSource extends Dataset<AnyDto<Media>> implements DataSource<Array<AnyDto<Media>>> {
+export class WpxMediaViewDataSource extends Data<AnyDto<Media>> implements DataSource<Array<AnyDto<Media>>> {
   private readonly stream = new BehaviorSubject<Array<Array<AnyDto<Media>>>>([]);
   private readonly disconnect$ = new Subject<void>();
   private readonly indexs: Set<number> = new Set<number>();

@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
 
-import { AnyDto, LayoutOption, Page, UploadOption } from './types';
+import { AnyDto, Page, UploadOption } from './types';
 
 @Injectable({ providedIn: 'root' })
 export class WpxService {
@@ -47,26 +46,26 @@ export class WpxService {
   }
 
   /**
-   * 设置导航数据
-   * @param value 页面传输对象
+   * 设置页面数据
+   * @param values 页面数据
    */
-  setNavs(value: Array<AnyDto<Page>>): void {
-    const navs: Array<AnyDto<Page>> = [];
+  setPages(values: Array<AnyDto<Page>>): void {
     const pages: Record<string, AnyDto<Page>> = {};
-    for (const x of value) {
+    const navs: Array<AnyDto<Page>> = [];
+    for (const x of values) {
       pages[x._id] = x;
-      x['children'] = [];
+      x._children = [];
       if (!x.parent) {
-        x['path'] = [x._id];
+        x._path = [x._id];
         navs.push(x);
       } else {
         if (pages.hasOwnProperty(x.parent)) {
-          x['path'] = [...pages[x.parent]['path'], x._id];
-          pages[x.parent]['children'].push(x);
+          x._path = [...pages[x.parent]._path!, x._id];
+          pages[x.parent]._children!.push(x);
         }
       }
     }
-    this.navs = navs;
     this.pages = pages;
+    this.navs = navs;
   }
 }
