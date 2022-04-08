@@ -51,12 +51,12 @@ export class FormComponent implements OnInit {
 
   submit(data: any): void {
     if (!this.editable) {
-      this.roles.create({ doc: data }).subscribe(() => {
+      this.roles.create(data).subscribe(() => {
         this.message.success('数据新增完成');
         this.modalRef.triggerOk();
       });
     } else {
-      this.roles.updateOneById(this.editable._id, { update: { $set: data } }).subscribe(() => {
+      this.roles.updateOneById(this.editable._id, { $set: data }).subscribe(() => {
         this.message.success('数据更新完成');
         this.modalRef.triggerOk();
       });

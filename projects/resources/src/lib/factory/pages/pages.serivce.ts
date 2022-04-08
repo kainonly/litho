@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { AsyncSubject, Observable, Subject, timer } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
 
-import { Api, Field, Page } from '@weplanx/common';
+import { Api, Page, SchemaField } from '@weplanx/common';
 
 @Injectable({ providedIn: 'root' })
 export class PagesSerivce extends Api<Page> {
@@ -27,28 +27,29 @@ export class PagesSerivce extends Api<Page> {
   }
 
   reorganization(id: string, parent: string): Observable<any> {
-    return this.updateOneById(id, {
-      update: {
+    return this.updateOneById(
+      id,
+      {
         $set: {
           parent
         }
       },
-      format: {
-        parent: 'object_id'
+      {
+        format_doc: {
+          parent: 'oid'
+        }
       }
-    });
+    );
   }
 
   sort(sort: string[]): Observable<any> {
     return this.http.patch(this.url('sort'), { sort });
   }
 
-  updateSchemaField(id: string, key: string, data: Field): Observable<any> {
+  updateSchemaField(id: string, key: string, data: SchemaField): Observable<any> {
     return this.updateOneById(id, {
-      update: {
-        $set: {
-          [`schema.fields.${key}`]: data
-        }
+      $set: {
+        [`schema.fields.${key}`]: data
       }
     });
   }
@@ -58,19 +59,13 @@ export class PagesSerivce extends Api<Page> {
     fields.forEach((value, index) => {
       values[`schema.fields.${value}.sort`] = index;
     });
-    return this.updateOneById(id, {
-      update: {
-        $set: values
-      }
-    });
+    return this.updateOneById(id, { $set: values });
   }
 
   deleteSchemaField(id: string, key: string): Observable<any> {
     return this.updateOneById(id, {
-      update: {
-        $unset: {
-          [`schema.fields.${key}`]: ''
-        }
+      $unset: {
+        [`schema.fields.${key}`]: ''
       }
     });
   }
@@ -89,10 +84,8 @@ export class PagesSerivce extends Api<Page> {
 
   updateValidator(id: string, validator: string): Observable<any> {
     return this.updateOneById(id, {
-      update: {
-        $set: {
-          [`schema.validator`]: validator
-        }
+      $set: {
+        [`schema.validator`]: validator
       }
     });
   }

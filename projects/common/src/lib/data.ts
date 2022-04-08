@@ -2,21 +2,21 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { Api } from './api';
-import { AnyDto, ApiOptions, BasicDto, Filter, FormatFilter } from './types';
+import { AnyDto, ApiOptions, BasicDto, Field, Filter, FormatFilter, Sort } from './types';
 
 export class Data<T extends BasicDto> implements ApiOptions<T> {
   /**
-   * 过滤
+   * 筛选
    */
   filter: Filter<T> = {};
   /**
    * 映射字段
    */
-  field?: Array<keyof AnyDto<T>>;
+  field?: Field<T>;
   /**
    * 排序规则
    */
-  sort: Partial<{ [P in keyof AnyDto<T>]: -1 | 1 }> = {};
+  sort: Sort<T> = {};
   /**
    * 筛选转换
    */
@@ -113,7 +113,7 @@ export class Data<T extends BasicDto> implements ApiOptions<T> {
    * 设置数据全部选中
    */
   setNChecked(checked: boolean): void {
-    this.values.filter(v => !v._disabled).forEach(v => this.setCheckedIds(v._id!, checked));
+    this.values.filter(v => !v['_disabled']).forEach(v => this.setCheckedIds(v._id!, checked));
     this.updateCheckedStatus();
   }
 
@@ -121,7 +121,7 @@ export class Data<T extends BasicDto> implements ApiOptions<T> {
    * 更新数据选中状态
    */
   updateCheckedStatus(): void {
-    const data = this.values.filter(v => !v._disabled);
+    const data = this.values.filter(v => !v['_disabled']);
     this.checked = data.every(v => this.checkedIds.has(v._id!));
     this.indeterminate = data.some(v => this.checkedIds.has(v._id!)) && !this.checked;
     this.checkedNumber = this.checkedIds.size;

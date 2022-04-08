@@ -1,13 +1,13 @@
 import { Component } from '@angular/core';
 
-import { Field } from '@weplanx/common';
+import { Field, SchemaField } from '@weplanx/common';
 
 @Component({
   selector: 'app-example-dynamic-form',
   templateUrl: './dynamic-form.component.html'
 })
 export class DynamicFormComponent {
-  fields: Field[] = [
+  fields: SchemaField[] = [
     {
       key: 'name',
       label: '名称',

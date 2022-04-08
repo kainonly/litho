@@ -2,7 +2,7 @@ import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
-import { AnyDto, Field, Page } from '@weplanx/common';
+import { AnyDto, Field, Page, SchemaField } from '@weplanx/common';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalService } from 'ng-zorro-antd/modal';
 
@@ -19,7 +19,7 @@ export class SchemaComponent implements OnInit {
   key!: string;
   private page!: AnyDto<Page>;
 
-  fieldList: Field[] = [];
+  fieldList: SchemaField[] = [];
   datatype: Record<string, string> = Object.fromEntries([].concat(...(fieldTypeValues.map(v => v.values) as any[])));
 
   constructor(
@@ -86,7 +86,7 @@ export class SchemaComponent implements OnInit {
       });
   }
 
-  delete(data: Field): void {
+  delete(data: SchemaField): void {
     this.modal.confirm({
       nzTitle: `您确定要删除『${data.label}』字段吗?`,
       nzOkText: '是的',

@@ -6,7 +6,6 @@ import { map } from 'rxjs/operators';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzUploadComponent, NzUploadFile } from 'ng-zorro-antd/upload';
 
-import { UploadOption } from '../types';
 import { WpxService } from '../wpx.service';
 
 @Directive({
@@ -17,7 +16,6 @@ export class WpxUploadDirective {
    * 自定义后缀，默认上传无后缀
    */
   @Input() wpxExt?: string;
-  private option!: UploadOption;
 
   constructor(
     private wpx: WpxService,
@@ -28,13 +26,14 @@ export class WpxUploadDirective {
     if (!this.wpx.upload) {
       throw new Error('上传配置不能为空');
     }
-    this.option = this.wpx.upload;
+    const { url, size, presignedUrl } = this.wpx.upload;
     this.nzUploadComponent.nzName = 'file';
     this.nzUploadComponent.nzShowUploadList = false;
-    this.nzUploadComponent.nzSize = this.option.size ?? 5120;
-    this.nzUploadComponent.nzAction = this.option.url;
+    this.nzUploadComponent.nzAction = url;
+    this.nzUploadComponent.nzSize = size ?? 5120;
+
     this.nzUploadComponent.nzData = (file: NzUploadFile): Observable<any> =>
-      this.http.get<any>(this.option.presignedUrl!).pipe(
+      this.http.get<any>(presignedUrl!).pipe(
         map(v => {
           v['Content-Type'] = file.type;
           Reflect.set(file, 'key', v.key);

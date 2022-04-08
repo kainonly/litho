@@ -38,9 +38,10 @@ export class FormComponent implements OnInit {
   }
 
   submit(data: Page): void {
-    this.media.updateOneById(this.editable._id, { update: { $set: data } }).subscribe(v => {
+    this.media.updateOneById(this.editable._id, { $set: data }).subscribe(v => {
       for (const [k, v] of Object.entries(data)) {
-        this.editable[k] = v;
+        // TODO:待检查
+        Reflect.set(this.editable, k, v);
       }
       this.message.success('数据更新完成');
       this.modalRef.triggerOk();

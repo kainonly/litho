@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { mergeMap } from 'rxjs';
 
-import { AnyDto, Page, TreeNodesExpanded } from '@weplanx/common';
+import { AnyDto, expandTreeNodes, Page } from '@weplanx/common';
 import { NzContextMenuService, NzDropdownMenuComponent } from 'ng-zorro-antd/dropdown';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalService } from 'ng-zorro-antd/modal';
@@ -46,7 +46,7 @@ export class PagesComponent implements OnInit {
   }
 
   getData(): void {
-    this.pages.find({}, { sort: 1 }).subscribe(data => {
+    this.pages.find({}, { sort: { sort: 1 } }).subscribe(data => {
       const nodes: NzTreeNodeOptions[] = [];
       const dict: Record<string, NzTreeNodeOptions> = {};
       for (const x of data) {
@@ -82,7 +82,7 @@ export class PagesComponent implements OnInit {
 
   expanded(): void {
     this.expand = !this.expand;
-    TreeNodesExpanded(this.tree.getTreeNodes(), this.expand);
+    expandTreeNodes(this.tree.getTreeNodes(), this.expand);
   }
 
   selected($event: NzFormatEmitEvent): void {

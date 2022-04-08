@@ -1,11 +1,10 @@
-import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 
-@Injectable()
-export class WpxTableService {
-  constructor(private http: HttpClient) {}
+import { Api, httpOptions } from '@weplanx/common';
 
+@Injectable()
+export class WpxTableService extends Api<any> {
   /**
    * @param model
    * @param ids
@@ -15,13 +14,13 @@ export class WpxTableService {
     if (ids.length === 0) {
       return of([]);
     }
-    let params = new HttpParams();
-    for (const id of ids) {
-      params = params.append('id', id);
-    }
-    params = params.append('field', '_id').append('field', target);
-    return this.http.get<any>(`api/${model}`, {
-      params
-    });
+    const options = httpOptions(
+      {
+        field: ['_id', target],
+        format_filter: {}
+      },
+      { _id: { $in: ids } }
+    );
+    return this.http.get(this.url(model), options);
   }
 }

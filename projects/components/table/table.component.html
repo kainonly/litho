@@ -76,15 +76,15 @@
 </ng-template>
 <nz-table
   #basicTable
-  [nzLoading]="ds.loading"
-  [nzData]="ds.values"
+  [nzLoading]="data.loading"
+  [nzData]="data.values"
   [nzScroll]="wpxScroll"
   [nzFrontPagination]="false"
   [nzShowSizeChanger]="true"
   [nzHideOnSinglePage]="true"
-  [nzTotal]="ds.total"
-  [(nzPageSize)]="ds.pageSize"
-  [(nzPageIndex)]="ds.pageIndex"
+  [nzTotal]="data.total"
+  [(nzPageSize)]="data.size"
+  [(nzPageIndex)]="data.index"
   (nzPageIndexChange)="getData(false)"
   (nzPageSizeChange)="getData(true)"
 >
@@ -94,9 +94,9 @@
         nzWidth="50px"
         nzLeft
         nzAlign="center"
-        [nzChecked]="ds.checked"
-        [nzIndeterminate]="ds.indeterminate"
-        (nzCheckedChange)="ds.setNChecked($event)"
+        [nzChecked]="data.checked"
+        [nzIndeterminate]="data.indeterminate"
+        (nzCheckedChange)="data.setNChecked($event)"
       ></th>
       <ng-container *ngFor="let x of columnsDisplay">
         <th
@@ -109,7 +109,7 @@
           (nzResizeEnd)="resize($event, x.value)"
           [nzWidth]="columnsWidth[x.value]"
           [nzShowSort]="!columnsWidthVisible"
-          [(nzSortOrder)]="ds.sort[x.value]"
+          [(nzSortOrder)]="sort[x.value]"
           (nzSortOrderChange)="getData(true)"
         >
           <b>{{ x.label }} </b>
@@ -174,31 +174,31 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let data of basicTable.data">
+    <tr *ngFor="let value of basicTable.data">
       <td
         nzLeft
         nzAlign="center"
-        [nzDisabled]="data['disabled']"
-        [nzChecked]="ds.checkedIds.has(data._id)"
-        (nzCheckedChange)="ds.setChecked(data._id, $event)"
+        [nzDisabled]="value['_disabled']"
+        [nzChecked]="data.checkedIds.has(value._id)"
+        (nzCheckedChange)="data.setChecked(value._id, $event)"
       ></td>
       <ng-container *ngFor="let x of columnsDisplay">
         <td *ngIf="wpxFields | wpxMap: x.value as field">
           <ng-container [ngSwitch]="field.type">
             <ng-container *ngSwitchCase="'date'">
               <ng-container *ngIf="field?.option?.time; else date">
-                {{ data[x.value] | date: 'yyyy-MM-dd HH:mm:ss' }}
+                {{ value[x.value] | date: 'yyyy-MM-dd HH:mm:ss' }}
               </ng-container>
-              <ng-template #date>{{ data[x.value] | date: 'yyyy-MM-dd' }}</ng-template>
+              <ng-template #date>{{ value[x.value] | date: 'yyyy-MM-dd' }}</ng-template>
             </ng-container>
             <ng-container *ngSwitchCase="'bool'">
-              <ng-container *ngIf="data[x.value]; else isFalse">
+              <ng-container *ngIf="value[x.value]; else isFalse">
                 <nz-badge nzStatus="processing"></nz-badge> 开启
               </ng-container>
               <ng-template #isFalse> <nz-badge nzStatus="default"></nz-badge> 关闭 </ng-template>
             </ng-container>
             <ng-container *ngSwitchCase="'select'">
-              <ng-container *ngFor="let id of data[x.value]">
+              <ng-container *ngFor="let id of value[x.value]">
                 <ng-container *ngIf="field?.option?.reference as reference; else select">
                   <nz-tag nzColor="blue" *ngIf="references[reference] as dict">
                     <ng-container *ngIf="field?.option?.target as target; else targetDefault">
@@ -215,7 +215,7 @@
             </ng-container>
             <ng-container *ngSwitchDefault>
               <p style="margin: 0" nz-typography nzEllipsis [nzEllipsisRows]="2">
-                {{ data[x.value] }}
+                {{ value[x.value] }}
               </p>
             </ng-container>
           </ng-container>
@@ -223,14 +223,15 @@
       </ng-container>
       <td nzRight nzAlign="center">
         <ng-container *ngIf="wpxActions">
-          <ng-container *ngTemplateOutlet="wpxActions; context: { $implicit: data }"></ng-container>
+          <ng-container *ngTemplateOutlet="wpxActions; context: { $implicit: value }"></ng-container>
         </ng-container>
       </td>
     </tr>
   </tbody>
 </nz-table>
+
 <nz-alert
-  *ngIf="ds.checkedNumber !== 0 && wpxBulk"
+  *ngIf="data.checkedNumber !== 0 && wpxBulk"
   class="bulk"
   nzType="info"
   nzBanner
@@ -239,6 +240,6 @@
   [nzAction]="wpxBulk"
 >
   <ng-template #description>
-    已选中 <nz-tag>{{ ds.checkedNumber }}</nz-tag> 项
+    已选中 <nz-tag>{{ data.checkedNumber }}</nz-tag> 项
   </ng-template>
 </nz-alert>

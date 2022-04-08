@@ -1,4 +1,5 @@
-export interface BasicDto {
+export type R = Record<string, any>;
+export interface BasicDto extends R {
   /**
    * 对象 ID
    */
@@ -11,24 +12,23 @@ export interface BasicDto {
    * 修改时间
    */
   update_time: Date;
-  /**
-   * 私有属性
-   */
-  _disabled?: boolean;
 }
+export type AnyDto<T> = T & BasicDto;
 
-export type R = Record<string, any>;
-export type AnyDto<T> = T & Omit<BasicDto, '_disabled'>;
-
+export type Filter<T> = Partial<{ [P in keyof AnyDto<T>]: any }>;
+export type Field<T> = Array<keyof AnyDto<T>>;
+export type Sort<T> = Partial<{ [P in keyof AnyDto<T>]: -1 | 1 }>;
+export type FormatFilter = 'oid' | 'oids';
+export type FormatDoc = 'oid' | 'oids' | 'password';
 export interface ApiOptions<T> {
   /**
    * 映射字段
    */
-  field?: Array<keyof AnyDto<T>>;
+  field?: Field<T>;
   /**
    * 排序规则
    */
-  sort?: Partial<{ [P in keyof AnyDto<T>]: -1 | 1 }>;
+  sort?: Sort<T>;
   /**
    * 限定数量
    */
@@ -47,9 +47,6 @@ export interface ApiOptions<T> {
   format_doc?: Record<string, FormatDoc>;
 }
 
-export type FormatFilter = 'oid' | 'oids';
-export type FormatDoc = 'oid' | 'oids' | 'password';
-export type Filter<T> = Partial<{ [P in keyof T | string]: any }>;
 export type FilterOption<T> = Pick<ApiOptions<T>, 'format_filter'>;
 export type CreateOption<T> = Pick<ApiOptions<T>, 'format_doc'>;
 export type FindOneOption<T> = Pick<ApiOptions<T>, 'field' | 'format_filter'>;
@@ -57,21 +54,6 @@ export type FindOneByIdOption<T> = Pick<ApiOptions<T>, 'field'>;
 export type FindOption<T> = Omit<ApiOptions<T>, 'format_doc'>;
 export type UpdateOption<T> = Pick<ApiOptions<T>, 'format_filter' | 'format_doc'>;
 export type UpdateOneByIdOption<T> = Pick<ApiOptions<T>, 'format_doc'>;
-
-export interface UploadOption {
-  /**
-   * 本地上传路径或对象存储路径
-   */
-  url?: string;
-  /**
-   * 用于获取对象存储上传签名参数的请求地址
-   */
-  presignedUrl?: string;
-  /**
-   * 限制上传大小
-   */
-  size?: number;
-}
 
 export interface Page {
   /**
@@ -102,11 +84,6 @@ export interface Page {
    * 状态
    */
   status: boolean;
-  /**
-   * 私有属性
-   */
-  _children?: Page[];
-  _path?: string[];
 }
 
 export interface Schema {
@@ -117,7 +94,7 @@ export interface Schema {
   /**
    * 字段设置
    */
-  fields: Record<string, Field>;
+  fields: Record<string, SchemaField>;
   /**
    * 规则
    */
@@ -128,7 +105,7 @@ export interface Schema {
   validator?: string;
 }
 
-export interface Field {
+export interface SchemaField {
   /**
    * 显示名称
    */
@@ -172,28 +149,10 @@ export interface Field {
   /**
    * 扩展配置
    */
-  option?: Partial<FieldOption>;
+  option?: Partial<SchemaFieldOption>;
 }
 
-export type BasicType =
-  | 'string' // 单行
-  | 'text' // 多行
-  | 'number' // 数字
-  | 'date' // 日期
-  | 'between-dates' // 日期之间
-  | 'bool' // 状态
-  | 'radio' // 单选
-  | 'checkbox' // 复选
-  | 'select'; // 选择器
-
-export type AdvancedType =
-  | 'richtext' // 富文本
-  | 'picture' // 图片
-  | 'video' // 视频
-  | 'file' // 文件
-  | 'json'; // 自定义
-
-export interface FieldOption {
+export interface SchemaFieldOption {
   /**
    * 最大值
    */
@@ -238,3 +197,21 @@ export interface Value {
    */
   value: any;
 }
+
+export type BasicType =
+  | 'string' // 单行
+  | 'text' // 多行
+  | 'number' // 数字
+  | 'date' // 日期
+  | 'between-dates' // 日期之间
+  | 'bool' // 状态
+  | 'radio' // 单选
+  | 'checkbox' // 复选
+  | 'select'; // 选择器
+
+export type AdvancedType =
+  | 'richtext' // 富文本
+  | 'picture' // 图片
+  | 'video' // 视频
+  | 'file' // 文件
+  | 'json'; // 自定义

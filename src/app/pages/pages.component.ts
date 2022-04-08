@@ -27,7 +27,7 @@ export class PagesComponent implements OnInit {
 
   ngOnInit(): void {
     this.app.navs().subscribe(data => {
-      this.wpx.setNavs(data);
+      this.wpx.setPages(data);
     });
   }
 }

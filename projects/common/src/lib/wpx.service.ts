@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import { AnyDto, Page, UploadOption } from './types';
+import { AnyDto, Page } from './types';
 
 @Injectable({ providedIn: 'root' })
 export class WpxService {
@@ -11,7 +11,7 @@ export class WpxService {
   /**
    * 上传地址
    */
-  upload?: UploadOption;
+  upload?: { url?: string; size?: number; presignedUrl?: string };
   /**
    * 导航数据
    */
@@ -31,18 +31,20 @@ export class WpxService {
 
   /**
    * 设置静态资源
-   * @param value
+   * @param url
    */
-  setAssets(value: string): void {
-    this.assets = value;
+  setAssets(url: string): void {
+    this.assets = url;
   }
 
   /**
    * 设置上传配置
-   * @param value
+   * @param url 本地上传路径或对象存储路径
+   * @param size 限制上传大小
+   * @param presignedUrl 用于获取对象存储上传签名参数的请求地址
    */
-  setUpload(value: UploadOption): void {
-    this.upload = value;
+  setUpload(url: string, size?: number, presignedUrl?: string): void {
+    this.upload = { url, size, presignedUrl };
   }
 
   /**
@@ -54,14 +56,14 @@ export class WpxService {
     const navs: Array<AnyDto<Page>> = [];
     for (const x of values) {
       pages[x._id] = x;
-      x._children = [];
+      x['_children'] = [];
       if (!x.parent) {
-        x._path = [x._id];
+        x['_path'] = [x._id];
         navs.push(x);
       } else {
         if (pages.hasOwnProperty(x.parent)) {
-          x._path = [...pages[x.parent]._path!, x._id];
-          pages[x.parent]._children!.push(x);
+          x['_path'] = [...pages[x.parent]['_path']!, x._id];
+          pages[x.parent]['_children']!.push(x);
         }
       }
     }

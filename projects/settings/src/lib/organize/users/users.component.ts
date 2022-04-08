@@ -1,8 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { forkJoin, Observable } from 'rxjs';
 
-import { AnyDto, WpxService } from '@weplanx/common';
+import { AnyDto, Filter, WpxService } from '@weplanx/common';
 import { TableField, WpxTableComponent } from '@weplanx/components/table';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalService } from 'ng-zorro-antd/modal';
@@ -26,7 +25,7 @@ export class UsersComponent implements OnInit {
     ['name', { label: '称呼', type: 'string' }],
     ['status', { label: '状态', type: 'bool' }]
   ]);
-  where: Where<User> = {};
+  filter: Filter<User> = {};
 
   constructor(
     public users: UsersService,
@@ -45,9 +44,9 @@ export class UsersComponent implements OnInit {
 
   departmentChanged(): void {
     if (this.department) {
-      this.table.ds.where.departments = { $in: [this.department] };
+      this.table.data.filter.departments = { $in: [this.department] };
     } else {
-      delete this.table.ds.where.departments;
+      delete this.table.data.filter.departments;
     }
     this.table.getData(true);
     const params = this.department ? { department: this.department } : {};
@@ -100,15 +99,22 @@ export class UsersComponent implements OnInit {
       nzOkType: 'primary',
       nzOkDanger: true,
       nzOnOk: () => {
-        const requests: Array<Observable<any>> = [];
-        this.table.ds.checkedIds.forEach(value => {
-          requests.push(this.users.delete(value));
-        });
-        forkJoin(requests).subscribe(() => {
-          this.message.success('数据删除完成');
-          this.table.getData(true);
-          this.table.ds.clearChecked();
-        });
+        this.users
+          .bulkDelete(
+            {
+              _id: { $in: [...this.table.data.checkedIds.values()] }
+            },
+            {
+              format_filter: {
+                '_id.$in': 'oids'
+              }
+            }
+          )
+          .subscribe(() => {
+            this.message.success('数据删除完成');
+            this.table.getData(true);
+            this.table.data.clearChecked();
+          });
       },
       nzCancelText: '再想想'
     });

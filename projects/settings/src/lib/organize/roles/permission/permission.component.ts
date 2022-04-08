@@ -33,7 +33,7 @@ export class PermissionComponent implements OnInit {
   }
 
   getData(): void {
-    this.pages.find({ status: true }, { sort: 1 }).subscribe(data => {
+    this.pages.find({ status: true }, { sort: { sort: 1 } }).subscribe(data => {
       const nodes: NzTreeNodeOptions[] = [];
       const dict: Record<string, NzTreeNodeOptions> = {};
       const checked: string[] = [];
@@ -108,10 +108,18 @@ export class PermissionComponent implements OnInit {
       }
     }
     this.roles
-      .updateOneById(this.editable._id, {
-        update: { $set: { pages, readonly } },
-        ref: ['pages', 'readonly']
-      })
+      .updateOneById(
+        this.editable._id,
+        {
+          $set: { pages, readonly }
+        },
+        {
+          format_doc: {
+            pages: 'oids',
+            readonly: 'oids'
+          }
+        }
+      )
       .subscribe(() => {
         this.message.success('权限更新完成');
         this.modalRef.triggerOk();

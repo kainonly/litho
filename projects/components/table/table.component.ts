@@ -3,10 +3,11 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { map, Observable } from 'rxjs';
 
 import { StorageMap } from '@ngx-pwa/local-storage';
-import { Data, Api, AnyDto, Where } from '@weplanx/common';
+import { Data, Api, AnyDto } from '@weplanx/common';
 import { NzCheckBoxOptionInterface } from 'ng-zorro-antd/checkbox';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzResizeEvent } from 'ng-zorro-antd/resizable';
+import { NzTableSortOrder } from 'ng-zorro-antd/table/src/table.types';
 
 import { WpxTableService } from './table.service';
 import { Search, TableField, TableOption } from './types';
@@ -28,7 +29,11 @@ export class WpxTableComponent<T> implements OnInit {
   /**
    * 数据源
    */
-  ds: Data<AnyDto<T>> = new Data<AnyDto<T>>();
+  data: Data<AnyDto<T>> = new Data<AnyDto<T>>();
+  /**
+   * 表格排序
+   */
+  sort: Record<string, NzTableSortOrder> = {};
   /**
    * 关键词集合
    */
@@ -90,7 +95,7 @@ export class WpxTableComponent<T> implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.storage.get(this.wpxKey).subscribe(data => {
+    this.storage.get(this.wpxKey).subscribe(unknow => {
       const columns: NzCheckBoxOptionInterface[] = [];
       const columnsWidth: Record<string, string> = {};
       for (const [key, value] of this.wpxFields.entries()) {
@@ -104,13 +109,13 @@ export class WpxTableComponent<T> implements OnInit {
         columns.push({ label: value.label, value: key, checked: true });
         columnsWidth[key] = '240px';
       }
-      if (data) {
-        const v = data as TableOption;
-        this.ds.pageSize = v.pageSize;
-        this.ds.pageIndex = v.pageIndex;
-        this.ds.where = v.where;
-        this.ds.sort = v.sort;
+      if (unknow) {
+        const v = unknow as TableOption<T>;
         this.searchText = v.searchText;
+        this.data.filter = v.filter;
+        this.data.sort = v.sort;
+        this.data.index = v.index;
+        this.data.size = v.size;
         if (
           v.columns.length === this.wpxFields.size &&
           v.columns.every(v => this.wpxFields.has(v.value) && this.wpxFields.get(v.value)!.label === v.label)
@@ -136,12 +141,13 @@ export class WpxTableComponent<T> implements OnInit {
    * @param refresh
    */
   getData(refresh = false): void {
-    this.ds
+    this.data
       .from(this.wpxApi, refresh)
       .pipe(
         map(v => {
           for (const [key, request] of Object.entries(this.requests)) {
-            request([...new Set([].concat(...v.map(v => v[key])))]).subscribe(data => {
+            // TODO: 待修改
+            request([...new Set([].concat(...v.map(v => Reflect.get(v, key))))]).subscribe(data => {
               const dict: any = {};
               for (const x of data) {
                 dict[x._id] = x;
@@ -169,7 +175,7 @@ export class WpxTableComponent<T> implements OnInit {
       });
     }
     this.searchForm = this.fb.group(controls);
-    this.searchForm.patchValue(this.ds.where!);
+    this.searchForm.patchValue(this.data.filter!);
     this.searchVisible = true;
   }
 
@@ -186,20 +192,21 @@ export class WpxTableComponent<T> implements OnInit {
    */
   submitSearch(data?: Record<string, Search>): void {
     if (!data) {
-      for (const key of Object.keys(this.ds.where)) {
+      for (const key of Object.keys(this.data.filter)) {
         if (!this.wpxOmit.includes(key)) {
-          delete this.ds.where[key];
+          delete this.data.filter[key];
         }
       }
       Reflect.set(
-        this.ds.where,
+        this.data.filter,
         '$or',
         [...this.keywords.values()].map(v => ({ [v]: { $regex: this.searchText } }))
       );
     } else {
       for (const [key, search] of Object.entries(data)) {
         if (search.value) {
-          Reflect.set(this.ds.where, key, { [search.operator]: search.value });
+          // TODO:待修改
+          Reflect.set(this.data.filter, key, { [search.operator]: search.value });
         }
       }
     }
@@ -226,9 +233,9 @@ export class WpxTableComponent<T> implements OnInit {
    */
   clearSearch(): void {
     this.searchText = '';
-    for (const key of Object.keys(this.ds.where)) {
+    for (const key of Object.keys(this.data.filter)) {
       if (!this.wpxOmit.includes(key)) {
-        delete this.ds.where[key];
+        delete this.data.filter[key];
       }
     }
     this.getData(true);
@@ -298,12 +305,12 @@ export class WpxTableComponent<T> implements OnInit {
    */
   updateStorage(): void {
     this.storage
-      .set(this.wpxKey, <TableOption>{
-        pageSize: this.ds.pageSize,
-        pageIndex: this.ds.pageIndex,
+      .set(this.wpxKey, <TableOption<T>>{
         searchText: this.searchText,
-        where: this.ds.where,
-        sort: this.ds.sort,
+        filter: this.data.filter,
+        sort: this.data.sort,
+        size: this.data.size,
+        index: this.data.index,
         columns: this.columns,
         columnsWidth: this.columnsWidth
       })

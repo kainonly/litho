@@ -175,7 +175,7 @@ export class WpxMediaViewComponent implements OnInit, AfterViewInit {
     const n = width >= 1600 ? 8 : 6;
     if (this.ds.n !== n) {
       this.ds.n = n;
-      this.ds.pageSize = n * 3;
+      this.ds.size = n * 3;
       this.getData(true);
     }
   }
@@ -289,7 +289,7 @@ export class WpxMediaViewComponent implements OnInit, AfterViewInit {
       name: v.name,
       url: Reflect.get(v.file.originFileObj!, 'key')
     }));
-    this.media.create({ docs }).subscribe(v => {
+    this.media.bulkCreate(docs).subscribe(v => {
       this.getData(true);
     });
   }
@@ -323,12 +323,23 @@ export class WpxMediaViewComponent implements OnInit, AfterViewInit {
       nzOkType: 'primary',
       nzOkDanger: true,
       nzOnOk: () => {
-        this.media.bulkDelete([...this.ds.checkedIds.values()]).subscribe(() => {
-          this.ds.checkedIds.clear();
-          this.ds.updateCheckedStatus();
-          this.ds.fetch(true);
-          this.message.success('数据删除完成');
-        });
+        this.media
+          .bulkDelete(
+            {
+              _id: { $in: [...this.ds.checkedIds.values()] }
+            },
+            {
+              format_filter: {
+                '_id.$in': 'oids'
+              }
+            }
+          )
+          .subscribe(() => {
+            this.ds.checkedIds.clear();
+            this.ds.updateCheckedStatus();
+            this.ds.fetch(true);
+            this.message.success('数据删除完成');
+          });
       },
       nzCancelText: '否'
     });

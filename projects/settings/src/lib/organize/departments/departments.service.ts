@@ -15,16 +15,19 @@ export class DepartmentsService extends Api<Department> {
    * @param parent
    */
   reorganization(id: string, parent: string): Observable<any> {
-    return this.updateOneById(id, {
-      update: {
+    return this.updateOneById(
+      id,
+      {
         $set: {
           parent: parent === 'root' ? null : parent
         }
       },
-      format: {
-        parent: 'object_id'
+      {
+        format_doc: {
+          parent: 'oid'
+        }
       }
-    });
+    );
   }
 
   /**

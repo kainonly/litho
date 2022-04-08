@@ -14,11 +14,7 @@ export class AppComponent implements OnInit {
 
   ngOnInit(): void {
     this.wpx.setAssets(environment.cdn);
-    this.wpx.setUpload({
-      url: environment.upload.url,
-      presignedUrl: environment.upload.presignedUrl,
-      size: environment.upload.size
-    });
+    this.wpx.setUpload(environment.upload.url, environment.upload.size, environment.upload.presignedUrl);
     this.wpx.onLogout = () => {
       this.router.navigateByUrl('/login');
     };

@@ -50,9 +50,10 @@ export class FormComponent implements OnInit {
   submit(data: any): void {
     if (!this.editable) {
       this.departments
-        .create({
-          doc: data,
-          format: { parent: 'object_id' }
+        .create(data, {
+          format_doc: {
+            parent: 'oid'
+          }
         })
         .subscribe(() => {
           this.message.success('数据新增完成');
@@ -60,12 +61,17 @@ export class FormComponent implements OnInit {
         });
     } else {
       this.departments
-        .updateOneById(this.editable._id, {
-          update: {
+        .updateOneById(
+          this.editable._id,
+          {
             $set: data
           },
-          format: { parent: 'object_id' }
-        })
+          {
+            format_doc: {
+              parent: 'oid'
+            }
+          }
+        )
         .subscribe(() => {
           this.message.success('数据更新完成');
           this.modalRef.triggerOk();

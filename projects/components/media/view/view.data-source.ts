@@ -23,11 +23,11 @@ export class WpxMediaViewDataSource extends Data<AnyDto<Media>> implements DataS
 
   connect(collectionViewer: CollectionViewer): Observable<Array<Array<AnyDto<Media>>>> {
     collectionViewer.viewChange.pipe(takeUntil(this.disconnect$)).subscribe(range => {
-      const index = Math.floor((range.end * this.n) / this.pageSize) + 1;
+      const index = Math.floor((range.end * this.n) / this.size) + 1;
       if (this.indexs.has(index)) {
         return;
       }
-      this.pageIndex = index;
+      this.index = index;
       this.fetch(false);
     });
     return this.stream;
@@ -39,11 +39,11 @@ export class WpxMediaViewDataSource extends Data<AnyDto<Media>> implements DataS
   }
 
   setSearchText(v: string): void {
-    this.where = { name: { $regex: v } };
+    this.filter = { name: { $regex: v } };
   }
 
   clearSearchText(): void {
-    this.where = {};
+    this.filter = {};
   }
 
   fetch(refresh = false): void {
@@ -55,7 +55,7 @@ export class WpxMediaViewDataSource extends Data<AnyDto<Media>> implements DataS
     }
     this.from(this.media, refresh).subscribe(data => {
       const values: Array<Array<AnyDto<Media>>> = [];
-      this.cache.splice(this.pageIndex * this.pageSize, this.pageSize, ...data);
+      this.cache.splice(this.index * this.size, this.size, ...data);
       this.cache.forEach((value, index) => {
         this.dict.set(value._id, value);
         const n = Math.trunc(index / this.n);
@@ -64,7 +64,7 @@ export class WpxMediaViewDataSource extends Data<AnyDto<Media>> implements DataS
         }
         values[n].push(value);
       });
-      this.indexs.add(this.pageIndex);
+      this.indexs.add(this.index);
       this.stream.next(values);
     });
   }

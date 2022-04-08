@@ -10,6 +10,6 @@ export class OpenStatePipe implements PipeTransform {
     if (!current) {
       return false;
     }
-    return this.wpx.pages[current]._path!.includes(id);
+    return this.wpx.pages[current]['_path']!.includes(id);
   }
 }

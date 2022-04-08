@@ -88,15 +88,22 @@ export class RolesComponent {
       nzOkType: 'primary',
       nzOkDanger: true,
       nzOnOk: () => {
-        const requests: Array<Observable<any>> = [];
-        this.table.ds.checkedIds.forEach(value => {
-          requests.push(this.roles.delete(value));
-        });
-        forkJoin(requests).subscribe(() => {
-          this.message.success('数据删除完成');
-          this.table.getData(true);
-          this.table.ds.clearChecked();
-        });
+        this.roles
+          .bulkDelete(
+            {
+              _id: { $in: [...this.table.data.checkedIds.values()] }
+            },
+            {
+              format_filter: {
+                '_id.$in': 'oids'
+              }
+            }
+          )
+          .subscribe(() => {
+            this.message.success('数据删除完成');
+            this.table.getData(true);
+            this.table.data.clearChecked();
+          });
       },
       nzCancelText: '再想想'
     });

@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { mergeMap } from 'rxjs';
 
-import { AnyDto, TreeNodesExpanded } from '@weplanx/common';
+import { AnyDto, expandTreeNodes } from '@weplanx/common';
 import { NzContextMenuService, NzDropdownMenuComponent } from 'ng-zorro-antd/dropdown';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalService } from 'ng-zorro-antd/modal';
@@ -40,43 +40,52 @@ export class DepartmentsComponent implements OnInit {
   }
 
   getData(): void {
-    this.departments.find({}, { sort: 1 }).subscribe(data => {
-      const nodes: NzTreeNodeOptions[] = [];
-      const dict: Record<string, NzTreeNodeOptions> = {};
-      for (const x of data) {
-        this.dict[x._id] = x;
-        dict[x._id] = {
-          title: `${x.name}`,
-          key: x._id,
-          parent: x.parent ?? 'root',
-          isLeaf: true,
-          expanded: true,
-          selectable: false
-        };
-      }
-      for (const x of data) {
-        const options = dict[x._id];
-        if (!x.parent) {
-          nodes.push(options);
-        } else {
-          const parent = x.parent ?? 'root';
-          if (dict.hasOwnProperty(parent)) {
-            if (!dict[parent].hasOwnProperty('children')) {
-              dict[parent].children = [];
-            }
-            dict[parent].children!.push(options);
-            dict[parent].isLeaf = false;
+    this.departments
+      .find(
+        {},
+        {
+          sort: {
+            sort: 1
           }
         }
-      }
-      this.nodes = [{ title: `默认部门`, key: 'root', expanded: true, selectable: false, children: nodes }];
-      this.selectedKeys = [this.id ?? 'root'];
-    });
+      )
+      .subscribe(v => {
+        const nodes: NzTreeNodeOptions[] = [];
+        const dict: Record<string, NzTreeNodeOptions> = {};
+        for (const x of v) {
+          this.dict[x._id] = x;
+          dict[x._id] = {
+            title: `${x.name}`,
+            key: x._id,
+            parent: x.parent ?? 'root',
+            isLeaf: true,
+            expanded: true,
+            selectable: false
+          };
+        }
+        for (const x of v) {
+          const options = dict[x._id];
+          if (!x.parent) {
+            nodes.push(options);
+          } else {
+            const parent = x.parent ?? 'root';
+            if (dict.hasOwnProperty(parent)) {
+              if (!dict[parent].hasOwnProperty('children')) {
+                dict[parent].children = [];
+              }
+              dict[parent].children!.push(options);
+              dict[parent].isLeaf = false;
+            }
+          }
+        }
+        this.nodes = [{ title: `默认部门`, key: 'root', expanded: true, selectable: false, children: nodes }];
+        this.selectedKeys = [this.id ?? 'root'];
+      });
   }
 
   expanded(): void {
     this.expand = !this.expand;
-    TreeNodesExpanded(this.tree.getTreeNodes(), this.expand);
+    expandTreeNodes(this.tree.getTreeNodes(), this.expand);
   }
 
   selected(e: NzFormatEmitEvent): void {

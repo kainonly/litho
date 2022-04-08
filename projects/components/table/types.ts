@@ -1,21 +1,20 @@
-import { AdvancedType, BasicType, FieldOption, Where } from '@weplanx/common';
+import { AdvancedType, AnyDto, BasicType, SchemaFieldOption, Filter } from '@weplanx/common';
 import { NzCheckBoxOptionInterface } from 'ng-zorro-antd/checkbox';
-import { NzTableSortOrder } from 'ng-zorro-antd/table';
 
 export interface TableField {
   label: string;
   type: BasicType | AdvancedType;
-  option?: Partial<FieldOption>;
+  option?: Partial<SchemaFieldOption>;
   description?: string;
   keyword?: boolean;
 }
 
-export interface TableOption {
-  pageSize: number;
-  pageIndex: number;
+export interface TableOption<T> {
   searchText: string;
-  where: Where<any>;
-  sort: Record<string, NzTableSortOrder>;
+  filter: Filter<T>;
+  sort: Partial<{ [P in keyof AnyDto<T>]: -1 | 1 }>;
+  size: number;
+  index: number;
   columns: NzCheckBoxOptionInterface[];
   columnsWidth: Record<string, string>;
 }

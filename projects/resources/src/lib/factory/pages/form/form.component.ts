@@ -75,12 +75,12 @@ export class FormComponent implements OnInit {
 
   submit(data: Page): void {
     if (!this.editable) {
-      this.pages.create({ doc: data }).subscribe(v => {
+      this.pages.create(data).subscribe(v => {
         this.message.success('数据新增完成');
         this.modal.triggerOk();
       });
     } else {
-      this.pages.updateOneById(this.editable._id, { update: { $set: data } }).subscribe(v => {
+      this.pages.updateOneById(this.editable._id, { $set: data }).subscribe(v => {
         this.message.success('数据更新完成');
         this.modal.triggerOk();
       });

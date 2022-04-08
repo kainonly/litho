@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { Field } from '@weplanx/common';
+import { SchemaField } from '@weplanx/common';
 
 import { DynamicService } from '../dynamic.service';
 
@@ -9,7 +9,7 @@ import { DynamicService } from '../dynamic.service';
   templateUrl: './form.component.html'
 })
 export class FormComponent implements OnInit {
-  fields!: Field[];
+  fields!: SchemaField[];
   rules!: any[];
 
   constructor(public dynamic: DynamicService) {}

@@ -22,7 +22,7 @@
             </nz-breadcrumb-item>
             <ng-container *ngIf="wpx.pages as pages">
               <ng-container *ngIf="wpx.pageId">
-                <ng-container *ngFor="let id of pages[wpx.pageId]?.['path']">
+                <ng-container *ngFor="let id of pages[wpx.pageId]?.['_path']">
                   <nz-breadcrumb-item>
                     <ng-container *ngIf="pages[id]?.kind !== 'group'; else textName">
                       <a [routerLink]="['/pages', id]">{{ pages[id]?.name }}</a>

@@ -112,11 +112,18 @@ export class FormComponent implements OnInit {
         delete data.password;
       }
       this.users
-        .updateOneById(this.editable._id, {
-          update: { $set: data },
-          format: { password: 'password' },
-          ref: ['roles']
-        })
+        .updateOneById(
+          this.editable._id,
+          {
+            $set: data
+          },
+          {
+            format_doc: {
+              password: 'password',
+              roles: 'oids'
+            }
+          }
+        )
         .subscribe(() => {
           this.message.success('数据更新完成');
           this.modalRef.triggerOk();
