@@ -3,6 +3,8 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { ShareModule } from '@common/share.module';
 import { WpxDynamicModule } from '@weplanx/components';
+import { WpxHeaderModule } from '@weplanx/components/header';
+import { WpxNavModule } from '@weplanx/components/nav';
 
 import { EmptyComponent } from './empty/empty.component';
 import { ExampleComponent } from './example.component';
@@ -46,7 +48,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [ShareModule, WpxDynamicModule, RouterModule.forChild(routes)],
+  imports: [ShareModule, WpxDynamicModule, WpxHeaderModule, WpxNavModule, RouterModule.forChild(routes)],
   declarations: [ExampleComponent, EmptyComponent]
 })
 export class ExampleModule {}

@@ -2,6 +2,8 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { WpxModule, WpxShareModule } from '@weplanx/common';
+import { WpxHeaderModule } from '@weplanx/components/header';
+import { WpxNavModule } from '@weplanx/components/nav';
 
 import { factory, FactoryModule } from './factory/factory.module';
 import { media, MediaModule } from './media/media.module';
@@ -31,7 +33,15 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [WpxModule, WpxShareModule, FactoryModule, MediaModule, RouterModule.forChild(routes)],
+  imports: [
+    WpxModule,
+    WpxShareModule,
+    WpxHeaderModule,
+    WpxNavModule,
+    FactoryModule,
+    MediaModule,
+    RouterModule.forChild(routes)
+  ],
   declarations: [ResourcesComponent]
 })
 export class ResourcesModule {}

@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 
-import { WpxService } from '../wpx.service';
+import { WpxService } from '@weplanx/common';
 
 @Component({
   selector: 'wpx-header',

@@ -1,8 +1,7 @@
 import { Component, Input } from '@angular/core';
 
+import { WpxService } from '@weplanx/common';
 import { NzMenuThemeType } from 'ng-zorro-antd/menu/menu.types';
-
-import { WpxService } from '../wpx.service';
 
 @Component({
   selector: 'wpx-nav',

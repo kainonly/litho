@@ -2,6 +2,8 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { WpxModule, WpxShareModule } from '@weplanx/common';
+import { WpxHeaderModule } from '@weplanx/components/header';
+import { WpxNavModule } from '@weplanx/components/nav';
 
 import { application, ApplicationModule } from './application/application.module';
 import { organize, OrganizeModule } from './organize/organize.module';
@@ -43,6 +45,8 @@ const routes: Routes = [
   imports: [
     WpxShareModule,
     WpxModule,
+    WpxHeaderModule,
+    WpxNavModule,
     ApplicationModule,
     OrganizeModule,
     SecurityModule,

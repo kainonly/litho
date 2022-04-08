@@ -2,7 +2,7 @@ import { Component, ViewChild } from '@angular/core';
 import { NzUploadComponent, NzUploadFile } from 'ng-zorro-antd/upload';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { UploadOption, WpxModule, WpxService, WpxShareModule, WpxUploadDirective } from '@weplanx/common';
+import { WpxModule, WpxService, WpxShareModule, WpxUploadDirective } from '@weplanx/common';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { NzMessageService } from 'ng-zorro-antd/message';
@@ -21,16 +21,13 @@ describe('测试 WpxUploadDirective', () => {
   let component: ExampleComponent;
   let fixture: ComponentFixture<ExampleComponent>;
 
-  function before(option?: UploadOption): void {
+  function before(url: string, size?: number, presignedUrl?: string): void {
     TestBed.configureTestingModule({
       declarations: [ExampleComponent],
       imports: [WpxModule, WpxShareModule, HttpClientTestingModule]
     });
     wpx = TestBed.inject(WpxService);
-    if (option) {
-      wpx.setUpload(option);
-    }
-
+    wpx.setUpload(url, size, presignedUrl);
     httpTestingController = TestBed.inject(HttpTestingController);
     fixture = TestBed.createComponent(ExampleComponent);
     component = fixture.componentInstance;
@@ -54,29 +51,21 @@ describe('测试 WpxUploadDirective', () => {
   });
 
   it('默认上传参数', () => {
-    const option: UploadOption = {
-      url: 'http://localhost:9000'
-    };
-    before(option);
+    before('http://localhost:9000');
     expect(component.wpxUpload.wpxExt).toEqual('image');
     expect(component.nzUpload.nzName).toEqual('file');
     expect(component.nzUpload.nzShowUploadList).toBeFalse();
     expect(component.nzUpload.nzSize).toEqual(5120);
-    expect(component.nzUpload.nzAction).toEqual(option.url);
+    expect(component.nzUpload.nzAction).toEqual('http://localhost:9000');
   });
 
   it('对象存储预期签名参数', () => {
-    const option: UploadOption = {
-      url: 'https://xxxxx.cos.ap-guangzhou.myqcloud.com',
-      presignedUrl: 'http://localhost:9000/uploader',
-      size: 102400
-    };
-    before(option);
+    before('https://xxxxx.cos.ap-guangzhou.myqcloud.com', 102400, 'http://localhost:9000/uploader');
     expect(component.wpxUpload.wpxExt).toEqual('image');
     expect(component.nzUpload.nzName).toEqual('file');
     expect(component.nzUpload.nzShowUploadList).toBeFalse();
-    expect(component.nzUpload.nzSize).toEqual(option.size!);
-    expect(component.nzUpload.nzAction).toEqual(option.url);
+    expect(component.nzUpload.nzSize).toEqual(102400);
+    expect(component.nzUpload.nzAction).toEqual('https://xxxxx.cos.ap-guangzhou.myqcloud.com');
     const nzDataFunc = component.nzUpload.nzData as (file: NzUploadFile) => Observable<any>;
     nzDataFunc({
       uid: '123456',
@@ -93,7 +82,7 @@ describe('测试 WpxUploadDirective', () => {
         'q-signature': 'ZGFob25nc2hhbw=='
       });
     });
-    const req = httpTestingController.expectOne(option.presignedUrl!);
+    const req = httpTestingController.expectOne('http://localhost:9000/uploader');
     expect(req.request.method).toEqual('GET');
     req.flush({
       key: 'f50c215d-95c2-4564-9b25-37aaba7fb305',

@@ -1,5 +1,6 @@
-import { AnyDto, Api, Page } from '@weplanx/common';
 import { Injectable } from '@angular/core';
+
+import { AnyDto, Api, Page } from '@weplanx/common';
 
 @Injectable()
 export class TestPagesService extends Api<Page> {

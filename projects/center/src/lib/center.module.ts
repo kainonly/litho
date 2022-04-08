@@ -2,6 +2,8 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { WpxModule, WpxShareModule } from '@weplanx/common';
+import { WpxHeaderModule } from '@weplanx/components/header';
+import { WpxNavModule } from '@weplanx/components/nav';
 
 import { audit, AuditModule } from './audit/audit.module';
 import { CenterComponent } from './center.component';
@@ -32,7 +34,16 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [WpxModule, WpxShareModule, MineModule, ProfileModule, AuditModule, RouterModule.forChild(routes)],
+  imports: [
+    WpxModule,
+    WpxShareModule,
+    WpxHeaderModule,
+    WpxNavModule,
+    MineModule,
+    ProfileModule,
+    AuditModule,
+    RouterModule.forChild(routes)
+  ],
   declarations: [CenterComponent],
   providers: [CenterService]
 })

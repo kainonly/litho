@@ -9,8 +9,6 @@ export * from './lib/wpx.service';
 export * from './lib/directives/submit.directive';
 export * from './lib/directives/upload.directive';
 export * from './lib/directives/retry.directive';
-export * from './lib/header/header.component';
-export * from './lib/nav/nav.component';
 export * from './lib/pipes/empty.pipe';
 export * from './lib/pipes/join.pipe';
 export * from './lib/pipes/map.pipe';
