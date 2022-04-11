@@ -15,7 +15,7 @@ import { PagesSerivce } from '../pages.serivce';
   templateUrl: './form.component.html'
 })
 export class FormComponent implements OnInit {
-  @Input() editable?: AnyDto<Page>;
+  @Input() doc?: AnyDto<Page>;
   @Input() nodes?: NzTreeNodeOptions[];
   parentNodes?: NzTreeNodeOptions[];
 
@@ -41,9 +41,9 @@ export class FormComponent implements OnInit {
       status: [true, [Validators.required]],
       schema: this.schema
     });
-    if (this.editable) {
-      this.changedKind(this.editable.kind);
-      this.form.patchValue(this.editable);
+    if (this.doc) {
+      this.changedKind(this.doc.kind);
+      this.form.patchValue(this.doc);
     }
   }
 
@@ -55,10 +55,10 @@ export class FormComponent implements OnInit {
   }
 
   existsKey = (control: AbstractControl): Observable<any> => {
-    if (control.value === this.editable?.schema?.key) {
+    if (control.value === this.doc?.schema?.key) {
       return of(null);
     }
-    return this.pages.hasSchemaKey(control.value);
+    return this.pages.existsSchemaKey(control.value);
   };
 
   changedKind(value: string): void {
@@ -74,13 +74,13 @@ export class FormComponent implements OnInit {
   }
 
   submit(data: Page): void {
-    if (!this.editable) {
+    if (!this.doc) {
       this.pages.create(data).subscribe(v => {
         this.message.success('数据新增完成');
         this.modal.triggerOk();
       });
     } else {
-      this.pages.updateOneById(this.editable._id, { $set: data }).subscribe(v => {
+      this.pages.updateOneById(this.doc._id, { $set: data }).subscribe(v => {
         this.message.success('数据更新完成');
         this.modal.triggerOk();
       });

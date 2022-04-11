@@ -10,11 +10,8 @@ import { NzTreeSelectModule } from 'ng-zorro-antd/tree-select';
 import { FormComponent } from './form/form.component';
 import { HomeComponent } from './home/home.component';
 import { PagesComponent } from './pages.component';
-import { PagesSerivce } from './pages.serivce';
 import { IndexesComponent } from './tab-indexes/indexes.component';
 import { IndexesModule } from './tab-indexes/indexes.module';
-import { RulesComponent } from './tab-rules/rules.component';
-import { RulesModule } from './tab-rules/rules.module';
 import { SchemaComponent } from './tab-schema/schema.component';
 import { SchemaModule } from './tab-schema/schema.module';
 import { ValidatorComponent } from './tab-validator/validator.component';
@@ -43,19 +40,13 @@ export const pages: Routes = [
     }
   },
   {
-    path: ':key/rules',
-    component: RulesComponent,
-    data: {
-      breadcrumb: '显隐规则'
-    }
-  },
-  {
     path: ':key/validator',
     component: ValidatorComponent,
     data: {
       breadcrumb: '验证器'
     }
-  }
+  },
+  { path: '', redirectTo: '/resources/factory/pages/home', pathMatch: 'full' }
 ];
 
 @NgModule({
@@ -66,7 +57,6 @@ export const pages: Routes = [
     NzTreeSelectModule,
     NzResultModule,
     IndexesModule,
-    RulesModule,
     SchemaModule,
     ValidatorModule,
     NzSliderModule

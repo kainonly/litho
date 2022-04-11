@@ -1,28 +1,69 @@
 import { Injectable } from '@angular/core';
-import { AsyncSubject, Observable, Subject, timer } from 'rxjs';
+import { Observable, of, timer } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
 
-import { Api, Page, SchemaField } from '@weplanx/common';
+import { AnyDto, Api, Filter, Page, SchemaField } from '@weplanx/common';
+import { NzTreeNodeOptions } from 'ng-zorro-antd/tree';
 
 @Injectable({ providedIn: 'root' })
 export class PagesSerivce extends Api<Page> {
   protected override model = 'pages';
-  key$: AsyncSubject<string> = new AsyncSubject<string>();
-  refresh: Subject<any> = new Subject<any>();
+  dict: Record<string, AnyDto<Page>> = {};
+  key?: string;
+  page?: AnyDto<Page>;
 
-  hasSchemaKey(key: string): Observable<any> {
-    return timer(500).pipe(
-      switchMap(() =>
-        this.http.get<any>(this.url('has-schema-key'), {
-          params: { key }
-        })
-      ),
+  getTreeNode(filter: Filter<Page> = {}): Observable<NzTreeNodeOptions[]> {
+    return this.find(filter, { sort: { sort: 1 } }).pipe(
       map(v => {
-        if (v.status === '') {
-          return null;
+        const nodes: NzTreeNodeOptions[] = [];
+        const dict: Record<string, NzTreeNodeOptions> = {};
+        for (const x of v) {
+          this.dict[x._id] = x;
+          dict[x._id] = {
+            title: `${x.name}`,
+            key: x._id,
+            parent: x.parent,
+            icon: x.icon,
+            isLeaf: true,
+            expanded: true,
+            selectable: x.kind !== 'group'
+          };
         }
-        return { error: true, [v.status]: true };
+        for (const x of v) {
+          const options = dict[x._id];
+          if (!x.parent) {
+            nodes.push(options);
+          } else {
+            if (dict.hasOwnProperty(x.parent)) {
+              if (!dict[x.parent].hasOwnProperty('children')) {
+                dict[x.parent].children = [];
+              }
+              dict[x.parent].children!.push(options);
+              dict[x.parent].isLeaf = false;
+            }
+          }
+        }
+        return nodes;
       })
+    );
+  }
+
+  getPage(): Observable<AnyDto<Page>> {
+    return this.findOneById(this.key!).pipe(
+      map(v => {
+        this.page = v;
+        return v;
+      })
+    );
+  }
+
+  existsSchemaKey(key: string): Observable<any> {
+    if (['pages', 'roles', 'department', 'users'].includes(key)) {
+      return of({ error: true, duplicated: true });
+    }
+    return timer(500).pipe(
+      switchMap(() => this.exists({ 'schema.key': key })),
+      map(v => (v ? { error: true, duplicated: v } : null))
     );
   }
 

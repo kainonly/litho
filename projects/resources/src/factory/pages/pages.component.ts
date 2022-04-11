@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { mergeMap } from 'rxjs';
 
 import { AnyDto, expandTreeNodes, Page } from '@weplanx/common';
@@ -23,7 +23,6 @@ export class PagesComponent implements OnInit {
   name = '';
   expand = true;
 
-  data: Record<string, AnyDto<Page>> = {};
   actionKey?: string;
   selectedKeys: string[] = [];
 
@@ -33,80 +32,67 @@ export class PagesComponent implements OnInit {
     private nzContextMenuService: NzContextMenuService,
     private message: NzMessageService,
     private notification: NzNotificationService,
-    private router: Router
+    private router: Router,
+    private route: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
-    this.getData();
-    this.pages.key$.subscribe(key => {
-      if (key) {
-        this.selectedKeys = [key];
-      }
+    this.route.firstChild!.params.subscribe(v => {
+      this.pages.key = v['key'];
+      this.getData();
     });
   }
 
   getData(): void {
-    this.pages.find({}, { sort: { sort: 1 } }).subscribe(data => {
-      const nodes: NzTreeNodeOptions[] = [];
-      const dict: Record<string, NzTreeNodeOptions> = {};
-      for (const x of data) {
-        this.data[x._id] = x;
-        dict[x._id] = {
-          title: `${x.name}`,
-          key: x._id,
-          parent: x.parent,
-          icon: x.icon,
-          isLeaf: true,
-          expanded: true,
-          selectable: x.kind !== 'group'
-        };
+    this.pages.getTreeNode({}).subscribe(v => {
+      this.nodes = [...v];
+      if (this.pages.key) {
+        this.selectedKeys = [this.pages.key];
       }
-      for (const x of data) {
-        const options = dict[x._id];
-        if (!x.parent) {
-          nodes.push(options);
-        } else {
-          if (dict.hasOwnProperty(x.parent)) {
-            if (!dict[x.parent].hasOwnProperty('children')) {
-              dict[x.parent].children = [];
-            }
-            dict[x.parent].children!.push(options);
-            dict[x.parent].isLeaf = false;
-          }
-        }
-      }
-      this.nodes = [...nodes];
-      this.pages.key$.complete();
     });
   }
 
+  /**
+   * 展开状态
+   */
   expanded(): void {
     this.expand = !this.expand;
     expandTreeNodes(this.tree.getTreeNodes(), this.expand);
   }
 
-  selected($event: NzFormatEmitEvent): void {
-    if (!$event.node?.isSelectable) {
+  /**
+   * 选择
+   * @param e
+   */
+  selected(e: NzFormatEmitEvent): void {
+    if (!e.node?.isSelectable) {
       return;
     }
-    if ($event.node?.isSelected) {
-      this.router.navigate(['resources', 'factory', 'pages', $event.node!.key, 'schema']);
+    if (e.node?.isSelected) {
+      this.pages.key = e.node!.key;
+      this.router.navigate(['resources', 'factory', 'pages', e.node!.key, 'schema']);
     } else {
+      this.pages.key = undefined;
       this.router.navigate(['resources', 'factory', 'pages', 'home']);
     }
   }
 
+  /**
+   * 操作
+   * @param $event
+   * @param menu
+   */
   actions($event: NzFormatEmitEvent, menu: NzDropdownMenuComponent): void {
     this.actionKey = $event.node!.key;
     this.nzContextMenuService.create($event.event as MouseEvent, menu);
   }
 
-  form(editable?: any): void {
+  form(doc?: AnyDto<Page>): void {
     this.modal.create({
-      nzTitle: !editable ? '新增' : '编辑',
+      nzTitle: !doc ? '新增' : `编辑【${doc.name}】`,
       nzContent: FormComponent,
       nzComponentParams: {
-        editable,
+        doc,
         nodes: this.nodes
       },
       nzOnOk: () => {
@@ -117,7 +103,7 @@ export class PagesComponent implements OnInit {
 
   delete(data: AnyDto<Page>): void {
     this.modal.confirm({
-      nzTitle: `您确定要作废『${data.name}』页面吗?`,
+      nzTitle: `您确定要删除【${data.name}】页面吗?`,
       nzContent: '该操作不会删除实体集合，彻底清空需要数据库工具完成',
       nzOkText: '是的',
       nzOkType: 'primary',

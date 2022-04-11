@@ -27,7 +27,8 @@ const routes: Routes = [
         data: {
           breadcrumb: '媒体资源'
         }
-      }
+      },
+      { path: '', redirectTo: '/resources/factory/pages/home', pathMatch: 'full' }
     ]
   }
 ];

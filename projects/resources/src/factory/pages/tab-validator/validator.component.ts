@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
 
 import { AnyDto, Page, updateFormGroup } from '@weplanx/common';
 import { JoinedEditorOptions } from 'ng-zorro-antd/code-editor/typings';
@@ -16,7 +15,6 @@ declare const monaco: any;
   templateUrl: './validator.component.html'
 })
 export class ValidatorComponent implements OnInit {
-  key!: string;
   private page!: AnyDto<Page>;
   form?: FormGroup;
 
@@ -25,24 +23,18 @@ export class ValidatorComponent implements OnInit {
   };
 
   constructor(
-    private pages: PagesSerivce,
+    public pages: PagesSerivce,
     private fb: FormBuilder,
     private message: NzMessageService,
-    private notification: NzNotificationService,
-    private route: ActivatedRoute
+    private notification: NzNotificationService
   ) {}
 
   ngOnInit(): void {
-    this.route.params.subscribe(v => {
-      this.key = v['key'];
-      this.pages.key$.next(v['key']);
-      this.getData();
-    });
+    this.getData();
   }
 
   getData(): void {
-    this.pages.findOneById(this.key).subscribe(v => {
-      this.page = v;
+    this.pages.getPage().subscribe(v => {
       const value = `{"$schema": "http://json-schema.org/draft-04/schema"}`;
       this.form = this.fb.group({
         validator: [value, [Validators.required]]

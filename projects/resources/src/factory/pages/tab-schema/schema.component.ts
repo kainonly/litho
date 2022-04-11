@@ -1,8 +1,7 @@
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
 
-import { AnyDto, Field, Page, SchemaField } from '@weplanx/common';
+import { SchemaField } from '@weplanx/common';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalService } from 'ng-zorro-antd/modal';
 
@@ -16,36 +15,23 @@ import { FormComponent } from './form/form.component';
   styleUrls: ['./schema.component.scss']
 })
 export class SchemaComponent implements OnInit {
-  key!: string;
-  private page!: AnyDto<Page>;
-
   fieldList: SchemaField[] = [];
   datatype: Record<string, string> = Object.fromEntries([].concat(...(fieldTypeValues.map(v => v.values) as any[])));
 
-  constructor(
-    private pages: PagesSerivce,
-    private modal: NzModalService,
-    private message: NzMessageService,
-    private route: ActivatedRoute
-  ) {}
+  constructor(private pages: PagesSerivce, private modal: NzModalService, private message: NzMessageService) {}
 
   ngOnInit(): void {
-    this.route.params.subscribe(v => {
-      this.key = v['key'];
-      this.pages.key$.next(v['key']);
-      this.getData();
-    });
+    this.getData();
   }
 
   getData(): void {
-    this.pages.findOneById(this.key).subscribe(v => {
-      this.page = v;
+    this.pages.getPage().subscribe(v => {
       this.setFieldList();
     });
   }
 
   private setFieldList(): void {
-    const fields = this.page.schema?.fields ?? {};
+    const fields = this.pages.page!.schema?.fields ?? {};
 
     this.fieldList = [
       ...Object.entries(fields)
@@ -65,7 +51,7 @@ export class SchemaComponent implements OnInit {
       nzContent: FormComponent,
       nzComponentParams: {
         editable,
-        page: this.page
+        page: this.pages.page!
       },
       nzOnOk: () => {
         this.getData();
@@ -77,7 +63,7 @@ export class SchemaComponent implements OnInit {
     moveItemInArray(this.fieldList, event.previousIndex, event.currentIndex);
     this.pages
       .sortSchemaFields(
-        this.key,
+        this.pages.key!,
         this.fieldList.map(v => v.key)
       )
       .subscribe(() => {
@@ -94,7 +80,7 @@ export class SchemaComponent implements OnInit {
       nzOkDanger: true,
       nzMaskClosable: true,
       nzOnOk: () => {
-        this.pages.deleteSchemaField(this.key, data.key).subscribe(() => {
+        this.pages.deleteSchemaField(this.pages.key!, data.key).subscribe(() => {
           this.getData();
           this.message.success('字段删除成功');
         });

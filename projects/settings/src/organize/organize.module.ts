@@ -24,7 +24,7 @@ export const organize: Routes = [
       breadcrumb: '团队成员'
     }
   },
-  { path: '', redirectTo: '/settings/organize/departments', pathMatch: 'full' }
+  { path: '', redirectTo: '/settings/organize/roles', pathMatch: 'full' }
 ];
 
 @NgModule({

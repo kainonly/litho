@@ -15,7 +15,7 @@
             <i nz-icon [nzType]="expand ? 'node-collapse' : 'node-expand'"></i>
           </button>
           <button nz-button nzType="text" nz-tooltip="新增" (click)="form()">
-            <i nz-icon nzType="sisternode" nzTheme="outline"></i>
+            <i nz-icon nzType="sisternode"></i>
           </button>
         </nz-button-group>
       </nz-col>
@@ -36,7 +36,7 @@
       (nzOnDrop)="drop($event)"
     >
       <ng-template #nzExpandedIcon let-node>
-        <ng-container *ngIf="data?.[node.key] as page">
+        <ng-container *ngIf="pages.dict?.[node.key] as page">
           <ng-container [ngSwitch]="page.kind">
             <ng-container *ngSwitchCase="'form'">
               <i nz-icon nzType="file-text"></i>
@@ -55,7 +55,7 @@
       </ng-template>
       <nz-dropdown-menu #treeActions="nzDropdownMenu">
         <ul *ngIf="actionKey" nz-menu>
-          <ng-container *ngIf="data?.[actionKey] as page">
+          <ng-container *ngIf="pages.dict?.[actionKey] as page">
             <li nz-menu-item [nzSelected]="false">
               <i *ngIf="page.icon" nz-icon [nzType]="page.icon"></i>
               <span>{{ page.name }}</span>

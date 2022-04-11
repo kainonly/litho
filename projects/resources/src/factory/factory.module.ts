@@ -14,7 +14,8 @@ export const factory: Routes = [
     data: {
       breadcrumb: '页面'
     }
-  }
+  },
+  { path: '', redirectTo: '/resources/factory/pages/home', pathMatch: 'full' }
 ];
 
 @NgModule({
