@@ -6,14 +6,14 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule, Routes } from '@angular/router';
 import { ServiceWorkerModule } from '@angular/service-worker';
 
+import { AppGuard } from '@common/app.guard';
+import { AppInterceptors } from '@common/app.interceptors';
 import { ShareModule } from '@common/share.module';
 import { environment } from '@env';
 import { NZ_CONFIG, NzConfig } from 'ng-zorro-antd/core/config';
 import { NZ_I18N, zh_CN } from 'ng-zorro-antd/i18n';
 
 import { AppComponent } from './app.component';
-import { AppGuard } from './app.guard';
-import { AppInterceptors } from './app.interceptors';
 
 registerLocaleData(zh);
 
@@ -23,16 +23,16 @@ const routes: Routes = [
     loadChildren: () => import('./login/login.module').then(m => m.LoginModule)
   },
   {
-    path: 'pages',
-    loadChildren: () => import('./pages/pages.module').then(m => m.PagesModule),
-    canActivate: [AppGuard]
-  },
-  {
     path: 'example',
     loadChildren: () => import('./example/example.module').then(m => m.ExampleModule),
     data: {
       breadcrumb: '示例'
     },
+    canActivate: [AppGuard]
+  },
+  {
+    path: 'pages',
+    loadChildren: () => import('./pages/pages.module').then(m => m.PagesModule),
     canActivate: [AppGuard]
   },
   {
