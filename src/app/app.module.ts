@@ -23,10 +23,6 @@ const routes: Routes = [
     loadChildren: () => import('./login/login.module').then(m => m.LoginModule)
   },
   {
-    path: 'install',
-    loadChildren: () => import('./install/install.module').then(m => m.InstallModule)
-  },
-  {
     path: 'pages',
     loadChildren: () => import('./pages/pages.module').then(m => m.PagesModule),
     canActivate: [AppGuard]
