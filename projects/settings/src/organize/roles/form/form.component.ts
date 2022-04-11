@@ -4,7 +4,7 @@ import { Observable, of } from 'rxjs';
 
 import { AnyDto } from '@weplanx/common';
 import { NzMessageService } from 'ng-zorro-antd/message';
-import { NzModalRef, NzModalService } from 'ng-zorro-antd/modal';
+import { NzModalRef } from 'ng-zorro-antd/modal';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 
 import { RolesService } from '../roles.service';
@@ -15,12 +15,11 @@ import { Role } from '../types';
   templateUrl: './form.component.html'
 })
 export class FormComponent implements OnInit {
-  @Input() editable?: AnyDto<Role>;
+  @Input() doc?: AnyDto<Role>;
   form?: FormGroup;
 
   constructor(
     private modalRef: NzModalRef,
-    private modal: NzModalService,
     private message: NzMessageService,
     private notification: NzNotificationService,
     private fb: FormBuilder,
@@ -33,30 +32,30 @@ export class FormComponent implements OnInit {
       description: [],
       status: [true, [Validators.required]]
     });
-    if (this.editable) {
-      this.form.patchValue(this.editable);
+    if (this.doc) {
+      this.form.patchValue(this.doc);
     }
   }
 
   existsName = (control: AbstractControl): Observable<any> => {
-    if (control.value === this.editable?.name) {
+    if (control.value === this.doc?.name) {
       return of(null);
     }
-    return this.roles.hasName(control.value);
+    return this.roles.existsName(control.value);
   };
 
   close(): void {
     this.modalRef.triggerCancel();
   }
 
-  submit(data: any): void {
-    if (!this.editable) {
-      this.roles.create(data).subscribe(() => {
+  submit(value: any): void {
+    if (!this.doc) {
+      this.roles.create(value).subscribe(() => {
         this.message.success('数据新增完成');
         this.modalRef.triggerOk();
       });
     } else {
-      this.roles.updateOneById(this.editable._id, { $set: data }).subscribe(() => {
+      this.roles.updateOneById(this.doc._id, { $set: value }).subscribe(() => {
         this.message.success('数据更新完成');
         this.modalRef.triggerOk();
       });

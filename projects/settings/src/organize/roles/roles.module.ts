@@ -6,13 +6,13 @@ import { NzTransferModule } from 'ng-zorro-antd/transfer';
 import { NzTreeModule } from 'ng-zorro-antd/tree';
 
 import { FormComponent } from './form/form.component';
-import { PermissionComponent } from './permission/permission.component';
+import { PageComponent } from './page/page.component';
 import { RolesComponent } from './roles.component';
 import { RolesService } from './roles.service';
 
 @NgModule({
   imports: [WpxModule, WpxShareModule, WpxTableModule, NzTransferModule, NzTreeModule],
-  declarations: [RolesComponent, FormComponent, PermissionComponent],
+  declarations: [RolesComponent, FormComponent, PageComponent],
   providers: [RolesService]
 })
 export class RolesModule {}

@@ -11,22 +11,22 @@ import { ApiOptions, Filter } from '../types';
  * @param filter
  */
 export const httpOptions = <T>(
-  options: ApiOptions<T>,
+  options?: ApiOptions<T>,
   filter?: Filter<T>
 ): { headers: HttpHeaders; params: HttpParams } => {
   let headers = new HttpHeaders();
-  if (options.limit) {
+  if (options?.limit) {
     headers = headers.set('wpx-limit', options.limit.toString());
   }
-  if (options.skip) {
+  if (options?.skip) {
     headers = headers.set('wpx-skip', options.skip.toString());
   }
-  if (options.format_filter) {
+  if (options?.format_filter) {
     for (const [key, value] of Object.entries(options.format_filter)) {
       headers = headers.append('wpx-format-filter', `${key}:${value}`);
     }
   }
-  if (options.format_doc) {
+  if (options?.format_doc) {
     for (const [key, value] of Object.entries(options.format_doc)) {
       headers = headers.append('wpx-format-doc', `${key}:${value}`);
     }
@@ -35,12 +35,12 @@ export const httpOptions = <T>(
   if (filter) {
     params = params.set('filter', JSON.stringify(filter));
   }
-  if (options.field) {
+  if (options?.field) {
     for (const field of options.field) {
       params = params.append('field', field.toString());
     }
   }
-  if (options.sort) {
+  if (options?.sort) {
     for (const [key, value] of Object.entries(options.sort)) {
       params = params.append('sort', `${key}.${value}`);
     }

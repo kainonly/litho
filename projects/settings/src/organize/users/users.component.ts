@@ -1,12 +1,14 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
-import { AnyDto, Filter, WpxService } from '@weplanx/common';
+import { AnyDto, Data, WpxService } from '@weplanx/common';
 import { TableField, WpxTableComponent } from '@weplanx/components/table';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalService } from 'ng-zorro-antd/modal';
 
+import { DepartmentsComponent } from '../departments/departments.component';
 import { Role } from '../roles/types';
+import { DepartmentComponent } from './department/department.component';
 import { FormComponent } from './form/form.component';
 import { User } from './types';
 import { UsersService } from './users.service';
@@ -16,16 +18,17 @@ import { UsersService } from './users.service';
   templateUrl: './users.component.html',
   styleUrls: ['./users.component.scss']
 })
-export class UsersComponent implements OnInit {
+export class UsersComponent implements OnInit, OnDestroy {
+  @ViewChild(DepartmentsComponent) departments!: DepartmentsComponent;
   @ViewChild(WpxTableComponent) table!: WpxTableComponent<User>;
-  department: string = '';
+  departmentId: string = '';
+  data: Data<AnyDto<User>> = new Data<AnyDto<User>>();
   fields: Map<string, TableField> = new Map<string, TableField>([
     ['username', { label: '用户名', type: 'string', keyword: true }],
     ['roles', { label: '权限组', type: 'select', option: { reference: 'roles' } }],
     ['name', { label: '称呼', type: 'string' }],
     ['status', { label: '状态', type: 'bool' }]
   ]);
-  filter: Filter<User> = {};
 
   constructor(
     public users: UsersService,
@@ -37,34 +40,62 @@ export class UsersComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.data.format_filter = {
+      'departments.$in': 'oids'
+    };
     this.route.params.subscribe(v => {
-      this.department = v?.['department'] ?? '';
+      this.departmentId = v?.['department'] ?? '';
     });
   }
 
-  departmentChanged(): void {
-    if (this.department) {
-      this.table.data.filter.departments = { $in: [this.department] };
+  ngOnDestroy(): void {
+    this.data.filter = {};
+    this.table.updateStorage();
+  }
+
+  /**
+   * 部门切换
+   */
+  selectedDepartment(): void {
+    if (this.departmentId) {
+      this.data.filter.departments = { $in: [this.departmentId] };
     } else {
-      delete this.table.data.filter.departments;
+      delete this.data.filter.departments;
     }
     this.table.getData(true);
-    const params = this.department ? { department: this.department } : {};
+    const params = this.departmentId ? { department: this.departmentId } : {};
     this.router.navigate(['settings', 'organize', 'users', params]);
   }
 
   /**
    * 编辑表单
-   * @param editable
+   * @param doc
    */
-  form(editable?: AnyDto<User>): void {
+  form(doc?: AnyDto<User>): void {
     this.modal.create({
-      nzTitle: !editable ? '新增' : '编辑',
+      nzTitle: !doc ? '新增' : `编辑【${doc.username}】`,
       nzWidth: 800,
       nzContent: FormComponent,
       nzComponentParams: {
-        editable,
-        department: this.department
+        doc,
+        departmentId: this.departmentId
+      },
+      nzOnOk: () => {
+        this.table.getData(true);
+      }
+    });
+  }
+
+  /**
+   * 设置部门
+   * @param doc
+   */
+  department(doc: AnyDto<User>): void {
+    this.modal.create({
+      nzTitle: `设置【${doc.username}】部门`,
+      nzContent: DepartmentComponent,
+      nzComponentParams: {
+        doc
       },
       nzOnOk: () => {
         this.table.getData(true);
@@ -74,16 +105,16 @@ export class UsersComponent implements OnInit {
 
   /**
    * 删除
-   * @param data
+   * @param doc
    */
-  delete(data: AnyDto<Role>): void {
+  delete(doc: AnyDto<User>): void {
     this.modal.confirm({
-      nzTitle: '您确定要删除该用户吗?',
+      nzTitle: `您确定要删除【${doc.username}】用户吗?`,
       nzOkText: '是的',
       nzOkType: 'primary',
       nzOkDanger: true,
       nzOnOk: () => {
-        this.users.delete(data._id).subscribe(() => {
+        this.users.delete(doc._id).subscribe(() => {
           this.message.success('数据删除完成');
           this.table.getData(true);
         });
@@ -92,6 +123,9 @@ export class UsersComponent implements OnInit {
     });
   }
 
+  /**
+   * 批量删除
+   */
   bulkDelete(): void {
     this.modal.confirm({
       nzTitle: '您确定要删除这些用户吗?',
@@ -102,7 +136,7 @@ export class UsersComponent implements OnInit {
         this.users
           .bulkDelete(
             {
-              _id: { $in: [...this.table.data.checkedIds.values()] }
+              _id: { $in: [...this.data.checkedIds.values()] }
             },
             {
               format_filter: {
@@ -113,7 +147,7 @@ export class UsersComponent implements OnInit {
           .subscribe(() => {
             this.message.success('数据删除完成');
             this.table.getData(true);
-            this.table.data.clearChecked();
+            this.data.clearChecked();
           });
       },
       nzCancelText: '再想想'

@@ -1,12 +1,12 @@
 import { Component, ViewChild } from '@angular/core';
 
-import { AnyDto, WpxService } from '@weplanx/common';
+import { AnyDto, Data, WpxService } from '@weplanx/common';
 import { TableField, WpxTableComponent } from '@weplanx/components/table';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalService } from 'ng-zorro-antd/modal';
 
 import { FormComponent } from './form/form.component';
-import { PermissionComponent } from './permission/permission.component';
+import { PageComponent } from './page/page.component';
 import { RolesService } from './roles.service';
 import { Role } from './types';
 
@@ -16,6 +16,7 @@ import { Role } from './types';
 })
 export class RolesComponent {
   @ViewChild(WpxTableComponent) table!: WpxTableComponent<Role>;
+  data: Data<AnyDto<Role>> = new Data<AnyDto<Role>>();
   fields: Map<string, TableField> = new Map<string, TableField>([
     ['name', { label: '权限名称', type: 'string', keyword: true }],
     ['description', { label: '描述', type: 'text' }],
@@ -30,29 +31,32 @@ export class RolesComponent {
   ) {}
 
   /**
-   * 权限设置表单
-   * @param editable
+   * 编辑表单
+   * @param doc
    */
-  permission(editable: AnyDto<Role>): void {
+  form(doc?: AnyDto<Role>): void {
     this.modal.create({
-      nzTitle: `[${editable.name}] 权限设置`,
-      nzContent: PermissionComponent,
+      nzTitle: !doc ? '新增' : `编辑【${doc.name}】`,
+      nzContent: FormComponent,
       nzComponentParams: {
-        editable
+        doc
+      },
+      nzOnOk: () => {
+        this.table.getData(true);
       }
     });
   }
 
   /**
-   * 编辑表单
-   * @param editable
+   * 设置页面
+   * @param doc
    */
-  form(editable?: AnyDto<Role>): void {
+  page(doc: AnyDto<Role>): void {
     this.modal.create({
-      nzTitle: !editable ? '新增' : '编辑',
-      nzContent: FormComponent,
+      nzTitle: `设置【${doc.name}】页面`,
+      nzContent: PageComponent,
       nzComponentParams: {
-        editable
+        doc
       },
       nzOnOk: () => {
         this.table.getData(true);
@@ -62,16 +66,16 @@ export class RolesComponent {
 
   /**
    * 删除
-   * @param data
+   * @param doc
    */
-  delete(data: AnyDto<Role>): void {
+  delete(doc: AnyDto<Role>): void {
     this.modal.confirm({
-      nzTitle: '您确定要删除该权限吗?',
+      nzTitle: `您确定要删除【${doc.name}】权限组吗?`,
       nzOkText: '是的',
       nzOkType: 'primary',
       nzOkDanger: true,
       nzOnOk: () => {
-        this.roles.delete(data._id).subscribe(() => {
+        this.roles.delete(doc._id).subscribe(() => {
           this.message.success('数据删除完成');
           this.table.getData(true);
         });
@@ -90,7 +94,7 @@ export class RolesComponent {
         this.roles
           .bulkDelete(
             {
-              _id: { $in: [...this.table.data.checkedIds.values()] }
+              _id: { $in: [...this.data.checkedIds.values()] }
             },
             {
               format_filter: {
@@ -101,7 +105,7 @@ export class RolesComponent {
           .subscribe(() => {
             this.message.success('数据删除完成');
             this.table.getData(true);
-            this.table.data.clearChecked();
+            this.data.clearChecked();
           });
       },
       nzCancelText: '再想想'

@@ -20,7 +20,7 @@
       </nz-form-item>
       <nz-form-item>
         <nz-form-label
-          [nzRequired]="!editable"
+          [nzRequired]="!doc"
           nzTooltipTitle="密码最小为12位，由大写字母、小写字母、数字、符号(@$!%*?&-+)组合"
         >
           密码
@@ -51,7 +51,7 @@
               nz-input
               autocomplete="new-password"
               formControlName="password"
-              [placeholder]="!editable ? '请填写用户密码' : '非必填，将不更新用户密码'"
+              [placeholder]="!doc ? '请填写用户密码' : '非必填，将不更新用户密码'"
             />
           </nz-input-group>
         </nz-form-control>

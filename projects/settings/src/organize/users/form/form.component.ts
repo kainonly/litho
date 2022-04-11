@@ -4,7 +4,7 @@ import { Observable, of } from 'rxjs';
 
 import { AnyDto, WpxService, validates } from '@weplanx/common';
 import { NzMessageService } from 'ng-zorro-antd/message';
-import { NzModalRef, NzModalService } from 'ng-zorro-antd/modal';
+import { NzModalRef } from 'ng-zorro-antd/modal';
 import { NzUploadChangeParam } from 'ng-zorro-antd/upload';
 
 import { RolesService } from '../../roles/roles.service';
@@ -17,8 +17,8 @@ import { UsersService } from '../users.service';
   templateUrl: './form.component.html'
 })
 export class FormComponent implements OnInit {
-  @Input() editable?: AnyDto<User>;
-  @Input() department?: string;
+  @Input() doc?: AnyDto<User>;
+  @Input() departmentId?: string;
   form?: FormGroup;
   roleList: Array<AnyDto<Role>> = [];
   passwordVisible = false;
@@ -27,7 +27,6 @@ export class FormComponent implements OnInit {
   constructor(
     public wpx: WpxService,
     private modalRef: NzModalRef,
-    private modal: NzModalService,
     private message: NzMessageService,
     private fb: FormBuilder,
     private users: UsersService,
@@ -48,21 +47,21 @@ export class FormComponent implements OnInit {
       status: [true, [Validators.required]]
     });
     this.getRoles();
-    if (this.editable) {
-      this.form.patchValue(this.editable);
+    if (this.doc) {
+      this.form.patchValue(this.doc);
     }
   }
 
   existsUsername = (control: AbstractControl): Observable<any> => {
-    if (control.value === this.editable?.username) {
+    if (control.value === this.doc?.username) {
       return of(null);
     }
-    return this.users.hasUsername(control.value);
+    return this.users.existsUsername(control.value);
   };
 
   validedPassword = (control: AbstractControl): any => {
     if (!control.value) {
-      return !this.editable ? { required: true } : null;
+      return !this.doc ? { required: true } : null;
     }
     return validates.password(control.value);
   };
@@ -92,11 +91,11 @@ export class FormComponent implements OnInit {
     this.modalRef.triggerCancel();
   }
 
-  submit(data: User): void {
-    if (!this.editable) {
-      data.departments = [this.department!];
+  submit(value: any): void {
+    if (!this.doc) {
+      value.departments = !!this.departmentId ? [this.departmentId] : [];
       this.users
-        .create(data, {
+        .create(value, {
           format_doc: {
             password: 'password',
             roles: 'oids',
@@ -108,19 +107,20 @@ export class FormComponent implements OnInit {
           this.modalRef.triggerOk();
         });
     } else {
-      if (!data.password) {
-        delete data.password;
+      if (!value.password) {
+        delete value.password;
       }
       this.users
         .updateOneById(
-          this.editable._id,
+          this.doc._id,
           {
-            $set: data
+            $set: value
           },
           {
             format_doc: {
               password: 'password',
-              roles: 'oids'
+              roles: 'oids',
+              departments: 'oids'
             }
           }
         )

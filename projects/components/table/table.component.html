@@ -76,15 +76,15 @@
 </ng-template>
 <nz-table
   #basicTable
-  [nzLoading]="data.loading"
-  [nzData]="data.values"
+  [nzLoading]="wpxData.loading"
+  [nzData]="wpxData.values"
   [nzScroll]="wpxScroll"
   [nzFrontPagination]="false"
   [nzShowSizeChanger]="true"
   [nzHideOnSinglePage]="true"
-  [nzTotal]="data.total"
-  [(nzPageSize)]="data.size"
-  [(nzPageIndex)]="data.index"
+  [nzTotal]="wpxData.total"
+  [(nzPageSize)]="wpxData.size"
+  [(nzPageIndex)]="wpxData.index"
   (nzPageIndexChange)="getData(false)"
   (nzPageSizeChange)="getData(true)"
 >
@@ -94,9 +94,9 @@
         nzWidth="50px"
         nzLeft
         nzAlign="center"
-        [nzChecked]="data.checked"
-        [nzIndeterminate]="data.indeterminate"
-        (nzCheckedChange)="data.setNChecked($event)"
+        [nzChecked]="wpxData.checked"
+        [nzIndeterminate]="wpxData.indeterminate"
+        (nzCheckedChange)="wpxData.setNChecked($event)"
       ></th>
       <ng-container *ngFor="let x of columnsDisplay">
         <th
@@ -179,8 +179,8 @@
         nzLeft
         nzAlign="center"
         [nzDisabled]="value['_disabled']"
-        [nzChecked]="data.checkedIds.has(value._id)"
-        (nzCheckedChange)="data.setChecked(value._id, $event)"
+        [nzChecked]="wpxData.checkedIds.has(value._id)"
+        (nzCheckedChange)="wpxData.setChecked(value._id, $event)"
       ></td>
       <ng-container *ngFor="let x of columnsDisplay">
         <td *ngIf="wpxFields | wpxMap: x.value as field">
@@ -231,7 +231,7 @@
 </nz-table>
 
 <nz-alert
-  *ngIf="data.checkedNumber !== 0 && wpxBulk"
+  *ngIf="wpxData.checkedNumber !== 0 && wpxBulk"
   class="bulk"
   nzType="info"
   nzBanner
@@ -240,6 +240,6 @@
   [nzAction]="wpxBulk"
 >
   <ng-template #description>
-    已选中 <nz-tag>{{ data.checkedNumber }}</nz-tag> 项
+    已选中 <nz-tag>{{ wpxData.checkedNumber }}</nz-tag> 项
   </ng-template>
 </nz-alert>

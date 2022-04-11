@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
+import { Data } from '@weplanx/common';
 import { TableField } from '@weplanx/components/table';
 import { NzModalService } from 'ng-zorro-antd/modal';
 
@@ -11,6 +12,7 @@ import { FormComponent } from './form/form.component';
   templateUrl: './table.component.html'
 })
 export class TableComponent implements OnInit {
+  data: Data<any> = new Data<any>();
   key?: string;
   fields!: Map<string, TableField>;
 

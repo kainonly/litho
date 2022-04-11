@@ -16,17 +16,15 @@ import { Department } from './types';
   templateUrl: './departments.component.html'
 })
 export class DepartmentsComponent implements OnInit {
-  @Input() id!: string;
-  @Output() readonly idChange: EventEmitter<string> = new EventEmitter<string>();
-
   @ViewChild('tree') tree!: NzTreeComponent;
   nodes: NzTreeNodeOptions[] = [];
-  name = '';
+  searchText = '';
   expand = true;
-
-  dict: Record<string, AnyDto<Department>> = {};
   actionKey?: string;
   selectedKeys: string[] = [];
+
+  @Input() id!: string;
+  @Output() readonly idChange: EventEmitter<string> = new EventEmitter<string>();
 
   constructor(
     public departments: DepartmentsService,
@@ -40,47 +38,10 @@ export class DepartmentsComponent implements OnInit {
   }
 
   getData(): void {
-    this.departments
-      .find(
-        {},
-        {
-          sort: {
-            sort: 1
-          }
-        }
-      )
-      .subscribe(v => {
-        const nodes: NzTreeNodeOptions[] = [];
-        const dict: Record<string, NzTreeNodeOptions> = {};
-        for (const x of v) {
-          this.dict[x._id] = x;
-          dict[x._id] = {
-            title: `${x.name}`,
-            key: x._id,
-            parent: x.parent ?? 'root',
-            isLeaf: true,
-            expanded: true,
-            selectable: false
-          };
-        }
-        for (const x of v) {
-          const options = dict[x._id];
-          if (!x.parent) {
-            nodes.push(options);
-          } else {
-            const parent = x.parent ?? 'root';
-            if (dict.hasOwnProperty(parent)) {
-              if (!dict[parent].hasOwnProperty('children')) {
-                dict[parent].children = [];
-              }
-              dict[parent].children!.push(options);
-              dict[parent].isLeaf = false;
-            }
-          }
-        }
-        this.nodes = [{ title: `默认部门`, key: 'root', expanded: true, selectable: false, children: nodes }];
-        this.selectedKeys = [this.id ?? 'root'];
-      });
+    this.departments.getTreeNode().subscribe(v => {
+      this.nodes = [{ title: `全部`, key: 'root', expanded: true, selectable: false, children: v }];
+      this.selectedKeys = [this.id === '' ? 'root' : this.id];
+    });
   }
 
   expanded(): void {
@@ -106,12 +67,12 @@ export class DepartmentsComponent implements OnInit {
     this.nzContextMenu.create($event.event as MouseEvent, menu);
   }
 
-  form(editable?: any, parent?: string): void {
+  form(doc?: any, parent?: string): void {
     this.modal.create({
-      nzTitle: !editable ? '新增' : '编辑',
+      nzTitle: !doc ? '新增' : `编辑【${doc.name}】`,
       nzContent: FormComponent,
       nzComponentParams: {
-        editable,
+        doc,
         nodes: this.nodes[0].children,
         parent
       },
@@ -123,17 +84,17 @@ export class DepartmentsComponent implements OnInit {
 
   /**
    * 删除部门
-   * @param data
+   * @param doc
    */
-  delete(data: AnyDto<Department>): void {
+  delete(doc: AnyDto<Department>): void {
     this.modal.confirm({
-      nzTitle: `您确定要删除『${data.name}』部门吗?`,
+      nzTitle: `您确定要删除【${doc.name}】部门吗?`,
       nzOkText: '是的',
       nzOkType: 'primary',
       nzOkDanger: true,
       nzMaskClosable: true,
       nzOnOk: () => {
-        this.departments.delete(data._id).subscribe(() => {
+        this.departments.delete(doc._id).subscribe(() => {
           this.message.success('数据删除完成');
           this.getData();
         });

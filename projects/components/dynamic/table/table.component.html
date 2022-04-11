@@ -2,6 +2,6 @@
   <button nz-button nzType="primary" (click)="form()"> 新增 </button>
 </ng-template>
 
-<nz-card [nzLoading]="table.data.loading" [nzTitle]="table.wpxSearch" [nzExtra]="extra">
+<nz-card [nzLoading]="data.loading" [nzTitle]="table.wpxSearch" [nzExtra]="extra">
   <wpx-table #table [wpxKey]="key!" [wpxApi]="dynamic" [wpxFields]="fields"></wpx-table>
 </nz-card>

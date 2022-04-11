@@ -95,7 +95,7 @@ export abstract class Api<T> {
       })
       .pipe(
         map(res => {
-          return !!res.headers.get('wpx-exists');
+          return res.headers.get('wpx-exists') === 'true';
         })
       );
   }

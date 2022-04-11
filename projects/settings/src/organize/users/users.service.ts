@@ -10,19 +10,10 @@ import { User } from './types';
 export class UsersService extends Api<User> {
   protected override model = 'users';
 
-  hasUsername(username: string): Observable<any> {
+  existsUsername(username: string): Observable<any> {
     return timer(500).pipe(
-      switchMap(() =>
-        this.http.get<any>(this.url('has-username'), {
-          params: { username }
-        })
-      ),
-      map(v => {
-        if (v.status === '') {
-          return null;
-        }
-        return { error: true, [v.status]: true };
-      })
+      switchMap(() => this.exists({ username })),
+      map(v => (v ? { error: true, duplicated: v } : null))
     );
   }
 }

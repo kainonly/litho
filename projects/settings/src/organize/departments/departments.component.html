@@ -1,7 +1,7 @@
 <nz-row [nzGutter]="8">
   <nz-col>
     <nz-input-group nzSuffixIcon="search" style="width: 180px">
-      <input type="text" nz-input placeholder="搜索" [(ngModel)]="name" />
+      <input type="text" nz-input placeholder="搜索" [(ngModel)]="searchText" />
     </nz-input-group>
   </nz-col>
   <nz-col>
@@ -26,7 +26,7 @@
   nzDraggable
   nzShowLine
   [nzData]="nodes"
-  [nzSearchValue]="name"
+  [nzSearchValue]="searchText"
   [nzExpandedIcon]="nzExpandedIcon"
   [nzSelectedKeys]="selectedKeys"
   (nzClick)="selected($event)"
@@ -38,18 +38,7 @@
   </ng-template>
   <nz-dropdown-menu #treeActions="nzDropdownMenu">
     <ul *ngIf="actionKey" nz-menu>
-      <ng-container *ngIf="actionKey === 'root'">
-        <li nz-menu-item [nzSelected]="false">
-          <span>默认部门</span>
-        </li>
-        <li nz-menu-divider></li>
-        <li nz-menu-item (click)="form()"> 新增 </li>
-      </ng-container>
-      <ng-container *ngIf="dict?.[actionKey] as department">
-        <li nz-menu-item [nzSelected]="false">
-          <span>{{ department.name }}</span>
-        </li>
-        <li nz-menu-divider></li>
+      <ng-container *ngIf="departments.dict?.[actionKey] as department">
         <li nz-menu-item (click)="form(undefined, department._id)"> 新增 </li>
         <li nz-menu-item (click)="form(department)"> 编辑 </li>
         <li nz-menu-item nzDanger (click)="delete(department)"> 删除 </li>

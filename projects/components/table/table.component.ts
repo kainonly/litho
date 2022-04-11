@@ -1,6 +1,6 @@
 import { Component, Input, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { map, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 
 import { StorageMap } from '@ngx-pwa/local-storage';
 import { Data, Api, AnyDto } from '@weplanx/common';
@@ -20,16 +20,13 @@ import { Search, TableField, TableOption } from './types';
 export class WpxTableComponent<T> implements OnInit {
   @Input() wpxKey!: string;
   @Input() wpxApi!: Api<T>;
+  @Input() wpxData!: Data<AnyDto<T>>;
   @Input() wpxFields!: Map<string, TableField>;
   @Input() wpxScroll: { x?: string | null; y?: string | null } = { x: '1600px' };
   @Input() wpxActions?: TemplateRef<any>;
   @Input() wpxBulk?: TemplateRef<any>;
   @Input() wpxOmit: string[] = [];
   @ViewChild('searchRef', { static: true }) wpxSearch!: TemplateRef<any>;
-  /**
-   * 数据源
-   */
-  data: Data<AnyDto<T>> = new Data<AnyDto<T>>();
   /**
    * 表格排序
    */
@@ -112,10 +109,10 @@ export class WpxTableComponent<T> implements OnInit {
       if (unknow) {
         const v = unknow as TableOption<T>;
         this.searchText = v.searchText;
-        this.data.filter = v.filter;
-        this.data.sort = v.sort;
-        this.data.index = v.index;
-        this.data.size = v.size;
+        this.wpxData.filter = v.filter;
+        this.wpxData.sort = v.sort;
+        this.wpxData.index = v.index;
+        this.wpxData.size = v.size;
         if (
           v.columns.length === this.wpxFields.size &&
           v.columns.every(v => this.wpxFields.has(v.value) && this.wpxFields.get(v.value)!.label === v.label)
@@ -141,7 +138,7 @@ export class WpxTableComponent<T> implements OnInit {
    * @param refresh
    */
   getData(refresh = false): void {
-    this.wpxApi.findByPage(this.data, refresh).subscribe(v => {
+    this.wpxApi.findByPage(this.wpxData, refresh).subscribe(v => {
       for (const [key, request] of Object.entries(this.requests)) {
         const ids = [...new Set([].concat(...v.map(v => v[key])))];
         request(ids).subscribe(data => {
@@ -168,7 +165,7 @@ export class WpxTableComponent<T> implements OnInit {
       });
     }
     this.searchForm = this.fb.group(controls);
-    this.searchForm.patchValue(this.data.filter!);
+    this.searchForm.patchValue(this.wpxData.filter!);
     this.searchVisible = true;
   }
 
@@ -185,21 +182,20 @@ export class WpxTableComponent<T> implements OnInit {
    */
   submitSearch(data?: Record<string, Search>): void {
     if (!data) {
-      for (const key of Object.keys(this.data.filter)) {
+      for (const key of Object.keys(this.wpxData.filter)) {
         if (!this.wpxOmit.includes(key)) {
-          delete this.data.filter[key];
+          delete this.wpxData.filter[key];
         }
       }
       Reflect.set(
-        this.data.filter,
+        this.wpxData.filter,
         '$or',
         [...this.keywords.values()].map(v => ({ [v]: { $regex: this.searchText } }))
       );
     } else {
       for (const [key, search] of Object.entries(data)) {
         if (search.value) {
-          // TODO:待修改
-          Reflect.set(this.data.filter, key, { [search.operator]: search.value });
+          Reflect.set(this.wpxData.filter, key, { [search.operator]: search.value });
         }
       }
     }
@@ -226,9 +222,9 @@ export class WpxTableComponent<T> implements OnInit {
    */
   clearSearch(): void {
     this.searchText = '';
-    for (const key of Object.keys(this.data.filter)) {
+    for (const key of Object.keys(this.wpxData.filter)) {
       if (!this.wpxOmit.includes(key)) {
-        delete this.data.filter[key];
+        delete this.wpxData.filter[key];
       }
     }
     this.getData(true);
@@ -300,10 +296,10 @@ export class WpxTableComponent<T> implements OnInit {
     this.storage
       .set(this.wpxKey, <TableOption<T>>{
         searchText: this.searchText,
-        filter: this.data.filter,
-        sort: this.data.sort,
-        size: this.data.size,
-        index: this.data.index,
+        filter: this.wpxData.filter,
+        sort: this.wpxData.sort,
+        size: this.wpxData.size,
+        index: this.wpxData.index,
         columns: this.columns,
         columnsWidth: this.columnsWidth
       })

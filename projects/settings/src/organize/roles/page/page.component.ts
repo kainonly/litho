@@ -10,12 +10,12 @@ import { RolesService } from '../roles.service';
 import { Role } from '../types';
 
 @Component({
-  selector: 'wpx-settings-roles-permission',
-  templateUrl: './permission.component.html',
-  styleUrls: ['./permission.component.scss']
+  selector: 'wpx-settings-roles-page',
+  templateUrl: './page.component.html',
+  styleUrls: ['./page.component.scss']
 })
-export class PermissionComponent implements OnInit {
-  @Input() editable!: AnyDto<Role>;
+export class PageComponent implements OnInit {
+  @Input() doc!: AnyDto<Role>;
   @ViewChild(NzTreeComponent) tree!: NzTreeComponent;
   nodes: NzTreeNodeOptions[] = [];
   data: Record<string, AnyDto<Page>> = {};
@@ -46,10 +46,10 @@ export class PermissionComponent implements OnInit {
           isLeaf: true,
           expanded: true,
           selectable: false,
-          readonly: this.editable.readonly?.includes(x._id)
+          readonly: this.doc.readonly?.includes(x._id)
         };
         this.data[x._id] = x;
-        if (x.kind !== 'group' && this.editable.pages?.includes(x._id)) {
+        if (x.kind !== 'group' && this.doc.pages?.includes(x._id)) {
           checked.push(x._id);
         }
       }
@@ -109,7 +109,7 @@ export class PermissionComponent implements OnInit {
     }
     this.roles
       .updateOneById(
-        this.editable._id,
+        this.doc._id,
         {
           $set: { pages, readonly }
         },

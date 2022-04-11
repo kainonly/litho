@@ -8,7 +8,7 @@
   </button>
   <nz-dropdown-menu #menu="nzDropdownMenu">
     <ul nz-menu>
-      <li nz-menu-item (click)="permission(data)">设置权限</li>
+      <li nz-menu-item (click)="page(data)">设置页面</li>
       <li nz-menu-item (click)="form(data)">编辑</li>
       <li nz-menu-item nzDanger (click)="delete(data)">删除</li>
     </ul>
@@ -16,7 +16,7 @@
 </ng-template>
 
 <ng-template #bulk>
-  <a nz-button nzType="link" nzSize="small" (click)="table.data.clearChecked()">取消选择</a>
+  <a nz-button nzType="link" nzSize="small" (click)="data.clearChecked()">取消选择</a>
   <br />
   <a style="float: right" nz-button nzType="link" nzSize="small" nzDanger (click)="bulkDelete()">删除</a>
 </ng-template>
@@ -25,7 +25,8 @@
   <wpx-table
     #table
     wpxKey="roles"
-    [wpxApi]="roles"
+    [wpxApi]="roles!"
+    [wpxData]="data"
     [wpxFields]="fields"
     [wpxActions]="actions"
     [wpxBulk]="bulk"

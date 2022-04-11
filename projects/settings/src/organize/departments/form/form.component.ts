@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { AnyDto, WpxService } from '@weplanx/common';
 import { NzMessageService } from 'ng-zorro-antd/message';
-import { NzModalRef, NzModalService } from 'ng-zorro-antd/modal';
+import { NzModalRef } from 'ng-zorro-antd/modal';
 import { NzTreeNodeOptions } from 'ng-zorro-antd/tree';
 
 import { DepartmentsService } from '../departments.service';
@@ -14,7 +14,7 @@ import { Department } from '../types';
   templateUrl: './form.component.html'
 })
 export class FormComponent implements OnInit {
-  @Input() editable?: AnyDto<Department>;
+  @Input() doc?: AnyDto<Department>;
   @Input() nodes?: NzTreeNodeOptions[];
   @Input() parent?: string;
   parentNodes?: NzTreeNodeOptions[];
@@ -23,7 +23,6 @@ export class FormComponent implements OnInit {
   constructor(
     public wpx: WpxService,
     private modalRef: NzModalRef,
-    private modal: NzModalService,
     private message: NzMessageService,
     private fb: FormBuilder,
     private departments: DepartmentsService
@@ -38,8 +37,8 @@ export class FormComponent implements OnInit {
       parent: [this.parent],
       description: [null]
     });
-    if (this.editable) {
-      this.form.patchValue(this.editable);
+    if (this.doc) {
+      this.form.patchValue(this.doc);
     }
   }
 
@@ -47,10 +46,10 @@ export class FormComponent implements OnInit {
     this.modalRef.triggerCancel();
   }
 
-  submit(data: any): void {
-    if (!this.editable) {
+  submit(value: any): void {
+    if (!this.doc) {
       this.departments
-        .create(data, {
+        .create(value, {
           format_doc: {
             parent: 'oid'
           }
@@ -62,9 +61,9 @@ export class FormComponent implements OnInit {
     } else {
       this.departments
         .updateOneById(
-          this.editable._id,
+          this.doc._id,
           {
-            $set: data
+            $set: value
           },
           {
             format_doc: {

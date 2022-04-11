@@ -10,19 +10,10 @@ import { Role } from './types';
 export class RolesService extends Api<Role> {
   protected override model = 'roles';
 
-  hasName(name: string): Observable<any> {
+  existsName(name: string): Observable<any> {
     return timer(500).pipe(
-      switchMap(() =>
-        this.http.get<any>(this.url('has-name'), {
-          params: { name }
-        })
-      ),
-      map(v => {
-        if (v.status === '') {
-          return null;
-        }
-        return { error: true, [v.status]: true };
-      })
+      switchMap(() => this.exists({ name })),
+      map(v => (v ? { error: true, duplicated: v } : null))
     );
   }
 }
