@@ -1,8 +1,4 @@
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
-
-import { Api } from './api';
-import { AnyDto, ApiOptions, BasicDto, Field, Filter, FormatFilter, Sort } from './types';
+import { ApiOptions, BasicDto, Field, Filter, FormatFilter, Sort } from './types';
 
 export class Data<T extends BasicDto> implements ApiOptions<T> {
   /**
@@ -70,24 +66,6 @@ export class Data<T extends BasicDto> implements ApiOptions<T> {
    */
   reset(): void {
     this.index = 1;
-  }
-
-  /**
-   * 从请求资源设置数据
-   */
-  from(api: Api<T>, refresh?: boolean): Observable<T[]> {
-    this.loading = true;
-    if (!!refresh) {
-      this.reset();
-    }
-    return api.findByPage(this).pipe(
-      map(data => {
-        this.set(data);
-        this.loading = false;
-        this.updateCheckedStatus();
-        return data;
-      })
-    );
   }
 
   /**

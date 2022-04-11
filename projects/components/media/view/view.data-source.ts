@@ -53,20 +53,20 @@ export class WpxMediaViewDataSource extends Data<AnyDto<Media>> implements DataS
       this.indexs.clear();
       this.dict.clear();
     }
-    this.from(this.media, refresh).subscribe(data => {
-      const values: Array<Array<AnyDto<Media>>> = [];
-      this.cache.splice(this.index * this.size, this.size, ...data);
-      this.cache.forEach((value, index) => {
-        this.dict.set(value._id, value);
-        const n = Math.trunc(index / this.n);
-        if (!values[n]) {
-          values[n] = [];
-        }
-        values[n].push(value);
-      });
-      this.indexs.add(this.index);
-      this.stream.next(values);
-    });
+    // this.from(this.media, refresh).subscribe(data => {
+    //   const values: Array<Array<AnyDto<Media>>> = [];
+    //   this.cache.splice(this.index * this.size, this.size, ...data);
+    //   this.cache.forEach((value, index) => {
+    //     this.dict.set(value._id, value);
+    //     const n = Math.trunc(index / this.n);
+    //     if (!values[n]) {
+    //       values[n] = [];
+    //     }
+    //     values[n].push(value);
+    //   });
+    //   this.indexs.add(this.index);
+    //   this.stream.next(values);
+    // });
   }
 
   /**

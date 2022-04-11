@@ -11,7 +11,7 @@
             <ng-template #usernameSuffix>
               <i *ngIf="username.value" nz-icon nzType="close-circle" (click)="username.reset()"> </i>
             </ng-template>
-            <input type="text" nz-input formControlName="username" placeholder="电子邮件 / 手机 / 用户名" />
+            <input type="text" nz-input formControlName="username" placeholder="用户名 / 电子邮件" />
           </nz-input-group>
         </nz-form-control>
       </nz-form-item>
@@ -39,9 +39,21 @@
             <button nz-button nzBlock nzType="primary"> 登 录 </button>
           </nz-col>
           <nz-col [nzSpan]="24">
-            <a nz-tooltip="飞书">
-              <nz-avatar nzSize="small" nzShape="square" [nzSrc]="['assets', 'feishu.png'] | wpxAssets"></nz-avatar>
-            </a>
+            <nz-space>
+              <a *nzSpaceItem nz-tooltip="飞书">
+                <nz-avatar nzSize="small" nzShape="square" [nzSrc]="['assets', 'feishu.png'] | wpxAssets"></nz-avatar>
+              </a>
+              <a *nzSpaceItem nz-tooltip="企业微信">
+                <nz-avatar
+                  nzSize="small"
+                  nzShape="square"
+                  [nzSrc]="['assets', 'work-weixin.png'] | wpxAssets"
+                ></nz-avatar>
+              </a>
+              <a *nzSpaceItem nz-tooltip="钉钉">
+                <nz-avatar nzSize="small" nzShape="square" [nzSrc]="['assets', 'dingtalk.png'] | wpxAssets"></nz-avatar>
+              </a>
+            </nz-space>
           </nz-col>
         </nz-row>
       </nz-form-item>

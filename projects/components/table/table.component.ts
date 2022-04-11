@@ -141,26 +141,19 @@ export class WpxTableComponent<T> implements OnInit {
    * @param refresh
    */
   getData(refresh = false): void {
-    this.data
-      .from(this.wpxApi, refresh)
-      .pipe(
-        map(v => {
-          for (const [key, request] of Object.entries(this.requests)) {
-            // TODO: 待修改
-            request([...new Set([].concat(...v.map(v => Reflect.get(v, key))))]).subscribe(data => {
-              const dict: any = {};
-              for (const x of data) {
-                dict[x._id] = x;
-              }
-              this.references[key] = dict;
-            });
+    this.wpxApi.findByPage(this.data, refresh).subscribe(v => {
+      for (const [key, request] of Object.entries(this.requests)) {
+        const ids = [...new Set([].concat(...v.map(v => v[key])))];
+        request(ids).subscribe(data => {
+          const dict: any = {};
+          for (const x of data) {
+            dict[x._id] = x;
           }
-          return v;
-        })
-      )
-      .subscribe(() => {
-        this.updateStorage();
-      });
+          this.references[key] = dict;
+        });
+      }
+      this.updateStorage();
+    });
   }
 
   /**

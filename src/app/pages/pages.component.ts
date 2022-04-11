@@ -5,22 +5,7 @@ import { WpxService } from '@weplanx/common';
 
 @Component({
   selector: 'app-pages',
-  template: `
-    <nz-layout class="main">
-      <wpx-header></wpx-header>
-
-      <nz-layout class="wpx-container">
-        <nz-sider class="wpx-sider" nzTheme="light">
-          <wpx-nav></wpx-nav>
-        </nz-sider>
-        <nz-layout style="overflow: auto">
-          <nz-content class="content">
-            <router-outlet></router-outlet>
-          </nz-content>
-        </nz-layout>
-      </nz-layout>
-    </nz-layout>
-  `
+  templateUrl: './pages.component.html'
 })
 export class PagesComponent implements OnInit {
   constructor(public app: AppService, public wpx: WpxService) {}

@@ -1,7 +1,6 @@
 export * from './lib/api';
 export * from './lib/data';
 export * from './lib/helper';
-export * from './lib/activated';
 export * from './lib/share.module';
 export * from './lib/types';
 export * from './lib/wpx.module';

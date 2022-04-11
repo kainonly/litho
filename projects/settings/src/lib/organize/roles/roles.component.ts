@@ -1,5 +1,4 @@
 import { Component, ViewChild } from '@angular/core';
-import { forkJoin, Observable } from 'rxjs';
 
 import { AnyDto, WpxService } from '@weplanx/common';
 import { TableField, WpxTableComponent } from '@weplanx/components/table';

@@ -25,7 +25,7 @@ export abstract class Api<T> {
    * 模型名称
    * @protected
    */
-  protected model: string = '';
+  protected model = '';
 
   constructor(protected http: HttpClient) {}
 
@@ -35,7 +35,7 @@ export abstract class Api<T> {
    * @protected
    */
   protected url(...fragments: string[]): string {
-    return ['api', this.model, ...fragments].join('/');
+    return `api${!!this.model ? `/${this.model}` : ''}${fragments.length !== 0 ? `/${fragments.join('/')}` : ''}`;
   }
 
   /**
@@ -135,8 +135,13 @@ export abstract class Api<T> {
   /**
    * 通过数据源获取分页文档
    * @param data 数据源
+   * @param refresh 刷新
    */
-  findByPage(data: Data<AnyDto<T>>): Observable<Array<AnyDto<T>>> {
+  findByPage(data: Data<AnyDto<T>>, refresh?: boolean): Observable<Array<AnyDto<T>>> {
+    data.loading = true;
+    if (refresh) {
+      data.reset();
+    }
     let { headers, params } = httpOptions<T>(
       {
         field: data.field,
@@ -157,6 +162,9 @@ export abstract class Api<T> {
       .pipe(
         map(res => {
           data.total = parseInt(res.headers.get('wpx-total')!);
+          data.set(res.body!);
+          data.loading = false;
+          data.updateCheckedStatus();
           return res.body!;
         })
       );

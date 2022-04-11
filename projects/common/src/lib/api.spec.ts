@@ -1,6 +1,5 @@
 import {
   AnyDto,
-  ApiOptions,
   Data,
   Filter,
   FilterOption,
@@ -213,6 +212,47 @@ describe('测试请求', () => {
     };
     data.size = 5;
     service.findByPage(data).subscribe(v => {
+      expect(v.length).toEqual(5);
+      expect(data.total).toEqual(pages.length);
+      done();
+    });
+    const { params } = httpOptions<Page>(
+      {
+        field: data.field,
+        sort: data.sort,
+        format_filter: data.format_filter
+      },
+      data.filter
+    );
+    const req = httpTestingController.expectOne(`api/pages?${params.toString()}`);
+    expect(req.request.method).toEqual('GET');
+    expect(req.request.headers.get('wpx-type')).toEqual('find-by-page');
+    expect(req.request.headers.get('wpx-page')).toEqual('1');
+    expect(req.request.headers.get('wpx-page-size')).toEqual('5');
+    expect(req.request.headers.getAll('wpx-format-filter')).toEqual(['parent:oid']);
+    expect(req.request.params.get('filter')).toEqual(JSON.stringify(data.filter));
+    expect(req.request.params.getAll('field')).toEqual(['_id', 'parent', 'name']);
+    expect(req.request.params.getAll('sort')).toEqual(['sort.1']);
+
+    const headers = new HttpHeaders().set('wpx-total', pages.length.toString());
+    req.flush(values, { headers });
+    httpTestingController.verify();
+  });
+
+  it('通过数据源获取分页文档 refresh=true', done => {
+    const values = [...pages.slice(0, 5)];
+    const data: Data<AnyDto<Page>> = new Data();
+    data.filter = {
+      parent: '61ca6ada2e83bf89116a4799'
+    };
+    data.field = ['_id', 'parent', 'name'];
+    data.sort = { sort: 1 };
+    data.format_filter = {
+      parent: 'oid'
+    };
+    data.index = 2;
+    data.size = 5;
+    service.findByPage(data, true).subscribe(v => {
       expect(v.length).toEqual(5);
       expect(data.total).toEqual(pages.length);
       done();

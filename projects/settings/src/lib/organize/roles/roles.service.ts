@@ -25,8 +25,4 @@ export class RolesService extends Api<Role> {
       })
     );
   }
-
-  findLabels(): Observable<string[]> {
-    return this.http.get<string[]>(this.url('labels'));
-  }
 }

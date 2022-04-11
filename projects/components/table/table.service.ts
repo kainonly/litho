@@ -17,7 +17,9 @@ export class WpxTableService extends Api<any> {
     const options = httpOptions(
       {
         field: ['_id', target],
-        format_filter: {}
+        format_filter: {
+          '_id.$in': 'oids'
+        }
       },
       { _id: { $in: ids } }
     );
