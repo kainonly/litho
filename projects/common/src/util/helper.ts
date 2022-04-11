@@ -3,7 +3,7 @@ import { AbstractControl, FormGroup } from '@angular/forms';
 
 import { NzTreeNode } from 'ng-zorro-antd/tree';
 
-import { ApiOptions, Filter } from './types';
+import { ApiOptions, Filter } from '../types';
 
 /**
  * 生成 httpOptions

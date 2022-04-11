@@ -1,2 +1,2 @@
-export * from './lib/center.module';
-export * from './lib/center.component';
+export * from './center.module';
+export * from './center.component';

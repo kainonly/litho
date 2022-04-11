@@ -3,8 +3,6 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { Data } from './data';
-import { httpOptions } from './helper';
 import {
   AnyDto,
   CreateOption,
@@ -17,7 +15,9 @@ import {
   UpdateOneByIdOption,
   R,
   FilterOption
-} from './types';
+} from '../types';
+import { Data } from './data';
+import { httpOptions } from './helper';
 
 @Injectable()
 export abstract class Api<T> {

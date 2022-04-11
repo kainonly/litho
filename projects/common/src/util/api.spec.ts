@@ -14,7 +14,7 @@ import {
 } from '@weplanx/common';
 import { TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
-import { pages, TestPagesService } from './mock';
+import { pages, TestPagesService } from '../mock';
 import { HttpHeaders } from '@angular/common/http';
 
 describe('测试请求', () => {

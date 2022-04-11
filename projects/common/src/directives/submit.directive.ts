@@ -1,7 +1,7 @@
 import { Directive, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormGroupDirective } from '@angular/forms';
 
-import { updateFormGroup } from '../helper';
+import { updateFormGroup } from '../util/helper';
 
 @Directive({
   selector: 'form[wpxSubmit]'

@@ -1,4 +1,4 @@
-import { ApiOptions, BasicDto, Field, Filter, FormatFilter, Sort } from './types';
+import { ApiOptions, BasicDto, Field, Filter, FormatFilter, Sort } from '../types';
 
 export class Data<T extends BasicDto> implements ApiOptions<T> {
   /**

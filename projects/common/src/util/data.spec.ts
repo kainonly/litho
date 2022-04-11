@@ -1,7 +1,7 @@
 import { AnyDto, Data, Page } from '@weplanx/common';
 import { TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
-import { pages, TestPagesService } from './mock';
+import { pages, TestPagesService } from '../mock';
 
 describe('测试数据源', () => {
   let httpTestingController: HttpTestingController;

@@ -1,2 +1,2 @@
-export * from './lib/settings.module';
-export * from './lib/settings.component';
+export * from './settings.module';
+export * from './settings.component';
