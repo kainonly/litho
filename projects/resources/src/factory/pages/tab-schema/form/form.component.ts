@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { AbstractControl, FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 
-import { AnyDto, Page } from '@weplanx/common';
+import { AnyDto, Page, SchemaField } from '@weplanx/common';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalRef } from 'ng-zorro-antd/modal';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
@@ -14,7 +14,7 @@ import { fieldTypeValues } from '../../values';
   templateUrl: './form.component.html'
 })
 export class FormComponent implements OnInit {
-  @Input() editable?: any;
+  @Input() doc?: SchemaField;
   @Input() page?: AnyDto<Page>;
   form?: FormGroup;
   typeValues: Array<Record<string, any>> = fieldTypeValues;
@@ -49,14 +49,14 @@ export class FormComponent implements OnInit {
         multiple: [false]
       })
     });
-    if (this.editable) {
-      this.form.patchValue(this.editable);
+    if (this.doc) {
+      this.form.patchValue(this.doc);
       this.form.markAsTouched();
     }
   }
 
   existsField = (control: AbstractControl): any => {
-    if (control.value === this.editable?.key) {
+    if (control.value === this.doc?.key) {
       return null;
     }
     if (this.page?.schema?.fields.hasOwnProperty(control.value)) {

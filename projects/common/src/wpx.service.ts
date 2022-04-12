@@ -56,14 +56,14 @@ export class WpxService {
     const navs: Array<AnyDto<Page>> = [];
     for (const x of values) {
       pages[x._id] = x;
-      x['_children'] = [];
+      x['children'] = [];
       if (!x.parent) {
-        x['_path'] = [x._id];
+        x['path'] = [x._id];
         navs.push(x);
       } else {
         if (pages.hasOwnProperty(x.parent)) {
-          x['_path'] = [...pages[x.parent]['_path']!, x._id];
-          pages[x.parent]['_children']!.push(x);
+          x['_path'] = [...pages[x.parent]['path']!, x._id];
+          pages[x.parent]['children']!.push(x);
         }
       }
     }

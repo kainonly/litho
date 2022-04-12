@@ -1,27 +1,31 @@
 <ul nz-menu nzMode="inline">
   <ng-container *ngIf="!!wpx.navs">
-    <ng-container *ngTemplateOutlet="navTemplate; context: { $implicit: wpx.navs }"></ng-container>
-  </ng-container>
-</ul>
-
-<ng-template #navTemplate let-pages>
-  <ng-container *ngFor="let page of pages | wpxSort: 'sort'">
-    <ng-container *ngIf="page.kind !== 'group'; else isGroup">
-      <li nz-menu-item nzMatchRouter [routerLink]="['/pages', page._id]" [nzPaddingLeft]="page['_path'].length * 24">
-        <i *ngIf="page.hasOwnProperty('icon')" nz-icon [nzType]="page['icon']"></i>
-        <span>{{ page['name'] }}</span>
-      </li>
-    </ng-container>
-    <ng-template #isGroup>
-      <li nz-submenu [nzOpen]="page._id | OpenState: wpx.pageId" [nzPaddingLeft]="page['_path'].length * 24">
-        <span title>
-          <i *ngIf="page.hasOwnProperty('icon')" nz-icon [nzType]="page['icon']"></i>
-          <span>{{ page['name'] }}</span>
-        </span>
-        <ul>
-          <ng-container *ngTemplateOutlet="navTemplate; context: { $implicit: page['_children'] }"></ng-container>
-        </ul>
-      </li>
+    <ng-container *ngTemplateOutlet="nav; context: { $implicit: wpx.navs }"></ng-container>
+    <ng-template #nav let-pages>
+      <ng-container *ngFor="let page of pages | wpxSort: 'sort'">
+        <ng-container *ngIf="page.kind !== 'group'; else isGroup">
+          <li
+            nz-menu-item
+            nzMatchRouter
+            [routerLink]="['/pages', page['_id']]"
+            [nzPaddingLeft]="page['path'].length * 24"
+          >
+            <i *ngIf="page.hasOwnProperty('icon')" nz-icon [nzType]="page['icon']"></i>
+            <span>{{ page['name'] }}</span>
+          </li>
+        </ng-container>
+        <ng-template #isGroup>
+          <li nz-submenu [nzOpen]="page['_id'] | OpenState: wpx.pageId" [nzPaddingLeft]="page['path'].length * 24">
+            <span title>
+              <i *ngIf="page.hasOwnProperty('icon')" nz-icon [nzType]="page['icon']"></i>
+              <span>{{ page['name'] }}</span>
+            </span>
+            <ul>
+              <ng-container *ngTemplateOutlet="nav; context: { $implicit: page['children'] }"></ng-container>
+            </ul>
+          </li>
+        </ng-template>
+      </ng-container>
     </ng-template>
   </ng-container>
-</ng-template>
+</ul>

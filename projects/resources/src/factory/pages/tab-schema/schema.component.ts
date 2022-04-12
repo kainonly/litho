@@ -44,13 +44,13 @@ export class SchemaComponent implements OnInit {
     ];
   }
 
-  form(editable?: any): void {
+  form(doc?: SchemaField): void {
     this.modal.create({
-      nzTitle: !editable ? '创建字段到该内容类型' : '编辑字段',
+      nzTitle: !doc ? '创建字段' : `编辑【${doc.key}】字段`,
       nzWidth: 800,
       nzContent: FormComponent,
       nzComponentParams: {
-        editable,
+        doc,
         page: this.pages.page!
       },
       nzOnOk: () => {
@@ -74,7 +74,7 @@ export class SchemaComponent implements OnInit {
 
   delete(data: SchemaField): void {
     this.modal.confirm({
-      nzTitle: `您确定要删除『${data.label}』字段吗?`,
+      nzTitle: `您确定要删除【${data.label}】字段吗?`,
       nzOkText: '是的',
       nzOkType: 'primary',
       nzOkDanger: true,
