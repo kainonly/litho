@@ -38,7 +38,7 @@ export class PagesComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.firstChild!.params.subscribe(v => {
-      this.pages.key = v['key'];
+      this.pages.id = v['id'];
       this.getData();
     });
   }
@@ -46,8 +46,8 @@ export class PagesComponent implements OnInit {
   getData(): void {
     this.pages.getTreeNode({}).subscribe(v => {
       this.nodes = [...v];
-      if (this.pages.key) {
-        this.selectedKeys = [this.pages.key];
+      if (this.pages.id) {
+        this.selectedKeys = [this.pages.id];
       }
     });
   }
@@ -69,10 +69,10 @@ export class PagesComponent implements OnInit {
       return;
     }
     if (e.node?.isSelected) {
-      this.pages.key = e.node!.key;
+      this.pages.id = e.node!.key;
       this.router.navigate(['resources', 'factory', 'pages', e.node!.key, 'schema']);
     } else {
-      this.pages.key = undefined;
+      this.pages.id = undefined;
       this.router.navigate(['resources', 'factory', 'pages', 'home']);
     }
   }

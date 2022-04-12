@@ -9,7 +9,7 @@ import { NzTreeNodeOptions } from 'ng-zorro-antd/tree';
 export class PagesSerivce extends Api<Page> {
   protected override model = 'pages';
   dict: Record<string, AnyDto<Page>> = {};
-  key?: string;
+  id?: string;
   page?: AnyDto<Page>;
 
   getTreeNode(filter: Filter<Page> = {}): Observable<NzTreeNodeOptions[]> {
@@ -49,7 +49,7 @@ export class PagesSerivce extends Api<Page> {
   }
 
   getPage(): Observable<AnyDto<Page>> {
-    return this.findOneById(this.key!).pipe(
+    return this.findOneById(this.id!).pipe(
       map(v => {
         this.page = v;
         return v;
@@ -111,16 +111,28 @@ export class PagesSerivce extends Api<Page> {
     });
   }
 
-  findIndexes(id: string): Observable<any> {
-    return this.http.get(this.url(id, 'indexes'));
+  /**
+   * 获取索引
+   */
+  getIndexes(): Observable<any> {
+    return this.http.get(this.url('_indexes', this.id!));
   }
 
-  createIndex(id: string, name: string, data: any): Observable<any> {
-    return this.http.put(this.url(id, 'indexes', name), data);
+  /**
+   * 创建索引
+   * @param index
+   * @param data
+   */
+  createIndex(index: string, data: any): Observable<any> {
+    return this.http.put(this.url('_indexes', this.id!, index), data);
   }
 
-  deleteIndex(id: string, name: string): Observable<any> {
-    return this.http.delete(this.url(id, 'indexes', name));
+  /**
+   * 删除索引
+   * @param index
+   */
+  deleteIndex(index: string): Observable<any> {
+    return this.http.delete(this.url('_indexes', this.id!, index));
   }
 
   updateValidator(id: string, validator: string): Observable<any> {

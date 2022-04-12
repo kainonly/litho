@@ -26,21 +26,21 @@ export const pages: Routes = [
     }
   },
   {
-    path: ':key/schema',
+    path: ':id/schema',
     component: SchemaComponent,
     data: {
       breadcrumb: '内容模型'
     }
   },
   {
-    path: ':key/indexes',
+    path: ':id/indexes',
     component: IndexesComponent,
     data: {
       breadcrumb: '索引规则'
     }
   },
   {
-    path: ':key/validator',
+    path: ':id/validator',
     component: ValidatorComponent,
     data: {
       breadcrumb: '验证器'

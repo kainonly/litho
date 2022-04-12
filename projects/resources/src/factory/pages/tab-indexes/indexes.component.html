@@ -1,18 +1,12 @@
 <wpx-resources-factory-pages-tabs [extra]="extra">
   <ng-template #extra>
-    <button nz-button (click)="form()"> 创建索引 </button>
-  </ng-template>
-  <ng-template #footer>
-    <button nzBlock nz-button nzType="link" (click)="form()">
-      <i nz-icon nzType="plus"></i> 创建索引到该内容类型
-    </button>
+    <button nz-button nzType="primary" (click)="form()"> 新增 </button>
   </ng-template>
   <nz-table
     #contentTable
     [nzData]="indexesList"
     [nzFrontPagination]="false"
     [nzShowPagination]="false"
-    [nzFooter]="footer"
     [nzScroll]="{ x: '1200px' }"
   >
     <thead>
@@ -24,26 +18,26 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let data of contentTable.data">
+      <tr *ngFor="let item of contentTable.data">
         <td nzLeft nzAlign="center">
           <nz-tag nzColor="blue">
-            <ng-container [ngSwitch]="data | IndexType">
-              <ng-container *ngSwitchCase="'text'">全文</ng-container>
-              <ng-container *ngSwitchCase="'2dsphere'">地理</ng-container>
+            <ng-container [ngSwitch]="item | IndexType">
+              <ng-container *ngSwitchCase="'text'">全文索引</ng-container>
+              <ng-container *ngSwitchCase="'2dsphere'">地理空间索引</ng-container>
               <ng-container *ngSwitchDefault>常规</ng-container>
             </ng-container>
           </nz-tag>
         </td>
-        <td nzLeft>{{ data.name }}</td>
+        <td nzLeft>{{ item.name }}</td>
         <td>
-          <ng-container *ngIf="data.unique">
+          <ng-container *ngIf="item.unique">
             <nz-tag>唯一</nz-tag>
           </ng-container>
-          <ng-container *ngFor="let item of data.key | keyvalue">
+          <ng-container *ngFor="let item of item.key | keyvalue">
             <ng-container *ngTemplateOutlet="fieldTags; context: { $implicit: item }"></ng-container>
           </ng-container>
-          <ng-container *ngIf="data.hasOwnProperty('weights')">
-            <ng-container *ngFor="let item of data.weights | keyvalue">
+          <ng-container *ngIf="item.hasOwnProperty('weights')">
+            <ng-container *ngFor="let item of item.weights | keyvalue">
               <ng-container *ngTemplateOutlet="fieldTags; context: { $implicit: item }"></ng-container>
             </ng-container>
           </ng-container>
@@ -51,10 +45,10 @@
             <nz-tag>
               {{ item.key }} :
               <ng-container [ngSwitch]="item.value">
-                <ng-container *ngSwitchCase="1">asc</ng-container>
-                <ng-container *ngSwitchCase="-1">desc</ng-container>
-                <ng-container *ngSwitchCase="'text'">text</ng-container>
-                <ng-container *ngSwitchCase="'2dsphere'">2dsphere</ng-container>
+                <ng-container *ngSwitchCase="1">升序</ng-container>
+                <ng-container *ngSwitchCase="-1">降序</ng-container>
+                <ng-container *ngSwitchCase="'text'">全文索引</ng-container>
+                <ng-container *ngSwitchCase="'2dsphere'">地理空间索引</ng-container>
               </ng-container>
             </nz-tag>
           </ng-template>
@@ -67,7 +61,8 @@
             nz-popconfirm
             nzPopconfirmTitle="您确定移除该索引吗?"
             nzPopconfirmPlacement="bottomRight"
-            (nzOnConfirm)="delete(data.name)"
+            (nzOnConfirm)="delete(item.name)"
+            [disabled]="item.name === '_id_'"
           >
             <i nz-icon nzType="delete"></i>
           </button>

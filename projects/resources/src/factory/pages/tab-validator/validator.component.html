@@ -1,6 +1,6 @@
 <wpx-resources-factory-pages-tabs [extra]="extra">
   <ng-template #extra>
-    <button form="form" nz-button nzType="primary" [disabled]="!form?.valid">更新验证</button>
+    <button form="form" nz-button nzType="primary" [disabled]="!form?.valid">更新</button>
   </ng-template>
   <form *ngIf="form" id="form" nz-form nzLayout="vertical" [formGroup]="form" (wpxSubmit)="submit($event)">
     <nz-form-item>

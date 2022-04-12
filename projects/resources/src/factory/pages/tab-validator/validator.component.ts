@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
-import { AnyDto, Page, updateFormGroup } from '@weplanx/common';
+import { updateFormGroup } from '@weplanx/common';
 import { JoinedEditorOptions } from 'ng-zorro-antd/code-editor/typings';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
@@ -15,7 +15,6 @@ declare const monaco: any;
   templateUrl: './validator.component.html'
 })
 export class ValidatorComponent implements OnInit {
-  private page!: AnyDto<Page>;
   form?: FormGroup;
 
   option: JoinedEditorOptions = {
@@ -39,9 +38,9 @@ export class ValidatorComponent implements OnInit {
       this.form = this.fb.group({
         validator: [value, [Validators.required]]
       });
-      if (this.page?.schema?.validator) {
+      if (this.pages.page?.schema?.validator) {
         this.form.setValue({
-          validator: JSON.stringify(this.page.schema.validator)
+          validator: JSON.stringify(this.pages.page.schema.validator)
         });
       }
     });
@@ -70,7 +69,7 @@ export class ValidatorComponent implements OnInit {
   }
 
   submit(data: any): void {
-    this.pages.updateValidator(this.page._id, data.validator).subscribe(v => {
+    this.pages.updateValidator(this.pages.page!._id, data.validator).subscribe(v => {
       if (!v.code) {
         this.message.success('验证器已更新');
       } else {

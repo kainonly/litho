@@ -63,7 +63,7 @@ export class SchemaComponent implements OnInit {
     moveItemInArray(this.fieldList, event.previousIndex, event.currentIndex);
     this.pages
       .sortSchemaFields(
-        this.pages.key!,
+        this.pages.id!,
         this.fieldList.map(v => v.key)
       )
       .subscribe(() => {
@@ -80,7 +80,7 @@ export class SchemaComponent implements OnInit {
       nzOkDanger: true,
       nzMaskClosable: true,
       nzOnOk: () => {
-        this.pages.deleteSchemaField(this.pages.key!, data.key).subscribe(() => {
+        this.pages.deleteSchemaField(this.pages.id!, data.key).subscribe(() => {
           this.getData();
           this.message.success('字段删除成功');
         });

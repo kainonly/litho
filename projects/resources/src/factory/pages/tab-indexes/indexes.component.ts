@@ -20,28 +20,25 @@ export class IndexesComponent implements OnInit {
   }
 
   getData(): void {
-    this.pages.findIndexes(this.pages.key!).subscribe(data => {
+    this.pages.getIndexes().subscribe(data => {
       this.indexesList = [...data];
     });
   }
 
   form(): void {
     this.modal.create({
-      nzTitle: '创建索引到该内容类型',
+      nzTitle: '新增索引',
       nzContent: FormComponent,
-      nzComponentParams: {
-        key: this.pages.key!
-      },
       nzOnOk: () => {
         this.getData();
       }
     });
   }
 
-  delete(name: string): void {
-    this.pages.deleteIndex(this.pages.key!, name).subscribe(v => {
+  delete(index: string): void {
+    this.pages.deleteIndex(index).subscribe(v => {
       this.getData();
-      this.message.success('索引移除成功');
+      this.message.success('索引删除成功');
     });
   }
 }

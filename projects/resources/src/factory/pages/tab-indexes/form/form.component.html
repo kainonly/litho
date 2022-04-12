@@ -1,28 +1,15 @@
 <form *ngIf="form" nz-form nzLayout="vertical" id="form" [formGroup]="form" (wpxSubmit)="submit($event)">
   <nz-form-item>
-    <nz-form-label nzRequired>索引名称</nz-form-label>
-    <nz-form-control
-      nzHasFeedback
-      [nzAutoTips]="{
-        default: {
-          required: '索引名称不能为空'
-        }
-      }"
-    >
-      <input nz-input type="text" formControlName="name" placeholder="请填写索引名称" />
-    </nz-form-control>
-  </nz-form-item>
-  <nz-form-item>
-    <nz-form-label>字段设置</nz-form-label>
+    <nz-form-label nzRequired>字段设置</nz-form-label>
     <nz-form-control formArrayName="keys">
       <ng-container *ngFor="let x of keys?.controls; index as i; first as isFirst">
         <nz-input-group [formGroupName]="i" nzCompact [ngStyle]="{ 'margin-top': isFirst ? null : '-1px' }">
           <input style="width: 45%" type="text" nz-input formControlName="key" placeholder="字段" />
           <nz-select style="width: 45%" formControlName="value" nzPlaceHolder="类型">
-            <nz-option [nzValue]="1" nzLabel="asc"></nz-option>
-            <nz-option [nzValue]="-1" nzLabel="desc"></nz-option>
-            <nz-option [nzValue]="'text'" nzLabel="text"></nz-option>
-            <nz-option [nzValue]="'2dsphere'" nzLabel="2dsphere"></nz-option>
+            <nz-option [nzValue]="1" nzLabel="升序索引"></nz-option>
+            <nz-option [nzValue]="-1" nzLabel="降序索引"></nz-option>
+            <nz-option [nzValue]="'text'" nzLabel="全文索引"></nz-option>
+            <nz-option [nzValue]="'2dsphere'" nzLabel="地理空间索引"></nz-option>
           </nz-select>
           <button nz-button nzType="default" style="width: 10%" (click)="removeKeys(i)">
             <i nz-icon nzType="minus-circle"></i>

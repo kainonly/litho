@@ -12,7 +12,6 @@ import { PagesSerivce } from '../../pages.serivce';
   templateUrl: './form.component.html'
 })
 export class FormComponent implements OnInit {
-  @Input() key?: string;
   form?: FormGroup;
 
   constructor(
@@ -25,8 +24,7 @@ export class FormComponent implements OnInit {
 
   ngOnInit(): void {
     this.form = this.fb.group({
-      name: [null, [Validators.required]],
-      keys: this.fb.array([]),
+      keys: this.fb.array([], [Validators.required]),
       unique: [false, [Validators.required]]
     });
   }
@@ -52,14 +50,11 @@ export class FormComponent implements OnInit {
     this.modal.triggerCancel();
   }
 
-  submit(data: any): void {
-    // this.pages.createIndex(this.key!, data).subscribe(v => {
-    //   if (!v.code) {
-    //     this.modal.triggerOk();
-    //     this.message.success('索引更新完成');
-    //   } else {
-    //     this.notification.error('操作失败', v.message);
-    //   }
-    // });
+  submit(data: { keys: any[]; unique: boolean }): void {
+    const index = `${!data.unique ? 'idx' : 'uk'}_${data.keys.map<any>(v => v.key).join('_')}`;
+    this.pages.createIndex(index, data).subscribe(v => {
+      this.modal.triggerOk();
+      this.message.success('索引更新完成');
+    });
   }
 }
