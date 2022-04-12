@@ -14,8 +14,6 @@ import { IndexesComponent } from './tab-indexes/indexes.component';
 import { IndexesModule } from './tab-indexes/indexes.module';
 import { SchemaComponent } from './tab-schema/schema.component';
 import { SchemaModule } from './tab-schema/schema.module';
-import { ValidatorComponent } from './tab-validator/validator.component';
-import { ValidatorModule } from './tab-validator/validator.module';
 
 export const pages: Routes = [
   {
@@ -39,13 +37,6 @@ export const pages: Routes = [
       breadcrumb: '索引规则'
     }
   },
-  {
-    path: ':id/validator',
-    component: ValidatorComponent,
-    data: {
-      breadcrumb: '验证器'
-    }
-  },
   { path: '', redirectTo: '/resources/factory/pages/home', pathMatch: 'full' }
 ];
 
@@ -58,7 +49,6 @@ export const pages: Routes = [
     NzResultModule,
     IndexesModule,
     SchemaModule,
-    ValidatorModule,
     NzSliderModule
   ],
   declarations: [PagesComponent, HomeComponent, FormComponent]
