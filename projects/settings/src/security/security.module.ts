@@ -2,9 +2,11 @@ import { NgModule } from '@angular/core';
 import { Routes } from '@angular/router';
 
 import { WpxModule, WpxShareModule } from '@weplanx/common';
+import { NzPipesModule } from 'ng-zorro-antd/pipes';
 
 import { AuditComponent } from './audit/audit.component';
 import { PolicyComponent } from './policy/policy.component';
+import { SecurityService } from './security.service';
 import { SessionComponent } from './session/session.component';
 import { WhitelistComponent } from './whitelist/whitelist.component';
 
@@ -41,6 +43,7 @@ export const security: Routes = [
 
 @NgModule({
   declarations: [PolicyComponent, WhitelistComponent, SessionComponent, AuditComponent],
-  imports: [WpxShareModule, WpxModule]
+  imports: [WpxShareModule, WpxModule, NzPipesModule],
+  providers: [SecurityService]
 })
 export class SecurityModule {}

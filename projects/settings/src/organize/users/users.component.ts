@@ -7,7 +7,6 @@ import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalService } from 'ng-zorro-antd/modal';
 
 import { DepartmentsComponent } from '../departments/departments.component';
-import { Role } from '../roles/types';
 import { DepartmentComponent } from './department/department.component';
 import { FormComponent } from './form/form.component';
 import { User } from './types';

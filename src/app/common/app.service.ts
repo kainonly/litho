@@ -21,6 +21,9 @@ export class AppService {
         username: {
           type: 'string'
         },
+        email: {
+          type: 'string'
+        },
         name: {
           type: 'string'
         },
@@ -32,54 +35,46 @@ export class AppService {
   }
 
   /**
-   * 初始化应用
-   * @param data
-   */
-  install(data: any): Observable<any> {
-    return this.http.post(`install`, data);
-  }
-
-  /**
-   * 登录鉴权
+   * 登录
    */
   login(data: { user: string; password: string }): Observable<any> {
-    return this.http.post(`auth`, data).pipe(switchMap(v => this.storage.set(`user`, v)));
+    return this.http.post('auth', data).pipe(switchMap(v => this.storage.set('user', v)));
   }
 
   /**
-   * 验证鉴权
+   * 主动验证
    */
   verify(): Observable<HttpResponse<any>> {
-    return this.http.head(`auth`, { observe: 'response' });
+    return this.http.head('auth', { observe: 'response' });
   }
 
   /**
-   * 鉴权信息
+   * 申请刷新验证码
    */
   code(): Observable<any> {
-    return this.http.get(`auth`);
+    return this.http.get('auth');
   }
 
   /**
-   * 刷新鉴权
+   * 刷新认证
    */
   refreshToken(code: string): Observable<any> {
-    return this.http.put(`auth`, {
+    return this.http.put('auth', {
       code
     });
   }
 
   /**
-   * 注销鉴权
+   * 登出
    */
-  logout = (): Observable<any> => {
-    return this.http.delete(`auth`).pipe(switchMap(() => this.storage.delete(`user`)));
-  };
+  logout(): Observable<any> {
+    return this.http.delete('auth').pipe(switchMap(() => this.storage.delete(`user`)));
+  }
 
   /**
    * 获取导航数据
    */
   navs(): Observable<Array<AnyDto<Page>>> {
-    return this.http.get<Array<AnyDto<Page>>>(`navs`);
+    return this.http.get<Array<AnyDto<Page>>>('navs');
   }
 }

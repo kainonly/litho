@@ -7,7 +7,7 @@ import { AppService } from '@common/app.service';
 
 @Injectable({ providedIn: 'root' })
 export class AppGuard implements CanActivate {
-  private refreshToken$!: Subscription;
+  private refreshTokenSubscription!: Subscription;
 
   constructor(private app: AppService, private router: Router) {}
 
@@ -17,10 +17,10 @@ export class AppGuard implements CanActivate {
         if (res.status !== 204) {
           this.router.navigateByUrl('/login');
         }
-        if (this.refreshToken$) {
-          this.refreshToken$.unsubscribe();
+        if (this.refreshTokenSubscription) {
+          this.refreshTokenSubscription.unsubscribe();
         }
-        this.autoRefreshToken(0);
+        this.autoRefreshToken();
         return true;
       })
     );
@@ -28,11 +28,10 @@ export class AppGuard implements CanActivate {
 
   /**
    * 每 300 秒周期更新 Token
-   * @param time
    * @private
    */
-  private autoRefreshToken(time = 300000): void {
-    this.refreshToken$ = timer(time)
+  private autoRefreshToken(): void {
+    this.refreshTokenSubscription = timer(0, 300000)
       .pipe(
         filter(() => !!this.app.user),
         switchMap(() =>
@@ -44,8 +43,6 @@ export class AppGuard implements CanActivate {
         ),
         switchMap(code => this.app.refreshToken(code))
       )
-      .subscribe(() => {
-        this.autoRefreshToken();
-      });
+      .subscribe(() => {});
   }
 }
