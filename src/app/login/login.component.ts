@@ -22,14 +22,14 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     this.form = this.fb.group({
-      username: [null, [Validators.required, Validators.minLength(4), Validators.maxLength(20)]],
+      user: [null, [Validators.required, Validators.minLength(4)]],
       password: [null, [Validators.required, Validators.minLength(6)]],
       remember: [true]
     });
   }
 
-  get username(): FormControl {
-    return this.form?.get('username') as FormControl;
+  get user(): FormControl {
+    return this.form?.get('user') as FormControl;
   }
 
   get password(): FormControl {
@@ -37,7 +37,7 @@ export class LoginComponent implements OnInit {
   }
 
   submit(data: any): void {
-    this.app.login(data.username, data.password).subscribe(() => {
+    this.app.login(data).subscribe(() => {
       this.notification.success('认证状态', '登录成功，正在加载数据~');
       this.router.navigateByUrl('/pages');
     });

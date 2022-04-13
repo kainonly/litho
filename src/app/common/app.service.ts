@@ -42,13 +42,8 @@ export class AppService {
   /**
    * 登录鉴权
    */
-  login(username: string, password: string): Observable<any> {
-    return this.http
-      .post<UserInfo>(`auth`, {
-        username,
-        password
-      })
-      .pipe(switchMap(v => this.storage.set(`user`, v)));
+  login(data: { user: string; password: string }): Observable<any> {
+    return this.http.post(`auth`, data).pipe(switchMap(v => this.storage.set(`user`, v)));
   }
 
   /**

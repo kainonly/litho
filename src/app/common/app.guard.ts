@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { CanActivate, Router } from '@angular/router';
-import { filter, Observable, Subscription, takeUntil, timer } from 'rxjs';
+import { filter, Observable, Subscription, timer } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
 
 import { AppService } from '@common/app.service';
@@ -26,6 +26,11 @@ export class AppGuard implements CanActivate {
     );
   }
 
+  /**
+   * 每 300 秒周期更新 Token
+   * @param time
+   * @private
+   */
   private autoRefreshToken(time = 300000): void {
     this.refreshToken$ = timer(time)
       .pipe(

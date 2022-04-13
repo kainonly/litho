@@ -9,9 +9,9 @@
         <nz-form-control>
           <nz-input-group [nzSuffix]="usernameSuffix" nzPrefixIcon="user">
             <ng-template #usernameSuffix>
-              <i *ngIf="username.value" nz-icon nzType="close-circle" (click)="username.reset()"> </i>
+              <i *ngIf="user.value" nz-icon nzType="close-circle" (click)="user.reset()"> </i>
             </ng-template>
-            <input type="text" nz-input formControlName="username" placeholder="用户名 / 电子邮件" />
+            <input type="text" nz-input formControlName="user" placeholder="用户名 / 电子邮件" />
           </nz-input-group>
         </nz-form-control>
       </nz-form-item>
