@@ -1,4 +1,6 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 
 import { AnyDto, Page } from './types';
 
@@ -28,6 +30,8 @@ export class WpxService {
    * 退出登录
    */
   onLogout = (): void => {};
+
+  constructor(private http: HttpClient) {}
 
   /**
    * 设置静态资源
@@ -69,5 +73,34 @@ export class WpxService {
     }
     this.pages = pages;
     this.navs = navs;
+  }
+
+  /**
+   * 获取多个应用变量
+   * @param keys
+   */
+  getVars(...keys: string[]): Observable<any> {
+    return this.http.get('vars', {
+      params: {
+        keys
+      }
+    });
+  }
+
+  /**
+   * 获取应用变量
+   * @param key
+   */
+  getVar(key: string): Observable<any> {
+    return this.http.get(`vars/${key}`);
+  }
+
+  /**
+   * 设置应用变量
+   * @param key
+   * @param value
+   */
+  setVar(key: string, value: any): Observable<any> {
+    return this.http.put(`vars/${key}`, { value });
   }
 }
