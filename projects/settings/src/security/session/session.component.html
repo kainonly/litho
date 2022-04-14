@@ -4,7 +4,11 @@
   </nz-input-group>
 </ng-template>
 
-<nz-card [nzTitle]="searchRef">
+<ng-template #actions>
+  <button nz-button nzType="primary" nzDanger> 全部中断 </button>
+</ng-template>
+
+<nz-card [nzTitle]="searchRef" [nzExtra]="actions">
   <nz-table #basicTable [nzData]="data" [nzHideOnSinglePage]="true">
     <thead>
       <tr>

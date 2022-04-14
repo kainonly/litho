@@ -1,20 +1,33 @@
-<nz-card>
-  <nz-list nzSize="large" nzItemLayout="horizontal">
-    <nz-list-item>
-      <nz-list-item-meta>
-        <nz-list-item-meta-avatar>
-          <nz-avatar nzShape="square" nzSize="large" [nzSrc]="'/assets/user.png'"></nz-avatar>
-        </nz-list-item-meta-avatar>
-        <nz-list-item-meta-title>kainonly</nz-list-item-meta-title>
-        <nz-list-item-meta-description>
-          登录异常，用户汇报该 IP [67.220.90.13] 不是本人登录
-        </nz-list-item-meta-description>
-      </nz-list-item-meta>
-      <ul nz-list-item-actions>
-        <nz-list-item-action>
-          <button nz-button nzType="link">处理</button>
-        </nz-list-item-action>
-      </ul>
-    </nz-list-item>
-  </nz-list>
+<ng-template #searchRef>
+  <nz-input-group style="width: 180px" nzSuffixIcon="search">
+    <input [(ngModel)]="searchText" (ngModelChange)="getData()" type="text" nz-input placeholder="用户名搜索" />
+  </nz-input-group>
+</ng-template>
+
+<ng-template #actions>
+  <button nz-button nzType="primary">
+    Grafana 监控日志
+    <i nz-icon nzType="select"></i>
+  </button>
+</ng-template>
+
+<nz-card [nzTitle]="searchRef" [nzExtra]="actions">
+  <nz-table #basicTable [nzData]="data" [nzHideOnSinglePage]="true">
+    <thead>
+      <tr>
+        <th nzWidth="200px" nzLeft>时间</th>
+        <th nzWidth="240px"><b>UID</b></th>
+        <th nzWidth="240px"><b>用户名</b></th>
+        <th><b>详情</b></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of basicTable.data">
+        <td nzAlign="center"> </td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </nz-table>
 </nz-card>
