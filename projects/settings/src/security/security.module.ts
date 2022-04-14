@@ -11,8 +11,6 @@ import { PolicyModule } from './policy/policy.module';
 import { SecurityService } from './security.service';
 import { SessionComponent } from './session/session.component';
 import { SessionModule } from './session/session.module';
-import { WhitelistComponent } from './whitelist/whitelist.component';
-import { WhitelistModule } from './whitelist/whitelist.module';
 
 export const security: Routes = [
   {
@@ -20,13 +18,6 @@ export const security: Routes = [
     component: PolicyComponent,
     data: {
       breadcrumb: '策略'
-    }
-  },
-  {
-    path: 'whitelist',
-    component: WhitelistComponent,
-    data: {
-      breadcrumb: '白名单'
     }
   },
   {
@@ -46,7 +37,7 @@ export const security: Routes = [
 ];
 
 @NgModule({
-  imports: [WpxShareModule, WpxModule, NzPipesModule, PolicyModule, WhitelistModule, SessionModule, AuditModule],
+  imports: [WpxShareModule, WpxModule, NzPipesModule, PolicyModule, SessionModule, AuditModule],
   providers: [SecurityService]
 })
 export class SecurityModule {}

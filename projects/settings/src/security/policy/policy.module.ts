@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 
 import { WpxModule, WpxShareModule } from '@weplanx/common';
 
+import { IpListComponent } from './ip-list/ip-list.component';
 import { IpLockComponent } from './ip-lock/ip-lock.component';
 import { PasswordExpireComponent } from './password-expire/password-expire.component';
 import { PasswordStrengthComponent } from './password-strength/password-strength.component';
@@ -18,6 +19,7 @@ import { UserLockComponent } from './user-lock/user-lock.component';
     SessionExpireComponent,
     UserLockComponent,
     IpLockComponent,
+    IpListComponent,
     PasswordStrengthComponent,
     PasswordExpireComponent
   ]

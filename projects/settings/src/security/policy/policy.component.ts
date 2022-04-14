@@ -3,6 +3,7 @@ import { Component, OnInit, Type } from '@angular/core';
 import { WpxService } from '@weplanx/common';
 import { NzModalService } from 'ng-zorro-antd/modal';
 
+import { IpListComponent } from './ip-list/ip-list.component';
 import { IpLockComponent } from './ip-lock/ip-lock.component';
 import { PasswordExpireComponent } from './password-expire/password-expire.component';
 import { PasswordStrengthComponent } from './password-strength/password-strength.component';
@@ -15,6 +16,7 @@ import { UserLockComponent } from './user-lock/user-lock.component';
 })
 export class PolicyComponent implements OnInit {
   data: Record<string, any> = {};
+  ipList: any[] = [];
 
   constructor(private modal: NzModalService, private wpx: WpxService) {}
 
@@ -29,6 +31,8 @@ export class PolicyComponent implements OnInit {
         'user_login_failed_times',
         'user_lock_time',
         'ip_login_failed_times',
+        'ip_whitelist',
+        'ip_blacklist',
         'password_strength',
         'password_expire'
       )
@@ -38,9 +42,15 @@ export class PolicyComponent implements OnInit {
           user_login_failed_times: parseInt(v['user_login_failed_times']) ?? 5,
           user_lock_time: v['user_lock_time'] ?? '15m',
           ip_login_failed_times: parseInt(v['ip_login_failed_times']) ?? 10,
+          ip_whitelist: !v['ip_whitelist'] ? [] : JSON.parse(v['ip_whitelist']),
+          ip_blacklist: !v['ip_blacklist'] ? [] : JSON.parse(v['ip_blacklist']),
           password_strength: v['password_strength'] ?? 1,
           password_expire: parseInt(v['password_expire']) ?? 365
         };
+        this.ipList = [
+          ...(<string[]>this.data['ip_whitelist']).map(v => ({ type: 'white', value: v })),
+          ...(<string[]>this.data['ip_blacklist']).map(v => ({ type: 'black', value: v }))
+        ];
       });
   }
 
@@ -67,6 +77,10 @@ export class PolicyComponent implements OnInit {
 
   setIpLock(): void {
     this.setVar(IpLockComponent);
+  }
+
+  setIpList(): void {
+    this.setVar(IpListComponent);
   }
 
   setPasswordStrength(): void {

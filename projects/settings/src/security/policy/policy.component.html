@@ -1,5 +1,5 @@
 <nz-card>
-  <nz-list nzSize="large">
+  <nz-list nzSize="large" nzItemLayout="vertical">
     <nz-list-item>
       <nz-list-item-meta>
         <nz-list-item-meta-title><b>会话超时策略</b></nz-list-item-meta-title>
@@ -31,12 +31,43 @@
       <nz-list-item-meta>
         <nz-list-item-meta-title><b>IP 锁定策略</b></nz-list-item-meta-title>
         <nz-list-item-meta-description>
-          非白名单 IP 连续 {{ data['ip_login_failed_times'] }} 次登录失败后，锁定 IP。
+          IP 连续 {{ data['ip_login_failed_times'] }} 次登录失败后（无白名单时启用），锁定 IP。
         </nz-list-item-meta-description>
       </nz-list-item-meta>
       <ul nz-list-item-actions>
         <nz-list-item-action>
           <button nz-button nzType="link" (click)="setIpLock()">设置</button>
+        </nz-list-item-action>
+      </ul>
+    </nz-list-item>
+    <nz-list-item>
+      <nz-list-item-meta>
+        <nz-list-item-meta-title><b>IP 名单</b></nz-list-item-meta-title>
+        <nz-list-item-meta-description>
+          <nz-table style="width: 40%" #basicTable [nzData]="ipList" [nzHideOnSinglePage]="true">
+            <thead>
+              <tr>
+                <th nzWidth="200px"><b>种类</b></th>
+                <th><b>IP 地址</b></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of basicTable.data">
+                <td>
+                  <ng-container [ngSwitch]="item.type">
+                    <ng-container *ngSwitchCase="'white'">白名单</ng-container>
+                    <ng-container *ngSwitchCase="'black'">黑名单</ng-container>
+                  </ng-container>
+                </td>
+                <td>{{ item.value }}</td>
+              </tr>
+            </tbody>
+          </nz-table>
+        </nz-list-item-meta-description>
+      </nz-list-item-meta>
+      <ul nz-list-item-actions>
+        <nz-list-item-action>
+          <button nz-button nzType="link" (click)="setIpList()">设置</button>
         </nz-list-item-action>
       </ul>
     </nz-list-item>
