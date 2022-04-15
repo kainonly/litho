@@ -2,9 +2,9 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { WpxModule, WpxShareModule } from '@weplanx/common';
-import { WpxHeaderModule } from '@weplanx/components/header';
-import { WpxNavModule } from '@weplanx/components/nav';
 
+import { WpxHeaderModule } from '../header/header.module';
+import { WpxNavModule } from '../nav/nav.module';
 import { AdminComponent } from './admin.component';
 import { application, ApplicationModule } from './application/application.module';
 import { organize, OrganizeModule } from './organize/organize.module';

@@ -2,9 +2,9 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { WpxModule, WpxShareModule } from '@weplanx/common';
-import { WpxHeaderModule } from '@weplanx/components/header';
-import { WpxNavModule } from '@weplanx/components/nav';
 
+import { WpxHeaderModule } from '../header/header.module';
+import { WpxNavModule } from '../nav/nav.module';
 import { audit, AuditModule } from './audit/audit.module';
 import { CenterComponent } from './center.component';
 import { CenterService } from './center.service';

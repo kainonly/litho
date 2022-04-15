@@ -174,113 +174,31 @@
         }
       }
     },
-    "settings": {
+    "integrate": {
       "projectType": "library",
-      "root": "projects/settings",
-      "sourceRoot": "projects/settings/src",
+      "root": "projects/integrate",
+      "sourceRoot": "projects/integrate",
       "prefix": "wpx",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:ng-packagr",
           "options": {
-            "project": "projects/settings/ng-package.json"
+            "project": "projects/integrate/ng-package.json"
           },
           "configurations": {
             "production": {
-              "tsConfig": "projects/settings/tsconfig.lib.prod.json"
+              "tsConfig": "projects/integrate/tsconfig.lib.prod.json"
             },
             "development": {
-              "tsConfig": "projects/settings/tsconfig.lib.json"
+              "tsConfig": "projects/integrate/tsconfig.lib.json"
             }
           },
           "defaultConfiguration": "production"
         },
-        "test": {
-          "builder": "@angular-devkit/build-angular:karma",
-          "options": {
-            "main": "projects/settings/src/test.ts",
-            "tsConfig": "projects/settings/tsconfig.spec.json",
-            "karmaConfig": "projects/settings/karma.conf.js"
-          }
-        },
         "lint": {
           "builder": "@angular-eslint/builder:lint",
           "options": {
-            "lintFilePatterns": ["projects/settings/**/*.ts", "projects/settings/**/*.html"]
-          }
-        }
-      }
-    },
-    "center": {
-      "projectType": "library",
-      "root": "projects/center",
-      "sourceRoot": "projects/center/src",
-      "prefix": "lib",
-      "architect": {
-        "build": {
-          "builder": "@angular-devkit/build-angular:ng-packagr",
-          "options": {
-            "project": "projects/center/ng-package.json"
-          },
-          "configurations": {
-            "production": {
-              "tsConfig": "projects/center/tsconfig.lib.prod.json"
-            },
-            "development": {
-              "tsConfig": "projects/center/tsconfig.lib.json"
-            }
-          },
-          "defaultConfiguration": "production"
-        },
-        "test": {
-          "builder": "@angular-devkit/build-angular:karma",
-          "options": {
-            "main": "projects/center/src/test.ts",
-            "tsConfig": "projects/center/tsconfig.spec.json",
-            "karmaConfig": "projects/center/karma.conf.js"
-          }
-        },
-        "lint": {
-          "builder": "@angular-eslint/builder:lint",
-          "options": {
-            "lintFilePatterns": ["projects/center/**/*.ts", "projects/center/**/*.html"]
-          }
-        }
-      }
-    },
-    "resources": {
-      "projectType": "library",
-      "root": "projects/resources",
-      "sourceRoot": "projects/resources/src",
-      "prefix": "lib",
-      "architect": {
-        "build": {
-          "builder": "@angular-devkit/build-angular:ng-packagr",
-          "options": {
-            "project": "projects/resources/ng-package.json"
-          },
-          "configurations": {
-            "production": {
-              "tsConfig": "projects/resources/tsconfig.lib.prod.json"
-            },
-            "development": {
-              "tsConfig": "projects/resources/tsconfig.lib.json"
-            }
-          },
-          "defaultConfiguration": "production"
-        },
-        "test": {
-          "builder": "@angular-devkit/build-angular:karma",
-          "options": {
-            "main": "projects/resources/src/test.ts",
-            "tsConfig": "projects/resources/tsconfig.spec.json",
-            "karmaConfig": "projects/resources/karma.conf.js"
-          }
-        },
-        "lint": {
-          "builder": "@angular-eslint/builder:lint",
-          "options": {
-            "lintFilePatterns": ["projects/resources/**/*.ts", "projects/resources/**/*.html"]
+            "lintFilePatterns": ["projects/integrate/**/*.ts", "projects/integrate/**/*.html"]
           }
         }
       }

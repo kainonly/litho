@@ -3,8 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { ShareModule } from '@common/share.module';
 import { WpxDynamicComponent, WpxDynamicModule } from '@weplanx/components';
-import { WpxHeaderModule } from '@weplanx/components/header';
-import { WpxNavModule } from '@weplanx/components/nav';
+import { WpxHeaderModule, WpxNavModule } from '@weplanx/integrate';
 
 import { EmptyComponent } from './empty/empty.component';
 import { PagesActivated } from './pages.activated';

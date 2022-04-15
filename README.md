@@ -16,12 +16,10 @@
 npm install @weplanx/common -S
 ```
 
-| 扩展库              | 说明         |
-| ------------------- | ------------ |
-| @weplanx/components | 组件库       |
-| @weplanx/settings   | 管理者工具库 |
-| @weplanx/resources  | 服务资源库   |
-| @weplanx/center     | 个人中心库   |
+| 扩展库              | 说明     |
+| ------------------- | -------- |
+| @weplanx/components | 组件库   |
+| @weplanx/integrate  | 模块集成 |
 
 > 感谢 [JetBrains](https://www.jetbrains.com/?from=ngx-bit) 提供的免费开源 License 赞助
 >

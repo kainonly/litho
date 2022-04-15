@@ -70,10 +70,10 @@ export class FactoryComponent implements OnInit {
     }
     if (e.node?.isSelected) {
       this.pages.id = e.node!.key;
-      this.router.navigate(['settings', 'application', 'factory', e.node!.key, 'schema']);
+      this.router.navigate(['admin', 'application', 'factory', e.node!.key, 'schema']);
     } else {
       this.pages.id = undefined;
-      this.router.navigate(['settings', 'application', 'factory', 'home']);
+      this.router.navigate(['admin', 'application', 'factory', 'home']);
     }
   }
 

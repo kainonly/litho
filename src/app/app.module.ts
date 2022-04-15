@@ -23,6 +23,11 @@ const routes: Routes = [
     loadChildren: () => import('./login/login.module').then(m => m.LoginModule)
   },
   {
+    path: 'pages',
+    loadChildren: () => import('./pages/pages.module').then(m => m.PagesModule),
+    canActivate: [AppGuard]
+  },
+  {
     path: 'example',
     loadChildren: () => import('./example/example.module').then(m => m.ExampleModule),
     data: {
@@ -31,13 +36,8 @@ const routes: Routes = [
     canActivate: [AppGuard]
   },
   {
-    path: 'pages',
-    loadChildren: () => import('./pages/pages.module').then(m => m.PagesModule),
-    canActivate: [AppGuard]
-  },
-  {
     path: 'admin',
-    loadChildren: () => import('@weplanx/admin').then(m => m.AdminModule),
+    loadChildren: () => import('@weplanx/integrate').then(m => m.AdminModule),
     canActivate: [AppGuard],
     data: {
       breadcrumb: '管理后台'
@@ -45,7 +45,7 @@ const routes: Routes = [
   },
   {
     path: 'center',
-    loadChildren: () => import('@weplanx/center').then(m => m.CenterModule),
+    loadChildren: () => import('@weplanx/integrate').then(m => m.CenterModule),
     canActivate: [AppGuard],
     data: {
       breadcrumb: '个人中心'
