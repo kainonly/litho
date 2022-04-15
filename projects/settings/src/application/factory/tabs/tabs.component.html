@@ -2,10 +2,14 @@
   <nz-card-tab>
     <nz-tabset nzLinkRouter [nzAnimated]="false" [nzTabBarExtraContent]="extra">
       <nz-tab>
-        <a *nzTabLink nz-tab-link [routerLink]="['/resources', 'factory', 'pages', pages.id, 'schema']"> 内容模型 </a>
+        <a *nzTabLink nz-tab-link [routerLink]="['/settings', 'application', 'factory', pages.id, 'schema']">
+          内容模型
+        </a>
       </nz-tab>
       <nz-tab>
-        <a *nzTabLink nz-tab-link [routerLink]="['/resources', 'factory', 'pages', pages.id, 'indexes']"> 索引规则 </a>
+        <a *nzTabLink nz-tab-link [routerLink]="['/settings', 'application', 'factory', pages.id, 'indexes']">
+          索引规则
+        </a>
       </nz-tab>
     </nz-tabset>
   </nz-card-tab>
