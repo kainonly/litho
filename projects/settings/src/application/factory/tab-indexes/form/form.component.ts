@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { NzMessageService } from 'ng-zorro-antd/message';
@@ -8,7 +8,7 @@ import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { PagesSerivce } from '../../pages.serivce';
 
 @Component({
-  selector: 'wpx-settings-pages-indexes-form',
+  selector: 'wpx-settings-factory-indexes-form',
   templateUrl: './form.component.html'
 })
 export class FormComponent implements OnInit {

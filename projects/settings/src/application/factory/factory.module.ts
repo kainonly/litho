@@ -7,15 +7,15 @@ import { NzSliderModule } from 'ng-zorro-antd/slider';
 import { NzTreeModule } from 'ng-zorro-antd/tree';
 import { NzTreeSelectModule } from 'ng-zorro-antd/tree-select';
 
+import { FactoryComponent } from './factory.component';
 import { FormComponent } from './form/form.component';
 import { HomeComponent } from './home/home.component';
-import { PagesComponent } from './pages.component';
 import { IndexesComponent } from './tab-indexes/indexes.component';
 import { IndexesModule } from './tab-indexes/indexes.module';
 import { SchemaComponent } from './tab-schema/schema.component';
 import { SchemaModule } from './tab-schema/schema.module';
 
-export const pages: Routes = [
+export const factory: Routes = [
   {
     path: 'home',
     component: HomeComponent,
@@ -37,7 +37,7 @@ export const pages: Routes = [
       breadcrumb: '索引规则'
     }
   },
-  { path: '', redirectTo: '/settings/application/pages/home', pathMatch: 'full' }
+  { path: '', redirectTo: '/settings/application/factory/home', pathMatch: 'full' }
 ];
 
 @NgModule({
@@ -51,6 +51,6 @@ export const pages: Routes = [
     SchemaModule,
     NzSliderModule
   ],
-  declarations: [PagesComponent, HomeComponent, FormComponent]
+  declarations: [FactoryComponent, HomeComponent, FormComponent]
 })
-export class PagesModule {}
+export class FactoryModule {}

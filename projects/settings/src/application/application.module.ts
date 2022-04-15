@@ -3,22 +3,22 @@ import { Routes } from '@angular/router';
 
 import { WpxModule, WpxShareModule } from '@weplanx/common';
 
-import { PagesComponent } from './pages/pages.component';
-import { pages, PagesModule } from './pages/pages.module';
+import { FactoryComponent } from './factory/factory.component';
+import { FactoryModule, factory } from './factory/factory.module';
 
 export const application: Routes = [
   {
-    path: 'pages',
-    component: PagesComponent,
-    children: pages,
+    path: 'factory',
+    component: FactoryComponent,
+    children: factory,
     data: {
       breadcrumb: '内容生成器'
     }
   },
-  { path: '', redirectTo: '/settings/application/pages/home', pathMatch: 'full' }
+  { path: '', redirectTo: '/settings/application/factory/home', pathMatch: 'full' }
 ];
 
 @NgModule({
-  imports: [WpxShareModule, WpxModule, PagesModule]
+  imports: [WpxShareModule, WpxModule, FactoryModule]
 })
 export class ApplicationModule {}

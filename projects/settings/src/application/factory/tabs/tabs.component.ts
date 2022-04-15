@@ -3,7 +3,7 @@ import { Component, Input, TemplateRef } from '@angular/core';
 import { PagesSerivce } from '../pages.serivce';
 
 @Component({
-  selector: 'wpx-settings-pages-tabs',
+  selector: 'wpx-settings-factory-tabs',
   templateUrl: './tabs.component.html'
 })
 export class TabsComponent {

@@ -10,7 +10,7 @@ import { PagesSerivce } from '../../pages.serivce';
 import { fieldTypeValues } from '../../values';
 
 @Component({
-  selector: 'wpx-settings-pages-schema-form',
+  selector: 'wpx-settings-factory-schema-form',
   templateUrl: './form.component.html'
 })
 export class FormComponent implements OnInit {

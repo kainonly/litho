@@ -11,7 +11,7 @@ import { NzTreeNodeOptions } from 'ng-zorro-antd/tree';
 import { PagesSerivce } from '../pages.serivce';
 
 @Component({
-  selector: 'wpx-settings-pages-form',
+  selector: 'wpx-settings-factory-form',
   templateUrl: './form.component.html'
 })
 export class FormComponent implements OnInit {

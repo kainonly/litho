@@ -134,20 +134,4 @@ export class PagesSerivce extends Api<Page> {
   deleteIndex(index: string): Observable<any> {
     return this.http.delete(this.url('_indexes', this.id!, index));
   }
-
-  /**
-   * 获取验证器
-   */
-  getValidator(): Observable<any> {
-    return this.http.get(this.url('_validator', this.id!));
-  }
-
-  setValidator(validator: string): Observable<any> {
-    // this.http.put(this.url(['_validator', this.id!]));
-    return this.updateOneById(this.id!, {
-      $set: {
-        [`schema.validator`]: validator
-      }
-    });
-  }
 }

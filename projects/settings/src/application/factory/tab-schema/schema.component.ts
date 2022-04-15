@@ -10,7 +10,7 @@ import { fieldTypeValues } from '../values';
 import { FormComponent } from './form/form.component';
 
 @Component({
-  selector: 'wpx-settings-pages-schema',
+  selector: 'wpx-settings-factory-schema',
   templateUrl: './schema.component.html',
   styleUrls: ['./schema.component.scss']
 })

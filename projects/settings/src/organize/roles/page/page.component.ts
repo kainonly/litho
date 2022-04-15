@@ -5,7 +5,7 @@ import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalRef } from 'ng-zorro-antd/modal';
 import { NzFormatEmitEvent, NzTreeComponent, NzTreeNode, NzTreeNodeOptions } from 'ng-zorro-antd/tree';
 
-import { PagesSerivce } from '../../../application/pages/pages.serivce';
+import { PagesSerivce } from '../../../application/factory/pages.serivce';
 import { RolesService } from '../roles.service';
 import { Role } from '../types';
 
