@@ -1,0 +1,17 @@
+<nz-page-header [nzTitle]="ref.searchRef">
+  <nz-page-header-extra>
+    <ng-container *ngTemplateOutlet="ref.uploadRef"></ng-container>
+  </nz-page-header-extra>
+</nz-page-header>
+
+<div style="padding: 8px 8px 24px; height: calc(100% - 61px)">
+  <wpx-media-view #ref wpxType="pictures" [wpxFallback]="['assets', 'dataflow.svg'] | wpxAssets"></wpx-media-view>
+</div>
+
+<nz-alert
+  style="position: fixed; bottom: 0; left: 200px; right: 0"
+  nzBanner
+  nzType="info"
+  nzMessage="接受 jpeg,png,bmp,gif,webp,avif 等文件类型的上传，其他文件将被阻止"
+  nzCloseable
+></nz-alert>
