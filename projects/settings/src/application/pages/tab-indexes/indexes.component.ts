@@ -7,7 +7,7 @@ import { PagesSerivce } from '../pages.serivce';
 import { FormComponent } from './form/form.component';
 
 @Component({
-  selector: 'wpx-resources-factory-pages-indexes',
+  selector: 'wpx-settings-pages-indexes',
   templateUrl: './indexes.component.html'
 })
 export class IndexesComponent implements OnInit {

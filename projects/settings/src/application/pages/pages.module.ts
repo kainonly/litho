@@ -37,7 +37,7 @@ export const pages: Routes = [
       breadcrumb: '索引规则'
     }
   },
-  { path: '', redirectTo: '/resources/factory/pages/home', pathMatch: 'full' }
+  { path: '', redirectTo: '/settings/application/pages/home', pathMatch: 'full' }
 ];
 
 @NgModule({

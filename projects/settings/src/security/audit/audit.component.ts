@@ -9,7 +9,9 @@ import { LoginLog } from './types';
 })
 export class AuditComponent implements OnInit {
   searchText: string = '';
+
   data: any[] = [];
+  expands: Set<string> = new Set<string>();
 
   constructor(private audit: AuditService) {}
 
@@ -21,5 +23,13 @@ export class AuditComponent implements OnInit {
     this.audit.logs<LoginLog>('login_logs', {}).subscribe(v => {
       this.data = [...v];
     });
+  }
+
+  onExpandChange(id: string, checked: boolean): void {
+    if (checked) {
+      this.expands.add(id);
+    } else {
+      this.expands.delete(id);
+    }
   }
 }

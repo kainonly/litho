@@ -36,14 +36,6 @@ const routes: Routes = [
     canActivate: [AppGuard]
   },
   {
-    path: 'resources',
-    loadChildren: () => import('@weplanx/resources').then(m => m.ResourcesModule),
-    canActivate: [AppGuard],
-    data: {
-      breadcrumb: '资源中心'
-    }
-  },
-  {
     path: 'settings',
     loadChildren: () => import('@weplanx/settings').then(m => m.SettingsModule),
     canActivate: [AppGuard],

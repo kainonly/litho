@@ -3,30 +3,22 @@ import { Routes } from '@angular/router';
 
 import { WpxModule, WpxShareModule } from '@weplanx/common';
 
-import { OfficeComponent } from './office/office.component';
-import { OfficeModule } from './office/office.module';
-import { OverviewComponent } from './overview/overview.component';
-import { OverviewModule } from './overview/overview.module';
+import { PagesComponent } from './pages/pages.component';
+import { pages, PagesModule } from './pages/pages.module';
 
 export const application: Routes = [
   {
-    path: 'overview',
-    component: OverviewComponent,
+    path: 'pages',
+    component: PagesComponent,
+    children: pages,
     data: {
-      breadcrumb: '概述'
+      breadcrumb: '内容生成器'
     }
   },
-  {
-    path: 'office',
-    component: OfficeComponent,
-    data: {
-      breadcrumb: '办公'
-    }
-  },
-  { path: '', redirectTo: '/settings/application/overview', pathMatch: 'full' }
+  { path: '', redirectTo: '/settings/application/pages/home', pathMatch: 'full' }
 ];
 
 @NgModule({
-  imports: [WpxShareModule, WpxModule, OverviewModule, OfficeModule]
+  imports: [WpxShareModule, WpxModule, PagesModule]
 })
 export class ApplicationModule {}

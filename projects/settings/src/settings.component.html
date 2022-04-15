@@ -5,11 +5,8 @@
       <ul nz-menu nzMode="inline">
         <li nz-menu-group nzTitle="应用">
           <ul>
-            <li nz-menu-item nzMatchRouter [routerLink]="['application', 'overview']">
-              <i nz-icon nzType="fund-view"></i> <span>概述</span>
-            </li>
-            <li nz-menu-item nzMatchRouter [routerLink]="['application', 'office']">
-              <i nz-icon nzType="coffee"></i> <span>办公</span>
+            <li nz-menu-item nzMatchRouter [routerLink]="['application', 'pages']">
+              <i nz-icon nzType="layout"></i> <span>内容生成器</span>
             </li>
           </ul>
         </li>
@@ -20,6 +17,9 @@
             </li>
             <li nz-menu-item nzMatchRouter [routerLink]="['organize', 'users']">
               <i nz-icon nzType="team"></i> <span>团队成员</span>
+            </li>
+            <li nz-menu-item nzMatchRouter [routerLink]="['organize', 'office']">
+              <i nz-icon nzType="coffee"></i> <span>办公协作</span>
             </li>
           </ul>
         </li>

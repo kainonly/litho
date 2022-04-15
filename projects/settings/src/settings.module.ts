@@ -36,7 +36,7 @@ const routes: Routes = [
           breadcrumb: '安全性'
         }
       },
-      { path: '', redirectTo: '/settings/application/overview', pathMatch: 'full' }
+      { path: '', redirectTo: '/settings/application/pages', pathMatch: 'full' }
     ]
   }
 ];
