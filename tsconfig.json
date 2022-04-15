@@ -32,7 +32,7 @@
       "@weplanx/components/table": ["projects/components/table/public-api.ts"],
       "@weplanx/components/form": ["projects/components/form/public-api.ts"],
       "@weplanx/components/richtext": ["projects/components/richtext/public-api.ts"],
-      "@weplanx/settings": ["projects/settings/src/public-api.ts"],
+      "@weplanx/admin": ["projects/admin/src/public-api.ts"],
       "@weplanx/center": ["projects/center/src/public-api.ts"]
     }
   },

@@ -36,11 +36,11 @@ const routes: Routes = [
     canActivate: [AppGuard]
   },
   {
-    path: 'settings',
-    loadChildren: () => import('@weplanx/settings').then(m => m.SettingsModule),
+    path: 'admin',
+    loadChildren: () => import('@weplanx/admin').then(m => m.AdminModule),
     canActivate: [AppGuard],
     data: {
-      breadcrumb: '系统设置'
+      breadcrumb: '管理后台'
     }
   },
   {

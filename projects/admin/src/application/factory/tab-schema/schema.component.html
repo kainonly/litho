@@ -1,0 +1,61 @@
+<wpx-admin-factory-tabs [extra]="extra">
+  <ng-template #extra>
+    <button nz-button nzType="primary" (click)="form()"> 新增 </button>
+  </ng-template>
+  <nz-table
+    #contentTable
+    [nzData]="fieldList"
+    [nzFrontPagination]="false"
+    [nzShowPagination]="false"
+    [nzScroll]="{ x: '1200px' }"
+  >
+    <thead>
+      <tr>
+        <th nzWidth="50px" nzLeft nzAlign="center"> </th>
+        <th nzWidth="300px" nzLeft>字段</th>
+        <th>描述</th>
+        <th nzWidth="50px" nzRight nzAlign="center">操作</th>
+      </tr>
+    </thead>
+    <tbody cdkDropList (cdkDropListDropped)="sort($event)">
+      <tr *ngFor="let data of contentTable.data" cdkDrag>
+        <td nzLeft nzAlign="center">
+          <button nz-button nzType="dashed" nzShape="circle" cdkDragHandle>
+            <i nz-icon nzType="drag"></i>
+          </button>
+        </td>
+        <td nzLeft>
+          <nz-tag nzColor="blue">{{ datatype[data.type] }}</nz-tag>
+          {{ data.label }} [ {{ data.key }} ]
+        </td>
+        <td>
+          <ng-container *ngIf="data.required">
+            <nz-tag>必须的</nz-tag>
+          </ng-container>
+          <ng-container *ngIf="data.hide">
+            <nz-tag>隐藏字段</nz-tag>
+          </ng-container>
+          <ng-container *ngIf="!!data.option?.reference">
+            <nz-tag>
+              <span>{{ data.option?.reference }}=>{{ data.option?.target }}</span>
+            </nz-tag>
+          </ng-container>
+          <ng-container *ngIf="data.default">
+            <nz-tag>默认值:{{ data.default }}</nz-tag>
+          </ng-container>
+        </td>
+        <td nzRight nzAlign="center">
+          <button nz-button nzType="text" nz-dropdown [nzDropdownMenu]="actions">
+            <i nz-icon nzType="ellipsis"></i>
+          </button>
+          <nz-dropdown-menu #actions="nzDropdownMenu">
+            <ul nz-menu>
+              <li nz-menu-item (click)="form(data)">编辑</li>
+              <li nz-menu-item nzDanger (click)="delete(data)">删除</li>
+            </ul>
+          </nz-dropdown-menu>
+        </td>
+      </tr>
+    </tbody>
+  </nz-table>
+</wpx-admin-factory-tabs>

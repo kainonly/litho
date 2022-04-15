@@ -1,0 +1,72 @@
+<ng-template #searchRef>
+  <nz-space>
+    <nz-range-picker
+      *nzSpaceItem
+      [nzShowTime]="{ nzFormat: 'HH:mm' }"
+      nzFormat="yyyy-MM-dd HH:mm"
+      ngModel
+    ></nz-range-picker>
+    <!--    <nz-input-group *nzSpaceItem style="width: 180px" nzSuffixIcon="search">-->
+    <!--      <input [(ngModel)]="searchText" (ngModelChange)="getData()" type="text" nz-input placeholder="用户名搜索" />-->
+    <!--    </nz-input-group>-->
+  </nz-space>
+</ng-template>
+
+<ng-template #actions>
+  <button nz-button nzType="primary">
+    Grafana 监控
+    <i nz-icon nzType="select"></i>
+  </button>
+</ng-template>
+
+<nz-card>
+  <nz-card-tab>
+    <nz-tabset nzSize="large" [nzTabBarExtraContent]="actions">
+      <nz-tab nzTitle="登录日志"></nz-tab>
+      <nz-tab nzTitle="操作日志"></nz-tab>
+      <nz-tab nzTitle="请求日志"></nz-tab>
+    </nz-tabset>
+  </nz-card-tab>
+  <nz-table #basicTable [nzData]="data" [nzHideOnSinglePage]="true">
+    <thead>
+      <tr>
+        <th nzWidth="50px" nzLeft></th>
+        <th nzWidth="200px"><b>时间</b></th>
+        <th nzWidth="240px"><b>用户名</b></th>
+        <th nzWidth="240px"><b>电子邮件</b></th>
+        <th><b>详情</b></th>
+      </tr>
+    </thead>
+    <tbody>
+      <ng-container *ngFor="let item of basicTable.data">
+        <tr>
+          <td [nzExpand]="expands.has(item._id)" (nzExpandChange)="onExpandChange(item._id, $event)"></td>
+          <td>{{ item.time | date: 'yyyy-MM-dd hh:mm:ss' }} </td>
+          <td>{{ item.username }}</td>
+          <td>{{ !!item.email ? item.email : '-' }}</td>
+          <td>
+            <nz-space [nzSplit]="split">
+              <ng-template #split>
+                <nz-divider nzType="vertical"></nz-divider>
+              </ng-template>
+              <span *nzSpaceItem>IP 地址： {{ item.ip }}</span>
+              <span *nzSpaceItem>国家 / 地区：{{ item.detail?.country | nzSafeNull: '-' }}</span>
+              <span *nzSpaceItem>省 / 州：{{ item.detail?.province | nzSafeNull: '-' }}</span>
+              <span *nzSpaceItem>城市：{{ item.detail?.city | nzSafeNull: '-' }}</span>
+              <span *nzSpaceItem>ISP：{{ item.detail?.isp | nzSafeNull: '-' }}</span>
+            </nz-space>
+          </td>
+        </tr>
+        <tr [nzExpand]="expands.has(item._id)">
+          <nz-space [nzSplit]="split">
+            <ng-template #split>
+              <nz-divider nzType="vertical"></nz-divider>
+            </ng-template>
+            <span *nzSpaceItem>UID： {{ item.user }}</span>
+            <span *nzSpaceItem>TokenID： {{ item.token_id }}</span>
+          </nz-space>
+        </tr>
+      </ng-container>
+    </tbody>
+  </nz-table>
+</nz-card>
