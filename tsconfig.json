@@ -23,7 +23,6 @@
       "@env": ["src/environments/environment.ts"],
       "@common/*": ["src/app/common/*"],
       "@weplanx/common": ["projects/common/src/public-api.ts"],
-      "@weplanx/components": ["projects/components/public-api.ts"],
       "@weplanx/components/checkbox": ["projects/components/checkbox/public-api.ts"],
       "@weplanx/components/upload": ["projects/components/upload/public-api.ts"],
       "@weplanx/components/media": ["projects/components/media/public-api.ts"],

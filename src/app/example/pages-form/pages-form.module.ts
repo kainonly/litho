@@ -5,17 +5,17 @@ import { ShareModule } from '@common/share.module';
 import { WpxFormModule } from '@weplanx/components/form';
 import { NzDescriptionsModule } from 'ng-zorro-antd/descriptions';
 
-import { DynamicFormComponent } from './dynamic-form.component';
+import { PagesFormComponent } from './pages-form.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: DynamicFormComponent
+    component: PagesFormComponent
   }
 ];
 
 @NgModule({
   imports: [ShareModule, NzDescriptionsModule, WpxFormModule, RouterModule.forChild(routes)],
-  declarations: [DynamicFormComponent]
+  declarations: [PagesFormComponent]
 })
-export class DynamicFormModule {}
+export class PagesFormModule {}

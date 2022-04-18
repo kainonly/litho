@@ -2,8 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { ShareModule } from '@common/share.module';
-import { WpxDynamicModule } from '@weplanx/components';
-import { WpxHeaderModule, WpxNavModule } from '@weplanx/integrate';
+import { WpxHeaderModule, WpxNavModule, WpxPagesModule } from '@weplanx/integrate';
 
 import { EmptyComponent } from './empty/empty.component';
 import { ExampleComponent } from './example.component';
@@ -28,26 +27,27 @@ const routes: Routes = [
         }
       },
       {
-        path: 'dynamic-form',
-        loadChildren: () => import('./dynamic-form/dynamic-form.module').then(m => m.DynamicFormModule),
+        path: 'pages-form',
+        loadChildren: () => import('./pages-form/pages-form.module').then(m => m.PagesFormModule),
         data: {
           breadcrumb: '动态表单'
         }
       },
       {
-        path: 'table',
-        loadChildren: () => import('./table/table.module').then(m => m.TableModule),
+        path: 'pages-table',
+        loadChildren: () => import('./pages-table/pages-table.module').then(m => m.PagesTableModule),
         data: {
           breadcrumb: '动态表格'
         }
       },
+
       { path: '', redirectTo: '/example/home', pathMatch: 'full' }
     ]
   }
 ];
 
 @NgModule({
-  imports: [ShareModule, WpxDynamicModule, WpxHeaderModule, WpxNavModule, RouterModule.forChild(routes)],
+  imports: [ShareModule, WpxPagesModule, WpxHeaderModule, WpxNavModule, RouterModule.forChild(routes)],
   declarations: [ExampleComponent, EmptyComponent]
 })
 export class ExampleModule {}

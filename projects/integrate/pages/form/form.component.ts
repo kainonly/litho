@@ -2,17 +2,17 @@ import { Component, OnInit } from '@angular/core';
 
 import { SchemaField } from '@weplanx/common';
 
-import { DynamicService } from '../dynamic.service';
+import { PagesService } from '../pages.service';
 
 @Component({
-  selector: 'wpx-dynamic-form',
+  selector: 'wpx-pages-form',
   templateUrl: './form.component.html'
 })
 export class FormComponent implements OnInit {
   fields!: SchemaField[];
   rules!: any[];
 
-  constructor(public dynamic: DynamicService) {}
+  constructor(public dynamic: PagesService) {}
 
   ngOnInit(): void {
     const schema = this.dynamic.page?.schema;

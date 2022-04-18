@@ -6,3 +6,5 @@ export * from './admin/admin.module';
 export * from './admin/admin.component';
 export * from './center/center.module';
 export * from './center/center.component';
+export * from './pages/pages.component';
+export * from './pages/pages.module';

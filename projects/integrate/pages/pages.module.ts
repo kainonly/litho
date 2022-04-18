@@ -3,15 +3,15 @@ import { NgModule } from '@angular/core';
 
 import { WpxModule, WpxShareModule } from '@weplanx/common';
 
-import { WpxDynamicComponent } from './dynamic.component';
-import { DynamicService } from './dynamic.service';
 import { FormModule } from './form/form.module';
+import { WpxPagesComponent } from './pages.component';
+import { PagesService } from './pages.service';
 import { TableModule } from './table/table.module';
 
 @NgModule({
   imports: [WpxModule, WpxShareModule, PortalModule, TableModule, FormModule],
-  declarations: [WpxDynamicComponent],
-  exports: [WpxDynamicComponent],
-  providers: [DynamicService]
+  declarations: [WpxPagesComponent],
+  exports: [WpxPagesComponent],
+  providers: [PagesService]
 })
-export class WpxDynamicModule {}
+export class WpxPagesModule {}

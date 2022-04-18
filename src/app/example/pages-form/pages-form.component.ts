@@ -3,10 +3,10 @@ import { Component } from '@angular/core';
 import { Field, SchemaField } from '@weplanx/common';
 
 @Component({
-  selector: 'app-example-dynamic-form',
-  templateUrl: './dynamic-form.component.html'
+  selector: 'app-example-pages-form',
+  templateUrl: './pages-form.component.html'
 })
-export class DynamicFormComponent {
+export class PagesFormComponent {
   fields: SchemaField[] = [
     {
       key: 'name',

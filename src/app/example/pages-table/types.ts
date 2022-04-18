@@ -1,4 +1,4 @@
-export interface Types {
+export interface Order {
   order_number: string;
   service_number: string;
   service_name: string;

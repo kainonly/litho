@@ -4,11 +4,11 @@ import { Data } from '@weplanx/common';
 import { TableField } from '@weplanx/components/table';
 import { NzModalService } from 'ng-zorro-antd/modal';
 
-import { DynamicService } from '../dynamic.service';
+import { PagesService } from '../pages.service';
 import { FormComponent } from './form/form.component';
 
 @Component({
-  selector: 'wpx-dynamic-table',
+  selector: 'wpx-pages-table',
   templateUrl: './table.component.html'
 })
 export class TableComponent implements OnInit {
@@ -16,7 +16,7 @@ export class TableComponent implements OnInit {
   key?: string;
   fields!: Map<string, TableField>;
 
-  constructor(public dynamic: DynamicService, private modal: NzModalService) {}
+  constructor(public dynamic: PagesService, private modal: NzModalService) {}
 
   ngOnInit(): void {
     const schema = this.dynamic.page?.schema;

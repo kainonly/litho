@@ -14,10 +14,10 @@ import { WpxService } from '@weplanx/common';
             <li nz-menu-item nzMatchRouter [routerLink]="['form']">
               <i nz-icon nzType="experiment"></i> <span>静态表单</span>
             </li>
-            <li nz-menu-item nzMatchRouter [routerLink]="['dynamic-form']">
+            <li nz-menu-item nzMatchRouter [routerLink]="['pages-form']">
               <i nz-icon nzType="experiment"></i> <span>动态表单</span>
             </li>
-            <li nz-menu-item nzMatchRouter [routerLink]="['table']">
+            <li nz-menu-item nzMatchRouter [routerLink]="['pages-table']">
               <i nz-icon nzType="experiment"></i> <span>动态表格</span>
             </li>
           </ul>
