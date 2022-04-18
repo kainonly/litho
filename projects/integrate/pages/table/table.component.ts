@@ -12,14 +12,14 @@ import { FormComponent } from './form/form.component';
   templateUrl: './table.component.html'
 })
 export class TableComponent implements OnInit {
-  data: Data<any> = new Data<any>();
   key?: string;
   fields!: Map<string, TableField>;
+  data: Data<any> = new Data<any>();
 
-  constructor(public dynamic: PagesService, private modal: NzModalService) {}
+  constructor(public pages: PagesService, private modal: NzModalService) {}
 
   ngOnInit(): void {
-    const schema = this.dynamic.page?.schema;
+    const schema = this.pages.page?.schema;
     this.key = schema!.key;
     this.fields = new Map([
       ...Object.entries(schema?.fields ?? [])

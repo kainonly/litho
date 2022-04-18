@@ -12,10 +12,10 @@ export class FormComponent implements OnInit {
   fields!: SchemaField[];
   rules!: any[];
 
-  constructor(public dynamic: PagesService) {}
+  constructor(public pages: PagesService) {}
 
   ngOnInit(): void {
-    const schema = this.dynamic.page?.schema;
+    const schema = this.pages.page?.schema;
     this.fields = [...Object.values(schema!.fields).sort((a, b) => a.sort - b.sort)];
     this.rules = [...(schema?.rules ?? [])];
   }
