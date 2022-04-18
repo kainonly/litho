@@ -5,7 +5,7 @@ on:
     branches:
       - main
     paths:
-      - 'projects/common/**'
+      - 'projects/angular/**'
 
 jobs:
   testing:
@@ -31,7 +31,7 @@ jobs:
         uses: coverallsapp/github-action@master
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
-          path-to-lcov: ./coverage/common/report-lcov/lcov.info
+          path-to-lcov: ./coverage/angular/report-lcov/lcov.info
 
       - name: 推送 Fossas
         run: "curl -H 'Cache-Control: no-cache' https://raw.githubusercontent.com/fossas/fossa-cli/master/install.sh | sudo bash"

@@ -5,12 +5,9 @@
   "scripts": {
     "start": "ng s --host 0.0.0.0 --disable-host-check",
     "build": "ng b --configuration production",
-    "build:common": "ng b common --configuration production",
-    "build:components": "ng b components --configuration production",
-    "build:settings": "ng b settings --configuration production",
-    "build:resources": "ng b resources --configuration production",
-    "build:center": "ng b center --configuration production",
-    "test": "ng t common --code-coverage --no-watch --no-progress --browsers=ChromeHeadlessCI",
+    "build:ng": "ng b angular --configuration production",
+    "build:intgr": "ng b integrate --configuration production",
+    "test": "ng t angular --code-coverage --no-watch --no-progress --browsers=ChromeHeadlessCI",
     "lint": "ng lint",
     "e2e": "ng e2e"
   },

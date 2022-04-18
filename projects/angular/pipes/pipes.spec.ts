@@ -9,9 +9,13 @@ import {
   WpxSplitPipe
 } from '@weplanx/ng';
 import { TestBed } from '@angular/core/testing';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('测试管道', () => {
   it('WpxAssetsPipe', () => {
+    TestBed.configureTestingModule({
+      imports: [HttpClientTestingModule]
+    });
     const wpx = TestBed.inject(WpxService);
     wpx.setAssets('https://cdn.kainonly.com');
     const pipe = new WpxAssetsPipe(wpx);
