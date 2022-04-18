@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { SchemaField } from '@weplanx/common';
+import { SchemaField } from '@weplanx/ng';
 
 import { PagesService } from '../pages.service';
 

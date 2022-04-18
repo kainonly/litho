@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes } from '@angular/router';
 
-import { WpxModule, WpxShareModule } from '@weplanx/common';
+import { WpxModule, WpxShareModule } from '@weplanx/ng';
 import { NzResultModule } from 'ng-zorro-antd/result';
 import { NzSliderModule } from 'ng-zorro-antd/slider';
 import { NzTreeModule } from 'ng-zorro-antd/tree';

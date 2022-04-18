@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 
-import { WpxService } from '@weplanx/common';
+import { WpxService } from '@weplanx/ng';
 
 @Component({
   selector: 'app-example',

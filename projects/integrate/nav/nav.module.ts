@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
-import { WpxModule, WpxShareModule } from '@weplanx/common';
+import { WpxModule, WpxShareModule } from '@weplanx/ng';
 
 import { WpxNavComponent } from './nav.component';
 import { OpenStatePipe } from './open-state.pipe';

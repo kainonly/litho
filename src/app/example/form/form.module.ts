@@ -2,10 +2,10 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { ShareModule } from '@common/share.module';
-import { WpxCheckboxModule } from '@weplanx/components/checkbox';
-import { WpxMediaModule } from '@weplanx/components/media';
-import { WpxRichtextModule } from '@weplanx/components/richtext';
-import { WpxUploadModule } from '@weplanx/components/upload';
+import { WpxCheckboxModule } from '@weplanx/ng/checkbox';
+import { WpxMediaModule } from '@weplanx/ng/media';
+import { WpxRichtextModule } from '@weplanx/ng/richtext';
+import { WpxUploadModule } from '@weplanx/ng/upload';
 
 import { FormComponent } from './form.component';
 

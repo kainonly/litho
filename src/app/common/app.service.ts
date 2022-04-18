@@ -4,7 +4,7 @@ import { Observable, switchMap } from 'rxjs';
 
 import { UserInfo } from '@common/types';
 import { StorageMap } from '@ngx-pwa/local-storage';
-import { AnyDto, Page } from '@weplanx/common';
+import { AnyDto, Page } from '@weplanx/ng';
 
 @Injectable({ providedIn: 'root' })
 export class AppService {

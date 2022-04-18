@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 
-import { WpxModule, WpxShareModule } from '@weplanx/common';
-import { WpxFormModule } from '@weplanx/components/form';
-import { WpxTableModule } from '@weplanx/components/table';
+import { WpxModule, WpxShareModule } from '@weplanx/ng';
+import { WpxFormModule } from '@weplanx/ng/form';
+import { WpxTableModule } from '@weplanx/ng/table';
 
 import { FormComponent } from './form/form.component';
 import { TableComponent } from './table.component';

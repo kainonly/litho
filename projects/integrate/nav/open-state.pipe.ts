@@ -1,6 +1,6 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
-import { WpxService } from '@weplanx/common';
+import { WpxService } from '@weplanx/ng';
 
 @Pipe({ name: 'OpenState' })
 export class OpenStatePipe implements PipeTransform {

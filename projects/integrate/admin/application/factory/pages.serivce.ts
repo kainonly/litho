@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable, of, timer } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
 
-import { AnyDto, Api, Filter, Page, SchemaField } from '@weplanx/common';
+import { AnyDto, Api, Filter, Page, SchemaField } from '@weplanx/ng';
 import { NzTreeNodeOptions } from 'ng-zorro-antd/tree';
 
 @Injectable({ providedIn: 'root' })

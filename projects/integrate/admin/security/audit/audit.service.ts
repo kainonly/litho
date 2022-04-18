@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { AnyDto, Api, ApiOptions, Filter, FindOption, httpOptions } from '@weplanx/common';
+import { AnyDto, Api, ApiOptions, Filter, FindOption, httpOptions } from '@weplanx/ng';
 
 @Injectable()
 export class AuditService extends Api<any> {

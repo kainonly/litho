@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { WpxModule, WpxShareModule } from '@weplanx/common';
+import { WpxModule, WpxShareModule } from '@weplanx/ng';
 
 import { WpxHeaderModule } from '../header/header.module';
 import { WpxNavModule } from '../nav/nav.module';

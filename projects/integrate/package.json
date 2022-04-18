@@ -1,5 +1,5 @@
 {
-  "name": "@weplanx/admin",
+  "name": "@weplanx/ng-intgr",
   "private": false,
   "peerDependencies": {
     "@angular/common": "^13.0.0",

@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes } from '@angular/router';
 
-import { WpxModule, WpxShareModule } from '@weplanx/common';
+import { WpxModule, WpxShareModule } from '@weplanx/ng';
 
 import { HistoryComponent } from './history/history.component';
 import { SessionComponent } from './session/session.component';

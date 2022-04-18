@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivateChild } from '@angular/router';
 
-import { WpxService } from '@weplanx/common';
+import { WpxService } from '@weplanx/ng';
 
 @Injectable()
 export class PagesActivated implements CanActivateChild {

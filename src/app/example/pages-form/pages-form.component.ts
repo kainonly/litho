@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 
-import { Field, SchemaField } from '@weplanx/common';
+import { Field, SchemaField } from '@weplanx/ng';
 
 @Component({
   selector: 'app-example-pages-form',

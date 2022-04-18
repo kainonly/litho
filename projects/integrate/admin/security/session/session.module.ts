@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 
-import { WpxModule, WpxShareModule } from '@weplanx/common';
+import { WpxModule, WpxShareModule } from '@weplanx/ng';
 import { NzPipesModule } from 'ng-zorro-antd/pipes';
 
 import { SessionComponent } from './session.component';

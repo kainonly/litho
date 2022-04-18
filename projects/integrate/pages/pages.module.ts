@@ -1,7 +1,7 @@
 import { PortalModule } from '@angular/cdk/portal';
 import { NgModule } from '@angular/core';
 
-import { WpxModule, WpxShareModule } from '@weplanx/common';
+import { WpxModule, WpxShareModule } from '@weplanx/ng';
 
 import { FormModule } from './form/form.module';
 import { WpxPagesComponent } from './pages.component';

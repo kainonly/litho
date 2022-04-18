@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { WpxService } from '@weplanx/common';
+import { WpxService } from '@weplanx/ng';
 
 @Component({
   selector: 'wpx-admin',

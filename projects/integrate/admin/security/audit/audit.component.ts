@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
 import { AuditService } from './audit.service';
-import { LoginLog } from './types';
 
 @Component({
   selector: 'wpx-admin-audit',

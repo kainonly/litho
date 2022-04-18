@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { map, switchMap } from 'rxjs';
 
-import { WpxService } from '@weplanx/common';
+import { WpxService } from '@weplanx/ng';
 
 import { FormComponent } from './form/form.component';
 import { PagesService } from './pages.service';

@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 
-import { WpxModule, WpxShareModule } from '@weplanx/common';
-import { WpxTableModule } from '@weplanx/components/table';
+import { WpxModule, WpxShareModule } from '@weplanx/ng';
+import { WpxTableModule } from '@weplanx/ng/table';
 import { NzPipesModule } from 'ng-zorro-antd/pipes';
 
 import { AuditComponent } from './audit.component';

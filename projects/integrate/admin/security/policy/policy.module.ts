@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 
-import { WpxModule, WpxShareModule } from '@weplanx/common';
+import { WpxModule, WpxShareModule } from '@weplanx/ng';
 
 import { IpListComponent } from './ip-list/ip-list.component';
 import { IpLockComponent } from './ip-lock/ip-lock.component';

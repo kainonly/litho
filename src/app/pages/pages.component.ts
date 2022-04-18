@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { AppService } from '@common/app.service';
-import { WpxService } from '@weplanx/common';
+import { WpxService } from '@weplanx/ng';
 
 @Component({
   selector: 'app-pages',

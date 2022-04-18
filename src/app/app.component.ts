@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { environment } from '@env';
-import { WpxService } from '@weplanx/common';
+import { WpxService } from '@weplanx/ng';
 import { NzIconService } from 'ng-zorro-antd/icon';
 
 @Component({

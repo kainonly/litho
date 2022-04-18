@@ -1,8 +1,8 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
-import { AnyDto, Data, WpxService } from '@weplanx/common';
-import { TableField, WpxTableComponent } from '@weplanx/components/table';
+import { AnyDto, Data, WpxService } from '@weplanx/ng';
+import { TableField, WpxTableComponent } from '@weplanx/ng/table';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalService } from 'ng-zorro-antd/modal';
 

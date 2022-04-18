@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { ShareModule } from '@common/share.module';
-import { WpxHeaderModule, WpxNavModule, WpxPagesComponent, WpxPagesModule } from '@weplanx/integrate';
+import { WpxHeaderModule, WpxNavModule, WpxPagesComponent, WpxPagesModule } from '@weplanx/ng-intgr';
 
 import { EmptyComponent } from './empty/empty.component';
 import { PagesActivated } from './pages.activated';

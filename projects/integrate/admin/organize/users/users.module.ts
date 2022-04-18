@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 
-import { WpxModule, WpxShareModule } from '@weplanx/common';
-import { WpxTableModule } from '@weplanx/components/table';
+import { WpxModule, WpxShareModule } from '@weplanx/ng';
+import { WpxTableModule } from '@weplanx/ng/table';
 import { NzTreeSelectModule } from 'ng-zorro-antd/tree-select';
 
 import { DepartmentsModule } from '../departments/departments.module';

@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { ShareModule } from '@common/share.module';
-import { WpxTableModule } from '@weplanx/components/table';
+import { WpxTableModule } from '@weplanx/ng/table';
 
 import { OrdersService } from './orders.service';
 import { PagesTableComponent } from './pages-table.component';

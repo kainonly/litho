@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { map, Observable } from 'rxjs';
 
-import { AnyDto, Api, Page } from '@weplanx/common';
+import { AnyDto, Api, Page } from '@weplanx/ng';
 
 @Injectable()
 export class PagesService extends Api<any> {

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
-import { Data } from '@weplanx/common';
-import { TableField } from '@weplanx/components/table';
+import { Data } from '@weplanx/ng';
+import { TableField } from '@weplanx/ng/table';
 import { NzModalService } from 'ng-zorro-antd/modal';
 
 import { PagesService } from '../pages.service';

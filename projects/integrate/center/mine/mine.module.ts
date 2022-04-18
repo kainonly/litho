@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { Routes } from '@angular/router';
 
-import { WpxModule, WpxShareModule } from '@weplanx/common';
-import { WpxRichtextModule } from '@weplanx/components/richtext';
+import { WpxModule, WpxShareModule } from '@weplanx/ng';
+import { WpxRichtextModule } from '@weplanx/ng/richtext';
 import { NzCalendarModule } from 'ng-zorro-antd/calendar';
 
 import { CalendarComponent } from './calendar/calendar.component';

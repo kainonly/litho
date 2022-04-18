@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import { Api } from '@weplanx/common';
+import { Api } from '@weplanx/ng';
 
 import { Order } from './types';
 

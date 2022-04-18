@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable, timer } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
 
-import { Api } from '@weplanx/common';
+import { Api } from '@weplanx/ng';
 
 import { User } from './types';
 

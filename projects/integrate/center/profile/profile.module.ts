@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { Routes } from '@angular/router';
 
-import { WpxModule, WpxShareModule } from '@weplanx/common';
-import { WpxUploadModule } from '@weplanx/components/upload';
+import { WpxModule, WpxShareModule } from '@weplanx/ng';
+import { WpxUploadModule } from '@weplanx/ng/upload';
 import { NzCascaderModule } from 'ng-zorro-antd/cascader';
 
 import { InfoComponent } from './info/info.component';

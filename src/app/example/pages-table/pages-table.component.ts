@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
-import { AnyDto, Data } from '@weplanx/common';
-import { TableField } from '@weplanx/components/table';
+import { AnyDto, Data } from '@weplanx/ng';
+import { TableField } from '@weplanx/ng/table';
 
 import { OrdersService } from './orders.service';
 import { Order } from './types';

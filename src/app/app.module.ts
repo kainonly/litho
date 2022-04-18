@@ -37,7 +37,7 @@ const routes: Routes = [
   },
   {
     path: 'admin',
-    loadChildren: () => import('@weplanx/integrate').then(m => m.AdminModule),
+    loadChildren: () => import('@weplanx/ng-intgr').then(m => m.AdminModule),
     canActivate: [AppGuard],
     data: {
       breadcrumb: '管理后台'
@@ -45,7 +45,7 @@ const routes: Routes = [
   },
   {
     path: 'center',
-    loadChildren: () => import('@weplanx/integrate').then(m => m.CenterModule),
+    loadChildren: () => import('@weplanx/ng-intgr').then(m => m.CenterModule),
     canActivate: [AppGuard],
     data: {
       breadcrumb: '个人中心'

@@ -1,6 +1,6 @@
 import { Component, OnInit, Type } from '@angular/core';
 
-import { WpxService } from '@weplanx/common';
+import { WpxService } from '@weplanx/ng';
 import { NzModalService } from 'ng-zorro-antd/modal';
 
 import { IpListComponent } from './ip-list/ip-list.component';
