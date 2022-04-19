@@ -63,7 +63,7 @@ export class UsersComponent implements OnInit, OnDestroy {
     }
     this.table.getData(true);
     const params = this.departmentId ? { department: this.departmentId } : {};
-    this.router.navigate(['settings', 'organize', 'users', params]);
+    this.router.navigate(['admin', 'organize', 'users', params]);
   }
 
   /**

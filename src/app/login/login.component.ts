@@ -11,6 +11,7 @@ import { NzNotificationService } from 'ng-zorro-antd/notification';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
+  loading = false;
   form!: FormGroup;
 
   constructor(
@@ -37,7 +38,9 @@ export class LoginComponent implements OnInit {
   }
 
   submit(data: any): void {
+    this.loading = true;
     this.app.login(data).subscribe(() => {
+      this.loading = false;
       this.notification.success('认证状态', '登录成功，正在加载数据~');
       this.router.navigateByUrl('/pages');
     });

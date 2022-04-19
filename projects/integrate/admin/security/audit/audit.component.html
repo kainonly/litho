@@ -6,31 +6,24 @@
       nzFormat="yyyy-MM-dd HH:mm"
       ngModel
     ></nz-range-picker>
-    <!--    <nz-input-group *nzSpaceItem style="width: 180px" nzSuffixIcon="search">-->
-    <!--      <input [(ngModel)]="searchText" (ngModelChange)="getData()" type="text" nz-input placeholder="用户名搜索" />-->
-    <!--    </nz-input-group>-->
+    <nz-input-group *nzSpaceItem style="width: 180px" nzSuffixIcon="search">
+      <input [(ngModel)]="searchText" (ngModelChange)="getData()" type="text" nz-input placeholder="用户名搜索" />
+    </nz-input-group>
   </nz-space>
 </ng-template>
 
 <ng-template #actions>
   <button nz-button nzType="primary">
-    Grafana 监控
+    Grafana 监控指标
     <i nz-icon nzType="select"></i>
   </button>
 </ng-template>
 
-<nz-card>
-  <nz-card-tab>
-    <nz-tabset nzSize="large" [nzTabBarExtraContent]="actions">
-      <nz-tab nzTitle="登录日志"></nz-tab>
-      <nz-tab nzTitle="操作日志"></nz-tab>
-      <nz-tab nzTitle="请求日志"></nz-tab>
-    </nz-tabset>
-  </nz-card-tab>
+<nz-card [nzTitle]="searchRef" [nzExtra]="actions">
   <nz-table #basicTable [nzData]="data" [nzHideOnSinglePage]="true">
     <thead>
       <tr>
-        <th nzWidth="50px" nzLeft></th>
+        <th nzWidth="50px" nzLeft> </th>
         <th nzWidth="200px"><b>时间</b></th>
         <th nzWidth="240px"><b>用户名</b></th>
         <th nzWidth="240px"><b>电子邮件</b></th>
@@ -64,6 +57,7 @@
             </ng-template>
             <span *nzSpaceItem>UID： {{ item.user }}</span>
             <span *nzSpaceItem>TokenID： {{ item.token_id }}</span>
+            <span *nzSpaceItem>{{ item.user_agent }}</span>
           </nz-space>
         </tr>
       </ng-container>
