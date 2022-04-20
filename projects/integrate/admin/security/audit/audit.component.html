@@ -4,11 +4,21 @@
       *nzSpaceItem
       [nzShowTime]="{ nzFormat: 'HH:mm' }"
       nzFormat="yyyy-MM-dd HH:mm"
-      ngModel
+      [nzDisabledDate]="disabledDate"
+      [(ngModel)]="date"
+      (ngModelChange)="getData(true)"
     ></nz-range-picker>
     <nz-input-group *nzSpaceItem style="width: 180px" nzSuffixIcon="search">
-      <input [(ngModel)]="searchText" (ngModelChange)="getData()" type="text" nz-input placeholder="用户名搜索" />
+      <input [(ngModel)]="searchText" (keyup.enter)="getData(true)" type="text" nz-input placeholder="用户名搜索" />
     </nz-input-group>
+    <nz-button-group *nzSpaceItem>
+      <button nz-button nzType="text" nz-tooltip="刷新" (click)="getData(true)">
+        <i nz-icon nzType="reload"></i>
+      </button>
+      <button nz-button nzType="text" nz-tooltip="重置" (click)="clearSearch()">
+        <i nz-icon nzType="clear"></i>
+      </button>
+    </nz-button-group>
   </nz-space>
 </ng-template>
 
@@ -20,47 +30,40 @@
 </ng-template>
 
 <nz-card [nzTitle]="searchRef" [nzExtra]="actions">
-  <nz-table #basicTable [nzData]="data" [nzHideOnSinglePage]="true">
-    <thead>
-      <tr>
-        <th nzWidth="50px" nzLeft> </th>
-        <th nzWidth="200px"><b>时间</b></th>
-        <th nzWidth="240px"><b>用户名</b></th>
-        <th nzWidth="240px"><b>电子邮件</b></th>
-        <th><b>详情</b></th>
-      </tr>
-    </thead>
-    <tbody>
-      <ng-container *ngFor="let item of basicTable.data">
-        <tr>
-          <td [nzExpand]="expands.has(item._id)" (nzExpandChange)="onExpandChange(item._id, $event)"></td>
-          <td>{{ item.time | date: 'yyyy-MM-dd hh:mm:ss' }} </td>
-          <td>{{ item.username }}</td>
-          <td>{{ !!item.email ? item.email : '-' }}</td>
-          <td>
-            <nz-space [nzSplit]="split">
-              <ng-template #split>
-                <nz-divider nzType="vertical"></nz-divider>
-              </ng-template>
-              <span *nzSpaceItem>IP 地址： {{ item.ip }}</span>
-              <span *nzSpaceItem>国家 / 地区：{{ item.detail?.country | nzSafeNull: '-' }}</span>
-              <span *nzSpaceItem>省 / 州：{{ item.detail?.province | nzSafeNull: '-' }}</span>
-              <span *nzSpaceItem>城市：{{ item.detail?.city | nzSafeNull: '-' }}</span>
-              <span *nzSpaceItem>ISP：{{ item.detail?.isp | nzSafeNull: '-' }}</span>
-            </nz-space>
-          </td>
-        </tr>
-        <tr [nzExpand]="expands.has(item._id)">
+  <nz-list nzItemLayout="vertical">
+    <nz-list-item *ngFor="let item of items">
+      <nz-list-item-meta>
+        <nz-list-item-meta-title>{{ item.time | date: 'yyyy-MM-dd HH:mm:ss' }} </nz-list-item-meta-title>
+      </nz-list-item-meta>
+      <nz-descriptions nzSize="small" nzBordered [nzColumn]="3">
+        <nz-descriptions-item nzTitle="用户名">{{ item.username }}</nz-descriptions-item>
+        <nz-descriptions-item nzTitle="电子邮件">{{ !!item.email ? item.email : '-' }}</nz-descriptions-item>
+        <nz-descriptions-item nzTitle="UID">{{ item.user }}</nz-descriptions-item>
+        <nz-descriptions-item nzTitle="IP 地址">{{ item.ip }}</nz-descriptions-item>
+        <nz-descriptions-item nzTitle="ISP">{{ !item.detail?.isp ? '-' : item.detail.isp }}</nz-descriptions-item>
+        <nz-descriptions-item nzTitle="地区">
           <nz-space [nzSplit]="split">
-            <ng-template #split>
-              <nz-divider nzType="vertical"></nz-divider>
-            </ng-template>
-            <span *nzSpaceItem>UID： {{ item.user }}</span>
-            <span *nzSpaceItem>TokenID： {{ item.token_id }}</span>
-            <span *nzSpaceItem>{{ item.user_agent }}</span>
+            <span *nzSpaceItem>{{ !item.detail?.country ? '-' : item.detail.country }}</span>
+            <span *nzSpaceItem>{{ !item.detail?.province ? '-' : item.detail.province }}</span>
+            <span *nzSpaceItem>{{ !item.detail?.city ? '-' : item.detail.city }}</span>
           </nz-space>
-        </tr>
-      </ng-container>
-    </tbody>
-  </nz-table>
+        </nz-descriptions-item>
+        <nz-descriptions-item nzTitle="TokenID">{{ item.token_id }}</nz-descriptions-item>
+        <nz-descriptions-item nzTitle="UserAgent" [nzSpan]="2">{{ item.user_agent }}</nz-descriptions-item>
+      </nz-descriptions>
+      <nz-list-item-extra>
+        <button nz-button nzType="primary" nzShape="circle" nzDanger nz-tooltip="禁用账户" (click)="blockUser(item)">
+          <i nz-icon nzType="pause"></i>
+        </button>
+      </nz-list-item-extra>
+    </nz-list-item>
+    <div class="loadmore" nz-list-load-more>
+      <button nz-button (click)="getData()">加载更多</button>
+    </div>
+    <nz-list-empty *ngIf="items.length === 0"></nz-list-empty>
+  </nz-list>
 </nz-card>
+
+<ng-template #split>
+  <nz-divider nzType="vertical"></nz-divider>
+</ng-template>

@@ -1,34 +1,88 @@
 import { Component, OnInit } from '@angular/core';
 
+import { Filter } from '@weplanx/ng';
+import { differenceInCalendarDays } from 'date-fns';
+import { NzMessageService } from 'ng-zorro-antd/message';
+import { NzModalService } from 'ng-zorro-antd/modal';
+
+import { UsersService } from '../../organize/users/users.service';
 import { AuditService } from './audit.service';
 import { LoginLog } from './types';
 
 @Component({
   selector: 'wpx-admin-audit',
-  templateUrl: './audit.component.html'
+  templateUrl: './audit.component.html',
+  styleUrls: ['./audit.component.scss']
 })
 export class AuditComponent implements OnInit {
-  data: any[] = [];
+  disabledDate = (current: Date): boolean => differenceInCalendarDays(current, new Date()) > 0;
+  date: Date[] = [];
   searchText: string = '';
-  expands: Set<string> = new Set<string>();
+  items: any[] = [];
+  skip = 0;
 
-  constructor(private audit: AuditService) {}
+  constructor(
+    private audit: AuditService,
+    private users: UsersService,
+    private message: NzMessageService,
+    private modal: NzModalService
+  ) {}
 
   ngOnInit(): void {
-    this.getData();
+    this.getData(true);
   }
 
-  getData(): void {
-    this.audit.logs<LoginLog>('login_logs', {}).subscribe(v => {
-      this.data = [...v];
-    });
-  }
-
-  onExpandChange(id: string, checked: boolean): void {
-    if (checked) {
-      this.expands.add(id);
-    } else {
-      this.expands.delete(id);
+  getData(refresh = false): void {
+    if (refresh) {
+      this.skip = 0;
+      this.items = [];
     }
+    let filter: Filter<any> = {};
+    if (this.date.length !== 0) {
+      filter['time'] = {
+        $gte: this.date[0].toUTCString(),
+        $lt: this.date[1].toUTCString()
+      };
+    }
+    if (!!this.searchText) {
+      filter['username'] = { $regex: this.searchText };
+    }
+    this.audit
+      .logs<LoginLog>('login_logs', filter, {
+        limit: 10,
+        skip: this.skip,
+        format_filter: {
+          'time.$gte': 'date',
+          'time.$lt': 'date'
+        }
+      })
+      .subscribe(v => {
+        if (v.length === 0) {
+          this.message.info('没有更多数据了~');
+          return;
+        }
+        this.items = [...this.items, ...v];
+        this.skip = this.items.length;
+      });
+  }
+
+  clearSearch(): void {
+    this.date = [];
+    this.searchText = '';
+    this.getData(true);
+  }
+
+  blockUser(data: any): void {
+    this.modal.confirm({
+      nzTitle: '您确定要禁用该账户吗？',
+      nzContent: `用户名：${data.username}<br/>电子邮件：${data.email}<br/>UID：${data.user}`,
+      nzOkDanger: true,
+      nzOkText: '禁用',
+      nzOnOk: () => {
+        this.users.updateOneById(data.user, { $set: { status: false } }).subscribe(() => {
+          this.message.success('已禁用该账户，将无法访问系统~');
+        });
+      }
+    });
   }
 }

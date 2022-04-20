@@ -18,7 +18,7 @@ export type AnyDto<T> = T & BasicDto;
 export type Filter<T> = Partial<{ [P in keyof AnyDto<T>]: any }>;
 export type Field<T> = Array<keyof AnyDto<T>>;
 export type Sort<T> = Partial<{ [P in keyof AnyDto<T>]: -1 | 1 }>;
-export type FormatFilter = 'oid' | 'oids';
+export type FormatFilter = 'oid' | 'oids' | 'date';
 export type FormatDoc = 'oid' | 'oids' | 'password';
 export interface ApiOptions<T> {
   /**
