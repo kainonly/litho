@@ -22,7 +22,6 @@ export class IpListComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    // TODO: 补充验证器
     this.form = this.fb.group({
       whitelist: this.fb.array([]),
       blacklist: this.fb.array([])
@@ -40,7 +39,14 @@ export class IpListComponent implements OnInit {
   }
 
   addWhitelist(value?: string): void {
-    this.whitelist.push(this.fb.control(value, [Validators.required]));
+    this.whitelist.push(
+      this.fb.control(value, [
+        Validators.required,
+        Validators.pattern(
+          /^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/
+        )
+      ])
+    );
   }
 
   removeWhitelist(index: number): void {
@@ -52,7 +58,14 @@ export class IpListComponent implements OnInit {
   }
 
   addBlacklist(value?: string): void {
-    this.blacklist.push(this.fb.control(value, [Validators.required]));
+    this.blacklist.push(
+      this.fb.control(value, [
+        Validators.required,
+        Validators.pattern(
+          /^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/
+        )
+      ])
+    );
   }
 
   removeBlacklist(index: number): void {

@@ -4,6 +4,7 @@ import { switchMap } from 'rxjs/operators';
 
 import { AnyDto } from '@weplanx/ng';
 import { NzMessageService } from 'ng-zorro-antd/message';
+import { NzModalService } from 'ng-zorro-antd/modal';
 
 import { RolesService } from '../../organize/roles/roles.service';
 import { Role } from '../../organize/roles/types';
@@ -25,7 +26,8 @@ export class SessionComponent implements OnInit, OnDestroy {
     private security: SecurityService,
     private users: UsersService,
     private roles: RolesService,
-    private message: NzMessageService
+    private message: NzMessageService,
+    private modal: NzModalService
   ) {}
 
   ngOnInit(): void {
@@ -90,6 +92,18 @@ export class SessionComponent implements OnInit, OnDestroy {
   delete(id: string): void {
     this.security.deleteSession(id).subscribe(() => {
       this.message.success('会话已下线');
+    });
+  }
+
+  bulkDelete(): void {
+    this.modal.confirm({
+      nzTitle: '您确定要中断全部会话吗？',
+      nzOkDanger: true,
+      nzOnOk: () => {
+        this.security.deleteSessions().subscribe(() => {
+          this.message.success('会话已下线');
+        });
+      }
     });
   }
 }

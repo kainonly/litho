@@ -5,7 +5,7 @@
 </ng-template>
 
 <ng-template #actions>
-  <button nz-button nzType="primary" nzDanger> 全部中断 </button>
+  <button nz-button nzType="primary" nzDanger (click)="bulkDelete()"> 全部中断 </button>
 </ng-template>
 
 <nz-card [nzTitle]="searchRef" [nzExtra]="actions">

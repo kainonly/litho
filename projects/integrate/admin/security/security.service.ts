@@ -13,6 +13,13 @@ export class SecurityService {
   }
 
   /**
+   * 删除所有会话
+   */
+  deleteSessions(): Observable<any> {
+    return this.http.delete(`sessions`);
+  }
+
+  /**
    * 删除会话
    * @param id
    */
