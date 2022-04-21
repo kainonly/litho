@@ -4,8 +4,6 @@ import { Routes } from '@angular/router';
 import { WpxModule, WpxShareModule } from '@weplanx/ng';
 
 import { DepartmentsModule } from './departments/departments.module';
-import { OfficeComponent } from './office/office.component';
-import { OfficeModule } from './office/office.module';
 import { RolesComponent } from './roles/roles.component';
 import { RolesModule } from './roles/roles.module';
 import { UsersComponent } from './users/users.component';
@@ -26,17 +24,10 @@ export const organize: Routes = [
       breadcrumb: '团队成员'
     }
   },
-  {
-    path: 'office',
-    component: OfficeComponent,
-    data: {
-      breadcrumb: '办公协作'
-    }
-  },
   { path: '', redirectTo: '/admin/organize/roles', pathMatch: 'full' }
 ];
 
 @NgModule({
-  imports: [WpxShareModule, WpxModule, RolesModule, DepartmentsModule, UsersModule, OfficeModule]
+  imports: [WpxShareModule, WpxModule, RolesModule, DepartmentsModule, UsersModule]
 })
 export class OrganizeModule {}

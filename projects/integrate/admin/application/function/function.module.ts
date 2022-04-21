@@ -2,10 +2,10 @@ import { NgModule } from '@angular/core';
 
 import { WpxModule, WpxShareModule } from '@weplanx/ng';
 
-import { OfficeComponent } from './office.component';
+import { FunctionComponent } from './function.component';
 
 @NgModule({
   imports: [WpxModule, WpxShareModule],
-  declarations: [OfficeComponent]
+  declarations: [FunctionComponent]
 })
-export class OfficeModule {}
+export class FunctionModule {}

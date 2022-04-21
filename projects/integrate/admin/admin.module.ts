@@ -7,6 +7,7 @@ import { WpxHeaderModule } from '../header/header.module';
 import { WpxNavModule } from '../nav/nav.module';
 import { AdminComponent } from './admin.component';
 import { application, ApplicationModule } from './application/application.module';
+import { media, MediaModule } from './media/media.module';
 import { organize, OrganizeModule } from './organize/organize.module';
 import { security, SecurityModule } from './security/security.module';
 
@@ -20,6 +21,13 @@ const routes: Routes = [
         children: application,
         data: {
           breadcrumb: '应用'
+        }
+      },
+      {
+        path: 'media',
+        children: media,
+        data: {
+          breadcrumb: '媒体'
         }
       },
       {
@@ -48,6 +56,7 @@ const routes: Routes = [
     WpxHeaderModule,
     WpxNavModule,
     ApplicationModule,
+    MediaModule,
     OrganizeModule,
     SecurityModule,
     RouterModule.forChild(routes)

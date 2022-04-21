@@ -8,10 +8,17 @@
             <li nz-menu-item nzMatchRouter [routerLink]="['application', 'factory']">
               <i nz-icon nzType="layout"></i> <span>内容生成器</span>
             </li>
-            <li nz-menu-item nzMatchRouter [routerLink]="['application', 'pictures']">
+            <li nz-menu-item nzMatchRouter [routerLink]="['application', 'function']">
+              <i nz-icon nzType="switcher"></i> <span>功能模块</span>
+            </li>
+          </ul>
+        </li>
+        <li nz-menu-group nzTitle="媒体">
+          <ul>
+            <li nz-menu-item nzMatchRouter [routerLink]="['media', 'pictures']">
               <i nz-icon nzType="picture"></i><span>图库</span>
             </li>
-            <li nz-menu-item nzMatchRouter [routerLink]="['application', 'videos']">
+            <li nz-menu-item nzMatchRouter [routerLink]="['media', 'videos']">
               <i nz-icon nzType="play-circle"></i><span>视频</span>
             </li>
           </ul>
@@ -19,13 +26,10 @@
         <li nz-menu-group nzTitle="组织">
           <ul>
             <li nz-menu-item nzMatchRouter [routerLink]="['organize', 'roles']">
-              <i nz-icon nzType="switcher"></i> <span>权限组</span>
+              <i nz-icon nzType="partition"></i> <span>权限组</span>
             </li>
             <li nz-menu-item nzMatchRouter [routerLink]="['organize', 'users']">
               <i nz-icon nzType="team"></i> <span>团队成员</span>
-            </li>
-            <li nz-menu-item nzMatchRouter [routerLink]="['organize', 'office']">
-              <i nz-icon nzType="coffee"></i> <span>办公协作</span>
             </li>
           </ul>
         </li>
