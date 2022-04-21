@@ -3,6 +3,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { Router } from '@angular/router';
 
 import { AppService } from '@common/app.service';
+import { environment } from '@env';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 
 @Component({
@@ -44,5 +45,10 @@ export class LoginComponent implements OnInit {
       this.notification.success('认证状态', '登录成功，正在加载数据~');
       this.router.navigateByUrl('/pages');
     });
+  }
+
+  get feishu(): string {
+    const REDIRECT_URI = encodeURIComponent(`${environment.baseUrl}/feishu`);
+    return `https://open.feishu.cn/open-apis/authen/v1/index?redirect_uri=${REDIRECT_URI}&app_id=${environment.feishu}`;
   }
 }
