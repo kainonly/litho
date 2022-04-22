@@ -7,11 +7,11 @@
           用户在 {{ data['user_session_expire'] | TimeParse }}内没有操作，退出当前帐号。
         </nz-list-item-meta-description>
       </nz-list-item-meta>
-      <ul nz-list-item-actions>
-        <nz-list-item-action>
-          <button nz-button nzType="link" (click)="setSessionExpire()">设置</button>
-        </nz-list-item-action>
-      </ul>
+      <nz-list-item-extra>
+        <button nz-button nzType="primary" nzShape="circle" nz-tooltip="设置" (click)="setSessionExpire()">
+          <i nz-icon nzType="tool"></i>
+        </button>
+      </nz-list-item-extra>
     </nz-list-item>
     <nz-list-item>
       <nz-list-item-meta>
@@ -21,11 +21,11 @@
           {{ data['user_lock_time'] | TimeParse }}。
         </nz-list-item-meta-description>
       </nz-list-item-meta>
-      <ul nz-list-item-actions>
-        <nz-list-item-action>
-          <button nz-button nzType="link" (click)="setUserLock()">设置</button>
-        </nz-list-item-action>
-      </ul>
+      <nz-list-item-extra>
+        <button nz-button nzType="primary" nzShape="circle" nz-tooltip="设置" (click)="setUserLock()">
+          <i nz-icon nzType="tool"></i>
+        </button>
+      </nz-list-item-extra>
     </nz-list-item>
     <nz-list-item>
       <nz-list-item-meta>
@@ -34,42 +34,40 @@
           IP 连续 {{ data['ip_login_failed_times'] }} 次登录失败后（无白名单时启用），锁定 IP。
         </nz-list-item-meta-description>
       </nz-list-item-meta>
-      <ul nz-list-item-actions>
-        <nz-list-item-action>
-          <button nz-button nzType="link" (click)="setIpLock()">设置</button>
-        </nz-list-item-action>
-      </ul>
+      <nz-list-item-extra>
+        <button nz-button nzType="primary" nzShape="circle" nz-tooltip="设置" (click)="setIpLock()">
+          <i nz-icon nzType="tool"></i>
+        </button>
+      </nz-list-item-extra>
     </nz-list-item>
     <nz-list-item>
       <nz-list-item-meta>
         <nz-list-item-meta-title><b>IP 名单</b></nz-list-item-meta-title>
-        <nz-list-item-meta-description>
-          <nz-table style="width: 40%" #basicTable [nzData]="ipList" [nzHideOnSinglePage]="true">
-            <thead>
-              <tr>
-                <th nzWidth="200px"><b>种类</b></th>
-                <th><b>IP 地址</b></th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let item of basicTable.data">
-                <td>
-                  <ng-container [ngSwitch]="item.type">
-                    <ng-container *ngSwitchCase="'white'">白名单</ng-container>
-                    <ng-container *ngSwitchCase="'black'">黑名单</ng-container>
-                  </ng-container>
-                </td>
-                <td>{{ item.value }}</td>
-              </tr>
-            </tbody>
-          </nz-table>
-        </nz-list-item-meta-description>
       </nz-list-item-meta>
-      <ul nz-list-item-actions>
-        <nz-list-item-action>
-          <button nz-button nzType="link" (click)="setIpList()">设置</button>
-        </nz-list-item-action>
-      </ul>
+      <nz-table style="width: 40%" #basicTable [nzData]="ipList" [nzHideOnSinglePage]="true">
+        <thead>
+          <tr>
+            <th nzWidth="200px"><b>种类</b></th>
+            <th><b>IP 地址</b></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of basicTable.data">
+            <td>
+              <ng-container [ngSwitch]="item.type">
+                <ng-container *ngSwitchCase="'white'">白名单</ng-container>
+                <ng-container *ngSwitchCase="'black'">黑名单</ng-container>
+              </ng-container>
+            </td>
+            <td>{{ item.value }}</td>
+          </tr>
+        </tbody>
+      </nz-table>
+      <nz-list-item-extra>
+        <button nz-button nzType="primary" nzShape="circle" nz-tooltip="设置" (click)="setIpList()">
+          <i nz-icon nzType="tool"></i>
+        </button>
+      </nz-list-item-extra>
     </nz-list-item>
     <nz-list-item>
       <nz-list-item-meta>
@@ -83,11 +81,11 @@
           </ng-container>
         </nz-list-item-meta-description>
       </nz-list-item-meta>
-      <ul nz-list-item-actions>
-        <nz-list-item-action>
-          <button nz-button nzType="link" (click)="setPasswordStrength()">设置</button>
-        </nz-list-item-action>
-      </ul>
+      <nz-list-item-extra>
+        <button nz-button nzType="primary" nzShape="circle" nz-tooltip="设置" (click)="setPasswordStrength()">
+          <i nz-icon nzType="tool"></i>
+        </button>
+      </nz-list-item-extra>
     </nz-list-item>
     <nz-list-item>
       <nz-list-item-meta>
@@ -99,11 +97,11 @@
           </ng-template>
         </nz-list-item-meta-description>
       </nz-list-item-meta>
-      <ul nz-list-item-actions>
-        <nz-list-item-action>
-          <button nz-button nzType="link" (click)="setPasswordExpire()">设置</button>
-        </nz-list-item-action>
-      </ul>
+      <nz-list-item-extra>
+        <button nz-button nzType="primary" nzShape="circle" nz-tooltip="设置" (click)="setPasswordExpire()">
+          <i nz-icon nzType="tool"></i>
+        </button>
+      </nz-list-item-extra>
     </nz-list-item>
   </nz-list>
 </nz-card>

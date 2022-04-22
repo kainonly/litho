@@ -1,0 +1,17 @@
+<nz-card>
+  <nz-card-tab>
+    <nz-tabset nzLinkRouter [nzAnimated]="false">
+      <nz-tab>
+        <a *nzTabLink nz-tab-link [routerLink]="['/admin', 'application', 'functions', 'cloud']"> 云厂商 </a>
+      </nz-tab>
+      <nz-tab>
+        <a *nzTabLink nz-tab-link [routerLink]="['/admin', 'application', 'functions', 'office']"> 企业办公 </a>
+      </nz-tab>
+      <nz-tab>
+        <a *nzTabLink nz-tab-link [routerLink]="['/admin', 'application', 'functions', 'extend']"> 扩展服务 </a>
+      </nz-tab>
+    </nz-tabset>
+  </nz-card-tab>
+
+  <router-outlet></router-outlet>
+</nz-card>

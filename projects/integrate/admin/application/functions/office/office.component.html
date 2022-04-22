@@ -1,0 +1,112 @@
+<nz-list nzItemLayout="vertical">
+  <nz-list nzSize="large" nzItemLayout="vertical">
+    <nz-list-item>
+      <nz-list-item-meta>
+        <nz-list-item-meta-avatar>
+          <nz-avatar
+            nzShape="square"
+            nzSize="large"
+            [nzSrc]="['assets', 'office', 'feishu.png'] | wpxAssets"
+          ></nz-avatar>
+        </nz-list-item-meta-avatar>
+        <nz-list-item-meta-title><b>飞书</b></nz-list-item-meta-title>
+      </nz-list-item-meta>
+      <nz-descriptions nzSize="small" nzBordered [nzColumn]="2">
+        <nz-descriptions-item nzTitle="AppId">blQYlWDwaz7jntosbqc7qOR8uOyzw9zM</nz-descriptions-item>
+        <nz-descriptions-item nzTitle="AppSecret">****</nz-descriptions-item>
+        <nz-descriptions-item nzTitle="EncryptKey">****</nz-descriptions-item>
+        <nz-descriptions-item nzTitle="VerificationToken">****</nz-descriptions-item>
+      </nz-descriptions>
+      <nz-list-item-extra>
+        <button nz-button nzType="link"> 已关联 </button>
+      </nz-list-item-extra>
+    </nz-list-item>
+    <nz-list-item>
+      <nz-list-item-meta>
+        <nz-list-item-meta-avatar>
+          <nz-avatar
+            nzShape="square"
+            nzSize="large"
+            [nzSrc]="['assets', 'office', 'work-weixin.png'] | wpxAssets"
+          ></nz-avatar>
+        </nz-list-item-meta-avatar>
+        <nz-list-item-meta-title><b>企业微信</b></nz-list-item-meta-title>
+        <nz-list-item-meta-description>当前未关联企业微信账号</nz-list-item-meta-description>
+      </nz-list-item-meta>
+      <nz-list-item-extra>
+        <button nz-button nzType="link" disabled> 计划中 </button>
+      </nz-list-item-extra>
+    </nz-list-item>
+    <nz-list-item>
+      <nz-list-item-meta>
+        <nz-list-item-meta-avatar>
+          <nz-avatar
+            nzShape="square"
+            nzSize="large"
+            [nzSrc]="['assets', 'office', 'dingtalk.png'] | wpxAssets"
+          ></nz-avatar>
+        </nz-list-item-meta-avatar>
+        <nz-list-item-meta-title><b>钉钉</b></nz-list-item-meta-title>
+        <nz-list-item-meta-description>当前未关联钉钉账号</nz-list-item-meta-description>
+      </nz-list-item-meta>
+      <nz-list-item-extra>
+        <button nz-button nzType="link" disabled> 计划中 </button>
+      </nz-list-item-extra>
+    </nz-list-item>
+  </nz-list>
+</nz-list>
+
+<nz-card nzTitle="以下设置需要关联一种企业平台作为支持，切换企业平台原设置将失效">
+  <nz-list nzSize="large" nzItemLayout="vertical">
+    <nz-list-item>
+      <nz-list-item-meta>
+        <nz-list-item-meta-title><b>第三方免登陆</b></nz-list-item-meta-title>
+        <nz-list-item-meta-description> 允许通过企业平台用户身份进行登录 </nz-list-item-meta-description>
+      </nz-list-item-meta>
+      <nz-list-item-extra>
+        <button nz-button nzType="primary" nzShape="circle" nz-tooltip="设置" disabled>
+          <i nz-icon nzType="tool"></i>
+        </button>
+      </nz-list-item-extra>
+    </nz-list-item>
+    <nz-list-item>
+      <nz-list-item-meta>
+        <nz-list-item-meta-title><b>任务同步</b></nz-list-item-meta-title>
+        <nz-list-item-meta-description>
+          针对任务资源提供的开放 API，可以支持任务的创建、更新、删除等操作
+        </nz-list-item-meta-description>
+      </nz-list-item-meta>
+      <nz-list-item-extra>
+        <button nz-button nzType="primary" nzShape="circle" nz-tooltip="设置" disabled>
+          <i nz-icon nzType="tool"></i>
+        </button>
+      </nz-list-item-extra>
+    </nz-list-item>
+    <nz-list-item>
+      <nz-list-item-meta>
+        <nz-list-item-meta-title><b>日历同步</b></nz-list-item-meta-title>
+        <nz-list-item-meta-description>
+          日历 API
+          基于飞书日历功能开放了对日历、日程、忙闲等实体的操作查询能力，开发者能以「应用」或「用户」身份调用日历 API
+          操作对应数据
+        </nz-list-item-meta-description>
+      </nz-list-item-meta>
+      <nz-list-item-extra>
+        <button nz-button nzType="primary" nzShape="circle" nz-tooltip="设置" disabled>
+          <i nz-icon nzType="tool"></i>
+        </button>
+      </nz-list-item-extra>
+    </nz-list-item>
+    <nz-list-item>
+      <nz-list-item-meta>
+        <nz-list-item-meta-title><b>消息</b></nz-list-item-meta-title>
+        <nz-list-item-meta-description> 使用飞书提供了一系列即时通讯场景的 API </nz-list-item-meta-description>
+      </nz-list-item-meta>
+      <nz-list-item-extra>
+        <button nz-button nzType="primary" nzShape="circle" nz-tooltip="设置" disabled>
+          <i nz-icon nzType="tool"></i>
+        </button>
+      </nz-list-item-extra>
+    </nz-list-item>
+  </nz-list>
+</nz-card>

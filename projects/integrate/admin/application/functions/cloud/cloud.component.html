@@ -1,0 +1,87 @@
+<nz-list nzItemLayout="vertical">
+  <nz-list nzSize="large" nzItemLayout="vertical">
+    <nz-list-item>
+      <nz-list-item-meta>
+        <nz-list-item-meta-title>
+          <img height="20px" [src]="['assets', 'cloud', 'tencent.svg'] | wpxAssets" alt="" />
+        </nz-list-item-meta-title>
+      </nz-list-item-meta>
+      <nz-descriptions nzSize="small" nzBordered [nzColumn]="2">
+        <nz-descriptions-item nzTitle="SecretId">blQYlWDwaz7jntosbqc7qOR8uOyzw9zM</nz-descriptions-item>
+        <nz-descriptions-item nzTitle="SecretKey">****</nz-descriptions-item>
+      </nz-descriptions>
+      <nz-list-item-extra>
+        <button nz-button nzType="link"> 已关联 </button>
+      </nz-list-item-extra>
+    </nz-list-item>
+    <nz-list-item>
+      <nz-list-item-meta>
+        <nz-list-item-meta-title>
+          <img height="20px" [src]="['assets', 'cloud', 'aliyun.png'] | wpxAssets" alt="" />
+        </nz-list-item-meta-title>
+        <nz-list-item-meta-description>当前未关联阿里云平台</nz-list-item-meta-description>
+      </nz-list-item-meta>
+      <nz-list-item-extra>
+        <button nz-button nzType="link" disabled> 计划中 </button>
+      </nz-list-item-extra>
+    </nz-list-item>
+    <nz-list-item>
+      <nz-list-item-meta>
+        <nz-list-item-meta-title>
+          <img height="30px" [src]="['assets', 'cloud', 'huaweicloud.svg'] | wpxAssets" alt="" />
+        </nz-list-item-meta-title>
+        <nz-list-item-meta-description>当前未关联华为云平台</nz-list-item-meta-description>
+      </nz-list-item-meta>
+      <nz-list-item-extra>
+        <button nz-button nzType="link" disabled> 计划中 </button>
+      </nz-list-item-extra>
+    </nz-list-item>
+  </nz-list>
+</nz-list>
+
+<nz-card nzTitle="以下设置需要关联一种云厂商作为支持，切换云厂商原设置将失效">
+  <nz-list nzSize="large" nzItemLayout="vertical">
+    <nz-list-item>
+      <nz-list-item-meta>
+        <nz-list-item-meta-title><b>静态资源存储</b></nz-list-item-meta-title>
+      </nz-list-item-meta>
+      <nz-descriptions nzSize="small" nzBordered [nzColumn]="2">
+        <nz-descriptions-item nzTitle="Bucket">cdn-1231231</nz-descriptions-item>
+        <nz-descriptions-item nzTitle="地域">ap-guangzhou</nz-descriptions-item>
+        <nz-descriptions-item nzTitle="上传限时">300s</nz-descriptions-item>
+        <nz-descriptions-item nzTitle="上传大小">5M</nz-descriptions-item>
+      </nz-descriptions>
+      <nz-list-item-extra>
+        <button nz-button nzType="primary" nzShape="circle" nz-tooltip="设置">
+          <i nz-icon nzType="tool"></i>
+        </button>
+      </nz-list-item-extra>
+    </nz-list-item>
+    <nz-list-item>
+      <nz-list-item-meta>
+        <nz-list-item-meta-title><b>消息队列</b></nz-list-item-meta-title>
+        <nz-list-item-meta-description>
+          取代 NATS JetStream 使用腾讯云 TDMQ Plusar 作用事务补偿</nz-list-item-meta-description
+        >
+      </nz-list-item-meta>
+      <nz-list-item-extra>
+        <button nz-button nzType="primary" nzShape="circle" nz-tooltip="设置" disabled>
+          <i nz-icon nzType="tool"></i>
+        </button>
+      </nz-list-item-extra>
+    </nz-list-item>
+    <nz-list-item>
+      <nz-list-item-meta>
+        <nz-list-item-meta-title><b>日志服务</b></nz-list-item-meta-title>
+        <nz-list-item-meta-description>
+          取代 InfluxDB 使用腾讯云 CLS 日志服务作用日志收集
+        </nz-list-item-meta-description>
+      </nz-list-item-meta>
+      <nz-list-item-extra>
+        <button nz-button nzType="primary" nzShape="circle" nz-tooltip="设置" disabled>
+          <i nz-icon nzType="tool"></i>
+        </button>
+      </nz-list-item-extra>
+    </nz-list-item>
+  </nz-list>
+</nz-card>
