@@ -1,5 +1,6 @@
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 import { SchemaField } from '@weplanx/ng';
 import { NzMessageService } from 'ng-zorro-antd/message';
@@ -18,10 +19,17 @@ export class SchemaComponent implements OnInit {
   fieldList: SchemaField[] = [];
   datatype: Record<string, string> = Object.fromEntries([].concat(...(fieldTypeValues.map(v => v.values) as any[])));
 
-  constructor(private pages: PagesSerivce, private modal: NzModalService, private message: NzMessageService) {}
+  constructor(
+    private pages: PagesSerivce,
+    private modal: NzModalService,
+    private message: NzMessageService,
+    private route: ActivatedRoute
+  ) {}
 
   ngOnInit(): void {
-    this.getData();
+    this.route.params.subscribe(params => {
+      this.getData();
+    });
   }
 
   getData(): void {
@@ -50,8 +58,8 @@ export class SchemaComponent implements OnInit {
       nzWidth: 800,
       nzContent: FormComponent,
       nzComponentParams: {
-        doc,
-        page: this.pages.page!
+        page: this.pages.page!,
+        doc
       },
       nzOnOk: () => {
         this.getData();

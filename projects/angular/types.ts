@@ -55,6 +55,11 @@ export type FindOption<T> = Omit<ApiOptions<T>, 'format_doc'>;
 export type UpdateOption<T> = Pick<ApiOptions<T>, 'format_filter' | 'format_doc'>;
 export type UpdateOneByIdOption<T> = Pick<ApiOptions<T>, 'format_doc'>;
 
+/**
+ * 低码类型
+ */
+export type PageKind = 'default' | 'aggregation' | 'group';
+export type PageManifest = 'default' | 'tree' | 'form' | 'hide' | 'dashboard';
 export interface Page {
   /**
    * 父节点
@@ -71,7 +76,11 @@ export interface Page {
   /**
    * 种类
    */
-  kind: string;
+  kind: PageKind;
+  /**
+   * 形式
+   */
+  manifest?: PageManifest;
   /**
    * 数据源
    */
@@ -96,7 +105,7 @@ export interface Schema {
    */
   fields: Record<string, SchemaField>;
   /**
-   * 规则
+   * 显隐规则
    */
   rules?: any[];
   /**

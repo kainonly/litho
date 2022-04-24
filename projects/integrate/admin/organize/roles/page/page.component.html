@@ -16,7 +16,7 @@
         </ng-container>
       </ng-container>
       <span class="wpx-name">{{ node.title }}</span>
-      <span *ngIf="node.isChecked && (page.kind === 'default' || page.kind === 'form')" class="wpx-readonly">
+      <span *ngIf="node.isChecked && page.kind === 'default'" class="wpx-readonly">
         <button
           nz-button
           nzSize="small"

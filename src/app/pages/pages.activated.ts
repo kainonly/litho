@@ -8,7 +8,7 @@ export class PagesActivated implements CanActivateChild {
   constructor(private wpx: WpxService) {}
 
   canActivateChild(childRoute: ActivatedRouteSnapshot): true {
-    this.wpx.pageId = childRoute.params['pageId'];
+    this.wpx.pageId.next(childRoute.params['pageId']);
     return true;
   }
 }

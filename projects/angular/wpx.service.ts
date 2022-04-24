@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 import { AnyDto, Page } from './types';
 
@@ -25,7 +25,7 @@ export class WpxService {
   /**
    * 当前页面
    */
-  pageId?: string;
+  pageId: BehaviorSubject<string> = new BehaviorSubject<string>('');
   /**
    * 退出登录
    */
@@ -59,14 +59,15 @@ export class WpxService {
     const pages: Record<string, AnyDto<Page>> = {};
     const navs: Array<AnyDto<Page>> = [];
     for (const x of values) {
-      pages[x._id] = x;
       x['children'] = [];
+      pages[x._id] = x;
+    }
+    for (const x of values) {
       if (!x.parent) {
-        x['path'] = [x._id];
         navs.push(x);
       } else {
         if (pages.hasOwnProperty(x.parent)) {
-          x['_path'] = [...pages[x.parent]['path']!, x._id];
+          x['parentNode'] = pages[x.parent];
           pages[x.parent]['children']!.push(x);
         }
       }

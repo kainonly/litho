@@ -38,17 +38,14 @@
       <ng-template #nzExpandedIcon let-node>
         <ng-container *ngIf="pages.dict?.[node.key] as page">
           <ng-container [ngSwitch]="page.kind">
-            <ng-container *ngSwitchCase="'form'">
-              <i nz-icon nzType="file-text"></i>
+            <ng-container *ngSwitchCase="'default'">
+              <i nz-icon nzType="database" nz-tooltip="数据源"></i>
             </ng-container>
-            <ng-container *ngSwitchCase="'dashboard'">
-              <i nz-icon nzType="dashboard"></i>
+            <ng-container *ngSwitchCase="'aggregation'" nz-tooltip="数据统计">
+              <i nz-icon nzType="calculator"></i>
             </ng-container>
             <ng-container *ngSwitchCase="'group'">
-              <i nz-icon [nzType]="!node.isExpanded ? 'folder' : 'folder-open'"></i>
-            </ng-container>
-            <ng-container *ngSwitchDefault>
-              <i nz-icon nzType="database"></i>
+              <i nz-icon [nzType]="!node.isExpanded ? 'folder' : 'folder-open'" nz-tooltip="导航分组"></i>
             </ng-container>
           </ng-container>
         </ng-container>

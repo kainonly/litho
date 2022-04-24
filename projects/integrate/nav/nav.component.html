@@ -4,26 +4,23 @@
     <ng-template #nav let-pages>
       <ng-container *ngFor="let page of pages | wpxSort: 'sort'">
         <ng-container *ngIf="page.kind !== 'group'; else isGroup">
-          <li
-            nz-menu-item
-            nzMatchRouter
-            [routerLink]="['/pages', page['_id']]"
-            [nzPaddingLeft]="page['path'].length * 24"
-          >
+          <li nz-menu-item nzMatchRouter [routerLink]="['/pages', page['_id']]" [nzPaddingLeft]="page | Level">
             <i *ngIf="page.hasOwnProperty('icon')" nz-icon [nzType]="page['icon']"></i>
             <span>{{ page['name'] }}</span>
           </li>
         </ng-container>
         <ng-template #isGroup>
-          <li nz-submenu [nzOpen]="page['_id'] | OpenState: wpx.pageId" [nzPaddingLeft]="page['path'].length * 24">
-            <span title>
-              <i *ngIf="page.hasOwnProperty('icon')" nz-icon [nzType]="page['icon']"></i>
-              <span>{{ page['name'] }}</span>
-            </span>
-            <ul>
-              <ng-container *ngTemplateOutlet="nav; context: { $implicit: page['children'] }"></ng-container>
-            </ul>
-          </li>
+          <ng-container *ngIf="wpx.pageId | async as current">
+            <li nz-submenu [nzOpen]="page['_id'] | OpenState: current" [nzPaddingLeft]="page | Level">
+              <span title>
+                <i *ngIf="page.hasOwnProperty('icon')" nz-icon [nzType]="page['icon']"></i>
+                <span>{{ page['name'] }}</span>
+              </span>
+              <ul>
+                <ng-container *ngTemplateOutlet="nav; context: { $implicit: page['children'] }"></ng-container>
+              </ul>
+            </li>
+          </ng-container>
         </ng-template>
       </ng-container>
     </ng-template>

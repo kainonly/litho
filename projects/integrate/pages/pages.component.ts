@@ -30,9 +30,9 @@ export class WpxPagesComponent implements OnInit {
       )
       .subscribe(page => {
         switch (page.kind) {
-          case 'form':
-            this.component = new ComponentPortal<any>(FormComponent);
-            break;
+          // case 'form':
+          //   this.component = new ComponentPortal<any>(FormComponent);
+          //   break;
           default:
             this.component = new ComponentPortal<any>(TableComponent);
         }

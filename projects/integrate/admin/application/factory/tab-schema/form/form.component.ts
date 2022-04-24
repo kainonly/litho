@@ -14,8 +14,9 @@ import { fieldTypeValues } from '../../values';
   templateUrl: './form.component.html'
 })
 export class FormComponent implements OnInit {
+  @Input() page!: AnyDto<Page>;
   @Input() doc?: SchemaField;
-  @Input() page?: AnyDto<Page>;
+
   form?: FormGroup;
   typeValues: Array<Record<string, any>> = fieldTypeValues;
   readonly special = ['number', 'radio', 'checkbox', 'select'];
@@ -29,6 +30,7 @@ export class FormComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    console.log(this.doc);
     this.form = this.fb.group({
       key: [null, [Validators.required, Validators.pattern(/^[a-z_]+$/), this.existsField]],
       label: [null, [Validators.required]],
@@ -47,11 +49,14 @@ export class FormComponent implements OnInit {
         reference: [null],
         target: [null],
         multiple: [false]
-      })
+      }),
+      sort: []
     });
     if (this.doc) {
       this.form.patchValue(this.doc);
       this.form.markAsTouched();
+    } else {
+      this.form.get('sort')?.setValue(Object.keys(this.page.schema?.fields!).length);
     }
   }
 

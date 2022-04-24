@@ -16,9 +16,7 @@ import { PagesSerivce } from '../pages.serivce';
 })
 export class FormComponent implements OnInit {
   @Input() doc?: AnyDto<Page>;
-  @Input() nodes?: NzTreeNodeOptions[];
-  parentNodes?: NzTreeNodeOptions[];
-
+  nodes: NzTreeNodeOptions[] = [];
   form?: FormGroup;
 
   constructor(
@@ -30,13 +28,14 @@ export class FormComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    if (this.nodes) {
-      this.parentNodes = [...this.nodes];
-    }
+    this.pages.getTreeNode({}).subscribe(v => {
+      this.nodes = [...v];
+    });
     this.form = this.fb.group({
       name: [null, [Validators.required]],
       parent: [],
       kind: ['default', [Validators.required]],
+      manifest: ['default', [Validators.required]],
       icon: [],
       status: [true, [Validators.required]],
       schema: this.schema
@@ -63,8 +62,10 @@ export class FormComponent implements OnInit {
 
   changedKind(value: string): void {
     if (value === 'group') {
+      this.form?.removeControl('manifest');
       this.form?.removeControl('schema');
     } else {
+      this.form?.addControl('manifest', this.fb.control('default', [Validators.required]));
       this.form?.addControl('schema', this.schema);
     }
   }
@@ -75,15 +76,27 @@ export class FormComponent implements OnInit {
 
   submit(data: Page): void {
     if (!this.doc) {
-      this.pages.create(data).subscribe(v => {
-        this.message.success('数据新增完成');
-        this.modal.triggerOk();
-      });
+      this.pages
+        .create(data, {
+          format_doc: { parent: 'oid' }
+        })
+        .subscribe(v => {
+          this.message.success('数据新增完成');
+          this.modal.triggerOk();
+        });
     } else {
-      this.pages.updateOneById(this.doc._id, { $set: data }).subscribe(v => {
-        this.message.success('数据更新完成');
-        this.modal.triggerOk();
-      });
+      this.pages
+        .updateOneById(
+          this.doc._id,
+          { $set: data },
+          {
+            format_doc: { parent: 'oid' }
+          }
+        )
+        .subscribe(v => {
+          this.message.success('数据更新完成');
+          this.modal.triggerOk();
+        });
     }
   }
 }

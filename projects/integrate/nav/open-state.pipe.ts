@@ -6,10 +6,17 @@ import { WpxService } from '@weplanx/ng';
 export class OpenStatePipe implements PipeTransform {
   constructor(private wpx: WpxService) {}
 
-  transform(id: string, current?: string): boolean {
+  transform(id: string, current: string): boolean {
     if (!current) {
       return false;
     }
-    return this.wpx.pages[current]['path']!.includes(id);
+    let node = this.wpx.pages[current];
+    while (node) {
+      if (node._id === id) {
+        return true;
+      }
+      node = node['parentNode'];
+    }
+    return false;
   }
 }

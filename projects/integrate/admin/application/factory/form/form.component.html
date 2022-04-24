@@ -16,8 +16,7 @@
     <nz-form-label>父节点</nz-form-label>
     <nz-form-control nzHasFeedback>
       <nz-tree-select
-        *ngIf="parentNodes"
-        [nzNodes]="parentNodes"
+        [nzNodes]="nodes"
         nzShowSearch
         formControlName="parent"
         nzPlaceHolder="默认最高级"
@@ -27,7 +26,12 @@
 
   <nz-form-item>
     <nz-form-label>字体图标</nz-form-label>
-    <nz-form-control>
+    <nz-form-control [nzExtra]="iconLink">
+      <ng-template #iconLink>
+        <a target="_blank" href="https://ng.ant.design/components/icon/zh">
+          https://ng.ant.design/components/icon/zh
+        </a>
+      </ng-template>
       <input nz-input formControlName="icon" placeholder="请填写字体图标，遵循图标 nzType 命名规范" />
     </nz-form-control>
   </nz-form-item>
@@ -43,15 +47,42 @@
       }"
     >
       <nz-select formControlName="kind" nzPlaceHolder="请选择一种新增种类" (ngModelChange)="changedKind($event)">
-        <nz-option nzValue="default" nzLabel="集合"></nz-option>
-        <nz-option nzValue="form" nzLabel="表单"></nz-option>
-        <nz-option nzValue="dashboard" nzLabel="仪表盘"></nz-option>
-        <nz-option nzValue="group" nzLabel="分组"></nz-option>
+        <nz-option nzValue="default" nzLabel="数据集" nzCustomContent>
+          <i nz-icon nzType="database"></i> 数据集
+        </nz-option>
+        <nz-option nzValue="aggregation" nzLabel="数据聚合" nzCustomContent>
+          <i nz-icon nzType="calculator"></i> 数据聚合
+        </nz-option>
+        <nz-option nzValue="group" nzLabel="导航分组" nzCustomContent>
+          <i nz-icon nzType="group"></i> 导航分组
+        </nz-option>
       </nz-select>
     </nz-form-control>
   </nz-form-item>
 
-  <ng-container *ngIf="form.get('kind')?.value !== 'group'" formGroupName="schema">
+  <ng-container *ngIf="form.get('kind')?.value !== 'group'">
+    <nz-form-item>
+      <nz-form-label nzRequired>形式</nz-form-label>
+      <nz-form-control>
+        <nz-radio-group formControlName="manifest">
+          <ng-container [ngSwitch]="form.get('kind')?.value">
+            <ng-container *ngSwitchCase="'default'">
+              <label nz-radio-button nzValue="default">标准表格</label>
+              <label nz-radio-button nzValue="tree">树形表格</label>
+              <label nz-radio-button nzValue="form">独立表单</label>
+              <label nz-radio-button nzValue="hide">不显示</label>
+            </ng-container>
+            <ng-container *ngSwitchCase="'aggregation'">
+              <label nz-radio-button nzValue="default">数据表格</label>
+              <label nz-radio-button nzValue="dashboard">统计图</label>
+            </ng-container>
+          </ng-container>
+        </nz-radio-group>
+      </nz-form-control>
+    </nz-form-item>
+  </ng-container>
+
+  <ng-container *ngIf="form.get('kind')?.value === 'default'" formGroupName="schema">
     <nz-form-item>
       <nz-form-label nzRequired>数据源命名</nz-form-label>
       <nz-form-control

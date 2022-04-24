@@ -14,25 +14,23 @@
             </ul>
           </nz-dropdown-menu>
         </button>
-        <nz-breadcrumb *nzSpaceItem [nzAutoGenerate]="!wpx.pageId">
-          <ng-container *ngIf="!!wpx.pageId">
-            <nz-breadcrumb-item>
-              <a [routerLink]="['/pages']">我的应用</a>
-            </nz-breadcrumb-item>
-            <ng-container *ngIf="wpx.pages as pages">
-              <ng-container *ngIf="wpx.pageId">
-                <ng-container *ngFor="let id of pages[wpx.pageId]?.['_path']">
-                  <nz-breadcrumb-item>
-                    <ng-container *ngIf="pages[id]?.kind !== 'group'; else textName">
-                      <a [routerLink]="['/pages', id]">{{ pages[id]?.name }}</a>
-                    </ng-container>
-                    <ng-template #textName>{{ pages[id]?.name }}</ng-template>
-                  </nz-breadcrumb-item>
-                </ng-container>
+        <ng-container *ngIf="wpx.pageId | async as current">
+          <nz-breadcrumb *nzSpaceItem [nzAutoGenerate]="current === ''">
+            <ng-container *ngIf="current !== ''">
+              <nz-breadcrumb-item>
+                <a [routerLink]="['/pages']">我的应用</a>
+              </nz-breadcrumb-item>
+              <ng-container *ngFor="let page of current | Path">
+                <nz-breadcrumb-item>
+                  <ng-container *ngIf="page?.kind !== 'group'; else textName">
+                    <a [routerLink]="['/pages', page._id]">{{ page?.name }}</a>
+                  </ng-container>
+                  <ng-template #textName>{{ page?.name }}</ng-template>
+                </nz-breadcrumb-item>
               </ng-container>
             </ng-container>
-          </ng-container>
-        </nz-breadcrumb>
+          </nz-breadcrumb>
+        </ng-container>
       </nz-space>
     </nz-col>
     <nz-col>

@@ -12,9 +12,11 @@
     <thead>
       <tr>
         <th nzWidth="50px" nzLeft nzAlign="center"> </th>
-        <th nzWidth="300px" nzLeft>字段</th>
-        <th>描述</th>
-        <th nzWidth="50px" nzRight nzAlign="center">操作</th>
+        <th nzWidth="120px" nzLeft><b>类型</b></th>
+        <th nzWidth="180px" nzLeft><b>名称</b></th>
+        <th nzWidth="180px" nzLeft><b>命名</b></th>
+        <th><b>描述</b></th>
+        <th nzWidth="50px" nzRight nzAlign="center"><b>操作</b></th>
       </tr>
     </thead>
     <tbody cdkDropList (cdkDropListDropped)="sort($event)">
@@ -26,8 +28,9 @@
         </td>
         <td nzLeft>
           <nz-tag nzColor="blue">{{ datatype[data.type] }}</nz-tag>
-          {{ data.label }} [ {{ data.key }} ]
         </td>
+        <td nzLeft> {{ data.label }} </td>
+        <td nzLeft>{{ data.key }}</td>
         <td>
           <ng-container *ngIf="data.required">
             <nz-tag>必须的</nz-tag>

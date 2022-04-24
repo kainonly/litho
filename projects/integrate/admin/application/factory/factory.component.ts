@@ -1,3 +1,4 @@
+import { stringify } from '@angular/compiler/src/util';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { mergeMap } from 'rxjs';
@@ -44,7 +45,7 @@ export class FactoryComponent implements OnInit {
   }
 
   getData(): void {
-    this.pages.getTreeNode({}).subscribe(v => {
+    this.pages.getTreeNode({}, false).subscribe(v => {
       this.nodes = [...v];
       if (this.pages.id) {
         this.selectedKeys = [this.pages.id];
@@ -92,8 +93,7 @@ export class FactoryComponent implements OnInit {
       nzTitle: !doc ? '新增' : `编辑【${doc.name}】`,
       nzContent: FormComponent,
       nzComponentParams: {
-        doc,
-        nodes: this.nodes
+        doc
       },
       nzOnOk: () => {
         this.getData();
@@ -125,10 +125,9 @@ export class FactoryComponent implements OnInit {
     }
     const node = event.dragNode;
     const parentNode = node.getParentNode();
-    let parent: string;
+    let parent: any = null;
     let sort: string[];
     if (!parentNode) {
-      parent = '';
       sort = node.treeService!.rootNodes.map(v => v.key);
     } else {
       parent = parentNode.key;

@@ -12,7 +12,7 @@ export class PagesSerivce extends Api<Page> {
   id?: string;
   page?: AnyDto<Page>;
 
-  getTreeNode(filter: Filter<Page> = {}): Observable<NzTreeNodeOptions[]> {
+  getTreeNode(filter: Filter<Page> = {}, selectable = true): Observable<NzTreeNodeOptions[]> {
     return this.find(filter, { sort: { sort: 1 } }).pipe(
       map(v => {
         const nodes: NzTreeNodeOptions[] = [];
@@ -26,7 +26,7 @@ export class PagesSerivce extends Api<Page> {
             icon: x.icon,
             isLeaf: true,
             expanded: true,
-            selectable: x.kind !== 'group'
+            selectable: selectable || x.kind !== 'group'
           };
         }
         for (const x of v) {
@@ -67,7 +67,7 @@ export class PagesSerivce extends Api<Page> {
     );
   }
 
-  reorganization(id: string, parent: string): Observable<any> {
+  reorganization(id: string, parent: null | string): Observable<any> {
     return this.updateOneById(
       id,
       {
