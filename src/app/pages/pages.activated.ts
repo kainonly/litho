@@ -9,7 +9,7 @@ export class PagesActivated implements CanActivateChild {
 
   canActivateChild(childRoute: ActivatedRouteSnapshot): true {
     this.wpx.manual = false;
-    this.wpx.id.next(childRoute.params['pageId']);
+    this.wpx.pageId.next(childRoute.params['pageId']);
     return true;
   }
 }

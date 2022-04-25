@@ -15,9 +15,9 @@
           </nz-dropdown-menu>
         </button>
 
-        <nz-breadcrumb *nzSpaceItem [nzAutoGenerate]="wpx.auto">
-          <ng-container *ngIf="!wpx.auto">
-            <ng-container *ngIf="wpx.id | async as current">
+        <nz-breadcrumb *nzSpaceItem [nzAutoGenerate]="wpx.manual">
+          <ng-container *ngIf="!wpx.manual">
+            <ng-container *ngIf="wpx.pageId | async as current">
               <nz-breadcrumb-item>
                 <a [routerLink]="['/pages']">我的应用</a>
               </nz-breadcrumb-item>

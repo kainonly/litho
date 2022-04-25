@@ -13,7 +13,7 @@ export class OpenStatePipe implements PipeTransform {
     return this.wpx.pages.pipe(
       switchMap(v => {
         this.pages = v;
-        return this.wpx.id;
+        return this.wpx.pageId;
       }),
       map(v => {
         if (!v) {

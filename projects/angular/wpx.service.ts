@@ -16,13 +16,13 @@ export class WpxService {
    */
   upload?: { url?: string; size?: number; presignedUrl?: string };
   /**
-   * 当前页面 ID
-   */
-  id: BehaviorSubject<string> = new BehaviorSubject<string>('');
-  /**
    * 导航索引
    */
   pages: AsyncSubject<Record<string, AnyDto<Page>>> = new AsyncSubject<Record<string, AnyDto<Page>>>();
+  /**
+   * 当前页面 ID
+   */
+  pageId: BehaviorSubject<string> = new BehaviorSubject<string>('');
   /**
    * 导航数据
    */
