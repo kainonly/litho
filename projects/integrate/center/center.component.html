@@ -6,13 +6,21 @@
         <i nz-icon nzType="desktop"></i>
         工作台
       </li>
-      <li nz-menu-item>
+      <li nz-menu-item nzMatchRouter [routerLink]="['safety']">
         <i nz-icon nzType="safety"></i>
         安全设置
       </li>
-      <li nz-menu-item>
+      <li nz-menu-item nzMatchRouter [routerLink]="['third-party']">
+        <i nz-icon nzType="link"></i>
+        第三方关联
+      </li>
+      <li nz-menu-item nzMatchRouter [routerLink]="['audit']">
         <i nz-icon nzType="audit"></i>
         日志
+      </li>
+      <li nz-menu-item style="float: right" (click)="openProfile()">
+        <i nz-icon nzType="edit"></i>
+        编辑信息
       </li>
     </ul>
     <nz-layout style="overflow: auto">

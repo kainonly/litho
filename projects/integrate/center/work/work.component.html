@@ -1,23 +1,60 @@
 <nz-row [nzGutter]="8">
   <nz-col nzFlex="320px">
-    <nz-card>
+    <nz-card *ngIf="wpx.user as user">
       <div class="user">
-        <nz-avatar [nzSize]="128" nzSrc="/assets/user.png" nzIcon="user" nz-tooltip="更换头像"></nz-avatar>
-        <h2></h2>
+        <nz-avatar [nzSize]="128" [nzSrc]="user?.avatar" nzIcon="user"></nz-avatar>
+        <h2> {{ user?.name ?? '无称呼' }}</h2>
       </div>
-      <nz-space class="user-detail" nzDirection="vertical">
-        <span *nzSpaceItem><i nz-icon nzType="idcard"></i> </span>
-        <span *nzSpaceItem><i nz-icon nzType="apartment"></i> XXX-XX部</span>
-        <span *nzSpaceItem><i nz-icon nzType="mail"></i> zhangtqx@vip.qq.com</span>
+      <nz-space class="details" nzDirection="vertical">
+        <span *nzSpaceItem>
+          <nz-tag nzColor="blue" nz-tooltip="用户名">
+            <i nz-icon nzType="idcard"></i>
+            <span>{{ user?.username }}</span>
+          </nz-tag>
+        </span>
+        <span *nzSpaceItem>
+          <ng-container *ngIf="!!user?.roles">
+            <nz-tag *ngFor="let role of user!.roles" nzColor="blue" nz-tooltip="权限组">
+              <i nz-icon nzType="partition"></i>
+              <span>{{ role }}</span>
+            </nz-tag>
+          </ng-container>
+        </span>
+        <span *nzSpaceItem>
+          <nz-tag nzColor="blue" nz-tooltip="部门">
+            <i nz-icon nzType="apartment"></i>
+            <span>{{ user?.department ?? '无' }}</span>
+          </nz-tag>
+        </span>
+        <span *nzSpaceItem>
+          <nz-tag nzColor="blue" nz-tooltip="电子邮件">
+            <i nz-icon nzType="mail"></i>
+            <span>{{ user?.email ?? '无' }}</span>
+          </nz-tag>
+        </span>
       </nz-space>
       <nz-divider></nz-divider>
       <nz-space nzDirection="vertical">
-        <span *nzSpaceItem><i nz-icon nzType="team"></i> 创建时间 2018-11-08</span>
-        <span *nzSpaceItem><i nz-icon nzType="fund"></i> 您已累计进行 131 次会话登录</span>
-        <h3 *nzSpaceItem>最近登录地点</h3>
-        <div *nzSpaceItem>
-          <nz-tag nzColor="warning">三亚</nz-tag>
-        </div>
+        <span *nzSpaceItem>
+          <i nz-icon nzType="team"></i>
+          <i>
+            创建时间
+            <b>{{ user?.create_time | date: 'yyyy年MM月dd日' }}</b>
+          </i>
+        </span>
+        <span *nzSpaceItem>
+          <i nz-icon nzType="fund"></i>
+          <i>
+            您已累计进行 <b>{{ user?.sessions }}</b> 次会话登录
+          </i>
+        </span>
+        <span *nzSpaceItem>
+          <i nz-icon nzType="login"></i>
+          <i>
+            最近登录
+            <b>[{{ user?.last }}]</b>
+          </i>
+        </span>
       </nz-space>
     </nz-card>
   </nz-col>
@@ -29,6 +66,9 @@
           <nz-tab nzTitle="待办"></nz-tab>
         </nz-tabset>
       </nz-card-tab>
+      <nz-list>
+        <nz-list-empty></nz-list-empty>
+      </nz-list>
     </nz-card>
   </nz-col>
 </nz-row>

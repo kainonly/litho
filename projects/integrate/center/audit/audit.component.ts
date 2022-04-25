@@ -5,13 +5,12 @@ import { differenceInCalendarDays } from 'date-fns';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalService } from 'ng-zorro-antd/modal';
 
-import { UsersService } from '../../organize/users/users.service';
-import { LoginLog } from './types';
+import { UsersService } from '../../admin/organize/users/users.service';
+import { LoginLog } from '../../admin/security/audit/types';
 
 @Component({
-  selector: 'wpx-admin-audit',
-  templateUrl: './audit.component.html',
-  styleUrls: ['./audit.component.scss']
+  selector: 'wpx-center-audit',
+  templateUrl: './audit.component.html'
 })
 export class AuditComponent implements OnInit {
   disabledDate = (current: Date): boolean => differenceInCalendarDays(current, new Date()) > 0;
@@ -20,12 +19,7 @@ export class AuditComponent implements OnInit {
   items: any[] = [];
   skip = 0;
 
-  constructor(
-    private wpx: WpxService,
-    private users: UsersService,
-    private message: NzMessageService,
-    private modal: NzModalService
-  ) {}
+  constructor(private wpx: WpxService, private message: NzMessageService, private modal: NzModalService) {}
 
   ngOnInit(): void {
     this.getData(true);
@@ -69,19 +63,5 @@ export class AuditComponent implements OnInit {
     this.date = [];
     this.searchText = '';
     this.getData(true);
-  }
-
-  blockUser(data: any): void {
-    this.modal.confirm({
-      nzTitle: '您确定要禁用该账户吗？',
-      nzContent: `用户名：${data.username}<br/>电子邮件：${data.email}<br/>UID：${data.user}`,
-      nzOkDanger: true,
-      nzOkText: '禁用',
-      nzOnOk: () => {
-        this.users.updateOneById(data.user, { $set: { status: false } }).subscribe(() => {
-          this.message.success('已禁用该账户，将无法访问系统~');
-        });
-      }
-    });
   }
 }

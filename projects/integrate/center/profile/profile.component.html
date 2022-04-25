@@ -1,0 +1,32 @@
+<form nz-form nzLayout="vertical" id="form" [formGroup]="form" (wpxSubmit)="submit($event)">
+  <nz-form-item>
+    <nz-form-label>称呼</nz-form-label>
+    <nz-form-control style="width: 328px">
+      <input nz-input placeholder="请输入" formControlName="name" />
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label>电子邮件</nz-form-label>
+    <nz-form-control [nzExtra]="emailExtra" style="width: 328px">
+      <input type="text" nz-input formControlName="email" placeholder="mail@example.com" />
+      <ng-template #emailExtra> *推荐采用企业邮箱，可以用于验证与登录 </ng-template>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label>头像</nz-form-label>
+    <nz-form-control>
+      <wpx-upload-avatar
+        wpxExt="image"
+        [wpxAccept]="['image/jpeg', 'image/png']"
+        [wpxFallback]="['assets', 'dataflow.svg'] | wpxAssets"
+        formControlName="avatar"
+      >
+      </wpx-upload-avatar>
+    </nz-form-control>
+  </nz-form-item>
+</form>
+
+<div *nzModalFooter>
+  <button nz-button type="button" nzType="default" (click)="close()">取消</button>
+  <button nz-button nzType="primary" form="form" [disabled]="!form?.valid">提交</button>
+</div>

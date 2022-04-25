@@ -5,7 +5,8 @@ import { map } from 'rxjs/operators';
 
 import { StorageMap } from '@ngx-pwa/local-storage';
 
-import { AnyDto, Page, UserInfo } from './types';
+import { AnyDto, ApiOptions, Filter, FindOption, Page, UserInfo } from './types';
+import { httpOptions } from './util/helper';
 
 @Injectable({ providedIn: 'root' })
 export class WpxService {
@@ -126,8 +127,8 @@ export class WpxService {
   /**
    * 获取个人用户信息
    */
-  getUser(full = false): Observable<UserInfo> {
-    return this.http.get<UserInfo>('user', { params: { full } }).pipe(
+  getUser(): Observable<UserInfo> {
+    return this.http.get<UserInfo>('user').pipe(
       map(v => {
         this.user = v;
         return v;
@@ -170,5 +171,15 @@ export class WpxService {
    */
   setVar(key: string, value: any): Observable<any> {
     return this.http.put(`vars/${key}`, { value });
+  }
+
+  /**
+   * 日志查询
+   * @param name
+   * @param filter
+   * @param options
+   */
+  logs<T>(name: string, filter: Filter<T>, options?: FindOption<T>): Observable<Array<AnyDto<T>>> {
+    return this.http.get<Array<AnyDto<T>>>(`api/${name}`, httpOptions(options as ApiOptions<T>, filter));
   }
 }

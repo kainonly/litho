@@ -235,4 +235,7 @@ export interface UserInfo {
   avatar: string;
   roles?: string[];
   department?: string;
+  sessions: number;
+  last: string;
+  create_time: number;
 }

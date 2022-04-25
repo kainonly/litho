@@ -6,11 +6,9 @@ import { NzDescriptionsModule } from 'ng-zorro-antd/descriptions';
 import { NzPipesModule } from 'ng-zorro-antd/pipes';
 
 import { AuditComponent } from './audit.component';
-import { AuditService } from './audit.service';
 
 @NgModule({
   imports: [WpxModule, WpxShareModule, WpxTableModule, NzPipesModule, NzDescriptionsModule],
-  declarations: [AuditComponent],
-  providers: [AuditService]
+  declarations: [AuditComponent]
 })
 export class AuditModule {}
