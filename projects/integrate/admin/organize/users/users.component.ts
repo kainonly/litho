@@ -40,7 +40,7 @@ export class UsersComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.data.format_filter = {
-      'departments.$in': 'oids'
+      department: 'oid'
     };
     this.route.params.subscribe(v => {
       this.departmentId = v?.['department'] ?? '';
@@ -57,9 +57,9 @@ export class UsersComponent implements OnInit, OnDestroy {
    */
   selectedDepartment(): void {
     if (this.departmentId) {
-      this.data.filter.departments = { $in: [this.departmentId] };
+      this.data.filter.department = this.departmentId;
     } else {
-      delete this.data.filter.departments;
+      delete this.data.filter.department;
     }
     this.table.getData(true);
     const params = this.departmentId ? { department: this.departmentId } : {};

@@ -1,9 +1,11 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { AsyncSubject, BehaviorSubject, Observable } from 'rxjs';
+import { AsyncSubject, BehaviorSubject, Observable, switchMap } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { AnyDto, Page } from './types';
+import { StorageMap } from '@ngx-pwa/local-storage';
+
+import { AnyDto, Page, UserInfo } from './types';
 
 @Injectable({ providedIn: 'root' })
 export class WpxService {
@@ -31,12 +33,10 @@ export class WpxService {
    * 手动设置路由
    */
   manual = false;
-  /**
-   * 退出登录
-   */
-  onLogout = (): void => {};
 
-  constructor(private http: HttpClient) {}
+  user?: UserInfo;
+
+  constructor(private http: HttpClient, private storage: StorageMap) {}
 
   /**
    * 设置静态资源
@@ -84,6 +84,63 @@ export class WpxService {
         return v;
       })
     );
+  }
+
+  /**
+   * 登录
+   */
+  login(data: { user: string; password: string }): Observable<any> {
+    return this.http.post('auth', data);
+  }
+
+  /**
+   * 主动验证
+   */
+  verify(): Observable<HttpResponse<any>> {
+    return this.http.head('auth', { observe: 'response' });
+  }
+
+  /**
+   * 申请刷新验证码
+   */
+  code(): Observable<any> {
+    return this.http.get('auth');
+  }
+
+  /**
+   * 刷新认证
+   */
+  refreshToken(code: string): Observable<any> {
+    return this.http.put('auth', {
+      code
+    });
+  }
+
+  /**
+   * 登出
+   */
+  logout(): Observable<any> {
+    return this.http.delete('auth').pipe(switchMap(() => this.storage.delete('user')));
+  }
+
+  /**
+   * 获取个人用户信息
+   */
+  getUser(full = false): Observable<UserInfo> {
+    return this.http.get<UserInfo>('user', { params: { full } }).pipe(
+      map(v => {
+        this.user = v;
+        return v;
+      })
+    );
+  }
+
+  /**
+   * 更新个人用户信息
+   * @param data
+   */
+  setUser(data: any): Observable<any> {
+    return this.http.patch('user', data);
   }
 
   /**

@@ -37,10 +37,19 @@
     <nz-col>
       <nz-space>
         <div *nzSpaceItem class="center" nz-popover [nzPopoverContent]="center" nzPopoverPlacement="bottomRight">
-          <nz-badge nzDot>
-            <nz-avatar nzShape="square" [nzSize]="24" nzSrc="/assets/user.png"> </nz-avatar>
-          </nz-badge>
-          <span class="name">KAIN</span>
+          <ng-container *ngIf="!!wpx.user">
+            <nz-badge nzDot>
+              <nz-avatar nzShape="square" [nzSize]="24" nzIcon="user" [nzSrc]="wpx.user.avatar"> </nz-avatar>
+            </nz-badge>
+            <span class="name">
+              <ng-container *ngIf="!wpx.user.name; else name">
+                {{ wpx.user.username | uppercase }}
+              </ng-container>
+              <ng-template #name>
+                {{ wpx.user.name | uppercase }}
+              </ng-template>
+            </span>
+          </ng-container>
           <ng-template #center>
             <nz-tabset style="width: 360px" [nzTabBarExtraContent]="actions">
               <ng-template #actions>
@@ -48,7 +57,7 @@
                   <button *nzSpaceItem [routerLink]="['/center']" nz-button nzType="text" nz-tooltip="个人中心">
                     <i nz-icon nzType="user"></i>
                   </button>
-                  <button *nzSpaceItem nz-button nzType="text" nz-tooltip="退出" (click)="wpx.onLogout()">
+                  <button *nzSpaceItem nz-button nzType="text" nz-tooltip="退出" (click)="logout()">
                     <i nz-icon nzType="logout"></i>
                   </button>
                 </nz-space>

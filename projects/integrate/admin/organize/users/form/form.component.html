@@ -57,7 +57,7 @@
         </nz-form-control>
       </nz-form-item>
       <nz-form-item>
-        <nz-form-label nzRequired>权限</nz-form-label>
+        <nz-form-label nzRequired>权限组</nz-form-label>
         <nz-form-control
           nzHasFeedback
           [nzAutoTips]="{
@@ -66,7 +66,7 @@
             }
           }"
         >
-          <nz-select nzMode="multiple" formControlName="roles" nzPlaceHolder="请选择用户权限">
+          <nz-select nzMode="multiple" formControlName="roles" nzPlaceHolder="请选择用户权限组">
             <ng-container *ngFor="let x of roleList">
               <nz-option [nzLabel]="x.name" [nzValue]="x._id"></nz-option>
             </ng-container>

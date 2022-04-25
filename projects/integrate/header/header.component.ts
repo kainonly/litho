@@ -1,4 +1,5 @@
-import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { WpxService } from '@weplanx/ng';
 
@@ -8,5 +9,14 @@ import { WpxService } from '@weplanx/ng';
   styleUrls: ['./header.component.scss']
 })
 export class WpxHeaderComponent {
-  constructor(public wpx: WpxService) {}
+  @Output() readonly wpxOnLogout: EventEmitter<any> = new EventEmitter<any>();
+
+  constructor(public wpx: WpxService, private router: Router) {}
+
+  logout(): void {
+    this.wpx.logout().subscribe(() => {
+      this.router.navigateByUrl('/login');
+      this.wpxOnLogout.emit(undefined);
+    });
+  }
 }

@@ -30,14 +30,14 @@ export class DepartmentComponent implements OnInit {
 
   ngOnInit(): void {
     this.form = this.fb.group({
-      departments: [null]
+      department: [null]
     });
     this.departments.getTreeNode(true, null).subscribe(v => {
       this.nodes = v;
     });
-    if (!!this.doc.departments?.[0]) {
+    if (!!this.doc.department) {
       this.form.patchValue({
-        departments: this.doc.departments[0]
+        department: this.doc.department
       });
     }
   }
@@ -52,12 +52,12 @@ export class DepartmentComponent implements OnInit {
         this.doc._id,
         {
           $set: {
-            departments: !value.departments ? [] : [value.departments]
+            department: value.department
           }
         },
         {
           format_doc: {
-            departments: 'oids'
+            department: 'oid'
           }
         }
       )

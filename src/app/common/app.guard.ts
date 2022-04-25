@@ -3,16 +3,16 @@ import { CanActivate, Router } from '@angular/router';
 import { filter, Observable, Subscription, timer } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
 
-import { AppService } from '@common/app.service';
+import { WpxService } from '@weplanx/ng';
 
 @Injectable({ providedIn: 'root' })
 export class AppGuard implements CanActivate {
   private refreshTokenSubscription!: Subscription;
 
-  constructor(private app: AppService, private router: Router) {}
+  constructor(private wpx: WpxService, private router: Router) {}
 
   canActivate(): Observable<boolean> {
-    return this.app.verify().pipe(
+    return this.wpx.verify().pipe(
       map(res => {
         if (res.status !== 204) {
           this.router.navigateByUrl('/login');
@@ -33,15 +33,15 @@ export class AppGuard implements CanActivate {
   private autoRefreshToken(): void {
     this.refreshTokenSubscription = timer(0, 300000)
       .pipe(
-        filter(() => !!this.app.user),
+        filter(() => !!this.wpx.user),
         switchMap(() =>
-          this.app.code().pipe(
+          this.wpx.code().pipe(
             map(v => {
               return v.code;
             })
           )
         ),
-        switchMap(code => this.app.refreshToken(code))
+        switchMap(code => this.wpx.refreshToken(code))
       )
       .subscribe(() => {});
   }

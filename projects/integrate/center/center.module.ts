@@ -5,11 +5,8 @@ import { WpxModule, WpxShareModule } from '@weplanx/ng';
 
 import { WpxHeaderModule } from '../header/header.module';
 import { WpxNavModule } from '../nav/nav.module';
-import { audit, AuditModule } from './audit/audit.module';
 import { CenterComponent } from './center.component';
-import { CenterService } from './center.service';
-import { mine, MineModule } from './mine/mine.module';
-import { profile, ProfileModule } from './profile/profile.module';
+import { WorkComponent } from './work/work.component';
 
 const routes: Routes = [
   {
@@ -17,34 +14,16 @@ const routes: Routes = [
     component: CenterComponent,
     children: [
       {
-        path: 'mine',
-        children: mine
+        path: 'work',
+        component: WorkComponent
       },
-      {
-        path: 'profile',
-        children: profile
-      },
-      {
-        path: 'audit',
-        children: audit
-      },
-      { path: '', redirectTo: '/center/mine/workbench', pathMatch: 'full' }
+      { path: '', redirectTo: '/center/work', pathMatch: 'full' }
     ]
   }
 ];
 
 @NgModule({
-  imports: [
-    WpxModule,
-    WpxShareModule,
-    WpxHeaderModule,
-    WpxNavModule,
-    MineModule,
-    ProfileModule,
-    AuditModule,
-    RouterModule.forChild(routes)
-  ],
-  declarations: [CenterComponent],
-  providers: [CenterService]
+  imports: [WpxModule, WpxShareModule, WpxHeaderModule, WpxNavModule, RouterModule.forChild(routes)],
+  declarations: [CenterComponent, WorkComponent]
 })
 export class CenterModule {}

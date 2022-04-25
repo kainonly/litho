@@ -10,7 +10,7 @@ export interface User {
   /**
    * 所属部门
    */
-  departments: string[];
+  department: string;
   /**
    * 所属权限
    */

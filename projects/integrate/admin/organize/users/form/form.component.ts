@@ -93,13 +93,13 @@ export class FormComponent implements OnInit {
 
   submit(value: any): void {
     if (!this.doc) {
-      value.departments = !!this.departmentId ? [this.departmentId] : [];
+      value.department = this.departmentId;
       this.users
         .create(value, {
           format_doc: {
             password: 'password',
             roles: 'oids',
-            departments: 'oids'
+            department: 'oid'
           }
         })
         .subscribe(() => {
@@ -120,7 +120,7 @@ export class FormComponent implements OnInit {
             format_doc: {
               password: 'password',
               roles: 'oids',
-              departments: 'oids'
+              department: 'oid'
             }
           }
         )

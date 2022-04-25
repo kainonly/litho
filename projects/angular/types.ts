@@ -224,3 +224,15 @@ export type AdvancedType =
   | 'video' // 视频
   | 'file' // 文件
   | 'json'; // 自定义
+
+/**
+ * 用户信息
+ */
+export interface UserInfo {
+  username: string;
+  email: string;
+  name: string;
+  avatar: string;
+  roles?: string[];
+  department?: string;
+}
