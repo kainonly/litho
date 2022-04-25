@@ -10,6 +10,6 @@ export class AdminComponent implements OnInit {
   constructor(public wpx: WpxService) {}
 
   ngOnInit(): void {
-    this.wpx.pageId.next('');
+    this.wpx.manual = true;
   }
 }

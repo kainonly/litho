@@ -14,13 +14,14 @@
             </ul>
           </nz-dropdown-menu>
         </button>
-        <ng-container *ngIf="wpx.pageId | async as current">
-          <nz-breadcrumb *nzSpaceItem [nzAutoGenerate]="current === ''">
-            <ng-container *ngIf="current !== ''">
+
+        <nz-breadcrumb *nzSpaceItem [nzAutoGenerate]="wpx.auto">
+          <ng-container *ngIf="!wpx.auto">
+            <ng-container *ngIf="wpx.id | async as current">
               <nz-breadcrumb-item>
                 <a [routerLink]="['/pages']">我的应用</a>
               </nz-breadcrumb-item>
-              <ng-container *ngFor="let page of current | Path">
+              <ng-container *ngFor="let page of current | Path | async">
                 <nz-breadcrumb-item>
                   <ng-container *ngIf="page?.kind !== 'group'; else textName">
                     <a [routerLink]="['/pages', page._id]">{{ page?.name }}</a>
@@ -29,8 +30,8 @@
                 </nz-breadcrumb-item>
               </ng-container>
             </ng-container>
-          </nz-breadcrumb>
-        </ng-container>
+          </ng-container>
+        </nz-breadcrumb>
       </nz-space>
     </nz-col>
     <nz-col>

@@ -1,4 +1,6 @@
 import { Pipe, PipeTransform } from '@angular/core';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 import { AnyDto, Page, WpxService } from '@weplanx/ng';
 
@@ -6,17 +8,17 @@ import { AnyDto, Page, WpxService } from '@weplanx/ng';
 export class PathPipe implements PipeTransform {
   constructor(private wpx: WpxService) {}
 
-  transform(current: string): Array<AnyDto<Page>> {
-    if (!current) {
-      return [];
-    }
-    const path = [];
-    let node = this.wpx.pages[current];
-    while (node) {
-      path.push(node);
-      node = node['parentNode'];
-    }
-    console.log(path);
-    return path;
+  transform(current: string): Observable<Array<AnyDto<Page>>> {
+    return this.wpx.pages.pipe(
+      map(v => {
+        const path = [];
+        let node = v[current];
+        while (node) {
+          path.unshift(node);
+          node = node['parentNode'];
+        }
+        return path;
+      })
+    );
   }
 }

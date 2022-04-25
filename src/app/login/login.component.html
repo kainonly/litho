@@ -27,25 +27,22 @@
         </nz-form-control>
       </nz-form-item>
       <nz-form-item>
-        <nz-row [nzGutter]="[12, 12]" nzJustify="space-between">
-          <nz-col>
-            <label nz-checkbox formControlName="remember" nz-tooltip="7天内登录无需二次验证">信任设备</label>
-          </nz-col>
-          <nz-col></nz-col>
-          <nz-col>
-            <a nz-button nzSize="small" nzType="link">忘记密码？</a>
-          </nz-col>
-          <nz-col [nzSpan]="24">
-            <button nz-button nzBlock nzType="primary" [nzLoading]="loading"> 登 录 </button>
-          </nz-col>
-          <nz-col [nzSpan]="24">
-            <nz-space>
-              <a *nzSpaceItem nz-tooltip="飞书" [href]="feishu">
-                <nz-avatar nzSize="small" nzShape="square" [nzSrc]="['assets', 'feishu.png'] | wpxAssets"></nz-avatar>
-              </a>
-            </nz-space>
-          </nz-col>
-        </nz-row>
+        <nz-form-control [nzExtra]="extra">
+          <button nz-button nzBlock nzType="primary" [nzLoading]="loading" [disabled]="!form.valid"> 登 录 </button>
+        </nz-form-control>
+        <ng-template #extra>
+          <nz-row style="padding: 0.25em 0" nzJustify="space-between">
+            <nz-col>
+              <nz-space>
+                <a *nzSpaceItem nz-tooltip="飞书" [href]="feishu">
+                  <nz-avatar nzSize="small" nzShape="square" [nzSrc]="['assets', 'feishu.png'] | wpxAssets"></nz-avatar>
+                </a>
+              </nz-space>
+            </nz-col>
+            <nz-col></nz-col>
+            <nz-col><a>忘记密码</a></nz-col>
+          </nz-row>
+        </ng-template>
       </nz-form-item>
     </form>
   </nz-card>

@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { AsyncSubject, BehaviorSubject, Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 import { AnyDto, Page } from './types';
 
@@ -15,17 +16,21 @@ export class WpxService {
    */
   upload?: { url?: string; size?: number; presignedUrl?: string };
   /**
+   * 当前页面 ID
+   */
+  id: BehaviorSubject<string> = new BehaviorSubject<string>('');
+  /**
+   * 导航索引
+   */
+  pages: AsyncSubject<Record<string, AnyDto<Page>>> = new AsyncSubject<Record<string, AnyDto<Page>>>();
+  /**
    * 导航数据
    */
   navs?: Array<AnyDto<Page>>;
   /**
-   * 导航索引
+   * 手动设置路由
    */
-  pages: Record<string, AnyDto<Page>> = {};
-  /**
-   * 当前页面
-   */
-  pageId: BehaviorSubject<string> = new BehaviorSubject<string>('');
+  manual = false;
   /**
    * 退出登录
    */
@@ -52,28 +57,33 @@ export class WpxService {
   }
 
   /**
-   * 设置页面数据
-   * @param values 页面数据
+   * 载入页面内容
    */
-  setPages(values: Array<AnyDto<Page>>): void {
-    const pages: Record<string, AnyDto<Page>> = {};
-    const navs: Array<AnyDto<Page>> = [];
-    for (const x of values) {
-      x['children'] = [];
-      pages[x._id] = x;
-    }
-    for (const x of values) {
-      if (!x.parent) {
-        navs.push(x);
-      } else {
-        if (pages.hasOwnProperty(x.parent)) {
-          x['parentNode'] = pages[x.parent];
-          pages[x.parent]['children']!.push(x);
+  loadPages(): Observable<Array<AnyDto<Page>>> {
+    return this.http.get<Array<AnyDto<Page>>>('navs').pipe(
+      map(v => {
+        const pages: Record<string, AnyDto<Page>> = {};
+        const navs: Array<AnyDto<Page>> = [];
+        for (const x of v) {
+          x['children'] = [];
+          pages[x._id] = x;
         }
-      }
-    }
-    this.pages = pages;
-    this.navs = navs;
+        for (const x of v) {
+          if (!x.parent) {
+            navs.push(x);
+          } else {
+            if (pages.hasOwnProperty(x.parent)) {
+              x['parentNode'] = pages[x.parent];
+              pages[x.parent]['children']!.push(x);
+            }
+          }
+        }
+        this.pages.next(pages);
+        this.pages.complete();
+        this.navs = navs;
+        return v;
+      })
+    );
   }
 
   /**

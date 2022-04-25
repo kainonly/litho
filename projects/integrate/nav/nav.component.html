@@ -10,17 +10,15 @@
           </li>
         </ng-container>
         <ng-template #isGroup>
-          <ng-container *ngIf="wpx.pageId | async as current">
-            <li nz-submenu [nzOpen]="page['_id'] | OpenState: current" [nzPaddingLeft]="page | Level">
-              <span title>
-                <i *ngIf="page.hasOwnProperty('icon')" nz-icon [nzType]="page['icon']"></i>
-                <span>{{ page['name'] }}</span>
-              </span>
-              <ul>
-                <ng-container *ngTemplateOutlet="nav; context: { $implicit: page['children'] }"></ng-container>
-              </ul>
-            </li>
-          </ng-container>
+          <li nz-submenu [nzOpen]="page['_id'] | OpenState | async" [nzPaddingLeft]="page | Level">
+            <span title>
+              <i *ngIf="page.hasOwnProperty('icon')" nz-icon [nzType]="page['icon']"></i>
+              <span>{{ page['name'] }}</span>
+            </span>
+            <ul>
+              <ng-container *ngTemplateOutlet="nav; context: { $implicit: page['children'] }"></ng-container>
+            </ul>
+          </li>
         </ng-template>
       </ng-container>
     </ng-template>

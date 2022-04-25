@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 import { WpxService } from '@weplanx/ng';
 
@@ -60,6 +60,10 @@ import { WpxService } from '@weplanx/ng';
     </nz-layout>
   `
 })
-export class CenterComponent {
+export class CenterComponent implements OnInit {
   constructor(public wpx: WpxService) {}
+
+  ngOnInit(): void {
+    this.wpx.manual = true;
+  }
 }
