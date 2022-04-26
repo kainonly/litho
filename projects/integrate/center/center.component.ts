@@ -18,7 +18,7 @@ export class CenterComponent implements OnInit {
 
   openProfile(): void {
     this.modal.create({
-      nzTitle: `编辑【${this.wpx.user?.username}】信息`,
+      nzTitle: `基本信息`,
       nzContent: ProfileComponent,
       nzOnOk: () => {
         this.wpx.getUser().subscribe(() => {});

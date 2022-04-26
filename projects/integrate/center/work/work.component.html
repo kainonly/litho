@@ -2,19 +2,24 @@
   <nz-col nzFlex="320px">
     <nz-card *ngIf="wpx.user as user">
       <div class="user">
-        <nz-avatar [nzSize]="128" [nzSrc]="user?.avatar" nzIcon="user"></nz-avatar>
-        <h2> {{ user?.name ?? '无称呼' }}</h2>
+        <ng-container *ngIf="!!user.avatar; else defaultAvatar">
+          <nz-avatar [nzSize]="128" [nzSrc]="[user.avatar] | wpxAssets"></nz-avatar>
+        </ng-container>
+        <ng-template #defaultAvatar>
+          <nz-avatar [nzSize]="128" nzIcon="user"></nz-avatar>
+        </ng-template>
+        <h2> {{ !user.name ? '无称呼' : user.name }}</h2>
       </div>
       <nz-space class="details" nzDirection="vertical">
         <span *nzSpaceItem>
           <nz-tag nzColor="blue" nz-tooltip="用户名">
             <i nz-icon nzType="idcard"></i>
-            <span>{{ user?.username }}</span>
+            <span>{{ user.username }}</span>
           </nz-tag>
         </span>
         <span *nzSpaceItem>
-          <ng-container *ngIf="!!user?.roles">
-            <nz-tag *ngFor="let role of user!.roles" nzColor="blue" nz-tooltip="权限组">
+          <ng-container *ngIf="!!user.roles">
+            <nz-tag *ngFor="let role of user.roles" nzColor="blue" nz-tooltip="权限组">
               <i nz-icon nzType="partition"></i>
               <span>{{ role }}</span>
             </nz-tag>
@@ -23,13 +28,13 @@
         <span *nzSpaceItem>
           <nz-tag nzColor="blue" nz-tooltip="部门">
             <i nz-icon nzType="apartment"></i>
-            <span>{{ user?.department ?? '无' }}</span>
+            <span>{{ !user.department ? '无' : user.department }}</span>
           </nz-tag>
         </span>
         <span *nzSpaceItem>
           <nz-tag nzColor="blue" nz-tooltip="电子邮件">
             <i nz-icon nzType="mail"></i>
-            <span>{{ user?.email ?? '无' }}</span>
+            <span>{{ !user.email ? '无' : user.email }}</span>
           </nz-tag>
         </span>
       </nz-space>
@@ -39,20 +44,20 @@
           <i nz-icon nzType="team"></i>
           <i>
             创建时间
-            <b>{{ user?.create_time | date: 'yyyy年MM月dd日' }}</b>
+            <b>{{ user.create_time | date: 'yyyy年MM月dd日' }}</b>
           </i>
         </span>
         <span *nzSpaceItem>
           <i nz-icon nzType="fund"></i>
           <i>
-            您已累计进行 <b>{{ user?.sessions }}</b> 次会话登录
+            您已累计进行 <b>{{ user.sessions }}</b> 次会话登录
           </i>
         </span>
         <span *nzSpaceItem>
           <i nz-icon nzType="login"></i>
           <i>
             最近登录
-            <b>[{{ user?.last }}]</b>
+            <b>[{{ user.last }}]</b>
           </i>
         </span>
       </nz-space>

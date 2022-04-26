@@ -7,7 +7,6 @@ export class WpxAssetsPipe implements PipeTransform {
   constructor(private wpx: WpxService) {}
 
   /**
-   * TODO:改造多参数
    * @param values
    * @param option
    */

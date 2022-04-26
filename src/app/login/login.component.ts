@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { catchError } from 'rxjs/operators';
 
 import { environment } from '@env';
 import { WpxService } from '@weplanx/ng';
@@ -40,10 +41,15 @@ export class LoginComponent implements OnInit {
 
   submit(data: any): void {
     this.loading = true;
-    this.wpx.login(data).subscribe(() => {
-      this.loading = false;
-      this.notification.success('认证状态', '登录成功，正在加载数据~');
-      this.router.navigateByUrl('/pages');
+    this.wpx.login(data).subscribe({
+      next: () => {
+        this.loading = false;
+        this.notification.success('认证状态', '登录成功，正在加载数据~');
+        this.router.navigateByUrl('/pages');
+      },
+      error: () => {
+        this.loading = false;
+      }
     });
   }
 

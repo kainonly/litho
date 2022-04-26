@@ -22,10 +22,10 @@ export class WpxUploadAvatarComponent implements ControlValueAccessor {
   @Input() wpxFallback!: string;
 
   loading = false;
-  values?: string[];
+  value?: string;
 
-  private onChange?: (value: string[]) => void;
-  private onTouched?: () => void;
+  private onChange!: (value: string) => void;
+  private onTouched!: () => void;
 
   constructor(private message: NzMessageService) {}
 
@@ -38,17 +38,17 @@ export class WpxUploadAvatarComponent implements ControlValueAccessor {
   }
 
   writeValue(v: any): void {
-    this.values = v ?? [];
+    this.value = v;
   }
 
   change(info: NzUploadChangeParam): void {
     if (info.type === 'start') {
+      this.value = undefined;
       this.loading = true;
     }
     if (info.type === 'success') {
-      const value = Reflect.get(info.file.originFileObj!, 'key');
-      this.writeValue([value]);
-      this.onChange!([value]);
+      this.value = Reflect.get(info.file.originFileObj!, 'key');
+      this.onChange(this.value!);
       this.loading = false;
       this.message.success('图片上传成功');
     }

@@ -1,0 +1,21 @@
+<form nz-form nzLayout="vertical" id="form" [formGroup]="form" (wpxSubmit)="submit($event)">
+  <nz-form-item>
+    <nz-form-label>电子邮件</nz-form-label>
+    <nz-form-control
+      style="width: 328px"
+      [nzAutoTips]="{
+        default: {
+          email: '请使用正确的电子邮件格式',
+          duplicated: '存在重复的定义，电子邮件必须是唯一的'
+        }
+      }"
+    >
+      <input type="text" nz-input formControlName="email" placeholder="mail@example.com" />
+    </nz-form-control>
+  </nz-form-item>
+</form>
+
+<div *nzModalFooter>
+  <button nz-button type="button" nzType="default" (click)="close()">取消</button>
+  <button nz-button nzType="primary" form="form" [disabled]="!form?.valid">提交</button>
+</div>

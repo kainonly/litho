@@ -7,12 +7,12 @@
   [nzFileType]="wpxAccept | wpxJoin: ','"
   (nzChange)="change($event)"
 >
-  <ng-container *ngIf="values?.length !== 0; else uploadBtn">
+  <ng-container *ngIf="value; else uploadBtn">
     <img
       wpxRetry
       nz-image
       nzDisablePreview
-      [nzSrc]="[values![0], 'thumbnail'] | wpxAssets"
+      [nzSrc]="[value, 'thumbnail'] | wpxAssets"
       [nzFallback]="wpxFallback"
       alt=""
     />

@@ -1,6 +1,6 @@
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { AsyncSubject, BehaviorSubject, Observable, switchMap } from 'rxjs';
+import { AsyncSubject, BehaviorSubject, Observable, switchMap, timer } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { StorageMap } from '@ngx-pwa/local-storage';
@@ -122,6 +122,27 @@ export class WpxService {
    */
   logout(): Observable<any> {
     return this.http.delete('auth').pipe(switchMap(() => this.storage.delete('user')));
+  }
+
+  /**
+   * 判断当前用户可变更属性
+   */
+  checkUser(key: 'username' | 'email', value: string): Observable<any> {
+    return timer(500).pipe(
+      switchMap(() =>
+        this.http.head('user/_check', {
+          observe: 'response',
+          params: {
+            key,
+            value
+          }
+        })
+      ),
+      map(res => {
+        const exists = res.headers.get('wpx-exists') === 'true';
+        return exists ? { error: true, duplicated: exists } : null;
+      })
+    );
   }
 
   /**

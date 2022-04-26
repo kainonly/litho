@@ -1,15 +1,28 @@
 <form nz-form nzLayout="vertical" id="form" [formGroup]="form" (wpxSubmit)="submit($event)">
   <nz-form-item>
-    <nz-form-label>称呼</nz-form-label>
-    <nz-form-control style="width: 328px">
-      <input nz-input placeholder="请输入" formControlName="name" />
+    <nz-form-label>用户名</nz-form-label>
+    <nz-form-control
+      [nzExtra]="usernameExtra"
+      style="width: 328px"
+      nzHasFeedback
+      [nzAutoTips]="{
+        default: {
+          required: '用户名不能为空',
+          minlength: '用户名长度不能小于4位',
+          maxlength: '用户名长度不能大于20位',
+          pattern: '请使用小写字母与下划线的组合',
+          duplicated: '存在重复的定义，用户名必须是唯一的'
+        }
+      }"
+    >
+      <input nz-input placeholder="请输入" formControlName="username" />
+      <ng-template #usernameExtra>*修改用户名将立即注销登录状态</ng-template>
     </nz-form-control>
   </nz-form-item>
   <nz-form-item>
-    <nz-form-label>电子邮件</nz-form-label>
-    <nz-form-control [nzExtra]="emailExtra" style="width: 328px">
-      <input type="text" nz-input formControlName="email" placeholder="mail@example.com" />
-      <ng-template #emailExtra> *推荐采用企业邮箱，可以用于验证与登录 </ng-template>
+    <nz-form-label>称呼</nz-form-label>
+    <nz-form-control style="width: 328px">
+      <input nz-input placeholder="请输入" formControlName="name" />
     </nz-form-control>
   </nz-form-item>
   <nz-form-item>

@@ -39,7 +39,12 @@
         <div *nzSpaceItem class="center" nz-popover [nzPopoverContent]="center" nzPopoverPlacement="bottomRight">
           <ng-container *ngIf="!!wpx.user">
             <nz-badge nzDot>
-              <nz-avatar nzShape="square" [nzSize]="24" nzIcon="user" [nzSrc]="wpx.user.avatar"> </nz-avatar>
+              <ng-container *ngIf="!!wpx.user.avatar; else defaultAvatar">
+                <nz-avatar nzShape="square" [nzSize]="24" [nzSrc]="[wpx.user.avatar] | wpxAssets"> </nz-avatar>
+              </ng-container>
+              <ng-template #defaultAvatar>
+                <nz-avatar nzShape="square" [nzSize]="24" nzIcon="user"> </nz-avatar>
+              </ng-template>
             </nz-badge>
             <span class="name">
               <ng-container *ngIf="!wpx.user.name; else name">
