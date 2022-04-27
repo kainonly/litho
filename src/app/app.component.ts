@@ -15,6 +15,5 @@ export class AppComponent implements OnInit {
     this.wpx.setAssets(environment.cdn);
     this.wpx.setUpload(environment.upload.url, environment.upload.size, environment.upload.presignedUrl);
     this.nzIconService.changeAssetsSource(environment.cdn);
-    this.wpx.getUser().subscribe(() => {});
   }
 }

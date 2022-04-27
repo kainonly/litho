@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { catchError } from 'rxjs/operators';
 
 import { environment } from '@env';
 import { WpxService } from '@weplanx/ng';
@@ -56,8 +55,9 @@ export class LoginComponent implements OnInit {
   /**
    * 飞书授权
    */
-  get feishu(): string {
-    const REDIRECT_URI = encodeURIComponent(`${environment.baseUrl}/feishu`);
-    return `https://open.feishu.cn/open-apis/authen/v1/index?redirect_uri=${REDIRECT_URI}&app_id=${environment.feishu}`;
+  feishu(): void {
+    this.wpx.feishu().subscribe(v => {
+      window.location.href = v;
+    });
   }
 }

@@ -1,8 +1,9 @@
-import { HttpClient, HttpResponse } from '@angular/common/http';
+import { HttpClient, HttpParams, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { AsyncSubject, BehaviorSubject, Observable, switchMap, timer } from 'rxjs';
 import { map } from 'rxjs/operators';
 
+import { environment } from '@env';
 import { StorageMap } from '@ngx-pwa/local-storage';
 
 import { AnyDto, ApiOptions, Filter, FindOption, Page, UserInfo } from './types';
@@ -159,10 +160,15 @@ export class WpxService {
 
   /**
    * 更新个人用户信息
+   * @param action
    * @param data
    */
-  setUser(data: any): Observable<any> {
-    return this.http.patch('user', data);
+  setUser(action: string, data: any): Observable<any> {
+    return this.http.post('user', data, {
+      headers: {
+        'wpx-action': action
+      }
+    });
   }
 
   /**
@@ -202,5 +208,20 @@ export class WpxService {
    */
   logs<T>(name: string, filter: Filter<T>, options?: FindOption<T>): Observable<Array<AnyDto<T>>> {
     return this.http.get<Array<AnyDto<T>>>(`api/${name}`, httpOptions(options as ApiOptions<T>, filter));
+  }
+
+  /**
+   * 获取飞书授权 URL
+   */
+  feishu(action?: string): Observable<string> {
+    const state = JSON.stringify({
+      action
+    });
+    return this.http.get<any>('feishu/_option').pipe(
+      map(v => {
+        const redirect_uri = encodeURIComponent(v.redirect);
+        return `${v.url}?redirect_uri=${redirect_uri}&app_id=${v.app_id}&state=${state}`;
+      })
+    );
   }
 }

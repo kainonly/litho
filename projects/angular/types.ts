@@ -235,6 +235,7 @@ export interface UserInfo {
   avatar: string;
   roles?: string[];
   department?: string;
+  feishu?: any;
   sessions: number;
   last: string;
   create_time: number;

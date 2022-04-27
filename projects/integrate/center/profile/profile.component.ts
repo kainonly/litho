@@ -47,7 +47,7 @@ export class ProfileComponent implements OnInit {
     if (data.username === this.wpx.user?.username) {
       delete data.username;
     }
-    this.wpx.setUser(data).subscribe(() => {
+    this.wpx.setUser('profile', data).subscribe(() => {
       this.message.success('数据更新完成');
       this.modalRef.triggerOk();
     });

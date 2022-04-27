@@ -7,6 +7,5 @@ export const environment = {
     presignedUrl: 'uploader',
     size: 102400,
     storage: 'cos'
-  },
-  feishu: 'cli_a2ea040c57795013'
+  }
 };

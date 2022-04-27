@@ -23,6 +23,15 @@ const routes: Routes = [
     loadChildren: () => import('./login/login.module').then(m => m.LoginModule)
   },
   {
+    path: 'unauthorize',
+    loadChildren: () => import('./unauthorize/unauthorize.module').then(m => m.UnauthorizeModule)
+  },
+  {
+    path: 'authorized',
+    loadChildren: () => import('./authorized/authorized.module').then(m => m.AuthorizedModule),
+    canActivate: [AppGuard]
+  },
+  {
     path: 'pages',
     loadChildren: () => import('./pages/pages.module').then(m => m.PagesModule),
     canActivate: [AppGuard]

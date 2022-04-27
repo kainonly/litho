@@ -38,7 +38,7 @@ export class EmailComponent implements OnInit {
   }
 
   submit(data: any): void {
-    this.wpx.setUser(data).subscribe(() => {
+    this.wpx.setUser('email', data).subscribe(() => {
       this.message.success('数据更新完成');
       this.modalRef.triggerOk();
     });
