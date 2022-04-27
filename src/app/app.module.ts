@@ -23,6 +23,10 @@ const routes: Routes = [
     loadChildren: () => import('./login/login.module').then(m => m.LoginModule)
   },
   {
+    path: 'forget',
+    loadChildren: () => import('./forget/forget.module').then(m => m.ForgetModule)
+  },
+  {
     path: 'unauthorize',
     loadChildren: () => import('./unauthorize/unauthorize.module').then(m => m.UnauthorizeModule)
   },

@@ -126,6 +126,24 @@ export class WpxService {
   }
 
   /**
+   * 获取密码重置验证码
+   */
+  forgetCaptcha(email: string): Observable<any> {
+    return this.http.get('forget-captcha', { params: { email } });
+  }
+
+  /**
+   * 验证密码重置验证码
+   */
+  forgetVerify(data: any): Observable<any> {
+    return this.http.post('forget-verify', data);
+  }
+
+  forgetReset(data: any): Observable<any> {
+    return this.http.post('forget-reset', data);
+  }
+
+  /**
    * 判断当前用户可变更属性
    */
   checkUser(key: 'username' | 'email', value: string): Observable<any> {

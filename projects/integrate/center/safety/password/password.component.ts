@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 
-import { WpxService } from '@weplanx/ng';
+import { validates, WpxService } from '@weplanx/ng';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalRef } from 'ng-zorro-antd/modal';
 
@@ -23,12 +23,19 @@ export class PasswordComponent implements OnInit {
 
   ngOnInit(): void {
     this.form = this.fb.group({
-      password: [null, [Validators.email]]
+      password: [null, [this.validedPassword]]
     });
     this.wpx.getUser().subscribe(v => {
       this.form.patchValue(v);
     });
   }
+
+  validedPassword = (control: AbstractControl): any => {
+    if (!control.value) {
+      return;
+    }
+    return validates.password(control.value);
+  };
 
   close(): void {
     this.modalRef.triggerCancel();
