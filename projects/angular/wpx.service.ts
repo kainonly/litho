@@ -1,9 +1,8 @@
-import { HttpClient, HttpParams, HttpResponse } from '@angular/common/http';
+import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { AsyncSubject, BehaviorSubject, Observable, switchMap, timer } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { environment } from '@env';
 import { StorageMap } from '@ngx-pwa/local-storage';
 
 import { AnyDto, ApiOptions, Filter, FindOption, Page, UserInfo } from './types';

@@ -51,7 +51,7 @@ export const pages: Array<AnyDto<Page>> = [
     _id: '61ca6ada2e83bf89116a479d',
     parent: '61ca6ada2e83bf89116a4799',
     name: '商品设置',
-    kind: 'form',
+    kind: 'default',
     schema: {
       key: 'product_values',
       fields: {}
