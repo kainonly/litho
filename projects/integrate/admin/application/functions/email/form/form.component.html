@@ -1,0 +1,59 @@
+<form *ngIf="form" nz-form nzLayout="vertical" id="form" [formGroup]="form" (wpxSubmit)="submit($event)">
+  <nz-form-item>
+    <nz-form-label nzRequired>公共电子邮件服务 SMTP 地址</nz-form-label>
+    <nz-form-control
+      nzHasFeedback
+      [nzAutoTips]="{
+        default: {
+          required: '公共电子邮件服务 SMTP 地址不能为空'
+        }
+      }"
+    >
+      <input nz-input formControlName="email_host" />
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label nzRequired>SMTP 端口号（SSL）</nz-form-label>
+    <nz-form-control
+      nzHasFeedback
+      [nzAutoTips]="{
+        default: {
+          required: 'SMTP 端口号（SSL）不能为空'
+        }
+      }"
+    >
+      <input nz-input formControlName="email_port" />
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label nzRequired>公共邮箱用户</nz-form-label>
+    <nz-form-control
+      nzHasFeedback
+      [nzAutoTips]="{
+        default: {
+          required: '公共邮箱用户不能为空'
+        }
+      }"
+    >
+      <input nz-input formControlName="email_username" placeholder="例如：support@example.com" />
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label nzRequired>公共邮箱用户密码</nz-form-label>
+    <nz-form-control
+      nzHasFeedback
+      [nzAutoTips]="{
+        default: {
+          required: '公共邮箱用户密码不能为空'
+        }
+      }"
+    >
+      <input nz-input formControlName="email_password" />
+    </nz-form-control>
+  </nz-form-item>
+</form>
+
+<div *nzModalFooter>
+  <button nz-button type="button" nzType="default" (click)="close()">取消</button>
+  <button nz-button nzType="primary" form="form" [disabled]="!form?.valid">提交</button>
+</div>

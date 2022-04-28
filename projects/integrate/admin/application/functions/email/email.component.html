@@ -1,0 +1,26 @@
+<nz-list nzSize="large" nzItemLayout="vertical">
+  <nz-list-item>
+    <nz-list-item-meta>
+      <nz-list-item-meta-title><b>邮箱配置</b></nz-list-item-meta-title>
+    </nz-list-item-meta>
+    <nz-descriptions nzSize="small" nzBordered [nzColumn]="2">
+      <nz-descriptions-item nzTitle="公共电子邮件服务 SMTP 地址">
+        {{ data['email_host'] | nzSafeNull: '未设置' }}
+      </nz-descriptions-item>
+      <nz-descriptions-item nzTitle="SMTP 端口号（SSL）">
+        {{ data['email_port'] | nzSafeNull: '未设置' }}
+      </nz-descriptions-item>
+      <nz-descriptions-item nzTitle="公共邮箱用户">
+        {{ data['email_username'] | nzSafeNull: '未设置' }}
+      </nz-descriptions-item>
+      <nz-descriptions-item nzTitle="公共邮箱用户密码">
+        {{ data['email_password'] | nzSafeNull: '未设置' }}
+      </nz-descriptions-item>
+    </nz-descriptions>
+    <nz-list-item-extra>
+      <button nz-button nzType="primary" nzShape="circle" nz-tooltip="设置" (click)="form()">
+        <i nz-icon nzType="tool"></i>
+      </button>
+    </nz-list-item-extra>
+  </nz-list-item>
+</nz-list>

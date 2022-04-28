@@ -1,0 +1,33 @@
+<form *ngIf="form" nz-form nzLayout="vertical" id="form" [formGroup]="form" (wpxSubmit)="submit($event)">
+  <nz-form-item>
+    <nz-form-label nzRequired>腾讯云 API 密钥 Id</nz-form-label>
+    <nz-form-control
+      nzHasFeedback
+      [nzAutoTips]="{
+        default: {
+          required: '腾讯云 API 密钥 Id 不能为空'
+        }
+      }"
+    >
+      <input nz-input formControlName="tencent_secret_id" />
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label nzRequired>腾讯云 API 密钥 Key</nz-form-label>
+    <nz-form-control
+      nzHasFeedback
+      [nzAutoTips]="{
+        default: {
+          required: '腾讯云 API 密钥 Key 不能为空'
+        }
+      }"
+    >
+      <input nz-input formControlName="tencent_secret_key" />
+    </nz-form-control>
+  </nz-form-item>
+</form>
+
+<div *nzModalFooter>
+  <button nz-button type="button" nzType="default" (click)="close()">取消</button>
+  <button nz-button nzType="primary" form="form" [disabled]="!form?.valid">提交</button>
+</div>

@@ -1,0 +1,71 @@
+<form *ngIf="form" nz-form nzLayout="vertical" id="form" [formGroup]="form" (wpxSubmit)="submit($event)">
+  <nz-form-item>
+    <nz-form-label nzRequired>存储桶名称</nz-form-label>
+    <nz-form-control
+      nzHasFeedback
+      [nzAutoTips]="{
+        default: {
+          required: '存储桶名称不能为空'
+        }
+      }"
+    >
+      <input nz-input formControlName="tencent_cos_bucket" />
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label nzRequired>所属地域</nz-form-label>
+    <nz-form-control
+      nzHasFeedback
+      [nzAutoTips]="{
+        default: {
+          required: '所属地域不能为空'
+        }
+      }"
+    >
+      <input nz-input formControlName="tencent_cos_region" placeholder="例如：ap-guangzhou" />
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label nzRequired>预签名有效期</nz-form-label>
+    <nz-form-control
+      nzHasFeedback
+      [nzAutoTips]="{
+        default: {
+          required: '预签名有效期不能为空'
+        }
+      }"
+    >
+      <nz-input-number
+        style="width: 100%"
+        formControlName="tencent_cos_expired"
+        [nzFormatter]="formatterSec"
+        [nzMin]="0"
+        [nzStep]="1"
+      ></nz-input-number>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label nzRequired>上传大小限制</nz-form-label>
+    <nz-form-control
+      nzHasFeedback
+      [nzAutoTips]="{
+        default: {
+          required: '上传大小限制不能为空'
+        }
+      }"
+    >
+      <nz-input-number
+        style="width: 100%"
+        formControlName="tencent_cos_limit"
+        [nzFormatter]="formatterSize"
+        [nzMin]="0"
+        [nzStep]="1"
+      ></nz-input-number>
+    </nz-form-control>
+  </nz-form-item>
+</form>
+
+<div *nzModalFooter>
+  <button nz-button type="button" nzType="default" (click)="close()">取消</button>
+  <button nz-button nzType="primary" form="form" [disabled]="!form?.valid">提交</button>
+</div>

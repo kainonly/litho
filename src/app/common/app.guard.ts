@@ -32,7 +32,7 @@ export class AppGuard implements CanActivate {
    * @private
    */
   private autoRefreshToken(): void {
-    this.refreshTokenSubscription = timer(0, 300000)
+    this.refreshTokenSubscription = timer(0, 240000)
       .pipe(
         filter(() => !!this.wpx.user),
         switchMap(() =>

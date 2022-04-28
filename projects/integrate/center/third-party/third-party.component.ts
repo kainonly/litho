@@ -18,7 +18,7 @@ export class ThirdPartyComponent {
 
   unlinkFeishu(): void {
     this.wpx.setUser('unlink', { type: 'feishu' }).subscribe(() => {
-      this.message.success('绑定已取消');
+      this.message.success('关联已取消');
       this.wpx.getUser().subscribe(() => {});
     });
   }

@@ -189,7 +189,7 @@ export class WpxService {
   }
 
   /**
-   * 获取多个应用变量
+   * 获取应用变量
    * @param keys
    */
   getVars(...keys: string[]): Observable<any> {
@@ -198,14 +198,6 @@ export class WpxService {
         keys
       }
     });
-  }
-
-  /**
-   * 获取应用变量
-   * @param key
-   */
-  getVar(key: string): Observable<any> {
-    return this.http.get(`vars/${key}`);
   }
 
   /**

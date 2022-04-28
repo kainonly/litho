@@ -1,0 +1,46 @@
+<form *ngIf="form" nz-form nzLayout="vertical" id="form" [formGroup]="form" (wpxSubmit)="submit($event)">
+  <nz-form-item>
+    <nz-form-label nzRequired>开放服务地址</nz-form-label>
+    <nz-form-control
+      nzHasFeedback
+      [nzAutoTips]="{
+        default: {
+          required: '开放服务地址不能为空'
+        }
+      }"
+    >
+      <input nz-input formControlName="openapi_url" />
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label nzRequired>开放服务应用认证 Key</nz-form-label>
+    <nz-form-control
+      nzHasFeedback
+      [nzAutoTips]="{
+        default: {
+          required: '开放服务应用认证 Key不能为空'
+        }
+      }"
+    >
+      <input nz-input formControlName="openapi_key" />
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label nzRequired>开放服务应用认证密钥</nz-form-label>
+    <nz-form-control
+      nzHasFeedback
+      [nzAutoTips]="{
+        default: {
+          required: '开放服务应用认证密钥不能为空'
+        }
+      }"
+    >
+      <input nz-input formControlName="openapi_secret" />
+    </nz-form-control>
+  </nz-form-item>
+</form>
+
+<div *nzModalFooter>
+  <button nz-button type="button" nzType="default" (click)="close()">取消</button>
+  <button nz-button nzType="primary" form="form" [disabled]="!form?.valid">提交</button>
+</div>
