@@ -5,7 +5,7 @@ import { map } from 'rxjs/operators';
 
 import { StorageMap } from '@ngx-pwa/local-storage';
 
-import { AnyDto, ApiOptions, Filter, FindOption, Page, UserInfo } from './types';
+import { AnyDto, ApiOptions, Filter, FindOption, Page, UploadOption, UserInfo } from './types';
 import { httpOptions } from './util/helper';
 
 @Injectable({ providedIn: 'root' })
@@ -15,9 +15,9 @@ export class WpxService {
    */
   assets = '/assets';
   /**
-   * 上传地址
+   * 上传类型
    */
-  upload?: { url?: string; size?: number; presignedUrl?: string };
+  upload?: UploadOption;
   /**
    * 导航索引
    */
@@ -49,12 +49,18 @@ export class WpxService {
 
   /**
    * 设置上传配置
-   * @param url 本地上传路径或对象存储路径
-   * @param size 限制上传大小
-   * @param presignedUrl 用于获取对象存储上传签名参数的请求地址
    */
-  setUpload(url: string, size?: number, presignedUrl?: string): void {
-    this.upload = { url, size, presignedUrl };
+  loadUpload(): Observable<UploadOption> {
+    return this.http
+      .get<UploadOption>('vars/_option', {
+        params: { type: 'upload' }
+      })
+      .pipe(
+        map(v => {
+          this.upload = v;
+          return v;
+        })
+      );
   }
 
   /**
@@ -127,19 +133,22 @@ export class WpxService {
   /**
    * 获取密码重置验证码
    */
-  forgetCaptcha(email: string): Observable<any> {
-    return this.http.get('forget-captcha', { params: { email } });
+  captchaUser(email: string): Observable<any> {
+    return this.http.get('user/captcha', { params: { email } });
   }
 
   /**
    * 验证密码重置验证码
    */
-  forgetVerify(data: any): Observable<any> {
-    return this.http.post('forget-verify', data);
+  verifyUser(data: any): Observable<any> {
+    return this.http.post('user/verify', data);
   }
 
-  forgetReset(data: any): Observable<any> {
-    return this.http.post('forget-reset', data);
+  /**
+   * 重置用户密码
+   */
+  resetUser(data: any): Observable<any> {
+    return this.http.post('user/reset', data);
   }
 
   /**
@@ -148,7 +157,7 @@ export class WpxService {
   checkUser(key: 'username' | 'email', value: string): Observable<any> {
     return timer(500).pipe(
       switchMap(() =>
-        this.http.head('user/_check', {
+        this.http.head('user', {
           observe: 'response',
           params: {
             key,
@@ -217,20 +226,5 @@ export class WpxService {
    */
   logs<T>(name: string, filter: Filter<T>, options?: FindOption<T>): Observable<Array<AnyDto<T>>> {
     return this.http.get<Array<AnyDto<T>>>(`api/${name}`, httpOptions(options as ApiOptions<T>, filter));
-  }
-
-  /**
-   * 获取飞书授权 URL
-   */
-  feishu(action?: string): Observable<string> {
-    const state = JSON.stringify({
-      action
-    });
-    return this.http.get<any>('feishu/_option').pipe(
-      map(v => {
-        const redirect_uri = encodeURIComponent(v.redirect);
-        return `${v.url}?redirect_uri=${redirect_uri}&app_id=${v.app_id}&state=${state}`;
-      })
-    );
   }
 }

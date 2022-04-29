@@ -21,6 +21,7 @@ export class AppGuard implements CanActivate {
           this.refreshTokenSubscription.unsubscribe();
         }
         this.autoRefreshToken();
+        this.wpx.loadUpload().subscribe(() => {});
         this.wpx.getUser().subscribe(() => {});
         return true;
       })

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 
-import { WpxService } from '@weplanx/ng';
+import { FeishuService, WpxService } from '@weplanx/ng';
 import { NzMessageService } from 'ng-zorro-antd/message';
 
 @Component({
@@ -8,10 +8,10 @@ import { NzMessageService } from 'ng-zorro-antd/message';
   templateUrl: './third-party.component.html'
 })
 export class ThirdPartyComponent {
-  constructor(public wpx: WpxService, private message: NzMessageService) {}
+  constructor(public wpx: WpxService, private feishu: FeishuService, private message: NzMessageService) {}
 
   linkFeishu(): void {
-    this.wpx.feishu('link').subscribe(v => {
+    this.feishu.oauth('link').subscribe(v => {
       window.open(v, '', 'width=800,height=640');
     });
   }

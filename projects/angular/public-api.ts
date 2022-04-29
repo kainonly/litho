@@ -5,6 +5,8 @@ export * from './share.module';
 export * from './types';
 export * from './wpx.module';
 export * from './wpx.service';
+export * from './tencent.service';
+export * from './feishu.service';
 export * from './directives/submit.directive';
 export * from './directives/upload.directive';
 export * from './directives/retry.directive';

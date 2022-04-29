@@ -1,13 +1,13 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, Optional } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 
-import { AnyDto, Page } from '@weplanx/ng';
+import { AnyDto, ImageInfoDto, Page, TencentService } from '@weplanx/ng';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalRef } from 'ng-zorro-antd/modal';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 
 import { PicturesService } from '../../pictures.service';
-import { ImageInfoDto, Media } from '../../types';
+import { Media } from '../../types';
 
 @Component({
   selector: 'wpx-media-view-picture',
@@ -26,7 +26,8 @@ export class PictureComponent implements OnInit {
     private message: NzMessageService,
     private notification: NzNotificationService,
     private fb: FormBuilder,
-    private pictures: PicturesService
+    private pictures: PicturesService,
+    @Optional() private tencent: TencentService
   ) {}
 
   ngOnInit(): void {
@@ -43,13 +44,13 @@ export class PictureComponent implements OnInit {
   }
 
   getOriginalInfo(): void {
-    this.pictures.imageInfo(`/${this.data.url}.image`).subscribe(data => {
+    this.tencent.cosImageInfo(`/${this.data.url}.image`).subscribe(data => {
       this.original = data;
     });
   }
 
   getOutputInfo(): void {
-    this.pictures.imageInfo(`/${this.data.url}`).subscribe(data => {
+    this.tencent.cosImageInfo(`/${this.data.url}`).subscribe(data => {
       this.output = data;
     });
   }

@@ -13,7 +13,6 @@ export class AppComponent implements OnInit {
 
   ngOnInit(): void {
     this.wpx.setAssets(environment.cdn);
-    this.wpx.setUpload(environment.upload.url, environment.upload.size, environment.upload.presignedUrl);
     this.nzIconService.changeAssetsSource(environment.cdn);
   }
 }

@@ -2,8 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
-import { environment } from '@env';
-import { WpxService } from '@weplanx/ng';
+import { FeishuService, WpxService } from '@weplanx/ng';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 
 @Component({
@@ -19,7 +18,8 @@ export class LoginComponent implements OnInit {
     private wpx: WpxService,
     private notification: NzNotificationService,
     private router: Router,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private feishu: FeishuService
   ) {}
 
   ngOnInit(): void {
@@ -55,8 +55,8 @@ export class LoginComponent implements OnInit {
   /**
    * 飞书授权
    */
-  feishu(): void {
-    this.wpx.feishu().subscribe(v => {
+  feishuOAuth(): void {
+    this.feishu.oauth().subscribe(v => {
       window.location.href = v;
     });
   }

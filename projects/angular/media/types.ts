@@ -18,10 +18,3 @@ export interface Media {
 }
 
 export type MediaType = 'pictures' | 'videos';
-
-export interface ImageInfoDto {
-  format: string;
-  height: number;
-  width: number;
-  size: number;
-}

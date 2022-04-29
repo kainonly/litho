@@ -240,3 +240,16 @@ export interface UserInfo {
   last: string;
   create_time: number;
 }
+
+export interface UploadOption {
+  type: 'cos';
+  url: string;
+  limit: number;
+}
+
+export interface ImageInfoDto {
+  format: string;
+  height: number;
+  width: number;
+  size: number;
+}
