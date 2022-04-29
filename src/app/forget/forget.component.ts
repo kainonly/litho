@@ -45,7 +45,7 @@ export class ForgetComponent implements OnInit {
       return;
     }
     const email = this.verifyForm!.get('email')!.value;
-    this.wpx.captchaUser(email).subscribe({
+    this.wpx.getCaptcha(email).subscribe({
       next: () => {
         this.countdown = 300;
         interval(1000)
@@ -59,7 +59,7 @@ export class ForgetComponent implements OnInit {
   }
 
   verify(data: any): void {
-    this.wpx.verifyUser(data).subscribe(v => {
+    this.wpx.verifyCaptcha(data).subscribe(v => {
       this.token = v.token;
       this.step++;
       this.message.success('验证通过，请在5分钟内设置新密码');

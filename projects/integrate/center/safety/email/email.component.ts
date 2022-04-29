@@ -30,7 +30,7 @@ export class EmailComponent implements OnInit {
   }
 
   existsEmail = (control: AbstractControl): Observable<any> => {
-    return this.wpx.checkUser('email', control.value);
+    return this.wpx.existsUser('email', control.value);
   };
 
   close(): void {

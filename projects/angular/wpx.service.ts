@@ -17,7 +17,7 @@ export class WpxService {
   /**
    * 上传类型
    */
-  upload?: UploadOption;
+  upload: AsyncSubject<UploadOption> = new AsyncSubject<UploadOption>();
   /**
    * 导航索引
    */
@@ -52,12 +52,13 @@ export class WpxService {
    */
   loadUpload(): Observable<UploadOption> {
     return this.http
-      .get<UploadOption>('vars/_option', {
+      .get<UploadOption>('options', {
         params: { type: 'upload' }
       })
       .pipe(
         map(v => {
-          this.upload = v;
+          this.upload.next(v);
+          this.upload.complete();
           return v;
         })
       );
@@ -133,15 +134,15 @@ export class WpxService {
   /**
    * 获取密码重置验证码
    */
-  captchaUser(email: string): Observable<any> {
+  getCaptcha(email: string): Observable<any> {
     return this.http.get('user/captcha', { params: { email } });
   }
 
   /**
    * 验证密码重置验证码
    */
-  verifyUser(data: any): Observable<any> {
-    return this.http.post('user/verify', data);
+  verifyCaptcha(data: any): Observable<any> {
+    return this.http.post('user/captcha', data);
   }
 
   /**
@@ -154,10 +155,10 @@ export class WpxService {
   /**
    * 判断当前用户可变更属性
    */
-  checkUser(key: 'username' | 'email', value: string): Observable<any> {
+  existsUser(key: 'username' | 'email', value: string): Observable<any> {
     return timer(500).pipe(
       switchMap(() =>
-        this.http.head('user', {
+        this.http.head('user/_exists', {
           observe: 'response',
           params: {
             key,

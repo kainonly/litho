@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Directive, Input, Optional } from '@angular/core';
+import { Directive, Input, OnInit, Optional } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
@@ -25,27 +25,25 @@ export class WpxUploadDirective {
     private nzUploadComponent: NzUploadComponent,
     @Optional() private tencent: TencentService
   ) {
-    if (!this.wpx.upload) {
-      throw new Error('上传配置不能为空');
-    }
-    const { type, url, limit } = this.wpx.upload;
-    this.nzUploadComponent.nzName = 'file';
-    this.nzUploadComponent.nzShowUploadList = false;
-    this.nzUploadComponent.nzAction = url;
-    this.nzUploadComponent.nzSize = limit ?? 5120;
-    switch (type) {
-      case 'cos':
-        this.nzUploadComponent.nzData = (file: NzUploadFile): Observable<any> =>
-          this.tencent.cosPresigned().pipe(
-            map(v => {
-              v['Content-Type'] = file.type;
-              Reflect.set(file, 'key', v.key);
-              if (this.wpxExt) {
-                v.key = `${v.key}.${this.wpxExt}`;
-              }
-              return v;
-            })
-          );
-    }
+    wpx.upload.subscribe(({ type, url, limit }) => {
+      nzUploadComponent.nzName = 'file';
+      nzUploadComponent.nzShowUploadList = false;
+      nzUploadComponent.nzAction = url;
+      nzUploadComponent.nzSize = limit ?? 5120;
+      switch (type) {
+        case 'cos':
+          nzUploadComponent.nzData = (file: NzUploadFile): Observable<any> =>
+            tencent.cosPresigned().pipe(
+              map(v => {
+                v['Content-Type'] = file.type;
+                Reflect.set(file, 'key', v.key);
+                if (this.wpxExt) {
+                  v.key = `${v.key}.${this.wpxExt}`;
+                }
+                return v;
+              })
+            );
+      }
+    });
   }
 }

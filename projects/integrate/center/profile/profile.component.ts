@@ -36,7 +36,7 @@ export class ProfileComponent implements OnInit {
   }
 
   existsUsername = (control: AbstractControl): Observable<any> => {
-    return this.wpx.checkUser('username', control.value);
+    return this.wpx.existsUser('username', control.value);
   };
 
   close(): void {

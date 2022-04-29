@@ -12,14 +12,14 @@ export class TencentService {
    * 对象存储预签名
    */
   cosPresigned(): Observable<any> {
-    return this.http.get(`tencent/cos/presigned`);
+    return this.http.get(`tencent/cos-presigned`);
   }
   /**
    * 查看图片信息
    * @param url
    */
   cosImageInfo(url: string): Observable<ImageInfoDto> {
-    return this.http.get<any>(`tencent/cos/image-info`, { params: { url } }).pipe(
+    return this.http.get<any>(`tencent/cos-image-info`, { params: { url } }).pipe(
       retry(2),
       map(v => {
         v.size = parseInt(v.size);
