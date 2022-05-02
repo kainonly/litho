@@ -16,7 +16,7 @@ export class FeishuService {
     const state = JSON.stringify({
       action
     });
-    return this.http.get<any>('feishu/_option').pipe(
+    return this.http.get<any>('feishu/option').pipe(
       map(v => {
         const redirect_uri = encodeURIComponent(v.redirect);
         return `${v.url}?redirect_uri=${redirect_uri}&app_id=${v.app_id}&state=${state}`;
