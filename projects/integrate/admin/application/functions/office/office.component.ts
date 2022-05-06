@@ -43,12 +43,6 @@ export class OfficeComponent implements OnInit {
                 'redirect_url'
               ];
               break;
-            case 'work-weixin':
-              vars = [];
-              break;
-            case 'dingtalk':
-              vars = [];
-              break;
           }
           return this.wpx.getVars(...vars);
         })

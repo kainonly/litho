@@ -2,22 +2,19 @@
   <nz-card-tab>
     <nz-tabset nzLinkRouter [nzAnimated]="false">
       <nz-tab>
-        <a *nzTabLink nz-tab-link [routerLink]="['/admin', 'application', 'functions', 'cloud']"> 云厂商 </a>
+        <a *nzTabLink nz-tab-link [routerLink]="['/admin', 'application', 'functions', 'public']"> 公共配置 </a>
+      </nz-tab>
+      <nz-tab>
+        <a *nzTabLink nz-tab-link [routerLink]="['/admin', 'application', 'functions', 'cloud']"> 云平台 </a>
       </nz-tab>
       <nz-tab>
         <a *nzTabLink nz-tab-link [routerLink]="['/admin', 'application', 'functions', 'office']"> 企业办公 </a>
-      </nz-tab>
-      <nz-tab>
-        <a *nzTabLink nz-tab-link [routerLink]="['/admin', 'application', 'functions', 'email']"> 电子邮件 </a>
       </nz-tab>
       <nz-tab>
         <a *nzTabLink nz-tab-link [routerLink]="['/admin', 'application', 'functions', 'schedule']"> 定时调度 </a>
       </nz-tab>
       <nz-tab>
         <a *nzTabLink nz-tab-link [routerLink]="['/admin', 'application', 'functions', 'collector']"> 日志采集 </a>
-      </nz-tab>
-      <nz-tab>
-        <a *nzTabLink nz-tab-link [routerLink]="['/admin', 'application', 'functions', 'openapi']"> 开放服务 </a>
       </nz-tab>
     </nz-tabset>
   </nz-card-tab>

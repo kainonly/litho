@@ -7,10 +7,10 @@ import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalRef } from 'ng-zorro-antd/modal';
 
 @Component({
-  selector: 'wpx-admin-functions-email-form',
-  templateUrl: './form.component.html'
+  selector: 'wpx-admin-functions-public-openapi',
+  templateUrl: './openapi.component.html'
 })
-export class FormComponent implements OnInit {
+export class OpenapiComponent implements OnInit {
   @Input() data!: Record<string, any>;
   form?: FormGroup;
 
@@ -23,15 +23,13 @@ export class FormComponent implements OnInit {
 
   ngOnInit(): void {
     this.form = this.fb.group({
-      email_host: [null, [Validators.required]],
-      email_port: [null, [Validators.required]],
-      email_username: [null, [Validators.required]],
-      email_password: [null, [Validators.required]]
+      openapi_url: [null, [Validators.required]],
+      openapi_key: [null, [Validators.required]],
+      openapi_secret: [null, [Validators.required]]
     });
     this.form.patchValue({
-      email_host: this.data['email_host'],
-      email_port: this.data['email_port'],
-      email_username: this.data['email_username']
+      openapi_url: this.data['openapi_url'],
+      openapi_key: this.data['openapi_key']
     });
   }
 
@@ -41,10 +39,9 @@ export class FormComponent implements OnInit {
 
   submit(value: any): void {
     forkJoin([
-      this.wpx.setVar('email_host', value.email_host),
-      this.wpx.setVar('email_port', value.email_port),
-      this.wpx.setVar('email_username', value.email_username),
-      this.wpx.setVar('email_password', value.email_password)
+      this.wpx.setVar('openapi_url', value.openapi_url),
+      this.wpx.setVar('openapi_key', value.openapi_key),
+      this.wpx.setVar('openapi_secret', value.openapi_secret)
     ]).subscribe(() => {
       this.message.success('设置成功');
       this.modalRef.triggerOk();

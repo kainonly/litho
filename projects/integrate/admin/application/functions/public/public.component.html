@@ -1,0 +1,58 @@
+<nz-list nzSize="large" nzItemLayout="vertical">
+  <nz-list-item>
+    <nz-list-item-meta>
+      <nz-list-item-meta-title><b>CDN 域名</b></nz-list-item-meta-title>
+      <nz-list-item-meta-description> 当前未设置 CDN 域名 </nz-list-item-meta-description>
+    </nz-list-item-meta>
+    <nz-list-item-extra>
+      <button nz-button nzType="primary" nzShape="circle" nz-tooltip="设置">
+        <i nz-icon nzType="tool"></i>
+      </button>
+    </nz-list-item-extra>
+  </nz-list-item>
+  <nz-list-item>
+    <nz-list-item-meta>
+      <nz-list-item-meta-title><b>电子邮箱</b></nz-list-item-meta-title>
+    </nz-list-item-meta>
+    <nz-descriptions nzSize="small" nzBordered [nzColumn]="2">
+      <nz-descriptions-item nzTitle="SMTP 地址">
+        {{ data['email_host'] | nzSafeNull: '未设置' }}
+      </nz-descriptions-item>
+      <nz-descriptions-item nzTitle="SMTP 端口号（SSL）">
+        {{ data['email_port'] | nzSafeNull: '未设置' }}
+      </nz-descriptions-item>
+      <nz-descriptions-item nzTitle="邮箱用户">
+        {{ data['email_username'] | nzSafeNull: '未设置' }}
+      </nz-descriptions-item>
+      <nz-descriptions-item nzTitle="密码">
+        {{ data['email_password'] | nzSafeNull: '未设置' }}
+      </nz-descriptions-item>
+    </nz-descriptions>
+    <nz-list-item-extra>
+      <button nz-button nzType="primary" nzShape="circle" nz-tooltip="设置" (click)="email()">
+        <i nz-icon nzType="tool"></i>
+      </button>
+    </nz-list-item-extra>
+  </nz-list-item>
+  <nz-list-item>
+    <nz-list-item-meta>
+      <nz-list-item-meta-title><b>开放服务</b></nz-list-item-meta-title>
+    </nz-list-item-meta>
+    <nz-descriptions nzSize="small" nzBordered [nzColumn]="2">
+      <nz-descriptions-item nzTitle="地址">
+        {{ data['openapi_url'] | nzSafeNull: '未设置' }}
+      </nz-descriptions-item>
+      <nz-descriptions-item nzTitle="应用认证 Key">
+        {{ data['openapi_key'] | nzSafeNull: '未设置' }}
+      </nz-descriptions-item>
+      <nz-descriptions-item nzTitle="应用认证密钥">
+        {{ data['openapi_secret'] | nzSafeNull: '未设置' }}
+      </nz-descriptions-item>
+    </nz-descriptions>
+    <nz-list-item-extra>
+      <button nz-button nzType="primary" nzShape="circle" nz-tooltip="设置" (click)="openapi()">
+        <i nz-icon nzType="tool"></i>
+      </button>
+    </nz-list-item-extra>
+  </nz-list-item>
+</nz-list>
