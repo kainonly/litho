@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: 检出
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: 缓存
         uses: actions/cache@v2
@@ -45,7 +45,7 @@ jobs:
           EOF
 
       - name: 安装 Node
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         with:
           node-version: '14'
 
