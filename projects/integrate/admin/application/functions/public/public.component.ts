@@ -4,7 +4,6 @@ import { WpxService } from '@weplanx/ng';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalService } from 'ng-zorro-antd/modal';
 
-import { CdnComponent } from './cdn/cdn.component';
 import { EmailComponent } from './email/email.component';
 import { OpenapiComponent } from './openapi/openapi.component';
 
@@ -36,19 +35,6 @@ export class PublicComponent implements OnInit {
       .subscribe(v => {
         this.data = v;
       });
-  }
-
-  cdn(): void {
-    this.modal.create({
-      nzTitle: '设置',
-      nzContent: CdnComponent,
-      nzComponentParams: {
-        data: this.data
-      },
-      nzOnOk: () => {
-        this.getData();
-      }
-    });
   }
 
   email(): void {
