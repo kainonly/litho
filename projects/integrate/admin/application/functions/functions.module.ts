@@ -18,13 +18,6 @@ import { ScheduleModule } from './schedule/schedule.module';
 
 export const functions: Routes = [
   {
-    path: 'public',
-    component: PublicComponent,
-    data: {
-      breadcrumb: '公共配置'
-    }
-  },
-  {
     path: 'cloud',
     component: CloudComponent,
     data: {
@@ -36,6 +29,13 @@ export const functions: Routes = [
     component: OfficeComponent,
     data: {
       breadcrumb: '企业办公'
+    }
+  },
+  {
+    path: 'public',
+    component: PublicComponent,
+    data: {
+      breadcrumb: '公共配置'
     }
   },
   {
@@ -52,7 +52,7 @@ export const functions: Routes = [
       breadcrumb: '日志采集'
     }
   },
-  { path: '', redirectTo: '/admin/application/functions/public', pathMatch: 'full' }
+  { path: '', redirectTo: '/admin/application/functions/cloud', pathMatch: 'full' }
 ];
 
 @NgModule({

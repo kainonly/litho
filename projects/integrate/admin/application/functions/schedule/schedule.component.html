@@ -1,56 +1,20 @@
-<nz-list nzSize="large" nzItemLayout="vertical">
-  <nz-list-item>
-    <nz-list-item-meta>
-      <nz-list-item-meta-title><b>认证配置</b></nz-list-item-meta-title>
-    </nz-list-item-meta>
-    <nz-descriptions nzSize="small" nzBordered [nzColumn]="2">
-      <nz-descriptions-item nzTitle="NATS 集群">
-        {{ data['schedule_nats_hosts'] | nzSafeNull: '未设置' }}
-      </nz-descriptions-item>
-      <nz-descriptions-item nzTitle="NATS 认证">
-        {{ data['schedule_nats_nkey'] | nzSafeNull: '未设置' }}
-      </nz-descriptions-item>
-      <nz-descriptions-item nzTitle="命名空间">
-        {{ data['schedule_namespace'] | nzSafeNull: '未设置' }}
-      </nz-descriptions-item>
-    </nz-descriptions>
-    <nz-list-item-extra>
-      <button nz-button nzType="primary" nzShape="circle" nz-tooltip="设置">
-        <i nz-icon nzType="tool"></i>
-      </button>
-    </nz-list-item-extra>
-  </nz-list-item>
-</nz-list>
-
-<ng-template #searchRef>
-  <nz-input-group style="width: 180px" nzSuffixIcon="search">
-    <input type="text" nz-input placeholder="标识搜索" />
-  </nz-input-group>
-</ng-template>
-
-<ng-template #actions>
-  <button nz-button nzDanger nzType="primary"> 同步 </button>
-</ng-template>
-
-<nz-card [nzTitle]="searchRef" [nzExtra]="actions">
-  <nz-table #basicTable [nzData]="[]" [nzHideOnSinglePage]="true">
-    <thead>
-      <tr>
-        <th nzWidth="240px"><b>标识</b></th>
-        <th nzWidth="240px"><b>节点</b></th>
-        <th nzWidth="240px"><b>触发条件</b></th>
-        <th><b>描述</b></th>
-        <th nzWidth="200px"><b>操作</b></th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let item of basicTable.data">
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </nz-table>
-</nz-card>
+<nz-table #basicTable [nzData]="[]" [nzHideOnSinglePage]="true">
+  <thead>
+    <tr>
+      <th nzWidth="240px"><b>标识</b></th>
+      <th nzWidth="240px"><b>节点</b></th>
+      <th nzWidth="240px"><b>触发条件</b></th>
+      <th><b>描述</b></th>
+      <th nzWidth="200px"><b>操作</b></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let item of basicTable.data">
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+  </tbody>
+</nz-table>
