@@ -60,23 +60,15 @@
     </nz-form-control>
   </nz-form-item>
 
-  <ng-container *ngIf="form.get('kind')?.value !== 'group'">
+  <ng-container *ngIf="form.get('kind')?.value === 'default'">
     <nz-form-item>
       <nz-form-label nzRequired>形式</nz-form-label>
       <nz-form-control>
         <nz-radio-group formControlName="manifest">
-          <ng-container [ngSwitch]="form.get('kind')?.value">
-            <ng-container *ngSwitchCase="'default'">
-              <label nz-radio-button nzValue="default">标准表格</label>
-              <label nz-radio-button nzValue="tree">树形表格</label>
-              <label nz-radio-button nzValue="form">独立表单</label>
-              <label nz-radio-button nzValue="hide">不显示</label>
-            </ng-container>
-            <ng-container *ngSwitchCase="'aggregation'">
-              <label nz-radio-button nzValue="default">数据表格</label>
-              <label nz-radio-button nzValue="dashboard">统计图</label>
-            </ng-container>
-          </ng-container>
+          <label nz-radio-button nzValue="default">标准表格</label>
+          <label nz-radio-button nzValue="tree">树形表格</label>
+          <label nz-radio-button nzValue="form">独立表单</label>
+          <label nz-radio-button nzValue="hide">不显示</label>
         </nz-radio-group>
       </nz-form-control>
     </nz-form-item>

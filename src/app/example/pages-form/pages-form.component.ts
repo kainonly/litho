@@ -62,7 +62,7 @@ export class PagesFormComponent {
     {
       key: 'deadline',
       label: '期限',
-      type: 'between-dates',
+      type: 'dates',
       sort: 0
     },
     {

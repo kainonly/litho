@@ -82,47 +82,65 @@ export interface Page {
    */
   manifest?: PageManifest;
   /**
-   * 数据源
+   * 模型架构
    */
   schema?: Schema;
+  /**
+   * 数据源
+   */
+  source?: Source;
   /**
    * 排序
    */
   sort: number;
-  /**
-   * 状态
-   */
-  status: boolean;
 }
 
 export interface Schema {
   /**
-   * 集合名称
+   * 命名
    */
   key: string;
   /**
-   * 字段设置
+   * 字段
    */
   fields: Record<string, SchemaField>;
   /**
-   * 显隐规则
+   * 搜索规则
    */
   rules?: any[];
   /**
-   * 验证器
+   * 启用事务补偿
    */
-  validator?: string;
+  event?: boolean;
 }
 
+export type BasicType =
+  | 'string' // 单行
+  | 'text' // 多行
+  | 'number' // 数字
+  | 'date' // 日期
+  | 'dates' // 日期范围
+  | 'bool' // 状态
+  | 'radio' // 单选
+  | 'checkbox' // 复选
+  | 'select'; // 选择器
+
+export type AdvancedType =
+  | 'richtext' // 富文本
+  | 'picture' // 图片
+  | 'video' // 视频
+  | 'file' // 文件
+  | 'json'; // 自定义
+
 export interface SchemaField {
+  /**
+   * 命名（辅助字段）
+   */
+  key: string;
   /**
    * 显示名称
    */
   label: string;
-  /**
-   * 字段命名
-   */
-  key: string;
   /**
    * 字段类型
    */
@@ -148,9 +166,9 @@ export interface SchemaField {
    */
   hide?: boolean;
   /**
-   * 可修改
+   * 只读
    */
-  modified?: string;
+  readonly?: boolean;
   /**
    * 排序
    */
@@ -207,23 +225,31 @@ export interface Value {
   value: any;
 }
 
-export type BasicType =
-  | 'string' // 单行
-  | 'text' // 多行
-  | 'number' // 数字
-  | 'date' // 日期
-  | 'between-dates' // 日期之间
-  | 'bool' // 状态
-  | 'radio' // 单选
-  | 'checkbox' // 复选
-  | 'select'; // 选择器
+export interface Source {
+  /**
+   * 布局
+   */
+  layout?: any;
+  /**
+   * 图表
+   */
+  panels: Panel[];
+}
 
-export type AdvancedType =
-  | 'richtext' // 富文本
-  | 'picture' // 图片
-  | 'video' // 视频
-  | 'file' // 文件
-  | 'json'; // 自定义
+export interface Panel {
+  /**
+   * 模式
+   */
+  query: 'default' | 'flux';
+  /**
+   * 映射
+   */
+  mappings: Record<string, string>;
+  /**
+   * 样式
+   */
+  style: any;
+}
 
 /**
  * 用户信息

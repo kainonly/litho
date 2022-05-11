@@ -10,10 +10,10 @@ import { NzTreeSelectModule } from 'ng-zorro-antd/tree-select';
 import { FactoryComponent } from './factory.component';
 import { FormComponent } from './form/form.component';
 import { HomeComponent } from './home/home.component';
-import { IndexesComponent } from './tab-indexes/indexes.component';
-import { IndexesModule } from './tab-indexes/indexes.module';
-import { SchemaComponent } from './tab-schema/schema.component';
-import { SchemaModule } from './tab-schema/schema.module';
+import { IndexesComponent } from './indexes/indexes.component';
+import { IndexesModule } from './indexes/indexes.module';
+import { SchemaComponent } from './schema/schema.component';
+import { SchemaModule } from './schema/schema.module';
 
 export const factory: Routes = [
   {
