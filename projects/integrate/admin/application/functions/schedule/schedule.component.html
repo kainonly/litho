@@ -1,20 +1,26 @@
-<nz-table #basicTable [nzData]="[]" [nzHideOnSinglePage]="true">
-  <thead>
-    <tr>
-      <th nzWidth="240px"><b>标识</b></th>
-      <th nzWidth="240px"><b>节点</b></th>
-      <th nzWidth="240px"><b>触发条件</b></th>
-      <th><b>描述</b></th>
-      <th nzWidth="200px"><b>操作</b></th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let item of basicTable.data">
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-    </tr>
-  </tbody>
-</nz-table>
+<ng-template #extra>
+  <button nz-button nzType="primary"> 新增 </button>
+</ng-template>
+
+<wpx-admin-functions-tabs [extra]="extra">
+  <nz-table #basicTable [nzData]="[]" [nzHideOnSinglePage]="true">
+    <thead>
+      <tr>
+        <th nzWidth="240px"><b>标识</b></th>
+        <th nzWidth="240px"><b>节点</b></th>
+        <th nzWidth="240px"><b>触发条件</b></th>
+        <th><b>描述</b></th>
+        <th nzWidth="200px"><b>操作</b></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of basicTable.data">
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </nz-table>
+</wpx-admin-functions-tabs>

@@ -135,14 +135,14 @@ export class WpxService {
    * 获取密码重置验证码
    */
   getCaptcha(email: string): Observable<any> {
-    return this.http.get('user/captcha', { params: { email } });
+    return this.http.get('captcha', { params: { email } });
   }
 
   /**
    * 验证密码重置验证码
    */
   verifyCaptcha(data: any): Observable<any> {
-    return this.http.post('user/captcha', data);
+    return this.http.post('captcha', data);
   }
 
   /**

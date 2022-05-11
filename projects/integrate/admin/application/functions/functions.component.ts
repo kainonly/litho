@@ -2,6 +2,6 @@ import { Component } from '@angular/core';
 
 @Component({
   selector: 'wpx-admin-functions',
-  templateUrl: './functions.component.html'
+  template: '<router-outlet></router-outlet>'
 })
 export class FunctionsComponent {}

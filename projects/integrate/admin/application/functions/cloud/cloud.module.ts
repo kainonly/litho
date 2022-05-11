@@ -1,15 +1,12 @@
 import { NgModule } from '@angular/core';
 
-import { WpxModule, WpxShareModule } from '@weplanx/ng';
-import { NzDescriptionsModule } from 'ng-zorro-antd/descriptions';
-import { NzPipesModule } from 'ng-zorro-antd/pipes';
-
+import { ShareModule } from '../share.module';
 import { CloudComponent } from './cloud.component';
 import { CosComponent } from './cos/cos.component';
 import { TencentComponent } from './tencent/tencent.component';
 
 @NgModule({
-  imports: [WpxModule, WpxShareModule, NzDescriptionsModule, NzPipesModule],
+  imports: [ShareModule],
   declarations: [CloudComponent, TencentComponent, CosComponent],
   exports: [CloudComponent]
 })

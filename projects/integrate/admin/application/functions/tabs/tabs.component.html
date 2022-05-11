@@ -1,6 +1,6 @@
 <nz-card>
   <nz-card-tab>
-    <nz-tabset nzLinkRouter [nzAnimated]="false">
+    <nz-tabset nzLinkRouter [nzAnimated]="false" [nzTabBarExtraContent]="extra">
       <nz-tab>
         <a *nzTabLink nz-tab-link [routerLink]="['/admin', 'application', 'functions', 'cloud']"> 云平台 </a>
       </nz-tab>
@@ -19,5 +19,5 @@
     </nz-tabset>
   </nz-card-tab>
 
-  <router-outlet></router-outlet>
+  <ng-content></ng-content>
 </nz-card>

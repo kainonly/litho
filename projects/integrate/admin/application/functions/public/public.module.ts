@@ -1,15 +1,12 @@
 import { NgModule } from '@angular/core';
 
-import { WpxModule, WpxShareModule } from '@weplanx/ng';
-import { NzDescriptionsModule } from 'ng-zorro-antd/descriptions';
-import { NzPipesModule } from 'ng-zorro-antd/pipes';
-
+import { ShareModule } from '../share.module';
 import { EmailComponent } from './email/email.component';
 import { OpenapiComponent } from './openapi/openapi.component';
 import { PublicComponent } from './public.component';
 
 @NgModule({
-  imports: [WpxModule, WpxShareModule, NzDescriptionsModule, NzPipesModule],
+  imports: [ShareModule],
   declarations: [PublicComponent, EmailComponent, OpenapiComponent],
   exports: [PublicComponent]
 })
