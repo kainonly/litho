@@ -93,6 +93,10 @@ export interface Page {
    * 排序
    */
   sort: number;
+  /**
+   * 状态
+   */
+  status: boolean;
 }
 
 export interface Schema {
@@ -105,9 +109,13 @@ export interface Schema {
    */
   fields: Record<string, SchemaField>;
   /**
-   * 搜索规则
+   * 显隐规则
    */
   rules?: any[];
+  /**
+   * 搜索设置
+   */
+  search?: any[];
   /**
    * 启用事务补偿
    */

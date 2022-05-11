@@ -28,9 +28,7 @@
     <nz-form-label>字体图标</nz-form-label>
     <nz-form-control [nzExtra]="iconLink">
       <ng-template #iconLink>
-        <a target="_blank" href="https://ng.ant.design/components/icon/zh">
-          https://ng.ant.design/components/icon/zh
-        </a>
+        <a target="_blank" href="https://ng.ant.design/components/icon/zh"> 图标列表搜索 </a>
       </ng-template>
       <input nz-input formControlName="icon" placeholder="请填写字体图标，遵循图标 nzType 命名规范" />
     </nz-form-control>
@@ -39,7 +37,6 @@
   <nz-form-item>
     <nz-form-label nzRequired>种类</nz-form-label>
     <nz-form-control
-      nzHasFeedback
       [nzAutoTips]="{
         default: {
           required: '种类不能为空'
@@ -60,15 +57,23 @@
     </nz-form-control>
   </nz-form-item>
 
-  <ng-container *ngIf="form.get('kind')?.value === 'default'">
+  <ng-container *ngIf="form.get('kind')?.value !== 'group'">
     <nz-form-item>
       <nz-form-label nzRequired>形式</nz-form-label>
       <nz-form-control>
         <nz-radio-group formControlName="manifest">
-          <label nz-radio-button nzValue="default">标准表格</label>
-          <label nz-radio-button nzValue="tree">树形表格</label>
-          <label nz-radio-button nzValue="form">独立表单</label>
-          <label nz-radio-button nzValue="hide">不显示</label>
+          <ng-container [ngSwitch]="form.get('kind')?.value">
+            <ng-container *ngSwitchCase="'default'">
+              <label nz-radio-button nzValue="default">标准表格</label>
+              <label nz-radio-button nzValue="tree">树形表格</label>
+              <label nz-radio-button nzValue="form">独立表单</label>
+              <label nz-radio-button nzValue="hide">隐藏</label>
+            </ng-container>
+            <ng-container *ngSwitchCase="'aggregation'">
+              <label nz-radio-button nzValue="default">标准表格</label>
+              <label nz-radio-button nzValue="dashboard">仪表盘</label>
+            </ng-container>
+          </ng-container>
         </nz-radio-group>
       </nz-form-control>
     </nz-form-item>
@@ -76,19 +81,19 @@
 
   <ng-container *ngIf="form.get('kind')?.value === 'default'" formGroupName="schema">
     <nz-form-item>
-      <nz-form-label nzRequired>数据源命名</nz-form-label>
+      <nz-form-label nzRequired>模型命名</nz-form-label>
       <nz-form-control
         nzHasFeedback
         [nzAutoTips]="{
           default: {
-            required: '数据源命名不能为空',
+            required: '模型命名不能为空',
             pattern: '请使用小写字母与下划线的组合',
-            duplicated: '存在重复的定义，数据源必须是唯一的',
+            duplicated: '存在重复的定义，模型命名必须是唯一的',
             history: '存在历史集合，请通过数据库管理工具核实'
           }
         }"
       >
-        <input nz-input type="text" formControlName="key" placeholder="请填写数据源命名，如 order" />
+        <input nz-input type="text" formControlName="key" placeholder="请填写模型命名，如 orders" />
       </nz-form-control>
     </nz-form-item>
   </ng-container>

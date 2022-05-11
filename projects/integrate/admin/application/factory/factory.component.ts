@@ -44,11 +44,14 @@ export class FactoryComponent implements OnInit {
     });
   }
 
-  getData(): void {
+  getData(refresh = false): void {
     this.pages.getTreeNode({}, false).subscribe(v => {
       this.nodes = [...v];
       if (this.pages.id) {
         this.selectedKeys = [this.pages.id];
+      }
+      if (refresh) {
+        this.message.success('内容单元刷新完毕~');
       }
     });
   }
