@@ -16,7 +16,7 @@ import { FormComponent } from './form/form.component';
   styleUrls: ['./schema.component.scss']
 })
 export class SchemaComponent implements OnInit {
-  fieldList: SchemaField[] = [];
+  data: SchemaField[] = [];
   datatype: Record<string, string> = Object.fromEntries([].concat(...(fieldTypeValues.map(v => v.values) as any[])));
 
   constructor(
@@ -41,7 +41,7 @@ export class SchemaComponent implements OnInit {
   private setFieldList(): void {
     const fields = this.pages.page!.schema?.fields ?? {};
 
-    this.fieldList = [
+    this.data = [
       ...Object.entries(fields)
         .map(v =>
           Object.assign(v[1], {
@@ -68,11 +68,11 @@ export class SchemaComponent implements OnInit {
   }
 
   sort(event: CdkDragDrop<string[]>): void {
-    moveItemInArray(this.fieldList, event.previousIndex, event.currentIndex);
+    moveItemInArray(this.data, event.previousIndex, event.currentIndex);
     this.pages
       .sortSchemaFields(
         this.pages.id!,
-        this.fieldList.map(v => v.key!)
+        this.data.map(v => v.key!)
       )
       .subscribe(() => {
         this.getData();

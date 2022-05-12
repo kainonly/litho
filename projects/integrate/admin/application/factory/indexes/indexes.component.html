@@ -1,10 +1,11 @@
+<ng-template #extra>
+  <button nz-button nzType="primary" (click)="form()"> 新增 </button>
+</ng-template>
+
 <wpx-admin-factory-tabs [extra]="extra">
-  <ng-template #extra>
-    <button nz-button nzType="primary" (click)="form()"> 新增 </button>
-  </ng-template>
   <nz-table
     #contentTable
-    [nzData]="indexesList"
+    [nzData]="data"
     [nzFrontPagination]="false"
     [nzShowPagination]="false"
     [nzScroll]="{ x: '1200px' }"
