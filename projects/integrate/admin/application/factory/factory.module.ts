@@ -14,8 +14,6 @@ import { FormComponent } from './form/form.component';
 import { HomeComponent } from './home/home.component';
 import { IndexesComponent } from './indexes/indexes.component';
 import { IndexesModule } from './indexes/indexes.module';
-import { ProjectionComponent } from './projection/projection.component';
-import { ProjectionModule } from './projection/projection.module';
 import { RulesComponent } from './rules/rules.component';
 import { RulesModule } from './rules/rules.module';
 import { SchemaComponent } from './schema/schema.component';
@@ -44,13 +42,6 @@ export const factory: Routes = [
     }
   },
   {
-    path: ':id/projection',
-    component: ProjectionComponent,
-    data: {
-      breadcrumb: '投影规则'
-    }
-  },
-  {
     path: ':id/rules',
     component: RulesComponent,
     data: {
@@ -76,7 +67,6 @@ export const factory: Routes = [
     NzResultModule,
     SchemaModule,
     IndexesModule,
-    ProjectionModule,
     RulesModule,
     AdvancedModule
   ],

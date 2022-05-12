@@ -15,12 +15,19 @@ export class PagesFormComponent {
       required: true,
       description: '这是单行文本',
       placeholder: '请填写',
+      hide: false,
+      readonly: false,
+      projection: 1,
       sort: 0
     },
     {
       key: 'description',
       label: '描述',
       type: 'text',
+      required: false,
+      hide: false,
+      readonly: false,
+      projection: 1,
       sort: 0
     },
     {
@@ -28,6 +35,10 @@ export class PagesFormComponent {
       label: '总数',
       type: 'number',
       default: '0',
+      required: false,
+      hide: false,
+      readonly: false,
+      projection: 1,
       sort: 0,
       option: {
         max: 100,
@@ -38,7 +49,11 @@ export class PagesFormComponent {
       key: 'profit',
       label: '利润',
       type: 'number',
+      required: false,
       default: '0',
+      hide: false,
+      readonly: false,
+      projection: 1,
       sort: 0,
       option: {
         decimal: 2
@@ -48,12 +63,20 @@ export class PagesFormComponent {
       key: 'apply',
       label: '申请日期',
       type: 'date',
+      required: false,
+      hide: false,
+      readonly: false,
+      projection: 1,
       sort: 0
     },
     {
       key: 'complete',
       label: '完成时间',
       type: 'date',
+      required: false,
+      hide: false,
+      readonly: false,
+      projection: 1,
       sort: 0,
       option: {
         time: true
@@ -63,18 +86,30 @@ export class PagesFormComponent {
       key: 'deadline',
       label: '期限',
       type: 'dates',
+      required: false,
+      hide: false,
+      readonly: false,
+      projection: 1,
       sort: 0
     },
     {
       key: 'status',
       label: '状态',
       type: 'bool',
+      required: false,
+      hide: false,
+      readonly: false,
+      projection: 1,
       sort: 0
     },
     {
       key: 'level',
       label: '级别',
       type: 'radio',
+      required: false,
+      hide: false,
+      readonly: false,
+      projection: 1,
       sort: 0,
       option: {
         values: [
@@ -88,6 +123,10 @@ export class PagesFormComponent {
       key: 'plus',
       label: '附加',
       type: 'checkbox',
+      required: false,
+      hide: false,
+      readonly: false,
+      projection: 1,
       sort: 0,
       option: {
         values: [
@@ -101,6 +140,10 @@ export class PagesFormComponent {
       key: 'type',
       label: '类型',
       type: 'select',
+      required: false,
+      hide: false,
+      readonly: false,
+      projection: 1,
       sort: 0,
       option: {
         values: [
@@ -114,6 +157,10 @@ export class PagesFormComponent {
       key: 'labels',
       label: '标记',
       type: 'select',
+      required: false,
+      hide: false,
+      readonly: false,
+      projection: 1,
       sort: 0,
       option: {
         values: [
@@ -128,6 +175,10 @@ export class PagesFormComponent {
       key: 'pages',
       label: '所属页面（单引用）',
       type: 'select',
+      required: false,
+      hide: false,
+      readonly: false,
+      projection: 1,
       sort: 0,
       option: {
         reference: 'pages',
@@ -138,6 +189,10 @@ export class PagesFormComponent {
       key: 'tags',
       label: '标签（多引用）',
       type: 'select',
+      required: false,
+      hide: false,
+      readonly: false,
+      projection: 1,
       sort: 0,
       option: {
         reference: 'tags',
@@ -149,18 +204,30 @@ export class PagesFormComponent {
       key: 'pictures',
       label: '图片',
       type: 'picture',
+      required: false,
+      hide: false,
+      readonly: false,
+      projection: 1,
       sort: 0
     },
     {
       key: 'videos',
       label: '视频',
       type: 'video',
+      required: false,
+      hide: false,
+      readonly: false,
+      projection: 1,
       sort: 0
     },
     {
       key: 'article',
       label: '文章',
       type: 'richtext',
+      required: false,
+      hide: false,
+      readonly: false,
+      projection: 1,
       sort: 0
     }
   ];

@@ -1,4 +1,4 @@
-<form *ngIf="form" nz-form nzLayout="vertical" id="form" [formGroup]="form" (wpxSubmit)="submit($event)">
+<form nz-form nzLayout="vertical" id="form" [formGroup]="form" (wpxSubmit)="submit($event)">
   <nz-row [nzGutter]="24">
     <nz-col [nzSpan]="12">
       <nz-form-item>
@@ -33,7 +33,7 @@
         <nz-form-label nzRequired>字段类型</nz-form-label>
         <nz-form-control>
           <nz-select nzShowSearch nzAllowClear formControlName="type" nzPlaceHolder="请选择一个字段类型">
-            <ng-container *ngFor="let x of typeValues">
+            <ng-container *ngFor="let x of types">
               <nz-option-group [nzLabel]="x['label']">
                 <ng-container *ngFor="let y of x['values']">
                   <nz-option [nzLabel]="y[1]" [nzValue]="y[0]"></nz-option>
@@ -58,33 +58,43 @@
     </nz-col>
     <nz-col [nzSpan]="12">
       <nz-form-item>
-        <nz-form-label>默认值</nz-form-label>
-        <nz-form-control>
-          <input nz-input formControlName="default" placeholder="此值的默认值" />
-        </nz-form-control>
-      </nz-form-item>
-      <nz-form-item>
-        <nz-form-label>是否必须</nz-form-label>
+        <nz-form-label nzRequired>是否必须</nz-form-label>
         <nz-form-control nzExtra="在创建内容时，此段是必需填写的">
           <nz-switch formControlName="required"></nz-switch>
         </nz-form-control>
       </nz-form-item>
       <nz-form-item>
-        <nz-form-label>私有字段</nz-form-label>
-        <nz-form-control nzExtra="该字段不会在通用请求中">
+        <nz-form-label nzRequired>隐藏字段</nz-form-label>
+        <nz-form-control nzExtra="表单中不显示，但可通过触发显隐规则显示">
           <nz-switch formControlName="hide"></nz-switch>
         </nz-form-control>
       </nz-form-item>
       <nz-form-item>
-        <nz-form-label>可修改</nz-form-label>
-        <nz-form-control nzExtra="关闭将仅用于显示">
-          <nz-switch formControlName="modified"></nz-switch>
+        <nz-form-label nzRequired>只读</nz-form-label>
+        <nz-form-control nzExtra="表单中只读">
+          <nz-switch formControlName="readonly"></nz-switch>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label nzRequired>投影</nz-form-label>
+        <nz-form-control>
+          <nz-radio-group formControlName="projection">
+            <label nz-radio-button [nzValue]="0">排除</label>
+            <label nz-radio-button [nzValue]="1">包含</label>
+            <label nz-radio-button [nzValue]="2">包含并脱敏</label>
+          </nz-radio-group>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label>默认值</nz-form-label>
+        <nz-form-control>
+          <input nz-input formControlName="default" placeholder="此值的默认值" />
         </nz-form-control>
       </nz-form-item>
     </nz-col>
-    <nz-col *ngIf="special.includes(form.get('type')?.value)" [nzSpan]="24" formGroupName="spec">
+    <nz-col *ngIf="optionPanel" [nzSpan]="24" formGroupName="option">
       <nz-divider nzText="其他设置" nzOrientation="left" nzPlain></nz-divider>
-      <nz-row [nzGutter]="24" [ngSwitch]="form.get('type')?.value">
+      <nz-row [nzGutter]="24" [ngSwitch]="currentType">
         <ng-container *ngSwitchCase="'number'">
           <nz-col [nzSpan]="12">
             <nz-form-item>
@@ -128,45 +138,28 @@
             </nz-form-item>
           </nz-col>
         </ng-container>
-        <ng-container *ngSwitchCase="'radio'">
-          <ng-container *ngTemplateOutlet="enums"></ng-container>
+        <ng-template #time>
+          <nz-col [nzSpan]="24">
+            <nz-form-item>
+              <nz-form-label>包含时间</nz-form-label>
+              <nz-form-control>
+                <nz-switch formControlName="time"></nz-switch>
+              </nz-form-control>
+            </nz-form-item>
+          </nz-col>
+        </ng-template>
+        <ng-container *ngSwitchCase="'date'">
+          <ng-container *ngTemplateOutlet="time"> </ng-container>
         </ng-container>
-        <ng-container *ngSwitchCase="'checkbox'">
-          <ng-container *ngTemplateOutlet="enums"></ng-container>
-        </ng-container>
-        <ng-container *ngSwitchCase="'select'">
-          <ng-container *ngTemplateOutlet="enums"></ng-container>
-          <nz-col [nzSpan]="12">
-            <nz-form-item>
-              <nz-form-label>引用数据源</nz-form-label>
-              <nz-form-control>
-                <nz-select formControlName="reference"></nz-select>
-              </nz-form-control>
-            </nz-form-item>
-          </nz-col>
-          <nz-col [nzSpan]="12">
-            <nz-form-item>
-              <nz-form-label>目标字段</nz-form-label>
-              <nz-form-control>
-                <nz-select formControlName="target"></nz-select>
-              </nz-form-control>
-            </nz-form-item>
-          </nz-col>
-          <nz-col [nzSpan]="12">
-            <nz-form-item>
-              <nz-form-label>支持多选</nz-form-label>
-              <nz-form-control>
-                <nz-switch formControlName="multiple"></nz-switch>
-              </nz-form-control>
-            </nz-form-item>
-          </nz-col>
+        <ng-container *ngSwitchCase="'dates'">
+          <ng-container *ngTemplateOutlet="time"></ng-container>
         </ng-container>
         <ng-template #enums>
           <nz-col [nzSpan]="24">
             <nz-form-item>
               <nz-form-label>列举元素</nz-form-label>
               <nz-form-control formArrayName="values">
-                <ng-container *ngFor="let x of specValues?.controls; index as i; first as isFirst">
+                <ng-container *ngFor="let x of optionValues?.controls; index as i; first as isFirst">
                   <nz-input-group [formGroupName]="i" nzCompact [ngStyle]="{ 'margin-top': isFirst ? null : '-1px' }">
                     <input style="width: 45%" type="text" nz-input formControlName="label" placeholder="元素名称" />
                     <input style="width: 45%" type="text" nz-input formControlName="value" placeholder="元素值" />
@@ -182,6 +175,39 @@
             </nz-form-item>
           </nz-col>
         </ng-template>
+        <ng-container *ngSwitchCase="'radio'">
+          <ng-container *ngTemplateOutlet="enums"></ng-container>
+        </ng-container>
+        <ng-container *ngSwitchCase="'checkbox'">
+          <ng-container *ngTemplateOutlet="enums"></ng-container>
+        </ng-container>
+        <ng-container *ngSwitchCase="'select'">
+          <ng-container *ngTemplateOutlet="enums"></ng-container>
+          <nz-col [nzSpan]="12">
+            <nz-form-item>
+              <nz-form-label>引用模型</nz-form-label>
+              <nz-form-control>
+                <nz-select formControlName="reference"></nz-select>
+              </nz-form-control>
+            </nz-form-item>
+          </nz-col>
+          <nz-col [nzSpan]="12">
+            <nz-form-item>
+              <nz-form-label>引用字段</nz-form-label>
+              <nz-form-control>
+                <nz-select formControlName="target"></nz-select>
+              </nz-form-control>
+            </nz-form-item>
+          </nz-col>
+          <nz-col [nzSpan]="12">
+            <nz-form-item>
+              <nz-form-label>支持多选</nz-form-label>
+              <nz-form-control>
+                <nz-switch formControlName="multiple"></nz-switch>
+              </nz-form-control>
+            </nz-form-item>
+          </nz-col>
+        </ng-container>
       </nz-row>
     </nz-col>
   </nz-row>

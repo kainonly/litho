@@ -7,7 +7,7 @@ import { NzModalRef } from 'ng-zorro-antd/modal';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 
 import { PagesSerivce } from '../../pages.serivce';
-import { fieldTypeValues } from '../../values';
+import { fieldTypes } from '../../values';
 
 @Component({
   selector: 'wpx-admin-factory-schema-form',
@@ -17,9 +17,10 @@ export class FormComponent implements OnInit {
   @Input() page!: AnyDto<Page>;
   @Input() doc?: SchemaField;
 
-  form?: FormGroup;
-  typeValues: Array<Record<string, any>> = fieldTypeValues;
-  readonly special = ['number', 'radio', 'checkbox', 'select'];
+  form!: FormGroup;
+  types: Array<Record<string, any>> = fieldTypes;
+  currentType?: string;
+  optionPanel = false;
 
   constructor(
     private modal: NzModalRef,
@@ -30,7 +31,6 @@ export class FormComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    console.log(this.doc);
     this.form = this.fb.group({
       key: [null, [Validators.required, Validators.pattern(/^[a-z_]+$/), this.existsField]],
       label: [null, [Validators.required]],
@@ -40,17 +40,9 @@ export class FormComponent implements OnInit {
       default: [null],
       required: [false],
       hide: [false],
-      modified: [true],
-      spec: this.fb.group({
-        max: [null],
-        min: [null],
-        decimal: [null],
-        values: this.fb.array([]),
-        reference: [null],
-        target: [null],
-        multiple: [false]
-      }),
-      sort: []
+      readonly: [false],
+      projection: [1],
+      sort: [0]
     });
     if (this.doc) {
       this.form.patchValue(this.doc);
@@ -58,6 +50,52 @@ export class FormComponent implements OnInit {
     } else {
       this.form.get('sort')?.setValue(Object.keys(this.page.schema?.fields!).length);
     }
+    this.form.get('type')?.valueChanges.subscribe(value => {
+      this.currentType = value;
+      this.form.removeControl('option');
+      switch (value) {
+        case 'number':
+          this.form.setControl(
+            'option',
+            this.fb.group({
+              max: [null],
+              min: [null],
+              decimal: [null]
+            })
+          );
+          break;
+        case 'date':
+        case 'dates':
+          this.form.setControl(
+            'option',
+            this.fb.group({
+              time: [false]
+            })
+          );
+          break;
+        case 'radio':
+        case 'checkbox':
+          this.form.setControl(
+            'option',
+            this.fb.group({
+              values: this.fb.array([])
+            })
+          );
+          break;
+        case 'select':
+          this.form.setControl(
+            'option',
+            this.fb.group({
+              values: this.fb.array([]),
+              reference: [null],
+              target: [null],
+              multiple: [false]
+            })
+          );
+          break;
+      }
+      this.optionPanel = ['number', 'date', 'dates', 'radio', 'checkbox', 'select'].includes(value);
+    });
   }
 
   existsField = (control: AbstractControl): any => {
@@ -70,12 +108,12 @@ export class FormComponent implements OnInit {
     return null;
   };
 
-  get specValues(): FormArray {
-    return this.form?.get('spec')?.get('values') as FormArray;
+  get optionValues(): FormArray {
+    return this.form?.get('option')?.get('values') as FormArray;
   }
 
   addValues(): void {
-    this.specValues.push(
+    this.optionValues.push(
       this.fb.group({
         label: [null, [Validators.required]],
         value: [null, [Validators.required]]
@@ -84,7 +122,7 @@ export class FormComponent implements OnInit {
   }
 
   removeValues(index: number): void {
-    this.specValues.removeAt(index);
+    this.optionValues.removeAt(index);
   }
 
   close(): void {

@@ -7,7 +7,7 @@ import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalService } from 'ng-zorro-antd/modal';
 
 import { PagesSerivce } from '../pages.serivce';
-import { fieldTypeValues } from '../values';
+import { fieldTypes } from '../values';
 import { FormComponent } from './form/form.component';
 
 @Component({
@@ -17,7 +17,7 @@ import { FormComponent } from './form/form.component';
 })
 export class SchemaComponent implements OnInit {
   data: SchemaField[] = [];
-  datatype: Record<string, string> = Object.fromEntries([].concat(...(fieldTypeValues.map(v => v.values) as any[])));
+  datatype: Record<string, string> = Object.fromEntries([].concat(...(fieldTypes.map(v => v.values) as any[])));
 
   constructor(
     private pages: PagesSerivce,

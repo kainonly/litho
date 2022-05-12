@@ -111,11 +111,7 @@ export interface Schema {
   /**
    * 显隐规则
    */
-  rules?: any[];
-  /**
-   * 搜索设置
-   */
-  search?: any[];
+  rules?: SchemaRule[];
   /**
    * 启用事务补偿
    */
@@ -168,15 +164,19 @@ export interface SchemaField {
   /**
    * 必填
    */
-  required?: boolean;
+  required: boolean;
   /**
    * 隐藏字段
    */
-  hide?: boolean;
+  hide: boolean;
   /**
    * 只读
    */
-  readonly?: boolean;
+  readonly: boolean;
+  /**
+   * 投影
+   */
+  projection: number;
   /**
    * 排序
    */
@@ -230,6 +230,18 @@ export interface Value {
   /**
    * 数值
    */
+  value: any;
+}
+
+export interface SchemaRule {
+  logic: 'and' | 'or';
+  display: string[];
+  conditions: SchemaRuleCondition[];
+}
+
+export interface SchemaRuleCondition {
+  field: string;
+  operate: 'eq' | 'neq' | 'in' | 'nin';
   value: any;
 }
 
