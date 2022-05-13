@@ -33,7 +33,7 @@
         <nz-form-label nzRequired>字段类型</nz-form-label>
         <nz-form-control>
           <nz-select nzShowSearch nzAllowClear formControlName="type" nzPlaceHolder="请选择一个字段类型">
-            <ng-container *ngFor="let x of types">
+            <ng-container *ngFor="let x of typeList">
               <nz-option-group [nzLabel]="x['label']">
                 <ng-container *ngFor="let y of x['values']">
                   <nz-option [nzLabel]="y[1]" [nzValue]="y[0]"></nz-option>
@@ -163,12 +163,19 @@
                   <nz-input-group [formGroupName]="i" nzCompact [ngStyle]="{ 'margin-top': isFirst ? null : '-1px' }">
                     <input style="width: 45%" type="text" nz-input formControlName="label" placeholder="元素名称" />
                     <input style="width: 45%" type="text" nz-input formControlName="value" placeholder="元素值" />
-                    <button nz-button nzType="default" style="width: 10%" (click)="removeValues(i)">
+                    <button nz-button nzType="default" style="width: 10%" (click)="removeOptionValues(i)">
                       <i nz-icon nzType="minus-circle"></i>
                     </button>
                   </nz-input-group>
                 </ng-container>
-                <button style="margin-top: 8px" type="button" nz-button nzType="dashed" nzBlock (click)="addValues()">
+                <button
+                  style="margin-top: 8px"
+                  type="button"
+                  nz-button
+                  nzType="dashed"
+                  nzBlock
+                  (click)="addOptionValues()"
+                >
                   <i nz-icon nzType="plus-circle"></i> 新增元素
                 </button>
               </nz-form-control>
@@ -197,15 +204,29 @@
             <nz-form-item>
               <nz-form-label>引用模型</nz-form-label>
               <nz-form-control>
-                <nz-select formControlName="reference"></nz-select>
+                <nz-select formControlName="reference" nzPlaceHolder="请选择引用模型">
+                  <ng-container *ngFor="let x of referenceList">
+                    <nz-option nzCustomContent [nzValue]="x.schema!.key" [nzLabel]="x.name">
+                      {{ x.name }} [{{ x.schema!.key }}]
+                    </nz-option>
+                  </ng-container>
+                </nz-select>
               </nz-form-control>
             </nz-form-item>
           </nz-col>
           <nz-col [nzSpan]="12">
             <nz-form-item>
-              <nz-form-label>引用字段</nz-form-label>
+              <nz-form-label>目标字段</nz-form-label>
               <nz-form-control>
-                <nz-select formControlName="target"></nz-select>
+                <nz-select formControlName="target" nzPlaceHolder="请选择目标字段">
+                  <ng-container *ngIf="optionReference.value as key">
+                    <ng-container *ngFor="let x of referenceDict[key!]">
+                      <nz-option nzCustomContent [nzValue]="x.key" [nzLabel]="x.label">
+                        {{ x.label }} [{{ x.key }}]
+                      </nz-option>
+                    </ng-container>
+                  </ng-container>
+                </nz-select>
               </nz-form-control>
             </nz-form-item>
           </nz-col>

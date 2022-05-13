@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { AbstractControl, FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
 import { AnyDto, Page, SchemaField } from '@weplanx/ng';
 import { NzMessageService } from 'ng-zorro-antd/message';
@@ -18,9 +18,11 @@ export class FormComponent implements OnInit {
   @Input() doc?: SchemaField;
 
   form!: FormGroup;
-  types: Array<Record<string, any>> = fieldTypes;
   currentType?: string;
+  typeList: Array<Record<string, any>> = fieldTypes;
   optionPanel = false;
+  referenceList: Array<AnyDto<Page>> = [];
+  referenceDict: Record<string, SchemaField[]> = {};
 
   constructor(
     private modal: NzModalRef,
@@ -60,7 +62,7 @@ export class FormComponent implements OnInit {
             this.fb.group({
               max: [null],
               min: [null],
-              decimal: [null]
+              decimal: [2]
             })
           );
           break;
@@ -100,6 +102,19 @@ export class FormComponent implements OnInit {
               multiple: [false]
             })
           );
+          this.pages.getReferences().subscribe(v => {
+            this.referenceList = [...v];
+            for (const x of this.referenceList) {
+              this.referenceDict[x.schema!.key] = [
+                ...Object.entries(x.schema!.fields)
+                  .map(([k, v]) => {
+                    v.key = k;
+                    return v;
+                  })
+                  .sort((a, b) => a.sort - b.sort)
+              ];
+            }
+          });
           break;
       }
       this.optionPanel = ['number', 'date', 'dates', 'radio', 'checkbox', 'select', 'ref'].includes(value);
@@ -120,7 +135,7 @@ export class FormComponent implements OnInit {
     return this.form?.get('option')?.get('values') as FormArray;
   }
 
-  addValues(): void {
+  addOptionValues(): void {
     this.optionValues.push(
       this.fb.group({
         label: [null, [Validators.required]],
@@ -129,8 +144,12 @@ export class FormComponent implements OnInit {
     );
   }
 
-  removeValues(index: number): void {
+  removeOptionValues(index: number): void {
     this.optionValues.removeAt(index);
+  }
+
+  get optionReference(): FormControl {
+    return this.form?.get('option')?.get('reference') as FormControl;
   }
 
   close(): void {

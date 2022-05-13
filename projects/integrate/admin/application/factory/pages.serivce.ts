@@ -112,6 +112,18 @@ export class PagesSerivce extends Api<Page> {
   }
 
   /**
+   * 获取引用模型
+   */
+  getReferences(): Observable<Array<AnyDto<Page>>> {
+    return this.find(
+      { schema: { $exists: true } },
+      {
+        field: ['_id', 'name', 'schema']
+      }
+    );
+  }
+
+  /**
    * 获取索引
    */
   getIndexes(): Observable<any> {
