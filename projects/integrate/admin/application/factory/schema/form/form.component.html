@@ -185,6 +185,16 @@
           <ng-container *ngTemplateOutlet="enums"></ng-container>
           <nz-col [nzSpan]="12">
             <nz-form-item>
+              <nz-form-label>支持多选</nz-form-label>
+              <nz-form-control>
+                <nz-switch formControlName="multiple"></nz-switch>
+              </nz-form-control>
+            </nz-form-item>
+          </nz-col>
+        </ng-container>
+        <ng-container *ngSwitchCase="'ref'">
+          <nz-col [nzSpan]="12">
+            <nz-form-item>
               <nz-form-label>引用模型</nz-form-label>
               <nz-form-control>
                 <nz-select formControlName="reference"></nz-select>

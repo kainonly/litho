@@ -10,7 +10,8 @@ export const fieldTypes = [
       ['bool', '开关'],
       ['radio', '单选框'],
       ['checkbox', '多选框'],
-      ['select', '选择器']
+      ['select', '选择器'],
+      ['ref', '引用']
     ]
   },
   {

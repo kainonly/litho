@@ -127,14 +127,14 @@ export type BasicType =
   | 'bool' // 状态
   | 'radio' // 单选
   | 'checkbox' // 复选
-  | 'select'; // 选择器
+  | 'select' // 选择器
+  | 'ref'; // 引用
 
 export type AdvancedType =
   | 'richtext' // 富文本
   | 'picture' // 图片
   | 'video' // 视频
-  | 'file' // 文件
-  | 'json'; // 自定义
+  | 'file'; // 文件
 
 export interface SchemaField {
   /**

@@ -87,6 +87,14 @@ export class FormComponent implements OnInit {
             'option',
             this.fb.group({
               values: this.fb.array([]),
+              multiple: [false]
+            })
+          );
+          break;
+        case 'ref':
+          this.form.setControl(
+            'option',
+            this.fb.group({
               reference: [null],
               target: [null],
               multiple: [false]
@@ -94,7 +102,7 @@ export class FormComponent implements OnInit {
           );
           break;
       }
-      this.optionPanel = ['number', 'date', 'dates', 'radio', 'checkbox', 'select'].includes(value);
+      this.optionPanel = ['number', 'date', 'dates', 'radio', 'checkbox', 'select', 'ref'].includes(value);
     });
   }
 
