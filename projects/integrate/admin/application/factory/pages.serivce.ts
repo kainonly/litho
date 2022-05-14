@@ -111,6 +111,14 @@ export class PagesSerivce extends Api<Page> {
     });
   }
 
+  updateSchemaAdvanced(id: string, data: any): Observable<any> {
+    return this.updateOneById(id, {
+      $set: {
+        'schema.event': data.event
+      }
+    });
+  }
+
   /**
    * 获取引用模型
    */
