@@ -3,8 +3,8 @@ import { Component, OnInit } from '@angular/core';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalService } from 'ng-zorro-antd/modal';
 
-import { FormComponent } from '../indexes/form/form.component';
 import { PagesSerivce } from '../pages.serivce';
+import { FormComponent } from './form/form.component';
 
 @Component({
   selector: 'wpx-admin-factory-rules',
@@ -20,9 +20,7 @@ export class RulesComponent implements OnInit {
   }
 
   getData(): void {
-    // this.pages.getIndexes().subscribe(v => {
-    //   this.data = [...v];
-    // });
+    this.pages.getPage().subscribe(v => {});
   }
 
   form(): void {

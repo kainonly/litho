@@ -14,8 +14,8 @@
       <tr>
         <th nzWidth="50px" nzLeft nzAlign="center"> </th>
         <th nzWidth="200px" nzLeft><b>逻辑</b></th>
-        <th><b>显示</b></th>
         <th><b>条件</b></th>
+        <th><b>显示字段</b></th>
         <th nzWidth="50px" nzRight nzAlign="center"><b>操作</b></th>
       </tr>
     </thead>
@@ -23,8 +23,8 @@
       <tr *ngFor="let item of contentTable.data; index as i">
         <td nzLeft nzAlign="center"> </td>
         <td>{{ item.logic }}</td>
-        <td>{{ item.display }}</td>
         <td>{{ item.conditions }} </td>
+        <td>{{ item.display }}</td>
         <td nzRight nzAlign="center">
           <button
             nz-button

@@ -111,6 +111,10 @@ export class PagesSerivce extends Api<Page> {
     });
   }
 
+  addSchemaRule(id: string, data: any): Observable<any> {
+    return this.updateOneById(id, { $push: { 'schema.rules': data } });
+  }
+
   updateSchemaAdvanced(id: string, data: any): Observable<any> {
     return this.updateOneById(id, {
       $set: {
