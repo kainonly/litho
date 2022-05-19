@@ -64,6 +64,22 @@ export class WpxService {
       );
   }
 
+  loadOAuth(action?: string): Observable<string> {
+    const state = JSON.stringify({
+      action
+    });
+    return this.http
+      .get<any>('options', {
+        params: { type: 'office' }
+      })
+      .pipe(
+        map(v => {
+          const redirect_uri = encodeURIComponent(v.redirect);
+          return `${v.url}?redirect_uri=${redirect_uri}&app_id=${v.app_id}&state=${state}`;
+        })
+      );
+  }
+
   /**
    * 载入页面内容
    */

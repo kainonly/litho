@@ -11,7 +11,7 @@ export class ThirdPartyComponent {
   constructor(public wpx: WpxService, private feishu: FeishuService, private message: NzMessageService) {}
 
   linkFeishu(): void {
-    this.feishu.oauth('link').subscribe(v => {
+    this.wpx.loadOAuth('link').subscribe(v => {
       window.open(v, '', 'width=800,height=640');
     });
   }

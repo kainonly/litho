@@ -56,7 +56,7 @@ export class LoginComponent implements OnInit {
    * 飞书授权
    */
   feishuOAuth(): void {
-    this.feishu.oauth().subscribe(v => {
+    this.wpx.loadOAuth().subscribe(v => {
       window.location.href = v;
     });
   }
