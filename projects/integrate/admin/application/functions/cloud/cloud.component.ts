@@ -42,23 +42,6 @@ export class CloudComponent implements OnInit {
                 'tencent_cos_region',
                 'tencent_cos_expired',
                 'tencent_cos_limit'
-                // 'tencent_pulsar_url',
-                // 'tencent_pulasr_tenant',
-                // 'tencent_pulasr_namespace',
-                // 'tencent_pulsar_token',
-                // 'tencent_cls_endpoint',
-                // 'tencent_cls_topic'
-              ];
-              break;
-            case 'aliyun':
-              vars = ['aliyun_access_key_id', 'aliyun_access_key_secret', 'aliyun_oss_bucket', 'aliyun_oss_endpoint'];
-              break;
-            case 'huaweicloud':
-              vars = [
-                'huaweicloud_access_key_id',
-                'huaweicloud_access_key_secret',
-                'huaweicloud_obs_bucket',
-                'huaweicloud_obs_endpoint'
               ];
               break;
           }
