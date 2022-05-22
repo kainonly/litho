@@ -204,13 +204,12 @@
             <nz-form-item>
               <nz-form-label>引用模型</nz-form-label>
               <nz-form-control>
-                <nz-select formControlName="reference" nzPlaceHolder="请选择引用模型">
+                <input placeholder="请输入引用模型" nz-input formControlName="reference" [nzAutocomplete]="auto" />
+                <nz-autocomplete #auto>
                   <ng-container *ngFor="let x of referenceList">
-                    <nz-option nzCustomContent [nzValue]="x.schema!.key" [nzLabel]="x.name">
-                      {{ x.name }} [{{ x.schema!.key }}]
-                    </nz-option>
+                    <nz-auto-option [nzValue]="x.schema!.key"> {{ x.name }} [{{ x.schema!.key }}] </nz-auto-option>
                   </ng-container>
-                </nz-select>
+                </nz-autocomplete>
               </nz-form-control>
             </nz-form-item>
           </nz-col>

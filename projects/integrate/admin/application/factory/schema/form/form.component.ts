@@ -48,76 +48,13 @@ export class FormComponent implements OnInit {
     });
     if (this.doc) {
       this.form.patchValue(this.doc);
+      this.setType(this.doc.type);
       this.form.markAsTouched();
     } else {
       this.form.get('sort')?.setValue(Object.keys(this.page.schema?.fields!).length);
     }
     this.form.get('type')?.valueChanges.subscribe(value => {
-      this.currentType = value;
-      this.form.removeControl('option');
-      switch (value) {
-        case 'number':
-          this.form.setControl(
-            'option',
-            this.fb.group({
-              max: [null],
-              min: [null],
-              decimal: [2]
-            })
-          );
-          break;
-        case 'date':
-        case 'dates':
-          this.form.setControl(
-            'option',
-            this.fb.group({
-              time: [false]
-            })
-          );
-          break;
-        case 'radio':
-        case 'checkbox':
-          this.form.setControl(
-            'option',
-            this.fb.group({
-              values: this.fb.array([])
-            })
-          );
-          break;
-        case 'select':
-          this.form.setControl(
-            'option',
-            this.fb.group({
-              values: this.fb.array([]),
-              multiple: [false]
-            })
-          );
-          break;
-        case 'ref':
-          this.form.setControl(
-            'option',
-            this.fb.group({
-              reference: [null],
-              target: [null],
-              multiple: [false]
-            })
-          );
-          this.pages.getReferences().subscribe(v => {
-            this.referenceList = [...v];
-            for (const x of this.referenceList) {
-              this.referenceDict[x.schema!.key] = [
-                ...Object.entries(x.schema!.fields)
-                  .map(([k, v]) => {
-                    v.key = k;
-                    return v;
-                  })
-                  .sort((a, b) => a.sort - b.sort)
-              ];
-            }
-          });
-          break;
-      }
-      this.optionPanel = ['number', 'date', 'dates', 'radio', 'checkbox', 'select', 'ref'].includes(value);
+      this.setType(value);
     });
   }
 
@@ -130,6 +67,74 @@ export class FormComponent implements OnInit {
     }
     return null;
   };
+
+  private setType(value: string): void {
+    this.currentType = value;
+    this.form.removeControl('option');
+    switch (value) {
+      case 'number':
+        this.form.setControl(
+          'option',
+          this.fb.group({
+            max: [null],
+            min: [null],
+            decimal: [2]
+          })
+        );
+        break;
+      case 'date':
+      case 'dates':
+        this.form.setControl(
+          'option',
+          this.fb.group({
+            time: [false]
+          })
+        );
+        break;
+      case 'radio':
+      case 'checkbox':
+        this.form.setControl(
+          'option',
+          this.fb.group({
+            values: this.fb.array([])
+          })
+        );
+        break;
+      case 'select':
+        this.form.setControl(
+          'option',
+          this.fb.group({
+            values: this.fb.array([]),
+            multiple: [false]
+          })
+        );
+        break;
+      case 'ref':
+        this.form.setControl(
+          'option',
+          this.fb.group({
+            reference: [null],
+            target: [null],
+            multiple: [false]
+          })
+        );
+        this.pages.getReferences().subscribe(v => {
+          this.referenceList = [...v];
+          for (const x of this.referenceList) {
+            this.referenceDict[x.schema!.key] = [
+              ...Object.entries(x.schema!.fields)
+                .map(([k, v]) => {
+                  v.key = k;
+                  return v;
+                })
+                .sort((a, b) => a.sort - b.sort)
+            ];
+          }
+        });
+        break;
+    }
+    this.optionPanel = ['number', 'date', 'dates', 'radio', 'checkbox', 'select', 'ref'].includes(value);
+  }
 
   get optionValues(): FormArray {
     return this.form?.get('option')?.get('values') as FormArray;
