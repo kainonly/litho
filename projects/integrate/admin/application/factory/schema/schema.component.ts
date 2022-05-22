@@ -39,17 +39,8 @@ export class SchemaComponent implements OnInit {
   }
 
   private setFieldList(): void {
-    const fields = this.pages.page!.schema?.fields ?? {};
-
-    this.data = [
-      ...Object.entries(fields)
-        .map(v =>
-          Object.assign(v[1], {
-            key: v[0]
-          })
-        )
-        .sort((a, b) => a.sort - b.sort)
-    ];
+    const fields = this.pages.page!.schema?.fields ?? [];
+    this.data = [...fields.sort((a, b) => a.sort - b.sort)];
   }
 
   form(doc?: SchemaField): void {
@@ -72,7 +63,7 @@ export class SchemaComponent implements OnInit {
     this.pages
       .sortSchemaFields(
         this.pages.id!,
-        this.data.map(v => v.key!)
+        this.data.map(v => v.sort)
       )
       .subscribe(() => {
         this.getData();

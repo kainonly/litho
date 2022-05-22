@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable, of, timer } from 'rxjs';
+import { forkJoin, Observable, of, timer } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
 
 import { AnyDto, Api, Filter, Page, SchemaField } from '@weplanx/ng';
@@ -95,12 +95,16 @@ export class PagesSerivce extends Api<Page> {
     });
   }
 
-  sortSchemaFields(id: string, fields: string[]): Observable<any> {
-    const values: Record<string, number> = {};
-    fields.forEach((value, index) => {
-      values[`schema.fields.${value}.sort`] = index;
+  sortSchemaFields(id: string, values: number[]): Observable<any> {
+    const data: Record<string, number> = {};
+    values.forEach((value, index) => {
+      data[`schema.fields.${value}.sort`] = index;
     });
-    return this.updateOneById(id, { $set: values });
+    return forkJoin([
+      this.updateOneById(id, { $set: data }),
+      timer(200),
+      this.updateOneById(id, { $push: { 'schema.fields': { $each: [], $sort: { sort: 1 } } } })
+    ]);
   }
 
   deleteSchemaField(id: string, key: string): Observable<any> {

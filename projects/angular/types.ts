@@ -107,7 +107,7 @@ export interface Schema {
   /**
    * 字段
    */
-  fields: Record<string, SchemaField>;
+  fields: SchemaField[];
   /**
    * 显隐规则
    */
@@ -138,7 +138,7 @@ export type AdvancedType =
 
 export interface SchemaField {
   /**
-   * 命名（辅助字段）
+   * 命名
    */
   key: string;
   /**
@@ -235,8 +235,8 @@ export interface Value {
 
 export interface SchemaRule {
   logic: 'and' | 'or';
-  display: string[];
   conditions: SchemaRuleCondition[];
+  display: string[];
 }
 
 export interface SchemaRuleCondition {
