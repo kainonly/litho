@@ -57,7 +57,7 @@
         <ul *ngIf="actionKey" nz-menu>
           <ng-container *ngIf="pages.dict?.[actionKey] as page">
             <li nz-menu-item [nzSelected]="false">
-              <i *ngIf="page.icon" nz-icon [nzType]="page.icon"></i>
+              <i *ngIf="page.icon" nz-icon [nzType]="page.icon"></i>&nbsp;
               <span>{{ page.name }}</span>
             </li>
             <li nz-menu-divider></li>
