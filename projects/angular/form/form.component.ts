@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
-import { SchemaField, Value } from '@weplanx/ng';
+import { SchemaField, SchemaRule, Value } from '@weplanx/ng';
 import { NzCheckBoxOptionInterface } from 'ng-zorro-antd/checkbox';
 
 import { ApiService } from './api.service';
@@ -12,7 +12,8 @@ import { ApiService } from './api.service';
 })
 export class WpxFormComponent implements OnInit {
   @Input() wpxFields!: SchemaField[];
-  @Input() wpxRules!: any[];
+  @Input() wpxRules!: SchemaRule[];
+  @Input() wpxSubmitHide = false;
 
   infinity = Infinity;
   form?: FormGroup;

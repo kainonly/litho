@@ -5,22 +5,21 @@ import { map, switchMap } from 'rxjs';
 
 import { WpxService } from '@weplanx/ng';
 
-import { FormComponent } from './form/form.component';
-import { PagesService } from './pages.service';
+import { DynamicService } from './dynamic.service';
 import { TableComponent } from './table/table.component';
 
 @Component({
-  selector: 'wpx-pages',
+  selector: 'wpx-dynamic',
   template: `
     <ng-container *ngIf="component">
       <ng-container *cdkPortalOutlet="component"></ng-container>
     </ng-container>
   `
 })
-export class WpxPagesComponent implements OnInit {
+export class DynamicComponent implements OnInit {
   component?: ComponentPortal<any>;
 
-  constructor(private wpx: WpxService, private route: ActivatedRoute, private dynamic: PagesService) {}
+  constructor(private wpx: WpxService, private route: ActivatedRoute, private dynamic: DynamicService) {}
 
   ngOnInit(): void {
     this.route.paramMap

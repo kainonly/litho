@@ -4,11 +4,11 @@ import { Data } from '@weplanx/ng';
 import { TableField } from '@weplanx/ng/table';
 import { NzModalService } from 'ng-zorro-antd/modal';
 
-import { PagesService } from '../pages.service';
+import { DynamicService } from '../dynamic.service';
 import { FormComponent } from './form/form.component';
 
 @Component({
-  selector: 'wpx-pages-table',
+  selector: 'wpx-dynamic-table',
   templateUrl: './table.component.html'
 })
 export class TableComponent implements OnInit {
@@ -16,7 +16,7 @@ export class TableComponent implements OnInit {
   fields!: Map<string, TableField>;
   data: Data<any> = new Data<any>();
 
-  constructor(public pages: PagesService, private modal: NzModalService) {}
+  constructor(public pages: DynamicService, private modal: NzModalService) {}
 
   ngOnInit(): void {
     const schema = this.pages.page?.schema;
@@ -36,7 +36,10 @@ export class TableComponent implements OnInit {
           ];
         })
     ]);
+    console.log(this.key);
   }
+
+  getData(): void {}
 
   form(editable?: any): void {
     this.modal.create({
