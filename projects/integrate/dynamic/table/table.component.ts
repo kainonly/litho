@@ -4,7 +4,7 @@ import { Data } from '@weplanx/ng';
 import { TableField } from '@weplanx/ng/table';
 import { NzModalService } from 'ng-zorro-antd/modal';
 
-import { DynamicService } from '../dynamic.service';
+import { WpxDynamicService } from '../dynamic.service';
 import { FormComponent } from './form/form.component';
 
 @Component({
@@ -16,10 +16,10 @@ export class TableComponent implements OnInit {
   fields!: Map<string, TableField>;
   data: Data<any> = new Data<any>();
 
-  constructor(public pages: DynamicService, private modal: NzModalService) {}
+  constructor(public dynamic: WpxDynamicService, private modal: NzModalService) {}
 
   ngOnInit(): void {
-    const schema = this.pages.page?.schema;
+    const schema = this.dynamic.page?.schema;
     this.key = schema!.key;
     this.fields = new Map([
       ...Object.entries(schema?.fields ?? [])

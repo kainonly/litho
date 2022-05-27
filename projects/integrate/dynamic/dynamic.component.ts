@@ -5,7 +5,7 @@ import { map, switchMap } from 'rxjs';
 
 import { WpxService } from '@weplanx/ng';
 
-import { DynamicService } from './dynamic.service';
+import { WpxDynamicService } from './dynamic.service';
 import { TableComponent } from './table/table.component';
 
 @Component({
@@ -16,10 +16,10 @@ import { TableComponent } from './table/table.component';
     </ng-container>
   `
 })
-export class DynamicComponent implements OnInit {
+export class WpxDynamicComponent implements OnInit {
   component?: ComponentPortal<any>;
 
-  constructor(private wpx: WpxService, private route: ActivatedRoute, private dynamic: DynamicService) {}
+  constructor(private wpx: WpxService, private route: ActivatedRoute, private dynamic: WpxDynamicService) {}
 
   ngOnInit(): void {
     this.route.paramMap

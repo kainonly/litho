@@ -4,7 +4,7 @@ import { map, Observable } from 'rxjs';
 import { AnyDto, Api, Page } from '@weplanx/ng';
 
 @Injectable()
-export class DynamicService extends Api<any> {
+export class WpxDynamicService extends Api<any> {
   /**
    * 当前内容
    */

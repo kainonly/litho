@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 import { SchemaField, SchemaRule } from '@weplanx/ng';
 
-import { DynamicService } from '../dynamic.service';
+import { WpxDynamicService } from '../dynamic.service';
 
 @Component({
   selector: 'wpx-dynamic-form',
@@ -12,10 +12,10 @@ export class FormComponent implements OnInit {
   fields: SchemaField[] = [];
   rules: SchemaRule[] = [];
 
-  constructor(public pages: DynamicService) {}
+  constructor(public dynamic: WpxDynamicService) {}
 
   ngOnInit(): void {
-    const schema = this.pages.page?.schema;
+    const schema = this.dynamic.page?.schema;
     console.log(schema);
     // this.fields = [...Object.values(schema!.fields).sort((a, b) => a.sort - b.sort)];
     // this.rules = [...(schema?.rules ?? [])];
