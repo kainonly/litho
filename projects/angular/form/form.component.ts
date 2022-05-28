@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { Schema, SchemaField, SchemaRule, Value } from '@weplanx/ng';
@@ -14,6 +14,8 @@ export class WpxFormComponent implements OnInit {
   @Input() wpxFields!: SchemaField[];
   @Input() wpxRules!: SchemaRule[];
   @Input() wpxSubmitHide = false;
+  @Input() wpxSubmit = (value: any): void => {};
+  @Output() readonly wpxInit: EventEmitter<FormGroup> = new EventEmitter<FormGroup>();
 
   infinity = Infinity;
   form?: FormGroup;
@@ -49,9 +51,6 @@ export class WpxFormComponent implements OnInit {
       controlsConfig[x.key] = [x.default, validator];
     }
     this.form = this.fb.group(controlsConfig);
-  }
-
-  submit(data: any): void {
-    console.log(data);
+    this.wpxInit.emit(this.form);
   }
 }

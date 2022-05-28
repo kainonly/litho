@@ -1,4 +1,4 @@
-<form *ngIf="form" nz-form nzLayout="vertical" id="form" [formGroup]="form" (wpxSubmit)="submit($event)">
+<form *ngIf="form" nz-form nzLayout="vertical" id="form" [formGroup]="form" (wpxSubmit)="wpxSubmit($event)">
   <ng-container *ngFor="let field of wpxFields">
     <ng-container [ngSwitch]="field.type">
       <ng-container *ngSwitchCase="'string'">

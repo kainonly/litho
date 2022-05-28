@@ -2,6 +2,32 @@
   <button nz-button nzType="primary" (click)="form()"> 新增 </button>
 </ng-template>
 
+<ng-template #actions let-x>
+  <button nz-button nzType="text" nz-dropdown [nzDropdownMenu]="menu">
+    <i nz-icon nzType="ellipsis"></i>
+  </button>
+  <nz-dropdown-menu #menu="nzDropdownMenu">
+    <ul nz-menu>
+      <li nz-menu-item (click)="form(x)">编辑</li>
+      <li nz-menu-item nzDanger (click)="delete(x)">删除</li>
+    </ul>
+  </nz-dropdown-menu>
+</ng-template>
+
+<ng-template #bulk>
+  <a nz-button nzType="link" nzSize="small" (click)="data.clearChecked()">取消选择</a>
+  <br />
+  <a style="float: right" nz-button nzType="link" nzSize="small" nzDanger (click)="bulkDelete()">删除</a>
+</ng-template>
+
 <nz-card [nzLoading]="data.loading" [nzTitle]="table.wpxSearch" [nzExtra]="extra">
-  <wpx-table #table [wpxKey]="key" [wpxApi]="dynamic" [wpxData]="data" [wpxFields]="fields"></wpx-table>
+  <wpx-table
+    #table
+    [wpxKey]="key"
+    [wpxApi]="dynamic"
+    [wpxData]="data"
+    [wpxFields]="fields"
+    [wpxActions]="actions"
+    [wpxBulk]="bulk"
+  ></wpx-table>
 </nz-card>

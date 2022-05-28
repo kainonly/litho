@@ -74,6 +74,7 @@
     </ng-template>
   </nz-drawer>
 </ng-template>
+
 <nz-table
   #basicTable
   [nzLoading]="wpxData.loading"
@@ -174,31 +175,31 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let value of basicTable.data">
+    <tr *ngFor="let x of basicTable.data">
       <td
         nzLeft
         nzAlign="center"
-        [nzDisabled]="value['_disabled']"
-        [nzChecked]="wpxData.checkedIds.has(value._id)"
-        (nzCheckedChange)="wpxData.setChecked(value._id, $event)"
+        [nzDisabled]="x['disabled']"
+        [nzChecked]="wpxData.checkedIds.has(x._id)"
+        (nzCheckedChange)="wpxData.setChecked(x._id, $event)"
       ></td>
-      <ng-container *ngFor="let x of columnsDisplay">
-        <td *ngIf="wpxFields | wpxMap: x.value as field">
+      <ng-container *ngFor="let column of columnsDisplay">
+        <td *ngIf="wpxFields | wpxMap: column.value as field">
           <ng-container [ngSwitch]="field.type">
             <ng-container *ngSwitchCase="'date'">
               <ng-container *ngIf="field?.option?.time; else date">
-                {{ value[x.value] | date: 'yyyy-MM-dd HH:mm:ss' }}
+                {{ x[column.value] | date: 'yyyy-MM-dd HH:mm:ss' }}
               </ng-container>
-              <ng-template #date>{{ value[x.value] | date: 'yyyy-MM-dd' }}</ng-template>
+              <ng-template #date>{{ x[column.value] | date: 'yyyy-MM-dd' }}</ng-template>
             </ng-container>
             <ng-container *ngSwitchCase="'bool'">
-              <ng-container *ngIf="value[x.value]; else isFalse">
+              <ng-container *ngIf="x[column.value]; else isFalse">
                 <nz-badge nzStatus="processing"></nz-badge> 开启
               </ng-container>
               <ng-template #isFalse> <nz-badge nzStatus="default"></nz-badge> 关闭 </ng-template>
             </ng-container>
             <ng-container *ngSwitchCase="'select'">
-              <ng-container *ngFor="let id of value[x.value]">
+              <ng-container *ngFor="let id of x[column.value]">
                 <ng-container *ngIf="field?.option?.reference as reference; else select">
                   <nz-tag nzColor="blue" *ngIf="references[reference] as dict">
                     <ng-container *ngIf="field?.option?.target as target; else targetDefault">
@@ -215,7 +216,7 @@
             </ng-container>
             <ng-container *ngSwitchDefault>
               <p style="margin: 0" nz-typography nzEllipsis [nzEllipsisRows]="2">
-                {{ value[x.value] }}
+                {{ x[column.value] }}
               </p>
             </ng-container>
           </ng-container>
@@ -223,7 +224,7 @@
       </ng-container>
       <td nzRight nzAlign="center">
         <ng-container *ngIf="wpxActions">
-          <ng-container *ngTemplateOutlet="wpxActions; context: { $implicit: value }"></ng-container>
+          <ng-container *ngTemplateOutlet="wpxActions; context: { $implicit: x }"></ng-container>
         </ng-container>
       </td>
     </tr>

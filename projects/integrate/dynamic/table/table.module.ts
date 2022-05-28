@@ -4,7 +4,7 @@ import { WpxModule, WpxShareModule } from '@weplanx/ng';
 import { WpxFormModule } from '@weplanx/ng/form';
 import { WpxTableModule } from '@weplanx/ng/table';
 
-import { FormComponent } from './form.component';
+import { FormComponent } from './form/form.component';
 import { TableComponent } from './table.component';
 
 @NgModule({
