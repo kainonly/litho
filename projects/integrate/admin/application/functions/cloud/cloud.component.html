@@ -4,7 +4,7 @@
       <nz-list-item>
         <nz-list-item-meta>
           <nz-list-item-meta-title>
-            <img height="20px" src="/assets/cloud/tencent.svg" alt="" />
+            <img height="20px" [src]="['assets', 'cloud', 'tencent.svg'] | wpxAssets" alt="" />
           </nz-list-item-meta-title>
           <nz-list-item-meta-description *ngIf="!(platform && platform === 'tencent')">
             当前未关联腾讯云平台

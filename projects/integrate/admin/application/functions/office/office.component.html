@@ -4,7 +4,11 @@
       <nz-list-item>
         <nz-list-item-meta>
           <nz-list-item-meta-avatar>
-            <nz-avatar nzShape="square" nzSize="large" nzSrc="assets/office/feishu.png"></nz-avatar>
+            <nz-avatar
+              nzShape="square"
+              nzSize="large"
+              [nzSrc]="['assets', 'office', 'feishu.png'] | wpxAssets"
+            ></nz-avatar>
           </nz-list-item-meta-avatar>
           <nz-list-item-meta-title><b>飞书</b></nz-list-item-meta-title>
           <nz-list-item-meta-description *ngIf="!(platform && platform === 'feishu')">
@@ -14,12 +18,12 @@
         <nz-descriptions *ngIf="platform && platform === 'feishu'" nzSize="small" nzBordered [nzColumn]="2">
           <nz-descriptions-item nzTitle="应用 ID">{{ data['feishu_app_id'] }}</nz-descriptions-item>
           <nz-descriptions-item nzTitle="应用密钥">{{ data['feishu_app_secret'] }}</nz-descriptions-item>
-          <nz-descriptions-item nzTitle="事件订阅安全校验数据密钥">{{
-            data['feishu_encrypt_key']
-          }}</nz-descriptions-item>
-          <nz-descriptions-item nzTitle="事件订阅验证令牌">{{
-            data['feishu_verification_token']
-          }}</nz-descriptions-item>
+          <nz-descriptions-item nzTitle="事件订阅安全校验数据密钥">
+            {{ data['feishu_encrypt_key'] }}
+          </nz-descriptions-item>
+          <nz-descriptions-item nzTitle="事件订阅验证令牌">
+            {{ data['feishu_verification_token'] }}
+          </nz-descriptions-item>
         </nz-descriptions>
         <nz-list-item-extra>
           <button nz-button nzType="link" (click)="linkFeishu()">设置</button>
