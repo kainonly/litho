@@ -11,10 +11,10 @@ export class WpxDynamicService extends Api<any> {
   page?: AnyDto<Page>;
 
   /**
-   * 获取内容属性
+   * 获取页面内容
    * @param id
    */
-  pages(id: string): Observable<AnyDto<Page>> {
+  getPage(id: string): Observable<AnyDto<Page>> {
     return this.http.get<AnyDto<Page>>(`pages/${id}`).pipe(
       map(v => {
         this.page = v;

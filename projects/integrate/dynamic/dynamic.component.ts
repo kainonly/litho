@@ -25,7 +25,7 @@ export class WpxDynamicComponent implements OnInit {
     this.route.paramMap
       .pipe(
         map(v => v.get('pageId')!),
-        switchMap(id => this.dynamic.pages(id))
+        switchMap(id => this.dynamic.getPage(id))
       )
       .subscribe(page => {
         switch (page.kind) {

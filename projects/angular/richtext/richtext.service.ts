@@ -4,15 +4,15 @@ import { concatWith, delay, fromEvent, Observable } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class WpxRichtextService {
-  private url = 'https://cdn.jsdelivr.net/npm/@editorjs/editorjs@latest';
+  private url = 'https://cdn.kainonly.com/assets/editorjs/editorjs.js';
   private plugins: string[] = [
-    'https://cdn.jsdelivr.net/npm/@editorjs/paragraph@latest',
-    'https://cdn.jsdelivr.net/npm/@editorjs/header@latest',
-    'https://cdn.jsdelivr.net/npm/@editorjs/delimiter@latest',
-    'https://cdn.jsdelivr.net/npm/@editorjs/underline@latest',
-    'https://cdn.jsdelivr.net/npm/@editorjs/nested-list@latest',
-    'https://cdn.jsdelivr.net/npm/@editorjs/checklist@latest',
-    'https://cdn.jsdelivr.net/npm/@editorjs/table@latest'
+    'https://cdn.kainonly.com/assets/editorjs/paragraph.js',
+    'https://cdn.kainonly.com/assets/editorjs/header.js',
+    'https://cdn.kainonly.com/assets/editorjs/delimiter.js',
+    'https://cdn.kainonly.com/assets/editorjs/underline.js',
+    'https://cdn.kainonly.com/assets/editorjs/nested-list.js',
+    'https://cdn.kainonly.com/assets/editorjs/checklist.js',
+    'https://cdn.kainonly.com/assets/editorjs/table.js'
   ];
 
   constructor(@Inject(DOCUMENT) private document: Document) {}

@@ -2,7 +2,7 @@
   <ng-container *ngFor="let field of wpxFields">
     <ng-container [ngSwitch]="field.type">
       <ng-container *ngSwitchCase="'string'">
-        <nz-form-item style="width: 420px">
+        <nz-form-item style="width: 320px">
           <nz-form-label [nzRequired]="field.required">{{ field.label }}</nz-form-label>
           <nz-form-control
             nzHasFeedback
