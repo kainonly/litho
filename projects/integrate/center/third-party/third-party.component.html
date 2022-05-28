@@ -3,7 +3,11 @@
     <nz-list-item>
       <nz-list-item-meta>
         <nz-list-item-meta-avatar>
-          <nz-avatar nzShape="square" nzSize="large" nzSrc="assets/office/feishu.png"></nz-avatar>
+          <nz-avatar
+            nzShape="square"
+            nzSize="large"
+            [nzSrc]="['assets', 'office', 'feishu.png'] | wpxAssets"
+          ></nz-avatar>
         </nz-list-item-meta-avatar>
         <nz-list-item-meta-title><b>飞书</b></nz-list-item-meta-title>
         <nz-list-item-meta-description *ngIf="!wpx.user?.feishu">当前未绑定飞书账号</nz-list-item-meta-description>
@@ -34,7 +38,11 @@
     <nz-list-item>
       <nz-list-item-meta>
         <nz-list-item-meta-avatar>
-          <nz-avatar nzShape="square" nzSize="large" nzSrc="assets/office/work-weixin.png"></nz-avatar>
+          <nz-avatar
+            nzShape="square"
+            nzSize="large"
+            [nzSrc]="['assets', 'office', 'work-weixin.png'] | wpxAssets"
+          ></nz-avatar>
         </nz-list-item-meta-avatar>
         <nz-list-item-meta-title><b>企业微信</b></nz-list-item-meta-title>
         <nz-list-item-meta-description>当前未绑定企业微信账号</nz-list-item-meta-description>
@@ -46,7 +54,11 @@
     <nz-list-item>
       <nz-list-item-meta>
         <nz-list-item-meta-avatar>
-          <nz-avatar nzShape="square" nzSize="large" nzSrc="assets/office/dingtalk.png"></nz-avatar>
+          <nz-avatar
+            nzShape="square"
+            nzSize="large"
+            [nzSrc]="['assets', 'office', 'dingtalk.png'] | wpxAssets"
+          ></nz-avatar>
         </nz-list-item-meta-avatar>
         <nz-list-item-meta-title><b>钉钉</b></nz-list-item-meta-title>
         <nz-list-item-meta-description>当前未绑定钉钉账号</nz-list-item-meta-description>

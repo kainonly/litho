@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { timer } from 'rxjs';
 
 import { FeishuService, WpxService } from '@weplanx/ng';
 import { NzMessageService } from 'ng-zorro-antd/message';
@@ -12,7 +13,13 @@ export class ThirdPartyComponent {
 
   linkFeishu(): void {
     this.wpx.loadOAuth('link').subscribe(v => {
-      window.open(v, '', 'width=800,height=640');
+      const popup = window.open(v, '', 'width=800,height=640');
+      const $timer = timer(0, 500).subscribe(() => {
+        if (popup?.closed) {
+          $timer.unsubscribe();
+          this.wpx.getUser().subscribe(() => {});
+        }
+      });
     });
   }
 
