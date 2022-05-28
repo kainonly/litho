@@ -125,19 +125,16 @@ export class WpxService {
   }
 
   /**
-   * 申请刷新验证码
-   */
-  code(): Observable<any> {
-    return this.http.get('auth');
-  }
-
-  /**
    * 刷新认证
    */
-  refreshToken(code: string): Observable<any> {
-    return this.http.put('auth', {
-      code
-    });
+  refreshToken(): Observable<any> {
+    return this.http.get<any>('auth').pipe(
+      switchMap(v =>
+        this.http.put('auth', {
+          code: v.code
+        })
+      )
+    );
   }
 
   /**

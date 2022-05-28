@@ -28,11 +28,11 @@ const routes: Routes = [
   },
   {
     path: 'unauthorize',
-    loadChildren: () => import('./unauthorize/unauthorize.module').then(m => m.UnauthorizeModule)
+    loadChildren: () => import('./common/unauthorize/unauthorize.module').then(m => m.UnauthorizeModule)
   },
   {
     path: 'authorized',
-    loadChildren: () => import('./authorized/authorized.module').then(m => m.AuthorizedModule),
+    loadChildren: () => import('./common/authorized/authorized.module').then(m => m.AuthorizedModule),
     canActivate: [AppGuard]
   },
   {

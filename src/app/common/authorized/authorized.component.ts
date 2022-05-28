@@ -11,7 +11,6 @@ export class AuthorizedComponent {
 
   close(): void {
     this.wpx.getUser().subscribe(() => {
-      window.postMessage('authorized', 'https://console.kainonly.com:8443');
       window.close();
     });
   }
