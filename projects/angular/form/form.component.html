@@ -72,7 +72,11 @@
               }
             }"
           >
-            <nz-date-picker [formControlName]="field.key" [nzShowTime]="field?.option?.time"></nz-date-picker>
+            <nz-date-picker
+              style="width: 320px"
+              [formControlName]="field.key"
+              [nzShowTime]="field?.option?.time"
+            ></nz-date-picker>
           </nz-form-control>
         </nz-form-item>
       </ng-container>
@@ -87,7 +91,11 @@
               }
             }"
           >
-            <nz-range-picker [formControlName]="field.key" [nzShowTime]="field?.option?.time"></nz-range-picker>
+            <nz-range-picker
+              style="width: 320px"
+              [formControlName]="field.key"
+              [nzShowTime]="field?.option?.time"
+            ></nz-range-picker>
           </nz-form-control>
         </nz-form-item>
       </ng-container>

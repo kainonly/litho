@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 
-import { AnyDto, Data, Schema } from '@weplanx/ng';
+import { AnyDto, Data } from '@weplanx/ng';
 import { TableField, WpxTableComponent } from '@weplanx/ng/table';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalService } from 'ng-zorro-antd/modal';
@@ -45,7 +45,7 @@ export class TableComponent implements OnInit {
     this.modal.create({
       nzTitle: !doc ? '新增' : '编辑',
       nzContent: FormComponent,
-      nzWidth: 600,
+      nzWidth: 800,
       nzComponentParams: {
         doc
       },

@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
-import { Schema, SchemaField, SchemaRule, Value } from '@weplanx/ng';
+import { SchemaField, SchemaRule, Value } from '@weplanx/ng';
 import { NzCheckBoxOptionInterface } from 'ng-zorro-antd/checkbox';
 
 import { ApiService } from './api.service';

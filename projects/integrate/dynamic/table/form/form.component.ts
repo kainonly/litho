@@ -1,8 +1,7 @@
-import { AfterViewInit, Component, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 
 import { AnyDto, SchemaField, SchemaRule } from '@weplanx/ng';
-import { WpxFormComponent } from '@weplanx/ng/form';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalRef } from 'ng-zorro-antd/modal';
 
