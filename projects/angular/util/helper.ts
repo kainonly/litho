@@ -57,8 +57,10 @@ export const updateFormGroup = (controls: AbstractControl[]): void => {
     if (control instanceof FormGroup) {
       updateFormGroup(Object.values(control.controls));
     } else {
-      control.markAsDirty();
-      control.updateValueAndValidity();
+      if (control.invalid) {
+        control.markAsDirty();
+        control.updateValueAndValidity({ onlySelf: true });
+      }
     }
   });
 };

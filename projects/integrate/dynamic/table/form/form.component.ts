@@ -21,7 +21,7 @@ export class FormComponent implements OnInit {
 
   ngOnInit(): void {
     const schema = this.dynamic.page!.schema;
-    this.fields = [...(schema?.fields ?? [])];
+    this.fields = [...(schema?.fields ?? [])].filter(v => !v.hide);
     this.rules = [...(schema?.rules ?? [])];
   }
 

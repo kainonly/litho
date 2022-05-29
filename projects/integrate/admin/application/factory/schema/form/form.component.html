@@ -93,7 +93,7 @@
       </nz-form-item>
     </nz-col>
     <nz-col *ngIf="optionPanel" [nzSpan]="24" formGroupName="option">
-      <nz-divider nzText="其他设置" nzOrientation="left" nzPlain></nz-divider>
+      <nz-divider nzText="高级设置" nzOrientation="left" nzPlain></nz-divider>
       <nz-row [nzGutter]="24" [ngSwitch]="currentType">
         <ng-container *ngSwitchCase="'number'">
           <nz-col [nzSpan]="12">
@@ -204,8 +204,13 @@
             <nz-form-item>
               <nz-form-label>引用模型</nz-form-label>
               <nz-form-control>
-                <input placeholder="请输入引用模型" nz-input formControlName="reference" [nzAutocomplete]="auto" />
-                <nz-autocomplete #auto>
+                <input
+                  placeholder="请输入引用模型"
+                  nz-input
+                  formControlName="reference"
+                  [nzAutocomplete]="autoReferences"
+                />
+                <nz-autocomplete #autoReferences>
                   <ng-container *ngFor="let x of referenceList">
                     <nz-auto-option [nzValue]="x.schema!.key"> {{ x.name }} [{{ x.schema!.key }}] </nz-auto-option>
                   </ng-container>
@@ -217,15 +222,14 @@
             <nz-form-item>
               <nz-form-label>目标字段</nz-form-label>
               <nz-form-control>
-                <nz-select formControlName="target" nzPlaceHolder="请选择目标字段">
+                <input placeholder="请输入目标字段" nz-input formControlName="target" [nzAutocomplete]="autoTarget" />
+                <nz-autocomplete #autoTarget>
                   <ng-container *ngIf="optionReference.value as key">
                     <ng-container *ngFor="let x of referenceDict[key!]">
-                      <nz-option nzCustomContent [nzValue]="x.key" [nzLabel]="x.label">
-                        {{ x.label }} [{{ x.key }}]
-                      </nz-option>
+                      <nz-auto-option [nzValue]="x.key"> {{ x.label }} [{{ x.key }}] </nz-auto-option>
                     </ng-container>
                   </ng-container>
-                </nz-select>
+                </nz-autocomplete>
               </nz-form-control>
             </nz-form-item>
           </nz-col>

@@ -13,8 +13,11 @@ export class WpxSubmitDirective implements OnInit {
 
   ngOnInit(): void {
     this.formGroup.ngSubmit.subscribe(() => {
-      updateFormGroup(Object.values(this.formGroup.control.controls));
-      this.wpxSubmit.emit(this.formGroup.value);
+      if (!this.formGroup.valid) {
+        updateFormGroup(Object.values(this.formGroup.control.controls));
+      } else {
+        this.wpxSubmit.emit(this.formGroup.value);
+      }
     });
   }
 }

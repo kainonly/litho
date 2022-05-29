@@ -44,11 +44,12 @@ export class FormComponent implements OnInit {
       hide: [false],
       readonly: [false],
       projection: [1],
-      sort: [0]
+      sort: [0],
+      option: []
     });
     if (this.doc) {
-      this.form.patchValue(this.doc);
       this.setType(this.doc.type);
+      this.form.patchValue(this.doc);
       this.form.markAsTouched();
     } else {
       this.form.get('sort')?.setValue(Object.keys(this.page.schema?.fields!).length);
@@ -70,7 +71,6 @@ export class FormComponent implements OnInit {
 
   private setType(value: string): void {
     this.currentType = value;
-    this.form.removeControl('option');
     switch (value) {
       case 'number':
         this.form.setControl(
@@ -121,14 +121,7 @@ export class FormComponent implements OnInit {
         this.pages.getReferences().subscribe(v => {
           this.referenceList = [...v];
           for (const x of this.referenceList) {
-            this.referenceDict[x.schema!.key] = [
-              ...Object.entries(x.schema!.fields)
-                .map(([k, v]) => {
-                  v.key = k;
-                  return v;
-                })
-                .sort((a, b) => a.sort - b.sort)
-            ];
+            this.referenceDict[x.schema!.key] = [...x.schema!.fields];
           }
         });
         break;
