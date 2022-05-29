@@ -1,7 +1,7 @@
-<div class="analysis" nz-row [nzGutter]="[16, 16]">
+<div class="analysis" nz-row [nzGutter]="[8, 8]">
   <div nz-col [nzSpan]="9">
     <nz-card style="height: 345px">
-      <div nz-row [nzGutter]="[16, 16]">
+      <div nz-row [nzGutter]="[16, 8]">
         <div nz-col nzFlex="1">
           <nz-space nzSize="large" nzDirection="vertical">
             <nz-statistic *nzSpaceItem nzPrefix="￥" [nzValue]="(126560 | number)!" [nzTitle]="totalSales">
@@ -29,7 +29,7 @@
   </div>
   <div nz-col [nzSpan]="15">
     <nz-card style="height: 345px">
-      <div nz-row [nzGutter]="[16, 16]">
+      <div nz-row [nzGutter]="[8, 8]">
         <div nz-col [nzSpan]="4">
           <nz-statistic [nzValue]="(31568 | number)!" [nzTitle]="pv">
             <ng-template #pv>访问量 <i nz-icon nzType="info-circle" nz-tooltip="指标说明"></i></ng-template>
@@ -68,7 +68,7 @@
           <nz-range-picker nzBorderless></nz-range-picker>
         </ng-template>
       </nz-card-tab>
-      <div nz-row [nzGutter]="[16, 16]">
+      <div nz-row [nzGutter]="[16, 8]">
         <div nz-col [nzSpan]="14">
           <app-analysis-charts-sales-trend></app-analysis-charts-sales-trend>
         </div>
