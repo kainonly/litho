@@ -1,5 +1,5 @@
 <nz-row [nzGutter]="8">
-  <nz-col nzFlex="320px">
+  <nz-col [nzSpan]="8">
     <nz-card *ngIf="wpx.user as user">
       <div class="user">
         <ng-container *ngIf="!!user.avatar; else defaultAvatar">
@@ -61,19 +61,39 @@
           </i>
         </span>
       </nz-space>
+      <nz-divider></nz-divider>
+      <app-workbench-state></app-workbench-state>
     </nz-card>
   </nz-col>
-  <nz-col nzFlex="auto">
-    <nz-card>
-      <nz-card-tab>
-        <nz-tabset nzSize="large">
-          <nz-tab nzTitle="通知"></nz-tab>
-          <nz-tab nzTitle="待办"></nz-tab>
-        </nz-tabset>
-      </nz-card-tab>
-      <nz-list>
-        <nz-list-empty></nz-list-empty>
-      </nz-list>
-    </nz-card>
+  <nz-col [nzSpan]="16">
+    <nz-row [nzGutter]="[16, 8]">
+      <nz-col [nzSpan]="24">
+        <nz-card nzTitle="进行中的项目" [nzExtra]="more">
+          <ng-template #more><a nz-button nzType="link">全部项目</a> </ng-template>
+          <div class="project" *ngFor="let item of projects" nz-card-grid>
+            <div class="project-title">
+              <nz-avatar [nzSize]="24" [nzSrc]="[item.avatar] | wpxAssets"></nz-avatar> <span>{{ item.title }}</span>
+            </div>
+            <p nz-typography>{{ item.description }}</p>
+            <div class="project-footer">
+              {{ item.group }} <span>{{ item.time }}</span>
+            </div>
+          </div>
+        </nz-card>
+      </nz-col>
+      <nz-col [nzSpan]="24">
+        <nz-card>
+          <nz-card-tab>
+            <nz-tabset nzSize="large">
+              <nz-tab nzTitle="通知"></nz-tab>
+              <nz-tab nzTitle="待办"></nz-tab>
+            </nz-tabset>
+          </nz-card-tab>
+          <nz-list>
+            <nz-list-empty></nz-list-empty>
+          </nz-list>
+        </nz-card>
+      </nz-col>
+    </nz-row>
   </nz-col>
 </nz-row>

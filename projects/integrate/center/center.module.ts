@@ -5,6 +5,7 @@ import { WpxModule, WpxShareModule } from '@weplanx/ng';
 import { WpxUploadModule } from '@weplanx/ng/upload';
 import { NzDescriptionsModule } from 'ng-zorro-antd/descriptions';
 import { NzPipesModule } from 'ng-zorro-antd/pipes';
+import { NzTypographyModule } from 'ng-zorro-antd/typography';
 
 import { WpxHeaderModule } from '../header/header.module';
 import { WpxNavModule } from '../nav/nav.module';
@@ -15,6 +16,7 @@ import { EmailComponent } from './safety/email/email.component';
 import { PasswordComponent } from './safety/password/password.component';
 import { SafetyComponent } from './safety/safety.component';
 import { ThirdPartyComponent } from './third-party/third-party.component';
+import { StateComponent } from './work/chart/state.component';
 import { WorkComponent } from './work/work.component';
 
 const routes: Routes = [
@@ -64,12 +66,14 @@ const routes: Routes = [
     WpxNavModule,
     RouterModule.forChild(routes),
     NzDescriptionsModule,
-    NzPipesModule
+    NzPipesModule,
+    NzTypographyModule
   ],
   declarations: [
     CenterComponent,
     ProfileComponent,
     WorkComponent,
+    StateComponent,
     SafetyComponent,
     EmailComponent,
     PasswordComponent,
