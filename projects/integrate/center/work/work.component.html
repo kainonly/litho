@@ -84,14 +84,34 @@
       <nz-col [nzSpan]="24">
         <nz-card>
           <nz-card-tab>
-            <nz-tabset nzSize="large">
+            <nz-tabset nzSize="large" [(nzSelectedIndex)]="message">
               <nz-tab nzTitle="通知"></nz-tab>
               <nz-tab nzTitle="待办"></nz-tab>
             </nz-tabset>
           </nz-card-tab>
-          <nz-list>
-            <nz-list-empty></nz-list-empty>
-          </nz-list>
+          <ng-container [ngSwitch]="message">
+            <ng-container *ngSwitchCase="0">
+              <nz-list nzSize="large">
+                <nz-list-item *ngFor="let item of notification">
+                  <nz-list-item-meta [nzAvatar]="[item.avatar] | wpxAssets">
+                    <nz-list-item-meta-title>
+                      <b>{{ item.name }}</b>
+                      &nbsp;
+                      <span [innerHTML]="item.content | nzSanitizer: 'html'"></span>
+                    </nz-list-item-meta-title>
+                    <nz-list-item-meta-description> 几秒前 </nz-list-item-meta-description>
+                  </nz-list-item-meta>
+                </nz-list-item>
+                <nz-list-empty *ngIf="notification.length === 0"></nz-list-empty>
+              </nz-list>
+            </ng-container>
+            <ng-container *ngSwitchCase="1">
+              <nz-list nzSize="large">
+                <nz-list-item *ngFor="let item of upcoming"> </nz-list-item>
+                <nz-list-empty *ngIf="upcoming.length === 0"></nz-list-empty>
+              </nz-list>
+            </ng-container>
+          </ng-container>
         </nz-card>
       </nz-col>
     </nz-row>

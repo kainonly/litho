@@ -7,7 +7,7 @@ import { UserInfo, WpxService } from '@weplanx/ng';
   templateUrl: './work.component.html',
   styleUrls: ['./work.component.scss']
 })
-export class WorkComponent implements OnInit {
+export class WorkComponent {
   projects: any[] = [
     {
       title: 'Alipay',
@@ -52,8 +52,40 @@ export class WorkComponent implements OnInit {
       time: '4 年前'
     }
   ];
+  message = 0;
+  notification: any[] = [
+    {
+      avatar: '/assets/users/BiazfanxmamNRoxxVxka.png',
+      name: '曲丽丽',
+      content: `在 <a>高逼格设计天团</a> 新建项目 <a>六月迭代</a>`
+    },
+    {
+      avatar: '/assets/users/cnrhVkzwxjPwAaCfPbdc.png',
+      name: '付小小',
+      content: `在 <a>高逼格设计天团</a> 新建项目 <a>六月迭代</a>`
+    },
+    {
+      avatar: '/assets/users/gaOngJwsRYRaVAuXXcmB.png',
+      name: '林东东',
+      content: `在 <a>中二少女团</a> 新建项目 <a>六月迭代</a>`
+    },
+    {
+      avatar: '/assets/users/WhxKECPNujWoWEFNdnJE.png',
+      name: '周星星',
+      content: `将 <a>5 月日常迭代</a> 更新至已发布状态`
+    },
+    {
+      avatar: '/assets/users/ubnKSIfAJTxIgXOKlciN.png',
+      name: '朱偏右',
+      content: `在 <a>工程效能</a> 发布了 <a>留言</a>`
+    },
+    {
+      avatar: '/assets/users/jZUIxmJycoymBprLOUbT.png',
+      name: '乐哥',
+      content: `在 <a>程序员日常</a> 新建项目 <a>品牌迭代</a>`
+    }
+  ];
+  upcoming: any[] = [];
 
   constructor(public wpx: WpxService) {}
-
-  ngOnInit(): void {}
 }
