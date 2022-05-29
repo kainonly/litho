@@ -16,9 +16,7 @@ describe('测试助手', () => {
       })
     });
     updateFormGroup(Object.values(f.controls));
-    expect(f.get('name')?.dirty).toBeTruthy();
     expect(f.get('name')?.status).toEqual('INVALID');
-    expect(f.get('meta')?.get('phone')?.dirty).toBeTruthy();
     expect(f.get('meta')?.get('phone')?.status).toEqual('VALID');
   });
 

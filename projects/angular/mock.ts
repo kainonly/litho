@@ -26,7 +26,7 @@ export const pages: Array<AnyDto<Page>> = [
     kind: 'default',
     schema: {
       key: 'products',
-      fields: {}
+      fields: []
     },
     sort: 2,
     status: true,
@@ -40,7 +40,7 @@ export const pages: Array<AnyDto<Page>> = [
     kind: 'default',
     schema: {
       key: 'product_group',
-      fields: {}
+      fields: []
     },
     sort: 1,
     status: true,
@@ -54,7 +54,7 @@ export const pages: Array<AnyDto<Page>> = [
     kind: 'default',
     schema: {
       key: 'product_values',
-      fields: {}
+      fields: []
     },
     sort: 3,
     status: true,
@@ -79,7 +79,7 @@ export const pages: Array<AnyDto<Page>> = [
     kind: 'default',
     schema: {
       key: 'orders',
-      fields: {}
+      fields: []
     },
     sort: 0,
     status: true,
@@ -93,7 +93,7 @@ export const pages: Array<AnyDto<Page>> = [
     kind: 'default',
     schema: {
       key: 'after_sale_orders',
-      fields: {}
+      fields: []
     },
     sort: 0,
     status: true,
