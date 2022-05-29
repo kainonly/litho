@@ -1,0 +1,73 @@
+<nz-row class="analysis" [nzGutter]="[8, 8]">
+  <nz-col [nzSpan]="15">
+    <nz-row [nzGutter]="[8, 8]">
+      <nz-col [nzSpan]="24">
+        <nz-card nzTitle="近24小时服务负载状态">
+          <wpx-admin-monitor-load></wpx-admin-monitor-load>
+        </nz-card>
+      </nz-col>
+      <nz-col [nzSpan]="24">
+        <nz-card nzTitle="近24小时服务健康监控">
+          <wpx-admin-monitor-health></wpx-admin-monitor-health>
+        </nz-card>
+      </nz-col>
+      <nz-col [nzSpan]="24">
+        <nz-card nzTitle="异常告警">
+          <nz-list>
+            <nz-empty></nz-empty>
+          </nz-list>
+        </nz-card>
+      </nz-col>
+    </nz-row>
+  </nz-col>
+  <nz-col [nzSpan]="9">
+    <nz-row [nzGutter]="[8, 8]">
+      <nz-col [nzSpan]="24">
+        <nz-card nzTitle="云存储占用">
+          <wpx-admin-monitor-resource></wpx-admin-monitor-resource>
+        </nz-card>
+      </nz-col>
+      <nz-col [nzSpan]="24">
+        <nz-card nzTitle="构建信息">
+          <nz-list>
+            <ng-container *ngFor="let item of builder">
+              <nz-list-item>
+                <span>
+                  <ng-container [ngSwitch]="item.status">
+                    <ng-container *ngSwitchCase="'success'">
+                      <nz-tag nzColor="success">
+                        <i nz-icon nzType="check-circle"></i>
+                        <span>正常</span>
+                      </nz-tag>
+                    </ng-container>
+                    <ng-container *ngSwitchCase="'processing'">
+                      <nz-tag nzColor="processing">
+                        <i nz-icon nzType="sync" nzSpin></i>
+                        <span>构建</span>
+                      </nz-tag>
+                    </ng-container>
+                    <ng-container *ngSwitchCase="'warning'">
+                      <nz-tag nzColor="warning">
+                        <i nz-icon nzType="exclamation-circle"></i>
+                        <span>告警</span>
+                      </nz-tag>
+                    </ng-container>
+                    <ng-container *ngSwitchCase="'error'">
+                      <nz-tag nzColor="error">
+                        <i nz-icon nzType="close-circle"></i>
+                        <span>异常</span>
+                      </nz-tag>
+                    </ng-container>
+                  </ng-container>
+
+                  {{ item.name }}
+                </span>
+                <b>( {{ item.success }} / {{ item.total }} )</b>
+              </nz-list-item>
+            </ng-container>
+          </nz-list>
+        </nz-card>
+      </nz-col>
+    </nz-row>
+  </nz-col>
+</nz-row>

@@ -7,6 +7,8 @@ import { FactoryComponent } from './factory/factory.component';
 import { FactoryModule, factory } from './factory/factory.module';
 import { FunctionsComponent } from './functions/functions.component';
 import { functions, FunctionsModule } from './functions/functions.module';
+import { MonitorComponent } from './monitor/monitor.component';
+import { MonitorModule } from './monitor/monitor.module';
 
 export const application: Routes = [
   {
@@ -25,10 +27,17 @@ export const application: Routes = [
       breadcrumb: '功能模块'
     }
   },
+  {
+    path: 'monitor',
+    component: MonitorComponent,
+    data: {
+      breadcrumb: '监控'
+    }
+  },
   { path: '', redirectTo: '/admin/application/factory/home', pathMatch: 'full' }
 ];
 
 @NgModule({
-  imports: [WpxShareModule, WpxModule, FactoryModule, FunctionsModule]
+  imports: [WpxShareModule, WpxModule, FactoryModule, FunctionsModule, MonitorModule]
 })
 export class ApplicationModule {}
