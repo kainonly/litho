@@ -84,13 +84,13 @@
       <nz-form-item>
         <nz-form-label>头像</nz-form-label>
         <nz-form-control>
-          <nz-upload wpxUpload nzName="file" nzListType="picture-card" (nzChange)="upload($event)">
-            <ng-container *ngIf="!avatar">
-              <i nz-icon nzType="plus"></i>
-              <div class="ant-upload-text">上传</div>
-            </ng-container>
-            <img *ngIf="avatar" [src]="wpx.assets + avatar" class="avatar" alt="" />
-          </nz-upload>
+          <wpx-upload-avatar
+            wpxExt="image"
+            [wpxAccept]="['image/jpeg', 'image/png']"
+            [wpxFallback]="['assets', 'photon.svg'] | wpxAssets"
+            formControlName="avatar"
+          >
+          </wpx-upload-avatar>
         </nz-form-control>
       </nz-form-item>
     </nz-col>

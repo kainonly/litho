@@ -22,7 +22,6 @@ export class FormComponent implements OnInit {
   form?: FormGroup;
   roleList: Array<AnyDto<Role>> = [];
   passwordVisible = false;
-  avatar?: string;
 
   constructor(
     public wpx: WpxService,
@@ -79,21 +78,15 @@ export class FormComponent implements OnInit {
       });
   }
 
-  upload(info: NzUploadChangeParam): void {
-    if (info.type === 'success') {
-      const origin: any = info.file.originFileObj;
-      this.avatar = origin['key'];
-      this.message.success('头像上传成功');
-    }
-  }
-
   close(): void {
     this.modalRef.triggerCancel();
   }
 
   submit(value: any): void {
     if (!this.doc) {
-      value.department = this.departmentId;
+      if (this.departmentId) {
+        value.department = this.departmentId;
+      }
       this.users
         .create(value, {
           format_doc: {
