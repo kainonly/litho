@@ -18,14 +18,41 @@ import { Search, TableField, TableOption } from './types';
   styleUrls: ['./table.component.scss']
 })
 export class WpxTableComponent<T> implements OnInit {
+  /**
+   * 唯一命名
+   */
   @Input() wpxKey!: string;
+  /**
+   * 通用请求
+   */
   @Input() wpxApi!: Api<T>;
+  /**
+   * 通用数据
+   */
   @Input() wpxData!: Data<AnyDto<T>>;
+  /**
+   * 字段设置
+   */
   @Input() wpxFields!: Map<string, TableField>;
+  /**
+   * 滚动区域宽高
+   */
   @Input() wpxScroll: { x?: string | null; y?: string | null } = { x: '1600px' };
+  /**
+   * 定义行操作
+   */
   @Input() wpxActions?: TemplateRef<any>;
+  /**
+   * 定义批量操作
+   */
   @Input() wpxBulk?: TemplateRef<any>;
+  /**
+   * 排除字段
+   */
   @Input() wpxOmit: string[] = [];
+  /**
+   * 搜索模板 Ref
+   */
   @ViewChild('searchRef', { static: true }) wpxSearch!: TemplateRef<any>;
   /**
    * 表格排序
@@ -76,11 +103,15 @@ export class WpxTableComponent<T> implements OnInit {
    */
   columnsWidthMessageId?: string;
   /**
-   * 关联请求
+   * 枚举字典
+   */
+  enums: Record<string, any> = {};
+  /**
+   * 引用请求
    */
   requests: Record<string, (ids: string[]) => Observable<any>> = {};
   /**
-   * 关联数据
+   * 引用字典
    */
   references: Record<string, any> = {};
 
@@ -96,16 +127,35 @@ export class WpxTableComponent<T> implements OnInit {
       const columns: NzCheckBoxOptionInterface[] = [];
       const columnsWidth: Record<string, string> = {};
       for (const [key, value] of this.wpxFields.entries()) {
+        /**
+         * 初始化关键词集合
+         */
         if (!!value.keyword) {
           this.keywords.add(key);
         }
-        if (value.option?.reference) {
-          const { reference, target } = value.option;
-          this.requests[reference] = (ids: string[]) => this.service.references(reference, ids, target ?? 'name');
+        /**
+         * 初始化枚举字典
+         */
+        if (value.type === 'select') {
+          const values = value.option?.values ?? [];
+          this.enums[key] = Object.fromEntries(values.map(v => [v.value, v.label]));
         }
+        /**
+         * 初始化引用请求
+         */
+        if (value.type === 'ref') {
+          const { reference, target } = value.option!;
+          this.requests[key] = (ids: string[]) => this.service.references(reference!, ids, target!);
+        }
+        /**
+         * 初始化列样式
+         */
         columns.push({ label: value.label, value: key, checked: true });
         columnsWidth[key] = '240px';
       }
+      /**
+       * 本地存储样式合并
+       */
       if (unknow) {
         const v = unknow as TableOption<T>;
         this.searchText = v.searchText;
@@ -138,15 +188,11 @@ export class WpxTableComponent<T> implements OnInit {
    * @param refresh
    */
   getData(refresh = false): void {
-    this.wpxApi.findByPage(this.wpxData, refresh).subscribe(v => {
+    this.wpxApi.findByPage(this.wpxData, refresh).subscribe(data => {
       for (const [key, request] of Object.entries(this.requests)) {
-        const ids = [...new Set([].concat(...v.map(v => v[key])))];
-        request(ids).subscribe(data => {
-          const dict: any = {};
-          for (const x of data) {
-            dict[x._id] = x;
-          }
-          this.references[key] = dict;
+        const ids = [...new Set([].concat(...data.map(v => v[key])))].filter(v => !!v);
+        request(ids).subscribe(refs => {
+          this.references[key] = refs;
         });
       }
       this.updateStorage();
@@ -306,6 +352,9 @@ export class WpxTableComponent<T> implements OnInit {
       .subscribe(() => {});
   }
 
+  /**
+   * 样式修复
+   */
   repair(): void {
     this.storage.delete(this.wpxKey).subscribe(() => {
       this.ngOnInit();

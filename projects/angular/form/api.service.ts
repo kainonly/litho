@@ -8,9 +8,19 @@ import { Value } from '@weplanx/ng';
 export class ApiService {
   constructor(private http: HttpClient) {}
 
-  ref(model: string, target = '_id'): Observable<Value[]> {
-    return this.http
-      .get<any[]>(`api/${model}`)
-      .pipe(map<any[], Value[]>(data => data.map(v => ({ label: v.name, value: v[target] }))));
+  /**
+   * 获取引用信息
+   * @param model
+   * @param target
+   */
+  getReference(model: string, target: string): Observable<Value[]> {
+    return this.http.get<any[]>(`api/${model}`).pipe(
+      map<any[], Value[]>(v =>
+        v.map(v => ({
+          label: v[target] ?? `未定义 [${v._id}]`,
+          value: v._id
+        }))
+      )
+    );
   }
 }

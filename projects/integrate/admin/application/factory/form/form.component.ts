@@ -49,7 +49,7 @@ export class FormComponent implements OnInit {
   get schema(): FormGroup {
     return this.fb.group({
       key: [null, [Validators.required, Validators.pattern(/^[a-z_]+$/)], [this.existsKey]],
-      fields: [{}]
+      fields: [[]]
     });
   }
 

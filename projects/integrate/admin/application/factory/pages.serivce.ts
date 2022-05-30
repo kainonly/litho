@@ -83,10 +83,6 @@ export class PagesSerivce extends Api<Page> {
     );
   }
 
-  sort(sort: string[]): Observable<any> {
-    return this.http.patch(this.url('sort'), { sort });
-  }
-
   updateSchemaField(id: string, index: string, data: SchemaField): Observable<any> {
     return this.updateOneById(id, {
       $set: {

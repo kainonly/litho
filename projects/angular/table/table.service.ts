@@ -1,18 +1,20 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
+import { map } from 'rxjs/operators';
 
-import { Api, httpOptions } from '@weplanx/ng';
+import { AnyDto, Api, httpOptions } from '@weplanx/ng';
 
 @Injectable()
 export class WpxTableService extends Api<any> {
   /**
-   * @param model
-   * @param ids
+   * 获取引用数据
+   * @param model 模型命名
+   * @param ids Objects 数组
    * @param target 引用目标名称
    */
-  references(model: string, ids: string[], target: string): Observable<any> {
+  references(model: string, ids: string[], target: string): Observable<Record<string, string>> {
     if (ids.length === 0) {
-      return of([]);
+      return of({});
     }
     const options = httpOptions(
       {
@@ -23,6 +25,8 @@ export class WpxTableService extends Api<any> {
       },
       { _id: { $in: ids } }
     );
-    return this.http.get(this.url(model), options);
+    return this.http
+      .get<Array<AnyDto<any>>>(this.url(model), options)
+      .pipe(map(v => Object.fromEntries(v.map(v => [v._id, v[target]]))));
   }
 }

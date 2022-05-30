@@ -199,20 +199,34 @@
               <ng-template #isFalse> <nz-badge nzStatus="default"></nz-badge> 关闭 </ng-template>
             </ng-container>
             <ng-container *ngSwitchCase="'select'">
-              <ng-container *ngFor="let id of x[column.value]">
-                <ng-container *ngIf="field?.option?.reference as reference; else select">
-                  <nz-tag nzColor="blue" *ngIf="references[reference] as dict">
-                    <ng-container *ngIf="field?.option?.target as target; else targetDefault">
-                      {{ dict[id]?.[target] }}
-                    </ng-container>
-                    <ng-template #targetDefault>
-                      {{ dict[id]?.name }}
-                    </ng-template>
+              <ng-container *ngIf="!!field.option?.multiple; else notMultiple">
+                <ng-container *ngFor="let key of x[column.value]">
+                  <nz-tag nzColor="blue" *ngIf="enums[column.value] as dict">
+                    {{ dict[key] }}
                   </nz-tag>
                 </ng-container>
               </ng-container>
-
-              <ng-template #select></ng-template>
+              <ng-template #notMultiple>
+                <nz-tag nzColor="blue" *ngIf="enums[column.value] as dict">
+                  {{ dict[x[column.value]] }}
+                </nz-tag>
+              </ng-template>
+            </ng-container>
+            <ng-container *ngSwitchCase="'ref'">
+              <ng-container *ngIf="!!field.option?.multiple; else notMultiple">
+                <ng-container *ngFor="let key of x[column.value]">
+                  <nz-tag nzColor="blue" *ngIf="references[column.value] as dict">
+                    <ng-container *ngIf="field?.option?.target as target">
+                      {{ dict[key] }}
+                    </ng-container>
+                  </nz-tag>
+                </ng-container>
+              </ng-container>
+              <ng-template #notMultiple>
+                <nz-tag nzColor="blue" *ngIf="references[column.value] as dict">
+                  {{ dict[x[column.value]] }}
+                </nz-tag>
+              </ng-template>
             </ng-container>
             <ng-container *ngSwitchDefault>
               <p style="margin: 0" nz-typography nzEllipsis [nzEllipsisRows]="2">

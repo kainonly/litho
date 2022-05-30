@@ -220,4 +220,16 @@ export abstract class Api<T> {
       headers
     });
   }
+
+  /**
+   * 通用排序
+   * @param ids
+   */
+  sort(ids: string[]): Observable<R> {
+    return this.http.post(this.url(), ids, {
+      headers: {
+        'wpx-action': 'sort'
+      }
+    });
+  }
 }

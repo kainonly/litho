@@ -41,14 +41,6 @@ const routes: Routes = [
     canActivate: [AppGuard]
   },
   {
-    path: 'example',
-    loadChildren: () => import('./example/example.module').then(m => m.ExampleModule),
-    data: {
-      breadcrumb: '示例'
-    },
-    canActivate: [AppGuard]
-  },
-  {
     path: 'admin',
     loadChildren: () => import('@weplanx/ng-intgr').then(m => m.AdminModule),
     canActivate: [AppGuard],
@@ -64,8 +56,19 @@ const routes: Routes = [
       breadcrumb: '个人中心'
     }
   },
-  { path: '', redirectTo: '/pages', pathMatch: 'full' }
+  { path: '', redirectTo: '/pages/dashboard', pathMatch: 'full' }
 ];
+
+if (!environment.production) {
+  routes.push({
+    path: 'example',
+    loadChildren: () => import('./example/example.module').then(m => m.ExampleModule),
+    data: {
+      breadcrumb: '示例'
+    },
+    canActivate: [AppGuard]
+  });
+}
 
 @NgModule({
   declarations: [AppComponent],

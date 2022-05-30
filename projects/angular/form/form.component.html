@@ -1,4 +1,4 @@
-<form *ngIf="form" nz-form nzLayout="vertical" id="form" [formGroup]="form" (wpxSubmit)="wpxSubmit($event)">
+<form nz-form nzLayout="vertical" id="form" [formGroup]="form" (wpxSubmit)="wpxSubmit($event)">
   <ng-container *ngFor="let field of wpxFields">
     <ng-container [ngSwitch]="field.type">
       <ng-container *ngSwitchCase="'string'">
@@ -133,20 +133,28 @@
           <nz-form-control [nzExtra]="field.description ?? ''">
             <nz-select
               [formControlName]="field.key"
-              [nzMode]="field?.option?.multiple || field?.option?.reference ? 'tags' : 'default'"
-              [nzMaxMultipleCount]="field?.option?.multiple ? infinity : 1"
+              [nzMode]="field?.option?.multiple ? 'tags' : 'default'"
               [nzPlaceHolder]="field?.placeholder ?? '请选择'"
             >
-              <ng-container *ngIf="field?.option?.reference; else staticValues">
-                <ng-container *ngFor="let x of refs[field.key]">
-                  <nz-option [nzLabel]="x.label" [nzValue]="x.value"></nz-option>
-                </ng-container>
+              <ng-container *ngFor="let x of field?.option?.values">
+                <nz-option [nzLabel]="x.label" [nzValue]="x.value"></nz-option>
               </ng-container>
-              <ng-template #staticValues>
-                <ng-container *ngFor="let x of field?.option?.values">
-                  <nz-option [nzLabel]="x.label" [nzValue]="x.value"></nz-option>
-                </ng-container>
-              </ng-template>
+            </nz-select>
+          </nz-form-control>
+        </nz-form-item>
+      </ng-container>
+      <ng-container *ngSwitchCase="'ref'">
+        <nz-form-item style="width: 420px">
+          <nz-form-label [nzRequired]="field.required">{{ field.label }}</nz-form-label>
+          <nz-form-control [nzExtra]="field.description ?? ''">
+            <nz-select
+              [formControlName]="field.key"
+              [nzMode]="field?.option?.multiple ? 'tags' : 'default'"
+              [nzPlaceHolder]="field?.placeholder ?? '请选择'"
+            >
+              <ng-container *ngFor="let x of references[field.key]">
+                <nz-option [nzLabel]="x.label" [nzValue]="x.value"></nz-option>
+              </ng-container>
             </nz-select>
           </nz-form-control>
         </nz-form-item>

@@ -4,11 +4,13 @@
   "compilerOptions": {
     "declarationMap": false,
     "paths": {
-      "@weplanx/common": ["dist/common"],
-      "@weplanx/components": ["dist/components"],
-      "@weplanx/components/upload": ["dist/components/upload"],
-      "@weplanx/components/media": ["dist/components/media"],
-      "@weplanx/components/table": ["dist/components/table"]
+      "@weplanx/ng": ["dist/angular"],
+      "@weplanx/ng/checkbox": ["dist/angular/checkbox"],
+      "@weplanx/ng/upload": ["dist/angular/upload"],
+      "@weplanx/ng/media": ["dist/angular/media"],
+      "@weplanx/ng/table": ["dist/angular/table"],
+      "@weplanx/ng/form": ["dist/angular/form"],
+      "@weplanx/ng/richtext": ["dist/angular/richtext"]
     }
   },
   "angularCompilerOptions": {

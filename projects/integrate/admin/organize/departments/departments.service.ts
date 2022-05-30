@@ -71,12 +71,4 @@ export class DepartmentsService extends Api<Department> {
       }
     );
   }
-
-  /**
-   * 排序
-   * @param sort
-   */
-  sort(sort: string[]): Observable<any> {
-    return this.http.patch(this.url('sort'), { sort });
-  }
 }

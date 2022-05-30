@@ -28,16 +28,7 @@ export class TableComponent implements OnInit {
       ...Object.entries(schema?.fields ?? [])
         .filter(([k, v]) => !v.hide)
         .sort(([ak, a], [bk, b]) => a.sort - b.sort)
-        .map<[string, TableField]>(([k, v]) => {
-          return [
-            v.key,
-            {
-              label: v.label,
-              type: v.type,
-              description: v.description
-            }
-          ];
-        })
+        .map<[string, TableField]>(([k, v]) => [v.key, v])
     ]);
   }
 

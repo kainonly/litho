@@ -1,10 +1,11 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
-import { SchemaField, SchemaRule, Value } from '@weplanx/ng';
+import { FormatDoc, SchemaField, SchemaRule, Value } from '@weplanx/ng';
 import { NzCheckBoxOptionInterface } from 'ng-zorro-antd/checkbox';
 
 import { ApiService } from './api.service';
+import { WpxFormInit } from './types';
 
 @Component({
   selector: 'wpx-form',
@@ -15,17 +16,18 @@ export class WpxFormComponent implements OnInit {
   @Input() wpxRules!: SchemaRule[];
   @Input() wpxSubmitHide = false;
   @Input() wpxSubmit = (value: any): void => {};
-  @Output() readonly wpxInit: EventEmitter<FormGroup> = new EventEmitter<FormGroup>();
+  @Output() readonly wpxInit: EventEmitter<WpxFormInit> = new EventEmitter<WpxFormInit>();
 
+  form!: FormGroup;
+  references: Record<string, Value[]> = {};
   infinity = Infinity;
-  form?: FormGroup;
   checkBoxOptions: Record<string, NzCheckBoxOptionInterface[]> = {};
-  refs: Record<string, Value[]> = {};
 
   constructor(private fb: FormBuilder, private api: ApiService) {}
 
   ngOnInit(): void {
     const controlsConfig: Record<string, any[]> = {};
+    const format: Record<string, FormatDoc> = {};
     for (const x of this.wpxFields) {
       const validator: any[] = [];
       if (x.required) {
@@ -40,17 +42,24 @@ export class WpxFormComponent implements OnInit {
             })) ?? [];
           this.checkBoxOptions[x.key] = options;
           break;
-        case 'select':
-          if (x.option?.reference) {
-            this.api.ref(x.option.reference, x.option?.target).subscribe(v => {
-              this.refs[x.key] = v;
-            });
+        case 'ref':
+          const { reference, target, multiple } = x.option!;
+          if (!multiple) {
+            format[x.key] = 'oid';
+          } else {
+            format[`${x.key!}.$in`] = 'oids';
           }
+          this.api.getReference(reference!, target!).subscribe(v => {
+            this.references[x.key] = v;
+          });
           break;
       }
       controlsConfig[x.key] = [x.default, validator];
     }
     this.form = this.fb.group(controlsConfig);
-    this.wpxInit.emit(this.form);
+    this.wpxInit.emit({
+      form: this.form,
+      format
+    });
   }
 }
