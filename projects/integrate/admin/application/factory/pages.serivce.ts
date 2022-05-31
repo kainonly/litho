@@ -93,6 +93,17 @@ export class PagesSerivce extends Api<Page> {
   }
 
   /**
+   * 内容模型字段新增
+   * @param id 页面 ID
+   * @param data 数据
+   */
+  addSchemaField(id: string, data: SchemaField): Observable<any> {
+    return this.updateOneById(id, {
+      $push: { 'schema.fields': data }
+    });
+  }
+
+  /**
    * 内容模型字段更新
    * @param id 页面 ID
    * @param key 字段命名

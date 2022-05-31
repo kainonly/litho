@@ -28,8 +28,7 @@ export class FormComponent implements OnInit {
     private modal: NzModalRef,
     private pages: PagesSerivce,
     private fb: FormBuilder,
-    private message: NzMessageService,
-    private notification: NzNotificationService
+    private message: NzMessageService
   ) {}
 
   ngOnInit(): void {
@@ -73,6 +72,9 @@ export class FormComponent implements OnInit {
     this.currentType = value;
     switch (value) {
       case 'number':
+        /**
+         * 数字类型初始化
+         */
         this.form.setControl(
           'option',
           this.fb.group({
@@ -84,6 +86,9 @@ export class FormComponent implements OnInit {
         break;
       case 'date':
       case 'dates':
+        /**
+         * 时间类型初始化
+         */
         this.form.setControl(
           'option',
           this.fb.group({
@@ -93,6 +98,9 @@ export class FormComponent implements OnInit {
         break;
       case 'radio':
       case 'checkbox':
+        /**
+         * 单选与复选初始化
+         */
         this.form.setControl(
           'option',
           this.fb.group({
@@ -101,6 +109,9 @@ export class FormComponent implements OnInit {
         );
         break;
       case 'select':
+        /**
+         * 选择器类型初始化
+         */
         this.form.setControl(
           'option',
           this.fb.group({
@@ -110,6 +121,9 @@ export class FormComponent implements OnInit {
         );
         break;
       case 'ref':
+        /**
+         * 引用类型初始化
+         */
         this.form.setControl(
           'option',
           this.fb.group({
@@ -133,6 +147,9 @@ export class FormComponent implements OnInit {
     return this.form?.get('option')?.get('values') as FormArray;
   }
 
+  /**
+   * 新增枚举
+   */
   addOptionValues(): void {
     this.optionValues.push(
       this.fb.group({
@@ -142,6 +159,10 @@ export class FormComponent implements OnInit {
     );
   }
 
+  /**
+   * 移除枚举
+   * @param index
+   */
   removeOptionValues(index: number): void {
     this.optionValues.removeAt(index);
   }
@@ -155,13 +176,17 @@ export class FormComponent implements OnInit {
   }
 
   submit(data: any): void {
-    this.pages.updateSchemaField(this.page!._id, this.doc!.key, data).subscribe(v => {
-      if (!v.code) {
+    if (!this.doc) {
+      data.sort = this.page.schema?.fields.length;
+      this.pages.addSchemaField(this.page._id, data).subscribe(() => {
+        this.modal.triggerOk();
+        this.message.success('字段新增完成');
+      });
+    } else {
+      this.pages.updateSchemaField(this.page._id, this.doc!.key, data).subscribe(() => {
         this.modal.triggerOk();
         this.message.success('字段更新完成');
-      } else {
-        this.notification.error('操作失败', v.message);
-      }
-    });
+      });
+    }
   }
 }
