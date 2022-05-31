@@ -24,7 +24,7 @@ export class UsersComponent implements OnInit, OnDestroy {
   data: Data<AnyDto<User>> = new Data<AnyDto<User>>();
   fields: Map<string, TableField> = new Map<string, TableField>([
     ['username', { label: '用户名', type: 'string', keyword: true }],
-    ['roles', { label: '权限组', type: 'select', option: { reference: 'roles' } }],
+    ['roles', { label: '权限组', type: 'ref', option: { reference: 'roles', target: 'name' } }],
     ['name', { label: '称呼', type: 'string' }],
     ['status', { label: '状态', type: 'bool' }]
   ]);
