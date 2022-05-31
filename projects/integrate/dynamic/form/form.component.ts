@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
-import { SchemaField, SchemaRule } from '@weplanx/ng';
+import { FormatDoc, SchemaField, SchemaRule } from '@weplanx/ng';
+import { WpxFormInit } from '@weplanx/ng/form';
 
 import { WpxDynamicService } from '../dynamic.service';
 
@@ -11,13 +12,19 @@ import { WpxDynamicService } from '../dynamic.service';
 export class FormComponent implements OnInit {
   fields: SchemaField[] = [];
   rules: SchemaRule[] = [];
+  format: Record<string, FormatDoc> = {};
 
   constructor(public dynamic: WpxDynamicService) {}
 
   ngOnInit(): void {
     const schema = this.dynamic.page?.schema;
-    console.log(schema);
-    // this.fields = [...Object.values(schema!.fields).sort((a, b) => a.sort - b.sort)];
-    // this.rules = [...(schema?.rules ?? [])];
   }
+
+  formInit(e: WpxFormInit): void {
+    this.format = e.format;
+  }
+
+  submit = (value: any): void => {
+    console.log(value);
+  };
 }

@@ -19,9 +19,9 @@ export class WpxNavComponent implements OnInit, OnDestroy {
       this.pageIdSubscription = this.wpx.pageId.subscribe(v => {
         this.openIds.clear();
         let node = pages[v];
-        while (node['parentNode']) {
-          node = node['parentNode'];
+        while (node) {
           this.openIds.add(node._id);
+          node = node['parentNode'] ?? undefined;
         }
       });
     });
