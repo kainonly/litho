@@ -73,15 +73,15 @@ export class SchemaComponent implements OnInit {
 
   delete(data: SchemaField): void {
     this.modal.confirm({
-      nzTitle: `您确定要删除【${data.label}】字段吗?`,
+      nzTitle: `您确定要删除该字段吗?`,
       nzOkText: '是的',
       nzOkType: 'primary',
       nzOkDanger: true,
       nzMaskClosable: true,
       nzOnOk: () => {
-        this.pages.deleteSchemaField(this.pages.id!, data.key!).subscribe(() => {
-          this.getData();
+        this.pages.deleteSchemaField(this.pages.id!, data.key).subscribe(() => {
           this.message.success('字段删除成功');
+          this.getData();
         });
       },
       nzCancelText: '再想想'

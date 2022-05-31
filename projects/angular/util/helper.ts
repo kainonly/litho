@@ -45,6 +45,11 @@ export const httpOptions = <T>(
       params = params.append('sort', `${key}.${value}`);
     }
   }
+  const queryOptions: Record<string, any> = {};
+  if (options?.array_filters) {
+    queryOptions['array_filters'] = options.array_filters;
+  }
+  params = params.set('options', JSON.stringify(queryOptions));
   return { headers, params };
 };
 

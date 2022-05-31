@@ -57,8 +57,12 @@ export class PagesSerivce extends Api<Page> {
     );
   }
 
+  /**
+   * 验证内容模型命名是否存在
+   * @param key
+   */
   existsSchemaKey(key: string): Observable<any> {
-    if (['pages', 'roles', 'department', 'users'].includes(key)) {
+    if (['pages', 'roles', 'departments', 'users'].includes(key)) {
       return of({ error: true, duplicated: true });
     }
     return timer(500).pipe(
@@ -67,6 +71,11 @@ export class PagesSerivce extends Api<Page> {
     );
   }
 
+  /**
+   * 页面层级关系重组
+   * @param id
+   * @param parent
+   */
   reorganization(id: string, parent: null | string): Observable<any> {
     return this.updateOneById(
       id,
@@ -83,14 +92,38 @@ export class PagesSerivce extends Api<Page> {
     );
   }
 
-  updateSchemaField(id: string, index: string, data: SchemaField): Observable<any> {
-    return this.updateOneById(id, {
-      $set: {
-        [`schema.fields.${index}`]: data
-      }
-    });
+  /**
+   * 内容模型字段更新
+   * @param id 页面 ID
+   * @param key 字段命名
+   * @param data 更新数据
+   */
+  updateSchemaField(id: string, key: string, data: SchemaField): Observable<any> {
+    return this.updateOneById(
+      id,
+      {
+        $set: {
+          'schema.fields.$[i]': data
+        }
+      },
+      { array_filters: [{ 'i.key': key }] }
+    );
   }
 
+  /**
+   * 内容模型字段指定删除
+   * @param id 页面 ID
+   * @param key 字段命名
+   */
+  deleteSchemaField(id: string, key: string): Observable<any> {
+    return this.updateOneById(id, { $pull: { 'schema.fields': { key } } });
+  }
+
+  /**
+   * 内容模型字段排序
+   * @param id
+   * @param values
+   */
   sortSchemaFields(id: string, values: number[]): Observable<any> {
     const data: Record<string, number> = {};
     values.forEach((value, index) => {
@@ -103,18 +136,20 @@ export class PagesSerivce extends Api<Page> {
     ]);
   }
 
-  deleteSchemaField(id: string, key: string): Observable<any> {
-    return this.updateOneById(id, {
-      $unset: {
-        [`schema.fields.${key}`]: ''
-      }
-    });
-  }
-
+  /**
+   * 内容模型字段新增规则
+   * @param id
+   * @param data
+   */
   addSchemaRule(id: string, data: any): Observable<any> {
     return this.updateOneById(id, { $push: { 'schema.rules': data } });
   }
 
+  /**
+   * 内容模型更新高级配置
+   * @param id
+   * @param data
+   */
   updateSchemaAdvanced(id: string, data: any): Observable<any> {
     return this.updateOneById(id, {
       $set: {

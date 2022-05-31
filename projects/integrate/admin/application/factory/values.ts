@@ -10,17 +10,17 @@ export const fieldTypes = [
       ['bool', '开关'],
       ['radio', '单选框'],
       ['checkbox', '多选框'],
-      ['select', '选择器'],
-      ['ref', '引用']
+      ['select', '选择器']
     ]
   },
   {
-    label: '高级字段',
+    label: '复合字段',
     values: [
-      ['richtext', '富文本编辑器'],
+      ['ref', '引用'],
+      ['richtext', '富文本'],
       ['picture', '图片'],
       ['video', '视频'],
-      ['file', '文件']
+      ['file', '附件']
     ]
   }
 ];

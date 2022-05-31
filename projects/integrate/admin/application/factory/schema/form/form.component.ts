@@ -155,7 +155,7 @@ export class FormComponent implements OnInit {
   }
 
   submit(data: any): void {
-    this.pages.updateSchemaField(this.page!._id, data.sort, data).subscribe(v => {
+    this.pages.updateSchemaField(this.page!._id, this.doc!.key, data).subscribe(v => {
       if (!v.code) {
         this.modal.triggerOk();
         this.message.success('字段更新完成');

@@ -45,6 +45,10 @@ export interface ApiOptions<T> {
    * 文档转换
    */
   format_doc?: Record<string, FormatDoc>;
+  /**
+   * 数组过滤
+   */
+  array_filters?: any[];
 }
 
 export type FilterOption<T> = Pick<ApiOptions<T>, 'format_filter'>;
@@ -52,8 +56,8 @@ export type CreateOption<T> = Pick<ApiOptions<T>, 'format_doc'>;
 export type FindOneOption<T> = Pick<ApiOptions<T>, 'field' | 'format_filter'>;
 export type FindOneByIdOption<T> = Pick<ApiOptions<T>, 'field'>;
 export type FindOption<T> = Omit<ApiOptions<T>, 'format_doc'>;
-export type UpdateOption<T> = Pick<ApiOptions<T>, 'format_filter' | 'format_doc'>;
-export type UpdateOneByIdOption<T> = Pick<ApiOptions<T>, 'format_doc'>;
+export type UpdateOption<T> = Pick<ApiOptions<T>, 'format_filter' | 'format_doc' | 'array_filters'>;
+export type UpdateOneByIdOption<T> = Pick<ApiOptions<T>, 'format_doc' | 'array_filters'>;
 
 /**
  * 低码类型
@@ -127,10 +131,10 @@ export type BasicType =
   | 'bool' // 状态
   | 'radio' // 单选
   | 'checkbox' // 复选
-  | 'select' // 选择器
-  | 'ref'; // 引用
+  | 'select'; // 选择器
 
 export type AdvancedType =
+  | 'ref' // 引用
   | 'richtext' // 富文本
   | 'picture' // 图片
   | 'video' // 视频

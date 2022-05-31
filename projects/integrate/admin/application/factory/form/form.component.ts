@@ -48,8 +48,7 @@ export class FormComponent implements OnInit {
 
   get schema(): FormGroup {
     return this.fb.group({
-      key: [null, [Validators.required, Validators.pattern(/^[a-z_]+$/)], [this.existsKey]],
-      fields: [[]]
+      key: [null, [Validators.required, Validators.pattern(/^[a-z_]+$/)], [this.existsKey]]
     });
   }
 
@@ -76,6 +75,8 @@ export class FormComponent implements OnInit {
 
   submit(data: Page): void {
     if (!this.doc) {
+      // 初始化 fields
+      data.schema!.fields = [];
       this.pages
         .create(data, {
           format_doc: { parent: 'oid' }
@@ -85,6 +86,10 @@ export class FormComponent implements OnInit {
           this.modal.triggerOk();
         });
     } else {
+      if (data.schema) {
+        Reflect.set(data, 'schema.key', data.schema!.key);
+        delete data.schema;
+      }
       this.pages
         .updateOneById(
           this.doc._id,
