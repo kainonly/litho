@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
 
 import { WpxService } from '@weplanx/ng';
 
@@ -6,6 +7,27 @@ import { WpxService } from '@weplanx/ng';
   selector: 'wpx-nav',
   templateUrl: './nav.component.html'
 })
-export class WpxNavComponent {
+export class WpxNavComponent implements OnInit, OnDestroy {
+  openIds: Set<string> = new Set<string>();
+
+  private pageIdSubscription!: Subscription;
+
   constructor(public wpx: WpxService) {}
+
+  ngOnInit(): void {
+    this.wpx.pages.subscribe(pages => {
+      this.pageIdSubscription = this.wpx.pageId.subscribe(v => {
+        this.openIds.clear();
+        let node = pages[v];
+        while (node['parentNode']) {
+          node = node['parentNode'];
+          this.openIds.add(node._id);
+        }
+      });
+    });
+  }
+
+  ngOnDestroy(): void {
+    this.pageIdSubscription.unsubscribe();
+  }
 }

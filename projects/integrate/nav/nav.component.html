@@ -10,7 +10,7 @@
           </li>
         </ng-container>
         <ng-template #isGroup>
-          <li nz-submenu [nzOpen]="page['_id'] | OpenState | async" [nzPaddingLeft]="page | Level">
+          <li nz-submenu [nzOpen]="openIds.has(page._id)" [nzPaddingLeft]="page | Level">
             <span title>
               <i *ngIf="page.hasOwnProperty('icon')" nz-icon [nzType]="page['icon']"></i>
               <span>{{ page['name'] }}</span>

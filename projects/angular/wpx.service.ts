@@ -34,7 +34,9 @@ export class WpxService {
    * 手动设置路由
    */
   manual = false;
-
+  /**
+   * 用户信息
+   */
   user?: UserInfo;
 
   constructor(private http: HttpClient, private storage: StorageMap) {}

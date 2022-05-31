@@ -5,11 +5,10 @@ import { WpxModule, WpxShareModule } from '@weplanx/ng';
 
 import { LevelPipe } from './level.pipe';
 import { WpxNavComponent } from './nav.component';
-import { OpenStatePipe } from './open-state.pipe';
 
 @NgModule({
   imports: [WpxModule, WpxShareModule, RouterModule],
-  declarations: [WpxNavComponent, OpenStatePipe, LevelPipe],
+  declarations: [WpxNavComponent, LevelPipe],
   exports: [WpxNavComponent]
 })
 export class WpxNavModule {}
