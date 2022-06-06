@@ -65,9 +65,9 @@ jobs:
         with:
           secret_id: ${{ secrets.COS_SECRETID }}
           secret_key: ${{ secrets.COS_SECRETKEY }}
-          region: ${{ secrets.TENCENT_PRODUCT_REGION }}
+          region: ap-guangzhou
           commands: |
-            cdn PurgePathCache --cli-unfold-argument --region ap-guangzhou --Paths https://console.kainonly.com/ --FlushType delete
+            cdn PurgePathCache --cli-unfold-argument --Paths https://console.kainonly.com/ --FlushType delete
           output_format: json
 
       - name: 静态文件打包
