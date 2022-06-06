@@ -55,8 +55,20 @@
           <input nz-input type="text" formControlName="placeholder" placeholder="提示文字" />
         </nz-form-control>
       </nz-form-item>
+      <nz-form-item>
+        <nz-form-label>默认值</nz-form-label>
+        <nz-form-control>
+          <textarea rows="4" nz-input formControlName="default" placeholder="此值的默认值"></textarea>
+        </nz-form-control>
+      </nz-form-item>
     </nz-col>
     <nz-col [nzSpan]="12">
+      <nz-form-item>
+        <nz-form-label nzRequired>关键词</nz-form-label>
+        <nz-form-control nzExtra="表格搜索的通用条件">
+          <nz-switch formControlName="keyword"></nz-switch>
+        </nz-form-control>
+      </nz-form-item>
       <nz-form-item>
         <nz-form-label nzRequired>是否必须</nz-form-label>
         <nz-form-control nzExtra="在创建内容时，此段是必需填写的">
@@ -83,12 +95,6 @@
             <label nz-radio-button [nzValue]="1">包含</label>
             <label nz-radio-button [nzValue]="2">包含并脱敏</label>
           </nz-radio-group>
-        </nz-form-control>
-      </nz-form-item>
-      <nz-form-item>
-        <nz-form-label>默认值</nz-form-label>
-        <nz-form-control>
-          <input nz-input formControlName="default" placeholder="此值的默认值" />
         </nz-form-control>
       </nz-form-item>
     </nz-col>

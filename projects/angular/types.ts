@@ -166,6 +166,10 @@ export interface SchemaField {
    */
   default?: string;
   /**
+   * 关键词
+   */
+  keyword?: boolean;
+  /**
    * 必填
    */
   required: boolean;

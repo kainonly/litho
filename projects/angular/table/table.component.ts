@@ -233,10 +233,15 @@ export class WpxTableComponent<T> implements OnInit {
           delete this.wpxData.filter[key];
         }
       }
+      const keywords = [...this.keywords.values()];
+      if (keywords.length === 0) {
+        this.message.warning('尚未设置搜索关键词');
+        return;
+      }
       Reflect.set(
         this.wpxData.filter,
         '$or',
-        [...this.keywords.values()].map(v => ({ [v]: { $regex: this.searchText } }))
+        keywords.map(v => ({ [v]: { $regex: this.searchText } }))
       );
     } else {
       for (const [key, search] of Object.entries(data)) {

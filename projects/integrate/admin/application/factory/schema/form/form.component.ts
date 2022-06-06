@@ -40,6 +40,7 @@ export class FormComponent implements OnInit {
       placeholder: [null],
       default: [null],
       required: [false],
+      keyword: [false],
       hide: [false],
       readonly: [false],
       projection: [1],
