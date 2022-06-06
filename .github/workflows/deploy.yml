@@ -60,6 +60,15 @@ jobs:
           ~/.cache/coscli rm cos://default/ -r -f -c ~/.cache/cos.yml
           ~/.cache/coscli cp ./dist/console/ cos://accelerate/ -r -c ~/.cache/cos.yml
 
+      - name: 自动刷新 CDN
+        uses: TencentCloud/cli-action@v1
+        with:
+          secret_id: ${{ secrets.COS_SECRETID }}
+          secret_key: ${{ secrets.COS_SECRETKEY }}
+          region: ${{ secrets.TENCENT_PRODUCT_REGION }}
+          commands: cdn PurgePathCache --cli-unfold-argument --Paths https://console.kainonly.com/ --FlushType delete
+          output_format: json
+
       - name: 静态文件打包
         run: |
           cd ./dist
