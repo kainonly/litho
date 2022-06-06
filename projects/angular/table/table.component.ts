@@ -258,7 +258,7 @@ export class WpxTableComponent<T> implements OnInit {
    * 重置搜索
    */
   resetSearch(): void {
-    const data: any = {};
+    const data: Record<string, any> = {};
     for (const x of this.columns) {
       data[x.value] = {
         operator: '$regex',
@@ -266,6 +266,7 @@ export class WpxTableComponent<T> implements OnInit {
       };
     }
     this.searchForm?.patchValue(data);
+    this.clearSearch();
   }
 
   /**
