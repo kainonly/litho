@@ -1,6 +1,15 @@
 <nz-row [nzGutter]="8">
   <nz-col>
-    <nz-input-group nzSuffixIcon="search" style="width: 180px">
+    <button
+      style="margin-right: 8px"
+      nz-button
+      nzType="text"
+      [nz-tooltip]="expand ? '收起' : '展开'"
+      (click)="expanded()"
+    >
+      <i nz-icon [nzType]="expand ? 'node-collapse' : 'node-expand'"></i>
+    </button>
+    <nz-input-group style="width: 150px" nzSuffixIcon="search">
       <input type="text" nz-input placeholder="搜索" [(ngModel)]="searchText" />
     </nz-input-group>
   </nz-col>
@@ -9,11 +18,11 @@
       <button nz-button nzType="text" nz-tooltip="刷新" (click)="getData(true)">
         <i nz-icon nzType="reload"></i>
       </button>
-      <button nz-button nzType="text" [nz-tooltip]="expand ? '收起' : '展开'" (click)="expanded()">
-        <i nz-icon [nzType]="expand ? 'node-collapse' : 'node-expand'"></i>
-      </button>
       <button nz-button nzType="text" nz-tooltip="新增" (click)="form()">
         <i nz-icon nzType="sisternode"></i>
+      </button>
+      <button nz-button nzType="text" nz-tooltip="重组" (click)="openReorganization()">
+        <i nz-icon nzType="swap"></i>
       </button>
     </nz-button-group>
   </nz-col>
@@ -25,33 +34,53 @@
   #tree
   nzBlockNode
   nzExpandAll
-  nzDraggable
   nzShowLine
   [nzData]="nodes"
   [nzSearchValue]="searchText"
   [nzExpandedIcon]="nzExpandedIcon"
+  [nzTreeTemplate]="nzTreeTemplate"
   [nzSelectedKeys]="selectedKeys"
   (nzClick)="selected($event)"
   (nzContextMenu)="actions($event, treeActions)"
-  (nzOnDrop)="drop($event)"
 >
   <ng-template #nzExpandedIcon let-node>
-    <ng-container *ngIf="factory.dict?.[node.key] as page">
+    <span class="custom-icon" *ngIf="factory.dict?.[node.key] as page">
       <ng-container *ngIf="!page.status; else kindTpl">
-        <i nz-icon nzType="stop"></i>
+        <i nz-icon nzType="stop" nzTheme="twotone" [nzTwotoneColor]="'#ff7875'"></i>
       </ng-container>
       <ng-template #kindTpl [ngSwitch]="page.kind">
         <ng-container *ngSwitchCase="'default'">
-          <i nz-icon nzType="database"></i>
+          <i nz-icon nzType="database" nzTheme="twotone"></i>
         </ng-container>
         <ng-container *ngSwitchCase="'aggregation'">
-          <i nz-icon nzType="calculator"></i>
+          <i nz-icon nzType="calculator" nzTheme="twotone"></i>
         </ng-container>
         <ng-container *ngSwitchCase="'group'">
-          <i nz-icon [nzType]="!node.isExpanded ? 'folder' : 'folder-open'"></i>
+          <i nz-icon [nzType]="!node.isExpanded ? 'folder' : 'folder-open'" nzTheme="twotone"></i>
         </ng-container>
       </ng-template>
-    </ng-container>
+    </span>
+  </ng-template>
+
+  <ng-template #nzTreeTemplate let-node>
+    <span class="custom-node" *ngIf="factory.dict?.[node.key] as page">
+      <div class="example-custom-placeholder" *cdkDragPlaceholder></div>
+      <i *ngIf="page.icon" nz-icon [nzType]="page.icon"></i>
+      <span>
+        {{ page.name }}
+        <ng-container *ngIf="page.manifest">
+          [
+          <ng-container [ngSwitch]="page.manifest">
+            <ng-container *ngSwitchCase="'default'"> 标准表格 </ng-container>
+            <ng-container *ngSwitchCase="'tree'">树形表格</ng-container>
+            <ng-container *ngSwitchCase="'form'">独立表单</ng-container>
+            <ng-container *ngSwitchCase="'hide'">隐藏</ng-container>
+            <ng-container *ngSwitchCase="'dashboard'">仪表盘</ng-container>
+          </ng-container>
+          ]
+        </ng-container>
+      </span>
+    </span>
   </ng-template>
   <!-- 右键操作 -->
   <nz-dropdown-menu #treeActions="nzDropdownMenu">
@@ -68,3 +97,17 @@
     </ul>
   </nz-dropdown-menu>
 </nz-tree>
+
+<nz-drawer nzTitle="拖拽进行重组" [nzVisible]="reorganizationVisible" (nzOnClose)="closeReorganization()">
+  <ng-container *nzDrawerContent>
+    <nz-tree
+      nzBlockNode
+      nzExpandAll
+      nzShowLine
+      nzDraggable
+      [nzData]="reorganizationNodes"
+      (nzOnDrop)="reorganization($event)"
+    >
+    </nz-tree>
+  </ng-container>
+</nz-drawer>

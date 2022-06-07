@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, TemplateRef, ViewChild } from '@angular/core';
 import { mergeMap } from 'rxjs';
 
 import { AnyDto, expandTreeNodes, Page } from '@weplanx/ng';
@@ -12,7 +12,8 @@ import { FormComponent } from './form/form.component';
 
 @Component({
   selector: 'wpx-admin-factory-pages',
-  templateUrl: './pages.component.html'
+  templateUrl: './pages.component.html',
+  styleUrls: ['./pages.component.scss']
 })
 export class PagesComponent implements OnInit {
   /**
@@ -47,6 +48,14 @@ export class PagesComponent implements OnInit {
    * 操作选中 ID
    */
   actionId?: string;
+  /**
+   * 重组树视图
+   */
+  reorganizationVisible: boolean = false;
+  /**
+   *
+   */
+  reorganizationNodes: NzTreeNodeOptions[] = [];
 
   constructor(
     public factory: FactorySerivce,
@@ -143,10 +152,40 @@ export class PagesComponent implements OnInit {
   }
 
   /**
+   * 开启重组
+   */
+  openReorganization(): void {
+    this.reorganizationVisible = true;
+    this.reorganizationNodes = this.formatReorganizationNodes([...this.nodes]);
+  }
+
+  /**
+   * 禁止选中
+   * @param nodes
+   */
+  formatReorganizationNodes(nodes: NzTreeNodeOptions[]): NzTreeNodeOptions[] {
+    return nodes.map(v => {
+      if (v.children) {
+        this.formatReorganizationNodes(v.children);
+      }
+      v.selectable = false;
+      v.selected = false;
+      return v;
+    });
+  }
+
+  /**
+   * 关闭重组
+   */
+  closeReorganization(): void {
+    this.reorganizationVisible = false;
+  }
+
+  /**
    * 排序重组
    * @param event
    */
-  drop(event: NzFormatEmitEvent): void {
+  reorganization(event: NzFormatEmitEvent): void {
     if (!event.dragNode) {
       return;
     }
