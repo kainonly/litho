@@ -1,0 +1,70 @@
+<nz-row [nzGutter]="8">
+  <nz-col>
+    <nz-input-group nzSuffixIcon="search" style="width: 180px">
+      <input type="text" nz-input placeholder="搜索" [(ngModel)]="searchText" />
+    </nz-input-group>
+  </nz-col>
+  <nz-col>
+    <nz-button-group>
+      <button nz-button nzType="text" nz-tooltip="刷新" (click)="getData(true)">
+        <i nz-icon nzType="reload"></i>
+      </button>
+      <button nz-button nzType="text" [nz-tooltip]="expand ? '收起' : '展开'" (click)="expanded()">
+        <i nz-icon [nzType]="expand ? 'node-collapse' : 'node-expand'"></i>
+      </button>
+      <button nz-button nzType="text" nz-tooltip="新增" (click)="form()">
+        <i nz-icon nzType="sisternode"></i>
+      </button>
+    </nz-button-group>
+  </nz-col>
+</nz-row>
+
+<nz-divider style="margin: 8px 0"></nz-divider>
+
+<nz-tree
+  #tree
+  nzBlockNode
+  nzExpandAll
+  nzDraggable
+  nzShowLine
+  [nzData]="nodes"
+  [nzSearchValue]="searchText"
+  [nzExpandedIcon]="nzExpandedIcon"
+  [nzSelectedKeys]="selectedKeys"
+  (nzClick)="selected($event)"
+  (nzContextMenu)="actions($event, treeActions)"
+  (nzOnDrop)="drop($event)"
+>
+  <ng-template #nzExpandedIcon let-node>
+    <ng-container *ngIf="factory.dict?.[node.key] as page">
+      <ng-container *ngIf="!page.status; else kindTpl">
+        <i nz-icon nzType="stop"></i>
+      </ng-container>
+      <ng-template #kindTpl [ngSwitch]="page.kind">
+        <ng-container *ngSwitchCase="'default'">
+          <i nz-icon nzType="database"></i>
+        </ng-container>
+        <ng-container *ngSwitchCase="'aggregation'">
+          <i nz-icon nzType="calculator"></i>
+        </ng-container>
+        <ng-container *ngSwitchCase="'group'">
+          <i nz-icon [nzType]="!node.isExpanded ? 'folder' : 'folder-open'"></i>
+        </ng-container>
+      </ng-template>
+    </ng-container>
+  </ng-template>
+  <!-- 右键操作 -->
+  <nz-dropdown-menu #treeActions="nzDropdownMenu">
+    <ul *ngIf="actionId" nz-menu>
+      <ng-container *ngIf="factory.dict?.[actionId] as page">
+        <li nz-menu-item [nzSelected]="false">
+          <i *ngIf="page.icon" nz-icon [nzType]="page.icon"></i>&nbsp;
+          <span>{{ page.name }}</span>
+        </li>
+        <li nz-menu-divider></li>
+        <li nz-menu-item (click)="form(page)"> 编辑 </li>
+        <li nz-menu-item nzDanger (click)="delete(page)"> 删除 </li>
+      </ng-container>
+    </ul>
+  </nz-dropdown-menu>
+</nz-tree>

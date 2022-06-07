@@ -1,17 +1,24 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalRef } from 'ng-zorro-antd/modal';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 
-import { PagesSerivce } from '../../pages.serivce';
+import { FactorySerivce } from '../../factory.serivce';
 
 @Component({
   selector: 'wpx-admin-factory-rules-form',
   templateUrl: './form.component.html'
 })
 export class FormComponent implements OnInit {
+  /**
+   * 页面单元 ID
+   */
+  @Input() id!: string;
+  /**
+   * 表单
+   */
   form!: FormGroup;
 
   constructor(
@@ -19,14 +26,14 @@ export class FormComponent implements OnInit {
     private message: NzMessageService,
     private notification: NzNotificationService,
     private fb: FormBuilder,
-    private pages: PagesSerivce
+    private factory: FactorySerivce
   ) {}
 
   ngOnInit(): void {
     this.form = this.fb.group({
       logic: [false, [Validators.required]],
       conditions: this.fb.array([], [Validators.required]),
-      display: this.fb.array([], [Validators.required])
+      keys: this.fb.array([], [Validators.required])
     });
   }
 
@@ -34,6 +41,9 @@ export class FormComponent implements OnInit {
     return this.form.get('conditions') as FormArray;
   }
 
+  /**
+   * 新增条件
+   */
   addCondition(): void {
     this.conditions.push(
       this.fb.group({
@@ -44,28 +54,46 @@ export class FormComponent implements OnInit {
     );
   }
 
+  /**
+   * 移除条件
+   * @param index
+   */
   removeCondition(index: number): void {
     this.conditions.removeAt(index);
   }
 
-  get display(): FormArray {
-    return this.form.get('display') as FormArray;
+  get keys(): FormArray {
+    return this.form.get('keys') as FormArray;
   }
 
-  addDisplay(): void {
-    this.display.push(this.fb.control(null, [Validators.required]));
+  /**
+   * 新增显示字段
+   */
+  addKey(): void {
+    this.keys.push(this.fb.control(null, [Validators.required]));
   }
 
-  removeDisplay(index: number): void {
-    this.display.removeAt(index);
+  /**
+   * 移除显示字段
+   * @param index
+   */
+  removeKey(index: number): void {
+    this.keys.removeAt(index);
   }
 
+  /**
+   * 关闭表单
+   */
   close(): void {
     this.modal.triggerCancel();
   }
 
+  /**
+   * 提交
+   * @param data
+   */
   submit(data: any): void {
-    this.pages.addSchemaRule(this.pages.id!, data).subscribe(() => {
+    this.factory.addSchemaRule(this.id, data).subscribe(() => {
       this.modal.triggerOk();
       this.message.success('规则更新完成');
     });

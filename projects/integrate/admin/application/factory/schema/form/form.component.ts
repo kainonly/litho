@@ -4,9 +4,8 @@ import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Valida
 import { AnyDto, Page, SchemaField } from '@weplanx/ng';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalRef } from 'ng-zorro-antd/modal';
-import { NzNotificationService } from 'ng-zorro-antd/notification';
 
-import { PagesSerivce } from '../../pages.serivce';
+import { FactorySerivce } from '../../factory.serivce';
 import { fieldTypes } from '../../values';
 
 @Component({
@@ -14,19 +13,42 @@ import { fieldTypes } from '../../values';
   templateUrl: './form.component.html'
 })
 export class FormComponent implements OnInit {
+  /**
+   * 页面单元
+   */
   @Input() page!: AnyDto<Page>;
+  /**
+   * 编辑
+   */
   @Input() doc?: SchemaField;
-
+  /**
+   * 字段类型
+   */
+  fieldTypes: Array<Record<string, any>> = fieldTypes;
+  /**
+   * 表单
+   */
   form!: FormGroup;
-  currentType?: string;
-  typeList: Array<Record<string, any>> = fieldTypes;
-  optionPanel = false;
-  referenceList: Array<AnyDto<Page>> = [];
+  /**
+   * 当前字段类型
+   */
+  type?: string;
+  /**
+   * 显示扩展配置
+   */
+  visibleOption = false;
+  /**
+   * 引用数据
+   */
+  references: Array<AnyDto<Page>> = [];
+  /**
+   * 引用字典
+   */
   referenceDict: Record<string, SchemaField[]> = {};
 
   constructor(
     private modal: NzModalRef,
-    private pages: PagesSerivce,
+    private factory: FactorySerivce,
     private fb: FormBuilder,
     private message: NzMessageService
   ) {}
@@ -59,6 +81,10 @@ export class FormComponent implements OnInit {
     });
   }
 
+  /**
+   * 检查字段命名是否存在
+   * @param control
+   */
   existsField = (control: AbstractControl): any => {
     if (control.value === this.doc?.key) {
       return null;
@@ -69,8 +95,13 @@ export class FormComponent implements OnInit {
     return null;
   };
 
+  /**
+   * 按字段类型设置扩展配置
+   * @param value
+   * @private
+   */
   private setType(value: string): void {
-    this.currentType = value;
+    this.type = value;
     switch (value) {
       case 'number':
         /**
@@ -133,15 +164,15 @@ export class FormComponent implements OnInit {
             multiple: [false]
           })
         );
-        this.pages.getReferences().subscribe(v => {
-          this.referenceList = [...v];
-          for (const x of this.referenceList) {
+        this.factory.getReferences().subscribe(v => {
+          this.references = [...v];
+          for (const x of this.references) {
             this.referenceDict[x.schema!.key] = [...x.schema!.fields];
           }
         });
         break;
     }
-    this.optionPanel = ['number', 'date', 'dates', 'radio', 'checkbox', 'select', 'ref'].includes(value);
+    this.visibleOption = ['number', 'date', 'dates', 'radio', 'checkbox', 'select', 'ref'].includes(value);
   }
 
   get optionValues(): FormArray {
@@ -172,19 +203,26 @@ export class FormComponent implements OnInit {
     return this.form?.get('option')?.get('reference') as FormControl;
   }
 
+  /**
+   * 关闭表单
+   */
   close(): void {
     this.modal.triggerCancel();
   }
 
+  /**
+   * 提交
+   * @param data
+   */
   submit(data: any): void {
     if (!this.doc) {
       data.sort = this.page.schema?.fields.length;
-      this.pages.addSchemaField(this.page._id, data).subscribe(() => {
+      this.factory.addSchemaField(this.page._id, data).subscribe(() => {
         this.modal.triggerOk();
         this.message.success('字段新增完成');
       });
     } else {
-      this.pages.updateSchemaField(this.page._id, this.doc!.key, data).subscribe(() => {
+      this.factory.updateSchemaField(this.page._id, this.doc!.key, data).subscribe(() => {
         this.modal.triggerOk();
         this.message.success('字段更新完成');
       });

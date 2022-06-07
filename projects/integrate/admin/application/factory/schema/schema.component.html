@@ -2,10 +2,10 @@
   <button nz-button nzType="primary" (click)="form()"> 新增 </button>
 </ng-template>
 
-<wpx-admin-factory-tabs [extra]="extra">
+<wpx-admin-factory-tabs [id]="id" [extra]="extra">
   <nz-table
     #contentTable
-    [nzData]="data"
+    [nzData]="fields"
     [nzFrontPagination]="false"
     [nzShowPagination]="false"
     [nzScroll]="{ x: '1200px' }"
@@ -13,9 +13,7 @@
     <thead>
       <tr>
         <th nzWidth="50px" nzLeft nzAlign="center"> </th>
-        <th nzWidth="120px" nzLeft><b>类型</b></th>
-        <th nzWidth="180px" nzLeft><b>名称</b></th>
-        <th nzWidth="180px" nzLeft><b>命名</b></th>
+        <th nzWidth="320px" nzLeft><b>定义</b></th>
         <th><b>描述</b></th>
         <th nzWidth="50px" nzRight nzAlign="center"><b>操作</b></th>
       </tr>
@@ -28,10 +26,10 @@
           </button>
         </td>
         <td nzLeft>
-          <nz-tag nzColor="blue">{{ datatype[data.type] }}</nz-tag>
+          <nz-tag nzColor="blue">{{ types[data.type] }}</nz-tag>
+          {{ data.label }}
+          [{{ data.key }}]
         </td>
-        <td nzLeft> {{ data.label }} </td>
-        <td nzLeft>{{ data.key }}</td>
         <td>
           <ng-container *ngIf="data.required">
             <nz-tag>必须的</nz-tag>
@@ -39,13 +37,13 @@
           <ng-container *ngIf="data.hide">
             <nz-tag>隐藏字段</nz-tag>
           </ng-container>
-          <ng-container *ngIf="!!data.option?.reference">
+          <ng-container *ngIf="data.type === 'ref'">
             <nz-tag>
-              <span>{{ data.option?.reference }}=>{{ data.option?.target }}</span>
+              <span>{{ data.option?.reference }}.{{ data.option?.target }}</span>
             </nz-tag>
           </ng-container>
-          <ng-container *ngIf="data.default">
-            <nz-tag>默认值:{{ data.default }}</nz-tag>
+          <ng-container *ngIf="!!data.default">
+            <nz-tag>默认值</nz-tag>
           </ng-container>
         </td>
         <td nzRight nzAlign="center">

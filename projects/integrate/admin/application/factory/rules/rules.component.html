@@ -2,10 +2,10 @@
   <button nz-button nzType="primary" (click)="form()"> 新增 </button>
 </ng-template>
 
-<wpx-admin-factory-tabs [extra]="extra">
+<wpx-admin-factory-tabs [id]="id" [extra]="extra">
   <nz-table
     #contentTable
-    [nzData]="data"
+    [nzData]="rules"
     [nzFrontPagination]="false"
     [nzShowPagination]="false"
     [nzScroll]="{ x: '1200px' }"
@@ -20,11 +20,11 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let item of contentTable.data; index as i">
+      <tr *ngFor="let data of contentTable.data; index as i">
         <td nzLeft nzAlign="center"> </td>
-        <td>{{ item.logic }}</td>
-        <td>{{ item.conditions }} </td>
-        <td>{{ item.display }}</td>
+        <td>{{ data.logic }}</td>
+        <td>{{ data.conditions }} </td>
+        <td>{{ data.keys }}</td>
         <td nzRight nzAlign="center">
           <button
             nz-button

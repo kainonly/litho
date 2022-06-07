@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalService } from 'ng-zorro-antd/modal';
 
-import { PagesSerivce } from '../pages.serivce';
+import { FactorySerivce } from '../factory.serivce';
 import { FormComponent } from './form/form.component';
 
 @Component({
@@ -11,20 +12,41 @@ import { FormComponent } from './form/form.component';
   templateUrl: './indexes.component.html'
 })
 export class IndexesComponent implements OnInit {
-  data: any[] = [];
+  /**
+   * 页面单元 ID
+   */
+  id!: string;
+  /**
+   * 索引数据
+   */
+  indexes: any[] = [];
 
-  constructor(private pages: PagesSerivce, private modal: NzModalService, private message: NzMessageService) {}
+  constructor(
+    private factory: FactorySerivce,
+    private modal: NzModalService,
+    private message: NzMessageService,
+    private route: ActivatedRoute
+  ) {}
 
   ngOnInit(): void {
-    this.getData();
-  }
-
-  getData(): void {
-    this.pages.getIndexes().subscribe(v => {
-      this.data = [...v];
+    this.route.params.subscribe(v => {
+      this.id = v['id'];
+      this.getData();
     });
   }
 
+  /**
+   * 获取数据
+   */
+  getData(): void {
+    this.factory.getIndexes(this.id).subscribe(indexes => {
+      this.indexes = [...indexes];
+    });
+  }
+
+  /**
+   * 打开表单
+   */
   form(): void {
     this.modal.create({
       nzTitle: '新增索引',
@@ -35,8 +57,12 @@ export class IndexesComponent implements OnInit {
     });
   }
 
+  /**
+   * 删除索引
+   * @param index
+   */
   delete(index: string): void {
-    this.pages.deleteIndex(index).subscribe(v => {
+    this.factory.deleteIndex(this.id, index).subscribe(v => {
       this.getData();
       this.message.success('索引删除成功');
     });

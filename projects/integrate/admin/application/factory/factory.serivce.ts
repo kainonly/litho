@@ -5,13 +5,17 @@ import { map, switchMap } from 'rxjs/operators';
 import { AnyDto, Api, Filter, Page, SchemaField } from '@weplanx/ng';
 import { NzTreeNodeOptions } from 'ng-zorro-antd/tree';
 
-@Injectable({ providedIn: 'root' })
-export class PagesSerivce extends Api<Page> {
+@Injectable()
+export class FactorySerivce extends Api<Page> {
   protected override model = 'pages';
   dict: Record<string, AnyDto<Page>> = {};
-  id?: string;
   page?: AnyDto<Page>;
 
+  /**
+   * 获取树形数据
+   * @param filter
+   * @param selectable
+   */
   getTreeNode(filter: Filter<Page> = {}, selectable = true): Observable<NzTreeNodeOptions[]> {
     return this.find(filter, { sort: { sort: 1 } }).pipe(
       map(v => {
@@ -44,15 +48,6 @@ export class PagesSerivce extends Api<Page> {
           }
         }
         return nodes;
-      })
-    );
-  }
-
-  getPage(): Observable<AnyDto<Page>> {
-    return this.findOneById(this.id!).pipe(
-      map(v => {
-        this.page = v;
-        return v;
       })
     );
   }
@@ -184,24 +179,26 @@ export class PagesSerivce extends Api<Page> {
   /**
    * 获取索引
    */
-  getIndexes(): Observable<any> {
-    return this.http.get(this.url('_indexes', this.id!));
+  getIndexes(id: string): Observable<any> {
+    return this.http.get(this.url('_indexes', id));
   }
 
   /**
    * 创建索引
+   * @param id
    * @param index
    * @param data
    */
-  createIndex(index: string, data: any): Observable<any> {
-    return this.http.put(this.url('_indexes', this.id!, index), data);
+  createIndex(id: string, index: string, data: any): Observable<any> {
+    return this.http.put(this.url('_indexes', id, index), data);
   }
 
   /**
    * 删除索引
+   * @param id
    * @param index
    */
-  deleteIndex(index: string): Observable<any> {
-    return this.http.delete(this.url('_indexes', this.id!, index));
+  deleteIndex(id: string, index: string): Observable<any> {
+    return this.http.delete(this.url('_indexes', id, index));
   }
 }

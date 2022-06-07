@@ -1,9 +1,9 @@
-import { AdvancedType, AnyDto, BasicType, SchemaFieldOption, Filter } from '@weplanx/ng';
+import { ComplexType, AnyDto, BasicType, SchemaFieldOption, Filter } from '@weplanx/ng';
 import { NzCheckBoxOptionInterface } from 'ng-zorro-antd/checkbox';
 
 export interface TableField {
   label: string;
-  type: BasicType | AdvancedType;
+  type: BasicType | ComplexType;
   option?: Partial<SchemaFieldOption>;
   description?: string;
   keyword?: boolean;

@@ -1,42 +1,69 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 
+import { PageManifest } from '@weplanx/ng';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 
-import { PagesSerivce } from '../pages.serivce';
+import { FactorySerivce } from '../factory.serivce';
 
 @Component({
   selector: 'wpx-admin-factory-advanced',
   templateUrl: './advanced.component.html'
 })
 export class AdvancedComponent implements OnInit {
+  /**
+   * 页面单元 ID
+   */
+  id!: string;
+  /**
+   * 表单
+   */
   form!: FormGroup;
+  /**
+   * 表现形式
+   */
+  manifest!: PageManifest;
 
   constructor(
     private message: NzMessageService,
     private notification: NzNotificationService,
     private fb: FormBuilder,
-    private pages: PagesSerivce
+    private factory: FactorySerivce,
+    private route: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
     this.form = this.fb.group({
-      event: [false, [Validators.required]]
+      event: [false, [Validators.required]],
+      detail: [false]
     });
-    this.getData();
+    this.route.params.subscribe(v => {
+      this.id = v['id'];
+      this.getData();
+    });
   }
 
+  /**
+   * 获取数据
+   */
   getData(): void {
-    this.pages.getPage().subscribe(v => {
+    this.factory.findOneById(this.id).subscribe(page => {
+      this.manifest = page.manifest!;
       this.form.patchValue({
-        event: v.schema?.event
+        event: page.schema?.event,
+        detail: page.schema?.detail
       });
     });
   }
 
+  /**
+   * 提交
+   * @param data
+   */
   submit(data: any): void {
-    this.pages.updateSchemaAdvanced(this.pages.id!, data).subscribe(() => {
+    this.factory.updateSchemaAdvanced(this.id, data).subscribe(() => {
       this.message.success('设置已更新');
     });
   }

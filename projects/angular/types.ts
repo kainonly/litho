@@ -120,6 +120,10 @@ export interface Schema {
    * 启用事务补偿
    */
   event?: boolean;
+  /**
+   * 启用详情查看
+   */
+  detail?: boolean;
 }
 
 export type BasicType =
@@ -133,7 +137,7 @@ export type BasicType =
   | 'checkbox' // 复选
   | 'select'; // 选择器
 
-export type AdvancedType =
+export type ComplexType =
   | 'ref' // 引用
   | 'richtext' // 富文本
   | 'picture' // 图片
@@ -152,7 +156,7 @@ export interface SchemaField {
   /**
    * 字段类型
    */
-  type: BasicType | AdvancedType;
+  type: BasicType | ComplexType;
   /**
    * 描述
    */
@@ -244,7 +248,7 @@ export interface Value {
 export interface SchemaRule {
   logic: 'and' | 'or';
   conditions: SchemaRuleCondition[];
-  display: string[];
+  keys: string[];
 }
 
 export interface SchemaRuleCondition {

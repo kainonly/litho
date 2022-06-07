@@ -223,9 +223,11 @@
                 </ng-container>
               </ng-container>
               <ng-template #notMultiple>
-                <nz-tag nzColor="blue" *ngIf="references[column.value] as dict">
-                  {{ dict[x[column.value]] }}
-                </nz-tag>
+                <ng-container *ngIf="references[column.value] as dict">
+                  <nz-tag nzColor="blue" *ngIf="dict[x[column.value]] as value">
+                    {{ value }}
+                  </nz-tag>
+                </ng-container>
               </ng-template>
             </ng-container>
             <ng-container *ngSwitchDefault>

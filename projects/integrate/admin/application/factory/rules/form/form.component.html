@@ -33,16 +33,16 @@
   </nz-form-item>
   <nz-form-item>
     <nz-form-label nzRequired>显示字段</nz-form-label>
-    <nz-form-control formArrayName="display">
-      <ng-container *ngFor="let x of display?.controls; index as i; first as isFirst">
+    <nz-form-control formArrayName="keys">
+      <ng-container *ngFor="let x of keys?.controls; index as i; first as isFirst">
         <nz-input-group nzCompact [ngStyle]="{ 'margin-top': isFirst ? null : '-1px' }">
           <input style="width: 90%" type="text" nz-input [formControlName]="i" placeholder="字段" />
-          <button nz-button nzType="default" style="width: 10%" (click)="removeDisplay(i)">
+          <button nz-button nzType="default" style="width: 10%" (click)="removeKey(i)">
             <i nz-icon nzType="minus-circle"></i>
           </button>
         </nz-input-group>
       </ng-container>
-      <button style="margin-top: 8px" type="button" nz-button nzType="dashed" nzBlock (click)="addDisplay()">
+      <button style="margin-top: 8px" type="button" nz-button nzType="dashed" nzBlock (click)="addKey()">
         <i nz-icon nzType="plus-circle"></i> 新增字段
       </button>
     </nz-form-control>

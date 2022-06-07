@@ -5,21 +5,24 @@ import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalRef } from 'ng-zorro-antd/modal';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 
-import { PagesSerivce } from '../../pages.serivce';
+import { FactorySerivce } from '../../factory.serivce';
 
 @Component({
   selector: 'wpx-admin-factory-indexes-form',
   templateUrl: './form.component.html'
 })
 export class FormComponent implements OnInit {
-  form?: FormGroup;
+  /**
+   * 表单
+   */
+  form!: FormGroup;
 
   constructor(
     private modal: NzModalRef,
     private message: NzMessageService,
     private notification: NzNotificationService,
     private fb: FormBuilder,
-    private pages: PagesSerivce
+    private factory: FactorySerivce
   ) {}
 
   ngOnInit(): void {
@@ -33,6 +36,9 @@ export class FormComponent implements OnInit {
     return this.form?.get('keys') as FormArray;
   }
 
+  /**
+   * 新增索引命名
+   */
   addKeys(): void {
     this.keys.push(
       this.fb.group({
@@ -42,17 +48,28 @@ export class FormComponent implements OnInit {
     );
   }
 
+  /**
+   * 删除索引命名
+   * @param index
+   */
   removeKeys(index: number): void {
     this.keys.removeAt(index);
   }
 
+  /**
+   * 关闭表单
+   */
   close(): void {
     this.modal.triggerCancel();
   }
 
+  /**
+   * 提交
+   * @param data
+   */
   submit(data: { keys: any[]; unique: boolean }): void {
     const index = `${!data.unique ? 'idx' : 'uk'}_${data.keys.map<any>(v => v.key).join('_')}`;
-    this.pages.createIndex(index, data).subscribe(v => {
+    this.factory.createIndex(this.factory.page?._id!, index, data).subscribe(v => {
       this.modal.triggerOk();
       this.message.success('索引更新完成');
     });

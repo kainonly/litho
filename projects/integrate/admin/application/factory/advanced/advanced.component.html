@@ -2,12 +2,18 @@
   <button nz-button form="form" nzType="primary"> 更新 </button>
 </ng-template>
 
-<wpx-admin-factory-tabs [extra]="extra">
+<wpx-admin-factory-tabs [id]="id" [extra]="extra">
   <form nz-form id="form" nzLayout="vertical" [formGroup]="form" (wpxSubmit)="submit($event)">
     <nz-form-item>
       <nz-form-label nzRequired>启用事务补偿</nz-form-label>
       <nz-form-control>
         <nz-switch formControlName="event"></nz-switch>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item *ngIf="manifest === 'default'">
+      <nz-form-label nzRequired>启用详情</nz-form-label>
+      <nz-form-control>
+        <nz-switch formControlName="detail"></nz-switch>
       </nz-form-control>
     </nz-form-item>
   </form>

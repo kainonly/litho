@@ -5,7 +5,7 @@ import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalRef } from 'ng-zorro-antd/modal';
 import { NzFormatEmitEvent, NzTreeComponent, NzTreeNode, NzTreeNodeOptions } from 'ng-zorro-antd/tree';
 
-import { PagesSerivce } from '../../../application/factory/pages.serivce';
+import { FactorySerivce } from '../../../application/factory/factory.serivce';
 import { RolesService } from '../roles.service';
 import { Role } from '../types';
 
@@ -24,7 +24,7 @@ export class PageComponent implements OnInit {
   constructor(
     private modalRef: NzModalRef,
     private message: NzMessageService,
-    private pages: PagesSerivce,
+    private factory: FactorySerivce,
     private roles: RolesService
   ) {}
 
@@ -33,7 +33,7 @@ export class PageComponent implements OnInit {
   }
 
   getData(): void {
-    this.pages.find({ status: true }, { sort: { sort: 1 } }).subscribe(data => {
+    this.factory.find({ status: true }, { sort: { sort: 1 } }).subscribe(data => {
       const nodes: NzTreeNodeOptions[] = [];
       const dict: Record<string, NzTreeNodeOptions> = {};
       const checked: string[] = [];
