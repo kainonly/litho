@@ -152,6 +152,16 @@ export class FactorySerivce extends Api<Page> {
   }
 
   /**
+   * 内容模型显隐规则更新
+   * @param id
+   * @param index
+   * @param data
+   */
+  updateSchemaRule(id: string, index: number, data: any): Observable<any> {
+    return this.updateOneById(id, { $set: { [`schema.rules.${index}`]: data } });
+  }
+
+  /**
    * 内容模型显隐规则删除
    * @param id
    * @param index

@@ -48,12 +48,14 @@ export class RulesComponent implements OnInit {
   /**
    * 打开表单
    */
-  form(): void {
+  form(index?: number, doc?: SchemaRule): void {
     this.modal.create({
       nzTitle: '新增规则',
       nzContent: FormComponent,
       nzComponentParams: {
-        id: this.id
+        id: this.id,
+        index,
+        doc
       },
       nzOnOk: () => {
         this.getData();
@@ -66,9 +68,19 @@ export class RulesComponent implements OnInit {
    * @param index
    */
   delete(index: number): void {
-    this.factory.deleteSchemaRule(this.id, index).subscribe(() => {
-      this.message.success('规则删除成功');
-      this.getData();
+    this.modal.confirm({
+      nzTitle: `您确定要删除该规则吗?`,
+      nzOkText: '是的',
+      nzOkType: 'primary',
+      nzOkDanger: true,
+      nzMaskClosable: true,
+      nzOnOk: () => {
+        this.factory.deleteSchemaRule(this.id, index).subscribe(() => {
+          this.getData();
+          this.message.success('规则删除成功');
+        });
+      },
+      nzCancelText: '再想想'
     });
   }
 }

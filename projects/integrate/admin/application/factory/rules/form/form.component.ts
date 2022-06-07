@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 
+import { SchemaRule } from '@weplanx/ng';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalRef } from 'ng-zorro-antd/modal';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
@@ -16,6 +17,15 @@ export class FormComponent implements OnInit {
    * 页面单元 ID
    */
   @Input() id!: string;
+  /**
+   * 数组索引
+   */
+  @Input() index?: number;
+  /**
+   * 编辑
+   */
+  @Input() doc?: SchemaRule;
+
   /**
    * 表单
    */
@@ -35,8 +45,16 @@ export class FormComponent implements OnInit {
       conditions: this.fb.array([], [Validators.required]),
       keys: this.fb.array([], [Validators.required])
     });
+    if (this.doc) {
+      this.doc.conditions.forEach(() => this.addCondition());
+      this.doc.keys.forEach(() => this.addKey());
+      this.form.patchValue(this.doc);
+    }
   }
 
+  /**
+   * 条件
+   */
   get conditions(): FormArray {
     return this.form.get('conditions') as FormArray;
   }
@@ -62,6 +80,9 @@ export class FormComponent implements OnInit {
     this.conditions.removeAt(index);
   }
 
+  /**
+   * 显示字段
+   */
   get keys(): FormArray {
     return this.form.get('keys') as FormArray;
   }
@@ -93,9 +114,16 @@ export class FormComponent implements OnInit {
    * @param data
    */
   submit(data: any): void {
-    this.factory.addSchemaRule(this.id, data).subscribe(() => {
-      this.modal.triggerOk();
-      this.message.success('规则更新完成');
-    });
+    if (!this.doc) {
+      this.factory.addSchemaRule(this.id, data).subscribe(() => {
+        this.modal.triggerOk();
+        this.message.success('规则新增完成');
+      });
+    } else {
+      this.factory.updateSchemaRule(this.id, this.index!, data).subscribe(() => {
+        this.modal.triggerOk();
+        this.message.success('规则更新完成');
+      });
+    }
   }
 }

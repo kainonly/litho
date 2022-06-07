@@ -44,17 +44,15 @@
           </ng-container>
         </td>
         <td nzRight nzAlign="center">
-          <button
-            nz-button
-            nzType="text"
-            nz-tooltip="删除"
-            nz-popconfirm
-            nzPopconfirmTitle="您确定移除该规则吗?"
-            nzPopconfirmPlacement="bottomRight"
-            (nzOnConfirm)="delete(i)"
-          >
-            <i nz-icon nzType="delete"></i>
+          <button nz-button nzType="text" nz-dropdown [nzDropdownMenu]="actions">
+            <i nz-icon nzType="ellipsis"></i>
           </button>
+          <nz-dropdown-menu #actions="nzDropdownMenu">
+            <ul nz-menu>
+              <li nz-menu-item (click)="form(i, data)">编辑</li>
+              <li nz-menu-item nzDanger (click)="delete(i)">删除</li>
+            </ul>
+          </nz-dropdown-menu>
         </td>
       </tr>
     </tbody>
