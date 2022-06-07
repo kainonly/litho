@@ -49,7 +49,9 @@ export const httpOptions = <T>(
   if (options?.array_filters) {
     queryOptions['array_filters'] = options.array_filters;
   }
-  params = params.set('options', JSON.stringify(queryOptions));
+  if (Object.keys(queryOptions).length !== 0) {
+    params = params.set('options', JSON.stringify(queryOptions));
+  }
   return { headers, params };
 };
 
