@@ -143,12 +143,25 @@ export class FactorySerivce extends Api<Page> {
   }
 
   /**
-   * 内容模型字段新增规则
+   * 内容模型显隐规则新增
    * @param id
    * @param data
    */
   addSchemaRule(id: string, data: any): Observable<any> {
     return this.updateOneById(id, { $push: { 'schema.rules': data } });
+  }
+
+  /**
+   * 内容模型显隐规则删除
+   * @param id
+   * @param index
+   */
+  deleteSchemaRule(id: string, index: number): Observable<any> {
+    return forkJoin([
+      this.updateOneById(id, { $unset: { [`schema.rules.${index}`]: 1 } }),
+      timer(200),
+      this.updateOneById(id, { $pull: { 'schema.rules': null } })
+    ]);
   }
 
   /**

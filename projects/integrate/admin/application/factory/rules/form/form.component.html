@@ -13,7 +13,7 @@
     <nz-form-control formArrayName="conditions">
       <ng-container *ngFor="let x of conditions?.controls; index as i; first as isFirst">
         <nz-input-group [formGroupName]="i" nzCompact [ngStyle]="{ 'margin-top': isFirst ? null : '-1px' }">
-          <input style="width: 30%" type="text" nz-input formControlName="field" placeholder="字段" />
+          <input style="width: 30%" type="text" nz-input formControlName="key" placeholder="字段" />
           <nz-select style="width: 30%" formControlName="operate" nzPlaceHolder="操作符">
             <nz-option [nzValue]="'eq'" nzLabel="等于"></nz-option>
             <nz-option [nzValue]="'neq'" nzLabel="不等于"></nz-option>

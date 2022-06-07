@@ -63,12 +63,12 @@ export class RulesComponent implements OnInit {
 
   /**
    * 删除规则
-   * @param i
+   * @param index
    */
-  delete(i: number): void {
-    // this.pages.deleteIndex(index).subscribe(v => {
-    //   this.getData();
-    //   this.message.success('规则删除成功');
-    // });
+  delete(index: number): void {
+    this.factory.deleteSchemaRule(this.id, index).subscribe(() => {
+      this.message.success('规则删除成功');
+      this.getData();
+    });
   }
 }

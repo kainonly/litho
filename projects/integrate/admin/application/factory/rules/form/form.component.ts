@@ -47,7 +47,7 @@ export class FormComponent implements OnInit {
   addCondition(): void {
     this.conditions.push(
       this.fb.group({
-        field: [null, [Validators.required]],
+        key: [null, [Validators.required]],
         operate: [null, [Validators.required]],
         value: [null, [Validators.required]]
       })

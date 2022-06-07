@@ -246,14 +246,32 @@ export interface Value {
 }
 
 export interface SchemaRule {
+  /**
+   * 逻辑
+   */
   logic: 'and' | 'or';
+  /**
+   * 条件
+   */
   conditions: SchemaRuleCondition[];
+  /**
+   * 显示字段
+   */
   keys: string[];
 }
 
 export interface SchemaRuleCondition {
-  field: string;
-  operate: 'eq' | 'neq' | 'in' | 'nin';
+  /**
+   * 字段
+   */
+  key: string;
+  /**
+   * 操作
+   */
+  operate: 'eq' | 'ne' | 'in' | 'nin';
+  /**
+   * 数值
+   */
   value: any;
 }
 
