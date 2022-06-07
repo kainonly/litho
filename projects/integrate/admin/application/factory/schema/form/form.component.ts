@@ -175,12 +175,15 @@ export class FormComponent implements OnInit {
     this.visibleOption = ['number', 'date', 'dates', 'radio', 'checkbox', 'select', 'ref'].includes(value);
   }
 
+  /**
+   * 枚举表单控件数组
+   */
   get optionValues(): FormArray {
     return this.form?.get('option')?.get('values') as FormArray;
   }
 
   /**
-   * 新增枚举
+   * 新增枚举表单控件组
    */
   addOptionValues(): void {
     this.optionValues.push(
@@ -192,7 +195,7 @@ export class FormComponent implements OnInit {
   }
 
   /**
-   * 移除枚举
+   * 移除枚举表单控件组
    * @param index
    */
   removeOptionValues(index: number): void {

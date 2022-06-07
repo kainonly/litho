@@ -51,6 +51,9 @@ export class IndexesComponent implements OnInit {
     this.modal.create({
       nzTitle: '新增索引',
       nzContent: FormComponent,
+      nzComponentParams: {
+        id: this.id
+      },
       nzOnOk: () => {
         this.getData();
       }

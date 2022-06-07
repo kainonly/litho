@@ -152,31 +152,6 @@ export class FactorySerivce extends Api<Page> {
   }
 
   /**
-   * 内容模型更新高级配置
-   * @param id
-   * @param data
-   */
-  updateSchemaAdvanced(id: string, data: any): Observable<any> {
-    return this.updateOneById(id, {
-      $set: {
-        'schema.event': data.event
-      }
-    });
-  }
-
-  /**
-   * 获取引用模型
-   */
-  getReferences(): Observable<Array<AnyDto<Page>>> {
-    return this.find(
-      { schema: { $exists: true } },
-      {
-        field: ['_id', 'name', 'schema']
-      }
-    );
-  }
-
-  /**
    * 获取索引
    */
   getIndexes(id: string): Observable<any> {
@@ -200,5 +175,30 @@ export class FactorySerivce extends Api<Page> {
    */
   deleteIndex(id: string, index: string): Observable<any> {
     return this.http.delete(this.url('_indexes', id, index));
+  }
+
+  /**
+   * 内容模型更新高级配置
+   * @param id
+   * @param data
+   */
+  updateSchemaAdvanced(id: string, data: any): Observable<any> {
+    return this.updateOneById(id, {
+      $set: {
+        'schema.event': data.event
+      }
+    });
+  }
+
+  /**
+   * 获取引用模型
+   */
+  getReferences(): Observable<Array<AnyDto<Page>>> {
+    return this.find(
+      { schema: { $exists: true } },
+      {
+        field: ['_id', 'name', 'schema']
+      }
+    );
   }
 }

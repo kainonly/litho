@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { NzMessageService } from 'ng-zorro-antd/message';
@@ -12,6 +12,10 @@ import { FactorySerivce } from '../../factory.serivce';
   templateUrl: './form.component.html'
 })
 export class FormComponent implements OnInit {
+  /**
+   * 页面单元 ID
+   */
+  @Input() id!: string;
   /**
    * 表单
    */
@@ -32,6 +36,9 @@ export class FormComponent implements OnInit {
     });
   }
 
+  /**
+   * 字段组
+   */
   get keys(): FormArray {
     return this.form?.get('keys') as FormArray;
   }
@@ -69,7 +76,7 @@ export class FormComponent implements OnInit {
    */
   submit(data: { keys: any[]; unique: boolean }): void {
     const index = `${!data.unique ? 'idx' : 'uk'}_${data.keys.map<any>(v => v.key).join('_')}`;
-    this.factory.createIndex(this.factory.page?._id!, index, data).subscribe(v => {
+    this.factory.createIndex(this.id, index, data).subscribe(v => {
       this.modal.triggerOk();
       this.message.success('索引更新完成');
     });

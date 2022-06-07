@@ -46,7 +46,7 @@
       <nz-form-item>
         <nz-form-label>字段描述</nz-form-label>
         <nz-form-control>
-          <textarea rows="4" nz-input formControlName="description" placeholder="字段描述"></textarea>
+          <textarea rows="2" nz-input formControlName="description" placeholder="字段描述"></textarea>
         </nz-form-control>
       </nz-form-item>
       <nz-form-item>
@@ -58,7 +58,7 @@
       <nz-form-item>
         <nz-form-label>默认值</nz-form-label>
         <nz-form-control>
-          <textarea rows="4" nz-input formControlName="default" placeholder="此值的默认值"></textarea>
+          <textarea rows="2" nz-input formControlName="default" placeholder="此值的默认值"></textarea>
         </nz-form-control>
       </nz-form-item>
     </nz-col>
@@ -66,7 +66,7 @@
       <nz-form-item>
         <nz-form-label nzRequired>关键词</nz-form-label>
         <nz-form-control nzExtra="表格搜索的通用条件">
-          <nz-switch formControlName="keyword" [nzDisabled]="page.manifest !== 'default'"></nz-switch>
+          <nz-switch formControlName="keyword" [nzDisabled]="page.manifest === 'form'"></nz-switch>
         </nz-form-control>
       </nz-form-item>
       <nz-form-item>
@@ -90,7 +90,7 @@
       <nz-form-item>
         <nz-form-label nzRequired>投影</nz-form-label>
         <nz-form-control>
-          <nz-radio-group formControlName="projection">
+          <nz-radio-group formControlName="projection" [nzDisabled]="page.manifest === 'form'">
             <label nz-radio-button [nzValue]="0">排除</label>
             <label nz-radio-button [nzValue]="1">包含</label>
             <label nz-radio-button [nzValue]="2">包含并脱敏</label>

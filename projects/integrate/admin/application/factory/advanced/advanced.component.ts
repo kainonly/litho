@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 
-import { PageManifest } from '@weplanx/ng';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 
@@ -21,10 +20,6 @@ export class AdvancedComponent implements OnInit {
    * 表单
    */
   form!: FormGroup;
-  /**
-   * 表现形式
-   */
-  manifest!: PageManifest;
 
   constructor(
     private message: NzMessageService,
@@ -50,7 +45,9 @@ export class AdvancedComponent implements OnInit {
    */
   getData(): void {
     this.factory.findOneById(this.id).subscribe(page => {
-      this.manifest = page.manifest!;
+      if (['form', 'hide'].includes(page.manifest!)) {
+        this.form.get('detail')?.disable();
+      }
       this.form.patchValue({
         event: page.schema?.event,
         detail: page.schema?.detail
