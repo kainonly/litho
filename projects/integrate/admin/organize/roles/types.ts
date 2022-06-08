@@ -8,13 +8,9 @@ export interface Role {
    */
   description?: string;
   /**
-   * 所属页面
+   * 授权页面
    */
-  pages?: string[];
-  /**
-   * 只读权限
-   */
-  readonly?: string[];
+  pages: Record<string, number>;
   /**
    * 标记
    */

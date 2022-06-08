@@ -8,7 +8,7 @@
   </button>
   <nz-dropdown-menu #menu="nzDropdownMenu">
     <ul nz-menu>
-      <li nz-menu-item (click)="page(data)">设置页面</li>
+      <li nz-menu-item (click)="setPages(data)">设置页面</li>
       <li nz-menu-item (click)="form(data)">编辑</li>
       <li nz-menu-item nzDanger (click)="delete(data)">删除</li>
     </ul>
@@ -25,7 +25,7 @@
   <wpx-table
     #table
     wpxKey="roles"
-    [wpxApi]="roles!"
+    [wpxApi]="roles"
     [wpxData]="data"
     [wpxFields]="fields"
     [wpxActions]="actions"

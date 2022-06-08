@@ -15,8 +15,14 @@ import { Role } from '../types';
   templateUrl: './form.component.html'
 })
 export class FormComponent implements OnInit {
+  /**
+   * 载入数据
+   */
   @Input() doc?: AnyDto<Role>;
-  form?: FormGroup;
+  /**
+   * 表单
+   */
+  form!: FormGroup;
 
   constructor(
     private modalRef: NzModalRef,
@@ -37,6 +43,10 @@ export class FormComponent implements OnInit {
     }
   }
 
+  /**
+   * 验证权限组名称是否存在
+   * @param control
+   */
   existsName = (control: AbstractControl): Observable<any> => {
     if (control.value === this.doc?.name) {
       return of(null);
@@ -44,12 +54,20 @@ export class FormComponent implements OnInit {
     return this.roles.existsName(control.value);
   };
 
+  /**
+   * 关闭表单
+   */
   close(): void {
     this.modalRef.triggerCancel();
   }
 
+  /**
+   * 提交
+   * @param value
+   */
   submit(value: any): void {
     if (!this.doc) {
+      value['pages'] = {};
       this.roles.create(value).subscribe(() => {
         this.message.success('数据新增完成');
         this.modalRef.triggerOk();
