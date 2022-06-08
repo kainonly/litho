@@ -64,7 +64,6 @@
 
   <ng-template #nzTreeTemplate let-node>
     <span class="custom-node" *ngIf="factory.dict?.[node.key] as page">
-      <div class="example-custom-placeholder" *cdkDragPlaceholder></div>
       <i *ngIf="page.icon" nz-icon [nzType]="page.icon"></i>
       <span>
         {{ page.name }}

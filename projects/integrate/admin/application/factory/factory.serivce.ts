@@ -8,15 +8,20 @@ import { NzTreeNodeOptions } from 'ng-zorro-antd/tree';
 @Injectable()
 export class FactorySerivce extends Api<Page> {
   protected override model = 'pages';
+  /**
+   * 页面单元字典
+   */
   dict: Record<string, AnyDto<Page>> = {};
-  page?: AnyDto<Page>;
 
   /**
    * 获取树形数据
    * @param filter
-   * @param selectable
+   * @param pipe
    */
-  getTreeNode(filter: Filter<Page> = {}, selectable = true): Observable<NzTreeNodeOptions[]> {
+  getTreeNode(
+    filter: Filter<Page> = {},
+    pipe?: (dict: Record<string, NzTreeNodeOptions>, page: AnyDto<Page>) => void
+  ): Observable<NzTreeNodeOptions[]> {
     return this.find(filter, { sort: { sort: 1 } }).pipe(
       map(v => {
         const nodes: NzTreeNodeOptions[] = [];
@@ -29,9 +34,11 @@ export class FactorySerivce extends Api<Page> {
             parent: x.parent,
             icon: x.icon,
             isLeaf: true,
-            expanded: true,
-            selectable: selectable || x.kind !== 'group'
+            expanded: true
           };
+          if (pipe) {
+            pipe(dict, x);
+          }
         }
         for (const x of v) {
           const options = dict[x._id];

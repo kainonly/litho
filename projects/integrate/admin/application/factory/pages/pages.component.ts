@@ -73,13 +73,17 @@ export class PagesComponent implements OnInit {
    * @param refresh
    */
   getData(refresh = false): void {
-    this.factory.getTreeNode({}, false).subscribe(v => {
-      this.nodes = [...v];
-      this.selectedKeys = [this.id];
-      if (refresh) {
-        this.message.success('刷新完毕~');
-      }
-    });
+    this.factory
+      .getTreeNode({}, (dict, page) => {
+        dict[page._id].selectable = page.kind !== 'group';
+      })
+      .subscribe(data => {
+        this.nodes = [...data];
+        this.selectedKeys = [this.id];
+        if (refresh) {
+          this.message.success('刷新完毕~');
+        }
+      });
   }
 
   /**
