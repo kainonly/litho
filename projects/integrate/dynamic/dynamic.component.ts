@@ -11,14 +11,13 @@ import { TableComponent } from './table/table.component';
 
 @Component({
   selector: 'wpx-dynamic',
-  template: `
-    <ng-container *ngIf="component">
-      <ng-container *cdkPortalOutlet="component"></ng-container>
-    </ng-container>
-  `
+  template: ` <ng-container *cdkPortalOutlet="component"></ng-container> `
 })
 export class WpxDynamicComponent implements OnInit {
-  component?: ComponentPortal<any>;
+  /**
+   * 动态组件
+   */
+  component!: ComponentPortal<any>;
 
   constructor(private wpx: WpxService, private route: ActivatedRoute, private dynamic: WpxDynamicService) {}
 

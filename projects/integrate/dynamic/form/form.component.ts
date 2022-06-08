@@ -34,6 +34,10 @@ export class FormComponent implements OnInit {
     this.rules = [...(schema?.rules ?? [])];
   }
 
+  /**
+   * 表单初始化
+   * @param e
+   */
   formInit(e: WpxFormInit): void {
     this.dynamic
       .count({})
@@ -52,30 +56,33 @@ export class FormComponent implements OnInit {
     this.format = e.format;
   }
 
+  /**
+   * 提交
+   * @param value
+   */
   submit = (value: any): void => {
-    console.log(value);
-    // if (!this.id) {
-    //   this.dynamic
-    //     .create(value, {
-    //       format_doc: this.format
-    //     })
-    //     .subscribe(() => {
-    //       this.message.success('数据新增完成');
-    //     });
-    // } else {
-    //   this.dynamic
-    //     .updateOneById(
-    //       this.id,
-    //       {
-    //         $set: value
-    //       },
-    //       {
-    //         format_doc: this.format
-    //       }
-    //     )
-    //     .subscribe(() => {
-    //       this.message.success('数据更新完成');
-    //     });
-    // }
+    if (!this.id) {
+      this.dynamic
+        .create(value, {
+          format_doc: this.format
+        })
+        .subscribe(() => {
+          this.message.success('数据新增完成');
+        });
+    } else {
+      this.dynamic
+        .updateOneById(
+          this.id,
+          {
+            $set: value
+          },
+          {
+            format_doc: this.format
+          }
+        )
+        .subscribe(() => {
+          this.message.success('数据更新完成');
+        });
+    }
   };
 }

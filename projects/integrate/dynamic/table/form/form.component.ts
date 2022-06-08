@@ -1,5 +1,4 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { FormGroup } from '@angular/forms';
 
 import { AnyDto, FormatDoc, SchemaField, SchemaRule } from '@weplanx/ng';
 import { WpxFormInit } from '@weplanx/ng/form';
