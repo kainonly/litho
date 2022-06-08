@@ -14,11 +14,22 @@ import { Department } from '../types';
   templateUrl: './form.component.html'
 })
 export class FormComponent implements OnInit {
+  /**
+   * 载入数据
+   */
   @Input() doc?: AnyDto<Department>;
-  @Input() nodes?: NzTreeNodeOptions[];
+  /**
+   * 预设父节点
+   */
   @Input() parent?: string;
-  parentNodes?: NzTreeNodeOptions[];
-  form?: FormGroup;
+  /**
+   * 节点
+   */
+  nodes: NzTreeNodeOptions[] = [];
+  /**
+   * 表单
+   */
+  form!: FormGroup;
 
   constructor(
     public wpx: WpxService,
@@ -29,9 +40,6 @@ export class FormComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    if (this.nodes) {
-      this.parentNodes = [...this.nodes];
-    }
     this.form = this.fb.group({
       name: [null, [Validators.required]],
       parent: [this.parent],
@@ -40,14 +48,25 @@ export class FormComponent implements OnInit {
     if (this.doc) {
       this.form.patchValue(this.doc);
     }
+    this.departments.getTreeNode(true).subscribe(v => {
+      this.nodes = [...v];
+    });
   }
 
+  /**
+   * 关闭表单
+   */
   close(): void {
     this.modalRef.triggerCancel();
   }
 
+  /**
+   * 提交
+   * @param value
+   */
   submit(value: any): void {
     if (!this.doc) {
+      value.sort = 9999;
       this.departments
         .create(value, {
           format_doc: {

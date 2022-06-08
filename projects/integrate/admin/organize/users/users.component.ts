@@ -18,16 +18,31 @@ import { UsersService } from './users.service';
   styleUrls: ['./users.component.scss']
 })
 export class UsersComponent implements OnInit, OnDestroy {
+  /**
+   * 部门视图
+   */
   @ViewChild(DepartmentsComponent) departments!: DepartmentsComponent;
+  /**
+   * 用户表格视图
+   */
   @ViewChild(WpxTableComponent) table!: WpxTableComponent<User>;
-  departmentId: string = '';
-  data: Data<AnyDto<User>> = new Data<AnyDto<User>>();
+  /**
+   * 字段
+   */
   fields: Map<string, TableField> = new Map<string, TableField>([
     ['username', { label: '用户名', type: 'string', keyword: true }],
     ['roles', { label: '权限组', type: 'ref', option: { reference: 'roles', target: 'name' } }],
     ['name', { label: '称呼', type: 'string' }],
     ['status', { label: '状态', type: 'bool' }]
   ]);
+  /**
+   * 当前部门 ID
+   */
+  departmentId: string = '';
+  /**
+   * 数据
+   */
+  data: Data<AnyDto<User>> = new Data<AnyDto<User>>();
 
   constructor(
     public users: UsersService,
@@ -89,7 +104,7 @@ export class UsersComponent implements OnInit, OnDestroy {
    * 设置部门
    * @param doc
    */
-  department(doc: AnyDto<User>): void {
+  setDepartment(doc: AnyDto<User>): void {
     this.modal.create({
       nzTitle: `设置【${doc.username}】部门`,
       nzContent: DepartmentComponent,

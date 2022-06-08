@@ -28,7 +28,8 @@ export class DepartmentsService extends Api<Department> {
             parent: x.parent ?? root,
             isLeaf: true,
             expanded: true,
-            selectable: selectable
+            selectable: selectable,
+            description: x.description
           };
         }
         for (const x of v) {

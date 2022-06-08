@@ -15,8 +15,17 @@ import { UsersService } from '../users.service';
   templateUrl: './department.component.html'
 })
 export class DepartmentComponent implements OnInit {
+  /**
+   * 载入数据
+   */
   @Input() doc!: AnyDto<User>;
+  /**
+   * 表单
+   */
   form!: FormGroup;
+  /**
+   * 节点
+   */
   nodes: NzTreeNodeOptions[] = [];
 
   constructor(
@@ -32,20 +41,27 @@ export class DepartmentComponent implements OnInit {
     this.form = this.fb.group({
       department: [null]
     });
-    this.departments.getTreeNode(true, null).subscribe(v => {
-      this.nodes = v;
-    });
     if (!!this.doc.department) {
       this.form.patchValue({
         department: this.doc.department
       });
     }
+    this.departments.getTreeNode(true).subscribe(v => {
+      this.nodes = [...v];
+    });
   }
 
+  /**
+   * 关闭表单
+   */
   close(): void {
     this.modalRef.triggerCancel();
   }
 
+  /**
+   * 提交
+   * @param value
+   */
   submit(value: any): void {
     this.users
       .updateOneById(

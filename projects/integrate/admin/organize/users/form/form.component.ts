@@ -5,7 +5,6 @@ import { Observable, of } from 'rxjs';
 import { AnyDto, WpxService, validates } from '@weplanx/ng';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalRef } from 'ng-zorro-antd/modal';
-import { NzUploadChangeParam } from 'ng-zorro-antd/upload';
 
 import { RolesService } from '../../roles/roles.service';
 import { Role } from '../../roles/types';
@@ -17,10 +16,25 @@ import { UsersService } from '../users.service';
   templateUrl: './form.component.html'
 })
 export class FormComponent implements OnInit {
+  /**
+   * 载入数据
+   */
   @Input() doc?: AnyDto<User>;
+  /**
+   * 部门 ID
+   */
   @Input() departmentId?: string;
-  form?: FormGroup;
+  /**
+   * 表单
+   */
+  form!: FormGroup;
+  /**
+   * 权限组列表
+   */
   roleList: Array<AnyDto<Role>> = [];
+  /**
+   * 密码可视
+   */
   passwordVisible = false;
 
   constructor(
@@ -45,12 +59,16 @@ export class FormComponent implements OnInit {
       avatar: [null],
       status: [true, [Validators.required]]
     });
-    this.getRoles();
     if (this.doc) {
       this.form.patchValue(this.doc);
     }
+    this.getRoles();
   }
 
+  /**
+   * 检测用户名是否存在
+   * @param control
+   */
   existsUsername = (control: AbstractControl): Observable<any> => {
     if (control.value === this.doc?.username) {
       return of(null);
@@ -58,6 +76,10 @@ export class FormComponent implements OnInit {
     return this.users.existsUsername(control.value);
   };
 
+  /**
+   * 验证密码安全性
+   * @param control
+   */
   validedPassword = (control: AbstractControl): any => {
     if (!control.value) {
       return !this.doc ? { required: true } : null;
@@ -65,6 +87,9 @@ export class FormComponent implements OnInit {
     return validates.password(control.value);
   };
 
+  /**
+   * 获取权限组
+   */
   getRoles(): void {
     this.roles
       .find(
@@ -78,10 +103,17 @@ export class FormComponent implements OnInit {
       });
   }
 
+  /**
+   * 关闭表单
+   */
   close(): void {
     this.modalRef.triggerCancel();
   }
 
+  /**
+   * 提交
+   * @param value
+   */
   submit(value: any): void {
     if (!this.doc) {
       if (this.departmentId) {

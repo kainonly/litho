@@ -13,18 +13,50 @@ import { Department } from './types';
 
 @Component({
   selector: 'wpx-admin-departments',
-  templateUrl: './departments.component.html'
+  templateUrl: './departments.component.html',
+  styleUrls: ['./departments.component.scss']
 })
 export class DepartmentsComponent implements OnInit {
-  @ViewChild('tree') tree!: NzTreeComponent;
-  nodes: NzTreeNodeOptions[] = [];
-  searchText = '';
-  expand = true;
-  actionKey?: string;
-  selectedKeys: string[] = [];
-
+  /**
+   * 部门 ID
+   */
   @Input() id!: string;
+  /**
+   * 部门 ID 变更
+   */
   @Output() readonly idChange: EventEmitter<string> = new EventEmitter<string>();
+  /**
+   * 树视图
+   */
+  @ViewChild('tree') tree!: NzTreeComponent;
+  /**
+   * 树视图节点
+   */
+  nodes: NzTreeNodeOptions[] = [];
+  /**
+   * 搜索
+   */
+  searchText = '';
+  /**
+   * 展开状态
+   */
+  expand = true;
+  /**
+   * 操作 ID
+   */
+  actionId?: string;
+  /**
+   * 选中状态
+   */
+  selectedKeys: string[] = [];
+  /**
+   * 重组树视图
+   */
+  reorganizationVisible: boolean = false;
+  /**
+   * 重组节点
+   */
+  reorganizationNodes: NzTreeNodeOptions[] = [];
 
   constructor(
     public departments: DepartmentsService,
@@ -37,6 +69,9 @@ export class DepartmentsComponent implements OnInit {
     this.getData();
   }
 
+  /**
+   * 获取数据
+   */
   getData(): void {
     this.departments.getTreeNode().subscribe(v => {
       this.nodes = [{ title: `全部`, key: 'root', expanded: true, selectable: false, children: v }];
@@ -44,11 +79,18 @@ export class DepartmentsComponent implements OnInit {
     });
   }
 
+  /**
+   * 切换展开状态
+   */
   expanded(): void {
     this.expand = !this.expand;
     expandTreeNodes(this.tree.getTreeNodes(), this.expand);
   }
 
+  /**
+   * 选中
+   * @param e
+   */
   selected(e: NzFormatEmitEvent): void {
     if (!e.node || e.node.isSelected) {
       return;
@@ -62,18 +104,27 @@ export class DepartmentsComponent implements OnInit {
     this.idChange.next(this.id);
   }
 
+  /**
+   * 操作
+   * @param $event
+   * @param menu
+   */
   actions($event: NzFormatEmitEvent, menu: NzDropdownMenuComponent): void {
-    this.actionKey = $event.node!.key;
+    this.actionId = $event.node!.key;
     this.nzContextMenu.create($event.event as MouseEvent, menu);
   }
 
+  /**
+   * 打开表单
+   * @param doc
+   * @param parent
+   */
   form(doc?: any, parent?: string): void {
     this.modal.create({
       nzTitle: !doc ? '新增' : `编辑【${doc.name}】`,
       nzContent: FormComponent,
       nzComponentParams: {
         doc,
-        nodes: this.nodes[0].children,
         parent
       },
       nzOnOk: () => {
@@ -104,10 +155,40 @@ export class DepartmentsComponent implements OnInit {
   }
 
   /**
+   * 开启重组
+   */
+  openReorganization(): void {
+    this.reorganizationVisible = true;
+    this.reorganizationNodes = this.formatReorganizationNodes([...this.nodes]);
+  }
+
+  /**
+   * 禁止选中
+   * @param nodes
+   */
+  formatReorganizationNodes(nodes: NzTreeNodeOptions[]): NzTreeNodeOptions[] {
+    return nodes.map(v => {
+      if (v.children) {
+        this.formatReorganizationNodes(v.children);
+      }
+      v.selectable = false;
+      v.selected = false;
+      return v;
+    });
+  }
+
+  /**
+   * 关闭重组
+   */
+  closeReorganization(): void {
+    this.reorganizationVisible = false;
+  }
+
+  /**
    * 拖拽重组
    * @param event
    */
-  drop(event: NzFormatEmitEvent): void {
+  reorganization(event: NzFormatEmitEvent): void {
     if (!event.dragNode) {
       return;
     }

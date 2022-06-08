@@ -53,7 +53,7 @@ export class PagesComponent implements OnInit {
    */
   reorganizationVisible: boolean = false;
   /**
-   *
+   * 重组节点
    */
   reorganizationNodes: NzTreeNodeOptions[] = [];
 
