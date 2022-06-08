@@ -70,7 +70,7 @@ export class FormComponent implements OnInit {
       option: []
     });
     if (this.doc) {
-      this.setType(this.doc.type);
+      this.setType(this.doc);
       this.form.patchValue(this.doc);
       this.form.markAsTouched();
     } else {
@@ -97,12 +97,12 @@ export class FormComponent implements OnInit {
 
   /**
    * 按字段类型设置扩展配置
-   * @param value
+   * @param doc
    * @private
    */
-  private setType(value: string): void {
-    this.type = value;
-    switch (value) {
+  private setType(doc: SchemaField): void {
+    this.type = doc.type;
+    switch (this.type) {
       case 'number':
         /**
          * 数字类型初始化
@@ -139,6 +139,7 @@ export class FormComponent implements OnInit {
             values: this.fb.array([])
           })
         );
+        doc.option?.values?.forEach(() => this.addOptionValues());
         break;
       case 'select':
         /**
@@ -151,6 +152,7 @@ export class FormComponent implements OnInit {
             multiple: [false]
           })
         );
+        doc.option?.values?.forEach(() => this.addOptionValues());
         break;
       case 'ref':
         /**
@@ -172,7 +174,7 @@ export class FormComponent implements OnInit {
         });
         break;
     }
-    this.visibleOption = ['number', 'date', 'dates', 'radio', 'checkbox', 'select', 'ref'].includes(value);
+    this.visibleOption = ['number', 'date', 'dates', 'radio', 'checkbox', 'select', 'ref'].includes(this.type);
   }
 
   /**
@@ -202,6 +204,9 @@ export class FormComponent implements OnInit {
     this.optionValues.removeAt(index);
   }
 
+  /**
+   * 引用模型表单控件
+   */
   get optionReference(): FormControl {
     return this.form?.get('option')?.get('reference') as FormControl;
   }

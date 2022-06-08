@@ -42,12 +42,32 @@ let windowAny: any = window;
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class WpxRichtextComponent implements ControlValueAccessor, AfterViewInit, OnDestroy {
+  /**
+   * 内容提示
+   */
   @Input() wpxPlaceholder?: string;
+  /**
+   * 媒体等待提示图
+   */
   @Input() wpxFallback?: string;
 
+  /**
+   * 标题
+   */
   title = '';
+  /**
+   * 加载状态
+   */
   loading = true;
-  private value?: any;
+  /**
+   * 默认值
+   * @private
+   */
+  private value: any = {};
+  /**
+   * EditorJS
+   * @private
+   */
   private instance?: any;
   private onChange?: (value: any) => void;
   private onTouched?: () => void;
@@ -70,8 +90,15 @@ export class WpxRichtextComponent implements ControlValueAccessor, AfterViewInit
     this.onTouched = fn;
   }
 
+  /**
+   * 载入数据
+   * @param value
+   */
   writeValue(value: any): void {
-    this.value = value ?? {};
+    if (value) {
+      this.value = value;
+      this.title = value.title;
+    }
   }
 
   ngAfterViewInit(): void {
@@ -142,6 +169,12 @@ export class WpxRichtextComponent implements ControlValueAccessor, AfterViewInit
     });
   }
 
+  /**
+   * 开启媒体
+   * @param type
+   * @param done
+   * @private
+   */
   private openMediaView(type: MediaType, done: ResolveDone): void {
     this.modal.create({
       nzBodyStyle: { background: '#f0f2f5' },

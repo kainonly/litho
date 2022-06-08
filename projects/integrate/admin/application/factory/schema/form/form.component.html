@@ -169,7 +169,7 @@
                   <nz-input-group [formGroupName]="i" nzCompact [ngStyle]="{ 'margin-top': isFirst ? null : '-1px' }">
                     <input style="width: 45%" type="text" nz-input formControlName="label" placeholder="元素名称" />
                     <input style="width: 45%" type="text" nz-input formControlName="value" placeholder="元素值" />
-                    <button nz-button nzType="default" style="width: 10%" (click)="removeOptionValues(i)">
+                    <button style="width: 10%" nz-button type="button" nzType="default" (click)="removeOptionValues(i)">
                       <i nz-icon nzType="minus-circle"></i>
                     </button>
                   </nz-input-group>

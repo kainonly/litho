@@ -199,7 +199,7 @@
   </ng-container>
   <nz-form-item *ngIf="!wpxSubmitHide">
     <nz-form-control>
-      <button nz-button nzType="primary">提交</button>
+      <button nz-button nzType="primary" [disabled]="!form.valid">提交</button>
     </nz-form-control>
   </nz-form-item>
 </form>

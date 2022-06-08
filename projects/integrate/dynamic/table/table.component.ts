@@ -14,9 +14,21 @@ import { FormComponent } from './form/form.component';
   templateUrl: './table.component.html'
 })
 export class TableComponent implements OnInit {
+  /**
+   * 表格视图
+   */
   @ViewChild(WpxTableComponent) table!: WpxTableComponent<any>;
+  /**
+   * 表格唯一键
+   */
   key!: string;
+  /**
+   * 设置字段
+   */
   fields!: Map<string, TableField>;
+  /**
+   * 数据
+   */
   data: Data<any> = new Data<any>();
 
   constructor(public dynamic: WpxDynamicService, private modal: NzModalService, private message: NzMessageService) {}
@@ -32,6 +44,10 @@ export class TableComponent implements OnInit {
     ]);
   }
 
+  /**
+   * 打开表单
+   * @param doc
+   */
   form(doc?: any): void {
     this.modal.create({
       nzTitle: !doc ? '新增' : '编辑',
@@ -66,6 +82,9 @@ export class TableComponent implements OnInit {
     });
   }
 
+  /**
+   * 批量删除
+   */
   bulkDelete(): void {
     this.modal.confirm({
       nzTitle: '您确定要删除这些数据吗?',

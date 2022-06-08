@@ -1,8 +1,9 @@
-<wpx-form
-  #wpxForm
-  [wpxFields]="fields"
-  [wpxRules]="rules"
-  [wpxSubmitHide]="true"
-  [wpxSubmit]="submit"
-  (wpxInit)="formInit($event)"
-></wpx-form>
+<nz-card>
+  <wpx-form
+    #wpxForm
+    [wpxFields]="fields"
+    [wpxRules]="rules"
+    [wpxSubmit]="submit"
+    (wpxInit)="formInit($event)"
+  ></wpx-form>
+</nz-card>

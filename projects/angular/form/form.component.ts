@@ -12,15 +12,43 @@ import { WpxFormInit } from './types';
   templateUrl: './form.component.html'
 })
 export class WpxFormComponent implements OnInit {
+  /**
+   * 载入字段
+   */
   @Input() wpxFields!: SchemaField[];
+  /**
+   * 载入显隐规则
+   */
   @Input() wpxRules!: SchemaRule[];
+  /**
+   * 隐藏提交按钮
+   */
   @Input() wpxSubmitHide = false;
+  /**
+   * 提交
+   * @param value 提交数据
+   */
   @Input() wpxSubmit = (value: any): void => {};
+  /**
+   * 初始化回调
+   */
   @Output() readonly wpxInit: EventEmitter<WpxFormInit> = new EventEmitter<WpxFormInit>();
 
+  /**
+   * 表单
+   */
   form!: FormGroup;
+  /**
+   * 引用
+   */
   references: Record<string, Value[]> = {};
+  /**
+   * 无限
+   */
   infinity = Infinity;
+  /**
+   * 复选集合
+   */
   checkBoxOptions: Record<string, NzCheckBoxOptionInterface[]> = {};
 
   constructor(private fb: FormBuilder, private api: ApiService) {}
