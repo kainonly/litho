@@ -1,3 +1,5 @@
+import { ComponentPortal } from '@angular/cdk/portal';
+import { ComponentType } from '@angular/cdk/portal/portal';
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { AsyncSubject, BehaviorSubject, Observable, switchMap, timer } from 'rxjs';
@@ -38,6 +40,10 @@ export class WpxService {
    * 用户信息
    */
   user?: UserInfo;
+  /**
+   * 作用域
+   */
+  scopes: Map<string, ComponentPortal<any>> = new Map<string, ComponentPortal<any>>();
 
   constructor(private http: HttpClient, private storage: StorageMap) {}
 
@@ -242,5 +248,14 @@ export class WpxService {
    */
   logs<T>(name: string, filter: Filter<T>, options?: FindOption<T>): Observable<Array<AnyDto<T>>> {
     return this.http.get<Array<AnyDto<T>>>(`api/${name}`, httpOptions(options as ApiOptions<T>, filter));
+  }
+
+  /**
+   * 设置作用域
+   * @param key 注册键名
+   * @param component 组件
+   */
+  setScope<T>(key: string, component: ComponentType<T>): void {
+    this.scopes.set(key, new ComponentPortal<T>(component));
   }
 }

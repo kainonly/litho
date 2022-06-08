@@ -6,7 +6,7 @@ import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalRef } from 'ng-zorro-antd/modal';
 
 import { FactorySerivce } from '../../factory.serivce';
-import { fieldTypes } from '../../values';
+import { fieldTypes, hasOption } from '../../values';
 
 @Component({
   selector: 'wpx-admin-factory-schema-form',
@@ -70,7 +70,7 @@ export class FormComponent implements OnInit {
       option: []
     });
     if (this.doc) {
-      this.setType(this.doc);
+      this.setType(this.doc.type);
       this.form.patchValue(this.doc);
       this.form.markAsTouched();
     } else {
@@ -97,11 +97,11 @@ export class FormComponent implements OnInit {
 
   /**
    * 按字段类型设置扩展配置
-   * @param doc
+   * @param type
    * @private
    */
-  private setType(doc: SchemaField): void {
-    this.type = doc.type;
+  private setType(type: string): void {
+    this.type = type;
     switch (this.type) {
       case 'number':
         /**
@@ -139,7 +139,7 @@ export class FormComponent implements OnInit {
             values: this.fb.array([])
           })
         );
-        doc.option?.values?.forEach(() => this.addOptionValues());
+        this.doc?.option?.values?.forEach(() => this.addOptionValues());
         break;
       case 'select':
         /**
@@ -152,7 +152,7 @@ export class FormComponent implements OnInit {
             multiple: [false]
           })
         );
-        doc.option?.values?.forEach(() => this.addOptionValues());
+        this.doc?.option?.values?.forEach(() => this.addOptionValues());
         break;
       case 'ref':
         /**
@@ -161,8 +161,8 @@ export class FormComponent implements OnInit {
         this.form.setControl(
           'option',
           this.fb.group({
-            reference: [null],
-            target: [null],
+            reference: [null, [Validators.required]],
+            target: [null, [Validators.required]],
             multiple: [false]
           })
         );
@@ -173,8 +173,19 @@ export class FormComponent implements OnInit {
           }
         });
         break;
+      case 'manual':
+        /**
+         * 自定义类型
+         */
+        this.form.setControl(
+          'option',
+          this.fb.group({
+            scope: [null, [Validators.required]]
+          })
+        );
+        break;
     }
-    this.visibleOption = ['number', 'date', 'dates', 'radio', 'checkbox', 'select', 'ref'].includes(this.type);
+    this.visibleOption = hasOption.includes(this.type);
   }
 
   /**

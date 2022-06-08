@@ -14,6 +14,7 @@ import { NZ_CONFIG, NzConfig } from 'ng-zorro-antd/core/config';
 import { NZ_I18N, zh_CN } from 'ng-zorro-antd/i18n';
 
 import { AppComponent } from './app.component';
+import { ManualModule } from './manual/manual.module';
 
 registerLocaleData(zh);
 
@@ -76,6 +77,7 @@ if (!environment.production) {
     BrowserAnimationsModule,
     HttpClientModule,
     ShareModule,
+    ManualModule,
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: environment.production,
       registrationStrategy: 'registerWhenStable:30000'

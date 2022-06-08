@@ -142,7 +142,8 @@ export type ComplexType =
   | 'richtext' // 富文本
   | 'picture' // 图片
   | 'video' // 视频
-  | 'file'; // 文件
+  | 'file' // 文件
+  | 'manual'; // 自定义
 
 export interface SchemaField {
   /**
@@ -232,6 +233,10 @@ export interface SchemaFieldOption {
    * 多选
    */
   multiple: boolean;
+  /**
+   * 作用域
+   */
+  scope: string;
 }
 
 export interface Value {

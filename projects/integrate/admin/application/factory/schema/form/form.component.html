@@ -208,7 +208,7 @@
         <ng-container *ngSwitchCase="'ref'">
           <nz-col [nzSpan]="12">
             <nz-form-item>
-              <nz-form-label>引用模型</nz-form-label>
+              <nz-form-label nzRequired>引用模型</nz-form-label>
               <nz-form-control>
                 <input
                   placeholder="请输入引用模型"
@@ -226,7 +226,7 @@
           </nz-col>
           <nz-col [nzSpan]="12">
             <nz-form-item>
-              <nz-form-label>目标字段</nz-form-label>
+              <nz-form-label nzRequired>目标字段</nz-form-label>
               <nz-form-control>
                 <input placeholder="请输入目标字段" nz-input formControlName="target" [nzAutocomplete]="autoTarget" />
                 <nz-autocomplete #autoTarget>
@@ -244,6 +244,23 @@
               <nz-form-label>支持多选</nz-form-label>
               <nz-form-control>
                 <nz-switch formControlName="multiple"></nz-switch>
+              </nz-form-control>
+            </nz-form-item>
+          </nz-col>
+        </ng-container>
+        <ng-container *ngSwitchCase="'manual'">
+          <nz-col [nzSpan]="12">
+            <nz-form-item>
+              <nz-form-label nzRequired>作用域</nz-form-label>
+              <nz-form-control
+                nzHasFeedback
+                [nzAutoTips]="{
+                  default: {
+                    required: '作用域不能为空'
+                  }
+                }"
+              >
+                <input nz-input formControlName="scope" placeholder="自定义组件的唯一标识" />
               </nz-form-control>
             </nz-form-item>
           </nz-col>

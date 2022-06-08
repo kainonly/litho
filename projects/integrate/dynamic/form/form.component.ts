@@ -53,28 +53,29 @@ export class FormComponent implements OnInit {
   }
 
   submit = (value: any): void => {
-    if (!this.id) {
-      this.dynamic
-        .create(value, {
-          format_doc: this.format
-        })
-        .subscribe(() => {
-          this.message.success('数据新增完成');
-        });
-    } else {
-      this.dynamic
-        .updateOneById(
-          this.id,
-          {
-            $set: value
-          },
-          {
-            format_doc: this.format
-          }
-        )
-        .subscribe(() => {
-          this.message.success('数据更新完成');
-        });
-    }
+    console.log(value);
+    // if (!this.id) {
+    //   this.dynamic
+    //     .create(value, {
+    //       format_doc: this.format
+    //     })
+    //     .subscribe(() => {
+    //       this.message.success('数据新增完成');
+    //     });
+    // } else {
+    //   this.dynamic
+    //     .updateOneById(
+    //       this.id,
+    //       {
+    //         $set: value
+    //       },
+    //       {
+    //         format_doc: this.format
+    //       }
+    //     )
+    //     .subscribe(() => {
+    //       this.message.success('数据更新完成');
+    //     });
+    // }
   };
 }

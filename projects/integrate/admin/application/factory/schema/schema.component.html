@@ -37,13 +37,31 @@
           <ng-container *ngIf="data.hide">
             <nz-tag>隐藏字段</nz-tag>
           </ng-container>
-          <ng-container *ngIf="data.type === 'ref'">
-            <nz-tag>
-              <span>{{ data.option?.reference }}.{{ data.option?.target }}</span>
-            </nz-tag>
+          <ng-container *ngIf="data.default">
+            <nz-tag>存在默认值</nz-tag>
           </ng-container>
-          <ng-container *ngIf="!!data.default">
-            <nz-tag>默认值</nz-tag>
+          <ng-container *ngIf="data.keyword">
+            <nz-tag>关键词</nz-tag>
+          </ng-container>
+          <ng-container *ngIf="data.readonly">
+            <nz-tag>只读</nz-tag>
+          </ng-container>
+          <ng-container *ngIf="data.type === 'number'">
+            <nz-tag>最大值:{{ data.option?.max ?? '∞' }}</nz-tag>
+            <nz-tag>最小值:{{ data.option?.min ?? '∞' }}</nz-tag>
+            <nz-tag>保留小数:{{ data.option?.decimal }}</nz-tag>
+          </ng-container>
+          <ng-container *ngIf="data.option?.time">
+            <nz-tag>包含时间</nz-tag>
+          </ng-container>
+          <ng-container *ngIf="data.type === 'ref'">
+            <nz-tag> 引用:{{ data.option?.reference }}.{{ data.option?.target }} </nz-tag>
+          </ng-container>
+          <ng-container *ngIf="data.option?.multiple">
+            <nz-tag>多选</nz-tag>
+          </ng-container>
+          <ng-container *ngIf="data.option?.scope">
+            <nz-tag>作用域:{{ data.option?.scope }}</nz-tag>
           </ng-container>
         </td>
         <td nzRight nzAlign="center">

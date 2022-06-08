@@ -1,7 +1,8 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { CdkPortalOutletAttachedRef } from '@angular/cdk/portal';
+import { Component, ComponentRef, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
-import { FormatDoc, SchemaField, SchemaRule, Value } from '@weplanx/ng';
+import { FormatDoc, SchemaField, SchemaRule, Value, WpxService } from '@weplanx/ng';
 import { NzCheckBoxOptionInterface } from 'ng-zorro-antd/checkbox';
 
 import { ApiService } from './api.service';
@@ -51,7 +52,7 @@ export class WpxFormComponent implements OnInit {
    */
   checkBoxOptions: Record<string, NzCheckBoxOptionInterface[]> = {};
 
-  constructor(private fb: FormBuilder, private api: ApiService) {}
+  constructor(private fb: FormBuilder, private api: ApiService, public wpx: WpxService) {}
 
   ngOnInit(): void {
     const controlsConfig: Record<string, any[]> = {};
@@ -89,5 +90,16 @@ export class WpxFormComponent implements OnInit {
       form: this.form,
       format
     });
+  }
+
+  /**
+   * 关联配置
+   * @param ref
+   * @param field
+   */
+  setInput(ref: CdkPortalOutletAttachedRef, field: SchemaField): void {
+    ref = ref as ComponentRef<any>;
+    ref.instance['form'] = this.form;
+    ref.instance['field'] = field;
   }
 }

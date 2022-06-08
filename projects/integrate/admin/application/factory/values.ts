@@ -20,7 +20,10 @@ export const fieldTypes = [
       ['richtext', '富文本'],
       ['picture', '图片'],
       ['video', '视频'],
-      ['file', '附件']
+      ['file', '附件'],
+      ['manual', '自定义']
     ]
   }
 ];
+
+export const hasOption = ['number', 'date', 'dates', 'radio', 'checkbox', 'select', 'ref', 'manual'];

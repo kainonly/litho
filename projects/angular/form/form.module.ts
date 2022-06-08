@@ -1,3 +1,4 @@
+import { PortalModule } from '@angular/cdk/portal';
 import { NgModule } from '@angular/core';
 
 import { WpxModule, WpxShareModule } from '@weplanx/ng';
@@ -9,7 +10,7 @@ import { ApiService } from './api.service';
 import { WpxFormComponent } from './form.component';
 
 @NgModule({
-  imports: [WpxModule, WpxShareModule, WpxMediaModule, WpxRichtextModule, WpxCheckboxModule],
+  imports: [WpxModule, WpxShareModule, WpxMediaModule, WpxRichtextModule, WpxCheckboxModule, PortalModule],
   declarations: [WpxFormComponent],
   exports: [WpxFormComponent],
   providers: [ApiService]

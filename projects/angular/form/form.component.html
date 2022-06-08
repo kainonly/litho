@@ -195,6 +195,12 @@
           </nz-form-control>
         </nz-form-item>
       </ng-container>
+      <ng-container *ngSwitchCase="'manual'">
+        <ng-template
+          [cdkPortalOutlet]="wpx.scopes.get(field.option!.scope!)"
+          (attached)="setInput($event, field)"
+        ></ng-template>
+      </ng-container>
     </ng-container>
   </ng-container>
   <nz-form-item *ngIf="!wpxSubmitHide">
