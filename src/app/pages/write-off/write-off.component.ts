@@ -10,6 +10,6 @@ export class WriteOffComponent implements OnInit {
   @Input() page!: AnyDto<Page>;
 
   ngOnInit(): void {
-    console.log(this.page);
+    // console.log(this.page);
   }
 }

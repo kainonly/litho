@@ -1,29 +1,22 @@
-<ng-template #titleRef>
-  <input
-    style="text-align: center"
-    nz-input
-    placeholder="标题"
-    nzBorderless
-    [(ngModel)]="title"
-    (ngModelChange)="setTitle()"
-  />
-</ng-template>
-
-<ng-template #extraRef>
-  <nz-button-group>
-    <button
-      nz-button
-      type="button"
-      nzType="text"
-      nz-popconfirm
-      nzPopconfirmTitle="您确认要清除编辑内容吗?"
-      nzPopconfirmPlacement="bottom"
-      (nzOnConfirm)="clear()"
-      ><i nz-icon nzType="clear"></i>
-    </button>
-  </nz-button-group>
-</ng-template>
-
-<nz-card [nzLoading]="loading" [nzBorderless]="false" [nzTitle]="titleRef" [nzExtra]="extraRef">
-  <div #article></div>
-</nz-card>
+<nz-page-header class="cdx-header">
+  <nz-page-header-title>
+    <input nz-input placeholder="标题" nzBorderless [(ngModel)]="title" (ngModelChange)="setTitle()" />
+  </nz-page-header-title>
+  <nz-page-header-extra>
+    <nz-button-group>
+      <button
+        nz-button
+        type="button"
+        nzType="text"
+        nz-popconfirm
+        nzPopconfirmTitle="您确认要清除编辑内容吗?"
+        nzPopconfirmPlacement="bottom"
+        (nzOnConfirm)="clear()"
+        ><i nz-icon nzType="clear"></i>
+      </button>
+    </nz-button-group>
+  </nz-page-header-extra>
+  <nz-page-header-content>
+    <div #article class="cdx-article"></div>
+  </nz-page-header-content>
+</nz-page-header>

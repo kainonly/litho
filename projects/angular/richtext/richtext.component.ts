@@ -12,7 +12,7 @@ import {
   ViewEncapsulation
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { from } from 'rxjs';
+import { AsyncSubject, from } from 'rxjs';
 
 import { WpxService } from '@weplanx/ng';
 import { MediaType, WpxMediaViewComponent } from '@weplanx/ng/media';
@@ -50,7 +50,10 @@ export class WpxRichtextComponent implements ControlValueAccessor, AfterViewInit
    * 媒体等待提示图
    */
   @Input() wpxFallback?: string;
-
+  /**
+   * 文章视图
+   */
+  @ViewChild('article', { static: true }) article!: ElementRef;
   /**
    * 标题
    */
@@ -61,9 +64,12 @@ export class WpxRichtextComponent implements ControlValueAccessor, AfterViewInit
   loading = true;
   /**
    * 默认值
-   * @private
    */
-  private value: any = {};
+  value: any = {};
+  /**
+   * 完成载入
+   */
+  $complete: AsyncSubject<unknown> = new AsyncSubject<unknown>();
   /**
    * EditorJS
    * @private
@@ -71,8 +77,6 @@ export class WpxRichtextComponent implements ControlValueAccessor, AfterViewInit
   private instance?: any;
   private onChange?: (value: any) => void;
   private onTouched?: () => void;
-
-  @ViewChild('article') article!: ElementRef;
 
   constructor(
     private platform: Platform,
@@ -97,7 +101,9 @@ export class WpxRichtextComponent implements ControlValueAccessor, AfterViewInit
   writeValue(value: any): void {
     if (value) {
       this.value = value;
-      this.title = value.title;
+      this.title = value?.title;
+      this.$complete.next(undefined);
+      this.$complete.complete();
     }
   }
 
@@ -105,12 +111,14 @@ export class WpxRichtextComponent implements ControlValueAccessor, AfterViewInit
     if (!this.platform.isBrowser) {
       return;
     }
-    if (window.hasOwnProperty('EditorJS')) {
-      this.initialize();
-      return;
-    }
-    this.richtext.loadScript().subscribe(() => {
-      this.initialize();
+    this.$complete.subscribe(() => {
+      if (window.hasOwnProperty('EditorJS')) {
+        this.initialize();
+        return;
+      }
+      this.richtext.loadScript().subscribe(() => {
+        this.initialize();
+      });
     });
   }
 
@@ -203,7 +211,7 @@ export class WpxRichtextComponent implements ControlValueAccessor, AfterViewInit
   private editorValue(): void {
     from(this.instance?.save() as Promise<any>).subscribe(data => {
       this.value = {
-        ...this.value,
+        title: this.title,
         ...data
       };
       this.onChange!(this.value);
@@ -225,8 +233,8 @@ export class WpxRichtextComponent implements ControlValueAccessor, AfterViewInit
    * 清除内容
    */
   clear(): void {
-    this.instance.blocks.clear();
     this.title = '';
+    this.instance.blocks.clear();
     this.value = {};
     this.onChange!(this.value);
   }

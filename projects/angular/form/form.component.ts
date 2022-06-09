@@ -55,6 +55,7 @@ export class WpxFormComponent implements OnInit {
   constructor(private fb: FormBuilder, private api: ApiService, public wpx: WpxService) {}
 
   ngOnInit(): void {
+    // console.log(this.wpxRules);
     const controlsConfig: Record<string, any[]> = {};
     const format: Record<string, FormatDoc> = {};
     for (const x of this.wpxFields) {
