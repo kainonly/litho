@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { of, switchMap } from 'rxjs';
 
 import { FormatDoc, SchemaField, SchemaRule } from '@weplanx/ng';
-import { WpxFormInit } from '@weplanx/ng/form';
+import { WpxFormComponent, WpxFormInit } from '@weplanx/ng/form';
 import { NzMessageService } from 'ng-zorro-antd/message';
 
 import { WpxDynamicService } from '../dynamic.service';
@@ -12,6 +12,7 @@ import { WpxDynamicService } from '../dynamic.service';
   templateUrl: './form.component.html'
 })
 export class FormComponent implements OnInit {
+  @ViewChild(WpxFormComponent) wpxForm!: WpxFormComponent;
   private id?: string;
   /**
    * 设置字段
@@ -50,8 +51,9 @@ export class FormComponent implements OnInit {
         if (!data) {
           return;
         }
-        this.id = data._id;
         e.form.patchValue(data);
+        this.id = data._id;
+        this.wpxForm.updateDisplays();
       });
     this.format = e.format;
   }
