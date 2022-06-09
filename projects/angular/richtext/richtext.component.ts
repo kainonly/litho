@@ -111,14 +111,14 @@ export class WpxRichtextComponent implements ControlValueAccessor, AfterViewInit
     if (!this.platform.isBrowser) {
       return;
     }
-    this.$complete.subscribe(() => {
-      if (window.hasOwnProperty('EditorJS')) {
-        this.initialize();
-        return;
-      }
-      this.richtext.loadScript().subscribe(() => {
+    if (window.hasOwnProperty('EditorJS')) {
+      this.$complete.subscribe(() => {
         this.initialize();
       });
+      return;
+    }
+    this.richtext.loadScript().subscribe(() => {
+      this.initialize();
     });
   }
 
