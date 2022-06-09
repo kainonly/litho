@@ -18,7 +18,9 @@ export class WpxDynamicService extends Api<any> {
     return this.http.get<AnyDto<Page>>(`pages/${id}`).pipe(
       map(v => {
         this.page = v;
-        this.model = v.schema!.key;
+        if (v.schema?.key) {
+          this.model = v.schema!.key;
+        }
         return v;
       })
     );

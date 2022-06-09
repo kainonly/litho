@@ -1,3 +1,6 @@
+import { ComponentPortal } from '@angular/cdk/portal';
+import { ComponentType } from '@angular/cdk/portal/portal';
+
 export type R = Record<string, any>;
 export interface BasicDto extends R {
   /**
@@ -319,6 +322,17 @@ export interface Manual {
    * 权限细粒化
    */
   policies: Record<string, any>;
+}
+
+export interface ComponentTypeOption<T> {
+  /**
+   * 名称
+   */
+  name: string;
+  /**
+   * 组件
+   */
+  component: ComponentPortal<T>;
 }
 
 /**

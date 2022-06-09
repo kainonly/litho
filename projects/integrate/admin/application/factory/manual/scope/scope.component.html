@@ -1,0 +1,26 @@
+<form *ngIf="form" nz-form nzLayout="vertical" id="form" [formGroup]="form" (wpxSubmit)="submit($event)">
+  <nz-form-item>
+    <nz-form-label nzRequired>自定义页面</nz-form-label>
+    <nz-form-control
+      nzHasFeedback
+      [nzAutoTips]="{
+        default: {
+          required: '请选择接入页面'
+        }
+      }"
+    >
+      <nz-select formControlName="scope" nzPlaceHolder="请选择自定义组件">
+        <ng-container *ngFor="let x of wpx.scopes | keyvalue">
+          <nz-option [nzValue]="x.key" [nzLabel]="x.value.name" nzCustomContent>
+            {{ x.value.name }} [{{ x.key }}]
+          </nz-option>
+        </ng-container>
+      </nz-select>
+    </nz-form-control>
+  </nz-form-item>
+</form>
+
+<div *nzModalFooter>
+  <button nz-button type="button" nzType="default" (click)="close()">取消</button>
+  <button nz-button nzType="primary" form="form" [disabled]="!form?.valid">提交</button>
+</div>

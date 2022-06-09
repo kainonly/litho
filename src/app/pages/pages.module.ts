@@ -7,6 +7,7 @@ import { WpxHeaderModule, WpxNavModule, WpxDynamicComponent, WpxDynamicModule } 
 import { EmptyComponent } from './empty/empty.component';
 import { PagesActivated } from './pages.activated';
 import { PagesComponent } from './pages.component';
+import { WriteOffModule } from './write-off/write-off.module';
 
 const routes: Routes = [
   {
@@ -28,7 +29,14 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [ShareModule, WpxHeaderModule, WpxNavModule, WpxDynamicModule, RouterModule.forChild(routes)],
+  imports: [
+    ShareModule,
+    WpxHeaderModule,
+    WpxNavModule,
+    WpxDynamicModule,
+    RouterModule.forChild(routes),
+    WriteOffModule
+  ],
   declarations: [PagesComponent, EmptyComponent],
   providers: [PagesActivated]
 })

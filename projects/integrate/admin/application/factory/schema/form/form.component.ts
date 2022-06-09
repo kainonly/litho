@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
-import { AnyDto, Page, SchemaField } from '@weplanx/ng';
+import { AnyDto, Page, SchemaField, WpxService } from '@weplanx/ng';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalRef } from 'ng-zorro-antd/modal';
 
@@ -47,6 +47,7 @@ export class FormComponent implements OnInit {
   referenceDict: Record<string, SchemaField[]> = {};
 
   constructor(
+    public wpx: WpxService,
     private modal: NzModalRef,
     private factory: FactorySerivce,
     private fb: FormBuilder,
@@ -183,6 +184,7 @@ export class FormComponent implements OnInit {
             component: [null, [Validators.required]]
           })
         );
+        console.log(this.wpx.components.entries());
         break;
     }
     this.visibleOption = hasOption.includes(this.type);

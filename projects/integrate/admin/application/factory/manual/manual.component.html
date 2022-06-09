@@ -8,11 +8,19 @@
         </nz-list-item-meta-description>
       </nz-list-item-meta>
       <nz-descriptions nzSize="small" nzBordered [nzColumn]="2">
-        <nz-descriptions-item nzTitle="唯一标识"> xzasd </nz-descriptions-item>
-        <nz-descriptions-item nzTitle="页面备注"> 测试页 </nz-descriptions-item>
+        <nz-descriptions-item nzTitle="唯一标识">
+          {{ page?.manual?.scope ?? '未设置' }}
+        </nz-descriptions-item>
+        <nz-descriptions-item nzTitle="页面备注">
+          <ng-container *ngIf="page?.manual?.scope as key; else unknow">
+            <ng-container *ngIf="wpx.scopes.get(key) as scope">
+              {{ scope.name }}
+            </ng-container>
+          </ng-container>
+        </nz-descriptions-item>
       </nz-descriptions>
       <nz-list-item-extra>
-        <button nz-button nzType="primary" nzShape="circle" nz-tooltip="设置">
+        <button nz-button nzType="primary" nzShape="circle" nz-tooltip="设置" (click)="setScope()">
           <i nz-icon nzType="tool"></i>
         </button>
       </nz-list-item-extra>
@@ -33,16 +41,18 @@
         </thead>
         <tbody>
           <tr *ngFor="let data of basicTable.data">
-            <td>{{ data.key }}</td>
-            <td>{{ data.value }}</td>
+            <td>{{ data[0] }}</td>
+            <td>{{ data[1] }}</td>
           </tr>
         </tbody>
       </nz-table>
       <nz-list-item-extra>
-        <button nz-button nzType="primary" nzShape="circle" nz-tooltip="设置">
+        <button nz-button nzType="primary" nzShape="circle" nz-tooltip="设置" [disabled]="true">
           <i nz-icon nzType="tool"></i>
         </button>
       </nz-list-item-extra>
     </nz-list-item>
   </nz-list>
 </nz-card>
+
+<ng-template #unknow>未设置</ng-template>

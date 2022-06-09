@@ -1,5 +1,5 @@
-import { ComponentPortal } from '@angular/cdk/portal';
-import { Component, OnInit } from '@angular/core';
+import { CdkPortalOutletAttachedRef, ComponentPortal } from '@angular/cdk/portal';
+import { Component, ComponentRef, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { map, switchMap } from 'rxjs';
 
@@ -13,7 +13,7 @@ import { TableComponent } from './table/table.component';
   selector: 'wpx-dynamic',
   template: `
     <ng-container *ngIf="component">
-      <ng-container *cdkPortalOutlet="component"></ng-container>
+      <ng-template [cdkPortalOutlet]="component" (attached)="setInput($event)"></ng-template>
     </ng-container>
   `
 })
@@ -44,8 +44,19 @@ export class WpxDynamicComponent implements OnInit {
             }
             break;
           case 'manual':
+            const manual = this.dynamic.page?.manual;
+            this.component = this.wpx.scopes.get(manual!.scope)?.component;
             break;
         }
       });
+  }
+
+  /**
+   * 关联配置
+   * @param ref
+   */
+  setInput(ref: CdkPortalOutletAttachedRef): void {
+    ref = ref as ComponentRef<any>;
+    ref.instance['page'] = this.dynamic.page;
   }
 }

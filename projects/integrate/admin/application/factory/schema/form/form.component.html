@@ -260,7 +260,13 @@
                   }
                 }"
               >
-                <input nz-input formControlName="component" placeholder="自定义组件的唯一标识" />
+                <nz-select formControlName="component" nzPlaceHolder="请选择自定义组件">
+                  <ng-container *ngFor="let x of wpx.components | keyvalue">
+                    <nz-option [nzValue]="x.key" [nzLabel]="x.value.name" nzCustomContent>
+                      {{ x.value.name }} [{{ x.key }}]
+                    </nz-option>
+                  </ng-container>
+                </nz-select>
               </nz-form-control>
             </nz-form-item>
           </nz-col>

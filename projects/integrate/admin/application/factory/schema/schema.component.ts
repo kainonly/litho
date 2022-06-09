@@ -2,7 +2,7 @@ import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
-import { AnyDto, Page, SchemaField } from '@weplanx/ng';
+import { AnyDto, Page, SchemaField, WpxService } from '@weplanx/ng';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalService } from 'ng-zorro-antd/modal';
 
@@ -34,6 +34,7 @@ export class SchemaComponent implements OnInit {
   fields: SchemaField[] = [];
 
   constructor(
+    public wpx: WpxService,
     private factory: FactorySerivce,
     private modal: NzModalService,
     private message: NzMessageService,

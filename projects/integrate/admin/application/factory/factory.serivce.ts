@@ -231,4 +231,17 @@ export class FactorySerivce extends Api<Page> {
       }
     );
   }
+
+  /**
+   * 更新接入页面
+   * @param id
+   * @param data
+   */
+  updateManualScope(id: string, data: any): Observable<any> {
+    return this.updateOneById(id, {
+      $set: {
+        'manual.scope': data.scope
+      }
+    });
+  }
 }

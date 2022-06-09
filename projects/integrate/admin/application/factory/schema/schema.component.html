@@ -60,8 +60,10 @@
           <ng-container *ngIf="data.option?.multiple">
             <nz-tag>多选</nz-tag>
           </ng-container>
-          <ng-container *ngIf="data.option?.component">
-            <nz-tag>组件:{{ data.option?.component }}</nz-tag>
+          <ng-container *ngIf="data.option?.component as key">
+            <ng-container *ngIf="wpx.components.get(key) as component">
+              <nz-tag>组件:{{ component.name }}[{{ key }}]</nz-tag>
+            </ng-container>
           </ng-container>
         </td>
         <td nzRight nzAlign="center">

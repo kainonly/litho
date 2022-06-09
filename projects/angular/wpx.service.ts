@@ -7,7 +7,7 @@ import { map } from 'rxjs/operators';
 
 import { StorageMap } from '@ngx-pwa/local-storage';
 
-import { AnyDto, ApiOptions, Filter, FindOption, Page, UploadOption, UserInfo } from './types';
+import { AnyDto, ApiOptions, ComponentTypeOption, Filter, FindOption, Page, UploadOption, UserInfo } from './types';
 import { httpOptions } from './util/helper';
 
 @Injectable({ providedIn: 'root' })
@@ -43,11 +43,11 @@ export class WpxService {
   /**
    * 自定义页面
    */
-  scopes: Map<string, ComponentPortal<any>> = new Map<string, ComponentPortal<any>>();
+  scopes: Map<string, ComponentTypeOption<any>> = new Map<string, ComponentTypeOption<any>>();
   /**
    * 自定义组件
    */
-  components: Map<string, ComponentPortal<any>> = new Map<string, ComponentPortal<any>>();
+  components: Map<string, ComponentTypeOption<any>> = new Map<string, ComponentTypeOption<any>>();
 
   constructor(private http: HttpClient, private storage: StorageMap) {}
 
@@ -257,18 +257,26 @@ export class WpxService {
   /**
    * 设置自定义页面
    * @param key 唯一标识
+   * @param name 名称
    * @param component 组件
    */
-  setScope<T>(key: string, component: ComponentType<T>): void {
-    this.scopes.set(key, new ComponentPortal<T>(component));
+  setScope<T>(key: string, name: string, component: ComponentType<T>): void {
+    this.scopes.set(key, {
+      name,
+      component: new ComponentPortal<T>(component)
+    });
   }
 
   /**
    * 设置自定义组件
    * @param key 唯一标识
+   * @param name 名称
    * @param component 组件
    */
-  setComponent<T>(key: string, component: ComponentType<T>): void {
-    this.components.set(key, new ComponentPortal<T>(component));
+  setComponent<T>(key: string, name: string, component: ComponentType<T>): void {
+    this.components.set(key, {
+      name,
+      component: new ComponentPortal<T>(component)
+    });
   }
 }
