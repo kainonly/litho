@@ -251,16 +251,16 @@
         <ng-container *ngSwitchCase="'manual'">
           <nz-col [nzSpan]="12">
             <nz-form-item>
-              <nz-form-label nzRequired>作用域</nz-form-label>
+              <nz-form-label nzRequired>组件标识</nz-form-label>
               <nz-form-control
                 nzHasFeedback
                 [nzAutoTips]="{
                   default: {
-                    required: '作用域不能为空'
+                    required: '组件标识不能为空'
                   }
                 }"
               >
-                <input nz-input formControlName="scope" placeholder="自定义组件的唯一标识" />
+                <input nz-input formControlName="component" placeholder="自定义组件的唯一标识" />
               </nz-form-control>
             </nz-form-item>
           </nz-col>

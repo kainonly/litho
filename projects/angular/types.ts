@@ -62,8 +62,8 @@ export type UpdateOneByIdOption<T> = Pick<ApiOptions<T>, 'format_doc' | 'array_f
 /**
  * 低码类型
  */
-export type PageKind = 'default' | 'aggregation' | 'group';
-export type PageManifest = 'default' | 'tree' | 'form' | 'hide' | 'dashboard';
+export type PageKind = 'default' | 'aggregation' | 'manual' | 'group';
+export type PageManifest = 'default' | 'form' | 'dashboard';
 export interface Page {
   /**
    * 父节点
@@ -86,13 +86,17 @@ export interface Page {
    */
   manifest?: PageManifest;
   /**
-   * 模型架构
+   * 模型架构，数据集是存在
    */
   schema?: Schema;
   /**
-   * 数据源
+   * 数据源，数据聚合是存在
    */
   source?: Source;
+  /**
+   * 自定义，自定义种类时存在
+   */
+  manual?: Manual;
   /**
    * 排序
    */
@@ -234,9 +238,9 @@ export interface SchemaFieldOption {
    */
   multiple: boolean;
   /**
-   * 作用域
+   * 组件标识
    */
-  scope: string;
+  component: string;
 }
 
 export interface Value {
@@ -304,6 +308,17 @@ export interface Panel {
    * 样式
    */
   style: any;
+}
+
+export interface Manual {
+  /**
+   * 页面标识，自定义页面接入命名
+   */
+  scope: string;
+  /**
+   * 权限细粒化
+   */
+  policies: Record<string, any>;
 }
 
 /**

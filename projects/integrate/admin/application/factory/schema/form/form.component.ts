@@ -180,7 +180,7 @@ export class FormComponent implements OnInit {
         this.form.setControl(
           'option',
           this.fb.group({
-            scope: [null, [Validators.required]]
+            component: [null, [Validators.required]]
           })
         );
         break;

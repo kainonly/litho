@@ -37,10 +37,19 @@ export class FactoryComponent implements OnInit {
    * @param id
    */
   selectedPage(id: string): void {
-    if (!!id) {
-      this.router.navigate(['admin', 'application', 'factory', id, 'schema']);
-    } else {
+    if (!id) {
       this.router.navigate(['admin', 'application', 'factory', 'home']);
+    } else {
+      switch (this.factory.dict[id].kind) {
+        case 'default':
+          this.router.navigate(['admin', 'application', 'factory', id, 'schema']);
+          break;
+        case 'aggregation':
+          break;
+        case 'manual':
+          this.router.navigate(['admin', 'application', 'factory', id, 'manual']);
+          break;
+      }
     }
   }
 }

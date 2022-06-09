@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output, TemplateRef, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { mergeMap } from 'rxjs';
 
 import { AnyDto, expandTreeNodes, Page } from '@weplanx/ng';

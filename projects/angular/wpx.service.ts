@@ -41,9 +41,13 @@ export class WpxService {
    */
   user?: UserInfo;
   /**
-   * 作用域
+   * 自定义页面
    */
   scopes: Map<string, ComponentPortal<any>> = new Map<string, ComponentPortal<any>>();
+  /**
+   * 自定义组件
+   */
+  components: Map<string, ComponentPortal<any>> = new Map<string, ComponentPortal<any>>();
 
   constructor(private http: HttpClient, private storage: StorageMap) {}
 
@@ -251,11 +255,20 @@ export class WpxService {
   }
 
   /**
-   * 设置作用域
-   * @param key 注册键名
+   * 设置自定义页面
+   * @param key 唯一标识
    * @param component 组件
    */
   setScope<T>(key: string, component: ComponentType<T>): void {
     this.scopes.set(key, new ComponentPortal<T>(component));
+  }
+
+  /**
+   * 设置自定义组件
+   * @param key 唯一标识
+   * @param component 组件
+   */
+  setComponent<T>(key: string, component: ComponentType<T>): void {
+    this.components.set(key, new ComponentPortal<T>(component));
   }
 }

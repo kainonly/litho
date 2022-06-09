@@ -197,7 +197,7 @@
       </ng-container>
       <ng-container *ngSwitchCase="'manual'">
         <ng-template
-          [cdkPortalOutlet]="wpx.scopes.get(field.option!.scope!)"
+          [cdkPortalOutlet]="wpx.components.get(field.option!.component!)"
           (attached)="setInput($event, field)"
         ></ng-template>
       </ng-container>

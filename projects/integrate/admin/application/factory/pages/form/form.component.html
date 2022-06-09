@@ -50,6 +50,7 @@
         <nz-option nzValue="aggregation" nzLabel="数据聚合" nzCustomContent>
           <i nz-icon nzType="calculator"></i> 数据聚合
         </nz-option>
+        <nz-option nzValue="manual" nzLabel="自定义" nzCustomContent> <i nz-icon nzType="code"></i> 自定义 </nz-option>
         <nz-option nzValue="group" nzLabel="导航分组" nzCustomContent>
           <i nz-icon nzType="group"></i> 导航分组
         </nz-option>
@@ -57,7 +58,7 @@
     </nz-form-control>
   </nz-form-item>
 
-  <ng-container *ngIf="form.get('kind')?.value !== 'group'">
+  <ng-container *ngIf="['default', 'aggregation'].includes(form.get('kind')?.value)">
     <nz-form-item>
       <nz-form-label nzRequired>形式</nz-form-label>
       <nz-form-control>
@@ -65,9 +66,7 @@
           <ng-container [ngSwitch]="form.get('kind')?.value">
             <ng-container *ngSwitchCase="'default'">
               <label nz-radio-button nzValue="default">标准表格</label>
-              <label nz-radio-button nzValue="tree">树形表格</label>
               <label nz-radio-button nzValue="form">独立表单</label>
-              <label nz-radio-button nzValue="hide">隐藏</label>
             </ng-container>
             <ng-container *ngSwitchCase="'aggregation'">
               <label nz-radio-button nzValue="default">标准表格</label>

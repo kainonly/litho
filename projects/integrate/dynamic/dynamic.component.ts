@@ -11,13 +11,17 @@ import { TableComponent } from './table/table.component';
 
 @Component({
   selector: 'wpx-dynamic',
-  template: ` <ng-container *cdkPortalOutlet="component"></ng-container> `
+  template: `
+    <ng-container *ngIf="component">
+      <ng-container *cdkPortalOutlet="component"></ng-container>
+    </ng-container>
+  `
 })
 export class WpxDynamicComponent implements OnInit {
   /**
    * 动态组件
    */
-  component!: ComponentPortal<any>;
+  component?: ComponentPortal<any>;
 
   constructor(private wpx: WpxService, private route: ActivatedRoute, private dynamic: WpxDynamicService) {}
 
@@ -38,6 +42,8 @@ export class WpxDynamicComponent implements OnInit {
                 this.component = new ComponentPortal<any>(FormComponent);
                 break;
             }
+            break;
+          case 'manual':
             break;
         }
       });

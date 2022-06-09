@@ -55,6 +55,9 @@
         <ng-container *ngSwitchCase="'aggregation'">
           <i nz-icon nzType="calculator" nzTheme="twotone"></i>
         </ng-container>
+        <ng-container *ngSwitchCase="'manual'">
+          <i nz-icon nzType="code" nzTheme="twotone"></i>
+        </ng-container>
         <ng-container *ngSwitchCase="'group'">
           <i nz-icon [nzType]="!node.isExpanded ? 'folder' : 'folder-open'" nzTheme="twotone"></i>
         </ng-container>
@@ -71,9 +74,7 @@
           [
           <ng-container [ngSwitch]="page.manifest">
             <ng-container *ngSwitchCase="'default'"> 标准表格 </ng-container>
-            <ng-container *ngSwitchCase="'tree'">树形表格</ng-container>
             <ng-container *ngSwitchCase="'form'">独立表单</ng-container>
-            <ng-container *ngSwitchCase="'hide'">隐藏</ng-container>
             <ng-container *ngSwitchCase="'dashboard'">仪表盘</ng-container>
           </ng-container>
           ]

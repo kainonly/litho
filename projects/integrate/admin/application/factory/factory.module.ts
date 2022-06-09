@@ -11,6 +11,8 @@ import { FactorySerivce } from './factory.serivce';
 import { HomeComponent } from './home/home.component';
 import { IndexesComponent } from './indexes/indexes.component';
 import { IndexesModule } from './indexes/indexes.module';
+import { ManualComponent } from './manual/manual.component';
+import { ManualModule } from './manual/manual.module';
 import { PagesModule } from './pages/pages.module';
 import { RulesComponent } from './rules/rules.component';
 import { RulesModule } from './rules/rules.module';
@@ -53,6 +55,13 @@ export const factory: Routes = [
       breadcrumb: '高级设置'
     }
   },
+  {
+    path: ':id/manual',
+    component: ManualComponent,
+    data: {
+      breadcrumb: '自定义设置'
+    }
+  },
   { path: '', redirectTo: '/admin/application/factory/home', pathMatch: 'full' }
 ];
 
@@ -65,7 +74,8 @@ export const factory: Routes = [
     SchemaModule,
     IndexesModule,
     RulesModule,
-    AdvancedModule
+    AdvancedModule,
+    ManualModule
   ],
   declarations: [FactoryComponent, HomeComponent],
   providers: [FactorySerivce]

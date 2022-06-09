@@ -15,7 +15,7 @@ export class AppComponent implements OnInit {
 
   ngOnInit(): void {
     this.wpx.setAssets(environment.cdn);
-    this.wpx.setScope('customize', CustomizeComponent);
+    this.wpx.setComponent('customize', CustomizeComponent);
     this.nzIconService.changeAssetsSource(environment.cdn);
   }
 }

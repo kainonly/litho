@@ -80,12 +80,17 @@ export class FormComponent implements OnInit {
    * @param value
    */
   changedKind(value: string): void {
-    if (value === 'group') {
+    if (['manual', 'group'].includes(value)) {
       this.form?.removeControl('manifest');
       this.form?.removeControl('schema');
-    } else {
+    }
+    if (['default', 'aggregation'].includes(value)) {
       this.form?.addControl('manifest', this.fb.control('default', [Validators.required]));
-      this.form?.addControl('schema', this.schema);
+      if (value === 'aggregation') {
+        this.form?.removeControl('schema');
+      } else {
+        this.form?.addControl('schema', this.schema);
+      }
     }
   }
 
@@ -103,8 +108,10 @@ export class FormComponent implements OnInit {
   submit(data: Page): void {
     if (!this.doc) {
       // 初始化 fields
-      data.schema!.fields = [];
       data.sort = 9999;
+      if (data.schema) {
+        data.schema.fields = [];
+      }
       this.factory
         .create(data, {
           format_doc: { parent: 'oid' }
