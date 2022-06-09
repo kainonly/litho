@@ -22,27 +22,27 @@ jobs:
           path: '~/.cache'
           key: ${{ env.COS_VERSION }}
 
-      - name: 安装 coscli
-        if: steps.cache.outputs.cache-hit != 'true'
-        run: |
-          mkdir -p ~/.cache
-          wget https://github.com/tencentyun/coscli/releases/download/${{ env.COS_VERSION }}/coscli-linux
-          mv ./coscli-linux ~/.cache/coscli
-          chmod +x ~/.cache/coscli
-          cat > ~/.cache/cos.yml << EOF
-          cos:
-            base:
-              secretid: ${{ secrets.COS_SECRETID }}
-              secretkey: ${{ secrets.COS_SECRETKEY }}
-              sessiontoken: ""
-            buckets:
-              - name: ${{ secrets.COS_BUCKET }}
-                alias: default
-                region: ap-guangzhou
-              - name: ${{ secrets.COS_BUCKET }}
-                alias: accelerate
-                region: accelerate
-          EOF
+#      - name: 安装 coscli
+#        if: steps.cache.outputs.cache-hit != 'true'
+#        run: |
+#          mkdir -p ~/.cache
+#          wget https://github.com/tencentyun/coscli/releases/download/${{ env.COS_VERSION }}/coscli-linux
+#          mv ./coscli-linux ~/.cache/coscli
+#          chmod +x ~/.cache/coscli
+#          cat > ~/.cache/cos.yml << EOF
+#          cos:
+#            base:
+#              secretid: ${{ secrets.COS_SECRETID }}
+#              secretkey: ${{ secrets.COS_SECRETKEY }}
+#              sessiontoken: ""
+#            buckets:
+#              - name: ${{ secrets.COS_BUCKET }}
+#                alias: default
+#                region: ap-guangzhou
+#              - name: ${{ secrets.COS_BUCKET }}
+#                alias: accelerate
+#                region: accelerate
+#          EOF
 
       - name: 安装 Node
         uses: actions/setup-node@v3
@@ -55,20 +55,20 @@ jobs:
       - name: 构建应用
         run: npm run build
 
-      - name: 静态部署
-        run: |
-          ~/.cache/coscli rm cos://default/ -r -f -c ~/.cache/cos.yml
-          ~/.cache/coscli cp ./dist/console/ cos://accelerate/ -r -c ~/.cache/cos.yml
+#      - name: 静态部署
+#        run: |
+#          ~/.cache/coscli rm cos://default/ -r -f -c ~/.cache/cos.yml
+#          ~/.cache/coscli cp ./dist/console/ cos://accelerate/ -r -c ~/.cache/cos.yml
 
-      - name: 自动刷新 CDN
-        uses: TencentCloud/cli-action@v1
-        with:
-          secret_id: ${{ secrets.COS_SECRETID }}
-          secret_key: ${{ secrets.COS_SECRETKEY }}
-          region: ap-guangzhou
-          commands: |
-            cdn PurgePathCache --cli-unfold-argument --Paths https://console.kainonly.com/ --FlushType delete
-          output_format: json
+#      - name: 自动刷新 CDN
+#        uses: TencentCloud/cli-action@v1
+#        with:
+#          secret_id: ${{ secrets.COS_SECRETID }}
+#          secret_key: ${{ secrets.COS_SECRETKEY }}
+#          region: ap-guangzhou
+#          commands: |
+#            cdn PurgePathCache --cli-unfold-argument --Paths https://console.kainonly.com/ --FlushType delete
+#          output_format: json
 
       - name: 静态文件打包
         run: |
