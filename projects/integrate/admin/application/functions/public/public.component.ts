@@ -1,7 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Type } from '@angular/core';
 
 import { WpxService } from '@weplanx/ng';
-import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalService } from 'ng-zorro-antd/modal';
 
 import { EmailComponent } from './email/email.component';
@@ -12,17 +11,23 @@ import { OpenapiComponent } from './openapi/openapi.component';
   templateUrl: './public.component.html'
 })
 export class PublicComponent implements OnInit {
+  /**
+   * 数据
+   */
   data: Record<string, any> = {};
 
-  constructor(private wpx: WpxService, private modal: NzModalService, private message: NzMessageService) {}
+  constructor(private wpx: WpxService, private modal: NzModalService) {}
 
   ngOnInit(): void {
     this.getData();
   }
 
+  /**
+   * 获取数据
+   */
   getData(): void {
     this.wpx
-      .getVars(
+      .getValues(
         'cdn',
         'email_host',
         'email_port',
@@ -32,15 +37,20 @@ export class PublicComponent implements OnInit {
         'openapi_key',
         'openapi_secret'
       )
-      .subscribe(v => {
-        this.data = v;
+      .subscribe(data => {
+        this.data = data;
       });
   }
 
-  email(): void {
+  /**
+   * 设置对话框
+   * @param component
+   * @private
+   */
+  private setModal(component: Type<{ data: Record<string, any> }>): void {
     this.modal.create({
       nzTitle: '设置',
-      nzContent: EmailComponent,
+      nzContent: component,
       nzComponentParams: {
         data: this.data
       },
@@ -50,16 +60,17 @@ export class PublicComponent implements OnInit {
     });
   }
 
-  openapi(): void {
-    this.modal.create({
-      nzTitle: '设置',
-      nzContent: OpenapiComponent,
-      nzComponentParams: {
-        data: this.data
-      },
-      nzOnOk: () => {
-        this.getData();
-      }
-    });
+  /**
+   * 设置电子邮件
+   */
+  setEmail(): void {
+    this.setModal(EmailComponent);
+  }
+
+  /**
+   * 设置开放接口
+   */
+  setOpenapi(): void {
+    this.setModal(OpenapiComponent);
   }
 }

@@ -1,6 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { forkJoin } from 'rxjs';
 
 import { WpxService } from '@weplanx/ng';
 import { NzMessageService } from 'ng-zorro-antd/message';
@@ -11,8 +10,14 @@ import { NzModalRef } from 'ng-zorro-antd/modal';
   templateUrl: './openapi.component.html'
 })
 export class OpenapiComponent implements OnInit {
+  /**
+   * 载入数据
+   */
   @Input() data!: Record<string, any>;
-  form?: FormGroup;
+  /**
+   * 表单
+   */
+  form!: FormGroup;
 
   constructor(
     public wpx: WpxService,
@@ -33,16 +38,19 @@ export class OpenapiComponent implements OnInit {
     });
   }
 
+  /**
+   * 关闭表单
+   */
   close(): void {
     this.modalRef.triggerCancel();
   }
 
-  submit(value: any): void {
-    forkJoin([
-      this.wpx.setVar('openapi_url', value.openapi_url),
-      this.wpx.setVar('openapi_key', value.openapi_key),
-      this.wpx.setVar('openapi_secret', value.openapi_secret)
-    ]).subscribe(() => {
+  /**
+   * 提交
+   * @param data
+   */
+  submit(data: any): void {
+    this.wpx.setValues(data).subscribe(() => {
       this.message.success('设置成功');
       this.modalRef.triggerOk();
     });

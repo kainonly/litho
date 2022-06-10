@@ -6,20 +6,28 @@
       </nz-list-item-meta>
       <nz-descriptions style="width: 800px" nzSize="small" nzLayout="vertical" nzBordered [nzColumn]="2">
         <nz-descriptions-item nzTitle="SMTP 地址">
-          {{ data['email_host'] | nzSafeNull: '未设置' }}
+          <ng-container *ngIf="data['email_host']; else unkown">
+            {{ data['email_host'] }}
+          </ng-container>
         </nz-descriptions-item>
         <nz-descriptions-item nzTitle="SMTP 端口号（SSL）">
-          {{ data['email_port'] | nzSafeNull: '未设置' }}
+          <ng-container *ngIf="data['email_port']; else unkown">
+            {{ data['email_port'] }}
+          </ng-container>
         </nz-descriptions-item>
         <nz-descriptions-item nzTitle="邮箱用户">
-          {{ data['email_username'] | nzSafeNull: '未设置' }}
+          <ng-container *ngIf="data['email_username']; else unkown">
+            {{ data['email_username'] }}
+          </ng-container>
         </nz-descriptions-item>
         <nz-descriptions-item nzTitle="密码">
-          {{ data['email_password'] | nzSafeNull: '未设置' }}
+          <ng-container *ngIf="data['email_password']; else unkown">
+            {{ data['email_password'] }}
+          </ng-container>
         </nz-descriptions-item>
       </nz-descriptions>
       <nz-list-item-extra>
-        <button nz-button nzType="primary" nzShape="circle" nz-tooltip="设置" (click)="email()">
+        <button nz-button nzType="primary" nzShape="circle" nz-tooltip="设置" (click)="setEmail()">
           <i nz-icon nzType="tool"></i>
         </button>
       </nz-list-item-extra>
@@ -30,20 +38,28 @@
       </nz-list-item-meta>
       <nz-descriptions style="width: 800px" nzSize="small" nzLayout="vertical" nzBordered [nzColumn]="2">
         <nz-descriptions-item nzTitle="地址" [nzSpan]="2">
-          {{ data['openapi_url'] | nzSafeNull: '未设置' }}
+          <ng-container *ngIf="data['openapi_url']; else unkown">
+            {{ data['openapi_url'] }}
+          </ng-container>
         </nz-descriptions-item>
         <nz-descriptions-item nzTitle="应用认证 Key">
-          {{ data['openapi_key'] | nzSafeNull: '未设置' }}
+          <ng-container *ngIf="data['openapi_key']; else unkown">
+            {{ data['openapi_key'] }}
+          </ng-container>
         </nz-descriptions-item>
         <nz-descriptions-item nzTitle="应用认证密钥">
-          {{ data['openapi_secret'] | nzSafeNull: '未设置' }}
+          <ng-container *ngIf="data['openapi_secret']; else unkown">
+            {{ data['openapi_secret'] }}
+          </ng-container>
         </nz-descriptions-item>
       </nz-descriptions>
       <nz-list-item-extra>
-        <button nz-button nzType="primary" nzShape="circle" nz-tooltip="设置" (click)="openapi()">
+        <button nz-button nzType="primary" nzShape="circle" nz-tooltip="设置" (click)="setOpenapi()">
           <i nz-icon nzType="tool"></i>
         </button>
       </nz-list-item-extra>
     </nz-list-item>
   </nz-list>
 </wpx-admin-functions-tabs>
+
+<ng-template #unkown>未设置</ng-template>
