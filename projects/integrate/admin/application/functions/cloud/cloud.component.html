@@ -21,10 +21,10 @@
         </nz-list-item-meta>
 
         <nz-descriptions
+          *ngIf="!!data['cloud_platform']"
           style="width: 800px"
           nzSize="small"
           nzBordered
-          *ngIf="!!data['cloud_platform']"
           nzLayout="vertical"
         >
           <nz-descriptions-item nzTitle="访问密钥ID（SECRETID）">{{ data['tencent_secret_id'] }}</nz-descriptions-item>
@@ -57,25 +57,33 @@
         <nz-list-item-meta>
           <nz-list-item-meta-title><b>对象存储</b></nz-list-item-meta-title>
           <nz-list-item-meta-description>
-            用于静态资源存储，访问地址请使用云平台设置加速的 CDN内容分发
+            将静态文件存储至 COS 对象存储，再通过 CDN 回源进行内容分发
           </nz-list-item-meta-description>
         </nz-list-item-meta>
-        <nz-descriptions nzSize="small" nzBordered [nzColumn]="2">
+        <nz-descriptions style="width: 800px" nzSize="small" nzBordered nzLayout="vertical" [nzColumn]="2">
           <nz-descriptions-item nzTitle="存储桶名称">
-            {{ data['tencent_cos_bucket'] | nzSafeNull: '未设置' }}
+            <ng-container *ngIf="data['tencent_cos_bucket']; else unknow">
+              {{ data['tencent_cos_bucket'] }}
+            </ng-container>
           </nz-descriptions-item>
           <nz-descriptions-item nzTitle="所属地域">
-            {{ data['tencent_cos_region'] | nzSafeNull: '未设置' }}
+            <ng-container *ngIf="data['tencent_cos_region']; else unknow">
+              {{ data['tencent_cos_region'] }}
+            </ng-container>
           </nz-descriptions-item>
           <nz-descriptions-item nzTitle="预签名有效期（秒）">
-            {{ data['tencent_cos_expired'] | nzSafeNull: '未设置' }}
+            <ng-container *ngIf="data['tencent_cos_expired']; else unknow">
+              {{ data['tencent_cos_expired'] / 1000000000 }}
+            </ng-container>
           </nz-descriptions-item>
           <nz-descriptions-item nzTitle="上传大小限制（KB）">
-            {{ data['tencent_cos_limit'] | nzSafeNull: '未设置' }}
+            <ng-container *ngIf="data['tencent_cos_limit']; else unknow">
+              {{ data['tencent_cos_limit'] }}
+            </ng-container>
           </nz-descriptions-item>
         </nz-descriptions>
         <nz-list-item-extra>
-          <button nz-button nzType="primary" nzShape="circle" nz-tooltip="设置">
+          <button nz-button nzType="primary" nzShape="circle" nz-tooltip="设置" (click)="setCos()">
             <i nz-icon nzType="tool"></i>
           </button>
         </nz-list-item-extra>
@@ -109,3 +117,5 @@
     </nz-list>
   </nz-card>
 </wpx-admin-functions-tabs>
+
+<ng-template #unknow>未设置</ng-template>

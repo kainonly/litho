@@ -1,6 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { forkJoin } from 'rxjs';
 
 import { WpxService } from '@weplanx/ng';
 import { NzMessageService } from 'ng-zorro-antd/message';
@@ -11,9 +10,23 @@ import { NzModalRef } from 'ng-zorro-antd/modal';
   templateUrl: './cos.component.html'
 })
 export class CosComponent implements OnInit {
+  /**
+   * 载入数据
+   */
   @Input() data!: Record<string, any>;
-  form?: FormGroup;
+  /**
+   * 表单
+   */
+  form!: FormGroup;
+  /**
+   * 秒格式化
+   * @param value
+   */
   formatterSec = (value: number): string => `${value} 秒`;
+  /**
+   * 存储单位格式化
+   * @param value
+   */
   formatterSize = (value: number): string => `${value} KB`;
 
   constructor(
@@ -27,23 +40,28 @@ export class CosComponent implements OnInit {
     this.form = this.fb.group({
       tencent_cos_bucket: [null, [Validators.required]],
       tencent_cos_region: [null, [Validators.required]],
-      tencent_cos_expired: [300, [Validators.required]],
-      tencent_cos_limit: [5120, [Validators.required]]
+      tencent_cos_expired: [null, [Validators.required]],
+      tencent_cos_limit: [null, [Validators.required]]
     });
-    this.form.patchValue(this.data);
+    const data = { ...this.data };
+    data['tencent_cos_expired'] = data['tencent_cos_expired'] / 1000000000;
+    this.form.patchValue(data);
   }
 
+  /**
+   * 关闭表单
+   */
   close(): void {
     this.modalRef.triggerCancel();
   }
 
-  submit(value: any): void {
-    forkJoin([
-      this.wpx.setVar('tencent_cos_bucket', value.tencent_cos_bucket),
-      this.wpx.setVar('tencent_cos_region', value.tencent_cos_region),
-      this.wpx.setVar('tencent_cos_expired', value.tencent_cos_expired),
-      this.wpx.setVar('tencent_cos_limit', value.tencent_cos_limit)
-    ]).subscribe(() => {
+  /**
+   * 提交
+   * @param data
+   */
+  submit(data: any): void {
+    data['tencent_cos_expired'] = data['tencent_cos_expired'] * 1000000000;
+    this.wpx.setValues(data).subscribe(() => {
       this.message.success('设置成功');
       this.modalRef.triggerOk();
     });

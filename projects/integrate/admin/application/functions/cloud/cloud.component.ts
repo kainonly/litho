@@ -4,6 +4,7 @@ import { WpxService } from '@weplanx/ng';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalService } from 'ng-zorro-antd/modal';
 
+import { CosComponent } from './cos/cos.component';
 import { PlatformComponent } from './platform/platform.component';
 
 @Component({
@@ -64,6 +65,13 @@ export class CloudComponent implements OnInit {
    */
   setPlatform(): void {
     this.setModal(PlatformComponent);
+  }
+
+  /**
+   * 设置对象存储
+   */
+  setCos(): void {
+    this.setModal(CosComponent);
   }
 
   /**
