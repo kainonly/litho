@@ -1,4 +1,35 @@
-<form *ngIf="form" nz-form nzLayout="vertical" id="form" [formGroup]="form" (wpxSubmit)="submit($event)">
+<form nz-form nzLayout="vertical" id="form" [formGroup]="form" (wpxSubmit)="submit($event)">
+  <nz-form-item>
+    <nz-form-label nzRequired>第三方平台</nz-form-label>
+    <nz-form-control>
+      <nz-radio-group formControlName="office_platform">
+        <label nz-radio nzValue="feishu">
+          <nz-avatar
+            nzShape="square"
+            nzSize="large"
+            [nzSrc]="['assets', 'office', 'feishu.png'] | wpxAssets"
+          ></nz-avatar>
+          <b style="margin-left: 0.5em">飞书</b>
+        </label>
+        <label nz-radio nzValue="dingtalk" nzDisabled>
+          <nz-avatar
+            nzShape="square"
+            nzSize="large"
+            [nzSrc]="['assets', 'office', 'dingtalk.png'] | wpxAssets"
+          ></nz-avatar>
+          <b style="margin-left: 0.5em">钉钉</b>
+        </label>
+        <label nz-radio nzValue="work-weixin" nzDisabled>
+          <nz-avatar
+            nzShape="square"
+            nzSize="large"
+            [nzSrc]="['assets', 'office', 'work-weixin.png'] | wpxAssets"
+          ></nz-avatar>
+          <b style="margin-left: 0.5em">企业微信</b>
+        </label>
+      </nz-radio-group>
+    </nz-form-control>
+  </nz-form-item>
   <nz-form-item>
     <nz-form-label nzRequired>飞书应用 ID</nz-form-label>
     <nz-form-control

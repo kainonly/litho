@@ -1,6 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { forkJoin } from 'rxjs';
 
 import { WpxService } from '@weplanx/ng';
 import { NzMessageService } from 'ng-zorro-antd/message';
@@ -11,8 +10,14 @@ import { NzModalRef } from 'ng-zorro-antd/modal';
   templateUrl: './redirect.component.html'
 })
 export class RedirectComponent implements OnInit {
+  /**
+   * 载入数据
+   */
   @Input() data!: Record<string, any>;
-  form?: FormGroup;
+  /**
+   * 表单
+   */
+  form!: FormGroup;
 
   constructor(
     public wpx: WpxService,
@@ -28,12 +33,19 @@ export class RedirectComponent implements OnInit {
     this.form.patchValue(this.data);
   }
 
+  /**
+   * 关闭表单
+   */
   close(): void {
     this.modalRef.triggerCancel();
   }
 
-  submit(value: any): void {
-    forkJoin([this.wpx.setVar('redirect_url', value.redirect_url)]).subscribe(() => {
+  /**
+   * 提交
+   * @param data
+   */
+  submit(data: any): void {
+    this.wpx.setValues(data).subscribe(() => {
       this.message.success('设置成功');
       this.modalRef.triggerOk();
     });
