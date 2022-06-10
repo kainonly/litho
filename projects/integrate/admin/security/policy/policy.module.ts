@@ -8,14 +8,12 @@ import { PasswordExpireComponent } from './password-expire/password-expire.compo
 import { PasswordStrengthComponent } from './password-strength/password-strength.component';
 import { PolicyComponent } from './policy.component';
 import { SessionExpireComponent } from './session-expire/session-expire.component';
-import { TimeParsePipe } from './time.parse.pipe';
 import { UserLockComponent } from './user-lock/user-lock.component';
 
 @NgModule({
   imports: [WpxModule, WpxShareModule],
   declarations: [
     PolicyComponent,
-    TimeParsePipe,
     SessionExpireComponent,
     UserLockComponent,
     IpLockComponent,

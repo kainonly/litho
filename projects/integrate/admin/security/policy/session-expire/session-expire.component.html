@@ -1,4 +1,4 @@
-<form *ngIf="form" nz-form nzLayout="vertical" id="form" [formGroup]="form" (wpxSubmit)="submit($event)">
+<form nz-form nzLayout="vertical" id="form" [formGroup]="form" (wpxSubmit)="submit($event)">
   <nz-form-item>
     <nz-form-label nzRequired>会话超时</nz-form-label>
     <nz-form-control
@@ -10,14 +10,13 @@
         }
       }"
     >
-      <nz-input-group nzCompact>
-        <nz-input-number style="width: 75%" formControlName="number" [nzMin]="1" [nzStep]="1"></nz-input-number>
-        <nz-select style="width: 25%" formControlName="unit">
-          <nz-option nzValue="h" nzLabel="小时"></nz-option>
-          <nz-option nzValue="m" nzLabel="分钟"></nz-option>
-          <nz-option nzValue="s" nzLabel="秒"></nz-option>
-        </nz-select>
-      </nz-input-group>
+      <nz-input-number
+        style="width: 100%"
+        formControlName="user_session_expire"
+        [nzFormatter]="formatterSec"
+        [nzMin]="0"
+        [nzStep]="1"
+      ></nz-input-number>
     </nz-form-control>
   </nz-form-item>
 </form>

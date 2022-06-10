@@ -4,7 +4,7 @@
       <nz-list-item-meta>
         <nz-list-item-meta-title><b>会话超时策略</b></nz-list-item-meta-title>
         <nz-list-item-meta-description>
-          用户在 {{ data['user_session_expire'] | TimeParse }}内没有操作，退出当前帐号。
+          用户在 {{ data['user_session_expire'] / 1000000000 }} 秒内没有操作，退出当前帐号。
         </nz-list-item-meta-description>
       </nz-list-item-meta>
       <nz-list-item-extra>
@@ -17,8 +17,8 @@
       <nz-list-item-meta>
         <nz-list-item-meta-title><b>帐号锁定策略</b></nz-list-item-meta-title>
         <nz-list-item-meta-description>
-          在 {{ data['user_lock_time'] | TimeParse }}内， 登录失败 {{ data['user_login_failed_times'] }} 次， 锁定帐号
-          {{ data['user_lock_time'] | TimeParse }}。
+          在 {{ data['user_lock_time'] / 1000000000 }} 秒内， 登录失败 {{ data['user_login_failed_times'] }} 次，
+          锁定帐号 {{ data['user_lock_time'] / 1000000000 }} 秒。
         </nz-list-item-meta-description>
       </nz-list-item-meta>
       <nz-list-item-extra>
@@ -44,7 +44,7 @@
       <nz-list-item-meta>
         <nz-list-item-meta-title><b>IP 名单</b></nz-list-item-meta-title>
       </nz-list-item-meta>
-      <nz-table style="width: 40%" #basicTable [nzData]="ipList" [nzHideOnSinglePage]="true">
+      <nz-table style="width: 800px" #basicTable [nzData]="ipList" [nzHideOnSinglePage]="true">
         <thead>
           <tr>
             <th nzWidth="200px"><b>种类</b></th>

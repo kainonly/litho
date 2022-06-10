@@ -1,6 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { forkJoin } from 'rxjs';
 
 import { WpxService } from '@weplanx/ng';
 import { NzMessageService } from 'ng-zorro-antd/message';
@@ -11,9 +10,24 @@ import { NzModalRef } from 'ng-zorro-antd/modal';
   templateUrl: './user-lock.component.html'
 })
 export class UserLockComponent implements OnInit {
+  /**
+   * 载入数据
+   */
   @Input() data!: Record<string, any>;
-  form?: FormGroup;
+  /**
+   * 表单
+   */
+  form!: FormGroup;
+  /**
+   * 次数
+   * @param value
+   */
   formatterTimes = (value: number): string => `${value} 次`;
+  /**
+   * 秒
+   * @param value
+   */
+  formatterSec = (value: number): string => `${value} 秒`;
 
   constructor(
     public wpx: WpxService,
@@ -24,28 +38,29 @@ export class UserLockComponent implements OnInit {
 
   ngOnInit(): void {
     this.form = this.fb.group({
-      times: [5, [Validators.required]],
-      number: [15, [Validators.required]],
-      unit: ['m', [Validators.required]]
+      user_login_failed_times: [0, [Validators.required]],
+      user_lock_time: [0, [Validators.required]]
     });
-    const value = this.data['user_lock_time'];
-    const l = value.length;
     this.form.patchValue({
-      times: this.data['user_login_failed_times'],
-      number: value.slice(0, l - 1),
-      unit: value[l - 1]
+      user_login_failed_times: this.data['user_login_failed_times'],
+      user_lock_time: this.data['user_lock_time'] / 1000000000
     });
   }
 
+  /**
+   * 关闭表单
+   */
   close(): void {
     this.modalRef.triggerCancel();
   }
 
-  submit(value: any): void {
-    forkJoin([
-      this.wpx.setVar('user_login_failed_times', value.times),
-      this.wpx.setVar('user_lock_time', `${value.number}${value.unit}`)
-    ]).subscribe(() => {
+  /**
+   * 提交
+   * @param data
+   */
+  submit(data: any): void {
+    data['user_lock_time'] = data['user_lock_time'] * 1000000000;
+    this.wpx.setValues(data).subscribe(() => {
       this.message.success('设置成功');
       this.modalRef.triggerOk();
     });

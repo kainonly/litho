@@ -10,8 +10,18 @@ import { NzModalRef } from 'ng-zorro-antd/modal';
   templateUrl: './password-expire.component.html'
 })
 export class PasswordExpireComponent implements OnInit {
+  /**
+   * 载入数据
+   */
   @Input() data!: Record<string, any>;
-  form?: FormGroup;
+  /**
+   * 表单
+   */
+  form!: FormGroup;
+  /**
+   * 天
+   * @param value
+   */
   formatterTimes = (value: number): string => `${value} 天`;
 
   constructor(
@@ -23,19 +33,24 @@ export class PasswordExpireComponent implements OnInit {
 
   ngOnInit(): void {
     this.form = this.fb.group({
-      day: [365, [Validators.required]]
+      password_expire: [0, [Validators.required]]
     });
-    this.form.patchValue({
-      day: this.data['password_expire']
-    });
+    this.form.patchValue(this.data);
   }
 
+  /**
+   * 关闭表单
+   */
   close(): void {
     this.modalRef.triggerCancel();
   }
 
-  submit(value: any): void {
-    this.wpx.setVar('password_expire', value.day).subscribe(() => {
+  /**
+   * 提交
+   * @param data
+   */
+  submit(data: any): void {
+    this.wpx.setValues(data).subscribe(() => {
       this.message.success('设置成功');
       this.modalRef.triggerOk();
     });

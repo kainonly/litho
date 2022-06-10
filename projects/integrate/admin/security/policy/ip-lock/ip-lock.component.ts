@@ -10,8 +10,18 @@ import { NzModalRef } from 'ng-zorro-antd/modal';
   templateUrl: './ip-lock.component.html'
 })
 export class IpLockComponent implements OnInit {
+  /**
+   * 载入数据
+   */
   @Input() data!: Record<string, any>;
-  form?: FormGroup;
+  /**
+   * 表单
+   */
+  form!: FormGroup;
+  /**
+   * 次数
+   * @param value
+   */
   formatterTimes = (value: number): string => `${value} 次`;
 
   constructor(
@@ -23,19 +33,24 @@ export class IpLockComponent implements OnInit {
 
   ngOnInit(): void {
     this.form = this.fb.group({
-      times: [10, [Validators.required]]
+      ip_login_failed_times: [10, [Validators.required]]
     });
-    this.form.patchValue({
-      times: this.data['ip_login_failed_times']
-    });
+    this.form.patchValue(this.data);
   }
 
+  /**
+   * 关闭表单
+   */
   close(): void {
     this.modalRef.triggerCancel();
   }
 
-  submit(value: any): void {
-    this.wpx.setVar('ip_login_failed_times', value.times).subscribe(() => {
+  /**
+   * 提交
+   * @param data
+   */
+  submit(data: any): void {
+    this.wpx.setValues(data).subscribe(() => {
       this.message.success('设置成功');
       this.modalRef.triggerOk();
     });

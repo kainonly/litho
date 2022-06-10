@@ -20,8 +20,14 @@ import { NzModalRef } from 'ng-zorro-antd/modal';
   ]
 })
 export class PasswordStrengthComponent implements OnInit {
+  /**
+   * 载入数据
+   */
   @Input() data!: Record<string, any>;
-  form?: FormGroup;
+  /**
+   * 表单
+   */
+  form!: FormGroup;
 
   constructor(
     public wpx: WpxService,
@@ -32,19 +38,24 @@ export class PasswordStrengthComponent implements OnInit {
 
   ngOnInit(): void {
     this.form = this.fb.group({
-      strength: [1, [Validators.required]]
+      password_strength: [1, [Validators.required]]
     });
-    this.form.patchValue({
-      strength: parseInt(this.data['password_strength'])
-    });
+    this.form.patchValue(this.data);
   }
 
+  /**
+   * 关闭表单
+   */
   close(): void {
     this.modalRef.triggerCancel();
   }
 
-  submit(value: any): void {
-    this.wpx.setVar('password_strength', value.strength).subscribe(() => {
+  /**
+   * 提交
+   * @param data
+   */
+  submit(data: any): void {
+    this.wpx.setValues(data).subscribe(() => {
       this.message.success('设置成功');
       this.modalRef.triggerOk();
     });

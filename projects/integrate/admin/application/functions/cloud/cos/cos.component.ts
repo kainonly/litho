@@ -19,7 +19,7 @@ export class CosComponent implements OnInit {
    */
   form!: FormGroup;
   /**
-   * 秒格式化
+   * 秒
    * @param value
    */
   formatterSec = (value: number): string => `${value} 秒`;

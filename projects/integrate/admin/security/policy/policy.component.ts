@@ -15,7 +15,13 @@ import { UserLockComponent } from './user-lock/user-lock.component';
   templateUrl: './policy.component.html'
 })
 export class PolicyComponent implements OnInit {
+  /**
+   * 数据
+   */
   data: Record<string, any> = {};
+  /**
+   * IP 名单
+   */
   ipList: any[] = [];
 
   constructor(private modal: NzModalService, private wpx: WpxService) {}
@@ -26,7 +32,7 @@ export class PolicyComponent implements OnInit {
 
   getData(): void {
     this.wpx
-      .getVars(
+      .getValues(
         'user_session_expire',
         'user_login_failed_times',
         'user_lock_time',
@@ -36,17 +42,8 @@ export class PolicyComponent implements OnInit {
         'password_strength',
         'password_expire'
       )
-      .subscribe(v => {
-        this.data = {
-          user_session_expire: v['user_session_expire'] ?? '1h',
-          user_login_failed_times: parseInt(v['user_login_failed_times']) ?? 5,
-          user_lock_time: v['user_lock_time'] ?? '15m',
-          ip_login_failed_times: parseInt(v['ip_login_failed_times']) ?? 10,
-          ip_whitelist: !v['ip_whitelist'] ? [] : JSON.parse(v['ip_whitelist']),
-          ip_blacklist: !v['ip_blacklist'] ? [] : JSON.parse(v['ip_blacklist']),
-          password_strength: v['password_strength'] ?? 1,
-          password_expire: parseInt(v['password_expire']) ?? 365
-        };
+      .subscribe(data => {
+        this.data = data;
         this.ipList = [
           ...(<string[]>this.data['ip_whitelist']).map(v => ({ type: 'white', value: v })),
           ...(<string[]>this.data['ip_blacklist']).map(v => ({ type: 'black', value: v }))
@@ -54,7 +51,12 @@ export class PolicyComponent implements OnInit {
       });
   }
 
-  private setVar(component: Type<{ data: Record<string, any> }>): void {
+  /**
+   * 设置对话框
+   * @param component
+   * @private
+   */
+  private setModal(component: Type<{ data: Record<string, any> }>): void {
     this.modal.create({
       nzTitle: '设置',
       nzContent: component,
@@ -67,27 +69,45 @@ export class PolicyComponent implements OnInit {
     });
   }
 
+  /**
+   * 设置会话超时策略
+   */
   setSessionExpire(): void {
-    this.setVar(SessionExpireComponent);
+    this.setModal(SessionExpireComponent);
   }
 
+  /**
+   * 设置帐号锁定策略
+   */
   setUserLock(): void {
-    this.setVar(UserLockComponent);
+    this.setModal(UserLockComponent);
   }
 
+  /**
+   * 设置 IP 锁定策略
+   */
   setIpLock(): void {
-    this.setVar(IpLockComponent);
+    this.setModal(IpLockComponent);
   }
 
+  /**
+   * 设置 IP 名单
+   */
   setIpList(): void {
-    this.setVar(IpListComponent);
+    this.setModal(IpListComponent);
   }
 
+  /**
+   * 设置密码强度策略
+   */
   setPasswordStrength(): void {
-    this.setVar(PasswordStrengthComponent);
+    this.setModal(PasswordStrengthComponent);
   }
 
+  /**
+   * 设置密码有效期策略
+   */
   setPasswordExpire(): void {
-    this.setVar(PasswordExpireComponent);
+    this.setModal(PasswordExpireComponent);
   }
 }

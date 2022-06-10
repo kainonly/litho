@@ -11,7 +11,7 @@
     >
       <nz-input-number
         style="width: 100%"
-        formControlName="times"
+        formControlName="user_login_failed_times"
         [nzFormatter]="formatterTimes"
         [nzMin]="1"
         [nzStep]="1"
@@ -29,14 +29,13 @@
         }
       }"
     >
-      <nz-input-group nzCompact>
-        <nz-input-number style="width: 75%" formControlName="number" [nzMin]="1" [nzStep]="1"></nz-input-number>
-        <nz-select style="width: 25%" formControlName="unit">
-          <nz-option nzValue="h" nzLabel="小时"></nz-option>
-          <nz-option nzValue="m" nzLabel="分钟"></nz-option>
-          <nz-option nzValue="s" nzLabel="秒"></nz-option>
-        </nz-select>
-      </nz-input-group>
+      <nz-input-number
+        style="width: 100%"
+        formControlName="user_lock_time"
+        [nzFormatter]="formatterSec"
+        [nzMin]="0"
+        [nzStep]="1"
+      ></nz-input-number>
     </nz-form-control>
   </nz-form-item>
 </form>
