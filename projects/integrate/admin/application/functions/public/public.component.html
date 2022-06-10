@@ -4,7 +4,7 @@
       <nz-list-item-meta>
         <nz-list-item-meta-title><b>电子邮箱</b></nz-list-item-meta-title>
       </nz-list-item-meta>
-      <nz-descriptions nzSize="small" nzBordered [nzColumn]="2">
+      <nz-descriptions style="width: 800px" nzSize="small" nzLayout="vertical" nzBordered [nzColumn]="2">
         <nz-descriptions-item nzTitle="SMTP 地址">
           {{ data['email_host'] | nzSafeNull: '未设置' }}
         </nz-descriptions-item>
@@ -28,8 +28,8 @@
       <nz-list-item-meta>
         <nz-list-item-meta-title><b>开放服务</b></nz-list-item-meta-title>
       </nz-list-item-meta>
-      <nz-descriptions nzSize="small" nzBordered [nzColumn]="2">
-        <nz-descriptions-item nzTitle="地址">
+      <nz-descriptions style="width: 800px" nzSize="small" nzLayout="vertical" nzBordered [nzColumn]="2">
+        <nz-descriptions-item nzTitle="地址" [nzSpan]="2">
           {{ data['openapi_url'] | nzSafeNull: '未设置' }}
         </nz-descriptions-item>
         <nz-descriptions-item nzTitle="应用认证 Key">

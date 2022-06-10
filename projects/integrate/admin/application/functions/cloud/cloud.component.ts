@@ -1,20 +1,19 @@
 import { Component, OnInit, Type } from '@angular/core';
-import { of } from 'rxjs';
-import { switchMap } from 'rxjs/operators';
 
 import { WpxService } from '@weplanx/ng';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalService } from 'ng-zorro-antd/modal';
 
-import { CosComponent } from './cos/cos.component';
-import { TencentComponent } from './tencent/tencent.component';
+import { PlatformComponent } from './platform/platform.component';
 
 @Component({
   selector: 'wpx-admin-functions-cloud',
   templateUrl: './cloud.component.html'
 })
 export class CloudComponent implements OnInit {
-  platform?: string;
+  /**
+   * 数据
+   */
   data: Record<string, any> = {};
 
   constructor(private wpx: WpxService, private modal: NzModalService, private message: NzMessageService) {}
@@ -23,40 +22,31 @@ export class CloudComponent implements OnInit {
     this.getData();
   }
 
+  /**
+   * 获取数据
+   */
   getData(): void {
     this.wpx
-      .getVars('cloud_platform')
-      .pipe(
-        switchMap(v => {
-          this.platform = v.cloud_platform;
-          if (!this.platform) {
-            return of(null);
-          }
-          let vars: string[] = [];
-          switch (this.platform) {
-            case 'tencent':
-              vars = [
-                'tencent_secret_id',
-                'tencent_secret_key',
-                'tencent_cos_bucket',
-                'tencent_cos_region',
-                'tencent_cos_expired',
-                'tencent_cos_limit'
-              ];
-              break;
-          }
-          return this.wpx.getVars(...vars);
-        })
+      .getValues(
+        'cloud_platform',
+        'tencent_secret_id',
+        'tencent_secret_key',
+        'tencent_cos_bucket',
+        'tencent_cos_region',
+        'tencent_cos_expired',
+        'tencent_cos_limit'
       )
-      .subscribe(v => {
-        if (!v) {
-          return;
-        }
-        this.data = v;
+      .subscribe(data => {
+        this.data = data;
       });
   }
 
-  private setVar(component: Type<{ data: Record<string, any> }>): void {
+  /**
+   * 设置对话框
+   * @param component
+   * @private
+   */
+  private setModal(component: Type<{ data: Record<string, any> }>): void {
     this.modal.create({
       nzTitle: '设置',
       nzContent: component,
@@ -69,18 +59,20 @@ export class CloudComponent implements OnInit {
     });
   }
 
-  linkTencent(): void {
-    this.setVar(TencentComponent);
+  /**
+   * 设置平台
+   */
+  setPlatform(): void {
+    this.setModal(PlatformComponent);
   }
 
-  unlinkTencent(): void {
-    this.wpx.setVar('cloud_platform', null).subscribe(() => {
+  /**
+   * 取消关联
+   */
+  unset(): void {
+    this.wpx.setValues({ cloud_platform: '' }).subscribe(() => {
       this.message.success('关联已取消');
       this.getData();
     });
-  }
-
-  setCos(): void {
-    this.setVar(CosComponent);
   }
 }

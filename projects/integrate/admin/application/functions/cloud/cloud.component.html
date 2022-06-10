@@ -3,20 +3,37 @@
     <nz-list nzSize="large" nzItemLayout="vertical">
       <nz-list-item>
         <nz-list-item-meta>
-          <nz-list-item-meta-title>
-            <img height="20px" [src]="['assets', 'cloud', 'tencent.svg'] | wpxAssets" alt="" />
-          </nz-list-item-meta-title>
-          <nz-list-item-meta-description *ngIf="!(platform && platform === 'tencent')">
-            当前未关联腾讯云平台
+          <nz-list-item-meta-title> <b>服务商</b> </nz-list-item-meta-title>
+          <nz-list-item-meta-description>
+            <ng-container [ngSwitch]="data['cloud_platform']">
+              <ng-container *ngSwitchCase="'tencent'">
+                <img height="32px" [src]="['assets', 'cloud', 'tencent.svg'] | wpxAssets" alt="" />
+              </ng-container>
+              <ng-container *ngSwitchCase="'aliyun'">
+                <img height="32px" [src]="['assets', 'cloud', 'aliyun.png'] | wpxAssets" alt="" />
+              </ng-container>
+              <ng-container *ngSwitchCase="'huaweicloud'">
+                <img height="36px" [src]="['assets', 'cloud', 'huaweicloud.svg'] | wpxAssets" alt="" />
+              </ng-container>
+              <ng-container *ngSwitchDefault> 当前未关联云服务商 </ng-container>
+            </ng-container>
           </nz-list-item-meta-description>
         </nz-list-item-meta>
-        <nz-descriptions *ngIf="platform && platform === 'tencent'" nzSize="small" nzBordered [nzColumn]="2">
-          <nz-descriptions-item nzTitle="SecretId">{{ data['tencent_secret_id'] }}</nz-descriptions-item>
-          <nz-descriptions-item nzTitle="SecretKey">{{ data['tencent_secret_key'] }}</nz-descriptions-item>
+
+        <nz-descriptions
+          style="width: 800px"
+          nzSize="small"
+          nzBordered
+          *ngIf="!!data['cloud_platform']"
+          nzLayout="vertical"
+        >
+          <nz-descriptions-item nzTitle="访问密钥ID（SECRETID）">{{ data['tencent_secret_id'] }}</nz-descriptions-item>
+          <nz-descriptions-item nzTitle="访问密钥（SECRETKEY）">{{ data['tencent_secret_key'] }}</nz-descriptions-item>
         </nz-descriptions>
+
         <nz-list-item-extra>
-          <button nz-button nzType="link" (click)="linkTencent()">设置</button>
-          <ng-container *ngIf="platform && platform === 'tencent'">
+          <button nz-button nzType="link" (click)="setPlatform()">设置</button>
+          <ng-container *ngIf="!!data['cloud_platform']">
             <button
               nz-button
               nzType="link"
@@ -24,43 +41,21 @@
               nz-popconfirm
               nzPopconfirmTitle="您确定要取消该关联吗？"
               nzPopconfirmPlacement="bottom"
-              (nzOnConfirm)="unlinkTencent()"
+              (nzOnConfirm)="unset()"
             >
               取消关联
             </button>
           </ng-container>
         </nz-list-item-extra>
       </nz-list-item>
-      <nz-list-item>
-        <nz-list-item-meta>
-          <nz-list-item-meta-title>
-            <img height="20px" [src]="['assets', 'cloud', 'aliyun.png'] | wpxAssets" alt="" />
-          </nz-list-item-meta-title>
-          <nz-list-item-meta-description>当前未关联阿里云平台</nz-list-item-meta-description>
-        </nz-list-item-meta>
-        <nz-list-item-extra>
-          <button nz-button nzType="link" disabled> 关联 </button>
-        </nz-list-item-extra>
-      </nz-list-item>
-      <nz-list-item>
-        <nz-list-item-meta>
-          <nz-list-item-meta-title>
-            <img height="30px" [src]="['assets', 'cloud', 'huaweicloud.svg'] | wpxAssets" alt="" />
-          </nz-list-item-meta-title>
-          <nz-list-item-meta-description>当前未关联华为云平台</nz-list-item-meta-description>
-        </nz-list-item-meta>
-        <nz-list-item-extra>
-          <button nz-button nzType="link" disabled> 关联 </button>
-        </nz-list-item-extra>
-      </nz-list-item>
     </nz-list>
   </nz-list>
 
   <nz-card nzTitle="以下设置需要关联一种云厂商作为支持，切换云厂商原设置将失效">
-    <nz-list *ngIf="platform && platform === 'tencent'" nzSize="large" nzItemLayout="vertical">
+    <nz-list nzSize="large" nzItemLayout="vertical">
       <nz-list-item>
         <nz-list-item-meta>
-          <nz-list-item-meta-title><b>COS 对象存储</b></nz-list-item-meta-title>
+          <nz-list-item-meta-title><b>对象存储</b></nz-list-item-meta-title>
           <nz-list-item-meta-description>
             用于静态资源存储，访问地址请使用云平台设置加速的 CDN内容分发
           </nz-list-item-meta-description>
@@ -80,7 +75,7 @@
           </nz-descriptions-item>
         </nz-descriptions>
         <nz-list-item-extra>
-          <button nz-button nzType="primary" nzShape="circle" nz-tooltip="设置" (click)="setCos()">
+          <button nz-button nzType="primary" nzShape="circle" nz-tooltip="设置">
             <i nz-icon nzType="tool"></i>
           </button>
         </nz-list-item-extra>

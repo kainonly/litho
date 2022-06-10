@@ -226,6 +226,7 @@ export class WpxService {
   /**
    * 获取应用变量
    * @param keys
+   * @deprecated
    */
   getVars(...keys: string[]): Observable<any> {
     return this.http.get('vars', {
@@ -239,9 +240,30 @@ export class WpxService {
    * 设置应用变量
    * @param key
    * @param value
+   * @deprecated
    */
   setVar(key: string, value: any): Observable<any> {
     return this.http.put(`vars/${key}`, { value });
+  }
+
+  /**
+   * 获取动态配置
+   * @param keys
+   */
+  getValues(...keys: string[]): Observable<any> {
+    return this.http.get('values', {
+      params: {
+        keys
+      }
+    });
+  }
+
+  /**
+   * 设置动态配置
+   * @param data 配置
+   */
+  setValues(data: Record<string, any>): Observable<any> {
+    return this.http.patch('values', data);
   }
 
   /**
