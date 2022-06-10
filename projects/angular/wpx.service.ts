@@ -224,29 +224,6 @@ export class WpxService {
   }
 
   /**
-   * 获取应用变量
-   * @param keys
-   * @deprecated
-   */
-  getVars(...keys: string[]): Observable<any> {
-    return this.http.get('vars', {
-      params: {
-        keys
-      }
-    });
-  }
-
-  /**
-   * 设置应用变量
-   * @param key
-   * @param value
-   * @deprecated
-   */
-  setVar(key: string, value: any): Observable<any> {
-    return this.http.put(`vars/${key}`, { value });
-  }
-
-  /**
    * 获取动态配置
    * @param keys
    */
