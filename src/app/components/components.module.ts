@@ -1,16 +1,8 @@
 import { NgModule } from '@angular/core';
 
-import { ShareModule } from '@common/share.module';
-import { WpxService } from '@weplanx/ng';
-
-import { CustomizeComponent } from './customize/customize.component';
+import { CustomizeModule } from './customize/customize.module';
 
 @NgModule({
-  imports: [ShareModule],
-  declarations: [CustomizeComponent]
+  imports: [CustomizeModule]
 })
-export class ComponentsModule {
-  constructor(wpx: WpxService) {
-    wpx.setComponent('customize', '自制', CustomizeComponent);
-  }
-}
+export class ComponentsModule {}

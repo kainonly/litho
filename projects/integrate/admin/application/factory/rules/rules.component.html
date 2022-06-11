@@ -13,7 +13,7 @@
     <thead>
       <tr>
         <th nzWidth="50px" nzLeft nzAlign="center"> </th>
-        <th nzWidth="240px" nzLeft><b>显示字段</b></th>
+        <th><b>显示字段</b></th>
         <th><b>条件</b></th>
         <th nzWidth="50px" nzRight nzAlign="center"><b>操作</b></th>
       </tr>
@@ -28,7 +28,9 @@
             </ng-container>
           </nz-tag>
         </td>
-        <td nzLeft>{{ data.keys }}</td>
+        <td>
+          <nz-tag *ngFor="let x of data.keys">{{ x }}</nz-tag>
+        </td>
         <td>
           <ng-container *ngFor="let x of data.conditions">
             <nz-tag>

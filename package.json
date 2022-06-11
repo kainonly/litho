@@ -23,6 +23,7 @@
     "@angular/router": "~13.2.0",
     "@angular/service-worker": "~13.2.0",
     "@antv/g2plot": "^2.4.17",
+    "@antv/x6": "^1.32.3",
     "@ngx-pwa/local-storage": "^13.0.2",
     "date-fns": "^2.28.0",
     "monaco-editor": "^0.31.1",
