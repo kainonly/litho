@@ -119,13 +119,15 @@ export class PagesComponent implements OnInit {
   /**
    * 打开表单
    * @param doc
+   * @param parent
    */
-  form(doc?: AnyDto<Page>): void {
+  form(doc?: AnyDto<Page>, parent?: string): void {
     this.modal.create({
       nzTitle: !doc ? '新增' : `编辑【${doc.name}】`,
       nzContent: FormComponent,
       nzComponentParams: {
-        doc
+        doc,
+        parent
       },
       nzOnOk: () => {
         this.getData();

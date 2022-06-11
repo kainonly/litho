@@ -20,6 +20,10 @@ export class FormComponent implements OnInit {
    */
   @Input() doc?: AnyDto<Page>;
   /**
+   * 预设父节点
+   */
+  @Input() parent?: string;
+  /**
    * 表单
    */
   form!: FormGroup;
@@ -39,7 +43,7 @@ export class FormComponent implements OnInit {
   ngOnInit(): void {
     this.form = this.fb.group({
       name: [null, [Validators.required]],
-      parent: [],
+      parent: [this.parent],
       kind: ['default', [Validators.required]],
       manifest: ['default', [Validators.required]],
       icon: [],
@@ -50,7 +54,7 @@ export class FormComponent implements OnInit {
       this.changedKind(this.doc.kind);
       this.form.patchValue(this.doc);
     }
-    this.factory.getTreeNode({}).subscribe(v => {
+    this.factory.getTreeNode({ kind: 'group' }).subscribe(v => {
       this.nodes = [...v];
     });
   }

@@ -92,6 +92,9 @@
           <span>{{ page.name }}</span>
         </li>
         <li nz-menu-divider></li>
+        <ng-container *ngIf="page.kind === 'group'">
+          <li nz-menu-item (click)="form(undefined, page._id)"> 新增 </li>
+        </ng-container>
         <li nz-menu-item (click)="form(page)"> 编辑 </li>
         <li nz-menu-item nzDanger (click)="delete(page)"> 删除 </li>
       </ng-container>
