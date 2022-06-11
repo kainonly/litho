@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { of, switchMap } from 'rxjs';
 
 import { FormatDoc, SchemaField, SchemaRule } from '@weplanx/ng';
-import { WpxFormComponent, WpxFormInit } from '@weplanx/ng/form';
+import { WpxFormComponent, WpxFormInitOption } from '@weplanx/ng/form';
 import { NzMessageService } from 'ng-zorro-antd/message';
 
 import { WpxDynamicService } from '../dynamic.service';
@@ -12,7 +12,14 @@ import { WpxDynamicService } from '../dynamic.service';
   templateUrl: './form.component.html'
 })
 export class FormComponent implements OnInit {
+  /**
+   * 表单视图
+   */
   @ViewChild(WpxFormComponent) wpxForm!: WpxFormComponent;
+  /**
+   * ID
+   * @private
+   */
   private id?: string;
   /**
    * 设置字段
@@ -37,9 +44,9 @@ export class FormComponent implements OnInit {
 
   /**
    * 表单初始化
-   * @param e
+   * @param option
    */
-  formInit(e: WpxFormInit): void {
+  init = (option: WpxFormInitOption): void => {
     this.dynamic
       .count({})
       .pipe(
@@ -51,21 +58,32 @@ export class FormComponent implements OnInit {
         if (!data) {
           return;
         }
-        e.form.patchValue(data);
+        // 数据类型转换
+        for (const field of this.fields) {
+          switch (field.type) {
+            case 'date':
+              data[field.key] = new Date(data[field.key]);
+              break;
+            case 'dates':
+              data[field.key] = [...(data[field.key] as string[]).map(v => new Date(v))];
+              break;
+          }
+        }
+        option.form.patchValue(data);
         this.id = data._id;
         this.wpxForm.updateDisplays();
       });
-    this.format = e.format;
-  }
+    this.format = option.format;
+  };
 
   /**
    * 提交
-   * @param value
+   * @param data
    */
-  submit = (value: any): void => {
+  submit = (data: any): void => {
     if (!this.id) {
       this.dynamic
-        .create(value, {
+        .create(data, {
           format_doc: this.format
         })
         .subscribe(() => {
@@ -76,7 +94,7 @@ export class FormComponent implements OnInit {
         .updateOneById(
           this.id,
           {
-            $set: value
+            $set: data
           },
           {
             format_doc: this.format

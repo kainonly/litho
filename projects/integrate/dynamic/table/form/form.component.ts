@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 
 import { AnyDto, FormatDoc, SchemaField, SchemaRule } from '@weplanx/ng';
-import { WpxFormInit } from '@weplanx/ng/form';
+import { WpxFormInitOption } from '@weplanx/ng/form';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalRef } from 'ng-zorro-antd/modal';
 
@@ -39,14 +39,26 @@ export class FormComponent implements OnInit {
 
   /**
    * 初始化表单
-   * @param e
+   * @param option
    */
-  formInit(e: WpxFormInit): void {
+  init = (option: WpxFormInitOption): void => {
     if (this.doc) {
-      e.form.patchValue(this.doc);
+      const data = { ...this.doc };
+      // 数据类型转换
+      for (const field of this.fields) {
+        switch (field.type) {
+          case 'date':
+            data[field.key] = new Date(data[field.key]);
+            break;
+          case 'dates':
+            data[field.key] = [...(data[field.key] as string[]).map(v => new Date(v))];
+            break;
+        }
+      }
+      option.form.patchValue(data);
     }
-    this.format = e.format;
-  }
+    this.format = option.format;
+  };
 
   /**
    * 关闭表单
@@ -57,12 +69,12 @@ export class FormComponent implements OnInit {
 
   /**
    * 提交
-   * @param value
+   * @param data
    */
-  submit = (value: any): void => {
+  submit = (data: any): void => {
     if (!this.doc) {
       this.dynamic
-        .create(value, {
+        .create(data, {
           format_doc: this.format
         })
         .subscribe(() => {
@@ -74,7 +86,7 @@ export class FormComponent implements OnInit {
         .updateOneById(
           this.doc._id,
           {
-            $set: value
+            $set: data
           },
           {
             format_doc: this.format

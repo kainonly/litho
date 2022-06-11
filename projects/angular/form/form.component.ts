@@ -1,5 +1,5 @@
 import { CdkPortalOutletAttachedRef } from '@angular/cdk/portal';
-import { Component, ComponentRef, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import { Component, ComponentRef, Input, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
 
@@ -7,7 +7,7 @@ import { FormatDoc, SchemaField, SchemaRule, SchemaRuleCondition, Value, WpxServ
 import { NzCheckBoxOptionInterface } from 'ng-zorro-antd/checkbox';
 
 import { ApiService } from './api.service';
-import { WpxFormInit } from './types';
+import { WpxFormInitOption } from './types';
 
 @Component({
   selector: 'wpx-form',
@@ -27,14 +27,15 @@ export class WpxFormComponent implements OnInit, OnDestroy {
    */
   @Input() wpxSubmitHide = false;
   /**
-   * 提交
+   * 初始化回调
+   * @param option 配置
+   */
+  @Input() wpxInit = (option: WpxFormInitOption): void => {};
+  /**
+   * 提交回调
    * @param value 提交数据
    */
   @Input() wpxSubmit = (value: any): void => {};
-  /**
-   * 初始化回调
-   */
-  @Output() readonly wpxInit: EventEmitter<WpxFormInit> = new EventEmitter<WpxFormInit>();
 
   /**
    * 表单
@@ -103,10 +104,14 @@ export class WpxFormComponent implements OnInit, OnDestroy {
       });
       this.onchangekeySubscriptions = [...this.onchangekeySubscriptions, subscription];
     }
-    this.wpxInit.emit({
+    this.wpxInit({
       form: this.form,
       format
     });
+    // this.wpxInit.emit({
+    //   form: this.form,
+    //   format
+    // });
   }
 
   ngOnDestroy(): void {

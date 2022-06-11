@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { ShareModule } from '@common/share.module';
 import { WpxService } from '@weplanx/ng';
 
-import { CustomizeComponent } from './customize.component';
+import { CustomizeComponent } from './customize/customize.component';
 
 @NgModule({
   imports: [ShareModule],
@@ -11,7 +11,6 @@ import { CustomizeComponent } from './customize.component';
 })
 export class ComponentsModule {
   constructor(wpx: WpxService) {
-    console.log(wpx);
     wpx.setComponent('customize', '自制', CustomizeComponent);
   }
 }
