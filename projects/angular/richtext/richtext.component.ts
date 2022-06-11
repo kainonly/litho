@@ -12,7 +12,7 @@ import {
   ViewEncapsulation
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { AsyncSubject, from } from 'rxjs';
+import { BehaviorSubject, from, switchMap } from 'rxjs';
 
 import { WpxService } from '@weplanx/ng';
 import { MediaType, WpxMediaViewComponent } from '@weplanx/ng/media';
@@ -59,17 +59,14 @@ export class WpxRichtextComponent implements ControlValueAccessor, AfterViewInit
    */
   title = '';
   /**
-   * 加载状态
-   */
-  loading = true;
-  /**
    * 默认值
    */
   value: any = {};
   /**
-   * 完成载入
+   * 载入值
    */
-  $complete: AsyncSubject<unknown> = new AsyncSubject<unknown>();
+  $writeValue: BehaviorSubject<any> = new BehaviorSubject<any>({});
+
   /**
    * EditorJS
    * @private
@@ -99,12 +96,9 @@ export class WpxRichtextComponent implements ControlValueAccessor, AfterViewInit
    * @param value
    */
   writeValue(value: any): void {
-    if (value) {
-      this.value = value;
-      this.title = value?.title;
-      this.$complete.next(undefined);
-      this.$complete.complete();
-    }
+    this.value = value;
+    this.title = value?.title;
+    this.$writeValue.next(value);
   }
 
   ngAfterViewInit(): void {
@@ -112,9 +106,7 @@ export class WpxRichtextComponent implements ControlValueAccessor, AfterViewInit
       return;
     }
     if (window.hasOwnProperty('EditorJS')) {
-      this.$complete.subscribe(() => {
-        this.initialize();
-      });
+      this.initialize();
       return;
     }
     this.richtext.loadScript().subscribe(() => {
@@ -137,7 +129,6 @@ export class WpxRichtextComponent implements ControlValueAccessor, AfterViewInit
   private initialize(): void {
     this.instance = new windowAny.EditorJS({
       holder: this.article.nativeElement,
-      data: this.value,
       placeholder: this.wpxPlaceholder,
       logLevel: 'ERROR',
       tools: {
@@ -171,10 +162,12 @@ export class WpxRichtextComponent implements ControlValueAccessor, AfterViewInit
       }
     });
 
-    from(this.instance.isReady).subscribe(() => {
-      this.loading = false;
-      this.cd.detectChanges();
-    });
+    from(this.instance.isReady)
+      .pipe(switchMap(() => this.$writeValue))
+      .subscribe(value => {
+        this.instance.render(value);
+        this.cd.detectChanges();
+      });
   }
 
   /**
