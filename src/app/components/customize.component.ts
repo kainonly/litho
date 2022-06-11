@@ -19,7 +19,7 @@ export class CustomizeComponent implements OnInit {
   @Input() field!: SchemaField;
 
   ngOnInit(): void {
-    // console.log(this.form);
-    // console.log(this.field);
+    console.log(this.form);
+    console.log(this.field);
   }
 }

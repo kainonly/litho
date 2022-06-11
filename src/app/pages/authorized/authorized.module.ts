@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
+import { LayoutModule } from '@common/layout/layout.module';
 import { ShareModule } from '@common/share.module';
-import { StageModule } from '@common/stage/stage.module';
 
 import { AuthorizedComponent } from './authorized.component';
 
@@ -14,7 +14,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [ShareModule, StageModule, RouterModule.forChild(routes)],
+  imports: [ShareModule, LayoutModule, RouterModule.forChild(routes)],
   declarations: [AuthorizedComponent]
 })
 export class AuthorizedModule {}

@@ -6,15 +6,15 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule, Routes } from '@angular/router';
 import { ServiceWorkerModule } from '@angular/service-worker';
 
-import { AppGuard } from '@common/app.guard';
-import { AppInterceptors } from '@common/app.interceptors';
 import { ShareModule } from '@common/share.module';
 import { environment } from '@env';
 import { NZ_CONFIG, NzConfig } from 'ng-zorro-antd/core/config';
 import { NZ_I18N, zh_CN } from 'ng-zorro-antd/i18n';
 
 import { AppComponent } from './app.component';
-import { ManualModule } from './manual/manual.module';
+import { AppGuard } from './app.guard';
+import { AppInterceptors } from './app.interceptors';
+import { ComponentsModule } from './components/components.module';
 
 registerLocaleData(zh);
 
@@ -29,12 +29,7 @@ const routes: Routes = [
   },
   {
     path: 'unauthorize',
-    loadChildren: () => import('./common/unauthorize/unauthorize.module').then(m => m.UnauthorizeModule)
-  },
-  {
-    path: 'authorized',
-    loadChildren: () => import('./common/authorized/authorized.module').then(m => m.AuthorizedModule),
-    canActivate: [AppGuard]
+    loadChildren: () => import('./unauthorize/unauthorize.module').then(m => m.UnauthorizeModule)
   },
   {
     path: 'pages',
@@ -66,7 +61,7 @@ const routes: Routes = [
     BrowserAnimationsModule,
     HttpClientModule,
     ShareModule,
-    ManualModule,
+    ComponentsModule,
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: environment.production,
       registrationStrategy: 'registerWhenStable:30000'

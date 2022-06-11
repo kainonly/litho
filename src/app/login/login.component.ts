@@ -18,8 +18,7 @@ export class LoginComponent implements OnInit {
     private wpx: WpxService,
     private notification: NzNotificationService,
     private router: Router,
-    private fb: FormBuilder,
-    private feishu: FeishuService
+    private fb: FormBuilder
   ) {}
 
   ngOnInit(): void {
