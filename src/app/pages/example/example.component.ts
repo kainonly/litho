@@ -3,13 +3,16 @@ import { Component, Input, OnInit } from '@angular/core';
 import { AnyDto, Page } from '@weplanx/ng';
 
 @Component({
-  selector: 'app-write-off',
-  templateUrl: './write-off.component.html'
+  selector: 'app-example',
+  templateUrl: './example.component.html'
 })
-export class WriteOffComponent implements OnInit {
+export class ExampleComponent implements OnInit {
+  /**
+   * 载入数据
+   */
   @Input() page!: AnyDto<Page>;
 
   ngOnInit(): void {
-    // console.log(this.page);
+    console.log(this.page);
   }
 }

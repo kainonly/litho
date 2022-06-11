@@ -5,9 +5,9 @@ import { ShareModule } from '@common/share.module';
 import { WpxHeaderModule, WpxNavModule, WpxDynamicComponent, WpxDynamicModule } from '@weplanx/ng-intgr';
 
 import { EmptyComponent } from './empty/empty.component';
+import { ExampleModule } from './example/example.module';
 import { PagesActivated } from './pages.activated';
 import { PagesComponent } from './pages.component';
-import { WriteOffModule } from './write-off/write-off.module';
 
 const routes: Routes = [
   {
@@ -29,14 +29,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [
-    ShareModule,
-    WpxHeaderModule,
-    WpxNavModule,
-    WpxDynamicModule,
-    RouterModule.forChild(routes),
-    WriteOffModule
-  ],
+  imports: [ShareModule, WpxHeaderModule, WpxNavModule, WpxDynamicModule, ExampleModule, RouterModule.forChild(routes)],
   declarations: [PagesComponent, EmptyComponent],
   providers: [PagesActivated]
 })
