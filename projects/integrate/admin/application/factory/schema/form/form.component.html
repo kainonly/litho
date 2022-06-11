@@ -2,6 +2,19 @@
   <nz-row [nzGutter]="24">
     <nz-col [nzSpan]="12">
       <nz-form-item>
+        <nz-form-label nzRequired>显示名称</nz-form-label>
+        <nz-form-control
+          nzHasFeedback
+          [nzAutoTips]="{
+            default: {
+              required: '显示名称不能为空'
+            }
+          }"
+        >
+          <input nz-input type="text" formControlName="label" placeholder="显示名称，如订单号" />
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
         <nz-form-label nzRequired>字段命名</nz-form-label>
         <nz-form-control
           nzHasFeedback
@@ -14,19 +27,6 @@
           }"
         >
           <input nz-input type="text" formControlName="key" placeholder="字段命名，如 order_number" />
-        </nz-form-control>
-      </nz-form-item>
-      <nz-form-item>
-        <nz-form-label nzRequired>显示名称</nz-form-label>
-        <nz-form-control
-          nzHasFeedback
-          [nzAutoTips]="{
-            default: {
-              required: '显示名称不能为空'
-            }
-          }"
-        >
-          <input nz-input type="text" formControlName="label" placeholder="显示名称，如订单号" />
         </nz-form-control>
       </nz-form-item>
       <nz-form-item>

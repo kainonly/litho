@@ -29,7 +29,7 @@ export class TableComponent implements OnInit {
   /**
    * 数据
    */
-  data: Data<any> = new Data<any>();
+  wpxData: Data<any> = new Data<any>();
 
   constructor(public dynamic: WpxDynamicService, private modal: NzModalService, private message: NzMessageService) {}
 
@@ -95,7 +95,7 @@ export class TableComponent implements OnInit {
         this.dynamic
           .bulkDelete(
             {
-              _id: { $in: [...this.data.checkedIds.values()] }
+              _id: { $in: [...this.wpxData.checkedIds.values()] }
             },
             {
               format_filter: {
@@ -106,7 +106,7 @@ export class TableComponent implements OnInit {
           .subscribe(() => {
             this.message.success('数据删除完成');
             this.table.getData(true);
-            this.data.clearChecked();
+            this.wpxData.clearChecked();
           });
       },
       nzCancelText: '再想想'

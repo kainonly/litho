@@ -99,7 +99,7 @@
         [nzIndeterminate]="wpxData.indeterminate"
         (nzCheckedChange)="wpxData.setNChecked($event)"
       ></th>
-      <ng-container *ngFor="let x of columnsDisplay">
+      <ng-container *ngFor="let column of columnsDisplay">
         <th
           nz-resizable
           nzBounds="window"
@@ -107,14 +107,14 @@
           [nzPreview]="columnsWidthVisible"
           [nzMaxWidth]="420"
           [nzMinWidth]="100"
-          (nzResizeEnd)="resize($event, x.value)"
-          [nzWidth]="columnsWidth[x.value]"
+          (nzResizeEnd)="resize($event, column.value)"
+          [nzWidth]="columnsWidth[column.value]"
           [nzShowSort]="!columnsWidthVisible"
-          [(nzSortOrder)]="sort[x.value]"
+          [(nzSortOrder)]="sort[column.value]"
           (nzSortOrderChange)="getData(true)"
         >
-          <b>{{ x.label }} </b>
-          <ng-container *ngIf="keywords.has(x.value)">
+          <b>{{ column.label }} </b>
+          <ng-container *ngIf="keywords.has(column.value)">
             <i nz-icon nzType="tag" nz-tooltip="关键词"></i>
           </ng-container>
           <nz-resize-handle nzDirection="right" *ngIf="columnsWidthVisible">
@@ -175,32 +175,44 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let x of basicTable.data">
+    <tr *ngFor="let data of basicTable.data">
       <td
         nzLeft
         nzAlign="center"
-        [nzDisabled]="x['disabled']"
-        [nzChecked]="wpxData.checkedIds.has(x._id)"
-        (nzCheckedChange)="wpxData.setChecked(x._id, $event)"
+        [nzDisabled]="data['disabled']"
+        [nzChecked]="wpxData.checkedIds.has(data._id)"
+        (nzCheckedChange)="wpxData.setChecked(data._id, $event)"
       ></td>
       <ng-container *ngFor="let column of columnsDisplay">
         <td *ngIf="wpxFields | wpxMap: column.value as field">
           <ng-container [ngSwitch]="field.type">
             <ng-container *ngSwitchCase="'date'">
               <ng-container *ngIf="field?.option?.time; else date">
-                {{ x[column.value] | date: 'yyyy-MM-dd HH:mm:ss' }}
+                {{ data[column.value] | date: 'yyyy-MM-dd HH:mm:ss' }}
               </ng-container>
-              <ng-template #date>{{ x[column.value] | date: 'yyyy-MM-dd' }}</ng-template>
+              <ng-template #date>{{ data[column.value] | date: 'yyyy-MM-dd' }}</ng-template>
+            </ng-container>
+            <ng-container *ngSwitchCase="'dates'">
+              <nz-space [nzSplit]="split">
+                <ng-container *ngFor="let x of data[column.value]">
+                  <ng-container *nzSpaceItem>
+                    <ng-container *ngIf="field?.option?.time; else date">
+                      {{ x | date: 'yyyy-MM-dd HH:mm:ss' }}
+                    </ng-container>
+                    <ng-template #date>{{ x | date: 'yyyy-MM-dd' }}</ng-template>
+                  </ng-container>
+                </ng-container>
+              </nz-space>
             </ng-container>
             <ng-container *ngSwitchCase="'bool'">
-              <ng-container *ngIf="x[column.value]; else isFalse">
+              <ng-container *ngIf="data[column.value]; else isFalse">
                 <nz-badge nzStatus="processing"></nz-badge> 开启
               </ng-container>
               <ng-template #isFalse> <nz-badge nzStatus="default"></nz-badge> 关闭 </ng-template>
             </ng-container>
             <ng-container *ngSwitchCase="'select'">
               <ng-container *ngIf="!!field.option?.multiple; else notMultiple">
-                <ng-container *ngFor="let key of x[column.value]">
+                <ng-container *ngFor="let key of data[column.value]">
                   <nz-tag nzColor="blue" *ngIf="enums[column.value] as dict">
                     {{ dict[key] }}
                   </nz-tag>
@@ -208,13 +220,13 @@
               </ng-container>
               <ng-template #notMultiple>
                 <nz-tag nzColor="blue" *ngIf="enums[column.value] as dict">
-                  {{ dict[x[column.value]] }}
+                  {{ dict[data[column.value]] }}
                 </nz-tag>
               </ng-template>
             </ng-container>
             <ng-container *ngSwitchCase="'ref'">
               <ng-container *ngIf="!!field.option?.multiple; else notMultiple">
-                <ng-container *ngFor="let key of x[column.value]">
+                <ng-container *ngFor="let key of data[column.value]">
                   <nz-tag nzColor="blue" *ngIf="references[column.value] as dict">
                     <ng-container *ngIf="field?.option?.target as target">
                       {{ dict[key] }}
@@ -224,7 +236,7 @@
               </ng-container>
               <ng-template #notMultiple>
                 <ng-container *ngIf="references[column.value] as dict">
-                  <nz-tag nzColor="blue" *ngIf="dict[x[column.value]] as value">
+                  <nz-tag nzColor="blue" *ngIf="dict[data[column.value]] as value">
                     {{ value }}
                   </nz-tag>
                 </ng-container>
@@ -232,7 +244,7 @@
             </ng-container>
             <ng-container *ngSwitchDefault>
               <p style="margin: 0" nz-typography nzEllipsis [nzEllipsisRows]="2">
-                {{ x[column.value] }}
+                {{ data[column.value] }}
               </p>
             </ng-container>
           </ng-container>
@@ -240,12 +252,16 @@
       </ng-container>
       <td nzRight nzAlign="center">
         <ng-container *ngIf="wpxActions">
-          <ng-container *ngTemplateOutlet="wpxActions; context: { $implicit: x }"></ng-container>
+          <ng-container *ngTemplateOutlet="wpxActions; context: { $implicit: data }"></ng-container>
         </ng-container>
       </td>
     </tr>
   </tbody>
 </nz-table>
+
+<ng-template #split>
+  <nz-divider nzType="vertical"></nz-divider>
+</ng-template>
 
 <nz-alert
   *ngIf="wpxData.checkedNumber !== 0 && wpxBulk"

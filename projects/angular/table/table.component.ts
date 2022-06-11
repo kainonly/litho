@@ -188,6 +188,18 @@ export class WpxTableComponent<T> implements OnInit {
    * @param refresh
    */
   getData(refresh = false): void {
+    for (const [key, value] of Object.entries(this.sort)) {
+      switch (value) {
+        case 'ascend':
+          Reflect.set(this.wpxData.sort, key, 1);
+          break;
+        case 'descend':
+          Reflect.set(this.wpxData.sort, key, -1);
+          break;
+        default:
+          delete this.wpxData.sort[key];
+      }
+    }
     this.wpxApi.findByPage(this.wpxData, refresh).subscribe(data => {
       for (const [key, request] of Object.entries(this.requests)) {
         const ids = [...new Set([].concat(...data.map(v => v[key])))].filter(v => !!v);
@@ -364,6 +376,7 @@ export class WpxTableComponent<T> implements OnInit {
   repair(): void {
     this.storage.delete(this.wpxKey).subscribe(() => {
       this.ngOnInit();
+      this.message.success('同步修复已完成');
     });
   }
 }
