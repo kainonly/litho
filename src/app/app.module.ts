@@ -60,17 +60,6 @@ const routes: Routes = [
   { path: '', redirectTo: '/pages/dashboard', pathMatch: 'full' }
 ];
 
-if (!environment.production) {
-  routes.push({
-    path: 'example',
-    loadChildren: () => import('./example/example.module').then(m => m.ExampleModule),
-    data: {
-      breadcrumb: '示例'
-    },
-    canActivate: [AppGuard]
-  });
-}
-
 @NgModule({
   declarations: [AppComponent],
   imports: [
