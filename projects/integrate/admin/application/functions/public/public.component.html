@@ -21,9 +21,7 @@
           </ng-container>
         </nz-descriptions-item>
         <nz-descriptions-item nzTitle="密码">
-          <ng-container *ngIf="data['email_password']; else unkown">
-            {{ data['email_password'] }}
-          </ng-container>
+          <ng-container *ngIf="data['email_password']; else unkown"> 已设置 </ng-container>
         </nz-descriptions-item>
       </nz-descriptions>
       <nz-list-item-extra>
@@ -48,9 +46,7 @@
           </ng-container>
         </nz-descriptions-item>
         <nz-descriptions-item nzTitle="应用认证密钥">
-          <ng-container *ngIf="data['openapi_secret']; else unkown">
-            {{ data['openapi_secret'] }}
-          </ng-container>
+          <ng-container *ngIf="data['openapi_secret']; else unkown"> 已设置 </ng-container>
         </nz-descriptions-item>
       </nz-descriptions>
       <nz-list-item-extra>

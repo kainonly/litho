@@ -20,15 +20,15 @@
           </nz-list-item-meta-description>
         </nz-list-item-meta>
 
-        <nz-descriptions
-          *ngIf="!!data['cloud_platform']"
-          style="width: 800px"
-          nzSize="small"
-          nzBordered
-          nzLayout="vertical"
-        >
-          <nz-descriptions-item nzTitle="访问密钥ID（SECRETID）">{{ data['tencent_secret_id'] }}</nz-descriptions-item>
-          <nz-descriptions-item nzTitle="访问密钥（SECRETKEY）">{{ data['tencent_secret_key'] }}</nz-descriptions-item>
+        <nz-descriptions style="width: 800px" nzSize="small" nzBordered nzLayout="vertical">
+          <nz-descriptions-item nzTitle="访问密钥ID">
+            <ng-container *ngIf="data['tencent_secret_id']; else unknow">
+              {{ data['tencent_secret_id'] }}
+            </ng-container>
+          </nz-descriptions-item>
+          <nz-descriptions-item nzTitle="访问密钥">
+            <ng-container *ngIf="data['tencent_secret_key']; else unknow"> 已设置 </ng-container>
+          </nz-descriptions-item>
         </nz-descriptions>
 
         <nz-list-item-extra>
@@ -92,7 +92,7 @@
         <nz-list-item-meta>
           <nz-list-item-meta-title><b>消息队列</b></nz-list-item-meta-title>
           <nz-list-item-meta-description>
-            取代 NATS JetStream 使用腾讯云 TDMQ Plusar 作用事务补偿
+            使用腾讯云 TDMQ Plusar 作用事务补偿，默认采用 NATS JetStream 支持
           </nz-list-item-meta-description>
         </nz-list-item-meta>
         <nz-list-item-extra>
@@ -105,7 +105,7 @@
         <nz-list-item-meta>
           <nz-list-item-meta-title><b>日志服务</b></nz-list-item-meta-title>
           <nz-list-item-meta-description>
-            取代 InfluxDB 使用腾讯云 CLS 日志服务作用日志收集
+            使用腾讯云 CLS 日志服务作用日志收集，默认采用 InfluxDB 支持
           </nz-list-item-meta-description>
         </nz-list-item-meta>
         <nz-list-item-extra>
