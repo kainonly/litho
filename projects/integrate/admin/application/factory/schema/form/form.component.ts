@@ -3,10 +3,11 @@ import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Valida
 
 import { AnyDto, Page, SchemaField, WpxService } from '@weplanx/ng';
 import { NzMessageService } from 'ng-zorro-antd/message';
-import { NzModalRef } from 'ng-zorro-antd/modal';
+import { NzModalRef, NzModalService } from 'ng-zorro-antd/modal';
 
 import { FactorySerivce } from '../../factory.serivce';
 import { fieldTypes, hasOption } from '../../values';
+import { DefaultComponent } from '../default/default.component';
 
 @Component({
   selector: 'wpx-admin-factory-schema-form',
@@ -45,10 +46,15 @@ export class FormComponent implements OnInit {
    * 引用字典
    */
   referenceDict: Record<string, SchemaField[]> = {};
+  /**
+   * 无限
+   */
+  infinity = Infinity;
 
   constructor(
     public wpx: WpxService,
-    private modal: NzModalRef,
+    private modal: NzModalService,
+    private modalRef: NzModalRef,
     private factory: FactorySerivce,
     private fb: FormBuilder,
     private message: NzMessageService
@@ -184,17 +190,23 @@ export class FormComponent implements OnInit {
             component: [null, [Validators.required]]
           })
         );
-        console.log(this.wpx.components.entries());
         break;
     }
     this.visibleOption = hasOption.includes(this.type);
   }
 
   /**
+   * 配置表单控件
+   */
+  get option(): FormControl {
+    return this.form.get('option') as FormControl;
+  }
+
+  /**
    * 枚举表单控件数组
    */
   get optionValues(): FormArray {
-    return this.form?.get('option')?.get('values') as FormArray;
+    return this.form.get('option')?.get('values') as FormArray;
   }
 
   /**
@@ -221,14 +233,38 @@ export class FormComponent implements OnInit {
    * 引用模型表单控件
    */
   get optionReference(): FormControl {
-    return this.form?.get('option')?.get('reference') as FormControl;
+    return this.form.get('option')?.get('reference') as FormControl;
+  }
+
+  /**
+   * 打开默认值表单
+   */
+  setDefault(): void {
+    this.modal.create({
+      nzTitle: '设置默认值',
+      nzWidth: 800,
+      nzContent: DefaultComponent,
+      nzComponentParams: {
+        body: '{}'
+      },
+      nzOnOk: instance => {
+        this.form.get('default')?.setValue(instance.data);
+      }
+    });
+  }
+
+  /**
+   * 清除默认值
+   */
+  clearDefault(): void {
+    this.form.get('default')?.setValue(null);
   }
 
   /**
    * 关闭表单
    */
   close(): void {
-    this.modal.triggerCancel();
+    this.modalRef.triggerCancel();
   }
 
   /**
@@ -239,12 +275,12 @@ export class FormComponent implements OnInit {
     if (!this.doc) {
       data.sort = this.page.schema?.fields.length;
       this.factory.addSchemaField(this.page._id, data).subscribe(() => {
-        this.modal.triggerOk();
+        this.modalRef.triggerOk();
         this.message.success('字段新增完成');
       });
     } else {
       this.factory.updateSchemaField(this.page._id, this.doc!.key, data).subscribe(() => {
-        this.modal.triggerOk();
+        this.modalRef.triggerOk();
         this.message.success('字段更新完成');
       });
     }

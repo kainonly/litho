@@ -58,7 +58,103 @@
       <nz-form-item>
         <nz-form-label>默认值</nz-form-label>
         <nz-form-control>
-          <textarea rows="2" nz-input formControlName="default" placeholder="此值的默认值"></textarea>
+          <ng-container [ngSwitch]="type">
+            <ng-container *ngSwitchCase="'string'">
+              <input nz-input type="text" formControlName="default" placeholder="请输入默认值" />
+            </ng-container>
+            <ng-container *ngSwitchCase="'text'">
+              <textarea rows="2" nz-input formControlName="default" placeholder="请输入默认值"></textarea>
+            </ng-container>
+            <ng-container *ngSwitchCase="'number'">
+              <nz-input-number
+                style="width: 100%"
+                formControlName="default"
+                nzPlaceHolder="请输入默认数字"
+                [nzStep]="1"
+                [nzMax]="!option.get('max')?.value ? infinity : option.get('max')?.value"
+                [nzMin]="!option.get('min')?.value ? -infinity : option.get('min')?.value"
+                [nzPrecision]="option.get('decimal')?.value"
+              ></nz-input-number>
+            </ng-container>
+            <ng-container *ngSwitchCase="'date'">
+              <ng-container *ngIf="!option.get('time')?.value; else dateWithTime">
+                <nz-date-picker
+                  style="width: 100%"
+                  formControlName="default"
+                  nzPlaceHolder="请选择默认日期"
+                ></nz-date-picker>
+              </ng-container>
+              <ng-template #dateWithTime>
+                <nz-date-picker
+                  style="width: 100%"
+                  formControlName="default"
+                  nzPlaceHolder="请选择默认日期"
+                  [nzShowTime]="true"
+                ></nz-date-picker>
+              </ng-template>
+            </ng-container>
+            <ng-container *ngSwitchCase="'dates'">
+              <ng-container *ngIf="!option.get('time')?.value; else dateWithTime">
+                <nz-range-picker style="width: 100%" formControlName="default"></nz-range-picker>
+              </ng-container>
+              <ng-template #dateWithTime>
+                <nz-range-picker style="width: 100%" formControlName="default" [nzShowTime]="true"></nz-range-picker>
+              </ng-template>
+            </ng-container>
+            <ng-container *ngSwitchCase="'bool'">
+              <nz-switch formControlName="default"></nz-switch>
+            </ng-container>
+            <ng-container *ngSwitchCase="'radio'">
+              <nz-radio-group formControlName="default">
+                <ng-container *ngFor="let x of optionValues.value">
+                  <label nz-radio [nzValue]="x.value">{{ x.label }}</label>
+                </ng-container>
+              </nz-radio-group>
+            </ng-container>
+            <ng-container *ngSwitchCase="'checkbox'">
+              <wpx-checkbox formControlName="default" [wpxOptions]="optionValues.value"></wpx-checkbox>
+            </ng-container>
+            <ng-container *ngSwitchCase="'select'">
+              <nz-select
+                formControlName="default"
+                [nzMode]="option.get('multiple')?.value ? 'tags' : 'default'"
+                nzPlaceHolder="请选择默认值"
+              >
+                <ng-container *ngFor="let x of optionValues.value">
+                  <nz-option [nzLabel]="x.label" [nzValue]="x.value"></nz-option>
+                </ng-container>
+              </nz-select>
+            </ng-container>
+            <ng-container *ngSwitchCase="'ref'">
+              <nz-select
+                formControlName="default"
+                [nzMode]="option.get('multiple')?.value ? 'tags' : 'default'"
+                nzPlaceHolder="请选择默认值"
+              >
+                <!--                <ng-container *ngFor="let x of optionValues.value">-->
+                <!--                  <nz-option [nzLabel]="x.label" [nzValue]="x.value"></nz-option>-->
+                <!--                </ng-container>-->
+              </nz-select>
+            </ng-container>
+            <ng-container *ngSwitchDefault>
+              <nz-button-group>
+                <button nz-button type="button" (click)="setDefault()">
+                  <i nz-icon nzType="code"></i>
+                  自定义
+                </button>
+                <button
+                  *ngIf="form.get('default')?.value"
+                  nz-button
+                  type="button"
+                  nzType="dashed"
+                  (click)="clearDefault()"
+                >
+                  <i nz-icon nzType="clear"></i>
+                  清除
+                </button>
+              </nz-button-group>
+            </ng-container>
+          </ng-container>
         </nz-form-control>
       </nz-form-item>
     </nz-col>

@@ -176,7 +176,7 @@ export interface SchemaField {
   /**
    * 默认值
    */
-  default?: string;
+  default?: any;
   /**
    * 关键词
    */

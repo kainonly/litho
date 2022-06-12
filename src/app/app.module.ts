@@ -79,7 +79,7 @@ const routes: Routes = [
         card: { nzBorderless: true },
         table: { nzSize: 'small' },
         codeEditor: {
-          assetsRoot: `https://cdn.jsdelivr.net/npm/monaco-editor@latest/min`
+          assetsRoot: `https://cdn.kainonly.com/assets`
         }
       }
     }

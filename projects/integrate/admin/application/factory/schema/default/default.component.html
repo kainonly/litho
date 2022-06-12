@@ -1,0 +1,23 @@
+<form nz-form nzLayout="vertical" id="default" [formGroup]="form" (wpxSubmit)="submit($event)">
+  <nz-form-item>
+    <nz-form-control
+      [nzAutoTips]="{
+        default: {
+          required: '自定义默认值不能为空',
+          not_json: '自定义默认值必须为 JSON 格式'
+        }
+      }"
+    >
+      <nz-code-editor
+        style="height: 200px"
+        formControlName="body"
+        [nzEditorOption]="{ language: 'json' }"
+      ></nz-code-editor>
+    </nz-form-control>
+  </nz-form-item>
+</form>
+
+<div *nzModalFooter>
+  <button nz-button nzType="default" (click)="close()">取消</button>
+  <button nz-button nzType="primary" form="default" [disabled]="!form?.valid">提交</button>
+</div>

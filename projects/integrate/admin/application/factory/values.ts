@@ -9,7 +9,7 @@ export const fieldTypes = [
       ['dates', '日期范围'],
       ['bool', '开关'],
       ['radio', '单选框'],
-      ['checkbox', '多选框'],
+      ['checkbox', '复选框'],
       ['select', '选择器']
     ]
   },

@@ -8,6 +8,7 @@ import { NzModalService } from 'ng-zorro-antd/modal';
 
 import { FactorySerivce } from '../factory.serivce';
 import { fieldTypes } from '../values';
+import { DefaultComponent } from './default/default.component';
 import { FormComponent } from './form/form.component';
 
 @Component({
