@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
-import { SchemaRule } from '@weplanx/ng';
+import { AnyDto, Page, SchemaField, SchemaRule } from '@weplanx/ng';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalService } from 'ng-zorro-antd/modal';
 
@@ -17,6 +17,14 @@ export class RulesComponent implements OnInit {
    * 页面单元 ID
    */
   id!: string;
+  /**
+   * 页面单元
+   */
+  page?: AnyDto<Page>;
+  /**
+   * 字段
+   */
+  fields: SchemaField[] = [];
   /**
    * 显隐规则
    */
@@ -41,6 +49,9 @@ export class RulesComponent implements OnInit {
    */
   getData(): void {
     this.factory.findOneById(this.id).subscribe(page => {
+      this.page = page;
+      const fields = this.page!.schema?.fields ?? [];
+      this.fields = [...fields.sort((a, b) => a.sort - b.sort)];
       this.rules = [...(page.schema?.rules ?? [])];
     });
   }
@@ -55,7 +66,8 @@ export class RulesComponent implements OnInit {
       nzComponentParams: {
         id: this.id,
         index,
-        doc
+        doc,
+        fields: this.fields
       },
       nzOnOk: () => {
         this.getData();

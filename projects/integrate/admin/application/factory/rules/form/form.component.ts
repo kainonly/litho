@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 
-import { SchemaRule } from '@weplanx/ng';
+import { SchemaField, SchemaRule } from '@weplanx/ng';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalRef } from 'ng-zorro-antd/modal';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
@@ -25,7 +25,14 @@ export class FormComponent implements OnInit {
    * 编辑
    */
   @Input() doc?: SchemaRule;
-
+  /**
+   * 载入字段提示
+   */
+  @Input() fields: SchemaField[] = [];
+  /**
+   * 存在字段
+   */
+  exists: string[] = [];
   /**
    * 表单
    */
@@ -43,11 +50,10 @@ export class FormComponent implements OnInit {
     this.form = this.fb.group({
       logic: [false, [Validators.required]],
       conditions: this.fb.array([], [Validators.required]),
-      keys: this.fb.array([], [Validators.required])
+      keys: [[], [Validators.required]]
     });
     if (this.doc) {
       this.doc.conditions.forEach(() => this.addCondition());
-      this.doc.keys.forEach(() => this.addKey());
       this.form.patchValue(this.doc);
     }
   }
@@ -65,12 +71,33 @@ export class FormComponent implements OnInit {
   addCondition(): void {
     this.conditions.push(
       this.fb.group({
-        key: [null, [Validators.required]],
-        operate: [null, [Validators.required]],
+        key: [null, [this.existsKey]],
+        operate: ['eq', [Validators.required]],
         value: [null, [Validators.required]]
       })
     );
   }
+
+  /**
+   * 检查字段命名是否重复
+   * @param control
+   */
+  existsKey = (control: AbstractControl): any => {
+    if (!control.value) {
+      return { required: true };
+    }
+    let times = 0;
+    for (const x of this.conditions.getRawValue()) {
+      if (control.value === x.key) {
+        times++;
+      }
+      this.exists = [...this.exists, x.key];
+    }
+    if (times > 1) {
+      return { error: true, duplicated: true };
+    }
+    return null;
+  };
 
   /**
    * 移除条件
@@ -78,28 +105,6 @@ export class FormComponent implements OnInit {
    */
   removeCondition(index: number): void {
     this.conditions.removeAt(index);
-  }
-
-  /**
-   * 显示字段
-   */
-  get keys(): FormArray {
-    return this.form.get('keys') as FormArray;
-  }
-
-  /**
-   * 新增显示字段
-   */
-  addKey(): void {
-    this.keys.push(this.fb.control(null, [Validators.required]));
-  }
-
-  /**
-   * 移除显示字段
-   * @param index
-   */
-  removeKey(index: number): void {
-    this.keys.removeAt(index);
   }
 
   /**

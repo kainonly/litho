@@ -13,7 +13,14 @@
     <nz-form-control formArrayName="conditions">
       <ng-container *ngFor="let x of conditions?.controls; index as i; first as isFirst">
         <nz-input-group [formGroupName]="i" nzCompact [ngStyle]="{ 'margin-top': isFirst ? null : '-1px' }">
-          <input style="width: 30%" type="text" nz-input formControlName="key" placeholder="字段" />
+          <input
+            style="width: 30%"
+            type="text"
+            nz-input
+            formControlName="key"
+            placeholder="字段"
+            [nzAutocomplete]="autoKey"
+          />
           <nz-select style="width: 30%" formControlName="operate" nzPlaceHolder="操作符">
             <nz-option [nzValue]="'eq'" nzLabel="等于"></nz-option>
             <nz-option [nzValue]="'neq'" nzLabel="不等于"></nz-option>
@@ -26,6 +33,13 @@
           </button>
         </nz-input-group>
       </ng-container>
+      <nz-autocomplete #autoKey>
+        <ng-container *ngFor="let x of fields">
+          <nz-auto-option [nzValue]="x.key" [nzDisabled]="exists.includes(x.key)">
+            {{ x.label }} [{{ x.key }}]
+          </nz-auto-option>
+        </ng-container>
+      </nz-autocomplete>
       <button style="margin-top: 8px" type="button" nz-button nzType="dashed" nzBlock (click)="addCondition()">
         <i nz-icon nzType="plus-circle"></i> 新增字段
       </button>
@@ -33,18 +47,12 @@
   </nz-form-item>
   <nz-form-item>
     <nz-form-label nzRequired>显示字段</nz-form-label>
-    <nz-form-control formArrayName="keys">
-      <ng-container *ngFor="let x of keys?.controls; index as i; first as isFirst">
-        <nz-input-group nzCompact [ngStyle]="{ 'margin-top': isFirst ? null : '-1px' }">
-          <input style="width: 90%" type="text" nz-input [formControlName]="i" placeholder="字段" />
-          <button nz-button nzType="default" style="width: 10%" (click)="removeKey(i)">
-            <i nz-icon nzType="minus-circle"></i>
-          </button>
-        </nz-input-group>
-      </ng-container>
-      <button style="margin-top: 8px" type="button" nz-button nzType="dashed" nzBlock (click)="addKey()">
-        <i nz-icon nzType="plus-circle"></i> 新增字段
-      </button>
+    <nz-form-control>
+      <nz-select style="width: 100%" formControlName="keys" nzMode="tags">
+        <ng-container *ngFor="let x of fields">
+          <nz-option [nzValue]="x.key" [nzLabel]="x.key" nzCustomContent> {{ x.label }} [{{ x.key }}] </nz-option>
+        </ng-container>
+      </nz-select>
     </nz-form-control>
   </nz-form-item>
 </form>
