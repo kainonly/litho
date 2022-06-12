@@ -34,15 +34,15 @@ const routes: Routes = [
   {
     path: 'pages',
     loadChildren: () => import('./pages/pages.module').then(m => m.PagesModule),
-    canActivate: [AppGuard]
+    canActivate: [AppGuard],
+    data: {
+      breadcrumb: '主页'
+    }
   },
   {
     path: 'admin',
     loadChildren: () => import('@weplanx/ng-intgr').then(m => m.AdminModule),
-    canActivate: [AppGuard],
-    data: {
-      breadcrumb: '管理后台'
-    }
+    canActivate: [AppGuard]
   },
   {
     path: 'center',

@@ -6,7 +6,6 @@ import { Subscription } from 'rxjs';
 import { FormatDoc, SchemaField, SchemaRule, SchemaRuleCondition, Value, WpxService } from '@weplanx/ng';
 import { NzCheckBoxOptionInterface } from 'ng-zorro-antd/checkbox';
 
-import { ApiService } from './api.service';
 import { WpxFormInitOption } from './types';
 
 @Component({
@@ -62,7 +61,7 @@ export class WpxFormComponent implements OnInit, OnDestroy {
    */
   onchangekeySubscriptions: Subscription[] = [];
 
-  constructor(private fb: FormBuilder, private api: ApiService, public wpx: WpxService) {}
+  constructor(private fb: FormBuilder, public wpx: WpxService) {}
 
   ngOnInit(): void {
     const onchangekeys = new Set((<string[]>[]).concat(...this.wpxRules.map(v => v.conditions.map(v => v.key))));
@@ -89,7 +88,7 @@ export class WpxFormComponent implements OnInit, OnDestroy {
           } else {
             format[`${field.key!}.$in`] = 'oids';
           }
-          this.api.getReference(reference!, target!).subscribe(v => {
+          this.wpx.getRefValues(reference!, target!).subscribe(v => {
             this.references[field.key] = v;
           });
           break;
@@ -108,10 +107,6 @@ export class WpxFormComponent implements OnInit, OnDestroy {
       form: this.form,
       format
     });
-    // this.wpxInit.emit({
-    //   form: this.form,
-    //   format
-    // });
   }
 
   ngOnDestroy(): void {

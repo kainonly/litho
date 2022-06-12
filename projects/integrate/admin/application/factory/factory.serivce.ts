@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { forkJoin, Observable, of, timer } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
 
-import { AnyDto, Api, Filter, Page, SchemaField } from '@weplanx/ng';
+import { AnyDto, Api, Filter, Page, SchemaField, UpdateOneByIdOption } from '@weplanx/ng';
 import { NzTreeNodeOptions } from 'ng-zorro-antd/tree';
 
 @Injectable()
@@ -98,11 +98,16 @@ export class FactorySerivce extends Api<Page> {
    * 内容模型字段新增
    * @param id 页面 ID
    * @param data 数据
+   * @param option
    */
-  addSchemaField(id: string, data: SchemaField): Observable<any> {
-    return this.updateOneById(id, {
-      $push: { 'schema.fields': data }
-    });
+  addSchemaField(id: string, data: SchemaField, option?: UpdateOneByIdOption<Page>): Observable<any> {
+    return this.updateOneById(
+      id,
+      {
+        $push: { 'schema.fields': data }
+      },
+      option
+    );
   }
 
   /**

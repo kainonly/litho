@@ -7,7 +7,17 @@ import { map } from 'rxjs/operators';
 
 import { StorageMap } from '@ngx-pwa/local-storage';
 
-import { AnyDto, ApiOptions, ComponentTypeOption, Filter, FindOption, Page, UploadOption, UserInfo } from './types';
+import {
+  AnyDto,
+  ApiOptions,
+  ComponentTypeOption,
+  Filter,
+  FindOption,
+  Page,
+  UploadOption,
+  UserInfo,
+  Value
+} from './types';
 import { httpOptions } from './util/helper';
 
 @Injectable({ providedIn: 'root' })
@@ -20,6 +30,14 @@ export class WpxService {
    * 上传类型
    */
   upload: AsyncSubject<UploadOption> = new AsyncSubject<UploadOption>();
+  /**
+   * 自定义页面
+   */
+  scopes: Map<string, ComponentTypeOption<any>> = new Map<string, ComponentTypeOption<any>>();
+  /**
+   * 自定义组件
+   */
+  components: Map<string, ComponentTypeOption<any>> = new Map<string, ComponentTypeOption<any>>();
   /**
    * 导航索引
    */
@@ -40,14 +58,6 @@ export class WpxService {
    * 用户信息
    */
   user?: UserInfo;
-  /**
-   * 自定义页面
-   */
-  scopes: Map<string, ComponentTypeOption<any>> = new Map<string, ComponentTypeOption<any>>();
-  /**
-   * 自定义组件
-   */
-  components: Map<string, ComponentTypeOption<any>> = new Map<string, ComponentTypeOption<any>>();
 
   constructor(private http: HttpClient, private storage: StorageMap) {}
 
@@ -57,6 +67,32 @@ export class WpxService {
    */
   setAssets(url: string): void {
     this.assets = url;
+  }
+
+  /**
+   * 设置自定义页面
+   * @param key 唯一标识
+   * @param name 名称
+   * @param component 组件
+   */
+  setScope<T>(key: string, name: string, component: ComponentType<T>): void {
+    this.scopes.set(key, {
+      name,
+      component: new ComponentPortal<T>(component)
+    });
+  }
+
+  /**
+   * 设置自定义组件
+   * @param key 唯一标识
+   * @param name 名称
+   * @param component 组件
+   */
+  setComponent<T>(key: string, name: string, component: ComponentType<T>): void {
+    this.components.set(key, {
+      name,
+      component: new ComponentPortal<T>(component)
+    });
   }
 
   /**
@@ -244,6 +280,22 @@ export class WpxService {
   }
 
   /**
+   * 获取引用枚举
+   * @param model
+   * @param target
+   */
+  getRefValues(model: string, target: string): Observable<Value[]> {
+    return this.http.get<any[]>(`api/${model}`).pipe(
+      map<any[], Value[]>(v =>
+        v.map(v => ({
+          label: v[target] ?? `ID[${v._id}]`,
+          value: v._id
+        }))
+      )
+    );
+  }
+
+  /**
    * 日志查询
    * @param name
    * @param filter
@@ -251,31 +303,5 @@ export class WpxService {
    */
   logs<T>(name: string, filter: Filter<T>, options?: FindOption<T>): Observable<Array<AnyDto<T>>> {
     return this.http.get<Array<AnyDto<T>>>(`api/${name}`, httpOptions(options as ApiOptions<T>, filter));
-  }
-
-  /**
-   * 设置自定义页面
-   * @param key 唯一标识
-   * @param name 名称
-   * @param component 组件
-   */
-  setScope<T>(key: string, name: string, component: ComponentType<T>): void {
-    this.scopes.set(key, {
-      name,
-      component: new ComponentPortal<T>(component)
-    });
-  }
-
-  /**
-   * 设置自定义组件
-   * @param key 唯一标识
-   * @param name 名称
-   * @param component 组件
-   */
-  setComponent<T>(key: string, name: string, component: ComponentType<T>): void {
-    this.components.set(key, {
-      name,
-      component: new ComponentPortal<T>(component)
-    });
   }
 }

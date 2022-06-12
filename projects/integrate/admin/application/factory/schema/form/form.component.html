@@ -131,9 +131,9 @@
                 [nzMode]="option.get('multiple')?.value ? 'tags' : 'default'"
                 nzPlaceHolder="请选择默认值"
               >
-                <!--                <ng-container *ngFor="let x of optionValues.value">-->
-                <!--                  <nz-option [nzLabel]="x.label" [nzValue]="x.value"></nz-option>-->
-                <!--                </ng-container>-->
+                <ng-container *ngFor="let x of referenceValues">
+                  <nz-option [nzLabel]="x.label" [nzValue]="x.value"></nz-option>
+                </ng-container>
               </nz-select>
             </ng-container>
             <ng-container *ngSwitchDefault>

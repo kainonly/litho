@@ -1,7 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Observable, of, switchMap, throttleTime, timer } from 'rxjs';
+import { map } from 'rxjs/operators';
 
-import { AnyDto, Page, SchemaField, WpxService } from '@weplanx/ng';
+import { AnyDto, Page, SchemaField, Value, WpxService } from '@weplanx/ng';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalRef, NzModalService } from 'ng-zorro-antd/modal';
 
@@ -47,6 +49,10 @@ export class FormComponent implements OnInit {
    */
   referenceDict: Record<string, SchemaField[]> = {};
   /**
+   * 引用枚举
+   */
+  referenceValues: Value[] = [];
+  /**
    * 无限
    */
   infinity = Infinity;
@@ -79,6 +85,9 @@ export class FormComponent implements OnInit {
     if (this.doc) {
       this.setType(this.doc.type);
       this.form.patchValue(this.doc);
+      if (this.doc?.option?.reference && this.doc.option.target) {
+        this.setRefValues().subscribe(() => {});
+      }
       this.form.markAsTouched();
     } else {
       this.form.get('sort')?.setValue(Object.keys(this.page.schema?.fields!).length);
@@ -179,6 +188,13 @@ export class FormComponent implements OnInit {
             this.referenceDict[x.schema!.key] = [...x.schema!.fields];
           }
         });
+
+        this.optionTarget.valueChanges
+          .pipe(
+            throttleTime(500),
+            switchMap(() => this.setRefValues())
+          )
+          .subscribe(() => {});
         break;
       case 'manual':
         /**
@@ -237,6 +253,28 @@ export class FormComponent implements OnInit {
   }
 
   /**
+   * 引用目标字段表单控件
+   */
+  get optionTarget(): FormControl {
+    return this.form.get('option')?.get('target') as FormControl;
+  }
+
+  /**
+   * 设置引用枚举
+   */
+  setRefValues(): Observable<any> {
+    const { option } = this.form.getRawValue();
+    if (!option.reference) {
+      return of([]);
+    }
+    return this.wpx.getRefValues(option.reference, option.target).pipe(
+      map(v => {
+        this.referenceValues = v;
+      })
+    );
+  }
+
+  /**
    * 打开默认值表单
    */
   setDefault(): void {
@@ -272,6 +310,11 @@ export class FormComponent implements OnInit {
    * @param data
    */
   submit(data: any): void {
+    if (data.type === 'ref') {
+      if (!data.option.multiple) {
+      } else {
+      }
+    }
     if (!this.doc) {
       data.sort = this.page.schema?.fields.length;
       this.factory.addSchemaField(this.page._id, data).subscribe(() => {
