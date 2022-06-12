@@ -133,6 +133,7 @@
             <nz-form-label [nzRequired]="field.required">{{ field.label }}</nz-form-label>
             <nz-form-control [nzExtra]="field.description ?? ''">
               <nz-select
+                nzShowSearch
                 [formControlName]="field.key"
                 [nzMode]="field?.option?.multiple ? 'tags' : 'default'"
                 [nzPlaceHolder]="field?.placeholder ?? '请选择'"
@@ -149,6 +150,7 @@
             <nz-form-label [nzRequired]="field.required">{{ field.label }}</nz-form-label>
             <nz-form-control [nzExtra]="field.description ?? ''">
               <nz-select
+                nzShowSearch
                 [formControlName]="field.key"
                 [nzMode]="field?.option?.multiple ? 'tags' : 'default'"
                 [nzPlaceHolder]="field?.placeholder ?? '请选择'"

@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { Observable, of, switchMap, throttleTime, timer } from 'rxjs';
+import { Observable, of, switchMap, throttleTime } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { AnyDto, Page, SchemaField, Value, WpxService } from '@weplanx/ng';
