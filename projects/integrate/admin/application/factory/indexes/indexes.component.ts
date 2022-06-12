@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
+import { AnyDto, Page } from '@weplanx/ng';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalService } from 'ng-zorro-antd/modal';
 
@@ -16,6 +17,10 @@ export class IndexesComponent implements OnInit {
    * 页面单元 ID
    */
   id!: string;
+  /**
+   * 页面单元
+   */
+  page?: AnyDto<Page>;
   /**
    * 索引数据
    */
@@ -39,6 +44,9 @@ export class IndexesComponent implements OnInit {
    * 获取数据
    */
   getData(): void {
+    this.factory.findOneById(this.id).subscribe(page => {
+      this.page = page;
+    });
     this.factory.getIndexes(this.id).subscribe(indexes => {
       this.indexes = [...indexes];
     });
@@ -52,7 +60,7 @@ export class IndexesComponent implements OnInit {
       nzTitle: '新增索引',
       nzContent: FormComponent,
       nzComponentParams: {
-        id: this.id
+        page: this.page
       },
       nzOnOk: () => {
         this.getData();

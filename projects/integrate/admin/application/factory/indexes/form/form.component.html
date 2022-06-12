@@ -4,7 +4,14 @@
     <nz-form-control formArrayName="keys">
       <ng-container *ngFor="let x of keys?.controls; index as i; first as isFirst">
         <nz-input-group [formGroupName]="i" nzCompact [ngStyle]="{ 'margin-top': isFirst ? null : '-1px' }">
-          <input style="width: 45%" type="text" nz-input formControlName="key" placeholder="字段" />
+          <input
+            style="width: 45%"
+            type="text"
+            nz-input
+            formControlName="key"
+            placeholder="字段"
+            [nzAutocomplete]="autoKey"
+          />
           <nz-select style="width: 45%" formControlName="value" nzPlaceHolder="类型">
             <nz-option [nzValue]="1" nzLabel="升序索引"></nz-option>
             <nz-option [nzValue]="-1" nzLabel="降序索引"></nz-option>
@@ -16,6 +23,13 @@
           </button>
         </nz-input-group>
       </ng-container>
+      <nz-autocomplete #autoKey>
+        <ng-container *ngFor="let x of fields">
+          <nz-auto-option [nzValue]="x.key" [nzDisabled]="exists.includes(x.key)">
+            {{ x.label }} [{{ x.key }}]
+          </nz-auto-option>
+        </ng-container>
+      </nz-autocomplete>
       <button style="margin-top: 8px" type="button" nz-button nzType="dashed" nzBlock (click)="addKeys()">
         <i nz-icon nzType="plus-circle"></i> 新增字段
       </button>
