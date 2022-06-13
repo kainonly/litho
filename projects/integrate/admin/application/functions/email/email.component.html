@@ -2,7 +2,7 @@
   <nz-list nzSize="large" nzItemLayout="vertical">
     <nz-list-item>
       <nz-list-item-meta>
-        <nz-list-item-meta-title><b>电子邮箱</b></nz-list-item-meta-title>
+        <nz-list-item-meta-title><b>基本设置</b></nz-list-item-meta-title>
       </nz-list-item-meta>
       <nz-descriptions style="width: 800px" nzSize="small" nzLayout="vertical" nzBordered [nzColumn]="2">
         <nz-descriptions-item nzTitle="SMTP 地址">
@@ -25,32 +25,7 @@
         </nz-descriptions-item>
       </nz-descriptions>
       <nz-list-item-extra>
-        <button nz-button nzType="primary" nzShape="circle" nz-tooltip="设置" (click)="setEmail()">
-          <i nz-icon nzType="tool"></i>
-        </button>
-      </nz-list-item-extra>
-    </nz-list-item>
-    <nz-list-item>
-      <nz-list-item-meta>
-        <nz-list-item-meta-title><b>开放服务</b></nz-list-item-meta-title>
-      </nz-list-item-meta>
-      <nz-descriptions style="width: 800px" nzSize="small" nzLayout="vertical" nzBordered [nzColumn]="2">
-        <nz-descriptions-item nzTitle="地址" [nzSpan]="2">
-          <ng-container *ngIf="data['openapi_url']; else unkown">
-            {{ data['openapi_url'] }}
-          </ng-container>
-        </nz-descriptions-item>
-        <nz-descriptions-item nzTitle="应用认证 Key">
-          <ng-container *ngIf="data['openapi_key']; else unkown">
-            {{ data['openapi_key'] }}
-          </ng-container>
-        </nz-descriptions-item>
-        <nz-descriptions-item nzTitle="应用认证密钥">
-          <ng-container *ngIf="data['openapi_secret']; else unkown"> 已设置 </ng-container>
-        </nz-descriptions-item>
-      </nz-descriptions>
-      <nz-list-item-extra>
-        <button nz-button nzType="primary" nzShape="circle" nz-tooltip="设置" (click)="setOpenapi()">
+        <button nz-button nzType="primary" nzShape="circle" nz-tooltip="设置" (click)="setBasic()">
           <i nz-icon nzType="tool"></i>
         </button>
       </nz-list-item-extra>

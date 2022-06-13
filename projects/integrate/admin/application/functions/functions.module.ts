@@ -8,11 +8,13 @@ import { CloudComponent } from './cloud/cloud.component';
 import { CloudModule } from './cloud/cloud.module';
 import { CollectorComponent } from './collector/collector.component';
 import { CollectorModule } from './collector/collector.module';
+import { EmailComponent } from './email/email.component';
+import { EmailModule } from './email/email.module';
 import { FunctionsComponent } from './functions.component';
 import { OfficeComponent } from './office/office.component';
 import { OfficeModule } from './office/office.module';
-import { PublicComponent } from './public/public.component';
-import { PublicModule } from './public/public.module';
+import { OpenapiComponent } from './openapi/openapi.component';
+import { OpenapiModule } from './openapi/openapi.module';
 import { ScheduleComponent } from './schedule/schedule.component';
 import { ScheduleModule } from './schedule/schedule.module';
 
@@ -32,10 +34,17 @@ export const functions: Routes = [
     }
   },
   {
-    path: 'public',
-    component: PublicComponent,
+    path: 'email',
+    component: EmailComponent,
     data: {
-      breadcrumb: '公共配置'
+      breadcrumb: '电子邮件'
+    }
+  },
+  {
+    path: 'openapi',
+    component: OpenapiComponent,
+    data: {
+      breadcrumb: '开放服务'
     }
   },
   {
@@ -62,7 +71,8 @@ export const functions: Routes = [
     NzDescriptionsModule,
     CloudModule,
     OfficeModule,
-    PublicModule,
+    EmailModule,
+    OpenapiModule,
     ScheduleModule,
     CollectorModule
   ],

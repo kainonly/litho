@@ -19,6 +19,7 @@
     "target": "es2017",
     "module": "es2020",
     "lib": ["es2020", "dom"],
+    "skipLibCheck": true,
     "paths": {
       "@env": ["src/environments/environment.ts"],
       "@common/*": ["src/app/common/*"],

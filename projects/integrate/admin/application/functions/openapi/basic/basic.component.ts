@@ -6,10 +6,10 @@ import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalRef } from 'ng-zorro-antd/modal';
 
 @Component({
-  selector: 'wpx-admin-functions-public-email',
-  templateUrl: './email.component.html'
+  selector: 'wpx-admin-functions-openapi-basic',
+  templateUrl: './basic.component.html'
 })
-export class EmailComponent implements OnInit {
+export class BasicComponent implements OnInit {
   /**
    * 载入数据
    */
@@ -28,15 +28,13 @@ export class EmailComponent implements OnInit {
 
   ngOnInit(): void {
     this.form = this.fb.group({
-      email_host: [null, [Validators.required]],
-      email_port: [null, [Validators.required]],
-      email_username: [null, [Validators.required]],
-      email_password: [null, [Validators.required]]
+      openapi_url: [null, [Validators.required]],
+      openapi_key: [null, [Validators.required]],
+      openapi_secret: [null, [Validators.required]]
     });
     this.form.patchValue({
-      email_host: this.data['email_host'],
-      email_port: this.data['email_port'],
-      email_username: this.data['email_username']
+      openapi_url: this.data['openapi_url'],
+      openapi_key: this.data['openapi_key']
     });
   }
 

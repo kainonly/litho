@@ -14,7 +14,13 @@
                 }
               }"
             >
-              <input nz-input type="text" [formControlName]="field.key" [placeholder]="field.placeholder ?? ''" />
+              <input
+                nz-input
+                type="text"
+                [formControlName]="field.key"
+                [placeholder]="field.placeholder ?? ''"
+                [readOnly]="field.readonly"
+              />
             </nz-form-control>
           </nz-form-item>
         </ng-container>
@@ -36,6 +42,7 @@
                   nz-input
                   [formControlName]="field.key"
                   [placeholder]="field.placeholder ?? ''"
+                  [readOnly]="field.readonly"
                 ></textarea>
               </nz-textarea-count>
             </nz-form-control>
