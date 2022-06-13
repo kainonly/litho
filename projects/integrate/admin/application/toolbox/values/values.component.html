@@ -9,12 +9,12 @@
     <div class="ant-table-filter-dropdown">
       <div class="search-box">
         <input type="text" nz-input placeholder="配置键名" [(ngModel)]="searchValue" />
-        <button nz-button nzSize="small" nzType="primary" class="search-button">搜索</button>
-        <button nz-button nzSize="small">重置</button>
+        <button nz-button nzSize="small" nzType="primary" class="search-button" (click)="getData()">搜索</button>
+        <button nz-button nzSize="small" (click)="reset()">重置</button>
       </div>
     </div>
   </nz-dropdown-menu>
-  <nz-table #basicTable [nzData]="values | keyvalue" [nzHideOnSinglePage]="true" [nzPageSize]="20">
+  <nz-table #basicTable [nzData]="values" [nzHideOnSinglePage]="true" [nzPageSize]="20">
     <thead>
       <tr>
         <th nzCustomFilter>

@@ -1,4 +1,4 @@
-import { Component, OnInit, Type } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 import { WpxService } from '@weplanx/ng';
 import { NzMessageService } from 'ng-zorro-antd/message';
@@ -8,19 +8,20 @@ import { FormComponent } from './form/form.component';
 
 @Component({
   selector: 'wpx-admin-toolbox-values',
-  templateUrl: './values.component.html'
+  templateUrl: './values.component.html',
+  styleUrls: ['./values.component.scss']
 })
 export class ValuesComponent implements OnInit {
   /**
    * 配置值
    */
-  values: Record<string, any> = {};
+  values: any[] = [];
   /**
-   * 自定义搜索
+   * 搜索显示
    */
   searchVisible = false;
   /**
-   *
+   * 搜索值
    */
   searchValue = '';
 
@@ -35,8 +36,25 @@ export class ValuesComponent implements OnInit {
    */
   getData(): void {
     this.wpx.getValues().subscribe(data => {
-      this.values = data;
+      this.values = [
+        ...Object.entries(data)
+          .map(v => ({ key: v[0], value: v[1] }))
+          .filter(v => {
+            if (!this.searchValue) {
+              return v;
+            }
+            return v.key.match(this.searchValue);
+          })
+      ];
     });
+  }
+
+  /**
+   * 重置
+   */
+  reset(): void {
+    this.searchValue = '';
+    this.getData();
   }
 
   /**
