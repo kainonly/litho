@@ -9,6 +9,8 @@ import { FunctionsComponent } from './functions/functions.component';
 import { functions, FunctionsModule } from './functions/functions.module';
 import { MonitorComponent } from './monitor/monitor.component';
 import { MonitorModule } from './monitor/monitor.module';
+import { ToolboxComponent } from './toolbox/toolbox.component';
+import { toolbox, ToolboxModule } from './toolbox/toolbox.module';
 
 export const application: Routes = [
   {
@@ -34,10 +36,18 @@ export const application: Routes = [
       breadcrumb: '监控'
     }
   },
+  {
+    path: 'toolbox',
+    component: ToolboxComponent,
+    children: toolbox,
+    data: {
+      breadcrumb: '工具箱'
+    }
+  },
   { path: '', redirectTo: '/admin/application/factory/home', pathMatch: 'full' }
 ];
 
 @NgModule({
-  imports: [WpxShareModule, WpxModule, FactoryModule, FunctionsModule, MonitorModule]
+  imports: [WpxShareModule, WpxModule, FactoryModule, FunctionsModule, MonitorModule, ToolboxModule]
 })
 export class ApplicationModule {}

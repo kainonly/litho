@@ -280,6 +280,14 @@ export class WpxService {
   }
 
   /**
+   * 删除动态配置
+   * @param key 配置键名
+   */
+  deleteValue(key: string): Observable<any> {
+    return this.http.delete(`values/${key}`);
+  }
+
+  /**
    * 获取引用枚举
    * @param model
    * @param target

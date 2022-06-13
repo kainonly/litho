@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 
 import { WpxModule, WpxShareModule } from '@weplanx/ng';
-import { NzTagModule } from 'ng-zorro-antd/tag';
 
 import { HealthComponent } from './chart/health.component';
 import { LoadComponent } from './chart/load.component';

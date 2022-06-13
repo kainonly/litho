@@ -1,0 +1,63 @@
+<ng-template #extra>
+  <nz-space>
+    <button *nzSpaceItem nz-button nzType="primary" nzDanger> 接入服务 </button>
+    <button *nzSpaceItem nz-button nzType="primary"> 新增 </button>
+  </nz-space>
+</ng-template>
+
+<wpx-admin-toolbox-tabs [extra]="extra">
+  <!--  <nz-table #basicTable [nzData]="schedules" [nzHideOnSinglePage]="true" [nzPageSize]="20">-->
+  <!--    <thead>-->
+  <!--      <tr>-->
+  <!--        <th><b>状态</b></th>-->
+  <!--        <th><b>任务</b></th>-->
+  <!--        <th nzWidth="50px"><b>操作</b></th>-->
+  <!--      </tr>-->
+  <!--    </thead>-->
+  <!--    <tbody>-->
+  <!--      <tr *ngFor="let data of basicTable.data">-->
+  <!--        <td>{{ data.key }}</td>-->
+  <!--        <td>{{ data.value }}</td>-->
+  <!--        <td></td>-->
+  <!--      </tr>-->
+  <!--    </tbody>-->
+  <!--  </nz-table>-->
+
+  <!--  <nz-list>-->
+  <!--    <ng-container *ngFor="let item of builder">-->
+  <!--      <nz-list-item>-->
+  <!--        <span>-->
+  <!--          <ng-container [ngSwitch]="item.status">-->
+  <!--            <ng-container *ngSwitchCase="'success'">-->
+  <!--              <nz-tag nzColor="success">-->
+  <!--                <i nz-icon nzType="check-circle"></i>-->
+  <!--                <span>正常</span>-->
+  <!--              </nz-tag>-->
+  <!--            </ng-container>-->
+  <!--            <ng-container *ngSwitchCase="'processing'">-->
+  <!--              <nz-tag nzColor="processing">-->
+  <!--                <i nz-icon nzType="sync" nzSpin></i>-->
+  <!--                <span>同步</span>-->
+  <!--              </nz-tag>-->
+  <!--            </ng-container>-->
+  <!--            <ng-container *ngSwitchCase="'warning'">-->
+  <!--              <nz-tag nzColor="warning">-->
+  <!--                <i nz-icon nzType="exclamation-circle"></i>-->
+  <!--                <span>告警</span>-->
+  <!--              </nz-tag>-->
+  <!--            </ng-container>-->
+  <!--            <ng-container *ngSwitchCase="'error'">-->
+  <!--              <nz-tag nzColor="error">-->
+  <!--                <i nz-icon nzType="close-circle"></i>-->
+  <!--                <span>异常</span>-->
+  <!--              </nz-tag>-->
+  <!--            </ng-container>-->
+  <!--          </ng-container>-->
+
+  <!--          {{ item.name }}-->
+  <!--        </span>-->
+  <!--        <b>( {{ item.success }} / {{ item.total }} )</b>-->
+  <!--      </nz-list-item>-->
+  <!--    </ng-container>-->
+  <!--  </nz-list>-->
+</wpx-admin-toolbox-tabs>

@@ -1,0 +1,48 @@
+<ng-template #extra>
+  <nz-space>
+    <button *nzSpaceItem nz-button nzType="primary" (click)="form()"> 新增 </button>
+  </nz-space>
+</ng-template>
+
+<wpx-admin-toolbox-tabs [extra]="extra">
+  <nz-dropdown-menu #searchRef="nzDropdownMenu">
+    <div class="ant-table-filter-dropdown">
+      <div class="search-box">
+        <input type="text" nz-input placeholder="配置键名" [(ngModel)]="searchValue" />
+        <button nz-button nzSize="small" nzType="primary" class="search-button">搜索</button>
+        <button nz-button nzSize="small">重置</button>
+      </div>
+    </div>
+  </nz-dropdown-menu>
+  <nz-table #basicTable [nzData]="values | keyvalue" [nzHideOnSinglePage]="true" [nzPageSize]="20">
+    <thead>
+      <tr>
+        <th nzCustomFilter>
+          <b>键名</b>
+          <nz-filter-trigger [(nzVisible)]="searchVisible" [nzDropdownMenu]="searchRef">
+            <i nz-icon nzType="search"></i>
+          </nz-filter-trigger>
+        </th>
+        <th><b>键值</b></th>
+        <th nzWidth="50px"><b>操作</b></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let data of basicTable.data">
+        <td>{{ data.key }}</td>
+        <td>{{ data.value }}</td>
+        <td>
+          <button nz-button nzType="text" nz-dropdown [nzDropdownMenu]="actions">
+            <i nz-icon nzType="ellipsis"></i>
+          </button>
+          <nz-dropdown-menu #actions="nzDropdownMenu">
+            <ul nz-menu>
+              <li nz-menu-item (click)="form(data)">编辑</li>
+              <li nz-menu-item nzDanger (click)="delete(data.key)">删除</li>
+            </ul>
+          </nz-dropdown-menu>
+        </td>
+      </tr>
+    </tbody>
+  </nz-table>
+</wpx-admin-toolbox-tabs>
