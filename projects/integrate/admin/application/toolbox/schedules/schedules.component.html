@@ -1,63 +1,81 @@
 <ng-template #extra>
   <nz-space>
-    <button *nzSpaceItem nz-button nzType="primary" nzDanger> 接入服务 </button>
-    <button *nzSpaceItem nz-button nzType="primary"> 新增 </button>
+    <button *nzSpaceItem nz-button nzType="primary" (click)="form()"> 新增 </button>
   </nz-space>
 </ng-template>
 
 <wpx-admin-toolbox-tabs [extra]="extra">
-  <!--  <nz-table #basicTable [nzData]="schedules" [nzHideOnSinglePage]="true" [nzPageSize]="20">-->
-  <!--    <thead>-->
-  <!--      <tr>-->
-  <!--        <th><b>状态</b></th>-->
-  <!--        <th><b>任务</b></th>-->
-  <!--        <th nzWidth="50px"><b>操作</b></th>-->
-  <!--      </tr>-->
-  <!--    </thead>-->
-  <!--    <tbody>-->
-  <!--      <tr *ngFor="let data of basicTable.data">-->
-  <!--        <td>{{ data.key }}</td>-->
-  <!--        <td>{{ data.value }}</td>-->
-  <!--        <td></td>-->
-  <!--      </tr>-->
-  <!--    </tbody>-->
-  <!--  </nz-table>-->
+  <nz-list nzSize="large" nzItemLayout="vertical">
+    <nz-list-empty *ngIf="items.length === 0"></nz-list-empty>
+    <ng-container *ngFor="let item of items">
+      <nz-list-item>
+        <nz-list-item-meta>
+          <nz-list-item-meta-title>
+            <span>
+              <ng-container *ngIf="item.status; else notOk">
+                <nz-tag nzColor="processing">
+                  <i nz-icon nzType="sync" nzSpin></i>
+                  <span>运行</span>
+                </nz-tag>
+              </ng-container>
+              <ng-template #notOk>
+                <nz-tag nzColor="error">
+                  <i nz-icon nzType="close-circle"></i>
+                  <span>终止</span>
+                </nz-tag>
+              </ng-template>
+            </span>
+            {{ item.name }}
+          </nz-list-item-meta-title>
+          <nz-list-item-meta-description>
+            {{ item.description }}
+          </nz-list-item-meta-description>
+        </nz-list-item-meta>
 
-  <!--  <nz-list>-->
-  <!--    <ng-container *ngFor="let item of builder">-->
-  <!--      <nz-list-item>-->
-  <!--        <span>-->
-  <!--          <ng-container [ngSwitch]="item.status">-->
-  <!--            <ng-container *ngSwitchCase="'success'">-->
-  <!--              <nz-tag nzColor="success">-->
-  <!--                <i nz-icon nzType="check-circle"></i>-->
-  <!--                <span>正常</span>-->
-  <!--              </nz-tag>-->
-  <!--            </ng-container>-->
-  <!--            <ng-container *ngSwitchCase="'processing'">-->
-  <!--              <nz-tag nzColor="processing">-->
-  <!--                <i nz-icon nzType="sync" nzSpin></i>-->
-  <!--                <span>同步</span>-->
-  <!--              </nz-tag>-->
-  <!--            </ng-container>-->
-  <!--            <ng-container *ngSwitchCase="'warning'">-->
-  <!--              <nz-tag nzColor="warning">-->
-  <!--                <i nz-icon nzType="exclamation-circle"></i>-->
-  <!--                <span>告警</span>-->
-  <!--              </nz-tag>-->
-  <!--            </ng-container>-->
-  <!--            <ng-container *ngSwitchCase="'error'">-->
-  <!--              <nz-tag nzColor="error">-->
-  <!--                <i nz-icon nzType="close-circle"></i>-->
-  <!--                <span>异常</span>-->
-  <!--              </nz-tag>-->
-  <!--            </ng-container>-->
-  <!--          </ng-container>-->
+        <nz-table #basicTable [nzData]="item.jobs" [nzHideOnSinglePage]="true">
+          <thead>
+            <tr>
+              <th nzWidth="200px">触发方式</th>
+              <th nzWidth="200px">计时规格</th>
+              <th>配置</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let data of basicTable.data">
+              <td>
+                <ng-container [ngSwitch]="data.mode">
+                  <ng-container *ngSwitchCase="'HTTP'">网络回调</ng-container>
+                </ng-container>
+              </td>
+              <td>{{ data.spec }}</td>
+              <td>
+                <ng-container [ngSwitch]="data.mode">
+                  <ng-container *ngSwitchCase="'HTTP'">
+                    <nz-descriptions [nzColumn]="1">
+                      <nz-descriptions-item nzTitle="网络回调地址">{{ data.option.url }}</nz-descriptions-item>
+                      <nz-descriptions-item nzTitle="HEADER">{{ data.option.headers | json }}</nz-descriptions-item>
+                      <nz-descriptions-item nzTitle="BODY">{{ data.option.body | json }}</nz-descriptions-item>
+                    </nz-descriptions>
+                  </ng-container>
+                </ng-container>
+              </td>
+            </tr>
+          </tbody>
+        </nz-table>
 
-  <!--          {{ item.name }}-->
-  <!--        </span>-->
-  <!--        <b>( {{ item.success }} / {{ item.total }} )</b>-->
-  <!--      </nz-list-item>-->
-  <!--    </ng-container>-->
-  <!--  </nz-list>-->
+        <nz-list-item-extra>
+          <button nz-button nzType="text" nz-dropdown [nzDropdownMenu]="menu">
+            <i nz-icon nzType="ellipsis"></i>
+          </button>
+          <nz-dropdown-menu #menu="nzDropdownMenu">
+            <ul nz-menu>
+              <li nz-menu-item (click)="form(item)">编辑</li>
+              <li nz-menu-item (click)="setJobs(item)">设置</li>
+              <li nz-menu-item nzDanger (click)="delete(item)">删除</li>
+            </ul>
+          </nz-dropdown-menu>
+        </nz-list-item-extra>
+      </nz-list-item>
+    </ng-container>
+  </nz-list>
 </wpx-admin-toolbox-tabs>

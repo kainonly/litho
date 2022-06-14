@@ -1,0 +1,102 @@
+<form nz-form nzLayout="vertical" id="form" [formGroup]="form" (wpxSubmit)="submit($event)">
+  <ng-container formArrayName="jobs">
+    <ng-container *ngFor="let job of jobs?.controls; index as i">
+      <ng-container [formGroupName]="i">
+        <nz-form-item>
+          <nz-form-label nzRequired>触发方式</nz-form-label>
+          <nz-form-control>
+            <nz-radio-group formControlName="mode">
+              <label nz-radio-button nzValue="HTTP">网络回调</label>
+            </nz-radio-group>
+          </nz-form-control>
+        </nz-form-item>
+
+        <nz-form-item>
+          <nz-form-label nzRequired>计时规格</nz-form-label>
+          <nz-form-control nzExtra="采用 Cron 表达式或 @every 5m，更多描述请查看文档">
+            <input nz-input formControlName="spec" placeholder="@every 30s" />
+          </nz-form-control>
+        </nz-form-item>
+
+        <ng-container formGroupName="option" [ngSwitch]="job.get('mode')?.value">
+          <ng-container *ngSwitchCase="'HTTP'">
+            <nz-form-item>
+              <nz-form-label nzRequired>网络回调地址</nz-form-label>
+              <nz-form-control
+                nzHasFeedback
+                [nzAutoTips]="{
+                  default: {
+                    required: '网络回调地址不能为空',
+                    not_url: '网络回调地址必须为 URL 格式'
+                  }
+                }"
+              >
+                <input nz-input formControlName="url" placeholder="http(s)://" />
+              </nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
+              <nz-form-label nzRequired>请求头部</nz-form-label>
+              <nz-form-control *ngIf="job | HeadersFormArray as headers" formArrayName="headers">
+                <ng-container *ngFor="let header of headers?.controls; index as headerIndex; first as isFirst">
+                  <nz-input-group
+                    nzCompact
+                    [formGroupName]="headerIndex"
+                    [ngStyle]="{ 'margin-top': isFirst ? null : '-1px' }"
+                  >
+                    <input style="width: 45%" type="text" nz-input formControlName="key" placeholder="字段" />
+                    <input style="width: 45%" type="text" nz-input formControlName="value" placeholder="数值" />
+                    <button nz-button nzType="default" style="width: 10%" (click)="removeHeader(headers, headerIndex)">
+                      <i nz-icon nzType="minus-circle"></i>
+                    </button>
+                  </nz-input-group>
+                </ng-container>
+                <button
+                  style="margin-top: 8px"
+                  type="button"
+                  nz-button
+                  nzType="dashed"
+                  nzBlock
+                  (click)="addHeader(headers)"
+                >
+                  <i nz-icon nzType="plus-circle"></i> 新增字段
+                </button>
+              </nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
+              <nz-form-label nzRequired>请求体</nz-form-label>
+              <nz-form-control
+                [nzAutoTips]="{
+                  default: {
+                    required: '自定义默认值不能为空',
+                    not_json: '自定义默认值必须为 JSON 格式'
+                  }
+                }"
+              >
+                <nz-code-editor
+                  style="height: 200px"
+                  formControlName="body"
+                  [nzEditorOption]="{ language: 'json' }"
+                ></nz-code-editor>
+              </nz-form-control>
+            </nz-form-item>
+            <nz-divider nzPlain nzOrientation="right" [nzText]="text">
+              <ng-template #text>
+                <a nz-button nzType="text" (click)="removeJob(i)">移除 #{{ i }} 任务</a>
+              </ng-template>
+            </nz-divider>
+          </ng-container>
+        </ng-container>
+      </ng-container>
+    </ng-container>
+  </ng-container>
+  <nz-form-item>
+    <button style="margin-top: 8px" type="button" nz-button nzType="dashed" nzBlock (click)="addJob()">
+      <i nz-icon nzType="plus-circle"></i> 新增任务
+    </button>
+  </nz-form-item>
+</form>
+
+<div *nzModalFooter>
+  <button nz-button type="button" nzType="default" (click)="close()">取消</button>
+  <button nz-button nzType="primary" form="form" [disabled]="!form.valid">提交</button>
+</div>
