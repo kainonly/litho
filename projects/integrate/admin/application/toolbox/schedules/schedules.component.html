@@ -53,8 +53,8 @@
                   <ng-container *ngSwitchCase="'HTTP'">
                     <nz-descriptions [nzColumn]="1">
                       <nz-descriptions-item nzTitle="网络回调地址">{{ data.option.url }}</nz-descriptions-item>
-                      <nz-descriptions-item nzTitle="HEADER">{{ data.option.headers | json }}</nz-descriptions-item>
-                      <nz-descriptions-item nzTitle="BODY">{{ data.option.body | json }}</nz-descriptions-item>
+                      <nz-descriptions-item nzTitle="请求头部">{{ data.option.headers | json }}</nz-descriptions-item>
+                      <nz-descriptions-item nzTitle="请求体">{{ data.option.body | json }}</nz-descriptions-item>
                     </nz-descriptions>
                   </ng-container>
                 </ng-container>

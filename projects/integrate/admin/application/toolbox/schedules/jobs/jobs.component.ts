@@ -35,7 +35,26 @@ export class JobsComponent implements OnInit {
     this.form = this.fb.group({
       jobs: this.fb.array([])
     });
-    this.form.patchValue(this.doc.jobs);
+    if (this.doc.jobs) {
+      const jobs: any[] = [];
+      for (const job of this.doc.jobs) {
+        const formJob = this.addJob();
+        const data: Record<string, any> = {
+          mode: job.mode,
+          spec: job.spec,
+          option: {
+            url: job.option.url
+          }
+        };
+        data['option'].headers = Object.entries(job.option.headers).map(v => {
+          this.addHeader(this.headers(formJob));
+          return { key: v[0], value: v[1] };
+        });
+        data['option'].body = JSON.stringify(job.option.body);
+        jobs.push(data);
+      }
+      this.form.patchValue({ jobs });
+    }
   }
 
   /**
@@ -48,18 +67,18 @@ export class JobsComponent implements OnInit {
   /**
    * 新增任务
    */
-  addJob(): void {
-    this.jobs.push(
-      this.fb.group({
-        mode: ['HTTP', [Validators.required]],
-        spec: [null, [Validators.required]],
-        option: this.fb.group({
-          url: [null, [this.isUrl]],
-          headers: this.fb.array([]),
-          body: ['{}', [this.isJSON]]
-        })
+  addJob(): FormGroup {
+    const form = this.fb.group({
+      mode: ['HTTP', [Validators.required]],
+      spec: [null, [Validators.required]],
+      option: this.fb.group({
+        url: [null, [this.isUrl]],
+        headers: this.fb.array([]),
+        body: ['{}', [this.isJSON]]
       })
-    );
+    });
+    this.jobs.push(form);
+    return form;
   }
 
   /**
@@ -139,26 +158,30 @@ export class JobsComponent implements OnInit {
    * @param data
    */
   submit(data: any): void {
-    // const jobs: any[] = [];
-    // for (const job of data.jobs) {
-    //   const data = { ...job };
-    //   if (data.option?.headers) {
-    //     const headers: Record<string, string> = {};
-    //     for (const x of data.option.headers) {
-    //       headers[x.key] = x.value;
-    //     }
-    //     data.option.headers = headers;
-    //   }
-    //   if (data.option?.body) {
-    //     data.option.body = JSON.parse(data.option.body);
-    //   }
-    //   jobs.push(data);
-    // }
-    console.log(data.jobs);
-
-    // this.schedules.setJobs(this.doc._id, data.jobs).subscribe(() => {
-    //   this.message.success('数据更新完成');
-    //   this.modalRef.triggerOk();
-    // });
+    const jobs: any[] = [];
+    for (const job of data.jobs) {
+      const data: Record<string, any> = {
+        mode: job.mode,
+        spec: job.spec,
+        option: {
+          url: job.option.url
+        }
+      };
+      if (job.option?.headers) {
+        const headers: Record<string, string> = {};
+        for (const x of job.option.headers) {
+          headers[x.key] = x.value;
+        }
+        data['option'].headers = headers;
+      }
+      if (job.option?.body) {
+        data['option'].body = JSON.parse(job.option.body);
+      }
+      jobs.push(data);
+    }
+    this.schedules.setJobs(this.doc._id, jobs).subscribe(() => {
+      this.message.success('数据更新完成');
+      this.modalRef.triggerOk();
+    });
   }
 }
