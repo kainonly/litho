@@ -23,6 +23,9 @@ export class SchedulesComponent implements OnInit {
 
   ngOnInit(): void {
     this.getData();
+    this.schedules.getKeys().subscribe(data => {
+      console.log(data);
+    });
   }
 
   /**

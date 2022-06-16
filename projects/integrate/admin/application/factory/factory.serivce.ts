@@ -190,7 +190,7 @@ export class FactorySerivce extends Api<Page> {
    * 获取索引
    */
   getIndexes(id: string): Observable<any> {
-    return this.http.get(this.url('_indexes', id));
+    return this.http.get(this.url('indexes', id));
   }
 
   /**
@@ -200,7 +200,7 @@ export class FactorySerivce extends Api<Page> {
    * @param data
    */
   createIndex(id: string, index: string, data: any): Observable<any> {
-    return this.http.put(this.url('_indexes', id, index), data);
+    return this.http.put(this.url('indexes', id, index), data);
   }
 
   /**
@@ -209,7 +209,7 @@ export class FactorySerivce extends Api<Page> {
    * @param index
    */
   deleteIndex(id: string, index: string): Observable<any> {
-    return this.http.delete(this.url('_indexes', id, index));
+    return this.http.delete(this.url('indexes', id, index));
   }
 
   /**

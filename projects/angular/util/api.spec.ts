@@ -46,7 +46,7 @@ describe('测试请求', () => {
         }
       })
       .subscribe(() => {});
-    const req = httpTestingController.expectOne('api/pages');
+    const req = httpTestingController.expectOne('dsl/pages');
     expect(req.request.method).toEqual('POST');
     expect(req.request.headers.get('wpx-action')).toEqual('create');
     expect(req.request.headers.getAll('wpx-format-doc')).toEqual(['parent:oid']);
@@ -73,7 +73,7 @@ describe('测试请求', () => {
         }
       })
       .subscribe(() => {});
-    const req = httpTestingController.expectOne('api/pages');
+    const req = httpTestingController.expectOne('dsl/pages');
     expect(req.request.method).toEqual('POST');
     expect(req.request.headers.get('wpx-action')).toEqual('bulk-create');
     expect(req.request.headers.getAll('wpx-format-doc')).toEqual(['parent:oid']);
@@ -96,7 +96,7 @@ describe('测试请求', () => {
       done();
     });
     const { params } = httpOptions<Page>(option, filter);
-    const req = httpTestingController.expectOne(`api/pages/_count?${params.toString()}`);
+    const req = httpTestingController.expectOne(`dsl/pages/_count?${params.toString()}`);
     expect(req.request.method).toEqual('HEAD');
     expect(req.request.headers.getAll('wpx-format-filter')).toEqual(['parent:oid']);
     expect(req.request.params.get('filter')).toEqual(JSON.stringify(filter));
@@ -120,7 +120,7 @@ describe('测试请求', () => {
       done();
     });
     const { params } = httpOptions<Page>(option, filter);
-    const req = httpTestingController.expectOne(`api/pages/_exists?${params.toString()}`);
+    const req = httpTestingController.expectOne(`dsl/pages/_exists?${params.toString()}`);
     expect(req.request.method).toEqual('HEAD');
     expect(req.request.headers.getAll('wpx-format-filter')).toEqual(['_id:oid']);
     expect(req.request.params.get('filter')).toEqual(JSON.stringify(filter));
@@ -141,7 +141,7 @@ describe('测试请求', () => {
     };
     service.findOne(filter, option).subscribe(() => {});
     const { params } = httpOptions<Page>(option, filter);
-    const req = httpTestingController.expectOne(`api/pages?${params.toString()}`);
+    const req = httpTestingController.expectOne(`dsl/pages?${params.toString()}`);
     expect(req.request.method).toEqual('GET');
     expect(req.request.headers.get('wpx-type')).toEqual('find-one');
     expect(req.request.headers.getAll('wpx-format-filter')).toEqual(['parent:oid']);
@@ -158,7 +158,7 @@ describe('测试请求', () => {
     };
     service.findOneById(id, option).subscribe(() => {});
     const { params } = httpOptions<Page>(option);
-    const req = httpTestingController.expectOne(`api/pages/${id}?${params.toString()}`);
+    const req = httpTestingController.expectOne(`dsl/pages/${id}?${params.toString()}`);
     expect(req.request.method).toEqual('GET');
     expect(req.request.params.getAll('field')).toEqual(['_id', 'parent', 'name']);
     req.flush({});
@@ -187,7 +187,7 @@ describe('测试请求', () => {
     };
     service.find(filter, option).subscribe(() => {});
     const { params } = httpOptions<Page>(option, filter);
-    const req = httpTestingController.expectOne(`api/pages?${params.toString()}`);
+    const req = httpTestingController.expectOne(`dsl/pages?${params.toString()}`);
     expect(req.request.method).toEqual('GET');
     expect(req.request.headers.get('wpx-limit')).toEqual('100');
     expect(req.request.headers.get('wpx-skip')).toEqual('200');
@@ -224,7 +224,7 @@ describe('测试请求', () => {
       },
       data.filter
     );
-    const req = httpTestingController.expectOne(`api/pages?${params.toString()}`);
+    const req = httpTestingController.expectOne(`dsl/pages?${params.toString()}`);
     expect(req.request.method).toEqual('GET');
     expect(req.request.headers.get('wpx-type')).toEqual('find-by-page');
     expect(req.request.headers.get('wpx-page')).toEqual('1');
@@ -265,7 +265,7 @@ describe('测试请求', () => {
       },
       data.filter
     );
-    const req = httpTestingController.expectOne(`api/pages?${params.toString()}`);
+    const req = httpTestingController.expectOne(`dsl/pages?${params.toString()}`);
     expect(req.request.method).toEqual('GET');
     expect(req.request.headers.get('wpx-type')).toEqual('find-by-page');
     expect(req.request.headers.get('wpx-page')).toEqual('1');
@@ -306,7 +306,7 @@ describe('测试请求', () => {
     };
     service.update(filter, update, option).subscribe(() => {});
     const { params } = httpOptions<Page>(option, filter);
-    const req = httpTestingController.expectOne(`api/pages?${params.toString()}`);
+    const req = httpTestingController.expectOne(`dsl/pages?${params.toString()}`);
     expect(req.request.method).toEqual('PATCH');
     expect(req.request.headers.getAll('wpx-format-filter')).toEqual(['_id.$in:oids']);
     expect(req.request.headers.getAll('wpx-format-doc')).toEqual(['parent:oid']);
@@ -329,7 +329,7 @@ describe('测试请求', () => {
       }
     };
     service.updateOneById(id, update, option).subscribe(() => {});
-    const req = httpTestingController.expectOne(`api/pages/${id}`);
+    const req = httpTestingController.expectOne(`dsl/pages/${id}`);
     expect(req.request.method).toEqual('PATCH');
     expect(req.request.headers.getAll('wpx-format-doc')).toEqual(['parent:oid']);
     expect(req.request.body).toEqual(update);
@@ -353,7 +353,7 @@ describe('测试请求', () => {
       }
     };
     service.replace(id, doc, option).subscribe(() => {});
-    const req = httpTestingController.expectOne(`api/pages/${id}`);
+    const req = httpTestingController.expectOne(`dsl/pages/${id}`);
     expect(req.request.method).toEqual('PUT');
     expect(req.request.headers.getAll('wpx-format-doc')).toEqual(['parent:oid']);
     expect(req.request.body).toEqual(doc);
@@ -378,7 +378,7 @@ describe('测试请求', () => {
       }
     };
     service.bulkDelete(filter, option).subscribe(() => {});
-    const req = httpTestingController.expectOne(`api/pages`);
+    const req = httpTestingController.expectOne(`dsl/pages`);
     expect(req.request.method).toEqual('POST');
     expect(req.request.headers.get('wpx-action')).toEqual('bulk-delete');
     expect(req.request.headers.getAll('wpx-format-filter')).toEqual(['_id.$in:oids']);
@@ -390,7 +390,7 @@ describe('测试请求', () => {
   it('通过 ObjectId 删除文档', () => {
     const id = '61ca6ada2e83bf89116a479e';
     service.delete(id).subscribe(() => {});
-    const req = httpTestingController.expectOne(`api/pages/${id}`);
+    const req = httpTestingController.expectOne(`dsl/pages/${id}`);
     expect(req.request.method).toEqual('DELETE');
     req.flush({});
     httpTestingController.verify();

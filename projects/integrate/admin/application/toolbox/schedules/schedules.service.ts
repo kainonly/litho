@@ -19,4 +19,11 @@ export class SchedulesService extends Api<Schedule> {
       $set: { jobs }
     });
   }
+
+  /**
+   * 获取服务中的唯一标识
+   */
+  getKeys(): Observable<string[]> {
+    return this.http.get<string[]>(this.url('keys'));
+  }
 }
