@@ -12,16 +12,24 @@
         <nz-list-item-meta>
           <nz-list-item-meta-title>
             <span>
-              <ng-container *ngIf="item.status; else notOk">
-                <nz-tag nzColor="processing">
-                  <i nz-icon nzType="sync" nzSpin></i>
-                  <span>运行</span>
-                </nz-tag>
+              <ng-container *ngIf="keys.has(item._id); else notSync">
+                <ng-container *ngIf="item.status; else notOk">
+                  <nz-tag nzColor="processing">
+                    <i nz-icon nzType="sync" nzSpin></i>
+                    <span>运行</span>
+                  </nz-tag>
+                </ng-container>
+                <ng-template #notOk>
+                  <nz-tag nzColor="error">
+                    <i nz-icon nzType="close-circle"></i>
+                    <span>终止</span>
+                  </nz-tag>
+                </ng-template>
               </ng-container>
-              <ng-template #notOk>
-                <nz-tag nzColor="error">
-                  <i nz-icon nzType="close-circle"></i>
-                  <span>终止</span>
+              <ng-template #notSync>
+                <nz-tag nzColor="warning">
+                  <i nz-icon nzType="warning"></i>
+                  <span>未同步</span>
                 </nz-tag>
               </ng-template>
             </span>
@@ -35,19 +43,31 @@
         <nz-table #basicTable [nzData]="item.jobs" [nzHideOnSinglePage]="true">
           <thead>
             <tr>
-              <th nzWidth="200px">触发方式</th>
-              <th nzWidth="200px">计时规格</th>
+              <th nzWidth="150px">触发方式</th>
+              <th nzWidth="240px">计时规格</th>
               <th>配置</th>
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let data of basicTable.data">
+            <tr *ngFor="let data of basicTable.data; index as i">
               <td>
                 <ng-container [ngSwitch]="data.mode">
                   <ng-container *ngSwitchCase="'HTTP'">网络回调</ng-container>
                 </ng-container>
               </td>
-              <td>{{ data.spec }}</td>
+              <td>
+                <nz-descriptions [nzColumn]="1">
+                  <nz-descriptions-item nzTitle="规格">{{ data.spec }}</nz-descriptions-item>
+                  <ng-container *ngIf="states[item._id]?.[i] as job">
+                    <nz-descriptions-item nzTitle="上次调度">
+                      {{ job.Prev | date: 'yyyy-MM-dd HH:mm:ss' }}
+                    </nz-descriptions-item>
+                    <nz-descriptions-item nzTitle="下次调度">
+                      {{ job.Next | date: 'yyyy-MM-dd HH:mm:ss' }}
+                    </nz-descriptions-item>
+                  </ng-container>
+                </nz-descriptions>
+              </td>
               <td>
                 <ng-container [ngSwitch]="data.mode">
                   <ng-container *ngSwitchCase="'HTTP'">
@@ -71,6 +91,7 @@
             <ul nz-menu>
               <li nz-menu-item (click)="form(item)">编辑</li>
               <li nz-menu-item (click)="setJobs(item)">设置</li>
+              <li nz-menu-item (click)="setSync(item)">同步</li>
               <li nz-menu-item nzDanger (click)="delete(item)">删除</li>
             </ul>
           </nz-dropdown-menu>
