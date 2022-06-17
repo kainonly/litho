@@ -101,6 +101,7 @@ export class SchedulesComponent implements OnInit, OnDestroy {
       },
       nzOnOk: () => {
         this.getData();
+        this.getKeys();
       }
     });
   }
@@ -118,6 +119,7 @@ export class SchedulesComponent implements OnInit, OnDestroy {
       },
       nzOnOk: () => {
         this.getData();
+        this.getKeys();
       }
     });
   }
@@ -154,6 +156,7 @@ export class SchedulesComponent implements OnInit, OnDestroy {
         this.schedules.delete(doc._id).subscribe(() => {
           this.message.success('数据删除完成');
           this.getData();
+          this.getKeys();
         });
       },
       nzCancelText: '再想想'
