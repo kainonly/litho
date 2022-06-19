@@ -5,6 +5,8 @@ import { WpxModule, WpxShareModule } from '@weplanx/ng';
 
 import { CollectorComponent } from './collector/collector.component';
 import { CollectorModule } from './collector/collector.module';
+import { MonitorComponent } from './monitor/monitor.component';
+import { MonitorModule } from './monitor/monitor.module';
 import { SchedulesComponent } from './schedules/schedules.component';
 import { SchedulesModule } from './schedules/schedules.module';
 import { ToolboxComponent } from './toolbox.component';
@@ -33,11 +35,18 @@ export const toolbox: Routes = [
       breadcrumb: '日志采集'
     }
   },
+  {
+    path: 'monitor',
+    component: MonitorComponent,
+    data: {
+      breadcrumb: '监控'
+    }
+  },
   { path: '', redirectTo: '/admin/application/toolbox/values', pathMatch: 'full' }
 ];
 
 @NgModule({
-  imports: [WpxModule, WpxShareModule, ValuesModule, SchedulesModule, CollectorModule],
+  imports: [WpxModule, WpxShareModule, ValuesModule, SchedulesModule, CollectorModule, MonitorModule],
   declarations: [ToolboxComponent]
 })
 export class ToolboxModule {}

@@ -7,8 +7,6 @@ import { FactoryComponent } from './factory/factory.component';
 import { FactoryModule, factory } from './factory/factory.module';
 import { FunctionsComponent } from './functions/functions.component';
 import { functions, FunctionsModule } from './functions/functions.module';
-import { MonitorComponent } from './monitor/monitor.component';
-import { MonitorModule } from './monitor/monitor.module';
 import { ToolboxComponent } from './toolbox/toolbox.component';
 import { toolbox, ToolboxModule } from './toolbox/toolbox.module';
 
@@ -30,13 +28,6 @@ export const application: Routes = [
     }
   },
   {
-    path: 'monitor',
-    component: MonitorComponent,
-    data: {
-      breadcrumb: '监控'
-    }
-  },
-  {
     path: 'toolbox',
     component: ToolboxComponent,
     children: toolbox,
@@ -48,6 +39,6 @@ export const application: Routes = [
 ];
 
 @NgModule({
-  imports: [WpxShareModule, WpxModule, FactoryModule, FunctionsModule, MonitorModule, ToolboxModule]
+  imports: [WpxShareModule, WpxModule, FactoryModule, FunctionsModule, ToolboxModule]
 })
 export class ApplicationModule {}

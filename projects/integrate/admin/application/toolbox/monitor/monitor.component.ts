@@ -7,7 +7,7 @@ import { Component } from '@angular/core';
 })
 export class MonitorComponent {
   builder: any[] = [
-    { name: '微服务 A', status: 'success', success: 16, total: 16 },
+    { name: 'API', status: 'success', success: 16, total: 16 },
     { name: '微服务 B', status: 'processing', success: 0, total: 1 },
     { name: '微服务 C', status: 'success', success: 15, total: 15 },
     { name: 'Web应用（开发）', status: 'processing', success: 204, total: 205 },
