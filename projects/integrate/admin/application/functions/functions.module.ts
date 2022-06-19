@@ -6,8 +6,6 @@ import { NzDescriptionsModule } from 'ng-zorro-antd/descriptions';
 
 import { CloudComponent } from './cloud/cloud.component';
 import { CloudModule } from './cloud/cloud.module';
-import { CollectorComponent } from './collector/collector.component';
-import { CollectorModule } from './collector/collector.module';
 import { EmailComponent } from './email/email.component';
 import { EmailModule } from './email/email.module';
 import { FunctionsComponent } from './functions.component';
@@ -15,8 +13,6 @@ import { OfficeComponent } from './office/office.component';
 import { OfficeModule } from './office/office.module';
 import { OpenapiComponent } from './openapi/openapi.component';
 import { OpenapiModule } from './openapi/openapi.module';
-import { ScheduleComponent } from './schedule/schedule.component';
-import { ScheduleModule } from './schedule/schedule.module';
 
 export const functions: Routes = [
   {
@@ -47,35 +43,11 @@ export const functions: Routes = [
       breadcrumb: '开放服务'
     }
   },
-  {
-    path: 'schedule',
-    component: ScheduleComponent,
-    data: {
-      breadcrumb: '定时调度'
-    }
-  },
-  {
-    path: 'collector',
-    component: CollectorComponent,
-    data: {
-      breadcrumb: '日志采集'
-    }
-  },
   { path: '', redirectTo: '/admin/application/functions/cloud', pathMatch: 'full' }
 ];
 
 @NgModule({
-  imports: [
-    WpxModule,
-    WpxShareModule,
-    NzDescriptionsModule,
-    CloudModule,
-    OfficeModule,
-    EmailModule,
-    OpenapiModule,
-    ScheduleModule,
-    CollectorModule
-  ],
+  imports: [WpxModule, WpxShareModule, NzDescriptionsModule, CloudModule, OfficeModule, EmailModule, OpenapiModule],
   declarations: [FunctionsComponent]
 })
 export class FunctionsModule {}
