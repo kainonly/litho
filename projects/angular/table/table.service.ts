@@ -26,7 +26,7 @@ export class WpxTableService extends Api<any> {
       { _id: { $in: ids } }
     );
     return this.http
-      .get<Array<AnyDto<any>>>(this.url(model), options)
+      .get<Array<AnyDto<any>>>(`dsl/${model}`, options)
       .pipe(map(v => Object.fromEntries(v.map(v => [v._id, v[target]]))));
   }
 }

@@ -293,7 +293,7 @@ export class WpxService {
    * @param target
    */
   getRefValues(model: string, target: string): Observable<Value[]> {
-    return this.http.get<any[]>(`api/${model}`).pipe(
+    return this.http.get<any[]>(`dsl/${model}`).pipe(
       map<any[], Value[]>(v =>
         v.map(v => ({
           label: v[target] ?? `ID[${v._id}]`,
@@ -310,6 +310,6 @@ export class WpxService {
    * @param options
    */
   logs<T>(name: string, filter: Filter<T>, options?: FindOption<T>): Observable<Array<AnyDto<T>>> {
-    return this.http.get<Array<AnyDto<T>>>(`api/${name}`, httpOptions(options as ApiOptions<T>, filter));
+    return this.http.get<Array<AnyDto<T>>>(`dsl/${name}`, httpOptions(options as ApiOptions<T>, filter));
   }
 }

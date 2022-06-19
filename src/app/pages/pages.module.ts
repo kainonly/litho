@@ -20,10 +20,6 @@ const routes: Routes = [
         loadChildren: () => import('./dashboard/dashboard.module').then(m => m.DashboardModule)
       },
       {
-        path: 'authorized',
-        loadChildren: () => import('./authorized/authorized.module').then(m => m.AuthorizedModule)
-      },
-      {
         path: ':pageId',
         component: WpxDynamicComponent
       },
