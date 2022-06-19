@@ -4,10 +4,10 @@ import { Subscription, timer } from 'rxjs';
 import { Area } from '@antv/g2plot';
 
 @Component({
-  selector: 'wpx-admin-monitor-health',
+  selector: 'wpx-admin-chart-session',
   template: `<div style="height: 300px" #ref></div>`
 })
-export class HealthComponent implements AfterViewInit, OnDestroy {
+export class SessionComponent implements AfterViewInit, OnDestroy {
   @ViewChild('ref') ref!: ElementRef;
 
   private chart!: Area;
@@ -26,7 +26,7 @@ export class HealthComponent implements AfterViewInit, OnDestroy {
       }
     });
     this.chart.render();
-    this.timer = timer(0, 400).subscribe(() => {
+    this.timer = timer(0, 5000).subscribe(() => {
       if (cnt === originalData.length) {
         this.timer.unsubscribe();
       } else {

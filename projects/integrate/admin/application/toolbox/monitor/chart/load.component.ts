@@ -4,7 +4,7 @@ import { Subscription, timer } from 'rxjs';
 import { Column } from '@antv/g2plot';
 
 @Component({
-  selector: 'wpx-admin-monitor-load',
+  selector: 'wpx-admin-chart-load',
   template: `<div style="height: 300px" #ref></div>`
 })
 export class LoadComponent implements AfterViewInit, OnDestroy {
@@ -13,14 +13,13 @@ export class LoadComponent implements AfterViewInit, OnDestroy {
   private chart!: Column;
   private timer!: Subscription;
   private data = [
-    { type: '核心服务', value: 0.16 },
-    { type: '消息队列', value: 0.125 },
-    { type: '即时通讯', value: 0.24 },
-    { type: '云代理', value: 0.19 },
-    { type: '定时计划', value: 0.22 },
-    { type: '分布数据库', value: 0.05 },
-    { type: '负载均衡', value: 0.01 },
-    { type: '分布缓存', value: 0.015 }
+    { type: 'API服务', value: 0.16 },
+    { type: '定时调度', value: 0.125 },
+    { type: '工作触发', value: 0.24 },
+    { type: '日志采集', value: 0.19 },
+    { type: '微服务 A', value: 0.22 },
+    { type: '微服务 B', value: 0.05 },
+    { type: '微服务 C', value: 0.01 }
   ];
 
   ngAfterViewInit(): void {
@@ -38,7 +37,7 @@ export class LoadComponent implements AfterViewInit, OnDestroy {
       legend: false
     });
     this.chart.render();
-    this.timer = timer(0, 1200).subscribe(() => {
+    this.timer = timer(0, 5000).subscribe(() => {
       this.chart.changeData(this.data.map(v => ({ ...v, value: v.value * Math.random() })));
     });
   }
