@@ -1,4 +1,4 @@
-import { ApiOptions, BasicDto, Field, Filter, FormatFilter, Sort } from '../types';
+import { ApiOptions, BasicDto, Filter, Keys, Sort, XFilter } from '../types';
 
 export class Data<T extends BasicDto> implements ApiOptions<T> {
   /**
@@ -8,7 +8,7 @@ export class Data<T extends BasicDto> implements ApiOptions<T> {
   /**
    * 映射字段
    */
-  field?: Field<T>;
+  keys?: Keys<T>;
   /**
    * 排序规则
    */
@@ -16,7 +16,7 @@ export class Data<T extends BasicDto> implements ApiOptions<T> {
   /**
    * 筛选转换
    */
-  format_filter?: Record<string, FormatFilter>;
+  xfilter?: Record<string, XFilter>;
   /**
    * 加载状态
    */
@@ -32,11 +32,11 @@ export class Data<T extends BasicDto> implements ApiOptions<T> {
   /**
    * 页码
    */
-  index = 1;
+  page = 1;
   /**
    * 分页数
    */
-  size = 10;
+  pagesize = 10;
   /**
    * 选中的集合ID
    */
@@ -65,7 +65,7 @@ export class Data<T extends BasicDto> implements ApiOptions<T> {
    * 重置数据内容
    */
   reset(): void {
-    this.index = 1;
+    this.page = 1;
   }
 
   /**

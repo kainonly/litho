@@ -98,7 +98,7 @@ export class TableComponent implements OnInit {
               _id: { $in: [...this.wpxData.checkedIds.values()] }
             },
             {
-              format_filter: {
+              xfilter: {
                 '_id.$in': 'oids'
               }
             }

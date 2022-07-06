@@ -3,7 +3,7 @@ import { AfterViewInit, Component, ElementRef, OnDestroy, ViewChild } from '@ang
 import { Heatmap } from '@antv/g2plot';
 
 @Component({
-  selector: 'app-workbench-state',
+  selector: 'wpx-workbench-state',
   template: `<div #ref></div>`
 })
 export class StateComponent implements AfterViewInit, OnDestroy {

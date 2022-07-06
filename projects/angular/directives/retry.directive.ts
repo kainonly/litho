@@ -1,7 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Directive, Input, OnInit, Renderer2 } from '@angular/core';
 import { concatMap, delay, fromEvent, iif, of, retryWhen, switchMapTo, throwError } from 'rxjs';
-import { map } from 'rxjs/operators';
 
 import { NzImageDirective } from 'ng-zorro-antd/image';
 

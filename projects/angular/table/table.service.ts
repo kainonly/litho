@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { AnyDto, Api, httpOptions } from '@weplanx/ng';
+import { AnyDto, Api, setHttpParams } from '@weplanx/ng';
 
 @Injectable()
 export class WpxTableService extends Api<any> {
@@ -16,17 +16,18 @@ export class WpxTableService extends Api<any> {
     if (ids.length === 0) {
       return of({});
     }
-    const options = httpOptions(
-      {
-        field: ['_id', target],
-        format_filter: {
-          '_id.$in': 'oids'
-        }
-      },
-      { _id: { $in: ids } }
-    );
     return this.http
-      .get<Array<AnyDto<any>>>(`dsl/${model}`, options)
+      .get<Array<AnyDto<any>>>(`dsl/${model}`, {
+        params: setHttpParams(
+          { _id: { $in: ids } },
+          {
+            keys: { [target]: 1 },
+            xfilter: {
+              '_id.$in': 'oids'
+            }
+          }
+        )
+      })
       .pipe(map(v => Object.fromEntries(v.map(v => [v._id, v[target]]))));
   }
 }

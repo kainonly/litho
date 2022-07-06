@@ -109,7 +109,7 @@ export class RolesComponent {
               _id: { $in: [...this.data.checkedIds.values()] }
             },
             {
-              format_filter: {
+              xfilter: {
                 '_id.$in': 'oids'
               }
             }

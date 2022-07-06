@@ -161,8 +161,8 @@ export class WpxTableComponent<T> implements OnInit {
         this.searchText = v.searchText;
         this.wpxData.filter = v.filter;
         this.wpxData.sort = v.sort;
-        this.wpxData.index = v.index;
-        this.wpxData.size = v.size;
+        this.wpxData.page = v.index;
+        this.wpxData.pagesize = v.size;
         if (
           v.columns.length === this.wpxFields.size &&
           v.columns.every(v => this.wpxFields.has(v.value) && this.wpxFields.get(v.value)!.label === v.label)
@@ -362,8 +362,8 @@ export class WpxTableComponent<T> implements OnInit {
         searchText: this.searchText,
         filter: this.wpxData.filter,
         sort: this.wpxData.sort,
-        size: this.wpxData.size,
-        index: this.wpxData.index,
+        size: this.wpxData.pagesize,
+        index: this.wpxData.page,
         columns: this.columns,
         columnsWidth: this.columnsWidth
       })

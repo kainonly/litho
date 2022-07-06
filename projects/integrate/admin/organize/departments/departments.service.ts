@@ -66,7 +66,7 @@ export class DepartmentsService extends Api<Department> {
         }
       },
       {
-        format_doc: {
+        xdoc: {
           parent: 'oid'
         }
       }

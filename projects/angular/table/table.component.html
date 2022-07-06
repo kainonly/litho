@@ -84,8 +84,8 @@
   [nzShowSizeChanger]="true"
   [nzHideOnSinglePage]="true"
   [nzTotal]="wpxData.total"
-  [(nzPageSize)]="wpxData.size"
-  [(nzPageIndex)]="wpxData.index"
+  [(nzPageSize)]="wpxData.pagesize"
+  [(nzPageIndex)]="wpxData.page"
   (nzPageIndexChange)="getData(false)"
   (nzPageSizeChange)="getData(true)"
 >

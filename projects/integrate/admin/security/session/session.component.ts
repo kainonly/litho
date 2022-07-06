@@ -51,7 +51,7 @@ export class SessionComponent implements OnInit, OnDestroy {
               _id: { $in: v }
             },
             {
-              format_filter: { '_id.$in': 'oids' }
+              xfilter: { '_id.$in': 'oids' }
             }
           )
         )
@@ -76,8 +76,8 @@ export class SessionComponent implements OnInit, OnDestroy {
           _id: { $in: ids }
         },
         {
-          field: ['_id', 'name'],
-          format_filter: {
+          keys: { name: 1 },
+          xfilter: {
             '_id.$in': 'oids'
           }
         }

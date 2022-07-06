@@ -69,7 +69,7 @@ export class FormComponent implements OnInit {
       value.sort = 9999;
       this.departments
         .create(value, {
-          format_doc: {
+          xdoc: {
             parent: 'oid'
           }
         })
@@ -85,7 +85,7 @@ export class FormComponent implements OnInit {
             $set: value
           },
           {
-            format_doc: {
+            xdoc: {
               parent: 'oid'
             }
           }

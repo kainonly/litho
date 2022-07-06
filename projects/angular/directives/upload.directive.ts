@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Directive, Input, OnInit, Optional } from '@angular/core';
+import { Directive, Input, Optional } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 

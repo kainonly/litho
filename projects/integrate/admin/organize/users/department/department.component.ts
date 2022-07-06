@@ -72,7 +72,7 @@ export class DepartmentComponent implements OnInit {
           }
         },
         {
-          format_doc: {
+          xdoc: {
             department: 'oid'
           }
         }

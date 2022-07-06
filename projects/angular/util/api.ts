@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -17,7 +17,7 @@ import {
   FilterOption
 } from '../types';
 import { Data } from './data';
-import { httpOptions } from './helper';
+import { setHttpParams } from './helper';
 
 @Injectable()
 export abstract class Api<T> {
@@ -53,11 +53,7 @@ export abstract class Api<T> {
    * @param options
    */
   create(doc: T, options?: CreateOption<T>): Observable<R> {
-    let { headers } = httpOptions<T>(options as ApiOptions<T>);
-    headers = headers.set('wpx-action', 'create');
-    return this.http.post(this.dsl(), doc, {
-      headers
-    });
+    return this.http.post(this.dsl(), doc);
   }
 
   /**
@@ -66,11 +62,7 @@ export abstract class Api<T> {
    * @param options
    */
   bulkCreate(docs: T[], options?: CreateOption<T>): Observable<R> {
-    let { headers } = httpOptions<T>(options as ApiOptions<T>);
-    headers = headers.set('wpx-action', 'bulk-create');
-    return this.http.post(this.dsl(), docs, {
-      headers
-    });
+    return this.http.post(this.dsl('bulk-create'), docs);
   }
 
   /**
@@ -78,11 +70,11 @@ export abstract class Api<T> {
    * @param filter
    * @param options
    */
-  count(filter?: Filter<T>, options?: FilterOption<T>): Observable<number> {
+  size(filter?: Filter<T>, options?: FilterOption<T>): Observable<number> {
     return this.http
-      .head(this.dsl('_count'), {
+      .head(this.dsl('_size'), {
         observe: 'response',
-        ...httpOptions<T>(options as ApiOptions<T>, filter)
+        params: setHttpParams<T>(filter, options as ApiOptions<T>)
       })
       .pipe(
         map(res => {
@@ -100,7 +92,7 @@ export abstract class Api<T> {
     return this.http
       .head(this.dsl('_exists'), {
         observe: 'response',
-        ...httpOptions<T>(options as ApiOptions<T>, filter)
+        params: setHttpParams<T>(filter, options as ApiOptions<T>)
       })
       .pipe(
         map(res => {
@@ -115,11 +107,8 @@ export abstract class Api<T> {
    * @param options
    */
   findOne(filter: Filter<T>, options?: FindOneOption<T>): Observable<AnyDto<T>> {
-    let { headers, params } = httpOptions<T>(options as ApiOptions<T>, filter);
-    headers = headers.set('wpx-type', 'find-one');
-    return this.http.get<AnyDto<T>>(this.dsl(), {
-      headers,
-      params
+    return this.http.get<AnyDto<T>>(this.dsl('_one'), {
+      params: setHttpParams<T>(filter, options as ApiOptions<T>)
     });
   }
 
@@ -129,7 +118,9 @@ export abstract class Api<T> {
    * @param options
    */
   findOneById(id: string, options?: FindOneByIdOption<T>): Observable<AnyDto<T>> {
-    return this.http.get<AnyDto<T>>(this.dsl(id), httpOptions<T>(options as ApiOptions<T>));
+    return this.http.get<AnyDto<T>>(this.dsl(id), {
+      params: setHttpParams<T>(undefined, options as ApiOptions<T>)
+    });
   }
 
   /**
@@ -138,7 +129,9 @@ export abstract class Api<T> {
    * @param options
    */
   find(filter: Filter<T>, options?: FindOption<T>): Observable<Array<AnyDto<T>>> {
-    return this.http.get<Array<AnyDto<T>>>(this.dsl(), httpOptions<T>(options as ApiOptions<T>, filter));
+    return this.http.get<Array<AnyDto<T>>>(this.dsl(), {
+      params: setHttpParams<T>(filter, options as ApiOptions<T>)
+    });
   }
 
   /**
@@ -151,22 +144,16 @@ export abstract class Api<T> {
     if (refresh) {
       data.reset();
     }
-    let { headers, params } = httpOptions<T>(
-      {
-        field: data.field,
-        sort: data.sort,
-        format_filter: data.format_filter
-      },
-      data.filter
-    );
-    headers = headers.set('wpx-type', 'find-by-page');
-    headers = headers.set('wpx-page', data.index.toString());
-    headers = headers.set('wpx-page-size', data.size.toString());
     return this.http
-      .get<Array<AnyDto<T>>>(this.dsl(), {
+      .get<Array<AnyDto<T>>>(this.dsl('_pages'), {
         observe: 'response',
-        headers,
-        params
+        params: setHttpParams<T>(data.filter, {
+          keys: data.keys,
+          sort: data.sort,
+          page: data.page,
+          pagesize: data.pagesize,
+          xfilter: data.xfilter
+        })
       })
       .pipe(
         map(res => {
@@ -186,7 +173,9 @@ export abstract class Api<T> {
    * @param options
    */
   update(filter: Filter<T>, update: R, options?: UpdateOption<T>): Observable<R> {
-    return this.http.patch(this.dsl(), update, httpOptions<T>(options as ApiOptions<T>, filter));
+    return this.http.patch(this.dsl(), update, {
+      params: setHttpParams<T>(filter, options as ApiOptions<T>)
+    });
   }
 
   /**
@@ -196,7 +185,9 @@ export abstract class Api<T> {
    * @param options
    */
   updateOneById(id: string, update: R, options?: UpdateOneByIdOption<T>): Observable<R> {
-    return this.http.patch(this.dsl(id), update, httpOptions<T>(options as ApiOptions<T>));
+    return this.http.patch(this.dsl(id), update, {
+      params: setHttpParams<T>(undefined, options as ApiOptions<T>)
+    });
   }
 
   /**
@@ -206,7 +197,9 @@ export abstract class Api<T> {
    * @param options
    */
   replace(id: string, doc: T, options?: UpdateOneByIdOption<T>): Observable<R> {
-    return this.http.put(this.dsl(id), doc, httpOptions<T>(options as ApiOptions<T>));
+    return this.http.put(this.dsl(id), doc, {
+      params: setHttpParams<T>(undefined, options as ApiOptions<T>)
+    });
   }
 
   /**
@@ -223,11 +216,7 @@ export abstract class Api<T> {
    * @param options
    */
   bulkDelete(filter: Filter<T>, options?: FilterOption<T>): Observable<R> {
-    let { headers } = httpOptions<T>(options as ApiOptions<T>);
-    headers = headers.set('wpx-action', 'bulk-delete');
-    return this.http.post(this.dsl(), filter, {
-      headers
-    });
+    return this.http.post(this.dsl('bulk-delete'), filter);
   }
 
   /**
@@ -235,10 +224,6 @@ export abstract class Api<T> {
    * @param ids
    */
   sort(ids: string[]): Observable<R> {
-    return this.http.post(this.dsl(), ids, {
-      headers: {
-        'wpx-action': 'sort'
-      }
-    });
+    return this.http.post(this.dsl('sort'), ids);
   }
 }

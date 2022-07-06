@@ -175,7 +175,7 @@ export class WpxMediaViewComponent implements OnInit, AfterViewInit {
     const n = width >= 1600 ? 8 : 6;
     if (this.ds.n !== n) {
       this.ds.n = n;
-      this.ds.size = n * 3;
+      this.ds.pagesize = n * 3;
       this.getData(true);
     }
   }
@@ -329,7 +329,7 @@ export class WpxMediaViewComponent implements OnInit, AfterViewInit {
               _id: { $in: [...this.ds.checkedIds.values()] }
             },
             {
-              format_filter: {
+              xfilter: {
                 '_id.$in': 'oids'
               }
             }

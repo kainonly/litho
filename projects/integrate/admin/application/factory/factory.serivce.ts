@@ -87,7 +87,7 @@ export class FactorySerivce extends Api<Page> {
         }
       },
       {
-        format_doc: {
+        xdoc: {
           parent: 'oid'
         }
       }
@@ -190,7 +190,7 @@ export class FactorySerivce extends Api<Page> {
    * 获取索引
    */
   getIndexes(id: string): Observable<any> {
-    return this.http.get(this.url('indexes', id));
+    return this.http.get(this.url(id, 'indexes'));
   }
 
   /**
@@ -200,7 +200,7 @@ export class FactorySerivce extends Api<Page> {
    * @param data
    */
   createIndex(id: string, index: string, data: any): Observable<any> {
-    return this.http.put(this.url('indexes', id, index), data);
+    return this.http.put(this.url(id, 'indexes', index), data);
   }
 
   /**
@@ -209,7 +209,7 @@ export class FactorySerivce extends Api<Page> {
    * @param index
    */
   deleteIndex(id: string, index: string): Observable<any> {
-    return this.http.delete(this.url('indexes', id, index));
+    return this.http.delete(this.url(id, 'indexes', index));
   }
 
   /**
@@ -232,7 +232,11 @@ export class FactorySerivce extends Api<Page> {
     return this.find(
       { schema: { $exists: true } },
       {
-        field: ['_id', 'name', 'schema']
+        keys: {
+          id: 1,
+          name: 1,
+          schema: 1
+        }
       }
     );
   }

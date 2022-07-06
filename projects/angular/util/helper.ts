@@ -1,58 +1,51 @@
-import { HttpHeaders, HttpParams } from '@angular/common/http';
+import { HttpParams } from '@angular/common/http';
 import { AbstractControl, FormGroup } from '@angular/forms';
 
 import { NzTreeNode } from 'ng-zorro-antd/tree';
 
 import { ApiOptions, Filter } from '../types';
 
-/**
- * 生成 httpOptions
- * @param options
- * @param filter
- */
-export const httpOptions = <T>(
-  options?: ApiOptions<T>,
-  filter?: Filter<T>
-): { headers: HttpHeaders; params: HttpParams } => {
-  let headers = new HttpHeaders();
-  if (options?.limit) {
-    headers = headers.set('wpx-limit', options.limit.toString());
-  }
-  if (options?.skip) {
-    headers = headers.set('wpx-skip', options.skip.toString());
-  }
-  if (options?.format_filter) {
-    for (const [key, value] of Object.entries(options.format_filter)) {
-      headers = headers.append('wpx-format-filter', `${key}:${value}`);
-    }
-  }
-  if (options?.format_doc) {
-    for (const [key, value] of Object.entries(options.format_doc)) {
-      headers = headers.append('wpx-format-doc', `${key}:${value}`);
-    }
-  }
+export const setHttpParams = <T>(filter?: Filter<T>, options?: ApiOptions<T>): HttpParams => {
   let params = new HttpParams();
   if (filter) {
     params = params.set('filter', JSON.stringify(filter));
   }
-  if (options?.field) {
-    for (const field of options.field) {
-      params = params.append('field', field.toString());
-    }
+  if (options?.keys) {
+    params = params.set('keys', JSON.stringify(options.keys));
   }
   if (options?.sort) {
-    for (const [key, value] of Object.entries(options.sort)) {
-      params = params.append('sort', `${key}.${value}`);
-    }
+    params = params.set('sort', JSON.stringify(options.sort));
   }
-  const queryOptions: Record<string, any> = {};
-  if (options?.array_filters) {
-    queryOptions['array_filters'] = options.array_filters;
+  if (options?.limit) {
+    params = params.set('limit', options.limit);
   }
-  if (Object.keys(queryOptions).length !== 0) {
-    params = params.set('options', JSON.stringify(queryOptions));
+  if (options?.skip) {
+    params = params.set('skip', options.skip);
   }
-  return { headers, params };
+  if (options?.xfilter && Object.keys(options.xfilter).length !== 0) {
+    params = params.set(
+      'xfilter',
+      Object.entries(options.xfilter)
+        .map(([key, value]) => `${key}:${value}`)
+        .join(',')
+    );
+  }
+  if (options?.xdoc && Object.keys(options.xdoc).length !== 0) {
+    params = params.set(
+      'xdoc',
+      Object.entries(options.xdoc)
+        .map(([key, value]) => `${key}:${value}`)
+        .join(',')
+    );
+  }
+  // const queryOptions: Record<string, any> = {};
+  // if (options?.array_filters) {
+  //   queryOptions['array_filters'] = options.array_filters;
+  // }
+  // if (Object.keys(queryOptions).length !== 0) {
+  //   params = params.set('options', JSON.stringify(queryOptions));
+  // }
+  return params;
 };
 
 /**

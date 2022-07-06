@@ -118,7 +118,7 @@ export class FormComponent implements OnInit {
       }
       this.factory
         .create(data, {
-          format_doc: { parent: 'oid' }
+          xdoc: { parent: 'oid' }
         })
         .subscribe(v => {
           this.message.success('数据新增完成');
@@ -134,7 +134,7 @@ export class FormComponent implements OnInit {
           this.doc._id,
           { $set: data },
           {
-            format_doc: { parent: 'oid' }
+            xdoc: { parent: 'oid' }
           }
         )
         .subscribe(v => {

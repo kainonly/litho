@@ -18,7 +18,7 @@ import {
   UserInfo,
   Value
 } from './types';
-import { httpOptions } from './util/helper';
+import { setHttpParams } from './util/helper';
 
 @Injectable({ providedIn: 'root' })
 export class WpxService {
@@ -132,7 +132,7 @@ export class WpxService {
    * 载入页面内容
    */
   loadPages(): Observable<Array<AnyDto<Page>>> {
-    return this.http.get<Array<AnyDto<Page>>>('navs').pipe(
+    return this.http.get<Array<AnyDto<Page>>>('pages').pipe(
       map(v => {
         const pages: Record<string, AnyDto<Page>> = {};
         const navs: Array<AnyDto<Page>> = [];
@@ -252,7 +252,7 @@ export class WpxService {
    * @param data
    */
   setUser(action: string, data: any): Observable<any> {
-    return this.http.post('user', data, {
+    return this.http.patch('user', data, {
       headers: {
         'wpx-action': action
       }
@@ -310,6 +310,8 @@ export class WpxService {
    * @param options
    */
   logs<T>(name: string, filter: Filter<T>, options?: FindOption<T>): Observable<Array<AnyDto<T>>> {
-    return this.http.get<Array<AnyDto<T>>>(`dsl/${name}`, httpOptions(options as ApiOptions<T>, filter));
+    return this.http.get<Array<AnyDto<T>>>(`dsl/${name}`, {
+      params: setHttpParams(filter, options as ApiOptions<T>)
+    });
   }
 }

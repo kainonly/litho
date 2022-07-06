@@ -23,11 +23,11 @@ export class WpxMediaViewDataSource extends Data<AnyDto<Media>> implements DataS
 
   connect(collectionViewer: CollectionViewer): Observable<Array<Array<AnyDto<Media>>>> {
     collectionViewer.viewChange.pipe(takeUntil(this.disconnect$)).subscribe(range => {
-      const index = Math.floor((range.end * this.n) / this.size) + 1;
+      const index = Math.floor((range.end * this.n) / this.pagesize) + 1;
       if (this.indexs.has(index)) {
         return;
       }
-      this.index = index;
+      this.page = index;
       this.fetch(false);
     });
     return this.stream;
@@ -55,7 +55,7 @@ export class WpxMediaViewDataSource extends Data<AnyDto<Media>> implements DataS
     }
     this.media.findByPage(this, refresh).subscribe(v => {
       const values: Array<Array<AnyDto<Media>>> = [];
-      this.cache.splice(this.index * this.size, this.size, ...v);
+      this.cache.splice(this.page * this.pagesize, this.pagesize, ...v);
       this.cache.forEach((value, index) => {
         this.dict.set(value._id, value);
         const n = Math.trunc(index / this.n);
@@ -64,7 +64,7 @@ export class WpxMediaViewDataSource extends Data<AnyDto<Media>> implements DataS
         }
         values[n].push(value);
       });
-      this.indexs.add(this.index);
+      this.indexs.add(this.page);
       this.stream.next(values);
     });
   }

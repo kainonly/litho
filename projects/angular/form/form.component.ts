@@ -3,7 +3,7 @@ import { Component, ComponentRef, Input, OnDestroy, OnInit } from '@angular/core
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
 
-import { FormatDoc, SchemaField, SchemaRule, SchemaRuleCondition, Value, WpxService } from '@weplanx/ng';
+import { SchemaField, SchemaRule, SchemaRuleCondition, Value, WpxService, XDoc } from '@weplanx/ng';
 import { NzCheckBoxOptionInterface } from 'ng-zorro-antd/checkbox';
 
 import { WpxFormInitOption } from './types';
@@ -66,7 +66,7 @@ export class WpxFormComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     const onchangekeys = new Set((<string[]>[]).concat(...this.wpxRules.map(v => v.conditions.map(v => v.key))));
     const controlsConfig: Record<string, any[]> = {};
-    const format: Record<string, FormatDoc> = {};
+    const format: Record<string, XDoc> = {};
     for (const field of this.wpxFields) {
       const validator: any[] = [];
       if (field.required) {

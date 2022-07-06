@@ -1,5 +1,4 @@
 import { ComponentPortal } from '@angular/cdk/portal';
-import { ComponentType } from '@angular/cdk/portal/portal';
 
 export type R = Record<string, any>;
 export interface BasicDto extends R {
@@ -19,15 +18,15 @@ export interface BasicDto extends R {
 export type AnyDto<T> = T & BasicDto;
 
 export type Filter<T> = Partial<{ [P in keyof AnyDto<T>]: any }>;
-export type Field<T> = Array<keyof AnyDto<T>>;
+export type Keys<T> = Partial<{ [P in keyof AnyDto<T>]: 0 | 1 }>;
 export type Sort<T> = Partial<{ [P in keyof AnyDto<T>]: -1 | 1 }>;
-export type FormatFilter = 'oid' | 'oids' | 'date';
-export type FormatDoc = 'oid' | 'oids' | 'password';
+export type XFilter = 'oid' | 'oids' | 'date';
+export type XDoc = 'oid' | 'oids' | 'password';
 export interface ApiOptions<T> {
   /**
    * 映射字段
    */
-  field?: Field<T>;
+  keys?: Keys<T>;
   /**
    * 排序规则
    */
@@ -41,26 +40,34 @@ export interface ApiOptions<T> {
    */
   skip?: number;
   /**
+   * 页码
+   */
+  page?: number;
+  /**
+   * 分页大小
+   */
+  pagesize?: number;
+  /**
    * 筛选转换
    */
-  format_filter?: Record<string, FormatFilter>;
+  xfilter?: Record<string, XFilter>;
   /**
    * 文档转换
    */
-  format_doc?: Record<string, FormatDoc>;
+  xdoc?: Record<string, XDoc>;
   /**
    * 数组过滤
    */
   array_filters?: any[];
 }
 
-export type FilterOption<T> = Pick<ApiOptions<T>, 'format_filter'>;
-export type CreateOption<T> = Pick<ApiOptions<T>, 'format_doc'>;
-export type FindOneOption<T> = Pick<ApiOptions<T>, 'field' | 'format_filter'>;
-export type FindOneByIdOption<T> = Pick<ApiOptions<T>, 'field'>;
-export type FindOption<T> = Omit<ApiOptions<T>, 'format_doc'>;
-export type UpdateOption<T> = Pick<ApiOptions<T>, 'format_filter' | 'format_doc' | 'array_filters'>;
-export type UpdateOneByIdOption<T> = Pick<ApiOptions<T>, 'format_doc' | 'array_filters'>;
+export type FilterOption<T> = Pick<ApiOptions<T>, 'xfilter'>;
+export type CreateOption<T> = Pick<ApiOptions<T>, 'xdoc'>;
+export type FindOneOption<T> = Pick<ApiOptions<T>, 'keys' | 'xfilter'>;
+export type FindOneByIdOption<T> = Pick<ApiOptions<T>, 'keys'>;
+export type FindOption<T> = Omit<ApiOptions<T>, 'xdoc'>;
+export type UpdateOption<T> = Pick<ApiOptions<T>, 'xfilter' | 'xdoc' | 'array_filters'>;
+export type UpdateOneByIdOption<T> = Pick<ApiOptions<T>, 'xdoc' | 'array_filters'>;
 
 /**
  * 低码类型

@@ -54,7 +54,7 @@ export class UsersComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    this.data.format_filter = {
+    this.data.xfilter = {
       department: 'oid'
     };
     this.route.params.subscribe(v => {
@@ -153,7 +153,7 @@ export class UsersComponent implements OnInit, OnDestroy {
               _id: { $in: [...this.data.checkedIds.values()] }
             },
             {
-              format_filter: {
+              xfilter: {
                 '_id.$in': 'oids'
               }
             }

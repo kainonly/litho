@@ -95,7 +95,7 @@ export class FormComponent implements OnInit {
       .find(
         { status: true },
         {
-          field: ['_id', 'name']
+          keys: { name: 1 }
         }
       )
       .subscribe(data => {
@@ -121,7 +121,7 @@ export class FormComponent implements OnInit {
       }
       this.users
         .create(value, {
-          format_doc: {
+          xdoc: {
             password: 'password',
             roles: 'oids',
             department: 'oid'
@@ -142,7 +142,7 @@ export class FormComponent implements OnInit {
             $set: value
           },
           {
-            format_doc: {
+            xdoc: {
               password: 'password',
               roles: 'oids',
               department: 'oid'

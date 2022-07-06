@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
-import { UserInfo, WpxService } from '@weplanx/ng';
+import { WpxService } from '@weplanx/ng';
 
 @Component({
   selector: 'wpx-center-work',
