@@ -32,16 +32,16 @@ export class PolicyComponent implements OnInit {
 
   getData(): void {
     this.wpx
-      .getValues(
-        'user_session_expire',
-        'user_login_failed_times',
-        'user_lock_time',
-        'ip_login_failed_times',
+      .getValues([
+        'session_ttl',
+        'login_ttl',
+        'login_failures',
+        'ip_login_failures',
         'ip_whitelist',
         'ip_blacklist',
-        'password_strength',
-        'password_expire'
-      )
+        'pwd_strategy',
+        'pwd_ttl'
+      ])
       .subscribe(data => {
         this.data = data;
         this.ipList = [

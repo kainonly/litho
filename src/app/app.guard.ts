@@ -22,7 +22,7 @@ export class AppGuard implements CanActivate {
         if (this.refreshTokenSubscription) {
           this.refreshTokenSubscription.unsubscribe();
         }
-        this.refreshTokenSubscription = timer(0, 270000)
+        this.refreshTokenSubscription = timer(0, 3200 * 1000)
           .pipe(switchMap(() => this.wpx.refreshToken()))
           .subscribe(() => {});
         return true;

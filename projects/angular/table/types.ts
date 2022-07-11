@@ -13,10 +13,10 @@ export interface TableOption<T> {
   searchText: string;
   filter: Filter<T>;
   sort: Partial<{ [P in keyof AnyDto<T>]: -1 | 1 }>;
-  size: number;
-  index: number;
-  columns: NzCheckBoxOptionInterface[];
-  columnsWidth: Record<string, string>;
+  pagesize: number;
+  page: number;
+  // columns: NzCheckBoxOptionInterface[];
+  // columnsWidth: Record<string, string>;
 }
 
 export interface Search {

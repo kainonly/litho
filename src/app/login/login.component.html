@@ -7,11 +7,11 @@
     <form [formGroup]="form" nz-form (wpxSubmit)="submit($event)">
       <nz-form-item>
         <nz-form-control>
-          <nz-input-group [nzSuffix]="usernameSuffix" nzPrefixIcon="user">
-            <ng-template #usernameSuffix>
-              <i *ngIf="user.value" nz-icon nzType="close-circle" (click)="user.reset()"> </i>
+          <nz-input-group [nzSuffix]="identitySuffix" nzPrefixIcon="user">
+            <ng-template #identitySuffix>
+              <i *ngIf="identity.value" nz-icon nzType="close-circle" (click)="identity.reset()"> </i>
             </ng-template>
-            <input type="text" nz-input formControlName="user" placeholder="用户名 / 电子邮件" />
+            <input type="text" nz-input formControlName="identity" placeholder="用户名 / 电子邮件" />
           </nz-input-group>
         </nz-form-control>
       </nz-form-item>

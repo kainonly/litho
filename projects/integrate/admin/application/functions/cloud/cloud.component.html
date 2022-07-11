@@ -5,7 +5,7 @@
         <nz-list-item-meta>
           <nz-list-item-meta-title> <b>服务商</b> </nz-list-item-meta-title>
           <nz-list-item-meta-description>
-            <ng-container [ngSwitch]="data['cloud_platform']">
+            <ng-container [ngSwitch]="data['cloud']">
               <ng-container *ngSwitchCase="'tencent'">
                 <img height="30px" [src]="['assets', 'cloud', 'tencent.svg'] | wpxAssets" alt="" />
               </ng-container>
@@ -33,7 +33,7 @@
 
         <nz-list-item-extra>
           <button nz-button nzType="link" (click)="setPlatform()">设置</button>
-          <ng-container *ngIf="!!data['cloud_platform']">
+          <ng-container *ngIf="!!data['cloud']">
             <button
               nz-button
               nzType="link"
@@ -73,7 +73,7 @@
           </nz-descriptions-item>
           <nz-descriptions-item nzTitle="预签名有效期（秒）">
             <ng-container *ngIf="data['tencent_cos_expired']; else unknow">
-              {{ data['tencent_cos_expired'] / 1000000000 }}
+              {{ data['tencent_cos_expired'] }}
             </ng-container>
           </nz-descriptions-item>
           <nz-descriptions-item nzTitle="上传大小限制（KB）">

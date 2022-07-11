@@ -1,6 +1,6 @@
 import { ComponentPortal } from '@angular/cdk/portal';
 import { ComponentType } from '@angular/cdk/portal/portal';
-import { HttpClient, HttpResponse } from '@angular/common/http';
+import { HttpClient, HttpParams, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { AsyncSubject, BehaviorSubject, Observable, switchMap, timer } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -263,12 +263,12 @@ export class WpxService {
    * 获取动态配置
    * @param keys
    */
-  getValues(...keys: string[]): Observable<any> {
-    return this.http.get('values', {
-      params: {
-        keys
-      }
-    });
+  getValues(keys?: string[]): Observable<any> {
+    const params = new HttpParams();
+    if (keys) {
+      params.set('keys', keys.join(','));
+    }
+    return this.http.get('values', { params });
   }
 
   /**

@@ -25,7 +25,7 @@ export class OpenapiComponent implements OnInit {
    * 获取数据
    */
   getData(): void {
-    this.wpx.getValues('openapi_url', 'openapi_key', 'openapi_secret').subscribe(data => {
+    this.wpx.getValues(['openapi_url', 'openapi_key', 'openapi_secret']).subscribe(data => {
       this.data = data;
     });
   }

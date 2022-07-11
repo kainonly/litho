@@ -44,7 +44,6 @@ export class CosComponent implements OnInit {
       tencent_cos_limit: [null, [Validators.required]]
     });
     const data = { ...this.data };
-    data['tencent_cos_expired'] = data['tencent_cos_expired'] / 1000000000;
     this.form.patchValue(data);
   }
 
@@ -60,7 +59,6 @@ export class CosComponent implements OnInit {
    * @param data
    */
   submit(data: any): void {
-    data['tencent_cos_expired'] = data['tencent_cos_expired'] * 1000000000;
     this.wpx.setValues(data).subscribe(() => {
       this.message.success('设置成功');
       this.modalRef.triggerOk();

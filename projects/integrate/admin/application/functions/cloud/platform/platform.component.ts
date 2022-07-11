@@ -28,7 +28,7 @@ export class PlatformComponent implements OnInit {
 
   ngOnInit(): void {
     this.form = this.fb.group({
-      cloud_platform: ['tencent', [Validators.required]],
+      cloud: ['tencent', [Validators.required]],
       tencent_secret_id: [null, [Validators.required]],
       tencent_secret_key: [null, [Validators.required]]
     });

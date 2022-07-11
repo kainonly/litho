@@ -28,7 +28,7 @@ export class PlatformComponent implements OnInit {
 
   ngOnInit(): void {
     this.form = this.fb.group({
-      office_platform: ['feishu', [Validators.required]],
+      office: ['feishu', [Validators.required]],
       feishu_app_id: [null, [Validators.required]],
       feishu_app_secret: [null, [Validators.required]],
       feishu_encrypt_key: [null, [Validators.required]],

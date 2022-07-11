@@ -28,15 +28,15 @@ export class CloudComponent implements OnInit {
    */
   getData(): void {
     this.wpx
-      .getValues(
-        'cloud_platform',
+      .getValues([
+        'cloud',
         'tencent_secret_id',
         'tencent_secret_key',
         'tencent_cos_bucket',
         'tencent_cos_region',
         'tencent_cos_expired',
         'tencent_cos_limit'
-      )
+      ])
       .subscribe(data => {
         this.data = data;
       });
@@ -78,7 +78,7 @@ export class CloudComponent implements OnInit {
    * 取消关联
    */
   unset(): void {
-    this.wpx.setValues({ cloud_platform: '' }).subscribe(() => {
+    this.wpx.setValues({ cloud: '' }).subscribe(() => {
       this.message.success('关联已取消');
       this.getData();
     });

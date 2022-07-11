@@ -22,6 +22,12 @@ export const setHttpParams = <T>(filter?: Filter<T>, options?: ApiOptions<T>): H
   if (options?.skip) {
     params = params.set('skip', options.skip);
   }
+  if (options?.page) {
+    params = params.set('page', options.page);
+  }
+  if (options?.pagesize) {
+    params = params.set('pagesize', options.pagesize);
+  }
   if (options?.xfilter && Object.keys(options.xfilter).length !== 0) {
     params = params.set(
       'xfilter',

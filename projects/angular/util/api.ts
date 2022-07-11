@@ -1,4 +1,4 @@
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -139,7 +139,7 @@ export abstract class Api<T> {
    * @param data 数据源
    * @param refresh 刷新
    */
-  findByPage(data: Data<AnyDto<T>>, refresh?: boolean): Observable<Array<AnyDto<T>>> {
+  findPages(data: Data<AnyDto<T>>, refresh?: boolean): Observable<Array<AnyDto<T>>> {
     data.loading = true;
     if (refresh) {
       data.reset();

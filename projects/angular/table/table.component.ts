@@ -153,6 +153,7 @@ export class WpxTableComponent<T> implements OnInit {
         columns.push({ label: value.label, value: key, checked: true });
         columnsWidth[key] = '240px';
       }
+      this.columns = columns;
       /**
        * 本地存储样式合并
        */
@@ -161,22 +162,22 @@ export class WpxTableComponent<T> implements OnInit {
         this.searchText = v.searchText;
         this.wpxData.filter = v.filter;
         this.wpxData.sort = v.sort;
-        this.wpxData.page = v.index;
-        this.wpxData.pagesize = v.size;
-        if (
-          v.columns.length === this.wpxFields.size &&
-          v.columns.every(v => this.wpxFields.has(v.value) && this.wpxFields.get(v.value)!.label === v.label)
-        ) {
-          this.columns = v.columns;
-        } else {
-          this.columnsChecked = true;
-          this.columnsIndeterminate = false;
-          this.columns = columns;
-        }
-        this.columnsWidth = v.columnsWidth;
+        this.wpxData.page = v.page;
+        this.wpxData.pagesize = v.pagesize;
+        // if (
+        //   v.columns.length === this.wpxFields.size &&
+        //   v.columns.every(v => this.wpxFields.has(v.value) && this.wpxFields.get(v.value)!.label === v.label)
+        // ) {
+        //   this.columns = v.columns;
+        // } else {
+        //   this.columnsChecked = true;
+        //   this.columnsIndeterminate = false;
+        //   this.columns = columns;
+        // }
+        // this.columnsWidth = v.columnsWidth;
       } else {
-        this.columns = columns;
-        this.columnsWidth = columnsWidth;
+        // this.columns = columns;
+        // this.columnsWidth = columnsWidth;
       }
       this.updateColumnChecked();
       this.getData();
@@ -200,7 +201,7 @@ export class WpxTableComponent<T> implements OnInit {
           delete this.wpxData.sort[key];
       }
     }
-    this.wpxApi.findByPage(this.wpxData, refresh).subscribe(data => {
+    this.wpxApi.findPages(this.wpxData, refresh).subscribe(data => {
       for (const [key, request] of Object.entries(this.requests)) {
         const ids = [...new Set([].concat(...data.map(v => v[key])))].filter(v => !!v);
         request(ids).subscribe(refs => {
@@ -362,10 +363,10 @@ export class WpxTableComponent<T> implements OnInit {
         searchText: this.searchText,
         filter: this.wpxData.filter,
         sort: this.wpxData.sort,
-        size: this.wpxData.pagesize,
-        index: this.wpxData.page,
-        columns: this.columns,
-        columnsWidth: this.columnsWidth
+        pagesize: this.wpxData.pagesize,
+        page: this.wpxData.page
+        // columns: this.columns,
+        // columnsWidth: this.columnsWidth
       })
       .subscribe(() => {});
   }

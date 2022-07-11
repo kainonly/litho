@@ -25,7 +25,7 @@ export class EmailComponent implements OnInit {
    * 获取数据
    */
   getData(): void {
-    this.wpx.getValues('email_host', 'email_port', 'email_username', 'email_password').subscribe(data => {
+    this.wpx.getValues(['email_host', 'email_port', 'email_username', 'email_password']).subscribe(data => {
       this.data = data;
     });
   }

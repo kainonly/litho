@@ -4,7 +4,7 @@
       <nz-list-item>
         <nz-list-item-meta>
           <nz-list-item-meta-avatar>
-            <ng-container [ngSwitch]="data['office_platform']">
+            <ng-container [ngSwitch]="data['office']">
               <ng-container *ngSwitchCase="'feishu'">
                 <nz-avatar
                   nzShape="square"
@@ -32,7 +32,7 @@
             </ng-container>
           </nz-list-item-meta-avatar>
           <nz-list-item-meta-title>
-            <b [ngSwitch]="data['office_platform']">
+            <b [ngSwitch]="data['office']">
               <ng-container *ngSwitchCase="'feishu'">飞书</ng-container>
               <ng-container *ngSwitchCase="'dingtalk'">钉钉</ng-container>
               <ng-container *ngSwitchCase="'work-weixin'">企业微信</ng-container>
@@ -42,7 +42,7 @@
         </nz-list-item-meta>
 
         <nz-descriptions
-          *ngIf="!!data['office_platform']"
+          *ngIf="!!data['office']"
           style="width: 800px"
           nzSize="small"
           nzBordered
@@ -67,7 +67,7 @@
 
         <nz-list-item-extra>
           <button nz-button nzType="link" (click)="setPlatform()">设置</button>
-          <ng-container *ngIf="!!data['office_platform']">
+          <ng-container *ngIf="!!data['office']">
             <button
               nz-button
               nzType="link"

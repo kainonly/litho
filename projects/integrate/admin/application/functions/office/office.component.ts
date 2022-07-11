@@ -28,14 +28,14 @@ export class OfficeComponent implements OnInit {
    */
   getData(): void {
     this.wpx
-      .getValues(
-        'office_platform',
+      .getValues([
+        'office',
         'feishu_app_id',
         'feishu_app_secret',
         'feishu_encrypt_key',
         'feishu_verification_token',
         'redirect_url'
-      )
+      ])
       .subscribe(data => {
         this.data = data;
       });
