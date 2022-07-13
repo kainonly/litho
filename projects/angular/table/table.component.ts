@@ -123,64 +123,67 @@ export class WpxTableComponent<T> implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.storage.get(this.wpxKey).subscribe(unknow => {
-      const columns: NzCheckBoxOptionInterface[] = [];
-      const columnsWidth: Record<string, string> = {};
-      for (const [key, value] of this.wpxFields.entries()) {
-        /**
-         * 初始化关键词集合
-         */
-        if (!!value.keyword) {
-          this.keywords.add(key);
+    this.storage.get(this.wpxKey).subscribe({
+      next: unknow => {
+        const columns: NzCheckBoxOptionInterface[] = [];
+        const columnsWidth: Record<string, string> = {};
+        for (const [key, value] of this.wpxFields.entries()) {
+          /**
+           * 初始化关键词集合
+           */
+          if (!!value.keyword) {
+            this.keywords.add(key);
+          }
+          /**
+           * 初始化枚举字典
+           */
+          if (value.type === 'select') {
+            const values = value.option?.values ?? [];
+            this.enums[key] = Object.fromEntries(values.map(v => [v.value, v.label]));
+          }
+          /**
+           * 初始化引用请求
+           */
+          if (value.type === 'ref') {
+            const { reference, target } = value.option!;
+            this.requests[key] = (ids: string[]) => this.service.references(reference!, ids, target!);
+          }
+          /**
+           * 初始化列样式
+           */
+          columns.push({ label: value.label, value: key, checked: true });
+          columnsWidth[key] = '240px';
         }
+        this.columns = columns;
         /**
-         * 初始化枚举字典
+         * 本地存储样式合并
          */
-        if (value.type === 'select') {
-          const values = value.option?.values ?? [];
-          this.enums[key] = Object.fromEntries(values.map(v => [v.value, v.label]));
+        if (unknow) {
+          const v = unknow as TableOption<T>;
+          this.searchText = v.searchText;
+          this.wpxData.filter = v.filter;
+          this.wpxData.sort = v.sort;
+          this.wpxData.page = v.page;
+          this.wpxData.pagesize = v.pagesize;
+          // if (
+          //   v.columns.length === this.wpxFields.size &&
+          //   v.columns.every(v => this.wpxFields.has(v.value) && this.wpxFields.get(v.value)!.label === v.label)
+          // ) {
+          //   this.columns = v.columns;
+          // } else {
+          //   this.columnsChecked = true;
+          //   this.columnsIndeterminate = false;
+          //   this.columns = columns;
+          // }
+          // this.columnsWidth = v.columnsWidth;
+        } else {
+          this.columns = columns;
+          this.columnsWidth = columnsWidth;
         }
-        /**
-         * 初始化引用请求
-         */
-        if (value.type === 'ref') {
-          const { reference, target } = value.option!;
-          this.requests[key] = (ids: string[]) => this.service.references(reference!, ids, target!);
-        }
-        /**
-         * 初始化列样式
-         */
-        columns.push({ label: value.label, value: key, checked: true });
-        columnsWidth[key] = '240px';
+
+        this.updateColumnChecked();
+        this.getData();
       }
-      this.columns = columns;
-      /**
-       * 本地存储样式合并
-       */
-      if (unknow) {
-        const v = unknow as TableOption<T>;
-        this.searchText = v.searchText;
-        this.wpxData.filter = v.filter;
-        this.wpxData.sort = v.sort;
-        this.wpxData.page = v.page;
-        this.wpxData.pagesize = v.pagesize;
-        // if (
-        //   v.columns.length === this.wpxFields.size &&
-        //   v.columns.every(v => this.wpxFields.has(v.value) && this.wpxFields.get(v.value)!.label === v.label)
-        // ) {
-        //   this.columns = v.columns;
-        // } else {
-        //   this.columnsChecked = true;
-        //   this.columnsIndeterminate = false;
-        //   this.columns = columns;
-        // }
-        // this.columnsWidth = v.columnsWidth;
-      } else {
-        // this.columns = columns;
-        // this.columnsWidth = columnsWidth;
-      }
-      this.updateColumnChecked();
-      this.getData();
     });
   }
 

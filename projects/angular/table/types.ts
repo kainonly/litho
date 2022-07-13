@@ -15,8 +15,8 @@ export interface TableOption<T> {
   sort: Partial<{ [P in keyof AnyDto<T>]: -1 | 1 }>;
   pagesize: number;
   page: number;
-  // columns: NzCheckBoxOptionInterface[];
-  // columnsWidth: Record<string, string>;
+  columns: NzCheckBoxOptionInterface[];
+  columnsWidth: Record<string, string>;
 }
 
 export interface Search {

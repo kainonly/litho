@@ -5,6 +5,7 @@
         <ng-template #spaceSplit>
           <nz-divider nzType="vertical"></nz-divider>
         </ng-template>
+
         <button *nzSpaceItem nz-button nzType="text" nz-dropdown [nzDropdownMenu]="quick">
           <i nz-icon nzType="appstore"></i>
           <nz-dropdown-menu #quick="nzDropdownMenu">
@@ -17,10 +18,10 @@
 
         <nz-breadcrumb *nzSpaceItem [nzAutoGenerate]="wpx.manual">
           <ng-container *ngIf="!wpx.manual">
+            <nz-breadcrumb-item>
+              <a [routerLink]="['/pages']"><i nz-icon nzType="home"></i> 我的应用</a>
+            </nz-breadcrumb-item>
             <ng-container *ngIf="wpx.pageId | async as current">
-              <nz-breadcrumb-item>
-                <a [routerLink]="['/pages']">我的应用</a>
-              </nz-breadcrumb-item>
               <ng-container *ngFor="let page of current | Path | async">
                 <nz-breadcrumb-item>
                   <ng-container *ngIf="page?.kind !== 'group'; else textName">

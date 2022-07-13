@@ -1,15 +1,11 @@
 <ng-template #searchRef>
   <nz-row [nzGutter]="6">
     <nz-col>
-      <nz-input-group nzSuffixIcon="search">
-        <input
-          (keyup.enter)="submitSearch()"
-          [(ngModel)]="searchText"
-          style="width: 180px"
-          type="text"
-          nz-input
-          placeholder="关键词搜索"
-        />
+      <nz-input-group style="width: 180px" [nzPrefix]="suffixIconSearch">
+        <input (keyup.enter)="submitSearch()" [(ngModel)]="searchText" type="text" nz-input placeholder="关键词搜索" />
+        <ng-template #suffixIconSearch>
+          <i nz-icon nzType="search"></i>
+        </ng-template>
       </nz-input-group>
     </nz-col>
     <nz-col>
@@ -92,7 +88,7 @@
   <thead>
     <tr>
       <th
-        nzWidth="50px"
+        nzWidth="36px"
         nzLeft
         nzAlign="center"
         [nzChecked]="wpxData.checked"
@@ -122,7 +118,7 @@
           </nz-resize-handle>
         </th>
       </ng-container>
-      <th nzWidth="50px" nzRight nzAlign="center">
+      <th nzWidth="36px" nzRight nzAlign="center">
         <button
           nz-button
           nzType="text"
