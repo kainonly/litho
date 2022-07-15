@@ -12,27 +12,26 @@
   >
     <thead>
       <tr>
-        <th nzWidth="50px" nzLeft nzAlign="center"> </th>
+        <th nzWidth="36px" nzLeft nzAlign="center"> </th>
         <th><b>显示字段</b></th>
         <th><b>条件</b></th>
-        <th nzWidth="50px" nzRight nzAlign="center"><b>操作</b></th>
+        <th nzWidth="36px" nzRight nzAlign="center"></th>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let data of contentTable.data; index as i">
-        <td nzLeft nzAlign="center">
-          <nz-tag nzColor="blue">
-            <ng-container [ngSwitch]="data.logic">
-              <ng-container *ngSwitchCase="'and'">所有</ng-container>
-              <ng-container *ngSwitchCase="'or'">任一</ng-container>
-            </ng-container>
-          </nz-tag>
-        </td>
+        <td nzLeft nzAlign="center"> </td>
         <td>
           <nz-tag *ngFor="let x of data.keys">{{ x }}</nz-tag>
         </td>
         <td>
           <ng-container *ngFor="let x of data.conditions">
+            <nz-tag nzColor="blue">
+              <ng-container [ngSwitch]="data.logic">
+                <ng-container *ngSwitchCase="'and'">所有</ng-container>
+                <ng-container *ngSwitchCase="'or'">任一</ng-container>
+              </ng-container>
+            </nz-tag>
             <nz-tag>
               {{ x.key }}
               <ng-container [ngSwitch]="x.operate">

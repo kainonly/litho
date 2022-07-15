@@ -17,21 +17,23 @@
   <nz-table #basicTable [nzData]="values" [nzHideOnSinglePage]="true" [nzPageSize]="20">
     <thead>
       <tr>
-        <th nzCustomFilter>
+        <th nzWidth="36px" nzLeft nzAlign="center"> </th>
+        <th nzWidth="300px" nzCustomFilter>
           <b>键名</b>
           <nz-filter-trigger [(nzVisible)]="searchVisible" [nzDropdownMenu]="searchRef">
             <i nz-icon nzType="search"></i>
           </nz-filter-trigger>
         </th>
         <th><b>键值</b></th>
-        <th nzWidth="50px"><b>操作</b></th>
+        <th nzWidth="36px" nzRight></th>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let data of basicTable.data">
+        <td nzLeft></td>
         <td>{{ data.key }}</td>
         <td>{{ data.value }}</td>
-        <td>
+        <td nzRight>
           <button nz-button nzType="text" nz-dropdown [nzDropdownMenu]="actions">
             <i nz-icon nzType="ellipsis"></i>
           </button>

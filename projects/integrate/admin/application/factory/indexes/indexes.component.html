@@ -12,15 +12,16 @@
   >
     <thead>
       <tr>
-        <th nzWidth="50px" nzLeft nzAlign="center"> </th>
+        <th nzWidth="36px" nzLeft nzAlign="center"> </th>
         <th nzWidth="200px" nzLeft><b>索引名称</b></th>
         <th><b>索引信息</b></th>
-        <th nzWidth="50px" nzRight nzAlign="center"><b>操作</b></th>
+        <th nzWidth="36px" nzRight nzAlign="center"></th>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let item of contentTable.data">
-        <td nzLeft nzAlign="center">
+        <td nzLeft nzAlign="center"> </td>
+        <td nzLeft>
           <nz-tag nzColor="blue">
             <ng-container [ngSwitch]="item | IndexType">
               <ng-container *ngSwitchCase="'text'">全文索引</ng-container>
@@ -28,8 +29,8 @@
               <ng-container *ngSwitchDefault>常规</ng-container>
             </ng-container>
           </nz-tag>
+          {{ item.name }}
         </td>
-        <td nzLeft>{{ item.name }}</td>
         <td>
           <ng-container *ngIf="item.unique">
             <nz-tag>唯一</nz-tag>

@@ -165,17 +165,17 @@ export class WpxTableComponent<T> implements OnInit {
           this.wpxData.sort = v.sort;
           this.wpxData.page = v.page;
           this.wpxData.pagesize = v.pagesize;
-          // if (
-          //   v.columns.length === this.wpxFields.size &&
-          //   v.columns.every(v => this.wpxFields.has(v.value) && this.wpxFields.get(v.value)!.label === v.label)
-          // ) {
-          //   this.columns = v.columns;
-          // } else {
-          //   this.columnsChecked = true;
-          //   this.columnsIndeterminate = false;
-          //   this.columns = columns;
-          // }
-          // this.columnsWidth = v.columnsWidth;
+          if (
+            v.columns.length === this.wpxFields.size &&
+            v.columns.every(v => this.wpxFields.has(v.value) && this.wpxFields.get(v.value)!.label === v.label)
+          ) {
+            this.columns = v.columns;
+          } else {
+            this.columnsChecked = true;
+            this.columnsIndeterminate = false;
+            this.columns = columns;
+          }
+          this.columnsWidth = v.columnsWidth;
         } else {
           this.columns = columns;
           this.columnsWidth = columnsWidth;
@@ -367,9 +367,9 @@ export class WpxTableComponent<T> implements OnInit {
         filter: this.wpxData.filter,
         sort: this.wpxData.sort,
         pagesize: this.wpxData.pagesize,
-        page: this.wpxData.page
-        // columns: this.columns,
-        // columnsWidth: this.columnsWidth
+        page: this.wpxData.page,
+        columns: this.columns,
+        columnsWidth: this.columnsWidth
       })
       .subscribe(() => {});
   }
