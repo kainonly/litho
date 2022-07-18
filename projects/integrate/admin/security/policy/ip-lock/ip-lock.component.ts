@@ -33,7 +33,7 @@ export class IpLockComponent implements OnInit {
 
   ngOnInit(): void {
     this.form = this.fb.group({
-      ip_login_failed_times: [10, [Validators.required]]
+      ip_login_failures: [0, [Validators.required]]
     });
     this.form.patchValue(this.data);
   }

@@ -6,10 +6,10 @@ import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalRef } from 'ng-zorro-antd/modal';
 
 @Component({
-  selector: 'wpx-admin-policy-password-expire',
-  templateUrl: './password-expire.component.html'
+  selector: 'wpx-admin-policy-pwd-ttl',
+  templateUrl: './pwd-ttl.component.html'
 })
-export class PasswordExpireComponent implements OnInit {
+export class PwdTtlComponent implements OnInit {
   /**
    * 载入数据
    */
@@ -33,7 +33,7 @@ export class PasswordExpireComponent implements OnInit {
 
   ngOnInit(): void {
     this.form = this.fb.group({
-      password_expire: [0, [Validators.required]]
+      pwd_ttl: [0, [Validators.required]]
     });
     this.form.patchValue(this.data);
   }

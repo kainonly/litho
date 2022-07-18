@@ -11,7 +11,7 @@
     >
       <nz-input-number
         style="width: 100%"
-        formControlName="user_login_failed_times"
+        formControlName="login_failures"
         [nzFormatter]="formatterTimes"
         [nzMin]="1"
         [nzStep]="1"
@@ -31,7 +31,7 @@
     >
       <nz-input-number
         style="width: 100%"
-        formControlName="user_lock_time"
+        formControlName="login_ttl"
         [nzFormatter]="formatterSec"
         [nzMin]="0"
         [nzStep]="1"

@@ -5,9 +5,9 @@ import { NzModalService } from 'ng-zorro-antd/modal';
 
 import { IpListComponent } from './ip-list/ip-list.component';
 import { IpLockComponent } from './ip-lock/ip-lock.component';
-import { PasswordExpireComponent } from './password-expire/password-expire.component';
-import { PasswordStrengthComponent } from './password-strength/password-strength.component';
-import { SessionExpireComponent } from './session-expire/session-expire.component';
+import { PwdStrategyComponent } from './pwd-strategy/pwd-strategy.component';
+import { PwdTtlComponent } from './pwd-ttl/pwd-ttl.component';
+import { SessionComponent } from './session/session.component';
 import { UserLockComponent } from './user-lock/user-lock.component';
 
 @Component({
@@ -72,8 +72,8 @@ export class PolicyComponent implements OnInit {
   /**
    * 设置会话超时策略
    */
-  setSessionExpire(): void {
-    this.setModal(SessionExpireComponent);
+  setSession(): void {
+    this.setModal(SessionComponent);
   }
 
   /**
@@ -100,14 +100,14 @@ export class PolicyComponent implements OnInit {
   /**
    * 设置密码强度策略
    */
-  setPasswordStrength(): void {
-    this.setModal(PasswordStrengthComponent);
+  setPwdStrategy(): void {
+    this.setModal(PwdStrategyComponent);
   }
 
   /**
    * 设置密码有效期策略
    */
-  setPasswordExpire(): void {
-    this.setModal(PasswordExpireComponent);
+  setPwdTtl(): void {
+    this.setModal(PwdTtlComponent);
   }
 }

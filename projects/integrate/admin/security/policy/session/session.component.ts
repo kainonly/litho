@@ -6,20 +6,10 @@ import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalRef } from 'ng-zorro-antd/modal';
 
 @Component({
-  selector: 'wpx-admin-policy-password-strength',
-  templateUrl: './password-strength.component.html',
-  styles: [
-    `
-      [nz-radio] {
-        margin-left: 1em;
-        display: block;
-        height: 32px;
-        line-height: 32px;
-      }
-    `
-  ]
+  selector: 'wpx-admin-policy-session',
+  templateUrl: './session.component.html'
 })
-export class PasswordStrengthComponent implements OnInit {
+export class SessionComponent implements OnInit {
   /**
    * 载入数据
    */
@@ -28,6 +18,11 @@ export class PasswordStrengthComponent implements OnInit {
    * 表单
    */
   form!: FormGroup;
+  /**
+   * 秒
+   * @param value
+   */
+  formatterSec = (value: number): string => `${value} 秒`;
 
   constructor(
     public wpx: WpxService,
@@ -38,7 +33,7 @@ export class PasswordStrengthComponent implements OnInit {
 
   ngOnInit(): void {
     this.form = this.fb.group({
-      password_strength: [1, [Validators.required]]
+      session_ttl: [0, [Validators.required]]
     });
     this.form.patchValue(this.data);
   }

@@ -6,10 +6,11 @@ import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalRef } from 'ng-zorro-antd/modal';
 
 @Component({
-  selector: 'wpx-admin-policy-session-expire',
-  templateUrl: './session-expire.component.html'
+  selector: 'wpx-admin-policy-pwd-strategy',
+  templateUrl: './pwd-strategy.component.html',
+  styleUrls: ['./pwd-strategy.component.scss']
 })
-export class SessionExpireComponent implements OnInit {
+export class PwdStrategyComponent implements OnInit {
   /**
    * 载入数据
    */
@@ -18,11 +19,6 @@ export class SessionExpireComponent implements OnInit {
    * 表单
    */
   form!: FormGroup;
-  /**
-   * 秒
-   * @param value
-   */
-  formatterSec = (value: number): string => `${value} 秒`;
 
   constructor(
     public wpx: WpxService,
@@ -33,11 +29,9 @@ export class SessionExpireComponent implements OnInit {
 
   ngOnInit(): void {
     this.form = this.fb.group({
-      user_session_expire: [0, [Validators.required]]
+      pwd_strategy: [0, [Validators.required]]
     });
-    this.form.patchValue({
-      user_session_expire: this.data['user_session_expire'] / 1000000000
-    });
+    this.form.patchValue(this.data);
   }
 
   /**
@@ -52,7 +46,6 @@ export class SessionExpireComponent implements OnInit {
    * @param data
    */
   submit(data: any): void {
-    data['user_session_expire'] = data['user_session_expire'] * 1000000000;
     this.wpx.setValues(data).subscribe(() => {
       this.message.success('设置成功');
       this.modalRef.triggerOk();

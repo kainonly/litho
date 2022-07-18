@@ -38,13 +38,10 @@ export class UserLockComponent implements OnInit {
 
   ngOnInit(): void {
     this.form = this.fb.group({
-      user_login_failed_times: [0, [Validators.required]],
-      user_lock_time: [0, [Validators.required]]
+      login_failures: [0, [Validators.required]],
+      login_ttl: [0, [Validators.required]]
     });
-    this.form.patchValue({
-      user_login_failed_times: this.data['user_login_failed_times'],
-      user_lock_time: this.data['user_lock_time'] / 1000000000
-    });
+    this.form.patchValue(this.data);
   }
 
   /**
@@ -59,7 +56,6 @@ export class UserLockComponent implements OnInit {
    * @param data
    */
   submit(data: any): void {
-    data['user_lock_time'] = data['user_lock_time'] * 1000000000;
     this.wpx.setValues(data).subscribe(() => {
       this.message.success('设置成功');
       this.modalRef.triggerOk();
