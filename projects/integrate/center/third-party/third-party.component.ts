@@ -12,7 +12,7 @@ export class ThirdPartyComponent {
   constructor(public wpx: WpxService, private feishu: FeishuService, private message: NzMessageService) {}
 
   linkFeishu(): void {
-    this.wpx.loadOAuth('link').subscribe(v => {
+    this.wpx.oauth('link').subscribe(v => {
       const popup = window.open(v, '', 'width=800,height=640');
       const $timer = timer(0, 500).subscribe(() => {
         if (popup?.closed) {

@@ -12,13 +12,13 @@ export class AppGuard implements CanActivate {
   constructor(private wpx: WpxService, private router: Router) {}
 
   canActivate(): Observable<boolean> {
-    return this.wpx.verify().pipe(
+    return this.wpx.getUser().pipe(
       map(res => {
-        if (res.status !== 204) {
+        if (res.status !== 200) {
           this.router.navigateByUrl('/login');
         }
-        this.wpx.getUser().subscribe(() => {});
-        this.wpx.loadUpload().subscribe(() => {});
+        this.wpx.user = res.body!;
+        this.wpx.getUpload().subscribe(() => {});
         if (this.refreshTokenSubscription) {
           this.refreshTokenSubscription.unsubscribe();
         }

@@ -13,6 +13,7 @@ import {
   ComponentTypeOption,
   Filter,
   FindOption,
+  Nav,
   Page,
   UploadOption,
   UserInfo,
@@ -39,17 +40,13 @@ export class WpxService {
    */
   components: Map<string, ComponentTypeOption<any>> = new Map<string, ComponentTypeOption<any>>();
   /**
-   * 导航索引
-   */
-  pages: AsyncSubject<Record<string, AnyDto<Page>>> = new AsyncSubject<Record<string, AnyDto<Page>>>();
-  /**
    * 当前页面 ID
    */
   pageId: BehaviorSubject<string> = new BehaviorSubject<string>('');
   /**
-   * 导航数据
+   * 导航索引
    */
-  navs?: Array<AnyDto<Page>>;
+  navsRecord: AsyncSubject<Record<string, Nav>> = new AsyncSubject<Record<string, Nav>>();
   /**
    * 手动设置路由
    */
@@ -95,24 +92,7 @@ export class WpxService {
     });
   }
 
-  /**
-   * 设置上传配置
-   */
-  loadUpload(): Observable<UploadOption> {
-    return this.http
-      .get<UploadOption>('options', {
-        params: { type: 'upload' }
-      })
-      .pipe(
-        map(v => {
-          this.upload.next(v);
-          this.upload.complete();
-          return v;
-        })
-      );
-  }
-
-  loadOAuth(action?: string): Observable<string> {
+  oauth(action?: string): Observable<string> {
     const state = JSON.stringify({
       action
     });
@@ -129,56 +109,20 @@ export class WpxService {
   }
 
   /**
-   * 载入页面内容
-   */
-  loadPages(): Observable<Array<AnyDto<Page>>> {
-    return this.http.get<Array<AnyDto<Page>>>('pages').pipe(
-      map(v => {
-        const pages: Record<string, AnyDto<Page>> = {};
-        const navs: Array<AnyDto<Page>> = [];
-        for (const x of v) {
-          x['children'] = [];
-          pages[x._id] = x;
-        }
-        for (const x of v) {
-          if (!x.parent) {
-            navs.push(x);
-          } else {
-            if (pages.hasOwnProperty(x.parent)) {
-              x['parentNode'] = pages[x.parent];
-              pages[x.parent]['children']!.push(x);
-            }
-          }
-        }
-        this.pages.next(pages);
-        this.pages.complete();
-        this.navs = navs;
-        return v;
-      })
-    );
-  }
-
-  /**
    * 登录
+   * @param data {identity:"唯一标识",password:"密码"}
    */
-  login(data: { user: string; password: string }): Observable<any> {
-    return this.http.post('auth', data);
-  }
-
-  /**
-   * 主动验证
-   */
-  verify(): Observable<HttpResponse<any>> {
-    return this.http.head('auth', { observe: 'response' });
+  login(data: { identity: string; password: string }): Observable<any> {
+    return this.http.post('login', data);
   }
 
   /**
    * 刷新认证
    */
   refreshToken(): Observable<any> {
-    return this.http.get<any>('auth').pipe(
+    return this.http.get<any>('code').pipe(
       switchMap(v =>
-        this.http.put('auth', {
+        this.http.post('refresh_token', {
           code: v.code
         })
       )
@@ -189,7 +133,51 @@ export class WpxService {
    * 登出
    */
   logout(): Observable<any> {
-    return this.http.delete('auth').pipe(switchMap(() => this.storage.delete('user')));
+    return this.http.delete('user').pipe(switchMap(() => this.storage.delete('user')));
+  }
+
+  /**
+   * 设置上传配置
+   */
+  getUpload(): Observable<UploadOption> {
+    return this.http
+      .get<UploadOption>('options', {
+        params: { type: 'upload' }
+      })
+      .pipe(
+        map(v => {
+          this.upload.next(v);
+          this.upload.complete();
+          return v;
+        })
+      );
+  }
+
+  /**
+   * 载入页面内容
+   */
+  getNavs(): Observable<Nav[]> {
+    return this.http.get<Nav[]>('navs').pipe(
+      map(v => {
+        const record: Record<string, Nav> = {};
+        const data: Nav[] = [];
+        for (const x of v) {
+          x.children = [];
+          record[x._id] = x;
+        }
+        for (const x of v) {
+          if (x.parent) {
+            x.parentNode = record[x.parent];
+            record[x.parent].children!.push(x);
+          } else {
+            data.push(x);
+          }
+        }
+        this.navsRecord.next(record);
+        this.navsRecord.complete();
+        return data;
+      })
+    );
   }
 
   /**
@@ -237,10 +225,10 @@ export class WpxService {
   /**
    * 获取个人用户信息
    */
-  getUser(): Observable<UserInfo> {
-    return this.http.get<UserInfo>('user').pipe(
+  getUser(): Observable<HttpResponse<UserInfo>> {
+    return this.http.get<UserInfo>('user', { observe: 'response' }).pipe(
       map(v => {
-        this.user = v;
+        // this.user = v;
         return v;
       })
     );

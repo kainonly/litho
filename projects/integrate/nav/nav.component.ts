@@ -1,13 +1,15 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 
-import { WpxService } from '@weplanx/ng';
+import { Nav, WpxService } from '@weplanx/ng';
 
 @Component({
   selector: 'wpx-nav',
-  templateUrl: './nav.component.html'
+  templateUrl: './nav.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class WpxNavComponent implements OnInit, OnDestroy {
+  @Input() wpxData: Nav[] = [];
   openIds: Set<string> = new Set<string>();
 
   private pageIdSubscription!: Subscription;
@@ -15,13 +17,13 @@ export class WpxNavComponent implements OnInit, OnDestroy {
   constructor(public wpx: WpxService) {}
 
   ngOnInit(): void {
-    this.wpx.pages.subscribe(pages => {
-      this.pageIdSubscription = this.wpx.pageId.subscribe(v => {
+    this.wpx.navsRecord.subscribe(record => {
+      this.pageIdSubscription = this.wpx.pageId.subscribe(id => {
         this.openIds.clear();
-        let node = pages[v];
+        let node: Nav | undefined = record[id];
         while (node) {
           this.openIds.add(node._id);
-          node = node['parentNode'] ?? undefined;
+          node = node.parentNode ?? undefined;
         }
       });
     });

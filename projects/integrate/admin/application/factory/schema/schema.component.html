@@ -13,23 +13,28 @@
     <thead>
       <tr>
         <th nzWidth="36px" nzLeft nzAlign="center"> </th>
-        <th nzWidth="320px" nzLeft><b>字段</b></th>
+        <th nzWidth="80px" nzLeft><b>类型</b></th>
+        <th nzWidth="220px" nzLeft><b>显示名称 [命名]</b></th>
         <th><b>属性</b></th>
-        <th nzWidth="36px" nzRight nzAlign="center"></th>
       </tr>
     </thead>
     <tbody cdkDropList (cdkDropListDropped)="sort($event)">
       <tr *ngFor="let data of contentTable.data" cdkDrag>
         <td nzLeft nzAlign="center">
-          <button nz-button nzType="text" cdkDragHandle>
-            <i nz-icon nzType="drag"></i>
+          <button nz-button nzType="text" cdkDragHandle nz-dropdown nzTrigger="click" [nzDropdownMenu]="actions">
+            <i nz-icon nzType="holder"></i>
           </button>
+          <nz-dropdown-menu #actions="nzDropdownMenu">
+            <ul nz-menu>
+              <li nz-menu-item (click)="form(data)">编辑</li>
+              <li nz-menu-item nzDanger (click)="delete(data)">删除</li>
+            </ul>
+          </nz-dropdown-menu>
         </td>
         <td nzLeft>
           <nz-tag nzColor="blue">{{ types[data.type] }}</nz-tag>
-          {{ data.label }}
-          [{{ data.key }}]
         </td>
+        <td nzLeft>{{ data.label }} [{{ data.key }}]</td>
         <td>
           <ng-container *ngIf="data.required">
             <nz-tag>必须的</nz-tag>
@@ -65,17 +70,6 @@
               <nz-tag>组件:{{ component.name }}[{{ key }}]</nz-tag>
             </ng-container>
           </ng-container>
-        </td>
-        <td nzRight nzAlign="center">
-          <button nz-button nzType="text" nz-dropdown [nzDropdownMenu]="actions">
-            <i nz-icon nzType="ellipsis"></i>
-          </button>
-          <nz-dropdown-menu #actions="nzDropdownMenu">
-            <ul nz-menu>
-              <li nz-menu-item (click)="form(data)">编辑</li>
-              <li nz-menu-item nzDanger (click)="delete(data)">删除</li>
-            </ul>
-          </nz-dropdown-menu>
         </td>
       </tr>
     </tbody>

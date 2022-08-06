@@ -117,6 +117,12 @@ export interface Page {
   status: boolean;
 }
 
+export type Nav = Pick<Page, 'parent' | 'name' | 'icon' | 'kind' | 'sort'> & {
+  _id: string;
+  children?: Nav[];
+  parentNode?: Nav;
+};
+
 export interface Schema {
   /**
    * 命名
