@@ -60,7 +60,7 @@ export class FormComponent implements OnInit {
       });
     } else {
       this.schedules
-        .updateOneById(this.doc._id, {
+        .updateById(this.doc._id, {
           $set: value
         })
         .subscribe(() => {

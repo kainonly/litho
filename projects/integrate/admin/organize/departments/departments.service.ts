@@ -58,7 +58,7 @@ export class DepartmentsService extends Api<Department> {
    * @param parent
    */
   reorganization(id: string, parent: string): Observable<any> {
-    return this.updateOneById(
+    return this.updateById(
       id,
       {
         $set: {
@@ -66,7 +66,7 @@ export class DepartmentsService extends Api<Department> {
         }
       },
       {
-        xdoc: {
+        xdata: {
           parent: 'oid'
         }
       }

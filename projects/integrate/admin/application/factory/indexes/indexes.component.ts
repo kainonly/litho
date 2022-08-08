@@ -44,7 +44,7 @@ export class IndexesComponent implements OnInit {
    * 获取数据
    */
   getData(): void {
-    this.factory.findOneById(this.id).subscribe(page => {
+    this.factory.findById(this.id).subscribe(page => {
       this.page = page;
     });
     this.factory.getIndexes(this.id).subscribe(indexes => {

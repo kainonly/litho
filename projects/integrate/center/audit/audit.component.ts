@@ -42,8 +42,6 @@ export class AuditComponent implements OnInit {
     }
     this.wpx
       .logs<LoginLog>('login_logs', filter, {
-        limit: 10,
-        skip: this.skip,
         xfilter: {
           'time.$gte': 'date',
           'time.$lt': 'date'

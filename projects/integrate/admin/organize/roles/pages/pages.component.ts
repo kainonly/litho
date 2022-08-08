@@ -119,7 +119,7 @@ export class PagesComponent implements OnInit {
       }
     }
     this.roles
-      .updateOneById(this.doc._id, {
+      .updateById(this.doc._id, {
         $set: { pages }
       })
       .subscribe(() => {

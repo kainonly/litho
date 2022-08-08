@@ -15,7 +15,7 @@ export class SchedulesService extends Api<Schedule> {
    * @param jobs
    */
   setJobs(id: string, jobs: ScheduleJob[]): Observable<any> {
-    return this.updateOneById(id, {
+    return this.updateById(id, {
       $set: { jobs }
     });
   }

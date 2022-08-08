@@ -1,11 +1,21 @@
-import { HttpParams } from '@angular/common/http';
+import { HttpHeaders, HttpParams } from '@angular/common/http';
 import { AbstractControl, FormGroup } from '@angular/forms';
 
 import { NzTreeNode } from 'ng-zorro-antd/tree';
 
 import { ApiOptions, Filter } from '../types';
 
-export const setHttpParams = <T>(filter?: Filter<T>, options?: ApiOptions<T>): HttpParams => {
+export const setHttpOptions = <T>(
+  filter?: Filter<T>,
+  options?: ApiOptions<T>
+): { headers: HttpHeaders; params: HttpParams } => {
+  let headers = new HttpHeaders();
+  if (options?.page) {
+    headers = headers.set('x-page', options.page.toString());
+  }
+  if (options?.pagesize) {
+    headers = headers.set('x-pagesize', options.pagesize.toString());
+  }
   let params = new HttpParams();
   if (filter) {
     params = params.set('filter', JSON.stringify(filter));
@@ -16,42 +26,10 @@ export const setHttpParams = <T>(filter?: Filter<T>, options?: ApiOptions<T>): H
   if (options?.sort) {
     params = params.set('sort', JSON.stringify(options.sort));
   }
-  if (options?.limit) {
-    params = params.set('limit', options.limit);
-  }
-  if (options?.skip) {
-    params = params.set('skip', options.skip);
-  }
-  if (options?.page) {
-    params = params.set('page', options.page);
-  }
-  if (options?.pagesize) {
-    params = params.set('pagesize', options.pagesize);
-  }
   if (options?.xfilter && Object.keys(options.xfilter).length !== 0) {
-    params = params.set(
-      'xfilter',
-      Object.entries(options.xfilter)
-        .map(([key, value]) => `${key}:${value}`)
-        .join(',')
-    );
+    params = params.set('format', JSON.stringify(options.xfilter));
   }
-  if (options?.xdoc && Object.keys(options.xdoc).length !== 0) {
-    params = params.set(
-      'xdoc',
-      Object.entries(options.xdoc)
-        .map(([key, value]) => `${key}:${value}`)
-        .join(',')
-    );
-  }
-  // const queryOptions: Record<string, any> = {};
-  // if (options?.array_filters) {
-  //   queryOptions['array_filters'] = options.array_filters;
-  // }
-  // if (Object.keys(queryOptions).length !== 0) {
-  //   params = params.set('options', JSON.stringify(queryOptions));
-  // }
-  return params;
+  return { headers, params };
 };
 
 /**

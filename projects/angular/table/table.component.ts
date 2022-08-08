@@ -204,7 +204,7 @@ export class WpxTableComponent<T> implements OnInit {
           delete this.wpxData.sort[key];
       }
     }
-    this.wpxApi.findPages(this.wpxData, refresh).subscribe(data => {
+    this.wpxApi.pages(this.wpxData, refresh).subscribe(data => {
       for (const [key, request] of Object.entries(this.requests)) {
         const ids = [...new Set([].concat(...data.map(v => v[key])))].filter(v => !!v);
         request(ids).subscribe(refs => {

@@ -19,7 +19,7 @@ import {
   UserInfo,
   Value
 } from './types';
-import { setHttpParams } from './util/helper';
+import { setHttpOptions } from './util/helper';
 
 @Injectable({ providedIn: 'root' })
 export class WpxService {
@@ -298,8 +298,6 @@ export class WpxService {
    * @param options
    */
   logs<T>(name: string, filter: Filter<T>, options?: FindOption<T>): Observable<Array<AnyDto<T>>> {
-    return this.http.get<Array<AnyDto<T>>>(`dsl/${name}`, {
-      params: setHttpParams(filter, options as ApiOptions<T>)
-    });
+    return this.http.get<Array<AnyDto<T>>>(`dsl/${name}`, setHttpOptions(filter, options as ApiOptions<T>));
   }
 }

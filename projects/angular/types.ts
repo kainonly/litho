@@ -21,7 +21,7 @@ export type Filter<T> = Partial<{ [P in keyof AnyDto<T>]: any }>;
 export type Keys<T> = Partial<{ [P in keyof AnyDto<T>]: 0 | 1 }>;
 export type Sort<T> = Partial<{ [P in keyof AnyDto<T>]: -1 | 1 }>;
 export type XFilter = 'oid' | 'oids' | 'date';
-export type XDoc = 'oid' | 'oids' | 'password';
+export type XData = 'oid' | 'oids' | 'password';
 export interface ApiOptions<T> {
   /**
    * 映射字段
@@ -31,14 +31,6 @@ export interface ApiOptions<T> {
    * 排序规则
    */
   sort?: Sort<T>;
-  /**
-   * 限定数量
-   */
-  limit?: number;
-  /**
-   * 跳过数量
-   */
-  skip?: number;
   /**
    * 页码
    */
@@ -52,9 +44,9 @@ export interface ApiOptions<T> {
    */
   xfilter?: Record<string, XFilter>;
   /**
-   * 文档转换
+   * 数据转换
    */
-  xdoc?: Record<string, XDoc>;
+  xdata?: Record<string, XData>;
   /**
    * 数组过滤
    */
@@ -62,12 +54,12 @@ export interface ApiOptions<T> {
 }
 
 export type FilterOption<T> = Pick<ApiOptions<T>, 'xfilter'>;
-export type CreateOption<T> = Pick<ApiOptions<T>, 'xdoc'>;
+export type CreateOption<T> = Pick<ApiOptions<T>, 'xdata'>;
 export type FindOneOption<T> = Pick<ApiOptions<T>, 'keys' | 'xfilter'>;
-export type FindOneByIdOption<T> = Pick<ApiOptions<T>, 'keys'>;
-export type FindOption<T> = Omit<ApiOptions<T>, 'xdoc'>;
-export type UpdateOption<T> = Pick<ApiOptions<T>, 'xfilter' | 'xdoc' | 'array_filters'>;
-export type UpdateOneByIdOption<T> = Pick<ApiOptions<T>, 'xdoc' | 'array_filters'>;
+export type FindByIdOption<T> = Pick<ApiOptions<T>, 'keys'>;
+export type FindOption<T> = Omit<ApiOptions<T>, 'xdata' | 'array_filters'>;
+export type UpdateOption<T> = Pick<ApiOptions<T>, 'xfilter' | 'xdata' | 'array_filters'>;
+export type UpdateOneByIdOption<T> = Pick<ApiOptions<T>, 'xdata' | 'array_filters'>;
 
 /**
  * 低码类型

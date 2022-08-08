@@ -79,7 +79,7 @@ export class FactorySerivce extends Api<Page> {
    * @param parent
    */
   reorganization(id: string, parent: null | string): Observable<any> {
-    return this.updateOneById(
+    return this.updateById(
       id,
       {
         $set: {
@@ -87,7 +87,7 @@ export class FactorySerivce extends Api<Page> {
         }
       },
       {
-        xdoc: {
+        xdata: {
           parent: 'oid'
         }
       }
@@ -101,7 +101,7 @@ export class FactorySerivce extends Api<Page> {
    * @param option
    */
   addSchemaField(id: string, data: SchemaField, option?: UpdateOneByIdOption<Page>): Observable<any> {
-    return this.updateOneById(
+    return this.updateById(
       id,
       {
         $push: { 'schema.fields': data }
@@ -117,7 +117,7 @@ export class FactorySerivce extends Api<Page> {
    * @param data 更新数据
    */
   updateSchemaField(id: string, key: string, data: SchemaField): Observable<any> {
-    return this.updateOneById(
+    return this.updateById(
       id,
       {
         $set: {
@@ -134,7 +134,7 @@ export class FactorySerivce extends Api<Page> {
    * @param key 字段命名
    */
   deleteSchemaField(id: string, key: string): Observable<any> {
-    return this.updateOneById(id, { $pull: { 'schema.fields': { key } } });
+    return this.updateById(id, { $pull: { 'schema.fields': { key } } });
   }
 
   /**
@@ -148,9 +148,9 @@ export class FactorySerivce extends Api<Page> {
       data[`schema.fields.${value}.sort`] = index;
     });
     return forkJoin([
-      this.updateOneById(id, { $set: data }),
+      this.updateById(id, { $set: data }),
       timer(200),
-      this.updateOneById(id, { $push: { 'schema.fields': { $each: [], $sort: { sort: 1 } } } })
+      this.updateById(id, { $push: { 'schema.fields': { $each: [], $sort: { sort: 1 } } } })
     ]);
   }
 
@@ -160,7 +160,7 @@ export class FactorySerivce extends Api<Page> {
    * @param data
    */
   addSchemaRule(id: string, data: any): Observable<any> {
-    return this.updateOneById(id, { $push: { 'schema.rules': data } });
+    return this.updateById(id, { $push: { 'schema.rules': data } });
   }
 
   /**
@@ -170,7 +170,7 @@ export class FactorySerivce extends Api<Page> {
    * @param data
    */
   updateSchemaRule(id: string, index: number, data: any): Observable<any> {
-    return this.updateOneById(id, { $set: { [`schema.rules.${index}`]: data } });
+    return this.updateById(id, { $set: { [`schema.rules.${index}`]: data } });
   }
 
   /**
@@ -180,9 +180,9 @@ export class FactorySerivce extends Api<Page> {
    */
   deleteSchemaRule(id: string, index: number): Observable<any> {
     return forkJoin([
-      this.updateOneById(id, { $unset: { [`schema.rules.${index}`]: 1 } }),
+      this.updateById(id, { $unset: { [`schema.rules.${index}`]: 1 } }),
       timer(200),
-      this.updateOneById(id, { $pull: { 'schema.rules': null } })
+      this.updateById(id, { $pull: { 'schema.rules': null } })
     ]);
   }
 
@@ -218,7 +218,7 @@ export class FactorySerivce extends Api<Page> {
    * @param data
    */
   updateSchemaAdvanced(id: string, data: any): Observable<any> {
-    return this.updateOneById(id, {
+    return this.updateById(id, {
       $set: {
         'schema.event': data.event
       }
@@ -247,7 +247,7 @@ export class FactorySerivce extends Api<Page> {
    * @param data
    */
   updateManualScope(id: string, data: any): Observable<any> {
-    return this.updateOneById(id, {
+    return this.updateById(id, {
       $set: {
         'manual.scope': data.scope
       }

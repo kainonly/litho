@@ -69,7 +69,7 @@ export class FormComponent implements OnInit {
       value.sort = 9999;
       this.departments
         .create(value, {
-          xdoc: {
+          xdata: {
             parent: 'oid'
           }
         })
@@ -79,13 +79,13 @@ export class FormComponent implements OnInit {
         });
     } else {
       this.departments
-        .updateOneById(
+        .updateById(
           this.doc._id,
           {
             $set: value
           },
           {
-            xdoc: {
+            xdata: {
               parent: 'oid'
             }
           }

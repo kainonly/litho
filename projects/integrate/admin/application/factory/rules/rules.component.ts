@@ -48,7 +48,7 @@ export class RulesComponent implements OnInit {
    * 获取数据
    */
   getData(): void {
-    this.factory.findOneById(this.id).subscribe(page => {
+    this.factory.findById(this.id).subscribe(page => {
       this.page = page;
       const fields = this.page!.schema?.fields ?? [];
       this.fields = [...fields.sort((a, b) => a.sort - b.sort)];

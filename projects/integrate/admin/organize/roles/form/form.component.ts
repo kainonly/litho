@@ -73,7 +73,7 @@ export class FormComponent implements OnInit {
         this.modalRef.triggerOk();
       });
     } else {
-      this.roles.updateOneById(this.doc._id, { $set: value }).subscribe(() => {
+      this.roles.updateById(this.doc._id, { $set: value }).subscribe(() => {
         this.message.success('数据更新完成');
         this.modalRef.triggerOk();
       });

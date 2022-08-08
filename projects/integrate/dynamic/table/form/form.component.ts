@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 
-import { AnyDto, SchemaField, SchemaRule, XDoc } from '@weplanx/ng';
+import { AnyDto, SchemaField, SchemaRule, XData } from '@weplanx/ng';
 import { WpxFormInitOption } from '@weplanx/ng/form';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalRef } from 'ng-zorro-antd/modal';
@@ -27,7 +27,7 @@ export class FormComponent implements OnInit {
   /**
    * 设置格式化
    */
-  format: Record<string, XDoc> = {};
+  format: Record<string, XData> = {};
 
   constructor(public dynamic: WpxDynamicService, private message: NzMessageService, private modalRef: NzModalRef) {}
 
@@ -75,7 +75,7 @@ export class FormComponent implements OnInit {
     if (!this.doc) {
       this.dynamic
         .create(data, {
-          xdoc: this.format
+          xdata: this.format
         })
         .subscribe(() => {
           this.message.success('数据新增完成');
@@ -83,13 +83,13 @@ export class FormComponent implements OnInit {
         });
     } else {
       this.dynamic
-        .updateOneById(
+        .updateById(
           this.doc._id,
           {
             $set: data
           },
           {
-            xdoc: this.format
+            xdata: this.format
           }
         )
         .subscribe(() => {

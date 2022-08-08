@@ -64,7 +64,7 @@ export class DepartmentComponent implements OnInit {
    */
   submit(value: any): void {
     this.users
-      .updateOneById(
+      .updateById(
         this.doc._id,
         {
           $set: {
@@ -72,7 +72,7 @@ export class DepartmentComponent implements OnInit {
           }
         },
         {
-          xdoc: {
+          xdata: {
             department: 'oid'
           }
         }

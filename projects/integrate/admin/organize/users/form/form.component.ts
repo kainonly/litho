@@ -121,7 +121,7 @@ export class FormComponent implements OnInit {
       }
       this.users
         .create(value, {
-          xdoc: {
+          xdata: {
             password: 'password',
             roles: 'oids',
             department: 'oid'
@@ -136,13 +136,13 @@ export class FormComponent implements OnInit {
         delete value.password;
       }
       this.users
-        .updateOneById(
+        .updateById(
           this.doc._id,
           {
             $set: value
           },
           {
-            xdoc: {
+            xdata: {
               password: 'password',
               roles: 'oids',
               department: 'oid'

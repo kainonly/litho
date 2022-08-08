@@ -53,7 +53,7 @@ export class WpxMediaViewDataSource extends Data<AnyDto<Media>> implements DataS
       this.indexs.clear();
       this.dict.clear();
     }
-    this.media.findPages(this, refresh).subscribe(v => {
+    this.media.pages(this, refresh).subscribe(v => {
       const values: Array<Array<AnyDto<Media>>> = [];
       this.cache.splice(this.page * this.pagesize, this.pagesize, ...v);
       this.cache.forEach((value, index) => {

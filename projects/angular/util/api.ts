@@ -9,20 +9,20 @@ import {
   FindOneOption,
   Filter,
   ApiOptions,
-  FindOneByIdOption,
   FindOption,
   UpdateOption,
   UpdateOneByIdOption,
   R,
-  FilterOption
+  FilterOption,
+  FindByIdOption
 } from '../types';
 import { Data } from './data';
-import { setHttpParams } from './helper';
+import { setHttpOptions } from './helper';
 
 @Injectable()
 export abstract class Api<T> {
   /**
-   * 模型名称
+   * 模型名称，必须是小写字母与下划线
    * @protected
    */
   protected model = '';
@@ -31,7 +31,7 @@ export abstract class Api<T> {
 
   /**
    * URL生成
-   * @param fragments
+   * @param fragments 片段
    * @protected
    */
   protected url(...fragments: string[]): string {
@@ -40,7 +40,7 @@ export abstract class Api<T> {
 
   /**
    * 生成 Query DSL URL
-   * @param fragments
+   * @param fragments 片段
    * @private
    */
   private dsl(...fragments: string[]): string {
@@ -49,11 +49,14 @@ export abstract class Api<T> {
 
   /**
    * 创建文档
-   * @param doc
-   * @param options
+   * @param doc 资源数据
+   * @param options 配置
    */
   create(doc: T, options?: CreateOption<T>): Observable<R> {
-    return this.http.post(this.dsl(), doc);
+    return this.http.post(this.dsl(), {
+      data: doc,
+      format: options?.xdata
+    });
   }
 
   /**
@@ -62,7 +65,10 @@ export abstract class Api<T> {
    * @param options
    */
   bulkCreate(docs: T[], options?: CreateOption<T>): Observable<R> {
-    return this.http.post(this.dsl('bulk-create'), docs);
+    return this.http.post(this.dsl('bulk-create'), {
+      data: docs,
+      format: options?.xdata
+    });
   }
 
   /**
@@ -72,15 +78,11 @@ export abstract class Api<T> {
    */
   size(filter?: Filter<T>, options?: FilterOption<T>): Observable<number> {
     return this.http
-      .head(this.dsl('_size'), {
+      .get(this.dsl('_size'), {
         observe: 'response',
-        params: setHttpParams<T>(filter, options as ApiOptions<T>)
+        ...setHttpOptions<T>(filter, options as ApiOptions<T>)
       })
-      .pipe(
-        map(res => {
-          return parseInt(res.headers.get('wpx-total')!);
-        })
-      );
+      .pipe(map(res => parseInt(res.headers.get('wpx-total')!)));
   }
 
   /**
@@ -89,38 +91,7 @@ export abstract class Api<T> {
    * @param options
    */
   exists(filter: Filter<T>, options?: FilterOption<T>): Observable<boolean> {
-    return this.http
-      .head(this.dsl('_exists'), {
-        observe: 'response',
-        params: setHttpParams<T>(filter, options as ApiOptions<T>)
-      })
-      .pipe(
-        map(res => {
-          return res.headers.get('wpx-exists') === 'true';
-        })
-      );
-  }
-
-  /**
-   * 通过筛选获取单个匹配文档
-   * @param filter
-   * @param options
-   */
-  findOne(filter: Filter<T>, options?: FindOneOption<T>): Observable<AnyDto<T>> {
-    return this.http.get<AnyDto<T>>(this.dsl('_one'), {
-      params: setHttpParams<T>(filter, options as ApiOptions<T>)
-    });
-  }
-
-  /**
-   * 通过 ObjectId 获取文档
-   * @param id
-   * @param options
-   */
-  findOneById(id: string, options?: FindOneByIdOption<T>): Observable<AnyDto<T>> {
-    return this.http.get<AnyDto<T>>(this.dsl(id), {
-      params: setHttpParams<T>(undefined, options as ApiOptions<T>)
-    });
+    return this.size(filter, options).pipe(map(v => v !== 0));
   }
 
   /**
@@ -129,25 +100,23 @@ export abstract class Api<T> {
    * @param options
    */
   find(filter: Filter<T>, options?: FindOption<T>): Observable<Array<AnyDto<T>>> {
-    return this.http.get<Array<AnyDto<T>>>(this.dsl(), {
-      params: setHttpParams<T>(filter, options as ApiOptions<T>)
-    });
+    return this.http.get<Array<AnyDto<T>>>(this.dsl(), setHttpOptions(filter, options));
   }
 
   /**
-   * 通过数据源获取分页文档
+   * 获取分页文档
    * @param data 数据源
    * @param refresh 刷新
    */
-  findPages(data: Data<AnyDto<T>>, refresh?: boolean): Observable<Array<AnyDto<T>>> {
+  pages(data: Data<AnyDto<T>>, refresh?: boolean): Observable<Array<AnyDto<T>>> {
     data.loading = true;
     if (refresh) {
       data.reset();
     }
     return this.http
-      .get<Array<AnyDto<T>>>(this.dsl('_pages'), {
+      .get<Array<AnyDto<T>>>(this.dsl(), {
         observe: 'response',
-        params: setHttpParams<T>(data.filter, {
+        ...setHttpOptions<T>(data.filter, {
           keys: data.keys,
           sort: data.sort,
           page: data.page,
@@ -167,15 +136,38 @@ export abstract class Api<T> {
   }
 
   /**
+   * 通过筛选获取单个匹配文档
+   * @param filter
+   * @param options
+   */
+  findOne(filter: Filter<T>, options?: FindOneOption<T>): Observable<AnyDto<T>> {
+    return this.http.get<AnyDto<T>>(this.dsl('_one'), setHttpOptions<T>(filter, options as ApiOptions<T>));
+  }
+
+  /**
+   * 通过 ObjectId 获取文档
+   * @param id
+   * @param options
+   */
+  findById(id: string, options?: FindByIdOption<T>): Observable<AnyDto<T>> {
+    return this.http.get<AnyDto<T>>(this.dsl(id), setHttpOptions<T>(undefined, options as ApiOptions<T>));
+  }
+
+  /**
    * 通过筛选局部更新匹配文档
    * @param filter
    * @param update
    * @param options
    */
   update(filter: Filter<T>, update: R, options?: UpdateOption<T>): Observable<R> {
-    return this.http.patch(this.dsl(), update, {
-      params: setHttpParams<T>(filter, options as ApiOptions<T>)
-    });
+    return this.http.patch(
+      this.dsl(),
+      {
+        data: update,
+        format: options?.xdata
+      },
+      setHttpOptions<T>(filter, options as ApiOptions<T>)
+    );
   }
 
   /**
@@ -184,9 +176,10 @@ export abstract class Api<T> {
    * @param update
    * @param options
    */
-  updateOneById(id: string, update: R, options?: UpdateOneByIdOption<T>): Observable<R> {
-    return this.http.patch(this.dsl(id), update, {
-      params: setHttpParams<T>(undefined, options as ApiOptions<T>)
+  updateById(id: string, update: R, options?: UpdateOneByIdOption<T>): Observable<R> {
+    return this.http.patch(this.dsl(id), {
+      data: update,
+      format: options?.xdata
     });
   }
 
@@ -197,8 +190,9 @@ export abstract class Api<T> {
    * @param options
    */
   replace(id: string, doc: T, options?: UpdateOneByIdOption<T>): Observable<R> {
-    return this.http.put(this.dsl(id), doc, {
-      params: setHttpParams<T>(undefined, options as ApiOptions<T>)
+    return this.http.put(this.dsl(id), {
+      data: doc,
+      format: options?.xdata
     });
   }
 
@@ -216,7 +210,10 @@ export abstract class Api<T> {
    * @param options
    */
   bulkDelete(filter: Filter<T>, options?: FilterOption<T>): Observable<R> {
-    return this.http.post(this.dsl('bulk-delete'), filter);
+    return this.http.post(this.dsl('bulk-delete'), {
+      data: filter,
+      format: options?.xfilter
+    });
   }
 
   /**
@@ -224,6 +221,8 @@ export abstract class Api<T> {
    * @param ids
    */
   sort(ids: string[]): Observable<R> {
-    return this.http.post(this.dsl('sort'), ids);
+    return this.http.post(this.dsl('sort'), {
+      data: ids
+    });
   }
 }

@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { of, switchMap } from 'rxjs';
 
-import { XDoc, SchemaField, SchemaRule } from '@weplanx/ng';
+import { XData, SchemaField, SchemaRule } from '@weplanx/ng';
 import { WpxFormComponent, WpxFormInitOption } from '@weplanx/ng/form';
 import { NzMessageService } from 'ng-zorro-antd/message';
 
@@ -32,7 +32,7 @@ export class FormComponent implements OnInit {
   /**
    * 设置格式化
    */
-  format: Record<string, XDoc> = {};
+  format: Record<string, XData> = {};
 
   constructor(public dynamic: WpxDynamicService, private message: NzMessageService) {}
 
@@ -84,20 +84,20 @@ export class FormComponent implements OnInit {
     if (!this.id) {
       this.dynamic
         .create(data, {
-          xdoc: this.format
+          xdata: this.format
         })
         .subscribe(() => {
           this.message.success('数据新增完成');
         });
     } else {
       this.dynamic
-        .updateOneById(
+        .updateById(
           this.id,
           {
             $set: data
           },
           {
-            xdoc: this.format
+            xdata: this.format
           }
         )
         .subscribe(() => {

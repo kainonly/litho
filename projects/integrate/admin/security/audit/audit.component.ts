@@ -48,8 +48,6 @@ export class AuditComponent implements OnInit {
     }
     this.wpx
       .logs<LoginLog>('login_logs', filter, {
-        limit: 10,
-        skip: this.skip,
         xfilter: {
           'time.$gte': 'date',
           'time.$lt': 'date'
@@ -78,7 +76,7 @@ export class AuditComponent implements OnInit {
       nzOkDanger: true,
       nzOkText: '禁用',
       nzOnOk: () => {
-        this.users.updateOneById(data.user, { $set: { status: false } }).subscribe(() => {
+        this.users.updateById(data.user, { $set: { status: false } }).subscribe(() => {
           this.message.success('已禁用该账户，将无法访问系统~');
         });
       }
