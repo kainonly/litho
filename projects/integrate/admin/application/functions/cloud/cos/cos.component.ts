@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 
 import { WpxService } from '@weplanx/ng';
 import { NzMessageService } from 'ng-zorro-antd/message';
@@ -17,7 +17,7 @@ export class CosComponent implements OnInit {
   /**
    * 表单
    */
-  form!: FormGroup;
+  form!: UntypedFormGroup;
   /**
    * 秒
    * @param value
@@ -33,7 +33,7 @@ export class CosComponent implements OnInit {
     public wpx: WpxService,
     private modalRef: NzModalRef,
     private message: NzMessageService,
-    private fb: FormBuilder
+    private fb: UntypedFormBuilder
   ) {}
 
   ngOnInit(): void {

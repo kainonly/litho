@@ -1,5 +1,5 @@
 import { Component, Input, OnInit, TemplateRef, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
 import { Observable } from 'rxjs';
 
 import { StorageMap } from '@ngx-pwa/local-storage';
@@ -69,7 +69,7 @@ export class WpxTableComponent<T> implements OnInit {
   /**
    * 查询表单
    */
-  searchForm?: FormGroup;
+  searchForm?: UntypedFormGroup;
   /**
    * 查询显示
    */
@@ -118,7 +118,7 @@ export class WpxTableComponent<T> implements OnInit {
   constructor(
     private service: WpxTableService,
     private storage: StorageMap,
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private message: NzMessageService
   ) {}
 
@@ -219,7 +219,7 @@ export class WpxTableComponent<T> implements OnInit {
    * 打开搜索表单
    */
   openSearchForm(): void {
-    const controls: Record<string, FormGroup> = {};
+    const controls: Record<string, UntypedFormGroup> = {};
     for (const x of this.columns) {
       controls[x.value] = this.fb.group({
         operator: ['$regex'],

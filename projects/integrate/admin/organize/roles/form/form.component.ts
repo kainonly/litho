@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { Observable, of } from 'rxjs';
 
 import { AnyDto } from '@weplanx/ng';
@@ -22,13 +22,13 @@ export class FormComponent implements OnInit {
   /**
    * 表单
    */
-  form!: FormGroup;
+  form!: UntypedFormGroup;
 
   constructor(
     private modalRef: NzModalRef,
     private message: NzMessageService,
     private notification: NzNotificationService,
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private roles: RolesService
   ) {}
 

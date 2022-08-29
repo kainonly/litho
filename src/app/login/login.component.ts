@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
 import { WpxService } from '@weplanx/ng';
@@ -12,13 +12,13 @@ import { NzNotificationService } from 'ng-zorro-antd/notification';
 })
 export class LoginComponent implements OnInit {
   loading = false;
-  form!: FormGroup;
+  form!: UntypedFormGroup;
 
   constructor(
     private wpx: WpxService,
     private notification: NzNotificationService,
     private router: Router,
-    private fb: FormBuilder
+    private fb: UntypedFormBuilder
   ) {}
 
   ngOnInit(): void {
@@ -28,12 +28,12 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  get identity(): FormControl {
-    return this.form?.get('identity') as FormControl;
+  get identity(): UntypedFormControl {
+    return this.form?.get('identity') as UntypedFormControl;
   }
 
-  get password(): FormControl {
-    return this.form?.get('password') as FormControl;
+  get password(): UntypedFormControl {
+    return this.form?.get('password') as UntypedFormControl;
   }
 
   submit(data: any): void {

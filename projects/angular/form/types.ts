@@ -1,8 +1,8 @@
-import { FormGroup } from '@angular/forms';
+import { UntypedFormGroup } from '@angular/forms';
 
 import { XData } from '@weplanx/ng';
 
 export interface WpxFormInitOption {
-  form: FormGroup;
+  form: UntypedFormGroup;
   format: Record<string, XData>;
 }

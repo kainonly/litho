@@ -1,5 +1,5 @@
 import { Component, Input, OnInit, Optional } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormControl, UntypedFormGroup } from '@angular/forms';
 
 import { AnyDto, ImageInfoDto, Page, TencentService } from '@weplanx/ng';
 import { NzMessageService } from 'ng-zorro-antd/message';
@@ -19,13 +19,13 @@ export class PictureComponent implements OnInit {
   original?: ImageInfoDto;
   output?: ImageInfoDto;
 
-  form?: FormGroup;
+  form?: UntypedFormGroup;
 
   constructor(
     private modalRef: NzModalRef,
     private message: NzMessageService,
     private notification: NzNotificationService,
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private pictures: PicturesService,
     @Optional() private tencent: TencentService
   ) {}
@@ -39,8 +39,8 @@ export class PictureComponent implements OnInit {
     this.getOutputInfo();
   }
 
-  get type(): FormControl {
-    return this.form!.get('type') as FormControl;
+  get type(): UntypedFormControl {
+    return this.form!.get('type') as UntypedFormControl;
   }
 
   getOriginalInfo(): void {

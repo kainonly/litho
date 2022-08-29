@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, UntypedFormArray, UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { Observable, of, switchMap, throttleTime } from 'rxjs';
 import { map } from 'rxjs/operators';
 
@@ -31,7 +31,7 @@ export class FormComponent implements OnInit {
   /**
    * 表单
    */
-  form!: FormGroup;
+  form!: UntypedFormGroup;
   /**
    * 当前字段类型
    */
@@ -62,7 +62,7 @@ export class FormComponent implements OnInit {
     private modal: NzModalService,
     private modalRef: NzModalRef,
     private factory: FactorySerivce,
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private message: NzMessageService
   ) {}
 
@@ -214,15 +214,15 @@ export class FormComponent implements OnInit {
   /**
    * 配置表单控件
    */
-  get option(): FormControl {
-    return this.form.get('option') as FormControl;
+  get option(): UntypedFormControl {
+    return this.form.get('option') as UntypedFormControl;
   }
 
   /**
    * 枚举表单控件数组
    */
-  get optionValues(): FormArray {
-    return this.form.get('option')?.get('values') as FormArray;
+  get optionValues(): UntypedFormArray {
+    return this.form.get('option')?.get('values') as UntypedFormArray;
   }
 
   /**
@@ -248,15 +248,15 @@ export class FormComponent implements OnInit {
   /**
    * 引用模型表单控件
    */
-  get optionReference(): FormControl {
-    return this.form.get('option')?.get('reference') as FormControl;
+  get optionReference(): UntypedFormControl {
+    return this.form.get('option')?.get('reference') as UntypedFormControl;
   }
 
   /**
    * 引用目标字段表单控件
    */
-  get optionTarget(): FormControl {
-    return this.form.get('option')?.get('target') as FormControl;
+  get optionTarget(): UntypedFormControl {
+    return this.form.get('option')?.get('target') as UntypedFormControl;
   }
 
   /**

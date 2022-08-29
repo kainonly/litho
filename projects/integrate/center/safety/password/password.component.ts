@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 
 import { validates, WpxService } from '@weplanx/ng';
@@ -11,13 +11,13 @@ import { NzModalRef } from 'ng-zorro-antd/modal';
   templateUrl: './password.component.html'
 })
 export class PasswordComponent implements OnInit {
-  form!: FormGroup;
+  form!: UntypedFormGroup;
   passwordVisible = false;
 
   constructor(
     public wpx: WpxService,
     private modalRef: NzModalRef,
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private message: NzMessageService
   ) {}
 

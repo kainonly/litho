@@ -1,6 +1,6 @@
 import { CdkPortalOutletAttachedRef } from '@angular/cdk/portal';
 import { Component, ComponentRef, Input, OnDestroy, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
 
 import { SchemaField, SchemaRule, SchemaRuleCondition, Value, WpxService, XData } from '@weplanx/ng';
@@ -39,7 +39,7 @@ export class WpxFormComponent implements OnInit, OnDestroy {
   /**
    * 表单
    */
-  form!: FormGroup;
+  form!: UntypedFormGroup;
   /**
    * 引用
    */
@@ -61,7 +61,7 @@ export class WpxFormComponent implements OnInit, OnDestroy {
    */
   onchangekeySubscriptions: Subscription[] = [];
 
-  constructor(private fb: FormBuilder, public wpx: WpxService) {}
+  constructor(private fb: UntypedFormBuilder, public wpx: WpxService) {}
 
   ngOnInit(): void {
     const onchangekeys = new Set((<string[]>[]).concat(...this.wpxRules.map(v => v.conditions.map(v => v.key))));

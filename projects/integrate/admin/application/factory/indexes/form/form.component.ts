@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { AbstractControl, FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, UntypedFormArray, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 
 import { AnyDto, Page, SchemaField } from '@weplanx/ng';
 import { NzMessageService } from 'ng-zorro-antd/message';
@@ -20,7 +20,7 @@ export class FormComponent implements OnInit {
   /**
    * 表单
    */
-  form!: FormGroup;
+  form!: UntypedFormGroup;
   /**
    * 字段
    */
@@ -34,7 +34,7 @@ export class FormComponent implements OnInit {
     private modal: NzModalRef,
     private message: NzMessageService,
     private notification: NzNotificationService,
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private factory: FactorySerivce
   ) {}
 
@@ -50,8 +50,8 @@ export class FormComponent implements OnInit {
   /**
    * 字段表单数组控件
    */
-  get keys(): FormArray {
-    return this.form?.get('keys') as FormArray;
+  get keys(): UntypedFormArray {
+    return this.form?.get('keys') as UntypedFormArray;
   }
 
   /**

@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { AbstractControl, FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, UntypedFormArray, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 
 import { AnyDto, WpxService } from '@weplanx/ng';
 import { NzMessageService } from 'ng-zorro-antd/message';
@@ -21,13 +21,13 @@ export class JobsComponent implements OnInit {
   /**
    * 表单
    */
-  form!: FormGroup;
+  form!: UntypedFormGroup;
 
   constructor(
     public wpx: WpxService,
     private modalRef: NzModalRef,
     private message: NzMessageService,
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private schedules: SchedulesService
   ) {}
 
@@ -60,14 +60,14 @@ export class JobsComponent implements OnInit {
   /**
    * 任务
    */
-  get jobs(): FormArray {
-    return this.form.get('jobs') as FormArray;
+  get jobs(): UntypedFormArray {
+    return this.form.get('jobs') as UntypedFormArray;
   }
 
   /**
    * 新增任务
    */
-  addJob(): FormGroup {
+  addJob(): UntypedFormGroup {
     const form = this.fb.group({
       mode: ['HTTP', [Validators.required]],
       spec: [null, [Validators.required]],
@@ -121,14 +121,14 @@ export class JobsComponent implements OnInit {
    * 头部
    * @param job
    */
-  headers(job: AbstractControl): FormArray {
-    return job.get('option')?.get('headers') as FormArray;
+  headers(job: AbstractControl): UntypedFormArray {
+    return job.get('option')?.get('headers') as UntypedFormArray;
   }
 
   /**
    * 新增头部
    */
-  addHeader(control: FormArray): void {
+  addHeader(control: UntypedFormArray): void {
     control.push(
       this.fb.group({
         key: [null, [Validators.required]],
@@ -142,7 +142,7 @@ export class JobsComponent implements OnInit {
    * @param control
    * @param index
    */
-  removeHeader(control: FormArray, index: number): void {
+  removeHeader(control: UntypedFormArray, index: number): void {
     control.removeAt(index);
   }
 

@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormArray, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 
 import { WpxService } from '@weplanx/ng';
 import { NzMessageService } from 'ng-zorro-antd/message';
@@ -17,13 +17,13 @@ export class IpListComponent implements OnInit {
   /**
    * 表单
    */
-  form!: FormGroup;
+  form!: UntypedFormGroup;
 
   constructor(
     public wpx: WpxService,
     private modalRef: NzModalRef,
     private message: NzMessageService,
-    private fb: FormBuilder
+    private fb: UntypedFormBuilder
   ) {}
 
   ngOnInit(): void {
@@ -42,8 +42,8 @@ export class IpListComponent implements OnInit {
   /**
    * 白名单表单控件数组
    */
-  get whitelist(): FormArray {
-    return this.form?.get('ip_whitelist') as FormArray;
+  get whitelist(): UntypedFormArray {
+    return this.form?.get('ip_whitelist') as UntypedFormArray;
   }
 
   /**
@@ -72,8 +72,8 @@ export class IpListComponent implements OnInit {
   /**
    * 获取黑名单表单控件数组
    */
-  get blacklist(): FormArray {
-    return this.form?.get('ip_blacklist') as FormArray;
+  get blacklist(): UntypedFormArray {
+    return this.form?.get('ip_blacklist') as UntypedFormArray;
   }
 
   /**

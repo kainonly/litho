@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { UntypedFormGroup } from '@angular/forms';
 
 import { SchemaField } from '@weplanx/ng';
 
@@ -15,7 +15,7 @@ import { SchemaField } from '@weplanx/ng';
   `
 })
 export class CustomizeSlotComponent implements OnInit {
-  @Input() form!: FormGroup;
+  @Input() form!: UntypedFormGroup;
   @Input() field!: SchemaField;
 
   ngOnInit(): void {

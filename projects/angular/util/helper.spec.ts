@@ -1,4 +1,4 @@
-import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { UntypedFormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { TestBed } from '@angular/core/testing';
 import { expandTreeNodes, updateFormGroup, validates } from '@weplanx/ng';
 import { NzTreeNode } from 'ng-zorro-antd/tree';
@@ -8,7 +8,7 @@ describe('测试助手', () => {
     TestBed.configureTestingModule({
       imports: [FormsModule, ReactiveFormsModule]
     });
-    const fb = TestBed.inject(FormBuilder);
+    const fb = TestBed.inject(UntypedFormBuilder);
     const f = fb.group({
       name: [null, Validators.required],
       meta: fb.group({

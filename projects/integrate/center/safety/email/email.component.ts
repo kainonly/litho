@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 
 import { WpxService } from '@weplanx/ng';
@@ -11,12 +11,12 @@ import { NzModalRef } from 'ng-zorro-antd/modal';
   templateUrl: './email.component.html'
 })
 export class EmailComponent implements OnInit {
-  form!: FormGroup;
+  form!: UntypedFormGroup;
 
   constructor(
     public wpx: WpxService,
     private modalRef: NzModalRef,
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private message: NzMessageService
   ) {}
 

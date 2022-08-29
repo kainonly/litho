@@ -1,5 +1,5 @@
 import { Component, DebugElement, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { WpxModule, WpxShareModule } from '@weplanx/ng';
 import { By } from '@angular/platform-browser';
@@ -13,10 +13,10 @@ import { By } from '@angular/platform-browser';
   `
 })
 class ExampleComponent implements OnInit {
-  form!: FormGroup;
+  form!: UntypedFormGroup;
   submitData?: any;
 
-  constructor(private fb: FormBuilder) {}
+  constructor(private fb: UntypedFormBuilder) {}
 
   ngOnInit(): void {
     this.form = this.fb.group({

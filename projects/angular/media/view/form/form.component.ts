@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 
 import { AnyDto, Page } from '@weplanx/ng';
 import { NzMessageService } from 'ng-zorro-antd/message';
@@ -17,13 +17,13 @@ export class FormComponent implements OnInit {
   @Input() editable!: AnyDto<Media>;
   @Input() media!: MediaService;
 
-  form?: FormGroup;
+  form?: UntypedFormGroup;
 
   constructor(
     private modalRef: NzModalRef,
     private message: NzMessageService,
     private notification: NzNotificationService,
-    private fb: FormBuilder
+    private fb: UntypedFormBuilder
   ) {}
 
   ngOnInit(): void {

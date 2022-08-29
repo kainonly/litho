@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { interval, take } from 'rxjs';
 
 import { validates, WpxService } from '@weplanx/ng';
@@ -12,14 +12,14 @@ import { NzMessageService } from 'ng-zorro-antd/message';
 })
 export class ForgetComponent implements OnInit {
   step = 0;
-  verifyForm?: FormGroup;
-  pwdForm?: FormGroup;
+  verifyForm?: UntypedFormGroup;
+  pwdForm?: UntypedFormGroup;
   passwordVisible = false;
   countdown = 0;
 
   private token?: string;
 
-  constructor(private fb: FormBuilder, private wpx: WpxService, private message: NzMessageService) {}
+  constructor(private fb: UntypedFormBuilder, private wpx: WpxService, private message: NzMessageService) {}
 
   ngOnInit(): void {
     this.verifyForm = this.fb.group({

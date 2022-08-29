@@ -1,5 +1,5 @@
 import { HttpHeaders, HttpParams } from '@angular/common/http';
-import { AbstractControl, FormGroup } from '@angular/forms';
+import { AbstractControl, UntypedFormGroup } from '@angular/forms';
 
 import { NzTreeNode } from 'ng-zorro-antd/tree';
 
@@ -38,7 +38,7 @@ export const setHttpOptions = <T>(
  */
 export const updateFormGroup = (controls: AbstractControl[]): void => {
   controls.forEach(control => {
-    if (control instanceof FormGroup) {
+    if (control instanceof UntypedFormGroup) {
       updateFormGroup(Object.values(control.controls));
     } else {
       if (control.invalid) {

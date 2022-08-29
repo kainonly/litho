@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { Observable, of } from 'rxjs';
 
 import { AnyDto, Page } from '@weplanx/ng';
@@ -26,7 +26,7 @@ export class FormComponent implements OnInit {
   /**
    * 表单
    */
-  form!: FormGroup;
+  form!: UntypedFormGroup;
   /**
    * 页面树形节点
    */
@@ -36,7 +36,7 @@ export class FormComponent implements OnInit {
     private modal: NzModalRef,
     private message: NzMessageService,
     private notification: NzNotificationService,
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private factory: FactorySerivce
   ) {}
 
@@ -73,7 +73,7 @@ export class FormComponent implements OnInit {
   /**
    * @private
    */
-  private get schema(): FormGroup {
+  private get schema(): UntypedFormGroup {
     return this.fb.group({
       key: [null, [Validators.required, Validators.pattern(/^[a-z_]+$/)], [this.existsKey]]
     });
