@@ -32,12 +32,23 @@
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.app.json",
             "inlineStyleLanguage": "scss",
-            "assets": ["src/favicon.ico", "src/assets", "src/manifest.webmanifest"],
-            "styles": ["./node_modules/ng-zorro-antd/ng-zorro-antd.min.css", "src/styles.scss"],
+            "assets": [
+              "src/favicon.ico",
+              "src/assets",
+              "src/manifest.webmanifest"
+            ],
+            "styles": [
+              "./node_modules/ng-zorro-antd/ng-zorro-antd.min.css",
+              "src/styles.scss"
+            ],
             "scripts": [],
             "serviceWorker": true,
             "ngswConfigPath": "ngsw-config.json",
-            "allowedCommonJsDependencies": ["size-sensor", "pdfast", "validator"]
+            "allowedCommonJsDependencies": [
+              "size-sensor",
+              "pdfast",
+              "validator"
+            ]
           },
           "configurations": {
             "production": {
@@ -98,7 +109,10 @@
         "lint": {
           "builder": "@angular-eslint/builder:lint",
           "options": {
-            "lintFilePatterns": ["src/**/*.ts", "src/**/*.html"]
+            "lintFilePatterns": [
+              "src/**/*.ts",
+              "src/**/*.html"
+            ]
           }
         }
       }
@@ -135,7 +149,10 @@
         "lint": {
           "builder": "@angular-eslint/builder:lint",
           "options": {
-            "lintFilePatterns": ["projects/angular/**/*.ts", "projects/angular/**/*.html"]
+            "lintFilePatterns": [
+              "projects/angular/**/*.ts",
+              "projects/angular/**/*.html"
+            ]
           }
         }
       }
@@ -164,7 +181,10 @@
         "lint": {
           "builder": "@angular-eslint/builder:lint",
           "options": {
-            "lintFilePatterns": ["projects/integrate/**/*.ts", "projects/integrate/**/*.html"]
+            "lintFilePatterns": [
+              "projects/integrate/**/*.ts",
+              "projects/integrate/**/*.html"
+            ]
           }
         }
       }
