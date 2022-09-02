@@ -1,11 +1,10 @@
 {
   "name": "weplanx",
-  "version": "0.0.0",
-  "license": "MIT",
+  "version": "0.0.0-NOT-USED",
   "scripts": {
     "ng": "nx",
     "postinstall": "node ./decorate-angular-cli.js && ngcc --properties es2020 browser module main",
-    "start": "nx serve dashboard",
+    "start": "nx serve",
     "build": "nx build",
     "test": "nx test"
   },
@@ -19,6 +18,7 @@
     "@angular/platform-browser-dynamic": "~14.2.0",
     "@angular/router": "~14.2.0",
     "@nrwl/angular": "14.6.3",
+    "ng-zorro-antd": "^14.0.0",
     "rxjs": "~7.5.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.11.4"
@@ -27,6 +27,7 @@
     "@angular-devkit/build-angular": "~14.2.0",
     "@angular-eslint/eslint-plugin": "~14.0.0",
     "@angular-eslint/eslint-plugin-template": "~14.0.0",
+    "@angular-eslint/schematics": "^14.0.3",
     "@angular-eslint/template-parser": "~14.0.0",
     "@angular/cli": "~14.2.0",
     "@angular/compiler-cli": "~14.2.0",
@@ -44,8 +45,10 @@
     "@typescript-eslint/parser": "~5.33.1",
     "cypress": "^10.2.0",
     "eslint": "~8.15.0",
-    "eslint-config-prettier": "8.1.0",
+    "eslint-config-prettier": "^8.1.0",
     "eslint-plugin-cypress": "^2.10.3",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-prettier": "^4.2.1",
     "jest": "28.1.1",
     "jest-environment-jsdom": "28.1.1",
     "jest-preset-angular": "~12.2.0",
