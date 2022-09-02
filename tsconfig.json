@@ -1,0 +1,42 @@
+/* To learn more about this file see: https://angular.io/config/tsconfig. */
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "baseUrl": "./",
+    "outDir": "./dist/out-tsc",
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
+    "noImplicitOverride": true,
+    "noPropertyAccessFromIndexSignature": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "sourceMap": true,
+    "declaration": false,
+    "downlevelIteration": true,
+    "experimentalDecorators": true,
+    "moduleResolution": "node",
+    "importHelpers": true,
+    "target": "es2020",
+    "module": "es2020",
+    "lib": ["es2020", "dom"],
+    "skipLibCheck": true,
+    "paths": {
+      "@env": ["src/environments/environment.ts"],
+      "@common/*": ["src/app/common/*"],
+      "@weplanx/ng": ["projects/angular/public-api.ts"],
+      "@weplanx/ng/checkbox": ["projects/angular/checkbox/public-api.ts"],
+      "@weplanx/ng/upload": ["projects/angular/upload/public-api.ts"],
+      "@weplanx/ng/media": ["projects/angular/media/public-api.ts"],
+      "@weplanx/ng/table": ["projects/angular/table/public-api.ts"],
+      "@weplanx/ng/form": ["projects/angular/form/public-api.ts"],
+      "@weplanx/ng/richtext": ["projects/angular/richtext/public-api.ts"],
+      "@weplanx/ng-intgr": ["projects/integrate/public-api.ts"]
+    }
+  },
+  "angularCompilerOptions": {
+    "enableI18nLegacyMessageIdFormat": false,
+    "strictInjectionParameters": true,
+    "strictInputAccessModifiers": true,
+    "strictTemplates": true
+  }
+}

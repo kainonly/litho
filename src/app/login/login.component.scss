@@ -1,0 +1,17 @@
+.container {
+  margin: 9% auto 0;
+  width: 320px;
+  padding: 0 1em;
+  border-radius: 3px;
+  box-shadow: 0 7px 25px rgba(0, 0, 0, 0.08);
+
+  .logo {
+    padding: 24px 0;
+    text-align: center;
+  }
+
+  h2 {
+    padding-bottom: 16px;
+    text-align: center;
+  }
+}

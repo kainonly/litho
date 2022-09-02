@@ -1,0 +1,19 @@
+/* To learn more about this file see: https://angular.io/config/tsconfig. */
+{
+  "extends": "./tsconfig.lib.json",
+  "compilerOptions": {
+    "declarationMap": false,
+    "paths": {
+      "@weplanx/ng": ["dist/angular"],
+      "@weplanx/ng/checkbox": ["dist/angular/checkbox"],
+      "@weplanx/ng/upload": ["dist/angular/upload"],
+      "@weplanx/ng/media": ["dist/angular/media"],
+      "@weplanx/ng/table": ["dist/angular/table"],
+      "@weplanx/ng/form": ["dist/angular/form"],
+      "@weplanx/ng/richtext": ["dist/angular/richtext"]
+    }
+  },
+  "angularCompilerOptions": {
+    "compilationMode": "partial"
+  }
+}

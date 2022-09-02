@@ -1,0 +1,24 @@
+<nz-upload
+  class="upload"
+  wpxUpload
+  [wpxExt]="wpxExt"
+  nzListType="picture-card"
+  [nzAccept]="wpxAccept"
+  [nzFileType]="wpxAccept | wpxJoin: ','"
+  (nzChange)="change($event)"
+>
+  <ng-container *ngIf="value; else uploadBtn">
+    <img
+      wpxRetry
+      nz-image
+      nzDisablePreview
+      [nzSrc]="[value, 'thumbnail'] | wpxAssets"
+      [nzFallback]="wpxFallback"
+      alt=""
+    />
+  </ng-container>
+  <ng-template #uploadBtn>
+    <i nz-icon [nzType]="!loading ? 'plus' : 'loading'"></i>
+    <div class="ant-upload-text">上传</div>
+  </ng-template>
+</nz-upload>

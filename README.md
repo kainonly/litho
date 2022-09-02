@@ -1,12 +1,12 @@
 # Weplanx
 
-[![Github Actions](https://img.shields.io/github/workflow/status/weplanx/weplanx/testing?style=flat-square)](https://github.com/weplanx/weplanx/testing)
-[![Coveralls github](https://img.shields.io/coveralls/github/weplanx/weplanx.svg?style=flat-square)](https://coveralls.io/github/weplanx/weplanx)
+[![Github Actions](https://img.shields.io/github/workflow/status/weplanx/console/testing?style=flat-square)](https://github.com/weplanx/console/testing)
+[![Coveralls github](https://img.shields.io/coveralls/github/weplanx/console.svg?style=flat-square)](https://coveralls.io/github/weplanx/console)
 [![npm](https://img.shields.io/npm/v/@weplanx/ng.svg?style=flat-square)](https://www.npmjs.com/package/@weplanx/ng)
 [![npm bundle size (scoped)](https://img.shields.io/bundlephobia/min/@weplanx/ng?style=flat-square)](https://www.npmjs.com/package/@weplanx/ng)
 [![Downloads](https://img.shields.io/npm/dm/@weplanx/ng.svg?style=flat-square)](https://www.npmjs.com/package/@weplanx/ng)
 [![TypeScript](https://img.shields.io/badge/%3C%2F%3E-TypeScript-blue.svg?style=flat-square)](https://www.typescriptlang.org/)
-[![GitHub license](https://img.shields.io/github/license/weplanx/weplanx?style=flat-square)](https://raw.githubusercontent.com/weplanx/weplanx/main/LICENSE)
+[![GitHub license](https://img.shields.io/github/license/weplanx/console?style=flat-square)](https://raw.githubusercontent.com/weplanx/console/main/LICENSE)
 
 基于 Antd 集成的 Angular 组件库，低代码前端项目
 
@@ -31,6 +31,6 @@ npm install @weplanx/ng-intgr
 
 ## License
 
-[BSD-3-Clause License](https://github.com/weplanx/weplanx/blob/main/LICENSE)
+[BSD-3-Clause License](https://github.com/weplanx/console/blob/main/LICENSE)
 
-[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fweplanx%weplanx.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2Fweplanx%weplanx?ref=badge_large)
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fweplanx%console.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2Fweplanx%console?ref=badge_large)
