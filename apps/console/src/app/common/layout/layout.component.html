@@ -1,0 +1,18 @@
+<nz-layout class="main" [ngStyle]="{ 'background-image': ['assets', 'ant-bg.svg'] | wpxAssets: { css: true } }">
+  <nz-content>
+    <ng-content></ng-content>
+  </nz-content>
+  <nz-footer class="footer">
+    <nz-space [nzSplit]="split">
+      <ng-template #split>
+        <nz-divider nzType="vertical"></nz-divider>
+      </ng-template>
+      <a *nzSpaceItem>BSD-3-Clause License</a>
+    </nz-space>
+    <p>
+      <i nz-icon nzType="copyright"></i>
+      <span> {{ today | date: 'yyyy' }} 研发于 </span>
+      <a href="https://github.com/weplanx" target="_blank"> <b>WEPLANX </b> <i nz-icon nzType="github"></i></a>
+    </p>
+  </nz-footer>
+</nz-layout>

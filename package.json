@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@angular/animations": "~14.2.0",
+    "@angular/cdk": "^14.2.0",
     "@angular/common": "~14.2.0",
     "@angular/compiler": "~14.2.0",
     "@angular/core": "~14.2.0",
@@ -17,10 +18,17 @@
     "@angular/platform-browser": "~14.2.0",
     "@angular/platform-browser-dynamic": "~14.2.0",
     "@angular/router": "~14.2.0",
+    "@angular/service-worker": "^14.2.0",
+    "@antv/g2plot": "^2.4.20",
+    "@antv/x6": "^1.33.1",
+    "@ngx-pwa/local-storage": "^13.0.5",
     "@nrwl/angular": "14.6.3",
+    "date-fns": "^2.29.2",
+    "monaco-editor": "^0.34.0",
     "ng-zorro-antd": "^14.0.0",
     "rxjs": "~7.5.0",
     "tslib": "^2.3.0",
+    "validator": "^13.7.0",
     "zone.js": "~0.11.4"
   },
   "devDependencies": {

@@ -1,0 +1,104 @@
+<nz-card>
+  <nz-list nzSize="large" nzItemLayout="vertical">
+    <nz-list-item>
+      <nz-list-item-meta>
+        <nz-list-item-meta-title><b>会话超时策略</b></nz-list-item-meta-title>
+        <nz-list-item-meta-description>
+          用户在 {{ data['session_ttl'] }} 秒内没有操作，退出当前帐号。
+        </nz-list-item-meta-description>
+      </nz-list-item-meta>
+      <nz-list-item-extra>
+        <button nz-button nzType="primary" nzShape="circle" nz-tooltip="设置" (click)="setSession()">
+          <i nz-icon nzType="tool"></i>
+        </button>
+      </nz-list-item-extra>
+    </nz-list-item>
+    <nz-list-item>
+      <nz-list-item-meta>
+        <nz-list-item-meta-title><b>帐号锁定策略</b></nz-list-item-meta-title>
+        <nz-list-item-meta-description>
+          用户连续登录失败 {{ data['login_failures'] }} 次， 锁定帐号 {{ data['login_ttl'] }} 秒。
+        </nz-list-item-meta-description>
+      </nz-list-item-meta>
+      <nz-list-item-extra>
+        <button nz-button nzType="primary" nzShape="circle" nz-tooltip="设置" (click)="setUserLock()">
+          <i nz-icon nzType="tool"></i>
+        </button>
+      </nz-list-item-extra>
+    </nz-list-item>
+    <nz-list-item>
+      <nz-list-item-meta>
+        <nz-list-item-meta-title><b>IP 锁定策略</b></nz-list-item-meta-title>
+        <nz-list-item-meta-description>
+          IP 连续 {{ data['ip_login_failures'] }} 次登录失败后（无白名单时启用），锁定 IP。
+        </nz-list-item-meta-description>
+      </nz-list-item-meta>
+      <nz-list-item-extra>
+        <button nz-button nzType="primary" nzShape="circle" nz-tooltip="设置" (click)="setIpLock()">
+          <i nz-icon nzType="tool"></i>
+        </button>
+      </nz-list-item-extra>
+    </nz-list-item>
+    <nz-list-item>
+      <nz-list-item-meta>
+        <nz-list-item-meta-title><b>IP 名单</b></nz-list-item-meta-title>
+      </nz-list-item-meta>
+      <nz-table style="width: 800px" #basicTable [nzData]="ipList" [nzHideOnSinglePage]="true">
+        <thead>
+          <tr>
+            <th nzWidth="200px"><b>种类</b></th>
+            <th><b>IP 地址</b></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of basicTable.data">
+            <td>
+              <ng-container [ngSwitch]="item.type">
+                <ng-container *ngSwitchCase="'white'">白名单</ng-container>
+                <ng-container *ngSwitchCase="'black'">黑名单</ng-container>
+              </ng-container>
+            </td>
+            <td>{{ item.value }}</td>
+          </tr>
+        </tbody>
+      </nz-table>
+      <nz-list-item-extra>
+        <button nz-button nzType="primary" nzShape="circle" nz-tooltip="设置" (click)="setIpList()">
+          <i nz-icon nzType="tool"></i>
+        </button>
+      </nz-list-item-extra>
+    </nz-list-item>
+    <nz-list-item>
+      <nz-list-item-meta>
+        <nz-list-item-meta-title><b>密码强度策略</b></nz-list-item-meta-title>
+        <nz-list-item-meta-description>
+          <ng-container [ngSwitch]="data['pwd_strategy']">
+            <ng-container *ngSwitchCase="0"> 无限制。 </ng-container>
+            <ng-container *ngSwitchCase="1"> 需要大写字母和小写字母。 </ng-container>
+            <ng-container *ngSwitchCase="2"> 需要大写字母、小写字母和数字。 </ng-container>
+            <ng-container *ngSwitchCase="3"> 需要大写字母、小写字母、数字和特殊字符。 </ng-container>
+          </ng-container>
+        </nz-list-item-meta-description>
+      </nz-list-item-meta>
+      <nz-list-item-extra>
+        <button nz-button nzType="primary" nzShape="circle" nz-tooltip="设置" (click)="setPwdStrategy()">
+          <i nz-icon nzType="tool"></i>
+        </button>
+      </nz-list-item-extra>
+    </nz-list-item>
+    <nz-list-item>
+      <nz-list-item-meta>
+        <nz-list-item-meta-title><b>密码有效期策略</b></nz-list-item-meta-title>
+        <nz-list-item-meta-description>
+          <ng-container *ngIf="data['pwd_ttl'] === 0; else passwordExpire"> 永久有效 </ng-container>
+          <ng-template #passwordExpire> {{ data['pwd_ttl'] }} 天后密码过期，系统强制要求修改密码。 </ng-template>
+        </nz-list-item-meta-description>
+      </nz-list-item-meta>
+      <nz-list-item-extra>
+        <button nz-button nzType="primary" nzShape="circle" nz-tooltip="设置" (click)="setPwdTtl()">
+          <i nz-icon nzType="tool"></i>
+        </button>
+      </nz-list-item-extra>
+    </nz-list-item>
+  </nz-list>
+</nz-card>

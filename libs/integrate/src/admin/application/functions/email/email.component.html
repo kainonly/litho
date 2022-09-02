@@ -1,0 +1,36 @@
+<wpx-admin-functions-tabs>
+  <nz-list nzSize="large" nzItemLayout="vertical">
+    <nz-list-item>
+      <nz-list-item-meta>
+        <nz-list-item-meta-title><b>基本设置</b></nz-list-item-meta-title>
+      </nz-list-item-meta>
+      <nz-descriptions style="width: 800px" nzSize="small" nzLayout="vertical" nzBordered [nzColumn]="2">
+        <nz-descriptions-item nzTitle="SMTP 地址">
+          <ng-container *ngIf="data['email_host']; else unkown">
+            {{ data['email_host'] }}
+          </ng-container>
+        </nz-descriptions-item>
+        <nz-descriptions-item nzTitle="SMTP 端口号（SSL）">
+          <ng-container *ngIf="data['email_port']; else unkown">
+            {{ data['email_port'] }}
+          </ng-container>
+        </nz-descriptions-item>
+        <nz-descriptions-item nzTitle="邮箱用户">
+          <ng-container *ngIf="data['email_username']; else unkown">
+            {{ data['email_username'] }}
+          </ng-container>
+        </nz-descriptions-item>
+        <nz-descriptions-item nzTitle="密码">
+          <ng-container *ngIf="data['email_password']; else unkown"> 已设置 </ng-container>
+        </nz-descriptions-item>
+      </nz-descriptions>
+      <nz-list-item-extra>
+        <button nz-button nzType="primary" nzShape="circle" nz-tooltip="设置" (click)="setBasic()">
+          <i nz-icon nzType="tool"></i>
+        </button>
+      </nz-list-item-extra>
+    </nz-list-item>
+  </nz-list>
+</wpx-admin-functions-tabs>
+
+<ng-template #unkown>未设置</ng-template>

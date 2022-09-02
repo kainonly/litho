@@ -1,0 +1,70 @@
+<nz-card>
+  <nz-list nzSize="large" nzItemLayout="vertical">
+    <nz-list-item>
+      <nz-list-item-meta>
+        <nz-list-item-meta-title><b>账户密码</b></nz-list-item-meta-title>
+        <nz-list-item-meta-description>
+          推荐采用大写字母、小写字母、数字和特殊字符（@$!%*?&-+）组合的密码
+        </nz-list-item-meta-description>
+      </nz-list-item-meta>
+      <nz-list-item-extra>
+        <button nz-button nzType="primary" nzShape="circle" nz-tooltip="设置" (click)="openPassword()">
+          <i nz-icon nzType="tool"></i>
+        </button>
+      </nz-list-item-extra>
+    </nz-list-item>
+    <nz-list-item>
+      <nz-list-item-meta>
+        <nz-list-item-meta-title><b>安全邮箱</b></nz-list-item-meta-title>
+        <nz-list-item-meta-description>
+          <ng-container *ngIf="!!wpx.user?.email; else emailEmpty">
+            已设置安全邮箱：{{ wpx.user!.email }}
+          </ng-container>
+          <ng-template #emailEmpty> 未设置安全邮箱，主要用于接收与账号安全相关的通知，推荐采用企业邮箱 </ng-template>
+        </nz-list-item-meta-description>
+      </nz-list-item-meta>
+      <nz-list-item-extra>
+        <button nz-button nzType="primary" nzShape="circle" nz-tooltip="设置" (click)="openEmail()">
+          <i nz-icon nzType="tool"></i>
+        </button>
+      </nz-list-item-extra>
+    </nz-list-item>
+    <nz-list-item>
+      <nz-list-item-meta>
+        <nz-list-item-meta-title><b>安全密钥</b></nz-list-item-meta-title>
+        <nz-list-item-meta-description>未设置安全密保，忘记密码时用于重置用户密码</nz-list-item-meta-description>
+      </nz-list-item-meta>
+      <nz-list-item-extra>
+        <button nz-button nzType="primary" nzShape="circle" nz-tooltip="设置" disabled>
+          <i nz-icon nzType="tool"></i>
+        </button>
+      </nz-list-item-extra>
+    </nz-list-item>
+    <nz-list-item>
+      <nz-list-item-meta>
+        <nz-list-item-meta-title><b>动态令牌</b></nz-list-item-meta-title>
+        <nz-list-item-meta-description>
+          未绑定设备，基于TOTP技术打造的登录二次认证服务，为您的账号安全保驾护航
+        </nz-list-item-meta-description>
+      </nz-list-item-meta>
+      <nz-list-item-extra>
+        <button nz-button nzType="primary" nzShape="circle" nz-tooltip="设置" disabled>
+          <i nz-icon nzType="tool"></i>
+        </button>
+      </nz-list-item-extra>
+    </nz-list-item>
+    <nz-list-item>
+      <nz-list-item-meta>
+        <nz-list-item-meta-title><b>异地登录保护</b></nz-list-item-meta-title>
+        <nz-list-item-meta-description>
+          根据登录IP是否所属常用登录城市进行判断，若账号在非常用城市登录，需进行身份校验
+        </nz-list-item-meta-description>
+      </nz-list-item-meta>
+      <nz-list-item-extra>
+        <button nz-button nzType="primary" nzShape="circle" nz-tooltip="设置" disabled>
+          <i nz-icon nzType="tool"></i>
+        </button>
+      </nz-list-item-extra>
+    </nz-list-item>
+  </nz-list>
+</nz-card>

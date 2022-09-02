@@ -1,0 +1,20 @@
+<nz-card>
+  <nz-card-tab>
+    <nz-tabset nzLinkRouter [nzAnimated]="false" [nzTabBarExtraContent]="extra">
+      <nz-tab>
+        <a *nzTabLink nz-tab-link [routerLink]="['/admin', 'application', 'toolbox', 'values']"> 动态配置 </a>
+      </nz-tab>
+      <nz-tab>
+        <a *nzTabLink nz-tab-link [routerLink]="['/admin', 'application', 'toolbox', 'schedules']"> 定时调度 </a>
+      </nz-tab>
+      <nz-tab>
+        <a *nzTabLink nz-tab-link [routerLink]="['/admin', 'application', 'toolbox', 'collector']"> 日志采集 </a>
+      </nz-tab>
+      <nz-tab>
+        <a *nzTabLink nz-tab-link [routerLink]="['/admin', 'application', 'toolbox', 'monitor']"> 监控 </a>
+      </nz-tab>
+    </nz-tabset>
+  </nz-card-tab>
+
+  <ng-content></ng-content>
+</nz-card>

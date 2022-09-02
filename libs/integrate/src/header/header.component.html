@@ -1,0 +1,104 @@
+<nz-header>
+  <nz-row nzJustify="space-between">
+    <nz-col>
+      <nz-space [nzSplit]="spaceSplit">
+        <ng-template #spaceSplit>
+          <nz-divider nzType="vertical"></nz-divider>
+        </ng-template>
+
+        <button *nzSpaceItem nz-button nzType="text" nz-dropdown [nzDropdownMenu]="quick">
+          <i nz-icon nzType="appstore"></i>
+          <nz-dropdown-menu #quick="nzDropdownMenu">
+            <ul nz-menu nzSelectable>
+              <li nz-menu-item [routerLink]="['/pages']">回到主页</li>
+              <li nz-menu-item [routerLink]="['/admin']">管理后台</li>
+            </ul>
+          </nz-dropdown-menu>
+        </button>
+
+        <nz-breadcrumb *nzSpaceItem [nzAutoGenerate]="wpx.manual">
+          <ng-container *ngIf="!wpx.manual">
+            <nz-breadcrumb-item>
+              <a [routerLink]="['/pages']"><i nz-icon nzType="home"></i> 我的应用</a>
+            </nz-breadcrumb-item>
+            <ng-container *ngIf="wpx.pageId | async as current">
+              <ng-container *ngFor="let page of current | Path | async">
+                <nz-breadcrumb-item>
+                  <ng-container *ngIf="page?.kind !== 'group'; else textName">
+                    <a [routerLink]="['/pages', page._id]">{{ page?.name }}</a>
+                  </ng-container>
+                  <ng-template #textName>{{ page?.name }}</ng-template>
+                </nz-breadcrumb-item>
+              </ng-container>
+            </ng-container>
+          </ng-container>
+        </nz-breadcrumb>
+      </nz-space>
+    </nz-col>
+    <nz-col>
+      <nz-space>
+        <div *nzSpaceItem class="center" nz-popover [nzPopoverContent]="center" nzPopoverPlacement="bottomRight">
+          <ng-container *ngIf="!!wpx.user">
+            <nz-badge nzDot>
+              <ng-container *ngIf="!!wpx.user.avatar; else defaultAvatar">
+                <nz-avatar nzShape="square" [nzSize]="24" [nzSrc]="[wpx.user.avatar] | wpxAssets"> </nz-avatar>
+              </ng-container>
+              <ng-template #defaultAvatar>
+                <nz-avatar nzShape="square" [nzSize]="24" nzIcon="user"> </nz-avatar>
+              </ng-template>
+            </nz-badge>
+            <span class="name">
+              <ng-container *ngIf="!wpx.user.name; else name">
+                {{ wpx.user.username | uppercase }}
+              </ng-container>
+              <ng-template #name>
+                {{ wpx.user.name | uppercase }}
+              </ng-template>
+            </span>
+          </ng-container>
+          <ng-template #center>
+            <nz-tabset style="width: 360px" [nzTabBarExtraContent]="actions">
+              <ng-template #actions>
+                <nz-space>
+                  <button *nzSpaceItem [routerLink]="['/center']" nz-button nzType="text" nz-tooltip="个人中心">
+                    <i nz-icon nzType="user"></i>
+                  </button>
+                  <button *nzSpaceItem nz-button nzType="text" nz-tooltip="退出" (click)="logout()">
+                    <i nz-icon nzType="logout"></i>
+                  </button>
+                </nz-space>
+              </ng-template>
+              <nz-tab nzTitle="通知(0)">
+                <nz-list nzItemLayout="horizontal">
+                  <nz-list-empty></nz-list-empty>
+                </nz-list>
+              </nz-tab>
+              <nz-tab nzTitle="待办(0)">
+                <nz-list nzItemLayout="horizontal">
+                  <nz-list-item>
+                    <nz-list-item-meta>
+                      <nz-list-item-meta-title>你收到了14份周报</nz-list-item-meta-title>
+                      <nz-list-item-meta-description>1 天前</nz-list-item-meta-description>
+                    </nz-list-item-meta>
+                  </nz-list-item>
+                  <nz-list-item>
+                    <nz-list-item-meta>
+                      <nz-list-item-meta-title>合同协议已更新</nz-list-item-meta-title>
+                      <nz-list-item-meta-description>5 天前</nz-list-item-meta-description>
+                    </nz-list-item-meta>
+                  </nz-list-item>
+                  <nz-list-item>
+                    <nz-list-item-meta>
+                      <nz-list-item-meta-title>工作内容</nz-list-item-meta-title>
+                      <nz-list-item-meta-description>2 周前</nz-list-item-meta-description>
+                    </nz-list-item-meta>
+                  </nz-list-item>
+                </nz-list>
+              </nz-tab>
+            </nz-tabset>
+          </ng-template>
+        </div>
+      </nz-space>
+    </nz-col>
+  </nz-row>
+</nz-header>

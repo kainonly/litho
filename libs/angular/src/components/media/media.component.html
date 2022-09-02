@@ -1,0 +1,76 @@
+<nz-space>
+  <button *nzSpaceItem type="button" nz-button (click)="view()">
+    <i nz-icon nzType="import"></i>
+    导入
+  </button>
+  <button *nzSpaceItem type="button" nz-button nzType="link" [disabled]="values?.length === 0" (click)="openSort()">
+    <i nz-icon nzType="sort-descending"></i>
+    排序
+  </button>
+</nz-space>
+
+<nz-list nzGrid style="padding: 1em 0">
+  <nz-row [nzGutter]="[8, 8]">
+    <nz-col [nzSpan]="6" *ngFor="let x of values; index as i">
+      <nz-list-item>
+        <nz-card nzSize="small" [nzBorderless]="false">
+          <nz-row nzJustify="space-between" nzAlign="middle">
+            <nz-col>
+              <div class="meta">
+                <ng-container [ngSwitch]="wpxType">
+                  <ng-container *ngSwitchCase="'pictures'">
+                    <img
+                      (click)="preview(x)"
+                      nz-image
+                      nzDisablePreview
+                      [nzSrc]="[x, 'thumbnail'] | wpxAssets"
+                      [nzPlaceholder]="[x, 'placeholder'] | wpxAssets"
+                      [alt]="x"
+                    />
+                  </ng-container>
+                  <ng-container *ngSwitchCase="'videos'">
+                    <img (click)="video(x)" nz-image nzDisablePreview [nzSrc]="[x + '_chart'] | wpxAssets" [alt]="x" />
+                  </ng-container>
+                </ng-container>
+              </div>
+            </nz-col>
+            <nz-col></nz-col>
+            <nz-col>
+              <a target="_blank" [href]="[x] | wpxAssets" nz-button nzType="text" nz-tooltip="下载">
+                <i nz-icon nzType="download"></i>
+              </a>
+              <button nz-button nzType="text" nz-tooltip="移除" (click)="removeValue(i)">
+                <i nz-icon nzType="delete"></i>
+              </button>
+            </nz-col>
+          </nz-row>
+        </nz-card>
+      </nz-list-item>
+    </nz-col>
+  </nz-row>
+</nz-list>
+
+<nz-drawer nzTitle="排序" [nzVisible]="sortVisible" nzPlacement="right" [nzWidth]="420" (nzOnClose)="closeSort()">
+  <ng-container *nzDrawerContent>
+    <nz-list cdkDropList (cdkDropListDropped)="sort($event)">
+      <nz-list-item *ngFor="let x of values" cdkDrag>
+        <div class="drag-placeholder" *cdkDragPlaceholder></div>
+        <div class="meta meta-small">
+          <ng-container [ngSwitch]="wpxType">
+            <ng-container *ngSwitchCase="'pictures'">
+              <img nz-image nzDisablePreview [nzSrc]="[x, 'thumbnail'] | wpxAssets" [alt]="x" />
+            </ng-container>
+            <ng-container *ngSwitchCase="'videos'">
+              <img nz-image nzDisablePreview [nzSrc]="[x + '_chart'] | wpxAssets" [alt]="x" />
+            </ng-container>
+          </ng-container>
+        </div>
+        <ul nz-list-item-actions>
+          <nz-list-item-action>
+            <button cdkDragHandle nzShape="circle" nz-button nzType="dashed"><i nz-icon nzType="drag"></i></button>
+          </nz-list-item-action>
+        </ul>
+      </nz-list-item>
+    </nz-list>
+  </ng-container>
+</nz-drawer>

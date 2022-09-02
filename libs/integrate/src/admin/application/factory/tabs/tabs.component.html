@@ -1,0 +1,19 @@
+<nz-card>
+  <nz-card-tab>
+    <nz-tabset nzLinkRouter [nzAnimated]="false" [nzTabBarExtraContent]="extra">
+      <nz-tab>
+        <a *nzTabLink nz-tab-link [routerLink]="['/admin', 'application', 'factory', id, 'schema']"> 内容模型 </a>
+      </nz-tab>
+      <nz-tab>
+        <a *nzTabLink nz-tab-link [routerLink]="['/admin', 'application', 'factory', id, 'indexes']"> 索引规则 </a>
+      </nz-tab>
+      <nz-tab>
+        <a *nzTabLink nz-tab-link [routerLink]="['/admin', 'application', 'factory', id, 'rules']"> 显隐规则 </a>
+      </nz-tab>
+      <nz-tab>
+        <a *nzTabLink nz-tab-link [routerLink]="['/admin', 'application', 'factory', id, 'advanced']"> 高级设置 </a>
+      </nz-tab>
+    </nz-tabset>
+  </nz-card-tab>
+  <ng-content></ng-content>
+</nz-card>

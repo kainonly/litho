@@ -1,0 +1,22 @@
+.cdx-header {
+  border: 1px solid #d9d9d9;
+  border-radius: 2px;
+
+  &:hover,
+  &:active {
+    border-color: #40a9ff;
+  }
+}
+
+.cdx-media {
+  img,
+  video {
+    max-width: 100%;
+    vertical-align: bottom;
+  }
+
+  .cdx-button {
+    width: 100%;
+    min-height: 200px;
+  }
+}
