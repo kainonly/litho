@@ -73,7 +73,13 @@ const routes: Routes = [
       registrationStrategy: 'registerWhenStable:30000'
     }),
     RouterModule.forRoot(routes, { useHash: true }),
-    FormsModule
+    FormsModule,
+    ServiceWorkerModule.register('ngsw-worker.js', {
+      enabled: environment.production,
+      // Register the ServiceWorker as soon as the application is stable
+      // or after 30 seconds (whichever comes first).
+      registrationStrategy: 'registerWhenStable:30000'
+    })
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AppInterceptors, multi: true },
