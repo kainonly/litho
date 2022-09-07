@@ -1,0 +1,38 @@
+{
+  "projectType": "library",
+  "sourceRoot": "libs/integrate",
+  "prefix": "weplanx",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/angular:package",
+      "outputs": ["dist/libs/integrate"],
+      "options": {
+        "project": "libs/integrate/ng-package.json"
+      },
+      "configurations": {
+        "production": {
+          "tsConfig": "libs/integrate/tsconfig.lib.prod.json"
+        },
+        "development": {
+          "tsConfig": "libs/integrate/tsconfig.lib.json"
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/integrate"],
+      "options": {
+        "jestConfig": "libs/integrate/jest.config.ts",
+        "passWithNoTests": true
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": ["libs/integrate/**/*.ts", "libs/integrate/**/*.html"]
+      }
+    }
+  },
+  "tags": []
+}

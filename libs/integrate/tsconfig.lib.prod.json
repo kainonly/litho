@@ -1,0 +1,19 @@
+{
+  "extends": "./tsconfig.lib.json",
+  "compilerOptions": {
+    "declarationMap": false,
+    "paths": {
+      "@weplanx/common": ["dist/lib/common"],
+      "@weplanx/ng": ["dist/lib/angular"],
+      "@weplanx/ng/checkbox": ["dist/lib/angular/checkbox"],
+      "@weplanx/ng/upload": ["dist/lib/angular/upload"],
+      "@weplanx/ng/media": ["dist/lib/angular/media"],
+      "@weplanx/ng/table": ["dist/lib/angular/table"],
+      "@weplanx/ng/form": ["dist/lib/angular/form"],
+      "@weplanx/ng/richtext": ["dist/lib/angular/richtext"]
+    }
+  },
+  "angularCompilerOptions": {
+    "compilationMode": "partial"
+  }
+}
