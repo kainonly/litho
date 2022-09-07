@@ -1,9 +1,7 @@
-import { CorsOptions } from '@nestjs/common/interfaces/external/cors-options.interface';
+import { User } from '@weplanx/common';
 import { RedisOptions } from 'ioredis';
 import { WithId } from 'mongodb';
 import { ConnectionOptions } from 'nats/lib/src/nats-base-client';
-
-import { User } from './users/user';
 
 export interface IConfig {
   /**

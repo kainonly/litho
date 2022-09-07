@@ -1,4 +1,4 @@
-export class Values {
+export interface Values {
   /**
    * 会话周期（秒）。用户在 1 小时 内没有操作，将结束会话。
    */

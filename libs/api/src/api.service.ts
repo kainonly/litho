@@ -1,5 +1,6 @@
 import { BadRequestException, Injectable, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
+
 import * as argon2 from 'argon2';
 import { ObjectId } from 'mongodb';
 import { nanoid } from 'nanoid';
@@ -105,7 +106,7 @@ export class ApiService {
     return await this.jwt.signAsync(
       { uid },
       {
-        jwtid: user.jti,
+        jwtid: user.jti
       }
     );
   }
@@ -124,7 +125,7 @@ export class ApiService {
             return {
               type: 'cos',
               url: `https://${store.tencent_cos_bucket}.cos.${store.tencent_cos_region}.myqcloud.com`,
-              limit: store.tencent_cos_limit,
+              limit: store.tencent_cos_limit
             };
         }
         return {};
@@ -135,7 +136,7 @@ export class ApiService {
             return {
               url: 'https://open.feishu.cn/open-apis/authen/v1/index',
               redirect: store.redirect_url,
-              app_id: store.feishu_app_id,
+              app_id: store.feishu_app_id
             };
         }
         return {};

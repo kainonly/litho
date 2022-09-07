@@ -1,0 +1,53 @@
+<app-layout>
+  <nz-card class="container">
+    <div class="logo">
+      <nz-avatar [nzSize]="100" nzIcon="user"></nz-avatar>
+    </div>
+    <h2>企业数字化平台</h2>
+    <form [formGroup]="form" nz-form (wpxSubmit)="submit($event)">
+      <nz-form-item>
+        <nz-form-control>
+          <nz-input-group [nzSuffix]="identitySuffix" nzPrefixIcon="user">
+            <ng-template #identitySuffix>
+              <i *ngIf="identity.value" nz-icon nzType="close-circle" (click)="identity.reset()"> </i>
+            </ng-template>
+            <input type="text" nz-input formControlName="identity" placeholder="用户名 / 电子邮件" />
+          </nz-input-group>
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item>
+        <nz-form-control>
+          <nz-input-group [nzSuffix]="passwordSuffix" nzPrefixIcon="lock">
+            <ng-template #passwordSuffix>
+              <i *ngIf="password.value" nz-icon nzType="close-circle" (click)="password.reset()"> </i>
+            </ng-template>
+            <input nz-input type="password" formControlName="password" autocomplete="new-password" placeholder="密码" />
+          </nz-input-group>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-control [nzExtra]="extra">
+          <button nz-button nzBlock nzType="primary" [nzLoading]="loading" [disabled]="!form.valid"> 登 录 </button>
+        </nz-form-control>
+        <ng-template #extra>
+          <nz-row style="padding: 0.25em 0" nzJustify="space-between">
+            <nz-col>
+              <nz-space>
+                <a *nzSpaceItem nz-tooltip="飞书" (click)="feishuOAuth()">
+                  <nz-avatar
+                    nzSize="small"
+                    nzShape="square"
+                    [nzSrc]="['assets', 'office', 'feishu.png'] | wpxAssets"
+                  ></nz-avatar>
+                </a>
+              </nz-space>
+            </nz-col>
+            <nz-col></nz-col>
+            <nz-col><a routerLink="/forget">忘记密码</a></nz-col>
+          </nz-row>
+        </ng-template>
+      </nz-form-item>
+    </form>
+  </nz-card>
+</app-layout>

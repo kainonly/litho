@@ -1,0 +1,14 @@
+<nz-layout class="main">
+  <wpx-header></wpx-header>
+
+  <nz-layout class="wpx-container">
+    <nz-sider class="wpx-sider" nzTheme="light">
+      <wpx-nav [wpxData]="navs"></wpx-nav>
+    </nz-sider>
+    <nz-layout style="overflow: auto">
+      <nz-content>
+        <router-outlet></router-outlet>
+      </nz-content>
+    </nz-layout>
+  </nz-layout>
+</nz-layout>

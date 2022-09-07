@@ -12,11 +12,11 @@ export interface User {
   /**
    * 所属部门
    */
-  department: ObjectId;
+  department: string | ObjectId;
   /**
    * 所属权限
    */
-  roles: ObjectId[];
+  roles: string[] | ObjectId[];
   /**
    * 称呼
    */

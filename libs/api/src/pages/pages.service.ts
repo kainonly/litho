@@ -1,8 +1,9 @@
 import { Inject, Injectable } from '@nestjs/common';
+
+import { Page } from '@weplanx/common';
 import { Db, Document, IndexSpecification, ObjectId, WithId } from 'mongodb';
 
 import { DATABASE } from '../api.providers';
-import { Page } from '@weplanx/common';
 
 @Injectable()
 export class PagesService {
@@ -19,7 +20,7 @@ export class PagesService {
       .find(
         { status: true },
         {
-          projection: { parent: 1, name: 1, icon: 1, kind: 1, sort: 1 },
+          projection: { parent: 1, name: 1, icon: 1, kind: 1, sort: 1 }
         }
       )
       .toArray();

@@ -1,8 +1,9 @@
 import { Inject, Injectable } from '@nestjs/common';
+
+import { Department } from '@weplanx/common';
 import { Db, ObjectId } from 'mongodb';
 
 import { DATABASE } from '../api.providers';
-import { Department } from './department';
 
 @Injectable()
 export class DepartmentsService {

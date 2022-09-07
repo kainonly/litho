@@ -1,6 +1,7 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
-import { AnyDto, Page } from '@weplanx/ng';
+import { Page } from '@weplanx/common';
+import { AnyDto } from '@weplanx/ng';
 
 @Pipe({ name: 'Level' })
 export class LevelPipe implements PipeTransform {

@@ -24,7 +24,7 @@ export class FactorySerivce extends Api<Page> {
     pipe?: (dict: Record<string, NzTreeNodeOptions>, page: AnyDto<Page>) => void
   ): Observable<NzTreeNodeOptions[]> {
     return this.find(filter, { sort: { sort: 1 } }).pipe(
-      map((v) => {
+      map(v => {
         const nodes: NzTreeNodeOptions[] = [];
         const dict: Record<string, NzTreeNodeOptions> = {};
         for (const x of v) {
@@ -35,7 +35,7 @@ export class FactorySerivce extends Api<Page> {
             parent: x.parent,
             icon: x.icon,
             isLeaf: true,
-            expanded: true,
+            expanded: true
           };
           if (pipe) {
             pipe(dict, x);
@@ -46,12 +46,12 @@ export class FactorySerivce extends Api<Page> {
           if (!x.parent) {
             nodes.push(options);
           } else {
-            if (dict.hasOwnProperty(x.parent)) {
-              if (!dict[x.parent].hasOwnProperty('children')) {
-                dict[x.parent].children = [];
+            if (dict.hasOwnProperty(x.parent as string)) {
+              if (!dict[x.parent as string].hasOwnProperty('children')) {
+                dict[x.parent as string].children = [];
               }
-              dict[x.parent].children!.push(options);
-              dict[x.parent].isLeaf = false;
+              dict[x.parent as string].children?.push(options);
+              dict[x.parent as string].isLeaf = false;
             }
           }
         }
@@ -70,7 +70,7 @@ export class FactorySerivce extends Api<Page> {
     }
     return timer(500).pipe(
       switchMap(() => this.exists({ 'schema.key': key })),
-      map((v) => (v ? { error: true, duplicated: v } : null))
+      map(v => (v ? { error: true, duplicated: v } : null))
     );
   }
 
@@ -84,13 +84,13 @@ export class FactorySerivce extends Api<Page> {
       id,
       {
         $set: {
-          parent,
-        },
+          parent
+        }
       },
       {
         xdata: {
-          parent: 'oid',
-        },
+          parent: 'oid'
+        }
       }
     );
   }
@@ -105,7 +105,7 @@ export class FactorySerivce extends Api<Page> {
     return this.updateById(
       id,
       {
-        $push: { 'schema.fields': data },
+        $push: { 'schema.fields': data }
       },
       option
     );
@@ -122,8 +122,8 @@ export class FactorySerivce extends Api<Page> {
       id,
       {
         $set: {
-          'schema.fields.$[i]': data,
-        },
+          'schema.fields.$[i]': data
+        }
       },
       { array_filters: [{ 'i.key': key }] }
     );
@@ -151,7 +151,7 @@ export class FactorySerivce extends Api<Page> {
     return forkJoin([
       this.updateById(id, { $set: data }),
       timer(200),
-      this.updateById(id, { $push: { 'schema.fields': { $each: [], $sort: { sort: 1 } } } }),
+      this.updateById(id, { $push: { 'schema.fields': { $each: [], $sort: { sort: 1 } } } })
     ]);
   }
 
@@ -183,7 +183,7 @@ export class FactorySerivce extends Api<Page> {
     return forkJoin([
       this.updateById(id, { $unset: { [`schema.rules.${index}`]: 1 } }),
       timer(200),
-      this.updateById(id, { $pull: { 'schema.rules': null } }),
+      this.updateById(id, { $pull: { 'schema.rules': null } })
     ]);
   }
 
@@ -221,8 +221,8 @@ export class FactorySerivce extends Api<Page> {
   updateSchemaAdvanced(id: string, data: any): Observable<any> {
     return this.updateById(id, {
       $set: {
-        'schema.event': data.event,
-      },
+        'schema.event': data.event
+      }
     });
   }
 
@@ -236,8 +236,8 @@ export class FactorySerivce extends Api<Page> {
         keys: {
           id: 1,
           name: 1,
-          schema: 1,
-        },
+          schema: 1
+        }
       }
     );
   }
@@ -250,8 +250,8 @@ export class FactorySerivce extends Api<Page> {
   updateManualScope(id: string, data: any): Observable<any> {
     return this.updateById(id, {
       $set: {
-        'manual.scope': data.scope,
-      },
+        'manual.scope': data.scope
+      }
     });
   }
 }

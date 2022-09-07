@@ -1,8 +1,9 @@
 import { Inject, Injectable } from '@nestjs/common';
+
+import { Role } from '@weplanx/common';
 import { Db, ObjectId } from 'mongodb';
 
 import { DATABASE } from '../api.providers';
-import { Role } from './role';
 
 @Injectable()
 export class RolesService {
@@ -13,7 +14,7 @@ export class RolesService {
   findNamesByIds(ids: ObjectId[]): Promise<string[]> {
     return this.collection
       .find({ _id: { $in: ids }, status: true })
-      .map((v) => v.name)
+      .map(v => v.name)
       .toArray();
   }
 }

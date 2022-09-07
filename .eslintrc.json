@@ -10,7 +10,7 @@
           "error",
           {
             "enforceBuildableLibDependency": true,
-            "allow": ["@weplanx/ng", "@weplanx/common"],
+            "allow": ["@weplanx/common", "@weplanx/ng"],
             "depConstraints": [
               {
                 "sourceTag": "*",

@@ -1,12 +1,13 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
+
+import { Values } from '@weplanx/common';
 import Redis from 'ioredis';
 import { Collection, Db, ObjectId } from 'mongodb';
 import { Codec, JSONCodec, NatsConnection } from 'nats';
 
 import { DATABASE, NATS, REDIS } from '../api.providers';
 import { IApp } from '../types';
-import { Values } from './values';
 import { ValuesLogs } from './values-logs';
 
 @Injectable()
@@ -25,7 +26,7 @@ export class ValuesService {
     'feishu_encrypt_key',
     'feishu_verification_token',
     'email_password',
-    'openapi_secret',
+    'openapi_secret'
   ]);
 
   /**
@@ -83,12 +84,12 @@ export class ValuesService {
           pwd_ttl: 365,
           tencent_cos_expired: 300,
           tencent_cos_limit: 5120,
-          email_port: 465,
+          email_port: 465
         }
       );
     }
     if (secret) {
-      secret.forEach((value) => this.secret.add(value));
+      secret.forEach(value => this.secret.add(value));
     }
 
     // 创建动态配置日志集合
@@ -165,7 +166,7 @@ export class ValuesService {
       await this.collection.insertOne({
         time: new Date(),
         uid,
-        snapshot: this.store,
+        snapshot: this.store
       });
     }
   }

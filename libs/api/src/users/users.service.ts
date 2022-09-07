@@ -1,5 +1,7 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
+
+import { User } from '@weplanx/common';
 import * as argon2 from 'argon2';
 import Redis from 'ioredis';
 import { Db, ObjectId, UpdateFilter, UpdateResult, WithId } from 'mongodb';
@@ -8,7 +10,6 @@ import { DATABASE, REDIS } from '../api.providers';
 import { DepartmentsService } from '../departments/departments.service';
 import { RolesService } from '../roles/roles.service';
 import { SetUserDto } from './dto/set-user.dto';
-import { User } from './user';
 
 @Injectable()
 export class UsersService {
@@ -29,7 +30,7 @@ export class UsersService {
   async findOneByIdentity(identity: string): Promise<WithId<User>> {
     return this.collection.findOne({
       status: true,
-      $or: [{ username: identity }, { email: identity }],
+      $or: [{ username: identity }, { email: identity }]
     });
   }
 
@@ -46,8 +47,8 @@ export class UsersService {
    * @param data
    */
   async getUser(data: WithId<User>): Promise<any> {
-    const roles = await this.roles.findNamesByIds(data.roles);
-    const department = data.department ? await this.departments.findNameById(data.department) : '无';
+    const roles = await this.roles.findNamesByIds(data.roles as ObjectId[]);
+    const department = data.department ? await this.departments.findNameById(data.department as ObjectId) : '无';
     return {
       username: data.username,
       email: data.email,
@@ -57,7 +58,7 @@ export class UsersService {
       avatar: data.avatar,
       sessions: data.sessions,
       last: data.last,
-      create_time: data.create_time,
+      create_time: data.create_time
     };
   }
 

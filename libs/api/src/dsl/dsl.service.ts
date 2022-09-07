@@ -1,12 +1,13 @@
 import { Inject } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
+
+import { Values } from '@weplanx/common';
 import * as argon2 from 'argon2';
 import { AnyBulkWriteOperation, Db, Filter, FindOptions, InsertManyResult, InsertOneResult, ObjectId } from 'mongodb';
 import { Codec, JetStreamClient, JetStreamManager, JSONCodec, NatsConnection } from 'nats';
 
 import { DATABASE, JS, JSM, NATS } from '../api.providers';
 import { IApp } from '../types';
-import { Values } from '../values/values';
 import { ValuesService } from '../values/values.service';
 import { PublishDto } from './dto/publish.dto';
 
@@ -61,7 +62,7 @@ export class DslService {
           cursor[key] = new ObjectId(value);
           break;
         case 'oids':
-          cursor[key] = (value as string[]).map((v) => new ObjectId(v));
+          cursor[key] = (value as string[]).map(v => new ObjectId(v));
           break;
         case 'date':
           cursor[key] = new Date(value);
@@ -92,7 +93,7 @@ export class DslService {
    */
   insertMany(model: string, docs: Array<Record<string, any>>): Promise<InsertManyResult> {
     return this.db.collection(model).insertMany(
-      docs.map((doc) => {
+      docs.map(doc => {
         doc.create_time = new Date();
         doc.update_time = new Date();
         return doc;
@@ -213,9 +214,9 @@ export class DslService {
       updateOne: {
         filter: { _id: new ObjectId(value) },
         update: {
-          $set: { sort: index },
-        },
-      },
+          $set: { sort: index }
+        }
+      }
     }));
     return this.db.collection(model).bulkWrite(operations);
   }
@@ -231,7 +232,7 @@ export class DslService {
       const sub = `${namespace}.events.${model}`;
       await this.jsm.streams.add({
         name: `${namespace}:events:${model}`,
-        subjects: [sub],
+        subjects: [sub]
       });
       await this.js.publish(sub, this.sc.encode(event));
     }

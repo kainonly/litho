@@ -19,8 +19,10 @@
       "@weplanx/api/*": ["libs/api/src/*"],
       "@weplanx/common": ["libs/common/src/index.ts"],
       "@weplanx/ng": ["libs/angular/index.ts"],
-      "@weplanx/ng-intgr": ["libs/integrate/src/index.ts"],
-      "@weplanx/ng/*": ["libs/angular/*"]
+      "@weplanx/ng/*": ["libs/angular/*"],
+      "@weplanx/ng-intgr": ["libs/integrate/index.ts"],
+      "@console/env": ["apps/console/src/environments/environment.ts"],
+      "@console/common/*": ["apps/console/src/app/common/*"]
     }
   },
   "exclude": ["node_modules", "tmp"]

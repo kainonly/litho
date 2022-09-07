@@ -1,7 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { of, switchMap } from 'rxjs';
 
-import { XData, SchemaField, SchemaRule } from '@weplanx/ng';
+import { SchemaField, SchemaRule } from '@weplanx/common';
+import { XData } from '@weplanx/ng';
 import { WpxFormComponent, WpxFormInitOption } from '@weplanx/ng/form';
 import { NzMessageService } from 'ng-zorro-antd/message';
 

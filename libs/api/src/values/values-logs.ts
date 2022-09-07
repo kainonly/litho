@@ -1,6 +1,5 @@
+import { Values } from '@weplanx/common';
 import { ObjectId } from 'mongodb';
-
-import { Values } from './values';
 
 export interface ValuesLogs {
   /**

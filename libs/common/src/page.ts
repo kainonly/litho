@@ -4,9 +4,9 @@ export interface Page {
   /**
    * 父节点
    */
-  parent?: ObjectId;
+  parent?: string | ObjectId;
   /**
-   * 名称
+   * 显示名称
    */
   name: string;
   /**
@@ -16,23 +16,23 @@ export interface Page {
   /**
    * 种类
    */
-  kind: string;
+  kind: PageKind;
   /**
    * 形式
    */
-  manifest: string;
+  manifest?: PageManifest;
   /**
-   * 模型
+   * 模型架构，数据集是存在
    */
-  schema?: PageSchema;
+  schema?: Schema;
   /**
-   * 数据源
+   * 数据源，数据聚合是存在
    */
-  source?: PageSource;
+  source?: Source;
   /**
-   * 自定义
+   * 自定义，自定义种类时存在
    */
-  manual?: PageManual;
+  manual?: Manual;
   /**
    * 排序
    */
@@ -41,17 +41,15 @@ export interface Page {
    * 状态
    */
   status: boolean;
-  /**
-   * 创建时间
-   */
-  create_time: Date;
-  /**
-   * 更新时间
-   */
-  update_time: Date;
 }
 
-export interface PageSchema {
+/**
+ * 低码类型
+ */
+export type PageKind = 'default' | 'aggregation' | 'manual' | 'group';
+export type PageManifest = 'default' | 'form' | 'dashboard';
+
+export interface Schema {
   /**
    * 命名
    */
@@ -59,22 +57,41 @@ export interface PageSchema {
   /**
    * 字段
    */
-  fields: SchemaFeild[];
+  fields: SchemaField[];
   /**
    * 显隐规则
    */
-  rules: SchemaRule[];
+  rules?: SchemaRule[];
   /**
    * 启用事务补偿
    */
-  event: boolean;
+  event?: boolean;
   /**
-   * 启用详情
+   * 启用详情查看
    */
-  detail: boolean;
+  detail?: boolean;
 }
 
-export interface SchemaFeild {
+export type BasicType =
+  | 'string' // 单行
+  | 'text' // 多行
+  | 'number' // 数字
+  | 'date' // 日期
+  | 'dates' // 日期范围
+  | 'bool' // 状态
+  | 'radio' // 单选
+  | 'checkbox' // 复选
+  | 'select'; // 选择器
+
+export type ComplexType =
+  | 'ref' // 引用
+  | 'richtext' // 富文本
+  | 'picture' // 图片
+  | 'video' // 视频
+  | 'file' // 文件
+  | 'manual'; // 自定义
+
+export interface SchemaField {
   /**
    * 命名
    */
@@ -86,25 +103,25 @@ export interface SchemaFeild {
   /**
    * 字段类型
    */
-  type: string;
+  type: BasicType | ComplexType;
   /**
-   * 字段描述
+   * 描述
    */
-  description: string;
+  description?: string;
   /**
-   * 字段提示
+   * 提示文字
    */
-  placeholder: string;
+  placeholder?: string;
   /**
    * 默认值
    */
-  default: any;
+  default?: any;
   /**
    * 关键词
    */
-  keyword: boolean;
+  keyword?: boolean;
   /**
-   * 是否必须
+   * 必填
    */
   required: boolean;
   /**
@@ -124,9 +141,9 @@ export interface SchemaFeild {
    */
   sort: number;
   /**
-   * 配置
+   * 扩展配置
    */
-  option: SchemaFieldOption;
+  option?: Partial<SchemaFieldOption>;
 }
 
 export interface SchemaFieldOption {
@@ -149,13 +166,13 @@ export interface SchemaFieldOption {
   /**
    * 枚举
    */
-  values: Enum[];
+  values: Value[];
   /**
-   * 引用模型
+   * 引用数据源
    */
   reference: string;
   /**
-   * 目标字段
+   * 引用目标
    */
   target: string;
   /**
@@ -168,22 +185,22 @@ export interface SchemaFieldOption {
   component: string;
 }
 
-export interface Enum {
+export interface Value {
   /**
-   * 名称
+   * 显示名称
    */
   label: string;
   /**
    * 数值
    */
-  value: string;
+  value: any;
 }
 
 export interface SchemaRule {
   /**
    * 逻辑
    */
-  logic: string;
+  logic: 'and' | 'or';
   /**
    * 条件
    */
@@ -200,20 +217,20 @@ export interface SchemaRuleCondition {
    */
   key: string;
   /**
-   * 操作符
+   * 操作
    */
-  operate: string;
+  operate: 'eq' | 'ne' | 'in' | 'nin';
   /**
    * 数值
    */
   value: any;
 }
 
-export interface PageSource {
+export interface Source {
   /**
    * 布局
    */
-  layout: string;
+  layout?: any;
   /**
    * 图表
    */
@@ -224,7 +241,7 @@ export interface Panel {
   /**
    * 模式
    */
-  query: string;
+  query: 'default' | 'flux';
   /**
    * 映射
    */
@@ -232,16 +249,16 @@ export interface Panel {
   /**
    * 样式
    */
-  style: Record<string, any>;
+  style: any;
 }
 
-export interface PageManual {
+export interface Manual {
   /**
-   * 页面标识
+   * 页面标识，自定义页面接入命名
    */
   scope: string;
   /**
    * 权限细粒化
    */
-  policies: Record<string, string>;
+  policies: Record<string, any>;
 }

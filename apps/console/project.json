@@ -13,17 +13,19 @@
         "polyfills": "apps/console/src/polyfills.ts",
         "tsConfig": "apps/console/tsconfig.app.json",
         "inlineStyleLanguage": "scss",
-        "assets": ["apps/console/src/favicon.ico", "apps/console/src/assets"],
-        "styles": ["apps/console/src/styles.scss"],
-        "scripts": []
+        "assets": ["apps/console/src/favicon.ico", "apps/console/src/assets", "apps/console/src/manifest.webmanifest"],
+        "styles": ["./node_modules/ng-zorro-antd/ng-zorro-antd.min.css", "apps/console/src/styles.scss"],
+        "scripts": [],
+        "ngswConfigPath": "ngsw-config.json",
+        "allowedCommonJsDependencies": ["size-sensor", "pdfast", "validator"]
       },
       "configurations": {
         "production": {
           "budgets": [
             {
               "type": "initial",
-              "maximumWarning": "500kb",
-              "maximumError": "1mb"
+              "maximumWarning": "2mb",
+              "maximumError": "5mb"
             },
             {
               "type": "anyComponentStyle",

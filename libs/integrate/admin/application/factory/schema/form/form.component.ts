@@ -1,9 +1,17 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { AbstractControl, UntypedFormArray, UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
+import {
+  AbstractControl,
+  UntypedFormArray,
+  UntypedFormBuilder,
+  UntypedFormControl,
+  UntypedFormGroup,
+  Validators
+} from '@angular/forms';
 import { Observable, of, switchMap, throttleTime } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { AnyDto, Page, SchemaField, Value, WpxService } from '@weplanx/ng';
+import { Page, SchemaField, Value } from '@weplanx/common';
+import { AnyDto, WpxService } from '@weplanx/ng';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalRef, NzModalService } from 'ng-zorro-antd/modal';
 

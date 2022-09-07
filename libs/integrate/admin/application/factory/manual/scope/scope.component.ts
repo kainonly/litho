@@ -1,7 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 
-import { Manual, WpxService } from '@weplanx/ng';
+import { Manual } from '@weplanx/common';
+import { WpxService } from '@weplanx/ng';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalRef } from 'ng-zorro-antd/modal';
 
