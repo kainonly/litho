@@ -1,8 +1,9 @@
 import { ExecutionContext, Injectable } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
 import { AuthGuard } from '@nestjs/passport';
-import { IS_PUBLIC_KEY } from '@weplanx/api';
 import { Observable } from 'rxjs';
+
+import { IS_PUBLIC_KEY } from '@weplanx/api';
 
 @Injectable()
 export class AppAuthGuard extends AuthGuard('jwt') {
@@ -14,7 +15,7 @@ export class AppAuthGuard extends AuthGuard('jwt') {
     // 忽略公开接口
     const isPublic = this.reflector.getAllAndOverride<boolean>(IS_PUBLIC_KEY, [
       context.getHandler(),
-      context.getClass(),
+      context.getClass()
     ]);
     if (isPublic) {
       return true;

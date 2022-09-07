@@ -3,8 +3,8 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { APP_GUARD } from '@nestjs/core';
 import { JwtModule } from '@nestjs/jwt';
 import { PassportModule } from '@nestjs/passport';
-import { ApiModule, ApiService } from '@weplanx/api';
-import { IApp } from '@weplanx/api';
+
+import { ApiModule, ApiService, IApp } from '@weplanx/api';
 import { ValuesService } from '@weplanx/api/values/values.service';
 
 import configuration from '../config/configuration';
@@ -17,17 +17,17 @@ import { AppStrategy } from './app.strategy';
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
-      load: [configuration],
+      load: [configuration]
     }),
     PassportModule.register({}),
     JwtModule.registerAsync({
       useFactory: (config: ConfigService) => ({
         secret: config.get<IApp>('app').key,
-        signOptions: { expiresIn: '1h' },
+        signOptions: { expiresIn: '1h' }
       }),
-      inject: [ConfigService],
+      inject: [ConfigService]
     }),
-    ApiModule,
+    ApiModule
   ],
   controllers: [AppController],
   providers: [
@@ -36,9 +36,9 @@ import { AppStrategy } from './app.strategy';
     AppStrategy,
     {
       provide: APP_GUARD,
-      useClass: AppAuthGuard,
-    },
-  ],
+      useClass: AppAuthGuard
+    }
+  ]
 })
 export class AppModule implements OnApplicationBootstrap {
   constructor(private values: ValuesService) {}

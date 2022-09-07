@@ -1,12 +1,13 @@
 import { Body, Controller, Delete, Get, Head, HttpCode, Ip, Patch, Post, Put, Query, Res } from '@nestjs/common';
+
 import { Active, ApiService, IActiveUser, Public } from '@weplanx/api';
+import { SetUserDto } from '@weplanx/api/users/dto/set-user.dto';
+import { UsersService } from '@weplanx/api/users/users.service';
 import { FastifyReply } from 'fastify';
 
 import { LoginDto } from './dto/login.dto';
 import { OptionsDto } from './dto/options.dto';
 import { RefreshDto } from './dto/refresh.dto';
-import { UsersService } from '@weplanx/api/users/users.service';
-import { SetUserDto } from '@weplanx/api/users/dto/set-user.dto';
 
 @Controller()
 export class AppController {
@@ -26,7 +27,7 @@ export class AppController {
     res.setCookie('access_token', access_token, {
       httpOnly: true,
       secure: true,
-      sameSite: 'strict',
+      sameSite: 'strict'
     });
   }
 
@@ -53,7 +54,7 @@ export class AppController {
     res.setCookie('access_token', access_token, {
       httpOnly: true,
       secure: true,
-      sameSite: 'strict',
+      sameSite: 'strict'
     });
   }
 
