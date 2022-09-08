@@ -11,8 +11,9 @@ import { Router } from '@angular/router';
 import { Observable, throwError } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 
-import { environment } from '@console/env';
 import { NzMessageService } from 'ng-zorro-antd/message';
+
+import { environment } from '../environments/environment';
 
 @Injectable()
 export class AppInterceptors implements HttpInterceptor {

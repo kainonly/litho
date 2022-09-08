@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Head, HttpCode, Ip, Patch, Post, Put, Query, Res } from '@nestjs/common';
+import { Body, Controller, Delete, Get, HttpCode, Ip, Patch, Post, Query, Res } from '@nestjs/common';
 
 import { Active, ApiService, IActiveUser, Public } from '@weplanx/api';
 import { SetUserDto } from '@weplanx/api/users/dto/set-user.dto';

@@ -64,7 +64,7 @@ export class WpxService {
   setScope<T>(key: string, name: string, component: ComponentType<T>): void {
     this.scopes.set(key, {
       name,
-      component: new ComponentPortal<T>(component),
+      component: new ComponentPortal<T>(component)
     });
   }
 
@@ -77,20 +77,20 @@ export class WpxService {
   setComponent<T>(key: string, name: string, component: ComponentType<T>): void {
     this.components.set(key, {
       name,
-      component: new ComponentPortal<T>(component),
+      component: new ComponentPortal<T>(component)
     });
   }
 
   oauth(action?: string): Observable<string> {
     const state = JSON.stringify({
-      action,
+      action
     });
     return this.http
       .get<any>('options', {
-        params: { type: 'office' },
+        params: { type: 'office' }
       })
       .pipe(
-        map((v) => {
+        map(v => {
           const redirect_uri = encodeURIComponent(v.redirect);
           return `${v.url}?redirect_uri=${redirect_uri}&app_id=${v.app_id}&state=${state}`;
         })
@@ -110,9 +110,9 @@ export class WpxService {
    */
   refreshToken(): Observable<any> {
     return this.http.get<any>('code').pipe(
-      switchMap((v) =>
+      switchMap(v =>
         this.http.post('refresh_token', {
-          code: v.code,
+          code: v.code
         })
       )
     );
@@ -131,10 +131,10 @@ export class WpxService {
   getUpload(): Observable<UploadOption> {
     return this.http
       .get<UploadOption>('options', {
-        params: { type: 'upload' },
+        params: { type: 'upload' }
       })
       .pipe(
-        map((v) => {
+        map(v => {
           this.upload.next(v);
           this.upload.complete();
           return v;
@@ -147,7 +147,7 @@ export class WpxService {
    */
   getNavs(): Observable<Nav[]> {
     return this.http.get<Nav[]>('navs').pipe(
-      map((v) => {
+      map(v => {
         const record: Record<string, Nav> = {};
         const data: Nav[] = [];
         for (const x of v) {
@@ -200,11 +200,11 @@ export class WpxService {
           observe: 'response',
           params: {
             key,
-            value,
-          },
+            value
+          }
         })
       ),
-      map((res) => {
+      map(res => {
         const exists = res.headers.get('wpx-exists') === 'true';
         return exists ? { error: true, duplicated: exists } : null;
       })
@@ -216,8 +216,7 @@ export class WpxService {
    */
   getUser(): Observable<HttpResponse<UserInfo>> {
     return this.http.get<UserInfo>('user', { observe: 'response' }).pipe(
-      map((v) => {
-        // this.user = v;
+      map(v => {
         return v;
       })
     );
@@ -231,8 +230,8 @@ export class WpxService {
   setUser(action: string, data: any): Observable<any> {
     return this.http.patch('user', data, {
       headers: {
-        'wpx-action': action,
-      },
+        'wpx-action': action
+      }
     });
   }
 
@@ -271,10 +270,10 @@ export class WpxService {
    */
   getRefValues(model: string, target: string): Observable<Value[]> {
     return this.http.get<any[]>(`dsl/${model}`).pipe(
-      map<any[], Value[]>((v) =>
-        v.map((v) => ({
+      map<any[], Value[]>(v =>
+        v.map(v => ({
           label: v[target] ?? `ID[${v._id}]`,
-          value: v._id,
+          value: v._id
         }))
       )
     );

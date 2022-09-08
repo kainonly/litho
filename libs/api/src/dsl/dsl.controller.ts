@@ -11,8 +11,9 @@ import {
   Post,
   Put,
   Query,
-  Res,
+  Res
 } from '@nestjs/common';
+
 import { isMongoId } from 'class-validator';
 import { FastifyReply } from 'fastify';
 import { FindOptions, ObjectId } from 'mongodb';
@@ -47,7 +48,7 @@ export class DslController {
     if (!body || body.length === 0) {
       throw this.BodyEmptyException;
     }
-    if (body.some((v) => Object.keys(v).length === 0)) {
+    if (body.some(v => Object.keys(v).length === 0)) {
       throw new BadRequestException('Array has empty objects');
     }
     const docs = [];
@@ -55,7 +56,7 @@ export class DslController {
       docs.push(await this.dsl.format(x, query.xdoc));
     }
     const result = await this.dsl.insertMany(params.model, docs);
-    this.dsl.publish(params.model, { event: 'bulk-create', body, result });
+    await this.dsl.publish(params.model, { event: 'bulk-create', body, result });
     return result;
   }
 
@@ -89,7 +90,7 @@ export class DslController {
       params.model,
       { _id: new ObjectId(params.id) },
       {
-        projection: query.keys,
+        projection: query.keys
       }
     );
   }
@@ -98,7 +99,7 @@ export class DslController {
   async findOne(@Param() params: ParamsDto, @Query() query: QueryDto): Promise<any> {
     const filter = await this.dsl.format(query.filter, query.xfilter);
     return this.dsl.findOne(params.model, filter, {
-      projection: query.keys,
+      projection: query.keys
     });
   }
 
@@ -109,7 +110,7 @@ export class DslController {
       sort: query.sort ?? { _id: -1 },
       limit: query.limit ?? 20,
       skip: query.skip ?? 0,
-      projection: query.keys,
+      projection: query.keys
     };
     if (Object.keys(options.sort).length > 1) {
       options.allowDiskUse = true;
@@ -129,7 +130,7 @@ export class DslController {
     const options: FindOptions = {
       sort: query.sort ?? { _id: -1 },
       limit: query.pagesize ?? 20,
-      projection: query.keys,
+      projection: query.keys
     };
     options['skip'] = ((query.page ?? 1) - 1) * options['limit'];
     if (Object.keys(options.sort).length > 1) {
@@ -149,11 +150,11 @@ export class DslController {
     }
     const update = await this.dsl.format(body, query.xdoc);
     const result = await this.dsl.updateOne(params.model, { _id: new ObjectId(params.id) }, update);
-    this.dsl.publish(params.model, {
+    await this.dsl.publish(params.model, {
       event: 'update',
       id: params.id,
       body,
-      result,
+      result
     });
     return result;
   }
@@ -166,11 +167,11 @@ export class DslController {
     const filter = await this.dsl.format(query.filter, query.xfilter);
     const update = await this.dsl.format(body, query.xdoc);
     const result = await this.dsl.updateMany(params.model, filter, update);
-    this.dsl.publish(params.model, {
+    await this.dsl.publish(params.model, {
       event: 'update',
       query,
       body,
-      result,
+      result
     });
     return result;
   }
@@ -182,11 +183,11 @@ export class DslController {
     }
     const doc = await this.dsl.format(body, query.xdoc);
     const result = await this.dsl.replace(params.model, params.id, doc);
-    this.dsl.publish(params.model, {
+    await this.dsl.publish(params.model, {
       event: 'replace',
       id: params.id,
       body,
-      result,
+      result
     });
     return result;
   }
@@ -194,10 +195,10 @@ export class DslController {
   @Delete(':id')
   async delete(@Param() params: ParamsDto): Promise<any> {
     const result = await this.dsl.delete(params.model, params.id);
-    this.dsl.publish(params.model, {
+    await this.dsl.publish(params.model, {
       event: 'delete',
       id: params.id,
-      result,
+      result
     });
     return result;
   }
@@ -214,10 +215,10 @@ export class DslController {
     }
     const filter = await this.dsl.format(body, query.xfilter);
     const result = await this.dsl.deleteMany(params.model, filter);
-    this.dsl.publish(params.model, {
+    await this.dsl.publish(params.model, {
       event: 'bulk-delete',
       query,
-      result,
+      result
     });
     return result;
   }
@@ -228,7 +229,7 @@ export class DslController {
     if (!body || body.length === 0) {
       throw this.BodyEmptyException;
     }
-    if (!body.every((v) => isMongoId(v))) {
+    if (!body.every(v => isMongoId(v))) {
       throw new BadRequestException('Array must contain ObjectId');
     }
     return this.dsl.sort(params.model, body);

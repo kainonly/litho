@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 
-import { environment } from '@console/env';
 import { WpxService } from '@weplanx/ng';
 import { NzIconService } from 'ng-zorro-antd/icon';
+
+import { environment } from '../environments/environment';
 
 @Component({
   selector: 'app-root',
