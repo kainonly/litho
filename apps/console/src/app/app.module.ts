@@ -10,7 +10,7 @@ import { ShareModule } from '@console/common/share.module';
 import { NZ_CONFIG, NzConfig } from 'ng-zorro-antd/core/config';
 import { NZ_I18N, zh_CN } from 'ng-zorro-antd/i18n';
 
-import { environment } from '../environments/environment.prod';
+import { environment } from '../environments/environment';
 import { AppComponent } from './app.component';
 import { AppGuard } from './app.guard';
 import { AppInterceptors } from './app.interceptors';
@@ -67,11 +67,11 @@ const routes: Routes = [
     HttpClientModule,
     ShareModule,
     ComponentsModule,
+    RouterModule.forRoot(routes, { useHash: true }),
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: environment.production,
       registrationStrategy: 'registerWhenStable:30000'
-    }),
-    RouterModule.forRoot(routes, { useHash: true })
+    })
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AppInterceptors, multi: true },

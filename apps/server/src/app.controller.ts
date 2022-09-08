@@ -19,7 +19,7 @@ export class AppController {
     return { ip, time: new Date() };
   }
 
-  @Post('auth')
+  @Post('login')
   @HttpCode(204)
   @Public()
   async authLogin(@Body() body: LoginDto, @Res({ passthrough: true }) res: FastifyReply): Promise<any> {
@@ -31,19 +31,13 @@ export class AppController {
     });
   }
 
-  @Head('auth')
-  @HttpCode(204)
-  authVerify(): void {
-    return;
-  }
-
-  @Get('auth')
+  @Get('code')
   async authCode(@Active() user: IActiveUser): Promise<any> {
     const code = await this.api.code(user);
     return { code };
   }
 
-  @Put('auth')
+  @Post('refresh_token')
   @HttpCode(204)
   async authRefresh(
     @Active() user: IActiveUser,
@@ -58,12 +52,6 @@ export class AppController {
     });
   }
 
-  @Delete('auth')
-  @HttpCode(204)
-  authLogout(@Res({ passthrough: true }) res: FastifyReply): void {
-    res.clearCookie('access_token');
-  }
-
   @Get('user')
   async getUser(@Active() { data }: IActiveUser): Promise<any> {
     return this.users.getUser(data);
@@ -72,6 +60,12 @@ export class AppController {
   @Patch('user')
   async setUser(@Active() { data }: IActiveUser, @Body() body: SetUserDto): Promise<void> {
     await this.users.setUser(data._id, body);
+  }
+
+  @Delete('user')
+  @HttpCode(204)
+  authLogout(@Res({ passthrough: true }) res: FastifyReply): void {
+    res.clearCookie('access_token');
   }
 
   @Get('options')

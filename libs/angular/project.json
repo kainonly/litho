@@ -5,7 +5,9 @@
   "targets": {
     "build": {
       "executor": "@nrwl/angular:package",
-      "outputs": ["dist/libs/angular"],
+      "outputs": [
+        "dist/libs/angular"
+      ],
       "options": {
         "project": "libs/angular/ng-package.json"
       },
@@ -21,7 +23,9 @@
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/libs/angular"],
+      "outputs": [
+        "coverage/libs/angular"
+      ],
       "options": {
         "jestConfig": "libs/angular/jest.config.ts",
         "passWithNoTests": true
@@ -30,7 +34,10 @@
     "lint": {
       "executor": "@nrwl/linter:eslint",
       "options": {
-        "lintFilePatterns": ["libs/angular/**/*.ts", "libs/angular/**/*.html"]
+        "lintFilePatterns": [
+          "libs/angular/**/*.ts",
+          "libs/angular/**/*.html"
+        ]
       }
     }
   },

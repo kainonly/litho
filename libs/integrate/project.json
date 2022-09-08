@@ -5,7 +5,9 @@
   "targets": {
     "build": {
       "executor": "@nrwl/angular:package",
-      "outputs": ["dist/libs/integrate"],
+      "outputs": [
+        "dist/libs/integrate"
+      ],
       "options": {
         "project": "libs/integrate/ng-package.json"
       },
@@ -21,7 +23,9 @@
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/libs/integrate"],
+      "outputs": [
+        "coverage/libs/integrate"
+      ],
       "options": {
         "jestConfig": "libs/integrate/jest.config.ts",
         "passWithNoTests": true
@@ -30,7 +34,10 @@
     "lint": {
       "executor": "@nrwl/linter:eslint",
       "options": {
-        "lintFilePatterns": ["libs/integrate/**/*.ts", "libs/integrate/**/*.html"]
+        "lintFilePatterns": [
+          "libs/integrate/**/*.ts",
+          "libs/integrate/**/*.html"
+        ]
       }
     }
   },

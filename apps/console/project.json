@@ -5,7 +5,9 @@
   "targets": {
     "build": {
       "executor": "@angular-devkit/build-angular:browser",
-      "outputs": ["{options.outputPath}"],
+      "outputs": [
+        "{options.outputPath}"
+      ],
       "options": {
         "outputPath": "dist/apps/console",
         "index": "apps/console/src/index.html",
@@ -13,11 +15,28 @@
         "polyfills": "apps/console/src/polyfills.ts",
         "tsConfig": "apps/console/tsconfig.app.json",
         "inlineStyleLanguage": "scss",
-        "assets": ["apps/console/src/favicon.ico", "apps/console/src/assets", "apps/console/src/manifest.webmanifest"],
-        "styles": ["./node_modules/ng-zorro-antd/ng-zorro-antd.min.css", "apps/console/src/styles.scss"],
+        "assets": [
+          "apps/console/src/favicon.ico",
+          "apps/console/src/assets",
+          "apps/console/src/manifest.webmanifest",
+          "apps/console/src/manifest.webmanifest"
+        ],
+        "styles": [
+          "./node_modules/ng-zorro-antd/ng-zorro-antd.min.css",
+          "apps/console/src/styles.scss"
+        ],
         "scripts": [],
-        "ngswConfigPath": "ngsw-config.json",
-        "allowedCommonJsDependencies": ["size-sensor", "pdfast", "validator"]
+        "serviceWorker": true,
+        "ngswConfigPath": "apps/console/ngsw-config.json",
+        "allowedCommonJsDependencies": [
+          "size-sensor",
+          "pdfast",
+          "validator",
+          "d3-regression",
+          "fmin",
+          "mousetrap",
+          "jquery"
+        ]
       },
       "configurations": {
         "production": {
@@ -64,6 +83,8 @@
       },
       "defaultConfiguration": "development",
       "options": {
+        "host": "0.0.0.0",
+        "disableHostCheck": true,
         "proxyConfig": "apps/console/proxy.conf.json"
       }
     },
@@ -76,12 +97,17 @@
     "lint": {
       "executor": "@nrwl/linter:eslint",
       "options": {
-        "lintFilePatterns": ["apps/console/**/*.ts", "apps/console/**/*.html"]
+        "lintFilePatterns": [
+          "apps/console/**/*.ts",
+          "apps/console/**/*.html"
+        ]
       }
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/apps/console"],
+      "outputs": [
+        "coverage/apps/console"
+      ],
       "options": {
         "jestConfig": "apps/console/jest.config.ts",
         "passWithNoTests": true

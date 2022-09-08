@@ -5,20 +5,28 @@
   "targets": {
     "build": {
       "executor": "@nrwl/js:tsc",
-      "outputs": ["{options.outputPath}"],
+      "outputs": [
+        "{options.outputPath}"
+      ],
       "options": {
         "outputPath": "dist/libs/common",
         "tsConfig": "libs/common/tsconfig.lib.json",
         "packageJson": "libs/common/package.json",
         "main": "libs/common/src/index.ts",
-        "assets": ["libs/common/*.md"]
+        "assets": [
+          "libs/common/*.md"
+        ]
       }
     },
     "lint": {
       "executor": "@nrwl/linter:eslint",
-      "outputs": ["{options.outputFile}"],
+      "outputs": [
+        "{options.outputFile}"
+      ],
       "options": {
-        "lintFilePatterns": ["libs/common/**/*.ts"]
+        "lintFilePatterns": [
+          "libs/common/**/*.ts"
+        ]
       }
     }
   },

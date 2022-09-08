@@ -23,8 +23,8 @@ export class AppInterceptors implements HttpInterceptor {
     let update: any;
     if (!regex.test(req.url)) {
       update = {
-        url: `${environment.baseUrl}/${req.url}`,
-        withCredentials: true
+        url: `${environment.baseUrl}/${req.url}`
+        // withCredentials: true
       };
     } else {
       update = { url: req.url };
