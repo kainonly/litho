@@ -25,7 +25,6 @@ export class AppInterceptors implements HttpInterceptor {
     if (!regex.test(req.url)) {
       update = {
         url: `${environment.baseUrl}/${req.url}`
-        // withCredentials: true
       };
     } else {
       update = { url: req.url };

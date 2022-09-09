@@ -3,8 +3,10 @@
   "version": 2,
   "projects": {
     "angular": "libs/angular",
+    "api": "libs/api",
     "common": "libs/common",
     "console": "apps/console",
-    "integrate": "libs/integrate"
+    "integrate": "libs/integrate",
+    "server": "apps/server"
   }
 }
