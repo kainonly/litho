@@ -2,7 +2,7 @@ import { IConfig } from '@weplanx/api';
 import { nkeyAuthenticator } from 'nats';
 
 export default (): IConfig => ({
-  port: parseInt(process.env.PORT) || 3001,
+  port: parseInt(process.env.PORT) || 3000,
   app: {
     namespace: process.env.APP_NAMESPACE,
     key: process.env.APP_KEY

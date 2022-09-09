@@ -1,5 +1,5 @@
 export const environment = {
   production: false,
-  baseUrl: '/api',
+  baseUrl: 'https://xapi.kainonly.com:8443',
   cdn: 'https://cdn.kainonly.com'
 };

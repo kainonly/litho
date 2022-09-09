@@ -5,11 +5,11 @@ import * as argon2 from 'argon2';
 import { ObjectId } from 'mongodb';
 import { nanoid } from 'nanoid';
 
-import { CaptchaService } from './captcha/captcha.service';
-import { LockerService } from './locker/locker.service';
 import { SessionsService } from './sessions/sessions.service';
 import { IActiveUser } from './types';
 import { UsersService } from './users/users.service';
+import { CaptchaService } from './utils/captcha/captcha.service';
+import { LockerService } from './utils/locker/locker.service';
 import { ValuesService } from './values/values.service';
 
 @Injectable()

@@ -1,9 +1,10 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
+
 import Redis from 'ioredis';
 
-import { REDIS } from '../api.providers';
-import { IApp } from '../types';
+import { REDIS } from '../../api.providers';
+import { IApp } from '../../types';
 
 @Injectable()
 export class LockerService {

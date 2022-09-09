@@ -5,9 +5,7 @@
   "targets": {
     "build": {
       "executor": "@angular-devkit/build-angular:browser",
-      "outputs": [
-        "{options.outputPath}"
-      ],
+      "outputs": ["{options.outputPath}"],
       "options": {
         "outputPath": "dist/apps/console",
         "index": "apps/console/src/index.html",
@@ -21,10 +19,7 @@
           "apps/console/src/manifest.webmanifest",
           "apps/console/src/manifest.webmanifest"
         ],
-        "styles": [
-          "./node_modules/ng-zorro-antd/ng-zorro-antd.min.css",
-          "apps/console/src/styles.scss"
-        ],
+        "styles": ["./node_modules/ng-zorro-antd/ng-zorro-antd.min.css", "apps/console/src/styles.scss"],
         "scripts": [],
         "serviceWorker": true,
         "ngswConfigPath": "apps/console/ngsw-config.json",
@@ -84,8 +79,7 @@
       "defaultConfiguration": "development",
       "options": {
         "host": "0.0.0.0",
-        "disableHostCheck": true,
-        "proxyConfig": "apps/console/proxy.conf.json"
+        "disableHostCheck": true
       }
     },
     "extract-i18n": {
@@ -97,17 +91,12 @@
     "lint": {
       "executor": "@nrwl/linter:eslint",
       "options": {
-        "lintFilePatterns": [
-          "apps/console/**/*.ts",
-          "apps/console/**/*.html"
-        ]
+        "lintFilePatterns": ["apps/console/**/*.ts", "apps/console/**/*.html"]
       }
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": [
-        "coverage/apps/console"
-      ],
+      "outputs": ["coverage/apps/console"],
       "options": {
         "jestConfig": "apps/console/jest.config.ts",
         "passWithNoTests": true
