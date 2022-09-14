@@ -39,21 +39,12 @@ export abstract class Api<T> {
   }
 
   /**
-   * 生成 Query DSL URL
-   * @param fragments 片段
-   * @private
-   */
-  private dsl(...fragments: string[]): string {
-    return `dsl/${this.url(...fragments)}`;
-  }
-
-  /**
    * 创建文档
    * @param doc 资源数据
    * @param options 配置
    */
   create(doc: T, options?: CreateOption<T>): Observable<R> {
-    return this.http.post(this.dsl(), {
+    return this.http.post(this.url(), {
       data: doc,
       format: options?.xdata
     });
@@ -65,7 +56,7 @@ export abstract class Api<T> {
    * @param options
    */
   bulkCreate(docs: T[], options?: CreateOption<T>): Observable<R> {
-    return this.http.post(this.dsl('bulk-create'), {
+    return this.http.post(this.url('bulk-create'), {
       data: docs,
       format: options?.xdata
     });
@@ -78,7 +69,7 @@ export abstract class Api<T> {
    */
   size(filter?: Filter<T>, options?: FilterOption<T>): Observable<number> {
     return this.http
-      .get(this.dsl('_size'), {
+      .get(this.url('_size'), {
         observe: 'response',
         ...setHttpOptions<T>(filter, options as ApiOptions<T>)
       })
@@ -100,7 +91,7 @@ export abstract class Api<T> {
    * @param options
    */
   find(filter: Filter<T>, options?: FindOption<T>): Observable<Array<AnyDto<T>>> {
-    return this.http.get<Array<AnyDto<T>>>(this.dsl(), setHttpOptions(filter, options));
+    return this.http.get<Array<AnyDto<T>>>(this.url(), setHttpOptions(filter, options));
   }
 
   /**
@@ -114,7 +105,7 @@ export abstract class Api<T> {
       data.reset();
     }
     return this.http
-      .get<Array<AnyDto<T>>>(this.dsl(), {
+      .get<Array<AnyDto<T>>>(this.url(), {
         observe: 'response',
         ...setHttpOptions<T>(data.filter, {
           keys: data.keys,
@@ -141,7 +132,7 @@ export abstract class Api<T> {
    * @param options
    */
   findOne(filter: Filter<T>, options?: FindOneOption<T>): Observable<AnyDto<T>> {
-    return this.http.get<AnyDto<T>>(this.dsl('_one'), setHttpOptions<T>(filter, options as ApiOptions<T>));
+    return this.http.get<AnyDto<T>>(this.url('_one'), setHttpOptions<T>(filter, options as ApiOptions<T>));
   }
 
   /**
@@ -150,7 +141,7 @@ export abstract class Api<T> {
    * @param options
    */
   findById(id: string, options?: FindByIdOption<T>): Observable<AnyDto<T>> {
-    return this.http.get<AnyDto<T>>(this.dsl(id), setHttpOptions<T>(undefined, options as ApiOptions<T>));
+    return this.http.get<AnyDto<T>>(this.url(id), setHttpOptions<T>(undefined, options as ApiOptions<T>));
   }
 
   /**
@@ -161,7 +152,7 @@ export abstract class Api<T> {
    */
   update(filter: Filter<T>, update: R, options?: UpdateOption<T>): Observable<R> {
     return this.http.patch(
-      this.dsl(),
+      this.url(),
       {
         data: update,
         format: options?.xdata
@@ -177,7 +168,7 @@ export abstract class Api<T> {
    * @param options
    */
   updateById(id: string, update: R, options?: UpdateOneByIdOption<T>): Observable<R> {
-    return this.http.patch(this.dsl(id), {
+    return this.http.patch(this.url(id), {
       data: update,
       format: options?.xdata
     });
@@ -190,7 +181,7 @@ export abstract class Api<T> {
    * @param options
    */
   replace(id: string, doc: T, options?: UpdateOneByIdOption<T>): Observable<R> {
-    return this.http.put(this.dsl(id), {
+    return this.http.put(this.url(id), {
       data: doc,
       format: options?.xdata
     });
@@ -201,7 +192,7 @@ export abstract class Api<T> {
    * @param id
    */
   delete(id: string): Observable<R> {
-    return this.http.delete(this.dsl(id));
+    return this.http.delete(this.url(id));
   }
 
   /**
@@ -210,7 +201,7 @@ export abstract class Api<T> {
    * @param options
    */
   bulkDelete(filter: Filter<T>, options?: FilterOption<T>): Observable<R> {
-    return this.http.post(this.dsl('bulk-delete'), {
+    return this.http.post(this.url('bulk-delete'), {
       data: filter,
       format: options?.xfilter
     });
@@ -221,7 +212,7 @@ export abstract class Api<T> {
    * @param ids
    */
   sort(ids: string[]): Observable<R> {
-    return this.http.post(this.dsl('sort'), {
+    return this.http.post(this.url('sort'), {
       data: ids
     });
   }

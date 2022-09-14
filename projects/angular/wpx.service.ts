@@ -280,7 +280,7 @@ export class WpxService {
    * @param target
    */
   getRefValues(model: string, target: string): Observable<Value[]> {
-    return this.http.get<any[]>(`dsl/${model}`).pipe(
+    return this.http.get<any[]>(model).pipe(
       map<any[], Value[]>(v =>
         v.map(v => ({
           label: v[target] ?? `ID[${v._id}]`,

@@ -1,5 +1,5 @@
 export const environment = {
   production: true,
-  baseUrl: 'https://app.kainonly.com',
+  baseUrl: 'https://api.kainonly.com',
   cdn: 'https://cdn.kainonly.com'
 };
