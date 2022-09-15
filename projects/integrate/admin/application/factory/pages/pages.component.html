@@ -1,13 +1,7 @@
 <nz-row [nzGutter]="8">
   <nz-col>
-    <button
-      style="margin-right: 8px"
-      nz-button
-      nzType="text"
-      [nz-tooltip]="expand ? '收起' : '展开'"
-      (click)="expanded()"
-    >
-      <i nz-icon [nzType]="expand ? 'node-collapse' : 'node-expand'"></i>
+    <button nz-button nzType="text" [nz-tooltip]="expand ? '收起' : '展开'" (click)="expanded()">
+      <span nz-icon [nzType]="expand ? 'node-collapse' : 'node-expand'"></span>
     </button>
     <nz-input-group style="width: 150px" nzSuffixIcon="search">
       <input type="text" nz-input placeholder="搜索" [(ngModel)]="searchText" />
