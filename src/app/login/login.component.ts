@@ -11,11 +11,12 @@ import { NzNotificationService } from 'ng-zorro-antd/notification';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
+  today = new Date();
   loading = false;
   form!: UntypedFormGroup;
 
   constructor(
-    private wpx: WpxService,
+    public wpx: WpxService,
     private notification: NzNotificationService,
     private router: Router,
     private fb: UntypedFormBuilder

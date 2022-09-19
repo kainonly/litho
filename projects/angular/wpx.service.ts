@@ -13,7 +13,6 @@ import {
   Filter,
   FindOption,
   Nav,
-  Page,
   UploadOption,
   UserInfo,
   Value
@@ -22,6 +21,10 @@ import { setHttpOptions } from './util/helper';
 
 @Injectable({ providedIn: 'root' })
 export class WpxService {
+  /**
+   * 预定义通讯
+   */
+  private electron: any = Reflect.get(window, 'electronAPI');
   /**
    * 静态资源地址
    */
@@ -56,6 +59,10 @@ export class WpxService {
   user?: UserInfo;
 
   constructor(private http: HttpClient, private storage: StorageMap) {}
+
+  close(): void {
+    this.electron.close();
+  }
 
   /**
    * 设置静态资源
