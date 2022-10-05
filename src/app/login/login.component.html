@@ -1,70 +1,49 @@
-<nz-layout>
-  <nz-header>
-    <nz-row nzJustify="space-between">
-      <nz-col><span class="title">企业 DevOps 平台</span> </nz-col>
-      <nz-col> </nz-col>
-      <nz-col class="menubar">
-        <button nz-button nzType="text" (click)="wpx.close()">
-          <span nz-icon nzType="close"></span>
-        </button>
-      </nz-col>
-    </nz-row>
-  </nz-header>
-  <nz-content>
-    <nz-card [nzBordered]="false" [nzBorderless]="false">
-      <div class="logo">
-        <nz-avatar [nzSize]="100" nzIcon="user"></nz-avatar>
-      </div>
-      <form [formGroup]="form" nz-form (wpxSubmit)="submit($event)">
-        <nz-form-item>
-          <nz-form-control>
-            <nz-input-group [nzSuffix]="identitySuffix" nzPrefixIcon="user">
-              <ng-template #identitySuffix>
-                <span *ngIf="identity.value" nz-icon nzType="close-circle" (click)="identity.reset()"> </span>
-              </ng-template>
-              <input type="text" nz-input formControlName="identity" placeholder="用户名 / 企业邮箱 / 手机号" />
-            </nz-input-group>
-          </nz-form-control>
-        </nz-form-item>
+<app-layout>
+  <nz-card [nzBordered]="false" [nzBorderless]="false">
+    <div class="logo"> </div>
+    <form [formGroup]="form" nz-form (wpxSubmit)="submit($event)">
+      <nz-form-item>
+        <nz-form-control>
+          <nz-input-group [nzSuffix]="identitySuffix" nzPrefixIcon="user">
+            <ng-template #identitySuffix>
+              <span *ngIf="identity.value" nz-icon nzType="close-circle" (click)="identity.reset()"> </span>
+            </ng-template>
+            <input type="text" nz-input formControlName="identity" placeholder="用户名 / 企业邮箱 / 手机号" />
+          </nz-input-group>
+        </nz-form-control>
+      </nz-form-item>
 
-        <nz-form-item>
-          <nz-form-control>
-            <nz-input-group [nzSuffix]="passwordSuffix" nzPrefixIcon="lock">
-              <ng-template #passwordSuffix>
-                <span *ngIf="password.value" nz-icon nzType="close-circle" (click)="password.reset()"> </span>
-              </ng-template>
-              <input
-                nz-input
-                type="password"
-                formControlName="password"
-                autocomplete="new-password"
-                placeholder="密码"
-              />
-            </nz-input-group>
-          </nz-form-control>
-        </nz-form-item>
-        <nz-form-item>
-          <nz-form-control>
-            <button nz-button nzBlock nzType="primary" [nzLoading]="loading" [disabled]="!form.valid"> 登 录 </button>
-          </nz-form-control>
-        </nz-form-item>
-        <nz-divider nzPlain nzText="其他登录方式"></nz-divider>
-        <nz-row nzJustify="space-between">
-          <nz-col>
-            <nz-space>
-              <a *nzSpaceItem nz-tooltip="飞书" (click)="feishuOAuth()">
-                <nz-avatar
-                  [nzSize]="30"
-                  nzShape="square"
-                  [nzSrc]="['assets', 'office', 'feishu.png'] | wpxAssets"
-                ></nz-avatar>
-              </a>
-            </nz-space>
-          </nz-col>
-          <nz-col></nz-col>
-          <nz-col><a nz-button nzShape="round" routerLink="/forget">忘记密码</a></nz-col>
-        </nz-row>
-      </form>
-    </nz-card>
-  </nz-content>
-</nz-layout>
+      <nz-form-item>
+        <nz-form-control>
+          <nz-input-group [nzSuffix]="passwordSuffix" nzPrefixIcon="lock">
+            <ng-template #passwordSuffix>
+              <span *ngIf="password.value" nz-icon nzType="close-circle" (click)="password.reset()"> </span>
+            </ng-template>
+            <input nz-input type="password" formControlName="password" autocomplete="new-password" placeholder="密码" />
+          </nz-input-group>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-control>
+          <button nz-button nzBlock nzType="primary" [nzLoading]="loading" [disabled]="!form.valid"> 登 录</button>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-divider nzPlain nzText="其他登录方式"></nz-divider>
+      <nz-row nzJustify="space-between">
+        <nz-col>
+          <nz-space>
+            <a *nzSpaceItem nz-tooltip="飞书" (click)="feishuOAuth()">
+              <nz-avatar
+                [nzSize]="30"
+                nzShape="square"
+                [nzSrc]="['assets', 'office', 'feishu.png'] | wpxAssets"
+              ></nz-avatar>
+            </a>
+          </nz-space>
+        </nz-col>
+        <nz-col></nz-col>
+        <nz-col><a nz-button nzShape="round" routerLink="/forget">忘记密码</a></nz-col>
+      </nz-row>
+    </form>
+  </nz-card>
+</app-layout>

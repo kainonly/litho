@@ -22,10 +22,6 @@ import { setHttpOptions } from './util/helper';
 @Injectable({ providedIn: 'root' })
 export class WpxService {
   /**
-   * 预定义通讯
-   */
-  private electron: any = Reflect.get(window, 'electronAPI');
-  /**
    * 静态资源地址
    */
   assets = '/assets';
@@ -59,10 +55,6 @@ export class WpxService {
   user?: UserInfo;
 
   constructor(private http: HttpClient, private storage: StorageMap) {}
-
-  close(): void {
-    this.electron.close();
-  }
 
   /**
    * 设置静态资源
@@ -120,6 +112,13 @@ export class WpxService {
    */
   login(data: { identity: string; password: string }): Observable<any> {
     return this.http.post('login', data);
+  }
+
+  /**
+   * 主动验证
+   */
+  verify(): Observable<HttpResponse<any>> {
+    return this.http.get('verify', { observe: 'response' });
   }
 
   /**
@@ -231,13 +230,8 @@ export class WpxService {
   /**
    * 获取个人用户信息
    */
-  getUser(): Observable<HttpResponse<UserInfo>> {
-    return this.http.get<UserInfo>('user', { observe: 'response' }).pipe(
-      map(v => {
-        // this.user = v;
-        return v;
-      })
-    );
+  getUser(): Observable<UserInfo> {
+    return this.http.get<UserInfo>('user');
   }
 
   /**
