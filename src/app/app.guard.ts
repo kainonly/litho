@@ -17,10 +17,10 @@ export class AppGuard implements CanActivate {
         if (res.status !== 200) {
           this.router.navigateByUrl('/login');
         }
-        this.wpx.getUser().subscribe(data => {
-          this.wpx.user = data;
-        });
-        this.wpx.getUpload().subscribe(() => {});
+        // this.wpx.getUser().subscribe(data => {
+        //   this.wpx.user = data;
+        // });
+        // this.wpx.getUpload().subscribe(() => {});
         if (this.refreshTokenSubscription) {
           this.refreshTokenSubscription.unsubscribe();
         }

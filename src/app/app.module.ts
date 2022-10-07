@@ -58,7 +58,7 @@ const routes: Routes = [
       breadcrumb: '个人中心'
     }
   },
-  { path: '', redirectTo: '/pages/dashboard', pathMatch: 'full' }
+  { path: '', redirectTo: '/', pathMatch: 'full' }
 ];
 
 @NgModule({

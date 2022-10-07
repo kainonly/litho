@@ -9,6 +9,8 @@ import { NzIconService } from 'ng-zorro-antd/icon';
   template: '<router-outlet></router-outlet>'
 })
 export class AppComponent implements OnInit {
+  today = new Date();
+
   constructor(private nzIconService: NzIconService, private wpx: WpxService) {}
 
   ngOnInit(): void {
