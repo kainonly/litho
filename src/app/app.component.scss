@@ -1,0 +1,92 @@
+.main {
+  height: 100%;
+  background-image: url('/assets/bg.svg');
+  background-repeat: no-repeat;
+  background-position: center 50px;
+  background-size: 100%;
+}
+
+.footer {
+  text-align: center;
+  width: 100%;
+
+  p {
+    padding-top: 0.5em;
+  }
+
+  a {
+    color: rgba(0, 0, 0, 0.85);
+  }
+
+  a:hover {
+    text-decoration: underline;
+  }
+}
+
+.toolbar {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  z-index: 1000;
+  border-right: 1px solid #f0f0f0;
+
+  .logo {
+    height: 45px;
+    line-height: 45px;
+    text-align: center;
+    background: url('/assets/logo.png') no-repeat center;
+    background-size: 100%;
+  }
+
+  ul {
+    text-align: center;
+    border: none;
+
+    li[nz-menu-item] {
+      height: 45px;
+      line-height: 45px;
+    }
+  }
+
+  .setting {
+    width: 100%;
+    height: 50px;
+    line-height: 50px;
+    text-align: center;
+    position: absolute;
+    bottom: 0;
+  }
+}
+
+nz-header {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  height: 45px;
+  line-height: 45px;
+  padding: 0 16px 0 64px;
+  z-index: 999;
+  box-shadow: 0 1px 4px rgb(0 21 41 / 8%);
+  background: #fff;
+  transition: width 0.2s;
+}
+
+.app-menu {
+  span.name {
+    margin-left: 10px;
+  }
+}
+
+.center {
+  padding: 0 12px;
+
+  &:hover,
+  &:focus {
+    cursor: pointer;
+    background: rgba(0, 0, 0, 0.018);
+  }
+
+  span.name {
+    margin-left: 12px;
+  }
+}

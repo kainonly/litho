@@ -7,15 +7,16 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule, Routes } from '@angular/router';
 import { ServiceWorkerModule } from '@angular/service-worker';
 
-import { ShareModule } from '@common/share.module';
+import { CommonGuard } from '@common/common.guard';
+import { CommonInterceptors } from '@common/common.interceptors';
+import { CommonModule } from '@common/common.module';
 import { environment } from '@env';
 import { NZ_CONFIG, NzConfig } from 'ng-zorro-antd/core/config';
 import { NZ_I18N, zh_CN } from 'ng-zorro-antd/i18n';
 
 import { AppComponent } from './app.component';
-import { AppGuard } from './app.guard';
-import { AppInterceptors } from './app.interceptors';
-import { ComponentsModule } from './components/components.module';
+import { LevelPipe } from './level.pipe';
+import { PathPipe } from './path.pipe';
 
 registerLocaleData(zh);
 
@@ -29,45 +30,31 @@ const routes: Routes = [
     loadChildren: () => import('./forget/forget.module').then(m => m.ForgetModule)
   },
   {
-    path: 'unauthorize',
-    loadChildren: () => import('./unauthorize/unauthorize.module').then(m => m.UnauthorizeModule)
-  },
-  {
-    path: 'authorized',
-    loadChildren: () => import('./authorized/authorized.module').then(m => m.AuthorizedModule),
-    canActivate: [AppGuard]
-  },
-  {
-    path: 'pages',
-    loadChildren: () => import('./pages/pages.module').then(m => m.PagesModule),
-    canActivate: [AppGuard],
-    data: {
-      breadcrumb: '主页'
-    }
-  },
-  {
-    path: 'admin',
-    loadChildren: () => import('@weplanx/ng-intgr').then(m => m.AdminModule),
-    canActivate: [AppGuard]
-  },
-  {
-    path: 'center',
-    loadChildren: () => import('@weplanx/ng-intgr').then(m => m.CenterModule),
-    canActivate: [AppGuard],
-    data: {
-      breadcrumb: '个人中心'
-    }
-  },
-  { path: '', redirectTo: '/', pathMatch: 'full' }
+    path: '',
+    canActivate: [CommonGuard],
+    children: [
+      {
+        path: '',
+        loadChildren: () => import('./dashboard/dashboard.module').then(m => m.DashboardModule)
+      }
+    ]
+  }
+  // {
+  //   path: '',
+  //   loadChildren: () => import('./pages/pages.module').then(m => m.PagesModule),
+  //   canActivate: [CommonGuard],
+  //   data: {
+  //     breadcrumb: '主页'
+  //   }
+  // }
 ];
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, PathPipe, LevelPipe],
   imports: [
     BrowserAnimationsModule,
     HttpClientModule,
-    ShareModule,
-    ComponentsModule,
+    CommonModule,
     FormsModule,
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: environment.production,
@@ -76,7 +63,7 @@ const routes: Routes = [
     RouterModule.forRoot(routes, { useHash: true })
   ],
   providers: [
-    { provide: HTTP_INTERCEPTORS, useClass: AppInterceptors, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: CommonInterceptors, multi: true },
     { provide: NZ_I18N, useValue: zh_CN },
     {
       provide: NZ_CONFIG,

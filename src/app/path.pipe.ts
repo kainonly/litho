@@ -2,7 +2,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { AnyDto, Nav, Page, WpxService } from '@weplanx/ng';
+import { Nav, WpxService } from '@weplanx/ng';
 
 @Pipe({ name: 'Path' })
 export class PathPipe implements PipeTransform {

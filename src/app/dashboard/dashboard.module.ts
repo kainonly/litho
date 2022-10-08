@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { ShareModule } from '@common/share.module';
+import { CommonModule } from '@common/common.module';
 import { NzStatisticModule } from 'ng-zorro-antd/statistic';
 
 import { CharacterComponent } from './chart/character.component';
@@ -23,7 +23,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [ShareModule, RouterModule.forChild(routes), NzStatisticModule],
+  imports: [CommonModule, RouterModule.forChild(routes), NzStatisticModule],
   declarations: [
     DashboardComponent,
     TargetComponent,

@@ -107,41 +107,6 @@ export class WpxService {
   }
 
   /**
-   * 登录
-   * @param data {identity:"唯一标识",password:"密码"}
-   */
-  login(data: { identity: string; password: string }): Observable<any> {
-    return this.http.post('login', data);
-  }
-
-  /**
-   * 主动验证
-   */
-  verify(): Observable<HttpResponse<any>> {
-    return this.http.get('verify', { observe: 'response' });
-  }
-
-  /**
-   * 刷新认证
-   */
-  refreshToken(): Observable<any> {
-    return this.http.get<any>('code').pipe(
-      switchMap(v =>
-        this.http.post('refresh_token', {
-          code: v.code
-        })
-      )
-    );
-  }
-
-  /**
-   * 登出
-   */
-  logout(): Observable<any> {
-    return this.http.delete('user').pipe(switchMap(() => this.storage.delete('user')));
-  }
-
-  /**
    * 设置上传配置
    */
   getUpload(): Observable<UploadOption> {

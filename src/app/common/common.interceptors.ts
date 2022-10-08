@@ -15,7 +15,7 @@ import { environment } from '@env';
 import { NzMessageService } from 'ng-zorro-antd/message';
 
 @Injectable()
-export class AppInterceptors implements HttpInterceptor {
+export class CommonInterceptors implements HttpInterceptor {
   constructor(private router: Router, private message: NzMessageService) {}
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
