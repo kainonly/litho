@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
-import { CommonService } from '@common/common.service';
+import { AppService } from '@app';
 import { WpxService } from '@weplanx/ng';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 
@@ -17,7 +17,7 @@ export class LoginComponent implements OnInit {
 
   constructor(
     public wpx: WpxService,
-    private common: CommonService,
+    private app: AppService,
     private notification: NzNotificationService,
     private router: Router,
     private fb: UntypedFormBuilder
@@ -49,7 +49,7 @@ export class LoginComponent implements OnInit {
 
   submit(data: any): void {
     this.loading = true;
-    this.common.login(data).subscribe({
+    this.app.login(data).subscribe({
       next: async () => {
         this.loading = false;
         await this.router.navigateByUrl('/');

@@ -1,0 +1,16 @@
+<nz-layout class="main">
+  <app-toolbar></app-toolbar>
+  <nz-layout>
+    <app-header></app-header>
+    <nz-layout class="frame">
+      <nz-sider nzTheme="light">
+        <!--        <app-nav></app-nav>-->
+      </nz-sider>
+      <nz-layout style="overflow: auto">
+        <nz-content>
+          <router-outlet></router-outlet>
+        </nz-content>
+      </nz-layout>
+    </nz-layout>
+  </nz-layout>
+</nz-layout>

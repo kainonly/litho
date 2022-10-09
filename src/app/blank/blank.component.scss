@@ -1,0 +1,16 @@
+nz-footer {
+  text-align: center;
+  width: 100%;
+
+  p {
+    padding-top: 0.5em;
+  }
+
+  a {
+    color: rgba(0, 0, 0, 0.85);
+  }
+
+  a:hover {
+    text-decoration: underline;
+  }
+}

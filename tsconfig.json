@@ -22,6 +22,7 @@
     "skipLibCheck": true,
     "paths": {
       "@env": ["src/environments/environment.ts"],
+      "@app": ["src/app/app.service.ts"],
       "@common/*": ["src/app/common/*"],
       "@weplanx/ng": ["projects/angular/public-api.ts"],
       "@weplanx/ng/checkbox": ["projects/angular/checkbox/public-api.ts"],

@@ -1,0 +1,33 @@
+.toolbar {
+  z-index: 1000;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  width: 51px;
+  background: #fff;
+  border-right: 1px solid #f0f0f0;
+
+  .logo {
+    height: 45px;
+    line-height: 45px;
+    text-align: center;
+    background: url('/assets/logo.png') no-repeat center;
+    background-size: 100%;
+  }
+
+  ul {
+    text-align: center;
+    border: none;
+
+    li[nz-menu-item] {
+      height: 45px;
+      line-height: 45px;
+    }
+  }
+
+  .setting {
+    position: absolute;
+    bottom: 0;
+    height: 45px;
+  }
+}

@@ -7,4 +7,4 @@ import { NzResultModule } from 'ng-zorro-antd/result';
   exports: [WpxModule, WpxShareModule, NzResultModule],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
-export class CommonModule {}
+export class ShareModule {}

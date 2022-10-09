@@ -5,7 +5,7 @@ import { Observable, switchMap } from 'rxjs';
 import { UserInfo } from '@common/types';
 
 @Injectable({ providedIn: 'root' })
-export class CommonService {
+export class AppService {
   /**
    * 用户信息
    */

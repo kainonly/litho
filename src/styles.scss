@@ -3,6 +3,14 @@
 @import 'node_modules/ng-zorro-antd/code-editor/style';
 @import 'node_modules/ng-zorro-antd/resizable/style';
 
+nz-layout.main {
+  height: 100%;
+  background-image: url('/assets/bg.svg');
+  background-repeat: no-repeat;
+  background-position: center 50px;
+  background-size: 100%;
+}
+
 .wpx-container {
   padding-top: 44px;
 }
@@ -16,4 +24,3 @@
 nz-content {
   padding: 1px 0;
 }
-
