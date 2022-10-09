@@ -4,7 +4,7 @@ import { Subscription } from 'rxjs';
 import { Nav, WpxService } from '@weplanx/ng';
 
 @Component({
-  selector: 'app-nav',
+  selector: 'app-apps-nav',
   templateUrl: './nav.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush
 })

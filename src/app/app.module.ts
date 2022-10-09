@@ -28,14 +28,14 @@ const routes: Routes = [
     loadChildren: () => import('./forget/forget.module').then(m => m.ForgetModule)
   },
   {
-    path: 'pages',
-    loadChildren: () => import('./pages/pages.module').then(m => m.PagesModule),
+    path: 'apps',
+    loadChildren: () => import('./apps/apps.module').then(m => m.AppsModule),
     canActivate: [AppGuard],
     data: {
-      breadcrumb: '主页'
+      breadcrumb: '应用'
     }
   },
-  { path: '', redirectTo: '/pages/dashboard', pathMatch: 'full' }
+  { path: '', redirectTo: '/apps/home', pathMatch: 'full' }
 ];
 
 @NgModule({

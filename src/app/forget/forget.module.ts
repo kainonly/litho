@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
+import { BlankModule } from '@common/blank/blank.module';
 import { ShareModule } from '@common/share.module';
 import { NzStepsModule } from 'ng-zorro-antd/steps';
 
-import { BlankModule } from '../blank/blank.module';
 import { ForgetComponent } from './forget.component';
 
 const routes: Routes = [

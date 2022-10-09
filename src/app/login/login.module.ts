@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
+import { BlankModule } from '@common/blank/blank.module';
 import { ShareModule } from '@common/share.module';
 
-import { BlankModule } from '../blank/blank.module';
 import { LoginComponent } from './login.component';
 
 const routes: Routes = [

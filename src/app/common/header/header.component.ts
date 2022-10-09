@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { AppService } from '@app';
@@ -9,10 +9,8 @@ import { WpxService } from '@weplanx/ng';
   templateUrl: './header.component.html',
   styleUrls: ['header.component.scss']
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent {
   constructor(public app: AppService, public wpx: WpxService, private router: Router) {}
-
-  ngOnInit(): void {}
 
   logout(): void {
     this.app.logout().subscribe(async () => {

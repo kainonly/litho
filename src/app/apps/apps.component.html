@@ -1,0 +1,31 @@
+<nz-layout class="main">
+  <app-toolbar></app-toolbar>
+  <nz-layout>
+    <app-header>
+      <ul nz-menu nzMode="horizontal">
+        <li nz-menu-item nzSelected>
+          <span nz-icon nzType="mail"></span>
+          Navigation One
+        </li>
+        <li nz-menu-item nzDisabled>
+          <span nz-icon nzType="appstore"></span>
+          Navigation Two
+        </li>
+        <li nz-menu-item nzDisabled>
+          <span nz-icon nzType="appstore"></span>
+          Navigation Three
+        </li>
+      </ul>
+    </app-header>
+    <nz-layout class="frame">
+      <nz-sider nzTheme="light">
+        <app-apps-nav></app-apps-nav>
+      </nz-sider>
+      <nz-layout style="overflow: auto">
+        <nz-content>
+          <router-outlet></router-outlet>
+        </nz-content>
+      </nz-layout>
+    </nz-layout>
+  </nz-layout>
+</nz-layout>
