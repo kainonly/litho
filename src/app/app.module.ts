@@ -35,6 +35,22 @@ const routes: Routes = [
       breadcrumb: '应用'
     }
   },
+  {
+    path: 'media',
+    loadChildren: () => import('./media/media.module').then(m => m.MediaModule),
+    canActivate: [AppGuard],
+    data: {
+      breadcrumb: '媒体'
+    }
+  },
+  {
+    path: 'orgs',
+    loadChildren: () => import('./orgs/orgs.module').then(m => m.OrgsModule),
+    canActivate: [AppGuard],
+    data: {
+      breadcrumb: '组织'
+    }
+  },
   { path: '', redirectTo: '/apps/home', pathMatch: 'full' }
 ];
 

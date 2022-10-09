@@ -4,8 +4,7 @@ import { Nav, WpxService } from '@weplanx/ng';
 
 @Component({
   selector: 'app-pages',
-  templateUrl: './apps.component.html',
-  styleUrls: ['./apps.component.scss']
+  templateUrl: './apps.component.html'
 })
 export class AppsComponent implements OnInit {
   navs: Nav[] = [];

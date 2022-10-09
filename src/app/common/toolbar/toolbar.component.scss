@@ -4,14 +4,13 @@
   top: 0;
   bottom: 0;
   width: 51px;
-  background: #fff;
-  border-right: 1px solid #f0f0f0;
+  background: #001529;
 
   .logo {
     height: 45px;
     line-height: 45px;
     text-align: center;
-    background: url('/assets/logo.png') no-repeat center;
+    background: url('/assets/logo.png') #fff no-repeat center;
     background-size: 100%;
   }
 
@@ -25,9 +24,14 @@
     }
   }
 
-  .setting {
+  .extra {
     position: absolute;
     bottom: 0;
-    height: 45px;
+    width: 100%;
+
+    button {
+      color: #fff;
+      height: 45px;
+    }
   }
 }

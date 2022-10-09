@@ -10,8 +10,8 @@ import { Menu } from '@common/toolbar/types';
 export class ToolbarComponent {
   menus: Menu[] = [
     {
-      name: '应用',
-      icon: 'appstore',
+      name: '项目',
+      icon: 'project',
       routerLink: ['/apps']
     },
     {
@@ -20,14 +20,9 @@ export class ToolbarComponent {
       routerLink: ['/media']
     },
     {
-      name: '权限组',
-      icon: 'partition',
-      routerLink: ['/roles']
-    },
-    {
-      name: '团队成员',
-      icon: 'team',
-      routerLink: ['/users']
+      name: '组织',
+      icon: 'apartment',
+      routerLink: ['/orgs']
     },
     {
       name: '会话',

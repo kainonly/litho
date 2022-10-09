@@ -3,24 +3,17 @@
   <nz-layout>
     <app-header>
       <ul nz-menu nzMode="horizontal">
-        <li nz-menu-item nzSelected>
-          <span nz-icon nzType="edit"></span>
-          设计
+        <li nz-menu-item nzMatchRouter [routerLink]="['/orgs', 'roles']">
+          <span nz-icon nzType="partition"></span>
+          权限组
         </li>
-        <li nz-menu-item>
-          <span nz-icon nzType="thunderbolt"></span>
-          预览
-        </li>
-        <li nz-menu-item>
-          <span nz-icon nzType="deployment-unit"></span>
-          部署
+        <li nz-menu-item nzMatchRouter [routerLink]="['/orgs', 'users']">
+          <span nz-icon nzType="team"></span>
+          团队成员
         </li>
       </ul>
     </app-header>
     <nz-layout class="frame">
-      <nz-sider nzTheme="light">
-        <app-apps-nav></app-apps-nav>
-      </nz-sider>
       <nz-layout style="overflow: auto">
         <nz-content>
           <router-outlet></router-outlet>

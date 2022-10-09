@@ -1,0 +1,33 @@
+<nz-card [nzTitle]="ref.searchRef" [nzExtra]="ref.uploadRef">
+  <nz-space [nzWrap]="true">
+    <strong *nzSpaceItem>标签：</strong>
+    <nz-tag *nzSpaceItem nzMode="checkable"> 全部 </nz-tag>
+  </nz-space>
+</nz-card>
+
+<div style="padding: 8px 8px 24px; height: calc(100% - 104px)">
+  <wpx-media-view #ref wpxType="videos" [wpxFallback]="['assets', 'photon.svg'] | wpxAssets"></wpx-media-view>
+</div>
+
+<ng-container *ngIf="ref.ds.checkedNumber !== 0; else tip">
+  <nz-alert class="actions" nzType="info" nzBanner nzMessage="批量" [nzDescription]="description" [nzAction]="bulk">
+    <ng-template #description>
+      已选中 <nz-tag>{{ ref.ds.checkedNumber }}</nz-tag> 项
+    </ng-template>
+    <ng-template #bulk>
+      <a nz-button nzType="link" nzSize="small" (click)="ref.ds.clearChecked()">取消选择</a>
+      <br />
+      <a style="float: right" nz-button nzType="link" nzSize="small" nzDanger (click)="ref.bulkDelete()">删除</a>
+    </ng-template>
+  </nz-alert>
+</ng-container>
+
+<ng-template #tip>
+  <nz-alert
+    class="actions"
+    nzBanner
+    nzType="info"
+    nzMessage="接受 mp4 等文件类型的上传，其他文件将被阻止"
+    nzCloseable
+  ></nz-alert>
+</ng-template>

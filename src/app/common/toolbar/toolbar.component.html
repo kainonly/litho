@@ -1,13 +1,15 @@
 <div class="toolbar">
   <div class="logo"></div>
-  <ul nz-menu nzMode="vertical">
+  <ul nz-menu nzMode="vertical" nzTheme="dark">
     <ng-container *ngFor="let menu of menus">
       <li nz-menu-item nzMatchRouter [routerLink]="menu.routerLink" [nz-tooltip]="menu.name" nzTooltipPlacement="right">
         <span nz-icon [nzType]="menu.icon"></span>
       </li>
     </ng-container>
   </ul>
-  <button class="setting" nz-button nzType="text" nzBlock nz-tooltip="设置">
-    <span nz-icon nzType="setting"></span>
-  </button>
+  <div class="extra">
+    <button nz-button nzType="link" nzBlock>
+      <span nz-icon nzType="setting"></span>
+    </button>
+  </div>
 </div>

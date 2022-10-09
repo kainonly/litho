@@ -17,19 +17,19 @@ export class NavComponent implements OnInit, OnDestroy {
   constructor(public wpx: WpxService) {}
 
   ngOnInit(): void {
-    this.wpx.navsRecord.subscribe(record => {
-      this.pageIdSubscription = this.wpx.pageId.subscribe(id => {
-        this.openIds.clear();
-        let node: Nav | undefined = record[id];
-        while (node) {
-          this.openIds.add(node._id);
-          node = node.parentNode ?? undefined;
-        }
-      });
-    });
+    // this.wpx.navsRecord.subscribe(record => {
+    //   this.pageIdSubscription = this.wpx.pageId.subscribe(id => {
+    //     this.openIds.clear();
+    //     let node: Nav | undefined = record[id];
+    //     while (node) {
+    //       this.openIds.add(node._id);
+    //       node = node.parentNode ?? undefined;
+    //     }
+    //   });
+    // });
   }
 
   ngOnDestroy(): void {
-    this.pageIdSubscription.unsubscribe();
+    // this.pageIdSubscription.unsubscribe();
   }
 }

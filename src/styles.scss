@@ -11,16 +11,13 @@ nz-layout.main {
   background-size: 100%;
 }
 
-.wpx-container {
+nz-layout.frame {
   padding-top: 44px;
-}
+  padding-left: 51px;
 
-.wpx-sider {
-  overflow: auto;
-  height: 100%;
-  border-right: 1px solid #f0f0f0;
-}
-
-nz-content {
-  padding: 1px 0;
+  nz-sider {
+    overflow: auto;
+    height: 100%;
+    border-right: 1px solid #f0f0f0;
+  }
 }

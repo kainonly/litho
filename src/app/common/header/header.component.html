@@ -7,13 +7,15 @@
         </ng-template>
 
         <button *nzSpaceItem nz-button nzType="text">
-          <span nz-icon nzType="home"></span>
+          <span nz-icon nzType="appstore"></span>
+          默认应用
+          <span nz-icon nzType="caret-down"></span>
         </button>
 
         <nz-breadcrumb *nzSpaceItem [nzAutoGenerate]="wpx.manual">
           <ng-container *ngIf="!wpx.manual">
             <nz-breadcrumb-item>
-              <a [routerLink]="['/pages']"> 我的应用</a>
+              <a [routerLink]="['/pages']"><span nz-icon nzType="home"></span> 首页</a>
             </nz-breadcrumb-item>
             <ng-container *ngIf="wpx.pageId | async as current">
               <ng-container *ngFor="let page of current | Path | async">
@@ -34,6 +36,10 @@
     </nz-col>
     <nz-col>
       <nz-space>
+        <button *nzSpaceItem nz-button nzType="text">
+          <span nz-icon nzType="translation"></span>
+          简体中文
+        </button>
         <div *nzSpaceItem class="center" nz-popover [nzPopoverContent]="center" nzPopoverPlacement="bottomRight">
           <ng-container *ngIf="!!app.user">
             <nz-badge nzDot>
