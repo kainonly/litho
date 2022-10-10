@@ -4,7 +4,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 
 import { WpxModule } from '@weplanx/ng';
+import { WpxMediaModule } from '@weplanx/ng/media';
 import { WpxTableModule } from '@weplanx/ng/table';
+import { WpxUploadModule } from '@weplanx/ng/upload';
 import { NzAlertModule } from 'ng-zorro-antd/alert';
 import { NzAvatarModule } from 'ng-zorro-antd/avatar';
 import { NzBadgeModule } from 'ng-zorro-antd/badge';
@@ -42,6 +44,8 @@ import { NzTableModule } from 'ng-zorro-antd/table';
 import { NzTabsModule } from 'ng-zorro-antd/tabs';
 import { NzTagModule } from 'ng-zorro-antd/tag';
 import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
+import { NzTreeModule } from 'ng-zorro-antd/tree';
+import { NzTreeSelectModule } from 'ng-zorro-antd/tree-select';
 import { NzUploadModule } from 'ng-zorro-antd/upload';
 
 @NgModule({
@@ -87,9 +91,13 @@ import { NzUploadModule } from 'ng-zorro-antd/upload';
     NzListModule,
     NzResultModule,
     NzDescriptionsModule,
+    NzTreeModule,
+    NzTreeSelectModule,
     NzPipesModule,
     WpxModule,
-    WpxTableModule
+    WpxTableModule,
+    WpxUploadModule,
+    WpxMediaModule
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

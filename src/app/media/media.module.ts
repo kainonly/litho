@@ -4,7 +4,6 @@ import { RouterModule, Routes } from '@angular/router';
 import { HeaderModule } from '@common/header/header.module';
 import { ShareModule } from '@common/share.module';
 import { ToolbarModule } from '@common/toolbar/toolbar.module';
-import { WpxModule } from '@weplanx/ng';
 
 import { MediaComponent } from './media.component';
 
@@ -33,7 +32,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [ShareModule, WpxModule, ToolbarModule, HeaderModule, RouterModule.forChild(routes)],
+  imports: [ShareModule, ToolbarModule, HeaderModule, RouterModule.forChild(routes)],
   declarations: [MediaComponent]
 })
 export class MediaModule {}
