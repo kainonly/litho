@@ -44,6 +44,14 @@ const routes: Routes = [
     }
   },
   {
+    path: 'functions',
+    loadChildren: () => import('./functions/functions.module').then(m => m.FunctionsModule),
+    canActivate: [AppGuard],
+    data: {
+      breadcrumb: '功能'
+    }
+  },
+  {
     path: 'orgs',
     loadChildren: () => import('./orgs/orgs.module').then(m => m.OrgsModule),
     canActivate: [AppGuard],
