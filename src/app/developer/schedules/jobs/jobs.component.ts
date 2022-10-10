@@ -10,7 +10,7 @@ import { SchedulesService } from '../schedules.service';
 import { Schedule } from '../types';
 
 @Component({
-  selector: 'wpx-admin-toolbox-schedules-jobs',
+  selector: 'app-developer-schedules-jobs',
   templateUrl: './jobs.component.html'
 })
 export class JobsComponent implements OnInit {

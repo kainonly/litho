@@ -59,6 +59,22 @@ const routes: Routes = [
       breadcrumb: '安全性'
     }
   },
+  {
+    path: 'monitor',
+    loadChildren: () => import('./monitor/monitor.module').then(m => m.MonitorModule),
+    canActivate: [AppGuard],
+    data: {
+      breadcrumb: '监控'
+    }
+  },
+  {
+    path: 'developer',
+    loadChildren: () => import('./developer/developer.module').then(m => m.DeveloperModule),
+    canActivate: [AppGuard],
+    data: {
+      breadcrumb: '开发者'
+    }
+  },
   { path: '', redirectTo: '/apps/home', pathMatch: 'full' }
 ];
 

@@ -1,10 +1,10 @@
-<ng-template #extra>
+<ng-template #actions>
   <nz-space>
     <button *nzSpaceItem nz-button nzType="primary" (click)="form()"> 新增 </button>
   </nz-space>
 </ng-template>
 
-<wpx-admin-toolbox-tabs [extra]="extra">
+<nz-card [nzExtra]="actions">
   <nz-list nzSize="large" nzItemLayout="vertical">
     <nz-list-empty *ngIf="items.length === 0"></nz-list-empty>
     <ng-container *ngFor="let item of items">
@@ -99,4 +99,4 @@
       </nz-list-item>
     </ng-container>
   </nz-list>
-</wpx-admin-toolbox-tabs>
+</nz-card>

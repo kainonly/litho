@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { FormArray, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 
 import { AnyDto, WpxService } from '@weplanx/ng';
 import { NzMessageService } from 'ng-zorro-antd/message';
@@ -9,7 +9,7 @@ import { SchedulesService } from '../schedules.service';
 import { Schedule } from '../types';
 
 @Component({
-  selector: 'wpx-admin-toolbox-schedules-form',
+  selector: 'app-developer-schedules-form',
   templateUrl: './form.component.html'
 })
 export class FormComponent implements OnInit {

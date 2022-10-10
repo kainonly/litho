@@ -12,7 +12,7 @@ import { SchedulesService } from './schedules.service';
 import { Schedule } from './types';
 
 @Component({
-  selector: 'wpx-admin-toolbox-schedules',
+  selector: 'app-developer-schedules',
   templateUrl: './schedules.component.html'
 })
 export class SchedulesComponent implements OnInit, OnDestroy {

@@ -7,7 +7,7 @@ import { NzModalService } from 'ng-zorro-antd/modal';
 import { FormComponent } from './form/form.component';
 
 @Component({
-  selector: 'wpx-admin-toolbox-values',
+  selector: 'app-developer-values',
   templateUrl: './values.component.html',
   styleUrls: ['./values.component.scss']
 })
@@ -23,7 +23,7 @@ export class ValuesComponent implements OnInit {
   /**
    * 搜索值
    */
-  searchValue = '';
+  searchText = '';
 
   constructor(private wpx: WpxService, private modal: NzModalService, private message: NzMessageService) {}
 
@@ -40,10 +40,10 @@ export class ValuesComponent implements OnInit {
         ...Object.entries(data)
           .map(v => ({ key: v[0], value: v[1] }))
           .filter(v => {
-            if (!this.searchValue) {
+            if (!this.searchText) {
               return v;
             }
-            return v.key.match(this.searchValue);
+            return v.key.match(this.searchText);
           })
       ];
     });
@@ -52,8 +52,8 @@ export class ValuesComponent implements OnInit {
   /**
    * 重置
    */
-  reset(): void {
-    this.searchValue = '';
+  clearSearch(): void {
+    this.searchText = '';
     this.getData();
   }
 

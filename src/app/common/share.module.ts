@@ -14,6 +14,7 @@ import { NzBreadCrumbModule } from 'ng-zorro-antd/breadcrumb';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzCardModule } from 'ng-zorro-antd/card';
 import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
+import { NzCodeEditorModule } from 'ng-zorro-antd/code-editor';
 import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
 import { NzDescriptionsModule } from 'ng-zorro-antd/descriptions';
 import { NzDividerModule } from 'ng-zorro-antd/divider';
@@ -39,6 +40,7 @@ import { NzRadioModule } from 'ng-zorro-antd/radio';
 import { NzResultModule } from 'ng-zorro-antd/result';
 import { NzSelectModule } from 'ng-zorro-antd/select';
 import { NzSpaceModule } from 'ng-zorro-antd/space';
+import { NzStatisticModule } from 'ng-zorro-antd/statistic';
 import { NzSwitchModule } from 'ng-zorro-antd/switch';
 import { NzTableModule } from 'ng-zorro-antd/table';
 import { NzTabsModule } from 'ng-zorro-antd/tabs';
@@ -91,8 +93,10 @@ import { NzUploadModule } from 'ng-zorro-antd/upload';
     NzListModule,
     NzResultModule,
     NzDescriptionsModule,
+    NzCodeEditorModule,
     NzTreeModule,
     NzTreeSelectModule,
+    NzStatisticModule,
     NzPipesModule,
     WpxModule,
     WpxTableModule,

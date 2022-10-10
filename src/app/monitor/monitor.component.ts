@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'wpx-admin-monitor',
+  selector: 'app-monitor',
   templateUrl: './monitor.component.html'
 })
 export class MonitorComponent {
