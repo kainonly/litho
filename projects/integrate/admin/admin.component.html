@@ -1,5 +1,4 @@
 <nz-layout style="height: 100%">
-  <wpx-header></wpx-header>
   <nz-layout class="wpx-container">
     <nz-sider class="wpx-sider" nzTheme="light">
       <ul nz-menu nzMode="inline">
@@ -13,26 +12,6 @@
             </li>
             <li nz-menu-item nzMatchRouter [routerLink]="['application', 'toolbox']">
               <i nz-icon nzType="medicine-box"></i> <span>工具箱</span>
-            </li>
-          </ul>
-        </li>
-        <li nz-menu-group nzTitle="媒体">
-          <ul>
-            <li nz-menu-item nzMatchRouter [routerLink]="['media', 'pictures']">
-              <i nz-icon nzType="picture"></i><span>图库</span>
-            </li>
-            <li nz-menu-item nzMatchRouter [routerLink]="['media', 'videos']">
-              <i nz-icon nzType="play-circle"></i><span>视频</span>
-            </li>
-          </ul>
-        </li>
-        <li nz-menu-group nzTitle="组织">
-          <ul>
-            <li nz-menu-item nzMatchRouter [routerLink]="['organize', 'roles']">
-              <i nz-icon nzType="partition"></i> <span>权限组</span>
-            </li>
-            <li nz-menu-item nzMatchRouter [routerLink]="['organize', 'users']">
-              <i nz-icon nzType="team"></i> <span>团队成员</span>
             </li>
           </ul>
         </li>
