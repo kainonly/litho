@@ -6,10 +6,10 @@ import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalRef } from 'ng-zorro-antd/modal';
 
 @Component({
-  selector: 'app-functions-office-redirect',
-  templateUrl: './redirect.component.html'
+  selector: 'app-settings-openapi-basic',
+  templateUrl: './basic.component.html'
 })
-export class RedirectComponent implements OnInit {
+export class BasicComponent implements OnInit {
   /**
    * 载入数据
    */
@@ -28,9 +28,14 @@ export class RedirectComponent implements OnInit {
 
   ngOnInit(): void {
     this.form = this.fb.group({
-      redirect_url: [null, [Validators.required]]
+      openapi_url: [null, [Validators.required]],
+      openapi_key: [null, [Validators.required]],
+      openapi_secret: [null, [Validators.required]]
     });
-    this.form.patchValue(this.data);
+    this.form.patchValue({
+      openapi_url: this.data['openapi_url'],
+      openapi_key: this.data['openapi_key']
+    });
   }
 
   /**

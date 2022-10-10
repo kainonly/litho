@@ -44,14 +44,6 @@ const routes: Routes = [
     }
   },
   {
-    path: 'functions',
-    loadChildren: () => import('./functions/functions.module').then(m => m.FunctionsModule),
-    canActivate: [AppGuard],
-    data: {
-      breadcrumb: '功能'
-    }
-  },
-  {
     path: 'orgs',
     loadChildren: () => import('./orgs/orgs.module').then(m => m.OrgsModule),
     canActivate: [AppGuard],
@@ -81,6 +73,14 @@ const routes: Routes = [
     canActivate: [AppGuard],
     data: {
       breadcrumb: '开发者'
+    }
+  },
+  {
+    path: 'settings',
+    loadChildren: () => import('./settings/settings.module').then(m => m.SettingsModule),
+    canActivate: [AppGuard],
+    data: {
+      breadcrumb: '设置'
     }
   },
   { path: '', redirectTo: '/apps/home', pathMatch: 'full' }

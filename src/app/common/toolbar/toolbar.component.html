@@ -7,9 +7,6 @@
     <li nz-menu-item nzMatchRouter [routerLink]="['/media']" nz-tooltip="媒体" nzTooltipPlacement="right">
       <span nz-icon nzType="inbox"></span>
     </li>
-    <li nz-menu-item nzMatchRouter [routerLink]="['/functions']" nz-tooltip="功能" nzTooltipPlacement="right">
-      <i nz-icon nzType="switcher"></i>
-    </li>
     <li nz-menu-item nzMatchRouter [routerLink]="['/orgs']" nz-tooltip="组织" nzTooltipPlacement="right">
       <span nz-icon nzType="apartment"></span>
     </li>
@@ -22,13 +19,18 @@
     <li nz-menu-item nzMatchRouter [routerLink]="['/developer']" nz-tooltip="开发者" nzTooltipPlacement="right">
       <i nz-icon nzType="code"></i>
     </li>
-    <li nz-menu-item nzDisabled nz-tooltip="部署" nzTooltipPlacement="right">
+    <li nz-menu-item nzDisabled nz-tooltip="部署">
       <span nz-icon nzType="deployment-unit"></span>
     </li>
+    <li
+      class="setting"
+      nz-menu-item
+      nzMatchRouter
+      [routerLink]="['/settings']"
+      nz-tooltip="设置"
+      nzTooltipPlacement="right"
+    >
+      <i nz-icon nzType="setting"></i>
+    </li>
   </ul>
-  <div class="extra">
-    <button nz-button nzType="link" nzBlock>
-      <span nz-icon nzType="setting"></span>
-    </button>
-  </div>
 </div>

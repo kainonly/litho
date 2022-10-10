@@ -6,10 +6,10 @@ import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalRef } from 'ng-zorro-antd/modal';
 
 @Component({
-  selector: 'app-functions-openapi-basic',
-  templateUrl: './basic.component.html'
+  selector: 'app-settings-cloud-platform',
+  templateUrl: './platform.component.html'
 })
-export class BasicComponent implements OnInit {
+export class PlatformComponent implements OnInit {
   /**
    * 载入数据
    */
@@ -28,13 +28,9 @@ export class BasicComponent implements OnInit {
 
   ngOnInit(): void {
     this.form = this.fb.group({
-      openapi_url: [null, [Validators.required]],
-      openapi_key: [null, [Validators.required]],
-      openapi_secret: [null, [Validators.required]]
-    });
-    this.form.patchValue({
-      openapi_url: this.data['openapi_url'],
-      openapi_key: this.data['openapi_key']
+      cloud: ['tencent', [Validators.required]],
+      tencent_secret_id: [null, [Validators.required]],
+      tencent_secret_key: [null, [Validators.required]]
     });
   }
 

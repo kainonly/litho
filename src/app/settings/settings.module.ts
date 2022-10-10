@@ -5,12 +5,12 @@ import { HeaderModule } from '@common/header/header.module';
 import { ShareModule } from '@common/share.module';
 import { ToolbarModule } from '@common/toolbar/toolbar.module';
 
-import { FunctionsComponent } from './functions.component';
+import { SettingsComponent } from './settings.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: FunctionsComponent,
+    component: SettingsComponent,
     children: [
       {
         path: 'cloud',
@@ -40,13 +40,13 @@ const routes: Routes = [
           breadcrumb: '开放服务'
         }
       },
-      { path: '', redirectTo: '/functions/cloud', pathMatch: 'full' }
+      { path: '', redirectTo: '/settings/cloud', pathMatch: 'full' }
     ]
   }
 ];
 
 @NgModule({
   imports: [ShareModule, ToolbarModule, HeaderModule, RouterModule.forChild(routes)],
-  declarations: [FunctionsComponent]
+  declarations: [SettingsComponent]
 })
-export class FunctionsModule {}
+export class SettingsModule {}

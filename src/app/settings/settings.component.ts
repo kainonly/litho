@@ -1,26 +1,26 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'app-functions',
+  selector: 'app-settings',
   template: `
     <nz-layout class="main">
       <app-toolbar></app-toolbar>
       <nz-layout>
         <app-header>
           <ul nz-menu nzMode="horizontal">
-            <li nz-menu-item nzMatchRouter [routerLink]="['/functions', 'cloud']">
+            <li nz-menu-item nzMatchRouter [routerLink]="['/settings', 'cloud']">
               <span nz-icon nzType="cloud"></span>
               云平台
             </li>
-            <li nz-menu-item nzMatchRouter [routerLink]="['/functions', 'office']">
+            <li nz-menu-item nzMatchRouter [routerLink]="['/settings', 'office']">
               <span nz-icon nzType="coffee"></span>
               企业办公
             </li>
-            <li nz-menu-item nzMatchRouter [routerLink]="['/functions', 'email']">
+            <li nz-menu-item nzMatchRouter [routerLink]="['/settings', 'email']">
               <span nz-icon nzType="mail"></span>
               电子邮件
             </li>
-            <li nz-menu-item nzMatchRouter [routerLink]="['/functions', 'openapi']">
+            <li nz-menu-item nzMatchRouter [routerLink]="['/settings', 'openapi']">
               <span nz-icon nzType="gateway"></span>
               开放服务
             </li>
@@ -37,4 +37,4 @@ import { Component } from '@angular/core';
     </nz-layout>
   `
 })
-export class FunctionsComponent {}
+export class SettingsComponent {}
