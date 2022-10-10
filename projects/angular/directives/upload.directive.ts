@@ -1,12 +1,11 @@
 import { HttpClient } from '@angular/common/http';
-import { Directive, Input, Optional } from '@angular/core';
+import { Directive, Input } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzUploadComponent, NzUploadFile } from 'ng-zorro-antd/upload';
 
-import { TencentService } from '../tencent.service';
 import { WpxService } from '../wpx.service';
 
 @Directive({
@@ -22,8 +21,7 @@ export class WpxUploadDirective {
     private wpx: WpxService,
     private http: HttpClient,
     private message: NzMessageService,
-    private nzUploadComponent: NzUploadComponent,
-    @Optional() private tencent: TencentService
+    private nzUploadComponent: NzUploadComponent
   ) {
     wpx.upload.subscribe(({ type, url, limit }) => {
       nzUploadComponent.nzName = 'file';
@@ -33,7 +31,7 @@ export class WpxUploadDirective {
       switch (type) {
         case 'cos':
           nzUploadComponent.nzData = (file: NzUploadFile): Observable<any> =>
-            tencent.cosPresigned().pipe(
+            wpx.cosPresigned().pipe(
               map(v => {
                 v['Content-Type'] = file.type;
                 Reflect.set(file, 'key', v.key);

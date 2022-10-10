@@ -105,9 +105,9 @@ export class WpxMediaViewComponent implements OnInit, AfterViewInit {
    * 获取标签
    */
   getLabels(): void {
-    this.pictures.findLabels().subscribe(data => {
-      this.labels = [...data];
-    });
+    // this.pictures.findLabels().subscribe(data => {
+    //   this.labels = [...data];
+    // });
   }
 
   /**

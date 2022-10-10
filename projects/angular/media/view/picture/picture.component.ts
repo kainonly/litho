@@ -1,7 +1,7 @@
-import { Component, Input, OnInit, Optional } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { UntypedFormBuilder, UntypedFormControl, UntypedFormGroup } from '@angular/forms';
 
-import { AnyDto, ImageInfoDto, Page, TencentService } from '@weplanx/ng';
+import { AnyDto, ImageInfoDto, Page } from '@weplanx/ng';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalRef } from 'ng-zorro-antd/modal';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
@@ -26,8 +26,7 @@ export class PictureComponent implements OnInit {
     private message: NzMessageService,
     private notification: NzNotificationService,
     private fb: UntypedFormBuilder,
-    private pictures: PicturesService,
-    @Optional() private tencent: TencentService
+    private pictures: PicturesService
   ) {}
 
   ngOnInit(): void {
@@ -44,13 +43,13 @@ export class PictureComponent implements OnInit {
   }
 
   getOriginalInfo(): void {
-    this.tencent.cosImageInfo(`/${this.data.url}.image`).subscribe(data => {
+    this.pictures.cosImageInfo(`/${this.data.url}.image`).subscribe(data => {
       this.original = data;
     });
   }
 
   getOutputInfo(): void {
-    this.tencent.cosImageInfo(`/${this.data.url}`).subscribe(data => {
+    this.pictures.cosImageInfo(`/${this.data.url}`).subscribe(data => {
       this.output = data;
     });
   }

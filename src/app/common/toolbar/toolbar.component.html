@@ -7,11 +7,20 @@
     <li nz-menu-item nzMatchRouter [routerLink]="['/media']" nz-tooltip="媒体" nzTooltipPlacement="right">
       <span nz-icon nzType="inbox"></span>
     </li>
+    <li nz-menu-item nzMatchRouter [routerLink]="['/functions']" nz-tooltip="功能" nzTooltipPlacement="right">
+      <i nz-icon nzType="switcher"></i>
+    </li>
     <li nz-menu-item nzMatchRouter [routerLink]="['/orgs']" nz-tooltip="组织" nzTooltipPlacement="right">
       <span nz-icon nzType="apartment"></span>
     </li>
     <li nz-menu-item nzMatchRouter [routerLink]="['/security']" nz-tooltip="安全性" nzTooltipPlacement="right">
       <span nz-icon nzType="safety"></span>
+    </li>
+    <li nz-menu-item nzMatchRouter [routerLink]="['/developer']" nz-tooltip="开发者" nzTooltipPlacement="right">
+      <i nz-icon nzType="code"></i>
+    </li>
+    <li nz-menu-item nzDisabled nz-tooltip="部署" nzTooltipPlacement="right">
+      <span nz-icon nzType="deployment-unit"></span>
     </li>
   </ul>
   <div class="extra">

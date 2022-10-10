@@ -107,6 +107,13 @@ export class WpxService {
   }
 
   /**
+   * 对象存储预签名
+   */
+  cosPresigned(): Observable<any> {
+    return this.http.get(`tencent/cos-presigned`);
+  }
+
+  /**
    * 设置上传配置
    */
   getUpload(): Observable<UploadOption> {
