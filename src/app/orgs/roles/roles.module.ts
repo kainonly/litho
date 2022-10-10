@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
 
 import { ShareModule } from '@common/share.module';
 import { WpxModule } from '@weplanx/ng';
@@ -10,8 +11,15 @@ import { FormComponent } from './form/form.component';
 import { RolesComponent } from './roles.component';
 import { RolesService } from './roles.service';
 
+const routes: Routes = [
+  {
+    path: '',
+    component: RolesComponent
+  }
+];
+
 @NgModule({
-  imports: [WpxModule, ShareModule, WpxTableModule, NzTransferModule, NzTreeModule],
+  imports: [WpxModule, ShareModule, WpxTableModule, NzTransferModule, NzTreeModule, RouterModule.forChild(routes)],
   declarations: [RolesComponent, FormComponent],
   providers: [RolesService]
 })

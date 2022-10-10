@@ -24,6 +24,7 @@
       "@env": ["src/environments/environment.ts"],
       "@app": ["src/app/app.service.ts"],
       "@common/*": ["src/app/common/*"],
+      "@orgs/*": ["src/app/orgs/*"],
       "@weplanx/ng": ["projects/angular/public-api.ts"],
       "@weplanx/ng/checkbox": ["projects/angular/checkbox/public-api.ts"],
       "@weplanx/ng/upload": ["projects/angular/upload/public-api.ts"],

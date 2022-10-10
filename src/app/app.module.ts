@@ -51,6 +51,14 @@ const routes: Routes = [
       breadcrumb: '组织'
     }
   },
+  {
+    path: 'security',
+    loadChildren: () => import('./security/security.module').then(m => m.SecurityModule),
+    canActivate: [AppGuard],
+    data: {
+      breadcrumb: '安全性'
+    }
+  },
   { path: '', redirectTo: '/apps/home', pathMatch: 'full' }
 ];
 
