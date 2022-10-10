@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 
-import { WpxModule, WpxShareModule } from '@weplanx/ng';
+import { ShareModule } from '@common/share.module';
+import { WpxModule } from '@weplanx/ng';
 import { WpxTableModule } from '@weplanx/ng/table';
 import { NzTreeModule } from 'ng-zorro-antd/tree';
 import { NzTreeSelectModule } from 'ng-zorro-antd/tree-select';
@@ -10,7 +11,7 @@ import { DepartmentsService } from './departments.service';
 import { FormComponent } from './form/form.component';
 
 @NgModule({
-  imports: [WpxModule, WpxShareModule, WpxTableModule, NzTreeModule, NzTreeSelectModule],
+  imports: [WpxModule, ShareModule, WpxTableModule, NzTreeModule, NzTreeSelectModule],
   declarations: [DepartmentsComponent, FormComponent],
   exports: [DepartmentsComponent],
   providers: [DepartmentsService]

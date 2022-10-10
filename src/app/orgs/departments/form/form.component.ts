@@ -10,7 +10,7 @@ import { DepartmentsService } from '../departments.service';
 import { Department } from '../types';
 
 @Component({
-  selector: 'wpx-admin-departments-form',
+  selector: 'app-orgs-departments-form',
   templateUrl: './form.component.html'
 })
 export class FormComponent implements OnInit {

@@ -12,7 +12,7 @@ import { User } from '../types';
 import { UsersService } from '../users.service';
 
 @Component({
-  selector: 'wpx-admin-users-form',
+  selector: 'app-orgs-users-form',
   templateUrl: './form.component.html'
 })
 export class FormComponent implements OnInit {

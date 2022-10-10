@@ -13,7 +13,7 @@ import { User } from './types';
 import { UsersService } from './users.service';
 
 @Component({
-  selector: 'wpx-admin-users',
+  selector: 'app-orgs-users',
   templateUrl: './users.component.html',
   styleUrls: ['./users.component.scss']
 })

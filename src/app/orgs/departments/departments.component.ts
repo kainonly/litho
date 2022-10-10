@@ -12,7 +12,7 @@ import { FormComponent } from './form/form.component';
 import { Department } from './types';
 
 @Component({
-  selector: 'wpx-admin-departments',
+  selector: 'app-orgs-departments',
   templateUrl: './departments.component.html',
   styleUrls: ['./departments.component.scss']
 })

@@ -11,7 +11,7 @@ import { User } from '../types';
 import { UsersService } from '../users.service';
 
 @Component({
-  selector: 'wpx-admin-users-department',
+  selector: 'app-orgs-users-department',
   templateUrl: './department.component.html'
 })
 export class DepartmentComponent implements OnInit {

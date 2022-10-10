@@ -19,6 +19,13 @@ const routes: Routes = [
           breadcrumb: '权限组'
         }
       },
+      {
+        path: 'users',
+        loadChildren: () => import('./users/users.module').then(m => m.UsersModule),
+        data: {
+          breadcrumb: '团队成员'
+        }
+      },
       { path: '', redirectTo: '/orgs/roles', pathMatch: 'full' }
     ]
   }
