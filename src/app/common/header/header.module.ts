@@ -1,4 +1,4 @@
-import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
+import { NgModule } from '@angular/core';
 
 import { CenterModule } from '@common/center/center.module';
 import { HeaderComponent } from '@common/header/header.component';

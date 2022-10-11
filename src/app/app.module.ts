@@ -28,11 +28,11 @@ const routes: Routes = [
     loadChildren: () => import('./forget/forget.module').then(m => m.ForgetModule)
   },
   {
-    path: 'work',
-    loadChildren: () => import('./work/work.module').then(m => m.WorkModule),
+    path: 'dashboard',
+    loadChildren: () => import('./dashboard/dashboard.module').then(m => m.DashboardModule),
     canActivate: [AppGuard],
     data: {
-      breadcrumb: '工作'
+      breadcrumb: '仪表盘'
     }
   },
   {
@@ -91,7 +91,7 @@ const routes: Routes = [
       breadcrumb: '设置'
     }
   },
-  { path: '', redirectTo: '/apps/home', pathMatch: 'full' }
+  { path: '', redirectTo: '/dashboard/analysis', pathMatch: 'full' }
 ];
 
 @NgModule({
