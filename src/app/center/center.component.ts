@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'app-media',
+  selector: 'app-center',
   template: `
     <nz-layout class="main">
       <app-toolbar></app-toolbar>
@@ -15,21 +15,17 @@ import { Component } from '@angular/core';
         </ng-template>
         <app-header [breadcrumb]="breadcrumbTpl">
           <ul nz-menu nzMode="horizontal">
-            <li nz-menu-item nzMatchRouter [routerLink]="['/media', 'pictures']">
-              <span nz-icon nzType="picture"></span>
-              图库
+            <li nz-menu-item nzMatchRouter [routerLink]="['/center', 'work']">
+              <span nz-icon nzType="desktop"></span>
+              工作台
             </li>
-            <li nz-menu-item nzDisabled>
-              <span nz-icon nzType="sound"></span>
-              音频
+            <li nz-menu-item nzMatchRouter [routerLink]="['/center', 'safety']">
+              <span nz-icon nzType="safety"></span>
+              安全设置
             </li>
-            <li nz-menu-item nzMatchRouter [routerLink]="['/media', 'videos']">
-              <span nz-icon nzType="video-camera"></span>
-              视频
-            </li>
-            <li nz-menu-item nzDisabled>
-              <span nz-icon nzType="file-word"></span>
-              文档
+            <li nz-menu-item nzMatchRouter [routerLink]="['/center', 'third-party']">
+              <span nz-icon nzType="link"></span>
+              第三方关联
             </li>
           </ul>
         </app-header>
@@ -42,4 +38,4 @@ import { Component } from '@angular/core';
     </nz-layout>
   `
 })
-export class MediaComponent {}
+export class CenterComponent {}

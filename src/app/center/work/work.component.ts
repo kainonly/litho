@@ -1,10 +1,9 @@
 import { Component } from '@angular/core';
 
 import { AppService } from '@app';
-import { WpxService } from '@weplanx/ng';
 
 @Component({
-  selector: 'app-work',
+  selector: 'app-center-work',
   templateUrl: './work.component.html',
   styleUrls: ['./work.component.scss']
 })

@@ -49,7 +49,7 @@
             <nz-tabset style="width: 360px" [nzTabBarExtraContent]="actions">
               <ng-template #actions>
                 <nz-space>
-                  <button *nzSpaceItem nz-button nzType="text" nz-tooltip="个人中心">
+                  <button *nzSpaceItem nz-button nzType="text" nz-tooltip="个人中心" [routerLink]="['/center']">
                     <i nz-icon nzType="user"></i>
                   </button>
                   <button *nzSpaceItem nz-button nzType="text" nz-tooltip="退出" (click)="logout()">

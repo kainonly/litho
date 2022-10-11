@@ -84,6 +84,14 @@ const routes: Routes = [
     }
   },
   {
+    path: 'center',
+    loadChildren: () => import('./center/center.module').then(m => m.CenterModule),
+    canActivate: [AppGuard],
+    data: {
+      breadcrumb: '个人中心'
+    }
+  },
+  {
     path: 'settings',
     loadChildren: () => import('./settings/settings.module').then(m => m.SettingsModule),
     canActivate: [AppGuard],

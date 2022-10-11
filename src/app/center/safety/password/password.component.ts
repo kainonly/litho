@@ -1,17 +1,17 @@
 import { Component, OnInit } from '@angular/core';
-import { AbstractControl, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
-import { Observable } from 'rxjs';
+import { AbstractControl, UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
 
-import { WpxService } from '@weplanx/ng';
+import { validates, WpxService } from '@weplanx/ng';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalRef } from 'ng-zorro-antd/modal';
 
 @Component({
-  selector: 'wpx-center-safety-email',
-  templateUrl: './email.component.html'
+  selector: 'app-center-safety-password',
+  templateUrl: './password.component.html'
 })
-export class EmailComponent implements OnInit {
+export class PasswordComponent implements OnInit {
   form!: UntypedFormGroup;
+  passwordVisible = false;
 
   constructor(
     public wpx: WpxService,
@@ -22,15 +22,18 @@ export class EmailComponent implements OnInit {
 
   ngOnInit(): void {
     this.form = this.fb.group({
-      email: [null, [Validators.email], [this.existsEmail]]
+      password: [null, [this.validedPassword]]
     });
     this.wpx.getUser().subscribe(v => {
       this.form.patchValue(v);
     });
   }
 
-  existsEmail = (control: AbstractControl): Observable<any> => {
-    return this.wpx.existsUser('email', control.value);
+  validedPassword = (control: AbstractControl): any => {
+    if (!control.value) {
+      return;
+    }
+    return validates.password(control.value);
   };
 
   close(): void {
@@ -38,7 +41,7 @@ export class EmailComponent implements OnInit {
   }
 
   submit(data: any): void {
-    this.wpx.setUser('email', data).subscribe(() => {
+    this.wpx.setUser('password', data).subscribe(() => {
       this.message.success('数据更新完成');
       this.modalRef.triggerOk();
     });

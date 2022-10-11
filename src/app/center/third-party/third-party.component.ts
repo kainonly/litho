@@ -1,15 +1,15 @@
 import { Component } from '@angular/core';
 import { timer } from 'rxjs';
 
-import { FeishuService, WpxService } from '@weplanx/ng';
+import { WpxService } from '@weplanx/ng';
 import { NzMessageService } from 'ng-zorro-antd/message';
 
 @Component({
-  selector: 'wpx-center-third-party',
+  selector: 'app-center-third-party',
   templateUrl: './third-party.component.html'
 })
 export class ThirdPartyComponent {
-  constructor(public wpx: WpxService, private feishu: FeishuService, private message: NzMessageService) {}
+  constructor(public wpx: WpxService, private message: NzMessageService) {}
 
   linkFeishu(): void {
     this.wpx.oauth('link').subscribe(v => {

@@ -17,6 +17,10 @@ nz-layout.frame {
   overflow-x: hidden;
   overflow-y: auto;
 
+  nz-content {
+    padding: 8px;
+  }
+
   nz-sider {
     overflow: auto;
     height: 100%;

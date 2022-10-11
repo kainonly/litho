@@ -7,7 +7,7 @@ import { EmailComponent } from './email/email.component';
 import { PasswordComponent } from './password/password.component';
 
 @Component({
-  selector: 'wpx-center-safety',
+  selector: 'app-center-safety',
   templateUrl: './safety.component.html'
 })
 export class SafetyComponent {
