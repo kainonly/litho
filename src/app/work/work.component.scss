@@ -1,0 +1,37 @@
+.user {
+  padding: 16px;
+  text-align: center;
+  nz-avatar:hover {
+    cursor: pointer;
+  }
+  h2 {
+    margin: 16px 0 8px;
+  }
+}
+
+.details {
+  padding: 12px 16px 0;
+}
+
+.project {
+  height: 160px;
+}
+
+.project-title {
+  padding-bottom: 12px;
+
+  span {
+    margin-left: 12px;
+    font-weight: bold;
+  }
+}
+
+.project-footer {
+  span {
+    float: right;
+  }
+}
+
+.group-name {
+  margin-left: 8px;
+}

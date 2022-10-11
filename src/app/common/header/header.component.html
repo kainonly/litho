@@ -12,23 +12,27 @@
           <span nz-icon nzType="caret-down"></span>
         </button>
 
-        <nz-breadcrumb *nzSpaceItem [nzAutoGenerate]="wpx.manual">
-          <ng-container *ngIf="!wpx.manual">
-            <nz-breadcrumb-item>
-              <a [routerLink]="['/pages']"><span nz-icon nzType="home"></span> 首页</a>
-            </nz-breadcrumb-item>
-            <ng-container *ngIf="wpx.pageId | async as current">
-              <ng-container *ngFor="let page of current | Path | async">
-                <nz-breadcrumb-item>
-                  <ng-container *ngIf="page?.kind !== 'group'; else textName">
-                    <a [routerLink]="['/pages', page._id]">{{ page?.name }}</a>
-                  </ng-container>
-                  <ng-template #textName>{{ page?.name }}</ng-template>
-                </nz-breadcrumb-item>
-              </ng-container>
-            </ng-container>
-          </ng-container>
-        </nz-breadcrumb>
+        <ng-container *nzSpaceItem>
+          <ng-container *ngTemplateOutlet="breadcrumb"></ng-container>
+        </ng-container>
+
+        <!--        <nz-breadcrumb *nzSpaceItem [nzAutoGenerate]="wpx.manual">-->
+        <!--          <ng-container *ngIf="!wpx.manual">-->
+        <!--            <nz-breadcrumb-item>-->
+        <!--              <a [routerLink]="['/pages']"><span nz-icon nzType="home"></span> 首页</a>-->
+        <!--            </nz-breadcrumb-item>-->
+        <!--            <ng-container *ngIf="wpx.pageId | async as current">-->
+        <!--              <ng-container *ngFor="let page of current | Path | async">-->
+        <!--                <nz-breadcrumb-item>-->
+        <!--                  <ng-container *ngIf="page?.kind !== 'group'; else textName">-->
+        <!--                    <a [routerLink]="['/pages', page._id]">{{ page?.name }}</a>-->
+        <!--                  </ng-container>-->
+        <!--                  <ng-template #textName>{{ page?.name }}</ng-template>-->
+        <!--                </nz-breadcrumb-item>-->
+        <!--              </ng-container>-->
+        <!--            </ng-container>-->
+        <!--          </ng-container>-->
+        <!--        </nz-breadcrumb>-->
       </nz-space>
     </nz-col>
     <nz-col>

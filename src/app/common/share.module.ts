@@ -48,6 +48,7 @@ import { NzTagModule } from 'ng-zorro-antd/tag';
 import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
 import { NzTreeModule } from 'ng-zorro-antd/tree';
 import { NzTreeSelectModule } from 'ng-zorro-antd/tree-select';
+import { NzTypographyModule } from 'ng-zorro-antd/typography';
 import { NzUploadModule } from 'ng-zorro-antd/upload';
 
 @NgModule({
@@ -97,6 +98,7 @@ import { NzUploadModule } from 'ng-zorro-antd/upload';
     NzTreeModule,
     NzTreeSelectModule,
     NzStatisticModule,
+    NzTypographyModule,
     NzPipesModule,
     WpxModule,
     WpxTableModule,

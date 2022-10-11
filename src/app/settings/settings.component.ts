@@ -27,11 +27,9 @@ import { Component } from '@angular/core';
           </ul>
         </app-header>
         <nz-layout class="frame">
-          <nz-layout style="overflow: auto">
-            <nz-content>
-              <router-outlet></router-outlet>
-            </nz-content>
-          </nz-layout>
+          <nz-content>
+            <router-outlet></router-outlet>
+          </nz-content>
         </nz-layout>
       </nz-layout>
     </nz-layout>

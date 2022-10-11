@@ -28,6 +28,14 @@ const routes: Routes = [
     loadChildren: () => import('./forget/forget.module').then(m => m.ForgetModule)
   },
   {
+    path: 'work',
+    loadChildren: () => import('./work/work.module').then(m => m.WorkModule),
+    canActivate: [AppGuard],
+    data: {
+      breadcrumb: '工作'
+    }
+  },
+  {
     path: 'apps',
     loadChildren: () => import('./apps/apps.module').then(m => m.AppsModule),
     canActivate: [AppGuard],

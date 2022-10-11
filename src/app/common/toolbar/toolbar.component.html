@@ -1,6 +1,9 @@
 <div class="toolbar">
   <div class="logo"></div>
   <ul nz-menu nzMode="vertical" nzTheme="dark">
+    <li nz-menu-item nzMatchRouter [routerLink]="['/work']" nz-tooltip="工作" nzTooltipPlacement="right">
+      <span nz-icon nzType="desktop"></span>
+    </li>
     <li nz-menu-item nzMatchRouter [routerLink]="['/apps']" nz-tooltip="内容" nzTooltipPlacement="right">
       <span nz-icon nzType="layout"></span>
     </li>
