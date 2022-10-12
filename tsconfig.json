@@ -25,14 +25,13 @@
       "@app": ["src/app/app.service.ts"],
       "@common/*": ["src/app/common/*"],
       "@orgs/*": ["src/app/orgs/*"],
-      "@weplanx/ng": ["projects/angular/public-api.ts"],
-      "@weplanx/ng/checkbox": ["projects/angular/checkbox/public-api.ts"],
-      "@weplanx/ng/upload": ["projects/angular/upload/public-api.ts"],
-      "@weplanx/ng/media": ["projects/angular/media/public-api.ts"],
-      "@weplanx/ng/table": ["projects/angular/table/public-api.ts"],
-      "@weplanx/ng/form": ["projects/angular/form/public-api.ts"],
-      "@weplanx/ng/richtext": ["projects/angular/richtext/public-api.ts"],
-      "@weplanx/ng-intgr": ["projects/integrate/public-api.ts"]
+      "@weplanx/ng": ["library/public-api.ts"],
+      "@weplanx/ng/checkbox": ["library/checkbox/public-api.ts"],
+      "@weplanx/ng/upload": ["library/upload/public-api.ts"],
+      "@weplanx/ng/media": ["library/media/public-api.ts"],
+      "@weplanx/ng/table": ["library/table/public-api.ts"],
+      "@weplanx/ng/form": ["library/form/public-api.ts"],
+      "@weplanx/ng/richtext": ["library/richtext/public-api.ts"]
     }
   },
   "angularCompilerOptions": {

@@ -6,7 +6,6 @@
     "start": "ng s",
     "build": "ng b --configuration production",
     "build:ng": "ng b angular --configuration production",
-    "build:intgr": "ng b integrate --configuration production",
     "test": "ng t angular --code-coverage --no-watch --no-progress --browsers=ChromeHeadlessCI",
     "lint": "ng lint",
     "e2e": "ng e2e"
