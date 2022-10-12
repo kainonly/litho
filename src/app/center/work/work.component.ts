@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
 
 import { AppService } from '@app';
+import { NzModalService } from 'ng-zorro-antd/modal';
+
+import { ProfileComponent } from './profile/profile.component';
 
 @Component({
   selector: 'app-center-work',
@@ -87,5 +90,15 @@ export class WorkComponent {
   ];
   upcoming: any[] = [];
 
-  constructor(public app: AppService) {}
+  constructor(public app: AppService, private modal: NzModalService) {}
+
+  openProfile(): void {
+    this.modal.create({
+      nzTitle: `基本信息`,
+      nzContent: ProfileComponent,
+      nzOnOk: () => {
+        this.app.getUser().subscribe(() => {});
+      }
+    });
+  }
 }

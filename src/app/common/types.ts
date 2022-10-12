@@ -6,10 +6,10 @@ export interface UserInfo {
   email: string;
   name: string;
   avatar: string;
-  roles?: string[];
+  roles: string[];
   department?: string;
   feishu?: any;
   sessions: number;
-  last: string;
+  last_time: string;
   create_time: number;
 }

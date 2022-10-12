@@ -1,21 +1,6 @@
 <nz-row [nzGutter]="8">
   <nz-col [nzSpan]="18">
-    <nz-row [nzGutter]="[16, 8]">
-      <nz-col [nzSpan]="24">
-        <nz-card nzTitle="进行中的项目" [nzExtra]="more">
-          <ng-template #more><a nz-button nzType="link">全部项目</a> </ng-template>
-          <div class="project" *ngFor="let item of projects" nz-card-grid>
-            <div class="project-title">
-              <nz-avatar [nzSize]="24" [nzSrc]="[item.avatar] | wpxAssets"></nz-avatar>
-              <span>{{ item.title }}</span>
-            </div>
-            <p nz-typography>{{ item.description }}</p>
-            <div class="project-footer">
-              {{ item.group }} <span>{{ item.time }}</span>
-            </div>
-          </div>
-        </nz-card>
-      </nz-col>
+    <nz-row [nzGutter]="[8, 8]">
       <nz-col [nzSpan]="24">
         <nz-card>
           <nz-card-tab>
@@ -49,67 +34,75 @@
           </ng-container>
         </nz-card>
       </nz-col>
+      <nz-col [nzSpan]="24">
+        <nz-card nzTitle="进行中的项目" [nzExtra]="more">
+          <ng-template #more><a nz-button nzType="link">全部项目</a> </ng-template>
+          <div class="project" *ngFor="let item of projects" nz-card-grid>
+            <div class="project-title">
+              <nz-avatar [nzSize]="24" [nzSrc]="[item.avatar] | wpxAssets"></nz-avatar>
+              <span>{{ item.title }}</span>
+            </div>
+            <p nz-typography>{{ item.description }}</p>
+            <div class="project-footer">
+              {{ item.group }} <span>{{ item.time }}</span>
+            </div>
+          </div>
+        </nz-card>
+      </nz-col>
     </nz-row>
   </nz-col>
   <nz-col [nzSpan]="6">
     <nz-card *ngIf="app.user as user">
-      <div class="user">
+      <div class="avatar">
         <ng-container *ngIf="!!user.avatar; else defaultAvatar">
           <nz-avatar [nzSize]="128" [nzSrc]="[user.avatar] | wpxAssets"></nz-avatar>
         </ng-container>
         <ng-template #defaultAvatar>
           <nz-avatar [nzSize]="128" nzIcon="user"></nz-avatar>
         </ng-template>
-        <h2> {{ !user.name ? '无称呼' : user.name }}</h2>
       </div>
-      <nz-space class="details" nzDirection="vertical">
+      <ng-template #nameTpl>
+        {{ !user.name ? '无称呼' : user.name }}
+        <button nz-button nzType="text" (click)="openProfile()">
+          <span nz-icon nzType="edit"></span>
+        </button>
+      </ng-template>
+      <nz-descriptions [nzColumn]="1" [nzTitle]="nameTpl">
+        <nz-descriptions-item nzTitle="用户名">
+          <b>{{ user.username }}</b>
+        </nz-descriptions-item>
+        <nz-descriptions-item nzTitle="部门">
+          <b>{{ !user.department ? '无' : user.department }}</b>
+        </nz-descriptions-item>
+        <nz-descriptions-item nzTitle="权限组">
+          <ng-container *ngIf="user.roles.length === 0; else rolesTpl"><b>尚未授权</b></ng-container>
+          <ng-template #rolesTpl>
+            <ng-container *ngFor="let role of user.roles">
+              <b>{{ role }}</b>
+            </ng-container>
+          </ng-template>
+        </nz-descriptions-item>
+        <nz-descriptions-item nzTitle="电子邮件">
+          <b>{{ !user.email ? '无' : user.email }}</b>
+        </nz-descriptions-item>
+      </nz-descriptions>
+
+      <nz-divider nzPlain></nz-divider>
+
+      <nz-space nzSize="small" nzDirection="vertical">
         <span *nzSpaceItem>
-          <nz-tag nzColor="blue" nz-tooltip="用户名">
-            <span nz-icon nzType="idcard"></span>
-            <span>{{ user.username }}</span>
-          </nz-tag>
-        </span>
-        <span *nzSpaceItem>
-          <ng-container *ngIf="!!user.roles">
-            <nz-tag *ngFor="let role of user.roles" nzColor="blue" nz-tooltip="权限组">
-              <span nz-icon nzType="partition"></span>
-              <span>{{ role }}</span>
-            </nz-tag>
-          </ng-container>
-        </span>
-        <span *nzSpaceItem>
-          <nz-tag nzColor="blue" nz-tooltip="部门">
-            <span nz-icon nzType="apartment"></span>
-            <span>{{ !user.department ? '无' : user.department }}</span>
-          </nz-tag>
-        </span>
-        <span *nzSpaceItem>
-          <nz-tag nzColor="blue" nz-tooltip="电子邮件">
-            <span nz-icon nzType="mail"></span>
-            <span>{{ !user.email ? '无' : user.email }}</span>
-          </nz-tag>
-        </span>
-      </nz-space>
-      <nz-divider></nz-divider>
-      <nz-space nzDirection="vertical">
-        <span *nzSpaceItem>
-          <span nz-icon nzType="team"></span>
           <i>
-            创建时间
-            <b>{{ user.create_time | date: 'yyyy年MM月dd日' }}</b>
+            创建时间 <b>{{ user.create_time | date: 'yyyy 年 MM 月 dd 日' }}</b>
           </i>
         </span>
         <span *nzSpaceItem>
-          <span nz-icon nzType="fund"></span>
           <i>
-            您已累计进行 <b>{{ user.sessions }}</b> 次会话登录
+            最近登录 <b>{{ user.last_time | date: 'yyyy 年 MM 月 dd 日 HH:mm:ss' }}</b>
           </i>
         </span>
         <span *nzSpaceItem>
-          <span nz-icon nzType="login"></span>
           <i>
-            最近登录
-            <b>[{{ user.last }}]</b>
+            已累计登录 <b>{{ user.sessions }}</b> 次会话 ，<a>查看</a>
           </i>
         </span>
       </nz-space>

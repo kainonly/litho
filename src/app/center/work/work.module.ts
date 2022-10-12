@@ -3,7 +3,7 @@ import { Route, RouterModule } from '@angular/router';
 
 import { ShareModule } from '@common/share.module';
 
-import { StateComponent } from './chart/state.component';
+import { ProfileComponent } from './profile/profile.component';
 import { WorkComponent } from './work.component';
 
 const routes: Route[] = [
@@ -15,6 +15,6 @@ const routes: Route[] = [
 
 @NgModule({
   imports: [ShareModule, RouterModule.forChild(routes)],
-  declarations: [WorkComponent, StateComponent]
+  declarations: [WorkComponent, ProfileComponent]
 })
 export class WorkModule {}
