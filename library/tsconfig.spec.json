@@ -1,10 +1,10 @@
 {
-  "extends": "../../tsconfig.json",
+  "extends": "../tsconfig.json",
   "compilerOptions": {
-    "outDir": "../../out-tsc/spec",
+    "outDir": "../out-tsc/spec",
     "types": ["jasmine"],
     "paths": {
-      "@weplanx/ng": ["projects/angular/public-api.ts"]
+      "@weplanx/ng": ["library/public-api.ts"]
     }
   },
   "files": ["test.ts"],

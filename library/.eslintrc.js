@@ -1,11 +1,11 @@
 module.exports = {
-  extends: '../../.eslintrc.js',
+  extends: '../.eslintrc.js',
   ignorePatterns: ['!**/*'],
   overrides: [
     {
       files: ['*.ts'],
       parserOptions: {
-        project: ['projects/angular/tsconfig.lib.json', 'projects/angular/tsconfig.spec.json'],
+        project: ['library/tsconfig.lib.json', 'library/tsconfig.spec.json'],
         createDefaultProgram: true
       },
       rules: {
