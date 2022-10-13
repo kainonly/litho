@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AbstractControl, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { interval, take } from 'rxjs';
 
+import { AppService } from '@app';
 import { validates, WpxService } from '@weplanx/ng';
 import { NzMessageService } from 'ng-zorro-antd/message';
 
@@ -19,7 +20,12 @@ export class ForgetComponent implements OnInit {
 
   private token?: string;
 
-  constructor(private fb: UntypedFormBuilder, private wpx: WpxService, private message: NzMessageService) {}
+  constructor(
+    private fb: UntypedFormBuilder,
+    private wpx: WpxService,
+    private app: AppService,
+    private message: NzMessageService
+  ) {}
 
   ngOnInit(): void {
     this.verifyForm = this.fb.group({
@@ -68,7 +74,7 @@ export class ForgetComponent implements OnInit {
 
   submit(data: any): void {
     data.token = this.token;
-    this.wpx.resetUser(data).subscribe(() => {
+    this.app.resetUser(data).subscribe(() => {
       this.step++;
     });
   }

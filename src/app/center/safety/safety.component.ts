@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 
+import { AppService } from '@app';
 import { WpxService } from '@weplanx/ng';
 import { NzModalService } from 'ng-zorro-antd/modal';
 
@@ -11,7 +12,7 @@ import { PasswordComponent } from './password/password.component';
   templateUrl: './safety.component.html'
 })
 export class SafetyComponent {
-  constructor(public wpx: WpxService, private modal: NzModalService) {}
+  constructor(public wpx: WpxService, private app: AppService, private modal: NzModalService) {}
 
   openPassword(): void {
     this.modal.create({
@@ -25,7 +26,7 @@ export class SafetyComponent {
       nzTitle: `安全邮箱`,
       nzContent: EmailComponent,
       nzOnOk: () => {
-        this.wpx.getUser().subscribe(() => {});
+        this.app.getUser().subscribe(() => {});
       }
     });
   }

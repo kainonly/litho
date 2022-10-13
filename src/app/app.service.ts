@@ -1,6 +1,7 @@
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, switchMap } from 'rxjs';
+import { Observable, switchMap, timer } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 import { UserInfo } from '@common/types';
 
@@ -52,6 +53,26 @@ export class AppService {
    * 获取个人用户信息
    */
   getUser(): Observable<UserInfo> {
-    return this.http.get<UserInfo>('user');
+    return this.http.get<UserInfo>('user').pipe(
+      map(v => {
+        this.user = v;
+        return v;
+      })
+    );
+  }
+
+  /**
+   * 更新个人用户信息
+   * @param data
+   */
+  setUser(data: any): Observable<any> {
+    return this.http.patch('user', data);
+  }
+
+  /**
+   * 重置用户密码
+   */
+  resetUser(data: any): Observable<any> {
+    return this.http.post('user/reset', data);
   }
 }

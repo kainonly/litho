@@ -172,54 +172,6 @@ export class WpxService {
   }
 
   /**
-   * 重置用户密码
-   */
-  resetUser(data: any): Observable<any> {
-    return this.http.post('user/reset', data);
-  }
-
-  /**
-   * 判断当前用户可变更属性
-   */
-  existsUser(key: 'username' | 'email', value: string): Observable<any> {
-    return timer(500).pipe(
-      switchMap(() =>
-        this.http.head('user/_exists', {
-          observe: 'response',
-          params: {
-            key,
-            value
-          }
-        })
-      ),
-      map(res => {
-        const exists = res.headers.get('wpx-exists') === 'true';
-        return exists ? { error: true, duplicated: exists } : null;
-      })
-    );
-  }
-
-  /**
-   * 获取个人用户信息
-   */
-  getUser(): Observable<UserInfo> {
-    return this.http.get<UserInfo>('user');
-  }
-
-  /**
-   * 更新个人用户信息
-   * @param action
-   * @param data
-   */
-  setUser(action: string, data: any): Observable<any> {
-    return this.http.patch('user', data, {
-      headers: {
-        'wpx-action': action
-      }
-    });
-  }
-
-  /**
    * 获取动态配置
    * @param keys
    */
@@ -261,15 +213,5 @@ export class WpxService {
         }))
       )
     );
-  }
-
-  /**
-   * 日志查询
-   * @param name
-   * @param filter
-   * @param options
-   */
-  logs<T>(name: string, filter: Filter<T>, options?: FindOption<T>): Observable<Array<AnyDto<T>>> {
-    return this.http.get<Array<AnyDto<T>>>(`dsl/${name}`, setHttpOptions(filter, options as ApiOptions<T>));
   }
 }

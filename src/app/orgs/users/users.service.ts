@@ -10,9 +10,24 @@ import { User } from './types';
 export class UsersService extends Api<User> {
   protected override model = 'users';
 
-  existsUsername(username: string): Observable<any> {
+  /**
+   * 检测用户名是否存在
+   * @param username
+   */
+  checkUsername(username: string): Observable<any> {
     return timer(500).pipe(
       switchMap(() => this.exists({ username })),
+      map(v => (v ? { error: true, duplicated: v } : null))
+    );
+  }
+
+  /**
+   * 检查电子邮件是否存在
+   * @param email
+   */
+  checkEmail(email: string): Observable<any> {
+    return timer(500).pipe(
+      switchMap(() => this.exists({ email })),
       map(v => (v ? { error: true, duplicated: v } : null))
     );
   }

@@ -51,7 +51,7 @@ export class FormComponent implements OnInit {
       username: [
         null,
         [Validators.required, Validators.minLength(4), Validators.maxLength(20), Validators.pattern(/^[a-z_]+$/)],
-        [this.existsUsername]
+        [this.checkUsername]
       ],
       password: [null, [this.validedPassword]],
       roles: [null, [Validators.required]],
@@ -69,11 +69,11 @@ export class FormComponent implements OnInit {
    * 检测用户名是否存在
    * @param control
    */
-  existsUsername = (control: AbstractControl): Observable<any> => {
+  checkUsername = (control: AbstractControl): Observable<any> => {
     if (control.value === this.doc?.username) {
       return of(null);
     }
-    return this.users.existsUsername(control.value);
+    return this.users.checkUsername(control.value);
   };
 
   /**

@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { ShareModule } from '@common/share.module';
+import { RolesService } from '@orgs/roles/roles.service';
 
 import { DepartmentsModule } from '../departments/departments.module';
 import { DepartmentComponent } from './department/department.component';
@@ -19,6 +20,6 @@ const routes: Routes = [
 @NgModule({
   imports: [ShareModule, DepartmentsModule, RouterModule.forChild(routes)],
   declarations: [UsersComponent, FormComponent, DepartmentComponent],
-  providers: [UsersService]
+  providers: [UsersService, RolesService]
 })
 export class UsersModule {}

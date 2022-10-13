@@ -46,21 +46,21 @@ export class AuditComponent implements OnInit {
     if (!!this.searchText) {
       filter['username'] = { $regex: this.searchText };
     }
-    this.wpx
-      .logs<LoginLog>('login_logs', filter, {
-        xfilter: {
-          'time.$gte': 'date',
-          'time.$lt': 'date'
-        }
-      })
-      .subscribe(v => {
-        if (v.length === 0) {
-          this.message.info('没有更多数据了~');
-          return;
-        }
-        this.items = [...this.items, ...v];
-        this.skip = this.items.length;
-      });
+    // this.wpx
+    //   .logs<LoginLog>('login_logs', filter, {
+    //     xfilter: {
+    //       'time.$gte': 'date',
+    //       'time.$lt': 'date'
+    //     }
+    //   })
+    //   .subscribe(v => {
+    //     if (v.length === 0) {
+    //       this.message.info('没有更多数据了~');
+    //       return;
+    //     }
+    //     this.items = [...this.items, ...v];
+    //     this.skip = this.items.length;
+    //   });
   }
 
   clearSearch(): void {

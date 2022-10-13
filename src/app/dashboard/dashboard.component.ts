@@ -30,7 +30,7 @@ import { Component } from '@angular/core';
           </ul>
         </app-header>
         <nz-layout class="frame">
-          <nz-content>
+          <nz-content style="padding: 8px">
             <router-outlet></router-outlet>
           </nz-content>
         </nz-layout>

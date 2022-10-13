@@ -92,6 +92,9 @@ export class WorkComponent {
 
   constructor(public app: AppService, private modal: NzModalService) {}
 
+  /**
+   * 编辑用户基本信息
+   */
   openProfile(): void {
     this.modal.create({
       nzTitle: `基本信息`,

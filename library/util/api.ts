@@ -73,7 +73,7 @@ export abstract class Api<T> {
         observe: 'response',
         ...setHttpOptions<T>(filter, options as ApiOptions<T>)
       })
-      .pipe(map(res => parseInt(res.headers.get('wpx-total')!)));
+      .pipe(map(res => parseInt(res.headers.get('x-total')!)));
   }
 
   /**
