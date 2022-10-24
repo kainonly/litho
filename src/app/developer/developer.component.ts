@@ -16,7 +16,7 @@ import { Component } from '@angular/core';
         <app-header [breadcrumb]="breadcrumbTpl">
           <ul nz-menu nzMode="horizontal">
             <li nz-menu-item nzMatchRouter [routerLink]="['/developer', 'values']">
-              <span nz-icon nzType="safety-certificate"></span>
+              <span nz-icon nzType="global"></span>
               动态配置
             </li>
             <li nz-menu-item nzMatchRouter [routerLink]="['/developer', 'schedules']">
