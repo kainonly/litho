@@ -36,11 +36,11 @@ const routes: Routes = [
     }
   },
   {
-    path: 'apps',
-    loadChildren: () => import('./apps/apps.module').then(m => m.AppsModule),
+    path: 'factory',
+    loadChildren: () => import('./factory/factory.module').then(m => m.FactoryModule),
     canActivate: [AppGuard],
     data: {
-      breadcrumb: '应用'
+      breadcrumb: '内容生成器'
     }
   },
   {

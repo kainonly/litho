@@ -5,26 +5,26 @@ import { HeaderModule } from '@common/header/header.module';
 import { ShareModule } from '@common/share.module';
 import { ToolbarModule } from '@common/toolbar/toolbar.module';
 
-import { AppsComponent } from './apps.component';
+import { FactoryComponent } from './factory.component';
 import { HomeComponent } from './home/home.component';
 import { NavComponent } from './nav/nav.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: AppsComponent,
+    component: FactoryComponent,
     children: [
       {
         path: 'home',
         component: HomeComponent
       },
-      { path: '', redirectTo: '/apps/home', pathMatch: 'full' }
+      { path: '', redirectTo: '/factory/home', pathMatch: 'full' }
     ]
   }
 ];
 
 @NgModule({
   imports: [ShareModule, ToolbarModule, HeaderModule, RouterModule.forChild(routes)],
-  declarations: [AppsComponent, NavComponent, HomeComponent]
+  declarations: [FactoryComponent, NavComponent, HomeComponent]
 })
-export class AppsModule {}
+export class FactoryModule {}

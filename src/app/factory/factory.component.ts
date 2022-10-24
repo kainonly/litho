@@ -3,10 +3,10 @@ import { Component, OnInit } from '@angular/core';
 import { Nav, WpxService } from '@weplanx/ng';
 
 @Component({
-  selector: 'app-pages',
-  templateUrl: './apps.component.html'
+  selector: 'app-factory',
+  templateUrl: './factory.component.html'
 })
-export class AppsComponent implements OnInit {
+export class FactoryComponent implements OnInit {
   navs: Nav[] = [];
 
   constructor(public wpx: WpxService) {}
