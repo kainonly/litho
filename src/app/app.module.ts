@@ -28,62 +28,6 @@ const routes: Routes = [
     loadChildren: () => import('./forget/forget.module').then(m => m.ForgetModule)
   },
   {
-    path: 'dashboard',
-    loadChildren: () => import('./dashboard/dashboard.module').then(m => m.DashboardModule),
-    canActivate: [AppGuard],
-    data: {
-      breadcrumb: '仪表盘'
-    }
-  },
-  {
-    path: 'factory',
-    loadChildren: () => import('./factory/factory.module').then(m => m.FactoryModule),
-    canActivate: [AppGuard],
-    data: {
-      breadcrumb: '内容生成器'
-    }
-  },
-  {
-    path: 'media',
-    loadChildren: () => import('./media/media.module').then(m => m.MediaModule),
-    canActivate: [AppGuard],
-    data: {
-      breadcrumb: '媒体'
-    }
-  },
-  {
-    path: 'orgs',
-    loadChildren: () => import('./orgs/orgs.module').then(m => m.OrgsModule),
-    canActivate: [AppGuard],
-    data: {
-      breadcrumb: '组织'
-    }
-  },
-  {
-    path: 'security',
-    loadChildren: () => import('./security/security.module').then(m => m.SecurityModule),
-    canActivate: [AppGuard],
-    data: {
-      breadcrumb: '安全性'
-    }
-  },
-  {
-    path: 'monitor',
-    loadChildren: () => import('./monitor/monitor.module').then(m => m.MonitorModule),
-    canActivate: [AppGuard],
-    data: {
-      breadcrumb: '监控'
-    }
-  },
-  {
-    path: 'developer',
-    loadChildren: () => import('./developer/developer.module').then(m => m.DeveloperModule),
-    canActivate: [AppGuard],
-    data: {
-      breadcrumb: '开发者'
-    }
-  },
-  {
     path: 'center',
     loadChildren: () => import('./center/center.module').then(m => m.CenterModule),
     canActivate: [AppGuard],
@@ -92,14 +36,70 @@ const routes: Routes = [
     }
   },
   {
-    path: 'settings',
+    path: ':namespace/dashboard',
+    loadChildren: () => import('./dashboard/dashboard.module').then(m => m.DashboardModule),
+    canActivate: [AppGuard],
+    data: {
+      breadcrumb: '仪表盘'
+    }
+  },
+  {
+    path: ':namespace/factory',
+    loadChildren: () => import('./factory/factory.module').then(m => m.FactoryModule),
+    canActivate: [AppGuard],
+    data: {
+      breadcrumb: '内容生成器'
+    }
+  },
+  {
+    path: ':namespace/media',
+    loadChildren: () => import('./media/media.module').then(m => m.MediaModule),
+    canActivate: [AppGuard],
+    data: {
+      breadcrumb: '媒体'
+    }
+  },
+  {
+    path: ':namespace/orgs',
+    loadChildren: () => import('./orgs/orgs.module').then(m => m.OrgsModule),
+    canActivate: [AppGuard],
+    data: {
+      breadcrumb: '组织'
+    }
+  },
+  {
+    path: ':namespace/security',
+    loadChildren: () => import('./security/security.module').then(m => m.SecurityModule),
+    canActivate: [AppGuard],
+    data: {
+      breadcrumb: '安全性'
+    }
+  },
+  {
+    path: ':namespace/monitor',
+    loadChildren: () => import('./monitor/monitor.module').then(m => m.MonitorModule),
+    canActivate: [AppGuard],
+    data: {
+      breadcrumb: '监控'
+    }
+  },
+  {
+    path: ':namespace/developer',
+    loadChildren: () => import('./developer/developer.module').then(m => m.DeveloperModule),
+    canActivate: [AppGuard],
+    data: {
+      breadcrumb: '开发者'
+    }
+  },
+  {
+    path: ':namespace/settings',
     loadChildren: () => import('./settings/settings.module').then(m => m.SettingsModule),
     canActivate: [AppGuard],
     data: {
       breadcrumb: '设置'
     }
   },
-  { path: '', redirectTo: '/dashboard/analysis', pathMatch: 'full' }
+  { path: '', redirectTo: 'default/settings', pathMatch: 'full' }
 ];
 
 @NgModule({

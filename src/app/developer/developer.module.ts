@@ -33,7 +33,7 @@ const routes: Routes = [
           breadcrumb: '日志采集'
         }
       },
-      { path: '', redirectTo: '/developer/values', pathMatch: 'full' }
+      { path: '', redirectTo: 'values', pathMatch: 'full' }
     ]
   }
 ];

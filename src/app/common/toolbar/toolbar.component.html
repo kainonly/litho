@@ -1,25 +1,67 @@
 <div class="toolbar">
   <div class="logo"></div>
   <ul nz-menu nzMode="vertical" nzTheme="dark">
-    <li nz-menu-item nzMatchRouter [routerLink]="['/dashboard']" nz-tooltip="仪表盘" nzTooltipPlacement="right">
+    <li
+      nz-menu-item
+      nzMatchRouter
+      [routerLink]="['/', app.namespace, 'dashboard']"
+      nz-tooltip="仪表盘"
+      nzTooltipPlacement="right"
+    >
       <span nz-icon nzType="dashboard"></span>
     </li>
-    <li nz-menu-item nzMatchRouter [routerLink]="['/factory']" nz-tooltip="内容生成器" nzTooltipPlacement="right">
+    <li
+      nz-menu-item
+      nzMatchRouter
+      [routerLink]="['/', app.namespace, 'factory']"
+      nz-tooltip="内容生成器"
+      nzTooltipPlacement="right"
+    >
       <span nz-icon nzType="layout"></span>
     </li>
-    <li nz-menu-item nzMatchRouter [routerLink]="['/media']" nz-tooltip="媒体" nzTooltipPlacement="right">
+    <li
+      nz-menu-item
+      nzMatchRouter
+      [routerLink]="['/', app.namespace, 'media']"
+      nz-tooltip="媒体"
+      nzTooltipPlacement="right"
+    >
       <span nz-icon nzType="inbox"></span>
     </li>
-    <li nz-menu-item nzMatchRouter [routerLink]="['/orgs']" nz-tooltip="组织" nzTooltipPlacement="right">
+    <li
+      nz-menu-item
+      nzMatchRouter
+      [routerLink]="['/', app.namespace, 'orgs']"
+      nz-tooltip="组织"
+      nzTooltipPlacement="right"
+    >
       <span nz-icon nzType="apartment"></span>
     </li>
-    <li nz-menu-item nzMatchRouter [routerLink]="['/security']" nz-tooltip="安全性" nzTooltipPlacement="right">
+    <li
+      nz-menu-item
+      nzMatchRouter
+      [routerLink]="['/', app.namespace, 'security']"
+      nz-tooltip="安全性"
+      nzTooltipPlacement="right"
+    >
       <span nz-icon nzType="safety"></span>
     </li>
-    <li nz-menu-item nzMatchRouter [routerLink]="['/monitor']" nz-tooltip="监控" nzTooltipPlacement="right">
+    <li
+      nz-menu-item
+      nzMatchRouter
+      [routerLink]="['/', app.namespace, 'monitor']"
+      nz-tooltip="监控"
+      nzTooltipPlacement="right"
+    >
       <span nz-icon nzType="line-chart"></span>
     </li>
-    <li nz-menu-item nzMatchRouter [routerLink]="['/developer']" nz-tooltip="开发者" nzTooltipPlacement="right">
+    <li
+      nz-menu-item
+      nzMatchRouter
+      [routerLink]="['/', app.namespace, 'developer']"
+      nz-tooltip="开发者"
+      nzTooltipPlacement="right"
+    >
       <i nz-icon nzType="code"></i>
     </li>
     <li nz-menu-item nzDisabled nz-tooltip="部署">
@@ -29,7 +71,7 @@
       class="setting"
       nz-menu-item
       nzMatchRouter
-      [routerLink]="['/settings']"
+      [routerLink]="['/', app.namespace, 'settings']"
       nz-tooltip="设置"
       nzTooltipPlacement="right"
     >

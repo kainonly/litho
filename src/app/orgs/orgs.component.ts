@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 
+import { AppService } from '@app';
+
 @Component({
   selector: 'app-orgs',
   template: `
@@ -15,11 +17,11 @@ import { Component } from '@angular/core';
         </ng-template>
         <app-header [breadcrumb]="breadcrumbTpl">
           <ul nz-menu nzMode="horizontal">
-            <li nz-menu-item nzMatchRouter [routerLink]="['/orgs', 'roles']">
+            <li nz-menu-item nzMatchRouter [routerLink]="['/', app.namespace, 'orgs', 'roles']">
               <span nz-icon nzType="partition"></span>
               权限组
             </li>
-            <li nz-menu-item nzMatchRouter [routerLink]="['/orgs', 'users']">
+            <li nz-menu-item nzMatchRouter [routerLink]="['/', app.namespace, 'orgs', 'users']">
               <span nz-icon nzType="team"></span>
               团队成员
             </li>
@@ -34,4 +36,6 @@ import { Component } from '@angular/core';
     </nz-layout>
   `
 })
-export class OrgsComponent {}
+export class OrgsComponent {
+  constructor(public app: AppService) {}
+}

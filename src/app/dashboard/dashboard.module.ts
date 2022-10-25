@@ -19,7 +19,7 @@ const routes: Route[] = [
           breadcrumb: '分析页'
         }
       },
-      { path: '', redirectTo: '/dashboard/analysis', pathMatch: 'full' }
+      { path: '', redirectTo: 'analysis', pathMatch: 'full' }
     ]
   }
 ];

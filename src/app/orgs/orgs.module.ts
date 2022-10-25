@@ -26,7 +26,7 @@ const routes: Routes = [
           breadcrumb: '团队成员'
         }
       },
-      { path: '', redirectTo: '/orgs/roles', pathMatch: 'full' }
+      { path: '', redirectTo: 'roles', pathMatch: 'full' }
     ]
   }
 ];

@@ -26,7 +26,7 @@ const routes: Routes = [
           breadcrumb: '视频'
         }
       },
-      { path: '', redirectTo: '/media/pictures', pathMatch: 'full' }
+      { path: '', redirectTo: 'pictures', pathMatch: 'full' }
     ]
   }
 ];

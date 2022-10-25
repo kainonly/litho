@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 
+import { AppService } from '@app';
+
 @Component({
   selector: 'app-dashboard',
   template: `
@@ -15,7 +17,7 @@ import { Component } from '@angular/core';
         </ng-template>
         <app-header [breadcrumb]="breadcrumbTpl">
           <ul nz-menu nzMode="horizontal">
-            <li nz-menu-item nzMatchRouter [routerLink]="['/dashboard', 'analysis']">
+            <li nz-menu-item nzMatchRouter [routerLink]="['/', app.namespace, 'dashboard', 'analysis']">
               <span nz-icon nzType="pie-chart"></span>
               分析
             </li>
@@ -38,4 +40,6 @@ import { Component } from '@angular/core';
     </nz-layout>
   `
 })
-export class DashboardComponent {}
+export class DashboardComponent {
+  constructor(public app: AppService) {}
+}

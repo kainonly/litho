@@ -36,7 +36,7 @@ const routes: Routes = [
           breadcrumb: '审计日志'
         }
       },
-      { path: '', redirectTo: '/security/policy', pathMatch: 'full' }
+      { path: '', redirectTo: 'policy', pathMatch: 'full' }
     ]
   }
 ];

@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 
+import { AppService } from '@app';
+
 @Component({
   selector: 'app-media',
   template: `
@@ -15,7 +17,7 @@ import { Component } from '@angular/core';
         </ng-template>
         <app-header [breadcrumb]="breadcrumbTpl">
           <ul nz-menu nzMode="horizontal">
-            <li nz-menu-item nzMatchRouter [routerLink]="['/media', 'pictures']">
+            <li nz-menu-item nzMatchRouter [routerLink]="['/', app.namespace, 'media', 'pictures']">
               <span nz-icon nzType="picture"></span>
               图库
             </li>
@@ -23,7 +25,7 @@ import { Component } from '@angular/core';
               <span nz-icon nzType="sound"></span>
               音频
             </li>
-            <li nz-menu-item nzMatchRouter [routerLink]="['/media', 'videos']">
+            <li nz-menu-item nzMatchRouter [routerLink]="['/', app.namespace, 'media', 'videos']">
               <span nz-icon nzType="video-camera"></span>
               视频
             </li>
@@ -42,4 +44,6 @@ import { Component } from '@angular/core';
     </nz-layout>
   `
 })
-export class MediaComponent {}
+export class MediaComponent {
+  constructor(public app: AppService) {}
+}

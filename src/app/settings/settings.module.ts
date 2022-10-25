@@ -40,7 +40,7 @@ const routes: Routes = [
           breadcrumb: '开放服务'
         }
       },
-      { path: '', redirectTo: '/settings/cloud', pathMatch: 'full' }
+      { path: '', redirectTo: 'cloud', pathMatch: 'full' }
     ]
   }
 ];

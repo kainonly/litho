@@ -1,12 +1,16 @@
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, switchMap, timer } from 'rxjs';
+import { Observable, switchMap } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { UserInfo } from '@common/types';
 
 @Injectable({ providedIn: 'root' })
 export class AppService {
+  /**
+   * 命名空间
+   */
+  namespace = 'default';
   /**
    * 用户信息
    */

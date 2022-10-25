@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 
+import { AppService } from '@app';
+
 @Component({
   selector: 'app-developer',
   template: `
@@ -15,15 +17,15 @@ import { Component } from '@angular/core';
         </ng-template>
         <app-header [breadcrumb]="breadcrumbTpl">
           <ul nz-menu nzMode="horizontal">
-            <li nz-menu-item nzMatchRouter [routerLink]="['/developer', 'values']">
+            <li nz-menu-item nzMatchRouter [routerLink]="['/', app.namespace, 'developer', 'values']">
               <span nz-icon nzType="global"></span>
               动态配置
             </li>
-            <li nz-menu-item nzMatchRouter [routerLink]="['/developer', 'schedules']">
+            <li nz-menu-item nzMatchRouter [routerLink]="['/', app.namespace, 'developer', 'schedules']">
               <span nz-icon nzType="rocket"></span>
               定时调度
             </li>
-            <li nz-menu-item nzMatchRouter [routerLink]="['/developer', 'collector']">
+            <li nz-menu-item nzMatchRouter [routerLink]="['/', app.namespace, 'developer', 'collector']">
               <span nz-icon nzType="file-protect"></span>
               日志采集
             </li>
@@ -38,4 +40,6 @@ import { Component } from '@angular/core';
     </nz-layout>
   `
 })
-export class DeveloperComponent {}
+export class DeveloperComponent {
+  constructor(public app: AppService) {}
+}
