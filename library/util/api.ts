@@ -16,16 +16,16 @@ import {
   FilterOption,
   FindByIdOption
 } from '../types';
-import { Data } from './data';
+import { WpxData } from './data';
 import { setHttpOptions } from './helper';
 
 @Injectable()
-export abstract class Api<T> {
+export abstract class WpxApi<T> {
   /**
-   * 模型名称，必须是小写字母与下划线
+   * 集合名称，必须是小写字母与下划线
    * @protected
    */
-  protected model = '';
+  protected collection = '';
 
   constructor(protected http: HttpClient) {}
 
@@ -35,7 +35,7 @@ export abstract class Api<T> {
    * @protected
    */
   protected url(...fragments: string[]): string {
-    return `${!!this.model ? `${this.model}` : ''}${fragments.length !== 0 ? `/${fragments.join('/')}` : ''}`;
+    return `${!!this.collection ? `${this.collection}` : ''}${fragments.length !== 0 ? `/${fragments.join('/')}` : ''}`;
   }
 
   /**
@@ -99,7 +99,7 @@ export abstract class Api<T> {
    * @param data 数据源
    * @param refresh 刷新
    */
-  pages(data: Data<AnyDto<T>>, refresh?: boolean): Observable<Array<AnyDto<T>>> {
+  pages(data: WpxData<AnyDto<T>>, refresh?: boolean): Observable<Array<AnyDto<T>>> {
     data.loading = true;
     if (refresh) {
       data.reset();

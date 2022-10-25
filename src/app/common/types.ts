@@ -1,3 +1,12 @@
+export interface Project {
+  name: string;
+  access_key_id: string;
+  secret_access_key: string;
+  entry: string[];
+  expire_time: Date;
+  status: boolean;
+}
+
 /**
  * 用户信息
  */

@@ -1,6 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 
-import { AnyDto, Data, WpxService } from '@weplanx/ng';
+import { AnyDto, WpxData, WpxService } from '@weplanx/ng';
 import { TableField, WpxTableComponent } from '@weplanx/ng/table';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalService } from 'ng-zorro-antd/modal';
@@ -29,7 +29,7 @@ export class RolesComponent {
   /**
    * 数据
    */
-  data: Data<AnyDto<Role>> = new Data<AnyDto<Role>>();
+  data: WpxData<AnyDto<Role>> = new WpxData<AnyDto<Role>>();
 
   constructor(
     public roles: RolesService,

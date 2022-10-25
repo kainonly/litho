@@ -1,5 +1,5 @@
-import { Api } from '@weplanx/ng';
+import { WpxApi } from '@weplanx/ng';
 
 import { Media } from './types';
 
-export abstract class MediaService extends Api<Media> {}
+export abstract class MediaService extends WpxApi<Media> {}

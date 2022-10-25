@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { Api } from '@weplanx/ng';
+import { WpxApi } from '@weplanx/ng';
 
 import { Schedule, ScheduleJob } from './types';
 
 @Injectable()
-export class SchedulesService extends Api<Schedule> {
-  protected override model = 'schedules';
+export class SchedulesService extends WpxApi<Schedule> {
+  protected override collection = 'schedules';
 
   /**
    * 设置任务

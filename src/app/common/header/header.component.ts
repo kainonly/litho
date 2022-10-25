@@ -2,7 +2,7 @@ import { Component, Input, TemplateRef } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { AppService } from '@app';
-import { CenterComponent } from '@common/center/center.component';
+import { ProjectsComponent } from '@common/projects/projects.component';
 import { NzDrawerService } from 'ng-zorro-antd/drawer';
 
 @Component({
@@ -14,6 +14,19 @@ export class HeaderComponent {
   @Input() breadcrumb!: TemplateRef<any>;
 
   constructor(public app: AppService, private router: Router, private drawer: NzDrawerService) {}
+
+  openProjects(extra: TemplateRef<any>): void {
+    this.drawer.create({
+      nzTitle: '项目列表',
+      nzExtra: extra,
+      nzWidth: 736,
+      nzPlacement: 'left',
+      nzOffsetY: 45,
+      nzMaskClosable: false,
+
+      nzContent: ProjectsComponent
+    });
+  }
 
   /**
    * 注销登录

@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
-import { AnyDto, Data, WpxService } from '@weplanx/ng';
+import { AnyDto, WpxData, WpxService } from '@weplanx/ng';
 import { TableField, WpxTableComponent } from '@weplanx/ng/table';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalService } from 'ng-zorro-antd/modal';
@@ -42,7 +42,7 @@ export class UsersComponent implements OnInit, OnDestroy {
   /**
    * 数据
    */
-  data: Data<AnyDto<User>> = new Data<AnyDto<User>>();
+  data: WpxData<AnyDto<User>> = new WpxData<AnyDto<User>>();
 
   constructor(
     public users: UsersService,

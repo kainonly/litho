@@ -1,6 +1,6 @@
 import { ApiOptions, BasicDto, Filter, Keys, Sort, XFilter } from '../types';
 
-export class Data<T extends BasicDto> implements ApiOptions<T> {
+export class WpxData<T extends BasicDto> implements ApiOptions<T> {
   /**
    * 筛选
    */

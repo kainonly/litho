@@ -2,10 +2,10 @@ import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { AnyDto, Api, setHttpOptions } from '@weplanx/ng';
+import { AnyDto, WpxApi, setHttpOptions } from '@weplanx/ng';
 
 @Injectable()
-export class WpxTableService extends Api<any> {
+export class WpxTableService extends WpxApi<any> {
   /**
    * 获取引用数据
    * @param model 模型命名

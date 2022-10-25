@@ -2,14 +2,14 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { AnyDto, Api } from '@weplanx/ng';
+import { AnyDto, WpxApi } from '@weplanx/ng';
 import { NzTreeNodeOptions } from 'ng-zorro-antd/tree';
 
 import { Department } from './types';
 
 @Injectable()
-export class DepartmentsService extends Api<Department> {
-  protected override model = 'departments';
+export class DepartmentsService extends WpxApi<Department> {
+  protected override collection = 'departments';
   dict: Record<string, AnyDto<Department>> = {};
 
   /**

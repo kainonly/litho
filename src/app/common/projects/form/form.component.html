@@ -1,0 +1,13 @@
+<form *ngIf="form" nz-form nzLayout="vertical" id="form" [formGroup]="form" (wpxSubmit)="submit($event)">
+  <nz-form-item>
+    <nz-form-label nzRequired>状态</nz-form-label>
+    <nz-form-control>
+      <nz-switch formControlName="status"></nz-switch>
+    </nz-form-control>
+  </nz-form-item>
+</form>
+
+<div *nzModalFooter>
+  <button nz-button type="button" nzType="default" (click)="close()">取消</button>
+  <button nz-button nzType="primary" form="form" [disabled]="!form.valid">提交</button>
+</div>

@@ -2,13 +2,13 @@ import { Injectable } from '@angular/core';
 import { Observable, timer } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
 
-import { Api } from '@weplanx/ng';
+import { WpxApi } from '@weplanx/ng';
 
 import { User } from './types';
 
 @Injectable()
-export class UsersService extends Api<User> {
-  protected override model = 'users';
+export class UsersService extends WpxApi<User> {
+  protected override collection = 'users';
 
   /**
    * 检测用户名是否存在

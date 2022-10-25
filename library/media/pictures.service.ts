@@ -8,7 +8,7 @@ import { MediaService } from './media.service';
 
 @Injectable()
 export class PicturesService extends MediaService {
-  protected override model = 'pictures';
+  protected override collection = 'pictures';
 
   /**
    * 查看图片信息

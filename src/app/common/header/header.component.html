@@ -6,11 +6,14 @@
           <nz-divider nzType="vertical"></nz-divider>
         </ng-template>
 
-        <button *nzSpaceItem nz-button nzType="text">
+        <button *nzSpaceItem nz-button nzType="text" (click)="openProjects(projectExtra)">
           <span nz-icon nzType="appstore"></span>
           默认项目
-          <span nz-icon nzType="caret-down"></span>
         </button>
+
+        <ng-template #projectExtra>
+          <button nz-button nzType="primary"> 新增 </button>
+        </ng-template>
 
         <ng-container *nzSpaceItem>
           <ng-container *ngTemplateOutlet="breadcrumb"></ng-container>

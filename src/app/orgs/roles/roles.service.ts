@@ -2,13 +2,13 @@ import { Injectable } from '@angular/core';
 import { Observable, timer } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
 
-import { Api } from '@weplanx/ng';
+import { WpxApi } from '@weplanx/ng';
 
 import { Role } from './types';
 
 @Injectable()
-export class RolesService extends Api<Role> {
-  protected override model = 'roles';
+export class RolesService extends WpxApi<Role> {
+  protected override collection = 'roles';
 
   /**
    * 检查权限名称是否存在

@@ -3,7 +3,7 @@ import { UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
 import { Observable } from 'rxjs';
 
 import { StorageMap } from '@ngx-pwa/local-storage';
-import { Data, Api, AnyDto } from '@weplanx/ng';
+import { WpxData, WpxApi, AnyDto } from '@weplanx/ng';
 import { NzCheckBoxOptionInterface } from 'ng-zorro-antd/checkbox';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzResizeEvent } from 'ng-zorro-antd/resizable';
@@ -25,11 +25,11 @@ export class WpxTableComponent<T> implements OnInit {
   /**
    * 通用请求
    */
-  @Input() wpxApi!: Api<T>;
+  @Input() wpxApi!: WpxApi<T>;
   /**
    * 通用数据
    */
-  @Input() wpxData!: Data<AnyDto<T>>;
+  @Input() wpxData!: WpxData<AnyDto<T>>;
   /**
    * 字段设置
    */
