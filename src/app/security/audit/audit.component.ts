@@ -6,8 +6,6 @@ import { differenceInCalendarDays } from 'date-fns';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalService } from 'ng-zorro-antd/modal';
 
-import { LoginLog } from './types';
-
 @Component({
   selector: 'app-security-audit',
   templateUrl: './audit.component.html',

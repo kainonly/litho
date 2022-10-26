@@ -4,10 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { HeaderModule } from '@common/header/header.module';
 import { ShareModule } from '@common/share.module';
 import { ToolbarModule } from '@common/toolbar/toolbar.module';
-import { NzPipesModule } from 'ng-zorro-antd/pipes';
 
-import { AuditModule } from './audit/audit.module';
-import { PolicyModule } from './policy/policy.module';
 import { SecurityComponent } from './security.component';
 
 const routes: Routes = [

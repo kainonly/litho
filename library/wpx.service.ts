@@ -1,23 +1,10 @@
 import { ComponentPortal, ComponentType } from '@angular/cdk/portal';
-import { HttpClient, HttpParams, HttpResponse } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { AsyncSubject, BehaviorSubject, Observable, switchMap, timer } from 'rxjs';
+import { AsyncSubject, BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { StorageMap } from '@ngx-pwa/local-storage';
-
-import {
-  AnyDto,
-  ApiOptions,
-  ComponentTypeOption,
-  Filter,
-  FindOption,
-  Nav,
-  UploadOption,
-  UserInfo,
-  Value
-} from './types';
-import { setHttpOptions } from './util/helper';
+import { ComponentTypeOption, Nav, UploadOption, UserInfo, Value } from './types';
 
 @Injectable({ providedIn: 'root' })
 export class WpxService {
@@ -54,7 +41,7 @@ export class WpxService {
    */
   user?: UserInfo;
 
-  constructor(private http: HttpClient, private storage: StorageMap) {}
+  constructor(private http: HttpClient) {}
 
   /**
    * 设置静态资源

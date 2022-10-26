@@ -8,17 +8,17 @@
 [![TypeScript](https://img.shields.io/badge/%3C%2F%3E-TypeScript-blue.svg?style=flat-square)](https://www.typescriptlang.org/)
 [![GitHub license](https://img.shields.io/github/license/weplanx/console?style=flat-square)](https://raw.githubusercontent.com/weplanx/console/main/LICENSE)
 
-基于 NG-ZORRO 设计的业务组件分享
+Sharing of business components based on NG-ZORRO design
 
 ## 使用
 
-安装辅助库
+Install auxiliary libraries
 
 ```shell
 npm install @weplanx/ng
 ```
 
-> 延续 [ngx-bit](https://github.com/kainonly/ngx-bit) 的改进，感谢 [JetBrains](https://www.jetbrains.com/?from=ngx-bit) 提供的开源 License 赞助
+> Continue the improvement of [ngx-bit](https://github.com/kainonly/ngx-bit), thanks to the open source license provided by [JetBrains](https://www.jetbrains.com/?from=ngx-bit) sponsor
 >
 > [![JetBrains](https://cdn.kainonly.com/assets/jetbrains.svg)](https://www.jetbrains.com/?from=ngx-bit)
 
