@@ -1,12 +1,3 @@
-export interface Project {
-  name: string;
-  namespace: string;
-  secret: string;
-  entry: string[];
-  expire_time: null | Date;
-  status: boolean;
-}
-
 /**
  * 用户信息
  */

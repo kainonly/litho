@@ -56,7 +56,9 @@
             <ul nz-menu>
               <li nz-menu-item (click)="setContext(v)">设置上下文</li>
               <li nz-menu-item (click)="form(v)">编辑</li>
-              <li nz-menu-item nzDanger (click)="delete(v)">删除</li>
+              <ng-container *ngIf="!v.labels?.['fixed']">
+                <li nz-menu-item nzDanger (click)="delete(v)">删除</li>
+              </ng-container>
             </ul>
           </nz-dropdown-menu>
         </ng-template>

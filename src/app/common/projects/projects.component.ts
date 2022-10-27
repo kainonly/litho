@@ -1,10 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { AppService } from '@app';
 import { FormComponent } from '@common/projects/form/form.component';
+import { Project } from '@common/projects/project';
 import { ProjectsService } from '@common/projects/projects.service';
-import { Project } from '@common/types';
 import { AnyDto, WpxData } from '@weplanx/ng';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalService } from 'ng-zorro-antd/modal';

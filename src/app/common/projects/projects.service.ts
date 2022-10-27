@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable, timer } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
 
-import { Project } from '@common/types';
+import { Project } from '@common/projects/project';
 import { WpxApi } from '@weplanx/ng';
 
 @Injectable({ providedIn: 'root' })
