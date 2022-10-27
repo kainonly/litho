@@ -17,7 +17,7 @@ import { AppService } from '@app';
         </ng-template>
         <app-header [breadcrumb]="breadcrumbTpl">
           <ul nz-menu nzMode="horizontal">
-            <li nz-menu-item nzMatchRouter [routerLink]="['/', app.namespace, 'media', 'pictures']">
+            <li nz-menu-item nzMatchRouter [routerLink]="['/', app.project.namespace, 'media', 'pictures']">
               <span nz-icon nzType="picture"></span>
               图库
             </li>
@@ -25,7 +25,7 @@ import { AppService } from '@app';
               <span nz-icon nzType="sound"></span>
               音频
             </li>
-            <li nz-menu-item nzMatchRouter [routerLink]="['/', app.namespace, 'media', 'videos']">
+            <li nz-menu-item nzMatchRouter [routerLink]="['/', app.project.namespace, 'media', 'videos']">
               <span nz-icon nzType="video-camera"></span>
               视频
             </li>

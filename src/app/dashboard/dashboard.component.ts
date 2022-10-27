@@ -17,7 +17,7 @@ import { AppService } from '@app';
         </ng-template>
         <app-header [breadcrumb]="breadcrumbTpl">
           <ul nz-menu nzMode="horizontal">
-            <li nz-menu-item nzMatchRouter [routerLink]="['/', app.namespace, 'dashboard', 'analysis']">
+            <li nz-menu-item nzMatchRouter [routerLink]="['/', app.project.namespace, 'dashboard', 'analysis']">
               <span nz-icon nzType="pie-chart"></span>
               分析
             </li>

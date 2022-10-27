@@ -17,15 +17,15 @@ import { AppService } from '@app';
         </ng-template>
         <app-header [breadcrumb]="breadcrumbTpl">
           <ul nz-menu nzMode="horizontal">
-            <li nz-menu-item nzMatchRouter [routerLink]="['/', app.namespace, 'developer', 'values']">
+            <li nz-menu-item nzMatchRouter [routerLink]="['/', app.project.namespace, 'developer', 'values']">
               <span nz-icon nzType="global"></span>
               动态配置
             </li>
-            <li nz-menu-item nzMatchRouter [routerLink]="['/', app.namespace, 'developer', 'schedules']">
+            <li nz-menu-item nzMatchRouter [routerLink]="['/', app.project.namespace, 'developer', 'schedules']">
               <span nz-icon nzType="rocket"></span>
               定时调度
             </li>
-            <li nz-menu-item nzMatchRouter [routerLink]="['/', app.namespace, 'developer', 'collector']">
+            <li nz-menu-item nzMatchRouter [routerLink]="['/', app.project.namespace, 'developer', 'collector']">
               <span nz-icon nzType="file-protect"></span>
               日志采集
             </li>

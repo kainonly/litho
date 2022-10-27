@@ -29,7 +29,7 @@ export class ProjectsComponent {
 
   constructor(
     public projects: ProjectsService,
-    private app: AppService,
+    public app: AppService,
     private router: Router,
     private modal: NzModalService,
     private message: NzMessageService
@@ -71,7 +71,10 @@ export class ProjectsComponent {
    * @param doc
    */
   setContext(doc: AnyDto<Project>): void {
-    this.app.namespace = doc.namespace;
+    this.app.project = {
+      name: doc.name,
+      namespace: doc.namespace
+    };
     this.router.navigate([doc.namespace, 'settings']);
     this.close();
   }

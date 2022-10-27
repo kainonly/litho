@@ -4,7 +4,7 @@
     <li
       nz-menu-item
       nzMatchRouter
-      [routerLink]="['/', app.namespace, 'dashboard']"
+      [routerLink]="['/', app.project.namespace, 'dashboard']"
       nz-tooltip="仪表盘"
       nzTooltipPlacement="right"
     >
@@ -13,7 +13,7 @@
     <li
       nz-menu-item
       nzMatchRouter
-      [routerLink]="['/', app.namespace, 'factory']"
+      [routerLink]="['/', app.project.namespace, 'factory']"
       nz-tooltip="内容生成器"
       nzTooltipPlacement="right"
     >
@@ -22,7 +22,7 @@
     <li
       nz-menu-item
       nzMatchRouter
-      [routerLink]="['/', app.namespace, 'media']"
+      [routerLink]="['/', app.project.namespace, 'media']"
       nz-tooltip="媒体"
       nzTooltipPlacement="right"
     >
@@ -31,7 +31,7 @@
     <li
       nz-menu-item
       nzMatchRouter
-      [routerLink]="['/', app.namespace, 'orgs']"
+      [routerLink]="['/', app.project.namespace, 'orgs']"
       nz-tooltip="组织"
       nzTooltipPlacement="right"
     >
@@ -40,7 +40,7 @@
     <li
       nz-menu-item
       nzMatchRouter
-      [routerLink]="['/', app.namespace, 'security']"
+      [routerLink]="['/', app.project.namespace, 'security']"
       nz-tooltip="安全性"
       nzTooltipPlacement="right"
     >
@@ -49,7 +49,7 @@
     <li
       nz-menu-item
       nzMatchRouter
-      [routerLink]="['/', app.namespace, 'monitor']"
+      [routerLink]="['/', app.project.namespace, 'monitor']"
       nz-tooltip="监控"
       nzTooltipPlacement="right"
     >
@@ -58,7 +58,7 @@
     <li
       nz-menu-item
       nzMatchRouter
-      [routerLink]="['/', app.namespace, 'developer']"
+      [routerLink]="['/', app.project.namespace, 'developer']"
       nz-tooltip="开发者"
       nzTooltipPlacement="right"
     >
@@ -71,7 +71,7 @@
       class="setting"
       nz-menu-item
       nzMatchRouter
-      [routerLink]="['/', app.namespace, 'settings']"
+      [routerLink]="['/', app.project.namespace, 'settings']"
       nz-tooltip="设置"
       nzTooltipPlacement="right"
     >

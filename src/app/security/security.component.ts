@@ -17,15 +17,15 @@ import { AppService } from '@app';
         </ng-template>
         <app-header [breadcrumb]="breadcrumbTpl">
           <ul nz-menu nzMode="horizontal">
-            <li nz-menu-item nzMatchRouter [routerLink]="['/', app.namespace, 'security', 'policy']">
+            <li nz-menu-item nzMatchRouter [routerLink]="['/', app.project.namespace, 'security', 'policy']">
               <span nz-icon nzType="safety-certificate"></span>
               策略
             </li>
-            <li nz-menu-item nzMatchRouter [routerLink]="['/', app.namespace, 'security', 'sessions']">
+            <li nz-menu-item nzMatchRouter [routerLink]="['/', app.project.namespace, 'security', 'sessions']">
               <span nz-icon nzType="rocket"></span>
               会话
             </li>
-            <li nz-menu-item nzMatchRouter [routerLink]="['/', app.namespace, 'security', 'audit']">
+            <li nz-menu-item nzMatchRouter [routerLink]="['/', app.project.namespace, 'security', 'audit']">
               <span nz-icon nzType="file-protect"></span>
               审计
             </li>

@@ -3,14 +3,18 @@ import { Injectable } from '@angular/core';
 import { Observable, switchMap } from 'rxjs';
 import { map } from 'rxjs/operators';
 
+import { Project } from '@common/projects/project';
 import { UserInfo } from '@common/types';
 
 @Injectable({ providedIn: 'root' })
 export class AppService {
   /**
-   * 命名空间
+   * 项目
    */
-  namespace = 'default';
+  project: Pick<Project, 'name' | 'namespace'> = {
+    name: '默认项目',
+    namespace: 'default'
+  };
   /**
    * 用户信息
    */

@@ -17,11 +17,11 @@ import { AppService } from '@app';
         </ng-template>
         <app-header [breadcrumb]="breadcrumbTpl">
           <ul nz-menu nzMode="horizontal">
-            <li nz-menu-item nzMatchRouter [routerLink]="['/', app.namespace, 'orgs', 'roles']">
+            <li nz-menu-item nzMatchRouter [routerLink]="['/', app.project.namespace, 'orgs', 'roles']">
               <span nz-icon nzType="partition"></span>
               权限组
             </li>
-            <li nz-menu-item nzMatchRouter [routerLink]="['/', app.namespace, 'orgs', 'users']">
+            <li nz-menu-item nzMatchRouter [routerLink]="['/', app.project.namespace, 'orgs', 'users']">
               <span nz-icon nzType="team"></span>
               团队成员
             </li>
