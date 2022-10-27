@@ -3,9 +3,10 @@ import { AbstractControl, UntypedFormBuilder, UntypedFormGroup, Validators } fro
 import { Observable, of } from 'rxjs';
 
 import { AppService } from '@app';
-import { UsersService } from '@orgs/users/users.service';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalRef } from 'ng-zorro-antd/modal';
+
+import { UsersService } from '../../../orgs/users/users.service';
 
 @Component({
   selector: 'app-center-safety-email',

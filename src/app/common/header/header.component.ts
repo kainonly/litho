@@ -1,31 +1,20 @@
-import { Component, Input, TemplateRef } from '@angular/core';
+import { Component, Input, OnInit, TemplateRef } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { AppService } from '@app';
-import { ProjectsComponent } from '@common/projects/projects.component';
-import { NzDrawerService } from 'ng-zorro-antd/drawer';
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['header.component.scss']
 })
-export class HeaderComponent {
+export class HeaderComponent implements OnInit {
   @Input() breadcrumb!: TemplateRef<any>;
 
-  constructor(public app: AppService, private router: Router, private drawer: NzDrawerService) {}
+  constructor(public app: AppService, private router: Router) {}
 
-  openProjects(extra: TemplateRef<any>): void {
-    this.drawer.create({
-      nzTitle: '项目列表',
-      nzExtra: extra,
-      nzWidth: 736,
-      nzPlacement: 'left',
-      nzOffsetY: 45,
-      nzMaskClosable: false,
-
-      nzContent: ProjectsComponent
-    });
+  ngOnInit(): void {
+    console.log();
   }
 
   /**

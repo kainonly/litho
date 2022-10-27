@@ -1,8 +1,11 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
+import { AbstractControl, FormArray, FormBuilder, FormGroup, UntypedFormArray, Validators } from '@angular/forms';
+import { Observable, of } from 'rxjs';
 
+import { ProjectsService } from '@common/projects/projects.service';
 import { Project } from '@common/types';
 import { AnyDto, WpxService } from '@weplanx/ng';
+import { nanoid } from 'nanoid';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalRef } from 'ng-zorro-antd/modal';
 
@@ -18,20 +21,87 @@ export class FormComponent implements OnInit {
   /**
    * 表单
    */
-  form!: UntypedFormGroup;
+  form!: FormGroup;
 
   constructor(
     public wpx: WpxService,
     private modalRef: NzModalRef,
     private message: NzMessageService,
-    private fb: UntypedFormBuilder
+    private fb: FormBuilder,
+    private projects: ProjectsService
   ) {}
 
   ngOnInit(): void {
-    this.form = this.fb.group({});
+    this.form = this.fb.group({
+      name: ['', [Validators.required], [this.existsName]],
+      namespace: ['', [Validators.required], [this.existsNamespace]],
+      secret: [],
+      expire_time: [null],
+      entry: this.fb.array([]),
+      status: [true]
+    });
     if (this.doc) {
       this.form.patchValue(this.doc);
     }
+  }
+
+  /**
+   * 入口白名单
+   */
+  get entry(): UntypedFormArray {
+    return this.form?.get('entry') as FormArray;
+  }
+
+  /**
+   * 新增入口
+   * @param value
+   */
+  addEntry(value?: string): void {
+    this.entry.push(
+      this.fb.control(value, [
+        Validators.required,
+        Validators.pattern(
+          /^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/
+        )
+      ])
+    );
+  }
+
+  /**
+   * 移除入口
+   * @param index
+   */
+  removeEntry(index: number): void {
+    this.entry.removeAt(index);
+  }
+
+  /**
+   * 验证权限组名称是否存在
+   * @param control
+   */
+  existsName = (control: AbstractControl): Observable<any> => {
+    if (control.value === this.doc?.name) {
+      return of(null);
+    }
+    return this.projects.existsName(control.value);
+  };
+
+  /**
+   * 验证权限组名称是否存在
+   * @param control
+   */
+  existsNamespace = (control: AbstractControl): Observable<any> => {
+    if (control.value === this.doc?.namespace) {
+      return of(null);
+    }
+    return this.projects.existsNamespace(control.value);
+  };
+
+  /**
+   * 随机生成密钥
+   */
+  randomSecret(): void {
+    this.form.get('secret')?.setValue(nanoid());
   }
 
   /**
@@ -47,37 +117,33 @@ export class FormComponent implements OnInit {
    */
   submit(value: any): void {
     if (!this.doc) {
-      // this.users
-      //   .create(value, {
-      //     xdata: {
-      //       password: 'password',
-      //       roles: 'oids',
-      //       department: 'oid'
-      //     }
-      //   })
-      //   .subscribe(() => {
-      //     this.message.success('数据新增完成');
-      //     this.modalRef.triggerOk();
-      //   });
+      this.projects
+        .create(value, {
+          xdata: {
+            expire_time: 'date'
+          }
+        })
+        .subscribe(() => {
+          this.message.success('数据新增完成');
+          this.modalRef.triggerOk();
+        });
     } else {
-      // this.users
-      //   .updateById(
-      //     this.doc._id,
-      //     {
-      //       $set: value
-      //     },
-      //     {
-      //       xdata: {
-      //         password: 'password',
-      //         roles: 'oids',
-      //         department: 'oid'
-      //       }
-      //     }
-      //   )
-      //   .subscribe(() => {
-      //     this.message.success('数据更新完成');
-      //     this.modalRef.triggerOk();
-      //   });
+      this.projects
+        .updateById(
+          this.doc._id,
+          {
+            $set: value
+          },
+          {
+            xdata: {
+              '$set.expire_time': 'date'
+            }
+          }
+        )
+        .subscribe(() => {
+          this.message.success('数据更新完成');
+          this.modalRef.triggerOk();
+        });
     }
   }
 }

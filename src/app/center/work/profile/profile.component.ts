@@ -2,10 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
 
 import { AppService } from '@app';
-import { UsersService } from '@orgs/users/users.service';
 import { WpxService } from '@weplanx/ng';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalRef } from 'ng-zorro-antd/modal';
+
+import { UsersService } from '../../../orgs/users/users.service';
 
 @Component({
   selector: 'app-center-work-profile',

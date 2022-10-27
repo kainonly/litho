@@ -1,20 +1,11 @@
 <nz-header>
   <nz-row nzJustify="space-between">
     <nz-col>
+      <ng-template #spaceSplit>
+        <nz-divider nzType="vertical"></nz-divider>
+      </ng-template>
       <nz-space [nzSplit]="spaceSplit">
-        <ng-template #spaceSplit>
-          <nz-divider nzType="vertical"></nz-divider>
-        </ng-template>
-
-        <button *nzSpaceItem nz-button nzType="text" (click)="openProjects(projectExtra)">
-          <span nz-icon nzType="appstore"></span>
-          默认项目
-        </button>
-
-        <ng-template #projectExtra>
-          <button nz-button nzType="primary"> 新增 </button>
-        </ng-template>
-
+        <app-projects *nzSpaceItem></app-projects>
         <ng-container *nzSpaceItem>
           <ng-container *ngTemplateOutlet="breadcrumb"></ng-container>
         </ng-container>

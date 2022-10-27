@@ -21,7 +21,7 @@ export type Filter<T> = Partial<{ [P in keyof AnyDto<T>]: any }>;
 export type Keys<T> = Partial<{ [P in keyof AnyDto<T>]: 0 | 1 }>;
 export type Sort<T> = Partial<{ [P in keyof AnyDto<T>]: -1 | 1 }>;
 export type XFilter = 'oid' | 'oids' | 'date';
-export type XData = 'oid' | 'oids' | 'password';
+export type XData = 'oid' | 'oids' | 'date' | 'password';
 export interface ApiOptions<T> {
   /**
    * 映射字段

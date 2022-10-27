@@ -121,7 +121,7 @@ const routes: Routes = [
     {
       provide: NZ_CONFIG,
       useValue: <NzConfig>{
-        notification: { nzPlacement: 'bottomLeft' },
+        notification: { nzPlacement: 'bottomRight' },
         pageHeader: { nzGhost: false },
         card: { nzBorderless: true },
         table: { nzSize: 'small' },

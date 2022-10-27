@@ -2,9 +2,9 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { ShareModule } from '@common/share.module';
-import { RolesService } from '@orgs/roles/roles.service';
 
 import { DepartmentsModule } from '../departments/departments.module';
+import { RolesService } from '../roles/roles.service';
 import { DepartmentComponent } from './department/department.component';
 import { FormComponent } from './form/form.component';
 import { UsersComponent } from './users.component';

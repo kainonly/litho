@@ -4,8 +4,8 @@ import { RouterModule, Routes } from '@angular/router';
 import { HeaderModule } from '@common/header/header.module';
 import { ShareModule } from '@common/share.module';
 import { ToolbarModule } from '@common/toolbar/toolbar.module';
-import { UsersService } from '@orgs/users/users.service';
 
+import { UsersService } from '../orgs/users/users.service';
 import { CenterComponent } from './center.component';
 
 const routes: Routes = [

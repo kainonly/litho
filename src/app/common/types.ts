@@ -1,9 +1,9 @@
 export interface Project {
   name: string;
-  access_key_id: string;
-  secret_access_key: string;
+  namespace: string;
+  secret: string;
   entry: string[];
-  expire_time: Date;
+  expire_time: null | Date;
   status: boolean;
 }
 

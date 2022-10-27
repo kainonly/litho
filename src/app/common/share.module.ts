@@ -15,6 +15,7 @@ import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzCardModule } from 'ng-zorro-antd/card';
 import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
 import { NzCodeEditorModule } from 'ng-zorro-antd/code-editor';
+import { NzCollapseModule } from 'ng-zorro-antd/collapse';
 import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
 import { NzDescriptionsModule } from 'ng-zorro-antd/descriptions';
 import { NzDividerModule } from 'ng-zorro-antd/divider';
@@ -33,6 +34,7 @@ import { NzMessageModule } from 'ng-zorro-antd/message';
 import { NzModalModule } from 'ng-zorro-antd/modal';
 import { NzNotificationModule } from 'ng-zorro-antd/notification';
 import { NzPageHeaderModule } from 'ng-zorro-antd/page-header';
+import { NzPaginationModule } from 'ng-zorro-antd/pagination';
 import { NzPipesModule } from 'ng-zorro-antd/pipes';
 import { NzPopconfirmModule } from 'ng-zorro-antd/popconfirm';
 import { NzPopoverModule } from 'ng-zorro-antd/popover';
@@ -99,6 +101,8 @@ import { NzUploadModule } from 'ng-zorro-antd/upload';
     NzTreeSelectModule,
     NzStatisticModule,
     NzTypographyModule,
+    NzCollapseModule,
+    NzPaginationModule,
     NzPipesModule,
     WpxModule,
     WpxTableModule,
