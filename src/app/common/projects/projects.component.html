@@ -4,15 +4,26 @@
 </button>
 
 <ng-template #title>
-  <nz-select style="width: 240px" nzShowSearch nzAllowClear nzPlaceHolder="请输入项目名称">
-    <nz-option nzLabel="Jack" nzValue="jack"></nz-option>
-    <nz-option nzLabel="Lucy" nzValue="lucy"></nz-option>
-    <nz-option nzLabel="Tom" nzValue="tom"></nz-option>
-  </nz-select>
+  <nz-input-group style="width: 180px" [nzPrefix]="suffixIconSearch">
+    <input (keyup.enter)="submitSearch()" [(ngModel)]="searchText" type="text" nz-input placeholder="项目搜索" />
+    <ng-template #suffixIconSearch>
+      <i nz-icon nzType="search"></i>
+    </ng-template>
+  </nz-input-group>
 </ng-template>
 
 <ng-template #extra>
   <button nz-button nzType="primary" (click)="form()"> 新增 </button>
+</ng-template>
+
+<ng-template #footer>
+  <nz-pagination
+    nzShowSizeChanger
+    nzResponsive
+    [nzPageIndex]="data.page"
+    [nzTotal]="data.total"
+    [nzPageSize]="data.pagesize"
+  ></nz-pagination>
 </ng-template>
 
 <nz-drawer
@@ -87,13 +98,3 @@
 </nz-drawer>
 
 <ng-template #unset>未设置</ng-template>
-
-<ng-template #footer>
-  <nz-pagination
-    nzShowSizeChanger
-    nzResponsive
-    [nzPageIndex]="data.page"
-    [nzTotal]="data.total"
-    [nzPageSize]="data.pagesize"
-  ></nz-pagination>
-</ng-template>
