@@ -17,22 +17,26 @@ import { AppService } from '@app';
         </ng-template>
         <app-header [breadcrumb]="breadcrumbTpl">
           <ul nz-menu nzMode="horizontal">
-            <li nz-menu-item nzMatchRouter [routerLink]="['/', app.project.namespace, 'dashboard', 'analysis']">
-              <span nz-icon nzType="pie-chart"></span>
-              分析
+            <li nz-menu-item nzMatchRouter [routerLink]="['/', app.project.namespace, 'dashboard', 'cloud']">
+              <span nz-icon nzType="cloud"></span>
+              云平台
             </li>
-            <li nz-menu-item nzDisabled>
-              <span nz-icon nzType="line-chart"></span>
-              实时
+            <li nz-menu-item nzMatchRouter [routerLink]="['/', app.project.namespace, 'dashboard', 'office']">
+              <span nz-icon nzType="coffee"></span>
+              企业办公
             </li>
-            <li nz-menu-item nzDisabled>
-              <span nz-icon nzType="rise"></span>
-              转化
+            <li nz-menu-item nzMatchRouter [routerLink]="['/', app.project.namespace, 'dashboard', 'email']">
+              <span nz-icon nzType="mail"></span>
+              电子邮件
+            </li>
+            <li nz-menu-item nzMatchRouter [routerLink]="['/', app.project.namespace, 'dashboard', 'openapi']">
+              <span nz-icon nzType="gateway"></span>
+              开放服务
             </li>
           </ul>
         </app-header>
         <nz-layout class="frame">
-          <nz-content style="padding: 8px">
+          <nz-content>
             <router-outlet></router-outlet>
           </nz-content>
         </nz-layout>

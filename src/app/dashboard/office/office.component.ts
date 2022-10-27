@@ -4,14 +4,14 @@ import { WpxService } from '@weplanx/ng';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalService } from 'ng-zorro-antd/modal';
 
-import { CosComponent } from './cos/cos.component';
 import { PlatformComponent } from './platform/platform.component';
+import { RedirectComponent } from './redirect/redirect.component';
 
 @Component({
-  selector: 'app-settings-cloud',
-  templateUrl: './cloud.component.html'
+  selector: 'app-dashboard-office',
+  templateUrl: './office.component.html'
 })
-export class CloudComponent implements OnInit {
+export class OfficeComponent implements OnInit {
   /**
    * 数据
    */
@@ -29,13 +29,12 @@ export class CloudComponent implements OnInit {
   getData(): void {
     this.wpx
       .getValues([
-        'cloud',
-        'tencent_secret_id',
-        'tencent_secret_key',
-        'tencent_cos_bucket',
-        'tencent_cos_region',
-        'tencent_cos_expired',
-        'tencent_cos_limit'
+        'office',
+        'feishu_app_id',
+        'feishu_app_secret',
+        'feishu_encrypt_key',
+        'feishu_verification_token',
+        'redirect_url'
       ])
       .subscribe(data => {
         this.data = data;
@@ -68,17 +67,17 @@ export class CloudComponent implements OnInit {
   }
 
   /**
-   * 设置对象存储
+   * 设置跳转地址
    */
-  setCos(): void {
-    this.setModal(CosComponent);
+  setRedirect(): void {
+    this.setModal(RedirectComponent);
   }
 
   /**
    * 取消关联
    */
   unset(): void {
-    this.wpx.setValues({ cloud: '' }).subscribe(() => {
+    this.wpx.setValues({ office_platform: '' }).subscribe(() => {
       this.message.success('关联已取消');
       this.getData();
     });

@@ -6,10 +6,10 @@ import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalRef } from 'ng-zorro-antd/modal';
 
 @Component({
-  selector: 'app-settings-openapi-basic',
-  templateUrl: './basic.component.html'
+  selector: 'app-dashboard-cloud-cos',
+  templateUrl: './cos.component.html'
 })
-export class BasicComponent implements OnInit {
+export class CosComponent implements OnInit {
   /**
    * 载入数据
    */
@@ -18,6 +18,16 @@ export class BasicComponent implements OnInit {
    * 表单
    */
   form!: UntypedFormGroup;
+  /**
+   * 秒
+   * @param value
+   */
+  formatterSec = (value: number): string => `${value} 秒`;
+  /**
+   * 存储单位格式化
+   * @param value
+   */
+  formatterSize = (value: number): string => `${value} KB`;
 
   constructor(
     public wpx: WpxService,
@@ -28,14 +38,13 @@ export class BasicComponent implements OnInit {
 
   ngOnInit(): void {
     this.form = this.fb.group({
-      openapi_url: [null, [Validators.required]],
-      openapi_key: [null, [Validators.required]],
-      openapi_secret: [null, [Validators.required]]
+      tencent_cos_bucket: [null, [Validators.required]],
+      tencent_cos_region: [null, [Validators.required]],
+      tencent_cos_expired: [null, [Validators.required]],
+      tencent_cos_limit: [null, [Validators.required]]
     });
-    this.form.patchValue({
-      openapi_url: this.data['openapi_url'],
-      openapi_key: this.data['openapi_key']
-    });
+    const data = { ...this.data };
+    this.form.patchValue(data);
   }
 
   /**

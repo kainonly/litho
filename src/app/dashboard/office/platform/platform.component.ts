@@ -6,7 +6,7 @@ import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalRef } from 'ng-zorro-antd/modal';
 
 @Component({
-  selector: 'app-settings-office-platform',
+  selector: 'app-dashboard-office-platform',
   templateUrl: './platform.component.html'
 })
 export class PlatformComponent implements OnInit {

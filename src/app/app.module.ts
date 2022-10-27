@@ -91,15 +91,7 @@ const routes: Routes = [
       breadcrumb: '开发者'
     }
   },
-  {
-    path: ':namespace/settings',
-    loadChildren: () => import('./settings/settings.module').then(m => m.SettingsModule),
-    canActivate: [AppGuard],
-    data: {
-      breadcrumb: '设置'
-    }
-  },
-  { path: '', redirectTo: 'default/settings', pathMatch: 'full' }
+  { path: '', redirectTo: 'default/dashboard', pathMatch: 'full' }
 ];
 
 @NgModule({

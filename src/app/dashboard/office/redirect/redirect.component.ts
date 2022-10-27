@@ -6,7 +6,7 @@ import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalRef } from 'ng-zorro-antd/modal';
 
 @Component({
-  selector: 'app-settings-office-redirect',
+  selector: 'app-dashboard-office-redirect',
   templateUrl: './redirect.component.html'
 })
 export class RedirectComponent implements OnInit {
