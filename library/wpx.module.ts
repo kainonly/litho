@@ -10,10 +10,8 @@ import { WpxMapPipe } from './pipes/map.pipe';
 import { WpxObjectPipe } from './pipes/object.pipe';
 import { WpxSortPipe } from './pipes/sort.pipe';
 import { WpxSplitPipe } from './pipes/split.pipe';
-import { WpxShareModule } from './share.module';
 
 @NgModule({
-  imports: [WpxShareModule],
   declarations: [
     WpxSubmitDirective,
     WpxUploadDirective,

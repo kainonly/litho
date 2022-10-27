@@ -6,7 +6,7 @@ import { WpxMediaModule } from '@weplanx/ng/media';
 import { WpxRichtextComponent } from './richtext.component';
 
 @NgModule({
-  imports: [WpxModule, WpxShareModule, WpxMediaModule],
+  imports: [WpxModule, WpxMediaModule, WpxShareModule],
   declarations: [WpxRichtextComponent],
   exports: [WpxRichtextComponent]
 })

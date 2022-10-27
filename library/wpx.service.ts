@@ -1,10 +1,10 @@
 import { ComponentPortal, ComponentType } from '@angular/cdk/portal';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { AsyncSubject, BehaviorSubject, Observable } from 'rxjs';
+import { AsyncSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { ComponentTypeOption, Nav, UploadOption, UserInfo, Value } from './types';
+import { ComponentTypeOption, UploadOption, Value } from './types';
 
 @Injectable({ providedIn: 'root' })
 export class WpxService {
@@ -24,22 +24,6 @@ export class WpxService {
    * 自定义组件
    */
   components: Map<string, ComponentTypeOption<any>> = new Map<string, ComponentTypeOption<any>>();
-  /**
-   * 当前页面 ID
-   */
-  pageId: BehaviorSubject<string> = new BehaviorSubject<string>('');
-  /**
-   * 导航索引
-   */
-  navsRecord: AsyncSubject<Record<string, Nav>> = new AsyncSubject<Record<string, Nav>>();
-  /**
-   * 手动设置路由
-   */
-  manual = false;
-  /**
-   * 用户信息
-   */
-  user?: UserInfo;
 
   constructor(private http: HttpClient) {}
 
@@ -115,33 +99,6 @@ export class WpxService {
           return v;
         })
       );
-  }
-
-  /**
-   * 载入页面内容
-   */
-  getNavs(): Observable<Nav[]> {
-    return this.http.get<Nav[]>('navs').pipe(
-      map(v => {
-        const record: Record<string, Nav> = {};
-        const data: Nav[] = [];
-        for (const x of v) {
-          x.children = [];
-          record[x._id] = x;
-        }
-        for (const x of v) {
-          if (x.parent) {
-            x.parentNode = record[x.parent];
-            record[x.parent].children!.push(x);
-          } else {
-            data.push(x);
-          }
-        }
-        this.navsRecord.next(record);
-        this.navsRecord.complete();
-        return data;
-      })
-    );
   }
 
   /**

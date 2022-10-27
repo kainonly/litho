@@ -9,7 +9,7 @@ import { WpxRichtextModule } from '@weplanx/ng/richtext';
 import { WpxFormComponent } from './form.component';
 
 @NgModule({
-  imports: [WpxModule, WpxShareModule, WpxMediaModule, WpxRichtextModule, WpxCheckboxModule, PortalModule],
+  imports: [WpxShareModule, WpxModule, WpxCheckboxModule, WpxMediaModule, WpxRichtextModule, PortalModule],
   declarations: [WpxFormComponent],
   exports: [WpxFormComponent]
 })

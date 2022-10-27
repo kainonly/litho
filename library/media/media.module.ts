@@ -4,10 +4,6 @@ import { NgModule } from '@angular/core';
 
 import { WpxModule, WpxShareModule } from '@weplanx/ng';
 import { WpxUploadModule } from '@weplanx/ng/upload';
-import { NzDescriptionsModule } from 'ng-zorro-antd/descriptions';
-import { NzImageModule } from 'ng-zorro-antd/image';
-import { NzPipesModule } from 'ng-zorro-antd/pipes';
-import { NzTypographyModule } from 'ng-zorro-antd/typography';
 
 import { WpxMediaComponent } from './media.component';
 import { PicturesService } from './pictures.service';
@@ -18,17 +14,7 @@ import { VideoComponent } from './view/video/video.component';
 import { WpxMediaViewComponent } from './view/view.component';
 
 @NgModule({
-  imports: [
-    WpxModule,
-    WpxShareModule,
-    WpxUploadModule,
-    NzImageModule,
-    NzTypographyModule,
-    ScrollingModule,
-    DragDropModule,
-    NzDescriptionsModule,
-    NzPipesModule
-  ],
+  imports: [ScrollingModule, DragDropModule, WpxModule, WpxUploadModule, WpxShareModule],
   declarations: [WpxMediaComponent, WpxMediaViewComponent, FormComponent, PictureComponent, VideoComponent],
   exports: [WpxMediaComponent, WpxMediaViewComponent],
   providers: [PicturesService, VideosService]

@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 
-import { UsersService } from '@orgs/users/users.service';
 import { Filter, WpxService } from '@weplanx/ng';
 import { differenceInCalendarDays } from 'date-fns';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalService } from 'ng-zorro-antd/modal';
+
+import { UsersService } from '../../orgs/users/users.service';
 
 @Component({
   selector: 'app-security-audit',

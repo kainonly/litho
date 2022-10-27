@@ -6,7 +6,7 @@ import { AppService } from '@app';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalRef } from 'ng-zorro-antd/modal';
 
-import { UsersService } from '../../../orgs/users/users.service';
+import { UsersService } from '../../../namespace/orgs/users/users.service';
 
 @Component({
   selector: 'app-center-safety-email',

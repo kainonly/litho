@@ -2,14 +2,14 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription, timer } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 
-import { RolesService } from '@orgs/roles/roles.service';
-import { Role } from '@orgs/roles/types';
-import { User } from '@orgs/users/types';
-import { UsersService } from '@orgs/users/users.service';
 import { AnyDto } from '@weplanx/ng';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalService } from 'ng-zorro-antd/modal';
 
+import { RolesService } from '../../orgs/roles/roles.service';
+import { Role } from '../../orgs/roles/types';
+import { User } from '../../orgs/users/types';
+import { UsersService } from '../../orgs/users/users.service';
 import { SessionsService } from './sessions.service';
 
 @Component({
