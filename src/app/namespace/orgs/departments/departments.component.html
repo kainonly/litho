@@ -1,29 +1,26 @@
 <nz-row [nzGutter]="8">
   <nz-col>
-    <button
-      style="margin-right: 8px"
-      nz-button
-      nzType="text"
-      [nz-tooltip]="expand ? '收起' : '展开'"
-      (click)="expanded()"
-    >
-      <i nz-icon [nzType]="expand ? 'node-collapse' : 'node-expand'"></i>
-    </button>
-    <nz-input-group nzSuffixIcon="search" style="width: 150px">
+    <nz-input-group [nzPrefix]="suffixIconSearch" style="width: 180px">
       <input type="text" nz-input placeholder="搜索" [(ngModel)]="searchText" />
+      <ng-template #suffixIconSearch>
+        <i nz-icon nzType="search"></i>
+      </ng-template>
     </nz-input-group>
   </nz-col>
   <nz-col>
     <nz-button-group>
-      <button nz-button nzType="text" nz-tooltip="刷新" (click)="getData()">
-        <i nz-icon nzType="reload"></i>
-      </button>
+      <!--          <button nz-button nzType="text" [nz-tooltip]="expand ? '收起' : '展开'" (click)="expanded()">-->
+      <!--            <i nz-icon [nzType]="expand ? 'node-collapse' : 'node-expand'"></i>-->
+      <!--          </button>-->
+      <!--          <button nz-button nzType="text" nz-tooltip="重组" (click)="openReorganization()">-->
+      <!--            <i nz-icon nzType="swap"></i>-->
+      <!--          </button>-->
       <button nz-button nzType="text" nz-tooltip="新增" (click)="form()">
-        <i nz-icon nzType="sisternode"></i>
+        <i nz-icon nzType="ellipsis"></i>
       </button>
-      <button nz-button nzType="text" nz-tooltip="重组" (click)="openReorganization()">
-        <i nz-icon nzType="swap"></i>
-      </button>
+      <!--      <button nz-button nzType="text" nz-tooltip="刷新" (click)="getData()">-->
+      <!--        <i nz-icon nzType="reload"></i>-->
+      <!--      </button>-->
     </nz-button-group>
   </nz-col>
 </nz-row>

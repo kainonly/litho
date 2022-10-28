@@ -1,9 +1,9 @@
 <nz-layout class="nested">
-  <nz-sider nzTheme="light" [nzWidth]="340">
+  <nz-sider nzTheme="light" [nzWidth]="260">
     <app-orgs-departments [(id)]="departmentId" (idChange)="selectedDepartment()"></app-orgs-departments>
   </nz-sider>
   <nz-layout style="overflow: auto">
-    <nz-content>
+    <nz-content class="content">
       <ng-template #extra>
         <button nz-button nzType="primary" (click)="form()"> 新增 </button>
       </ng-template>

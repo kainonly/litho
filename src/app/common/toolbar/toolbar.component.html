@@ -1,19 +1,18 @@
-<div class="toolbar">
-  <div class="logo"></div>
-  <ul nz-menu nzMode="vertical" nzTheme="dark">
+<div *ngIf="app.project as v" class="toolbar">
+  <ul nz-menu nzMode="vertical">
     <li
       nz-menu-item
       nzMatchRouter
-      [routerLink]="['/', app.project.namespace, 'overview']"
-      nz-tooltip="仪表盘"
+      [routerLink]="['/', v.namespace, 'overview']"
+      nz-tooltip="总览"
       nzTooltipPlacement="right"
     >
-      <span nz-icon nzType="dashboard"></span>
+      <span nz-icon nzType="desktop"></span>
     </li>
     <li
       nz-menu-item
       nzMatchRouter
-      [routerLink]="['/', app.project.namespace, 'factory']"
+      [routerLink]="['/', v.namespace, 'factory']"
       nz-tooltip="内容生成器"
       nzTooltipPlacement="right"
     >
@@ -22,7 +21,7 @@
     <li
       nz-menu-item
       nzMatchRouter
-      [routerLink]="['/', app.project.namespace, 'media']"
+      [routerLink]="['/', v.namespace, 'media']"
       nz-tooltip="媒体"
       nzTooltipPlacement="right"
     >
@@ -31,7 +30,7 @@
     <li
       nz-menu-item
       nzMatchRouter
-      [routerLink]="['/', app.project.namespace, 'orgs']"
+      [routerLink]="['/', v.namespace, 'orgs']"
       nz-tooltip="组织"
       nzTooltipPlacement="right"
     >
@@ -40,7 +39,7 @@
     <li
       nz-menu-item
       nzMatchRouter
-      [routerLink]="['/', app.project.namespace, 'security']"
+      [routerLink]="['/', v.namespace, 'security']"
       nz-tooltip="安全性"
       nzTooltipPlacement="right"
     >
@@ -49,7 +48,7 @@
     <li
       nz-menu-item
       nzMatchRouter
-      [routerLink]="['/', app.project.namespace, 'monitor']"
+      [routerLink]="['/', v.namespace, 'monitor']"
       nz-tooltip="监控"
       nzTooltipPlacement="right"
     >
@@ -58,7 +57,7 @@
     <li
       nz-menu-item
       nzMatchRouter
-      [routerLink]="['/', app.project.namespace, 'developer']"
+      [routerLink]="['/', v.namespace, 'developer']"
       nz-tooltip="开发者"
       nzTooltipPlacement="right"
     >

@@ -20,38 +20,40 @@
   </nz-space>
 </ng-template>
 
-<nz-card [nzTitle]="searchRef" [nzExtra]="actions">
-  <nz-table #basicTable [nzData]="values" [nzHideOnSinglePage]="true" [nzPageSize]="20">
-    <thead>
-      <tr>
-        <th nzWidth="36px" nzLeft nzAlign="center"> </th>
-        <th nzWidth="300px" nzCustomFilter>
-          <b>键名</b>
-          <nz-filter-trigger [(nzVisible)]="searchVisible">
-            <i nz-icon nzType="search"></i>
-          </nz-filter-trigger>
-        </th>
-        <th><b>键值</b></th>
-        <th nzWidth="36px" nzRight></th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let data of basicTable.data">
-        <td nzLeft></td>
-        <td>{{ data.key }}</td>
-        <td>{{ data.value }}</td>
-        <td nzRight>
-          <button nz-button nzType="text" nz-dropdown [nzDropdownMenu]="actions">
-            <i nz-icon nzType="ellipsis"></i>
-          </button>
-          <nz-dropdown-menu #actions="nzDropdownMenu">
-            <ul nz-menu>
-              <li nz-menu-item (click)="form(data)">编辑</li>
-              <li nz-menu-item nzDanger (click)="delete(data.key)">删除</li>
-            </ul>
-          </nz-dropdown-menu>
-        </td>
-      </tr>
-    </tbody>
-  </nz-table>
-</nz-card>
+<div class="content">
+  <nz-card [nzTitle]="searchRef" [nzExtra]="actions">
+    <nz-table #basicTable [nzData]="values" [nzHideOnSinglePage]="true" [nzPageSize]="20">
+      <thead>
+        <tr>
+          <th nzWidth="36px" nzLeft nzAlign="center"> </th>
+          <th nzWidth="300px" nzCustomFilter>
+            <b>键名</b>
+            <nz-filter-trigger [(nzVisible)]="searchVisible">
+              <i nz-icon nzType="search"></i>
+            </nz-filter-trigger>
+          </th>
+          <th><b>键值</b></th>
+          <th nzWidth="36px" nzRight></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let data of basicTable.data">
+          <td nzLeft></td>
+          <td>{{ data.key }}</td>
+          <td>{{ data.value }}</td>
+          <td nzRight>
+            <button nz-button nzType="text" nz-dropdown [nzDropdownMenu]="actions">
+              <i nz-icon nzType="ellipsis"></i>
+            </button>
+            <nz-dropdown-menu #actions="nzDropdownMenu">
+              <ul nz-menu>
+                <li nz-menu-item (click)="form(data)">编辑</li>
+                <li nz-menu-item nzDanger (click)="delete(data.key)">删除</li>
+              </ul>
+            </nz-dropdown-menu>
+          </td>
+        </tr>
+      </tbody>
+    </nz-table>
+  </nz-card>
+</div>

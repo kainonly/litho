@@ -1,6 +1,6 @@
 <button nz-button nzType="text" (click)="open()">
   <span nz-icon nzType="appstore"></span>
-  {{ app.project.name }}
+  {{ app.project?.name }}
 </button>
 
 <ng-template #title>
@@ -32,7 +32,6 @@
   [nzFooter]="footer"
   [nzVisible]="visible"
   [nzWidth]="736"
-  [nzPlacement]="'left'"
   (nzOnClose)="close()"
 >
   <ng-container *nzDrawerContent>

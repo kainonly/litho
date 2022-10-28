@@ -71,10 +71,7 @@ export class ProjectsComponent {
    * @param doc
    */
   setContext(doc: AnyDto<Project>): void {
-    this.app.project = {
-      name: doc.name,
-      namespace: doc.namespace
-    };
+    this.app.project = doc;
     this.router.navigate([doc.namespace, 'settings']);
     this.close();
   }

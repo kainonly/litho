@@ -5,16 +5,14 @@ import { map } from 'rxjs/operators';
 
 import { Project } from '@common/projects/project';
 import { UserInfo } from '@common/types';
+import { AnyDto } from '@weplanx/ng';
 
 @Injectable({ providedIn: 'root' })
 export class AppService {
   /**
    * 项目
    */
-  project: Pick<Project, 'name' | 'namespace'> = {
-    name: '默认项目',
-    namespace: 'default'
-  };
+  project?: AnyDto<Project>;
   /**
    * 用户信息
    */

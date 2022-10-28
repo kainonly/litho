@@ -21,14 +21,16 @@
   <a style="float: right" nz-button nzType="link" nzSize="small" nzDanger (click)="bulkDelete()">删除</a>
 </ng-template>
 
-<nz-card [nzTitle]="table.wpxSearch" [nzExtra]="extra">
-  <wpx-table
-    #table
-    wpxKey="roles"
-    [wpxApi]="roles"
-    [wpxData]="data"
-    [wpxFields]="fields"
-    [wpxActions]="actions"
-    [wpxBulk]="bulk"
-  ></wpx-table>
-</nz-card>
+<div class="content">
+  <nz-card [nzTitle]="table.wpxSearch" [nzExtra]="extra">
+    <wpx-table
+      #table
+      wpxKey="roles"
+      [wpxApi]="roles"
+      [wpxData]="data"
+      [wpxFields]="fields"
+      [wpxActions]="actions"
+      [wpxBulk]="bulk"
+    ></wpx-table>
+  </nz-card>
+</div>
