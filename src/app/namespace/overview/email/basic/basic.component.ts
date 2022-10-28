@@ -6,10 +6,10 @@ import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalRef } from 'ng-zorro-antd/modal';
 
 @Component({
-  selector: 'app-dashboard-office-redirect',
-  templateUrl: './redirect.component.html'
+  selector: 'app-overview-email-basic',
+  templateUrl: './basic.component.html'
 })
-export class RedirectComponent implements OnInit {
+export class BasicComponent implements OnInit {
   /**
    * 载入数据
    */
@@ -28,9 +28,16 @@ export class RedirectComponent implements OnInit {
 
   ngOnInit(): void {
     this.form = this.fb.group({
-      redirect_url: [null, [Validators.required]]
+      email_host: [null, [Validators.required]],
+      email_port: [null, [Validators.required]],
+      email_username: [null, [Validators.required]],
+      email_password: [null, [Validators.required]]
     });
-    this.form.patchValue(this.data);
+    this.form.patchValue({
+      email_host: this.data['email_host'],
+      email_port: this.data['email_port'],
+      email_username: this.data['email_username']
+    });
   }
 
   /**

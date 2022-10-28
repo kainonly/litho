@@ -6,7 +6,7 @@ import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalRef } from 'ng-zorro-antd/modal';
 
 @Component({
-  selector: 'app-settings-cloud-platform',
+  selector: 'app-overview-office-platform',
   templateUrl: './platform.component.html'
 })
 export class PlatformComponent implements OnInit {
@@ -28,9 +28,11 @@ export class PlatformComponent implements OnInit {
 
   ngOnInit(): void {
     this.form = this.fb.group({
-      cloud: ['tencent', [Validators.required]],
-      tencent_secret_id: [null, [Validators.required]],
-      tencent_secret_key: [null, [Validators.required]]
+      office: ['feishu', [Validators.required]],
+      feishu_app_id: [null, [Validators.required]],
+      feishu_app_secret: [null, [Validators.required]],
+      feishu_encrypt_key: [null, [Validators.required]],
+      feishu_verification_token: [null, [Validators.required]]
     });
   }
 

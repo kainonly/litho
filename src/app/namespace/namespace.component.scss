@@ -1,0 +1,12 @@
+nz-layout.frame {
+  padding-top: 44px;
+  padding-left: 51px;
+  overflow-x: hidden;
+  overflow-y: auto;
+
+  nz-sider {
+    overflow: auto;
+    height: 100%;
+    border-right: 1px solid #f0f0f0;
+  }
+}

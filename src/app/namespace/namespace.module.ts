@@ -13,10 +13,10 @@ const routes: Routes = [
     component: NamespaceComponent,
     children: [
       {
-        path: 'dashboard',
-        loadChildren: () => import('./dashboard/dashboard.module').then(m => m.DashboardModule),
+        path: 'overview',
+        loadChildren: () => import('./overview/overview.module').then(m => m.OverviewModule),
         data: {
-          breadcrumb: '仪表盘'
+          breadcrumb: '总览'
         }
       },
       {
@@ -61,7 +61,7 @@ const routes: Routes = [
           breadcrumb: '开发者'
         }
       },
-      { path: '', redirectTo: 'default/dashboard', pathMatch: 'full' }
+      { path: '', redirectTo: 'overview', pathMatch: 'full' }
     ]
   }
 ];

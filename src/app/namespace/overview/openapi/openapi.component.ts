@@ -6,10 +6,10 @@ import { NzModalService } from 'ng-zorro-antd/modal';
 import { BasicComponent } from './basic/basic.component';
 
 @Component({
-  selector: 'app-dashboard-email',
-  templateUrl: './email.component.html'
+  selector: 'app-overview-openapi',
+  templateUrl: './openapi.component.html'
 })
-export class EmailComponent implements OnInit {
+export class OpenapiComponent implements OnInit {
   /**
    * 数据
    */
@@ -25,7 +25,7 @@ export class EmailComponent implements OnInit {
    * 获取数据
    */
   getData(): void {
-    this.wpx.getValues(['email_host', 'email_port', 'email_username', 'email_password']).subscribe(data => {
+    this.wpx.getValues(['openapi_url', 'openapi_key', 'openapi_secret']).subscribe(data => {
       this.data = data;
     });
   }
@@ -49,7 +49,7 @@ export class EmailComponent implements OnInit {
   }
 
   /**
-   * 基础设置
+   * 基本设置
    */
   setBasic(): void {
     this.setModal(BasicComponent);

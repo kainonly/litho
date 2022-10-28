@@ -20,18 +20,19 @@ registerLocaleData(zh);
 
 const routes: Routes = [
   {
-    path: ':namespace',
-    loadChildren: () => import('./namespace/namespace.module').then(m => m.NamespaceModule),
-    canActivate: [AppGuard]
-  },
-  {
     path: 'login',
     loadChildren: () => import('./login/login.module').then(m => m.LoginModule)
   },
   {
     path: 'forget',
     loadChildren: () => import('./forget/forget.module').then(m => m.ForgetModule)
-  }
+  },
+  {
+    path: ':namespace',
+    loadChildren: () => import('./namespace/namespace.module').then(m => m.NamespaceModule),
+    canActivate: [AppGuard]
+  },
+  { path: '', redirectTo: 'default', pathMatch: 'full' }
 ];
 
 @NgModule({

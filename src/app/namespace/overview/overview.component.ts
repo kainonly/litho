@@ -17,19 +17,19 @@ import { AppService } from '@app';
         </ng-template>
         <app-header [breadcrumb]="breadcrumbTpl">
           <ul nz-menu nzMode="horizontal">
-            <li nz-menu-item nzMatchRouter [routerLink]="['/', app.project.namespace, 'dashboard', 'cloud']">
+            <li nz-menu-item nzMatchRouter [routerLink]="['/', app.project.namespace, 'overview', 'cloud']">
               <span nz-icon nzType="cloud"></span>
               云平台
             </li>
-            <li nz-menu-item nzMatchRouter [routerLink]="['/', app.project.namespace, 'dashboard', 'office']">
+            <li nz-menu-item nzMatchRouter [routerLink]="['/', app.project.namespace, 'overview', 'office']">
               <span nz-icon nzType="coffee"></span>
               企业办公
             </li>
-            <li nz-menu-item nzMatchRouter [routerLink]="['/', app.project.namespace, 'dashboard', 'email']">
+            <li nz-menu-item nzMatchRouter [routerLink]="['/', app.project.namespace, 'overview', 'email']">
               <span nz-icon nzType="mail"></span>
               电子邮件
             </li>
-            <li nz-menu-item nzMatchRouter [routerLink]="['/', app.project.namespace, 'dashboard', 'openapi']">
+            <li nz-menu-item nzMatchRouter [routerLink]="['/', app.project.namespace, 'overview', 'openapi']">
               <span nz-icon nzType="gateway"></span>
               开放服务
             </li>
@@ -44,6 +44,6 @@ import { AppService } from '@app';
     </nz-layout>
   `
 })
-export class DashboardComponent {
+export class OverviewComponent {
   constructor(public app: AppService) {}
 }

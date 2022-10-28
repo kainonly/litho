@@ -6,10 +6,10 @@ import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalRef } from 'ng-zorro-antd/modal';
 
 @Component({
-  selector: 'app-dashboard-cloud-cos',
-  templateUrl: './cos.component.html'
+  selector: 'app-overview-office-redirect',
+  templateUrl: './redirect.component.html'
 })
-export class CosComponent implements OnInit {
+export class RedirectComponent implements OnInit {
   /**
    * 载入数据
    */
@@ -18,16 +18,6 @@ export class CosComponent implements OnInit {
    * 表单
    */
   form!: UntypedFormGroup;
-  /**
-   * 秒
-   * @param value
-   */
-  formatterSec = (value: number): string => `${value} 秒`;
-  /**
-   * 存储单位格式化
-   * @param value
-   */
-  formatterSize = (value: number): string => `${value} KB`;
 
   constructor(
     public wpx: WpxService,
@@ -38,13 +28,9 @@ export class CosComponent implements OnInit {
 
   ngOnInit(): void {
     this.form = this.fb.group({
-      tencent_cos_bucket: [null, [Validators.required]],
-      tencent_cos_region: [null, [Validators.required]],
-      tencent_cos_expired: [null, [Validators.required]],
-      tencent_cos_limit: [null, [Validators.required]]
+      redirect_url: [null, [Validators.required]]
     });
-    const data = { ...this.data };
-    this.form.patchValue(data);
+    this.form.patchValue(this.data);
   }
 
   /**
