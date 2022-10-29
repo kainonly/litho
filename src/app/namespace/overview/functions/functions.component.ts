@@ -3,13 +3,14 @@ import { Component, OnInit, Type } from '@angular/core';
 import { WpxService } from '@weplanx/ng';
 import { NzModalService } from 'ng-zorro-antd/modal';
 
-import { BasicComponent } from './basic/basic.component';
+import { EmailComponent } from './email/email.component';
+import { OpenapiComponent } from './openapi/openapi.component';
 
 @Component({
-  selector: 'app-overview-email',
-  templateUrl: './email.component.html'
+  selector: 'app-overview-functions',
+  templateUrl: './functions.component.html'
 })
-export class EmailComponent implements OnInit {
+export class FunctionsComponent implements OnInit {
   /**
    * 数据
    */
@@ -25,9 +26,19 @@ export class EmailComponent implements OnInit {
    * 获取数据
    */
   getData(): void {
-    this.wpx.getValues(['email_host', 'email_port', 'email_username', 'email_password']).subscribe(data => {
-      this.data = data;
-    });
+    this.wpx
+      .getValues([
+        'email_host',
+        'email_port',
+        'email_username',
+        'email_password',
+        'openapi_url',
+        'openapi_key',
+        'openapi_secret'
+      ])
+      .subscribe(data => {
+        this.data = data;
+      });
   }
 
   /**
@@ -49,9 +60,16 @@ export class EmailComponent implements OnInit {
   }
 
   /**
-   * 基础设置
+   * 设置电子邮件
    */
-  setBasic(): void {
-    this.setModal(BasicComponent);
+  setEmail(): void {
+    this.setModal(EmailComponent);
+  }
+
+  /**
+   * 基本设置
+   */
+  setOpenapi(): void {
+    this.setModal(OpenapiComponent);
   }
 }

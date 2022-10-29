@@ -6,7 +6,7 @@ import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalRef } from 'ng-zorro-antd/modal';
 
 @Component({
-  selector: 'app-security-policy-pwd-ttl',
+  selector: 'app-overview-security-pwd-ttl',
   templateUrl: './pwd-ttl.component.html'
 })
 export class PwdTtlComponent implements OnInit {

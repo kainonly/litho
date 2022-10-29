@@ -5,13 +5,6 @@ import { ShareModule } from '@common/share.module';
 
 const routes: Routes = [
   {
-    path: 'policy',
-    loadChildren: () => import('./policy/policy.module').then(m => m.PolicyModule),
-    data: {
-      breadcrumb: '策略配置'
-    }
-  },
-  {
     path: 'sessions',
     loadChildren: () => import('./sessions/sessions.module').then(m => m.SessionsModule),
     data: {

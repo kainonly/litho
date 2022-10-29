@@ -6,10 +6,10 @@ import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalRef } from 'ng-zorro-antd/modal';
 
 @Component({
-  selector: 'app-security-policy-session',
-  templateUrl: './session.component.html'
+  selector: 'app-overview-functions-email',
+  templateUrl: './email.component.html'
 })
-export class SessionComponent implements OnInit {
+export class EmailComponent implements OnInit {
   /**
    * 载入数据
    */
@@ -18,11 +18,6 @@ export class SessionComponent implements OnInit {
    * 表单
    */
   form!: UntypedFormGroup;
-  /**
-   * 秒
-   * @param value
-   */
-  formatterSec = (value: number): string => `${value} 秒`;
 
   constructor(
     public wpx: WpxService,
@@ -33,9 +28,16 @@ export class SessionComponent implements OnInit {
 
   ngOnInit(): void {
     this.form = this.fb.group({
-      session_ttl: [0, [Validators.required]]
+      email_host: [null, [Validators.required]],
+      email_port: [null, [Validators.required]],
+      email_username: [null, [Validators.required]],
+      email_password: [null, [Validators.required]]
     });
-    this.form.patchValue(this.data);
+    this.form.patchValue({
+      email_host: this.data['email_host'],
+      email_port: this.data['email_port'],
+      email_username: this.data['email_username']
+    });
   }
 
   /**

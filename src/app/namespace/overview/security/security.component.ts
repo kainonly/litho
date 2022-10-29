@@ -11,10 +11,10 @@ import { SessionComponent } from './session/session.component';
 import { UserLockComponent } from './user-lock/user-lock.component';
 
 @Component({
-  selector: 'app-security-policy',
-  templateUrl: './policy.component.html'
+  selector: 'app-overview-security',
+  templateUrl: './security.component.html'
 })
-export class PolicyComponent implements OnInit {
+export class SecurityComponent implements OnInit {
   /**
    * 数据
    */

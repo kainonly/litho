@@ -3,7 +3,6 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { ShareModule } from '@common/share.module';
 
-import { OpenapiComponent } from '../openapi/openapi.component';
 import { OfficeComponent } from './office.component';
 import { PlatformComponent } from './platform/platform.component';
 import { RedirectComponent } from './redirect/redirect.component';
@@ -11,7 +10,7 @@ import { RedirectComponent } from './redirect/redirect.component';
 const routes: Routes = [
   {
     path: '',
-    component: OpenapiComponent
+    component: OfficeComponent
   }
 ];
 

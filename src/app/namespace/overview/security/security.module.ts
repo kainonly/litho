@@ -5,23 +5,23 @@ import { ShareModule } from '@common/share.module';
 
 import { IpListComponent } from './ip-list/ip-list.component';
 import { IpLockComponent } from './ip-lock/ip-lock.component';
-import { PolicyComponent } from './policy.component';
 import { PwdStrategyComponent } from './pwd-strategy/pwd-strategy.component';
 import { PwdTtlComponent } from './pwd-ttl/pwd-ttl.component';
+import { SecurityComponent } from './security.component';
 import { SessionComponent } from './session/session.component';
 import { UserLockComponent } from './user-lock/user-lock.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: PolicyComponent
+    component: SecurityComponent
   }
 ];
 
 @NgModule({
   imports: [ShareModule, RouterModule.forChild(routes)],
   declarations: [
-    PolicyComponent,
+    SecurityComponent,
     SessionComponent,
     UserLockComponent,
     IpLockComponent,
@@ -30,4 +30,4 @@ const routes: Routes = [
     PwdTtlComponent
   ]
 })
-export class PolicyModule {}
+export class SecurityModule {}

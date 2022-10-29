@@ -6,7 +6,7 @@ import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalRef } from 'ng-zorro-antd/modal';
 
 @Component({
-  selector: 'app-security-policy-ip-list',
+  selector: 'app-overview-security-ip-list',
   templateUrl: './ip-list.component.html'
 })
 export class IpListComponent implements OnInit {

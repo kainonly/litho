@@ -1,6 +1,8 @@
 <nz-page-header *ngIf="app.project as v">
   <nz-page-header-title>{{ v.name }}</nz-page-header-title>
-  <nz-page-header-subtitle>{{ v.namespace }}</nz-page-header-subtitle>
+  <nz-page-header-subtitle>
+    <nz-tag>{{ v.namespace }}</nz-tag>
+  </nz-page-header-subtitle>
   <nz-page-header-content>
     <nz-descriptions [nzColumn]="3">
       <nz-descriptions-item nzTitle="创建时间">
@@ -15,16 +17,19 @@
         </ng-container>
         <ng-template #emptyExpireTime>永久</ng-template>
       </nz-descriptions-item>
-      <nz-descriptions-item nzTitle="状态">
+      <nz-descriptions-item nzTitle="项目ID">
+        <span nz-typography nzCopyable [nzContent]="v._id"></span>
+      </nz-descriptions-item>
+      <nz-descriptions-item [nzSpan]="2" nzTitle="状态">
         <ng-container *ngIf="v.status; else isFalse"> <nz-badge nzStatus="processing"></nz-badge> 开启 </ng-container>
         <ng-template #isFalse> <nz-badge nzStatus="default"></nz-badge> 关闭 </ng-template>
       </nz-descriptions-item>
-      <nz-descriptions-item [nzSpan]="2" nzTitle="密钥">
+      <nz-descriptions-item nzTitle="密钥">
         <ng-container *ngIf="v.secret; else unset">
           <span nz-typography nzCopyable [nzContent]="v.secret"></span>
         </ng-container>
       </nz-descriptions-item>
-      <nz-descriptions-item [nzSpan]="3" nzTitle="入口">
+      <nz-descriptions-item [nzSpan]="2" nzTitle="入口">
         <ng-container *ngIf="v.entry.length !== 0; else unset">
           {{ v.entry }}
         </ng-container>
@@ -34,16 +39,19 @@
   <nz-page-header-footer>
     <nz-tabset nzLinkRouter>
       <nz-tab>
-        <a *nzTabLink nz-tab-link [routerLink]="['/', v.namespace, 'overview', 'cloud']"> 云平台 </a>
+        <a *nzTabLink nz-tab-link [routerLink]="['/', v.namespace, 'overview', 'cluster']"> 集群 </a>
       </nz-tab>
       <nz-tab>
-        <a *nzTabLink nz-tab-link [routerLink]="['/', v.namespace, 'overview', 'office']"> 企业办公 </a>
+        <a *nzTabLink nz-tab-link [routerLink]="['/', v.namespace, 'overview', 'cloud']"> 公有云 </a>
       </nz-tab>
       <nz-tab>
-        <a *nzTabLink nz-tab-link [routerLink]="['/', v.namespace, 'overview', 'email']"> 电子邮件 </a>
+        <a *nzTabLink nz-tab-link [routerLink]="['/', v.namespace, 'overview', 'office']"> 企业平台 </a>
       </nz-tab>
       <nz-tab>
-        <a *nzTabLink nz-tab-link [routerLink]="['/', v.namespace, 'overview', 'openapi']"> 开放服务 </a>
+        <a *nzTabLink nz-tab-link [routerLink]="['/', v.namespace, 'overview', 'functions']"> 功能模块 </a>
+      </nz-tab>
+      <nz-tab>
+        <a *nzTabLink nz-tab-link [routerLink]="['/', v.namespace, 'overview', 'security']"> 安全策略 </a>
       </nz-tab>
     </nz-tabset>
   </nz-page-header-footer>

@@ -6,10 +6,10 @@ import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalRef } from 'ng-zorro-antd/modal';
 
 @Component({
-  selector: 'app-security-policy-ip-lock',
-  templateUrl: './ip-lock.component.html'
+  selector: 'app-overview-security-user-lock',
+  templateUrl: './user-lock.component.html'
 })
-export class IpLockComponent implements OnInit {
+export class UserLockComponent implements OnInit {
   /**
    * 载入数据
    */
@@ -23,6 +23,11 @@ export class IpLockComponent implements OnInit {
    * @param value
    */
   formatterTimes = (value: number): string => `${value} 次`;
+  /**
+   * 秒
+   * @param value
+   */
+  formatterSec = (value: number): string => `${value} 秒`;
 
   constructor(
     public wpx: WpxService,
@@ -33,7 +38,8 @@ export class IpLockComponent implements OnInit {
 
   ngOnInit(): void {
     this.form = this.fb.group({
-      ip_login_failures: [0, [Validators.required]]
+      login_failures: [0, [Validators.required]],
+      login_ttl: [0, [Validators.required]]
     });
     this.form.patchValue(this.data);
   }

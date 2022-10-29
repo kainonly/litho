@@ -11,34 +11,41 @@ const routes: Routes = [
     component: OverviewComponent,
     children: [
       {
+        path: 'cluster',
+        loadChildren: () => import('./cluster/cluster.module').then(m => m.ClusterModule),
+        data: {
+          breadcrumb: '集群'
+        }
+      },
+      {
         path: 'cloud',
         loadChildren: () => import('./cloud/cloud.module').then(m => m.CloudModule),
         data: {
-          breadcrumb: '云平台'
+          breadcrumb: '公有云'
         }
       },
       {
         path: 'office',
         loadChildren: () => import('./office/office.module').then(m => m.OfficeModule),
         data: {
-          breadcrumb: '企业办公'
+          breadcrumb: '企业平台'
         }
       },
       {
-        path: 'email',
-        loadChildren: () => import('./email/email.module').then(m => m.EmailModule),
+        path: 'functions',
+        loadChildren: () => import('./functions/functions.module').then(m => m.FunctionsModule),
         data: {
-          breadcrumb: '电子邮件'
+          breadcrumb: '功能模块'
         }
       },
       {
-        path: 'openapi',
-        loadChildren: () => import('./openapi/openapi.module').then(m => m.OpenapiModule),
+        path: 'security',
+        loadChildren: () => import('./security/security.module').then(m => m.SecurityModule),
         data: {
-          breadcrumb: '开放服务'
+          breadcrumb: '安全策略'
         }
       },
-      { path: '', redirectTo: 'cloud', pathMatch: 'full' }
+      { path: '', redirectTo: 'cluster', pathMatch: 'full' }
     ]
   }
 ];

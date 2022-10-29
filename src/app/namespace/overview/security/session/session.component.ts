@@ -6,10 +6,10 @@ import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalRef } from 'ng-zorro-antd/modal';
 
 @Component({
-  selector: 'app-security-policy-user-lock',
-  templateUrl: './user-lock.component.html'
+  selector: 'app-overview-security-session',
+  templateUrl: './session.component.html'
 })
-export class UserLockComponent implements OnInit {
+export class SessionComponent implements OnInit {
   /**
    * 载入数据
    */
@@ -18,11 +18,6 @@ export class UserLockComponent implements OnInit {
    * 表单
    */
   form!: UntypedFormGroup;
-  /**
-   * 次数
-   * @param value
-   */
-  formatterTimes = (value: number): string => `${value} 次`;
   /**
    * 秒
    * @param value
@@ -38,8 +33,7 @@ export class UserLockComponent implements OnInit {
 
   ngOnInit(): void {
     this.form = this.fb.group({
-      login_failures: [0, [Validators.required]],
-      login_ttl: [0, [Validators.required]]
+      session_ttl: [0, [Validators.required]]
     });
     this.form.patchValue(this.data);
   }

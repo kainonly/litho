@@ -36,19 +36,12 @@
               <ng-container *ngSwitchCase="'feishu'">飞书</ng-container>
               <ng-container *ngSwitchCase="'dingtalk'">钉钉</ng-container>
               <ng-container *ngSwitchCase="'work-weixin'">企业微信</ng-container>
-              <ng-container *ngSwitchDefault>当前未关联第三方平台</ng-container>
+              <ng-container *ngSwitchDefault>当前未关联企业平台</ng-container>
             </b>
           </nz-list-item-meta-title>
         </nz-list-item-meta>
 
-        <nz-descriptions
-          *ngIf="!!data['office']"
-          style="width: 800px"
-          nzSize="small"
-          nzBordered
-          nzLayout="vertical"
-          [nzColumn]="2"
-        >
+        <nz-descriptions style="width: 800px" nzSize="small" nzBordered nzLayout="vertical" [nzColumn]="2">
           <nz-descriptions-item nzTitle="应用 ID">
             <ng-container *ngIf="data['feishu_app_id']; else unkown">
               {{ data['feishu_app_id'] }}

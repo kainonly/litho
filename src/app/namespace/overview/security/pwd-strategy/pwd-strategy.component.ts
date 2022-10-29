@@ -6,10 +6,11 @@ import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalRef } from 'ng-zorro-antd/modal';
 
 @Component({
-  selector: 'app-overview-openapi-basic',
-  templateUrl: './basic.component.html'
+  selector: 'app-overview-security-pwd-strategy',
+  templateUrl: './pwd-strategy.component.html',
+  styleUrls: ['./pwd-strategy.component.scss']
 })
-export class BasicComponent implements OnInit {
+export class PwdStrategyComponent implements OnInit {
   /**
    * 载入数据
    */
@@ -28,14 +29,9 @@ export class BasicComponent implements OnInit {
 
   ngOnInit(): void {
     this.form = this.fb.group({
-      openapi_url: [null, [Validators.required]],
-      openapi_key: [null, [Validators.required]],
-      openapi_secret: [null, [Validators.required]]
+      pwd_strategy: [0, [Validators.required]]
     });
-    this.form.patchValue({
-      openapi_url: this.data['openapi_url'],
-      openapi_key: this.data['openapi_key']
-    });
+    this.form.patchValue(this.data);
   }
 
   /**

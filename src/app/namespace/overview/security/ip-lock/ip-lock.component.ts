@@ -6,11 +6,10 @@ import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalRef } from 'ng-zorro-antd/modal';
 
 @Component({
-  selector: 'app-security-policy-pwd-strategy',
-  templateUrl: './pwd-strategy.component.html',
-  styleUrls: ['./pwd-strategy.component.scss']
+  selector: 'app-overview-security-ip-lock',
+  templateUrl: './ip-lock.component.html'
 })
-export class PwdStrategyComponent implements OnInit {
+export class IpLockComponent implements OnInit {
   /**
    * 载入数据
    */
@@ -19,6 +18,11 @@ export class PwdStrategyComponent implements OnInit {
    * 表单
    */
   form!: UntypedFormGroup;
+  /**
+   * 次数
+   * @param value
+   */
+  formatterTimes = (value: number): string => `${value} 次`;
 
   constructor(
     public wpx: WpxService,
@@ -29,7 +33,7 @@ export class PwdStrategyComponent implements OnInit {
 
   ngOnInit(): void {
     this.form = this.fb.group({
-      pwd_strategy: [0, [Validators.required]]
+      ip_login_failures: [0, [Validators.required]]
     });
     this.form.patchValue(this.data);
   }

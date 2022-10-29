@@ -6,10 +6,10 @@ import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalRef } from 'ng-zorro-antd/modal';
 
 @Component({
-  selector: 'app-overview-email-basic',
-  templateUrl: './basic.component.html'
+  selector: 'app-overview-functions-openapi',
+  templateUrl: './openapi.component.html'
 })
-export class BasicComponent implements OnInit {
+export class OpenapiComponent implements OnInit {
   /**
    * 载入数据
    */
@@ -28,15 +28,13 @@ export class BasicComponent implements OnInit {
 
   ngOnInit(): void {
     this.form = this.fb.group({
-      email_host: [null, [Validators.required]],
-      email_port: [null, [Validators.required]],
-      email_username: [null, [Validators.required]],
-      email_password: [null, [Validators.required]]
+      openapi_url: [null, [Validators.required]],
+      openapi_key: [null, [Validators.required]],
+      openapi_secret: [null, [Validators.required]]
     });
     this.form.patchValue({
-      email_host: this.data['email_host'],
-      email_port: this.data['email_port'],
-      email_username: this.data['email_username']
+      openapi_url: this.data['openapi_url'],
+      openapi_key: this.data['openapi_key']
     });
   }
 
