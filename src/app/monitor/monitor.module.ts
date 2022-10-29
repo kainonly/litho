@@ -33,13 +33,6 @@ const routes: Routes = [
           breadcrumb: '审计日志'
         }
       },
-      {
-        path: 'alert',
-        loadChildren: () => import('./alert/alert.module').then(m => m.AlertModule),
-        data: {
-          breadcrumb: '异常告警'
-        }
-      },
       { path: '', redirectTo: 'values', pathMatch: 'full' }
     ]
   }
