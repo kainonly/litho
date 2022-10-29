@@ -10,17 +10,21 @@
     </ng-template>
     <app-header *ngIf="app.project as v" [breadcrumb]="breadcrumbTpl">
       <ul nz-menu nzMode="horizontal">
+        <li nz-menu-item nzMatchRouter [routerLink]="['/', v.namespace, 'monitor', 'values']">
+          <span nz-icon nzType="control"></span>
+          动态配置
+        </li>
         <li nz-menu-item nzMatchRouter [routerLink]="['/', v.namespace, 'monitor', 'sessions']">
           <span nz-icon nzType="rocket"></span>
-          会话
+          在线会话
         </li>
         <li nz-menu-item nzMatchRouter [routerLink]="['/', v.namespace, 'monitor', 'audit']">
           <span nz-icon nzType="file-protect"></span>
-          审计
+          审计日志
         </li>
         <li nz-menu-item nzMatchRouter [routerLink]="['/', v.namespace, 'monitor', 'alert']">
           <span nz-icon nzType="alert"></span>
-          告警
+          异常告警
         </li>
       </ul>
     </app-header>

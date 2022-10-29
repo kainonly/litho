@@ -13,27 +13,34 @@ const routes: Routes = [
     component: MonitorComponent,
     children: [
       {
+        path: 'values',
+        loadChildren: () => import('./values/values.module').then(m => m.ValuesModule),
+        data: {
+          breadcrumb: '动态配置'
+        }
+      },
+      {
         path: 'sessions',
         loadChildren: () => import('./sessions/sessions.module').then(m => m.SessionsModule),
         data: {
-          breadcrumb: '会话'
+          breadcrumb: '在线会话'
         }
       },
       {
         path: 'audit',
         loadChildren: () => import('./audit/audit.module').then(m => m.AuditModule),
         data: {
-          breadcrumb: '审计'
+          breadcrumb: '审计日志'
         }
       },
       {
         path: 'alert',
         loadChildren: () => import('./alert/alert.module').then(m => m.AlertModule),
         data: {
-          breadcrumb: '告警'
+          breadcrumb: '异常告警'
         }
       },
-      { path: '', redirectTo: 'sessions', pathMatch: 'full' }
+      { path: '', redirectTo: 'values', pathMatch: 'full' }
     ]
   }
 ];

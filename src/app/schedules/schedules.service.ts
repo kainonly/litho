@@ -3,7 +3,7 @@ import { Observable } from 'rxjs';
 
 import { WpxApi } from '@weplanx/ng';
 
-import { Schedule, ScheduleJob } from './types';
+import { Schedule, ScheduleJob } from './timing/types';
 
 @Injectable()
 export class SchedulesService extends WpxApi<Schedule> {

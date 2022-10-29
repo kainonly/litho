@@ -62,11 +62,19 @@ const routes: Routes = [
     }
   },
   {
-    path: ':namespace/developer',
-    loadChildren: () => import('./developer/developer.module').then(m => m.DeveloperModule),
+    path: ':namespace/schedules',
+    loadChildren: () => import('./schedules/schedules.module').then(m => m.SchedulesModule),
     canActivate: [AppGuard],
     data: {
-      breadcrumb: '开发'
+      breadcrumb: '任务调度'
+    }
+  },
+  {
+    path: ':namespace/logsystem',
+    loadChildren: () => import('./logsystem/logsystem.module').then(m => m.LogsystemModule),
+    canActivate: [AppGuard],
+    data: {
+      breadcrumb: '日志系统'
     }
   },
   { path: '', redirectTo: 'default/overview', pathMatch: 'full' }

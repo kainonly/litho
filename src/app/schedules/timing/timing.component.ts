@@ -6,16 +6,16 @@ import { AnyDto } from '@weplanx/ng';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalService } from 'ng-zorro-antd/modal';
 
+import { SchedulesService } from '../schedules.service';
 import { FormComponent } from './form/form.component';
 import { JobsComponent } from './jobs/jobs.component';
-import { SchedulesService } from './schedules.service';
 import { Schedule } from './types';
 
 @Component({
-  selector: 'app-developer-schedules',
-  templateUrl: './schedules.component.html'
+  selector: 'app-schedules-timing',
+  templateUrl: './timing.component.html'
 })
-export class SchedulesComponent implements OnInit, OnDestroy {
+export class TimingComponent implements OnInit, OnDestroy {
   /**
    * 数据
    */

@@ -6,19 +6,17 @@ import { ShareModule } from '@common/share.module';
 import { FormComponent } from './form/form.component';
 import { HeadersPipe } from './jobs/headers.pipe';
 import { JobsComponent } from './jobs/jobs.component';
-import { SchedulesComponent } from './schedules.component';
-import { SchedulesService } from './schedules.service';
+import { TimingComponent } from './timing.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: SchedulesComponent
+    component: TimingComponent
   }
 ];
 
 @NgModule({
   imports: [ShareModule, RouterModule.forChild(routes)],
-  declarations: [SchedulesComponent, FormComponent, JobsComponent, HeadersPipe],
-  providers: [SchedulesService]
+  declarations: [TimingComponent, FormComponent, JobsComponent, HeadersPipe]
 })
-export class SchedulesModule {}
+export class TimingModule {}

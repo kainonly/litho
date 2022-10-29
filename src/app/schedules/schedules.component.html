@@ -1,0 +1,33 @@
+<nz-layout class="main">
+  <app-toolbar></app-toolbar>
+  <nz-layout>
+    <ng-template #breadcrumbTpl>
+      <nz-breadcrumb nzAutoGenerate>
+        <nz-breadcrumb-item>
+          <a [routerLink]="['/']"><span nz-icon nzType="home"></span> 首页</a>
+        </nz-breadcrumb-item>
+      </nz-breadcrumb>
+    </ng-template>
+    <app-header *ngIf="app.project as v" [breadcrumb]="breadcrumbTpl">
+      <ul nz-menu nzMode="horizontal">
+        <li nz-menu-item nzMatchRouter [routerLink]="['/', v.namespace, 'schedules', 'timing']">
+          <span nz-icon nzType="field-time"></span>
+          定时回调
+        </li>
+        <li nz-menu-item nzMatchRouter [routerLink]="['/', v.namespace, 'schedules', 'queue']">
+          <span nz-icon nzType="bars"></span>
+          队列回调
+        </li>
+        <li nz-menu-item nzMatchRouter>
+          <span nz-icon nzType="setting"></span>
+          服务设置
+        </li>
+      </ul>
+    </app-header>
+    <nz-layout class="frame">
+      <nz-content class="content">
+        <router-outlet></router-outlet>
+      </nz-content>
+    </nz-layout>
+  </nz-layout>
+</nz-layout>

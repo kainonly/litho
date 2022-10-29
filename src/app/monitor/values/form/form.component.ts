@@ -6,7 +6,7 @@ import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalRef } from 'ng-zorro-antd/modal';
 
 @Component({
-  selector: 'app-developer-values-form',
+  selector: 'app-monitor-values-form',
   templateUrl: './form.component.html'
 })
 export class FormComponent implements OnInit {

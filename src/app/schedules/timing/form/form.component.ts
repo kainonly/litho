@@ -5,11 +5,11 @@ import { AnyDto, WpxService } from '@weplanx/ng';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalRef } from 'ng-zorro-antd/modal';
 
-import { SchedulesService } from '../schedules.service';
+import { SchedulesService } from '../../schedules.service';
 import { Schedule } from '../types';
 
 @Component({
-  selector: 'app-developer-schedules-form',
+  selector: 'app-schedules-timing-form',
   templateUrl: './form.component.html'
 })
 export class FormComponent implements OnInit {

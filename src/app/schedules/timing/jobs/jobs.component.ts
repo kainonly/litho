@@ -6,11 +6,11 @@ import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalRef } from 'ng-zorro-antd/modal';
 import validator from 'validator';
 
-import { SchedulesService } from '../schedules.service';
+import { SchedulesService } from '../../schedules.service';
 import { Schedule } from '../types';
 
 @Component({
-  selector: 'app-developer-schedules-jobs',
+  selector: 'app-schedules-timing-jobs',
   templateUrl: './jobs.component.html'
 })
 export class JobsComponent implements OnInit {

@@ -10,17 +10,17 @@
     </ng-template>
     <app-header *ngIf="app.project as v" [breadcrumb]="breadcrumbTpl">
       <ul nz-menu nzMode="horizontal">
-        <li nz-menu-item nzMatchRouter [routerLink]="['/', v.namespace, 'developer', 'values']">
-          <span nz-icon nzType="global"></span>
-          动态配置
+        <li nz-menu-item nzMatchRouter [routerLink]="['/', v.namespace, 'logsystem', 'search']">
+          <span nz-icon nzType="file-search"></span>
+          查询
         </li>
-        <li nz-menu-item nzMatchRouter [routerLink]="['/', v.namespace, 'developer', 'schedules']">
-          <span nz-icon nzType="rocket"></span>
-          定时调度
+        <li nz-menu-item nzMatchRouter [routerLink]="['/', v.namespace, 'logsystem', 'collector']">
+          <span nz-icon nzType="tool"></span>
+          采集器
         </li>
-        <li nz-menu-item nzMatchRouter [routerLink]="['/', v.namespace, 'developer', 'collector']">
-          <span nz-icon nzType="file-protect"></span>
-          日志采集
+        <li nz-menu-item nzMatchRouter>
+          <span nz-icon nzType="field-binary"></span>
+          日志集
         </li>
       </ul>
     </app-header>

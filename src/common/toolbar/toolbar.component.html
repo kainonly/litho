@@ -43,16 +43,25 @@
       nz-tooltip="监控"
       nzTooltipPlacement="right"
     >
-      <span nz-icon nzType="line-chart"></span>
+      <span nz-icon nzType="monitor"></span>
     </li>
     <li
       nz-menu-item
       nzMatchRouter
-      [routerLink]="['/', v.namespace, 'developer']"
-      nz-tooltip="开发"
+      [routerLink]="['/', v.namespace, 'schedules']"
+      nz-tooltip="任务调度"
       nzTooltipPlacement="right"
     >
-      <i nz-icon nzType="code"></i>
+      <i nz-icon nzType="schedule"></i>
+    </li>
+    <li
+      nz-menu-item
+      nzMatchRouter
+      [routerLink]="['/', v.namespace, 'logsystem']"
+      nz-tooltip="日志系统"
+      nzTooltipPlacement="right"
+    >
+      <span nz-icon nzType="history"></span>
     </li>
   </ul>
 </div>

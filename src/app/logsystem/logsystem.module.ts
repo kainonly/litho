@@ -5,41 +5,34 @@ import { HeaderModule } from '@common/header/header.module';
 import { ShareModule } from '@common/share.module';
 import { ToolbarModule } from '@common/toolbar/toolbar.module';
 
-import { DeveloperComponent } from './developer.component';
+import { LogsystemComponent } from './logsystem.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: DeveloperComponent,
+    component: LogsystemComponent,
     children: [
       {
-        path: 'values',
-        loadChildren: () => import('./values/values.module').then(m => m.ValuesModule),
+        path: 'search',
+        loadChildren: () => import('./search/search.module').then(m => m.SearchModule),
         data: {
-          breadcrumb: '动态配置'
-        }
-      },
-      {
-        path: 'schedules',
-        loadChildren: () => import('./schedules/schedules.module').then(m => m.SchedulesModule),
-        data: {
-          breadcrumb: '定时调度'
+          breadcrumb: '搜索'
         }
       },
       {
         path: 'collector',
         loadChildren: () => import('./collector/collector.module').then(m => m.CollectorModule),
         data: {
-          breadcrumb: '日志采集'
+          breadcrumb: '采集器'
         }
       },
-      { path: '', redirectTo: 'values', pathMatch: 'full' }
+      { path: '', redirectTo: 'search', pathMatch: 'full' }
     ]
   }
 ];
 
 @NgModule({
   imports: [ShareModule, ToolbarModule, HeaderModule, RouterModule.forChild(routes)],
-  declarations: [DeveloperComponent]
+  declarations: [LogsystemComponent]
 })
-export class DeveloperModule {}
+export class LogsystemModule {}

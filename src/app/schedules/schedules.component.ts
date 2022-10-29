@@ -3,9 +3,9 @@ import { Component } from '@angular/core';
 import { AppService } from '@app';
 
 @Component({
-  selector: 'app-developer',
-  templateUrl: './developer.component.html'
+  selector: 'app-schedules',
+  templateUrl: './schedules.component.html'
 })
-export class DeveloperComponent {
+export class SchedulesComponent {
   constructor(public app: AppService) {}
 }
