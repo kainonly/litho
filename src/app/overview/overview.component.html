@@ -29,9 +29,14 @@
       <nz-content>
         <nz-page-header *ngIf="app.project as v">
           <nz-page-header-title>{{ v.name }}</nz-page-header-title>
-          <nz-page-header-subtitle>
+          <nz-page-header-tags>
             <nz-tag>{{ v.namespace }}</nz-tag>
-          </nz-page-header-subtitle>
+          </nz-page-header-tags>
+          <nz-page-header-extra>
+            <nz-space>
+              <button *nzSpaceItem nz-button nzType="primary">发布</button>
+            </nz-space>
+          </nz-page-header-extra>
           <nz-page-header-content>
             <nz-descriptions [nzColumn]="3">
               <nz-descriptions-item nzTitle="创建时间">

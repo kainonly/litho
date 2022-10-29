@@ -38,6 +38,7 @@ import { NzProgressModule } from 'ng-zorro-antd/progress';
 import { NzRadioModule } from 'ng-zorro-antd/radio';
 import { NzResizableModule } from 'ng-zorro-antd/resizable';
 import { NzResultModule } from 'ng-zorro-antd/result';
+import { NzSegmentedModule } from 'ng-zorro-antd/segmented';
 import { NzSelectModule } from 'ng-zorro-antd/select';
 import { NzSpaceModule } from 'ng-zorro-antd/space';
 import { NzStatisticModule } from 'ng-zorro-antd/statistic';
@@ -103,7 +104,8 @@ import { NzUploadModule } from 'ng-zorro-antd/upload';
     NzPipesModule,
     NzResizableModule,
     NzImageModule,
-    NzProgressModule
+    NzProgressModule,
+    NzSegmentedModule
   ]
 })
 export class WpxShareModule {}

@@ -13,13 +13,6 @@ const routes: Routes = [
     component: MonitorComponent,
     children: [
       {
-        path: 'state',
-        loadChildren: () => import('./state/state.module').then(m => m.StateModule),
-        data: {
-          breadcrumb: '状态'
-        }
-      },
-      {
         path: 'sessions',
         loadChildren: () => import('./sessions/sessions.module').then(m => m.SessionsModule),
         data: {
@@ -33,7 +26,14 @@ const routes: Routes = [
           breadcrumb: '审计'
         }
       },
-      { path: '', redirectTo: 'state', pathMatch: 'full' }
+      {
+        path: 'alert',
+        loadChildren: () => import('./alert/alert.module').then(m => m.AlertModule),
+        data: {
+          breadcrumb: '告警'
+        }
+      },
+      { path: '', redirectTo: 'sessions', pathMatch: 'full' }
     ]
   }
 ];

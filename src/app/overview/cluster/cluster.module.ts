@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { ShareModule } from '@common/share.module';
 
+import { CpuComponent } from './charts/cpu.component';
 import { ClusterComponent } from './cluster.component';
 
 const routes: Routes = [
@@ -14,6 +15,6 @@ const routes: Routes = [
 
 @NgModule({
   imports: [ShareModule, RouterModule.forChild(routes)],
-  declarations: [ClusterComponent]
+  declarations: [ClusterComponent, CpuComponent]
 })
 export class ClusterModule {}

@@ -24,32 +24,50 @@ const routes: Routes = [
   {
     path: ':namespace/overview',
     loadChildren: () => import('./overview/overview.module').then(m => m.OverviewModule),
-    canActivate: [AppGuard]
+    canActivate: [AppGuard],
+    data: {
+      breadcrumb: '总览'
+    }
   },
   {
     path: ':namespace/factory',
     loadChildren: () => import('./factory/factory.module').then(m => m.FactoryModule),
-    canActivate: [AppGuard]
+    canActivate: [AppGuard],
+    data: {
+      breadcrumb: '内容生成器'
+    }
   },
   {
     path: ':namespace/media',
     loadChildren: () => import('./media/media.module').then(m => m.MediaModule),
-    canActivate: [AppGuard]
+    canActivate: [AppGuard],
+    data: {
+      breadcrumb: '媒体'
+    }
   },
   {
     path: ':namespace/orgs',
     loadChildren: () => import('./orgs/orgs.module').then(m => m.OrgsModule),
-    canActivate: [AppGuard]
+    canActivate: [AppGuard],
+    data: {
+      breadcrumb: '组织'
+    }
   },
   {
     path: ':namespace/monitor',
     loadChildren: () => import('./monitor/monitor.module').then(m => m.MonitorModule),
-    canActivate: [AppGuard]
+    canActivate: [AppGuard],
+    data: {
+      breadcrumb: '监控'
+    }
   },
   {
     path: ':namespace/developer',
     loadChildren: () => import('./developer/developer.module').then(m => m.DeveloperModule),
-    canActivate: [AppGuard]
+    canActivate: [AppGuard],
+    data: {
+      breadcrumb: '开发'
+    }
   },
   { path: '', redirectTo: 'default/overview', pathMatch: 'full' }
 ];
