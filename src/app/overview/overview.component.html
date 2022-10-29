@@ -1,0 +1,79 @@
+<nz-layout class="main">
+  <app-toolbar></app-toolbar>
+  <nz-layout>
+    <app-header *ngIf="app.project as v">
+      <ul nz-menu nzMode="horizontal">
+        <li nz-menu-item nzMatchRouter [routerLink]="['/', v.namespace, 'overview', 'cluster']">
+          <span nz-icon nzType="cluster"></span>
+          集群
+        </li>
+        <li nz-menu-item nzMatchRouter [routerLink]="['/', v.namespace, 'overview', 'cloud']">
+          <span nz-icon nzType="cloud"></span>
+          公有云
+        </li>
+        <li nz-menu-item nzMatchRouter [routerLink]="['/', v.namespace, 'overview', 'office']">
+          <span nz-icon nzType="coffee"></span>
+          企业平台
+        </li>
+        <li nz-menu-item nzMatchRouter [routerLink]="['/', v.namespace, 'overview', 'functions']">
+          <span nz-icon nzType="experiment"></span>
+          功能模块
+        </li>
+        <li nz-menu-item nzMatchRouter [routerLink]="['/', v.namespace, 'overview', 'security']">
+          <span nz-icon nzType="safety-certificate"></span>
+          安全策略
+        </li>
+      </ul>
+    </app-header>
+    <nz-layout class="frame">
+      <nz-content>
+        <nz-page-header *ngIf="app.project as v">
+          <nz-page-header-title>{{ v.name }}</nz-page-header-title>
+          <nz-page-header-subtitle>
+            <nz-tag>{{ v.namespace }}</nz-tag>
+          </nz-page-header-subtitle>
+          <nz-page-header-content>
+            <nz-descriptions [nzColumn]="3">
+              <nz-descriptions-item nzTitle="创建时间">
+                {{ v.create_time | date: 'yyyy-MM-dd HH:mm:ss' }}
+              </nz-descriptions-item>
+              <nz-descriptions-item nzTitle="更新时间">
+                {{ v.update_time | date: 'yyyy-MM-dd HH:mm:ss' }}
+              </nz-descriptions-item>
+              <nz-descriptions-item nzTitle="有效期">
+                <ng-container *ngIf="v.expire_time; else emptyExpireTime">
+                  {{ v.expire_time | date: 'yyyy-MM-dd HH:mm' }}
+                </ng-container>
+                <ng-template #emptyExpireTime>永久</ng-template>
+              </nz-descriptions-item>
+              <nz-descriptions-item nzTitle="项目ID">
+                <span nz-typography nzCopyable [nzContent]="v._id"></span>
+              </nz-descriptions-item>
+              <nz-descriptions-item [nzSpan]="2" nzTitle="状态">
+                <ng-container *ngIf="v.status; else isFalse">
+                  <nz-badge nzStatus="processing"></nz-badge> 开启
+                </ng-container>
+                <ng-template #isFalse> <nz-badge nzStatus="default"></nz-badge> 关闭 </ng-template>
+              </nz-descriptions-item>
+              <nz-descriptions-item nzTitle="密钥">
+                <ng-container *ngIf="v.secret; else unset">
+                  <span nz-typography nzCopyable [nzContent]="v.secret"></span>
+                </ng-container>
+              </nz-descriptions-item>
+              <nz-descriptions-item [nzSpan]="2" nzTitle="入口">
+                <ng-container *ngIf="v.entry.length !== 0; else unset">
+                  {{ v.entry }}
+                </ng-container>
+              </nz-descriptions-item>
+            </nz-descriptions>
+          </nz-page-header-content>
+        </nz-page-header>
+        <div class="content">
+          <router-outlet></router-outlet>
+        </div>
+      </nz-content>
+    </nz-layout>
+  </nz-layout>
+</nz-layout>
+
+<ng-template #unset>未设置</ng-template>

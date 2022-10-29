@@ -12,6 +12,7 @@ import { NZ_CONFIG, NzConfig } from 'ng-zorro-antd/core/config';
 import { NZ_I18N, zh_CN } from 'ng-zorro-antd/i18n';
 import { NzMessageModule } from 'ng-zorro-antd/message';
 
+import { external } from '../external/external';
 import { AppComponent } from './app.component';
 import { AppGuard } from './app.guard';
 import { AppInterceptors } from './app.interceptors';
@@ -19,20 +20,38 @@ import { AppInterceptors } from './app.interceptors';
 registerLocaleData(zh);
 
 const routes: Routes = [
+  ...external,
   {
-    path: 'login',
-    loadChildren: () => import('./login/login.module').then(m => m.LoginModule)
-  },
-  {
-    path: 'forget',
-    loadChildren: () => import('./forget/forget.module').then(m => m.ForgetModule)
-  },
-  {
-    path: ':namespace',
-    loadChildren: () => import('./namespace/namespace.module').then(m => m.NamespaceModule),
+    path: ':namespace/overview',
+    loadChildren: () => import('./overview/overview.module').then(m => m.OverviewModule),
     canActivate: [AppGuard]
   },
-  { path: '', redirectTo: 'default', pathMatch: 'full' }
+  {
+    path: ':namespace/factory',
+    loadChildren: () => import('./factory/factory.module').then(m => m.FactoryModule),
+    canActivate: [AppGuard]
+  },
+  {
+    path: ':namespace/media',
+    loadChildren: () => import('./media/media.module').then(m => m.MediaModule),
+    canActivate: [AppGuard]
+  },
+  {
+    path: ':namespace/orgs',
+    loadChildren: () => import('./orgs/orgs.module').then(m => m.OrgsModule),
+    canActivate: [AppGuard]
+  },
+  {
+    path: ':namespace/monitor',
+    loadChildren: () => import('./monitor/monitor.module').then(m => m.MonitorModule),
+    canActivate: [AppGuard]
+  },
+  {
+    path: ':namespace/developer',
+    loadChildren: () => import('./developer/developer.module').then(m => m.DeveloperModule),
+    canActivate: [AppGuard]
+  },
+  { path: '', redirectTo: 'default/overview', pathMatch: 'full' }
 ];
 
 @NgModule({

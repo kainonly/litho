@@ -4,7 +4,7 @@ import { Observable, switchMap } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { Project } from '@common/projects/project';
-import { UserInfo } from '@common/types';
+import { Nav, UserInfo } from '@common/types';
 import { AnyDto } from '@weplanx/ng';
 
 @Injectable({ providedIn: 'root' })
@@ -14,9 +14,13 @@ export class AppService {
    */
   project?: AnyDto<Project>;
   /**
-   * 用户信息
+   * 用户
    */
   user?: UserInfo;
+  /**
+   * 导航
+   */
+  navs: Nav[] = [];
 
   constructor(private http: HttpClient) {}
 
