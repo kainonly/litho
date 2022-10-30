@@ -1,8 +1,10 @@
+import { DragDropModule } from '@angular/cdk/drag-drop';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { NzAlertModule } from 'ng-zorro-antd/alert';
+import { NzAutocompleteModule } from 'ng-zorro-antd/auto-complete';
 import { NzAvatarModule } from 'ng-zorro-antd/avatar';
 import { NzBadgeModule } from 'ng-zorro-antd/badge';
 import { NzBreadCrumbModule } from 'ng-zorro-antd/breadcrumb';
@@ -57,6 +59,7 @@ import { NzUploadModule } from 'ng-zorro-antd/upload';
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
+    DragDropModule,
     NzButtonModule,
     NzIconModule,
     NzDividerModule,
@@ -105,7 +108,8 @@ import { NzUploadModule } from 'ng-zorro-antd/upload';
     NzResizableModule,
     NzImageModule,
     NzProgressModule,
-    NzSegmentedModule
+    NzSegmentedModule,
+    NzAutocompleteModule
   ]
 })
 export class WpxShareModule {}

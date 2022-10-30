@@ -16,11 +16,16 @@ nz-layout.frame {
   padding-left: 51px;
   overflow-x: hidden;
   overflow-y: auto;
+}
+
+nz-layout.nested {
+  height: 100%;
+  overflow-x: hidden;
+  overflow-y: auto;
 
   nz-sider {
-    overflow: auto;
-    height: 100%;
-    border-right: 1px solid #f0f0f0;
+    padding: 16px;
+    border-right: 2px solid #f0f0f0;
   }
 }
 

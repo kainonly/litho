@@ -1,0 +1,111 @@
+<form nz-form nzLayout="vertical" id="form" [formGroup]="form" (wpxSubmit)="submit($event)">
+  <nz-form-item>
+    <nz-form-label nzRequired>显示名称</nz-form-label>
+    <nz-form-control
+      nzHasFeedback
+      [nzAutoTips]="{
+        default: {
+          required: '显示名称不能为空'
+        }
+      }"
+    >
+      <input nz-input type="text" formControlName="name" placeholder="请填写显示名称" />
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label>父节点</nz-form-label>
+    <nz-form-control nzHasFeedback>
+      <nz-tree-select
+        [nzNodes]="nodes"
+        nzShowSearch
+        formControlName="parent"
+        nzPlaceHolder="默认最高级"
+      ></nz-tree-select>
+    </nz-form-control>
+  </nz-form-item>
+
+  <nz-form-item>
+    <nz-form-label>字体图标</nz-form-label>
+    <nz-form-control [nzExtra]="iconLink">
+      <ng-template #iconLink>
+        <a target="_blank" href="https://ng.ant.design/components/icon/zh"> 图标列表搜索 </a>
+      </ng-template>
+      <input nz-input formControlName="icon" placeholder="请填写字体图标，遵循图标 nzType 命名规范" />
+    </nz-form-control>
+  </nz-form-item>
+
+  <nz-form-item>
+    <nz-form-label nzRequired>种类</nz-form-label>
+    <nz-form-control
+      [nzAutoTips]="{
+        default: {
+          required: '种类不能为空'
+        }
+      }"
+    >
+      <nz-select formControlName="kind" nzPlaceHolder="请选择一种新增种类" (ngModelChange)="changedKind($event)">
+        <nz-option nzValue="default" nzLabel="数据集" nzCustomContent>
+          <i nz-icon nzType="database"></i> 数据集
+        </nz-option>
+        <nz-option nzValue="aggregation" nzLabel="数据聚合" nzCustomContent>
+          <i nz-icon nzType="calculator"></i> 数据聚合
+        </nz-option>
+        <nz-option nzValue="manual" nzLabel="自定义" nzCustomContent> <i nz-icon nzType="code"></i> 自定义 </nz-option>
+        <nz-option nzValue="group" nzLabel="导航分组" nzCustomContent>
+          <i nz-icon nzType="group"></i> 导航分组
+        </nz-option>
+      </nz-select>
+    </nz-form-control>
+  </nz-form-item>
+
+  <ng-container *ngIf="['default', 'aggregation'].includes(form.get('kind')?.value)">
+    <nz-form-item>
+      <nz-form-label nzRequired>形式</nz-form-label>
+      <nz-form-control>
+        <nz-radio-group formControlName="manifest">
+          <ng-container [ngSwitch]="form.get('kind')?.value">
+            <ng-container *ngSwitchCase="'default'">
+              <label nz-radio-button nzValue="default">标准表格</label>
+              <label nz-radio-button nzValue="form">独立表单</label>
+            </ng-container>
+            <ng-container *ngSwitchCase="'aggregation'">
+              <label nz-radio-button nzValue="default">标准表格</label>
+              <label nz-radio-button nzValue="dashboard">仪表盘</label>
+            </ng-container>
+          </ng-container>
+        </nz-radio-group>
+      </nz-form-control>
+    </nz-form-item>
+  </ng-container>
+
+  <ng-container *ngIf="form.get('kind')?.value === 'default'" formGroupName="schema">
+    <nz-form-item>
+      <nz-form-label nzRequired>模型命名</nz-form-label>
+      <nz-form-control
+        nzHasFeedback
+        [nzAutoTips]="{
+          default: {
+            required: '模型命名不能为空',
+            pattern: '请使用小写字母与下划线的组合',
+            duplicated: '存在重复的定义，模型命名必须是唯一的',
+            history: '存在历史集合，请通过数据库管理工具核实'
+          }
+        }"
+      >
+        <input nz-input type="text" formControlName="key" placeholder="请填写模型命名，如 orders" />
+      </nz-form-control>
+    </nz-form-item>
+  </ng-container>
+
+  <nz-form-item>
+    <nz-form-label nzRequired>状态</nz-form-label>
+    <nz-form-control>
+      <nz-switch formControlName="status"></nz-switch>
+    </nz-form-control>
+  </nz-form-item>
+</form>
+
+<div *nzModalFooter>
+  <button nz-button type="button" nzType="default" (click)="close()">取消</button>
+  <button nz-button nzType="primary" form="form" [disabled]="!form.valid">提交</button>
+</div>

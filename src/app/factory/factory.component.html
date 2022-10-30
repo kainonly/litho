@@ -1,40 +1,29 @@
 <nz-layout class="main">
   <app-toolbar></app-toolbar>
   <nz-layout>
-    <ng-template #breadcrumb>
-      <!--      <nz-breadcrumb>-->
-      <!--        <ng-container *ngIf="!wpx.manual">-->
-      <!--          <nz-breadcrumb-item>-->
-      <!--            <a [routerLink]="['/pages']"><span nz-icon nzType="home"></span> 首页</a>-->
-      <!--          </nz-breadcrumb-item>-->
-      <!--          <ng-container *ngIf="wpx.pageId | async as current">-->
-      <!--            <ng-container *ngFor="let page of current | Path | async">-->
-      <!--              <nz-breadcrumb-item>-->
-      <!--                <ng-container *ngIf="page?.kind !== 'group'; else textName">-->
-      <!--                  <a [routerLink]="['/pages', page._id]">{{ page?.name }}</a>-->
-      <!--                </ng-container>-->
-      <!--                <ng-template #textName>{{ page?.name }}</ng-template>-->
-      <!--              </nz-breadcrumb-item>-->
-      <!--            </ng-container>-->
-      <!--          </ng-container>-->
-      <!--        </ng-container>-->
-      <!--      </nz-breadcrumb>-->
-    </ng-template>
-    <app-header [breadcrumb]="breadcrumb">
+    <app-header *ngIf="app.project as v">
       <ul nz-menu nzMode="horizontal">
-        <li nz-menu-item nzSelected>
+        <li nz-menu-item nzMatchRouter [routerLink]="['/', v.namespace, 'factory', pageId, 'schema']">
           <span nz-icon nzType="ant-design"></span>
-          设计
+          内容模型
         </li>
-        <li nz-menu-item>
-          <span nz-icon nzType="desktop"></span>
-          预览
+        <li nz-menu-item nzMatchRouter [routerLink]="['/', v.namespace, 'factory', pageId, 'indexes']">
+          <span nz-icon nzType="field-binary"></span>
+          索引规则
+        </li>
+        <li nz-menu-item nzMatchRouter [routerLink]="['/', v.namespace, 'factory', pageId, 'rules']">
+          <span nz-icon nzType="calculator"></span>
+          显隐规则
+        </li>
+        <li nz-menu-item nzMatchRouter [routerLink]="['/', v.namespace, 'factory', pageId, 'advanced']">
+          <span nz-icon nzType="setting"></span>
+          高级设置
         </li>
       </ul>
     </app-header>
-    <nz-layout class="frame" style="overflow: hidden">
-      <nz-sider nzTheme="light">
-        <app-factory-nav></app-factory-nav>
+    <nz-layout class="frame nested" style="overflow: hidden">
+      <nz-sider nzTheme="light" [nzWidth]="260">
+        <app-factory-pages [(id)]="pageId" (idChange)="selectedPage($event)"></app-factory-pages>
       </nz-sider>
       <nz-layout style="overflow: auto">
         <nz-content class="content">

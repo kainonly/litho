@@ -9,8 +9,6 @@ import { AppService } from '@app';
   styleUrls: ['header.component.scss']
 })
 export class HeaderComponent {
-  @Input() breadcrumb!: TemplateRef<any>;
-
   constructor(public app: AppService, private router: Router) {}
 
   /**

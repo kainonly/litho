@@ -1,14 +1,7 @@
 <nz-layout class="main">
   <app-toolbar></app-toolbar>
   <nz-layout>
-    <ng-template #breadcrumbTpl>
-      <nz-breadcrumb nzAutoGenerate>
-        <nz-breadcrumb-item>
-          <a [routerLink]="['/']"><span nz-icon nzType="home"></span> 首页</a>
-        </nz-breadcrumb-item>
-      </nz-breadcrumb>
-    </ng-template>
-    <app-header *ngIf="app.project as v" [breadcrumb]="breadcrumbTpl">
+    <app-header *ngIf="app.project as v">
       <ul nz-menu nzMode="horizontal">
         <li nz-menu-item nzMatchRouter [routerLink]="['/', v.namespace, 'logsystem', 'search']">
           <span nz-icon nzType="file-search"></span>
@@ -19,7 +12,7 @@
           采集器
         </li>
         <li nz-menu-item nzMatchRouter>
-          <span nz-icon nzType="field-binary"></span>
+          <span nz-icon nzType="database"></span>
           日志集
         </li>
       </ul>

@@ -1,0 +1,61 @@
+<ng-template #extra>
+  <button nz-button nzType="primary" (click)="form()"> 新增 </button>
+</ng-template>
+
+<nz-card [nzExtra]="extra">
+  <nz-table
+    #contentTable
+    [nzData]="rules"
+    [nzFrontPagination]="false"
+    [nzShowPagination]="false"
+    [nzScroll]="{ x: '1200px' }"
+  >
+    <thead>
+      <tr>
+        <th nzWidth="36px" nzLeft nzAlign="center"> </th>
+        <th><b>显示字段</b></th>
+        <th><b>条件</b></th>
+        <th nzWidth="36px" nzRight nzAlign="center"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let data of contentTable.data; index as i">
+        <td nzLeft nzAlign="center"> </td>
+        <td>
+          <nz-tag *ngFor="let x of data.keys">{{ x }}</nz-tag>
+        </td>
+        <td>
+          <ng-container *ngFor="let x of data.conditions">
+            <nz-tag nzColor="blue">
+              <ng-container [ngSwitch]="data.logic">
+                <ng-container *ngSwitchCase="'and'">所有</ng-container>
+                <ng-container *ngSwitchCase="'or'">任一</ng-container>
+              </ng-container>
+            </nz-tag>
+            <nz-tag>
+              {{ x.key }}
+              <ng-container [ngSwitch]="x.operate">
+                <ng-container *ngSwitchCase="'eq'">等于</ng-container>
+                <ng-container *ngSwitchCase="'ne'">不等于</ng-container>
+                <ng-container *ngSwitchCase="'in'">包含</ng-container>
+                <ng-container *ngSwitchCase="'nin'">不包含</ng-container>
+              </ng-container>
+              {{ x.value }}
+            </nz-tag>
+          </ng-container>
+        </td>
+        <td nzRight nzAlign="center">
+          <button nz-button nzType="text" nz-dropdown [nzDropdownMenu]="actions">
+            <i nz-icon nzType="ellipsis"></i>
+          </button>
+          <nz-dropdown-menu #actions="nzDropdownMenu">
+            <ul nz-menu>
+              <li nz-menu-item (click)="form(i, data)">编辑</li>
+              <li nz-menu-item nzDanger (click)="delete(i)">删除</li>
+            </ul>
+          </nz-dropdown-menu>
+        </td>
+      </tr>
+    </tbody>
+  </nz-table>
+</nz-card>
