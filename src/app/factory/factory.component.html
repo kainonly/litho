@@ -2,24 +2,30 @@
   <app-toolbar></app-toolbar>
   <nz-layout>
     <app-header *ngIf="app.project as v">
-      <ul nz-menu nzMode="horizontal">
-        <li nz-menu-item nzMatchRouter [routerLink]="['/', v.namespace, 'factory', pageId, 'schema']">
-          <span nz-icon nzType="ant-design"></span>
-          内容模型
-        </li>
-        <li nz-menu-item nzMatchRouter [routerLink]="['/', v.namespace, 'factory', pageId, 'indexes']">
-          <span nz-icon nzType="field-binary"></span>
-          索引规则
-        </li>
-        <li nz-menu-item nzMatchRouter [routerLink]="['/', v.namespace, 'factory', pageId, 'rules']">
-          <span nz-icon nzType="calculator"></span>
-          显隐规则
-        </li>
-        <li nz-menu-item nzMatchRouter [routerLink]="['/', v.namespace, 'factory', pageId, 'advanced']">
-          <span nz-icon nzType="setting"></span>
-          高级设置
-        </li>
-      </ul>
+      <ng-container *ngIf="factory.dict[pageId] as page">
+        <ng-container [ngSwitch]="page.kind">
+          <ng-container *ngSwitchCase="'default'">
+            <ul nz-menu nzMode="horizontal">
+              <li nz-menu-item nzMatchRouter [routerLink]="['/', v.namespace, 'factory', pageId, 'schema']">
+                <span nz-icon nzType="ant-design"></span>
+                内容模型
+              </li>
+              <li nz-menu-item nzMatchRouter [routerLink]="['/', v.namespace, 'factory', pageId, 'indexes']">
+                <span nz-icon nzType="field-binary"></span>
+                索引规则
+              </li>
+              <li nz-menu-item nzMatchRouter [routerLink]="['/', v.namespace, 'factory', pageId, 'rules']">
+                <span nz-icon nzType="calculator"></span>
+                显隐规则
+              </li>
+              <li nz-menu-item nzMatchRouter [routerLink]="['/', v.namespace, 'factory', pageId, 'advanced']">
+                <span nz-icon nzType="setting"></span>
+                高级设置
+              </li>
+            </ul>
+          </ng-container>
+        </ng-container>
+      </ng-container>
     </app-header>
     <nz-layout class="frame nested" style="overflow: hidden">
       <nz-sider nzTheme="light" [nzWidth]="260">
