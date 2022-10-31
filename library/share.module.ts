@@ -51,6 +51,7 @@ import { NzTagModule } from 'ng-zorro-antd/tag';
 import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
 import { NzTreeModule } from 'ng-zorro-antd/tree';
 import { NzTreeSelectModule } from 'ng-zorro-antd/tree-select';
+import { NzTreeViewModule } from 'ng-zorro-antd/tree-view';
 import { NzTypographyModule } from 'ng-zorro-antd/typography';
 import { NzUploadModule } from 'ng-zorro-antd/upload';
 
@@ -109,7 +110,8 @@ import { NzUploadModule } from 'ng-zorro-antd/upload';
     NzImageModule,
     NzProgressModule,
     NzSegmentedModule,
-    NzAutocompleteModule
+    NzAutocompleteModule,
+    NzTreeViewModule
   ]
 })
 export class WpxShareModule {}

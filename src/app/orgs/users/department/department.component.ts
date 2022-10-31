@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
 import { AnyDto } from '@weplanx/ng';
 import { NzMessageService } from 'ng-zorro-antd/message';
@@ -22,7 +22,7 @@ export class DepartmentComponent implements OnInit {
   /**
    * 表单
    */
-  form!: UntypedFormGroup;
+  form!: FormGroup;
   /**
    * 节点
    */
@@ -34,7 +34,7 @@ export class DepartmentComponent implements OnInit {
     private modalRef: NzModalRef,
     private modal: NzModalService,
     private message: NzMessageService,
-    private fb: UntypedFormBuilder
+    private fb: FormBuilder
   ) {}
 
   ngOnInit(): void {

@@ -1,14 +1,17 @@
+import { SelectionModel } from '@angular/cdk/collections';
+import { FlatTreeControl } from '@angular/cdk/tree';
 import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
-import { mergeMap } from 'rxjs';
 
-import { AnyDto, expandTreeNodes, Page } from '@weplanx/ng';
+import { AnyDto, expandTreeNodes, FlatNode, Page } from '@weplanx/ng';
 import { NzContextMenuService, NzDropdownMenuComponent } from 'ng-zorro-antd/dropdown';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { NzFormatEmitEvent, NzTreeComponent, NzTreeNodeOptions } from 'ng-zorro-antd/tree';
+import { NzTreeFlatDataSource, NzTreeFlattener } from 'ng-zorro-antd/tree-view';
 
 import { FactorySerivce } from '../factory.service';
 import { FormComponent } from './form/form.component';
+import { PageFlatNode, PageNode } from './types';
 
 @Component({
   selector: 'app-factory-pages',
@@ -16,6 +19,25 @@ import { FormComponent } from './form/form.component';
   styleUrls: ['./pages.component.scss']
 })
 export class PagesComponent implements OnInit {
+  private transformer = (node: PageNode, level: number): PageFlatNode => ({
+    ...node,
+    expandable: !!node.children && node.children.length > 0,
+    level,
+    disabled: !!node.disabled
+  });
+  selectListSelection = new SelectionModel<PageFlatNode>();
+  treeControl = new FlatTreeControl<PageFlatNode>(
+    node => node.level,
+    node => node.expandable
+  );
+  treeFlattener = new NzTreeFlattener(
+    this.transformer,
+    node => node.level,
+    node => node.expandable,
+    node => node.children
+  );
+  dataSource = new NzTreeFlatDataSource(this.treeControl, this.treeFlattener);
+
   /**
    * 页面 ID
    */
@@ -45,17 +67,9 @@ export class PagesComponent implements OnInit {
    */
   expand = true;
   /**
-   * 操作选中 ID
+   * 操作选中节点
    */
-  actionId?: string;
-  /**
-   * 重组树视图
-   */
-  reorganizationVisible = false;
-  /**
-   * 重组节点
-   */
-  reorganizationNodes: NzTreeNodeOptions[] = [];
+  actionNode?: PageFlatNode;
 
   constructor(
     public factory: FactorySerivce,
@@ -64,26 +78,16 @@ export class PagesComponent implements OnInit {
     private message: NzMessageService
   ) {}
 
+  hasChild = (_: number, node: FlatNode): boolean => node.expandable;
+
   ngOnInit(): void {
     this.getData();
   }
 
-  /**
-   * 获取数据
-   * @param refresh
-   */
-  getData(refresh = false): void {
-    this.factory
-      .getTreeNode({}, (dict, page) => {
-        dict[page._id].selectable = page.kind !== 'group';
-      })
-      .subscribe(data => {
-        this.nodes = [...data];
-        this.selectedKeys = [this.id];
-        if (refresh) {
-          this.message.success('刷新完毕~');
-        }
-      });
+  getData(): void {
+    this.factory.getPageNodes().subscribe(v => {
+      this.dataSource.setData(v);
+    });
   }
 
   /**
@@ -110,10 +114,11 @@ export class PagesComponent implements OnInit {
    * 操作
    * @param $event
    * @param menu
+   * @param node
    */
-  actions($event: NzFormatEmitEvent, menu: NzDropdownMenuComponent): void {
-    this.actionId = $event.node!.key;
-    this.nzContextMenuService.create($event.event as MouseEvent, menu);
+  nodeActions($event: MouseEvent, menu: NzDropdownMenuComponent, node: PageFlatNode): void {
+    this.actionNode = node;
+    this.nzContextMenuService.create($event, menu);
   }
 
   /**
@@ -155,62 +160,5 @@ export class PagesComponent implements OnInit {
       },
       nzCancelText: '再想想'
     });
-  }
-
-  /**
-   * 开启重组
-   */
-  openReorganization(): void {
-    this.reorganizationVisible = true;
-    this.reorganizationNodes = this.formatReorganizationNodes([...this.nodes]);
-  }
-
-  /**
-   * 禁止选中
-   * @param nodes
-   */
-  formatReorganizationNodes(nodes: NzTreeNodeOptions[]): NzTreeNodeOptions[] {
-    return nodes.map(v => {
-      if (v.children) {
-        this.formatReorganizationNodes(v.children);
-      }
-      v.selectable = false;
-      v.selected = false;
-      return v;
-    });
-  }
-
-  /**
-   * 关闭重组
-   */
-  closeReorganization(): void {
-    this.reorganizationVisible = false;
-  }
-
-  /**
-   * 排序重组
-   * @param event
-   */
-  reorganization(event: NzFormatEmitEvent): void {
-    if (!event.dragNode) {
-      return;
-    }
-    const node = event.dragNode;
-    const parentNode = node.getParentNode();
-    let parent: any = null;
-    let sort: string[];
-    if (!parentNode) {
-      sort = node.treeService!.rootNodes.map(v => v.key);
-    } else {
-      parent = parentNode.key;
-      sort = parentNode.children.map(v => v.key);
-    }
-    this.factory
-      .reorganization(node.key, parent)
-      .pipe(mergeMap(() => this.factory.sort(sort)))
-      .subscribe(() => {
-        this.message.success('数据更新完成');
-        this.getData();
-      });
   }
 }

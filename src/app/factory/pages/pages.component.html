@@ -20,90 +20,84 @@
 
 <nz-divider style="margin: 8px 0"></nz-divider>
 
-<nz-tree
-  #tree
-  nzBlockNode
-  nzExpandAll
-  nzShowLine
-  nzDraggable
-  [nzData]="nodes"
-  [nzSearchValue]="searchText"
-  [nzExpandedIcon]="nzExpandedIcon"
-  [nzTreeTemplate]="nzTreeTemplate"
-  [nzSelectedKeys]="selectedKeys"
-  (nzClick)="selected($event)"
-  (nzContextMenu)="actions($event, treeActions)"
-  (nzOnDrop)="reorganization($event)"
->
-  <ng-template #nzExpandedIcon let-node>
-    <span class="custom-icon" *ngIf="factory.dict?.[node.key] as page">
-      <ng-container *ngIf="!page.status; else kindTpl">
-        <i nz-icon nzType="stop" nzTheme="twotone" [nzTwotoneColor]="'#ff7875'"></i>
-      </ng-container>
-      <ng-template #kindTpl [ngSwitch]="page.kind">
-        <ng-container *ngSwitchCase="'default'">
-          <i nz-icon nzType="database" nzTheme="twotone"></i>
-        </ng-container>
-        <ng-container *ngSwitchCase="'aggregation'">
-          <i nz-icon nzType="calculator" nzTheme="twotone"></i>
-        </ng-container>
-        <ng-container *ngSwitchCase="'manual'">
-          <i nz-icon nzType="code" nzTheme="twotone"></i>
-        </ng-container>
-        <ng-container *ngSwitchCase="'group'">
-          <i nz-icon [nzType]="!node.isExpanded ? 'folder' : 'folder-open'" nzTheme="twotone"></i>
-        </ng-container>
-      </ng-template>
-    </span>
-  </ng-template>
-
-  <ng-template #nzTreeTemplate let-node>
-    <span class="custom-node" *ngIf="factory.dict?.[node.key] as page">
-      <i *ngIf="page.icon" nz-icon [nzType]="page.icon"></i>
-      <span>
-        {{ page.name }}
-        <ng-container *ngIf="page.manifest">
-          [
-          <ng-container [ngSwitch]="page.manifest">
-            <ng-container *ngSwitchCase="'default'"> 标准表格 </ng-container>
-            <ng-container *ngSwitchCase="'form'">独立表单</ng-container>
-            <ng-container *ngSwitchCase="'dashboard'">仪表盘</ng-container>
-          </ng-container>
-          ]
-        </ng-container>
-        <ng-container *ngIf="page.manual"> [{{ page.manual.scope }}] </ng-container>
-      </span>
-    </span>
-  </ng-template>
-  <!-- 右键操作 -->
-  <nz-dropdown-menu #treeActions="nzDropdownMenu">
-    <ul *ngIf="actionId" nz-menu>
-      <ng-container *ngIf="factory.dict?.[actionId] as page">
-        <li nz-menu-item [nzSelected]="false">
-          <i *ngIf="page.icon" nz-icon [nzType]="page.icon"></i>&nbsp;
-          <span>{{ page.name }}</span>
-        </li>
-        <li nz-menu-divider></li>
-        <ng-container *ngIf="page.kind === 'group'">
-          <li nz-menu-item (click)="form(undefined, page._id)"> 新增 </li>
-        </ng-container>
-        <li nz-menu-item (click)="form(page)"> 编辑 </li>
-        <li nz-menu-item nzDanger (click)="delete(page)"> 删除 </li>
-      </ng-container>
-    </ul>
-  </nz-dropdown-menu>
-</nz-tree>
-
-<nz-drawer nzTitle="拖拽进行重组" [nzVisible]="reorganizationVisible" (nzOnClose)="closeReorganization()">
-  <ng-container *nzDrawerContent>
-    <nz-tree
-      nzBlockNode
-      nzExpandAll
-      nzShowLine
-      nzDraggable
-      [nzData]="reorganizationNodes"
-      (nzOnDrop)="reorganization($event)"
+<nz-tree-view [nzTreeControl]="treeControl" [nzDataSource]="dataSource" nzBlockNode>
+  <nz-tree-node *nzTreeNodeDef="let node" nzTreeNodeIndentLine>
+    <nz-tree-node-toggle nzTreeNodeNoopToggle>
+      <ng-container *ngTemplateOutlet="icon; context: { $implicit: node }"></ng-container>
+    </nz-tree-node-toggle>
+    <nz-tree-node-option
+      [nzDisabled]="node.disabled"
+      [nzSelected]="selectListSelection.isSelected(node)"
+      (nzClick)="selectListSelection.toggle(node)"
     >
-    </nz-tree>
-  </ng-container>
-</nz-drawer>
+      <ng-container *ngTemplateOutlet="content; context: { $implicit: node }"></ng-container>
+    </nz-tree-node-option>
+  </nz-tree-node>
+
+  <nz-tree-node *nzTreeNodeDef="let node; when: hasChild" nzTreeNodeIndentLine>
+    <nz-tree-node-toggle>
+      <ng-container *ngTemplateOutlet="icon; context: { $implicit: node }"></ng-container>
+    </nz-tree-node-toggle>
+    <nz-tree-node-option
+      [nzDisabled]="node.disabled"
+      [nzSelected]="selectListSelection.isSelected(node)"
+      (nzClick)="selectListSelection.toggle(node)"
+    >
+      <ng-container *ngTemplateOutlet="content; context: { $implicit: node }"></ng-container>
+    </nz-tree-node-option>
+  </nz-tree-node>
+</nz-tree-view>
+
+<ng-template #icon let-node>
+  <div class="custom-icon">
+    <ng-container *ngIf="!node.status; else kind">
+      <span nz-icon nzType="stop" nzTheme="twotone" [nzTwotoneColor]="'#ff7875'"></span>
+    </ng-container>
+    <ng-template #kind [ngSwitch]="node.kind">
+      <ng-container *ngSwitchCase="'default'">
+        <span nz-icon nzType="database" nzTheme="twotone"></span>
+      </ng-container>
+      <ng-container *ngSwitchCase="'aggregation'">
+        <span nz-icon nzType="calculator" nzTheme="twotone"></span>
+      </ng-container>
+      <ng-container *ngSwitchCase="'manual'">
+        <span nz-icon nzType="code" nzTheme="twotone"></span>
+      </ng-container>
+      <ng-container *ngSwitchCase="'group'">
+        <span nz-icon [nzType]="!treeControl.isExpanded(node) ? 'folder' : 'folder-open'" nzTheme="twotone"></span>
+      </ng-container>
+    </ng-template>
+  </div>
+</ng-template>
+
+<ng-template #content let-node>
+  <div class="custom-node" (contextmenu)="nodeActions($event, nodeActionsMenu, node)">
+    <span *ngIf="node.icon" nz-icon [nzType]="node.icon"></span>
+    {{ node.name }}
+    <ng-container *ngIf="node.manifest">
+      [
+      <ng-container [ngSwitch]="node.manifest">
+        <ng-container *ngSwitchCase="'default'"> 标准表格 </ng-container>
+        <ng-container *ngSwitchCase="'form'">独立表单</ng-container>
+        <ng-container *ngSwitchCase="'dashboard'">仪表盘</ng-container>
+      </ng-container>
+      ]
+    </ng-container>
+    <ng-container *ngIf="node.manual"> [ {{ node.manual.scope }} ] </ng-container>
+  </div>
+</ng-template>
+
+<nz-dropdown-menu #nodeActionsMenu="nzDropdownMenu">
+  <ul *ngIf="actionNode as node" nz-menu>
+    <li nz-menu-item [nzSelected]="false">
+      <i *ngIf="node.icon" nz-icon [nzType]="node.icon"></i>&nbsp;
+      <span>{{ node.name }}</span>
+    </li>
+    <li nz-menu-divider></li>
+    <ng-container *ngIf="node.kind === 'group'">
+      <li nz-menu-item (click)="form(undefined, node._id)"> 新增 </li>
+    </ng-container>
+    <li nz-menu-item (click)="form(node)"> 编辑 </li>
+    <li nz-menu-item nzDanger (click)="delete(node)"> 删除 </li>
+  </ul>
+</nz-dropdown-menu>

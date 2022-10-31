@@ -5,6 +5,8 @@ import { map, switchMap } from 'rxjs/operators';
 import { AnyDto, WpxApi, Filter, UpdateOneByIdOption, Page, SchemaField } from '@weplanx/ng';
 import { NzTreeNodeOptions } from 'ng-zorro-antd/tree';
 
+import { PageNode } from './pages/types';
+
 @Injectable()
 export class FactorySerivce extends WpxApi<Page> {
   protected override collection = 'pages';
@@ -51,6 +53,34 @@ export class FactorySerivce extends WpxApi<Page> {
               }
               dict[x.parent as string].children?.push(options);
               dict[x.parent as string].isLeaf = false;
+            }
+          }
+        }
+        return nodes;
+      })
+    );
+  }
+
+  getPageNodes(): Observable<PageNode[]> {
+    return this.find({}, { sort: { sort: 1 } }).pipe(
+      map(v => {
+        const nodes: PageNode[] = [];
+        const dict: Record<string, PageNode> = {};
+        for (const x of v) {
+          this.dict[x._id] = x;
+          dict[x._id] = x;
+        }
+        for (const x of v) {
+          const options = dict[x._id];
+          if (!x.parent) {
+            nodes.push(options);
+          } else {
+            if (dict.hasOwnProperty(x.parent as string)) {
+              if (!dict[x.parent].hasOwnProperty('children')) {
+                dict[x.parent].children = [];
+              }
+              dict[x.parent].children?.push(options);
+              // dict[x.parent as string].isLeaf = false;
             }
           }
         }

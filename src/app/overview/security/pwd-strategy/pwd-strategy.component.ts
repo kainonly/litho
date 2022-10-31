@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { WpxService } from '@weplanx/ng';
 import { NzMessageService } from 'ng-zorro-antd/message';
@@ -18,13 +18,13 @@ export class PwdStrategyComponent implements OnInit {
   /**
    * 表单
    */
-  form!: UntypedFormGroup;
+  form!: FormGroup;
 
   constructor(
     public wpx: WpxService,
     private modalRef: NzModalRef,
     private message: NzMessageService,
-    private fb: UntypedFormBuilder
+    private fb: FormBuilder
   ) {}
 
   ngOnInit(): void {

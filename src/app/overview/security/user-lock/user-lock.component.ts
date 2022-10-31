@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { WpxService } from '@weplanx/ng';
 import { NzMessageService } from 'ng-zorro-antd/message';
@@ -17,7 +17,7 @@ export class UserLockComponent implements OnInit {
   /**
    * 表单
    */
-  form!: UntypedFormGroup;
+  form!: FormGroup;
   /**
    * 次数
    * @param value
@@ -33,7 +33,7 @@ export class UserLockComponent implements OnInit {
     public wpx: WpxService,
     private modalRef: NzModalRef,
     private message: NzMessageService,
-    private fb: UntypedFormBuilder
+    private fb: FormBuilder
   ) {}
 
   ngOnInit(): void {

@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { AppService } from '@app';
@@ -12,8 +12,7 @@ import { FactorySerivce } from './factory.service';
 
 @Component({
   selector: 'app-factory',
-  templateUrl: './factory.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  templateUrl: './factory.component.html'
 })
 export class FactoryComponent implements OnInit {
   pageId = '';

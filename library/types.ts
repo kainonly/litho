@@ -340,20 +340,11 @@ export interface ComponentTypeOption<T> {
   component: ComponentPortal<T>;
 }
 
-/**
- * 用户信息
- */
-export interface UserInfo {
-  username: string;
-  email: string;
+export interface FlatNode {
+  expandable: boolean;
   name: string;
-  avatar: string;
-  roles?: string[];
-  department?: string;
-  feishu?: any;
-  sessions: number;
-  last: string;
-  create_time: number;
+  level: number;
+  disabled: boolean;
 }
 
 export interface UploadOption {
