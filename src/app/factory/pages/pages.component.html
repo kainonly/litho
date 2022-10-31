@@ -9,8 +9,8 @@
     <button nz-button nzType="text" nz-tooltip="刷新" (click)="getData()">
       <i nz-icon nzType="reload"></i>
     </button>
-    <button nz-button nzType="text" [nz-tooltip]="expand ? '收起' : '展开'" (click)="expanded()">
-      <span nz-icon [nzType]="expand ? 'node-collapse' : 'node-expand'"></span>
+    <button nz-button nzType="text" nz-tooltip="重组" (click)="openReorganization()">
+      <i nz-icon nzType="swap"></i>
     </button>
     <button nz-button nzType="text" nz-tooltip="新增" (click)="form()">
       <span nz-icon nzType="sisternode"></span>
@@ -20,15 +20,15 @@
 
 <nz-divider style="margin: 8px 0"></nz-divider>
 
-<nz-tree-view [nzTreeControl]="treeControl" [nzDataSource]="dataSource" nzBlockNode>
+<nz-tree-view [nzTreeControl]="control" [nzDataSource]="ds" nzBlockNode>
   <nz-tree-node *nzTreeNodeDef="let node" nzTreeNodeIndentLine>
     <nz-tree-node-toggle nzTreeNodeNoopToggle>
       <ng-container *ngTemplateOutlet="icon; context: { $implicit: node }"></ng-container>
     </nz-tree-node-toggle>
     <nz-tree-node-option
       [nzDisabled]="node.disabled"
-      [nzSelected]="selectListSelection.isSelected(node)"
-      (nzClick)="selectListSelection.toggle(node)"
+      [nzSelected]="selection.isSelected(node)"
+      (nzClick)="selected(node)"
     >
       <ng-container *ngTemplateOutlet="content; context: { $implicit: node }"></ng-container>
     </nz-tree-node-option>
@@ -40,8 +40,8 @@
     </nz-tree-node-toggle>
     <nz-tree-node-option
       [nzDisabled]="node.disabled"
-      [nzSelected]="selectListSelection.isSelected(node)"
-      (nzClick)="selectListSelection.toggle(node)"
+      [nzSelected]="selection.isSelected(node)"
+      (nzClick)="selected(node)"
     >
       <ng-container *ngTemplateOutlet="content; context: { $implicit: node }"></ng-container>
     </nz-tree-node-option>
@@ -64,7 +64,7 @@
         <span nz-icon nzType="code" nzTheme="twotone"></span>
       </ng-container>
       <ng-container *ngSwitchCase="'group'">
-        <span nz-icon [nzType]="!treeControl.isExpanded(node) ? 'folder' : 'folder-open'" nzTheme="twotone"></span>
+        <span nz-icon [nzType]="!control.isExpanded(node) ? 'folder' : 'folder-open'" nzTheme="twotone"></span>
       </ng-container>
     </ng-template>
   </div>
@@ -101,3 +101,17 @@
     <li nz-menu-item nzDanger (click)="delete(node)"> 删除 </li>
   </ul>
 </nz-dropdown-menu>
+
+<nz-drawer nzTitle="拖拽进行重组" [nzVisible]="reorganizationVisible" (nzOnClose)="closeReorganization()">
+  <ng-container *nzDrawerContent>
+    <nz-tree
+      nzBlockNode
+      nzExpandAll
+      nzShowLine
+      nzDraggable
+      [nzData]="reorganizationNodes"
+      (nzOnDrop)="reorganization($event)"
+    >
+    </nz-tree>
+  </ng-container>
+</nz-drawer>

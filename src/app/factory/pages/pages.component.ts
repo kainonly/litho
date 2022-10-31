@@ -1,12 +1,13 @@
 import { SelectionModel } from '@angular/cdk/collections';
 import { FlatTreeControl } from '@angular/cdk/tree';
-import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { mergeMap } from 'rxjs';
 
-import { AnyDto, expandTreeNodes, FlatNode, Page } from '@weplanx/ng';
+import { AnyDto, FlatNode, Page } from '@weplanx/ng';
 import { NzContextMenuService, NzDropdownMenuComponent } from 'ng-zorro-antd/dropdown';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalService } from 'ng-zorro-antd/modal';
-import { NzFormatEmitEvent, NzTreeComponent, NzTreeNodeOptions } from 'ng-zorro-antd/tree';
+import { NzFormatEmitEvent, NzTreeNodeOptions } from 'ng-zorro-antd/tree';
 import { NzTreeFlatDataSource, NzTreeFlattener } from 'ng-zorro-antd/tree-view';
 
 import { FactorySerivce } from '../factory.service';
@@ -19,25 +20,6 @@ import { PageFlatNode, PageNode } from './types';
   styleUrls: ['./pages.component.scss']
 })
 export class PagesComponent implements OnInit {
-  private transformer = (node: PageNode, level: number): PageFlatNode => ({
-    ...node,
-    expandable: !!node.children && node.children.length > 0,
-    level,
-    disabled: !!node.disabled
-  });
-  selectListSelection = new SelectionModel<PageFlatNode>();
-  treeControl = new FlatTreeControl<PageFlatNode>(
-    node => node.level,
-    node => node.expandable
-  );
-  treeFlattener = new NzTreeFlattener(
-    this.transformer,
-    node => node.level,
-    node => node.expandable,
-    node => node.children
-  );
-  dataSource = new NzTreeFlatDataSource(this.treeControl, this.treeFlattener);
-
   /**
    * 页面 ID
    */
@@ -47,29 +29,49 @@ export class PagesComponent implements OnInit {
    */
   @Output() readonly idChange: EventEmitter<string> = new EventEmitter<string>();
   /**
-   * 树视图
+   * 树视图控制
    */
-  @ViewChild('tree') tree!: NzTreeComponent;
+  control = new FlatTreeControl<PageFlatNode>(
+    node => node.level,
+    node => node.expandable
+  );
   /**
-   * 树视图节点
+   * 选择模型
    */
-  nodes: NzTreeNodeOptions[] = [];
+  selection = new SelectionModel<PageFlatNode>();
   /**
-   * 初始选中节点
+   * 数据源
    */
-  selectedKeys: string[] = [];
+  ds = new NzTreeFlatDataSource(
+    this.control,
+    new NzTreeFlattener(
+      (node: PageNode, level: number): PageFlatNode => ({
+        ...node,
+        expandable: !!node.children && node.children.length > 0,
+        level,
+        disabled: !!node.disabled
+      }),
+      node => node.level,
+      node => node.expandable,
+      node => node.children
+    )
+  );
   /**
    * 搜索文本
    */
   searchText = '';
   /**
-   * 展开状态
-   */
-  expand = true;
-  /**
    * 操作选中节点
    */
   actionNode?: PageFlatNode;
+  /**
+   * 重组树视图
+   */
+  reorganizationVisible = false;
+  /**
+   * 重组节点
+   */
+  reorganizationNodes: NzTreeNodeOptions[] = [];
 
   constructor(
     public factory: FactorySerivce,
@@ -84,29 +86,24 @@ export class PagesComponent implements OnInit {
     this.getData();
   }
 
+  /**
+   * 获取数据
+   */
   getData(): void {
     this.factory.getPageNodes().subscribe(v => {
-      this.dataSource.setData(v);
+      this.ds.setData(v);
     });
   }
 
   /**
-   * 展开状态
-   */
-  expanded(): void {
-    this.expand = !this.expand;
-    expandTreeNodes(this.tree.getTreeNodes(), this.expand);
-  }
-
-  /**
    * 选择
-   * @param e
    */
-  selected(e: NzFormatEmitEvent): void {
-    if (!e.node?.isSelectable) {
+  selected(node: PageFlatNode): void {
+    if (node.kind === 'group') {
       return;
     }
-    this.id = e.node?.isSelected ? e.node.key : '';
+    this.selection.toggle(node);
+    this.id = this.selection.isSelected(node) ? node._id : '';
     this.idChange.next(this.id);
   }
 
@@ -160,5 +157,62 @@ export class PagesComponent implements OnInit {
       },
       nzCancelText: '再想想'
     });
+  }
+
+  /**
+   * 开启重组
+   */
+  openReorganization(): void {
+    this.reorganizationVisible = true;
+    this.reorganizationNodes = this.formatReorganizationNodes([]);
+  }
+
+  /**
+   * 禁止选中
+   * @param nodes
+   */
+  formatReorganizationNodes(nodes: NzTreeNodeOptions[]): NzTreeNodeOptions[] {
+    return nodes.map(v => {
+      if (v.children) {
+        this.formatReorganizationNodes(v.children);
+      }
+      v.selectable = false;
+      v.selected = false;
+      return v;
+    });
+  }
+
+  /**
+   * 关闭重组
+   */
+  closeReorganization(): void {
+    this.reorganizationVisible = false;
+  }
+
+  /**
+   * 排序重组
+   * @param event
+   */
+  reorganization(event: NzFormatEmitEvent): void {
+    if (!event.dragNode) {
+      return;
+    }
+    const node = event.dragNode;
+    const parentNode = node.getParentNode();
+    let parent: any = null;
+    let sort: string[];
+    if (!parentNode) {
+      sort = node.treeService!.rootNodes.map(v => v.key);
+    } else {
+      parent = parentNode.key;
+      sort = parentNode.children.map(v => v.key);
+    }
+    this.factory
+      .reorganization(node.key, parent)
+      .pipe(mergeMap(() => this.factory.sort(sort)))
+      .subscribe(() => {
+        this.message.success('数据更新完成');
+        this.getData();
+      });
   }
 }
