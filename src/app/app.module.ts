@@ -30,8 +30,8 @@ const routes: Routes = [
     }
   },
   {
-    path: ':namespace/factory',
-    loadChildren: () => import('./factory/factory.module').then(m => m.FactoryModule),
+    path: ':namespace/pages',
+    loadChildren: () => import('./pages/pages.module').then(m => m.PagesModule),
     canActivate: [AppGuard],
     data: {
       breadcrumb: '内容生成器'
