@@ -22,6 +22,7 @@
     "@angular/router": "^14.2.8",
     "@angular/service-worker": "^14.2.8",
     "@antv/g2plot": "^2.4.20",
+    "d3-color": "^3.1.0",
     "monaco-editor": "^0.31.1",
     "nanoid": "^4.0.0",
     "ng-zorro-antd": "^14.1.1",

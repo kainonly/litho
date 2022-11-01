@@ -43,6 +43,7 @@ export class SchemaComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.params.subscribe(v => {
+      console.log(v);
       this.id = v['id'];
       this.getData();
     });

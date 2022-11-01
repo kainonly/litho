@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { AbstractControl, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { WpxService } from '@weplanx/ng';
 import { NzModalRef } from 'ng-zorro-antd/modal';
@@ -19,7 +19,7 @@ export class DefaultComponent implements OnInit {
   /**
    * 表单
    */
-  form!: UntypedFormGroup;
+  form!: FormGroup;
   /**
    * 数据
    */
@@ -29,7 +29,7 @@ export class DefaultComponent implements OnInit {
     public wpx: WpxService,
     private modalRef: NzModalRef,
     private factory: FactorySerivce,
-    private fb: UntypedFormBuilder
+    private fb: FormBuilder
   ) {}
 
   ngOnInit(): void {

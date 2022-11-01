@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 
 import { NzMessageService } from 'ng-zorro-antd/message';
@@ -19,12 +19,12 @@ export class AdvancedComponent implements OnInit {
   /**
    * 表单
    */
-  form!: UntypedFormGroup;
+  form!: FormGroup;
 
   constructor(
     private message: NzMessageService,
     private notification: NzNotificationService,
-    private fb: UntypedFormBuilder,
+    private fb: FormBuilder,
     private factory: FactorySerivce,
     private route: ActivatedRoute
   ) {}

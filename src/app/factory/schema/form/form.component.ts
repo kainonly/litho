@@ -1,10 +1,10 @@
 import { Component, Input, OnInit } from '@angular/core';
 import {
   AbstractControl,
+  FormBuilder,
+  FormGroup,
   UntypedFormArray,
-  UntypedFormBuilder,
   UntypedFormControl,
-  UntypedFormGroup,
   Validators
 } from '@angular/forms';
 import { Observable, of, switchMap, throttleTime } from 'rxjs';
@@ -38,7 +38,7 @@ export class FormComponent implements OnInit {
   /**
    * 表单
    */
-  form!: UntypedFormGroup;
+  form!: FormGroup;
   /**
    * 当前字段类型
    */
@@ -69,7 +69,7 @@ export class FormComponent implements OnInit {
     private modal: NzModalService,
     private modalRef: NzModalRef,
     private factory: FactorySerivce,
-    private fb: UntypedFormBuilder,
+    private fb: FormBuilder,
     private message: NzMessageService
   ) {}
 
