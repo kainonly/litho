@@ -1,0 +1,47 @@
+<!--<ng-container *ngIf="app.project as v">-->
+<!--  <ng-container *ngIf="pages.dict[id] as page">-->
+<!--    <ng-container [ngSwitch]="page.kind">-->
+<!--      <ng-container *ngSwitchCase="'default'">-->
+<!--        <ul nz-menu nzMode="horizontal">-->
+<!--          <li nz-menu-item nzMatchRouter [routerLink]="['/', v.namespace, 'pages', id, 'schema']">-->
+<!--            <span nz-icon nzType="ant-design"></span>-->
+<!--            内容模型-->
+<!--          </li>-->
+<!--          <li nz-menu-item nzMatchRouter [routerLink]="['/', v.namespace, 'pages', id, 'indexes']">-->
+<!--            <span nz-icon nzType="field-binary"></span>-->
+<!--            索引规则-->
+<!--          </li>-->
+<!--          <li nz-menu-item nzMatchRouter [routerLink]="['/', v.namespace, 'pages', id, 'rules']">-->
+<!--            <span nz-icon nzType="calculator"></span>-->
+<!--            显隐规则-->
+<!--          </li>-->
+<!--          <li nz-menu-item nzMatchRouter [routerLink]="['/', v.namespace, 'pages', id, 'advanced']">-->
+<!--            <span nz-icon nzType="setting"></span>-->
+<!--            高级设置-->
+<!--          </li>-->
+<!--        </ul>-->
+<!--      </ng-container>-->
+<!--    </ng-container>-->
+<!--  </ng-container>-->
+<!--</ng-container>-->
+
+<nz-card *ngIf="app.project as v">
+  <nz-card-tab>
+    <nz-tabset nzSize="large" [nzTabBarExtraContent]="extra">
+      <nz-tab>
+        <a *nzTabLink nz-tab-link [routerLink]="['/', v.namespace, 'pages', id, 'schema']"> 内容模型 </a>
+      </nz-tab>
+      <nz-tab>
+        <a *nzTabLink nz-tab-link [routerLink]="['/', v.namespace, 'pages', id, 'indexes']"> 索引规则 </a>
+      </nz-tab>
+      <nz-tab>
+        <a *nzTabLink nz-tab-link [routerLink]="['/', v.namespace, 'pages', id, 'rules']"> 显隐规则 </a>
+      </nz-tab>
+      <nz-tab>
+        <a *nzTabLink nz-tab-link [routerLink]="['/', v.namespace, 'pages', id, 'advanced']"> 高级设置 </a>
+      </nz-tab>
+    </nz-tabset>
+  </nz-card-tab>
+
+  <ng-content></ng-content>
+</nz-card>

@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { ShareModule } from '@common/share.module';
 
+import { TabsModule } from '../tabs/tabs.module';
 import { FormComponent } from './form/form.component';
 import { IndexTypePipe } from './index-type.pipe';
 import { IndexesComponent } from './indexes.component';
@@ -15,7 +16,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [ShareModule, RouterModule.forChild(routes)],
+  imports: [ShareModule, RouterModule.forChild(routes), TabsModule],
   declarations: [IndexesComponent, IndexTypePipe, FormComponent]
 })
 export class IndexesModule {}

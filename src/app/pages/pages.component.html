@@ -1,34 +1,20 @@
 <nz-layout class="main">
   <app-toolbar></app-toolbar>
   <nz-layout>
-    <app-header *ngIf="app.project as v">
-      <!--      <ng-container *ngIf="pages.dict[pageId!] as page">-->
-      <!--        <ng-container [ngSwitch]="page.kind">-->
-      <!--          <ng-container *ngSwitchCase="'default'">-->
-      <!--            <ul nz-menu nzMode="horizontal">-->
-      <!--              <li nz-menu-item nzMatchRouter [routerLink]="['/', v.namespace, 'pages', pageId, 'schema']">-->
-      <!--                <span nz-icon nzType="ant-design"></span>-->
-      <!--                内容模型-->
-      <!--              </li>-->
-      <!--              <li nz-menu-item nzMatchRouter [routerLink]="['/', v.namespace, 'pages', pageId, 'indexes']">-->
-      <!--                <span nz-icon nzType="field-binary"></span>-->
-      <!--                索引规则-->
-      <!--              </li>-->
-      <!--              <li nz-menu-item nzMatchRouter [routerLink]="['/', v.namespace, 'pages', pageId, 'rules']">-->
-      <!--                <span nz-icon nzType="calculator"></span>-->
-      <!--                显隐规则-->
-      <!--              </li>-->
-      <!--              <li nz-menu-item nzMatchRouter [routerLink]="['/', v.namespace, 'pages', pageId, 'advanced']">-->
-      <!--                <span nz-icon nzType="setting"></span>-->
-      <!--                高级设置-->
-      <!--              </li>-->
-      <!--            </ul>-->
-      <!--          </ng-container>-->
-      <!--        </ng-container>-->
-      <!--      </ng-container>-->
+    <app-header>
+      <ul *ngIf="pageId" nz-menu nzMode="horizontal" [nzSelectable]="false">
+        <li nz-menu-item>
+          <span nz-icon nzType="ant-design"></span>
+          预览
+        </li>
+        <li nz-menu-item>
+          <span nz-icon nzType="export"></span>
+          导出
+        </li>
+      </ul>
     </app-header>
     <nz-layout class="frame nested" style="overflow: hidden">
-      <nz-sider nzTheme="light" [nzWidth]="330">
+      <nz-sider nzTheme="light" [nzWidth]="320">
         <nz-space>
           <nz-input-group *nzSpaceItem [nzPrefix]="suffixIconSearch" style="width: 180px">
             <input type="text" nz-input placeholder="搜索" [(ngModel)]="searchText" />
