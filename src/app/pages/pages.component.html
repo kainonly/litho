@@ -1,7 +1,32 @@
 <nz-layout class="main">
   <app-toolbar></app-toolbar>
   <nz-layout>
-    <app-header></app-header>
+    <app-header *ngIf="app.project as v">
+      <!--      <ng-container *ngIf="pages.dict[pageId!] as page">-->
+      <!--        <ng-container [ngSwitch]="page.kind">-->
+      <!--          <ng-container *ngSwitchCase="'default'">-->
+      <!--            <ul nz-menu nzMode="horizontal">-->
+      <!--              <li nz-menu-item nzMatchRouter [routerLink]="['/', v.namespace, 'pages', pageId, 'schema']">-->
+      <!--                <span nz-icon nzType="ant-design"></span>-->
+      <!--                内容模型-->
+      <!--              </li>-->
+      <!--              <li nz-menu-item nzMatchRouter [routerLink]="['/', v.namespace, 'pages', pageId, 'indexes']">-->
+      <!--                <span nz-icon nzType="field-binary"></span>-->
+      <!--                索引规则-->
+      <!--              </li>-->
+      <!--              <li nz-menu-item nzMatchRouter [routerLink]="['/', v.namespace, 'pages', pageId, 'rules']">-->
+      <!--                <span nz-icon nzType="calculator"></span>-->
+      <!--                显隐规则-->
+      <!--              </li>-->
+      <!--              <li nz-menu-item nzMatchRouter [routerLink]="['/', v.namespace, 'pages', pageId, 'advanced']">-->
+      <!--                <span nz-icon nzType="setting"></span>-->
+      <!--                高级设置-->
+      <!--              </li>-->
+      <!--            </ul>-->
+      <!--          </ng-container>-->
+      <!--        </ng-container>-->
+      <!--      </ng-container>-->
+    </app-header>
     <nz-layout class="frame nested" style="overflow: hidden">
       <nz-sider nzTheme="light" [nzWidth]="330">
         <nz-space>
@@ -33,7 +58,7 @@
             </nz-tree-node-toggle>
             <nz-tree-node-option
               [nzDisabled]="node.disabled"
-              [nzSelected]="selection.isSelected(node)"
+              [nzSelected]="selection.isSelected(node._id)"
               (nzClick)="selected(node)"
             >
               <ng-container *ngTemplateOutlet="content; context: { $implicit: node }"></ng-container>
@@ -46,7 +71,7 @@
             </nz-tree-node-toggle>
             <nz-tree-node-option
               [nzDisabled]="node.disabled"
-              [nzSelected]="selection.isSelected(node)"
+              [nzSelected]="selection.isSelected(node._id)"
               (nzClick)="selected(node)"
             >
               <ng-container *ngTemplateOutlet="content; context: { $implicit: node }"></ng-container>
@@ -117,7 +142,12 @@
   </ul>
 </nz-dropdown-menu>
 
-<nz-drawer nzTitle="拖拽进行重组" [nzVisible]="reorganizationVisible" (nzOnClose)="closeReorganization()">
+<nz-drawer
+  nzTitle="拖拽进行重组"
+  [nzVisible]="reorganizationVisible"
+  [nzFooter]="reorganizationFooter"
+  (nzOnClose)="closeReorganization()"
+>
   <ng-container *nzDrawerContent>
     <nz-tree
       nzBlockNode
@@ -130,3 +160,12 @@
     </nz-tree>
   </ng-container>
 </nz-drawer>
+
+<ng-template #reorganizationFooter>
+  <nz-space style="float: right">
+    <button *nzSpaceItem nz-button (click)="getReorganizationNodes()">重置</button>
+    <button *nzSpaceItem nz-button nzType="primary" [disabled]="!reorganizationNode" (click)="submitReorganization()">
+      更新
+    </button>
+  </nz-space>
+</ng-template>

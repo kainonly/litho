@@ -1,6 +1,7 @@
 import { SelectionModel } from '@angular/cdk/collections';
 import { FlatTreeControl } from '@angular/cdk/tree';
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { mergeMap } from 'rxjs';
 
 import { AppService } from '@app';
@@ -8,7 +9,7 @@ import { AnyDto, Page } from '@weplanx/ng';
 import { NzContextMenuService, NzDropdownMenuComponent } from 'ng-zorro-antd/dropdown';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalService } from 'ng-zorro-antd/modal';
-import { NzFormatEmitEvent, NzTreeNodeOptions } from 'ng-zorro-antd/tree';
+import { NzFormatEmitEvent, NzTreeNode, NzTreeNodeOptions } from 'ng-zorro-antd/tree';
 import { NzTreeFlatDataSource, NzTreeFlattener } from 'ng-zorro-antd/tree-view';
 
 import { FormComponent } from './form/form.component';
@@ -20,6 +21,7 @@ import { PageFlatNode, PageNode } from './types';
   templateUrl: './pages.component.html'
 })
 export class PagesComponent implements OnInit {
+  pageId?: string;
   /**
    * 树视图控制
    */
@@ -30,24 +32,25 @@ export class PagesComponent implements OnInit {
   /**
    * 选择模型
    */
-  selection = new SelectionModel<PageFlatNode>();
+  selection = new SelectionModel<string>();
+  /**
+   * 转换器
+   */
+  flattener = new NzTreeFlattener(
+    (node: PageNode, level: number): PageFlatNode => ({
+      ...node,
+      expandable: !!node.children && node.children.length > 0,
+      level,
+      disabled: !!node.disabled
+    }),
+    node => node.level,
+    node => node.expandable,
+    node => node.children
+  );
   /**
    * 数据源
    */
-  ds = new NzTreeFlatDataSource(
-    this.control,
-    new NzTreeFlattener(
-      (node: PageNode, level: number): PageFlatNode => ({
-        ...node,
-        expandable: !!node.children && node.children.length > 0,
-        level,
-        disabled: !!node.disabled
-      }),
-      node => node.level,
-      node => node.expandable,
-      node => node.children
-    )
-  );
+  ds = new NzTreeFlatDataSource(this.control, this.flattener);
   /**
    * 搜索文本
    * @deprecated
@@ -62,19 +65,31 @@ export class PagesComponent implements OnInit {
    */
   reorganizationVisible = false;
   /**
-   * 重组节点
+   * 重组节点数组
    */
   reorganizationNodes: NzTreeNodeOptions[] = [];
+  /**
+   * 重组节点
+   */
+  reorganizationNode?: NzTreeNode;
 
   constructor(
     public app: AppService,
     public pages: PagesService,
     private modal: NzModalService,
     private nzContextMenuService: NzContextMenuService,
-    private message: NzMessageService
+    private message: NzMessageService,
+    private router: Router,
+    private route: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
+    this.route.firstChild?.params.subscribe(params => {
+      if (params['id']) {
+        this.pageId = params['id'];
+        this.selection.select(params['id']);
+      }
+    });
     this.getData();
   }
 
@@ -86,6 +101,7 @@ export class PagesComponent implements OnInit {
   getData(): void {
     this.pages.getNodes().subscribe(v => {
       this.ds.setData(v);
+      this.control.expandAll();
     });
   }
 
@@ -96,7 +112,24 @@ export class PagesComponent implements OnInit {
     if (node.kind === 'group') {
       return;
     }
-    this.selection.toggle(node);
+    this.selection.toggle(node._id);
+    const namespace = this.app.project?.namespace;
+    if (!this.selection.isSelected(node._id)) {
+      this.pageId = undefined;
+      this.router.navigate([namespace, 'pages', 'home']);
+    } else {
+      this.pageId = node._id;
+      switch (node.kind) {
+        case 'default':
+          this.router.navigate([namespace, 'pages', node._id, 'schema']);
+          break;
+        case 'aggregation':
+          break;
+        case 'manual':
+          this.router.navigate([namespace, 'pages', node._id, 'manual']);
+          break;
+      }
+    }
   }
 
   /**
@@ -156,21 +189,16 @@ export class PagesComponent implements OnInit {
    */
   openReorganization(): void {
     this.reorganizationVisible = true;
-    this.reorganizationNodes = this.formatReorganizationNodes([]);
+    this.getReorganizationNodes();
   }
 
   /**
-   * 禁止选中
-   * @param nodes
+   * 获取重组节点数组
    */
-  formatReorganizationNodes(nodes: NzTreeNodeOptions[]): NzTreeNodeOptions[] {
-    return nodes.map(v => {
-      if (v.children) {
-        this.formatReorganizationNodes(v.children);
-      }
-      v.selectable = false;
-      v.selected = false;
-      return v;
+  getReorganizationNodes(): void {
+    this.pages.getNzTreeNodeOptions().subscribe(v => {
+      this.reorganizationNodes = v;
+      this.reorganizationNode = undefined;
     });
   }
 
@@ -182,25 +210,34 @@ export class PagesComponent implements OnInit {
   }
 
   /**
-   * 排序重组
+   * 开始重组
    * @param event
    */
   reorganization(event: NzFormatEmitEvent): void {
     if (!event.dragNode) {
       return;
     }
-    const node = event.dragNode;
-    const parentNode = node.getParentNode();
+    this.reorganizationNode = event.dragNode;
+  }
+
+  /**
+   * 提交重组
+   */
+  submitReorganization(): void {
+    if (!this.reorganizationNode) {
+      return;
+    }
+    const parentNode = this.reorganizationNode.getParentNode();
     let parent: any = null;
     let sort: string[];
     if (!parentNode) {
-      sort = node.treeService!.rootNodes.map(v => v.key);
+      sort = this.reorganizationNode.treeService!.rootNodes.map(v => v.key);
     } else {
       parent = parentNode.key;
       sort = parentNode.children.map(v => v.key);
     }
     this.pages
-      .reorganization(node.key, parent)
+      .reorganization(this.reorganizationNode.key, parent)
       .pipe(mergeMap(() => this.pages.sort(sort)))
       .subscribe(() => {
         this.message.success('数据更新完成');

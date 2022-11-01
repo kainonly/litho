@@ -3,6 +3,7 @@ import { forkJoin, Observable, of, timer } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
 
 import { AnyDto, WpxApi, UpdateOneByIdOption, Page, SchemaField } from '@weplanx/ng';
+import { NzTreeNodeOptions } from 'ng-zorro-antd/tree';
 
 import { PageNode } from './types';
 
@@ -36,6 +37,45 @@ export class PagesService extends WpxApi<Page> {
                 dict[x.parent].children = [];
               }
               dict[x.parent].children?.push(options);
+            }
+          }
+        }
+        return nodes;
+      })
+    );
+  }
+
+  /**
+   * 获取 NzTreeNodeOptions
+   */
+  getNzTreeNodeOptions(): Observable<NzTreeNodeOptions[]> {
+    return this.find({}, { sort: { sort: 1 } }).pipe(
+      map(v => {
+        const nodes: NzTreeNodeOptions[] = [];
+        const dict: Record<string, NzTreeNodeOptions> = {};
+        for (const x of v) {
+          dict[x._id] = {
+            title: `${x.name}`,
+            key: x._id,
+            parent: x.parent,
+            icon: x.icon,
+            isLeaf: true,
+            expanded: true,
+            selectable: false,
+            selected: false
+          };
+        }
+        for (const x of v) {
+          const options = dict[x._id];
+          if (!x.parent) {
+            nodes.push(options);
+          } else {
+            if (dict.hasOwnProperty(x.parent)) {
+              if (!dict[x.parent].hasOwnProperty('children')) {
+                dict[x.parent].children = [];
+              }
+              dict[x.parent].children?.push(options);
+              dict[x.parent].isLeaf = false;
             }
           }
         }
