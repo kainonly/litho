@@ -1,6 +1,9 @@
 <ng-template #extra>
   <nz-space>
-    <button *nzSpaceItem nz-button nzType="primary"> 更新 </button>
+    <ng-container *ngIf="tmpfields.length !== 0">
+      <button *nzSpaceItem nz-button (click)="resetSort()"> 重置 </button>
+      <button *nzSpaceItem nz-button nzType="primary" (click)="submitSort()"> 更新 </button>
+    </ng-container>
     <button *nzSpaceItem nz-button nzType="primary" (click)="form()"> 新增 </button>
   </nz-space>
 </ng-template>
@@ -23,6 +26,7 @@
     </thead>
     <tbody cdkDropList (cdkDropListDropped)="sort($event)">
       <tr *ngFor="let data of contentTable.data" cdkDrag>
+        <td colspan="4" class="placeholder" *cdkDragPlaceholder> </td>
         <td nzLeft nzAlign="center">
           <button nz-button nzType="text" cdkDragHandle nz-dropdown nzTrigger="click" [nzDropdownMenu]="actions">
             <i nz-icon nzType="holder"></i>

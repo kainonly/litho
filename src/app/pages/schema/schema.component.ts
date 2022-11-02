@@ -60,6 +60,7 @@ export class SchemaComponent implements OnInit {
       this.page = v;
       const fields = this.page!.schema?.fields ?? [];
       this.fields = [...fields.sort((a, b) => a.sort - b.sort)];
+      this.tmpfields = [];
     });
   }
 
@@ -89,6 +90,7 @@ export class SchemaComponent implements OnInit {
   sort(e: CdkDragDrop<string[]>): void {
     this.tmpfields = [...this.fields];
     moveItemInArray(this.fields, e.previousIndex, e.currentIndex);
+    this.fields = [...this.fields];
   }
 
   /**
