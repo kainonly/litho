@@ -2,7 +2,7 @@
   <button nz-button form="form" nzType="primary"> 更新 </button>
 </ng-template>
 
-<nz-card [nzExtra]="extra">
+<app-pages-tabs [id]="id" [extra]="extra">
   <form nz-form id="form" nzLayout="vertical" [formGroup]="form" (wpxSubmit)="submit($event)">
     <nz-form-item>
       <nz-form-label nzRequired>消息补偿</nz-form-label>
@@ -17,4 +17,4 @@
       </nz-form-control>
     </nz-form-item>
   </form>
-</nz-card>
+</app-pages-tabs>

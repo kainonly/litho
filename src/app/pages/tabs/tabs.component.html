@@ -27,7 +27,7 @@
 
 <nz-card *ngIf="app.project as v">
   <nz-card-tab>
-    <nz-tabset nzSize="large" [nzTabBarExtraContent]="extra">
+    <nz-tabset nzLinkRouter nzSize="large" [nzTabBarExtraContent]="extra">
       <nz-tab>
         <a *nzTabLink nz-tab-link [routerLink]="['/', v.namespace, 'pages', id, 'schema']"> 内容模型 </a>
       </nz-tab>
