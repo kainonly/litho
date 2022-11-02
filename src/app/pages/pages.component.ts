@@ -90,7 +90,7 @@ export class PagesComponent implements OnInit {
         this.selection.select(params['id']);
       }
     });
-    this.getData();
+    this.getData(true);
   }
 
   hasChild = (_: number, node: PageFlatNode): boolean => node.expandable;
@@ -98,10 +98,12 @@ export class PagesComponent implements OnInit {
   /**
    * 获取数据
    */
-  getData(): void {
+  getData(first = false): void {
     this.pages.getNodes().subscribe(v => {
       this.ds.setData(v);
-      this.control.expandAll();
+      if (first) {
+        this.control.expandAll();
+      }
     });
   }
 
@@ -138,8 +140,11 @@ export class PagesComponent implements OnInit {
    * @param menu
    * @param node
    */
-  nodeActions($event: MouseEvent, menu: NzDropdownMenuComponent, node: PageFlatNode): void {
-    this.actionNode = node;
+  actions($event: MouseEvent, menu: NzDropdownMenuComponent, node?: PageFlatNode): void {
+    if (node) {
+      $event.stopPropagation();
+      this.actionNode = node;
+    }
     this.nzContextMenuService.create($event, menu);
   }
 

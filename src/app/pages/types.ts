@@ -40,3 +40,7 @@ export type PageFlatNode = AnyDto<Page> & {
   level: number;
   disabled: boolean;
 };
+
+export class FilteredPageResult {
+  constructor(public data: PageNode[], public needsToExpanded: PageNode[] = []) {}
+}

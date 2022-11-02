@@ -5,7 +5,7 @@ import { map, switchMap } from 'rxjs/operators';
 import { AnyDto, WpxApi, UpdateOneByIdOption, Page, SchemaField } from '@weplanx/ng';
 import { NzTreeNodeOptions } from 'ng-zorro-antd/tree';
 
-import { PageNode } from './types';
+import { FilteredPageResult, PageNode } from './types';
 
 @Injectable()
 export class PagesService extends WpxApi<Page> {
@@ -82,6 +82,27 @@ export class PagesService extends WpxApi<Page> {
         return nodes;
       })
     );
+  }
+
+  filterTreeData(data: PageNode[], value: string): FilteredPageResult {
+    const needsToExpanded = new Set<PageNode>();
+    const _filter = (node: PageNode, result: PageNode[]): PageNode[] => {
+      if (node.name.search(value) !== -1) {
+        result.push(node);
+        return result;
+      }
+      if (Array.isArray(node.children)) {
+        const nodes = node.children.reduce((a, b) => _filter(b, a), [] as PageNode[]);
+        if (nodes.length) {
+          const parentNode = { ...node, children: nodes };
+          needsToExpanded.add(parentNode);
+          result.push(parentNode);
+        }
+      }
+      return result;
+    };
+    const treeData = data.reduce((a, b) => _filter(b, a), [] as PageNode[]);
+    return new FilteredPageResult(treeData, [...needsToExpanded]);
   }
 
   /**
