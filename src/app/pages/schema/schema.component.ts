@@ -32,6 +32,10 @@ export class SchemaComponent implements OnInit {
    * 字段
    */
   fields: SchemaField[] = [];
+  /**
+   * 暂存字段
+   */
+  tmpfields: SchemaField[] = [];
 
   constructor(
     public wpx: WpxService,
@@ -83,7 +87,22 @@ export class SchemaComponent implements OnInit {
    * @param e
    */
   sort(e: CdkDragDrop<string[]>): void {
+    this.tmpfields = [...this.fields];
     moveItemInArray(this.fields, e.previousIndex, e.currentIndex);
+  }
+
+  /**
+   * 重置排序
+   */
+  resetSort(): void {
+    this.fields = this.tmpfields;
+    this.tmpfields = [];
+  }
+
+  /**
+   * 提交排序
+   */
+  submitSort(): void {
     this.pages
       .sortSchemaFields(
         this.id,
