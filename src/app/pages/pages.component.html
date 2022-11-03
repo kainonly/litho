@@ -17,7 +17,7 @@
       <nz-sider nzTheme="light" [nzWidth]="320" (contextmenu)="actions($event, actionsMenu)">
         <nz-space>
           <nz-input-group *nzSpaceItem [nzPrefix]="suffixIconSearch" style="width: 180px">
-            <input type="text" nz-input placeholder="搜索" [(ngModel)]="searchText" />
+            <input type="text" nz-input placeholder="搜索" ngModel (ngModelChange)="searchText$.next($event)" />
             <ng-template #suffixIconSearch>
               <span nz-icon nzType="search"></span>
             </ng-template>
@@ -107,8 +107,8 @@
 
 <ng-template #content let-node>
   <div class="custom-node" (contextmenu)="actions($event, nodeActionsMenu, node)">
-    <span *ngIf="node.icon" nz-icon [nzType]="node.icon"></span>
-    {{ node.name }}
+    <ng-container *ngIf="node.icon"> <span nz-icon [nzType]="node.icon"></span>&nbsp; </ng-container>
+    <span [innerHTML]="node.name | nzHighlight: (searchText$ | async)!:'i':'highlight'"></span>
     <ng-container *ngIf="node.manifest">
       [
       <ng-container [ngSwitch]="node.manifest">

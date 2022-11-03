@@ -1,5 +1,21 @@
 import { AnyDto, Page } from '@weplanx/ng';
 
+export type PageNode = AnyDto<Page> & {
+  disabled?: boolean;
+  children?: PageNode[];
+};
+
+export type PageFlatNode = AnyDto<Page> & {
+  expandable: boolean;
+  level: number;
+  disabled: boolean;
+};
+
+export interface Filtered {
+  nodes: PageNode[];
+  expanded: PageNode[];
+}
+
 export const fieldTypes = [
   {
     label: '基础字段',
@@ -29,18 +45,3 @@ export const fieldTypes = [
 ];
 
 export const hasOption = ['number', 'date', 'dates', 'radio', 'checkbox', 'select', 'ref', 'manual'];
-
-export type PageNode = AnyDto<Page> & {
-  disabled?: boolean;
-  children?: PageNode[];
-};
-
-export type PageFlatNode = AnyDto<Page> & {
-  expandable: boolean;
-  level: number;
-  disabled: boolean;
-};
-
-export class FilteredPageResult {
-  constructor(public data: PageNode[], public needsToExpanded: PageNode[] = []) {}
-}

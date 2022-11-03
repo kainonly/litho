@@ -2,7 +2,7 @@ import { SelectionModel } from '@angular/cdk/collections';
 import { FlatTreeControl } from '@angular/cdk/tree';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { mergeMap } from 'rxjs';
+import { auditTime, BehaviorSubject, mergeMap } from 'rxjs';
 
 import { AppService } from '@app';
 import { AnyDto, Page } from '@weplanx/ng';
@@ -21,6 +21,9 @@ import { PageFlatNode, PageNode } from './types';
   templateUrl: './pages.component.html'
 })
 export class PagesComponent implements OnInit {
+  /**
+   * 页面 ID
+   */
   pageId?: string;
   /**
    * 树视图控制
@@ -33,16 +36,27 @@ export class PagesComponent implements OnInit {
    * 选择模型
    */
   selection = new SelectionModel<string>();
+  flatNodeMap = new Map<string, PageFlatNode>();
   /**
-   * 转换器
+   * 获取扁平节点
+   * @param node
+   * @param level
    */
-  flattener = new NzTreeFlattener(
-    (node: PageNode, level: number): PageFlatNode => ({
+  transformer = (node: PageNode, level: number): PageFlatNode => {
+    const flatNode = {
       ...node,
       expandable: !!node.children && node.children.length > 0,
       level,
       disabled: !!node.disabled
-    }),
+    };
+    this.flatNodeMap.set(flatNode._id, flatNode);
+    return flatNode;
+  };
+  /**
+   * 转换器
+   */
+  flattener = new NzTreeFlattener<PageNode, PageFlatNode>(
+    this.transformer,
     node => node.level,
     node => node.expandable,
     node => node.children
@@ -53,9 +67,8 @@ export class PagesComponent implements OnInit {
   ds = new NzTreeFlatDataSource(this.control, this.flattener);
   /**
    * 搜索文本
-   * @deprecated
    */
-  searchText = '';
+  searchText$ = new BehaviorSubject('');
   /**
    * 操作选中节点
    */
@@ -91,8 +104,31 @@ export class PagesComponent implements OnInit {
       }
     });
     this.getData(true);
+    this.searchText$.pipe(auditTime(300)).subscribe(text => {
+      if (text) {
+        this.control.collapseAll();
+        const expands: PageFlatNode[] = [...this.flatNodeMap.values()].filter(v => v.name.search(text) !== -1);
+        while (expands.length !== 0) {
+          const node = expands.pop()!;
+          if (node.expandable) {
+            this.control.expand(node);
+          }
+          if (node.parent) {
+            expands.push(this.flatNodeMap.get(node.parent)!);
+          }
+        }
+        this.control.expand(this.flatNodeMap.get('低代码示例')!);
+      } else {
+        this.control.expandAll();
+      }
+    });
   }
 
+  /**
+   * 存在子节点
+   * @param _
+   * @param node
+   */
   hasChild = (_: number, node: PageFlatNode): boolean => node.expandable;
 
   /**
