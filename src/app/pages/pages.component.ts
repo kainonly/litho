@@ -36,6 +36,9 @@ export class PagesComponent implements OnInit {
    * 选择模型
    */
   selection = new SelectionModel<string>();
+  /**
+   * Node Map
+   */
   flatNodeMap = new Map<string, PageFlatNode>();
   /**
    * 获取扁平节点
@@ -117,7 +120,6 @@ export class PagesComponent implements OnInit {
             expands.push(this.flatNodeMap.get(node.parent)!);
           }
         }
-        this.control.expand(this.flatNodeMap.get('低代码示例')!);
       } else {
         this.control.expandAll();
       }

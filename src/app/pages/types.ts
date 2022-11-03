@@ -11,11 +11,6 @@ export type PageFlatNode = AnyDto<Page> & {
   disabled: boolean;
 };
 
-export interface Filtered {
-  nodes: PageNode[];
-  expanded: PageNode[];
-}
-
 export const fieldTypes = [
   {
     label: '基础字段',

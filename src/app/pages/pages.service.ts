@@ -5,13 +5,13 @@ import { map, switchMap } from 'rxjs/operators';
 import { AnyDto, WpxApi, UpdateOneByIdOption, Page, SchemaField } from '@weplanx/ng';
 import { NzTreeNodeOptions } from 'ng-zorro-antd/tree';
 
-import { Filtered, PageNode } from './types';
+import { PageNode } from './types';
 
 @Injectable()
 export class PagesService extends WpxApi<Page> {
   protected override collection = 'pages';
   /**
-   * 页面单元字典
+   * 字典
    */
   dict: Record<string, AnyDto<Page>> = {};
 
