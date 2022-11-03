@@ -1,3 +1,5 @@
+import { AnyDto } from '@weplanx/ng';
+
 export interface Department {
   /**
    * 父级
@@ -16,3 +18,14 @@ export interface Department {
    */
   labels: string[];
 }
+
+export type DepartmentNode = AnyDto<Department> & {
+  disabled?: boolean;
+  children?: DepartmentNode[];
+};
+
+export type DepartmentFlatNode = AnyDto<Department> & {
+  expandable: boolean;
+  level: number;
+  disabled: boolean;
+};

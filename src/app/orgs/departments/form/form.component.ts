@@ -48,9 +48,9 @@ export class FormComponent implements OnInit {
     if (this.doc) {
       this.form.patchValue(this.doc);
     }
-    this.departments.getTreeNode(true).subscribe(v => {
-      this.nodes = [...v];
-    });
+    // this.departments.getTreeNode(true).subscribe(v => {
+    //   this.nodes = [...v];
+    // });
   }
 
   /**

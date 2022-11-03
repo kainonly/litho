@@ -1,20 +1,22 @@
-import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
-import { mergeMap } from 'rxjs';
+import { SelectionModel } from '@angular/cdk/collections';
+import { FlatTreeControl } from '@angular/cdk/tree';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { auditTime, BehaviorSubject, mergeMap } from 'rxjs';
 
-import { AnyDto, expandTreeNodes } from '@weplanx/ng';
+import { AnyDto } from '@weplanx/ng';
 import { NzContextMenuService, NzDropdownMenuComponent } from 'ng-zorro-antd/dropdown';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalService } from 'ng-zorro-antd/modal';
-import { NzFormatEmitEvent, NzTreeComponent, NzTreeNodeOptions } from 'ng-zorro-antd/tree';
+import { NzFormatEmitEvent, NzTreeNode, NzTreeNodeOptions } from 'ng-zorro-antd/tree';
+import { NzTreeFlatDataSource, NzTreeFlattener } from 'ng-zorro-antd/tree-view';
 
 import { DepartmentsService } from './departments.service';
 import { FormComponent } from './form/form.component';
-import { Department } from './types';
+import { Department, DepartmentFlatNode, DepartmentNode } from './types';
 
 @Component({
   selector: 'app-orgs-departments',
-  templateUrl: './departments.component.html',
-  styleUrls: ['./departments.component.scss']
+  templateUrl: './departments.component.html'
 })
 export class DepartmentsComponent implements OnInit {
   /**
@@ -26,37 +28,68 @@ export class DepartmentsComponent implements OnInit {
    */
   @Output() readonly idChange: EventEmitter<string> = new EventEmitter<string>();
   /**
-   * 树视图
+   * 树视图控制
    */
-  @ViewChild('tree') tree!: NzTreeComponent;
+  control = new FlatTreeControl<DepartmentFlatNode>(
+    node => node.level,
+    node => node.expandable
+  );
   /**
-   * 树视图节点
+   * 选择模型
    */
-  nodes: NzTreeNodeOptions[] = [];
+  selection = new SelectionModel<string>();
   /**
-   * 搜索
+   * Node Map
    */
-  searchText = '';
+  flatNodeMap = new Map<string, DepartmentFlatNode>();
   /**
-   * 展开状态
+   * 获取扁平节点
+   * @param node
+   * @param level
    */
-  expand = true;
+  transformer = (node: DepartmentNode, level: number): DepartmentFlatNode => {
+    const flatNode = {
+      ...node,
+      expandable: !!node.children && node.children.length > 0,
+      level,
+      disabled: !!node.disabled
+    };
+    this.flatNodeMap.set(flatNode._id, flatNode);
+    return flatNode;
+  };
   /**
-   * 操作 ID
+   * 转换器
    */
-  actionId?: string;
+  flattener = new NzTreeFlattener<DepartmentNode, DepartmentFlatNode>(
+    this.transformer,
+    node => node.level,
+    node => node.expandable,
+    node => node.children
+  );
   /**
-   * 选中状态
+   * 数据源
    */
-  selectedKeys: string[] = [];
+  ds = new NzTreeFlatDataSource(this.control, this.flattener);
+  /**
+   * 搜索文本
+   */
+  searchText$ = new BehaviorSubject('');
+  /**
+   * 操作选中节点
+   */
+  actionNode?: DepartmentFlatNode;
   /**
    * 重组树视图
    */
-  reorganizationVisible: boolean = false;
+  reorganizationVisible = false;
+  /**
+   * 重组节点数组
+   */
+  reorganizationNodes: NzTreeNodeOptions[] = [];
   /**
    * 重组节点
    */
-  reorganizationNodes: NzTreeNodeOptions[] = [];
+  reorganizationNode?: NzTreeNode;
 
   constructor(
     public departments: DepartmentsService,
@@ -66,52 +99,67 @@ export class DepartmentsComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.getData();
-  }
-
-  /**
-   * 获取数据
-   */
-  getData(): void {
-    this.departments.getTreeNode().subscribe(v => {
-      this.nodes = [{ title: `全部`, key: 'root', expanded: true, selectable: false, children: v }];
-      this.selectedKeys = [this.id === '' ? 'root' : this.id];
+    this.getData(true);
+    this.searchText$.pipe(auditTime(300)).subscribe(text => {
+      if (text) {
+        this.control.collapseAll();
+        const expands: DepartmentFlatNode[] = [...this.flatNodeMap.values()].filter(v => v.name.search(text) !== -1);
+        while (expands.length !== 0) {
+          const node = expands.pop()!;
+          if (node.expandable) {
+            this.control.expand(node);
+          }
+          if (node.parent) {
+            expands.push(this.flatNodeMap.get(node.parent)!);
+          }
+        }
+      } else {
+        this.control.expandAll();
+      }
     });
   }
 
   /**
-   * 切换展开状态
+   * 存在子节点
+   * @param _
+   * @param node
    */
-  expanded(): void {
-    this.expand = !this.expand;
-    expandTreeNodes(this.tree.getTreeNodes(), this.expand);
+  hasChild = (_: number, node: DepartmentFlatNode): boolean => node.expandable;
+
+  /**
+   * 获取数据
+   */
+  getData(first = false): void {
+    this.departments.getNodes().subscribe(v => {
+      this.ds.setData(v);
+      if (first) {
+        this.control.expandAll();
+      }
+    });
   }
 
   /**
    * 选中
-   * @param e
+   * @param node
    */
-  selected(e: NzFormatEmitEvent): void {
-    if (!e.node || e.node.isSelected) {
-      return;
-    }
-    e.node.isSelected = !e.node.isSelected;
-    if (e.node.key === 'root') {
-      this.id = '';
-    } else {
-      this.id = e.node.key;
-    }
-    this.idChange.next(this.id);
+  selected(node: DepartmentFlatNode): void {
+    this.selection.toggle(node._id);
+    this.id = node._id;
+    this.idChange.emit(node._id);
   }
 
   /**
    * 操作
    * @param $event
    * @param menu
+   * @param node
    */
-  actions($event: NzFormatEmitEvent, menu: NzDropdownMenuComponent): void {
-    this.actionId = $event.node!.key;
-    this.nzContextMenu.create($event.event as MouseEvent, menu);
+  actions($event: MouseEvent, menu: NzDropdownMenuComponent, node?: DepartmentFlatNode): void {
+    if (node) {
+      $event.stopPropagation();
+      this.actionNode = node;
+    }
+    this.nzContextMenu.create($event, menu);
   }
 
   /**
@@ -159,22 +207,17 @@ export class DepartmentsComponent implements OnInit {
    */
   openReorganization(): void {
     this.reorganizationVisible = true;
-    this.reorganizationNodes = this.formatReorganizationNodes([...this.nodes]);
+    this.getReorganizationNodes();
   }
 
   /**
-   * 禁止选中
-   * @param nodes
+   * 获取重组节点数组
    */
-  formatReorganizationNodes(nodes: NzTreeNodeOptions[]): NzTreeNodeOptions[] {
-    return nodes.map(v => {
-      if (v.children) {
-        this.formatReorganizationNodes(v.children);
-      }
-      v.selectable = false;
-      v.selected = false;
-      return v;
-    });
+  getReorganizationNodes(): void {
+    // this.pages.getNzTreeNodeOptions().subscribe(v => {
+    //   this.reorganizationNodes = v;
+    //   this.reorganizationNode = undefined;
+    // });
   }
 
   /**
@@ -185,26 +228,34 @@ export class DepartmentsComponent implements OnInit {
   }
 
   /**
-   * 拖拽重组
+   * 开始重组
    * @param event
    */
   reorganization(event: NzFormatEmitEvent): void {
     if (!event.dragNode) {
       return;
     }
-    const node = event.dragNode;
-    const parentNode = node.getParentNode();
-    let parent: string;
+    this.reorganizationNode = event.dragNode;
+  }
+
+  /**
+   * 提交重组
+   */
+  submitReorganization(): void {
+    if (!this.reorganizationNode) {
+      return;
+    }
+    const parentNode = this.reorganizationNode.getParentNode();
+    let parent: any = null;
     let sort: string[];
     if (!parentNode) {
-      parent = '';
-      sort = node.treeService!.rootNodes.map(v => v.key);
+      sort = this.reorganizationNode.treeService!.rootNodes.map(v => v.key);
     } else {
       parent = parentNode.key;
       sort = parentNode.children.map(v => v.key);
     }
     this.departments
-      .reorganization(node.key, parent)
+      .reorganization(this.reorganizationNode.key, parent)
       .pipe(mergeMap(() => this.departments.sort(sort)))
       .subscribe(v => {
         this.message.success('数据更新完成');

@@ -46,9 +46,9 @@ export class DepartmentComponent implements OnInit {
         department: this.doc.department
       });
     }
-    this.departments.getTreeNode(true).subscribe(v => {
-      this.nodes = [...v];
-    });
+    // this.departments.getTreeNode(true).subscribe(v => {
+    //   this.nodes = [...v];
+    // });
   }
 
   /**
