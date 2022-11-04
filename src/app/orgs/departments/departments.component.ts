@@ -129,10 +129,10 @@ export class DepartmentsComponent implements OnInit {
   /**
    * 获取数据
    */
-  getData(first = false): void {
+  getData(refresh = false): void {
     this.departments.getNodes().subscribe(v => {
       this.ds.setData(v);
-      if (first) {
+      if (refresh) {
         this.control.expandAll();
       }
     });
@@ -180,7 +180,7 @@ export class DepartmentsComponent implements OnInit {
         parent
       },
       nzOnOk: () => {
-        this.getData();
+        this.getData(true);
       }
     });
   }
@@ -218,10 +218,10 @@ export class DepartmentsComponent implements OnInit {
    * 获取重组节点数组
    */
   getReorganizationNodes(): void {
-    // this.pages.getNzTreeNodeOptions().subscribe(v => {
-    //   this.reorganizationNodes = v;
-    //   this.reorganizationNode = undefined;
-    // });
+    this.departments.getNzTreeNodeOptions().subscribe(v => {
+      this.reorganizationNodes = v;
+      this.reorganizationNode = undefined;
+    });
   }
 
   /**

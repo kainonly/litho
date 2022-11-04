@@ -1,7 +1,7 @@
 <form *ngIf="form" nz-form nzLayout="vertical" id="form" [formGroup]="form" (wpxSubmit)="submit($event)">
   <nz-form-item>
     <nz-form-label nzRequired>所属部门</nz-form-label>
-    <nz-form-control nzHasFeedback>
+    <nz-form-control>
       <nz-tree-select
         [nzNodes]="nodes"
         nzShowSearch
