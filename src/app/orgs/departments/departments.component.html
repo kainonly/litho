@@ -49,13 +49,6 @@
   </nz-tree-node>
 </nz-tree-view>
 
-<nz-dropdown-menu #actionsMenu="nzDropdownMenu">
-  <ul nz-menu>
-    <li nz-menu-item (click)="control.expandAll()"><span> 全部展开 </span></li>
-    <li nz-menu-item (click)="control.collapseAll()"><span> 全部收起 </span></li>
-  </ul>
-</nz-dropdown-menu>
-
 <ng-template #icon let-node>
   <div class="custom-icon">
     <span nz-icon [nzType]="!control.isExpanded(node) ? 'folder' : 'folder-open'" nzTheme="twotone"></span>

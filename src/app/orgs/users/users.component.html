@@ -1,6 +1,12 @@
 <nz-layout class="nested">
-  <nz-sider nzTheme="light" [nzWidth]="320">
-    <app-orgs-departments [(id)]="departmentId" (idChange)="selectedDepartment()"> </app-orgs-departments>
+  <nz-sider nzTheme="light" [nzWidth]="320" (contextmenu)="departments.actions($event, actionsMenu)">
+    <app-orgs-departments #departments [(id)]="departmentId" (idChange)="selectedDepartment()"> </app-orgs-departments>
+    <nz-dropdown-menu #actionsMenu="nzDropdownMenu">
+      <ul nz-menu>
+        <li nz-menu-item (click)="departments.control.expandAll()"><span> 全部展开 </span></li>
+        <li nz-menu-item (click)="departments.control.collapseAll()"><span> 全部收起 </span></li>
+      </ul>
+    </nz-dropdown-menu>
   </nz-sider>
   <nz-layout style="overflow: auto">
     <nz-content class="content">

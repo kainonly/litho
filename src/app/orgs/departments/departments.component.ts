@@ -100,6 +100,9 @@ export class DepartmentsComponent implements OnInit {
 
   ngOnInit(): void {
     this.getData(true);
+    if (this.id) {
+      this.selection.toggle(this.id);
+    }
     this.searchText$.pipe(auditTime(300)).subscribe(text => {
       if (text) {
         this.control.collapseAll();

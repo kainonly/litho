@@ -73,7 +73,7 @@ export class DepartmentComponent implements OnInit {
         },
         {
           xdata: {
-            department: 'oid'
+            '$set.department': 'oid'
           }
         }
       )
