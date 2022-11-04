@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
+import { AppService } from '@app';
 import { AnyDto, WpxData, WpxService } from '@weplanx/ng';
 import { TableField, WpxTableComponent } from '@weplanx/ng/table';
 import { NzMessageService } from 'ng-zorro-antd/message';
@@ -38,7 +39,7 @@ export class UsersComponent implements OnInit, OnDestroy {
   /**
    * 当前部门 ID
    */
-  departmentId: string = '';
+  departmentId?: string;
   /**
    * 数据
    */
@@ -46,6 +47,7 @@ export class UsersComponent implements OnInit, OnDestroy {
 
   constructor(
     public users: UsersService,
+    public app: AppService,
     private wpx: WpxService,
     private modal: NzModalService,
     private message: NzMessageService,
@@ -78,7 +80,7 @@ export class UsersComponent implements OnInit, OnDestroy {
     }
     this.table.getData(true);
     const params = this.departmentId ? { department: this.departmentId } : {};
-    this.router.navigate(['orgs', 'users', params]);
+    this.router.navigate([this.app.project?.namespace, 'orgs', 'users', params]);
   }
 
   /**

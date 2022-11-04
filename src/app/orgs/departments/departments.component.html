@@ -66,7 +66,7 @@
   <div class="custom-node" (contextmenu)="actions($event, nodeActionsMenu, node)">
     <span [innerHTML]="node.name | nzHighlight: (searchText$ | async)!:'i':'highlight'"></span>
     <ng-container *ngIf="node.description">
-      <span nz-icon nzType="bulb" [nz-tooltip]="node.description"></span>
+      &nbsp;<span nz-icon nzType="bulb" [nz-tooltip]="node.description"></span>
     </ng-container>
   </div>
 </ng-template>

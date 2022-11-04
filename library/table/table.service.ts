@@ -8,17 +8,17 @@ import { AnyDto, WpxApi, setHttpOptions } from '@weplanx/ng';
 export class WpxTableService extends WpxApi<any> {
   /**
    * 获取引用数据
-   * @param model 模型命名
+   * @param collection 模型命名
    * @param ids Objects 数组
    * @param target 引用目标名称
    */
-  references(model: string, ids: string[], target: string): Observable<Record<string, string>> {
+  references(collection: string, ids: string[], target: string): Observable<Record<string, string>> {
     if (ids.length === 0) {
       return of({});
     }
     return this.http
       .get<Array<AnyDto<any>>>(
-        `dsl/${model}`,
+        collection,
         setHttpOptions(
           { _id: { $in: ids } },
           {

@@ -22,7 +22,7 @@ export class DepartmentsComponent implements OnInit {
   /**
    * 部门 ID
    */
-  @Input() id!: string;
+  @Input() id?: string;
   /**
    * 部门 ID 变更
    */
@@ -144,8 +144,12 @@ export class DepartmentsComponent implements OnInit {
    */
   selected(node: DepartmentFlatNode): void {
     this.selection.toggle(node._id);
-    this.id = node._id;
-    this.idChange.emit(node._id);
+    if (this.selection.isSelected(node._id)) {
+      this.id = node._id;
+    } else {
+      this.id = undefined;
+    }
+    this.idChange.emit(this.id);
   }
 
   /**
