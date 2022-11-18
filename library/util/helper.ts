@@ -20,9 +20,11 @@ export const setHttpOptions = <T>(
   if (filter) {
     params = params.set('filter', JSON.stringify(filter));
   }
-  // if (options?.keys) {
-  //   params = params.set('keys', JSON.stringify(options.keys));
-  // }
+  if (options?.keys) {
+    options.keys.forEach(v => {
+      params = params.append('keys', v as string);
+    });
+  }
   // if (options?.sort) {
   //   params = params.set('sort', JSON.stringify(options.sort));
   // }
