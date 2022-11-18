@@ -54,10 +54,6 @@ export class WpxTableComponent<T> implements OnInit {
    */
   @ViewChild('searchRef', { static: true }) wpxSearch!: TemplateRef<any>;
   /**
-   * 表格排序
-   */
-  sort: Record<string, NzTableSortOrder> = {};
-  /**
    * 关键词集合
    */
   keywords: Set<string> = new Set<string>();
@@ -149,6 +145,7 @@ export class WpxTableComponent<T> implements OnInit {
     this.columns = columns;
 
     const raw = sessionStorage.getItem(this.wpxKey);
+    console.log(raw);
     /**
      * 本地存储样式合并
      */
@@ -184,18 +181,6 @@ export class WpxTableComponent<T> implements OnInit {
    * @param refresh
    */
   getData(refresh = false): void {
-    for (const [key, value] of Object.entries(this.sort)) {
-      switch (value) {
-        case 'ascend':
-          Reflect.set(this.wpxData.sort, key, 1);
-          break;
-        case 'descend':
-          Reflect.set(this.wpxData.sort, key, -1);
-          break;
-        default:
-          delete this.wpxData.sort[key];
-      }
-    }
     this.wpxApi.pages(this.wpxData, refresh).subscribe(data => {
       for (const [key, request] of Object.entries(this.requests)) {
         const ids = [...new Set([].concat(...data.map(v => v[key])))].filter(v => !!v);
@@ -205,6 +190,20 @@ export class WpxTableComponent<T> implements OnInit {
       }
       this.updateStorage();
     });
+  }
+
+  sortOrderChange(key: string, $event: NzTableSortOrder): void {
+    switch ($event) {
+      case 'ascend':
+        this.wpxData.sort.set(key, 1);
+        break;
+      case 'descend':
+        this.wpxData.sort.set(key, -1);
+        break;
+      default:
+        this.wpxData.sort.delete(key);
+    }
+    this.getData(true);
   }
 
   /**
@@ -358,7 +357,7 @@ export class WpxTableComponent<T> implements OnInit {
       JSON.stringify(<TableOption<T>>{
         searchText: this.searchText,
         filter: this.wpxData.filter,
-        sort: this.wpxData.sort,
+        // sort: this.wpxData.sort,
         pagesize: this.wpxData.pagesize,
         page: this.wpxData.page,
         columns: this.columns,

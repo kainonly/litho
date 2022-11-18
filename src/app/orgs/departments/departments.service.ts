@@ -19,7 +19,7 @@ export class DepartmentsService extends WpxApi<Department> {
    * 获取树视图节点
    */
   getNodes(): Observable<DepartmentNode[]> {
-    return this.find({}, { sort: { sort: 1 } }).pipe(
+    return this.find({}, { sort: new Map([['sort', 1]]) }).pipe(
       map(v => {
         const nodes: DepartmentNode[] = [];
         const dict: Record<string, DepartmentNode> = {};
@@ -49,7 +49,7 @@ export class DepartmentsService extends WpxApi<Department> {
    * 获取 NzTreeNodeOptions
    */
   getNzTreeNodeOptions(): Observable<NzTreeNodeOptions[]> {
-    return this.find({}, { sort: { sort: 1 } }).pipe(
+    return this.find({}, { sort: new Map([['sort', 1]]) }).pipe(
       map(v => {
         const nodes: NzTreeNodeOptions[] = [];
         const dict: Record<string, NzTreeNodeOptions> = {};

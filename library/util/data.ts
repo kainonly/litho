@@ -12,7 +12,7 @@ export class WpxData<T extends BasicDto> implements ApiOptions<T> {
   /**
    * 排序规则
    */
-  sort: Sort<T> = {};
+  sort: Map<keyof AnyDto<T>, -1 | 1> = new Map();
   /**
    * 筛选转换
    */

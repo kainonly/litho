@@ -1,5 +1,6 @@
 import { ComponentPortal } from '@angular/cdk/portal';
 
+export type AnyDto<T> = T & BasicDto;
 export type R = Record<string, any>;
 
 export interface BasicDto extends R {
@@ -17,8 +18,6 @@ export interface BasicDto extends R {
   update_time: Date;
 }
 
-export type AnyDto<T> = T & BasicDto;
-
 export type Filter<T> = Partial<{ [P in keyof AnyDto<T>]: any }>;
 export type Sort<T> = Partial<{ [P in keyof AnyDto<T>]: -1 | 1 }>;
 export type XFilter = 'oid' | 'oids' | 'date';
@@ -32,7 +31,7 @@ export interface ApiOptions<T> {
   /**
    * 排序规则
    */
-  sort?: Sort<T>;
+  sort?: Map<keyof AnyDto<T>, -1 | 1>;
   /**
    * 页码
    */

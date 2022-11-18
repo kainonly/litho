@@ -19,7 +19,7 @@ export class PagesService extends WpxApi<Page> {
    * 获取树视图节点
    */
   getNodes(): Observable<PageNode[]> {
-    return this.find({}, { sort: { sort: 1 } }).pipe(
+    return this.find({}, { sort: new Map([['sort', 1]]) }).pipe(
       map(v => {
         const nodes: PageNode[] = [];
         const dict: Record<string, PageNode> = {};
@@ -49,7 +49,12 @@ export class PagesService extends WpxApi<Page> {
    * 获取 NzTreeNodeOptions
    */
   getNzTreeNodeOptions(): Observable<NzTreeNodeOptions[]> {
-    return this.find({}, { sort: { sort: 1 } }).pipe(
+    return this.find(
+      {},
+      {
+        sort: new Map([['sort', 1]])
+      }
+    ).pipe(
       map(v => {
         const nodes: NzTreeNodeOptions[] = [];
         const dict: Record<string, NzTreeNodeOptions> = {};

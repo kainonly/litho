@@ -106,8 +106,8 @@
           (nzResizeEnd)="resize($event, column.value)"
           [nzWidth]="columnsWidth[column.value]"
           [nzShowSort]="!columnsWidthVisible"
-          [(nzSortOrder)]="sort[column.value]"
-          (nzSortOrderChange)="getData(true)"
+          [nzSortOrder]="wpxData.sort | wpxOrder: column.value"
+          (nzSortOrderChange)="sortOrderChange(column.value, $event)"
         >
           <b>{{ column.label }} </b>
           <ng-container *ngIf="keywords.has(column.value)">

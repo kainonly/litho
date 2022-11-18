@@ -12,7 +12,7 @@ export interface TableField {
 export interface TableOption<T> {
   searchText: string;
   filter: Filter<T>;
-  sort: Partial<{ [P in keyof AnyDto<T>]: -1 | 1 }>;
+  sort: Map<keyof AnyDto<T>, -1 | 1>;
   pagesize: number;
   page: number;
   columns: NzCheckBoxOptionInterface[];

@@ -126,7 +126,7 @@ export abstract class WpxApi<T> {
       .get<Array<AnyDto<T>>>(this.url(), {
         observe: 'response',
         ...setHttpOptions<T>(data.filter, {
-          // keys: data.keys,
+          keys: data.keys,
           sort: data.sort,
           page: data.page,
           pagesize: data.pagesize,

@@ -21,13 +21,13 @@ export const setHttpOptions = <T>(
     params = params.set('filter', JSON.stringify(filter));
   }
   if (options?.keys) {
-    options.keys.forEach(v => {
-      params = params.append('keys', v as string);
+    options.keys.forEach(v => (params = params.append('keys', v as string)));
+  }
+  if (options?.sort) {
+    options.sort.forEach((v, k) => {
+      params = params.append('sort', `${k as string}:${v}`);
     });
   }
-  // if (options?.sort) {
-  //   params = params.set('sort', JSON.stringify(options.sort));
-  // }
   if (options?.xfilter && Object.keys(options.xfilter).length !== 0) {
     params = params.set('format', JSON.stringify(options.xfilter));
   }
