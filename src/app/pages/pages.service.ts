@@ -257,11 +257,7 @@ export class PagesService extends WpxApi<Page> {
     return this.find(
       { schema: { $exists: true } },
       {
-        keys: {
-          id: 1,
-          name: 1,
-          schema: 1
-        }
+        keys: ['_id', 'name', 'schema']
       }
     );
   }

@@ -95,7 +95,7 @@ export class FormComponent implements OnInit {
       .find(
         { status: true },
         {
-          keys: { name: 1 }
+          keys: ['name']
         }
       )
       .subscribe(data => {

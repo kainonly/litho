@@ -1,4 +1,4 @@
-import { ApiOptions, BasicDto, Filter, Keys, Sort, XFilter } from '../types';
+import { AnyDto, ApiOptions, BasicDto, Filter, Sort, XFilter } from '../types';
 
 export class WpxData<T extends BasicDto> implements ApiOptions<T> {
   /**
@@ -8,7 +8,7 @@ export class WpxData<T extends BasicDto> implements ApiOptions<T> {
   /**
    * 映射字段
    */
-  keys?: Keys<T>;
+  keys?: Array<keyof AnyDto<T>>;
   /**
    * 排序规则
    */

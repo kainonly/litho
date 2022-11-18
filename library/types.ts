@@ -1,6 +1,7 @@
 import { ComponentPortal } from '@angular/cdk/portal';
 
 export type R = Record<string, any>;
+
 export interface BasicDto extends R {
   /**
    * 对象 ID
@@ -15,18 +16,19 @@ export interface BasicDto extends R {
    */
   update_time: Date;
 }
+
 export type AnyDto<T> = T & BasicDto;
 
 export type Filter<T> = Partial<{ [P in keyof AnyDto<T>]: any }>;
-export type Keys<T> = Partial<{ [P in keyof AnyDto<T>]: 0 | 1 }>;
 export type Sort<T> = Partial<{ [P in keyof AnyDto<T>]: -1 | 1 }>;
 export type XFilter = 'oid' | 'oids' | 'date';
 export type XData = 'oid' | 'oids' | 'date' | 'password';
+
 export interface ApiOptions<T> {
   /**
    * 映射字段
    */
-  keys?: Keys<T>;
+  keys?: Array<keyof AnyDto<T>>;
   /**
    * 排序规则
    */
@@ -55,9 +57,9 @@ export interface ApiOptions<T> {
 
 export type FilterOption<T> = Pick<ApiOptions<T>, 'xfilter'>;
 export type CreateOption<T> = Pick<ApiOptions<T>, 'xdata'>;
+export type FindOption<T> = Omit<ApiOptions<T>, 'xdata' | 'array_filters'>;
 export type FindOneOption<T> = Pick<ApiOptions<T>, 'keys' | 'xfilter'>;
 export type FindByIdOption<T> = Pick<ApiOptions<T>, 'keys'>;
-export type FindOption<T> = Omit<ApiOptions<T>, 'xdata' | 'array_filters'>;
 export type UpdateOption<T> = Pick<ApiOptions<T>, 'xfilter' | 'xdata' | 'array_filters'>;
 export type UpdateOneByIdOption<T> = Pick<ApiOptions<T>, 'xdata' | 'array_filters'>;
 
@@ -66,6 +68,7 @@ export type UpdateOneByIdOption<T> = Pick<ApiOptions<T>, 'xdata' | 'array_filter
  */
 export type PageKind = 'default' | 'aggregation' | 'manual' | 'group';
 export type PageManifest = 'default' | 'form' | 'dashboard';
+
 export interface Page {
   /**
    * 父节点

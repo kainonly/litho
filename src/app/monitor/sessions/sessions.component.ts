@@ -76,7 +76,7 @@ export class SessionsComponent implements OnInit, OnDestroy {
           _id: { $in: ids }
         },
         {
-          keys: { name: 1 },
+          keys: ['name'],
           xfilter: {
             '_id.$in': 'oids'
           }

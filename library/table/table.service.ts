@@ -22,7 +22,7 @@ export class WpxTableService extends WpxApi<any> {
         setHttpOptions(
           { _id: { $in: ids } },
           {
-            keys: { [target]: 1 },
+            keys: [target],
             xfilter: {
               '_id.$in': 'oids'
             }

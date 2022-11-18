@@ -95,38 +95,6 @@ export abstract class WpxApi<T> {
   }
 
   /**
-   * 获取分页文档
-   * @param data 数据源
-   * @param refresh 刷新
-   */
-  pages(data: WpxData<AnyDto<T>>, refresh?: boolean): Observable<Array<AnyDto<T>>> {
-    data.loading = true;
-    if (refresh) {
-      data.reset();
-    }
-    return this.http
-      .get<Array<AnyDto<T>>>(this.url(), {
-        observe: 'response',
-        ...setHttpOptions<T>(data.filter, {
-          keys: data.keys,
-          sort: data.sort,
-          page: data.page,
-          pagesize: data.pagesize,
-          xfilter: data.xfilter
-        })
-      })
-      .pipe(
-        map(res => {
-          data.total = parseInt(res.headers.get('wpx-total')!);
-          data.set(res.body!);
-          data.loading = false;
-          data.updateCheckedStatus();
-          return res.body!;
-        })
-      );
-  }
-
-  /**
    * 通过筛选获取单个匹配文档
    * @param filter
    * @param options
@@ -142,6 +110,38 @@ export abstract class WpxApi<T> {
    */
   findById(id: string, options?: FindByIdOption<T>): Observable<AnyDto<T>> {
     return this.http.get<AnyDto<T>>(this.url(id), setHttpOptions<T>(undefined, options as ApiOptions<T>));
+  }
+
+  /**
+   * 获取分页文档
+   * @param data 数据源
+   * @param refresh 刷新
+   */
+  pages(data: WpxData<AnyDto<T>>, refresh?: boolean): Observable<Array<AnyDto<T>>> {
+    data.loading = true;
+    if (refresh) {
+      data.reset();
+    }
+    return this.http
+      .get<Array<AnyDto<T>>>(this.url(), {
+        observe: 'response',
+        ...setHttpOptions<T>(data.filter, {
+          // keys: data.keys,
+          sort: data.sort,
+          page: data.page,
+          pagesize: data.pagesize,
+          xfilter: data.xfilter
+        })
+      })
+      .pipe(
+        map(res => {
+          data.total = parseInt(res.headers.get('wpx-total')!);
+          data.set(res.body!);
+          data.loading = false;
+          data.updateCheckedStatus();
+          return res.body!;
+        })
+      );
   }
 
   /**

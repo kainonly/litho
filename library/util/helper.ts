@@ -20,12 +20,12 @@ export const setHttpOptions = <T>(
   if (filter) {
     params = params.set('filter', JSON.stringify(filter));
   }
-  if (options?.keys) {
-    params = params.set('keys', JSON.stringify(options.keys));
-  }
-  if (options?.sort) {
-    params = params.set('sort', JSON.stringify(options.sort));
-  }
+  // if (options?.keys) {
+  //   params = params.set('keys', JSON.stringify(options.keys));
+  // }
+  // if (options?.sort) {
+  //   params = params.set('sort', JSON.stringify(options.sort));
+  // }
   if (options?.xfilter && Object.keys(options.xfilter).length !== 0) {
     params = params.set('format', JSON.stringify(options.xfilter));
   }
