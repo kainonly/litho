@@ -1,7 +1,8 @@
 import { ComponentPortal, ComponentType } from '@angular/cdk/portal';
+import { DOCUMENT } from '@angular/common';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { AsyncSubject, Observable } from 'rxjs';
+import { Inject, Injectable } from '@angular/core';
+import { AsyncSubject, concatWith, delay, fromEvent, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { ComponentTypeOption, UploadOption, Value } from './types';
@@ -25,7 +26,7 @@ export class WpxService {
    */
   components: Map<string, ComponentTypeOption<any>> = new Map<string, ComponentTypeOption<any>>();
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, @Inject(DOCUMENT) private document: Document) {}
 
   /**
    * 设置静态资源
@@ -61,6 +62,31 @@ export class WpxService {
     });
   }
 
+  /**
+   * 异步加载脚本
+   * @param url 地址
+   * @param plugins 插件地址
+   */
+  loadScript(url: string, plugins: string[]): Observable<void> {
+    const script = this.document.createElement('script');
+    script.src = url;
+    script.async = true;
+    this.document.head.append(script);
+    const events: Array<Observable<any>> = [];
+    for (const x of plugins) {
+      const plugin = this.document.createElement('script');
+      plugin.src = x;
+      plugin.async = true;
+      this.document.head.append(plugin);
+      events.push(fromEvent(plugin, 'load'));
+    }
+    return fromEvent(script, 'load').pipe(concatWith(...events), delay(200));
+  }
+
+  /**
+   * @deprecated
+   * @param action
+   */
   oauth(action?: string): Observable<string> {
     const state = JSON.stringify({
       action
@@ -78,6 +104,7 @@ export class WpxService {
   }
 
   /**
+   * @deprecated
    * 对象存储预签名
    */
   cosPresigned(): Observable<any> {
@@ -102,6 +129,7 @@ export class WpxService {
   }
 
   /**
+   * @deprecated
    * 获取密码重置验证码
    */
   getCaptcha(email: string): Observable<any> {
@@ -109,6 +137,7 @@ export class WpxService {
   }
 
   /**
+   * @deprecated
    * 验证密码重置验证码
    */
   verifyCaptcha(data: any): Observable<any> {

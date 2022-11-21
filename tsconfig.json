@@ -31,7 +31,8 @@
       "@weplanx/ng/media": ["library/media/public-api.ts"],
       "@weplanx/ng/table": ["library/table/public-api.ts"],
       "@weplanx/ng/form": ["library/form/public-api.ts"],
-      "@weplanx/ng/richtext": ["library/richtext/public-api.ts"]
+      "@weplanx/ng/richtext": ["library/richtext/public-api.ts"],
+      "@weplanx/ng/store": ["library/store/public-api.ts"]
     }
   },
   "angularCompilerOptions": {

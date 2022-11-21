@@ -1,8 +1,9 @@
-import { DOCUMENT } from '@angular/common';
-import { Inject, Injectable } from '@angular/core';
-import { concatWith, delay, fromEvent, Observable } from 'rxjs';
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 
-@Injectable({ providedIn: 'root' })
+import { WpxService } from '@weplanx/ng';
+
+@Injectable()
 export class WpxRichtextService {
   private url = 'https://cdn.kainonly.com/assets/editorjs/editorjs.js';
   private plugins: string[] = [
@@ -15,26 +16,14 @@ export class WpxRichtextService {
     'https://cdn.kainonly.com/assets/editorjs/table.js'
   ];
 
-  constructor(@Inject(DOCUMENT) private document: Document) {}
+  constructor(private wpx: WpxService) {}
 
   setup(url: string, plugins: string[]): void {
     this.url = url;
     this.plugins = plugins;
   }
 
-  loadScript(): Observable<any> {
-    const editorjs = this.document.createElement('script');
-    editorjs.src = this.url;
-    editorjs.async = true;
-    this.document.head.append(editorjs);
-    const events: Array<Observable<any>> = [];
-    this.plugins?.forEach(url => {
-      const plugin = this.document.createElement('script');
-      plugin.src = url;
-      plugin.async = true;
-      this.document.head.append(plugin);
-      events.push(fromEvent(plugin, 'load'));
-    });
-    return fromEvent(editorjs, 'load').pipe(concatWith(...events), delay(200));
+  loadScript(): Observable<void> {
+    return this.wpx.loadScript(this.url, this.plugins);
   }
 }
