@@ -21,7 +21,7 @@ import { NzModalService } from 'ng-zorro-antd/modal';
 import { defaultTools, zh_CN } from './helper';
 import { Image } from './image';
 import { WpxRichtextService } from './richtext.service';
-import { ResolveDone } from './types';
+import { ResolveDone, RichtextValue } from './types';
 import { Video } from './video';
 
 let windowAny: any = window;
@@ -61,7 +61,12 @@ export class WpxRichtextComponent implements ControlValueAccessor, AfterViewInit
   /**
    * 默认值
    */
-  value: any = {};
+  value: RichtextValue = {
+    title: '',
+    blocks: [],
+    time: 0,
+    version: ''
+  };
   /**
    * 载入值
    */
@@ -105,7 +110,7 @@ export class WpxRichtextComponent implements ControlValueAccessor, AfterViewInit
     if (!this.platform.isBrowser) {
       return;
     }
-    if (window.hasOwnProperty('EditorJS')) {
+    if (windowAny.hasOwnProperty('EditorJS')) {
       this.initialize();
       return;
     }
@@ -165,7 +170,9 @@ export class WpxRichtextComponent implements ControlValueAccessor, AfterViewInit
     from(this.instance.isReady)
       .pipe(switchMap(() => this.$writeValue))
       .subscribe(value => {
-        this.instance.render(value);
+        if (value) {
+          this.instance.render(value);
+        }
         this.cd.detectChanges();
       });
   }
@@ -228,7 +235,12 @@ export class WpxRichtextComponent implements ControlValueAccessor, AfterViewInit
   clear(): void {
     this.title = '';
     this.instance.blocks.clear();
-    this.value = {};
+    this.value = {
+      title: '',
+      blocks: [],
+      time: 0,
+      version: ''
+    };
     this.onChange!(this.value);
   }
 }

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 import { environment } from '@env';
 import { WpxService } from '@weplanx/ng';
+import { WpxRichtextService } from '@weplanx/ng/richtext';
 import { WpxStoreService } from '@weplanx/ng/store';
 import { NzIconService } from 'ng-zorro-antd/icon';
 

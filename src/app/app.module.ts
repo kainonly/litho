@@ -8,6 +8,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { ServiceWorkerModule } from '@angular/service-worker';
 
 import { environment } from '@env';
+import { WpxRichtextModule } from '@weplanx/ng/richtext';
 import { WpxStoreModule } from '@weplanx/ng/store';
 import { NZ_CONFIG, NzConfig } from 'ng-zorro-antd/core/config';
 import { NZ_I18N, zh_CN } from 'ng-zorro-antd/i18n';
@@ -81,6 +82,13 @@ const routes: Routes = [
   { path: '', redirectTo: 'default/overview', pathMatch: 'full' }
 ];
 
+if (!environment.production) {
+  routes.push({
+    path: '_dev',
+    loadChildren: () => import('../dev/dev.module').then(m => m.DevModule)
+  });
+}
+
 @NgModule({
   declarations: [AppComponent],
   imports: [
@@ -88,6 +96,7 @@ const routes: Routes = [
     HttpClientModule,
     FormsModule,
     NzMessageModule,
+    WpxRichtextModule,
     WpxStoreModule,
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: environment.production,

@@ -31,7 +31,7 @@ module.exports = {
           'error',
           {
             type: 'element',
-            prefix: ['app', 'settings'],
+            prefix: ['app', 'dev'],
             style: 'kebab-case'
           }
         ],
