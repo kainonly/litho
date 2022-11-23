@@ -1,9 +1,8 @@
-export interface RichtextValue {
-  title: string;
+export type RichtextData = {
   blocks: Block[];
   time: number;
   version: string;
-}
+} & null;
 
 export interface Block {
   id: string;
@@ -11,9 +10,9 @@ export interface Block {
   data: any;
 }
 
-export type ResolveDone = (data: Data) => void;
+export type ResolveDone = (data: MediaData) => void;
 
-export interface Data {
+export interface MediaData {
   assets: string;
   url: string;
 }

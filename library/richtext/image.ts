@@ -1,4 +1,4 @@
-import { Config, Data } from './types';
+import { Config, MediaData } from './types';
 
 export class Image {
   /**
@@ -18,7 +18,7 @@ export class Image {
   /**
    * 数据
    */
-  data: Data;
+  data: MediaData;
 
   static get toolbox(): any {
     return {
@@ -70,7 +70,7 @@ export class Image {
   /**
    * 保存数据
    */
-  save(): Data {
+  save(): MediaData {
     return this.data;
   }
 

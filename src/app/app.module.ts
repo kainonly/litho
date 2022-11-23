@@ -85,7 +85,8 @@ const routes: Routes = [
 if (!environment.production) {
   routes.push({
     path: '_dev',
-    loadChildren: () => import('../dev/dev.module').then(m => m.DevModule)
+    loadChildren: () => import('../dev/dev.module').then(m => m.DevModule),
+    canActivate: [AppGuard]
   });
 }
 

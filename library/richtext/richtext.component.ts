@@ -2,17 +2,17 @@ import { Platform } from '@angular/cdk/platform';
 import {
   AfterViewInit,
   ChangeDetectionStrategy,
-  ChangeDetectorRef,
   Component,
   ElementRef,
   forwardRef,
   Input,
+  NgZone,
   OnDestroy,
   ViewChild,
   ViewEncapsulation
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { BehaviorSubject, from, switchMap } from 'rxjs';
+import { auditTime, BehaviorSubject, from, switchMap } from 'rxjs';
 
 import { WpxService } from '@weplanx/ng';
 import { MediaType, WpxMediaViewComponent } from '@weplanx/ng/media';
@@ -21,7 +21,7 @@ import { NzModalService } from 'ng-zorro-antd/modal';
 import { defaultTools, zh_CN } from './helper';
 import { Image } from './image';
 import { WpxRichtextService } from './richtext.service';
-import { ResolveDone, RichtextValue } from './types';
+import { ResolveDone, RichtextData } from './types';
 import { Video } from './video';
 
 let windowAny: any = window;
@@ -29,7 +29,7 @@ let windowAny: any = window;
 @Component({
   selector: 'wpx-richtext',
   exportAs: 'wpxRichtext',
-  templateUrl: './richtext.component.html',
+  template: ` <div #richtext></div> `,
   styleUrls: ['./richtext.component.scss'],
   providers: [
     {
@@ -43,6 +43,10 @@ let windowAny: any = window;
 })
 export class WpxRichtextComponent implements ControlValueAccessor, AfterViewInit, OnDestroy {
   /**
+   * 文章视图
+   */
+  @ViewChild('richtext', { static: true }) ref!: ElementRef;
+  /**
    * 内容提示
    */
   @Input() wpxPlaceholder?: string;
@@ -51,26 +55,9 @@ export class WpxRichtextComponent implements ControlValueAccessor, AfterViewInit
    */
   @Input() wpxFallback?: string;
   /**
-   * 文章视图
-   */
-  @ViewChild('article', { static: true }) article!: ElementRef;
-  /**
-   * 标题
-   */
-  title = '';
-  /**
-   * 默认值
-   */
-  value: RichtextValue = {
-    title: '',
-    blocks: [],
-    time: 0,
-    version: ''
-  };
-  /**
    * 载入值
    */
-  $writeValue: BehaviorSubject<any> = new BehaviorSubject<any>({});
+  $data: BehaviorSubject<RichtextData> = new BehaviorSubject(<RichtextData>null);
 
   /**
    * EditorJS
@@ -82,10 +69,10 @@ export class WpxRichtextComponent implements ControlValueAccessor, AfterViewInit
 
   constructor(
     private platform: Platform,
-    private cd: ChangeDetectorRef,
     private wpx: WpxService,
     private richtext: WpxRichtextService,
-    private modal: NzModalService
+    private modal: NzModalService,
+    private zone: NgZone
   ) {}
 
   registerOnChange(fn: any): void {
@@ -96,14 +83,8 @@ export class WpxRichtextComponent implements ControlValueAccessor, AfterViewInit
     this.onTouched = fn;
   }
 
-  /**
-   * 载入数据
-   * @param value
-   */
-  writeValue(value: any): void {
-    this.value = value;
-    this.title = value?.title;
-    this.$writeValue.next(value);
+  writeValue(data: RichtextData): void {
+    this.$data.next(data);
   }
 
   ngAfterViewInit(): void {
@@ -132,49 +113,44 @@ export class WpxRichtextComponent implements ControlValueAccessor, AfterViewInit
    * @private
    */
   private initialize(): void {
-    this.instance = new windowAny.EditorJS({
-      holder: this.article.nativeElement,
-      placeholder: this.wpxPlaceholder,
-      logLevel: 'ERROR',
-      tools: {
-        ...defaultTools(windowAny),
-        image: {
-          class: Image,
-          config: {
-            resolve: (done: ResolveDone) => {
-              this.openMediaView('pictures', done);
-            },
-            change: () => {
-              this.editorValue();
+    this.zone.runOutsideAngular(() => {
+      this.instance = new windowAny.EditorJS({
+        holder: this.ref.nativeElement,
+        placeholder: this.wpxPlaceholder,
+        logLevel: 'ERROR',
+        tools: {
+          ...defaultTools(windowAny),
+          image: {
+            class: Image,
+            config: {
+              resolve: (done: ResolveDone) => {
+                this.openMediaView('pictures', done);
+              },
+              change: () => this.save()
+            }
+          },
+          video: {
+            class: Video,
+            config: {
+              resolve: (done: ResolveDone) => {
+                this.openMediaView('videos', done);
+              },
+              change: () => this.save()
             }
           }
         },
-        video: {
-          class: Video,
-          config: {
-            resolve: (done: ResolveDone) => {
-              this.openMediaView('videos', done);
-            },
-            change: () => {
-              this.editorValue();
-            }
-          }
-        }
-      },
-      i18n: zh_CN,
-      onChange: () => {
-        this.editorValue();
-      }
-    });
-
-    from(this.instance.isReady)
-      .pipe(switchMap(() => this.$writeValue))
-      .subscribe(value => {
-        if (value) {
-          this.instance.render(value);
-        }
-        this.cd.detectChanges();
+        i18n: zh_CN,
+        onChange: () => this.save()
       });
+
+      from(this.instance.isReady)
+        .pipe(switchMap(() => this.$data))
+        .subscribe(data => {
+          if (data) {
+            this.instance.render(data);
+          }
+        });
+    });
   }
 
   /**
@@ -205,42 +181,16 @@ export class WpxRichtextComponent implements ControlValueAccessor, AfterViewInit
   }
 
   /**
-   * 设置编辑器数据
+   * 保存数据
    * @private
    */
-  private editorValue(): void {
-    from(this.instance?.save() as Promise<any>).subscribe(data => {
-      this.value = {
-        title: this.title,
-        ...data
-      };
-      this.onChange!(this.value);
-    });
-  }
-
-  /**
-   * 设置标题
-   */
-  setTitle(): void {
-    this.value = {
-      ...this.value,
-      title: this.title
-    };
-    this.onChange!(this.value);
-  }
-
-  /**
-   * 清除内容
-   */
-  clear(): void {
-    this.title = '';
-    this.instance.blocks.clear();
-    this.value = {
-      title: '',
-      blocks: [],
-      time: 0,
-      version: ''
-    };
-    this.onChange!(this.value);
+  private save(): void {
+    from(this.instance?.save() as Promise<RichtextData>)
+      .pipe(auditTime(300))
+      .subscribe(data => {
+        this.zone.run(() => {
+          this.onChange!(data);
+        });
+      });
   }
 }

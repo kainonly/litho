@@ -2,7 +2,7 @@
   <form nz-form nzLayout="vertical" id="form" [formGroup]="form" (wpxSubmit)="submit($event)">
     <nz-form-item>
       <nz-form-control>
-        <wpx-richtext formControlName="content"></wpx-richtext>
+        <wpx-richtext formControlName="content" (ngModelChange)="test($event)"></wpx-richtext>
       </nz-form-control>
     </nz-form-item>
     <nz-form-item>
