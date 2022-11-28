@@ -14,6 +14,7 @@ import {
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { auditTime, BehaviorSubject, from, switchMap } from 'rxjs';
 
+import EditorJS from '@editorjs/editorjs/types';
 import { WpxService } from '@weplanx/ng';
 import { MediaType, WpxMediaViewComponent } from '@weplanx/ng/media';
 import { NzModalService } from 'ng-zorro-antd/modal';
@@ -63,7 +64,7 @@ export class WpxRichtextComponent implements ControlValueAccessor, AfterViewInit
    * EditorJS
    * @private
    */
-  private instance?: any;
+  private instance?: EditorJS;
   private onChange?: (value: any) => void;
   private onTouched?: () => void;
 
@@ -103,7 +104,7 @@ export class WpxRichtextComponent implements ControlValueAccessor, AfterViewInit
   ngOnDestroy(): void {
     if (this.instance) {
       from(this.instance.isReady).subscribe(() => {
-        this.instance.destroy();
+        this.instance!.destroy();
       });
     }
   }
@@ -123,9 +124,7 @@ export class WpxRichtextComponent implements ControlValueAccessor, AfterViewInit
           image: {
             class: Image,
             config: {
-              resolve: (done: ResolveDone) => {
-                this.openMediaView('pictures', done);
-              },
+              resolve: (done: ResolveDone) => this.openMediaView('pictures', done),
               change: () => this.save()
             }
           },
@@ -143,11 +142,11 @@ export class WpxRichtextComponent implements ControlValueAccessor, AfterViewInit
         onChange: () => this.save()
       });
 
-      from(this.instance.isReady)
+      from(this.instance!.isReady)
         .pipe(switchMap(() => this.$data))
         .subscribe(data => {
           if (data) {
-            this.instance.render(data);
+            this.instance!.render(data);
           }
         });
     });
