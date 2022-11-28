@@ -5,6 +5,7 @@ import {
   Component,
   ElementRef,
   forwardRef,
+  Inject,
   Input,
   NgZone,
   OnDestroy,
@@ -15,13 +16,12 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { auditTime, BehaviorSubject, from, switchMap } from 'rxjs';
 
 import EditorJS from '@editorjs/editorjs/types';
-import { WpxService } from '@weplanx/ng';
+import { LoadOption, WpxService } from '@weplanx/ng';
 import { MediaType, WpxMediaViewComponent } from '@weplanx/ng/media';
 import { NzModalService } from 'ng-zorro-antd/modal';
 
-import { defaultTools, zh_CN } from './helper';
+import { defaultTools, OPTION, zh_CN } from './helper';
 import { Image } from './image';
-import { WpxRichtextService } from './richtext.service';
 import { ResolveDone, RichtextData } from './types';
 import { Video } from './video';
 
@@ -69,9 +69,10 @@ export class WpxRichtextComponent implements ControlValueAccessor, AfterViewInit
   private onTouched?: () => void;
 
   constructor(
-    private platform: Platform,
+    @Inject(OPTION)
+    private option: LoadOption,
     private wpx: WpxService,
-    private richtext: WpxRichtextService,
+    private platform: Platform,
     private modal: NzModalService,
     private zone: NgZone
   ) {}
@@ -96,7 +97,7 @@ export class WpxRichtextComponent implements ControlValueAccessor, AfterViewInit
       this.initialize();
       return;
     }
-    this.richtext.loadScript().subscribe(() => {
+    this.wpx.loadScript(this.option.url, this.option.plugins).subscribe(() => {
       this.initialize();
     });
   }

@@ -2,7 +2,6 @@ import { ComponentPortal } from '@angular/cdk/portal';
 
 export type AnyDto<T> = T & BasicDto;
 export type R = Record<string, any>;
-
 export interface BasicDto extends R {
   /**
    * 对象 ID
@@ -360,4 +359,9 @@ export interface ImageInfoDto {
   height: number;
   width: number;
   size: number;
+}
+
+export interface LoadOption {
+  url: string;
+  plugins: string[];
 }

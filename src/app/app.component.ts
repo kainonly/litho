@@ -2,8 +2,6 @@ import { Component, OnInit } from '@angular/core';
 
 import { environment } from '@env';
 import { WpxService } from '@weplanx/ng';
-import { WpxRichtextService } from '@weplanx/ng/richtext';
-import { WpxStoreService } from '@weplanx/ng/store';
 import { NzIconService } from 'ng-zorro-antd/icon';
 
 @Component({
@@ -11,11 +9,10 @@ import { NzIconService } from 'ng-zorro-antd/icon';
   template: '<router-outlet></router-outlet>'
 })
 export class AppComponent implements OnInit {
-  constructor(private nzIconService: NzIconService, private wpx: WpxService, private store: WpxStoreService) {}
+  constructor(private nzIconService: NzIconService, private wpx: WpxService) {}
 
   ngOnInit(): void {
     this.nzIconService.changeAssetsSource(environment.cdn);
     this.wpx.setAssets(environment.cdn);
-    this.store.loadScript().subscribe(() => {});
   }
 }

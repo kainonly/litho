@@ -97,7 +97,18 @@ if (!environment.production) {
     HttpClientModule,
     FormsModule,
     NzMessageModule,
-    WpxRichtextModule,
+    WpxRichtextModule.forRoot({
+      url: 'https://cdn.kainonly.com/assets/editorjs/editorjs.js',
+      plugins: [
+        'https://cdn.kainonly.com/assets/editorjs/paragraph.js',
+        'https://cdn.kainonly.com/assets/editorjs/header.js',
+        'https://cdn.kainonly.com/assets/editorjs/delimiter.js',
+        'https://cdn.kainonly.com/assets/editorjs/underline.js',
+        'https://cdn.kainonly.com/assets/editorjs/nested-list.js',
+        'https://cdn.kainonly.com/assets/editorjs/checklist.js',
+        'https://cdn.kainonly.com/assets/editorjs/table.js'
+      ]
+    }),
     WpxStoreModule,
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: environment.production,
