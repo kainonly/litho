@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 
-import { AnyDto, Api, Page } from '@weplanx/ng';
+import { AnyDto, WpxApi, Page } from '@weplanx/ng';
 
 @Injectable()
-export class TestPagesService extends Api<Page> {
-  protected override model = 'pages';
+export class TestPagesService extends WpxApi<Page> {
+  protected override collection = 'pages';
 }
 
 export const pages: Array<AnyDto<Page>> = [

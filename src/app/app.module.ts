@@ -9,7 +9,6 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 
 import { environment } from '@env';
 import { WpxRichtextModule } from '@weplanx/ng/richtext';
-import { WpxStoreModule } from '@weplanx/ng/store';
 import { NZ_CONFIG, NzConfig } from 'ng-zorro-antd/core/config';
 import { NZ_I18N, zh_CN } from 'ng-zorro-antd/i18n';
 import { NzMessageModule } from 'ng-zorro-antd/message';
@@ -109,7 +108,6 @@ if (!environment.production) {
         'https://cdn.kainonly.com/assets/editorjs/table.js'
       ]
     }),
-    WpxStoreModule,
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: environment.production,
       registrationStrategy: 'registerWhenStable:30000'

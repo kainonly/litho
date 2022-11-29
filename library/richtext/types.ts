@@ -1,3 +1,9 @@
+import { InjectionToken } from '@angular/core';
+
+import { LoadOption } from '@weplanx/ng';
+
+export const OPTION = new InjectionToken<LoadOption>('richtext.option');
+
 export type RichtextData = {
   blocks: Block[];
   time: number;

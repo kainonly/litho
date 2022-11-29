@@ -1,25 +1,30 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { from, Observable } from 'rxjs';
 
 import { WpxService } from '@weplanx/ng';
 
-let windowAny: any = window;
+import { Option } from './types';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class WpxStoreService {
-  private url = 'https://cdn.kainonly.com/assets/pouchdb/pouchdb-7.3.1.min.js';
-  private plugins: string[] = [];
+  private db!: PouchDB.Database;
 
   constructor(private wpx: WpxService) {}
 
-  setup(url: string, plugins: string[]): void {
-    this.url = url;
-    this.plugins = plugins;
+  initialize(option: Option): void {
+    this.wpx.loadScript(option.url, option.plugins).subscribe(() => {
+      this.db = new PouchDB(option.name, {
+        adapter: 'idb'
+      });
+    });
   }
 
-  loadScript(): Observable<void> {
-    return this.wpx.loadScript(this.url, this.plugins);
+  get<Model>(_id: string): Observable<PouchDB.Core.Document<Model> & PouchDB.Core.GetMeta> {
+    console.log(this.db);
+    return from(this.db.get<Model>(_id));
   }
 
-  create(): void {}
+  set<Model>(_id: string, value: Model, _rev?: string): Observable<PouchDB.Core.Response> {
+    return from(this.db.put({ _id, ...value, _rev }));
+  }
 }

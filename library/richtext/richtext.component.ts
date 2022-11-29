@@ -15,14 +15,14 @@ import {
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { auditTime, BehaviorSubject, from, switchMap } from 'rxjs';
 
-import EditorJS from '@editorjs/editorjs/types';
+import EditorJS from '@editorjs/editorjs';
 import { LoadOption, WpxService } from '@weplanx/ng';
 import { MediaType, WpxMediaViewComponent } from '@weplanx/ng/media';
 import { NzModalService } from 'ng-zorro-antd/modal';
 
-import { defaultTools, OPTION, zh_CN } from './helper';
+import { defaultTools, zh_CN } from './helper';
 import { Image } from './image';
-import { ResolveDone, RichtextData } from './types';
+import { OPTION, ResolveDone, RichtextData } from './types';
 import { Video } from './video';
 
 let windowAny: any = window;

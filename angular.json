@@ -25,7 +25,7 @@
             "inlineStyleLanguage": "scss",
             "assets": ["src/favicon.ico", "src/assets", "src/manifest.webmanifest"],
             "styles": ["src/styles.scss"],
-            "scripts": [],
+            "scripts": ["https://cdn.kainonly.com/assets/pouchdb/pouchdb-7.3.1.min.js"],
             "allowedCommonJsDependencies": ["validator", "size-sensor", "d3-regression", "fmin", "pdfast"],
             "serviceWorker": true,
             "ngswConfigPath": "ngsw-config.json"
