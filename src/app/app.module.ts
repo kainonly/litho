@@ -98,7 +98,7 @@ if (!environment.production) {
     FormsModule,
     NzMessageModule,
     WpxRichtextModule.forRoot({
-      url: 'https://cdn.kainonly.com/assets/editorjs/editor.js',
+      url: 'https://cdn.kainonly.com/assets/editorjs/editorjs.js',
       plugins: [
         'https://cdn.kainonly.com/assets/editorjs/paragraph.js',
         'https://cdn.kainonly.com/assets/editorjs/header.js',

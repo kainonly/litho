@@ -2,7 +2,7 @@ import { ComponentPortal, ComponentType } from '@angular/cdk/portal';
 import { DOCUMENT } from '@angular/common';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
-import { AsyncSubject, concatWith, delay, fromEvent, Observable } from 'rxjs';
+import { AsyncSubject, fromEvent, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { ComponentTypeOption, UploadOption, Value } from './types';
@@ -26,7 +26,7 @@ export class WpxService {
    */
   components: Map<string, ComponentTypeOption<any>> = new Map<string, ComponentTypeOption<any>>();
 
-  scripts: Map<string, Observable<Event>> = new Map<string, Observable<Event>>();
+  scripts: Map<string, AsyncSubject<void>> = new Map();
 
   constructor(private http: HttpClient, @Inject(DOCUMENT) private document: Document) {}
 
@@ -88,11 +88,15 @@ export class WpxService {
       return;
     }
     const script = this.createScript(url);
-    const events: Array<Observable<any>> = [];
+    const async: AsyncSubject<void> = new AsyncSubject();
+    this.scripts.set(key, async);
     for (const plugin of plugins) {
-      events.push(fromEvent(this.createScript(plugin), 'load'));
+      this.createScript(plugin);
     }
-    this.scripts.set(key, fromEvent(script, 'load').pipe(concatWith(...events)));
+    fromEvent(script, 'load').subscribe(() => {
+      async.next();
+      async.complete();
+    });
   }
 
   /**

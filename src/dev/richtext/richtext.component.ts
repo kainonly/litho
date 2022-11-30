@@ -52,10 +52,10 @@ export class RichtextComponent implements OnInit {
   }
 
   submit(value: any): void {
-    console.log(value);
+    // console.log(value);
   }
 
   test(value: any): void {
-    console.log(value);
+    // console.log(value);
   }
 }

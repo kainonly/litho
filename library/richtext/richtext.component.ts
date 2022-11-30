@@ -12,7 +12,7 @@ import {
   ViewEncapsulation
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { auditTime, BehaviorSubject, from, switchMap } from 'rxjs';
+import { auditTime, BehaviorSubject, delay, from, switchMap } from 'rxjs';
 
 import { WpxService } from '@weplanx/ng';
 import { MediaType, WpxMediaViewComponent } from '@weplanx/ng/media';
@@ -89,15 +89,22 @@ export class WpxRichtextComponent implements ControlValueAccessor, AfterViewInit
     if (!this.platform.isBrowser) {
       return;
     }
-    this.initialize();
+    this.wpx.scripts
+      .get('richtext')!
+      .pipe(delay(200))
+      .subscribe(() => {
+        this.initialize();
+      });
+    return;
   }
 
   ngOnDestroy(): void {
-    if (this.instance) {
-      from(this.instance.isReady).subscribe(() => {
-        this.instance!.destroy();
-      });
+    if (!this.instance) {
+      return;
     }
+    from(this.instance.isReady).subscribe(() => {
+      this.instance!.destroy();
+    });
   }
 
   /**
