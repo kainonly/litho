@@ -8,26 +8,6 @@ import { WpxStoreService } from '@weplanx/ng/store';
   selector: 'app-overview',
   templateUrl: './overview.component.html'
 })
-export class OverviewComponent implements OnInit {
-  constructor(public app: AppService, private store: WpxStoreService) {}
-
-  ngOnInit(): void {
-    this.store
-      .get<{ title: string }>('mydoc')
-      .pipe(
-        switchMap(doc => {
-          console.log(doc);
-          return this.store.set<{ title: string }>(
-            'mydoc',
-            {
-              title: '123456'
-            },
-            doc._rev
-          );
-        })
-      )
-      .subscribe(result => {
-        console.log(result);
-      });
-  }
+export class OverviewComponent {
+  constructor(public app: AppService) {}
 }

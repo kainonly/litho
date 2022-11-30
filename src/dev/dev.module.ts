@@ -13,6 +13,10 @@ const routes: Routes = [
       {
         path: 'richtext',
         loadChildren: () => import('./richtext/richtext.module').then(m => m.RichtextModule)
+      },
+      {
+        path: 'store',
+        loadChildren: () => import('./store/store.module').then(m => m.StoreModule)
       }
     ]
   }

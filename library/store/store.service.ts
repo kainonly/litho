@@ -36,6 +36,15 @@ export class WpxStoreService {
   }
 
   /**
+   * 删除文档
+   * @param _id
+   * @param _rev
+   */
+  remove(_id: string, _rev: string): Observable<PouchDB.Core.Response> {
+    return from(this.db.remove({ _id, _rev }));
+  }
+
+  /**
    * 销毁本地存储
    */
   destroy(): Observable<void> {
