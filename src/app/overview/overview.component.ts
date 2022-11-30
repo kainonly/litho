@@ -20,7 +20,7 @@ export class OverviewComponent implements OnInit {
           return this.store.set<{ title: string }>(
             'mydoc',
             {
-              title: 'abcd'
+              title: '123456'
             },
             doc._rev
           );

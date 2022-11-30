@@ -16,10 +16,5 @@ export class AppComponent implements OnInit {
   ngOnInit(): void {
     this.nzIconService.changeAssetsSource(environment.cdn);
     this.wpx.setAssets(environment.cdn);
-    this.store.initialize({
-      url: 'https://cdn.kainonly.com/assets/pouchdb/pouchdb-7.3.1.min.js',
-      plugins: [],
-      name: 'weplanx'
-    });
   }
 }
