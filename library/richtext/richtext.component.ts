@@ -5,7 +5,6 @@ import {
   Component,
   ElementRef,
   forwardRef,
-  Inject,
   Input,
   NgZone,
   OnDestroy,
@@ -15,17 +14,16 @@ import {
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { auditTime, BehaviorSubject, from, switchMap } from 'rxjs';
 
-import EditorJS from '@editorjs/editorjs';
-import { LoadOption, WpxService } from '@weplanx/ng';
+import { WpxService } from '@weplanx/ng';
 import { MediaType, WpxMediaViewComponent } from '@weplanx/ng/media';
 import { NzModalService } from 'ng-zorro-antd/modal';
 
 import { defaultTools, zh_CN } from './helper';
 import { Image } from './image';
-import { OPTION, ResolveDone, RichtextData } from './types';
+import { ResolveDone, RichtextData } from './types';
 import { Video } from './video';
 
-let windowAny: any = window;
+const windowAny: any = window;
 
 @Component({
   selector: 'wpx-richtext',
@@ -64,13 +62,11 @@ export class WpxRichtextComponent implements ControlValueAccessor, AfterViewInit
    * EditorJS
    * @private
    */
-  private instance?: EditorJS;
+  private instance?: any;
   private onChange?: (value: any) => void;
   private onTouched?: () => void;
 
   constructor(
-    @Inject(OPTION)
-    private option: LoadOption,
     private wpx: WpxService,
     private platform: Platform,
     private modal: NzModalService,
@@ -93,13 +89,7 @@ export class WpxRichtextComponent implements ControlValueAccessor, AfterViewInit
     if (!this.platform.isBrowser) {
       return;
     }
-    if (windowAny.hasOwnProperty('EditorJS')) {
-      this.initialize();
-      return;
-    }
-    this.wpx.loadScript(this.option.url, this.option.plugins).subscribe(() => {
-      this.initialize();
-    });
+    this.initialize();
   }
 
   ngOnDestroy(): void {
@@ -121,7 +111,7 @@ export class WpxRichtextComponent implements ControlValueAccessor, AfterViewInit
         placeholder: this.wpxPlaceholder,
         logLevel: 'ERROR',
         tools: {
-          ...defaultTools(windowAny),
+          ...defaultTools(window),
           image: {
             class: Image,
             config: {

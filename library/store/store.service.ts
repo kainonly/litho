@@ -1,15 +1,19 @@
 import { Inject, Injectable } from '@angular/core';
 import { from, Observable } from 'rxjs';
 
+import { WpxService } from '@weplanx/ng';
+
 import { OPTION, Option } from './types';
 
 @Injectable()
 export class WpxStoreService {
   private db!: PouchDB.Database;
 
-  constructor(@Inject(OPTION) option: Option) {
-    this.db = new PouchDB(option.name, {
-      adapter: 'idb'
+  constructor(@Inject(OPTION) option: Option, private wpx: WpxService) {
+    wpx.scripts.get('store')!.subscribe(() => {
+      this.db = new PouchDB(option.name, {
+        adapter: 'idb'
+      });
     });
   }
 

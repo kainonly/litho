@@ -15,8 +15,6 @@ export class WpxStoreModule {
   }
 
   constructor(@Inject(OPTION) option: Option, wpx: WpxService) {
-    if (!window.hasOwnProperty('PouchDB')) {
-      wpx.loadScript(option.url, option.plugins).subscribe(() => {});
-    }
+    wpx.loadScript('store', option.url, option.plugins);
   }
 }

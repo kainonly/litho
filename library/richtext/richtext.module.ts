@@ -1,6 +1,6 @@
-import { ModuleWithProviders, NgModule } from '@angular/core';
+import { Inject, ModuleWithProviders, NgModule } from '@angular/core';
 
-import { LoadOption, WpxModule, WpxShareModule } from '@weplanx/ng';
+import { LoadOption, WpxModule, WpxService, WpxShareModule } from '@weplanx/ng';
 import { WpxMediaModule } from '@weplanx/ng/media';
 
 import { WpxRichtextComponent } from './richtext.component';
@@ -17,5 +17,9 @@ export class WpxRichtextModule {
       ngModule: WpxRichtextModule,
       providers: [{ provide: OPTION, useValue: option }]
     };
+  }
+
+  constructor(@Inject(OPTION) option: LoadOption, wpx: WpxService) {
+    wpx.loadScript('richtext', option.url, option.plugins);
   }
 }

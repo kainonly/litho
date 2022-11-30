@@ -26,6 +26,8 @@ export class WpxService {
    */
   components: Map<string, ComponentTypeOption<any>> = new Map<string, ComponentTypeOption<any>>();
 
+  scripts: Map<string, Observable<Event>> = new Map<string, Observable<Event>>();
+
   constructor(private http: HttpClient, @Inject(DOCUMENT) private document: Document) {}
 
   /**
@@ -63,24 +65,34 @@ export class WpxService {
   }
 
   /**
-   * 异步加载脚本
-   * @param url 地址
-   * @param plugins 插件地址
+   * 建立脚本
+   * @param url
+   * @private
    */
-  loadScript(url: string, plugins: string[]): Observable<void> {
+  private createScript(url: string): HTMLScriptElement {
     const script = this.document.createElement('script');
     script.src = url;
     script.async = true;
     this.document.head.append(script);
-    const events: Array<Observable<any>> = [];
-    for (const x of plugins) {
-      const plugin = this.document.createElement('script');
-      plugin.src = x;
-      plugin.async = true;
-      this.document.head.append(plugin);
-      events.push(fromEvent(plugin, 'load'));
+    return script;
+  }
+
+  /**
+   * 异步加载脚本
+   * @param key 唯一命名
+   * @param url 地址
+   * @param plugins 插件地址
+   */
+  loadScript(key: string, url: string, plugins: string[]): void {
+    if (this.scripts.has(key)) {
+      return;
     }
-    return fromEvent(script, 'load').pipe(concatWith(...events), delay(200));
+    const script = this.createScript(url);
+    const events: Array<Observable<any>> = [];
+    for (const plugin of plugins) {
+      events.push(fromEvent(this.createScript(plugin), 'load'));
+    }
+    this.scripts.set(key, fromEvent(script, 'load').pipe(concatWith(...events)));
   }
 
   /**

@@ -40,7 +40,6 @@
     "@angular-eslint/template-parser": "14.1.2",
     "@angular/cli": "~14.2.7",
     "@angular/compiler-cli": "^14.2.8",
-    "@editorjs/editorjs": "^2.25.0",
     "@types/jasmine": "~4.0.0",
     "@types/pouchdb": "^6.4.0",
     "@types/validator": "^13.7.6",
