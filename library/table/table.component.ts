@@ -1,8 +1,9 @@
 import { Component, Input, OnInit, TemplateRef, ViewChild } from '@angular/core';
-import { UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { Observable } from 'rxjs';
 
 import { WpxData, WpxApi, AnyDto } from '@weplanx/ng';
+import { WpxStoreService } from '@weplanx/ng/store';
 import { NzCheckBoxOptionInterface } from 'ng-zorro-antd/checkbox';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzResizeEvent } from 'ng-zorro-antd/resizable';
@@ -64,7 +65,7 @@ export class WpxTableComponent<T> implements OnInit {
   /**
    * 查询表单
    */
-  searchForm?: UntypedFormGroup;
+  searchForm?: FormGroup;
   /**
    * 查询显示
    */
@@ -110,7 +111,12 @@ export class WpxTableComponent<T> implements OnInit {
    */
   references: Record<string, any> = {};
 
-  constructor(private service: WpxTableService, private fb: UntypedFormBuilder, private message: NzMessageService) {}
+  constructor(
+    private service: WpxTableService,
+    private fb: FormBuilder,
+    private message: NzMessageService,
+    private store: WpxStoreService
+  ) {}
 
   ngOnInit(): void {
     const columns: NzCheckBoxOptionInterface[] = [];
@@ -144,34 +150,32 @@ export class WpxTableComponent<T> implements OnInit {
     }
     this.columns = columns;
 
-    const raw = sessionStorage.getItem(this.wpxKey);
-    console.log(raw);
     /**
      * 本地存储样式合并
      */
-    if (raw) {
-      const v = JSON.parse(raw) as TableOption<T>;
-      this.searchText = v.searchText;
-      this.wpxData.filter = v.filter;
-      this.wpxData.sort = v.sort;
-      this.wpxData.page = v.page;
-      this.wpxData.pagesize = v.pagesize;
-      if (
-        v.columns.length === this.wpxFields.size &&
-        v.columns.every(v => this.wpxFields.has(v.value) && this.wpxFields.get(v.value)!.label === v.label)
-      ) {
-        this.columns = v.columns;
+    this.store.get<TableOption<T>>(this.wpxKey).subscribe(v => {
+      if (v) {
+        this.searchText = v.searchText;
+        this.wpxData.filter = v.filter;
+        this.wpxData.sort = v.sort;
+        this.wpxData.page = v.page;
+        this.wpxData.pagesize = v.pagesize;
+        if (
+          v.columns.length === this.wpxFields.size &&
+          v.columns.every(v => this.wpxFields.has(v.value) && this.wpxFields.get(v.value)!.label === v.label)
+        ) {
+          this.columns = v.columns;
+        } else {
+          this.columnsChecked = true;
+          this.columnsIndeterminate = false;
+          this.columns = columns;
+        }
+        this.columnsWidth = v.columnsWidth;
       } else {
-        this.columnsChecked = true;
-        this.columnsIndeterminate = false;
         this.columns = columns;
+        this.columnsWidth = columnsWidth;
       }
-      this.columnsWidth = v.columnsWidth;
-    } else {
-      this.columns = columns;
-      this.columnsWidth = columnsWidth;
-    }
-
+    });
     this.updateColumnChecked();
     this.getData();
   }
@@ -210,7 +214,7 @@ export class WpxTableComponent<T> implements OnInit {
    * 打开搜索表单
    */
   openSearchForm(): void {
-    const controls: Record<string, UntypedFormGroup> = {};
+    const controls: Record<string, FormGroup> = {};
     for (const x of this.columns) {
       controls[x.value] = this.fb.group({
         operator: ['$regex'],
@@ -352,26 +356,24 @@ export class WpxTableComponent<T> implements OnInit {
    * 更新本地存储
    */
   updateStorage(): void {
-    sessionStorage.setItem(
-      this.wpxKey,
-      JSON.stringify(<TableOption<T>>{
-        searchText: this.searchText,
-        filter: this.wpxData.filter,
-        // sort: this.wpxData.sort,
-        pagesize: this.wpxData.pagesize,
-        page: this.wpxData.page,
-        columns: this.columns,
-        columnsWidth: this.columnsWidth
-      })
-    );
+    this.store.set<TableOption<T>>(this.wpxKey, {
+      searchText: this.searchText,
+      filter: this.wpxData.filter,
+      sort: this.wpxData.sort,
+      pagesize: this.wpxData.pagesize,
+      page: this.wpxData.page,
+      columns: this.columns,
+      columnsWidth: this.columnsWidth
+    });
   }
 
   /**
    * 样式修复
    */
   repair(): void {
-    sessionStorage.removeItem(this.wpxKey);
-    this.ngOnInit();
-    this.message.success('同步修复已完成');
+    this.store.remove(this.wpxKey).subscribe(() => {
+      this.ngOnInit();
+      this.message.success('同步修复已完成');
+    });
   }
 }

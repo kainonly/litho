@@ -1,4 +1,4 @@
-import { AnyDto, ApiOptions, BasicDto, Filter, Sort, XFilter } from '../types';
+import { AnyDto, ApiOptions, BasicDto, Filter, XFilter } from '../types';
 
 export class WpxData<T extends BasicDto> implements ApiOptions<T> {
   /**
