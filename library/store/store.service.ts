@@ -2,16 +2,12 @@
 
 declare let localforage: LocalForage;
 
-import { Inject, Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { from, Observable } from 'rxjs';
-
-import { WpxService } from '@weplanx/ng';
-
-import { OPTION, Option } from './types';
 
 @Injectable()
 export class WpxStoreService {
-  constructor(@Inject(OPTION) option: Option, private wpx: WpxService) {}
+  constructor() {}
 
   /**
    * 将数据保存到离线仓库

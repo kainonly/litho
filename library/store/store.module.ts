@@ -1,7 +1,9 @@
 import { Inject, ModuleWithProviders, NgModule } from '@angular/core';
 
 import { WpxModule, WpxService } from '@weplanx/ng';
-import { OPTION, Option, WpxStoreService } from '@weplanx/ng/store';
+
+import { WpxStoreService } from './store.service';
+import { OPTION, Option } from './types';
 
 @NgModule({
   imports: [WpxModule]
