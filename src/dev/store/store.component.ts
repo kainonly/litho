@@ -1,5 +1,4 @@
-import { Component, OnInit } from '@angular/core';
-import { switchMap } from 'rxjs';
+import { Component } from '@angular/core';
 
 import { WpxStoreService } from '@weplanx/ng/store';
 
@@ -27,30 +26,14 @@ export class StoreComponent {
   }
 
   update(): void {
-    this.store
-      .get<MyDoc>('mydocs')
-      .pipe(
-        switchMap(doc => {
-          console.log(doc);
-          return this.store.set<MyDoc>('mydocs', { title: this.title }, doc._rev);
-        })
-      )
-      .subscribe(result => {
-        console.log(result);
-      });
+    this.store.set<MyDoc>('mydocs', { title: this.title }).subscribe(result => {
+      console.log(result);
+    });
   }
 
   delete(): void {
-    this.store
-      .get<MyDoc>('mydocs')
-      .pipe(
-        switchMap(doc => {
-          console.log(doc);
-          return this.store.remove('mydocs', doc._rev);
-        })
-      )
-      .subscribe(result => {
-        console.log(result);
-      });
+    this.store.remove('mydocs').subscribe(() => {
+      console.log('ok');
+    });
   }
 }

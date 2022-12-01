@@ -1,3 +1,7 @@
+/// <reference types="localforage" />
+
+declare let localforage: LocalForage;
+
 import { Inject, Injectable } from '@angular/core';
 import { from, Observable } from 'rxjs';
 
@@ -7,47 +11,37 @@ import { OPTION, Option } from './types';
 
 @Injectable()
 export class WpxStoreService {
-  private db!: PouchDB.Database;
-
-  constructor(@Inject(OPTION) option: Option, private wpx: WpxService) {
-    wpx.scripts.get('store')!.subscribe(() => {
-      this.db = new PouchDB(option.name, {
-        adapter: 'idb'
-      });
-    });
-  }
+  constructor(@Inject(OPTION) option: Option, private wpx: WpxService) {}
 
   /**
-   * 获取文档
-   * @param _id
-   */
-  get<Model>(_id: string): Observable<PouchDB.Core.Document<Model> & PouchDB.Core.GetMeta> {
-    return from(this.db.get<Model>(_id));
-  }
-
-  /**
-   * 创建或更新文档
-   * @param _id
+   * 将数据保存到离线仓库
+   * @param key
    * @param value
-   * @param _rev
    */
-  set<Model>(_id: string, value: Model, _rev?: string): Observable<PouchDB.Core.Response> {
-    return from(this.db.put({ _id, ...value, _rev }));
+  set<T>(key: string, value: T): Observable<T> {
+    return from(localforage.setItem<T>(key, value));
   }
 
   /**
-   * 删除文档
-   * @param _id
-   * @param _rev
+   * 从仓库中获取 key 对应的值并将结果提供给回调函数
+   * @param key
    */
-  remove(_id: string, _rev: string): Observable<PouchDB.Core.Response> {
-    return from(this.db.remove({ _id, _rev }));
+  get<T>(key: string): Observable<T | null> {
+    return from(localforage.getItem<T>(key));
   }
 
   /**
-   * 销毁本地存储
+   * 从离线仓库中删除 key 对应的值
+   * @param key
    */
-  destroy(): Observable<void> {
-    return from(this.db.destroy());
+  remove(key: string): Observable<void> {
+    return from(localforage.removeItem(key));
+  }
+
+  /**
+   * 从数据库中删除所有的 key，重置数据库
+   */
+  clear(): Observable<void> {
+    return from(localforage.clear());
   }
 }

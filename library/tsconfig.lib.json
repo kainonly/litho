@@ -5,7 +5,7 @@
     "declaration": true,
     "declarationMap": true,
     "inlineSources": true,
-    "types": ["@types/pouchdb"]
+    "types": []
   },
   "exclude": ["test.ts", "**/*.spec.ts"]
 }

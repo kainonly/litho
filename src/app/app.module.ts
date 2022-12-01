@@ -110,7 +110,7 @@ if (!environment.production) {
       ]
     }),
     WpxStoreModule.forRoot({
-      url: 'https://cdn.kainonly.com/assets/pouchdb/pouchdb-7.3.1.min.js',
+      url: 'https://cdn.kainonly.com/assets/localforage/localforage.min.js',
       plugins: [],
       name: 'weplanx'
     }),
