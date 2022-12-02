@@ -119,41 +119,41 @@ export class WpxTableComponent<T> implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    const columns: NzCheckBoxOptionInterface[] = [];
-    const columnsWidth: Record<string, string> = {};
-    for (const [key, value] of this.wpxFields.entries()) {
-      /**
-       * 初始化关键词集合
-       */
-      if (!!value.keyword) {
-        this.keywords.add(key);
-      }
-      /**
-       * 初始化枚举字典
-       */
-      if (value.type === 'select') {
-        const values = value.option?.values ?? [];
-        this.enums[key] = Object.fromEntries(values.map(v => [v.value, v.label]));
-      }
-      /**
-       * 初始化引用请求
-       */
-      if (value.type === 'ref') {
-        const { reference, target } = value.option!;
-        this.requests[key] = (ids: string[]) => this.service.references(reference!, ids, target!);
-      }
-      /**
-       * 初始化列样式
-       */
-      columns.push({ label: value.label, value: key, checked: true });
-      columnsWidth[key] = '240px';
-    }
-    this.columns = columns;
-
-    /**
-     * 本地存储样式合并
-     */
     this.store.get<TableOption<T>>(this.wpxKey).subscribe(v => {
+      const columns: NzCheckBoxOptionInterface[] = [];
+      const columnsWidth: Record<string, string> = {};
+      for (const [key, value] of this.wpxFields.entries()) {
+        /**
+         * 初始化关键词集合
+         */
+        if (!!value.keyword) {
+          this.keywords.add(key);
+        }
+        /**
+         * 初始化枚举字典
+         */
+        if (value.type === 'select') {
+          const values = value.option?.values ?? [];
+          this.enums[key] = Object.fromEntries(values.map(v => [v.value, v.label]));
+        }
+        /**
+         * 初始化引用请求
+         */
+        if (value.type === 'ref') {
+          const { reference, target } = value.option!;
+          this.requests[key] = (ids: string[]) => this.service.references(reference!, ids, target!);
+        }
+        /**
+         * 初始化列样式
+         */
+        columns.push({ label: value.label, value: key, checked: true });
+        columnsWidth[key] = '240px';
+      }
+      this.columns = columns;
+
+      /**
+       * 本地存储样式合并
+       */
       if (v) {
         this.searchText = v.searchText;
         this.wpxData.filter = v.filter;
@@ -175,9 +175,10 @@ export class WpxTableComponent<T> implements OnInit {
         this.columns = columns;
         this.columnsWidth = columnsWidth;
       }
+
+      this.updateColumnChecked();
+      this.getData();
     });
-    this.updateColumnChecked();
-    this.getData();
   }
 
   /**
@@ -356,15 +357,17 @@ export class WpxTableComponent<T> implements OnInit {
    * 更新本地存储
    */
   updateStorage(): void {
-    this.store.set<TableOption<T>>(this.wpxKey, {
-      searchText: this.searchText,
-      filter: this.wpxData.filter,
-      sort: this.wpxData.sort,
-      pagesize: this.wpxData.pagesize,
-      page: this.wpxData.page,
-      columns: this.columns,
-      columnsWidth: this.columnsWidth
-    });
+    this.store
+      .set<TableOption<T>>(this.wpxKey, {
+        searchText: this.searchText,
+        filter: this.wpxData.filter,
+        sort: this.wpxData.sort,
+        pagesize: this.wpxData.pagesize,
+        page: this.wpxData.page,
+        columns: this.columns,
+        columnsWidth: this.columnsWidth
+      })
+      .subscribe(() => {});
   }
 
   /**

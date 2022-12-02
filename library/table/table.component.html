@@ -176,8 +176,8 @@
         nzLeft
         nzAlign="center"
         [nzDisabled]="data['disabled']"
-        [nzChecked]="wpxData.checkedIds.has(data._id)"
-        (nzCheckedChange)="wpxData.setChecked(data._id, $event)"
+        [nzChecked]="wpxData.checkedIds.has(data['_id'])"
+        (nzCheckedChange)="wpxData.setChecked(data['_id'], $event)"
       ></td>
       <ng-container *ngFor="let column of columnsDisplay">
         <td *ngIf="wpxFields | wpxMap: column.value as field">
