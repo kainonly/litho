@@ -6,9 +6,9 @@
         <nz-form-control>
           <nz-input-group [nzSuffix]="identitySuffix" nzPrefixIcon="user">
             <ng-template #identitySuffix>
-              <span *ngIf="identity.value" nz-icon nzType="close-circle" (click)="identity.reset()"> </span>
+              <span *ngIf="email.value" nz-icon nzType="close-circle" (click)="email.reset()"> </span>
             </ng-template>
-            <input type="text" nz-input formControlName="identity" placeholder="用户名 / 企业邮箱 / 手机号" />
+            <input type="email" nz-input formControlName="email" placeholder="电子邮箱" />
           </nz-input-group>
         </nz-form-control>
       </nz-form-item>

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
 import { AppService } from '@app';
@@ -13,29 +13,29 @@ import { NzNotificationService } from 'ng-zorro-antd/notification';
 })
 export class LoginComponent implements OnInit {
   loading = false;
-  form!: UntypedFormGroup;
+  form!: FormGroup;
 
   constructor(
     public wpx: WpxService,
     private app: AppService,
     private notification: NzNotificationService,
     private router: Router,
-    private fb: UntypedFormBuilder
+    private fb: FormBuilder
   ) {}
 
   ngOnInit(): void {
     this.form = this.fb.group({
-      identity: [null, [Validators.required, Validators.minLength(4)]],
+      email: [null, [Validators.required, Validators.email]],
       password: [null, [Validators.required, Validators.minLength(6)]]
     });
   }
 
-  get identity(): UntypedFormControl {
-    return this.form.get('identity') as UntypedFormControl;
+  get email(): FormControl {
+    return this.form.get('email') as FormControl;
   }
 
-  get password(): UntypedFormControl {
-    return this.form.get('password') as UntypedFormControl;
+  get password(): FormControl {
+    return this.form.get('password') as FormControl;
   }
 
   /**
