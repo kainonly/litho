@@ -1,84 +1,24 @@
-<ng-template #title>
-  <nz-input-group style="width: 180px" [nzPrefix]="suffixIconSearch">
-    <input (keyup.enter)="search()" [(ngModel)]="searchText" nz-input placeholder="搜索" />
-    <ng-template #suffixIconSearch>
-      <i nz-icon nzType="search"></i>
-    </ng-template>
-  </nz-input-group>
-</ng-template>
-
-<ng-template #extra>
-  <button nz-button nzType="primary" (click)="form()"> 新增 </button>
-</ng-template>
-
-<nz-card [nzTitle]="title" [nzExtra]="extra">
-  <nz-collapse [nzBordered]="false">
-    <ng-container *ngFor="let v of data.values">
-      <ng-template #panelHeader>
-        <b>{{ v.name }} [{{ v.namespace }}]</b>
-      </ng-template>
-      <ng-template #panelExtra>
-        <button
-          nzSize="small"
-          nz-button
-          nzType="text"
-          nz-dropdown
-          [nzDropdownMenu]="menu"
-          (click)="$event.stopPropagation()"
-        >
-          <i nz-icon nzType="ellipsis"></i>
-        </button>
-        <nz-dropdown-menu #menu="nzDropdownMenu">
-          <ul nz-menu>
-            <li nz-menu-item (click)="form(v)">编辑</li>
-            <li nz-menu-item nzDanger (click)="delete(v)">删除</li>
-          </ul>
-        </nz-dropdown-menu>
-      </ng-template>
-      <nz-collapse-panel [nzHeader]="panelHeader" [nzExtra]="panelExtra">
-        <nz-descriptions [nzColumn]="2">
-          <nz-descriptions-item nzTitle="创建时间">
-            {{ v.create_time | date: 'yyyy-MM-dd HH:mm:ss' }}
-          </nz-descriptions-item>
-          <nz-descriptions-item nzTitle="更新时间">
-            {{ v.update_time | date: 'yyyy-MM-dd HH:mm:ss' }}
-          </nz-descriptions-item>
-          <nz-descriptions-item nzTitle="有效期">
-            <ng-container *ngIf="v.expire; else emptyExpire">
-              {{ v.expire | date: 'yyyy-MM-dd HH:mm' }}
-            </ng-container>
-            <ng-template #emptyExpire>永久</ng-template>
-          </nz-descriptions-item>
-          <nz-descriptions-item nzTitle="状态">
-            <ng-container *ngIf="v.status; else isFalse">
-              <nz-badge nzStatus="processing"></nz-badge> 开启
-            </ng-container>
-            <ng-template #isFalse> <nz-badge nzStatus="default"></nz-badge> 关闭 </ng-template>
-          </nz-descriptions-item>
-          <nz-descriptions-item [nzSpan]="2" nzTitle="密钥">
-            <ng-container *ngIf="v.secret; else unset">
-              <span nz-typography nzCopyable [nzContent]="v.secret"></span>
-            </ng-container>
-          </nz-descriptions-item>
-          <nz-descriptions-item [nzSpan]="2" nzTitle="入口">
-            <ng-container *ngIf="v.entry.length !== 0; else unset">
-              {{ v.entry }}
-            </ng-container>
-          </nz-descriptions-item>
-        </nz-descriptions>
-      </nz-collapse-panel>
-    </ng-container>
-  </nz-collapse>
-  <div style="padding-top: 8px; text-align: right">
-    <nz-pagination
-      nzSize="small"
-      nzShowSizeChanger
-      (nzPageSizeChange)="getData(true)"
-      [nzPageIndex]="data.page"
-      [nzPageSize]="data.pagesize"
-      [nzTotal]="data.total"
-    ></nz-pagination>
-  </div>
+<nz-card>
+  <nz-table #basicTable [nzData]="data.values">
+    <thead>
+      <tr>
+        <th></th>
+        <th>项目名称</th>
+        <th>命名空间</th>
+        <th>有效期</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let data of basicTable.data">
+        <td></td>
+        <td>{{ data.name }}</td>
+        <td>{{ data.namespace }}</td>
+        <td>{{ data.expire }}</td>
+        <td> </td>
+      </tr>
+    </tbody>
+  </nz-table>
 </nz-card>
 
 <ng-template #unset>未设置</ng-template>
