@@ -1,8 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { switchMap } from 'rxjs';
+import { Component } from '@angular/core';
 
 import { AppService } from '@app';
-import { WpxStoreService } from '@weplanx/ng/store';
 
 @Component({
   selector: 'app-overview',

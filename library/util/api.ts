@@ -135,7 +135,7 @@ export abstract class WpxApi<T> {
       })
       .pipe(
         map(res => {
-          data.total = parseInt(res.headers.get('wpx-total')!);
+          data.total = parseInt(res.headers.get('x-total')!);
           data.set(res.body!);
           data.loading = false;
           data.updateCheckedStatus();

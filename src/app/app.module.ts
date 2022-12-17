@@ -24,6 +24,11 @@ registerLocaleData(zh);
 const routes: Routes = [
   ...external,
   {
+    path: 'admin',
+    loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule),
+    canActivate: [AppGuard]
+  },
+  {
     path: ':namespace/overview',
     loadChildren: () => import('./overview/overview.module').then(m => m.OverviewModule),
     canActivate: [AppGuard],
@@ -79,7 +84,7 @@ const routes: Routes = [
       breadcrumb: '日志系统'
     }
   },
-  { path: '', redirectTo: 'default/overview', pathMatch: 'full' }
+  { path: '', redirectTo: 'admin', pathMatch: 'full' }
 ];
 
 if (!environment.production) {

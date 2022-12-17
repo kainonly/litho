@@ -30,7 +30,6 @@ export class TableComponent {
     ['phone', { label: '手机', type: 'string' }],
     ['address', { label: '地址', type: 'text' }],
     ['price', { label: '价格', type: 'number' }],
-    ['valid', { label: '有效期', type: 'dates' }],
     ['status', { label: '状态', type: 'bool' }]
   ]);
   /**

@@ -1,0 +1,37 @@
+<nz-layout class="main">
+  <app-header> </app-header>
+  <nz-layout style="padding-top: 45px; overflow-x: hidden; overflow-y: auto">
+    <nz-sider nzWidth="200px" nzTheme="light">
+      <ul nz-menu nzMode="inline">
+        <ul>
+          <li nz-menu-group nzTitle="功能设置">
+            <ul>
+              <li nz-menu-item nzMatchRouter [routerLink]="['/', 'admin', 'projects']">项目管理</li>
+              <li nz-menu-item nzDisabled>版本管理</li>
+              <li nz-menu-item nzDisabled>基础设施</li>
+            </ul>
+          </li>
+          <li nz-menu-group nzTitle="团队设置">
+            <ul>
+              <li nz-menu-item nzMatchRouter [routerLink]="['/', 'admin', 'users']">成员管理</li>
+              <li nz-menu-item nzDisabled>权限管理</li>
+            </ul>
+          </li>
+          <li nz-menu-group nzTitle="安全性">
+            <ul>
+              <li nz-menu-item>访问审计</li>
+              <li nz-menu-item>会话管理</li>
+              <li nz-menu-item>登录设置</li>
+              <li nz-menu-item>日志</li>
+            </ul>
+          </li>
+        </ul>
+      </ul>
+    </nz-sider>
+    <nz-content>
+      <div class="content">
+        <router-outlet></router-outlet>
+      </div>
+    </nz-content>
+  </nz-layout>
+</nz-layout>
