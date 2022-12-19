@@ -1,22 +1,101 @@
-<nz-card>
-  <nz-table #basicTable [nzData]="data.values">
+<ng-template #searchRef>
+  <nz-row [nzGutter]="6">
+    <nz-col>
+      <nz-input-group style="width: 180px" [nzPrefix]="suffixIconSearch">
+        <input (keyup.enter)="submitSearch()" [(ngModel)]="searchText" type="text" nz-input placeholder="关键词搜索" />
+        <ng-template #suffixIconSearch>
+          <i nz-icon nzType="search"></i>
+        </ng-template>
+      </nz-input-group>
+    </nz-col>
+    <nz-col>
+      <nz-button-group>
+        <button nz-button nzType="text" nz-tooltip="刷新" (click)="getData(true)">
+          <i nz-icon nzType="reload"></i>
+        </button>
+        <button nz-button nzType="text" nz-tooltip="重置" (click)="clearSearch()">
+          <i nz-icon nzType="clear"></i>
+        </button>
+      </nz-button-group>
+    </nz-col>
+  </nz-row>
+</ng-template>
+
+<ng-template #extraRef>
+  <button nz-button nzType="primary" (click)="form()"> 新增 </button>
+</ng-template>
+
+<nz-card [nzTitle]="searchRef" [nzExtra]="extraRef">
+  <nz-table #basicTable [nzData]="dataset.values">
     <thead>
       <tr>
-        <th></th>
-        <th>项目名称</th>
-        <th>命名空间</th>
-        <th>有效期</th>
-        <th></th>
+        <th nzWidth="60px" nzLeft nzAlign="center"> </th>
+        <th>
+          <b>项目名称 </b>
+          <i nz-icon nzType="tag" nz-tooltip="关键词"></i>
+        </th>
+        <th>
+          <b>命名空间 </b>
+          <i nz-icon nzType="tag" nz-tooltip="关键词"></i>
+        </th>
+        <th><b>有效期</b></th>
+        <th><b>状态</b></th>
+        <th nzWidth="200px"><b>创建时间</b></th>
+        <th nzWidth="200px"><b>更新时间</b></th>
+        <th nzWidth="60px" nzRight nzAlign="center">
+          <button nz-button nzType="text" nzBlock disabled>
+            <i nz-icon nzType="setting"></i>
+          </button>
+        </th>
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let data of basicTable.data">
-        <td></td>
-        <td>{{ data.name }}</td>
-        <td>{{ data.namespace }}</td>
-        <td>{{ data.expire }}</td>
-        <td> </td>
-      </tr>
+      <ng-container *ngFor="let data of basicTable.data">
+        <tr>
+          <td [nzExpand]="expand.has(data['_id'])" (nzExpandChange)="expandChange(data['_id'], $event)"></td>
+          <td>{{ data['name'] }}</td>
+          <td>{{ data['namespace'] }}</td>
+          <td>
+            <ng-container *ngIf="data['expire'] === 0; else hasExpire">永久</ng-container>
+            <ng-template #hasExpire>
+              {{ data['expire'] | date: 'yyyy-MM-dd' }}
+            </ng-template>
+          </td>
+          <td>
+            <ng-container *ngIf="data['status']; else isFalse">
+              <nz-badge nzStatus="processing"></nz-badge> 开启
+            </ng-container>
+            <ng-template #isFalse> <nz-badge nzStatus="default"></nz-badge> 关闭 </ng-template>
+          </td>
+          <td> {{ data['create_time'] | date: 'yyyy-MM-dd HH:mm:ss' }} </td>
+          <td> {{ data['update_time'] | date: 'yyyy-MM-dd HH:mm:ss' }}</td>
+          <td nzRight nzAlign="center">
+            <button nz-button nzType="text" nz-dropdown [nzDropdownMenu]="menu">
+              <i nz-icon nzType="ellipsis"></i>
+            </button>
+            <nz-dropdown-menu #menu="nzDropdownMenu">
+              <ul nz-menu>
+                <li nz-menu-item (click)="form(data)">编辑</li>
+                <li nz-menu-item nzDanger (click)="delete(data)">删除</li>
+              </ul>
+            </nz-dropdown-menu>
+          </td>
+        </tr>
+        <tr [nzExpand]="expand.has(data['_id'])">
+          <nz-descriptions [nzColumn]="1">
+            <nz-descriptions-item nzTitle="密钥">
+              <ng-container *ngIf="data['secret']; else unset">
+                <span nz-typography nzCopyable [nzContent]="data['secret']"></span>
+              </ng-container>
+            </nz-descriptions-item>
+            <nz-descriptions-item nzTitle="白名单入口">
+              <ng-container *ngIf="data['entry'].length !== 0; else unset">
+                {{ data['entry'] }}
+              </ng-container>
+            </nz-descriptions-item>
+          </nz-descriptions>
+        </tr>
+      </ng-container>
     </tbody>
   </nz-table>
 </nz-card>

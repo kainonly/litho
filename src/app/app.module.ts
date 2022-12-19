@@ -134,7 +134,7 @@ if (!environment.production) {
         notification: { nzPlacement: 'bottomRight' },
         pageHeader: { nzGhost: false },
         card: { nzBorderless: true },
-        table: { nzSize: 'small' },
+        table: { nzSize: 'middle' },
         codeEditor: {
           assetsRoot: `https://cdn.kainonly.com/assets`
         }

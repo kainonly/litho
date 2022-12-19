@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 
 import { Role } from '@orgs/roles/types';
 import { AnyDto, WpxData, WpxService } from '@weplanx/ng';
-import { TableField, WpxTableComponent } from '@weplanx/ng/table';
+import { Search, TableField, WpxTableComponent } from '@weplanx/ng/table';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalService } from 'ng-zorro-antd/modal';
 
@@ -22,7 +22,8 @@ export class ProjectsComponent implements OnInit {
   /**
    * 数据
    */
-  data: WpxData<AnyDto<Project>> = new WpxData<AnyDto<Project>>();
+  dataset: WpxData<AnyDto<Project>> = new WpxData<AnyDto<Project>>();
+  expand: Set<string> = new Set();
 
   constructor(
     public projects: ProjectsService,
@@ -36,18 +37,33 @@ export class ProjectsComponent implements OnInit {
   }
 
   getData(refresh = false): void {
-    this.projects.pages(this.data, refresh).subscribe(() => {});
+    this.projects.pages(this.dataset, refresh).subscribe(() => {});
+  }
+
+  expandChange(id: string, checked: boolean): void {
+    if (checked) {
+      this.expand.add(id);
+    } else {
+      this.expand.delete(id);
+    }
+  }
+
+  submitSearch(): void {
+    if (!this.searchText) {
+      this.dataset.filter = {};
+    } else {
+      this.dataset.filter = {
+        $or: [{ name: { $regex: this.searchText } }, { namespace: { $regex: this.searchText } }]
+      };
+    }
+    this.getData(true);
   }
 
   /**
-   * 搜索
+   * 清除搜索
    */
-  search(): void {
-    if (!this.searchText) {
-      this.data.filter = {};
-    } else {
-      this.data.filter = { name: { $regex: this.searchText } };
-    }
+  clearSearch(): void {
+    this.searchText = '';
     this.getData(true);
   }
 
