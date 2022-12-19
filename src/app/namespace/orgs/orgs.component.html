@@ -1,22 +1,24 @@
-<nz-layout class="main">
-  <app-toolbar></app-toolbar>
-  <nz-layout>
-    <app-header *ngIf="app.project as v">
-      <ul nz-menu nzMode="horizontal">
-        <li nz-menu-item nzMatchRouter [routerLink]="['/', v.namespace, 'orgs', 'roles']">
-          <span nz-icon nzType="partition"></span>
-          权限组
-        </li>
-        <li nz-menu-item nzMatchRouter [routerLink]="['/', v.namespace, 'orgs', 'users']">
-          <span nz-icon nzType="team"></span>
-          团队成员
-        </li>
-      </ul>
-    </app-header>
-    <nz-layout class="frame">
-      <nz-content>
-        <router-outlet></router-outlet>
-      </nz-content>
-    </nz-layout>
+<nz-layout class="nested" style="overflow: hidden">
+  <nz-sider style="" nzWidth="200px" nzTheme="light">
+    <ul *ngIf="app.project as p" nz-menu nzMode="inline">
+      <li nz-menu-group nzTitle="组织架构">
+        <ul>
+          <li nz-menu-item nzMatchRouter [routerLink]="['/', p.namespace, 'orgs', 'roles']">
+            <span nz-icon nzType="partition"></span>
+            <span>权限组</span>
+          </li>
+          <li nz-menu-item nzMatchRouter [routerLink]="['/', p.namespace, 'orgs', 'users']">
+            <span nz-icon nzType="team"></span>
+            <span>团队成员</span>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </nz-sider>
+
+  <nz-layout style="overflow: auto">
+    <nz-content>
+      <router-outlet></router-outlet>
+    </nz-content>
   </nz-layout>
 </nz-layout>
