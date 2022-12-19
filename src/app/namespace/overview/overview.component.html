@@ -4,15 +4,9 @@
       <li nz-menu-group nzTitle="全局配置">
         <ul>
           <li nz-menu-item nzMatchRouter [routerLink]="['/', p.namespace, 'overview', 'cluster']">
-            <span nz-icon nzType="cluster"></span> <span>集群状态</span>
+            <span nz-icon nzType="cluster"></span>
+            <span>集群概况</span>
           </li>
-          <!--          <li nz-menu-item nzMatchRouter [routerLink]="['/', p.namespace, 'overview', 'cloud']">-->
-          <!--            <span nz-icon nzType="cloud"></span> <span>公有云</span>-->
-          <!--          </li>-->
-          <!--          <li nz-menu-item nzMatchRouter [routerLink]="['/', p.namespace, 'overview', 'office']">-->
-          <!--            <span nz-icon nzType="coffee"></span>-->
-          <!--            <span>企业平台</span>-->
-          <!--          </li>-->
           <li nz-menu-item nzMatchRouter [routerLink]="['/', p.namespace, 'overview', 'functions']">
             <span nz-icon nzType="experiment"></span>
             <span>功能模块</span>

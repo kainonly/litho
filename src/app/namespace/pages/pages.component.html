@@ -1,5 +1,5 @@
 <nz-layout class="nested" style="overflow: hidden">
-  <nz-sider nzTheme="light" [nzWidth]="320" (contextmenu)="actions($event, actionsMenu)">
+  <nz-sider class="tree-sider" nzTheme="light" [nzWidth]="320" (contextmenu)="actions($event, actionsMenu)">
     <nz-space>
       <nz-input-group *nzSpaceItem [nzPrefix]="suffixIconSearch" style="width: 180px">
         <input type="text" nz-input placeholder="搜索" ngModel (ngModelChange)="searchText$.next($event)" />

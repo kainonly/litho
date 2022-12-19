@@ -16,7 +16,7 @@ const routes: Routes = [
         path: 'cluster',
         loadChildren: () => import('./cluster/cluster.module').then(m => m.ClusterModule),
         data: {
-          breadcrumb: '集群'
+          breadcrumb: '集群概况'
         }
       },
       {

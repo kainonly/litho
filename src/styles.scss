@@ -22,11 +22,11 @@ nz-layout.nested {
   height: 100%;
   overflow-x: hidden;
   overflow-y: auto;
+}
 
-  //nz-sider {
-  //  padding: 12px;
-  //  border-right: 2px solid #f0f0f0;
-  //}
+nz-sider.tree-sider {
+  padding: 12px;
+  border-right: 2px solid #f0f0f0;
 }
 
 .search-input {
@@ -40,4 +40,3 @@ nz-layout.nested {
 .highlight {
   color: red;
 }
-
