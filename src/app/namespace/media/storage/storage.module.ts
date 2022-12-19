@@ -3,19 +3,19 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { ShareModule } from '@common/share.module';
 
-import { CloudComponent } from './cloud.component';
 import { CosComponent } from './cos/cos.component';
 import { PlatformComponent } from './platform/platform.component';
+import { StorageComponent } from './storage.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: CloudComponent
+    component: StorageComponent
   }
 ];
 
 @NgModule({
   imports: [ShareModule, RouterModule.forChild(routes)],
-  declarations: [CloudComponent, PlatformComponent, CosComponent]
+  declarations: [StorageComponent, PlatformComponent, CosComponent]
 })
-export class CloudModule {}
+export class StorageModule {}

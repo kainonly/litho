@@ -1,30 +1,48 @@
-<nz-layout class="main">
-  <app-toolbar></app-toolbar>
-  <nz-layout>
-    <app-header *ngIf="app.project as v">
-      <ul nz-menu nzMode="horizontal">
-        <li nz-menu-item nzMatchRouter [routerLink]="['/', v.namespace, 'media', 'pictures']">
-          <span nz-icon nzType="picture"></span>
-          图库
-        </li>
-        <li nz-menu-item nzDisabled>
-          <span nz-icon nzType="sound"></span>
-          音频
-        </li>
-        <li nz-menu-item nzMatchRouter [routerLink]="['/', v.namespace, 'media', 'videos']">
-          <span nz-icon nzType="video-camera"></span>
-          视频
-        </li>
-        <li nz-menu-item nzDisabled>
-          <span nz-icon nzType="file-word"></span>
-          文档
-        </li>
-      </ul>
-    </app-header>
-    <nz-layout class="frame">
-      <nz-content class="content">
-        <router-outlet></router-outlet>
-      </nz-content>
-    </nz-layout>
+<nz-layout class="nested" style="overflow: hidden">
+  <nz-sider nzWidth="200px" nzTheme="light">
+    <ul *ngIf="app.project as p" nz-menu nzMode="inline">
+      <li nz-menu-group nzTitle="资源配置">
+        <ul>
+          <li nz-menu-item nzMatchRouter [routerLink]="['/', p.namespace, 'media', 'storage']">
+            <span nz-icon nzType="database"></span>
+            <span>存储介质</span>
+          </li>
+          <li nz-menu-item nzMatchRouter nzDisabled>
+            <span nz-icon nzType="global"></span>
+            <span>内容分发</span>
+          </li>
+          <li nz-menu-item nzMatchRouter nzDisabled>
+            <span nz-icon nzType="build"></span>
+            <span>数据处理</span>
+          </li>
+        </ul>
+      </li>
+      <li nz-menu-group nzTitle="资源库">
+        <ul>
+          <li nz-menu-item nzMatchRouter [routerLink]="['/', p.namespace, 'media', 'pictures']">
+            <span nz-icon nzType="picture"></span>
+            <span>图片</span>
+          </li>
+          <li nz-menu-item nzDisabled>
+            <span nz-icon nzType="sound"></span>
+            <span>音频</span>
+          </li>
+          <li nz-menu-item nzMatchRouter [routerLink]="['/', p.namespace, 'media', 'videos']">
+            <span nz-icon nzType="video-camera"></span>
+            <span>视频</span>
+          </li>
+          <li nz-menu-item nzDisabled>
+            <span nz-icon nzType="file-word"></span>
+            <span>文档</span>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </nz-sider>
+
+  <nz-layout style="overflow: auto">
+    <nz-content class="content">
+      <router-outlet></router-outlet>
+    </nz-content>
   </nz-layout>
 </nz-layout>

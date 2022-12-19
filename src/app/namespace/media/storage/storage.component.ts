@@ -8,10 +8,10 @@ import { CosComponent } from './cos/cos.component';
 import { PlatformComponent } from './platform/platform.component';
 
 @Component({
-  selector: 'app-overview-cloud',
-  templateUrl: './cloud.component.html'
+  selector: 'app-media-storage',
+  templateUrl: './storage.component.html'
 })
-export class CloudComponent implements OnInit {
+export class StorageComponent implements OnInit {
   /**
    * 数据
    */

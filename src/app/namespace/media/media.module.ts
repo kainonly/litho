@@ -13,10 +13,17 @@ const routes: Routes = [
     component: MediaComponent,
     children: [
       {
+        path: 'storage',
+        loadChildren: () => import('./storage/storage.module').then(m => m.StorageModule),
+        data: {
+          breadcrumb: '存储介质'
+        }
+      },
+      {
         path: 'pictures',
         loadChildren: () => import('./pictures/pictures.module').then(m => m.PicturesModule),
         data: {
-          breadcrumb: '图库'
+          breadcrumb: '图片'
         }
       },
       {
