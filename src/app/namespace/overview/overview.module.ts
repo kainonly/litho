@@ -33,6 +33,27 @@ const routes: Routes = [
           breadcrumb: '安全策略'
         }
       },
+      {
+        path: 'values',
+        loadChildren: () => import('./values/values.module').then(m => m.ValuesModule),
+        data: {
+          breadcrumb: '动态配置'
+        }
+      },
+      {
+        path: 'sessions',
+        loadChildren: () => import('./sessions/sessions.module').then(m => m.SessionsModule),
+        data: {
+          breadcrumb: '在线会话'
+        }
+      },
+      {
+        path: 'audit',
+        loadChildren: () => import('./audit/audit.module').then(m => m.AuditModule),
+        data: {
+          breadcrumb: '审计日志'
+        }
+      },
       { path: '', redirectTo: 'cluster', pathMatch: 'full' }
     ]
   }

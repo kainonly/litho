@@ -7,7 +7,7 @@ import { NzModalService } from 'ng-zorro-antd/modal';
 import { FormComponent } from './form/form.component';
 
 @Component({
-  selector: 'app-monitor-values',
+  selector: 'app-overview-values',
   templateUrl: './values.component.html',
   styleUrls: ['./values.component.scss']
 })

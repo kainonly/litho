@@ -13,7 +13,7 @@ import { NzModalService } from 'ng-zorro-antd/modal';
 import { SessionsService } from './sessions.service';
 
 @Component({
-  selector: 'app-monitor-sessions',
+  selector: 'app-overview-sessions',
   templateUrl: './sessions.component.html'
 })
 export class SessionsComponent implements OnInit, OnDestroy {

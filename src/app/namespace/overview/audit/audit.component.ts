@@ -7,7 +7,7 @@ import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalService } from 'ng-zorro-antd/modal';
 
 @Component({
-  selector: 'app-monitor-audit',
+  selector: 'app-overview-audit',
   templateUrl: './audit.component.html',
   styleUrls: ['./audit.component.scss']
 })
