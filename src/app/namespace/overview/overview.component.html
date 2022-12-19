@@ -1,0 +1,31 @@
+<nz-layout class="nested" style="overflow: hidden">
+  <nz-sider nzWidth="200px" nzTheme="light">
+    <ul *ngIf="app.project as p" nz-menu nzMode="inline">
+      <li nz-menu-group nzTitle="全局配置">
+        <ul>
+          <li nz-menu-item nzMatchRouter [routerLink]="['/', p.namespace, 'overview', 'cluster']"> 状态 </li>
+          <li nz-menu-item nzMatchRouter [routerLink]="['/', p.namespace, 'overview', 'cloud']"> 公有云 </li>
+        </ul>
+      </li>
+
+      <li nz-menu-item nzMatchRouter [routerLink]="['/', p.namespace, 'overview', 'office']">
+        <span nz-icon nzType="coffee"></span>
+        企业平台
+      </li>
+      <li nz-menu-item nzMatchRouter [routerLink]="['/', p.namespace, 'overview', 'functions']">
+        <span nz-icon nzType="experiment"></span>
+        功能模块
+      </li>
+      <li nz-menu-item nzMatchRouter [routerLink]="['/', p.namespace, 'overview', 'security']">
+        <span nz-icon nzType="safety-certificate"></span>
+        安全策略
+      </li>
+    </ul>
+  </nz-sider>
+
+  <nz-layout style="overflow: auto">
+    <nz-content class="content">
+      <router-outlet></router-outlet>
+    </nz-content>
+  </nz-layout>
+</nz-layout>

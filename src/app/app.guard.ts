@@ -4,13 +4,12 @@ import { Observable, Subscription, timer } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
 
 import { AppService } from '@app';
-import { ProjectsService } from '@common/projects/projects.service';
 
 @Injectable({ providedIn: 'root' })
 export class AppGuard implements CanActivate {
   private refreshTokenSubscription!: Subscription;
 
-  constructor(private app: AppService, private projects: ProjectsService, private router: Router) {}
+  constructor(private app: AppService, private router: Router) {}
 
   canActivate(): Observable<boolean> {
     return this.app.verify().pipe(
@@ -21,10 +20,6 @@ export class AppGuard implements CanActivate {
         this.app.getUser().subscribe(v => {
           this.app.user = v;
         });
-        this.projects.findOne({ namespace: 'default' }).subscribe(v => {
-          this.app.project = v;
-        });
-        // this.wpx.getUpload().subscribe(() => {});
         if (this.refreshTokenSubscription) {
           this.refreshTokenSubscription.unsubscribe();
         }

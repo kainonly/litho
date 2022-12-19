@@ -1,0 +1,80 @@
+<nz-layout class="main">
+  <div *ngIf="app.project as v" class="toolbar">
+    <ul nz-menu nzMode="vertical">
+      <li
+        nz-menu-item
+        nzMatchRouter
+        [routerLink]="['/', v.namespace, 'overview']"
+        nz-tooltip="总览"
+        nzTooltipPlacement="right"
+      >
+        <span nz-icon nzType="dashboard"></span>
+      </li>
+      <li
+        nz-menu-item
+        nzMatchRouter
+        [routerLink]="['/', v.namespace, 'pages']"
+        nz-tooltip="内容生成器"
+        nzTooltipPlacement="right"
+      >
+        <span nz-icon nzType="layout"></span>
+      </li>
+      <li
+        nz-menu-item
+        nzMatchRouter
+        [routerLink]="['/', v.namespace, 'media']"
+        nz-tooltip="媒体"
+        nzTooltipPlacement="right"
+      >
+        <span nz-icon nzType="inbox"></span>
+      </li>
+      <li
+        nz-menu-item
+        nzMatchRouter
+        [routerLink]="['/', v.namespace, 'orgs']"
+        nz-tooltip="组织"
+        nzTooltipPlacement="right"
+      >
+        <span nz-icon nzType="apartment"></span>
+      </li>
+      <li
+        nz-menu-item
+        nzMatchRouter
+        [routerLink]="['/', v.namespace, 'monitor']"
+        nz-tooltip="监控"
+        nzTooltipPlacement="right"
+      >
+        <span nz-icon nzType="monitor"></span>
+      </li>
+      <li
+        nz-menu-item
+        nzMatchRouter
+        [routerLink]="['/', v.namespace, 'schedules']"
+        nz-tooltip="任务调度"
+        nzTooltipPlacement="right"
+      >
+        <i nz-icon nzType="schedule"></i>
+      </li>
+      <li
+        nz-menu-item
+        nzMatchRouter
+        [routerLink]="['/', v.namespace, 'logsystem']"
+        nz-tooltip="日志系统"
+        nzTooltipPlacement="right"
+      >
+        <span nz-icon nzType="history"></span>
+      </li>
+    </ul>
+  </div>
+
+  <nz-layout>
+    <app-header> </app-header>
+    <nz-layout class="frame">
+      <nz-content>
+        <router-outlet></router-outlet>
+      </nz-content>
+    </nz-layout>
+  </nz-layout>
+</nz-layout>
+
+<ng-template #unset>未设置</ng-template>

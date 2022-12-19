@@ -1,11 +1,10 @@
 import { NgModule } from '@angular/core';
 
-import { ProjectsModule } from '../projects/projects.module';
 import { ShareModule } from '../share.module';
 import { HeaderComponent } from './header.component';
 
 @NgModule({
-  imports: [ShareModule, ProjectsModule],
+  imports: [ShareModule],
   exports: [HeaderComponent],
   declarations: [HeaderComponent]
 })

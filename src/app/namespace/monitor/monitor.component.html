@@ -1,0 +1,24 @@
+<nz-layout class="nested" style="overflow: hidden">
+  <nz-sider nzWidth="200px" nzTheme="light">
+    <ul *ngIf="app.project" nz-menu nzMode="inline">
+      <li nz-menu-item nzMatchRouter [routerLink]="['/', app.project.namespace, 'monitor', 'values']">
+        <span nz-icon nzType="control"></span>
+        动态配置
+      </li>
+      <li nz-menu-item nzMatchRouter [routerLink]="['/', app.project.namespace, 'monitor', 'sessions']">
+        <span nz-icon nzType="rocket"></span>
+        在线会话
+      </li>
+      <li nz-menu-item nzMatchRouter [routerLink]="['/', app.project.namespace, 'monitor', 'audit']">
+        <span nz-icon nzType="file-protect"></span>
+        审计日志
+      </li>
+    </ul>
+  </nz-sider>
+
+  <nz-layout style="overflow: auto">
+    <nz-content class="content">
+      <router-outlet></router-outlet>
+    </nz-content>
+  </nz-layout>
+</nz-layout>

@@ -5,10 +5,18 @@
         <ng-template #split>
           <nz-divider nzType="vertical"></nz-divider>
         </ng-template>
-        <button *nzSpaceItem nz-button nzType="text"> <span nz-icon nzType="appstore"></span> </button>
+        <ng-container *nzSpaceItem>
+          <ng-container *ngIf="app.project; else admin">
+            <button nz-button nzType="text"> <span nz-icon nzType="appstore"></span>{{ app.project.name }} </button>
+          </ng-container>
+          <ng-template #admin>
+            <div class="logo"></div>
+          </ng-template>
+        </ng-container>
+
         <nz-breadcrumb *nzSpaceItem nzAutoGenerate>
           <nz-breadcrumb-item>
-            <a [routerLink]="['/']"> 首页 </a>
+            <a [routerLink]="['/']"><span nz-icon nzType="home"></span> 首页 </a>
           </nz-breadcrumb-item>
         </nz-breadcrumb>
       </nz-space>
@@ -18,10 +26,6 @@
     </nz-col>
     <nz-col>
       <nz-space>
-        <!--        <button *nzSpaceItem nz-button nzType="text">-->
-        <!--          <span nz-icon nzType="deployment-unit"></span>-->
-        <!--          部署发布-->
-        <!--        </button>-->
         <div *nzSpaceItem class="center" nz-popover [nzPopoverContent]="center" nzPopoverPlacement="bottomRight">
           <ng-container *ngIf="!!app.user">
             <nz-badge nzDot>

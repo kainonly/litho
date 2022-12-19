@@ -6,7 +6,7 @@ import { WpxApi } from '@weplanx/ng';
 
 import { Project } from './types';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class ProjectsService extends WpxApi<Project> {
   protected override collection = 'projects';
 
