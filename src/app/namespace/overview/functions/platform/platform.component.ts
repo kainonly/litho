@@ -6,10 +6,10 @@ import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalRef } from 'ng-zorro-antd/modal';
 
 @Component({
-  selector: 'app-overview-office-redirect',
-  templateUrl: './redirect.component.html'
+  selector: 'app-overview-office-platform',
+  templateUrl: './platform.component.html'
 })
-export class RedirectComponent implements OnInit {
+export class PlatformComponent implements OnInit {
   /**
    * 载入数据
    */
@@ -28,9 +28,13 @@ export class RedirectComponent implements OnInit {
 
   ngOnInit(): void {
     this.form = this.fb.group({
-      redirect_url: [null, [Validators.required]]
+      office: ['feishu', [Validators.required]],
+      feishu_app_id: [null, [Validators.required]],
+      feishu_app_secret: [null, [Validators.required]],
+      feishu_encrypt_key: [null, [Validators.required]],
+      feishu_verification_token: [null, [Validators.required]],
+      redirect_url: [null, []]
     });
-    this.form.patchValue(this.data);
   }
 
   /**

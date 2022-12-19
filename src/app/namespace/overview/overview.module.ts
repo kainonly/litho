@@ -20,20 +20,6 @@ const routes: Routes = [
         }
       },
       {
-        path: 'cloud',
-        loadChildren: () => import('./cloud/cloud.module').then(m => m.CloudModule),
-        data: {
-          breadcrumb: '公有云'
-        }
-      },
-      {
-        path: 'office',
-        loadChildren: () => import('./office/office.module').then(m => m.OfficeModule),
-        data: {
-          breadcrumb: '企业平台'
-        }
-      },
-      {
         path: 'functions',
         loadChildren: () => import('./functions/functions.module').then(m => m.FunctionsModule),
         data: {

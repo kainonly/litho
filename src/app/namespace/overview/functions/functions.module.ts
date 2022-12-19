@@ -6,6 +6,7 @@ import { ShareModule } from '@common/share.module';
 import { EmailComponent } from './email/email.component';
 import { FunctionsComponent } from './functions.component';
 import { OpenapiComponent } from './openapi/openapi.component';
+import { PlatformComponent } from './platform/platform.component';
 
 const routes: Routes = [
   {
@@ -16,6 +17,6 @@ const routes: Routes = [
 
 @NgModule({
   imports: [ShareModule, RouterModule.forChild(routes)],
-  declarations: [FunctionsComponent, EmailComponent, OpenapiComponent]
+  declarations: [FunctionsComponent, PlatformComponent, EmailComponent, OpenapiComponent]
 })
 export class FunctionsModule {}

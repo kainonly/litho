@@ -75,7 +75,7 @@
             </button>
             <nz-dropdown-menu #menu="nzDropdownMenu">
               <ul nz-menu>
-                <li nz-menu-item [routerLink]="['/', data['namespace'], 'pages', 'home']">管理</li>
+                <li nz-menu-item [routerLink]="['/', data['namespace'], 'overview', 'cluster']">管理</li>
                 <li nz-menu-item (click)="form(data)">编辑</li>
                 <li nz-menu-item nzDanger (click)="delete(data)">删除</li>
               </ul>

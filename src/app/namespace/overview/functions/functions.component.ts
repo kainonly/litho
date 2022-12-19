@@ -1,10 +1,12 @@
 import { Component, OnInit, Type } from '@angular/core';
 
 import { WpxService } from '@weplanx/ng';
+import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalService } from 'ng-zorro-antd/modal';
 
 import { EmailComponent } from './email/email.component';
 import { OpenapiComponent } from './openapi/openapi.component';
+import { PlatformComponent } from './platform/platform.component';
 
 @Component({
   selector: 'app-overview-functions',
@@ -16,7 +18,7 @@ export class FunctionsComponent implements OnInit {
    */
   data: Record<string, any> = {};
 
-  constructor(private wpx: WpxService, private modal: NzModalService) {}
+  constructor(private wpx: WpxService, private modal: NzModalService, private message: NzMessageService) {}
 
   ngOnInit(): void {
     this.getData();
@@ -28,6 +30,12 @@ export class FunctionsComponent implements OnInit {
   getData(): void {
     this.wpx
       .getValues([
+        'office',
+        'feishu_app_id',
+        'feishu_app_secret',
+        'feishu_encrypt_key',
+        'feishu_verification_token',
+        'redirect_url',
         'email_host',
         'email_port',
         'email_username',
@@ -58,6 +66,12 @@ export class FunctionsComponent implements OnInit {
       }
     });
   }
+  /**
+   * 设置平台
+   */
+  setPlatform(): void {
+    this.setModal(PlatformComponent);
+  }
 
   /**
    * 设置电子邮件
@@ -71,5 +85,15 @@ export class FunctionsComponent implements OnInit {
    */
   setOpenapi(): void {
     this.setModal(OpenapiComponent);
+  }
+
+  /**
+   * 取消关联
+   */
+  unset(): void {
+    this.wpx.setValues({ office_platform: '' }).subscribe(() => {
+      this.message.success('关联已取消');
+      this.getData();
+    });
   }
 }
