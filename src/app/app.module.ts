@@ -36,7 +36,8 @@ const routes: Routes = [
   },
   {
     path: ':namespace',
-    loadChildren: () => import('./namespace/namespace.module').then(m => m.NamespaceModule)
+    loadChildren: () => import('./namespace/namespace.module').then(m => m.NamespaceModule),
+    canActivate: [AppGuard]
   },
   { path: '', redirectTo: 'admin', pathMatch: 'full' }
 ];

@@ -2,13 +2,12 @@ import { Component, Input, OnInit } from '@angular/core';
 import { AbstractControl, FormArray, FormBuilder, FormGroup, UntypedFormArray, Validators } from '@angular/forms';
 import { Observable, of } from 'rxjs';
 
+import { ProjectsService } from '@common/projects.service';
+import { Project } from '@common/types';
 import { AnyDto, WpxService } from '@weplanx/ng';
 import { nanoid } from 'nanoid';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalRef } from 'ng-zorro-antd/modal';
-
-import { ProjectsService } from '../projects.service';
-import { Project } from '../types';
 
 @Component({
   selector: 'app-admin-projects-form',

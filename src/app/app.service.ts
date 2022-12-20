@@ -3,10 +3,8 @@ import { Injectable } from '@angular/core';
 import { Observable, switchMap } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { Nav, UserInfo } from '@common/types';
+import { Nav, Project, UserInfo } from '@common/types';
 import { AnyDto } from '@weplanx/ng';
-
-import { Project } from './admin/projects/types';
 
 @Injectable({ providedIn: 'root' })
 export class AppService {

@@ -6,10 +6,22 @@
           <nz-divider nzType="vertical"></nz-divider>
         </ng-template>
         <ng-container *nzSpaceItem>
-          <ng-container *ngIf="app.project; else admin">
-            <button nz-button nzType="text"> <span nz-icon nzType="appstore"></span>{{ app.project.name }} </button>
+          <ng-container *ngIf="app.project as p; else adminRef">
+            <button nz-button nzType="text" nz-dropdown [nzDropdownMenu]="menu">
+              <span nz-icon nzType="appstore"></span> {{ p.name }}
+            </button>
+            <nz-dropdown-menu #menu="nzDropdownMenu">
+              <ul nz-menu>
+                <li nz-submenu nzTitle="关注应用">
+                  <ul>
+                    <li nz-menu-item>无</li>
+                  </ul>
+                </li>
+                <li nz-menu-item [routerLink]="['/admin']">管理后台</li>
+              </ul>
+            </nz-dropdown-menu>
           </ng-container>
-          <ng-template #admin>
+          <ng-template #adminRef>
             <div class="logo"></div>
           </ng-template>
         </ng-container>
@@ -26,33 +38,33 @@
     </nz-col>
     <nz-col>
       <nz-space>
-        <div *nzSpaceItem class="center" nz-popover [nzPopoverContent]="center" nzPopoverPlacement="bottomRight">
-          <ng-container *ngIf="!!app.user">
+        <div *nzSpaceItem class="center" nz-popover [nzPopoverContent]="centerRef" nzPopoverPlacement="bottomRight">
+          <ng-container *ngIf="app.user as u">
             <nz-badge nzDot>
-              <ng-container *ngIf="!!app.user.avatar; else defaultAvatar">
-                <nz-avatar nzShape="square" [nzSize]="24" [nzSrc]="[app.user.avatar] | wpxAssets"></nz-avatar>
+              <ng-container *ngIf="!!u.avatar; else defaultAvatar">
+                <nz-avatar nzShape="square" [nzSize]="24" [nzSrc]="[u.avatar] | wpxAssets"></nz-avatar>
               </ng-container>
               <ng-template #defaultAvatar>
                 <nz-avatar nzShape="square" [nzSize]="24" nzIcon="user"></nz-avatar>
               </ng-template>
             </nz-badge>
             <span class="name">
-              <ng-container *ngIf="!app.user.name; else name">
-                {{ app.user.username | uppercase }}
+              <ng-container *ngIf="!u.name; else name">
+                {{ u.username | uppercase }}
               </ng-container>
               <ng-template #name>
-                {{ app.user.name | uppercase }}
+                {{ u.name | uppercase }}
               </ng-template>
             </span>
           </ng-container>
-          <ng-template #center>
+          <ng-template #centerRef>
             <nz-tabset style="width: 360px" [nzTabBarExtraContent]="actions">
               <ng-template #actions>
                 <nz-space>
                   <button *nzSpaceItem nz-button nzType="text" nz-tooltip="简体中文">
                     <i nz-icon nzType="translation"></i>
                   </button>
-                  <button *nzSpaceItem nz-button nzType="text" nz-tooltip="个人中心">
+                  <button *nzSpaceItem nz-button nzType="text" nz-tooltip="个人信息">
                     <i nz-icon nzType="user"></i>
                   </button>
                   <button *nzSpaceItem nz-button nzType="text" nz-tooltip="退出" (click)="logout()">

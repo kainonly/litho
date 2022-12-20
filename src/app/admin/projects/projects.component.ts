@@ -1,14 +1,12 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
-import { Role } from '@orgs/roles/types';
+import { ProjectsService } from '@common/projects.service';
+import { Project } from '@common/types';
 import { AnyDto, WpxData, WpxService } from '@weplanx/ng';
-import { Search, TableField, WpxTableComponent } from '@weplanx/ng/table';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalService } from 'ng-zorro-antd/modal';
 
 import { FormComponent } from './form/form.component';
-import { ProjectsService } from './projects.service';
-import { Project } from './types';
 
 @Component({
   selector: 'app-admin-projects',

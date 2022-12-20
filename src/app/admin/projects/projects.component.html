@@ -52,8 +52,14 @@
     <tbody>
       <ng-container *ngFor="let data of basicTable.data">
         <tr>
-          <td [nzExpand]="expand.has(data['_id'])" (nzExpandChange)="expandChange(data['_id'], $event)"></td>
-          <td>{{ data['name'] }}</td>
+          <td>
+            <button nz-button nzType="text" nzBlock>
+              <span nz-icon nzType="star"></span>
+            </button>
+          </td>
+          <td [nzExpand]="expand.has(data['_id'])" (nzExpandChange)="expandChange(data['_id'], $event)">
+            {{ data['name'] }}
+          </td>
           <td>{{ data['namespace'] }}</td>
           <td>
             <ng-container *ngIf="data['expire'] === 0; else hasExpire">永久</ng-container>
