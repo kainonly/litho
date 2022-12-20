@@ -23,7 +23,7 @@
     "paths": {
       "@env": ["src/environments/environment.ts"],
       "@app": ["src/app/app.service.ts"],
-      "@common/*": ["src/common/*"],
+      "@common/*": ["src/app/common/*"],
       "@orgs/*": ["src/app/namespace/orgs/*"],
       "@weplanx/ng": ["library/public-api.ts"],
       "@weplanx/ng/checkbox": ["library/checkbox/public-api.ts"],

@@ -5,7 +5,7 @@ import { WpxStoreService } from '@weplanx/ng/store';
 import { MyDoc } from './types';
 
 @Component({
-  selector: 'dev-store',
+  selector: 'exp-store',
   templateUrl: './store.component.html'
 })
 export class StoreComponent {

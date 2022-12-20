@@ -3,12 +3,12 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { ShareModule } from '@common/share.module';
 
-import { DevComponent } from './dev.component';
+import { ExperimentComponent } from './experiment.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: DevComponent,
+    component: ExperimentComponent,
     children: [
       {
         path: 'richtext',
@@ -28,6 +28,6 @@ const routes: Routes = [
 
 @NgModule({
   imports: [ShareModule, RouterModule.forChild(routes)],
-  declarations: [DevComponent]
+  declarations: [ExperimentComponent]
 })
-export class DevModule {}
+export class ExperimentModule {}

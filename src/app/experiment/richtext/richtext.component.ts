@@ -4,7 +4,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { RichtextData } from '@weplanx/ng/richtext';
 
 @Component({
-  selector: 'dev-richtext',
+  selector: 'exp-richtext',
   templateUrl: './richtext.component.html'
 })
 export class RichtextComponent implements OnInit {

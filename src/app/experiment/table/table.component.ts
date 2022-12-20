@@ -9,7 +9,7 @@ import { TableService } from './table.service';
 import { Order } from './types';
 
 @Component({
-  selector: 'dev-table',
+  selector: 'exp-table',
   templateUrl: './table.component.html'
 })
 export class TableComponent {

@@ -14,7 +14,6 @@ import { NZ_CONFIG, NzConfig } from 'ng-zorro-antd/core/config';
 import { NZ_I18N, zh_CN } from 'ng-zorro-antd/i18n';
 import { NzMessageModule } from 'ng-zorro-antd/message';
 
-import { external } from '../external/external';
 import { AppComponent } from './app.component';
 import { AppGuard } from './app.guard';
 import { AppInterceptors } from './app.interceptors';
@@ -22,7 +21,14 @@ import { AppInterceptors } from './app.interceptors';
 registerLocaleData(zh);
 
 const routes: Routes = [
-  ...external,
+  {
+    path: 'login',
+    loadChildren: () => import('./login/login.module').then(m => m.LoginModule)
+  },
+  {
+    path: 'forget',
+    loadChildren: () => import('./forget/forget.module').then(m => m.ForgetModule)
+  },
   {
     path: 'admin',
     loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule),
@@ -37,8 +43,8 @@ const routes: Routes = [
 
 if (!environment.production) {
   routes.push({
-    path: '_dev',
-    loadChildren: () => import('../dev/dev.module').then(m => m.DevModule),
+    path: 'exp',
+    loadChildren: () => import('./experiment/experiment.module').then(m => m.ExperimentModule),
     canActivate: [AppGuard]
   });
 }
