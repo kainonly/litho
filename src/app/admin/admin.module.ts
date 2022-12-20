@@ -19,6 +19,13 @@ const routes: Routes = [
         }
       },
       {
+        path: 'users',
+        loadChildren: () => import('./users/users.module').then(m => m.UsersModule),
+        data: {
+          breadcrumb: '成员管理'
+        }
+      },
+      {
         path: '',
         redirectTo: 'projects',
         pathMatch: 'full'

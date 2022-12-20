@@ -25,24 +25,27 @@ export interface Project {
   status: boolean;
 }
 
-/**
- * 用户信息
- */
-export interface UserInfo {
-  username: string;
+export interface User {
+  /**
+   * 电子邮件
+   */
   email: string;
+  /**
+   * 密码
+   */
+  password: string;
+  /**
+   * 称呼
+   */
   name: string;
+  /**
+   * 头像
+   */
   avatar: string;
-  roles: string[];
-  department?: string;
-  feishu?: any;
-  sessions: number;
-  last_time: string;
-  create_time: number;
+  /**
+   * 状态
+   */
+  status: boolean;
 }
 
-export interface Nav {
-  name: string;
-  icon: string;
-  routerLink: string[];
-}
+export type UserInfo = Pick<User, 'email' | 'name' | 'avatar'>;

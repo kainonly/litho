@@ -50,7 +50,7 @@
             </nz-badge>
             <span class="name">
               <ng-container *ngIf="!u.name; else name">
-                {{ u.username | uppercase }}
+                {{ u.email | uppercase }}
               </ng-container>
               <ng-template #name>
                 {{ u.name | uppercase }}

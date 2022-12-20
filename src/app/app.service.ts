@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable, switchMap } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { Nav, Project, UserInfo } from '@common/types';
+import { Project, UserInfo } from '@common/types';
 import { AnyDto } from '@weplanx/ng';
 
 @Injectable({ providedIn: 'root' })
@@ -16,10 +16,6 @@ export class AppService {
    * 用户
    */
   user?: UserInfo;
-  /**
-   * 导航
-   */
-  navs: Nav[] = [];
 
   constructor(private http: HttpClient) {}
 
