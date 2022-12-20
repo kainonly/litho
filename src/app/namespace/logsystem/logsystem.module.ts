@@ -3,7 +3,6 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { HeaderModule } from '@common/header/header.module';
 import { ShareModule } from '@common/share.module';
-import { ToolbarModule } from '@common/toolbar/toolbar.module';
 
 import { LogsystemComponent } from './logsystem.component';
 
@@ -32,7 +31,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [ShareModule, ToolbarModule, HeaderModule, RouterModule.forChild(routes)],
+  imports: [ShareModule, HeaderModule, RouterModule.forChild(routes)],
   declarations: [LogsystemComponent]
 })
 export class LogsystemModule {}
