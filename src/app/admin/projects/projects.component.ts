@@ -76,7 +76,9 @@ export class ProjectsComponent implements OnInit {
       nzComponentParams: {
         doc
       },
-      nzOnOk: () => {}
+      nzOnOk: () => {
+        this.getData(true);
+      }
     });
   }
 

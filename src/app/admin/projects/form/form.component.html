@@ -46,7 +46,13 @@
   <nz-form-item>
     <nz-form-label>有效期</nz-form-label>
     <nz-form-control nzHasFeedback nzExtra="* 不设置有效期即永久有效">
-      <nz-date-picker style="width: 100%" formControlName="expire_time" nzShowTime></nz-date-picker>
+      <nz-date-picker
+        style="width: 100%"
+        formControlName="expire"
+        nzInputReadOnly
+        [nzShowToday]="false"
+        [nzDisabledDate]="expireDisableDate"
+      ></nz-date-picker>
     </nz-form-control>
   </nz-form-item>
 

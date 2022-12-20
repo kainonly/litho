@@ -23,6 +23,10 @@ export class FormComponent implements OnInit {
    */
   form!: FormGroup;
 
+  expireDisableDate = (current: Date): boolean => {
+    return current < new Date();
+  };
+
   constructor(
     public wpx: WpxService,
     private modalRef: NzModalRef,
@@ -35,13 +39,15 @@ export class FormComponent implements OnInit {
     this.form = this.fb.group({
       name: ['', [Validators.required], [this.existsName]],
       namespace: ['', [Validators.required], [this.existsNamespace]],
-      secret: [],
-      expire_time: [null],
+      secret: [''],
+      expire: [0],
       entry: this.fb.array([]),
       status: [true]
     });
     if (this.doc) {
-      this.form.patchValue(this.doc);
+      const value: any = { ...this.doc };
+      value.expire = new Date(value.expire * 1000);
+      this.form.patchValue(value);
     }
   }
 
@@ -116,34 +122,26 @@ export class FormComponent implements OnInit {
    * @param value
    */
   submit(value: any): void {
-    if (!this.doc) {
-      this.projects
-        .create(value, {
-          xdata: {
-            expire_time: 'date'
-          }
-        })
-        .subscribe(() => {
-          this.message.success('数据新增完成');
-          this.modalRef.triggerOk();
-        });
+    console.log(value);
+    if (value.expire) {
+      const expire = value.expire as Date;
+      expire.setHours(0);
+      expire.setMinutes(0);
+      expire.setSeconds(0);
+      value.expire = Math.floor(expire.getTime() / 1000);
     } else {
-      this.projects
-        .updateById(
-          this.doc._id,
-          {
-            $set: value
-          },
-          {
-            xdata: {
-              '$set.expire_time': 'date'
-            }
-          }
-        )
-        .subscribe(() => {
-          this.message.success('数据更新完成');
-          this.modalRef.triggerOk();
-        });
+      value.expire = 0;
+    }
+    if (!this.doc) {
+      this.projects.create(value).subscribe(() => {
+        this.message.success('数据新增完成');
+        this.modalRef.triggerOk();
+      });
+    } else {
+      this.projects.updateById(this.doc._id, { $set: value }).subscribe(() => {
+        this.message.success('数据更新完成');
+        this.modalRef.triggerOk();
+      });
     }
   }
 }

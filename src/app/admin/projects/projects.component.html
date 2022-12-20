@@ -64,7 +64,7 @@
           <td>
             <ng-container *ngIf="data['expire'] === 0; else hasExpire">永久</ng-container>
             <ng-template #hasExpire>
-              {{ data['expire'] | date: 'yyyy-MM-dd' }}
+              {{ data['expire'] * 1000 | date: 'yyyy-MM-dd' }}
             </ng-template>
           </td>
           <td>
