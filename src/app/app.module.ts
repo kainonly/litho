@@ -42,9 +42,9 @@ const routes: Routes = [
 ];
 
 if (!environment.production) {
-  routes.push({
+  routes.unshift({
     path: 'exp',
-    loadChildren: () => import('./experiment/experiment.module').then(m => m.ExperimentModule),
+    loadChildren: () => import('../experiment/experiment.module').then(m => m.ExperimentModule),
     canActivate: [AppGuard]
   });
 }
