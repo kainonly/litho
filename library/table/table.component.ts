@@ -47,6 +47,10 @@ export class WpxTableComponent<T> implements OnInit {
    */
   @Input() wpxBulk?: TemplateRef<any>;
   /**
+   * 偏移量
+   */
+  @Input() wpxBulkLeft = 50;
+  /**
    * 排除字段
    */
   @Input() wpxOmit: string[] = [];

@@ -21,6 +21,9 @@ export class ProjectsComponent implements OnInit {
    * 数据
    */
   dataset: WpxData<AnyDto<Project>> = new WpxData<AnyDto<Project>>();
+  /**
+   * 展开集合
+   */
   expand: Set<string> = new Set();
 
   constructor(

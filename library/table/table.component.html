@@ -263,6 +263,7 @@
 <nz-alert
   *ngIf="wpxData.checkedNumber !== 0 && wpxBulk"
   class="bulk"
+  [ngStyle]="{ left: wpxBulkLeft + 'px' }"
   nzType="info"
   nzBanner
   nzMessage="批量"
