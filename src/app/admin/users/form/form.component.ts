@@ -37,12 +37,13 @@ export class FormComponent implements OnInit {
   ngOnInit(): void {
     this.form = this.fb.group({
       email: [null, [Validators.required, Validators.email], [this.checkEmail]],
-      password: [null, [Validators.required, Validators.min(6)]],
+      password: [null, [Validators.required, Validators.minLength(6)]],
       name: [null],
       avatar: [null],
       status: [true, [Validators.required]]
     });
     if (this.doc) {
+      this.form.get('password')?.setValidators([Validators.minLength(6)]);
       this.form.patchValue(this.doc);
     }
   }
