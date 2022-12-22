@@ -1,4 +1,4 @@
-import { HttpClient, HttpResponse } from '@angular/common/http';
+import { HttpClient, HttpParams, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, switchMap } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -79,5 +79,33 @@ export class AppService {
    */
   resetUser(data: any): Observable<any> {
     return this.http.post('user/reset', data);
+  }
+
+  /**
+   * 获取动态配置
+   * @param keys
+   */
+  getValues(keys?: string[]): Observable<any> {
+    const params = new HttpParams();
+    if (keys) {
+      params.set('keys', keys.join(','));
+    }
+    return this.http.get('values', { params });
+  }
+
+  /**
+   * 设置动态配置
+   * @param data 配置
+   */
+  setValues(data: Record<string, any>): Observable<any> {
+    return this.http.post('values', data);
+  }
+
+  /**
+   * 删除动态配置
+   * @param key 配置键名
+   */
+  deleteValue(key: string): Observable<any> {
+    return this.http.delete(`values/${key}`);
   }
 }

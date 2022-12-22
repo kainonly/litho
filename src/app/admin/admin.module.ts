@@ -26,6 +26,13 @@ const routes: Routes = [
         }
       },
       {
+        path: 'security',
+        loadChildren: () => import('./security/security.module').then(m => m.SecurityModule),
+        data: {
+          breadcrumb: '登录设置'
+        }
+      },
+      {
         path: 'sessions',
         loadChildren: () => import('./sessions/sessions.module').then(m => m.SessionsModule),
         data: {
