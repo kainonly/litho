@@ -19,10 +19,9 @@
           </li>
           <li nz-menu-group nzTitle="安全性">
             <ul>
-              <li nz-menu-item>访问审计</li>
-              <li nz-menu-item>会话管理</li>
               <li nz-menu-item>登录设置</li>
-              <li nz-menu-item>日志</li>
+              <li nz-menu-item nzMatchRouter [routerLink]="['/', 'admin', 'sessions']">会话管理</li>
+              <li nz-menu-item>审计日志</li>
             </ul>
           </li>
         </ul>

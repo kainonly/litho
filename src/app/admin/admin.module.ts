@@ -26,6 +26,13 @@ const routes: Routes = [
         }
       },
       {
+        path: 'sessions',
+        loadChildren: () => import('./sessions/sessions.module').then(m => m.SessionsModule),
+        data: {
+          breadcrumb: '会话管理'
+        }
+      },
+      {
         path: '',
         redirectTo: 'projects',
         pathMatch: 'full'
