@@ -41,7 +41,11 @@ export class UserLockComponent implements OnInit {
       login_failures: [0, [Validators.required]],
       login_ttl: [0, [Validators.required]]
     });
-    this.form.patchValue(this.data);
+    const data = {
+      login_failures: this.data['login_failures'],
+      login_ttl: this.data['login_ttl'] / 1e9
+    };
+    this.form.patchValue(data);
   }
 
   /**
@@ -56,6 +60,7 @@ export class UserLockComponent implements OnInit {
    * @param data
    */
   submit(data: any): void {
+    data['login_ttl'] = data['login_ttl'] * 1e9;
     this.wpx.setValues(data).subscribe(() => {
       this.message.success('设置成功');
       this.modalRef.triggerOk();
