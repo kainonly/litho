@@ -40,6 +40,13 @@ const routes: Routes = [
         }
       },
       {
+        path: 'audit',
+        loadChildren: () => import('./audit/audit.module').then(m => m.AuditModule),
+        data: {
+          breadcrumb: '审计日志'
+        }
+      },
+      {
         path: '',
         redirectTo: 'projects',
         pathMatch: 'full'
