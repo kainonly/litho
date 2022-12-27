@@ -49,3 +49,9 @@ export interface User {
 }
 
 export type UserInfo = Pick<User, 'email' | 'name' | 'avatar'>;
+
+export interface Log<M, T> {
+  metadata: M;
+  data: T;
+  timestamp: Date;
+}

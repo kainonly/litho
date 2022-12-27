@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { ShareModule } from '@common/share.module';
 
+import { AccessLogsService } from './access-logs.service';
 import { AuditComponent } from './audit.component';
 
 const routes: Routes = [
@@ -14,6 +15,7 @@ const routes: Routes = [
 
 @NgModule({
   imports: [ShareModule, RouterModule.forChild(routes)],
-  declarations: [AuditComponent]
+  declarations: [AuditComponent],
+  providers: [AccessLogsService]
 })
 export class AuditModule {}

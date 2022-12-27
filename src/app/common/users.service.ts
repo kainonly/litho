@@ -4,7 +4,7 @@ import { map, switchMap } from 'rxjs/operators';
 
 import { WpxApi } from '@weplanx/ng';
 
-import { Project, User } from './types';
+import { User } from './types';
 
 @Injectable({ providedIn: 'root' })
 export class UsersService extends WpxApi<User> {
