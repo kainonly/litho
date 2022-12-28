@@ -12,17 +12,17 @@ const routes: Routes = [
     component: AdminComponent,
     children: [
       {
-        path: 'projects',
-        loadChildren: () => import('./projects/projects.module').then(m => m.ProjectsModule),
+        path: 'function',
+        loadChildren: () => import('./function/function.module').then(m => m.FunctionModule),
         data: {
-          breadcrumb: '项目管理'
+          breadcrumb: '功能设置'
         }
       },
       {
-        path: 'users',
-        loadChildren: () => import('./users/users.module').then(m => m.UsersModule),
+        path: 'team',
+        loadChildren: () => import('./team/team.module').then(m => m.TeamModule),
         data: {
-          breadcrumb: '成员管理'
+          breadcrumb: '团队设置'
         }
       },
       {
@@ -41,7 +41,7 @@ const routes: Routes = [
       },
       {
         path: '',
-        redirectTo: 'projects',
+        redirectTo: 'function',
         pathMatch: 'full'
       }
     ]
