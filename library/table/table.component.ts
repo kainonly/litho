@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { WpxData, WpxApi, AnyDto } from '@weplanx/ng';
 import { WpxStoreService } from '@weplanx/ng/store';
 import { NzCheckBoxOptionInterface } from 'ng-zorro-antd/checkbox';
+import { NzDropdownMenuComponent } from 'ng-zorro-antd/dropdown';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzResizeEvent } from 'ng-zorro-antd/resizable';
 import { NzTableSortOrder } from 'ng-zorro-antd/table/src/table.types';
@@ -42,6 +43,8 @@ export class WpxTableComponent<T> implements OnInit {
    * 定义行操作
    */
   @Input() wpxActions?: TemplateRef<any>;
+
+  @Input() wpxMenu?: NzDropdownMenuComponent;
   /**
    * 定义批量操作
    */
