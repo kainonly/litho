@@ -1,5 +1,17 @@
 <nz-card>
-  <nz-table #basicTable [nzData]="accessdata.values">
+  <nz-table
+    #basicTable
+    [nzFrontPagination]="false"
+    [nzShowSizeChanger]="true"
+    [nzHideOnSinglePage]="true"
+    [nzLoading]="dataset.loading"
+    [nzData]="dataset.values"
+    [nzTotal]="dataset.total"
+    [(nzPageSize)]="dataset.pagesize"
+    [(nzPageIndex)]="dataset.page"
+    (nzPageIndexChange)="getData(false)"
+    (nzPageSizeChange)="getData(true)"
+  >
     <thead>
       <tr>
         <th nzWidth="60px" nzLeft nzAlign="center">

@@ -12,8 +12,9 @@ export interface AccessLogMetaData {
 
 export interface AccessLogData {
   user_agent: string;
-  query?: string;
-  body?: string;
+  header: string;
+  query: string;
+  body: string;
   cost: number;
   status: number;
 }

@@ -26,24 +26,17 @@ const routes: Routes = [
         }
       },
       {
-        path: 'security',
-        loadChildren: () => import('./security/security.module').then(m => m.SecurityModule),
-        data: {
-          breadcrumb: '登录设置'
-        }
-      },
-      {
-        path: 'sessions',
-        loadChildren: () => import('./sessions/sessions.module').then(m => m.SessionsModule),
-        data: {
-          breadcrumb: '会话管理'
-        }
-      },
-      {
         path: 'audit',
         loadChildren: () => import('./audit/audit.module').then(m => m.AuditModule),
         data: {
           breadcrumb: '审计日志'
+        }
+      },
+      {
+        path: 'settings',
+        loadChildren: () => import('./settings/settings.module').then(m => m.SettingsModule),
+        data: {
+          breadcrumb: '系统设置'
         }
       },
       {

@@ -177,7 +177,7 @@ export class WpxService {
    * @param data 配置
    */
   setValues(data: Record<string, any>): Observable<any> {
-    return this.http.patch('values', data);
+    return this.http.patch('values', { data });
   }
 
   /**
