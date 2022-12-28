@@ -13,6 +13,13 @@ const routes: Routes = [
         }
       },
       {
+        path: 'roles',
+        loadChildren: () => import('./roles/roles.module').then(m => m.RolesModule),
+        data: {
+          breadcrumb: '权限管理'
+        }
+      },
+      {
         path: '',
         redirectTo: 'users',
         pathMatch: 'full'

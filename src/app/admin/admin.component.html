@@ -13,7 +13,7 @@
           <li nz-menu-group nzTitle="团队设置">
             <ul>
               <li nz-menu-item nzMatchRouter [routerLink]="['/', 'admin', 'team', 'users']">成员管理</li>
-              <li nz-menu-item nzDisabled>权限管理</li>
+              <li nz-menu-item nzMatchRouter [routerLink]="['/', 'admin', 'team', 'roles']">权限管理</li>
             </ul>
           </li>
           <li nz-menu-group nzTitle="审计日志">
