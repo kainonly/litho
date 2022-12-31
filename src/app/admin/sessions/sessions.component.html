@@ -1,11 +1,28 @@
 <ng-template #searchRef>
-  <nz-input-group style="width: 180px" nzSuffixIcon="search">
-    <input [(ngModel)]="searchText" (ngModelChange)="getData(500)" type="text" nz-input placeholder="邮件搜索" />
-  </nz-input-group>
+  <nz-space>
+    <nz-select *nzSpaceItem [(ngModel)]="interval" (ngModelChange)="getData(500)">
+      <nz-option [nzValue]="15" nzLabel="每 15s 刷新"></nz-option>
+      <nz-option [nzValue]="30" nzLabel="每 30s 刷新"></nz-option>
+      <nz-option [nzValue]="60" nzLabel="每 60s 刷新"></nz-option>
+    </nz-select>
+    <nz-input-group *nzSpaceItem style="width: 180px" nzSuffixIcon="search">
+      <input [(ngModel)]="searchText" (ngModelChange)="getData(500)" type="text" nz-input placeholder="会话用户搜索" />
+    </nz-input-group>
+    <nz-button-group *nzSpaceItem>
+      <button nz-button nzType="text" nz-tooltip="刷新" (click)="getData(500)">
+        <i nz-icon nzType="reload"></i>
+      </button>
+      <button nz-button nzType="text" nz-tooltip="重置" (click)="clearSearch()">
+        <i nz-icon nzType="clear"></i>
+      </button>
+    </nz-button-group>
+  </nz-space>
 </ng-template>
 
 <ng-template #actions>
-  <button nz-button nzType="primary" nzDanger (click)="bulkDelete()"> 全部中断 </button>
+  <button nz-button nzType="primary" nzDanger (click)="bulkDelete()" [disabled]="checkedIds.size === 0">
+    选中 {{ checkedIds.size }} 中断会话
+  </button>
 </ng-template>
 
 <nz-card [nzTitle]="searchRef" [nzExtra]="actions">
@@ -21,7 +38,7 @@
           (nzCheckedChange)="setNChecked($event)"
         >
         </th>
-        <th nzWidth="320px"><b>电子邮件</b></th>
+        <th nzWidth="320px"><b>会话用户</b></th>
         <th><b>详情</b></th>
         <th nzWidth="60px" nzRight nzAlign="center">
           <button nz-button nzType="text" nzBlock disabled>
@@ -32,34 +49,36 @@
     </thead>
     <tbody>
       <tr *ngFor="let data of basicTable.data">
-        <td
-          nzAlign="center"
-          [nzChecked]="checkedIds.has(data['_id'])"
-          (nzCheckedChange)="setChecked(data['_id'], $event)"
-        >
+        <td nzAlign="center" [nzChecked]="checkedIds.has(data._id)" (nzCheckedChange)="setChecked(data._id, $event)">
         </td>
         <td>
-          <span>{{ data['email'] }}</span>
-          <ng-container *ngIf="app.user?.email === data['email']">
-            <nz-divider nzType="vertical"></nz-divider>
+          <ng-container *ngIf="app.user?.email === data.email">
             <nz-tag nzColor="success">本人</nz-tag>
           </ng-container>
+          <span>
+            {{ data.email }} <b>[ {{ !data.name ? '无称呼' : data.name }} ]</b>
+          </span>
         </td>
         <td>
-          <nz-space [nzSplit]="split">
-            <ng-template #split>
+          <nz-space *ngIf="data.last as l" [nzSplit]="spaceSplit">
+            <ng-template #spaceSplit>
               <nz-divider nzType="vertical"></nz-divider>
             </ng-template>
-            <span *nzSpaceItem>称呼： {{ !!data['name'] ? data['name'] : '-' }}</span>
+            <span *nzSpaceItem>{{ l.timestamp | date: 'yyyy/MM/dd HH:mm:ss' }} 上线</span>
+            <b *nzSpaceItem>[ {{ l.ip }} ]</b>
+            <span *nzSpaceItem>{{ !l.country ? '未知' : l.country }}</span>
+            <span *nzSpaceItem>{{ !l.province ? '未知' : l.province }}</span>
+            <span *nzSpaceItem>{{ !l.city ? '未知' : l.city }}</span>
+            <span *nzSpaceItem>{{ !l.isp ? '未知' : l.isp }}</span>
           </nz-space>
         </td>
         <td nzAlign="center">
           <button
             nz-button
             nzType="text"
-            nz-tooltip="强制下线"
-            nz-popconfirm="确认下线该会话吗？"
-            (nzOnConfirm)="delete(data['_id'])"
+            nz-tooltip="中断会话"
+            nz-popconfirm="确认中断会话该会话吗？"
+            (nzOnConfirm)="delete(data._id)"
           >
             <i nz-icon nzType="disconnect"></i>
           </button>

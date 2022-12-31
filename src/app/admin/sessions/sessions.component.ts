@@ -16,11 +16,18 @@ import { SessionsService } from './sessions.service';
   templateUrl: './sessions.component.html'
 })
 export class SessionsComponent implements OnInit, OnDestroy {
-  searchText: string = '';
   /**
    * 数据
    */
   values: Array<AnyDto<User>> = [];
+  /**
+   * 刷新间隔
+   */
+  interval = 15;
+  /**
+   * 搜索文本
+   */
+  searchText: string = '';
   /**
    * 选中的集合ID
    */
@@ -56,7 +63,7 @@ export class SessionsComponent implements OnInit, OnDestroy {
     if (this.dataSubscription) {
       this.dataSubscription.unsubscribe();
     }
-    this.dataSubscription = timer(due, 5000)
+    this.dataSubscription = timer(due, this.interval * 1000)
       .pipe(
         switchMap(() => this.sessions.get()),
         switchMap(v =>
@@ -79,7 +86,16 @@ export class SessionsComponent implements OnInit, OnDestroy {
             return v;
           })
         ];
+        this.message.success('会话已刷新');
       });
+  }
+
+  /**
+   * 重置
+   */
+  clearSearch(): void {
+    this.searchText = '';
+    this.getData();
   }
 
   /**
