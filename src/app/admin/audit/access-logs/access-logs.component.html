@@ -106,9 +106,15 @@
             <nz-descriptions-item nzTitle="耗时">{{ data.data.cost }}ms</nz-descriptions-item>
             <nz-descriptions-item nzTitle="IP">{{ data.metadata.ip }}</nz-descriptions-item>
             <nz-descriptions-item nzTitle="状态码">{{ data.data.status }}</nz-descriptions-item>
-            <nz-descriptions-item nzTitle="Query 参数" [nzSpan]="2">{{ data.data.query }}</nz-descriptions-item>
-            <nz-descriptions-item nzTitle="Body 请求体" [nzSpan]="2">{{ data.data.body }}</nz-descriptions-item>
-            <nz-descriptions-item nzTitle="用户代理" [nzSpan]="2">{{ data.data.user_agent }}</nz-descriptions-item>
+            <nz-descriptions-item nzTitle="Query 参数" [nzSpan]="2">
+              <code>{{ data.data.query }}</code>
+            </nz-descriptions-item>
+            <nz-descriptions-item nzTitle="Body 请求体" [nzSpan]="2">
+              <code>{{ data.data.body }}</code>
+            </nz-descriptions-item>
+            <nz-descriptions-item nzTitle="用户代理" [nzSpan]="2">
+              <code>{{ data.data.user_agent }}</code>
+            </nz-descriptions-item>
           </nz-descriptions>
         </tr>
       </ng-container>

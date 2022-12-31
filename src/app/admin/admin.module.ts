@@ -55,18 +55,35 @@ const routes: Routes = [
           breadcrumb: '团队成员'
         }
       },
+
       {
-        path: 'sessions',
-        loadChildren: () => import('./sessions/sessions.module').then(m => m.SessionsModule),
+        path: 'monitor',
+        children: [
+          {
+            path: 'values',
+            loadChildren: () => import('./values/values.module').then(m => m.ValuesModule),
+            data: {
+              breadcrumb: '动态配置'
+            }
+          },
+          {
+            path: 'sessions',
+            loadChildren: () => import('./sessions/sessions.module').then(m => m.SessionsModule),
+            data: {
+              breadcrumb: '在线会话'
+            }
+          },
+          {
+            path: 'audit',
+            loadChildren: () => import('./audit/audit.module').then(m => m.AuditModule),
+            data: {
+              breadcrumb: '审计日志'
+            }
+          },
+          { path: '', redirectTo: 'sessions', pathMatch: 'full' }
+        ],
         data: {
-          breadcrumb: '在线会话'
-        }
-      },
-      {
-        path: 'audit',
-        loadChildren: () => import('./audit/audit.module').then(m => m.AuditModule),
-        data: {
-          breadcrumb: '审计日志'
+          breadcrumb: '监控'
         }
       },
       { path: '', redirectTo: 'center', pathMatch: 'full' }

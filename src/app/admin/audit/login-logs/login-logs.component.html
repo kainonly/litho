@@ -68,8 +68,8 @@
             nzLeft
             nzAlign="center"
             [nzDisabled]="data['disabled']"
-            [nzChecked]="dataset.checkedIds.has(data['_id'])"
-            (nzCheckedChange)="dataset.setChecked(data['_id'], $event)"
+            [nzChecked]="dataset.checkedIds.has(data['key'])"
+            (nzCheckedChange)="dataset.setChecked(data['key'], $event)"
           >
           </td>
           <td [nzExpand]="expand.has(data['_id'])" (nzExpandChange)="expandChange(data['_id'], $event)">
@@ -112,7 +112,9 @@
         <tr [nzExpand]="expand.has(data['_id'])">
           <nz-descriptions nzSize="small" [nzColumn]="2">
             <nz-descriptions-item nzTitle="令牌 ID" [nzSpan]="2">{{ data.metadata.token_id }}</nz-descriptions-item>
-            <nz-descriptions-item nzTitle="用户代理" [nzSpan]="2">{{ data.data.user_agent }}</nz-descriptions-item>
+            <nz-descriptions-item nzTitle="用户代理" [nzSpan]="2">
+              <code>{{ data.data.user_agent }}</code>
+            </nz-descriptions-item>
           </nz-descriptions>
         </tr>
       </ng-container>

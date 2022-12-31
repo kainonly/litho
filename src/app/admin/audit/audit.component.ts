@@ -7,10 +7,10 @@ import { Component } from '@angular/core';
       <nz-col nzFlex="80px">
         <nz-tabset style="height: 100%;padding: 12px 0 12px 12px" nzTabPosition="left" nzLinkRouter nzHideAll>
           <nz-tab>
-            <a *nzTabLink nz-tab-link [routerLink]="['/', 'admin', 'audit', 'access_logs']">操作记录</a>
+            <a *nzTabLink nz-tab-link [routerLink]="['/', 'admin', 'monitor', 'audit', 'access_logs']">操作记录</a>
           </nz-tab>
           <nz-tab>
-            <a *nzTabLink nz-tab-link [routerLink]="['/', 'admin', 'audit', 'login_logs']">登录记录</a>
+            <a *nzTabLink nz-tab-link [routerLink]="['/', 'admin', 'monitor', 'audit', 'login_logs']">登录记录</a>
           </nz-tab>
         </nz-tabset>
       </nz-col>
