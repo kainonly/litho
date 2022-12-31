@@ -43,6 +43,14 @@ export interface User {
    */
   avatar: string;
   /**
+   * 累计会话次数
+   */
+  sessions?: number;
+  /**
+   * 最近一次登录
+   */
+  last?: string;
+  /**
    * 状态
    */
   status: boolean;

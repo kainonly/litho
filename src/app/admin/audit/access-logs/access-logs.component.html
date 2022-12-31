@@ -1,4 +1,31 @@
-<nz-card>
+<ng-template #searchRef>
+  <nz-space>
+    <nz-range-picker
+      *nzSpaceItem
+      [nzShowTime]="{ nzFormat: 'HH:mm' }"
+      nzFormat="yyyy-MM-dd HH:mm"
+      [nzDisabledDate]="disabledDate"
+      [(ngModel)]="date"
+      (ngModelChange)="getData(true)"
+    ></nz-range-picker>
+    <nz-button-group *nzSpaceItem>
+      <button nz-button nzType="text" nz-tooltip="刷新" (click)="getData(true)">
+        <i nz-icon nzType="reload"></i>
+      </button>
+      <button nz-button nzType="text" nz-tooltip="重置" (click)="clearSearch()">
+        <i nz-icon nzType="clear"></i>
+      </button>
+    </nz-button-group>
+  </nz-space>
+</ng-template>
+
+<ng-template #actions>
+  <nz-space>
+    <button *nzSpaceItem nz-button> 导出 </button>
+  </nz-space>
+</ng-template>
+
+<nz-card [nzTitle]="searchRef" [nzExtra]="actions">
   <nz-table
     #basicTable
     [nzFrontPagination]="false"
@@ -46,9 +73,20 @@
           >
           </td>
           <td [nzExpand]="expand.has(data['_id'])" (nzExpandChange)="expandChange(data['_id'], $event)">
-            {{ data['timestamp'] }}
+            {{ data['timestamp'] | date: 'yyyy-MM-dd HH:mm:ss' }}
           </td>
-          <td>{{ data.metadata.user_id }}</td>
+          <td>
+            <a *ngIf="userKV[data.metadata.user_id] as user; else isSystem" (click)="openUserDetail(user)">
+              <span> {{ user.email }}</span>
+              <nz-divider nzType="vertical"></nz-divider>
+              <span>
+                <ng-container *ngIf="user.name; else noName">
+                  {{ user.name }}
+                </ng-container>
+              </span>
+            </a>
+            <ng-template #isSystem>系统行为</ng-template>
+          </td>
           <td>{{ data.metadata.method }} {{ data.metadata.path }}</td>
           <td>无</td>
           <td nzRight nzAlign="center">
@@ -63,7 +101,7 @@
           </td>
         </tr>
         <tr [nzExpand]="expand.has(data['_id'])">
-          <nz-descriptions nzTitle="日志数据" nzSize="small" [nzColumn]="2">
+          <nz-descriptions nzSize="small" [nzColumn]="2">
             <nz-descriptions-item nzTitle="HOST">{{ data.metadata.host }}</nz-descriptions-item>
             <nz-descriptions-item nzTitle="COST">{{ data.data.cost }}ms</nz-descriptions-item>
             <nz-descriptions-item nzTitle="IP">{{ data.metadata.ip }}</nz-descriptions-item>
@@ -77,3 +115,39 @@
     </tbody>
   </nz-table>
 </nz-card>
+
+<ng-template #noName> 无称呼 </ng-template>
+
+<nz-drawer
+  [nzClosable]="false"
+  [nzVisible]="userDetailVisible"
+  [nzWidth]="640"
+  nzPlacement="right"
+  nzTitle="成员详情"
+  (nzOnClose)="closeUserDetail()"
+>
+  <ng-container *nzDrawerContent>
+    <nz-descriptions *ngIf="userDetail as u" nzBordered [nzColumn]="2">
+      <nz-descriptions-item nzTitle="电子邮件">{{ u.email }}</nz-descriptions-item>
+      <nz-descriptions-item nzTitle="称呼">
+        <ng-container *ngIf="u.name; else noName">
+          {{ u.name }}
+        </ng-container>
+      </nz-descriptions-item>
+      <nz-descriptions-item nzTitle="ID" [nzSpan]="2">{{ u._id }}</nz-descriptions-item>
+      <nz-descriptions-item nzTitle="头像" [nzSpan]="2">{{ u.avatar }}</nz-descriptions-item>
+      <nz-descriptions-item nzTitle="状态" [nzSpan]="2">
+        <ng-container *ngIf="u.status; else isFalse"> <nz-badge nzStatus="processing"></nz-badge> 开启 </ng-container>
+        <ng-template #isFalse> <nz-badge nzStatus="default"></nz-badge> 关闭 </ng-template>
+      </nz-descriptions-item>
+      <nz-descriptions-item nzTitle="累计会话" [nzSpan]="2">{{ u.sessions }}</nz-descriptions-item>
+      <nz-descriptions-item nzTitle="最近一次登录" [nzSpan]="2">{{ u.last }}</nz-descriptions-item>
+      <nz-descriptions-item nzTitle="创建时间">
+        {{ u.create_time | date: 'yyyy-MM-dd HH:mm:ss' }}
+      </nz-descriptions-item>
+      <nz-descriptions-item nzTitle="更新时间">
+        {{ u.update_time | date: 'yyyy-MM-dd HH:mm:ss' }}
+      </nz-descriptions-item>
+    </nz-descriptions>
+  </ng-container>
+</nz-drawer>
