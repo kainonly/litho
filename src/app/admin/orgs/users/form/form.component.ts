@@ -36,10 +36,10 @@ export class FormComponent implements OnInit {
 
   ngOnInit(): void {
     this.form = this.fb.group({
-      email: [null, [Validators.required, Validators.email], [this.checkEmail]],
-      password: [null, [Validators.required, Validators.minLength(6)]],
-      name: [null],
-      avatar: [null],
+      email: ['', [Validators.required, Validators.email], [this.checkEmail]],
+      password: ['', [Validators.required, Validators.minLength(6)]],
+      name: [''],
+      avatar: [''],
       status: [true, [Validators.required]]
     });
     if (this.doc) {
@@ -56,7 +56,7 @@ export class FormComponent implements OnInit {
     if (control.value === this.doc?.email) {
       return of(null);
     }
-    return this.users.create(control.value);
+    return this.users.existsEmail(control.value);
   };
 
   /**

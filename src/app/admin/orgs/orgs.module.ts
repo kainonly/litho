@@ -16,7 +16,7 @@ const routes: Routes = [
         path: 'users',
         loadChildren: () => import('./users/users.module').then(m => m.UsersModule),
         data: {
-          breadcrumb: '组织成员'
+          breadcrumb: '团队成员'
         }
       },
       { path: '', redirectTo: 'users', pathMatch: 'full' }

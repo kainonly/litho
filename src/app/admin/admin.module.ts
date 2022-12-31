@@ -22,7 +22,7 @@ const routes: Routes = [
         path: 'orgs',
         loadChildren: () => import('./orgs/orgs.module').then(m => m.OrgsModule),
         data: {
-          breadcrumb: '团队设置'
+          breadcrumb: '组织架构'
         }
       },
       {
