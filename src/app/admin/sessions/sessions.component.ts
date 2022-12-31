@@ -86,7 +86,7 @@ export class SessionsComponent implements OnInit, OnDestroy {
             return v;
           })
         ];
-        this.message.success('会话已刷新');
+        this.message.success('在线会话已刷新');
       });
   }
 

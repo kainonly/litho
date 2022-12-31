@@ -53,7 +53,6 @@
         <th nzWidth="270px"><b>操作时间</b></th>
         <th nzWidth="320px"><b>操作者</b></th>
         <th><b>资源请求</b></th>
-        <th><b>事件备注</b></th>
         <th nzWidth="60px" nzRight nzAlign="center">
           <button nz-button nzType="text" nzBlock disabled>
             <i nz-icon nzType="setting"></i>
@@ -88,14 +87,13 @@
             <ng-template #isSystem>系统行为</ng-template>
           </td>
           <td>{{ data.metadata.method }} {{ data.metadata.path }}</td>
-          <td>无</td>
           <td nzRight nzAlign="center">
             <button nz-button nzType="text" nz-dropdown [nzDropdownMenu]="menu">
               <i nz-icon nzType="ellipsis"></i>
             </button>
             <nz-dropdown-menu #menu="nzDropdownMenu">
               <ul nz-menu>
-                <li nz-menu-item>设置备注</li>
+                <li nz-menu-item>资源定义</li>
               </ul>
             </nz-dropdown-menu>
           </td>

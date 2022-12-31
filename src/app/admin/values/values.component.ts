@@ -68,6 +68,7 @@ export class ValuesComponent implements OnInit {
             return v.key.match(this.searchText);
           })
       ];
+      this.message.success('动态配置已刷新');
     });
   }
 
