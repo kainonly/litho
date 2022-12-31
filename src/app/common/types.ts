@@ -1,3 +1,5 @@
+import { AnyDto } from '@weplanx/ng';
+
 export interface Project {
   /**
    * 项目名称
@@ -31,6 +33,10 @@ export interface User {
    */
   email: string;
   /**
+   * 备用邮箱
+   */
+  backup_email?: string;
+  /**
    * 密码
    */
   password: string;
@@ -56,7 +62,7 @@ export interface User {
   status: boolean;
 }
 
-export type UserInfo = Pick<User, 'email' | 'name' | 'avatar'>;
+export type UserInfo = Omit<AnyDto<User>, 'password'>;
 
 export interface Log<M, T> {
   metadata: M;

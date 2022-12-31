@@ -2,9 +2,8 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { AppService } from '@app';
-import { ProjectsService } from '@common/projects.service';
-import { Project } from '@common/types';
-import { AnyDto, WpxData } from '@weplanx/ng';
+import { CenterComponent } from '@common/center/center.component';
+import { NzDrawerService } from 'ng-zorro-antd/drawer';
 
 @Component({
   selector: 'app-header',
@@ -12,30 +11,15 @@ import { AnyDto, WpxData } from '@weplanx/ng';
   styleUrls: ['header.component.scss']
 })
 export class HeaderComponent {
-  /**
-   * 搜索
-   */
-  searchText = '';
-  /**
-   * 数据
-   */
-  dataset: WpxData<AnyDto<Project>> = new WpxData<AnyDto<Project>>();
+  constructor(public app: AppService, private router: Router, private drawer: NzDrawerService) {}
 
-  constructor(public app: AppService, public projects: ProjectsService, private router: Router) {}
-
-  getData(refresh = false): void {
-    this.projects.pages(this.dataset, refresh).subscribe(() => {});
-  }
-
-  submitSearch(): void {
-    if (!this.searchText) {
-      this.dataset.filter = {};
-    } else {
-      this.dataset.filter = {
-        $or: [{ name: { $regex: this.searchText } }, { namespace: { $regex: this.searchText } }]
-      };
-    }
-    this.getData(true);
+  center(): void {
+    this.drawer.create<CenterComponent, { value: string }, string>({
+      nzTitle: '个人中心',
+      nzWidth: '736px',
+      nzContent: CenterComponent,
+      nzContentParams: {}
+    });
   }
 
   /**
