@@ -13,16 +13,53 @@ const routes: Routes = [
     children: [
       {
         path: 'center',
-        loadChildren: () => import('./center/center.module').then(m => m.CenterModule),
+        children: [
+          {
+            path: 'projects',
+            loadChildren: () => import('./projects/projects.module').then(m => m.ProjectsModule),
+            data: {
+              breadcrumb: '项目管理'
+            }
+          },
+          {
+            path: 'functions',
+            loadChildren: () => import('./functions/functions.module').then(m => m.FunctionsModule),
+            data: {
+              breadcrumb: '功能模块'
+            }
+          },
+          {
+            path: 'security',
+            loadChildren: () => import('./security/security.module').then(m => m.SecurityModule),
+            data: {
+              breadcrumb: '安全策略'
+            }
+          },
+          { path: '', redirectTo: 'projects', pathMatch: 'full' }
+        ],
         data: {
           breadcrumb: '应用中心'
         }
       },
       {
-        path: 'orgs',
-        loadChildren: () => import('./orgs/orgs.module').then(m => m.OrgsModule),
+        path: 'roles',
+        loadChildren: () => import('./roles/roles.module').then(m => m.RolesModule),
         data: {
-          breadcrumb: '组织架构'
+          breadcrumb: '权限组'
+        }
+      },
+      {
+        path: 'users',
+        loadChildren: () => import('./users/users.module').then(m => m.UsersModule),
+        data: {
+          breadcrumb: '团队成员'
+        }
+      },
+      {
+        path: 'sessions',
+        loadChildren: () => import('./sessions/sessions.module').then(m => m.SessionsModule),
+        data: {
+          breadcrumb: '在线会话'
         }
       },
       {
@@ -30,13 +67,6 @@ const routes: Routes = [
         loadChildren: () => import('./audit/audit.module').then(m => m.AuditModule),
         data: {
           breadcrumb: '审计日志'
-        }
-      },
-      {
-        path: 'settings',
-        loadChildren: () => import('./settings/settings.module').then(m => m.SettingsModule),
-        data: {
-          breadcrumb: '系统设置'
         }
       },
       { path: '', redirectTo: 'center', pathMatch: 'full' }

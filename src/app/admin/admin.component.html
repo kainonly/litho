@@ -10,43 +10,50 @@
                 <span nz-icon nzType="project"></span>
                 <span>项目管理</span>
               </li>
-              <li nz-menu-item nzDisabled>
-                <span nz-icon nzType="database"></span>
-                <span>基础设置</span>
+              <li nz-menu-item nzMatchRouter [routerLink]="['/', 'admin', 'center', 'functions']">
+                <span nz-icon nzType="experiment"></span>
+                <span>功能模块</span>
+              </li>
+              <li nz-menu-item nzMatchRouter [routerLink]="['/', 'admin', 'center', 'security']">
+                <span nz-icon nzType="safety-certificate"></span>
+                <span>安全策略</span>
               </li>
             </ul>
           </li>
           <li nz-menu-group nzTitle="组织架构">
             <ul>
-              <li nz-menu-item nzMatchRouter [routerLink]="['/', 'admin', 'orgs', 'roles']">
+              <li nz-menu-item nzMatchRouter [routerLink]="['/', 'admin', 'roles']">
                 <span nz-icon nzType="partition"></span>
                 <span>权限组</span>
               </li>
-              <li nz-menu-item nzMatchRouter [routerLink]="['/', 'admin', 'orgs', 'users']">
+              <li nz-menu-item nzMatchRouter [routerLink]="['/', 'admin', 'users']">
                 <span nz-icon nzType="team"></span>
                 <span>团队成员</span>
               </li>
             </ul>
           </li>
-          <li nz-menu-group nzTitle="审计日志">
+          <!--          <li nz-menu-group nzTitle="审计日志">-->
+          <!--            <ul>-->
+          <!--              <li nz-menu-item nzMatchRouter [routerLink]="['/', 'admin', 'audit', 'access_logs']">-->
+          <!--                <span nz-icon nzType="history"></span>-->
+          <!--                <span>操作记录</span>-->
+          <!--              </li>-->
+          <!--              <li nz-menu-item nzMatchRouter [routerLink]="['/', 'admin', 'audit', 'login_logs']">-->
+          <!--                <span nz-icon nzType="file-protect"></span>-->
+          <!--                <span>登录记录</span>-->
+          <!--              </li>-->
+          <!--            </ul>-->
+          <!--          </li>-->
+          <li nz-menu-group nzTitle="监控">
             <ul>
-              <li nz-menu-item nzMatchRouter [routerLink]="['/', 'admin', 'audit', 'access_logs']">
-                <span nz-icon nzType="history"></span>
-                <span>操作记录</span>
-              </li>
-              <li nz-menu-item nzMatchRouter [routerLink]="['/', 'admin', 'audit', 'login_logs']">
-                <span nz-icon nzType="file-protect"></span>
-                <span>登录记录</span>
-              </li>
-            </ul>
-          </li>
-          <li nz-menu-group nzTitle="系统设置">
-            <ul>
-              <li nz-menu-item nzMatchRouter [routerLink]="['/', 'admin', 'settings', 'sessions']">
+              <li nz-menu-item nzMatchRouter [routerLink]="['/', 'admin', 'sessions']">
                 <span nz-icon nzType="rocket"></span>
-                <span>活跃会话</span>
+                <span>在线会话</span>
               </li>
-              <li nz-menu-item nzMatchRouter [routerLink]="['/', 'admin', 'settings', 'security']">安全性</li>
+              <li nz-menu-item nzMatchRouter [routerLink]="['/', 'admin', 'audit']">
+                <span nz-icon nzType="file-protect"></span>
+                <span>审计日志</span>
+              </li>
             </ul>
           </li>
         </ul>
