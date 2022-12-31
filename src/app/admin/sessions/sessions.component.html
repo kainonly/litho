@@ -1,6 +1,6 @@
 <ng-template #searchRef>
-  <nz-input-group style="width: 180px">
-    <input [(ngModel)]="searchText" (ngModelChange)="getData(500)" type="text" nz-input placeholder="电子邮件" />
+  <nz-input-group style="width: 180px" nzSuffixIcon="search">
+    <input [(ngModel)]="searchText" (ngModelChange)="getData(500)" type="text" nz-input placeholder="邮件搜索" />
   </nz-input-group>
 </ng-template>
 
@@ -9,12 +9,19 @@
 </ng-template>
 
 <nz-card [nzTitle]="searchRef" [nzExtra]="actions">
-  <nz-table #basicTable [nzData]="data" [nzHideOnSinglePage]="true">
+  <nz-table #basicTable [nzData]="values" [nzHideOnSinglePage]="true">
     <thead>
       <tr>
-        <th nzWidth="60px" nzLeft nzAlign="center"> </th>
-        <th nzWidth="240px"><b>电子邮件</b></th>
-        <th nzWidth="240px"><b>USER-ID</b></th>
+        <th
+          nzWidth="60px"
+          nzLeft
+          nzAlign="center"
+          [nzChecked]="checked"
+          [nzIndeterminate]="indeterminate"
+          (nzCheckedChange)="setNChecked($event)"
+        >
+        </th>
+        <th nzWidth="320px"><b>电子邮件</b></th>
         <th><b>详情</b></th>
         <th nzWidth="60px" nzRight nzAlign="center">
           <button nz-button nzType="text" nzBlock disabled>
@@ -24,16 +31,26 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let item of basicTable.data">
-        <td nzAlign="center"> </td>
-        <td>{{ item['email'] }}</td>
-        <td>{{ item['_id'] }}</td>
+      <tr *ngFor="let data of basicTable.data">
+        <td
+          nzAlign="center"
+          [nzChecked]="checkedIds.has(data['_id'])"
+          (nzCheckedChange)="setChecked(data['_id'], $event)"
+        >
+        </td>
+        <td>
+          <span>{{ data['email'] }}</span>
+          <ng-container *ngIf="app.user?.email === data['email']">
+            <nz-divider nzType="vertical"></nz-divider>
+            <nz-tag nzColor="success">本人</nz-tag>
+          </ng-container>
+        </td>
         <td>
           <nz-space [nzSplit]="split">
             <ng-template #split>
               <nz-divider nzType="vertical"></nz-divider>
             </ng-template>
-            <span *nzSpaceItem>称呼： {{ !!item['name'] ? item['name'] : '-' }}</span>
+            <span *nzSpaceItem>称呼： {{ !!data['name'] ? data['name'] : '-' }}</span>
           </nz-space>
         </td>
         <td nzAlign="center">
@@ -42,7 +59,7 @@
             nzType="text"
             nz-tooltip="强制下线"
             nz-popconfirm="确认下线该会话吗？"
-            (nzOnConfirm)="delete(item['_id'])"
+            (nzOnConfirm)="delete(data['_id'])"
           >
             <i nz-icon nzType="disconnect"></i>
           </button>

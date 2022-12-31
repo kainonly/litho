@@ -23,7 +23,18 @@
         }
       }"
     >
-      <textarea nz-input formControlName="value" nzAutosize rows="3"></textarea>
+      <ng-container [ngSwitch]="key">
+        <ng-container *ngSwitchCase="'dsl'">
+          <nz-code-editor
+            style="height: 400px; width: 100%"
+            formControlName="value"
+            [nzEditorOption]="{ language: 'json' }"
+          ></nz-code-editor>
+        </ng-container>
+        <ng-container *ngSwitchDefault>
+          <textarea nz-input formControlName="value" nzAutosize rows="6"></textarea>
+        </ng-container>
+      </ng-container>
     </nz-form-control>
   </nz-form-item>
 </form>

@@ -36,6 +36,10 @@ export class FormComponent implements OnInit {
     }
   }
 
+  get key(): string {
+    return this.form.get('key')?.value!;
+  }
+
   /**
    * 关闭表单
    */
@@ -48,6 +52,11 @@ export class FormComponent implements OnInit {
    * @param data
    */
   submit(data: any): void {
+    switch (this.key) {
+      case 'dsl':
+        data.value = JSON.parse(data.value);
+        break;
+    }
     this.wpx
       .setValues({
         [data.key]: data.value

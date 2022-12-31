@@ -33,9 +33,9 @@ export interface User {
    */
   email: string;
   /**
-   * 备用邮箱
+   * 权限组
    */
-  backup_email?: string;
+  roles: string[];
   /**
    * 密码
    */
@@ -49,17 +49,30 @@ export interface User {
    */
   avatar: string;
   /**
+   * 备用邮箱
+   */
+  backup_email?: string;
+  /**
    * 累计会话次数
    */
   sessions?: number;
   /**
    * 最近一次登录
    */
-  last?: string;
+  last?: UserLast;
   /**
    * 状态
    */
   status: boolean;
+}
+
+export interface UserLast {
+  timestamp: Date;
+  ip: string;
+  country: string;
+  province: string;
+  city: string;
+  isp: string;
 }
 
 export interface Log<M, T> {

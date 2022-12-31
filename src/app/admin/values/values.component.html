@@ -1,7 +1,7 @@
 <ng-template #searchRef>
   <nz-space>
     <nz-input-group *nzSpaceItem style="width: 180px" nzSuffixIcon="search">
-      <input [(ngModel)]="searchText" (keyup.enter)="getData()" type="text" nz-input placeholder="配置键名" />
+      <input [(ngModel)]="searchText" (keyup.enter)="getData()" type="text" nz-input placeholder="键名搜索" />
     </nz-input-group>
     <nz-button-group *nzSpaceItem>
       <button nz-button nzType="text" nz-tooltip="刷新" (click)="getData()">
@@ -45,9 +45,7 @@
     <tbody>
       <tr *ngFor="let data of basicTable.data">
         <td nzLeft [nzChecked]="checkedKeys.has(data['key'])" (nzCheckedChange)="setChecked(data['key'], $event)"></td>
-        <td>
-          <code>{{ data.key }}</code>
-        </td>
+        <td>{{ data.key }}</td>
         <td>
           <code>{{ data.value }}</code>
         </td>

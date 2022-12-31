@@ -53,7 +53,7 @@
         <th nzWidth="270px"><b>登录时间</b></th>
         <th nzWidth="320px"><b>登录用户</b></th>
         <th><b>IP</b></th>
-        <th><b>地区ISP</b></th>
+        <th><b>地区 ISP</b></th>
         <th nzWidth="60px" nzRight nzAlign="center">
           <button nz-button nzType="text" nzBlock disabled>
             <i nz-icon nzType="setting"></i>
@@ -88,14 +88,14 @@
           </td>
           <td>{{ data.metadata.ip }}</td>
           <td>
-            <nz-space *ngIf="data['data'].detail as d" [nzSplit]="spaceSplit">
+            <nz-space *ngIf="data['data'] as d" [nzSplit]="spaceSplit">
               <ng-template #spaceSplit>
                 <nz-divider nzType="vertical"></nz-divider>
               </ng-template>
-              <span *nzSpaceItem>{{ !d['country'] ? '-' : d['country'] }}</span>
-              <span *nzSpaceItem>{{ !d['province'] ? '-' : d['province'] }}</span>
-              <span *nzSpaceItem>{{ !d['city'] ? '-' : d['city'] }}</span>
-              <span *nzSpaceItem>{{ !d['isp'] ? '-' : d['isp'] }}</span>
+              <span *nzSpaceItem>{{ !d.country ? '未知' : d.country }}</span>
+              <span *nzSpaceItem>{{ !d.province ? '未知' : d.province }}</span>
+              <span *nzSpaceItem>{{ !d.city ? '未知' : d.city }}</span>
+              <span *nzSpaceItem>{{ !d.isp ? '未知' : d.isp }}</span>
             </nz-space>
           </td>
           <td nzRight nzAlign="center">
@@ -146,13 +146,33 @@
         <ng-container *ngIf="u.status; else isFalse"> <nz-badge nzStatus="processing"></nz-badge> 开启 </ng-container>
         <ng-template #isFalse> <nz-badge nzStatus="default"></nz-badge> 关闭 </ng-template>
       </nz-descriptions-item>
-      <nz-descriptions-item nzTitle="累计会话" [nzSpan]="2">{{ u.sessions }}</nz-descriptions-item>
-      <nz-descriptions-item nzTitle="最近一次登录" [nzSpan]="2">{{ u.last }}</nz-descriptions-item>
-      <nz-descriptions-item nzTitle="创建时间">
-        {{ u.create_time | date: 'yyyy-MM-dd HH:mm:ss' }}
+      <nz-descriptions-item nzTitle="累计会话" [nzSpan]="2">
+        <span>
+          已登录 <b> {{ u.sessions }} </b> 次
+        </span>
       </nz-descriptions-item>
-      <nz-descriptions-item nzTitle="更新时间">
-        {{ u.update_time | date: 'yyyy-MM-dd HH:mm:ss' }}
+      <nz-descriptions-item *ngIf="u.last as l" nzTitle="上线时间" [nzSpan]="2">
+        {{ l.timestamp | date: 'yyyy/MM/dd HH:mm:ss' }}
+      </nz-descriptions-item>
+      <nz-descriptions-item *ngIf="u.last as l" nzTitle="IP" [nzSpan]="2">
+        <b>[ {{ l.ip }} ]</b>
+      </nz-descriptions-item>
+      <nz-descriptions-item nzTitle="地区ISP" [nzSpan]="2">
+        <nz-space *ngIf="u.last as l" [nzSplit]="spaceSplit">
+          <ng-template #spaceSplit>
+            <nz-divider nzType="vertical"></nz-divider>
+          </ng-template>
+          <span *nzSpaceItem>{{ !l.country ? '未知' : l.country }}</span>
+          <span *nzSpaceItem>{{ !l.province ? '未知' : l.province }}</span>
+          <span *nzSpaceItem>{{ !l.city ? '未知' : l.city }}</span>
+          <span *nzSpaceItem>{{ !l.isp ? '未知' : l.isp }}</span>
+        </nz-space>
+      </nz-descriptions-item>
+      <nz-descriptions-item nzTitle="创建时间" [nzSpan]="2">
+        {{ u.create_time | date: 'yyyy/MM/dd HH:mm:ss' }}
+      </nz-descriptions-item>
+      <nz-descriptions-item nzTitle="更新时间" [nzSpan]="2">
+        {{ u.update_time | date: 'yyyy/MM/dd HH:mm:ss' }}
       </nz-descriptions-item>
     </nz-descriptions>
   </ng-container>

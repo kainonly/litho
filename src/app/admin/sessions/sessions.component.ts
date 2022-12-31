@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription, timer } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 
+import { AppService } from '@app';
 import { User } from '@common/types';
 import { UsersService } from '@common/users.service';
 import { AnyDto } from '@weplanx/ng';
@@ -16,10 +17,27 @@ import { SessionsService } from './sessions.service';
 })
 export class SessionsComponent implements OnInit, OnDestroy {
   searchText: string = '';
-  data: Array<AnyDto<User>> = [];
+  /**
+   * 数据
+   */
+  values: Array<AnyDto<User>> = [];
+  /**
+   * 选中的集合ID
+   */
+  readonly checkedIds: Set<string> = new Set<string>();
+  /**
+   * 全部选中
+   */
+  checked: boolean = false;
+  /**
+   * 部分选中
+   */
+  indeterminate = false;
+
   private dataSubscription!: Subscription;
 
   constructor(
+    public app: AppService,
     private sessions: SessionsService,
     private users: UsersService,
     private message: NzMessageService,
@@ -53,7 +71,7 @@ export class SessionsComponent implements OnInit, OnDestroy {
         )
       )
       .subscribe(v => {
-        this.data = [
+        this.values = [
           ...v.filter(v => {
             if (this.searchText !== '') {
               return !!v.email.match(`^${this.searchText}`);
@@ -62,6 +80,50 @@ export class SessionsComponent implements OnInit, OnDestroy {
           })
         ];
       });
+  }
+
+  /**
+   * 设置数据选中ID
+   */
+  setCheckedIds(id: string, checked: boolean): void {
+    if (checked) {
+      this.checkedIds.add(id);
+    } else {
+      this.checkedIds.delete(id);
+    }
+  }
+
+  /**
+   * 设置数据选中
+   */
+  setChecked(id: string, checked: boolean): void {
+    this.setCheckedIds(id, checked);
+    this.updateCheckedStatus();
+  }
+
+  /**
+   * 设置数据全部选中
+   */
+  setNChecked(checked: boolean): void {
+    this.values.forEach(v => this.setCheckedIds(v._id!, checked));
+    this.updateCheckedStatus();
+  }
+
+  /**
+   * 更新数据选中状态
+   */
+  updateCheckedStatus(): void {
+    this.checked = this.values.every(v => this.checkedIds.has(v._id!));
+    this.indeterminate = this.values.some(v => this.checkedIds.has(v._id!)) && !this.checked;
+  }
+
+  /**
+   * 取消所有选中
+   */
+  clearChecked(): void {
+    this.checked = false;
+    this.indeterminate = false;
+    this.checkedIds.clear();
   }
 
   delete(id: string): void {

@@ -13,7 +13,7 @@ import { NzDrawerService } from 'ng-zorro-antd/drawer';
 export class HeaderComponent {
   constructor(public app: AppService, private router: Router, private drawer: NzDrawerService) {}
 
-  center(): void {
+  profile(): void {
     this.drawer.create<ProfileComponent, { value: string }, string>({
       nzTitle: '个人中心',
       nzWidth: '736px',

@@ -10,6 +10,10 @@ export interface LoginLogMetaData {
 }
 
 export interface LoginLogData {
-  detail: Record<string, any>;
+  ip: string;
+  country: string;
+  province: string;
+  city: string;
+  isp: string;
   user_agent: string;
 }

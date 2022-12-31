@@ -102,7 +102,7 @@ export class ValuesComponent implements OnInit {
    * 设置数据全部选中
    */
   setNChecked(checked: boolean): void {
-    this.values.filter(v => !v['_disabled']).forEach(v => this.setCheckedKeys(v.key!, checked));
+    this.values.forEach(v => this.setCheckedKeys(v.key!, checked));
     this.updateCheckedStatus();
   }
 
@@ -122,6 +122,7 @@ export class ValuesComponent implements OnInit {
   form(data?: any): void {
     this.modal.create({
       nzTitle: '设置',
+      nzWidth: '732px',
       nzContent: FormComponent,
       nzComponentParams: {
         data

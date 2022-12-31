@@ -6,7 +6,7 @@
           <nz-list-item-meta>
             <nz-list-item-meta-title><b>电子邮箱</b></nz-list-item-meta-title>
             <nz-list-item-meta-description>
-              <ng-container *ngIf="!!app.user['email']"> 已设置：{{ app.user['email'] }} </ng-container>
+              <ng-container *ngIf="!!app.user.email"> 已设置：{{ app.user.email }} </ng-container>
             </nz-list-item-meta-description>
           </nz-list-item-meta>
           <nz-list-item-extra>
@@ -19,8 +19,8 @@
           <nz-list-item-meta>
             <nz-list-item-meta-title><b>称呼</b></nz-list-item-meta-title>
             <nz-list-item-meta-description>
-              <ng-container *ngIf="!user['name']; else defaultName"> 推荐设置工作称呼或真实姓名 </ng-container>
-              <ng-template #defaultName> 已设置：{{ user['name'] }} </ng-template>
+              <ng-container *ngIf="!user.name; else defaultName"> 推荐设置工作称呼或真实姓名 </ng-container>
+              <ng-template #defaultName> 已设置：{{ user.name }} </ng-template>
             </nz-list-item-meta-description>
           </nz-list-item-meta>
           <nz-list-item-extra>
@@ -52,18 +52,32 @@
             <nz-list-item-meta-description>
               <nz-descriptions [nzColumn]="2">
                 <nz-descriptions-item nzTitle="创建时间">
-                  {{ user['create_time'] | date: 'yyyy/MM/dd HH:mm:ss' }}
+                  {{ user.create_time | date: 'yyyy/MM/dd HH:mm:ss' }}
                 </nz-descriptions-item>
                 <nz-descriptions-item nzTitle="更新时间">
-                  {{ user['update_time'] | date: 'yyyy/MM/dd HH:mm:ss' }}
+                  {{ user.update_time | date: 'yyyy/MM/dd HH:mm:ss' }}
                 </nz-descriptions-item>
-                <nz-descriptions-item nzTitle="会话">
+                <nz-descriptions-item nzTitle="累计会话">
                   <span>
-                    已累计登录 <b> {{ user['sessions'] }} </b> 次
+                    已登录 <b> {{ user.sessions }} </b> 次
                   </span>
                 </nz-descriptions-item>
-                <nz-descriptions-item nzTitle="最近登录">
-                  {{ user['last'] }}
+                <nz-descriptions-item *ngIf="user.last as l" nzTitle="上线时间">
+                  {{ l.timestamp | date: 'yyyy/MM/dd HH:mm:ss' }}
+                </nz-descriptions-item>
+                <nz-descriptions-item *ngIf="user.last as l" nzTitle="IP" [nzSpan]="2">
+                  <b>[ {{ l.ip }} ]</b>
+                </nz-descriptions-item>
+                <nz-descriptions-item nzTitle="地区ISP" [nzSpan]="2">
+                  <nz-space *ngIf="user.last as l" [nzSplit]="spaceSplit">
+                    <ng-template #spaceSplit>
+                      <nz-divider nzType="vertical"></nz-divider>
+                    </ng-template>
+                    <span *nzSpaceItem>{{ !l.country ? '未知' : l.country }}</span>
+                    <span *nzSpaceItem>{{ !l.province ? '未知' : l.province }}</span>
+                    <span *nzSpaceItem>{{ !l.city ? '未知' : l.city }}</span>
+                    <span *nzSpaceItem>{{ !l.isp ? '未知' : l.isp }}</span>
+                  </nz-space>
                 </nz-descriptions-item>
               </nz-descriptions>
             </nz-list-item-meta-description>
