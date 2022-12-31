@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 
 import { WpxApi } from '@weplanx/ng';
 
-import { AccessLog } from '../types';
+import { AccessLog } from './access-log';
 
 @Injectable()
 export class AccessLogsService extends WpxApi<AccessLog> {

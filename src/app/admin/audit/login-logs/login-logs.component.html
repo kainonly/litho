@@ -1,0 +1,157 @@
+<ng-template #searchRef>
+  <nz-space>
+    <nz-range-picker
+      *nzSpaceItem
+      [nzShowTime]="{ nzFormat: 'HH:mm' }"
+      nzFormat="yyyy-MM-dd HH:mm"
+      [nzDisabledDate]="disabledDate"
+      [(ngModel)]="date"
+      (ngModelChange)="getData(true)"
+    ></nz-range-picker>
+    <nz-button-group *nzSpaceItem>
+      <button nz-button nzType="text" nz-tooltip="刷新" (click)="getData(true)">
+        <i nz-icon nzType="reload"></i>
+      </button>
+      <button nz-button nzType="text" nz-tooltip="重置" (click)="clearSearch()">
+        <i nz-icon nzType="clear"></i>
+      </button>
+    </nz-button-group>
+  </nz-space>
+</ng-template>
+
+<ng-template #actions>
+  <nz-space>
+    <button *nzSpaceItem nz-button> 导出 </button>
+  </nz-space>
+</ng-template>
+
+<nz-card [nzTitle]="searchRef" [nzExtra]="actions">
+  <nz-table
+    #basicTable
+    [nzFrontPagination]="false"
+    [nzShowSizeChanger]="true"
+    [nzHideOnSinglePage]="true"
+    [nzLoading]="dataset.loading"
+    [nzData]="dataset.values"
+    [nzTotal]="dataset.total"
+    [(nzPageSize)]="dataset.pagesize"
+    [(nzPageIndex)]="dataset.page"
+    (nzPageIndexChange)="getData(false)"
+    (nzPageSizeChange)="getData(true)"
+  >
+    <thead>
+      <tr>
+        <th
+          nzWidth="60px"
+          nzLeft
+          nzAlign="center"
+          [nzChecked]="dataset.checked"
+          [nzIndeterminate]="dataset.indeterminate"
+          (nzCheckedChange)="dataset.setNChecked($event)"
+        >
+        </th>
+        <th nzWidth="270px"><b>登录时间</b></th>
+        <th nzWidth="320px"><b>登录用户</b></th>
+        <th><b>IP</b></th>
+        <th><b>地区ISP</b></th>
+        <th nzWidth="60px" nzRight nzAlign="center">
+          <button nz-button nzType="text" nzBlock disabled>
+            <i nz-icon nzType="setting"></i>
+          </button>
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <ng-container *ngFor="let data of basicTable.data">
+        <tr>
+          <td
+            nzLeft
+            nzAlign="center"
+            [nzDisabled]="data['disabled']"
+            [nzChecked]="dataset.checkedIds.has(data['_id'])"
+            (nzCheckedChange)="dataset.setChecked(data['_id'], $event)"
+          >
+          </td>
+          <td [nzExpand]="expand.has(data['_id'])" (nzExpandChange)="expandChange(data['_id'], $event)">
+            {{ data['timestamp'] | date: 'yyyy-MM-dd HH:mm:ss' }}
+          </td>
+          <td>
+            <a *ngIf="userKV[data.metadata.user_id] as user" (click)="openUserDetail(user)">
+              <span> {{ user.email }}</span>
+              <nz-divider nzType="vertical"></nz-divider>
+              <span>
+                <ng-container *ngIf="user.name; else noName">
+                  {{ user.name }}
+                </ng-container>
+              </span>
+            </a>
+          </td>
+          <td>{{ data.metadata.ip }}</td>
+          <td>
+            <nz-space *ngIf="data['data'].detail as d" [nzSplit]="spaceSplit">
+              <ng-template #spaceSplit>
+                <nz-divider nzType="vertical"></nz-divider>
+              </ng-template>
+              <span *nzSpaceItem>{{ !d['country'] ? '-' : d['country'] }}</span>
+              <span *nzSpaceItem>{{ !d['province'] ? '-' : d['province'] }}</span>
+              <span *nzSpaceItem>{{ !d['city'] ? '-' : d['city'] }}</span>
+              <span *nzSpaceItem>{{ !d['isp'] ? '-' : d['isp'] }}</span>
+            </nz-space>
+          </td>
+          <td nzRight nzAlign="center">
+            <button nz-button nzType="text" nz-dropdown [nzDropdownMenu]="menu">
+              <i nz-icon nzType="ellipsis"></i>
+            </button>
+            <nz-dropdown-menu #menu="nzDropdownMenu">
+              <ul nz-menu>
+                <li nz-menu-item>设置备注</li>
+              </ul>
+            </nz-dropdown-menu>
+          </td>
+        </tr>
+        <tr [nzExpand]="expand.has(data['_id'])">
+          <nz-descriptions nzSize="small" [nzColumn]="2">
+            <nz-descriptions-item nzTitle="令牌 ID" [nzSpan]="2">{{ data.metadata.token_id }}</nz-descriptions-item>
+            <nz-descriptions-item nzTitle="用户代理" [nzSpan]="2">{{ data.data.user_agent }}</nz-descriptions-item>
+          </nz-descriptions>
+        </tr>
+      </ng-container>
+    </tbody>
+  </nz-table>
+</nz-card>
+
+<ng-template #noName> 无称呼 </ng-template>
+
+<nz-drawer
+  [nzClosable]="false"
+  [nzVisible]="userDetailVisible"
+  [nzWidth]="640"
+  nzPlacement="right"
+  nzTitle="成员详情"
+  (nzOnClose)="closeUserDetail()"
+>
+  <ng-container *nzDrawerContent>
+    <nz-descriptions *ngIf="userDetail as u" nzBordered [nzColumn]="2">
+      <nz-descriptions-item nzTitle="电子邮件">{{ u.email }}</nz-descriptions-item>
+      <nz-descriptions-item nzTitle="称呼">
+        <ng-container *ngIf="u.name; else noName">
+          {{ u.name }}
+        </ng-container>
+      </nz-descriptions-item>
+      <nz-descriptions-item nzTitle="ID" [nzSpan]="2">{{ u._id }}</nz-descriptions-item>
+      <nz-descriptions-item nzTitle="头像" [nzSpan]="2">{{ u.avatar }}</nz-descriptions-item>
+      <nz-descriptions-item nzTitle="状态" [nzSpan]="2">
+        <ng-container *ngIf="u.status; else isFalse"> <nz-badge nzStatus="processing"></nz-badge> 开启 </ng-container>
+        <ng-template #isFalse> <nz-badge nzStatus="default"></nz-badge> 关闭 </ng-template>
+      </nz-descriptions-item>
+      <nz-descriptions-item nzTitle="累计会话" [nzSpan]="2">{{ u.sessions }}</nz-descriptions-item>
+      <nz-descriptions-item nzTitle="最近一次登录" [nzSpan]="2">{{ u.last }}</nz-descriptions-item>
+      <nz-descriptions-item nzTitle="创建时间">
+        {{ u.create_time | date: 'yyyy-MM-dd HH:mm:ss' }}
+      </nz-descriptions-item>
+      <nz-descriptions-item nzTitle="更新时间">
+        {{ u.update_time | date: 'yyyy-MM-dd HH:mm:ss' }}
+      </nz-descriptions-item>
+    </nz-descriptions>
+  </ng-container>
+</nz-drawer>

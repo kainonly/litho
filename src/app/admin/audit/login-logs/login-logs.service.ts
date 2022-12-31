@@ -2,9 +2,9 @@ import { Injectable } from '@angular/core';
 
 import { WpxApi } from '@weplanx/ng';
 
-import { AccessLog } from '../types';
+import { LoginLog } from './login-log';
 
 @Injectable()
-export class LoginLogsService extends WpxApi<AccessLog> {
+export class LoginLogsService extends WpxApi<LoginLog> {
   protected override collection = 'login_logs';
 }

@@ -6,7 +6,7 @@ import { UsersService } from '@common/users.service';
 import { AnyDto, Filter, WpxData } from '@weplanx/ng';
 import { differenceInCalendarDays } from 'date-fns';
 
-import { AccessLog } from '../types';
+import { AccessLog } from './access-log';
 import { AccessLogsService } from './access-logs.service';
 
 @Component({
