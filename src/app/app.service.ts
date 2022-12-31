@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable, switchMap } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { Project, UserInfo } from '@common/types';
+import { Project, User } from '@common/types';
 import { AnyDto } from '@weplanx/ng';
 
 @Injectable({ providedIn: 'root' })
@@ -15,7 +15,7 @@ export class AppService {
   /**
    * 用户
    */
-  user?: UserInfo;
+  user?: AnyDto<User>;
 
   constructor(private http: HttpClient) {}
 
@@ -57,8 +57,8 @@ export class AppService {
   /**
    * 获取个人用户信息
    */
-  getUser(): Observable<UserInfo> {
-    return this.http.get<UserInfo>('user').pipe(
+  getUser(): Observable<AnyDto<User>> {
+    return this.http.get<AnyDto<User>>('user').pipe(
       map(v => {
         this.user = v;
         return v;

@@ -62,8 +62,6 @@ export interface User {
   status: boolean;
 }
 
-export type UserInfo = Omit<AnyDto<User>, 'password'>;
-
 export interface Log<M, T> {
   metadata: M;
   data: T;

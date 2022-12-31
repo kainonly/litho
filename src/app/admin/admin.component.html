@@ -4,27 +4,48 @@
     <nz-sider nzWidth="200px" nzTheme="light">
       <ul nz-menu nzMode="inline">
         <ul>
-          <li nz-menu-group nzTitle="功能设置">
+          <li nz-menu-group nzTitle="应用中心">
             <ul>
-              <li nz-menu-item nzMatchRouter [routerLink]="['/', 'admin', 'function', 'projects']">项目管理</li>
-              <li nz-menu-item nzDisabled>共享设施</li>
+              <li nz-menu-item nzMatchRouter [routerLink]="['/', 'admin', 'center', 'projects']">
+                <span nz-icon nzType="project"></span>
+                <span>项目管理</span>
+              </li>
+              <li nz-menu-item nzDisabled>
+                <span nz-icon nzType="database"></span>
+                <span>基础设置</span>
+              </li>
             </ul>
           </li>
           <li nz-menu-group nzTitle="团队设置">
             <ul>
-              <li nz-menu-item nzMatchRouter [routerLink]="['/', 'admin', 'team', 'users']">成员管理</li>
-              <li nz-menu-item nzMatchRouter [routerLink]="['/', 'admin', 'team', 'roles']">权限管理</li>
+              <li nz-menu-item nzMatchRouter [routerLink]="['/', 'admin', 'orgs', 'roles']">
+                <span nz-icon nzType="apartment"></span>
+                <span>权限组</span>
+              </li>
+              <li nz-menu-item nzMatchRouter [routerLink]="['/', 'admin', 'orgs', 'users']">
+                <span nz-icon nzType="team"></span>
+                <span>组织成员</span>
+              </li>
             </ul>
           </li>
           <li nz-menu-group nzTitle="审计日志">
             <ul>
-              <li nz-menu-item nzMatchRouter [routerLink]="['/', 'admin', 'audit', 'access_logs']">操作记录</li>
-              <li nz-menu-item nzMatchRouter [routerLink]="['/', 'admin', 'audit', 'login_logs']">登录记录</li>
+              <li nz-menu-item nzMatchRouter [routerLink]="['/', 'admin', 'audit', 'access_logs']">
+                <span nz-icon nzType="history"></span>
+                <span>操作记录</span>
+              </li>
+              <li nz-menu-item nzMatchRouter [routerLink]="['/', 'admin', 'audit', 'login_logs']">
+                <span nz-icon nzType="file-protect"></span>
+                <span>登录记录</span>
+              </li>
             </ul>
           </li>
           <li nz-menu-group nzTitle="系统设置">
             <ul>
-              <li nz-menu-item nzMatchRouter [routerLink]="['/', 'admin', 'settings', 'sessions']">活跃会话</li>
+              <li nz-menu-item nzMatchRouter [routerLink]="['/', 'admin', 'settings', 'sessions']">
+                <span nz-icon nzType="rocket"></span>
+                <span>活跃会话</span>
+              </li>
               <li nz-menu-item nzMatchRouter [routerLink]="['/', 'admin', 'settings', 'security']">安全性</li>
             </ul>
           </li>

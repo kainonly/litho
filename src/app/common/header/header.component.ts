@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { AppService } from '@app';
-import { CenterComponent } from '@common/center/center.component';
+import { ProfileComponent } from '@common/profile/profile.component';
 import { NzDrawerService } from 'ng-zorro-antd/drawer';
 
 @Component({
@@ -14,10 +14,10 @@ export class HeaderComponent {
   constructor(public app: AppService, private router: Router, private drawer: NzDrawerService) {}
 
   center(): void {
-    this.drawer.create<CenterComponent, { value: string }, string>({
+    this.drawer.create<ProfileComponent, { value: string }, string>({
       nzTitle: '个人中心',
       nzWidth: '736px',
-      nzContent: CenterComponent,
+      nzContent: ProfileComponent,
       nzContentParams: {}
     });
   }

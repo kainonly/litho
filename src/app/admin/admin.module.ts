@@ -12,15 +12,15 @@ const routes: Routes = [
     component: AdminComponent,
     children: [
       {
-        path: 'function',
-        loadChildren: () => import('./function/function.module').then(m => m.FunctionModule),
+        path: 'center',
+        loadChildren: () => import('./center/center.module').then(m => m.CenterModule),
         data: {
-          breadcrumb: '功能设置'
+          breadcrumb: '应用中心'
         }
       },
       {
-        path: 'team',
-        loadChildren: () => import('./team/team.module').then(m => m.TeamModule),
+        path: 'orgs',
+        loadChildren: () => import('./orgs/orgs.module').then(m => m.OrgsModule),
         data: {
           breadcrumb: '团队设置'
         }
@@ -39,11 +39,7 @@ const routes: Routes = [
           breadcrumb: '系统设置'
         }
       },
-      {
-        path: '',
-        redirectTo: 'function',
-        pathMatch: 'full'
-      }
+      { path: '', redirectTo: 'center', pathMatch: 'full' }
     ]
   }
 ];

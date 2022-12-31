@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 
-import { CenterModule } from '@common/center/center.module';
+import { ProfileModule } from '@common/profile/profile.module';
 
 import { ShareModule } from '../share.module';
 import { HeaderComponent } from './header.component';
 
 @NgModule({
-  imports: [ShareModule, CenterModule],
+  imports: [ShareModule, ProfileModule],
   exports: [HeaderComponent],
   declarations: [HeaderComponent]
 })

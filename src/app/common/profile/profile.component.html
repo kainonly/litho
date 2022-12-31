@@ -35,7 +35,7 @@
             <nz-list-item-meta-description> 推荐采用尺寸 256*256 </nz-list-item-meta-description>
           </nz-list-item-meta>
           <ng-container *ngIf="!!user['avatar']; else defaultAvatar">
-            <nz-avatar nzShape="square" [nzSize]="128" [nzSrc]="[user['avatar']] | wpxAssets"></nz-avatar>
+            <nz-avatar nzShape="square" [nzSize]="128" [nzSrc]="[user.avatar] | wpxAssets"></nz-avatar>
           </ng-container>
           <ng-template #defaultAvatar>
             <nz-avatar nzShape="square" [nzSize]="128" nzIcon="user"></nz-avatar>
