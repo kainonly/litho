@@ -13,7 +13,7 @@ export class PwdTtlComponent implements OnInit {
   /**
    * 载入数据
    */
-  @Input() data!: Record<string, any>;
+  @Input() values!: Record<string, any>;
   /**
    * 表单
    */
@@ -36,7 +36,7 @@ export class PwdTtlComponent implements OnInit {
       pwd_ttl: [0, [Validators.required]]
     });
     const data = {
-      pwd_ttl: this.data['pwd_ttl'] / 86400e9
+      pwd_ttl: this.values['pwd_ttl'] / 86400e9
     };
     this.form.patchValue(data);
   }

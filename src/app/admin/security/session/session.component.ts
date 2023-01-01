@@ -13,7 +13,7 @@ export class SessionComponent implements OnInit {
   /**
    * 载入数据
    */
-  @Input() data!: Record<string, any>;
+  @Input() values!: Record<string, any>;
   /**
    * 表单
    */
@@ -36,7 +36,7 @@ export class SessionComponent implements OnInit {
       session_ttl: [0, [Validators.required]]
     });
     const data = {
-      session_ttl: this.data['session_ttl'] / 1e9
+      session_ttl: this.values['session_ttl'] / 1e9
     };
     this.form.patchValue(data);
   }

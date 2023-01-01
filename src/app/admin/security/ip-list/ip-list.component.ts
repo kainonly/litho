@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, UntypedFormArray, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { WpxService } from '@weplanx/ng';
 import { NzMessageService } from 'ng-zorro-antd/message';
@@ -11,9 +11,13 @@ import { NzModalRef } from 'ng-zorro-antd/modal';
 })
 export class IpListComponent implements OnInit {
   /**
+   * 字段
+   */
+  @Input() key!: 'ip_whitelist' | 'ip_blacklist';
+  /**
    * 载入数据
    */
-  @Input() data!: Record<string, any>;
+  @Input() ip!: string[];
   /**
    * 表单
    */
@@ -28,30 +32,19 @@ export class IpListComponent implements OnInit {
 
   ngOnInit(): void {
     this.form = this.fb.group({
-      ip_whitelist: this.fb.array([]),
-      ip_blacklist: this.fb.array([])
+      [this.key]: this.fb.array([])
     });
-    (<string[]>this.data['ip_whitelist']).forEach(v => {
-      this.addWhitelist(v);
-    });
-    (<string[]>this.data['ip_blacklist']).forEach(v => {
-      this.addBlacklist(v);
+    this.ip.forEach(v => {
+      this.append(v);
     });
   }
 
-  /**
-   * 白名单表单控件数组
-   */
-  get whitelist(): UntypedFormArray {
-    return this.form?.get('ip_whitelist') as UntypedFormArray;
+  get list(): FormArray {
+    return this.form?.get(this.key) as FormArray;
   }
 
-  /**
-   * 新增白名单表单控件
-   * @param value
-   */
-  addWhitelist(value?: string): void {
-    this.whitelist.push(
+  append(value?: string): void {
+    this.list.push(
       this.fb.control(value, [
         Validators.required,
         Validators.pattern(
@@ -65,38 +58,8 @@ export class IpListComponent implements OnInit {
    * 移除白名单表单控件
    * @param index
    */
-  removeWhitelist(index: number): void {
-    this.whitelist.removeAt(index);
-  }
-
-  /**
-   * 获取黑名单表单控件数组
-   */
-  get blacklist(): UntypedFormArray {
-    return this.form?.get('ip_blacklist') as UntypedFormArray;
-  }
-
-  /**
-   * 新增黑名单表单控件
-   * @param value
-   */
-  addBlacklist(value?: string): void {
-    this.blacklist.push(
-      this.fb.control(value, [
-        Validators.required,
-        Validators.pattern(
-          /^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/
-        )
-      ])
-    );
-  }
-
-  /**
-   * 移除黑名单表单控件
-   * @param index
-   */
-  removeBlacklist(index: number): void {
-    this.blacklist.removeAt(index);
+  remove(index: number): void {
+    this.list.removeAt(index);
   }
 
   /**

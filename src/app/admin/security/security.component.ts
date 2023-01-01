@@ -18,11 +18,7 @@ export class SecurityComponent implements OnInit {
   /**
    * 数据
    */
-  data: Record<string, any> = {};
-  /**
-   * IP 名单
-   */
-  ipList: any[] = [];
+  values: Record<string, any> = {};
 
   constructor(private modal: NzModalService, private wpx: WpxService) {}
 
@@ -43,11 +39,8 @@ export class SecurityComponent implements OnInit {
         'pwd_ttl'
       ])
       .subscribe(data => {
-        this.data = data;
-        this.ipList = [
-          ...(<string[]>this.data['ip_whitelist']).map(v => ({ type: 'white', value: v })),
-          ...(<string[]>this.data['ip_blacklist']).map(v => ({ type: 'black', value: v }))
-        ];
+        this.values = data;
+        console.log(this.values);
       });
   }
 
@@ -56,12 +49,12 @@ export class SecurityComponent implements OnInit {
    * @param component
    * @private
    */
-  private setModal(component: Type<{ data: Record<string, any> }>): void {
+  private setModal(component: Type<{ values: Record<string, any> }>): void {
     this.modal.create({
       nzTitle: '设置',
       nzContent: component,
       nzComponentParams: {
-        data: this.data
+        values: this.values
       },
       nzOnOk: () => {
         this.getData();
@@ -93,8 +86,18 @@ export class SecurityComponent implements OnInit {
   /**
    * 设置 IP 名单
    */
-  setIpList(): void {
-    this.setModal(IpListComponent);
+  setIpList(key: 'ip_whitelist' | 'ip_blacklist'): void {
+    this.modal.create({
+      nzTitle: '设置',
+      nzContent: IpListComponent,
+      nzComponentParams: {
+        key,
+        ip: this.values[key]
+      },
+      nzOnOk: () => {
+        this.getData();
+      }
+    });
   }
 
   /**

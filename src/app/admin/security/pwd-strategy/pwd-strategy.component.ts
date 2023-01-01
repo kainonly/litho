@@ -14,7 +14,7 @@ export class PwdStrategyComponent implements OnInit {
   /**
    * 载入数据
    */
-  @Input() data!: Record<string, any>;
+  @Input() values!: Record<string, any>;
   /**
    * 表单
    */
@@ -31,7 +31,7 @@ export class PwdStrategyComponent implements OnInit {
     this.form = this.fb.group({
       pwd_strategy: [0, [Validators.required]]
     });
-    this.form.patchValue(this.data);
+    this.form.patchValue(this.values);
   }
 
   /**

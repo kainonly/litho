@@ -13,7 +13,7 @@ export class UserLockComponent implements OnInit {
   /**
    * 载入数据
    */
-  @Input() data!: Record<string, any>;
+  @Input() values!: Record<string, any>;
   /**
    * 表单
    */
@@ -42,8 +42,8 @@ export class UserLockComponent implements OnInit {
       login_ttl: [0, [Validators.required]]
     });
     const data = {
-      login_failures: this.data['login_failures'],
-      login_ttl: this.data['login_ttl'] / 1e9
+      login_failures: this.values['login_failures'],
+      login_ttl: this.values['login_ttl'] / 1e9
     };
     this.form.patchValue(data);
   }
