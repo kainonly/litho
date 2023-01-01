@@ -1,7 +1,7 @@
 <ng-template #searchRef>
   <nz-row [nzGutter]="6">
     <nz-col>
-      <nz-input-group style="width: 180px">
+      <nz-input-group style="width: 180px" nzSuffixIcon="search">
         <input (keyup.enter)="submitSearch()" [(ngModel)]="searchText" type="text" nz-input placeholder="关键词搜索" />
       </nz-input-group>
     </nz-col>

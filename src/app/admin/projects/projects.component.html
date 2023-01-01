@@ -1,7 +1,7 @@
 <ng-template #searchRef>
   <nz-row [nzGutter]="6">
     <nz-col>
-      <nz-input-group style="width: 180px">
+      <nz-input-group style="width: 180px" nzSuffixIcon="search">
         <input (keyup.enter)="submitSearch()" [(ngModel)]="searchText" type="text" nz-input placeholder="关键词搜索" />
       </nz-input-group>
     </nz-col>
@@ -38,7 +38,15 @@
   >
     <thead>
       <tr>
-        <th nzWidth="60px" nzLeft nzAlign="center"> </th>
+        <th
+          nzWidth="60px"
+          nzLeft
+          nzAlign="center"
+          [nzChecked]="dataset.checked"
+          [nzIndeterminate]="dataset.indeterminate"
+          (nzCheckedChange)="dataset.setNChecked($event)"
+        >
+        </th>
         <th>
           <b>项目名称 </b>
           <i nz-icon nzType="tag" nz-tooltip="关键词"></i>
@@ -61,15 +69,21 @@
     <tbody>
       <ng-container *ngFor="let data of basicTable.data">
         <tr>
-          <td>
-            <button nz-button nzType="text" nzBlock>
-              <span nz-icon nzType="star"></span>
-            </button>
-          </td>
+          <td
+            nzLeft
+            nzAlign="center"
+            [nzDisabled]="data['disabled']"
+            [nzChecked]="dataset.checkedIds.has(data['_id'])"
+            (nzCheckedChange)="dataset.setChecked(data['_id'], $event)"
+          ></td>
           <td [nzExpand]="expand.has(data['_id'])" (nzExpandChange)="expandChange(data['_id'], $event)">
             {{ data['name'] }}
           </td>
-          <td>{{ data['namespace'] }}</td>
+          <td>
+            <a nz-tooltip="进入管理" [routerLink]="['/', data['namespace'], 'overview', 'cluster']">
+              {{ data['namespace'] }}
+            </a>
+          </td>
           <td>
             <ng-container *ngIf="data['expire'] === 0; else hasExpire">永久</ng-container>
             <ng-template #hasExpire>
@@ -90,7 +104,6 @@
             </button>
             <nz-dropdown-menu #menu="nzDropdownMenu">
               <ul nz-menu>
-                <li nz-menu-item [routerLink]="['/', data['namespace'], 'overview', 'cluster']">管理</li>
                 <li nz-menu-item (click)="form(data)">编辑</li>
                 <li nz-menu-item nzDanger (click)="delete(data)">删除</li>
               </ul>

@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { AbstractControl, FormArray, FormBuilder, FormGroup, UntypedFormArray, Validators } from '@angular/forms';
+import { AbstractControl, FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Observable, of } from 'rxjs';
 
 import { ProjectsService } from '@common/projects.service';
@@ -46,7 +46,9 @@ export class FormComponent implements OnInit {
     });
     if (this.doc) {
       const value: any = { ...this.doc };
-      value.expire = new Date(value.expire * 1000);
+      if (value.expire !== 0) {
+        value.expire = new Date(value.expire * 1000);
+      }
       this.form.patchValue(value);
     }
   }
@@ -54,7 +56,7 @@ export class FormComponent implements OnInit {
   /**
    * 入口白名单
    */
-  get entry(): UntypedFormArray {
+  get entry(): FormArray {
     return this.form?.get('entry') as FormArray;
   }
 
@@ -122,7 +124,6 @@ export class FormComponent implements OnInit {
    * @param value
    */
   submit(value: any): void {
-    console.log(value);
     if (value.expire) {
       const expire = value.expire as Date;
       expire.setHours(0);
