@@ -1,0 +1,318 @@
+<ng-template #unkown>未设置</ng-template>
+
+<nz-card>
+  <nz-tabset style="height: 100%" nzTabPosition="left">
+    <nz-tab nzTitle="云平台">
+      <nz-list nzItemLayout="vertical">
+        <nz-list nzSize="large" nzItemLayout="vertical">
+          <nz-list-item>
+            <nz-list-item-meta>
+              <nz-list-item-meta-title> <b>服务商</b> </nz-list-item-meta-title>
+              <nz-list-item-meta-description>
+                <ng-container [ngSwitch]="values['cloud']">
+                  <ng-container *ngSwitchCase="'tencent'">
+                    <img height="30px" [src]="['assets', 'cloud', 'tencent.svg'] | wpxAssets" alt="" />
+                  </ng-container>
+                  <ng-container *ngSwitchCase="'aliyun'">
+                    <img height="30px" [src]="['assets', 'cloud', 'aliyun.png'] | wpxAssets" alt="" />
+                  </ng-container>
+                  <ng-container *ngSwitchCase="'huaweicloud'">
+                    <img height="36px" [src]="['assets', 'cloud', 'huaweicloud.svg'] | wpxAssets" alt="" />
+                  </ng-container>
+                  <ng-container *ngSwitchDefault> 当前未关联云服务商 </ng-container>
+                </ng-container>
+              </nz-list-item-meta-description>
+            </nz-list-item-meta>
+
+            <nz-descriptions style="width: 800px" nzSize="small" nzBordered nzLayout="vertical">
+              <nz-descriptions-item nzTitle="访问密钥ID">
+                <ng-container *ngIf="values['tencent_secret_id']; else unkown">
+                  {{ values['tencent_secret_id'] }}
+                </ng-container>
+              </nz-descriptions-item>
+              <nz-descriptions-item nzTitle="访问密钥">
+                <ng-container *ngIf="values['tencent_secret_key']; else unkown"> 已设置 </ng-container>
+              </nz-descriptions-item>
+            </nz-descriptions>
+
+            <nz-list-item-extra>
+              <button nz-button nzType="link" (click)="setCloud()">设置</button>
+              <ng-container *ngIf="!!values['cloud']">
+                <button
+                  nz-button
+                  nzType="link"
+                  nzDanger
+                  nz-popconfirm
+                  nzPopconfirmTitle="您确定要取消该关联吗？"
+                  nzPopconfirmPlacement="bottom"
+                  (nzOnConfirm)="unsetCloud()"
+                >
+                  取消关联
+                </button>
+              </ng-container>
+            </nz-list-item-extra>
+          </nz-list-item>
+        </nz-list>
+      </nz-list>
+
+      <nz-card nzTitle="以下设置需要关联一种云厂商作为支持，切换云厂商原设置将失效">
+        <nz-list nzSize="large" nzItemLayout="vertical">
+          <nz-list-item>
+            <nz-list-item-meta>
+              <nz-list-item-meta-title><b>对象存储</b></nz-list-item-meta-title>
+              <nz-list-item-meta-description>
+                将静态文件存储至 COS 对象存储，再通过 CDN 回源进行内容分发
+              </nz-list-item-meta-description>
+            </nz-list-item-meta>
+            <nz-descriptions style="width: 800px" nzSize="small" nzBordered nzLayout="vertical" [nzColumn]="2">
+              <nz-descriptions-item nzTitle="存储桶名称">
+                <ng-container *ngIf="values['tencent_cos_bucket']; else unkown">
+                  {{ values['tencent_cos_bucket'] }}
+                </ng-container>
+              </nz-descriptions-item>
+              <nz-descriptions-item nzTitle="所属地域">
+                <ng-container *ngIf="values['tencent_cos_region']; else unkown">
+                  {{ values['tencent_cos_region'] }}
+                </ng-container>
+              </nz-descriptions-item>
+              <nz-descriptions-item nzTitle="预签名有效期（秒）">
+                <ng-container *ngIf="values['tencent_cos_expired']; else unkown">
+                  {{ values['tencent_cos_expired'] }}
+                </ng-container>
+              </nz-descriptions-item>
+              <nz-descriptions-item nzTitle="上传大小限制（KB）">
+                <ng-container *ngIf="values['tencent_cos_limit']; else unkown">
+                  {{ values['tencent_cos_limit'] }}
+                </ng-container>
+              </nz-descriptions-item>
+            </nz-descriptions>
+            <nz-list-item-extra>
+              <button nz-button nzType="primary" nzShape="circle" nz-tooltip="设置" (click)="setCos()">
+                <i nz-icon nzType="tool"></i>
+              </button>
+            </nz-list-item-extra>
+          </nz-list-item>
+          <nz-list-item>
+            <nz-list-item-meta>
+              <nz-list-item-meta-title><b>消息队列</b></nz-list-item-meta-title>
+              <nz-list-item-meta-description> 使用腾讯云 TDMQ Plusar 作用事务补偿 </nz-list-item-meta-description>
+            </nz-list-item-meta>
+            <nz-list-item-extra>
+              <button nz-button nzType="primary" nzShape="circle" nz-tooltip="设置" disabled>
+                <i nz-icon nzType="tool"></i>
+              </button>
+            </nz-list-item-extra>
+          </nz-list-item>
+          <nz-list-item>
+            <nz-list-item-meta>
+              <nz-list-item-meta-title><b>日志服务</b></nz-list-item-meta-title>
+              <nz-list-item-meta-description> 使用腾讯云 CLS 日志服务作用日志收集 </nz-list-item-meta-description>
+            </nz-list-item-meta>
+            <nz-list-item-extra>
+              <button nz-button nzType="primary" nzShape="circle" nz-tooltip="设置" disabled>
+                <i nz-icon nzType="tool"></i>
+              </button>
+            </nz-list-item-extra>
+          </nz-list-item>
+        </nz-list>
+      </nz-card>
+    </nz-tab>
+    <nz-tab nzTitle="企业办公">
+      <nz-list nzItemLayout="vertical">
+        <nz-list nzSize="large" nzItemLayout="vertical">
+          <nz-list-item>
+            <nz-list-item-meta>
+              <nz-list-item-meta-avatar>
+                <ng-container [ngSwitch]="values['office']">
+                  <ng-container *ngSwitchCase="'feishu'">
+                    <nz-avatar
+                      nzShape="square"
+                      nzSize="large"
+                      [nzSrc]="['assets', 'office', 'feishu.png'] | wpxAssets"
+                    ></nz-avatar>
+                  </ng-container>
+                  <ng-container *ngSwitchCase="'dingtalk'">
+                    <nz-avatar
+                      nzShape="square"
+                      nzSize="large"
+                      [nzSrc]="['assets', 'office', 'dingtalk.png'] | wpxAssets"
+                    ></nz-avatar>
+                  </ng-container>
+                  <ng-container *ngSwitchCase="'work-weixin'">
+                    <nz-avatar
+                      nzShape="square"
+                      nzSize="large"
+                      [nzSrc]="['assets', 'office', 'work-weixin.png'] | wpxAssets"
+                    ></nz-avatar>
+                  </ng-container>
+                  <ng-container *ngSwitchDefault>
+                    <nz-avatar nzShape="square" nzSize="large" nzIcon="question"></nz-avatar>
+                  </ng-container>
+                </ng-container>
+              </nz-list-item-meta-avatar>
+              <nz-list-item-meta-title>
+                <b [ngSwitch]="values['office']">
+                  <ng-container *ngSwitchCase="'feishu'">飞书</ng-container>
+                  <ng-container *ngSwitchCase="'dingtalk'">钉钉</ng-container>
+                  <ng-container *ngSwitchCase="'work-weixin'">企业微信</ng-container>
+                  <ng-container *ngSwitchDefault>当前未关联第三方平台</ng-container>
+                </b>
+              </nz-list-item-meta-title>
+            </nz-list-item-meta>
+
+            <nz-descriptions
+              *ngIf="!!values['office']"
+              style="width: 800px"
+              nzSize="small"
+              nzBordered
+              nzLayout="vertical"
+              [nzColumn]="2"
+            >
+              <nz-descriptions-item nzTitle="应用 ID">
+                <ng-container *ngIf="values['feishu_app_id']; else unkown">
+                  {{ values['feishu_app_id'] }}
+                </ng-container>
+              </nz-descriptions-item>
+              <nz-descriptions-item nzTitle="应用密钥">
+                <ng-container *ngIf="values['feishu_app_secret']; else unkown"> 已设置 </ng-container>
+              </nz-descriptions-item>
+              <nz-descriptions-item nzTitle="事件订阅安全校验数据密钥">
+                <ng-container *ngIf="values['feishu_encrypt_key']; else unkown"> 已设置 </ng-container>
+              </nz-descriptions-item>
+              <nz-descriptions-item nzTitle="事件订阅验证令牌">
+                <ng-container *ngIf="values['feishu_verification_token']; else unkown"> 已设置 </ng-container>
+              </nz-descriptions-item>
+            </nz-descriptions>
+
+            <nz-list-item-extra>
+              <button nz-button nzType="link" (click)="setOffice()">设置</button>
+              <ng-container *ngIf="!!values['office']">
+                <button
+                  nz-button
+                  nzType="link"
+                  nzDanger
+                  nz-popconfirm
+                  nzPopconfirmTitle="您确定要取消该关联吗？"
+                  nzPopconfirmPlacement="bottom"
+                  (nzOnConfirm)="unsetOffice()"
+                >
+                  取消关联
+                </button>
+              </ng-container>
+            </nz-list-item-extra>
+          </nz-list-item>
+        </nz-list>
+      </nz-list>
+
+      <nz-card nzTitle="以下设置需要关联一种企业平台作为支持，切换企业平台原设置将失效">
+        <nz-list nzSize="large" nzItemLayout="vertical">
+          <nz-list-item>
+            <nz-list-item-meta>
+              <nz-list-item-meta-title><b>第三方免登陆</b></nz-list-item-meta-title>
+              <nz-list-item-meta-description> 允许通过企业平台用户身份进行登录 </nz-list-item-meta-description>
+            </nz-list-item-meta>
+            <nz-descriptions style="width: 800px" nzSize="small" nzBordered nzLayout="vertical" [nzColumn]="2">
+              <nz-descriptions-item nzTitle="免登授权码跳转地址">
+                <ng-container *ngIf="values['redirect_url']; else unkown">
+                  {{ values['redirect_url'] }}
+                </ng-container>
+              </nz-descriptions-item>
+            </nz-descriptions>
+            <nz-list-item-extra>
+              <button nz-button nzType="primary" nzShape="circle" nz-tooltip="设置" (click)="setRedirect()">
+                <i nz-icon nzType="tool"></i>
+              </button>
+            </nz-list-item-extra>
+          </nz-list-item>
+          <nz-list-item>
+            <nz-list-item-meta>
+              <nz-list-item-meta-title><b>任务同步</b></nz-list-item-meta-title>
+              <nz-list-item-meta-description>
+                针对任务资源提供的开放 API，可以支持任务的创建、更新、删除等操作
+              </nz-list-item-meta-description>
+            </nz-list-item-meta>
+          </nz-list-item>
+          <nz-list-item>
+            <nz-list-item-meta>
+              <nz-list-item-meta-title><b>日历同步</b></nz-list-item-meta-title>
+              <nz-list-item-meta-description>
+                日历 API
+                基于飞书日历功能开放了对日历、日程、忙闲等实体的操作查询能力，开发者能以「应用」或「用户」身份调用日历
+                API 操作对应数据
+              </nz-list-item-meta-description>
+            </nz-list-item-meta>
+          </nz-list-item>
+          <nz-list-item>
+            <nz-list-item-meta>
+              <nz-list-item-meta-title><b>消息</b></nz-list-item-meta-title>
+              <nz-list-item-meta-description> 使用飞书提供了一系列即时通讯场景的 API </nz-list-item-meta-description>
+            </nz-list-item-meta>
+          </nz-list-item>
+        </nz-list>
+      </nz-card>
+    </nz-tab>
+    <nz-tab nzTitle="电子邮件">
+      <nz-list nzSize="large" nzItemLayout="vertical">
+        <nz-list-item>
+          <nz-list-item-meta>
+            <nz-list-item-meta-title><b>基本设置</b></nz-list-item-meta-title>
+          </nz-list-item-meta>
+          <nz-descriptions style="width: 800px" nzSize="small" nzLayout="vertical" nzBordered [nzColumn]="2">
+            <nz-descriptions-item nzTitle="SMTP 地址">
+              <ng-container *ngIf="values['email_host']; else unkown">
+                {{ values['email_host'] }}
+              </ng-container>
+            </nz-descriptions-item>
+            <nz-descriptions-item nzTitle="SMTP 端口号（SSL）">
+              <ng-container *ngIf="values['email_port']; else unkown">
+                {{ values['email_port'] }}
+              </ng-container>
+            </nz-descriptions-item>
+            <nz-descriptions-item nzTitle="邮箱用户">
+              <ng-container *ngIf="values['email_username']; else unkown">
+                {{ values['email_username'] }}
+              </ng-container>
+            </nz-descriptions-item>
+            <nz-descriptions-item nzTitle="密码">
+              <ng-container *ngIf="values['email_password']; else unkown"> 已设置 </ng-container>
+            </nz-descriptions-item>
+          </nz-descriptions>
+          <nz-list-item-extra>
+            <button nz-button nzType="primary" nzShape="circle" nz-tooltip="设置" (click)="setEmail()">
+              <i nz-icon nzType="tool"></i>
+            </button>
+          </nz-list-item-extra>
+        </nz-list-item>
+      </nz-list>
+    </nz-tab>
+    <nz-tab nzTitle="开放服务">
+      <nz-list nzSize="large" nzItemLayout="vertical">
+        <nz-list-item>
+          <nz-list-item-meta>
+            <nz-list-item-meta-title><b>基本设置</b></nz-list-item-meta-title>
+          </nz-list-item-meta>
+          <nz-descriptions style="width: 800px" nzSize="small" nzLayout="vertical" nzBordered [nzColumn]="2">
+            <nz-descriptions-item nzTitle="地址" [nzSpan]="2">
+              <ng-container *ngIf="values['openapi_url']; else unkown">
+                {{ values['openapi_url'] }}
+              </ng-container>
+            </nz-descriptions-item>
+            <nz-descriptions-item nzTitle="应用认证 Key">
+              <ng-container *ngIf="values['openapi_key']; else unkown">
+                {{ values['openapi_key'] }}
+              </ng-container>
+            </nz-descriptions-item>
+            <nz-descriptions-item nzTitle="应用认证密钥">
+              <ng-container *ngIf="values['openapi_secret']; else unkown"> 已设置 </ng-container>
+            </nz-descriptions-item>
+          </nz-descriptions>
+          <nz-list-item-extra>
+            <button nz-button nzType="primary" nzShape="circle" nz-tooltip="设置" (click)="setOpenapi()">
+              <i nz-icon nzType="tool"></i>
+            </button>
+          </nz-list-item-extra>
+        </nz-list-item>
+      </nz-list>
+    </nz-tab>
+  </nz-tabset>
+</nz-card>
