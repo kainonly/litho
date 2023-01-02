@@ -40,7 +40,6 @@ export class SecurityComponent implements OnInit {
       ])
       .subscribe(data => {
         this.values = data;
-        console.log(this.values);
       });
   }
 
@@ -63,7 +62,7 @@ export class SecurityComponent implements OnInit {
   }
 
   /**
-   * 设置会话超时策略
+   * 设置会话超时策略931
    */
   setSession(): void {
     this.setModal(SessionComponent);
