@@ -7,6 +7,7 @@ export interface LoginLogMetaData {
   ip: string;
   token_id: string;
   user_id: string;
+  channel: string;
 }
 
 export interface LoginLogData {

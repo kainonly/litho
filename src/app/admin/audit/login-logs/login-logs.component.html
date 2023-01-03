@@ -50,10 +50,10 @@
           (nzCheckedChange)="dataset.setNChecked($event)"
         >
         </th>
-        <th nzWidth="270px"><b>登录时间</b></th>
+        <th nzWidth="180px"><b>登录时间</b></th>
         <th nzWidth="320px"><b>登录用户</b></th>
-        <th><b>IP</b></th>
-        <th><b>地区 ISP</b></th>
+        <th nzWidth="120px"><b>登录方式</b></th>
+        <th><b>IP & 地区 ISP</b></th>
         <th nzWidth="60px" nzRight nzAlign="center">
           <button nz-button nzType="text" nzBlock disabled>
             <i nz-icon nzType="setting"></i>
@@ -86,12 +86,18 @@
               </span>
             </a>
           </td>
-          <td>{{ data.metadata.ip }}</td>
+          <td>
+            <ng-container [ngSwitch]="data.metadata.channel">
+              <ng-container *ngSwitchCase="'email'">电子邮件</ng-container>
+              <ng-container *ngSwitchCase="'feishu'">飞书</ng-container>
+            </ng-container>
+          </td>
           <td>
             <nz-space *ngIf="data['data'] as d" [nzSplit]="spaceSplit">
               <ng-template #spaceSplit>
                 <nz-divider nzType="vertical"></nz-divider>
               </ng-template>
+              <span *nzSpaceItem>{{ data.metadata.ip }}</span>
               <span *nzSpaceItem>{{ !d.country ? '未知' : d.country }}</span>
               <span *nzSpaceItem>{{ !d.province ? '未知' : d.province }}</span>
               <span *nzSpaceItem>{{ !d.city ? '未知' : d.city }}</span>
