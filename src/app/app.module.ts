@@ -35,6 +35,15 @@ const routes: Routes = [
     loadChildren: () => import('./forget/forget.module').then(m => m.ForgetModule)
   },
   {
+    path: 'unauthorize',
+    loadChildren: () => import('./unauthorize/unauthorize.module').then(m => m.UnauthorizeModule)
+  },
+  {
+    path: 'authorized',
+    loadChildren: () => import('./authorized/authorized.module').then(m => m.AuthorizedModule),
+    canActivate: [AppGuard]
+  },
+  {
     path: 'admin',
     loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule),
     canActivate: [AppGuard]
