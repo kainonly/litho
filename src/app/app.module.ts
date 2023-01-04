@@ -1,5 +1,10 @@
 import { registerLocaleData } from '@angular/common';
-import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import {
+  HTTP_INTERCEPTORS,
+  HttpClientModule,
+  HttpClientXsrfModule,
+  HttpXsrfTokenExtractor
+} from '@angular/common/http';
 import zh from '@angular/common/locales/zh';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -55,6 +60,7 @@ if (!environment.production) {
   imports: [
     BrowserAnimationsModule,
     HttpClientModule,
+    HttpClientXsrfModule,
     FormsModule,
     NzMessageModule,
     WpxRichtextModule.forRoot({

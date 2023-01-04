@@ -20,6 +20,13 @@ export class AppService {
   constructor(private http: HttpClient) {}
 
   /**
+   * Ping
+   */
+  ping(): Observable<any> {
+    return this.http.get('');
+  }
+
+  /**
    * 登录
    * @param data
    */

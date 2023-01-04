@@ -23,8 +23,7 @@ export class AppInterceptors implements HttpInterceptor {
     let update: any;
     if (!regex.test(req.url)) {
       update = {
-        url: `${environment.baseUrl}/${req.url}`,
-        withCredentials: true
+        url: `${environment.baseUrl}/${req.url}`
       };
     } else {
       update = { url: req.url };
@@ -41,10 +40,6 @@ export class AppInterceptors implements HttpInterceptor {
   }
 
   private handleError = (e: HttpErrorResponse): Observable<never> => {
-    const regex = new RegExp(`^${environment.baseUrl}`);
-    if (!regex.test(e.url!)) {
-      return throwError(() => e);
-    }
     switch (e.status) {
       case 400:
         switch (e.error.code) {
