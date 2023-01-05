@@ -1,5 +1,3 @@
-import { AnyDto } from '@weplanx/ng';
-
 export interface Project {
   /**
    * 项目名称
@@ -99,6 +97,15 @@ export interface FeishuUserData {
   refresh_expires_in: number;
   refresh_token: string;
   sid: string;
+}
+
+export interface SetUserDto {
+  $set: 'email' | 'name' | 'avatar' | 'password' | 'backup_email';
+  email?: string;
+  name?: string;
+  avatar?: string;
+  password?: string;
+  backup_email?: string;
 }
 
 export interface Log<M, T> {

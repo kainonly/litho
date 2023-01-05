@@ -10,7 +10,7 @@
             </nz-list-item-meta-description>
           </nz-list-item-meta>
           <nz-list-item-extra>
-            <button nz-button nzType="primary" nzShape="circle" nz-tooltip="设置">
+            <button nz-button nzType="primary" nzShape="circle" nz-tooltip="设置" (click)="setEmail()">
               <i nz-icon nzType="tool"></i>
             </button>
           </nz-list-item-extra>
@@ -24,7 +24,7 @@
             </nz-list-item-meta-description>
           </nz-list-item-meta>
           <nz-list-item-extra>
-            <button nz-button nzType="primary" nzShape="circle" nz-tooltip="设置">
+            <button nz-button nzType="primary" nzShape="circle" nz-tooltip="设置" (click)="setName()">
               <i nz-icon nzType="tool"></i>
             </button>
           </nz-list-item-extra>
@@ -97,7 +97,7 @@
             </nz-list-item-meta-description>
           </nz-list-item-meta>
           <nz-list-item-extra>
-            <button nz-button nzType="primary" nzShape="circle" nz-tooltip="设置">
+            <button nz-button nzType="primary" nzShape="circle" nz-tooltip="设置" (click)="setPassword()">
               <i nz-icon nzType="tool"></i>
             </button>
           </nz-list-item-extra>
@@ -106,14 +106,14 @@
           <nz-list-item-meta>
             <nz-list-item-meta-title><b>备用邮箱</b></nz-list-item-meta-title>
             <nz-list-item-meta-description>
-              <ng-container *ngIf="!!user['backup_email']; else emailEmpty">
-                已设置备用邮箱：{{ user['backup_email'] }}
+              <ng-container *ngIf="!!user.backup_email; else emailEmpty">
+                已设置备用邮箱：{{ user.backup_email }}
               </ng-container>
               <ng-template #emailEmpty> 未设置备用邮箱，主要用于恢复账号安全相关操作，推荐采用个人邮箱 </ng-template>
             </nz-list-item-meta-description>
           </nz-list-item-meta>
           <nz-list-item-extra>
-            <button nz-button nzType="primary" nzShape="circle" nz-tooltip="设置">
+            <button nz-button nzType="primary" nzShape="circle" nz-tooltip="设置" (click)="setBackupEmail()">
               <i nz-icon nzType="tool"></i>
             </button>
           </nz-list-item-extra>

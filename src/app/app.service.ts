@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable, switchMap } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { Project, User } from '@common/types';
+import { Project, SetUserDto, User } from '@common/types';
 import { AnyDto } from '@weplanx/ng';
 
 @Injectable({ providedIn: 'root' })
@@ -96,8 +96,8 @@ export class AppService {
    * 更新个人用户信息
    * @param data
    */
-  setUser(data: any): Observable<any> {
-    return this.http.patch('user', data);
+  setUser(data: SetUserDto): Observable<any> {
+    return this.http.post('user', data);
   }
 
   /**

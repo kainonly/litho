@@ -98,6 +98,7 @@ export class ProjectsComponent implements OnInit {
       nzOnOk: () => {
         this.projects.delete(doc._id).subscribe(() => {
           this.message.success('数据删除完成');
+          this.getData(true);
         });
       },
       nzCancelText: '再想想'
