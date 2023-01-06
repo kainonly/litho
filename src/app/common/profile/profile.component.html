@@ -5,9 +5,7 @@
         <nz-list-item>
           <nz-list-item-meta>
             <nz-list-item-meta-title><b>电子邮箱</b></nz-list-item-meta-title>
-            <nz-list-item-meta-description>
-              <ng-container *ngIf="!!app.user.email"> 已设置：{{ app.user.email }} </ng-container>
-            </nz-list-item-meta-description>
+            <nz-list-item-meta-description> 已设置：{{ user.email }} </nz-list-item-meta-description>
           </nz-list-item-meta>
           <nz-list-item-extra>
             <button nz-button nzType="primary" nzShape="circle" nz-tooltip="设置" (click)="setEmail()">
@@ -19,8 +17,8 @@
           <nz-list-item-meta>
             <nz-list-item-meta-title><b>称呼</b></nz-list-item-meta-title>
             <nz-list-item-meta-description>
-              <ng-container *ngIf="!user.name; else defaultName"> 推荐设置工作称呼或真实姓名 </ng-container>
-              <ng-template #defaultName> 已设置：{{ user.name }} </ng-template>
+              <ng-container *ngIf="!!user.name; else emptyNameTpl"> 已设置：{{ user.name }} </ng-container>
+              <ng-template #emptyNameTpl> 推荐设置工作称呼或真实姓名 </ng-template>
             </nz-list-item-meta-description>
           </nz-list-item-meta>
           <nz-list-item-extra>
@@ -34,14 +32,14 @@
             <nz-list-item-meta-title><b>头像</b></nz-list-item-meta-title>
             <nz-list-item-meta-description> 推荐采用尺寸 256*256 </nz-list-item-meta-description>
           </nz-list-item-meta>
-          <ng-container *ngIf="!!user['avatar']; else defaultAvatar">
+          <ng-container *ngIf="!!user.avatar; else emptyAvatarTpl">
             <nz-avatar nzShape="square" [nzSize]="128" [nzSrc]="[user.avatar] | wpxAssets"></nz-avatar>
           </ng-container>
-          <ng-template #defaultAvatar>
+          <ng-template #emptyAvatarTpl>
             <nz-avatar nzShape="square" [nzSize]="128" nzIcon="user"></nz-avatar>
           </ng-template>
           <nz-list-item-extra>
-            <button nz-button nzType="primary" nzShape="circle" nz-tooltip="设置">
+            <button nz-button nzType="primary" nzShape="circle" nz-tooltip="设置" (click)="setAvatar()">
               <i nz-icon nzType="tool"></i>
             </button>
           </nz-list-item-extra>
@@ -106,10 +104,10 @@
           <nz-list-item-meta>
             <nz-list-item-meta-title><b>备用邮箱</b></nz-list-item-meta-title>
             <nz-list-item-meta-description>
-              <ng-container *ngIf="!!user.backup_email; else emailEmpty">
+              <ng-container *ngIf="!!user.backup_email; else emailEmptyTpl">
                 已设置备用邮箱：{{ user.backup_email }}
               </ng-container>
-              <ng-template #emailEmpty> 未设置备用邮箱，主要用于恢复账号安全相关操作，推荐采用个人邮箱 </ng-template>
+              <ng-template #emailEmptyTpl> 未设置备用邮箱，主要用于恢复账号安全相关操作，推荐采用个人邮箱 </ng-template>
             </nz-list-item-meta-description>
           </nz-list-item-meta>
           <nz-list-item-extra>
@@ -159,7 +157,7 @@
     </nz-card>
   </nz-tab>
   <nz-tab nzTitle="第三方平台">
-    <nz-card>
+    <nz-card *ngIf="app.user as user">
       <nz-list nzSize="large" nzItemLayout="vertical">
         <nz-list-item>
           <nz-list-item-meta>
@@ -171,15 +169,15 @@
               ></nz-avatar>
             </nz-list-item-meta-avatar>
             <nz-list-item-meta-title><b>飞书</b></nz-list-item-meta-title>
-            <nz-list-item-meta-description *ngIf="!app.user?.feishu">当前未绑定飞书账号</nz-list-item-meta-description>
+            <nz-list-item-meta-description *ngIf="!user.feishu"> 当前未绑定飞书账号 </nz-list-item-meta-description>
           </nz-list-item-meta>
-          <nz-descriptions *ngIf="app.user?.feishu as feishu" nzSize="small" nzBordered [nzColumn]="2">
+          <nz-descriptions *ngIf="user.feishu as feishu" nzSize="small" nzBordered [nzColumn]="2">
             <nz-descriptions-item nzTitle="用户姓名">{{ feishu.name }}</nz-descriptions-item>
             <nz-descriptions-item nzTitle="用户英文名称">{{ feishu.en_name | nzSafeNull: '-' }}</nz-descriptions-item>
             <nz-descriptions-item nzTitle="用户在应用内的唯一标识">{{ feishu.open_id }}</nz-descriptions-item>
           </nz-descriptions>
           <nz-list-item-extra>
-            <ng-container *ngIf="app.user?.feishu; else linkFeishuTpl">
+            <ng-container *ngIf="user.feishu; else linkFeishuTpl">
               <button
                 nz-button
                 nzType="link"

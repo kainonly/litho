@@ -108,6 +108,8 @@ export interface SetUserDto {
   backup_email?: string;
 }
 
+export type UnsetUserDto = 'feishu';
+
 export interface Log<M, T> {
   metadata: M;
   data: T;

@@ -3,8 +3,8 @@ import { Injectable } from '@angular/core';
 import { Observable, switchMap } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { Project, SetUserDto, User } from '@common/types';
-import { AnyDto } from '@weplanx/ng';
+import { Project, SetUserDto, UnsetUserDto, User } from '@common/types';
+import { AnyDto, UploadOption, WpxService } from '@weplanx/ng';
 
 @Injectable({ providedIn: 'root' })
 export class AppService {
@@ -17,7 +17,7 @@ export class AppService {
    */
   user?: AnyDto<User>;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private wpx: WpxService) {}
 
   /**
    * Ping
@@ -62,6 +62,22 @@ export class AppService {
   }
 
   /**
+   * 获取上传配置
+   */
+  getUpload(): Observable<UploadOption> {
+    return this.http
+      .get<UploadOption>('options', {
+        params: { type: 'upload' }
+      })
+      .pipe(
+        map(v => {
+          this.wpx.setUpload(v);
+          return v;
+        })
+      );
+  }
+
+  /**
    * @param action
    */
   oauth(action?: string): Observable<string> {
@@ -98,6 +114,14 @@ export class AppService {
    */
   setUser(data: SetUserDto): Observable<any> {
     return this.http.post('user', data);
+  }
+
+  /**
+   * 个人信息字段重置
+   * @param data
+   */
+  unsetUser(data: UnsetUserDto): Observable<any> {
+    return this.http.delete(`user/${data}`);
   }
 
   /**

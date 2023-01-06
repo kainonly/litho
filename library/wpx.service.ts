@@ -39,6 +39,15 @@ export class WpxService {
   }
 
   /**
+   * 设置上传配置
+   * @param option
+   */
+  setUpload(option: UploadOption): void {
+    this.upload.next(option);
+    this.upload.complete();
+  }
+
+  /**
    * 设置自定义页面
    * @param key 唯一标识
    * @param name 名称
@@ -97,23 +106,6 @@ export class WpxService {
       async.next();
       async.complete();
     });
-  }
-
-  /**
-   * 设置上传配置
-   */
-  getUpload(): Observable<UploadOption> {
-    return this.http
-      .get<UploadOption>('options', {
-        params: { type: 'upload' }
-      })
-      .pipe(
-        map(v => {
-          this.upload.next(v);
-          this.upload.complete();
-          return v;
-        })
-      );
   }
 
   /**

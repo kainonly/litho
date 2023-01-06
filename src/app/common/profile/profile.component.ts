@@ -3,13 +3,14 @@ import { Router } from '@angular/router';
 import { timer } from 'rxjs';
 
 import { AppService } from '@app';
+import { AvatarComponent } from '@common/profile/avatar/avatar.component';
 import { BackupEmailComponent } from '@common/profile/backup-email/backup-email.component';
 import { EmailComponent } from '@common/profile/email/email.component';
 import { NameComponent } from '@common/profile/name/name.component';
 import { PasswordComponent } from '@common/profile/password/password.component';
 import { NzDrawerRef } from 'ng-zorro-antd/drawer';
 import { NzMessageService } from 'ng-zorro-antd/message';
-import { NzModalRef, NzModalService } from 'ng-zorro-antd/modal';
+import { NzModalService } from 'ng-zorro-antd/modal';
 
 @Component({
   selector: 'app-profile',
@@ -65,6 +66,13 @@ export class ProfileComponent {
   }
 
   /**
+   * 设置头像
+   */
+  setAvatar(): void {
+    this.setModal(AvatarComponent);
+  }
+
+  /**
    * 设置密码
    */
   setPassword(): void {
@@ -91,9 +99,9 @@ export class ProfileComponent {
   }
 
   unlinkFeishu(): void {
-    // this.app.setUser({ reset: 'feishu' }).subscribe(() => {
-    //   this.message.success('关联已取消');
-    //   this.app.getUser().subscribe(() => {});
-    // });
+    this.app.unsetUser('feishu').subscribe(() => {
+      this.message.success('关联已取消');
+      this.app.getUser().subscribe(() => {});
+    });
   }
 }
