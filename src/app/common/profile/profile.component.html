@@ -50,10 +50,10 @@
             <nz-list-item-meta-description>
               <nz-descriptions [nzColumn]="2">
                 <nz-descriptions-item nzTitle="创建时间">
-                  {{ user.create_time | date: 'yyyy/MM/dd HH:mm:ss' }}
+                  {{ user.create_time | date: 'yyyy-MM-dd HH:mm:ss' }}
                 </nz-descriptions-item>
                 <nz-descriptions-item nzTitle="更新时间">
-                  {{ user.update_time | date: 'yyyy/MM/dd HH:mm:ss' }}
+                  {{ user.update_time | date: 'yyyy-MM-dd HH:mm:ss' }}
                 </nz-descriptions-item>
                 <nz-descriptions-item nzTitle="累计会话">
                   <span>
@@ -61,7 +61,7 @@
                   </span>
                 </nz-descriptions-item>
                 <nz-descriptions-item *ngIf="user.last as l" nzTitle="上线时间">
-                  {{ l.timestamp | date: 'yyyy/MM/dd HH:mm:ss' }}
+                  {{ l.timestamp | date: 'yyyy-MM-dd HH:mm:ss' }}
                 </nz-descriptions-item>
                 <nz-descriptions-item *ngIf="user.last as l" nzTitle="IP" [nzSpan]="2">
                   <b>[ {{ l.ip }} ]</b>

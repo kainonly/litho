@@ -145,6 +145,8 @@ export type BasicType =
   | 'number' // 数字
   | 'date' // 日期
   | 'dates' // 日期范围
+  | 'datetime' // 时间与日期
+  | 'datetimes' // 时间与日期范围
   | 'bool' // 状态
   | 'radio' // 单选
   | 'checkbox' // 复选

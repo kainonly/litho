@@ -25,8 +25,8 @@ export class UsersComponent {
     ['email', { label: '电子邮件', type: 'string', keyword: true }],
     ['name', { label: '称呼', type: 'string', keyword: true }],
     ['status', { label: '状态', type: 'bool' }],
-    ['create_time', { label: '创建时间', type: 'date' }],
-    ['update_time', { label: '更新时间', type: 'date' }]
+    ['create_time', { label: '创建时间', type: 'date', option: { time: true } }],
+    ['update_time', { label: '更新时间', type: 'date', option: { time: true } }]
   ]);
   /**
    * 数据
