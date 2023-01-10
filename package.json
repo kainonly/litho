@@ -5,15 +5,14 @@
   "scripts": {
     "start": "ng s",
     "start:proxy": "ng s --proxy-config src/proxy.conf.json",
+    "serve:ssr": "node dist/console/server/main.js",
     "build": "ng b --configuration production",
+    "build:ssr": "npm run build && ng run console:server",
     "build:ng": "ng b angular --configuration production",
+    "prerender": "ng run console:prerender",
     "test": "ng t angular --code-coverage --no-watch --no-progress --browsers=ChromeHeadlessCI",
     "lint": "ng lint",
-    "e2e": "ng e2e",
-    "dev:ssr": "ng run console:serve-ssr",
-    "serve:ssr": "node dist/console/server/main.js",
-    "build:ssr": "npm run build && ng run console:server",
-    "prerender": "ng run console:prerender"
+    "e2e": "ng e2e"
   },
   "dependencies": {
     "@angular/animations": "^15.0.4",
