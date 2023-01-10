@@ -1,3 +1,4 @@
+import { Platform } from '@angular/cdk/platform';
 import { ComponentPortal, ComponentType } from '@angular/cdk/portal';
 import { DOCUMENT } from '@angular/common';
 import { HttpClient, HttpParams } from '@angular/common/http';
@@ -28,7 +29,7 @@ export class WpxService {
 
   scripts: Map<string, AsyncSubject<void>> = new Map();
 
-  constructor(private http: HttpClient, @Inject(DOCUMENT) private document: Document) {}
+  constructor(private http: HttpClient, @Inject(DOCUMENT) private document: Document, private platform: Platform) {}
 
   /**
    * 设置静态资源
@@ -78,7 +79,10 @@ export class WpxService {
    * @param url
    * @private
    */
-  private createScript(url: string): HTMLScriptElement {
+  private createScript(url: string): HTMLScriptElement | void {
+    if (!this.platform.isBrowser) {
+      return;
+    }
     const script = this.document.createElement('script');
     script.src = url;
     script.async = true;
@@ -102,10 +106,12 @@ export class WpxService {
     for (const plugin of plugins) {
       this.createScript(plugin);
     }
-    fromEvent(script, 'load').subscribe(() => {
-      async.next();
-      async.complete();
-    });
+    if (script) {
+      fromEvent(script, 'load').subscribe(() => {
+        async.next();
+        async.complete();
+      });
+    }
   }
 
   /**

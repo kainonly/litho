@@ -8,6 +8,7 @@ import {
 import zh from '@angular/common/locales/zh';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule, Routes } from '@angular/router';
 import { ServiceWorkerModule } from '@angular/service-worker';
@@ -67,6 +68,7 @@ if (!environment.production) {
 @NgModule({
   declarations: [AppComponent],
   imports: [
+    BrowserModule.withServerTransition({ appId: 'serverApp' }),
     BrowserAnimationsModule,
     HttpClientModule,
     HttpClientXsrfModule,
@@ -89,11 +91,11 @@ if (!environment.production) {
       plugins: [],
       name: 'weplanx'
     }),
-    ServiceWorkerModule.register('ngsw-worker.js', {
-      enabled: environment.production,
-      registrationStrategy: 'registerWhenStable:30000'
-    }),
-    RouterModule.forRoot(routes, { useHash: true })
+    // ServiceWorkerModule.register('ngsw-worker.js', {
+    //   enabled: environment.production,
+    //   registrationStrategy: 'registerWhenStable:30000'
+    // }),
+    RouterModule.forRoot(routes, { useHash: true, initialNavigation: 'enabledBlocking' })
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AppInterceptors, multi: true },

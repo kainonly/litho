@@ -23,7 +23,7 @@ import { Image } from './image';
 import { ResolveDone, RichtextData } from './types';
 import { Video } from './video';
 
-const windowAny: any = window;
+declare const EditorJS: any;
 
 @Component({
   selector: 'wpx-richtext',
@@ -113,7 +113,7 @@ export class WpxRichtextComponent implements ControlValueAccessor, AfterViewInit
    */
   private initialize(): void {
     this.zone.runOutsideAngular(() => {
-      this.instance = new windowAny.EditorJS({
+      this.instance = new EditorJS({
         holder: this.ref.nativeElement,
         placeholder: this.wpxPlaceholder,
         logLevel: 'ERROR',
