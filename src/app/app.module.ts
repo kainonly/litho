@@ -1,17 +1,11 @@
 import { registerLocaleData } from '@angular/common';
-import {
-  HTTP_INTERCEPTORS,
-  HttpClientModule,
-  HttpClientXsrfModule,
-  HttpXsrfTokenExtractor
-} from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule, HttpClientXsrfModule } from '@angular/common/http';
 import zh from '@angular/common/locales/zh';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule, Routes } from '@angular/router';
-import { ServiceWorkerModule } from '@angular/service-worker';
 
 import { environment } from '@env';
 import { WpxRichtextModule } from '@weplanx/ng/richtext';
@@ -91,10 +85,6 @@ if (!environment.production) {
       plugins: [],
       name: 'weplanx'
     }),
-    // ServiceWorkerModule.register('ngsw-worker.js', {
-    //   enabled: environment.production,
-    //   registrationStrategy: 'registerWhenStable:30000'
-    // }),
     RouterModule.forRoot(routes, { useHash: true, initialNavigation: 'enabledBlocking' })
   ],
   providers: [
