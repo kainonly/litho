@@ -16,7 +16,7 @@ export class HeaderComponent {
   profile(): void {
     this.drawer.create<ProfileComponent, { value: string }, string>({
       nzTitle: '个人中心',
-      nzWidth: '736px',
+      nzWidth: '960px',
       nzContent: ProfileComponent,
       nzContentParams: {}
     });

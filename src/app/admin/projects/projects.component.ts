@@ -69,6 +69,17 @@ export class ProjectsComponent implements OnInit {
   }
 
   /**
+   * 查看密钥
+   */
+  openAppKey(): void {
+    this.modal.info({
+      nzTitle: 'This is a notification message',
+      nzContent: '<p>some messages...some messages...</p><p>some messages...some messages...</p>',
+      nzOnOk: () => console.log('Info OK')
+    });
+  }
+
+  /**
    * 编辑表单
    * @param doc
    */

@@ -52,11 +52,10 @@
           <i nz-icon nzType="tag" nz-tooltip="关键词"></i>
         </th>
         <th>
-          <b>命名空间 </b>
-          <i nz-icon nzType="tag" nz-tooltip="关键词"></i>
+          <b>APPID</b>
         </th>
-        <th><b>有效期</b></th>
         <th><b>状态</b></th>
+        <th nzWidth="200px"><b>有效期</b></th>
         <th nzWidth="200px"><b>创建时间</b></th>
         <th nzWidth="200px"><b>更新时间</b></th>
         <th nzWidth="60px" nzRight nzAlign="center">
@@ -75,26 +74,28 @@
             [nzDisabled]="data['disabled']"
             [nzChecked]="dataset.checkedIds.has(data['_id'])"
             (nzCheckedChange)="dataset.setChecked(data['_id'], $event)"
-          ></td>
-          <td [nzExpand]="expand.has(data['_id'])" (nzExpandChange)="expandChange(data['_id'], $event)">
-            {{ data['name'] }}
+          >
           </td>
           <td>
-            <a nz-tooltip="进入管理" [routerLink]="['/', data['namespace'], 'overview', 'cluster']">
-              {{ data['namespace'] }}
+            <a nz-tooltip="进入工作区" [routerLink]="['/', data['namespace'], 'overview', 'cluster']">
+              {{ data['name'] }}
             </a>
+            <nz-tag>{{ data['namespace'] }}</nz-tag>
           </td>
           <td>
-            <ng-container *ngIf="data['expire'] === 0; else hasExpire">永久</ng-container>
-            <ng-template #hasExpire>
-              {{ data['expire'] * 1000 | date: 'yyyy-MM-dd' }}
-            </ng-template>
+            <a nz-tooltip="查看密钥" (click)="openAppKey()">{{ data['_id'] }}</a>
           </td>
           <td>
             <ng-container *ngIf="data['status']; else isFalse">
               <nz-badge nzStatus="processing"></nz-badge> 开启
             </ng-container>
             <ng-template #isFalse> <nz-badge nzStatus="default"></nz-badge> 关闭 </ng-template>
+          </td>
+          <td>
+            <ng-container *ngIf="data['expire'] === 0; else hasExpire">永久</ng-container>
+            <ng-template #hasExpire>
+              {{ data['expire'] * 1000 | date: 'yyyy-MM-dd' }}
+            </ng-template>
           </td>
           <td> {{ data['create_time'] | date: 'yyyy-MM-dd HH:mm:ss' }} </td>
           <td> {{ data['update_time'] | date: 'yyyy-MM-dd HH:mm:ss' }}</td>
@@ -104,6 +105,7 @@
             </button>
             <nz-dropdown-menu #menu="nzDropdownMenu">
               <ul nz-menu>
+                <li nz-menu-item>IP 白名单</li>
                 <li nz-menu-item (click)="form(data)">编辑</li>
                 <li nz-menu-item nzDanger (click)="delete(data)">删除</li>
               </ul>

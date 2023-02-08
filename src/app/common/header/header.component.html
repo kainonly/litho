@@ -6,27 +6,26 @@
           <nz-divider nzType="vertical"></nz-divider>
         </ng-template>
         <ng-container *nzSpaceItem>
-          <ng-container *ngIf="app.project as p; else adminRef">
-            <button nz-button nzType="text" nz-dropdown [nzDropdownMenu]="menu">
-              <span nz-icon nzType="appstore"></span> {{ p.name }}
-            </button>
-            <nz-dropdown-menu #menu="nzDropdownMenu">
-              <ul nz-menu>
-                <li nz-submenu nzTitle="收藏应用">
-                  <ul>
-                    <li nz-menu-item>无</li>
-                  </ul>
-                </li>
-                <li nz-menu-item [routerLink]="['/admin']">管理后台</li>
-              </ul>
-            </nz-dropdown-menu>
-          </ng-container>
-          <ng-template #adminRef>
-            <div class="logo"></div>
-          </ng-template>
+          <button nz-button nzType="text" nz-dropdown [nzDropdownMenu]="menu">
+            <span nz-icon nzType="appstore"></span>
+            <ng-container *ngIf="app.project as p; else adminRef">
+              <span>{{ p.name }}</span>
+            </ng-container>
+            <ng-template #adminRef> <span>应用中心</span> </ng-template>
+          </button>
+          <nz-dropdown-menu #menu="nzDropdownMenu">
+            <ul nz-menu>
+              <li nz-submenu nzTitle="收藏应用">
+                <ul>
+                  <li nz-menu-item>无</li>
+                </ul>
+              </li>
+              <li nz-menu-item [routerLink]="['/admin']">应用中心</li>
+            </ul>
+          </nz-dropdown-menu>
         </ng-container>
 
-        <nz-breadcrumb *nzSpaceItem nzAutoGenerate>
+        <nz-breadcrumb *nzSpaceItem nzAutoGenerate style="padding-left: 1em">
           <nz-breadcrumb-item>
             <a [routerLink]="['/']"><span nz-icon nzType="home"></span> 首页 </a>
           </nz-breadcrumb-item>
@@ -37,72 +36,70 @@
       <ng-content></ng-content>
     </nz-col>
     <nz-col>
-      <nz-space>
-        <div *nzSpaceItem class="center" nz-popover [nzPopoverContent]="centerRef" nzPopoverPlacement="bottomRight">
-          <ng-container *ngIf="app.user as u">
-            <nz-badge nzDot>
-              <ng-container *ngIf="!!u.avatar; else defaultAvatar">
-                <nz-avatar nzShape="square" [nzSize]="24" [nzSrc]="[u.avatar] | wpxAssets"></nz-avatar>
-              </ng-container>
-              <ng-template #defaultAvatar>
-                <nz-avatar nzShape="square" [nzSize]="24" nzIcon="user"></nz-avatar>
-              </ng-template>
-            </nz-badge>
-            <span class="name">
-              <ng-container *ngIf="!u.name; else name">
-                {{ u.email | uppercase }}
-              </ng-container>
-              <ng-template #name>
-                {{ u.name | uppercase }}
-              </ng-template>
-            </span>
-          </ng-container>
-          <ng-template #centerRef>
-            <nz-tabset style="width: 360px" [nzTabBarExtraContent]="actions">
-              <ng-template #actions>
-                <nz-space>
-                  <button *nzSpaceItem nz-button nzType="text" nz-tooltip="简体中文">
-                    <i nz-icon nzType="translation"></i>
-                  </button>
-                  <button *nzSpaceItem nz-button nzType="text" nz-tooltip="个人中心" (click)="profile()">
-                    <i nz-icon nzType="user"></i>
-                  </button>
-                  <button *nzSpaceItem nz-button nzType="text" nz-tooltip="退出" (click)="logout()">
-                    <i nz-icon nzType="logout"></i>
-                  </button>
-                </nz-space>
-              </ng-template>
-              <nz-tab nzTitle="通知(0)">
-                <nz-list nzItemLayout="horizontal">
-                  <nz-list-empty></nz-list-empty>
-                </nz-list>
-              </nz-tab>
-              <nz-tab nzTitle="待办(0)">
-                <nz-list nzItemLayout="horizontal">
-                  <nz-list-item>
-                    <nz-list-item-meta>
-                      <nz-list-item-meta-title>你收到了14份周报</nz-list-item-meta-title>
-                      <nz-list-item-meta-description>1 天前</nz-list-item-meta-description>
-                    </nz-list-item-meta>
-                  </nz-list-item>
-                  <nz-list-item>
-                    <nz-list-item-meta>
-                      <nz-list-item-meta-title>合同协议已更新</nz-list-item-meta-title>
-                      <nz-list-item-meta-description>5 天前</nz-list-item-meta-description>
-                    </nz-list-item-meta>
-                  </nz-list-item>
-                  <nz-list-item>
-                    <nz-list-item-meta>
-                      <nz-list-item-meta-title>工作内容</nz-list-item-meta-title>
-                      <nz-list-item-meta-description>2 周前</nz-list-item-meta-description>
-                    </nz-list-item-meta>
-                  </nz-list-item>
-                </nz-list>
-              </nz-tab>
-            </nz-tabset>
-          </ng-template>
-        </div>
-      </nz-space>
+      <div class="center" nz-popover [nzPopoverContent]="centerRef" nzPopoverPlacement="bottomRight">
+        <ng-container *ngIf="app.user as u">
+          <nz-badge nzDot>
+            <ng-container *ngIf="!!u.avatar; else defaultAvatar">
+              <nz-avatar nzShape="square" [nzSize]="36" [nzSrc]="[u.avatar] | wpxAssets"></nz-avatar>
+            </ng-container>
+            <ng-template #defaultAvatar>
+              <nz-avatar nzShape="square" [nzSize]="36" nzIcon="user"></nz-avatar>
+            </ng-template>
+          </nz-badge>
+          <span class="name">
+            <ng-container *ngIf="!u.name; else name">
+              {{ u.email | uppercase }}
+            </ng-container>
+            <ng-template #name>
+              {{ u.name | uppercase }}
+            </ng-template>
+          </span>
+        </ng-container>
+        <ng-template #centerRef>
+          <nz-tabset style="width: 360px" [nzTabBarExtraContent]="actions">
+            <ng-template #actions>
+              <nz-space>
+                <button *nzSpaceItem nz-button nzType="text" nz-tooltip="简体中文">
+                  <i nz-icon nzType="translation"></i>
+                </button>
+                <button *nzSpaceItem nz-button nzType="text" nz-tooltip="个人中心" (click)="profile()">
+                  <i nz-icon nzType="user"></i>
+                </button>
+                <button *nzSpaceItem nz-button nzType="text" nz-tooltip="退出" (click)="logout()">
+                  <i nz-icon nzType="logout"></i>
+                </button>
+              </nz-space>
+            </ng-template>
+            <nz-tab nzTitle="通知(0)">
+              <nz-list nzItemLayout="horizontal">
+                <nz-list-empty></nz-list-empty>
+              </nz-list>
+            </nz-tab>
+            <nz-tab nzTitle="待办(0)">
+              <nz-list nzItemLayout="horizontal">
+                <nz-list-item>
+                  <nz-list-item-meta>
+                    <nz-list-item-meta-title>你收到了14份周报</nz-list-item-meta-title>
+                    <nz-list-item-meta-description>1 天前</nz-list-item-meta-description>
+                  </nz-list-item-meta>
+                </nz-list-item>
+                <nz-list-item>
+                  <nz-list-item-meta>
+                    <nz-list-item-meta-title>合同协议已更新</nz-list-item-meta-title>
+                    <nz-list-item-meta-description>5 天前</nz-list-item-meta-description>
+                  </nz-list-item-meta>
+                </nz-list-item>
+                <nz-list-item>
+                  <nz-list-item-meta>
+                    <nz-list-item-meta-title>工作内容</nz-list-item-meta-title>
+                    <nz-list-item-meta-description>2 周前</nz-list-item-meta-description>
+                  </nz-list-item-meta>
+                </nz-list-item>
+              </nz-list>
+            </nz-tab>
+          </nz-tabset>
+        </ng-template>
+      </div>
     </nz-col>
   </nz-row>
 </nz-header>
