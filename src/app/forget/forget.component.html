@@ -1,11 +1,15 @@
 <app-blank>
-  <nz-card>
-    <h1>找回密码</h1>
-    <nz-steps style="padding: 16px" [nzCurrent]="step" nzProgressDot>
-      <nz-step nzTitle="验证"></nz-step>
-      <nz-step nzTitle="重置"></nz-step>
-      <nz-step nzTitle="完成"></nz-step>
-    </nz-steps>
+  <nz-card [nzBordered]="false" [nzBorderless]="false">
+    <nz-page-header nzBackIcon nzTitle="找回密码">
+      <nz-page-header-content>
+        <nz-steps style="padding: 16px" [nzCurrent]="step" nzProgressDot>
+          <nz-step nzTitle="验证"></nz-step>
+          <nz-step nzTitle="重置"></nz-step>
+          <nz-step nzTitle="完成"></nz-step>
+        </nz-steps>
+      </nz-page-header-content>
+    </nz-page-header>
+
     <ng-container [ngSwitch]="step">
       <ng-container *ngSwitchCase="0">
         <form
@@ -36,13 +40,14 @@
                 }
               }"
             >
-              <input type="email" formControlName="email" nz-input placeholder="mail@example.com" />
+              <input type="email" formControlName="email" nz-input placeholder="例如：mail@example.com" />
             </nz-form-control>
           </nz-form-item>
 
           <nz-form-item>
             <nz-form-label nzRequired>验证码</nz-form-label>
             <nz-form-control
+              nzExtra="*电子邮件可能因个人设置被自动拦截"
               [nzAutoTips]="{
                 default: {
                   required: '验证码不能为空'
@@ -63,7 +68,7 @@
 
           <nz-form-item>
             <nz-form-control>
-              <button nz-button [disabled]="!verifyForm.value">验证</button>
+              <button nz-button [disabled]="!verifyForm.value">提交验证</button>
             </nz-form-control>
           </nz-form-item>
         </form>

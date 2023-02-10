@@ -4,10 +4,8 @@ nz-card {
   padding: 1.2em 1.5em;
   box-shadow: 0 7px 25px rgba(0, 0, 0, 0.08);
 
-  .logo {
-    height: 175px;
-    text-align: center;
-    background: url("/assets/logo.png") no-repeat center;
-    background-size: 75%;
+  .title {
+    font-size: 36px;
+    padding-bottom: 1em;
   }
 }

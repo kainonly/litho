@@ -1,46 +1,50 @@
 <app-blank>
   <nz-card [nzBordered]="false" [nzBorderless]="false">
-    <div class="logo"></div>
-    <form [formGroup]="form" nz-form (wpxSubmit)="submit($event)">
+    <div class="title">欢迎使用</div>
+    <form [formGroup]="form" nz-form nzLayout="vertical" (wpxSubmit)="submit($event)">
       <nz-form-item>
+        <nz-form-label><b>电子邮件</b></nz-form-label>
         <nz-form-control>
-          <nz-input-group [nzSuffix]="identitySuffix" nzPrefixIcon="user">
+          <nz-input-group nzSize="large" [nzSuffix]="identitySuffix" nzPrefixIcon="mail">
             <ng-template #identitySuffix>
               <span *ngIf="email.value" nz-icon nzType="close-circle" (click)="email.reset()"> </span>
             </ng-template>
-            <input type="email" nz-input formControlName="email" placeholder="电子邮箱" />
+            <input type="email" nz-input formControlName="email" placeholder="请输入电子邮件" />
           </nz-input-group>
         </nz-form-control>
       </nz-form-item>
 
       <nz-form-item>
+        <nz-form-label><b>密码</b><a style="margin-left: 0.5em" routerLink="/forget"> 忘记了？</a></nz-form-label>
         <nz-form-control>
-          <nz-input-group [nzSuffix]="passwordSuffix" nzPrefixIcon="lock">
+          <nz-input-group nzSize="large" [nzSuffix]="passwordSuffix" nzPrefixIcon="lock">
             <ng-template #passwordSuffix>
               <span *ngIf="password.value" nz-icon nzType="close-circle" (click)="password.reset()"> </span>
             </ng-template>
-            <input nz-input type="password" formControlName="password" autocomplete="new-password" placeholder="密码" />
+            <input
+              nz-input
+              type="password"
+              formControlName="password"
+              autocomplete="new-password"
+              placeholder="请输入密码"
+            />
           </nz-input-group>
         </nz-form-control>
       </nz-form-item>
       <nz-form-item>
         <nz-form-control>
-          <button nz-button nzBlock nzType="primary" [nzLoading]="loading" [disabled]="!form.valid"> 登 录</button>
+          <button nzSize="large" nz-button nzBlock nzType="primary" [nzLoading]="loading" [disabled]="!form.valid">
+            <b>登 录</b>
+          </button>
         </nz-form-control>
       </nz-form-item>
 
-      <nz-divider nzPlain nzText="其他登录方式"></nz-divider>
-      <nz-row nzJustify="space-between">
-        <nz-col>
-          <nz-space>
-            <a *nzSpaceItem nz-tooltip="飞书" (click)="feishuOAuth()">
-              <nz-avatar [nzSize]="30" nzShape="square" [nzSrc]="['assets', 'lark.svg'] | wpxAssets"></nz-avatar>
-            </a>
-          </nz-space>
-        </nz-col>
-        <nz-col></nz-col>
-        <nz-col><a routerLink="/forget">忘记密码？</a></nz-col>
-      </nz-row>
+      <nz-divider nzPlain nzText="其它登录方式"></nz-divider>
+      <nz-space>
+        <a *nzSpaceItem nz-tooltip="飞书" (click)="feishuOAuth()">
+          <nz-avatar [nzSize]="30" nzShape="square" [nzSrc]="['assets', 'lark.svg'] | wpxAssets"></nz-avatar>
+        </a>
+      </nz-space>
     </form>
   </nz-card>
 </app-blank>
