@@ -5,7 +5,7 @@
       <nz-form-item>
         <nz-form-label><b>电子邮件</b></nz-form-label>
         <nz-form-control>
-          <nz-input-group nzSize="large" [nzSuffix]="identitySuffix" nzPrefixIcon="mail">
+          <nz-input-group [nzSuffix]="identitySuffix" nzPrefixIcon="mail">
             <ng-template #identitySuffix>
               <span *ngIf="email.value" nz-icon nzType="close-circle" (click)="email.reset()"> </span>
             </ng-template>
@@ -17,7 +17,7 @@
       <nz-form-item>
         <nz-form-label><b>密码</b><a style="margin-left: 0.5em" routerLink="/forget"> 忘记了？</a></nz-form-label>
         <nz-form-control>
-          <nz-input-group nzSize="large" [nzSuffix]="passwordSuffix" nzPrefixIcon="lock">
+          <nz-input-group [nzSuffix]="passwordSuffix" nzPrefixIcon="lock">
             <ng-template #passwordSuffix>
               <span *ngIf="password.value" nz-icon nzType="close-circle" (click)="password.reset()"> </span>
             </ng-template>
@@ -33,7 +33,7 @@
       </nz-form-item>
       <nz-form-item>
         <nz-form-control>
-          <button nzSize="large" nz-button nzBlock nzType="primary" [nzLoading]="loading" [disabled]="!form.valid">
+          <button nz-button nzBlock nzType="primary" [nzLoading]="loading" [disabled]="!form.valid">
             <b>登 录</b>
           </button>
         </nz-form-control>

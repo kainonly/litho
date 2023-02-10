@@ -1,5 +1,5 @@
 /* You can add global styles to this file, and also import other style files */
-@import 'https://cdn.kainonly.com/assets/ng-zorro-antd/ng-zorro-antd.min.css';
+@import 'https://cdn.kainonly.com/assets/ng-zorro-antd/ng-zorro-antd.compact.min.css';
 @import 'https://cdn.kainonly.com/assets/ng-zorro-antd/code-editor/index.min.css';
 @import 'https://cdn.kainonly.com/assets/ng-zorro-antd/resizable/index.min.css';
 
@@ -12,8 +12,8 @@ nz-layout.main {
 }
 
 nz-layout.frame {
-  padding-top: 64px;
-  padding-left: 64px;
+  padding-top: 45px;
+  padding-left: 45px;
   overflow-x: hidden;
   overflow-y: auto;
 }

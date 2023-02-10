@@ -40,10 +40,10 @@
         <ng-container *ngIf="app.user as u">
           <nz-badge nzDot>
             <ng-container *ngIf="!!u.avatar; else defaultAvatar">
-              <nz-avatar nzShape="square" [nzSize]="36" [nzSrc]="[u.avatar] | wpxAssets"></nz-avatar>
+              <nz-avatar nzShape="square" [nzSize]="24" [nzSrc]="[u.avatar] | wpxAssets"></nz-avatar>
             </ng-container>
             <ng-template #defaultAvatar>
-              <nz-avatar nzShape="square" [nzSize]="36" nzIcon="user"></nz-avatar>
+              <nz-avatar nzShape="square" [nzSize]="24" nzIcon="user"></nz-avatar>
             </ng-template>
           </nz-badge>
           <span class="name">

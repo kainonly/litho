@@ -96,7 +96,7 @@ if (!environment.production) {
         notification: { nzPlacement: 'bottomRight' },
         pageHeader: { nzGhost: false },
         card: { nzBorderless: true },
-        table: { nzSize: 'middle' },
+        table: { nzSize: 'small' },
         codeEditor: {
           assetsRoot: `https://cdn.kainonly.com/assets`
         }
