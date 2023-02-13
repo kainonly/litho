@@ -6,9 +6,9 @@
           <nz-divider nzType="vertical"></nz-divider>
         </ng-template>
         <ng-container *nzSpaceItem>
-          <button nz-button nzType="text" nz-dropdown [nzDropdownMenu]="menu">
+          <button nz-button nzType="text">
             <span nz-icon nzType="appstore"></span>
-            <ng-container *ngIf="app.project as p; else adminRef">
+            <ng-container *ngIf="app.project as p">
               <span>{{ p.name }}</span>
             </ng-container>
             <ng-template #adminRef> <span>应用中心</span> </ng-template>

@@ -44,30 +44,28 @@ export class AppInterceptors implements HttpInterceptor {
       case 400:
         switch (e.error.code) {
           case 'AUTH_INCORRECT':
-            this.message.error(`您的登录失败，请确实账户口令是否正确`);
+            this.message.error(`Login failed, please confirm whether the account password is correct`);
             break;
           case 'AUTH_MANY_INCORRECT':
-            this.message.error(`您登录失败的次数过多，请稍后再试`);
+            this.message.error(`You have failed to log in too many times, please try again later`);
             break;
           default:
-            this.message.error(`操作失败 [${e.error.code}] ${e.error.message}`);
+            this.message.error(`Execution failed [${e.error.code}] ${e.error.message}`);
         }
         break;
       case 401:
-        this.message.error(`认证已失效，请重新登录`);
+        this.message.error(`Authentication has expired, please log in again`);
         this.router.navigateByUrl('/login');
         break;
       case 403:
-        this.message.error(`访问权限被禁用，请联系管理员`);
+        this.message.error(`Access is disabled, please contact administrator`);
         break;
       case 404:
-        this.message.error(`访问请求不存在`);
+        this.message.error(`Access request does not exist`);
         break;
       case 500:
-        this.message.error(`操作异常`);
-        break;
       case 503:
-        this.message.error(`服务器运行异常`);
+        this.message.error(`Request server exception`);
         break;
     }
     return throwError(() => e);

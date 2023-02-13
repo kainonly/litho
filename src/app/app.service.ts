@@ -8,42 +8,23 @@ import { AnyDto, UploadOption, WpxService } from '@weplanx/ng';
 
 @Injectable({ providedIn: 'root' })
 export class AppService {
-  /**
-   * 项目
-   */
   project?: AnyDto<Project>;
-  /**
-   * 用户
-   */
   user?: AnyDto<User>;
 
   constructor(private http: HttpClient, private wpx: WpxService) {}
 
-  /**
-   * Ping
-   */
   ping(): Observable<any> {
     return this.http.get('');
   }
 
-  /**
-   * 登录
-   * @param data
-   */
   login(data: { identity: string; password: string }): Observable<any> {
     return this.http.post('login', data);
   }
 
-  /**
-   * 主动验证令牌
-   */
   verify(): Observable<HttpResponse<any>> {
     return this.http.get('verify', { observe: 'response' });
   }
 
-  /**
-   * 刷新令牌
-   */
   refreshToken(): Observable<any> {
     return this.http.get<any>('code').pipe(
       switchMap(v =>
@@ -54,16 +35,10 @@ export class AppService {
     );
   }
 
-  /**
-   * 登出
-   */
   logout(): Observable<any> {
     return this.http.post('logout', {});
   }
 
-  /**
-   * 获取上传配置
-   */
   getUpload(): Observable<UploadOption> {
     return this.http
       .get<UploadOption>('options', {
@@ -77,9 +52,6 @@ export class AppService {
       );
   }
 
-  /**
-   * @param action
-   */
   oauth(action?: string): Observable<string> {
     const state = JSON.stringify({
       action
@@ -96,9 +68,6 @@ export class AppService {
       );
   }
 
-  /**
-   * 获取个人用户信息
-   */
   getUser(): Observable<AnyDto<User>> {
     return this.http.get<AnyDto<User>>('user').pipe(
       map(v => {
@@ -108,33 +77,18 @@ export class AppService {
     );
   }
 
-  /**
-   * 更新个人用户信息
-   * @param data
-   */
   setUser(data: SetUserDto): Observable<any> {
     return this.http.post('user', data);
   }
 
-  /**
-   * 个人信息字段重置
-   * @param data
-   */
   unsetUser(data: UnsetUserDto): Observable<any> {
     return this.http.delete(`user/${data}`);
   }
 
-  /**
-   * 重置用户密码
-   */
   resetUser(data: any): Observable<any> {
     return this.http.post('user/reset', data);
   }
 
-  /**
-   * 获取动态配置
-   * @param keys
-   */
   getValues(keys?: string[]): Observable<any> {
     const params = new HttpParams();
     if (keys) {
@@ -143,18 +97,10 @@ export class AppService {
     return this.http.get('values', { params });
   }
 
-  /**
-   * 设置动态配置
-   * @param data 配置
-   */
   setValues(data: Record<string, any>): Observable<any> {
     return this.http.post('values', data);
   }
 
-  /**
-   * 删除动态配置
-   * @param key 配置键名
-   */
   deleteValue(key: string): Observable<any> {
     return this.http.delete(`values/${key}`);
   }

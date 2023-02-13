@@ -53,7 +53,7 @@ export class LoginComponent implements OnInit {
       next: async () => {
         this.loading = false;
         await this.router.navigateByUrl('/');
-        this.notification.success('认证状态', '登录成功，正在加载数据~');
+        this.notification.success('authorization status', '🚀Successful login, loading data...');
       },
       error: () => {
         this.loading = false;

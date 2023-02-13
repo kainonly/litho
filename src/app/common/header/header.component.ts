@@ -15,16 +15,13 @@ export class HeaderComponent {
 
   profile(): void {
     this.drawer.create<ProfileComponent, { value: string }, string>({
-      nzTitle: '个人中心',
-      nzWidth: '960px',
+      nzTitle: 'Profile',
+      nzWidth: '800px',
       nzContent: ProfileComponent,
       nzContentParams: {}
     });
   }
 
-  /**
-   * 注销登录
-   */
   logout(): void {
     this.app.logout().subscribe(() => {
       this.app.user = undefined;
