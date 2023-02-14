@@ -32,7 +32,10 @@
       "@weplanx/ng/form": ["library/form/public-api.ts"],
       "@weplanx/ng/richtext": ["library/richtext/public-api.ts"],
       "@weplanx/ng/store": ["library/store/public-api.ts"]
-    }
+    },
+    "types": [
+      "@angular/localize"
+    ]
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,

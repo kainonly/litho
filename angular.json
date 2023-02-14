@@ -26,7 +26,8 @@
             "assets": ["src/favicon.png", "src/assets"],
             "styles": ["src/styles.scss"],
             "scripts": [],
-            "allowedCommonJsDependencies": ["validator", "size-sensor", "d3-regression", "fmin", "pdfast"]
+            "allowedCommonJsDependencies": ["validator", "size-sensor", "d3-regression", "fmin", "pdfast"],
+            "localize": true
           },
           "configurations": {
             "production": {
@@ -159,6 +160,15 @@
             }
           },
           "defaultConfiguration": "production"
+        }
+      },
+      "i18n": {
+        "sourceLocale": "en-US",
+        "locales": {
+          "zh-CN": {
+            "translation": "src/locale/messages.zh-CN.xlf",
+            "baseHref": "zh-CN/"
+          }
         }
       }
     },

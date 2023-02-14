@@ -1,7 +1,7 @@
 // eslint-disable-next-line import/no-unassigned-import
 import 'zone.js/node';
 import { APP_BASE_HREF } from '@angular/common';
-import { enableProdMode } from '@angular/core';
+import { enableProdMode, LOCALE_ID } from '@angular/core';
 
 import { ngExpressEngine } from '@nguniversal/express-engine';
 import * as express from 'express';
@@ -13,15 +13,16 @@ import { AppServerModule } from './src/main.server';
 
 enableProdMode();
 
-export function app(): express.Express {
+export function app(lang: string): express.Express {
   const server = express();
-  const distFolder = join(process.cwd(), 'dist/console/browser');
+  const distFolder = join(process.cwd(), `dist/console/browser/${lang}`);
   const indexHtml = existsSync(join(distFolder, 'index.original.html')) ? 'index.original.html' : 'index';
 
   server.engine(
     'html',
     ngExpressEngine({
-      bootstrap: AppServerModule
+      bootstrap: AppServerModule,
+      providers: [{ provide: LOCALE_ID, useValue: lang }]
     })
   );
 
@@ -44,8 +45,17 @@ export function app(): express.Express {
 
 function run(): void {
   const port = process.env['PORT'] || 4200;
+  const lang = process.env['LANG'] || 'en-US';
+  const appEn = app('en-US');
+  const appZh = app('zh-CN');
+  const server = express();
 
-  const server = app();
+  server.get('/', (req, res) => {
+    res.redirect(`/${lang}`);
+  });
+  server.use('/en-US', appEn);
+  server.use('/zh-CN', appZh);
+
   server.listen(port, () => {
     console.log(`Node Express server listening on http://localhost:${port}`);
   });
