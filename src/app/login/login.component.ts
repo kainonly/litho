@@ -53,7 +53,7 @@ export class LoginComponent implements OnInit {
       next: async () => {
         this.loading = false;
         await this.router.navigateByUrl('/');
-        this.notification.success('authorization status', '🚀Successful login, loading data...');
+        this.notification.success($localize`authorization status`, $localize`🚀Successful login, loading data...`);
       },
       error: () => {
         this.loading = false;

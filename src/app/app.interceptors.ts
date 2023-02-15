@@ -44,13 +44,13 @@ export class AppInterceptors implements HttpInterceptor {
       case 400:
         switch (e.error.code) {
           case 'AUTH_INCORRECT':
-            this.message.error(`Login failed, please confirm whether the account password is correct`);
+            this.message.error($localize`Login failed, please confirm whether the account password is correct`);
             break;
           case 'AUTH_MANY_INCORRECT':
-            this.message.error(`You have failed to log in too many times, please try again later`);
+            this.message.error($localize`You have failed to log in too many times, please try again later`);
             break;
           default:
-            this.message.error(`Execution failed [${e.error.code}] ${e.error.message}`);
+            this.message.error($localize`Execution failed [${e.error.code}] ${e.error.message}`);
         }
         break;
       case 401:
@@ -58,14 +58,14 @@ export class AppInterceptors implements HttpInterceptor {
         this.router.navigateByUrl('/login');
         break;
       case 403:
-        this.message.error(`Access is disabled, please contact administrator`);
+        this.message.error($localize`Access is disabled, please contact administrator`);
         break;
       case 404:
-        this.message.error(`Access request does not exist`);
+        this.message.error($localize`Access request does not exist`);
         break;
       case 500:
       case 503:
-        this.message.error(`Request server exception`);
+        this.message.error($localize`Request server exception`);
         break;
     }
     return throwError(() => e);

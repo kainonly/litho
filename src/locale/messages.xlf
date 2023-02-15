@@ -1,7 +1,49 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
-  <file source-language="en" datatype="plaintext" original="ng2.template">
+  <file source-language="en-US" datatype="plaintext" original="ng2.template">
     <body>
+      <trans-unit id="544513301085658025" datatype="html">
+        <source>Login failed, please confirm whether the account password is correct</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/app.interceptors.ts</context>
+          <context context-type="linenumber">47</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4548368160445675580" datatype="html">
+        <source>You have failed to log in too many times, please try again later</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/app.interceptors.ts</context>
+          <context context-type="linenumber">50</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3581812770841560708" datatype="html">
+        <source>Execution failed [<x id="PH" equiv-text="e.error.code"/>] <x id="PH_1" equiv-text="e.error.message"/></source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/app.interceptors.ts</context>
+          <context context-type="linenumber">53</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5971703556391247281" datatype="html">
+        <source>Access is disabled, please contact administrator</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/app.interceptors.ts</context>
+          <context context-type="linenumber">61</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1537117667304042275" datatype="html">
+        <source>Access request does not exist</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/app.interceptors.ts</context>
+          <context context-type="linenumber">64</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1311089998428616444" datatype="html">
+        <source>Request server exception</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/app.interceptors.ts</context>
+          <context context-type="linenumber">68</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="3096892796350245141" datatype="html">
         <source>SIGN IN</source>
         <context-group purpose="location">
@@ -16,6 +58,13 @@
           <context context-type="linenumber">6</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="2591356364591403634" datatype="html">
+        <source>Please enter email</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/login/login.component.html</context>
+          <context context-type="linenumber">12</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="1431416938026210429" datatype="html">
         <source>Password</source>
         <context-group purpose="location">
@@ -27,21 +76,49 @@
         <source> forget？</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/login/login.component.html</context>
-          <context context-type="linenumber">19</context>
+          <context context-type="linenumber">20</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4835532079381244289" datatype="html">
+        <source>Please enter password</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/login/login.component.html</context>
+          <context context-type="linenumber">32</context>
         </context-group>
       </trans-unit>
       <trans-unit id="2255738207434422096" datatype="html">
         <source>LOGIN</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/login/login.component.html</context>
-          <context context-type="linenumber">39</context>
+          <context context-type="linenumber">41</context>
         </context-group>
       </trans-unit>
       <trans-unit id="290735093992020324" datatype="html">
         <source>OR</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/login/login.component.html</context>
-          <context context-type="linenumber">44</context>
+          <context context-type="linenumber">46</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4208230236728542294" datatype="html">
+        <source>FeiShu</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/login/login.component.html</context>
+          <context context-type="linenumber">48</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5449542569146592819" datatype="html">
+        <source>authorization status</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/login/login.component.ts</context>
+          <context context-type="linenumber">56</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2580737554453924010" datatype="html">
+        <source>🚀Successful login, loading data...</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/login/login.component.ts</context>
+          <context context-type="linenumber">56</context>
         </context-group>
       </trans-unit>
     </body>

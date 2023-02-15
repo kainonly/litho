@@ -9,15 +9,16 @@
             <ng-template #identitySuffix>
               <span *ngIf="email.value" nz-icon nzType="close-circle" (click)="email.reset()"> </span>
             </ng-template>
-            <input type="email" nz-input formControlName="email" placeholder="Please enter email" />
+            <input type="email" nz-input formControlName="email" placeholder="Please enter email" i18n-placeholder />
           </nz-input-group>
         </nz-form-control>
       </nz-form-item>
 
       <nz-form-item>
-        <nz-form-label
-          ><b i18n>Password</b><a style="margin-left: 0.5em" routerLink="/forget" i18n> forget？</a></nz-form-label
-        >
+        <nz-form-label>
+          <b i18n>Password</b>
+          <a style="margin-left: 0.5em" routerLink="/forget" i18n> forget？</a>
+        </nz-form-label>
         <nz-form-control>
           <nz-input-group [nzSuffix]="passwordSuffix" nzPrefixIcon="lock">
             <ng-template #passwordSuffix>
@@ -29,6 +30,7 @@
               formControlName="password"
               autocomplete="new-password"
               placeholder="Please enter password"
+              i18n-placeholder
             />
           </nz-input-group>
         </nz-form-control>
@@ -43,7 +45,7 @@
 
       <nz-divider nzPlain nzText="OR" i18n-nzText></nz-divider>
       <nz-space>
-        <a *nzSpaceItem nz-tooltip="FeiShu" (click)="feishuOAuth()">
+        <a *nzSpaceItem nz-tooltip="FeiShu" i18n-nz-tooltip (click)="feishuOAuth()">
           <nz-avatar [nzSize]="30" nzShape="square" [nzSrc]="['assets', 'lark.svg'] | wpxAssets"></nz-avatar>
         </a>
       </nz-space>

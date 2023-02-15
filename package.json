@@ -4,16 +4,16 @@
   "version": "0.0.0-NOT-USED",
   "scripts": {
     "start": "ng s",
-    "start:proxy": "ng s --proxy-config src/proxy.conf.json",
-    "serve:ssr": "node dist/console/server/main.js",
+    "proxy": "ng s --proxy-config src/proxy.conf.json",
+    "i18n": "ng extract-i18n --output-path src/locale",
+    "preview:zh": "ng s --configuration zh",
     "build": "ng b --configuration production",
     "build:ssr": "npm run build && ng run console:server",
     "build:ng": "ng b angular --configuration production",
-    "prerender": "ng run console:prerender",
+    "serve:ssr": "node dist/console/server/main.js",
     "test": "ng t angular --code-coverage --no-watch --no-progress --browsers=ChromeHeadlessCI",
     "lint": "ng lint",
-    "e2e": "ng e2e",
-    "i18n": "ng extract-i18n --output-path src/locale"
+    "e2e": "ng e2e"
   },
   "dependencies": {
     "@angular/animations": "^15.0.4",

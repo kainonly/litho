@@ -57,7 +57,13 @@
               "vendorChunk": true,
               "extractLicenses": false,
               "sourceMap": true,
-              "namedChunks": true
+              "namedChunks": true,
+              "localize": ["en-US"],
+              "baseHref": "/en-US"
+            },
+            "zh": {
+              "localize": ["zh-CN"],
+              "baseHref": "/zh-CN"
             }
           },
           "defaultConfiguration": "production"
@@ -70,6 +76,9 @@
             },
             "development": {
               "browserTarget": "console:build:development"
+            },
+            "zh": {
+              "browserTarget": "console:build:zh"
             }
           },
           "options": {
