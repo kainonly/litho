@@ -12,81 +12,41 @@ const routes: Routes = [
     component: AdminComponent,
     children: [
       {
-        path: 'center',
-        children: [
-          {
-            path: 'projects',
-            loadChildren: () => import('./projects/projects.module').then(m => m.ProjectsModule),
-            data: {
-              breadcrumb: '项目管理'
-            }
-          },
-          {
-            path: 'functions',
-            loadChildren: () => import('./functions/functions.module').then(m => m.FunctionsModule),
-            data: {
-              breadcrumb: '功能模块'
-            }
-          },
-          {
-            path: 'security',
-            loadChildren: () => import('./security/security.module').then(m => m.SecurityModule),
-            data: {
-              breadcrumb: '安全策略'
-            }
-          },
-          { path: '', redirectTo: 'projects', pathMatch: 'full' }
-        ],
+        path: 'work',
+        loadChildren: () => import('./work/work.module').then(m => m.WorkModule),
         data: {
-          breadcrumb: '应用中心'
+          breadcrumb: $localize`Work`
         }
       },
       {
-        path: 'roles',
-        loadChildren: () => import('./roles/roles.module').then(m => m.RolesModule),
+        path: 'space',
+        loadChildren: () => import('./space/space.module').then(m => m.SpaceModule),
         data: {
-          breadcrumb: '权限组'
+          breadcrumb: $localize`Space`
         }
       },
       {
-        path: 'users',
-        loadChildren: () => import('./users/users.module').then(m => m.UsersModule),
+        path: 'orgs',
+        loadChildren: () => import('./orgs/orgs.module').then(m => m.OrgsModule),
         data: {
-          breadcrumb: '团队成员'
+          breadcrumb: $localize`Orgs`
         }
       },
-
       {
         path: 'monitor',
-        children: [
-          {
-            path: 'values',
-            loadChildren: () => import('./values/values.module').then(m => m.ValuesModule),
-            data: {
-              breadcrumb: '动态配置'
-            }
-          },
-          {
-            path: 'sessions',
-            loadChildren: () => import('./sessions/sessions.module').then(m => m.SessionsModule),
-            data: {
-              breadcrumb: '在线会话'
-            }
-          },
-          {
-            path: 'audit',
-            loadChildren: () => import('./audit/audit.module').then(m => m.AuditModule),
-            data: {
-              breadcrumb: '审计日志'
-            }
-          },
-          { path: '', redirectTo: 'sessions', pathMatch: 'full' }
-        ],
+        loadChildren: () => import('./monitor/monitor.module').then(m => m.MonitorModule),
         data: {
-          breadcrumb: '监控'
+          breadcrumb: $localize`Monitor`
         }
       },
-      { path: '', redirectTo: 'center', pathMatch: 'full' }
+      {
+        path: 'settings',
+        loadChildren: () => import('./settings/settings.module').then(m => m.SettingsModule),
+        data: {
+          breadcrumb: $localize`Settings`
+        }
+      },
+      { path: '', redirectTo: 'work', pathMatch: 'full' }
     ]
   }
 ];

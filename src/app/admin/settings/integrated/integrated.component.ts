@@ -12,10 +12,10 @@ import { OpenapiComponent } from './openapi/openapi.component';
 import { RedirectComponent } from './redirect/redirect.component';
 
 @Component({
-  selector: 'app-admin-functions',
-  templateUrl: './functions.component.html'
+  selector: 'app-admin-integrated',
+  templateUrl: './integrated.component.html'
 })
-export class FunctionsComponent implements OnInit {
+export class IntegratedComponent implements OnInit {
   /**
    * 数据
    */

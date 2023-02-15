@@ -6,7 +6,7 @@ import { ShareModule } from '@common/share.module';
 import { CloudComponent } from './cloud/cloud.component';
 import { CosComponent } from './cos/cos.component';
 import { EmailComponent } from './email/email.component';
-import { FunctionsComponent } from './functions.component';
+import { IntegratedComponent } from './integrated.component';
 import { OfficeComponent } from './office/office.component';
 import { OpenapiComponent } from './openapi/openapi.component';
 import { RedirectComponent } from './redirect/redirect.component';
@@ -14,14 +14,14 @@ import { RedirectComponent } from './redirect/redirect.component';
 const routes: Routes = [
   {
     path: '',
-    component: FunctionsComponent
+    component: IntegratedComponent
   }
 ];
 
 @NgModule({
   imports: [ShareModule, RouterModule.forChild(routes)],
   declarations: [
-    FunctionsComponent,
+    IntegratedComponent,
     CloudComponent,
     CosComponent,
     OfficeComponent,
@@ -30,4 +30,4 @@ const routes: Routes = [
     OpenapiComponent
   ]
 })
-export class FunctionsModule {}
+export class IntegratedModule {}

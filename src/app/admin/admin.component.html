@@ -1,74 +1,84 @@
 <nz-layout class="main">
   <div class="toolbar">
     <ul nz-menu nzMode="vertical">
-      <li nz-menu-item nz-tooltip="Project" nzTooltipPlacement="right">
-        <span nz-icon nzType="project"></span>
+      <li nz-menu-item nz-tooltip="Wrok" nzTooltipPlacement="right">
+        <span nz-icon nzType="desktop"></span>
       </li>
       <li nz-menu-item nz-tooltip="Space" nzTooltipPlacement="right">
         <span nz-icon nzType="environment"></span>
       </li>
-
-      <li nz-menu-item nz-tooltip="Setting" nzTooltipPlacement="right">
+      <li nz-menu-item nz-tooltip="Orgs" nzTooltipPlacement="right">
+        <span nz-icon nzType="apartment"></span>
+      </li>
+      <li nz-menu-item nz-tooltip="Monitor" nzTooltipPlacement="right">
+        <span nz-icon nzType="line-chart"></span>
+      </li>
+      <li nz-menu-item nz-tooltip="Settings" nzTooltipPlacement="right">
         <span nz-icon nzType="setting"></span>
       </li>
     </ul>
   </div>
   <nz-layout>
     <app-header> </app-header>
-    <nz-layout style="padding-top: 45px">
-      <nz-sider nzWidth="240px" nzTheme="light">
-        <ul nz-menu nzMode="inline">
-          <ul>
-            <li nz-menu-group nzTitle="应用中心">
-              <ul>
-                <li nz-menu-item nzMatchRouter [routerLink]="['/', 'admin', 'center', 'projects']">
-                  <span nz-icon nzType="project"></span>
-                  <span>项目管理</span>
-                </li>
-                <li nz-menu-item nzMatchRouter [routerLink]="['/', 'admin', 'center', 'functions']">
-                  <span nz-icon nzType="experiment"></span>
-                  <span>功能模块</span>
-                </li>
-                <li nz-menu-item nzMatchRouter [routerLink]="['/', 'admin', 'center', 'security']">
-                  <span nz-icon nzType="safety-certificate"></span>
-                  <span>安全策略</span>
-                </li>
-              </ul>
-            </li>
-            <li nz-menu-group nzTitle="组织架构">
-              <ul>
-                <li nz-menu-item nzMatchRouter [routerLink]="['/', 'admin', 'roles']">
-                  <span nz-icon nzType="partition"></span>
-                  <span>权限组</span>
-                </li>
-                <li nz-menu-item nzMatchRouter [routerLink]="['/', 'admin', 'users']">
-                  <span nz-icon nzType="team"></span>
-                  <span>团队成员</span>
-                </li>
-              </ul>
-            </li>
-            <li nz-menu-group nzTitle="监控">
-              <ul>
-                <li nz-menu-item nzMatchRouter [routerLink]="['/', 'admin', 'monitor', 'values']">
-                  <span nz-icon nzType="control"></span>
-                  <span>动态配置</span>
-                </li>
-                <li nz-menu-item nzMatchRouter [routerLink]="['/', 'admin', 'monitor', 'sessions']">
-                  <span nz-icon nzType="rocket"></span>
-                  <span>在线会话</span>
-                </li>
-                <li nz-menu-item nzMatchRouter [routerLink]="['/', 'admin', 'monitor', 'audit']">
-                  <span nz-icon nzType="file-protect"></span>
-                  <span>审计日志</span>
-                </li>
-              </ul>
-            </li>
-          </ul>
-        </ul>
-      </nz-sider>
+    <nz-layout class="frame">
       <nz-content>
         <router-outlet></router-outlet>
       </nz-content>
     </nz-layout>
+    <!--    <nz-layout style="padding-top: 45px">-->
+    <!--      <nz-sider nzWidth="240px" nzTheme="light">-->
+    <!--        <ul nz-menu nzMode="inline">-->
+    <!--          <ul>-->
+    <!--            <li nz-menu-group nzTitle="应用中心">-->
+    <!--              <ul>-->
+    <!--                <li nz-menu-item nzMatchRouter [routerLink]="['/', 'admin', 'center', 'projects']">-->
+    <!--                  <span nz-icon nzType="project"></span>-->
+    <!--                  <span>项目管理</span>-->
+    <!--                </li>-->
+    <!--                <li nz-menu-item nzMatchRouter [routerLink]="['/', 'admin', 'center', 'functions']">-->
+    <!--                  <span nz-icon nzType="experiment"></span>-->
+    <!--                  <span>功能模块</span>-->
+    <!--                </li>-->
+    <!--                <li nz-menu-item nzMatchRouter [routerLink]="['/', 'admin', 'center', 'security']">-->
+    <!--                  <span nz-icon nzType="safety-certificate"></span>-->
+    <!--                  <span>安全策略</span>-->
+    <!--                </li>-->
+    <!--              </ul>-->
+    <!--            </li>-->
+    <!--            <li nz-menu-group nzTitle="组织架构">-->
+    <!--              <ul>-->
+    <!--                <li nz-menu-item nzMatchRouter [routerLink]="['/', 'admin', 'roles']">-->
+    <!--                  <span nz-icon nzType="partition"></span>-->
+    <!--                  <span>权限组</span>-->
+    <!--                </li>-->
+    <!--                <li nz-menu-item nzMatchRouter [routerLink]="['/', 'admin', 'users']">-->
+    <!--                  <span nz-icon nzType="team"></span>-->
+    <!--                  <span>团队成员</span>-->
+    <!--                </li>-->
+    <!--              </ul>-->
+    <!--            </li>-->
+    <!--            <li nz-menu-group nzTitle="监控">-->
+    <!--              <ul>-->
+    <!--                <li nz-menu-item nzMatchRouter [routerLink]="['/', 'admin', 'monitor', 'values']">-->
+    <!--                  <span nz-icon nzType="control"></span>-->
+    <!--                  <span>动态配置</span>-->
+    <!--                </li>-->
+    <!--                <li nz-menu-item nzMatchRouter [routerLink]="['/', 'admin', 'monitor', 'sessions']">-->
+    <!--                  <span nz-icon nzType="rocket"></span>-->
+    <!--                  <span>在线会话</span>-->
+    <!--                </li>-->
+    <!--                <li nz-menu-item nzMatchRouter [routerLink]="['/', 'admin', 'monitor', 'audit']">-->
+    <!--                  <span nz-icon nzType="file-protect"></span>-->
+    <!--                  <span>审计日志</span>-->
+    <!--                </li>-->
+    <!--              </ul>-->
+    <!--            </li>-->
+    <!--          </ul>-->
+    <!--        </ul>-->
+    <!--      </nz-sider>-->
+    <!--      <nz-content>-->
+    <!--        <router-outlet></router-outlet>-->
+    <!--      </nz-content>-->
+    <!--    </nz-layout>-->
   </nz-layout>
 </nz-layout>
