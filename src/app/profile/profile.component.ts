@@ -3,14 +3,15 @@ import { Router } from '@angular/router';
 import { timer } from 'rxjs';
 
 import { AppService } from '@app';
-import { AvatarComponent } from '@common/profile/avatar/avatar.component';
-import { BackupEmailComponent } from '@common/profile/backup-email/backup-email.component';
-import { EmailComponent } from '@common/profile/email/email.component';
-import { NameComponent } from '@common/profile/name/name.component';
-import { PasswordComponent } from '@common/profile/password/password.component';
 import { NzDrawerRef } from 'ng-zorro-antd/drawer';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalService } from 'ng-zorro-antd/modal';
+
+import { AvatarComponent } from './avatar/avatar.component';
+import { BackupEmailComponent } from './backup-email/backup-email.component';
+import { EmailComponent } from './email/email.component';
+import { NameComponent } from './name/name.component';
+import { PasswordComponent } from './password/password.component';
 
 @Component({
   selector: 'app-profile',

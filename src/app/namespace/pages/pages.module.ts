@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { HeaderModule } from '@common/header/header.module';
 import { ShareModule } from '@common/share.module';
 import { NzHighlightModule } from 'ng-zorro-antd/core/highlight';
 
@@ -63,7 +62,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [ShareModule, HeaderModule, RouterModule.forChild(routes), NzHighlightModule],
+  imports: [ShareModule, RouterModule.forChild(routes), NzHighlightModule],
   declarations: [PagesComponent, HomeComponent, FormComponent],
   providers: [PagesService]
 })

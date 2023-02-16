@@ -7,7 +7,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule, Routes } from '@angular/router';
 
-import { HeaderModule } from '@common/header/header.module';
 import { ShareModule } from '@common/share.module';
 import { environment } from '@env';
 import { WpxRichtextModule } from '@weplanx/ng/richtext';
@@ -21,6 +20,7 @@ import { NzMessageModule } from 'ng-zorro-antd/message';
 import { AppComponent } from './app.component';
 import { AppGuard } from './app.guard';
 import { AppInterceptors } from './app.interceptors';
+import { ProfileModule } from './profile/profile.module';
 
 registerLocaleData(en);
 
@@ -73,7 +73,7 @@ if (!environment.production) {
     FormsModule,
     NzLayoutModule,
     NzMessageModule,
-    HeaderModule,
+    ProfileModule,
     WpxRichtextModule.forRoot({
       url: 'https://cdn.kainonly.com/assets/editorjs/editorjs.js',
       plugins: [

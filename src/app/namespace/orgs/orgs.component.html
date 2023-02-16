@@ -1,4 +1,4 @@
-<nz-layout class="nested" style="overflow: hidden">
+<nz-layout class="common-layout">
   <nz-sider style="" nzWidth="200px" nzTheme="light">
     <ul *ngIf="app.project as p" nz-menu nzMode="inline">
       <li nz-menu-group nzTitle="组织架构">
@@ -16,8 +16,8 @@
     </ul>
   </nz-sider>
 
-  <nz-layout style="overflow: auto">
-    <nz-content>
+  <nz-layout class="inner-layout">
+    <nz-content class="content">
       <router-outlet></router-outlet>
     </nz-content>
   </nz-layout>

@@ -2,11 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { AppService } from '@app';
-import { ProfileComponent } from '@common/profile/profile.component';
 import { environment } from '@env';
 import { WpxService } from '@weplanx/ng';
 import { NzDrawerService } from 'ng-zorro-antd/drawer';
 import { NzIconService } from 'ng-zorro-antd/icon';
+
+import { ProfileComponent } from './profile/profile.component';
 
 @Component({
   selector: 'app-root',

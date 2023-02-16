@@ -1,4 +1,4 @@
-<nz-layout class="nested" style="overflow: hidden">
+<nz-layout class="common-layout">
   <nz-sider class="tree-sider" nzTheme="light" [nzWidth]="320" (contextmenu)="actions($event, actionsMenu)">
     <nz-space>
       <nz-input-group *nzSpaceItem [nzPrefix]="suffixIconSearch" style="width: 180px">
@@ -52,7 +52,7 @@
     </nz-tree-view>
   </nz-sider>
 
-  <nz-layout style="overflow: auto">
+  <nz-layout class="inner-layout">
     <nz-content class="content">
       <router-outlet></router-outlet>
     </nz-content>
