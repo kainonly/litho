@@ -1,54 +1,89 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, OnInit, Type } from '@angular/core';
 
 import { WpxService } from '@weplanx/ng';
 import { NzMessageService } from 'ng-zorro-antd/message';
-import { NzModalRef } from 'ng-zorro-antd/modal';
+import { NzModalService } from 'ng-zorro-antd/modal';
+
+import { CosComponent } from './cos/cos.component';
+import { TencentComponent } from './tencent/tencent.component';
 
 @Component({
-  selector: 'app-admin-functions-cloud',
+  selector: 'app-admin-cloud',
   templateUrl: './cloud.component.html'
 })
 export class CloudComponent implements OnInit {
-  /**
-   * 载入数据
-   */
-  @Input() values!: Record<string, any>;
-  /**
-   * 表单
-   */
-  form!: FormGroup;
+  values: Record<string, any> = {};
 
-  constructor(
-    public wpx: WpxService,
-    private modalRef: NzModalRef,
-    private message: NzMessageService,
-    private fb: FormBuilder
-  ) {}
+  constructor(private wpx: WpxService, private modal: NzModalService, private message: NzMessageService) {}
 
   ngOnInit(): void {
-    this.form = this.fb.group({
-      cloud: ['tencent', [Validators.required]],
-      tencent_secret_id: [null, [Validators.required]],
-      tencent_secret_key: [null, [Validators.required]]
-    });
+    this.getData();
   }
 
   /**
-   * 关闭表单
+   * 获取数据
    */
-  close(): void {
-    this.modalRef.triggerCancel();
+  getData(): void {
+    this.wpx
+      .getValues([
+        'cloud',
+        'tencent_secret_id',
+        'tencent_secret_key',
+        'tencent_cos_bucket',
+        'tencent_cos_region',
+        'tencent_cos_expired',
+        'tencent_cos_limit'
+      ])
+      .subscribe(data => {
+        this.values = data;
+      });
   }
 
-  /**
-   * 提交
-   * @param data
-   */
-  submit(data: any): void {
-    this.wpx.setValues(data).subscribe(() => {
-      this.message.success('设置成功');
-      this.modalRef.triggerOk();
+  private setModal(nzTitle: string, component: Type<{ values: Record<string, any> }>): void {
+    this.modal.create({
+      nzTitle,
+      nzContent: component,
+      nzComponentParams: {
+        values: this.values
+      },
+      nzOnOk: () => {
+        this.getData();
+      }
     });
+  }
+
+  useCloud(cloud: string): void {
+    let message = $localize`Are you sure to use this public cloud?`;
+    if (this.values['cloud']) {
+      if (cloud === this.values['cloud']) {
+        message = $localize`Are you sure stop it?`;
+        cloud = '';
+      } else {
+        message = $localize`A public cloud already exists, enabling it will automatically stop the previous!`;
+      }
+    }
+    this.modal.confirm({
+      nzTitle: $localize`Public Cloud Switch`,
+      nzContent: message,
+      nzMaskClosable: true,
+      nzOnOk: () => {
+        this.wpx
+          .setValues({
+            cloud
+          })
+          .subscribe(() => {
+            this.getData();
+            this.message.success($localize`Data update complete`);
+          });
+      }
+    });
+  }
+
+  setTencent(): void {
+    this.setModal($localize`Tencent Cloud Form`, TencentComponent);
+  }
+
+  setCos(): void {
+    this.setModal($localize`Tencent Cloud Cos Form`, CosComponent);
   }
 }

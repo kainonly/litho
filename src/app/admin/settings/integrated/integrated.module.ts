@@ -3,31 +3,23 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { ShareModule } from '@common/share.module';
 
-import { CloudComponent } from './cloud/cloud.component';
-import { CosComponent } from './cos/cos.component';
-import { EmailComponent } from './email/email.component';
-import { IntegratedComponent } from './integrated.component';
-import { OfficeComponent } from './office/office.component';
-import { OpenapiComponent } from './openapi/openapi.component';
-import { RedirectComponent } from './redirect/redirect.component';
-
 const routes: Routes = [
   {
     path: '',
-    component: IntegratedComponent
+    children: [
+      {
+        path: 'cloud',
+        loadChildren: () => import('./cloud/cloud.module').then(m => m.CloudModule),
+        data: {
+          breadcrumb: $localize`Public Cloud`
+        }
+      },
+      { path: '', redirectTo: 'cloud', pathMatch: 'full' }
+    ]
   }
 ];
 
 @NgModule({
-  imports: [ShareModule, RouterModule.forChild(routes)],
-  declarations: [
-    IntegratedComponent,
-    CloudComponent,
-    CosComponent,
-    OfficeComponent,
-    RedirectComponent,
-    EmailComponent,
-    OpenapiComponent
-  ]
+  imports: [ShareModule, RouterModule.forChild(routes)]
 })
 export class IntegratedModule {}

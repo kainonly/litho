@@ -6,28 +6,37 @@ import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalRef } from 'ng-zorro-antd/modal';
 
 @Component({
-  selector: 'app-admin-functions-cos',
+  selector: 'app-admin-cloud-cos',
   templateUrl: './cos.component.html'
 })
 export class CosComponent implements OnInit {
-  /**
-   * 载入数据
-   */
+  tips = {
+    tencent_cos_bucket: {
+      default: {
+        required: $localize`The bucket name cannot be empty`
+      }
+    },
+    tencent_cos_region: {
+      default: {
+        required: $localize`the region cannot be empty`
+      }
+    },
+    tencent_cos_expired: {
+      default: {
+        required: $localize`the pre-signature ttl cannot be empty`
+      }
+    },
+    tencent_cos_limit: {
+      default: {
+        required: $localize`the upload size limit cannot be empty`
+      }
+    }
+  };
+
   @Input() values!: Record<string, any>;
-  /**
-   * 表单
-   */
-  form!: FormGroup;
-  /**
-   * 秒
-   * @param value
-   */
-  formatterSec = (value: number): string => `${value} 秒`;
-  /**
-   * 存储单位格式化
-   * @param value
-   */
+  formatterSec = (value: number): string => `${value} s`;
   formatterSize = (value: number): string => `${value} KB`;
+  form!: FormGroup;
 
   constructor(
     public wpx: WpxService,
@@ -47,20 +56,13 @@ export class CosComponent implements OnInit {
     this.form.patchValue(values);
   }
 
-  /**
-   * 关闭表单
-   */
   close(): void {
     this.modalRef.triggerCancel();
   }
 
-  /**
-   * 提交
-   * @param data
-   */
   submit(data: any): void {
     this.wpx.setValues(data).subscribe(() => {
-      this.message.success('设置成功');
+      this.message.success($localize`Data update complete`);
       this.modalRef.triggerOk();
     });
   }

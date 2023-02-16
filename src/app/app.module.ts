@@ -105,7 +105,7 @@ if (!environment.production) {
       useValue: <NzConfig>{
         notification: { nzPlacement: 'bottomRight' },
         pageHeader: { nzGhost: false },
-        card: { nzBorderless: true },
+        card: { nzBorderless: true, nzSize: 'small' },
         table: { nzSize: 'small' },
         codeEditor: {
           assetsRoot: `https://cdn.kainonly.com/assets`

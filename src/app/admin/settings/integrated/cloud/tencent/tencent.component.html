@@ -1,0 +1,29 @@
+<form nz-form nzLayout="vertical" id="form" [formGroup]="form" (wpxSubmit)="submit($event)">
+  <nz-form-item>
+    <nz-form-label nzRequired>SecretId</nz-form-label>
+    <nz-form-control nzHasFeedback [nzAutoTips]="tips.tencent_secret_id">
+      <input
+        nz-input
+        formControlName="tencent_secret_id"
+        placeholder="Please enter the tencent cloud SecretId"
+        i18n-placeholder
+      />
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label nzRequired>SecretKey</nz-form-label>
+    <nz-form-control nzHasFeedback [nzAutoTips]="tips.tencent_secret_key">
+      <input
+        nz-input
+        formControlName="tencent_secret_key"
+        placeholder="Please enter the tencent cloud SecretKey"
+        i18n-placeholder
+      />
+    </nz-form-control>
+  </nz-form-item>
+</form>
+
+<div *nzModalFooter>
+  <button nz-button type="button" nzType="default" (click)="close()" i18n>Cancel</button>
+  <button nz-button nzType="primary" form="form" [disabled]="!form.valid" i18n>Submit</button>
+</div>

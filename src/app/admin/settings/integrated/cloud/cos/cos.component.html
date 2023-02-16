@@ -1,0 +1,43 @@
+<form nz-form nzLayout="vertical" id="form" [formGroup]="form" (wpxSubmit)="submit($event)">
+  <nz-form-item>
+    <nz-form-label nzRequired i18n>Bucket Name</nz-form-label>
+    <nz-form-control nzHasFeedback [nzAutoTips]="tips.tencent_cos_bucket">
+      <input nz-input formControlName="tencent_cos_bucket" />
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label nzRequired i18n>Region</nz-form-label>
+    <nz-form-control nzHasFeedback [nzAutoTips]="tips.tencent_cos_region">
+      <input nz-input formControlName="tencent_cos_region" placeholder="For example: ap-guangzhou" i18n-placeholder />
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label nzRequired i18n>Pre-signature TTL</nz-form-label>
+    <nz-form-control nzHasFeedback [nzAutoTips]="tips.tencent_cos_expired">
+      <nz-input-number
+        style="width: 100%"
+        formControlName="tencent_cos_expired"
+        [nzFormatter]="formatterSec"
+        [nzMin]="0"
+        [nzStep]="1"
+      ></nz-input-number>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label nzRequired i18n>Upload size limit (KB)</nz-form-label>
+    <nz-form-control nzHasFeedback [nzAutoTips]="tips.tencent_cos_limit">
+      <nz-input-number
+        style="width: 100%"
+        formControlName="tencent_cos_limit"
+        [nzFormatter]="formatterSize"
+        [nzMin]="0"
+        [nzStep]="1"
+      ></nz-input-number>
+    </nz-form-control>
+  </nz-form-item>
+</form>
+
+<div *nzModalFooter>
+  <button nz-button type="button" nzType="default" (click)="close()" i18n>Cancel</button>
+  <button nz-button nzType="primary" form="form" [disabled]="!form.valid" i18n>Submit</button>
+</div>

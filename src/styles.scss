@@ -7,24 +7,6 @@ body {
   background-color: #f0f2f5;
 }
 
-nz-layout.frame {
-  padding-top: 45px;
-  padding-left: 45px;
-  overflow-x: hidden;
-  overflow-y: auto;
-}
-
-nz-layout.nested {
-  height: 100%;
-  overflow-x: hidden;
-  overflow-y: auto;
-}
-
-nz-sider.tree-sider {
-  padding: 12px;
-  border-right: 2px solid #f0f0f0;
-}
-
 .search-input {
   width: 180px;
 }
@@ -69,5 +51,5 @@ $content-left: 60px;
 }
 
 .inner-layout {
-  padding: 5px;
+  padding: 8px;
 }

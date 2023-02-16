@@ -3,7 +3,7 @@
     <ul nz-menu nzMode="inline" style="border: none">
       <li nz-menu-group nzTitle="Integrated" i18n-nzTitle>
         <ul>
-          <li nz-menu-item>
+          <li nz-menu-item nzMatchRouter [routerLink]="['/', 'admin', 'settings', 'integrated', 'cloud']">
             <span nz-icon nzType="cloud"></span>
             <span i18n>Public Cloud</span>
           </li>
