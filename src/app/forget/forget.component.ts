@@ -12,6 +12,30 @@ import { NzMessageService } from 'ng-zorro-antd/message';
   styleUrls: ['./forget.component.scss']
 })
 export class ForgetComponent implements OnInit {
+  tips = {
+    email: {
+      default: {
+        required: $localize`The email cannot be empty`,
+        email: $localize`The email format is not standardized`
+      }
+    },
+    captcha: {
+      default: {
+        required: $localize`The verification code cannot be empty`
+      }
+    },
+    password: {
+      default: {
+        required: $localize`The new password cannot be empty`,
+        minlength: $localize`The length of the new password cannot be less than 12 characters`,
+        lowercase: $localize`The new password needs to contain lowercase letters`,
+        uppercase: $localize`The new password needs to contain capital letters`,
+        number: $localize`The new password needs to contain numbers`,
+        symbol: $localize`The new password needs to contain symbols (@$!%*?&-+)`
+      }
+    }
+  };
+
   step = 0;
   verifyForm?: FormGroup;
   pwdForm?: FormGroup;
@@ -47,7 +71,7 @@ export class ForgetComponent implements OnInit {
 
   getCaptcha(): void {
     if (!this.verifyForm?.get('email')?.value) {
-      this.message.warning('请先填写电子邮件');
+      this.message.warning($localize`Please enter the email first`);
       return;
     }
     const email = this.verifyForm!.get('email')!.value;
@@ -59,7 +83,7 @@ export class ForgetComponent implements OnInit {
           .subscribe(() => {
             this.countdown--;
           });
-        this.message.success('验证码已发送至电子邮件');
+        this.message.success($localize`A verification code has been sent to your email`);
       }
     });
   }
@@ -68,7 +92,7 @@ export class ForgetComponent implements OnInit {
     this.wpx.verifyCaptcha(data).subscribe(v => {
       this.token = v.token;
       this.step++;
-      this.message.success('验证通过，请在5分钟内设置新密码');
+      this.message.success($localize`After verification, please set a new password within 5 minutes`);
     });
   }
 

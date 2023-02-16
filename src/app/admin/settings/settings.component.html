@@ -1,0 +1,60 @@
+<nz-layout class="common-layout">
+  <nz-sider style="height: 100%" nzWidth="180px" nzTheme="light">
+    <ul nz-menu nzMode="inline" style="border: none">
+      <li nz-menu-group nzTitle="Integrated" i18n-nzTitle>
+        <ul>
+          <li nz-menu-item>
+            <span nz-icon nzType="cloud"></span>
+            <span i18n>Public Cloud</span>
+          </li>
+          <li nz-menu-item>
+            <span nz-icon nzType="dingtalk"></span>
+            <span i18n>Collaboration</span>
+          </li>
+          <li nz-menu-item>
+            <span nz-icon nzType="mail"></span>
+            <span i18n>Public Mailbox</span>
+          </li>
+          <li nz-menu-item>
+            <span nz-icon nzType="appstore-add"></span>
+            <span i18n>Extend Services</span>
+          </li>
+        </ul>
+      </li>
+      <li nz-menu-group nzTitle="Security" i18n-nzTitle>
+        <ul>
+          <li nz-menu-item>
+            <span nz-icon nzType="form"></span>
+            <span i18n>Basic Strategy</span>
+          </li>
+          <li nz-menu-item>
+            <span nz-icon nzType="check"></span>
+            <span i18n>Whitelist</span>
+          </li>
+          <li nz-menu-item>
+            <span nz-icon nzType="stop"></span>
+            <span i18n>Blacklist</span>
+          </li>
+        </ul>
+      </li>
+      <li nz-menu-group nzTitle="Aduit" i18n-nzTitle>
+        <ul>
+          <li nz-menu-item>
+            <span nz-icon nzType="audit"></span>
+            <span i18n>Login Logs</span>
+          </li>
+          <li nz-menu-item>
+            <span nz-icon nzType="history"></span>
+            <span i18n>Access Logs</span>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </nz-sider>
+
+  <nz-layout class="inner-layout">
+    <nz-content class="content">
+      <router-outlet></router-outlet>
+    </nz-content>
+  </nz-layout>
+</nz-layout>

@@ -3,12 +3,8 @@
 @import 'https://cdn.kainonly.com/assets/ng-zorro-antd/code-editor/index.min.css';
 @import 'https://cdn.kainonly.com/assets/ng-zorro-antd/resizable/index.min.css';
 
-nz-layout.main {
-  height: 100%;
-  background-image: url('/assets/bg.svg');
-  background-repeat: no-repeat;
-  background-position: center 50px;
-  background-size: 100%;
+body {
+  background-color: #f0f2f5;
 }
 
 nz-layout.frame {
@@ -33,23 +29,20 @@ nz-sider.tree-sider {
   width: 180px;
 }
 
-.content {
-  padding: 8px;
-}
-
 .highlight {
   color: red;
 }
 
+$content-left: 60px;
+
 .toolbar {
-  z-index: 999;
   position: fixed;
-  top: 0;
+  left: 0;
+  top: 45px;
   bottom: 0;
-  width: 50px;
-  background: #fff;
-  box-shadow: 0 1px 4px rgb(0 21 41 / 8%);
-  padding-top: 45px;
+  width: $content-left;
+  background: #fafafa;
+  z-index: 998;
 
   ul {
     text-align: center;
@@ -58,13 +51,23 @@ nz-sider.tree-sider {
     li[nz-menu-item] {
       height: 45px;
       line-height: 45px;
+      background: #fafafa;
     }
   }
 
-  .setting {
-    position: absolute;
-    bottom: 0;
-    width: 100%;
+  .ant-menu:not(.ant-menu-horizontal) .ant-menu-item-selected {
+    background-color: #fff;
   }
 }
 
+.common-layout {
+  height: 100%;
+  padding-top: 45px;
+  padding-left: $content-left;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+.inner-layout {
+  padding: 5px;
+}

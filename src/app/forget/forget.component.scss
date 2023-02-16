@@ -1,13 +1,17 @@
 nz-card {
   margin: 9% auto 0;
-  padding: 24px;
-  width: 600px;
-  border-radius: 3px;
+  padding: 1.2em 1.5em;
+  width: 540px;
   box-shadow: 0 7px 25px rgba(0, 0, 0, 0.08);
-
 }
 
 .content {
-  width: 320px;
+  width: 240px;
   margin: 16px auto 0;
+}
+
+.translation {
+  position: absolute;
+  top: 2em;
+  right: 2em;
 }

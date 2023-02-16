@@ -26,10 +26,10 @@ const routes: Routes = [
         }
       },
       {
-        path: 'values',
-        loadChildren: () => import('./values/values.module').then(m => m.ValuesModule),
+        path: 'audit',
+        loadChildren: () => import('./audit/audit.module').then(m => m.AuditModule),
         data: {
-          breadcrumb: $localize`Values`
+          breadcrumb: $localize`Audit`
         }
       },
       { path: '', redirectTo: 'integrated', pathMatch: 'full' }

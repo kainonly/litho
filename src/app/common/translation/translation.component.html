@@ -1,0 +1,14 @@
+<button nzSize="large" nz-button nzType="text" nz-dropdown [nzDropdownMenu]="i18nMenu">
+  <span nz-icon nzType="translation"></span>
+  <span [ngSwitch]="locale">
+    <ng-container *ngSwitchCase="'en-US'">English</ng-container>
+    <ng-container *ngSwitchCase="'zh-CH'">简体中文</ng-container>
+  </span>
+</button>
+
+<nz-dropdown-menu #i18nMenu="nzDropdownMenu">
+  <ul nz-menu>
+    <li nz-menu-item (click)="wpx.setLocale('en-US')"> English </li>
+    <li nz-menu-item (click)="wpx.setLocale('zh-CN')"> 简体中文 </li>
+  </ul>
+</nz-dropdown-menu>

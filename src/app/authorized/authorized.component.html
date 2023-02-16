@@ -1,7 +1,11 @@
-<app-blank>
-  <nz-result nzStatus="success" nzTitle="授权成功" nzSubTitle="您已成功关联飞书帐号">
-    <div nz-result-extra>
-      <button nz-button nzType="primary" (click)="close()">关闭</button>
-    </div>
-  </nz-result>
-</app-blank>
+<nz-result
+  nzStatus="success"
+  nzTitle="Authorization successful"
+  nzSubTitle="You have successfully associated your Feishu account"
+  i18n-nzTitle
+  i18n-nzSubTitle
+>
+  <div nz-result-extra>
+    <button nz-button nzType="primary" (click)="close()" i18n>Close</button>
+  </div>
+</nz-result>

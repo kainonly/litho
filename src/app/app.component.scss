@@ -1,0 +1,61 @@
+.background {
+  background-image: url('/assets/bg.svg');
+  background-repeat: no-repeat;
+  background-position: center 50px;
+  background-size: 100%;
+}
+
+nz-footer {
+  text-align: center;
+  width: 100%;
+
+  p {
+    padding-top: 0.5em;
+  }
+
+  a {
+    color: rgba(0, 0, 0, 0.85);
+  }
+
+  a:hover {
+    text-decoration: underline;
+  }
+}
+
+$header-height: 45px;
+
+.header {
+  position: fixed;
+  left: 0;
+  right: 0;
+  height: $header-height;
+  line-height: $header-height;
+  padding: 0 12px;
+  z-index: 1000;
+  background: #fafafa;
+  border-bottom: 1px solid #f0f0f0;
+
+  .breadcrumb {
+    padding-left: 1em;
+    font-weight: bold;
+  }
+
+  .center {
+    height: 100%;
+    line-height: $header-height - 5px;
+    padding: 0 12px;
+
+    &:hover,
+    &:focus {
+      cursor: pointer;
+      background: rgba(0, 0, 0, 0.018);
+    }
+
+    .username {
+      display: inline-block;
+      margin-left: 12px;
+      vertical-align: middle;
+      font-weight: bold;
+    }
+  }
+}

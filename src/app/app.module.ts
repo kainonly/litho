@@ -7,11 +7,15 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule, Routes } from '@angular/router';
 
+import { HeaderModule } from '@common/header/header.module';
+import { ShareModule } from '@common/share.module';
 import { environment } from '@env';
 import { WpxRichtextModule } from '@weplanx/ng/richtext';
 import { WpxStoreModule } from '@weplanx/ng/store';
 import { NZ_CONFIG, NzConfig } from 'ng-zorro-antd/core/config';
 import { NZ_I18N, en_US } from 'ng-zorro-antd/i18n';
+import { NzLayoutModule } from 'ng-zorro-antd/layout';
+import { NzMenuModule } from 'ng-zorro-antd/menu';
 import { NzMessageModule } from 'ng-zorro-antd/message';
 
 import { AppComponent } from './app.component';
@@ -67,7 +71,9 @@ if (!environment.production) {
     HttpClientModule,
     HttpClientXsrfModule,
     FormsModule,
+    NzLayoutModule,
     NzMessageModule,
+    HeaderModule,
     WpxRichtextModule.forRoot({
       url: 'https://cdn.kainonly.com/assets/editorjs/editorjs.js',
       plugins: [
@@ -85,7 +91,9 @@ if (!environment.production) {
       plugins: [],
       name: 'weplanx'
     }),
-    RouterModule.forRoot(routes, { useHash: true, initialNavigation: 'enabledBlocking' })
+    RouterModule.forRoot(routes, { useHash: true, initialNavigation: 'enabledBlocking' }),
+    NzMenuModule,
+    ShareModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AppInterceptors, multi: true },

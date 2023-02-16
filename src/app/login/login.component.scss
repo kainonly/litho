@@ -1,5 +1,5 @@
 nz-card {
-  margin: 8% auto 0;
+  margin: 9% auto 0;
   width: 320px;
   padding: 1.2em 1.5em;
   box-shadow: 0 7px 25px rgba(0, 0, 0, 0.08);
@@ -8,4 +8,10 @@ nz-card {
     font-size: 32px;
     padding-bottom: 1em;
   }
+}
+
+.translation {
+  position: absolute;
+  top: 2em;
+  right: 2em;
 }

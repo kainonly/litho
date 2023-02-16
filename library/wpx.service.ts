@@ -1,6 +1,6 @@
 import { Platform } from '@angular/cdk/platform';
 import { ComponentPortal, ComponentType } from '@angular/cdk/portal';
-import { DOCUMENT } from '@angular/common';
+import { DOCUMENT, Location } from '@angular/common';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
 import { AsyncSubject, fromEvent, Observable } from 'rxjs';
@@ -29,7 +29,12 @@ export class WpxService {
 
   scripts: Map<string, AsyncSubject<void>> = new Map();
 
-  constructor(private http: HttpClient, @Inject(DOCUMENT) private document: Document, private platform: Platform) {}
+  constructor(
+    private http: HttpClient,
+    @Inject(DOCUMENT) private document: Document,
+    private platform: Platform,
+    private location: Location
+  ) {}
 
   /**
    * 设置静态资源
@@ -112,6 +117,14 @@ export class WpxService {
         async.complete();
       });
     }
+  }
+
+  setLocale(id: string): void {
+    if (!this.platform.isBrowser) {
+      return;
+    }
+    const l = this.document.location;
+    this.document.location = `${l.origin}/${id}/${l.hash}`;
   }
 
   /**
