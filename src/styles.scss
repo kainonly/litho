@@ -46,10 +46,11 @@ $content-left: 60px;
   height: 100%;
   padding-top: 45px;
   padding-left: $content-left;
-  overflow-x: hidden;
-  overflow-y: auto;
+  overflow: hidden;
 }
 
 .inner-layout {
   padding: 8px;
+  overflow-x: hidden;
+  overflow-y: auto;
 }

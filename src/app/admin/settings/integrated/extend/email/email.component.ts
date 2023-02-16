@@ -6,17 +6,33 @@ import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalRef } from 'ng-zorro-antd/modal';
 
 @Component({
-  selector: 'app-admin-functions-email',
+  selector: 'app-admin-integrated-extend-email',
   templateUrl: './email.component.html'
 })
 export class EmailComponent implements OnInit {
-  /**
-   * 载入数据
-   */
+  tips = {
+    email_host: {
+      default: {
+        required: $localize`The SMTP host cannot be empty`
+      }
+    },
+    email_port: {
+      default: {
+        required: $localize`The SMTP port cannot be empty`
+      }
+    },
+    email_username: {
+      default: {
+        required: $localize`The email username cannot be empty`
+      }
+    },
+    email_password: {
+      default: {
+        required: $localize`The email password cannot be empty`
+      }
+    }
+  };
   @Input() values!: Record<string, any>;
-  /**
-   * 表单
-   */
   form!: FormGroup;
 
   constructor(
@@ -40,20 +56,13 @@ export class EmailComponent implements OnInit {
     });
   }
 
-  /**
-   * 关闭表单
-   */
   close(): void {
     this.modalRef.triggerCancel();
   }
 
-  /**
-   * 提交
-   * @param data
-   */
   submit(data: any): void {
     this.wpx.setValues(data).subscribe(() => {
-      this.message.success('设置成功');
+      this.message.success($localize`Data update complete`);
       this.modalRef.triggerOk();
     });
   }

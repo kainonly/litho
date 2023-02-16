@@ -1,0 +1,25 @@
+<form nz-form nzLayout="vertical" id="form" [formGroup]="form" (wpxSubmit)="submit($event)">
+  <nz-form-item>
+    <nz-form-label nzRequired>URL</nz-form-label>
+    <nz-form-control nzHasFeedback [nzAutoTips]="tips.openapi_url">
+      <input nz-input formControlName="openapi_url" />
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label nzRequired>App Key</nz-form-label>
+    <nz-form-control nzHasFeedback [nzAutoTips]="tips.openapi_key">
+      <input nz-input formControlName="openapi_key" />
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label nzRequired>App Secret</nz-form-label>
+    <nz-form-control nzHasFeedback [nzAutoTips]="tips.openapi_secret">
+      <input nz-input formControlName="openapi_secret" />
+    </nz-form-control>
+  </nz-form-item>
+</form>
+
+<div *nzModalFooter>
+  <button nz-button type="button" nzType="default" (click)="close()" i18n>Cancel</button>
+  <button nz-button nzType="primary" form="form" [disabled]="!form.valid" i18n>Submit</button>
+</div>

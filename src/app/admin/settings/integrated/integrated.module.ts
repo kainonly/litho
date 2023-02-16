@@ -21,6 +21,13 @@ const routes: Routes = [
           breadcrumb: $localize`Collaboration`
         }
       },
+      {
+        path: 'extend',
+        loadChildren: () => import('./extend/extend.module').then(m => m.ExtendModule),
+        data: {
+          breadcrumb: $localize`Extend Services`
+        }
+      },
       { path: '', redirectTo: 'cloud', pathMatch: 'full' }
     ]
   }

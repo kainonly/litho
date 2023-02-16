@@ -1,23 +1,19 @@
 import { Component, OnInit, Type } from '@angular/core';
 
 import { WpxService } from '@weplanx/ng';
-import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalService } from 'ng-zorro-antd/modal';
 
 import { EmailComponent } from './email/email.component';
 import { OpenapiComponent } from './openapi/openapi.component';
 
 @Component({
-  selector: 'app-admin-integrated',
-  templateUrl: './integrated.component.html'
+  selector: 'app-admin-integrated-extend',
+  templateUrl: './extend.component.html'
 })
-export class IntegratedComponent implements OnInit {
-  /**
-   * 数据
-   */
+export class ExtendComponent implements OnInit {
   values: Record<string, any> = {};
 
-  constructor(private wpx: WpxService, private modal: NzModalService, private message: NzMessageService) {}
+  constructor(private wpx: WpxService, private modal: NzModalService) {}
 
   ngOnInit(): void {
     this.getData();
@@ -42,14 +38,9 @@ export class IntegratedComponent implements OnInit {
       });
   }
 
-  /**
-   * 设置对话框
-   * @param component
-   * @private
-   */
-  private setModal(component: Type<{ values: Record<string, any> }>): void {
+  private setModal(nzTitle: string, component: Type<{ values: Record<string, any> }>): void {
     this.modal.create({
-      nzTitle: '设置',
+      nzTitle,
       nzContent: component,
       nzComponentParams: {
         values: this.values
@@ -60,17 +51,11 @@ export class IntegratedComponent implements OnInit {
     });
   }
 
-  /**
-   * 设置电子邮件
-   */
   setEmail(): void {
-    this.setModal(EmailComponent);
+    this.setModal($localize`Public Mailbox Basic Form`, EmailComponent);
   }
 
-  /**
-   * 基本设置
-   */
   setOpenapi(): void {
-    this.setModal(OpenapiComponent);
+    this.setModal($localize`Openapi Service Basic Form`, OpenapiComponent);
   }
 }

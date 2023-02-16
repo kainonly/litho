@@ -1,0 +1,81 @@
+<nz-card nzTitle="Public Mailbox" [nzExtra]="emailBookTpl">
+  <ng-template #emailBookTpl>
+    <button nz-button nzType="text">
+      <span nz-icon nzType="book"></span>
+    </button>
+  </ng-template>
+  <nz-row [nzGutter]="[8, 8]">
+    <nz-col [nzSpan]="12">
+      <nz-card nzTitle="Basic" nzType="inner" [nzExtra]="emailEditTpl">
+        <ng-template #emailEditTpl>
+          <button nz-button nzType="text" (click)="setEmail()">
+            <span nz-icon nzType="edit"></span>
+          </button>
+        </ng-template>
+        <nz-descriptions nzLayout="vertical" [nzColumn]="2">
+          <nz-descriptions-item nzTitle="SMTP Host">
+            <ng-container *ngIf="values['email_host']; else unkown">
+              {{ values['email_host'] }}
+            </ng-container>
+          </nz-descriptions-item>
+          <nz-descriptions-item nzTitle="SMTP Port（SSL）">
+            <ng-container *ngIf="values['email_port']; else unkown">
+              {{ values['email_port'] }}
+            </ng-container>
+          </nz-descriptions-item>
+          <nz-descriptions-item nzTitle="Username">
+            <ng-container *ngIf="values['email_username']; else unkown">
+              {{ values['email_username'] }}
+            </ng-container>
+          </nz-descriptions-item>
+          <nz-descriptions-item nzTitle="Passowrd">
+            <ng-container *ngIf="values['email_password']; else unkown">
+              <span i18n>Already Set</span>
+            </ng-container>
+          </nz-descriptions-item>
+        </nz-descriptions>
+      </nz-card>
+    </nz-col>
+  </nz-row>
+</nz-card>
+
+<nz-card nzTitle="Openapi Service" [nzExtra]="openapiBookTpl">
+  <ng-template #openapiBookTpl>
+    <button nz-button nzType="text">
+      <span nz-icon nzType="book"></span>
+    </button>
+  </ng-template>
+  <nz-row [nzGutter]="[8, 8]">
+    <nz-col [nzSpan]="12">
+      <nz-card nzTitle="Basic" nzType="inner" [nzExtra]="openapiEditTpl">
+        <ng-template #openapiEditTpl>
+          <button nz-button nzType="text" (click)="setOpenapi()">
+            <span nz-icon nzType="edit"></span>
+          </button>
+        </ng-template>
+
+        <nz-descriptions nzLayout="vertical" [nzColumn]="2">
+          <nz-descriptions-item nzTitle="Url" [nzSpan]="2">
+            <ng-container *ngIf="values['openapi_url']; else unkown">
+              {{ values['openapi_url'] }}
+            </ng-container>
+          </nz-descriptions-item>
+          <nz-descriptions-item nzTitle="App Key">
+            <ng-container *ngIf="values['openapi_key']; else unkown">
+              {{ values['openapi_key'] }}
+            </ng-container>
+          </nz-descriptions-item>
+          <nz-descriptions-item nzTitle="App Secret">
+            <ng-container *ngIf="values['openapi_secret']; else unkown">
+              <span i18n>Already Set</span>
+            </ng-container>
+          </nz-descriptions-item>
+        </nz-descriptions>
+      </nz-card>
+    </nz-col>
+  </nz-row>
+</nz-card>
+
+<ng-template #unkown>
+  <span i18n>Not Set</span>
+</ng-template>

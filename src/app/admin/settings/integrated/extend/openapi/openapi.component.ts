@@ -10,13 +10,24 @@ import { NzModalRef } from 'ng-zorro-antd/modal';
   templateUrl: './openapi.component.html'
 })
 export class OpenapiComponent implements OnInit {
-  /**
-   * 载入数据
-   */
+  tips = {
+    openapi_url: {
+      default: {
+        required: $localize`The openapi url cannot be empty`
+      }
+    },
+    openapi_key: {
+      default: {
+        required: $localize`The openapi app key cannot be empty`
+      }
+    },
+    openapi_secret: {
+      default: {
+        required: $localize`The openapi app secret cannot be empty`
+      }
+    }
+  };
   @Input() values!: Record<string, any>;
-  /**
-   * 表单
-   */
   form!: FormGroup;
 
   constructor(
@@ -38,20 +49,13 @@ export class OpenapiComponent implements OnInit {
     });
   }
 
-  /**
-   * 关闭表单
-   */
   close(): void {
     this.modalRef.triggerCancel();
   }
 
-  /**
-   * 提交
-   * @param data
-   */
   submit(data: any): void {
     this.wpx.setValues(data).subscribe(() => {
-      this.message.success('设置成功');
+      this.message.success($localize`Data update complete`);
       this.modalRef.triggerOk();
     });
   }
