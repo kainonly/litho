@@ -11,6 +11,13 @@ import { NzModalRef } from 'ng-zorro-antd/modal';
   templateUrl: './backup-email.component.html'
 })
 export class BackupEmailComponent implements OnInit {
+  tips = {
+    email: {
+      default: {
+        email: $localize`Please use the correct email format`
+      }
+    }
+  };
   form!: FormGroup;
 
   constructor(
@@ -39,7 +46,7 @@ export class BackupEmailComponent implements OnInit {
         backup_email: data.backup_email
       })
       .subscribe(() => {
-        this.message.success('数据更新完成');
+        this.message.success($localize`Data update complete`);
         this.modalRef.triggerOk();
       });
   }

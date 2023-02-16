@@ -37,7 +37,7 @@ export class AvatarComponent implements OnInit {
         avatar: data.avatar
       })
       .subscribe(() => {
-        this.message.success('数据更新完成');
+        this.message.success($localize`Data update complete`);
         this.modalRef.triggerOk();
       });
   }

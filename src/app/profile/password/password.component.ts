@@ -11,6 +11,18 @@ import { NzModalRef } from 'ng-zorro-antd/modal';
   templateUrl: './password.component.html'
 })
 export class PasswordComponent implements OnInit {
+  tips = {
+    password: {
+      default: {
+        required: $localize`The new password cannot be empty`,
+        minlength: $localize`The length of the new password cannot be less than 12 characters`,
+        lowercase: $localize`The new password needs to contain lowercase letters`,
+        uppercase: $localize`The new password needs to contain capital letters`,
+        number: $localize`The new password needs to contain numbers`,
+        symbol: $localize`The new password needs to contain symbols (@$!%*?&-+)`
+      }
+    }
+  };
   form!: FormGroup;
   passwordVisible = false;
 
@@ -27,10 +39,6 @@ export class PasswordComponent implements OnInit {
     });
   }
 
-  /**
-   * TODO: 增加动态配置
-   * @param control
-   */
   validedPassword = (control: AbstractControl): any => {
     if (!control.value) {
       return;
@@ -49,7 +57,7 @@ export class PasswordComponent implements OnInit {
         password: data.password
       })
       .subscribe(() => {
-        this.message.success('数据更新完成');
+        this.message.success($localize`Data update complete`);
         this.modalRef.triggerOk();
       });
   }

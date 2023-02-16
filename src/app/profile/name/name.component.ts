@@ -10,9 +10,6 @@ import { NzModalRef } from 'ng-zorro-antd/modal';
   templateUrl: './name.component.html'
 })
 export class NameComponent implements OnInit {
-  /**
-   * 表单
-   */
   form!: FormGroup;
 
   constructor(
@@ -29,20 +26,13 @@ export class NameComponent implements OnInit {
     this.form.patchValue(this.app.user!);
   }
 
-  /**
-   * 关闭表单
-   */
   close(): void {
     this.modalRef.triggerCancel();
   }
 
-  /**
-   * 提交
-   * @param data
-   */
   submit(data: any): void {
     this.app.setUser({ $set: 'name', name: data.name }).subscribe(() => {
-      this.message.success('设置成功');
+      this.message.success($localize`Data update complete`);
       this.modalRef.triggerOk();
     });
   }

@@ -26,15 +26,9 @@ export class ProfileComponent {
     private draw: NzDrawerRef
   ) {}
 
-  /**
-   * 设置对话框
-   * @param component
-   * @param callback
-   * @private
-   */
   private setModal(component: Type<void>, callback?: () => void): void {
     this.modal.create({
-      nzTitle: '设置',
+      nzTitle: $localize`Profile Update Form`,
       nzContent: component,
       nzOnOk: () => {
         if (!callback) {
@@ -46,9 +40,6 @@ export class ProfileComponent {
     });
   }
 
-  /**
-   * 设置电子邮件
-   */
   setEmail(): void {
     this.setModal(EmailComponent, () => {
       this.app.logout().subscribe(() => {
@@ -59,30 +50,18 @@ export class ProfileComponent {
     });
   }
 
-  /**
-   * 设置称呼
-   */
   setName(): void {
     this.setModal(NameComponent);
   }
 
-  /**
-   * 设置头像
-   */
   setAvatar(): void {
     this.setModal(AvatarComponent);
   }
 
-  /**
-   * 设置密码
-   */
   setPassword(): void {
     this.setModal(PasswordComponent);
   }
 
-  /**
-   * 备用邮件
-   */
   setBackupEmail(): void {
     this.setModal(BackupEmailComponent);
   }
@@ -101,7 +80,7 @@ export class ProfileComponent {
 
   unlinkFeishu(): void {
     this.app.unsetUser('feishu').subscribe(() => {
-      this.message.success('关联已取消');
+      this.message.success($localize`Association has been successfully disconnected`);
       this.app.getUser().subscribe(() => {});
     });
   }

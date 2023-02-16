@@ -12,6 +12,14 @@ import { NzModalRef } from 'ng-zorro-antd/modal';
   templateUrl: './email.component.html'
 })
 export class EmailComponent implements OnInit {
+  tips = {
+    email: {
+      default: {
+        email: $localize`Please use the correct email format`,
+        duplicated: $localize`Duplicate definitions exist, email must be unique`
+      }
+    }
+  };
   form!: FormGroup;
 
   constructor(
@@ -47,7 +55,7 @@ export class EmailComponent implements OnInit {
         email: data.email
       })
       .subscribe(() => {
-        this.message.success('数据更新完成，您需要重新登录系统');
+        this.message.success($localize`The data update is complete, you need to log in to the system again`);
         this.modalRef.triggerOk();
       });
   }
