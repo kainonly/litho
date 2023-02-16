@@ -1,4 +1,4 @@
-import { Component, Inject, LOCALE_ID } from '@angular/core';
+import { Component, Inject, Input, LOCALE_ID } from '@angular/core';
 
 import { WpxService } from '@weplanx/ng';
 
@@ -7,5 +7,7 @@ import { WpxService } from '@weplanx/ng';
   templateUrl: './translation.component.html'
 })
 export class TranslationComponent {
+  @Input() simple = false;
+
   constructor(public wpx: WpxService, @Inject(LOCALE_ID) public locale: string) {}
 }

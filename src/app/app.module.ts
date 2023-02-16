@@ -8,6 +8,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule, Routes } from '@angular/router';
 
 import { ShareModule } from '@common/share.module';
+import { TranslationModule } from '@common/translation/translation.module';
 import { environment } from '@env';
 import { WpxRichtextModule } from '@weplanx/ng/richtext';
 import { WpxStoreModule } from '@weplanx/ng/store';
@@ -93,7 +94,8 @@ if (!environment.production) {
     }),
     RouterModule.forRoot(routes, { useHash: true, initialNavigation: 'enabledBlocking' }),
     NzMenuModule,
-    ShareModule
+    ShareModule,
+    TranslationModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AppInterceptors, multi: true },
