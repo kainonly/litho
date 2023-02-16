@@ -6,17 +6,33 @@ import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalRef } from 'ng-zorro-antd/modal';
 
 @Component({
-  selector: 'app-admin-functions-office',
-  templateUrl: './office.component.html'
+  selector: 'app-admin-integrated-collaboration-feishu',
+  templateUrl: './feishu.component.html'
 })
-export class OfficeComponent implements OnInit {
-  /**
-   * 载入数据
-   */
+export class FeishuComponent implements OnInit {
+  tips = {
+    feishu_app_id: {
+      default: {
+        required: $localize`The app id cannot be empty`
+      }
+    },
+    feishu_app_secret: {
+      default: {
+        required: $localize`The app secret cannot be empty`
+      }
+    },
+    feishu_encrypt_key: {
+      default: {
+        required: $localize`The encrypt key cannot be empty`
+      }
+    },
+    feishu_verification_token: {
+      default: {
+        required: $localize`The verification token cannot be empty`
+      }
+    }
+  };
   @Input() values!: Record<string, any>;
-  /**
-   * 表单
-   */
   form!: FormGroup;
 
   constructor(
@@ -28,7 +44,6 @@ export class OfficeComponent implements OnInit {
 
   ngOnInit(): void {
     this.form = this.fb.group({
-      office: ['feishu', [Validators.required]],
       feishu_app_id: [null, [Validators.required]],
       feishu_app_secret: [null, [Validators.required]],
       feishu_encrypt_key: [null, [Validators.required]],
@@ -36,20 +51,13 @@ export class OfficeComponent implements OnInit {
     });
   }
 
-  /**
-   * 关闭表单
-   */
   close(): void {
     this.modalRef.triggerCancel();
   }
 
-  /**
-   * 提交
-   * @param data
-   */
   submit(data: any): void {
     this.wpx.setValues(data).subscribe(() => {
-      this.message.success('设置成功');
+      this.message.success($localize`Data update complete`);
       this.modalRef.triggerOk();
     });
   }

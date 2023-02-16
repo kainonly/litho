@@ -8,7 +8,7 @@ import { CosComponent } from './cos/cos.component';
 import { TencentComponent } from './tencent/tencent.component';
 
 @Component({
-  selector: 'app-admin-cloud',
+  selector: 'app-admin-integrated-cloud',
   templateUrl: './cloud.component.html'
 })
 export class CloudComponent implements OnInit {
@@ -20,9 +20,6 @@ export class CloudComponent implements OnInit {
     this.getData();
   }
 
-  /**
-   * 获取数据
-   */
   getData(): void {
     this.wpx
       .getValues([

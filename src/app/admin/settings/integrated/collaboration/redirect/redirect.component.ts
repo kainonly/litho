@@ -6,17 +6,18 @@ import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalRef } from 'ng-zorro-antd/modal';
 
 @Component({
-  selector: 'app-admin-functions-redirect',
+  selector: 'app-admin-integrated-collaboration-redirect',
   templateUrl: './redirect.component.html'
 })
 export class RedirectComponent implements OnInit {
-  /**
-   * 载入数据
-   */
+  tips = {
+    redirect_url: {
+      default: {
+        required: $localize`The redirect url cannot be empty`
+      }
+    }
+  };
   @Input() values!: Record<string, any>;
-  /**
-   * 表单
-   */
   form!: FormGroup;
 
   constructor(
@@ -33,20 +34,13 @@ export class RedirectComponent implements OnInit {
     this.form.patchValue(this.values);
   }
 
-  /**
-   * 关闭表单
-   */
   close(): void {
     this.modalRef.triggerCancel();
   }
 
-  /**
-   * 提交
-   * @param data
-   */
   submit(data: any): void {
     this.wpx.setValues(data).subscribe(() => {
-      this.message.success('设置成功');
+      this.message.success($localize`Data update complete`);
       this.modalRef.triggerOk();
     });
   }

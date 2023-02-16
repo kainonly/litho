@@ -1,0 +1,31 @@
+<form nz-form nzLayout="vertical" id="form" [formGroup]="form" (wpxSubmit)="submit($event)">
+  <nz-form-item>
+    <nz-form-label nzRequired>App ID</nz-form-label>
+    <nz-form-control nzHasFeedback [nzAutoTips]="tips.feishu_app_id">
+      <input nz-input formControlName="feishu_app_id" />
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label nzRequired>App Secret</nz-form-label>
+    <nz-form-control nzHasFeedback [nzAutoTips]="tips.feishu_app_secret">
+      <input nz-input formControlName="feishu_app_secret" />
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label nzRequired i18n>Encrypt Key</nz-form-label>
+    <nz-form-control nzHasFeedback [nzAutoTips]="tips.feishu_encrypt_key">
+      <input nz-input formControlName="feishu_encrypt_key" />
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label nzRequired i18n>Verification Token</nz-form-label>
+    <nz-form-control nzHasFeedback [nzAutoTips]="tips.feishu_verification_token">
+      <input nz-input formControlName="feishu_verification_token" />
+    </nz-form-control>
+  </nz-form-item>
+</form>
+
+<div *nzModalFooter>
+  <button nz-button type="button" nzType="default" (click)="close()" i18n>Cancel</button>
+  <button nz-button nzType="primary" form="form" [disabled]="!form.valid" i18n>Submit</button>
+</div>

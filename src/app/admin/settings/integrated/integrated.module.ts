@@ -14,6 +14,13 @@ const routes: Routes = [
           breadcrumb: $localize`Public Cloud`
         }
       },
+      {
+        path: 'collaboration',
+        loadChildren: () => import('./collaboration/collaboration.module').then(m => m.CollaborationModule),
+        data: {
+          breadcrumb: $localize`Collaboration`
+        }
+      },
       { path: '', redirectTo: 'cloud', pathMatch: 'full' }
     ]
   }

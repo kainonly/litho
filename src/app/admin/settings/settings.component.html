@@ -7,15 +7,15 @@
             <span nz-icon nzType="cloud"></span>
             <span i18n>Public Cloud</span>
           </li>
-          <li nz-menu-item>
+          <li nz-menu-item nzMatchRouter [routerLink]="['/', 'admin', 'settings', 'integrated', 'collaboration']">
             <span nz-icon nzType="dingtalk"></span>
             <span i18n>Collaboration</span>
           </li>
-          <li nz-menu-item>
+          <li nz-menu-item nzMatchRouter [routerLink]="['/', 'admin', 'settings', 'integrated', 'email']">
             <span nz-icon nzType="mail"></span>
             <span i18n>Public Mailbox</span>
           </li>
-          <li nz-menu-item>
+          <li nz-menu-item nzMatchRouter [routerLink]="['/', 'admin', 'settings', 'integrated', 'extend']">
             <span nz-icon nzType="appstore-add"></span>
             <span i18n>Extend Services</span>
           </li>
@@ -23,15 +23,15 @@
       </li>
       <li nz-menu-group nzTitle="Security" i18n-nzTitle>
         <ul>
-          <li nz-menu-item>
+          <li nz-menu-item nzMatchRouter [routerLink]="['/', 'admin', 'settings', 'security', 'basic']">
             <span nz-icon nzType="form"></span>
             <span i18n>Basic Strategy</span>
           </li>
-          <li nz-menu-item>
+          <li nz-menu-item nzMatchRouter [routerLink]="['/', 'admin', 'settings', 'security', 'whitelist']">
             <span nz-icon nzType="check"></span>
             <span i18n>Whitelist</span>
           </li>
-          <li nz-menu-item>
+          <li nz-menu-item nzMatchRouter [routerLink]="['/', 'admin', 'settings', 'security', 'blacklist']">
             <span nz-icon nzType="stop"></span>
             <span i18n>Blacklist</span>
           </li>
@@ -39,11 +39,11 @@
       </li>
       <li nz-menu-group nzTitle="Aduit" i18n-nzTitle>
         <ul>
-          <li nz-menu-item>
+          <li nz-menu-item nzMatchRouter [routerLink]="['/', 'admin', 'settings', 'audit', 'login']">
             <span nz-icon nzType="audit"></span>
             <span i18n>Login Logs</span>
           </li>
-          <li nz-menu-item>
+          <li nz-menu-item nzMatchRouter [routerLink]="['/', 'admin', 'settings', 'audit', 'access']">
             <span nz-icon nzType="history"></span>
             <span i18n>Access Logs</span>
           </li>
