@@ -1,14 +1,7 @@
 <form *ngIf="form" nz-form nzLayout="vertical" id="form" [formGroup]="form" (wpxSubmit)="submit($event)">
   <nz-form-item>
-    <nz-form-label nzRequired>连续登录失败上限</nz-form-label>
-    <nz-form-control
-      nzHasFeedback
-      [nzAutoTips]="{
-        default: {
-          required: '次数不能为空'
-        }
-      }"
-    >
+    <nz-form-label nzRequired i18n>Maximum number of login failures for a user</nz-form-label>
+    <nz-form-control nzHasFeedback [nzAutoTips]="tips.login_failures">
       <nz-input-number
         style="width: 100%"
         formControlName="login_failures"
@@ -19,15 +12,12 @@
     </nz-form-control>
   </nz-form-item>
   <nz-form-item>
-    <nz-form-label nzRequired>锁定时间</nz-form-label>
+    <nz-form-label nzRequired i18n>Lock Time</nz-form-label>
     <nz-form-control
       nzHasFeedback
-      nzExtra="账户连续登录或已被锁定的有限时间"
-      [nzAutoTips]="{
-        default: {
-          required: '时间不能为空'
-        }
-      }"
+      nzExtra="The account has been logged in continuously or has been locked for a limited time"
+      i18n-nzExtra
+      [nzAutoTips]="tips.login_ttl"
     >
       <nz-input-number
         style="width: 100%"
@@ -41,6 +31,6 @@
 </form>
 
 <div *nzModalFooter>
-  <button nz-button type="button" nzType="default" (click)="close()">取消</button>
-  <button nz-button nzType="primary" form="form" [disabled]="!form.valid">提交</button>
+  <button nz-button type="button" nzType="default" (click)="close()" i18n>Cancel</button>
+  <button nz-button nzType="primary" form="form" [disabled]="!form.valid" i18n>Submit</button>
 </div>

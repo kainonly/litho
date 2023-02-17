@@ -10,19 +10,16 @@ import { NzModalRef } from 'ng-zorro-antd/modal';
   templateUrl: './pwd-ttl.component.html'
 })
 export class PwdTtlComponent implements OnInit {
-  /**
-   * 载入数据
-   */
+  tips = {
+    pwd_ttl: {
+      default: {
+        required: $localize`The days cannot be empty`
+      }
+    }
+  };
   @Input() values!: Record<string, any>;
-  /**
-   * 表单
-   */
+  formatterTimes = (value: number): string => $localize`${value} day`;
   form!: FormGroup;
-  /**
-   * 天
-   * @param value
-   */
-  formatterTimes = (value: number): string => `${value} 天`;
 
   constructor(
     public wpx: WpxService,
@@ -41,21 +38,14 @@ export class PwdTtlComponent implements OnInit {
     this.form.patchValue(data);
   }
 
-  /**
-   * 关闭表单
-   */
   close(): void {
     this.modalRef.triggerCancel();
   }
 
-  /**
-   * 提交
-   * @param data
-   */
   submit(data: any): void {
     data.pwd_ttl = data.pwd_ttl * 86400e9;
     this.wpx.setValues(data).subscribe(() => {
-      this.message.success('设置成功');
+      this.message.success($localize`Data update complete`);
       this.modalRef.triggerOk();
     });
   }

@@ -1,10 +1,5 @@
 <ng-template #searchRef>
   <nz-space>
-    <nz-select *nzSpaceItem [(ngModel)]="interval" (ngModelChange)="getData(500)">
-      <nz-option [nzValue]="15" nzLabel="Refresh every 15s" i18n-nzLabel></nz-option>
-      <nz-option [nzValue]="30" nzLabel="Refresh every 30s" i18n-nzLabel></nz-option>
-      <nz-option [nzValue]="60" nzLabel="Refresh every 60s" i18n-nzLabel></nz-option>
-    </nz-select>
     <nz-input-group *nzSpaceItem style="width: 180px" nzSuffixIcon="search">
       <input
         [(ngModel)]="searchText"
@@ -15,6 +10,11 @@
         i18n-placeholder
       />
     </nz-input-group>
+    <nz-select *nzSpaceItem style="width: 180px" [(ngModel)]="interval" (ngModelChange)="getData(500)">
+      <nz-option [nzValue]="15" nzLabel="Refresh every 15s" i18n-nzLabel></nz-option>
+      <nz-option [nzValue]="30" nzLabel="Refresh every 30s" i18n-nzLabel></nz-option>
+      <nz-option [nzValue]="60" nzLabel="Refresh every 60s" i18n-nzLabel></nz-option>
+    </nz-select>
     <nz-button-group *nzSpaceItem>
       <button nz-button nzType="text" nz-tooltip="Refresh" i18n-nz-tooltip (click)="getData(500)">
         <i nz-icon nzType="reload"></i>

@@ -10,17 +10,8 @@ import { NzModalRef } from 'ng-zorro-antd/modal';
   templateUrl: './ip-list.component.html'
 })
 export class IpListComponent implements OnInit {
-  /**
-   * 字段
-   */
   @Input() key!: 'ip_whitelist' | 'ip_blacklist';
-  /**
-   * 载入数据
-   */
   @Input() ip!: string[];
-  /**
-   * 表单
-   */
   form!: FormGroup;
 
   constructor(
@@ -54,28 +45,17 @@ export class IpListComponent implements OnInit {
     );
   }
 
-  /**
-   * 移除白名单表单控件
-   * @param index
-   */
   remove(index: number): void {
     this.list.removeAt(index);
   }
 
-  /**
-   * 关闭表单
-   */
   close(): void {
     this.modalRef.triggerCancel();
   }
 
-  /**
-   * 提交
-   * @param data
-   */
   submit(data: any): void {
     this.wpx.setValues(data).subscribe(() => {
-      this.message.success('设置成功');
+      this.message.success($localize`Data update complete`);
       this.modalRef.triggerOk();
     });
   }

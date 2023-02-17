@@ -10,24 +10,22 @@ import { NzModalRef } from 'ng-zorro-antd/modal';
   templateUrl: './user-lock.component.html'
 })
 export class UserLockComponent implements OnInit {
-  /**
-   * 载入数据
-   */
+  tips = {
+    login_failures: {
+      default: {
+        required: $localize`The times cannot be empty`
+      }
+    },
+    login_ttl: {
+      default: {
+        required: $localize`The TTL cannot by empty`
+      }
+    }
+  };
   @Input() values!: Record<string, any>;
-  /**
-   * 表单
-   */
+  formatterTimes = (value: number): string => $localize`${value} times`;
+  formatterSec = (value: number): string => $localize`${value} s`;
   form!: FormGroup;
-  /**
-   * 次数
-   * @param value
-   */
-  formatterTimes = (value: number): string => `${value} 次`;
-  /**
-   * 秒
-   * @param value
-   */
-  formatterSec = (value: number): string => `${value} 秒`;
 
   constructor(
     public wpx: WpxService,
@@ -48,21 +46,14 @@ export class UserLockComponent implements OnInit {
     this.form.patchValue(data);
   }
 
-  /**
-   * 关闭表单
-   */
   close(): void {
     this.modalRef.triggerCancel();
   }
 
-  /**
-   * 提交
-   * @param data
-   */
   submit(data: any): void {
     data['login_ttl'] = data['login_ttl'] * 1e9;
     this.wpx.setValues(data).subscribe(() => {
-      this.message.success('设置成功');
+      this.message.success($localize`Data update complete`);
       this.modalRef.triggerOk();
     });
   }

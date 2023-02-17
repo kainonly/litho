@@ -10,19 +10,16 @@ import { NzModalRef } from 'ng-zorro-antd/modal';
   templateUrl: './ip-lock.component.html'
 })
 export class IpLockComponent implements OnInit {
-  /**
-   * 载入数据
-   */
+  tips = {
+    ip_login_failures: {
+      default: {
+        required: $localize`The times cannot be empty`
+      }
+    }
+  };
   @Input() values!: Record<string, any>;
-  /**
-   * 表单
-   */
+  formatterTimes = (value: number): string => $localize`${value} times`;
   form!: FormGroup;
-  /**
-   * 次数
-   * @param value
-   */
-  formatterTimes = (value: number): string => `${value} 次`;
 
   constructor(
     public wpx: WpxService,
@@ -38,20 +35,13 @@ export class IpLockComponent implements OnInit {
     this.form.patchValue(this.values);
   }
 
-  /**
-   * 关闭表单
-   */
   close(): void {
     this.modalRef.triggerCancel();
   }
 
-  /**
-   * 提交
-   * @param data
-   */
   submit(data: any): void {
     this.wpx.setValues(data).subscribe(() => {
-      this.message.success('设置成功');
+      this.message.success($localize`Data update complete`);
       this.modalRef.triggerOk();
     });
   }

@@ -10,19 +10,16 @@ import { NzModalRef } from 'ng-zorro-antd/modal';
   templateUrl: './session.component.html'
 })
 export class SessionComponent implements OnInit {
-  /**
-   * 载入数据
-   */
+  tips = {
+    session_ttl: {
+      default: {
+        required: $localize`The TTL cannot be empty`
+      }
+    }
+  };
   @Input() values!: Record<string, any>;
-  /**
-   * 表单
-   */
+  formatterSec = (value: number): string => $localize`${value} s`;
   form!: FormGroup;
-  /**
-   * 秒
-   * @param value
-   */
-  formatterSec = (value: number): string => `${value} 秒`;
 
   constructor(
     public wpx: WpxService,
@@ -41,21 +38,14 @@ export class SessionComponent implements OnInit {
     this.form.patchValue(data);
   }
 
-  /**
-   * 关闭表单
-   */
   close(): void {
     this.modalRef.triggerCancel();
   }
 
-  /**
-   * 提交
-   * @param data
-   */
   submit(data: any): void {
     data['session_ttl'] = data['session_ttl'] * 1e9;
     this.wpx.setValues(data).subscribe(() => {
-      this.message.success('设置成功');
+      this.message.success($localize`Data update complete`);
       this.modalRef.triggerOk();
     });
   }

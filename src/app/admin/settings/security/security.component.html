@@ -1,129 +1,185 @@
 <nz-card>
-  <nz-tabset style="height: 100%" nzTabPosition="left">
-    <nz-tab nzTitle="基础策略">
+  <nz-tabset
+    style="height: 100%"
+    nzTabPosition="left"
+    [(nzSelectedIndex)]="tabIndex"
+    (nzSelectedIndexChange)="saveTabIndex()"
+  >
+    <nz-tab nzTitle="Basic" i18n-nzTitle>
       <nz-list nzSize="large" nzItemLayout="vertical">
         <nz-list-item>
           <nz-list-item-meta>
-            <nz-list-item-meta-title><b>会话超时策略</b></nz-list-item-meta-title>
-            <nz-list-item-meta-description>
-              用户在 {{ values['session_ttl'] / 1e9 }} 秒内没有操作，退出当前帐号。
+            <nz-list-item-meta-title><b i18n>Session Timeout Policy</b></nz-list-item-meta-title>
+            <nz-list-item-meta-description i18n>
+              If the user does not operate within {{ values['session_ttl'] / 1e9 }} seconds, log out of the current
+              account.
             </nz-list-item-meta-description>
           </nz-list-item-meta>
           <nz-list-item-extra>
-            <button nz-button nzType="primary" nzShape="circle" nz-tooltip="设置" (click)="setSession()">
-              <i nz-icon nzType="tool"></i>
+            <button
+              nz-button
+              nzType="primary"
+              nzShape="circle"
+              nz-tooltip="Edit"
+              i18n-nz-tooltip
+              (click)="setSession()"
+            >
+              <i nz-icon nzType="edit"></i>
             </button>
           </nz-list-item-extra>
         </nz-list-item>
         <nz-list-item>
           <nz-list-item-meta>
-            <nz-list-item-meta-title><b>帐号锁定策略</b></nz-list-item-meta-title>
-            <nz-list-item-meta-description>
-              用户连续登录失败 {{ values['login_failures'] }} 次， 锁定帐号 {{ values['login_ttl'] / 1e9 }} 秒。
+            <nz-list-item-meta-title><b i18n>Account Lockout Policy</b></nz-list-item-meta-title>
+            <nz-list-item-meta-description i18n>
+              The user failed to log in {{ values['login_failures'] }} times consecutively, and the account was locked
+              for {{ values['login_ttl'] / 1e9 }} seconds.
             </nz-list-item-meta-description>
           </nz-list-item-meta>
           <nz-list-item-extra>
-            <button nz-button nzType="primary" nzShape="circle" nz-tooltip="设置" (click)="setUserLock()">
-              <i nz-icon nzType="tool"></i>
+            <button
+              nz-button
+              nzType="primary"
+              nzShape="circle"
+              nz-tooltip="Edit"
+              i18n-nz-tooltip
+              (click)="setUserLock()"
+            >
+              <i nz-icon nzType="edit"></i>
             </button>
           </nz-list-item-extra>
         </nz-list-item>
         <nz-list-item>
           <nz-list-item-meta>
-            <nz-list-item-meta-title><b>IP 锁定策略</b></nz-list-item-meta-title>
-            <nz-list-item-meta-description>
-              IP 连续 {{ values['ip_login_failures'] }} 次登录失败后（无白名单时启用），锁定 IP。
+            <nz-list-item-meta-title><b i18n>IP Lockout Policy</b></nz-list-item-meta-title>
+            <nz-list-item-meta-description i18n>
+              IP After {{ values['ip_login_failures'] }} consecutive login failures (enabled when there is no
+              whitelist), lock the IP.
             </nz-list-item-meta-description>
           </nz-list-item-meta>
           <nz-list-item-extra>
-            <button nz-button nzType="primary" nzShape="circle" nz-tooltip="设置" (click)="setIpLock()">
-              <i nz-icon nzType="tool"></i>
+            <button nz-button nzType="primary" nzShape="circle" nz-tooltip="Edit" (click)="setIpLock()">
+              <i nz-icon nzType="edit"></i>
             </button>
           </nz-list-item-extra>
         </nz-list-item>
         <nz-list-item>
           <nz-list-item-meta>
-            <nz-list-item-meta-title><b>密码强度策略</b></nz-list-item-meta-title>
+            <nz-list-item-meta-title><b i18n>Password Strength Policy</b></nz-list-item-meta-title>
             <nz-list-item-meta-description>
               <ng-container [ngSwitch]="values['pwd_strategy']">
-                <ng-container *ngSwitchCase="0"> 无限制。 </ng-container>
-                <ng-container *ngSwitchCase="1"> 需要大写字母和小写字母。 </ng-container>
-                <ng-container *ngSwitchCase="2"> 需要大写字母、小写字母和数字。 </ng-container>
-                <ng-container *ngSwitchCase="3"> 需要大写字母、小写字母、数字和特殊字符。 </ng-container>
+                <ng-container *ngSwitchCase="0" i18n> unlimited </ng-container>
+                <ng-container *ngSwitchCase="1" i18n> uppercase and lowercase letters </ng-container>
+                <ng-container *ngSwitchCase="2" i18n> uppercase and lowercase letters, numbers </ng-container>
+                <ng-container *ngSwitchCase="3" i18n>
+                  uppercase and lowercase letters, numbers, special characters
+                </ng-container>
               </ng-container>
             </nz-list-item-meta-description>
           </nz-list-item-meta>
           <nz-list-item-extra>
-            <button nz-button nzType="primary" nzShape="circle" nz-tooltip="设置" (click)="setPwdStrategy()">
-              <i nz-icon nzType="tool"></i>
+            <button
+              nz-button
+              nzType="primary"
+              nzShape="circle"
+              nz-tooltip="Edit"
+              i18n-nz-tooltip
+              (click)="setPwdStrategy()"
+            >
+              <i nz-icon nzType="edit"></i>
             </button>
           </nz-list-item-extra>
         </nz-list-item>
         <nz-list-item>
           <nz-list-item-meta>
-            <nz-list-item-meta-title><b>密码有效期策略</b></nz-list-item-meta-title>
+            <nz-list-item-meta-title><b i18n>Password Expiration Policy</b></nz-list-item-meta-title>
             <nz-list-item-meta-description>
-              <ng-container *ngIf="values['pwd_ttl'] === 0; else passwordExpire"> 永久有效 </ng-container>
+              <ng-container *ngIf="values['pwd_ttl'] === 0; else passwordExpire" i18n> Permanent </ng-container>
               <ng-template #passwordExpire>
-                {{ values['pwd_ttl'] / 86400e9 }} 天后密码过期，系统强制要求修改密码。
+                <ng-container i18n>
+                  The password will expire after {{ values['pwd_ttl'] / 86400e9 }} days, and the system will force you
+                  to change the password.
+                </ng-container>
               </ng-template>
             </nz-list-item-meta-description>
           </nz-list-item-meta>
           <nz-list-item-extra>
-            <button nz-button nzType="primary" nzShape="circle" nz-tooltip="设置" (click)="setPwdTtl()">
-              <i nz-icon nzType="tool"></i>
+            <button nz-button nzType="primary" nzShape="circle" nz-tooltip="Edit" i18n-nz-tooltip (click)="setPwdTtl()">
+              <i nz-icon nzType="edit"></i>
             </button>
           </nz-list-item-extra>
         </nz-list-item>
       </nz-list>
     </nz-tab>
-    <nz-tab nzTitle="IP 白名单">
-      <nz-table
-        nzSize="default"
-        style="width: 800px"
-        #whitelist
-        [nzData]="values['ip_whitelist']"
-        [nzHideOnSinglePage]="true"
-        [nzFooter]="whitelistActions"
-      >
-        <thead>
-          <tr>
-            <th><b>IP 地址</b></th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let data of whitelist.data">
-            <td>{{ data }}</td>
-          </tr>
-        </tbody>
-      </nz-table>
-      <ng-template #whitelistActions>
-        <button nz-button nzType="text" nzBlock (click)="setIpList('ip_whitelist')">编辑</button>
-      </ng-template>
+    <nz-tab nzTitle="Whitelist">
+      <nz-row [nzGutter]="[8, 8]">
+        <nz-col nzFlex="800px">
+          <nz-table
+            nzSize="default"
+            #whitelist
+            [nzData]="values['ip_whitelist']"
+            [nzHideOnSinglePage]="true"
+            [nzFooter]="whitelistActions"
+          >
+            <thead>
+              <tr>
+                <th><b i18n>IP Address</b></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let data of whitelist.data">
+                <td>{{ data }}</td>
+              </tr>
+            </tbody>
+            <ng-template #whitelistActions>
+              <button nz-button nzType="text" nzBlock (click)="setIpList('ip_whitelist')" i18n>Edit</button>
+            </ng-template>
+          </nz-table>
+        </nz-col>
+        <nz-col>
+          <nz-alert
+            style="width: 200px"
+            nzType="info"
+            nzMessage="IP Whitelist"
+            nzDescription="Whitelisting IPs does not restrict login failure lockouts."
+          ></nz-alert>
+        </nz-col>
+      </nz-row>
     </nz-tab>
-    <nz-tab nzTitle="IP 黑名单">
-      <nz-table
-        nzSize="default"
-        style="width: 800px"
-        #blacklist
-        [nzData]="values['ip_blacklist']"
-        [nzHideOnSinglePage]="true"
-        [nzFooter]="blacklistActions"
-      >
-        <thead>
-          <tr>
-            <th><b>IP 地址</b></th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let data of blacklist.data">
-            <td>{{ data }}</td>
-          </tr>
-        </tbody>
-      </nz-table>
-      <ng-template #blacklistActions>
-        <button nz-button nzType="text" nzBlock (click)="setIpList('ip_blacklist')">编辑</button>
-      </ng-template>
+    <nz-tab nzTitle="Blacklist">
+      <nz-row [nzGutter]="[8, 8]">
+        <nz-col nzFlex="800px">
+          <nz-table
+            nzSize="default"
+            #blacklist
+            [nzData]="values['ip_blacklist']"
+            [nzHideOnSinglePage]="true"
+            [nzFooter]="blacklistActions"
+          >
+            <thead>
+              <tr>
+                <th><b i18n>IP Address</b></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let data of blacklist.data">
+                <td>{{ data }}</td>
+              </tr>
+            </tbody>
+            <ng-template #blacklistActions>
+              <button nz-button nzType="text" nzBlock (click)="setIpList('ip_blacklist')" i18n>Edit</button>
+            </ng-template>
+          </nz-table>
+        </nz-col>
+        <nz-col>
+          <nz-alert
+            style="width: 200px"
+            nzType="info"
+            nzMessage="IP Blacklist"
+            nzDescription="will ban all access."
+          ></nz-alert>
+        </nz-col>
+      </nz-row>
     </nz-tab>
   </nz-tabset>
 </nz-card>

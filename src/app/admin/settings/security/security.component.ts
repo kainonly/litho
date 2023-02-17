@@ -1,6 +1,7 @@
 import { Component, OnInit, Type } from '@angular/core';
 
 import { WpxService } from '@weplanx/ng';
+import { WpxStoreService } from '@weplanx/ng/store';
 import { NzModalService } from 'ng-zorro-antd/modal';
 
 import { IpListComponent } from './ip-list/ip-list.component';
@@ -15,18 +16,25 @@ import { UserLockComponent } from './user-lock/user-lock.component';
   templateUrl: './security.component.html'
 })
 export class SecurityComponent implements OnInit {
-  /**
-   * 数据
-   */
+  tabIndex = 0;
   values: Record<string, any> = {};
 
-  constructor(private modal: NzModalService, private wpx: WpxService) {}
+  constructor(private modal: NzModalService, private wpx: WpxService, private store: WpxStoreService) {}
 
   ngOnInit(): void {
     this.getData();
   }
 
+  saveTabIndex(): void {
+    this.store.set<number>('admin-security', this.tabIndex).subscribe(() => {});
+  }
+
   getData(): void {
+    this.store.get<number>('admin-security').subscribe(v => {
+      if (v) {
+        this.tabIndex = v;
+      }
+    });
     this.wpx
       .getValues([
         'session_ttl',
@@ -43,14 +51,9 @@ export class SecurityComponent implements OnInit {
       });
   }
 
-  /**
-   * 设置对话框
-   * @param component
-   * @private
-   */
   private setModal(component: Type<{ values: Record<string, any> }>): void {
     this.modal.create({
-      nzTitle: '设置',
+      nzTitle: $localize`Security Basic Form`,
       nzContent: component,
       nzComponentParams: {
         values: this.values
@@ -61,33 +64,30 @@ export class SecurityComponent implements OnInit {
     });
   }
 
-  /**
-   * 设置会话超时策略931
-   */
   setSession(): void {
     this.setModal(SessionComponent);
   }
 
-  /**
-   * 设置帐号锁定策略
-   */
   setUserLock(): void {
     this.setModal(UserLockComponent);
   }
 
-  /**
-   * 设置 IP 锁定策略
-   */
   setIpLock(): void {
     this.setModal(IpLockComponent);
   }
 
-  /**
-   * 设置 IP 名单
-   */
+  setPwdStrategy(): void {
+    this.setModal(PwdStrategyComponent);
+  }
+
+  setPwdTtl(): void {
+    this.setModal(PwdTtlComponent);
+  }
+
   setIpList(key: 'ip_whitelist' | 'ip_blacklist'): void {
+    const name = key === 'ip_whitelist' ? $localize`Whitelist` : $localize`Blacklist`;
     this.modal.create({
-      nzTitle: '设置',
+      nzTitle: $localize`${name} Form`,
       nzContent: IpListComponent,
       nzComponentParams: {
         key,
@@ -97,19 +97,5 @@ export class SecurityComponent implements OnInit {
         this.getData();
       }
     });
-  }
-
-  /**
-   * 设置密码强度策略
-   */
-  setPwdStrategy(): void {
-    this.setModal(PwdStrategyComponent);
-  }
-
-  /**
-   * 设置密码有效期策略
-   */
-  setPwdTtl(): void {
-    this.setModal(PwdTtlComponent);
   }
 }
