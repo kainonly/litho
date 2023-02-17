@@ -14,34 +14,11 @@ import { LoginLogsService } from './login-logs.service';
   templateUrl: './login-logs.component.html'
 })
 export class LoginLogsComponent implements OnInit {
-  /**
-   * 禁用日期
-   */
   disabledDate = (current: Date): boolean => differenceInCalendarDays(current, new Date()) > 0;
-  /**
-   * 日期区间
-   */
   date: Date[] = [];
-
-  /**
-   * 数据
-   */
   dataset: WpxData<AnyDto<LoginLog>> = new WpxData<AnyDto<LoginLog>>();
-  /**
-   * 展开集合
-   */
-  expand: Set<string> = new Set();
-  /**
-   * 成员 KeyValue
-   */
   userKV: Record<string, AnyDto<User>> = {};
-  /**
-   * 成员详情显示
-   */
   userDetailVisible = false;
-  /**
-   * 成员详情
-   */
   userDetail?: AnyDto<User>;
 
   constructor(private login_logs: LoginLogsService, private users: UsersService) {}
@@ -92,32 +69,14 @@ export class LoginLogsComponent implements OnInit {
 
   clearSearch(): void {
     this.date = [];
-    // this.searchText = '';
     this.getData(true);
   }
 
-  /**
-   * 展开状态更新
-   */
-  expandChange(id: string, checked: boolean): void {
-    if (checked) {
-      this.expand.add(id);
-    } else {
-      this.expand.delete(id);
-    }
-  }
-
-  /**
-   * 打开成员详情
-   */
   openUserDetail(data: AnyDto<User>): void {
     this.userDetailVisible = true;
     this.userDetail = data;
   }
 
-  /**
-   * 关闭成员详情
-   */
   closeUserDetail(): void {
     this.userDetailVisible = false;
     this.userDetail = undefined;

@@ -9,10 +9,10 @@
       (ngModelChange)="getData(true)"
     ></nz-range-picker>
     <nz-button-group *nzSpaceItem>
-      <button nz-button nzType="text" nz-tooltip="刷新" (click)="getData(true)">
+      <button nz-button nzType="text" nz-tooltip="Refresh" i18n-nz-tooltip (click)="getData(true)">
         <i nz-icon nzType="reload"></i>
       </button>
-      <button nz-button nzType="text" nz-tooltip="重置" (click)="clearSearch()">
+      <button nz-button nzType="text" nz-tooltip="Reset" i18n-nz-tooltip (click)="clearSearch()">
         <i nz-icon nzType="clear"></i>
       </button>
     </nz-button-group>
@@ -21,7 +21,7 @@
 
 <ng-template #actions>
   <nz-space>
-    <button *nzSpaceItem nz-button> 导出 </button>
+    <button *nzSpaceItem nz-button i18n> Export </button>
   </nz-space>
 </ng-template>
 
@@ -50,10 +50,11 @@
           (nzCheckedChange)="dataset.setNChecked($event)"
         >
         </th>
-        <th nzWidth="180px"><b>登录时间</b></th>
-        <th nzWidth="320px"><b>登录用户</b></th>
-        <th nzWidth="120px"><b>登录方式</b></th>
-        <th><b>IP & 地区 ISP</b></th>
+        <th nzWidth="150px"><b i18n>Timestamp</b></th>
+        <th><b>User</b></th>
+        <th><b>Mode</b></th>
+        <th><b>Area & ISP</b></th>
+        <th><b>Agent</b></th>
         <th nzWidth="60px" nzRight nzAlign="center">
           <button nz-button nzType="text" nzBlock disabled>
             <i nz-icon nzType="setting"></i>
@@ -72,24 +73,21 @@
             (nzCheckedChange)="dataset.setChecked(data['key'], $event)"
           >
           </td>
-          <td [nzExpand]="expand.has(data['_id'])" (nzExpandChange)="expandChange(data['_id'], $event)">
+          <td>
             {{ data['timestamp'] | date: 'yyyy-MM-dd HH:mm:ss' }}
           </td>
           <td>
             <a *ngIf="userKV[data.metadata.user_id] as user" (click)="openUserDetail(user)">
-              <span> {{ user.email }}</span>
-              <nz-divider nzType="vertical"></nz-divider>
-              <span>
-                <ng-container *ngIf="user.name; else noName">
-                  {{ user.name }}
-                </ng-container>
-              </span>
+              <ng-container *ngIf="user.name; else showEmail">
+                {{ user.name }}
+              </ng-container>
+              <ng-template #showEmail> {{ user.email }} </ng-template>
             </a>
           </td>
           <td>
             <ng-container [ngSwitch]="data.metadata.channel">
-              <ng-container *ngSwitchCase="'email'">电子邮件</ng-container>
-              <ng-container *ngSwitchCase="'feishu'">飞书</ng-container>
+              <ng-container *ngSwitchCase="'email'" i18n>email</ng-container>
+              <ng-container *ngSwitchCase="'feishu'" i18n>feishu</ng-container>
             </ng-container>
           </td>
           <td>
@@ -97,12 +95,16 @@
               <ng-template #spaceSplit>
                 <nz-divider nzType="vertical"></nz-divider>
               </ng-template>
+
               <span *nzSpaceItem>{{ data.metadata.ip }}</span>
-              <span *nzSpaceItem>{{ !d.country ? '未知' : d.country }}</span>
-              <span *nzSpaceItem>{{ !d.province ? '未知' : d.province }}</span>
-              <span *nzSpaceItem>{{ !d.city ? '未知' : d.city }}</span>
-              <span *nzSpaceItem>{{ !d.isp ? '未知' : d.isp }}</span>
+              <span *nzSpaceItem>{{ !d.country ? '-' : d.country }}</span>
+              <span *nzSpaceItem>{{ !d.province ? '-' : d.province }}</span>
+              <span *nzSpaceItem>{{ !d.city ? '-' : d.city }}</span>
+              <span *nzSpaceItem>{{ !d.isp ? '-' : d.isp }}</span>
             </nz-space>
+          </td>
+          <td>
+            <code>{{ data.data.user_agent }}</code>
           </td>
           <td nzRight nzAlign="center">
             <button nz-button nzType="text" nz-dropdown [nzDropdownMenu]="menu">
@@ -110,74 +112,65 @@
             </button>
             <nz-dropdown-menu #menu="nzDropdownMenu">
               <ul nz-menu>
-                <li nz-menu-item>设置备注</li>
+                <li nz-menu-item i18n>Definition</li>
               </ul>
             </nz-dropdown-menu>
           </td>
-        </tr>
-        <tr [nzExpand]="expand.has(data['_id'])">
-          <nz-descriptions nzSize="small" [nzColumn]="2">
-            <nz-descriptions-item nzTitle="令牌 ID" [nzSpan]="2">{{ data.metadata.token_id }}</nz-descriptions-item>
-            <nz-descriptions-item nzTitle="用户代理" [nzSpan]="2">
-              <code>{{ data.data.user_agent }}</code>
-            </nz-descriptions-item>
-          </nz-descriptions>
         </tr>
       </ng-container>
     </tbody>
   </nz-table>
 </nz-card>
 
-<ng-template #noName> 无称呼 </ng-template>
-
 <nz-drawer
   [nzClosable]="false"
   [nzVisible]="userDetailVisible"
   [nzWidth]="640"
   nzPlacement="right"
-  nzTitle="成员详情"
+  nzTitle="User Detail"
   (nzOnClose)="closeUserDetail()"
 >
   <ng-container *nzDrawerContent>
     <nz-descriptions *ngIf="userDetail as u" nzBordered [nzColumn]="2">
-      <nz-descriptions-item nzTitle="电子邮件">{{ u.email }}</nz-descriptions-item>
-      <nz-descriptions-item nzTitle="称呼">
+      <nz-descriptions-item nzTitle="Email">{{ u.email }}</nz-descriptions-item>
+      <nz-descriptions-item nzTitle="Call">
         <ng-container *ngIf="u.name; else noName">
           {{ u.name }}
         </ng-container>
+        <ng-template #noName> None </ng-template>
       </nz-descriptions-item>
       <nz-descriptions-item nzTitle="ID" [nzSpan]="2">{{ u._id }}</nz-descriptions-item>
-      <nz-descriptions-item nzTitle="头像" [nzSpan]="2">{{ u.avatar }}</nz-descriptions-item>
-      <nz-descriptions-item nzTitle="状态" [nzSpan]="2">
-        <ng-container *ngIf="u.status; else isFalse"> <nz-badge nzStatus="processing"></nz-badge> 开启 </ng-container>
-        <ng-template #isFalse> <nz-badge nzStatus="default"></nz-badge> 关闭 </ng-template>
+      <nz-descriptions-item nzTitle="Avatar" [nzSpan]="2">{{ u.avatar }}</nz-descriptions-item>
+      <nz-descriptions-item nzTitle="Status" [nzSpan]="2">
+        <ng-container *ngIf="u.status; else isFalse"> <nz-badge nzStatus="processing"></nz-badge> On </ng-container>
+        <ng-template #isFalse> <nz-badge nzStatus="default"></nz-badge> Off </ng-template>
       </nz-descriptions-item>
-      <nz-descriptions-item nzTitle="累计会话" [nzSpan]="2">
+      <nz-descriptions-item nzTitle="Sessions" [nzSpan]="2">
         <span>
-          已登录 <b> {{ u.sessions }} </b> 次
+          Logged in <b> {{ u.sessions }} </b> times
         </span>
       </nz-descriptions-item>
-      <nz-descriptions-item *ngIf="u.last as l" nzTitle="上线时间" [nzSpan]="2">
+      <nz-descriptions-item *ngIf="u.last as l" nzTitle="Time Online" [nzSpan]="2">
         {{ l.timestamp | date: 'yyyy/MM/dd HH:mm:ss' }}
       </nz-descriptions-item>
       <nz-descriptions-item *ngIf="u.last as l" nzTitle="IP" [nzSpan]="2">
         <b>[ {{ l.ip }} ]</b>
       </nz-descriptions-item>
-      <nz-descriptions-item nzTitle="地区ISP" [nzSpan]="2">
+      <nz-descriptions-item nzTitle="Area & ISP" [nzSpan]="2">
         <nz-space *ngIf="u.last as l" [nzSplit]="spaceSplit">
           <ng-template #spaceSplit>
             <nz-divider nzType="vertical"></nz-divider>
           </ng-template>
-          <span *nzSpaceItem>{{ !l.country ? '未知' : l.country }}</span>
-          <span *nzSpaceItem>{{ !l.province ? '未知' : l.province }}</span>
-          <span *nzSpaceItem>{{ !l.city ? '未知' : l.city }}</span>
-          <span *nzSpaceItem>{{ !l.isp ? '未知' : l.isp }}</span>
+          <span *nzSpaceItem>{{ !l.country ? '-' : l.country }}</span>
+          <span *nzSpaceItem>{{ !l.province ? '-' : l.province }}</span>
+          <span *nzSpaceItem>{{ !l.city ? '-' : l.city }}</span>
+          <span *nzSpaceItem>{{ !l.isp ? '-' : l.isp }}</span>
         </nz-space>
       </nz-descriptions-item>
-      <nz-descriptions-item nzTitle="创建时间" [nzSpan]="2">
+      <nz-descriptions-item nzTitle="Create Time" [nzSpan]="2">
         {{ u.create_time | date: 'yyyy/MM/dd HH:mm:ss' }}
       </nz-descriptions-item>
-      <nz-descriptions-item nzTitle="更新时间" [nzSpan]="2">
+      <nz-descriptions-item nzTitle="Update Time" [nzSpan]="2">
         {{ u.update_time | date: 'yyyy/MM/dd HH:mm:ss' }}
       </nz-descriptions-item>
     </nz-descriptions>
