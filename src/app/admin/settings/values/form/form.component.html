@@ -1,27 +1,17 @@
 <form nz-form nzLayout="vertical" id="form" [formGroup]="form" (wpxSubmit)="submit($event)">
   <nz-form-item>
-    <nz-form-label nzRequired>配置键</nz-form-label>
-    <nz-form-control
-      nzHasFeedback
-      [nzAutoTips]="{
-        default: {
-          required: '配置键不能为空'
-        }
-      }"
-    >
+    <nz-form-label nzRequired i18n>Key</nz-form-label>
+    <nz-form-control nzHasFeedback [nzAutoTips]="tips.key">
       <input nz-input formControlName="key" [readOnly]="data" />
     </nz-form-control>
   </nz-form-item>
   <nz-form-item>
-    <nz-form-label nzRequired>配置值</nz-form-label>
+    <nz-form-label nzRequired i18n>Value</nz-form-label>
     <nz-form-control
-      nzExtra="配置值会存储为字符串类型，默认配置请谨慎提交"
+      nzExtra="The configuration value will be stored as a string type, please submit the default configuration carefully"
+      i18n-nzExtra
       nzHasFeedback
-      [nzAutoTips]="{
-        default: {
-          required: '配置值不能为空'
-        }
-      }"
+      [nzAutoTips]="tips.value"
     >
       <ng-container [ngSwitch]="key">
         <ng-container *ngSwitchCase="'dsl'">
@@ -40,6 +30,6 @@
 </form>
 
 <div *nzModalFooter>
-  <button nz-button type="button" nzType="default" (click)="close()">取消</button>
-  <button nz-button nzType="primary" form="form" [disabled]="!form.valid">提交</button>
+  <button nz-button type="button" nzType="default" (click)="close()" i18n>Cancel</button>
+  <button nz-button nzType="primary" form="form" [disabled]="!form.valid" i18n>Submit</button>
 </div>

@@ -12,29 +12,11 @@ import { FormComponent } from './form/form.component';
   styleUrls: ['./values.component.scss']
 })
 export class ValuesComponent implements OnInit {
-  /**
-   * 配置值
-   */
   values: any[] = [];
-  /**
-   * 选中的集合ID
-   */
   readonly checkedKeys: Set<string> = new Set<string>();
-  /**
-   * 全部选中
-   */
   checked: boolean = false;
-  /**
-   * 部分选中
-   */
   indeterminate = false;
-  /**
-   * 被选中的数量
-   */
   checkedNumber = 0;
-  /**
-   * 搜索值
-   */
   searchText = '';
 
   constructor(private wpx: WpxService, private modal: NzModalService, private message: NzMessageService) {}
@@ -43,9 +25,6 @@ export class ValuesComponent implements OnInit {
     this.getData();
   }
 
-  /**
-   * 获取数据
-   */
   getData(): void {
     this.wpx.getValues().subscribe(data => {
       this.values = [
@@ -68,21 +47,15 @@ export class ValuesComponent implements OnInit {
             return v.key.match(this.searchText);
           })
       ];
-      this.message.success('动态配置已刷新');
+      console.debug('refresh');
     });
   }
 
-  /**
-   * 重置
-   */
   clearSearch(): void {
     this.searchText = '';
     this.getData();
   }
 
-  /**
-   * 设置数据选中 Key
-   */
   setCheckedKeys(key: string, checked: boolean): void {
     if (checked) {
       this.checkedKeys.add(key);
@@ -91,38 +64,25 @@ export class ValuesComponent implements OnInit {
     }
   }
 
-  /**
-   * 设置数据选中
-   */
   setChecked(key: string, checked: boolean): void {
     this.setCheckedKeys(key, checked);
     this.updateCheckedStatus();
   }
 
-  /**
-   * 设置数据全部选中
-   */
   setNChecked(checked: boolean): void {
     this.values.forEach(v => this.setCheckedKeys(v.key!, checked));
     this.updateCheckedStatus();
   }
 
-  /**
-   * 更新数据选中状态
-   */
   updateCheckedStatus(): void {
     this.checked = this.values.every(v => this.checkedKeys.has(v.key));
     this.indeterminate = this.values.some(v => this.checkedKeys.has(v.key)) && !this.checked;
     this.checkedNumber = this.checkedKeys.size;
   }
 
-  /**
-   * 编辑动态配置
-   * @param data
-   */
   form(data?: any): void {
     this.modal.create({
-      nzTitle: '设置',
+      nzTitle: $localize`Value Form`,
       nzWidth: '732px',
       nzContent: FormComponent,
       nzComponentParams: {
@@ -134,23 +94,19 @@ export class ValuesComponent implements OnInit {
     });
   }
 
-  /**
-   * 删除动态配置
-   * @param key
-   */
   delete(key: string): void {
     this.modal.confirm({
-      nzTitle: `您确定要删除【${key}】配置吗?`,
-      nzOkText: '是的',
+      nzTitle: $localize`Are you sure you want to delete [${key}] configuration?`,
+      nzOkText: $localize`Yes`,
       nzOkType: 'primary',
       nzOkDanger: true,
       nzOnOk: () => {
         this.wpx.deleteValue(key).subscribe(() => {
-          this.message.success('配置删除完成');
+          this.message.success($localize`Data deleted successfully`);
           this.getData();
         });
       },
-      nzCancelText: '再想想'
+      nzCancelText: $localize`Think again`
     });
   }
 }

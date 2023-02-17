@@ -16,29 +16,11 @@ import { SessionsService } from './sessions.service';
   templateUrl: './sessions.component.html'
 })
 export class SessionsComponent implements OnInit, OnDestroy {
-  /**
-   * 数据
-   */
   values: Array<AnyDto<User>> = [];
-  /**
-   * 刷新间隔
-   */
   interval = 15;
-  /**
-   * 搜索文本
-   */
   searchText: string = '';
-  /**
-   * 选中的集合ID
-   */
   readonly checkedIds: Set<string> = new Set<string>();
-  /**
-   * 全部选中
-   */
   checked: boolean = false;
-  /**
-   * 部分选中
-   */
   indeterminate = false;
 
   private dataSubscription!: Subscription;
@@ -86,21 +68,15 @@ export class SessionsComponent implements OnInit, OnDestroy {
             return v;
           })
         ];
-        this.message.success('在线会话已刷新');
+        console.debug(`session refreshed`);
       });
   }
 
-  /**
-   * 重置
-   */
   clearSearch(): void {
     this.searchText = '';
     this.getData();
   }
 
-  /**
-   * 设置数据选中ID
-   */
   setCheckedIds(id: string, checked: boolean): void {
     if (checked) {
       this.checkedIds.add(id);
@@ -109,33 +85,21 @@ export class SessionsComponent implements OnInit, OnDestroy {
     }
   }
 
-  /**
-   * 设置数据选中
-   */
   setChecked(id: string, checked: boolean): void {
     this.setCheckedIds(id, checked);
     this.updateCheckedStatus();
   }
 
-  /**
-   * 设置数据全部选中
-   */
   setNChecked(checked: boolean): void {
     this.values.forEach(v => this.setCheckedIds(v._id!, checked));
     this.updateCheckedStatus();
   }
 
-  /**
-   * 更新数据选中状态
-   */
   updateCheckedStatus(): void {
     this.checked = this.values.every(v => this.checkedIds.has(v._id!));
     this.indeterminate = this.values.some(v => this.checkedIds.has(v._id!)) && !this.checked;
   }
 
-  /**
-   * 取消所有选中
-   */
   clearChecked(): void {
     this.checked = false;
     this.indeterminate = false;
@@ -144,17 +108,17 @@ export class SessionsComponent implements OnInit, OnDestroy {
 
   delete(id: string): void {
     this.sessions.delete(id).subscribe(() => {
-      this.message.success('会话已下线');
+      this.message.success($localize`session offline`);
     });
   }
 
   bulkDelete(): void {
     this.modal.confirm({
-      nzTitle: '您确定要中断全部会话吗？',
+      nzTitle: 'Are you sure you want to break the selected sessions？',
       nzOkDanger: true,
       nzOnOk: () => {
         this.sessions.clear().subscribe(() => {
-          this.message.success('会话已下线');
+          this.message.success($localize`sessions offline`);
         });
       }
     });

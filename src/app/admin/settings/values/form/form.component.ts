@@ -10,13 +10,19 @@ import { NzModalRef } from 'ng-zorro-antd/modal';
   templateUrl: './form.component.html'
 })
 export class FormComponent implements OnInit {
-  /**
-   * 载入数据
-   */
+  tips = {
+    key: {
+      default: {
+        required: $localize`The key cannot be empty`
+      }
+    },
+    value: {
+      default: {
+        required: $localize`The key cannot be empty`
+      }
+    }
+  };
   @Input() data?: Record<string, any>;
-  /**
-   * 表单
-   */
   form!: FormGroup;
 
   constructor(
@@ -40,17 +46,10 @@ export class FormComponent implements OnInit {
     return this.form.get('key')?.value!;
   }
 
-  /**
-   * 关闭表单
-   */
   close(): void {
     this.modalRef.triggerCancel();
   }
 
-  /**
-   * 提交
-   * @param data
-   */
   submit(data: any): void {
     switch (this.key) {
       case 'dsl':
@@ -62,7 +61,7 @@ export class FormComponent implements OnInit {
         [data.key]: data.value
       })
       .subscribe(() => {
-        this.message.success('设置成功');
+        this.message.success($localize`Data update complete`);
         this.modalRef.triggerOk();
       });
   }
