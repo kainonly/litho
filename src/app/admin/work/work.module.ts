@@ -8,23 +8,7 @@ import { WorkComponent } from './work.component';
 const routes: Routes = [
   {
     path: '',
-    component: WorkComponent,
-    children: [
-      {
-        path: 'projects',
-        loadChildren: () => import('./projects/projects.module').then(m => m.ProjectsModule),
-        data: {
-          breadcrumb: $localize`Project`
-        }
-      },
-      // {
-      //   path: 'group',
-      //   data: {
-      //     breadcrumb: $localize`Group`
-      //   }
-      // },
-      { path: '', redirectTo: 'projects', pathMatch: 'full' }
-    ]
+    component: WorkComponent
   }
 ];
 

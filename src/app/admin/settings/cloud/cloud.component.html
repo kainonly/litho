@@ -1,5 +1,10 @@
 <nz-card>
-  <nz-tabset style="height: 100%" nzTabPosition="left">
+  <nz-tabset
+    style="height: 100%"
+    nzTabPosition="left"
+    [(nzSelectedIndex)]="tabIndex"
+    (nzSelectedIndexChange)="saveTabIndex()"
+  >
     <nz-tab nzTitle="Tencent Cloud" i18n-nzTitle>
       <nz-row style="padding-bottom: 12px" nzJustify="space-between">
         <nz-col>
@@ -12,7 +17,7 @@
         </nz-col>
       </nz-row>
 
-      <nz-card nzType="inner" nzTitle="Detail" i18n-nzTitle [nzExtra]="tencentEditTpl">
+      <nz-card nzSize="small" nzType="inner" nzTitle="Detail" i18n-nzTitle [nzExtra]="tencentEditTpl">
         <ng-template #tencentEditTpl>
           <button nz-button nzType="text" (click)="setTencent()">
             <span nz-icon nzType="edit"></span>
@@ -34,7 +39,7 @@
 
       <nz-row style="padding-top: 12px" [nzGutter]="[8, 8]">
         <nz-col [nzSpan]="12">
-          <nz-card nzType="inner" nzTitle="Object Storage" i18n-nzTitle [nzExtra]="cosEditTpl">
+          <nz-card nzSize="small" nzType="inner" nzTitle="Object Storage" i18n-nzTitle [nzExtra]="cosEditTpl">
             <ng-template #cosEditTpl>
               <button nz-button nzType="text" (click)="setCos()">
                 <span nz-icon nzType="edit"></span>
@@ -66,13 +71,13 @@
           </nz-card>
         </nz-col>
         <nz-col [nzSpan]="12">
-          <nz-card nzType="inner" nzTitle="Message Queue" i18n-nzTitle [nzExtra]="notYetTpl">
+          <nz-card nzSize="small" nzType="inner" nzTitle="Message Queue" i18n-nzTitle [nzExtra]="notYetTpl">
             <p i18n>Use Tencent Cloud TDMQ Plusar for Transaction Compensation</p>
             <nz-empty nzNotFoundContent=""></nz-empty>
           </nz-card>
         </nz-col>
         <nz-col [nzSpan]="12">
-          <nz-card nzType="inner" nzTitle="Log System" i18n-nzTitle [nzExtra]="notYetTpl">
+          <nz-card nzSize="small" nzType="inner" nzTitle="Log System" i18n-nzTitle [nzExtra]="notYetTpl">
             <p i18n>Use Tencent Cloud CLS log service to collect logs</p>
             <nz-empty nzNotFoundContent=""></nz-empty>
           </nz-card>
@@ -91,13 +96,13 @@
         </nz-col>
       </nz-row>
 
-      <nz-card nzType="inner" nzTitle="Detail" i18n-nzTitle [nzExtra]="notYetTpl">
+      <nz-card nzSize="small" nzType="inner" nzTitle="Detail" i18n-nzTitle [nzExtra]="notYetTpl">
         <nz-empty nzNotFoundContent=""></nz-empty>
       </nz-card>
 
       <nz-row style="padding-top: 12px" [nzGutter]="[8, 8]">
         <nz-col [nzSpan]="12">
-          <nz-card nzType="inner" nzTitle="Object Storage" i18n-nzTitle [nzExtra]="notYetTpl">
+          <nz-card nzSize="small" nzType="inner" nzTitle="Object Storage" i18n-nzTitle [nzExtra]="notYetTpl">
             <p i18n>Store static files in OSS object storage, and then distribute content through CDN back-to-source</p>
             <nz-empty nzNotFoundContent=""></nz-empty>
           </nz-card>
@@ -115,13 +120,13 @@
         </nz-col>
       </nz-row>
 
-      <nz-card nzType="inner" nzTitle="Detail" i18n-nzTitle [nzExtra]="notYetTpl">
+      <nz-card nzSize="small" nzType="inner" nzTitle="Detail" i18n-nzTitle [nzExtra]="notYetTpl">
         <nz-empty nzNotFoundContent=""></nz-empty>
       </nz-card>
 
       <nz-row style="padding-top: 12px" [nzGutter]="[8, 8]">
         <nz-col [nzSpan]="12">
-          <nz-card nzType="inner" nzTitle="Object Storage" i18n-nzTitle [nzExtra]="notYetTpl">
+          <nz-card nzSize="small" nzType="inner" nzTitle="Object Storage" i18n-nzTitle [nzExtra]="notYetTpl">
             <p i18n>Store static files in OBS object storage, and then distribute content through CDN back-to-source</p>
             <nz-empty nzNotFoundContent=""></nz-empty>
           </nz-card>

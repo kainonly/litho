@@ -1,12 +1,12 @@
 <nz-card nzTitle="Public Mailbox" [nzExtra]="emailBookTpl">
   <ng-template #emailBookTpl>
     <button nz-button nzType="text">
-      <span nz-icon nzType="book"></span>
+      <span nz-icon nzType="read"></span>
     </button>
   </ng-template>
   <nz-row [nzGutter]="[8, 8]">
     <nz-col [nzSpan]="12">
-      <nz-card nzTitle="Basic" nzType="inner" [nzExtra]="emailEditTpl">
+      <nz-card nzSize="small" nzTitle="Basic" nzType="inner" [nzExtra]="emailEditTpl">
         <ng-template #emailEditTpl>
           <button nz-button nzType="text" (click)="setEmail()">
             <span nz-icon nzType="edit"></span>
@@ -42,12 +42,12 @@
 <nz-card nzTitle="Openapi Service" [nzExtra]="openapiBookTpl">
   <ng-template #openapiBookTpl>
     <button nz-button nzType="text">
-      <span nz-icon nzType="book"></span>
+      <span nz-icon nzType="read"></span>
     </button>
   </ng-template>
   <nz-row [nzGutter]="[8, 8]">
     <nz-col [nzSpan]="12">
-      <nz-card nzTitle="Basic" nzType="inner" [nzExtra]="openapiEditTpl">
+      <nz-card nzSize="small" nzTitle="Basic" nzType="inner" [nzExtra]="openapiEditTpl">
         <ng-template #openapiEditTpl>
           <button nz-button nzType="text" (click)="setOpenapi()">
             <span nz-icon nzType="edit"></span>

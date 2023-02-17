@@ -22,12 +22,12 @@ const routes: Routes = [
   imports: [ShareModule, RouterModule.forChild(routes)],
   declarations: [
     SecurityComponent,
-    SessionComponent,
-    UserLockComponent,
-    IpLockComponent,
     IpListComponent,
+    IpLockComponent,
+    PwdTtlComponent,
     PwdStrategyComponent,
-    PwdTtlComponent
+    SessionComponent,
+    UserLockComponent
   ]
 })
 export class SecurityModule {}

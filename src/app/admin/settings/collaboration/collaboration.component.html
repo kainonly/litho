@@ -9,7 +9,7 @@
         <nz-col></nz-col>
       </nz-row>
 
-      <nz-card nzType="inner" nzTitle="Detail" i18n-nzTitle [nzExtra]="feishuEditTpl">
+      <nz-card nzSize="small" nzType="inner" nzTitle="Detail" i18n-nzTitle [nzExtra]="feishuEditTpl">
         <ng-template #feishuEditTpl>
           <button nz-button nzType="text" (click)="setFeishu()">
             <span nz-icon nzType="edit"></span>
@@ -41,7 +41,13 @@
 
       <nz-row style="padding-top: 12px" [nzGutter]="[8, 8]">
         <nz-col [nzSpan]="12">
-          <nz-card nzType="inner" nzTitle="Login-free Authorization" i18n-nzTitle [nzExtra]="feishuLoginTpl">
+          <nz-card
+            nzSize="small"
+            nzType="inner"
+            nzTitle="Login-free Authorization"
+            i18n-nzTitle
+            [nzExtra]="feishuLoginTpl"
+          >
             <ng-template #feishuLoginTpl>
               <button nz-button nzType="text" (click)="setLoginFree()">
                 <span nz-icon nzType="edit"></span>
@@ -58,7 +64,7 @@
           </nz-card>
         </nz-col>
         <nz-col [nzSpan]="12">
-          <nz-card nzType="inner" nzTitle="Task" i18n-nzTitle [nzExtra]="notYetTpl">
+          <nz-card nzSize="small" nzType="inner" nzTitle="Task" i18n-nzTitle [nzExtra]="notYetTpl">
             <p i18n>
               The open API provided for task resources can support operations such as creating, updating, and deleting
               tasks
@@ -67,7 +73,7 @@
           </nz-card>
         </nz-col>
         <nz-col [nzSpan]="12">
-          <nz-card nzType="inner" nzTitle="Calendar" i18n-nzTitle [nzExtra]="notYetTpl">
+          <nz-card nzSize="small" nzType="inner" nzTitle="Calendar" i18n-nzTitle [nzExtra]="notYetTpl">
             <p i18n>
               Based on the Feishu calendar function, the ability to operate and query entities such as calendars,
               schedules, and busy schedules is opened, and developers can call calendar APIs as "applications" or

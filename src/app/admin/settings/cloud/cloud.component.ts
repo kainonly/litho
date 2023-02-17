@@ -1,6 +1,7 @@
 import { Component, OnInit, Type } from '@angular/core';
 
 import { WpxService } from '@weplanx/ng';
+import { WpxStoreService } from '@weplanx/ng/store';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalService } from 'ng-zorro-antd/modal';
 
@@ -12,15 +13,30 @@ import { TencentComponent } from './tencent/tencent.component';
   templateUrl: './cloud.component.html'
 })
 export class CloudComponent implements OnInit {
+  tabIndex = 0;
   values: Record<string, any> = {};
 
-  constructor(private wpx: WpxService, private modal: NzModalService, private message: NzMessageService) {}
+  constructor(
+    private wpx: WpxService,
+    private store: WpxStoreService,
+    private modal: NzModalService,
+    private message: NzMessageService
+  ) {}
 
   ngOnInit(): void {
     this.getData();
   }
 
+  saveTabIndex(): void {
+    this.store.set<number>('admin-integrated-cloud-tab', this.tabIndex).subscribe(() => {});
+  }
+
   getData(): void {
+    this.store.get<number>('admin-integrated-cloud-tab').subscribe(v => {
+      if (v) {
+        this.tabIndex = v;
+      }
+    });
     this.wpx
       .getValues([
         'cloud',

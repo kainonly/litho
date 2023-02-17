@@ -8,7 +8,17 @@ import { SpaceComponent } from './space.component';
 const routes: Routes = [
   {
     path: '',
-    component: SpaceComponent
+    component: SpaceComponent,
+    children: [
+      {
+        path: 'projects',
+        loadChildren: () => import('./projects/projects.module').then(m => m.ProjectsModule),
+        data: {
+          breadcrumb: $localize`Project`
+        }
+      },
+      { path: '', redirectTo: 'projects', pathMatch: 'full' }
+    ]
   }
 ];
 
