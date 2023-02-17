@@ -21,7 +21,7 @@
 
 <ng-template #actions>
   <nz-space>
-    <button *nzSpaceItem nz-button> Export </button>
+    <button *nzSpaceItem nz-button i18n> Export </button>
   </nz-space>
 </ng-template>
 
@@ -50,9 +50,9 @@
           (nzCheckedChange)="dataset.setNChecked($event)"
         >
         </th>
-        <th nzWidth="180px"><b>操作时间</b></th>
-        <th nzWidth="320px"><b>操作者</b></th>
-        <th><b>资源</b></th>
+        <th nzWidth="180px"><b i18n>Timestamp</b></th>
+        <th nzWidth="320px"><b i18n>Operator</b></th>
+        <th><b i18n>Resource</b></th>
         <th nzWidth="60px" nzRight nzAlign="center">
           <button nz-button nzType="text" nzBlock disabled>
             <i nz-icon nzType="setting"></i>
@@ -71,7 +71,7 @@
             (nzCheckedChange)="dataset.setChecked(data['_id'], $event)"
           >
           </td>
-          <td [nzExpand]="expand.has(data['_id'])" (nzExpandChange)="expandChange(data['_id'], $event)">
+          <td>
             {{ data['timestamp'] | date: 'yyyy-MM-dd HH:mm:ss' }}
           </td>
           <td>
@@ -84,93 +84,115 @@
                 </ng-container>
               </span>
             </a>
-            <ng-template #isSystem>系统行为</ng-template>
+            <ng-template #isSystem>
+              <ng-container i18n>system</ng-container>
+            </ng-template>
           </td>
-          <td>{{ data.metadata.method }} {{ data.metadata.path }}</td>
+          <td>
+            <a (click)="openResourceDetail(data)">
+              <span>{{ data._id }}</span>
+              <nz-divider nzType="vertical"></nz-divider>
+              <code>{{ data.metadata.method }} {{ data.metadata.path }}</code>
+            </a>
+          </td>
           <td nzRight nzAlign="center">
             <button nz-button nzType="text" nz-dropdown [nzDropdownMenu]="menu">
               <i nz-icon nzType="ellipsis"></i>
             </button>
             <nz-dropdown-menu #menu="nzDropdownMenu">
               <ul nz-menu>
-                <li nz-menu-item>资源定义</li>
+                <li nz-menu-item i18n>Definition</li>
               </ul>
             </nz-dropdown-menu>
           </td>
-        </tr>
-        <tr [nzExpand]="expand.has(data['_id'])">
-          <nz-descriptions nzSize="small" [nzColumn]="2">
-            <nz-descriptions-item nzTitle="主机地址">{{ data.metadata.host }}</nz-descriptions-item>
-            <nz-descriptions-item nzTitle="耗时">{{ data.data.cost }}ms</nz-descriptions-item>
-            <nz-descriptions-item nzTitle="IP">{{ data.metadata.ip }}</nz-descriptions-item>
-            <nz-descriptions-item nzTitle="状态码">{{ data.data.status }}</nz-descriptions-item>
-            <nz-descriptions-item nzTitle="Query 参数" [nzSpan]="2">
-              <code>{{ data.data.query }}</code>
-            </nz-descriptions-item>
-            <nz-descriptions-item nzTitle="Body 请求体" [nzSpan]="2">
-              <code>{{ data.data.body }}</code>
-            </nz-descriptions-item>
-            <nz-descriptions-item nzTitle="用户代理" [nzSpan]="2">
-              <code>{{ data.data.user_agent }}</code>
-            </nz-descriptions-item>
-          </nz-descriptions>
         </tr>
       </ng-container>
     </tbody>
   </nz-table>
 </nz-card>
 
-<ng-template #noName> 无称呼 </ng-template>
+<ng-template #noName> None </ng-template>
 
 <nz-drawer
   [nzClosable]="false"
   [nzVisible]="userDetailVisible"
   [nzWidth]="640"
   nzPlacement="right"
-  nzTitle="成员详情"
+  nzTitle="User Detail"
   (nzOnClose)="closeUserDetail()"
 >
   <ng-container *nzDrawerContent>
     <nz-descriptions *ngIf="userDetail as u" nzBordered [nzColumn]="2">
-      <nz-descriptions-item nzTitle="电子邮件">{{ u.email }}</nz-descriptions-item>
-      <nz-descriptions-item nzTitle="称呼">
+      <nz-descriptions-item nzTitle="Email">{{ u.email }}</nz-descriptions-item>
+      <nz-descriptions-item nzTitle="Call">
         <ng-container *ngIf="u.name; else noName">
           {{ u.name }}
         </ng-container>
       </nz-descriptions-item>
       <nz-descriptions-item nzTitle="ID" [nzSpan]="2">{{ u._id }}</nz-descriptions-item>
-      <nz-descriptions-item nzTitle="头像" [nzSpan]="2">{{ u.avatar }}</nz-descriptions-item>
-      <nz-descriptions-item nzTitle="状态" [nzSpan]="2">
-        <ng-container *ngIf="u.status; else isFalse"> <nz-badge nzStatus="processing"></nz-badge> 开启 </ng-container>
-        <ng-template #isFalse> <nz-badge nzStatus="default"></nz-badge> 关闭 </ng-template>
+      <nz-descriptions-item nzTitle="Avatar" [nzSpan]="2">{{ u.avatar }}</nz-descriptions-item>
+      <nz-descriptions-item nzTitle="Status" [nzSpan]="2">
+        <ng-container *ngIf="u.status; else isFalse"> <nz-badge nzStatus="processing"></nz-badge> On </ng-container>
+        <ng-template #isFalse> <nz-badge nzStatus="default"></nz-badge> Off </ng-template>
       </nz-descriptions-item>
-      <nz-descriptions-item nzTitle="累计会话" [nzSpan]="2">
+      <nz-descriptions-item nzTitle="Sessions" [nzSpan]="2">
         <span>
-          已登录 <b> {{ u.sessions }} </b> 次
+          Logged in <b> {{ u.sessions }} </b> times
         </span>
       </nz-descriptions-item>
-      <nz-descriptions-item *ngIf="u.last as l" nzTitle="上线时间" [nzSpan]="2">
+      <nz-descriptions-item *ngIf="u.last as l" nzTitle="Time Online" [nzSpan]="2">
         {{ l.timestamp | date: 'yyyy/MM/dd HH:mm:ss' }}
       </nz-descriptions-item>
       <nz-descriptions-item *ngIf="u.last as l" nzTitle="IP" [nzSpan]="2">
         <b>[ {{ l.ip }} ]</b>
       </nz-descriptions-item>
-      <nz-descriptions-item nzTitle="地区ISP" [nzSpan]="2">
+      <nz-descriptions-item nzTitle="Area & ISP" [nzSpan]="2">
         <nz-space *ngIf="u.last as l" [nzSplit]="spaceSplit">
           <ng-template #spaceSplit>
             <nz-divider nzType="vertical"></nz-divider>
           </ng-template>
-          <span *nzSpaceItem>{{ !l.country ? '未知' : l.country }}</span>
-          <span *nzSpaceItem>{{ !l.province ? '未知' : l.province }}</span>
-          <span *nzSpaceItem>{{ !l.city ? '未知' : l.city }}</span>
-          <span *nzSpaceItem>{{ !l.isp ? '未知' : l.isp }}</span>
+          <span *nzSpaceItem>{{ !l.country ? '-' : l.country }}</span>
+          <span *nzSpaceItem>{{ !l.province ? '-' : l.province }}</span>
+          <span *nzSpaceItem>{{ !l.city ? '-' : l.city }}</span>
+          <span *nzSpaceItem>{{ !l.isp ? '-' : l.isp }}</span>
         </nz-space>
       </nz-descriptions-item>
-      <nz-descriptions-item nzTitle="创建时间" [nzSpan]="2">
+      <nz-descriptions-item nzTitle="Create Time" [nzSpan]="2">
         {{ u.create_time | date: 'yyyy/MM/dd HH:mm:ss' }}
       </nz-descriptions-item>
-      <nz-descriptions-item nzTitle="更新时间" [nzSpan]="2">
+      <nz-descriptions-item nzTitle="Update Time" [nzSpan]="2">
         {{ u.update_time | date: 'yyyy/MM/dd HH:mm:ss' }}
+      </nz-descriptions-item>
+    </nz-descriptions>
+  </ng-container>
+</nz-drawer>
+
+<nz-drawer
+  [nzClosable]="false"
+  [nzVisible]="resourceDetailVisible"
+  [nzWidth]="640"
+  nzPlacement="right"
+  nzTitle="Resource Detail"
+  (nzOnClose)="closeResourceDetail()"
+>
+  <ng-container *nzDrawerContent>
+    <nz-descriptions *ngIf="resourceDetail as r" nzBordered [nzColumn]="2">
+      <nz-descriptions-item nzTitle="ID" [nzSpan]="2">{{ r._id }}</nz-descriptions-item>
+      <nz-descriptions-item nzTitle="Url" [nzSpan]="2">
+        <code>{{ r.metadata.method }} {{ r.metadata.path }}</code>
+      </nz-descriptions-item>
+      <nz-descriptions-item nzTitle="Host">{{ r.metadata.host }}</nz-descriptions-item>
+      <nz-descriptions-item nzTitle="Cost">{{ r.data.cost }}ms</nz-descriptions-item>
+      <nz-descriptions-item nzTitle="IP">{{ r.metadata.ip }}</nz-descriptions-item>
+      <nz-descriptions-item nzTitle="Status">{{ r.data.status }}</nz-descriptions-item>
+      <nz-descriptions-item nzTitle="Query" [nzSpan]="2">
+        <code>{{ r.data.query }}</code>
+      </nz-descriptions-item>
+      <nz-descriptions-item nzTitle="Body" [nzSpan]="2">
+        <code>{{ r.data.body }}</code>
+      </nz-descriptions-item>
+      <nz-descriptions-item nzTitle="Agent" [nzSpan]="2">
+        <code>{{ r.data.user_agent }}</code>
       </nz-descriptions-item>
     </nz-descriptions>
   </ng-container>
