@@ -1,5 +1,5 @@
 <ng-template #extra>
-  <button nz-button nzType="primary" (click)="form()"> 新增 </button>
+  <button nz-button nzType="primary" (click)="form()" i18n> Create </button>
 </ng-template>
 
 <ng-template #actions let-data>
@@ -8,16 +8,16 @@
   </button>
   <nz-dropdown-menu #menu="nzDropdownMenu">
     <ul nz-menu>
-      <li nz-menu-item (click)="form(data)">编辑</li>
-      <li nz-menu-item nzDanger (click)="delete(data)">删除</li>
+      <li nz-menu-item (click)="form(data)" i18n>Edit</li>
+      <li nz-menu-item nzDanger (click)="delete(data)" i18n>Delete</li>
     </ul>
   </nz-dropdown-menu>
 </ng-template>
 
 <ng-template #bulk>
-  <a nz-button nzType="link" nzSize="small" (click)="dataset.clearChecked()">取消选择</a>
+  <a nz-button nzType="link" nzSize="small" (click)="dataset.clearChecked()" i18n>Cancel</a>
   <br />
-  <a style="float: right" nz-button nzType="link" nzSize="small" nzDanger (click)="bulkDelete()">删除</a>
+  <a style="float: right" nz-button nzType="link" nzSize="small" nzDanger (click)="bulkDelete()" i18n>Delete</a>
 </ng-template>
 
 <nz-card [nzTitle]="table.wpxSearch" [nzExtra]="extra">

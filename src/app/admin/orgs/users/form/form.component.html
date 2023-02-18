@@ -2,27 +2,27 @@
   <nz-row [nzGutter]="24">
     <nz-col [nzSpan]="14">
       <nz-form-item>
-        <nz-form-label nzRequired>电子邮件</nz-form-label>
+        <nz-form-label nzRequired>Email</nz-form-label>
         <nz-form-control
           nzHasFeedback
           [nzAutoTips]="{
             default: {
-              required: '电子邮件不能为空',
-              duplicated: '存在重复的定义，电子邮件必须是唯一的'
+              required: 'The email cannot be empty',
+              duplicated: 'Duplicate definitions exist, email must be unique'
             }
           }"
         >
-          <input nz-input type="email" formControlName="email" placeholder="请填写电子邮件" />
+          <input nz-input type="email" formControlName="email" placeholder="Please enter email" />
         </nz-form-control>
       </nz-form-item>
       <nz-form-item>
-        <nz-form-label [nzRequired]="!doc"> 密码 </nz-form-label>
+        <nz-form-label [nzRequired]="!doc"> Password </nz-form-label>
         <nz-form-control
           nzHasFeedback
           [nzAutoTips]="{
             default: {
-              required: '用户密码不能为空',
-              minlength: '用户密码长度不能小于6位'
+              required: 'The password cannot be empty',
+              minlength: 'The password cannot be less than 6 characters'
             }
           }"
         >
@@ -39,21 +39,21 @@
               nz-input
               autocomplete="new-password"
               formControlName="password"
-              [placeholder]="!doc ? '请填写用户密码' : '非必填，将不更新用户密码'"
+              [placeholder]="!doc ? 'Please enter password' : 'Not required, empty will not update the password'"
             />
           </nz-input-group>
         </nz-form-control>
       </nz-form-item>
       <nz-form-item>
-        <nz-form-label>称呼</nz-form-label>
+        <nz-form-label>Call</nz-form-label>
         <nz-form-control>
-          <input nz-input formControlName="name" placeholder="请填写用户称呼" />
+          <input nz-input formControlName="name" placeholder="Please enter call" />
         </nz-form-control>
       </nz-form-item>
     </nz-col>
     <nz-col [nzSpan]="10">
       <nz-form-item>
-        <nz-form-label>头像</nz-form-label>
+        <nz-form-label>Avatar</nz-form-label>
         <nz-form-control>
           <wpx-upload-avatar
             wpxExt="image"
@@ -68,7 +68,7 @@
   </nz-row>
 
   <nz-form-item>
-    <nz-form-label nzRequired>状态</nz-form-label>
+    <nz-form-label nzRequired>Status</nz-form-label>
     <nz-form-control>
       <nz-switch formControlName="status"></nz-switch>
     </nz-form-control>
@@ -76,6 +76,6 @@
 </form>
 
 <div *nzModalFooter>
-  <button nz-button type="button" nzType="default" (click)="close()">取消</button>
-  <button nz-button nzType="primary" form="form" [disabled]="!form.valid">提交</button>
+  <button nz-button type="button" nzType="default" (click)="close()">Cancel</button>
+  <button nz-button nzType="primary" form="form" [disabled]="!form.valid">Submit</button>
 </div>
