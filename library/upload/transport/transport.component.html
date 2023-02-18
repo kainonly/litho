@@ -44,6 +44,6 @@
 </ng-template>
 
 <ng-template #messageRef>
-  请勿切换页面，目前正在上传文件中
+  <ng-container i18n>Do not switch pages, currently uploading files</ng-container>
   <nz-progress [nzPercent]="percent" nzStatus="active"></nz-progress>
 </ng-template>

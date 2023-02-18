@@ -41,21 +41,9 @@ declare const EditorJS: any;
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class WpxRichtextComponent implements ControlValueAccessor, AfterViewInit, OnDestroy {
-  /**
-   * 文章视图
-   */
   @ViewChild('richtext', { static: true }) ref!: ElementRef;
-  /**
-   * 内容提示
-   */
   @Input() wpxPlaceholder?: string;
-  /**
-   * 媒体等待提示图
-   */
   @Input() wpxFallback?: string;
-  /**
-   * 载入值
-   */
   $data: BehaviorSubject<RichtextData> = new BehaviorSubject(<RichtextData>null);
 
   /**
@@ -107,10 +95,6 @@ export class WpxRichtextComponent implements ControlValueAccessor, AfterViewInit
     });
   }
 
-  /**
-   * 初始化
-   * @private
-   */
   private initialize(): void {
     this.zone.runOutsideAngular(() => {
       this.instance = new EditorJS({
@@ -150,12 +134,6 @@ export class WpxRichtextComponent implements ControlValueAccessor, AfterViewInit
     });
   }
 
-  /**
-   * 开启媒体
-   * @param type
-   * @param done
-   * @private
-   */
   private openMediaView(type: MediaType, done: ResolveDone): void {
     this.modal.create({
       nzBodyStyle: { background: '#f0f2f5' },
@@ -177,10 +155,6 @@ export class WpxRichtextComponent implements ControlValueAccessor, AfterViewInit
     });
   }
 
-  /**
-   * 保存数据
-   * @private
-   */
   private save(): void {
     from(this.instance?.save() as Promise<RichtextData>)
       .pipe(auditTime(300))

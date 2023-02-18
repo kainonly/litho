@@ -34,10 +34,6 @@ export const setHttpOptions = <T>(
   return { headers, params };
 };
 
-/**
- * 更新 FormGroup 状态
- * @param controls
- */
 export const updateFormGroup = (controls: AbstractControl[]): void => {
   controls.forEach(control => {
     if (control instanceof UntypedFormGroup) {
@@ -52,7 +48,7 @@ export const updateFormGroup = (controls: AbstractControl[]): void => {
 };
 
 /**
- * 通用验证
+ * Common Validation Logic
  */
 export const validates = {
   password: (value: string, level?: number) => {
@@ -77,7 +73,7 @@ export const validates = {
 };
 
 /**
- * 树视图展开状态
+ * Tree view expanded state
  */
 export const expandTreeNodes = (nodes: NzTreeNode[], value: boolean): void => {
   for (const node of nodes) {

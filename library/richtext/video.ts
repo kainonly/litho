@@ -5,19 +5,8 @@ export class Video {
    * Editor.js API
    */
   private api: any;
-  /**
-   * 配置
-   * @private
-   */
   private config: Config;
-  /**
-   * 视频 DOM
-   * @private
-   */
   private video?: HTMLVideoElement;
-  /**
-   * 数据
-   */
   data: MediaData;
 
   static get toolbox(): any {
@@ -36,15 +25,12 @@ export class Video {
     this.config = config;
   }
 
-  /**
-   * 渲染
-   */
   render(): HTMLElement {
     const wrapper = document.createElement('div');
     wrapper.classList.add(this.api.styles.block, 'cdx-media');
     const btn = document.createElement('button');
     btn.classList.add('cdx-button');
-    btn.innerText = '请选择视频';
+    btn.innerText = 'Please select a video';
     btn.onclick = () => {
       this.setVideo();
     };
@@ -68,17 +54,10 @@ export class Video {
     return wrapper;
   }
 
-  /**
-   * 保存数据
-   */
   save(): MediaData {
     return this.data;
   }
 
-  /**
-   * 设置视频
-   * @private
-   */
   private setVideo(): void {
     this.config.resolve(data => {
       this.data = data;

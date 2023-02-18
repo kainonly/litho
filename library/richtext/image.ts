@@ -5,19 +5,8 @@ export class Image {
    * Editor.js API
    */
   private api: any;
-  /**
-   * 配置
-   * @private
-   */
   private config: Config;
-  /**
-   * 图片 DOM
-   * @private
-   */
   private image?: HTMLImageElement;
-  /**
-   * 数据
-   */
   data: MediaData;
 
   static get toolbox(): any {
@@ -44,7 +33,7 @@ export class Image {
     wrapper.classList.add(this.api.styles.block, 'cdx-media');
     const btn = document.createElement('button');
     btn.classList.add('cdx-button');
-    btn.innerText = '请选择图片';
+    btn.innerText = 'Please select a picture';
     btn.onclick = () => {
       this.setImage();
     };
@@ -67,17 +56,10 @@ export class Image {
     return wrapper;
   }
 
-  /**
-   * 保存数据
-   */
   save(): MediaData {
     return this.data;
   }
 
-  /**
-   * 设置图片
-   * @private
-   */
   private setImage(): void {
     this.config.resolve(data => {
       this.data = data;

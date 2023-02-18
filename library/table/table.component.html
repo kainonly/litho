@@ -2,25 +2,33 @@
   <nz-row [nzGutter]="6">
     <nz-col>
       <nz-input-group style="width: 180px" nzSuffixIcon="search">
-        <input (keyup.enter)="submitSearch()" [(ngModel)]="searchText" type="text" nz-input placeholder="关键词搜索" />
+        <input
+          (keyup.enter)="submitSearch()"
+          [(ngModel)]="searchText"
+          type="text"
+          nz-input
+          placeholder="Search"
+          i18n-placeholder
+        />
       </nz-input-group>
     </nz-col>
     <nz-col>
       <nz-button-group>
-        <button nz-button nzType="text" nz-tooltip="刷新" (click)="getData(true)">
+        <button nz-button nzType="text" nz-tooltip="Refresh" i18n-nz-tooltip (click)="getData(true)">
           <i nz-icon nzType="reload"></i>
         </button>
-        <button nz-button nzType="text" nz-tooltip="重置" (click)="clearSearch()">
+        <button nz-button nzType="text" nz-tooltip="Reset" i18n-nz-tooltip (click)="clearSearch()">
           <i nz-icon nzType="clear"></i>
         </button>
-        <button nz-button nzType="text" nz-tooltip="搜索" (click)="openSearchForm()">
+        <button nz-button nzType="text" nz-tooltip="Filter" i18n-nz-tooltip (click)="openSearchForm()">
           <i nz-icon nzType="filter"></i>
         </button>
       </nz-button-group>
     </nz-col>
   </nz-row>
   <nz-drawer
-    nzTitle="条件筛选"
+    nzTitle="Conditions"
+    i18n-nzTitle
     [nzVisible]="searchVisible"
     nzPlacement="bottom"
     nzHeight="50%"
@@ -45,8 +53,8 @@
                 <nz-form-control>
                   <nz-input-group nzCompact>
                     <nz-select style="width: 30%" formControlName="operator">
-                      <nz-option [nzLabel]="'精确'" [nzValue]="'$eq'"></nz-option>
-                      <nz-option [nzLabel]="'模糊'" [nzValue]="'$regex'"></nz-option>
+                      <nz-option [nzLabel]="'equal'" [nzValue]="'$eq'"></nz-option>
+                      <nz-option [nzLabel]="'include'" [nzValue]="'$regex'"></nz-option>
                     </nz-select>
                     <input style="width: 70%" nz-input formControlName="value" />
                   </nz-input-group>
@@ -59,9 +67,9 @@
     </ng-container>
     <ng-template #footerTpl>
       <nz-space>
-        <button *nzSpaceItem nz-button form="search"> <i nz-icon nzType="search"></i> 搜索 </button>
+        <button *nzSpaceItem nz-button form="search"> <i nz-icon nzType="search"></i> Query </button>
         <button *nzSpaceItem nz-button (click)="resetSearch()" type="reset">
-          <i nz-icon nzType="clear"></i> 重置
+          <i nz-icon nzType="clear"></i> Reset
         </button>
       </nz-space>
     </ng-template>
@@ -108,7 +116,7 @@
         >
           <b>{{ column.label }} </b>
           <ng-container *ngIf="keywords.has(column.value)">
-            <i nz-icon nzType="tag" nz-tooltip="关键词"></i>
+            <i nz-icon nzType="tag" nz-tooltip="Keyword"></i>
           </ng-container>
           <nz-resize-handle nzDirection="right" *ngIf="columnsWidthVisible">
             <div class="resize-trigger"></div>
@@ -130,14 +138,15 @@
               <nz-col>
                 <nz-switch
                   style="margin-top: 2px"
-                  nz-tooltip="自定义列宽度"
+                  nz-tooltip="Column Width"
+                  i18n-nz-tooltip
                   [(ngModel)]="columnsWidthVisible"
                   (ngModelChange)="onResizeMessage()"
                 ></nz-switch>
               </nz-col>
               <nz-col></nz-col>
               <nz-col>
-                <button nz-button nzType="text" nz-tooltip="同步修复" (click)="repair()">
+                <button nz-button nzType="text" nz-tooltip="Sync" (click)="repair()">
                   <i nz-icon nzType="sync"></i>
                 </button>
               </nz-col>
@@ -153,7 +162,7 @@
                   (ngModelChange)="updateColumnsChecked()"
                   [nzIndeterminate]="columnsIndeterminate"
                 >
-                  全部展示
+                  Show All
                 </label>
                 <ng-container *ngFor="let column of columns">
                   <label *nzSpaceItem nz-checkbox [nzValue]="column.value" [(ngModel)]="column.checked">
@@ -199,9 +208,9 @@
             </ng-container>
             <ng-container *ngSwitchCase="'bool'">
               <ng-container *ngIf="data[column.value]; else isFalse">
-                <nz-badge nzStatus="processing"></nz-badge> 开启
+                <nz-badge nzStatus="processing"></nz-badge> On
               </ng-container>
-              <ng-template #isFalse> <nz-badge nzStatus="default"></nz-badge> 关闭 </ng-template>
+              <ng-template #isFalse> <nz-badge nzStatus="default"></nz-badge> Off </ng-template>
             </ng-container>
             <ng-container *ngSwitchCase="'select'">
               <ng-container *ngIf="!!field.option?.multiple; else notMultiple">
@@ -262,11 +271,11 @@
   [ngStyle]="{ left: wpxBulkLeft + 'px' }"
   nzType="info"
   nzBanner
-  nzMessage="批量"
+  nzMessage="Bulk"
   [nzDescription]="description"
   [nzAction]="wpxBulk"
 >
   <ng-template #description>
-    已选中 <nz-tag>{{ wpxData.checkedNumber }}</nz-tag> 项
+    Item <nz-tag>{{ wpxData.checkedNumber }}</nz-tag> checked
   </ng-template>
 </nz-alert>
