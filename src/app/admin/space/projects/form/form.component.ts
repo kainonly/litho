@@ -14,13 +14,21 @@ import { NzModalRef } from 'ng-zorro-antd/modal';
   templateUrl: './form.component.html'
 })
 export class FormComponent implements OnInit {
-  /**
-   * 载入数据
-   */
+  tips = {
+    name: {
+      default: {
+        required: $localize`The project name cannot be empty`,
+        duplicated: $localize`Duplicate definitions exist, project name must be unique`
+      }
+    },
+    namespace: {
+      default: {
+        required: $localize`The namespace cannot be empty`,
+        duplicated: $localize`Duplicate definitions exist, namespace must be unique`
+      }
+    }
+  };
   @Input() doc?: AnyDto<Project>;
-  /**
-   * 表单
-   */
   form!: FormGroup;
 
   expireDisableDate = (current: Date): boolean => {
@@ -53,17 +61,10 @@ export class FormComponent implements OnInit {
     }
   }
 
-  /**
-   * 入口白名单
-   */
   get entry(): FormArray {
     return this.form?.get('entry') as FormArray;
   }
 
-  /**
-   * 新增入口
-   * @param value
-   */
   addEntry(value?: string): void {
     this.entry.push(
       this.fb.control(value, [
@@ -75,18 +76,10 @@ export class FormComponent implements OnInit {
     );
   }
 
-  /**
-   * 移除入口
-   * @param index
-   */
   removeEntry(index: number): void {
     this.entry.removeAt(index);
   }
 
-  /**
-   * 验证权限组名称是否存在
-   * @param control
-   */
   existsName = (control: AbstractControl): Observable<any> => {
     if (control.value === this.doc?.name) {
       return of(null);
@@ -94,10 +87,6 @@ export class FormComponent implements OnInit {
     return this.projects.existsName(control.value);
   };
 
-  /**
-   * 验证权限组名称是否存在
-   * @param control
-   */
   existsNamespace = (control: AbstractControl): Observable<any> => {
     if (control.value === this.doc?.namespace) {
       return of(null);
@@ -105,24 +94,14 @@ export class FormComponent implements OnInit {
     return this.projects.existsNamespace(control.value);
   };
 
-  /**
-   * 随机生成密钥
-   */
   randomSecret(): void {
     this.form.get('secret')?.setValue(nanoid());
   }
 
-  /**
-   * 关闭表单
-   */
   close(): void {
     this.modalRef.triggerCancel();
   }
 
-  /**
-   * 提交
-   * @param value
-   */
   submit(value: any): void {
     if (value.expire) {
       const expire = value.expire as Date;
@@ -135,12 +114,12 @@ export class FormComponent implements OnInit {
     }
     if (!this.doc) {
       this.projects.create(value).subscribe(() => {
-        this.message.success('数据新增完成');
+        this.message.success($localize`Data update complete`);
         this.modalRef.triggerOk();
       });
     } else {
       this.projects.updateById(this.doc._id, { $set: value }).subscribe(() => {
-        this.message.success('数据更新完成');
+        this.message.success($localize`Data update complete`);
         this.modalRef.triggerOk();
       });
     }

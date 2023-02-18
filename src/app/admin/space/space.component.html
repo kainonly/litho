@@ -1,0 +1,36 @@
+<nz-layout class="common-layout">
+  <nz-sider style="height: 100%" nzWidth="180px" nzTheme="light">
+    <ul nz-menu nzMode="inline" style="border: none">
+      <li nz-menu-group nzTitle="Projects" i18n-nzTitle>
+        <ul>
+          <li nz-menu-item nzMatchRouter [routerLink]="['/', 'admin', 'space', 'projects']">
+            <span nz-icon nzType="project"></span>
+            <span i18n>Managed</span>
+          </li>
+          <li nz-menu-item nzDisabled>
+            <span nz-icon nzType="book"></span>
+            <span i18n>Archived</span>
+          </li>
+        </ul>
+      </li>
+      <li nz-menu-group nzTitle="Environment" i18n-nzTitle>
+        <ul>
+          <li nz-menu-item nzDisabled>
+            <span nz-icon nzType="partition"></span>
+            <span i18n>Multi-Tenant</span>
+          </li>
+          <li nz-menu-item nzDisabled>
+            <span nz-icon nzType="cluster"></span>
+            <span i18n>Cluster</span>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </nz-sider>
+
+  <nz-layout class="inner-layout">
+    <nz-content class="content">
+      <router-outlet></router-outlet>
+    </nz-content>
+  </nz-layout>
+</nz-layout>

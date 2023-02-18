@@ -13,18 +13,8 @@ import { FormComponent } from './form/form.component';
   templateUrl: './projects.component.html'
 })
 export class ProjectsComponent implements OnInit {
-  /**
-   * 搜索
-   */
   searchText = '';
-  /**
-   * 数据
-   */
   dataset: WpxData<AnyDto<Project>> = new WpxData<AnyDto<Project>>();
-  /**
-   * 展开集合
-   */
-  expand: Set<string> = new Set();
 
   constructor(
     public projects: ProjectsService,
@@ -41,14 +31,6 @@ export class ProjectsComponent implements OnInit {
     this.projects.pages(this.dataset, refresh).subscribe(() => {});
   }
 
-  expandChange(id: string, checked: boolean): void {
-    if (checked) {
-      this.expand.add(id);
-    } else {
-      this.expand.delete(id);
-    }
-  }
-
   submitSearch(): void {
     if (!this.searchText) {
       this.dataset.filter = {};
@@ -60,17 +42,11 @@ export class ProjectsComponent implements OnInit {
     this.getData(true);
   }
 
-  /**
-   * 清除搜索
-   */
   clearSearch(): void {
     this.searchText = '';
     this.getData(true);
   }
 
-  /**
-   * 查看密钥
-   */
   openAppKey(): void {
     this.modal.info({
       nzTitle: 'This is a notification message',
@@ -79,13 +55,9 @@ export class ProjectsComponent implements OnInit {
     });
   }
 
-  /**
-   * 编辑表单
-   * @param doc
-   */
   form(doc?: AnyDto<Project>): void {
     this.modal.create({
-      nzTitle: !doc ? '新增' : '编辑',
+      nzTitle: !doc ? $localize`Add` : $localize`Edit`,
       nzContent: FormComponent,
       nzComponentParams: {
         doc
@@ -96,23 +68,19 @@ export class ProjectsComponent implements OnInit {
     });
   }
 
-  /**
-   * 删除
-   * @param doc
-   */
   delete(doc: AnyDto<Project>): void {
     this.modal.confirm({
-      nzTitle: '您确定要删除该项目吗?',
-      nzOkText: '是的',
+      nzTitle: $localize`Are you sure delete this item?`,
+      nzOkText: $localize`Yes`,
       nzOkType: 'primary',
       nzOkDanger: true,
       nzOnOk: () => {
         this.projects.delete(doc._id).subscribe(() => {
-          this.message.success('数据删除完成');
+          this.message.success($localize`Data delete complete`);
           this.getData(true);
         });
       },
-      nzCancelText: '再想想'
+      nzCancelText: $localize`Think Again`
     });
   }
 }
