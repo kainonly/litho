@@ -6,7 +6,7 @@ import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalRef } from 'ng-zorro-antd/modal';
 
 @Component({
-  selector: 'app-admin-integrated-collaboration-redirect',
+  selector: 'app-admin-collaboration-redirect',
   templateUrl: './redirect.component.html'
 })
 export class RedirectComponent implements OnInit {

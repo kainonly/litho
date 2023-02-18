@@ -6,7 +6,7 @@ import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalRef } from 'ng-zorro-antd/modal';
 
 @Component({
-  selector: 'app-admin-integrated-cloud-tencent',
+  selector: 'app-admin-cloud-tencent',
   templateUrl: './tencent.component.html'
 })
 export class TencentComponent implements OnInit {

@@ -7,7 +7,7 @@ import { FeishuComponent } from './feishu/feishu.component';
 import { RedirectComponent } from './redirect/redirect.component';
 
 @Component({
-  selector: 'app-admin-integrated-collaboration',
+  selector: 'app-admin-collaboration',
   templateUrl: './collaboration.component.html'
 })
 export class CollaborationComponent implements OnInit {

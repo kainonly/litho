@@ -6,7 +6,7 @@ import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalRef } from 'ng-zorro-antd/modal';
 
 @Component({
-  selector: 'app-admin-functions-openapi',
+  selector: 'app-admin-extend-openapi',
   templateUrl: './openapi.component.html'
 })
 export class OpenapiComponent implements OnInit {

@@ -7,7 +7,7 @@ import { EmailComponent } from './email/email.component';
 import { OpenapiComponent } from './openapi/openapi.component';
 
 @Component({
-  selector: 'app-admin-integrated-extend',
+  selector: 'app-admin-extend',
   templateUrl: './extend.component.html'
 })
 export class ExtendComponent implements OnInit {

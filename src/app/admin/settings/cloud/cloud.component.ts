@@ -9,7 +9,7 @@ import { CosComponent } from './cos/cos.component';
 import { TencentComponent } from './tencent/tencent.component';
 
 @Component({
-  selector: 'app-admin-integrated-cloud',
+  selector: 'app-admin-cloud',
   templateUrl: './cloud.component.html'
 })
 export class CloudComponent implements OnInit {
@@ -28,11 +28,11 @@ export class CloudComponent implements OnInit {
   }
 
   saveTabIndex(): void {
-    this.store.set<number>('admin-integrated-cloud-tab', this.tabIndex).subscribe(() => {});
+    this.store.set<number>('admin-cloud-tab', this.tabIndex).subscribe(() => {});
   }
 
   getData(): void {
-    this.store.get<number>('admin-integrated-cloud-tab').subscribe(v => {
+    this.store.get<number>('admin-cloud-tab').subscribe(v => {
       if (v) {
         this.tabIndex = v;
       }

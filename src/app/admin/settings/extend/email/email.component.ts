@@ -6,7 +6,7 @@ import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalRef } from 'ng-zorro-antd/modal';
 
 @Component({
-  selector: 'app-admin-integrated-extend-email',
+  selector: 'app-admin-extend-email',
   templateUrl: './email.component.html'
 })
 export class EmailComponent implements OnInit {

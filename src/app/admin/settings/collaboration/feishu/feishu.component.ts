@@ -6,7 +6,7 @@ import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalRef } from 'ng-zorro-antd/modal';
 
 @Component({
-  selector: 'app-admin-integrated-collaboration-feishu',
+  selector: 'app-admin-collaboration-feishu',
   templateUrl: './feishu.component.html'
 })
 export class FeishuComponent implements OnInit {
