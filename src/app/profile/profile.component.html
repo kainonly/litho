@@ -1,11 +1,11 @@
 <nz-tabset style="height: 100%" nzTabPosition="left">
-  <nz-tab nzTitle="Basic" i18n-nzTitle>
+  <nz-tab nzTitle="基本信息" i18n-nzTitle>
     <nz-card *ngIf="app.user as user">
       <nz-list nzSize="large" nzItemLayout="vertical">
         <nz-list-item>
           <nz-list-item-meta>
-            <nz-list-item-meta-title><b i18n>Email</b></nz-list-item-meta-title>
-            <nz-list-item-meta-description i18n> Already Set: {{ user.email }} </nz-list-item-meta-description>
+            <nz-list-item-meta-title><b i18n>电子邮件</b></nz-list-item-meta-title>
+            <nz-list-item-meta-description i18n> 已设置： {{ user.email }} </nz-list-item-meta-description>
           </nz-list-item-meta>
           <nz-list-item-extra>
             <button nz-button nzType="primary" nzShape="circle" nz-tooltip="Edit" i18n-nz-tooltip (click)="setEmail()">
@@ -15,11 +15,11 @@
         </nz-list-item>
         <nz-list-item>
           <nz-list-item-meta>
-            <nz-list-item-meta-title><b i18n>Call</b></nz-list-item-meta-title>
+            <nz-list-item-meta-title><b i18n>称呼</b></nz-list-item-meta-title>
             <nz-list-item-meta-description>
-              <ng-container *ngIf="!!user.name; else emptyNameTpl" i18n> Already Set: {{ user.name }} </ng-container>
+              <ng-container *ngIf="!!user.name; else emptyNameTpl" i18n> 已设置： {{ user.name }} </ng-container>
               <ng-template #emptyNameTpl>
-                <span i18n>It is recommended to set work title or real name</span>
+                <span i18n>推荐设置工作称呼或真实姓名</span>
               </ng-template>
             </nz-list-item-meta-description>
           </nz-list-item-meta>
@@ -31,8 +31,8 @@
         </nz-list-item>
         <nz-list-item>
           <nz-list-item-meta>
-            <nz-list-item-meta-title><b i18n>Avatar</b></nz-list-item-meta-title>
-            <nz-list-item-meta-description i18n> Recommended size 256*256 </nz-list-item-meta-description>
+            <nz-list-item-meta-title><b i18n>头像</b></nz-list-item-meta-title>
+            <nz-list-item-meta-description i18n> 推荐采用尺寸 256*256 </nz-list-item-meta-description>
           </nz-list-item-meta>
           <ng-container *ngIf="!!user.avatar; else emptyAvatarTpl">
             <nz-avatar nzShape="square" [nzSize]="128" [nzSrc]="[user.avatar] | wpxAssets"></nz-avatar>
@@ -48,18 +48,18 @@
         </nz-list-item>
         <nz-list-item>
           <nz-list-item-meta>
-            <nz-list-item-meta-title><b i18n>Detail</b></nz-list-item-meta-title>
+            <nz-list-item-meta-title><b i18n>详情</b></nz-list-item-meta-title>
             <nz-list-item-meta-description>
               <nz-descriptions [nzColumn]="2">
-                <nz-descriptions-item nzTitle="Create Time" i18n-nzTitle>
+                <nz-descriptions-item nzTitle="创建时间" i18n-nzTitle>
                   {{ user.create_time | date: 'yyyy-MM-dd HH:mm:ss' }}
                 </nz-descriptions-item>
-                <nz-descriptions-item nzTitle="Update Time" i18n-nzTitle>
+                <nz-descriptions-item nzTitle="更新时间" i18n-nzTitle>
                   {{ user.update_time | date: 'yyyy-MM-dd HH:mm:ss' }}
                 </nz-descriptions-item>
-                <nz-descriptions-item nzTitle="Sessions" i18n-nzTitle>
+                <nz-descriptions-item nzTitle="累计会话" i18n-nzTitle>
                   <span i18n>
-                    Total number of sessions logged in <b> {{ user.sessions }} </b> times
+                    已累计登录 <b> {{ user.sessions }} </b> 次
                   </span>
                 </nz-descriptions-item>
                 <nz-descriptions-item *ngIf="user.last as l" nzTitle="Online" i18n-nzTitle>

@@ -13,7 +13,7 @@
       </nz-space>
       <p>
         <span nz-icon nzType="copyright"></span>
-        <span> {{ year }} developed by </span>
+        <span> {{ year }} 研发于 </span>
         <a href="https://github.com/weplanx" target="_blank"> <b>WEPLANX </b> <span nz-icon nzType="github"></span></a>
       </p>
     </nz-footer>
@@ -84,20 +84,20 @@
     <ng-template #actions>
       <nz-space>
         <app-translation *nzSpaceItem [simple]="true"></app-translation>
-        <button *nzSpaceItem nz-button nzType="text" nz-tooltip="Profile" i18n-nz-tooltip (click)="profile()">
+        <button *nzSpaceItem nz-button nzType="text" nz-tooltip="个人中心" i18n-nz-tooltip (click)="profile()">
           <i nz-icon nzType="user"></i>
         </button>
-        <button *nzSpaceItem nz-button nzType="text" nz-tooltip="Exit" i18n-nz-tooltip (click)="logout()">
+        <button *nzSpaceItem nz-button nzType="text" nz-tooltip="退出" i18n-nz-tooltip (click)="logout()">
           <i nz-icon nzType="logout"></i>
         </button>
       </nz-space>
     </ng-template>
-    <nz-tab nzTitle="Notification(0)" i18n-nzTitle>
+    <nz-tab nzTitle="通知(0)" i18n-nzTitle>
       <nz-list nzItemLayout="horizontal">
         <nz-list-empty></nz-list-empty>
       </nz-list>
     </nz-tab>
-    <nz-tab nzTitle="Todo(0)" i18n-nzTitle>
+    <nz-tab nzTitle="任务(0)" i18n-nzTitle>
       <nz-list nzItemLayout="horizontal">
         <nz-list-empty></nz-list-empty>
       </nz-list>

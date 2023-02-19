@@ -1,6 +1,6 @@
 import { registerLocaleData } from '@angular/common';
 import { HTTP_INTERCEPTORS, HttpClientModule, HttpClientXsrfModule } from '@angular/common/http';
-import en from '@angular/common/locales/en';
+import zh from '@angular/common/locales/zh';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
@@ -13,7 +13,7 @@ import { environment } from '@env';
 import { WpxRichtextModule } from '@weplanx/ng/richtext';
 import { WpxStoreModule } from '@weplanx/ng/store';
 import { NZ_CONFIG, NzConfig } from 'ng-zorro-antd/core/config';
-import { NZ_I18N, en_US } from 'ng-zorro-antd/i18n';
+import { NZ_I18N, zh_CN } from 'ng-zorro-antd/i18n';
 import { NzLayoutModule } from 'ng-zorro-antd/layout';
 import { NzMenuModule } from 'ng-zorro-antd/menu';
 import { NzMessageModule } from 'ng-zorro-antd/message';
@@ -23,7 +23,7 @@ import { AppGuard } from './app.guard';
 import { AppInterceptors } from './app.interceptors';
 import { ProfileModule } from './profile/profile.module';
 
-registerLocaleData(en);
+registerLocaleData(zh);
 
 const routes: Routes = [
   {
@@ -99,7 +99,7 @@ if (!environment.production) {
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AppInterceptors, multi: true },
-    { provide: NZ_I18N, useValue: en_US },
+    { provide: NZ_I18N, useValue: zh_CN },
     {
       provide: NZ_CONFIG,
       useValue: <NzConfig>{

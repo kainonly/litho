@@ -58,12 +58,12 @@
               "extractLicenses": false,
               "sourceMap": true,
               "namedChunks": true,
+              "localize": ["zh-Hans"],
+              "baseHref": "/zh-Hans"
+            },
+            "en": {
               "localize": ["en-US"],
               "baseHref": "/en-US"
-            },
-            "zh": {
-              "localize": ["zh-CN"],
-              "baseHref": "/zh-CN"
             }
           },
           "defaultConfiguration": "production"
@@ -172,11 +172,11 @@
         }
       },
       "i18n": {
-        "sourceLocale": "en-US",
+        "sourceLocale": "zh-Hans",
         "locales": {
-          "zh-CN": {
-            "translation": "src/locale/messages.zh-CN.xlf",
-            "baseHref": "zh-CN/"
+          "en-US": {
+            "translation": "src/locale/messages.en-US.xlf",
+            "baseHref": "en-US/"
           }
         }
       }

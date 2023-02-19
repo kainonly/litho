@@ -33,7 +33,7 @@ export class AppComponent implements OnInit {
 
   profile(): void {
     this.drawer.create<ProfileComponent, { value: string }, string>({
-      nzTitle: 'Profile',
+      nzTitle: $localize`个人中心`,
       nzWidth: '800px',
       nzContent: ProfileComponent,
       nzContentParams: {}
