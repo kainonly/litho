@@ -14,7 +14,7 @@ export class BackupEmailComponent implements OnInit {
   tips = {
     email: {
       default: {
-        email: $localize`Please use the correct email format`
+        email: $localize`电子邮件格式不规范`
       }
     }
   };
@@ -46,7 +46,7 @@ export class BackupEmailComponent implements OnInit {
         backup_email: data.backup_email
       })
       .subscribe(() => {
-        this.message.success($localize`Data update complete`);
+        this.message.success($localize`数据更新成功`);
         this.modalRef.triggerOk();
       });
   }

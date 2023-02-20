@@ -15,8 +15,8 @@ export class EmailComponent implements OnInit {
   tips = {
     email: {
       default: {
-        email: $localize`Please use the correct email format`,
-        duplicated: $localize`Duplicate definitions exist, email must be unique`
+        email: $localize`电子邮件格式不规范`,
+        duplicated: $localize`存在重复的定义，电子邮件必须是唯一的`
       }
     }
   };
@@ -55,7 +55,7 @@ export class EmailComponent implements OnInit {
         email: data.email
       })
       .subscribe(() => {
-        this.message.success($localize`The data update is complete, you need to log in to the system again`);
+        this.message.success($localize`数据更新成功，需要重新登录系统`);
         this.modalRef.triggerOk();
       });
   }

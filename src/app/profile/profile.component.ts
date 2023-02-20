@@ -80,7 +80,7 @@ export class ProfileComponent {
 
   unlinkFeishu(): void {
     this.app.unsetUser('feishu').subscribe(() => {
-      this.message.success($localize`Association has been successfully disconnected`);
+      this.message.success($localize`取消关联成功`);
       this.app.getUser().subscribe(() => {});
     });
   }

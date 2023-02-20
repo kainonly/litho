@@ -15,23 +15,23 @@ export class ForgetComponent implements OnInit {
   tips = {
     email: {
       default: {
-        required: $localize`The email cannot be empty`,
-        email: $localize`The email format is not standardized`
+        required: $localize`电子邮件不能为空`,
+        email: $localize`电子邮件格式不规范`
       }
     },
     captcha: {
       default: {
-        required: $localize`The verification code cannot be empty`
+        required: $localize`验证码不能为空`
       }
     },
     password: {
       default: {
-        required: $localize`The new password cannot be empty`,
-        minlength: $localize`The length of the new password cannot be less than 12 characters`,
-        lowercase: $localize`The new password needs to contain lowercase letters`,
-        uppercase: $localize`The new password needs to contain capital letters`,
-        number: $localize`The new password needs to contain numbers`,
-        symbol: $localize`The new password needs to contain symbols (@$!%*?&-+)`
+        required: $localize`新密码不能为空`,
+        minlength: $localize`新密码不能小于 8 位`,
+        lowercase: $localize`新密码需要包含小写字母`,
+        uppercase: $localize`新密码需要包含大写字母`,
+        number: $localize`新密码需要包含数字`,
+        symbol: $localize`新密码需要包含符号 (@$!%*?&-+)`
       }
     }
   };
@@ -71,7 +71,7 @@ export class ForgetComponent implements OnInit {
 
   getCaptcha(): void {
     if (!this.verifyForm?.get('email')?.value) {
-      this.message.warning($localize`Please enter the email first`);
+      this.message.warning($localize`请先输入电子邮件`);
       return;
     }
     const email = this.verifyForm!.get('email')!.value;
@@ -83,7 +83,7 @@ export class ForgetComponent implements OnInit {
           .subscribe(() => {
             this.countdown--;
           });
-        this.message.success($localize`A verification code has been sent to your email`);
+        this.message.success($localize`验证码已发送至您的电子邮箱`);
       }
     });
   }
@@ -92,7 +92,7 @@ export class ForgetComponent implements OnInit {
     this.wpx.verifyCaptcha(data).subscribe(v => {
       this.token = v.token;
       this.step++;
-      this.message.success($localize`After verification, please set a new password within 5 minutes`);
+      this.message.success($localize`验证通过后，请在5分钟内设置新密码`);
     });
   }
 

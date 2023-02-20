@@ -10,10 +10,6 @@ import { Project } from './types';
 export class ProjectsService extends WpxApi<Project> {
   protected override collection = 'projects';
 
-  /**
-   * 检查项目名称是否存在
-   * @param name
-   */
   existsName(name: string): Observable<any> {
     return timer(500).pipe(
       switchMap(() => this.exists({ name })),
@@ -21,10 +17,6 @@ export class ProjectsService extends WpxApi<Project> {
     );
   }
 
-  /**
-   * 检查命名空间是否存在
-   * @param namespace
-   */
   existsNamespace(namespace: string): Observable<any> {
     return timer(500).pipe(
       switchMap(() => this.exists({ namespace })),
