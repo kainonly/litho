@@ -5,7 +5,7 @@ import { ShareModule } from '@common/share.module';
 
 const routes: Routes = [
   {
-    path: 'system',
+    path: '',
     children: [
       {
         path: 'security',
