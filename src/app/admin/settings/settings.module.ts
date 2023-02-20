@@ -17,27 +17,27 @@ const routes: Routes = [
             path: 'cloud',
             loadChildren: () => import('./cloud/cloud.module').then(m => m.CloudModule),
             data: {
-              breadcrumb: $localize`Public Cloud`
+              breadcrumb: $localize`公有云`
             }
           },
           {
             path: 'collaboration',
             loadChildren: () => import('./collaboration/collaboration.module').then(m => m.CollaborationModule),
             data: {
-              breadcrumb: $localize`Collaboration`
+              breadcrumb: $localize`企业协作`
             }
           },
           {
             path: 'extend',
             loadChildren: () => import('./extend/extend.module').then(m => m.ExtendModule),
             data: {
-              breadcrumb: $localize`Extend Services`
+              breadcrumb: $localize`扩展服务`
             }
           },
           { path: '', redirectTo: 'cloud', pathMatch: 'full' }
         ],
         data: {
-          breadcrumb: $localize`Integrated`
+          breadcrumb: $localize`集成`
         }
       },
       {
@@ -47,27 +47,27 @@ const routes: Routes = [
             path: 'security',
             loadChildren: () => import('./security/security.module').then(m => m.SecurityModule),
             data: {
-              breadcrumb: $localize`Security`
+              breadcrumb: $localize`安全策略`
             }
           },
           {
             path: 'sessions',
             loadChildren: () => import('./sessions/sessions.module').then(m => m.SessionsModule),
             data: {
-              breadcrumb: $localize`Sessions`
+              breadcrumb: $localize`在线会话`
             }
           },
           {
             path: 'values',
             loadChildren: () => import('./values/values.module').then(m => m.ValuesModule),
             data: {
-              breadcrumb: $localize`Values`
+              breadcrumb: $localize`动态配置`
             }
           },
           { path: '', redirectTo: 'security', pathMatch: 'full' }
         ],
         data: {
-          breadcrumb: $localize`System`
+          breadcrumb: $localize`系统`
         }
       },
       {
@@ -77,20 +77,20 @@ const routes: Routes = [
             path: 'login_logs',
             loadChildren: () => import('./login-logs/login-logs.module').then(m => m.LoginLogsModule),
             data: {
-              breadcrumb: $localize`Login Logs`
+              breadcrumb: $localize`登录日志`
             }
           },
           {
             path: 'access_logs',
             loadChildren: () => import('./access-logs/access-logs.module').then(m => m.AccessLogsModule),
             data: {
-              breadcrumb: $localize`Access Logs`
+              breadcrumb: $localize`访问日志`
             }
           },
           { path: '', redirectTo: 'login_logs', pathMatch: 'full' }
         ],
         data: {
-          breadcrumb: $localize`Audit`
+          breadcrumb: $localize`审计`
         }
       },
       { path: '', redirectTo: 'integrated', pathMatch: 'full' }

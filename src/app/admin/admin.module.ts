@@ -14,35 +14,35 @@ const routes: Routes = [
         path: 'work',
         loadChildren: () => import('./work/work.module').then(m => m.WorkModule),
         data: {
-          breadcrumb: $localize`Work`
+          breadcrumb: $localize`工作区`
         }
       },
       {
         path: 'space',
         loadChildren: () => import('./space/space.module').then(m => m.SpaceModule),
         data: {
-          breadcrumb: $localize`Space`
+          breadcrumb: $localize`空间`
         }
       },
       {
         path: 'orgs',
         loadChildren: () => import('./orgs/orgs.module').then(m => m.OrgsModule),
         data: {
-          breadcrumb: $localize`Orgs`
+          breadcrumb: $localize`组织`
         }
       },
       {
         path: 'monitor',
         loadChildren: () => import('./monitor/monitor.module').then(m => m.MonitorModule),
         data: {
-          breadcrumb: $localize`Monitor`
+          breadcrumb: $localize`监控`
         }
       },
       {
         path: 'settings',
         loadChildren: () => import('./settings/settings.module').then(m => m.SettingsModule),
         data: {
-          breadcrumb: $localize`Settings`
+          breadcrumb: $localize`设置`
         }
       },
       { path: '', redirectTo: 'work', pathMatch: 'full' }

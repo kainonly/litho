@@ -47,10 +47,10 @@ export class CollaborationComponent implements OnInit {
   }
 
   setFeishu(): void {
-    this.setModal($localize`Feishu Form`, FeishuComponent);
+    this.setModal($localize`飞书设置`, FeishuComponent);
   }
 
   setLoginFree(): void {
-    this.setModal($localize`Login-free Authorization Form`, RedirectComponent);
+    this.setModal($localize`第三方免登陆设置`, RedirectComponent);
   }
 }

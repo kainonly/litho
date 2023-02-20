@@ -3,18 +3,18 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { ShareModule } from '@common/share.module';
 
+import { DeveloperComponent } from './developer.component';
 import { FormComponent } from './form/form.component';
-import { UsersComponent } from './users.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: UsersComponent
+    component: DeveloperComponent
   }
 ];
 
 @NgModule({
   imports: [ShareModule, RouterModule.forChild(routes)],
-  declarations: [UsersComponent, FormComponent]
+  declarations: [DeveloperComponent, FormComponent]
 })
-export class UsersModule {}
+export class DeveloperModule {}

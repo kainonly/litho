@@ -108,17 +108,17 @@ export class SessionsComponent implements OnInit, OnDestroy {
 
   delete(id: string): void {
     this.sessions.delete(id).subscribe(() => {
-      this.message.success($localize`session offline`);
+      this.message.success($localize`会话已中断`);
     });
   }
 
   bulkDelete(): void {
     this.modal.confirm({
-      nzTitle: 'Are you sure you want to break the selected sessions？',
+      nzTitle: '您确定要中断选中的会话吗？',
       nzOkDanger: true,
       nzOnOk: () => {
         this.sessions.clear().subscribe(() => {
-          this.message.success($localize`sessions offline`);
+          this.message.success($localize`会话已中断`);
         });
       }
     });

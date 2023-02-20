@@ -13,17 +13,17 @@ export class OpenapiComponent implements OnInit {
   tips = {
     openapi_url: {
       default: {
-        required: $localize`The openapi url cannot be empty`
+        required: $localize`地址不能为空`
       }
     },
     openapi_key: {
       default: {
-        required: $localize`The openapi app key cannot be empty`
+        required: $localize`应用 Key 不能为空`
       }
     },
     openapi_secret: {
       default: {
-        required: $localize`The openapi app secret cannot be empty`
+        required: $localize`应用密钥不能为空`
       }
     }
   };
@@ -55,7 +55,7 @@ export class OpenapiComponent implements OnInit {
 
   submit(data: any): void {
     this.wpx.setValues(data).subscribe(() => {
-      this.message.success($localize`Data update complete`);
+      this.message.success($localize`数据更新成功`);
       this.modalRef.triggerOk();
     });
   }

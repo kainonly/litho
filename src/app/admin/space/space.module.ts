@@ -14,7 +14,7 @@ const routes: Routes = [
         path: 'projects',
         loadChildren: () => import('./projects/projects.module').then(m => m.ProjectsModule),
         data: {
-          breadcrumb: $localize`Project`
+          breadcrumb: $localize`项目`
         }
       },
       { path: '', redirectTo: 'projects', pathMatch: 'full' }

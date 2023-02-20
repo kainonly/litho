@@ -1,18 +1,18 @@
 <form nz-form nzLayout="vertical" id="form" [formGroup]="form" (wpxSubmit)="submit($event)">
   <nz-form-item>
-    <nz-form-label nzRequired i18n>Bucket Name</nz-form-label>
+    <nz-form-label nzRequired i18n>Bucket 名称</nz-form-label>
     <nz-form-control nzHasFeedback [nzAutoTips]="tips.tencent_cos_bucket">
       <input nz-input formControlName="tencent_cos_bucket" />
     </nz-form-control>
   </nz-form-item>
   <nz-form-item>
-    <nz-form-label nzRequired i18n>Region</nz-form-label>
+    <nz-form-label nzRequired i18n>地区</nz-form-label>
     <nz-form-control nzHasFeedback [nzAutoTips]="tips.tencent_cos_region">
-      <input nz-input formControlName="tencent_cos_region" placeholder="For example: ap-guangzhou" i18n-placeholder />
+      <input nz-input formControlName="tencent_cos_region" placeholder="例如：ap-guangzhou" i18n-placeholder />
     </nz-form-control>
   </nz-form-item>
   <nz-form-item>
-    <nz-form-label nzRequired i18n>Pre-signature TTL</nz-form-label>
+    <nz-form-label nzRequired i18n>预签名有效期</nz-form-label>
     <nz-form-control nzHasFeedback [nzAutoTips]="tips.tencent_cos_expired">
       <nz-input-number
         style="width: 100%"
@@ -24,7 +24,7 @@
     </nz-form-control>
   </nz-form-item>
   <nz-form-item>
-    <nz-form-label nzRequired i18n>Upload size limit (KB)</nz-form-label>
+    <nz-form-label nzRequired i18n>上传大小限制 (KB)</nz-form-label>
     <nz-form-control nzHasFeedback [nzAutoTips]="tips.tencent_cos_limit">
       <nz-input-number
         style="width: 100%"
@@ -38,6 +38,6 @@
 </form>
 
 <div *nzModalFooter>
-  <button nz-button type="button" nzType="default" (click)="close()" i18n>Cancel</button>
-  <button nz-button nzType="primary" form="form" [disabled]="!form.valid" i18n>Submit</button>
+  <button nz-button type="button" nzType="default" (click)="close()" i18n>取消</button>
+  <button nz-button nzType="primary" form="form" [disabled]="!form.valid" i18n>提交</button>
 </div>

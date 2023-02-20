@@ -12,16 +12,33 @@ const routes: Routes = [
     children: [
       {
         path: 'users',
-        loadChildren: () => import('./users/users.module').then(m => m.UsersModule),
+        children: [
+          {
+            path: 'developer',
+            loadChildren: () => import('./developer/developer.module').then(m => m.DeveloperModule),
+            data: {
+              breadcrumb: $localize`开发者`
+            }
+          },
+          { path: '', redirectTo: 'developer', pathMatch: 'full' }
+        ],
         data: {
-          breadcrumb: $localize`Users`
+          breadcrumb: $localize`成员`
         }
       },
       {
-        path: 'roles',
-        loadChildren: () => import('./roles/roles.module').then(m => m.RolesModule),
+        path: 'permissions',
+        children: [
+          {
+            path: 'roles',
+            loadChildren: () => import('./roles/roles.module').then(m => m.RolesModule),
+            data: {
+              breadcrumb: $localize`角色`
+            }
+          }
+        ],
         data: {
-          breadcrumb: $localize`Roles`
+          breadcrumb: $localize`权限`
         }
       },
       { path: '', redirectTo: 'users', pathMatch: 'full' }

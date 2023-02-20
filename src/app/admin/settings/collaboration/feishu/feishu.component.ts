@@ -13,22 +13,22 @@ export class FeishuComponent implements OnInit {
   tips = {
     feishu_app_id: {
       default: {
-        required: $localize`The app id cannot be empty`
+        required: $localize`应用 ID 不能为空`
       }
     },
     feishu_app_secret: {
       default: {
-        required: $localize`The app secret cannot be empty`
+        required: $localize`应用密钥不能为空`
       }
     },
     feishu_encrypt_key: {
       default: {
-        required: $localize`The encrypt key cannot be empty`
+        required: $localize`事件订阅安全校验数据密钥不能为空`
       }
     },
     feishu_verification_token: {
       default: {
-        required: $localize`The verification token cannot be empty`
+        required: $localize`事件订阅验证令牌不能为空`
       }
     }
   };
@@ -57,7 +57,7 @@ export class FeishuComponent implements OnInit {
 
   submit(data: any): void {
     this.wpx.setValues(data).subscribe(() => {
-      this.message.success($localize`Data update complete`);
+      this.message.success($localize`数据更新成功`);
       this.modalRef.triggerOk();
     });
   }

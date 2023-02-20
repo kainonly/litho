@@ -13,18 +13,18 @@ export class UserLockComponent implements OnInit {
   tips = {
     login_failures: {
       default: {
-        required: $localize`The times cannot be empty`
+        required: $localize`连续登录失败上限不能为空`
       }
     },
     login_ttl: {
       default: {
-        required: $localize`The TTL cannot by empty`
+        required: $localize`锁定时间不能为空`
       }
     }
   };
   @Input() values!: Record<string, any>;
-  formatterTimes = (value: number): string => $localize`${value} times`;
-  formatterSec = (value: number): string => $localize`${value} s`;
+  formatterTimes = (value: number): string => $localize`${value} 次`;
+  formatterSec = (value: number): string => `${value} s`;
   form!: FormGroup;
 
   constructor(
@@ -53,7 +53,7 @@ export class UserLockComponent implements OnInit {
   submit(data: any): void {
     data['login_ttl'] = data['login_ttl'] * 1e9;
     this.wpx.setValues(data).subscribe(() => {
-      this.message.success($localize`Data update complete`);
+      this.message.success($localize`数据更新成功`);
       this.modalRef.triggerOk();
     });
   }

@@ -13,7 +13,7 @@ export class SessionComponent implements OnInit {
   tips = {
     session_ttl: {
       default: {
-        required: $localize`The TTL cannot be empty`
+        required: $localize`会话超时不能为空`
       }
     }
   };
@@ -45,7 +45,7 @@ export class SessionComponent implements OnInit {
   submit(data: any): void {
     data['session_ttl'] = data['session_ttl'] * 1e9;
     this.wpx.setValues(data).subscribe(() => {
-      this.message.success($localize`Data update complete`);
+      this.message.success($localize`数据更新成功`);
       this.modalRef.triggerOk();
     });
   }

@@ -13,22 +13,22 @@ export class EmailComponent implements OnInit {
   tips = {
     email_host: {
       default: {
-        required: $localize`The SMTP host cannot be empty`
+        required: $localize`SMTP 主机不能为空`
       }
     },
     email_port: {
       default: {
-        required: $localize`The SMTP port cannot be empty`
+        required: $localize`SMTP 端口不能为空`
       }
     },
     email_username: {
       default: {
-        required: $localize`The email username cannot be empty`
+        required: $localize`用户名不能为空`
       }
     },
     email_password: {
       default: {
-        required: $localize`The email password cannot be empty`
+        required: $localize`密码不能为空`
       }
     }
   };
@@ -62,7 +62,7 @@ export class EmailComponent implements OnInit {
 
   submit(data: any): void {
     this.wpx.setValues(data).subscribe(() => {
-      this.message.success($localize`Data update complete`);
+      this.message.success($localize`数据更新成功`);
       this.modalRef.triggerOk();
     });
   }

@@ -8,7 +8,7 @@
     [nzFileType]="wpxAccept | wpxJoin: ','"
     (nzChange)="change($event)"
   >
-    <button nz-button> <i nz-icon [nzType]="'upload'"></i> 上传 </button>
+    <button nz-button i18n> <i nz-icon [nzType]="'upload'"></i> 上传 </button>
   </nz-upload>
   <button
     class="transport-btn"
@@ -44,6 +44,6 @@
 </ng-template>
 
 <ng-template #messageRef>
-  <ng-container i18n>Do not switch pages, currently uploading files</ng-container>
+  <ng-container i18n>请勿切换页面，目前正在上传文件中</ng-container>
   <nz-progress [nzPercent]="percent" nzStatus="active"></nz-progress>
 </ng-template>

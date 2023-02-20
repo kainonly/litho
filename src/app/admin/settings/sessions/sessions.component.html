@@ -6,20 +6,20 @@
         (ngModelChange)="getData(500)"
         type="text"
         nz-input
-        placeholder="Search"
+        placeholder="搜索"
         i18n-placeholder
       />
     </nz-input-group>
     <nz-select *nzSpaceItem style="width: 180px" [(ngModel)]="interval" (ngModelChange)="getData(500)">
-      <nz-option [nzValue]="15" nzLabel="Refresh every 15s" i18n-nzLabel></nz-option>
-      <nz-option [nzValue]="30" nzLabel="Refresh every 30s" i18n-nzLabel></nz-option>
-      <nz-option [nzValue]="60" nzLabel="Refresh every 60s" i18n-nzLabel></nz-option>
+      <nz-option [nzValue]="15" nzLabel="每 15s 刷新" i18n-nzLabel></nz-option>
+      <nz-option [nzValue]="30" nzLabel="每 30s 刷新" i18n-nzLabel></nz-option>
+      <nz-option [nzValue]="60" nzLabel="每 60s 刷新" i18n-nzLabel></nz-option>
     </nz-select>
     <nz-button-group *nzSpaceItem>
-      <button nz-button nzType="text" nz-tooltip="Refresh" i18n-nz-tooltip (click)="getData(500)">
+      <button nz-button nzType="text" nz-tooltip="刷新" i18n-nz-tooltip (click)="getData(500)">
         <i nz-icon nzType="reload"></i>
       </button>
-      <button nz-button nzType="text" nz-tooltip="Reset" i18n-nz-tooltip (click)="clearSearch()">
+      <button nz-button nzType="text" nz-tooltip="重置" i18n-nz-tooltip (click)="clearSearch()">
         <i nz-icon nzType="clear"></i>
       </button>
     </nz-button-group>
@@ -28,7 +28,7 @@
 
 <ng-template #actions>
   <button nz-button nzType="primary" nzDanger (click)="bulkDelete()" [disabled]="checkedIds.size === 0" i18n>
-    {{ checkedIds.size }} selected, can be break
+    选中 {{ checkedIds.size }} 可中断
   </button>
 </ng-template>
 
@@ -45,8 +45,8 @@
           (nzCheckedChange)="setNChecked($event)"
         >
         </th>
-        <th nzWidth="320px"><b i18n>Users</b></th>
-        <th><b i18n>Detail</b></th>
+        <th nzWidth="320px"><b i18n>用户</b></th>
+        <th><b i18n>详情</b></th>
         <th nzWidth="60px" nzRight nzAlign="center">
           <button nz-button nzType="text" nzBlock disabled>
             <i nz-icon nzType="setting"></i>
@@ -63,7 +63,7 @@
             <nz-tag nzColor="success" i18n>self</nz-tag>
           </ng-container>
           <span>
-            {{ data.email }} <b>[ {{ !data.name ? '无称呼' : data.name }} ]</b>
+            {{ data.email }} <b i18n>[ {{ !data.name ? '无称呼' : data.name }} ]</b>
           </span>
         </td>
         <td>
@@ -71,21 +71,21 @@
             <ng-template #spaceSplit>
               <nz-divider nzType="vertical"></nz-divider>
             </ng-template>
-            <span *nzSpaceItem i18n>Launched at {{ l.timestamp | date: 'yyyy/MM/dd HH:mm:ss' }}</span>
+            <span *nzSpaceItem i18n>登录于 {{ l.timestamp | date: 'yyyy/MM/dd HH:mm:ss' }}</span>
             <b *nzSpaceItem>[ {{ l.ip }} ]</b>
-            <span *nzSpaceItem>{{ !l.country ? '-' : l.country }}</span>
-            <span *nzSpaceItem>{{ !l.province ? '-' : l.province }}</span>
-            <span *nzSpaceItem>{{ !l.city ? '-' : l.city }}</span>
-            <span *nzSpaceItem>{{ !l.isp ? '-' : l.isp }}</span>
+            <span *nzSpaceItem i18n>{{ !l.country ? '未知' : l.country }}</span>
+            <span *nzSpaceItem i18n>{{ !l.province ? '未知' : l.province }}</span>
+            <span *nzSpaceItem i18n>{{ !l.city ? '未知' : l.city }}</span>
+            <span *nzSpaceItem i18n>{{ !l.isp ? '未知' : l.isp }}</span>
           </nz-space>
         </td>
         <td nzAlign="center">
           <button
             nz-button
             nzType="text"
-            nz-tooltip="break session"
-            nz-popconfirm="Are you sure to disconnect the session?"
+            nz-tooltip="中断会话"
             i18n-nz-tooltip
+            nz-popconfirm="您确定要中断这个会话吗？"
             i18n-nz-popconfirm
             (nzOnConfirm)="delete(data._id)"
           >

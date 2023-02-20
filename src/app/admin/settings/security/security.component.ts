@@ -53,7 +53,7 @@ export class SecurityComponent implements OnInit {
 
   private setModal(component: Type<{ values: Record<string, any> }>): void {
     this.modal.create({
-      nzTitle: $localize`Security Basic Form`,
+      nzTitle: $localize`设置`,
       nzContent: component,
       nzComponentParams: {
         values: this.values
@@ -85,9 +85,9 @@ export class SecurityComponent implements OnInit {
   }
 
   setIpList(key: 'ip_whitelist' | 'ip_blacklist'): void {
-    const name = key === 'ip_whitelist' ? $localize`Whitelist` : $localize`Blacklist`;
+    const name = key === 'ip_whitelist' ? $localize`白名单` : $localize`黑名单`;
     this.modal.create({
-      nzTitle: $localize`${name} Form`,
+      nzTitle: $localize`${name}设置`,
       nzContent: IpListComponent,
       nzComponentParams: {
         key,

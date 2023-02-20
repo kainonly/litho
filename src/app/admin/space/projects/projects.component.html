@@ -14,10 +14,10 @@
     </nz-col>
     <nz-col>
       <nz-button-group>
-        <button nz-button nzType="text" nz-tooltip="Refresh" i18n-nz-tooltip (click)="getData(true)">
+        <button nz-button nzType="text" nz-tooltip="刷新" i18n-nz-tooltip (click)="getData(true)">
           <i nz-icon nzType="reload"></i>
         </button>
-        <button nz-button nzType="text" nz-tooltip="Reset" i18n-nz-tooltip (click)="clearSearch()">
+        <button nz-button nzType="text" nz-tooltip="重置" i18n-nz-tooltip (click)="clearSearch()">
           <i nz-icon nzType="clear"></i>
         </button>
       </nz-button-group>
@@ -26,7 +26,7 @@
 </ng-template>
 
 <ng-template #extraRef>
-  <button nz-button nzType="primary" (click)="form()"> Create </button>
+  <button nz-button nzType="primary" (click)="form()"> 新增 </button>
 </ng-template>
 
 <nz-card [nzTitle]="searchRef" [nzExtra]="extraRef">
@@ -55,16 +55,16 @@
         >
         </th>
         <th>
-          <b i18n>Project Name </b>
+          <b i18n>项目名称 </b>
           <i nz-icon nzType="tag"></i>
         </th>
         <th>
-          <b i18n>App Id</b>
+          <b i18n>应用 Id</b>
         </th>
-        <th><b i18n>Status</b></th>
-        <th><b i18n>Validity Period</b></th>
-        <th nzWidth="200px"><b i18n>Create Time</b></th>
-        <th nzWidth="200px"><b i18n>Update Time</b></th>
+        <th><b i18n>状态</b></th>
+        <th><b i18n>有效期</b></th>
+        <th nzWidth="200px"><b i18n>创建时间</b></th>
+        <th nzWidth="200px"><b i18n>更新时间</b></th>
         <th nzWidth="60px" nzRight nzAlign="center">
           <button nz-button nzType="text" nzBlock disabled>
             <i nz-icon nzType="setting"></i>
@@ -84,22 +84,22 @@
           >
           </td>
           <td>
-            <a nz-tooltip="Enter" [routerLink]="['/', data['namespace'], 'overview', 'cluster']">
+            <a nz-tooltip="进入项目" [routerLink]="['/', data['namespace'], 'overview', 'cluster']">
               {{ data['name'] }}
             </a>
             <nz-tag>{{ data['namespace'] }}</nz-tag>
           </td>
           <td>
-            <a nz-tooltip="Check Key" (click)="openAppKey()">{{ data['_id'] }}</a>
+            <a nz-tooltip="查看" (click)="openAppKey()">{{ data['_id'] }}</a>
           </td>
           <td>
             <ng-container *ngIf="data['status']; else isFalse">
-              <nz-badge nzStatus="processing"></nz-badge> On
+              <nz-badge nzStatus="processing"></nz-badge> 启用
             </ng-container>
-            <ng-template #isFalse> <nz-badge nzStatus="default"></nz-badge> Off </ng-template>
+            <ng-template #isFalse> <nz-badge nzStatus="default"></nz-badge> 关闭 </ng-template>
           </td>
           <td>
-            <ng-container *ngIf="data['expire'] === 0; else hasExpire">permanent</ng-container>
+            <ng-container *ngIf="data['expire'] === 0; else hasExpire">永久</ng-container>
             <ng-template #hasExpire>
               {{ data['expire'] * 1000 | date: 'yyyy-MM-dd' }}
             </ng-template>
@@ -112,9 +112,8 @@
             </button>
             <nz-dropdown-menu #menu="nzDropdownMenu">
               <ul nz-menu>
-                <li nz-menu-item i18n>Entry</li>
-                <li nz-menu-item (click)="form(data)" i18n>Edit</li>
-                <li nz-menu-item nzDanger (click)="delete(data)" i18n>Delete</li>
+                <li nz-menu-item (click)="form(data)" i18n>编辑</li>
+                <li nz-menu-item nzDanger (click)="delete(data)" i18n>删除</li>
               </ul>
             </nz-dropdown-menu>
           </td>

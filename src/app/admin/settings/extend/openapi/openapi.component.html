@@ -1,25 +1,25 @@
 <form nz-form nzLayout="vertical" id="form" [formGroup]="form" (wpxSubmit)="submit($event)">
   <nz-form-item>
-    <nz-form-label nzRequired>URL</nz-form-label>
+    <nz-form-label nzRequired i18n>地址</nz-form-label>
     <nz-form-control nzHasFeedback [nzAutoTips]="tips.openapi_url">
-      <input nz-input formControlName="openapi_url" />
+      <input nz-input formControlName="openapi_url" placeholder="请输入地址" i18n-placeholder />
     </nz-form-control>
   </nz-form-item>
   <nz-form-item>
-    <nz-form-label nzRequired>App Key</nz-form-label>
+    <nz-form-label nzRequired i18n>应用 Key</nz-form-label>
     <nz-form-control nzHasFeedback [nzAutoTips]="tips.openapi_key">
-      <input nz-input formControlName="openapi_key" />
+      <input nz-input formControlName="openapi_key" placeholder="请输入应用 Key" i18n-placeholder />
     </nz-form-control>
   </nz-form-item>
   <nz-form-item>
-    <nz-form-label nzRequired>App Secret</nz-form-label>
+    <nz-form-label nzRequired i18n>应用密钥</nz-form-label>
     <nz-form-control nzHasFeedback [nzAutoTips]="tips.openapi_secret">
-      <input nz-input formControlName="openapi_secret" />
+      <input nz-input formControlName="openapi_secret" placeholder="请输入应用密钥" i18n-placeholder />
     </nz-form-control>
   </nz-form-item>
 </form>
 
 <div *nzModalFooter>
-  <button nz-button type="button" nzType="default" (click)="close()" i18n>Cancel</button>
-  <button nz-button nzType="primary" form="form" [disabled]="!form.valid" i18n>Submit</button>
+  <button nz-button type="button" nzType="default" (click)="close()" i18n>取消</button>
+  <button nz-button nzType="primary" form="form" [disabled]="!form.valid" i18n>提交</button>
 </div>

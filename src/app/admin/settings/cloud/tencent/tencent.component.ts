@@ -13,12 +13,12 @@ export class TencentComponent implements OnInit {
   tips = {
     tencent_secret_id: {
       default: {
-        required: $localize`The SecretId cannot be empty`
+        required: $localize`SecretId 不能为空`
       }
     },
     tencent_secret_key: {
       default: {
-        required: $localize`The SecretKey cannot be empty`
+        required: $localize`SecretKey 不能为空`
       }
     }
   };
@@ -45,7 +45,7 @@ export class TencentComponent implements OnInit {
 
   submit(data: any): void {
     this.wpx.setValues(data).subscribe(() => {
-      this.message.success($localize`Data update complete`);
+      this.message.success($localize`数据更新成功`);
       this.modalRef.triggerOk();
     });
   }

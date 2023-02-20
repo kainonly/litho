@@ -10,17 +10,17 @@ import { NzModalService } from 'ng-zorro-antd/modal';
 import { FormComponent } from './form/form.component';
 
 @Component({
-  selector: 'app-admin-users',
-  templateUrl: './users.component.html'
+  selector: 'app-admin-developer',
+  templateUrl: './developer.component.html'
 })
-export class UsersComponent {
+export class DeveloperComponent {
   @ViewChild(WpxTableComponent) table!: WpxTableComponent<User>;
   fields: Map<string, TableField> = new Map<string, TableField>([
-    ['email', { label: 'Email', type: 'string', keyword: true }],
-    ['name', { label: 'Call', type: 'string', keyword: true }],
-    ['status', { label: 'Status', type: 'bool' }],
-    ['create_time', { label: 'Create Time', type: 'date', option: { time: true } }],
-    ['update_time', { label: 'Update Time', type: 'date', option: { time: true } }]
+    ['email', { label: '电子邮件', type: 'string', keyword: true }],
+    ['name', { label: '称呼', type: 'string', keyword: true }],
+    ['status', { label: '状态', type: 'bool' }],
+    ['create_time', { label: '创建时间', type: 'date', option: { time: true } }],
+    ['update_time', { label: '更新时间', type: 'date', option: { time: true } }]
   ]);
   dataset: WpxData<AnyDto<User>> = new WpxData<AnyDto<User>>();
 
@@ -33,7 +33,7 @@ export class UsersComponent {
 
   form(doc?: AnyDto<User>): void {
     this.modal.create({
-      nzTitle: !doc ? 'Create' : `Edit【${doc.email}】`,
+      nzTitle: !doc ? '创建' : `编辑【${doc.email}】`,
       nzWidth: 640,
       nzContent: FormComponent,
       nzComponentParams: {
@@ -47,24 +47,24 @@ export class UsersComponent {
 
   delete(doc: AnyDto<User>): void {
     this.modal.confirm({
-      nzTitle: `Are you sure delete the【${doc.email}】?`,
-      nzOkText: 'Yes',
+      nzTitle: $localize`您确定要删除【${doc.email}】?`,
+      nzOkText: $localize`是的`,
       nzOkType: 'primary',
       nzOkDanger: true,
       nzOnOk: () => {
         this.users.delete(doc._id).subscribe(() => {
-          this.message.success('Data delete complete');
+          this.message.success($localize`数据删除成功`);
           this.table.getData(true);
         });
       },
-      nzCancelText: 'Think Again'
+      nzCancelText: $localize`再想想`
     });
   }
 
   bulkDelete(): void {
     this.modal.confirm({
-      nzTitle: 'Are you sure delete these users?',
-      nzOkText: 'Yes',
+      nzTitle: $localize`您确定删除这些用户吗？`,
+      nzOkText: $localize`是的`,
       nzOkType: 'primary',
       nzOkDanger: true,
       nzOnOk: () => {
@@ -80,12 +80,12 @@ export class UsersComponent {
             }
           )
           .subscribe(() => {
-            this.message.success('Data delete complete');
+            this.message.success($localize`数据删除成功`);
             this.table.getData(true);
             this.dataset.clearChecked();
           });
       },
-      nzCancelText: 'Think Again'
+      nzCancelText: $localize`再想想`
     });
   }
 }

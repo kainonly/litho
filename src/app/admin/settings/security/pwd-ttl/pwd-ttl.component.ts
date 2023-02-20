@@ -13,12 +13,12 @@ export class PwdTtlComponent implements OnInit {
   tips = {
     pwd_ttl: {
       default: {
-        required: $localize`The days cannot be empty`
+        required: $localize`密码有效期不能为空`
       }
     }
   };
   @Input() values!: Record<string, any>;
-  formatterTimes = (value: number): string => $localize`${value} day`;
+  formatterTimes = (value: number): string => $localize`${value} 天`;
   form!: FormGroup;
 
   constructor(
@@ -45,7 +45,7 @@ export class PwdTtlComponent implements OnInit {
   submit(data: any): void {
     data.pwd_ttl = data.pwd_ttl * 86400e9;
     this.wpx.setValues(data).subscribe(() => {
-      this.message.success($localize`Data update complete`);
+      this.message.success($localize`数据更新成功`);
       this.modalRef.triggerOk();
     });
   }

@@ -1,27 +1,27 @@
 <nz-layout class="common-layout">
   <nz-sider style="height: 100%" nzWidth="180px" nzTheme="light">
     <ul nz-menu nzMode="inline" style="border: none">
-      <li nz-menu-group nzTitle="Projects" i18n-nzTitle>
+      <li nz-menu-group nzTitle="项目" i18n-nzTitle>
         <ul>
           <li nz-menu-item nzMatchRouter [routerLink]="['/', 'admin', 'space', 'projects']">
             <span nz-icon nzType="project"></span>
-            <span i18n>Managed</span>
+            <span i18n>管理中</span>
           </li>
           <li nz-menu-item nzDisabled>
             <span nz-icon nzType="book"></span>
-            <span i18n>Archived</span>
+            <span i18n>已归档</span>
           </li>
         </ul>
       </li>
-      <li nz-menu-group nzTitle="Environment" i18n-nzTitle>
+      <li nz-menu-group nzTitle="环境" i18n-nzTitle>
         <ul>
           <li nz-menu-item nzDisabled>
             <span nz-icon nzType="partition"></span>
-            <span i18n>Multi-Tenant</span>
+            <span i18n>多租户</span>
           </li>
           <li nz-menu-item nzDisabled>
             <span nz-icon nzType="cluster"></span>
-            <span i18n>Cluster</span>
+            <span i18n>集群</span>
           </li>
         </ul>
       </li>

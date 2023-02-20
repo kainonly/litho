@@ -1,31 +1,31 @@
 <form nz-form nzLayout="vertical" id="form" [formGroup]="form" (wpxSubmit)="submit($event)">
   <nz-form-item>
-    <nz-form-label nzRequired>SMTP Host</nz-form-label>
+    <nz-form-label nzRequired>SMTP 主机</nz-form-label>
     <nz-form-control nzHasFeedback [nzAutoTips]="tips.email_host">
-      <input nz-input formControlName="email_host" />
+      <input nz-input formControlName="email_host" placeholder="请输入 SMTP 主机" i18n-placeholder />
     </nz-form-control>
   </nz-form-item>
   <nz-form-item>
-    <nz-form-label nzRequired>SMTP Port（SSL）</nz-form-label>
+    <nz-form-label nzRequired>SMTP 端口（SSL）</nz-form-label>
     <nz-form-control nzHasFeedback [nzAutoTips]="tips.email_port">
-      <input nz-input formControlName="email_port" />
+      <input nz-input formControlName="email_port" placeholder="请输入 SMTP 端口" i18n-placeholder />
     </nz-form-control>
   </nz-form-item>
   <nz-form-item>
-    <nz-form-label nzRequired i18n>Username</nz-form-label>
+    <nz-form-label nzRequired i18n>用户名</nz-form-label>
     <nz-form-control nzHasFeedback [nzAutoTips]="tips.email_username">
       <input nz-input formControlName="email_username" placeholder="support@example.com" />
     </nz-form-control>
   </nz-form-item>
   <nz-form-item>
-    <nz-form-label nzRequired i18n>Password</nz-form-label>
+    <nz-form-label nzRequired i18n>密码</nz-form-label>
     <nz-form-control nzHasFeedback [nzAutoTips]="tips.email_password">
-      <input nz-input formControlName="email_password" />
+      <input nz-input formControlName="email_password" placeholder="请输入密码" i18n-placeholder />
     </nz-form-control>
   </nz-form-item>
 </form>
 
 <div *nzModalFooter>
-  <button nz-button type="button" nzType="default" (click)="close()" i18n>Cancel</button>
-  <button nz-button nzType="primary" form="form" [disabled]="!form.valid" i18n>Submit</button>
+  <button nz-button type="button" nzType="default" (click)="close()" i18n>取消</button>
+  <button nz-button nzType="primary" form="form" [disabled]="!form.valid" i18n>提交</button>
 </div>

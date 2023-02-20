@@ -1,31 +1,31 @@
 <nz-layout class="common-layout">
   <nz-sider style="height: 100%" nzWidth="180px" nzTheme="light">
     <ul nz-menu nzMode="inline" style="border: none">
-      <li nz-menu-group nzTitle="Users" i18n-nzTitle>
+      <li nz-menu-group nzTitle="成员" i18n-nzTitle>
         <ul>
           <li nz-menu-item nzMatchRouter [routerLink]="['/', 'admin', 'orgs', 'users']">
             <span nz-icon nzType="team"></span>
-            <span i18n>Team</span>
+            <span i18n>开发者</span>
           </li>
           <li nz-menu-item nzDisabled>
             <span nz-icon nzType="coffee"></span>
-            <span i18n>Visitor</span>
+            <span i18n>访客</span>
           </li>
           <li nz-menu-item nzDisabled>
             <span nz-icon nzType="usergroup-add"></span>
-            <span i18n>Group</span>
+            <span i18n>组</span>
           </li>
         </ul>
       </li>
-      <li nz-menu-group nzTitle="Permissions" i18n-nzTitle>
+      <li nz-menu-group nzTitle="授权" i18n-nzTitle>
         <ul>
           <li nz-menu-item nzDisabled>
             <span nz-icon nzType="bulb"></span>
-            <span i18n>Policy</span>
+            <span i18n>策略</span>
           </li>
           <li nz-menu-item nzDisabled>
             <span nz-icon nzType="solution"></span>
-            <span i18n>Role</span>
+            <span i18n>权限组</span>
           </li>
         </ul>
       </li>

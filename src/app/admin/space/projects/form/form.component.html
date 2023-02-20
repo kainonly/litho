@@ -1,26 +1,26 @@
 <form *ngIf="form" nz-form nzLayout="vertical" id="form" [formGroup]="form" (wpxSubmit)="submit($event)">
   <nz-form-item>
-    <nz-form-label nzRequired i18n>Project Name</nz-form-label>
+    <nz-form-label nzRequired i18n>项目名称</nz-form-label>
     <nz-form-control nzHasFeedback [nzAutoTips]="tips.name">
-      <input nz-input type="text" formControlName="name" placeholder="Please enter project name" i18n-placeholder />
+      <input nz-input type="text" formControlName="name" placeholder="请输入项目名称" i18n-placeholder />
     </nz-form-control>
   </nz-form-item>
 
   <nz-form-item>
-    <nz-form-label nzRequired i18n>Namespace</nz-form-label>
+    <nz-form-label nzRequired i18n>命名空间</nz-form-label>
     <nz-form-control nzHasFeedback [nzAutoTips]="tips.namespace">
-      <input nz-input type="text" formControlName="namespace" placeholder="Please enter namespace" i18n-placeholder />
+      <input nz-input type="text" formControlName="namespace" placeholder="请输入命名空间" i18n-placeholder />
     </nz-form-control>
   </nz-form-item>
 
   <nz-form-item>
-    <nz-form-label i18n>Secret</nz-form-label>
+    <nz-form-label i18n>密钥</nz-form-label>
     <nz-form-control nzHasFeedback>
       <nz-input-group nzSearch [nzAddOnAfter]="suffixIconButton">
         <input nz-input type="text" formControlName="secret" />
       </nz-input-group>
       <ng-template #suffixIconButton>
-        <button nz-button type="button" nz-tooltip="Generate" (click)="randomSecret()">
+        <button nz-button type="button" nz-tooltip="生成" (click)="randomSecret()">
           <span nz-icon nzType="thunderbolt"></span>
         </button>
       </ng-template>
@@ -28,8 +28,8 @@
   </nz-form-item>
 
   <nz-form-item>
-    <nz-form-label i18n>Validity Period</nz-form-label>
-    <nz-form-control nzHasFeedback nzExtra="* Permanently valid without setting a validity period" i18n-nzExtra>
+    <nz-form-label i18n>有效期</nz-form-label>
+    <nz-form-control nzHasFeedback nzExtra="* 不设置有效期即永久有效" i18n-nzExtra>
       <nz-date-picker
         style="width: 100%"
         formControlName="expire"
@@ -41,7 +41,7 @@
   </nz-form-item>
 
   <nz-form-item>
-    <nz-form-label i18n>Entry</nz-form-label>
+    <nz-form-label i18n>授权入口</nz-form-label>
     <nz-form-control nzHasFeedback>
       <nz-form-control formArrayName="entry">
         <ng-container *ngFor="let x of entry?.controls; index as i; first as isFirst">
@@ -51,7 +51,7 @@
               type="text"
               nz-input
               [formControlName]="i"
-              placeholder="Please enter an IP address"
+              placeholder="请输入 IP 地址"
               i18n-placeholder
             />
             <button nz-button type="button" nzType="default" style="width: 10%" (click)="removeEntry(i)">
@@ -60,14 +60,14 @@
           </nz-input-group>
         </ng-container>
         <button style="margin-top: 8px" nzBlock type="button" nz-button nzType="dashed" (click)="addEntry()">
-          <i nz-icon nzType="plus-circle"></i> Create Address
+          <i nz-icon nzType="plus-circle"></i> 新增
         </button>
       </nz-form-control>
     </nz-form-control>
   </nz-form-item>
 
   <nz-form-item>
-    <nz-form-label nzRequired i18n>Status</nz-form-label>
+    <nz-form-label nzRequired i18n>状态</nz-form-label>
     <nz-form-control>
       <nz-switch formControlName="status"></nz-switch>
     </nz-form-control>
@@ -75,6 +75,6 @@
 </form>
 
 <div *nzModalFooter>
-  <button nz-button type="button" nzType="default" (click)="close()" i18n>Cancel</button>
-  <button nz-button nzType="primary" form="form" [disabled]="!form.valid" i18n>Submit</button>
+  <button nz-button type="button" nzType="default" (click)="close()" i18n>取消</button>
+  <button nz-button nzType="primary" form="form" [disabled]="!form.valid" i18n>提交</button>
 </div>

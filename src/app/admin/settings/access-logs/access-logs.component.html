@@ -9,10 +9,10 @@
       (ngModelChange)="getData(true)"
     ></nz-range-picker>
     <nz-button-group *nzSpaceItem>
-      <button nz-button nzType="text" nz-tooltip="Refresh" i18n-nz-tooltip (click)="getData(true)">
+      <button nz-button nzType="text" nz-tooltip="刷新" i18n-nz-tooltip (click)="getData(true)">
         <i nz-icon nzType="reload"></i>
       </button>
-      <button nz-button nzType="text" nz-tooltip="Reset" i18n-nz-tooltip (click)="clearSearch()">
+      <button nz-button nzType="text" nz-tooltip="重置" i18n-nz-tooltip (click)="clearSearch()">
         <i nz-icon nzType="clear"></i>
       </button>
     </nz-button-group>
@@ -21,7 +21,7 @@
 
 <ng-template #actions>
   <nz-space>
-    <button *nzSpaceItem nz-button i18n> Export </button>
+    <button *nzSpaceItem nz-button i18n> 导出 </button>
   </nz-space>
 </ng-template>
 
@@ -50,9 +50,9 @@
           (nzCheckedChange)="dataset.setNChecked($event)"
         >
         </th>
-        <th nzWidth="150px"><b i18n>Timestamp</b></th>
-        <th><b i18n>Operator</b></th>
-        <th><b i18n>Resource</b></th>
+        <th nzWidth="150px"><b i18n>时间戳</b></th>
+        <th><b i18n>操作人</b></th>
+        <th><b i18n>资源</b></th>
         <th nzWidth="60px" nzRight nzAlign="center">
           <button nz-button nzType="text" nzBlock disabled>
             <i nz-icon nzType="setting"></i>
@@ -82,7 +82,7 @@
               <ng-template #showEmail> {{ user.email }} </ng-template>
             </a>
             <ng-template #isSystem>
-              <ng-container i18n>system</ng-container>
+              <span i18n>系统</span>
             </ng-template>
           </td>
           <td>
@@ -98,7 +98,7 @@
             </button>
             <nz-dropdown-menu #menu="nzDropdownMenu">
               <ul nz-menu>
-                <li nz-menu-item i18n>Definition</li>
+                <li nz-menu-item i18n>定义</li>
               </ul>
             </nz-dropdown-menu>
           </td>
@@ -113,50 +113,51 @@
   [nzVisible]="userDetailVisible"
   [nzWidth]="640"
   nzPlacement="right"
-  nzTitle="User Detail"
+  nzTitle="用户详情"
+  i18n-nzTitle
   (nzOnClose)="closeUserDetail()"
 >
   <ng-container *nzDrawerContent>
     <nz-descriptions *ngIf="userDetail as u" nzBordered [nzColumn]="2">
-      <nz-descriptions-item nzTitle="Email">{{ u.email }}</nz-descriptions-item>
-      <nz-descriptions-item nzTitle="Call">
+      <nz-descriptions-item nzTitle="ID" [nzSpan]="2">{{ u._id }}</nz-descriptions-item>
+      <nz-descriptions-item nzTitle="电子邮件">{{ u.email }}</nz-descriptions-item>
+      <nz-descriptions-item nzTitle="称呼">
         <ng-container *ngIf="u.name; else noName">
           {{ u.name }}
         </ng-container>
         <ng-template #noName> None </ng-template>
       </nz-descriptions-item>
-      <nz-descriptions-item nzTitle="ID" [nzSpan]="2">{{ u._id }}</nz-descriptions-item>
-      <nz-descriptions-item nzTitle="Avatar" [nzSpan]="2">{{ u.avatar }}</nz-descriptions-item>
-      <nz-descriptions-item nzTitle="Status" [nzSpan]="2">
-        <ng-container *ngIf="u.status; else isFalse"> <nz-badge nzStatus="processing"></nz-badge> On </ng-container>
-        <ng-template #isFalse> <nz-badge nzStatus="default"></nz-badge> Off </ng-template>
+      <nz-descriptions-item nzTitle="头像" [nzSpan]="2">{{ u.avatar }}</nz-descriptions-item>
+      <nz-descriptions-item nzTitle="状态" [nzSpan]="2">
+        <ng-container *ngIf="u.status; else isFalse">
+          <nz-badge nzStatus="processing"></nz-badge> <span i18n>开启</span>
+        </ng-container>
+        <ng-template #isFalse> <nz-badge nzStatus="default"></nz-badge> <span i18n>关闭</span> </ng-template>
       </nz-descriptions-item>
-      <nz-descriptions-item nzTitle="Sessions" [nzSpan]="2">
-        <span>
-          Logged in <b> {{ u.sessions }} </b> times
+      <nz-descriptions-item nzTitle="累计会话" [nzSpan]="2">
+        <span i18n>
+          已登录 <b> {{ u.sessions }} </b> 次
         </span>
       </nz-descriptions-item>
-      <nz-descriptions-item *ngIf="u.last as l" nzTitle="Time Online" [nzSpan]="2">
+      <nz-descriptions-item *ngIf="u.last as l" nzTitle="最近登录时间" i18n-nzTitle [nzSpan]="2">
         {{ l.timestamp | date: 'yyyy/MM/dd HH:mm:ss' }}
       </nz-descriptions-item>
-      <nz-descriptions-item *ngIf="u.last as l" nzTitle="IP" [nzSpan]="2">
-        <b>[ {{ l.ip }} ]</b>
-      </nz-descriptions-item>
-      <nz-descriptions-item nzTitle="Area & ISP" [nzSpan]="2">
+      <nz-descriptions-item *ngIf="u.last as l" nzTitle="IP" [nzSpan]="2"> {{ l.ip }} </nz-descriptions-item>
+      <nz-descriptions-item nzTitle="地区 ISP" i18n-nzTitle [nzSpan]="2">
         <nz-space *ngIf="u.last as l" [nzSplit]="spaceSplit">
           <ng-template #spaceSplit>
             <nz-divider nzType="vertical"></nz-divider>
           </ng-template>
-          <span *nzSpaceItem>{{ !l.country ? '-' : l.country }}</span>
-          <span *nzSpaceItem>{{ !l.province ? '-' : l.province }}</span>
-          <span *nzSpaceItem>{{ !l.city ? '-' : l.city }}</span>
-          <span *nzSpaceItem>{{ !l.isp ? '-' : l.isp }}</span>
+          <span *nzSpaceItem i18n>{{ !l.country ? '未知' : l.country }}</span>
+          <span *nzSpaceItem i18n>{{ !l.province ? '未知' : l.province }}</span>
+          <span *nzSpaceItem i18n>{{ !l.city ? '未知' : l.city }}</span>
+          <span *nzSpaceItem i18n>{{ !l.isp ? '未知' : l.isp }}</span>
         </nz-space>
       </nz-descriptions-item>
-      <nz-descriptions-item nzTitle="Create Time" [nzSpan]="2">
+      <nz-descriptions-item nzTitle="创建时间" i18n-nzTitle [nzSpan]="2">
         {{ u.create_time | date: 'yyyy/MM/dd HH:mm:ss' }}
       </nz-descriptions-item>
-      <nz-descriptions-item nzTitle="Update Time" [nzSpan]="2">
+      <nz-descriptions-item nzTitle="更新时间" i18n-nzTitle [nzSpan]="2">
         {{ u.update_time | date: 'yyyy/MM/dd HH:mm:ss' }}
       </nz-descriptions-item>
     </nz-descriptions>
@@ -168,7 +169,8 @@
   [nzVisible]="resourceDetailVisible"
   [nzWidth]="640"
   nzPlacement="right"
-  nzTitle="Resource Detail"
+  nzTitle="资源详情"
+  i18n-nzTitle
   (nzOnClose)="closeResourceDetail()"
 >
   <ng-container *nzDrawerContent>

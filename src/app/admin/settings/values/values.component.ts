@@ -82,7 +82,7 @@ export class ValuesComponent implements OnInit {
 
   form(data?: any): void {
     this.modal.create({
-      nzTitle: $localize`Value Form`,
+      nzTitle: $localize`动态配置表单`,
       nzWidth: '732px',
       nzContent: FormComponent,
       nzComponentParams: {
@@ -96,8 +96,8 @@ export class ValuesComponent implements OnInit {
 
   delete(key: string): void {
     this.modal.confirm({
-      nzTitle: $localize`Are you sure you want to delete [${key}] configuration?`,
-      nzOkText: $localize`Yes`,
+      nzTitle: $localize`您确定删除 [${key}] 配置吗？`,
+      nzOkText: $localize`是的`,
       nzOkType: 'primary',
       nzOkDanger: true,
       nzOnOk: () => {
@@ -106,7 +106,7 @@ export class ValuesComponent implements OnInit {
           this.getData();
         });
       },
-      nzCancelText: $localize`Think again`
+      nzCancelText: $localize`再想想`
     });
   }
 }

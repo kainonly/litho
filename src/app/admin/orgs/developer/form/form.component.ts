@@ -9,21 +9,26 @@ import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalRef } from 'ng-zorro-antd/modal';
 
 @Component({
-  selector: 'app-admin-users-form',
+  selector: 'app-admin-developer-form',
   templateUrl: './form.component.html'
 })
 export class FormComponent implements OnInit {
-  /**
-   * 载入数据
-   */
+  tips = {
+    email: {
+      default: {
+        required: $localize`电子邮件不能为空`,
+        duplicated: $localize`存在重复的定义，电子邮件必须是唯一的`
+      }
+    },
+    password: {
+      default: {
+        required: $localize`密码不能为空`,
+        minlength: $localize`密码长度必须大于6位`
+      }
+    }
+  };
   @Input() doc?: AnyDto<User>;
-  /**
-   * 表单
-   */
   form!: FormGroup;
-  /**
-   * 密码可视
-   */
   passwordVisible = false;
 
   constructor(
@@ -48,10 +53,6 @@ export class FormComponent implements OnInit {
     }
   }
 
-  /**
-   * 检测电子邮件是否存在
-   * @param control
-   */
   checkEmail = (control: AbstractControl): Observable<any> => {
     if (control.value === this.doc?.email) {
       return of(null);
@@ -59,10 +60,6 @@ export class FormComponent implements OnInit {
     return this.users.existsEmail(control.value);
   };
 
-  /**
-   * 验证密码安全性
-   * @param control
-   */
   validedPassword = (control: AbstractControl): any => {
     if (!control.value) {
       return !this.doc ? { required: true } : null;
@@ -70,17 +67,10 @@ export class FormComponent implements OnInit {
     return validates.password(control.value);
   };
 
-  /**
-   * 关闭表单
-   */
   close(): void {
     this.modalRef.triggerCancel();
   }
 
-  /**
-   * 提交
-   * @param value
-   */
   submit(value: any): void {
     if (!this.doc) {
       this.users
@@ -88,7 +78,7 @@ export class FormComponent implements OnInit {
           xdata: { password: 'password' }
         })
         .subscribe(() => {
-          this.message.success('数据新增完成');
+          this.message.success($localize`数据更新成功`);
           this.modalRef.triggerOk();
         });
     } else {
@@ -106,7 +96,7 @@ export class FormComponent implements OnInit {
           }
         )
         .subscribe(() => {
-          this.message.success('数据更新完成');
+          this.message.success($localize`数据更新成功`);
           this.modalRef.triggerOk();
         });
     }

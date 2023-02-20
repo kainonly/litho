@@ -17,14 +17,14 @@ export class FormComponent implements OnInit {
   tips = {
     name: {
       default: {
-        required: $localize`The project name cannot be empty`,
-        duplicated: $localize`Duplicate definitions exist, project name must be unique`
+        required: $localize`项目名称不能为空`,
+        duplicated: $localize`存在重复的定义，项目名称必须是唯一的`
       }
     },
     namespace: {
       default: {
-        required: $localize`The namespace cannot be empty`,
-        duplicated: $localize`Duplicate definitions exist, namespace must be unique`
+        required: $localize`命名空间不能为空`,
+        duplicated: $localize`存在重复的定义，命名空间必须是唯一的`
       }
     }
   };
@@ -114,12 +114,12 @@ export class FormComponent implements OnInit {
     }
     if (!this.doc) {
       this.projects.create(value).subscribe(() => {
-        this.message.success($localize`Data update complete`);
+        this.message.success($localize`数据更新成功`);
         this.modalRef.triggerOk();
       });
     } else {
       this.projects.updateById(this.doc._id, { $set: value }).subscribe(() => {
-        this.message.success($localize`Data update complete`);
+        this.message.success($localize`数据更新成功`);
         this.modalRef.triggerOk();
       });
     }

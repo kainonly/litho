@@ -66,17 +66,17 @@ export class CloudComponent implements OnInit {
   }
 
   useCloud(cloud: string): void {
-    let message = $localize`Are you sure to use this public cloud?`;
+    let message = $localize`您确定使用这个服务商吗？`;
     if (this.values['cloud']) {
       if (cloud === this.values['cloud']) {
-        message = $localize`Are you sure stop it?`;
+        message = $localize`您确定要停用他吗?`;
         cloud = '';
       } else {
-        message = $localize`A public cloud already exists, enabling it will automatically stop the previous!`;
+        message = $localize`已经存在一个服务商，开启他将关闭之前存在的！`;
       }
     }
     this.modal.confirm({
-      nzTitle: $localize`Public Cloud Switch`,
+      nzTitle: $localize`公有云设置`,
       nzContent: message,
       nzMaskClosable: true,
       nzOnOk: () => {
@@ -86,17 +86,17 @@ export class CloudComponent implements OnInit {
           })
           .subscribe(() => {
             this.getData();
-            this.message.success($localize`Data update complete`);
+            this.message.success($localize`数据更新成功`);
           });
       }
     });
   }
 
   setTencent(): void {
-    this.setModal($localize`Tencent Cloud Form`, TencentComponent);
+    this.setModal($localize`腾讯云设置`, TencentComponent);
   }
 
   setCos(): void {
-    this.setModal($localize`Tencent Cloud Cos Form`, CosComponent);
+    this.setModal($localize`腾讯云 COS 设置`, CosComponent);
   }
 }

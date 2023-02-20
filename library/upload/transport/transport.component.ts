@@ -51,7 +51,7 @@ export class WpxUploadTransportComponent {
 
   private watch(file: NzUploadFile): void {
     if (file.status === 'error') {
-      this.message.error(`Unable to upload file [${file.name}]`);
+      this.message.error(`无法上传文件 [${file.name}]`);
       this.transports.delete(file.uid);
     }
     this.transports.set(file.uid, {
@@ -69,7 +69,7 @@ export class WpxUploadTransportComponent {
   private success(): void {
     this.complete = true;
     this.message.remove(this.messageId);
-    this.message.success('File uploaded successfully');
+    this.message.success($localize`文件上传成功`);
     this.wpxChange.next([...this.transports.values()]);
   }
 }

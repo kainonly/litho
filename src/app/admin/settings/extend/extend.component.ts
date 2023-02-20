@@ -52,10 +52,10 @@ export class ExtendComponent implements OnInit {
   }
 
   setEmail(): void {
-    this.setModal($localize`Public Mailbox Basic Form`, EmailComponent);
+    this.setModal($localize`公共邮箱设置`, EmailComponent);
   }
 
   setOpenapi(): void {
-    this.setModal($localize`Openapi Service Basic Form`, OpenapiComponent);
+    this.setModal($localize`开放服务设置`, OpenapiComponent);
   }
 }
