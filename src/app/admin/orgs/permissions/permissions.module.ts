@@ -8,18 +8,20 @@ const routes: Routes = [
     path: '',
     children: [
       {
-        path: 'managed',
-        loadChildren: () => import('./managed/managed.module').then(m => m.ManagedModule),
+        path: 'roles',
+        loadChildren: () => import('./roles/roles.module').then(m => m.RolesModule),
         data: {
-          breadcrumb: $localize`管理中`
+          breadcrumb: $localize`角色`
         }
-      },
-      { path: '', redirectTo: 'managed', pathMatch: 'full' }
-    ]
+      }
+    ],
+    data: {
+      breadcrumb: $localize`权限`
+    }
   }
 ];
 
 @NgModule({
   imports: [ShareModule, RouterModule.forChild(routes)]
 })
-export class ProjectsModule {}
+export class PermissionsModule {}

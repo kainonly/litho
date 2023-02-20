@@ -8,13 +8,13 @@ const routes: Routes = [
     path: '',
     children: [
       {
-        path: 'managed',
-        loadChildren: () => import('./managed/managed.module').then(m => m.ManagedModule),
+        path: 'developer',
+        loadChildren: () => import('./developer/developer.module').then(m => m.DeveloperModule),
         data: {
-          breadcrumb: $localize`管理中`
+          breadcrumb: $localize`开发者`
         }
       },
-      { path: '', redirectTo: 'managed', pathMatch: 'full' }
+      { path: '', redirectTo: 'developer', pathMatch: 'full' }
     ]
   }
 ];
@@ -22,4 +22,4 @@ const routes: Routes = [
 @NgModule({
   imports: [ShareModule, RouterModule.forChild(routes)]
 })
-export class ProjectsModule {}
+export class UsersModule {}
