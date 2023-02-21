@@ -15,7 +15,7 @@ const routes: Routes = [
         path: 'pages',
         loadChildren: () => import('./pages/pages.module').then(m => m.PagesModule),
         data: {
-          breadcrumb: '页面'
+          breadcrumb: '设计器'
         }
       },
       { path: '', redirectTo: 'pages', pathMatch: 'full' }

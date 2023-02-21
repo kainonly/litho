@@ -30,16 +30,13 @@
               <nz-divider nzType="vertical"></nz-divider>
             </ng-template>
             <ng-container *nzSpaceItem>
-              <button nz-button nzType="text">
+              <button nz-button nzType="text" (click)="quick()">
                 <span nz-icon nzType="appstore"></span>
               </button>
             </ng-container>
-            <nz-breadcrumb *nzSpaceItem class="breadcrumb" nzAutoGenerate [nzSeparator]="iconTpl">
-              <ng-template #iconTpl>
-                <span nz-icon nzType="caret-right"></span>
-              </ng-template>
-              <nz-breadcrumb-item>
-                <a [routerLink]="['/']"><span nz-icon nzType="home"></span> 首页 </a>
+            <nz-breadcrumb *nzSpaceItem class="breadcrumb" nzAutoGenerate>
+              <nz-breadcrumb-item *ngIf="app.project as p">
+                <a [routerLink]="['/', p.namespace]" i18n> 项目【{{ p.name }}】</a>
               </nz-breadcrumb-item>
             </nz-breadcrumb>
           </nz-space>
@@ -77,6 +74,16 @@
     </div>
     <router-outlet></router-outlet>
   </div>
+</ng-template>
+
+<ng-template #quickTitleTpl>
+  <nz-row nzJustify="space-between">
+    <nz-col i18n>快捷导航</nz-col>
+    <nz-col></nz-col>
+    <nz-col>
+      <a [routerLink]="['/']" (click)="closeQuick()" i18n> 管理后台 </a>
+    </nz-col>
+  </nz-row>
 </ng-template>
 
 <ng-template #centerTpl>

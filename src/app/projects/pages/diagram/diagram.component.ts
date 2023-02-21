@@ -1,3 +1,4 @@
+import { CdkDragDrop } from '@angular/cdk/drag-drop';
 import { Component } from '@angular/core';
 
 import { NzContextMenuService, NzDropdownMenuComponent } from 'ng-zorro-antd/dropdown';
@@ -12,5 +13,10 @@ export class DiagramComponent {
 
   contextMenu($event: MouseEvent, menu: NzDropdownMenuComponent): void {
     this.contextMenuService.create($event, menu);
+  }
+
+  drop(event: CdkDragDrop<string[]>): void {
+    console.log(event);
+    // moveItemInArray(this.movies, event.previousIndex, event.currentIndex);
   }
 }

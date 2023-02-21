@@ -25,6 +25,7 @@
       "@common/*": ["src/app/common/*"],
       "@orgs/*": ["src/app/namespace/orgs/*"],
       "@weplanx/ng": ["library/public-api.ts"],
+      "@weplanx/block": ["library/block/public-api.ts"],
       "@weplanx/ng/checkbox": ["library/checkbox/public-api.ts"],
       "@weplanx/ng/upload": ["library/upload/public-api.ts"],
       "@weplanx/ng/media": ["library/media/public-api.ts"],
@@ -33,9 +34,7 @@
       "@weplanx/ng/richtext": ["library/richtext/public-api.ts"],
       "@weplanx/ng/store": ["library/store/public-api.ts"]
     },
-    "types": [
-      "@angular/localize"
-    ]
+    "types": ["@angular/localize"]
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,

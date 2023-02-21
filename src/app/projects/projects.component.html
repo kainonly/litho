@@ -5,47 +5,57 @@
       nzMatchRouter
       [routerLink]="['/', v.namespace, 'pages']"
       (click)="pages.toggleCollapsed()"
-      nz-tooltip="页面（打开 / 隐藏）"
+      nz-tooltip="打开 / 隐藏"
+      i18n-nz-tooltip
       nzTooltipPlacement="right"
     >
       <span nz-icon [nzType]="this.pages.collapsed ? 'menu-fold' : 'menu-unfold'"></span>
     </li>
-    <!--    <li-->
-    <!--      nz-menu-item-->
-    <!--      nzMatchRouter-->
-    <!--      [routerLink]="['/', v.namespace, 'media']"-->
-    <!--      nz-tooltip="媒体"-->
-    <!--      nzTooltipPlacement="right"-->
-    <!--    >-->
-    <!--      <span nz-icon nzType="inbox"></span>-->
-    <!--    </li>-->
-    <!--    <li-->
-    <!--      nz-menu-item-->
-    <!--      nzMatchRouter-->
-    <!--      [routerLink]="['/', v.namespace, 'orgs']"-->
-    <!--      nz-tooltip="组织"-->
-    <!--      nzTooltipPlacement="right"-->
-    <!--    >-->
-    <!--      <span nz-icon nzType="apartment"></span>-->
-    <!--    </li>-->
-    <!--    <li-->
-    <!--      nz-menu-item-->
-    <!--      nzMatchRouter-->
-    <!--      [routerLink]="['/', v.namespace, 'schedules']"-->
-    <!--      nz-tooltip="任务调度"-->
-    <!--      nzTooltipPlacement="right"-->
-    <!--    >-->
-    <!--      <i nz-icon nzType="schedule"></i>-->
-    <!--    </li>-->
-    <!--    <li-->
-    <!--      nz-menu-item-->
-    <!--      nzMatchRouter-->
-    <!--      [routerLink]="['/', v.namespace, 'logsystem']"-->
-    <!--      nz-tooltip="日志系统"-->
-    <!--      nzTooltipPlacement="right"-->
-    <!--    >-->
-    <!--      <span nz-icon nzType="history"></span>-->
-    <!--    </li>-->
+    <li
+      nz-menu-item
+      nzMatchRouter
+      [routerLink]="['/', v.namespace, 'datasource']"
+      nz-tooltip="数据源"
+      nzTooltipPlacement="right"
+    >
+      <span nz-icon nzType="database"></span>
+    </li>
+    <li
+      nz-menu-item
+      nzMatchRouter
+      [routerLink]="['/', v.namespace, 'media']"
+      nz-tooltip="媒体"
+      nzTooltipPlacement="right"
+    >
+      <span nz-icon nzType="inbox"></span>
+    </li>
+    <li
+      nz-menu-item
+      nzMatchRouter
+      [routerLink]="['/', v.namespace, 'orgs']"
+      nz-tooltip="组织"
+      nzTooltipPlacement="right"
+    >
+      <span nz-icon nzType="apartment"></span>
+    </li>
+    <li
+      nz-menu-item
+      nzMatchRouter
+      [routerLink]="['/', v.namespace, 'schedules']"
+      nz-tooltip="任务调度"
+      nzTooltipPlacement="right"
+    >
+      <i nz-icon nzType="schedule"></i>
+    </li>
+    <li
+      nz-menu-item
+      nzMatchRouter
+      [routerLink]="['/', v.namespace, 'logsystem']"
+      nz-tooltip="日志系统"
+      nzTooltipPlacement="right"
+    >
+      <span nz-icon nzType="history"></span>
+    </li>
   </ul>
 </nav>
 

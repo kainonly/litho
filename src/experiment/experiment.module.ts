@@ -11,17 +11,20 @@ const routes: Routes = [
     component: ExperimentComponent,
     children: [
       {
-        path: 'richtext',
-        loadChildren: () => import('./richtext/richtext.module').then(m => m.RichtextModule)
+        path: 'plugins',
+        loadChildren: () => import('./plugins/plugins.module').then(m => m.PluginsModule),
+        data: {
+          breadcrumb: '插件'
+        }
       },
       {
-        path: 'store',
-        loadChildren: () => import('./store/store.module').then(m => m.StoreModule)
+        path: 'blocks',
+        loadChildren: () => import('./blocks/blocks.module').then(m => m.BlocksModule),
+        data: {
+          breadcrumb: '引擎'
+        }
       },
-      {
-        path: 'table',
-        loadChildren: () => import('./table/table.module').then(m => m.TableModule)
-      }
+      { path: '', redirectTo: 'plugins', pathMatch: 'full' }
     ]
   }
 ];

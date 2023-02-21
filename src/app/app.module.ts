@@ -22,6 +22,8 @@ import { AppComponent } from './app.component';
 import { AppGuard } from './app.guard';
 import { AppInterceptors } from './app.interceptors';
 import { ProfileModule } from './profile/profile.module';
+import { QuickComponent } from './quick/quick.component';
+import { QuickModule } from './quick/quick.module';
 
 registerLocaleData(zh);
 
@@ -46,7 +48,10 @@ const routes: Routes = [
   {
     path: 'admin',
     loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule),
-    canActivate: [AppGuard]
+    canActivate: [AppGuard],
+    data: {
+      breadcrumb: $localize`管理后台`
+    }
   },
   {
     path: ':namespace',
@@ -58,9 +63,12 @@ const routes: Routes = [
 
 if (!environment.production) {
   routes.unshift({
-    path: 'exp',
+    path: 'experiment',
     loadChildren: () => import('../experiment/experiment.module').then(m => m.ExperimentModule),
-    canActivate: [AppGuard]
+    canActivate: [AppGuard],
+    data: {
+      breadcrumb: $localize`实验开发`
+    }
   });
 }
 
@@ -74,6 +82,7 @@ if (!environment.production) {
     FormsModule,
     NzLayoutModule,
     NzMessageModule,
+    QuickModule,
     ProfileModule,
     WpxRichtextModule.forRoot({
       url: 'https://cdn.kainonly.com/assets/editorjs/editorjs.js',
@@ -104,8 +113,6 @@ if (!environment.production) {
       provide: NZ_CONFIG,
       useValue: <NzConfig>{
         notification: { nzPlacement: 'bottomRight' },
-        pageHeader: { nzGhost: false },
-        card: { nzBorderless: true },
         table: { nzSize: 'small' },
         codeEditor: {
           assetsRoot: `https://cdn.kainonly.com/assets`

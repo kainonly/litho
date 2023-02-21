@@ -1,13 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { AppService } from '@app';
 import { environment } from '@env';
 import { WpxService } from '@weplanx/ng';
-import { NzDrawerService } from 'ng-zorro-antd/drawer';
+import { NzDrawerRef, NzDrawerService } from 'ng-zorro-antd/drawer';
 import { NzIconService } from 'ng-zorro-antd/icon';
 
 import { ProfileComponent } from './profile/profile.component';
+import { QuickComponent } from './quick/quick.component';
 
 @Component({
   selector: 'app-root',
@@ -16,6 +17,9 @@ import { ProfileComponent } from './profile/profile.component';
 })
 export class AppComponent implements OnInit {
   year = new Date().getFullYear();
+
+  @ViewChild('quickTitleTpl') quickTitleTpl!: TemplateRef<any>;
+  private quickRef?: NzDrawerRef;
 
   constructor(
     private wpx: WpxService,
@@ -31,12 +35,23 @@ export class AppComponent implements OnInit {
     this.wpx.setAssets(environment.cdn);
   }
 
+  quick(): void {
+    this.quickRef = this.drawer.create<QuickComponent>({
+      nzTitle: this.quickTitleTpl,
+      nzContent: QuickComponent,
+      nzPlacement: 'left'
+    });
+  }
+
+  closeQuick(): void {
+    this.quickRef?.close();
+  }
+
   profile(): void {
     this.drawer.create<ProfileComponent, { value: string }, string>({
       nzTitle: $localize`个人中心`,
       nzWidth: '800px',
-      nzContent: ProfileComponent,
-      nzContentParams: {}
+      nzContent: ProfileComponent
     });
   }
 

@@ -1,19 +1,44 @@
 .diagram {
-  position: relative;
   height: 100%;
   overflow-x: hidden;
   overflow-y: auto;
-  box-sizing: border-box;
-  border: 2px #1890ff solid;
   padding: 8px;
 }
 
-.anchor {
-  position: absolute;
-  top: 0;
-  right: 0;
-  z-index: 998;
-  button {
-    border-radius: 0;
+.block {
+  position: relative;
+  box-sizing: border-box;
+
+  &:hover {
+    border: 1px #40a9ff dashed;
+  }
+
+  > .anchor {
+    display: none;
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 998;
+
+    button {
+      border-radius: 0;
+    }
+  }
+}
+
+nz-row {
+  min-height: 200px;
+  border: 1px #d9d9d9 dashed;
+}
+
+.active {
+  border: 2px #1890ff solid;
+
+  &:hover {
+    border: 2px #1890ff solid;
+  }
+
+  > .anchor {
+    display: block;
   }
 }
