@@ -50,7 +50,7 @@ const routes: Routes = [
   },
   {
     path: ':namespace',
-    loadChildren: () => import('./namespace/namespace.module').then(m => m.NamespaceModule),
+    loadChildren: () => import('./projects/projects.module').then(m => m.ProjectsModule),
     canActivate: [AppGuard]
   },
   { path: '', redirectTo: 'admin', pathMatch: 'full' }

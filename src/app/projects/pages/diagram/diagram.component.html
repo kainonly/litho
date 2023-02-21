@@ -1,0 +1,12 @@
+<div class="diagram" (contextmenu)="contextMenu($event, diagramMenu)">
+  <div class="anchor">
+    <button nzSize="small" nz-button nzType="primary">页面</button>
+  </div>
+</div>
+
+<nz-dropdown-menu #diagramMenu="nzDropdownMenu">
+  <ul nz-menu>
+    <li nz-menu-item>新建栅格</li>
+    <li nz-menu-item>新建分割线</li>
+  </ul>
+</nz-dropdown-menu>
