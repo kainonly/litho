@@ -1,0 +1,131 @@
+<nz-row [nzGutter]="[8, 8]">
+  <nz-col [nzSpan]="16">
+    <ng-template #attentionTitleTpl>
+      <nz-input-group [nzPrefix]="suffixIconSearch" style="width: 180px">
+        <input
+          type="text"
+          nz-input
+          placeholder="搜索关注的项目"
+          i18n-placeholder
+          [(ngModel)]="searchText"
+          (keyup.enter)="submitSearch()"
+        />
+        <ng-template #suffixIconSearch>
+          <span nz-icon nzType="search"></span>
+        </ng-template>
+      </nz-input-group>
+    </ng-template>
+
+    <ng-template #moreTpl>
+      <a nz-button nzType="text">全部项目</a>
+    </ng-template>
+
+    <nz-card style="min-height: 600px" [nzTitle]="attentionTitleTpl" [nzExtra]="moreTpl">
+      <nz-table
+        #basicTable
+        nzSize="default"
+        [nzFrontPagination]="false"
+        [nzShowSizeChanger]="true"
+        [nzHideOnSinglePage]="true"
+        [nzLoading]="projects.loading"
+        [nzData]="projects.values"
+        [nzTotal]="projects.total"
+        [(nzPageSize)]="projects.pagesize"
+        [(nzPageIndex)]="projects.page"
+        (nzPageIndexChange)="getData(false)"
+        (nzPageSizeChange)="getData(true)"
+      >
+        <thead>
+          <tr>
+            <th nzWidth="60px" nzLeft nzAlign="center">
+              <button nz-button nzType="text" nzBlock disabled>
+                <span nz-icon nzType="star"></span>
+              </button>
+            </th>
+            <th>
+              <b i18n>项目名称 </b>
+              <i nz-icon nzType="tag"></i>
+            </th>
+            <th>
+              <b i18n>应用 ID</b>
+            </th>
+            <th><b i18n>状态</b></th>
+            <th><b i18n>有效期</b></th>
+          </tr>
+        </thead>
+        <tbody>
+          <ng-container *ngFor="let data of basicTable.data">
+            <tr>
+              <td nzLeft nzAlign="center">
+                <button nz-button nzType="text" nz-tooltip="取消关注">
+                  <span nz-icon nzType="close"></span>
+                </button>
+              </td>
+              <td>
+                <a nz-tooltip="开发项目" [routerLink]="['/', data['namespace']]">
+                  {{ data['name'] }}
+                </a>
+                <nz-tag>{{ data['namespace'] }}</nz-tag>
+              </td>
+              <td>
+                <a nz-tooltip="查看">{{ data['_id'] }}</a>
+              </td>
+              <td>
+                <ng-container *ngIf="data['status']; else isFalse">
+                  <nz-badge nzStatus="processing"></nz-badge> 启用
+                </ng-container>
+                <ng-template #isFalse> <nz-badge nzStatus="default"></nz-badge> 关闭 </ng-template>
+              </td>
+              <td>
+                <ng-container *ngIf="data['expire'] === 0; else hasExpire">永久</ng-container>
+                <ng-template #hasExpire>
+                  {{ data['expire'] * 1000 | date: 'yyyy-MM-dd' }}
+                </ng-template>
+              </td>
+            </tr>
+          </ng-container>
+        </tbody>
+      </nz-table>
+    </nz-card>
+  </nz-col>
+  <nz-col [nzSpan]="8">
+    <nz-row [nzGutter]="[8, 8]">
+      <nz-col [nzSpan]="24">
+        <ng-template #navTpl>
+          <a nz-button nzType="text">进入设置</a>
+        </ng-template>
+
+        <nz-card nzTitle="便捷导航" [nzExtra]="navTpl">
+          <div nz-card-grid><span nz-icon nzType="partition"></span> 多租户</div>
+          <div nz-card-grid><span nz-icon nzType="cluster"></span> 集群</div>
+          <div nz-card-grid><span nz-icon nzType="team"></span> 开发者</div>
+          <div nz-card-grid><span nz-icon nzType="bulb"></span> 策略</div>
+          <div nz-card-grid><span nz-icon nzType="safety"></span> 安全策略</div>
+          <div nz-card-grid><span nz-icon nzType="rocket"></span> 在线会话</div>
+          <div nz-card-grid><span nz-icon nzType="control"></span> 动态配置</div>
+          <div nz-card-grid><span nz-icon nzType="audit"></span> 审计日志</div>
+        </nz-card>
+      </nz-col>
+      <nz-col [nzSpan]="24">
+        <ng-template #helpTpl>
+          <a nz-button nzType="text">进入设置</a>
+        </ng-template>
+
+        <nz-card nzTitle="IT 小助手" [nzExtra]="helpTpl">
+          <textarea
+            nzBorderless
+            rows="6"
+            nz-input
+            (input)="onInput($event)"
+            [nzAutocomplete]="auto"
+            placeholder="描述您的问题"
+            i18n-placeholder
+          ></textarea>
+          <nz-autocomplete #auto>
+            <nz-auto-option *ngFor="let option of options" [nzValue]="option">{{ option }}</nz-auto-option>
+          </nz-autocomplete>
+        </nz-card>
+      </nz-col>
+    </nz-row>
+  </nz-col>
+</nz-row>

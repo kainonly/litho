@@ -1,0 +1,33 @@
+<nz-row [nzGutter]="[8, 8]">
+  <nz-col [nzSpan]="24">
+    <nz-segmented [nzOptions]="options"></nz-segmented>
+  </nz-col>
+  <nz-col [nzSpan]="24">
+    <nz-card>
+      <nz-table nzSize="default" #basicTable [nzData]="items">
+        <thead>
+          <tr>
+            <th nzWidth="60px" nzLeft nzAlign="center">
+              <button nz-button nzType="text" nzBlock disabled>
+                <span nz-icon nzType="bars"></span>
+              </button>
+            </th>
+            <th>消息内容</th>
+            <th>消息类型</th>
+            <th>子类型</th>
+            <th>接收时间</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let data of basicTable.data">
+            <td nzLeft nzAlign="center"> </td>
+            <td>-</td>
+            <td>-</td>
+            <td>-</td>
+            <td>-</td>
+          </tr>
+        </tbody>
+      </nz-table>
+    </nz-card>
+  </nz-col>
+</nz-row>

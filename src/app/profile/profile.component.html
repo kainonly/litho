@@ -62,7 +62,7 @@
                     已累计登录 <b> {{ user.sessions }} </b> 次
                   </span>
                 </nz-descriptions-item>
-                <nz-descriptions-item *ngIf="user.last as l" nzTitle="Online" i18n-nzTitle>
+                <nz-descriptions-item *ngIf="user.last as l" nzTitle="登录于" i18n-nzTitle>
                   {{ l.timestamp | date: 'yyyy-MM-dd HH:mm:ss' }}
                 </nz-descriptions-item>
                 <nz-descriptions-item *ngIf="user.last as l" nzTitle="IP" [nzSpan]="2">
