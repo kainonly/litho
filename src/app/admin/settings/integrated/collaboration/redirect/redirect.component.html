@@ -1,8 +1,8 @@
 <form nz-form nzLayout="vertical" id="form" [formGroup]="form" (wpxSubmit)="submit($event)">
   <nz-form-item>
-    <nz-form-label nzRequired i18n>跳转地址</nz-form-label>
+    <nz-form-label nzRequired i18n>重定向地址</nz-form-label>
     <nz-form-control nzHasFeedback [nzAutoTips]="tips.redirect_url">
-      <input nz-input formControlName="redirect_url" />
+      <input nz-input formControlName="redirect_url" placeholder="请输入重定向地址" i18n-placeholder />
     </nz-form-control>
   </nz-form-item>
 </form>

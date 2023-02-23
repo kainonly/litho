@@ -14,7 +14,14 @@
   <nz-form-item>
     <nz-form-label nzRequired i18n>应用密钥</nz-form-label>
     <nz-form-control nzHasFeedback [nzAutoTips]="tips.openapi_secret">
-      <input nz-input formControlName="openapi_secret" placeholder="请输入应用密钥" i18n-placeholder />
+      <input
+        nz-input
+        type="password"
+        autocomplete="new-password"
+        formControlName="openapi_secret"
+        placeholder="请输入应用密钥"
+        i18n-placeholder
+      />
     </nz-form-control>
   </nz-form-item>
 </form>

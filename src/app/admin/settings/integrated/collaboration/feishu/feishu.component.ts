@@ -32,6 +32,7 @@ export class FeishuComponent implements OnInit {
       }
     }
   };
+
   @Input() values!: Record<string, any>;
   form!: FormGroup;
 
@@ -48,6 +49,9 @@ export class FeishuComponent implements OnInit {
       feishu_app_secret: [null, [Validators.required]],
       feishu_encrypt_key: [null, [Validators.required]],
       feishu_verification_token: [null, [Validators.required]]
+    });
+    this.form.patchValue({
+      feishu_app_id: this.values['feishu_app_id']
     });
   }
 

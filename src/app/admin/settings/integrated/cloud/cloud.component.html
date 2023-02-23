@@ -58,13 +58,13 @@
                 </ng-container>
               </nz-descriptions-item>
               <nz-descriptions-item nzTitle="预签名有效期" i18n-nzTitle>
-                <ng-container *ngIf="values['tencent_cos_expired']; else unkown">
-                  {{ values['tencent_cos_expired'] }}
+                <ng-container *ngIf="values['tencent_cos_expired']; else unkown" i18n>
+                  {{ values['tencent_cos_expired'] }} 秒
                 </ng-container>
               </nz-descriptions-item>
-              <nz-descriptions-item nzTitle="上传大小限制 (KB)" i18n-nzTitle>
+              <nz-descriptions-item nzTitle="上传大小限制" i18n-nzTitle>
                 <ng-container *ngIf="values['tencent_cos_limit']; else unkown">
-                  {{ values['tencent_cos_limit'] }}
+                  {{ values['tencent_cos_limit'] }} KB
                 </ng-container>
               </nz-descriptions-item>
             </nz-descriptions>
@@ -137,7 +137,7 @@
 </nz-card>
 
 <ng-template #unkown>
-  <span i18n>Not Set</span>
+  <span i18n>未设置</span>
 </ng-template>
 
 <ng-template #notYetTpl>

@@ -11,16 +11,6 @@ import { NzModalRef } from 'ng-zorro-antd/modal';
 })
 export class EmailComponent implements OnInit {
   tips = {
-    email_host: {
-      default: {
-        required: $localize`SMTP 主机不能为空`
-      }
-    },
-    email_port: {
-      default: {
-        required: $localize`SMTP 端口不能为空`
-      }
-    },
     email_username: {
       default: {
         required: $localize`用户名不能为空`

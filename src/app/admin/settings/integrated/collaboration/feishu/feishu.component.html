@@ -2,25 +2,46 @@
   <nz-form-item>
     <nz-form-label nzRequired>应用 ID</nz-form-label>
     <nz-form-control nzHasFeedback [nzAutoTips]="tips.feishu_app_id">
-      <input nz-input formControlName="feishu_app_id" />
+      <input nz-input formControlName="feishu_app_id" placeholder="请输入应用 ID" i18n-placeholder />
     </nz-form-control>
   </nz-form-item>
   <nz-form-item>
     <nz-form-label nzRequired>应用密钥</nz-form-label>
     <nz-form-control nzHasFeedback [nzAutoTips]="tips.feishu_app_secret">
-      <input nz-input formControlName="feishu_app_secret" />
+      <input
+        nz-input
+        type="password"
+        autocomplete="new-password"
+        formControlName="feishu_app_secret"
+        placeholder="请输入应用密钥"
+        i18n-placeholder
+      />
     </nz-form-control>
   </nz-form-item>
   <nz-form-item>
     <nz-form-label nzRequired i18n>事件订阅安全校验数据密钥</nz-form-label>
     <nz-form-control nzHasFeedback [nzAutoTips]="tips.feishu_encrypt_key">
-      <input nz-input formControlName="feishu_encrypt_key" />
+      <input
+        nz-input
+        type="password"
+        autocomplete="new-password"
+        formControlName="feishu_encrypt_key"
+        placeholder="请输入事件订阅安全校验数据密钥"
+        i18n-placeholder
+      />
     </nz-form-control>
   </nz-form-item>
   <nz-form-item>
     <nz-form-label nzRequired i18n>事件订阅验证令牌</nz-form-label>
     <nz-form-control nzHasFeedback [nzAutoTips]="tips.feishu_verification_token">
-      <input nz-input formControlName="feishu_verification_token" />
+      <input
+        nz-input
+        type="password"
+        autocomplete="new-password"
+        formControlName="feishu_verification_token"
+        placeholder="请输入事件订阅验证令牌"
+        i18n-placeholder
+      />
     </nz-form-control>
   </nz-form-item>
 </form>

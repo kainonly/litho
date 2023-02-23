@@ -34,8 +34,6 @@ export class CosComponent implements OnInit {
   };
 
   @Input() values!: Record<string, any>;
-  formatterSec = (value: number): string => `${value} s`;
-  formatterSize = (value: number): string => `${value} KB`;
   form!: FormGroup;
 
   constructor(

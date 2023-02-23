@@ -22,6 +22,7 @@ export class TencentComponent implements OnInit {
       }
     }
   };
+
   @Input() values!: Record<string, any>;
   form!: FormGroup;
 
@@ -36,6 +37,10 @@ export class TencentComponent implements OnInit {
     this.form = this.fb.group({
       tencent_secret_id: [null, [Validators.required]],
       tencent_secret_key: [null, [Validators.required]]
+    });
+
+    this.form.patchValue({
+      tencent_secret_id: this.values['tencent_secret_id']
     });
   }
 

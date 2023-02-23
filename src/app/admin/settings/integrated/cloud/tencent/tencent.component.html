@@ -8,7 +8,14 @@
   <nz-form-item>
     <nz-form-label nzRequired>SecretKey</nz-form-label>
     <nz-form-control nzHasFeedback [nzAutoTips]="tips.tencent_secret_key">
-      <input nz-input formControlName="tencent_secret_key" placeholder="请输入腾讯云 SecretKey" i18n-placeholder />
+      <input
+        nz-input
+        type="password"
+        autocomplete="new-password"
+        formControlName="tencent_secret_key"
+        placeholder="请输入腾讯云 SecretKey"
+        i18n-placeholder
+      />
     </nz-form-control>
   </nz-form-item>
 </form>

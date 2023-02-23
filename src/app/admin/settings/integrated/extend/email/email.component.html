@@ -1,14 +1,24 @@
 <form nz-form nzLayout="vertical" id="form" [formGroup]="form" (wpxSubmit)="submit($event)">
   <nz-form-item>
-    <nz-form-label nzRequired>SMTP 主机</nz-form-label>
-    <nz-form-control nzHasFeedback [nzAutoTips]="tips.email_host">
-      <input nz-input formControlName="email_host" placeholder="请输入 SMTP 主机" i18n-placeholder />
-    </nz-form-control>
-  </nz-form-item>
-  <nz-form-item>
-    <nz-form-label nzRequired>SMTP 端口（SSL）</nz-form-label>
-    <nz-form-control nzHasFeedback [nzAutoTips]="tips.email_port">
-      <input nz-input formControlName="email_port" placeholder="请输入 SMTP 端口" i18n-placeholder />
+    <nz-form-label nzRequired>SMTP 主机 （SSL）</nz-form-label>
+    <nz-form-control>
+      <nz-input-group nzCompact>
+        <input
+          style="width: 75%"
+          nz-input
+          formControlName="email_host"
+          placeholder="请输入 SMTP 主机"
+          i18n-placeholder
+        />
+        <nz-input-number
+          style="width: 25%"
+          formControlName="email_port"
+          nzPlaceHolder="端口"
+          i18n-nzPlaceHolder
+          [nzMin]="0"
+          [nzStep]="1"
+        ></nz-input-number>
+      </nz-input-group>
     </nz-form-control>
   </nz-form-item>
   <nz-form-item>
@@ -20,7 +30,14 @@
   <nz-form-item>
     <nz-form-label nzRequired i18n>密码</nz-form-label>
     <nz-form-control nzHasFeedback [nzAutoTips]="tips.email_password">
-      <input nz-input formControlName="email_password" placeholder="请输入密码" i18n-placeholder />
+      <input
+        nz-input
+        type="password"
+        autocomplete="new-password"
+        formControlName="email_password"
+        placeholder="请输入密码"
+        i18n-placeholder
+      />
     </nz-form-control>
   </nz-form-item>
 </form>
