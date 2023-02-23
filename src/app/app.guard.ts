@@ -15,6 +15,8 @@ export class AppGuard implements CanActivate {
     return this.app.verify().pipe(
       map(res => {
         if (res.status !== 200) {
+          this.app.user = undefined;
+          this.app.project = undefined;
           this.router.navigateByUrl('/login').then(_ => {});
         }
         this.app.getUser().subscribe(() => {});

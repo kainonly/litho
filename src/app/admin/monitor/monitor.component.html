@@ -1,0 +1,23 @@
+<nz-layout class="common-layout">
+  <nz-page-header [nzGhost]="false" nzTitle="监控" i18n-nzTitle nzSubtitle="服务观测与告警" i18n-nzSubtitle>
+    <nz-page-header-footer>
+      <nz-tabset nzLinkRouter>
+        <nz-tab>
+          <a *nzTabLink nz-tab-link [routerLink]="['/admin', 'monitor', 'apm']" i18n> APM </a>
+        </nz-tab>
+        <nz-tab>
+          <a *nzTabLink nz-tab-link [routerLink]="['/admin', 'monitor', 'mongodb']" i18n> MongoDB </a>
+        </nz-tab>
+        <nz-tab>
+          <a *nzTabLink nz-tab-link [routerLink]="['/admin', 'monitor', 'redis']" i18n> Redis </a>
+        </nz-tab>
+        <nz-tab>
+          <a *nzTabLink nz-tab-link [routerLink]="['/admin', 'monitor', 'nats']" i18n> Nats </a>
+        </nz-tab>
+        <nz-tab>
+          <a *nzTabLink nz-tab-link [routerLink]="['/admin', 'monitor', 'extend']" i18n> 扩展服务 </a>
+        </nz-tab>
+      </nz-tabset>
+    </nz-page-header-footer>
+  </nz-page-header>
+</nz-layout>
