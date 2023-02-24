@@ -3,21 +3,25 @@
     <nz-page-header-footer>
       <nz-tabset nzLinkRouter>
         <nz-tab>
-          <a *nzTabLink nz-tab-link [routerLink]="['/admin', 'monitor', 'apm']" i18n> APM </a>
+          <a *nzTabLink nz-tab-link [routerLink]="['/admin', 'monitor', 'apm']" i18n> 应用观测 </a>
         </nz-tab>
         <nz-tab>
-          <a *nzTabLink nz-tab-link [routerLink]="['/admin', 'monitor', 'mongodb']" i18n> MongoDB </a>
+          <a *nzTabLink nz-tab-link [routerLink]="['/admin', 'monitor', 'mongodb']" i18n> 数据库 </a>
         </nz-tab>
         <nz-tab>
-          <a *nzTabLink nz-tab-link [routerLink]="['/admin', 'monitor', 'redis']" i18n> Redis </a>
+          <a *nzTabLink nz-tab-link [routerLink]="['/admin', 'monitor', 'redis']" i18n> 缓存 </a>
         </nz-tab>
         <nz-tab>
-          <a *nzTabLink nz-tab-link [routerLink]="['/admin', 'monitor', 'nats']" i18n> Nats </a>
+          <a *nzTabLink nz-tab-link [routerLink]="['/admin', 'monitor', 'nats']" i18n> 队列 </a>
         </nz-tab>
         <nz-tab>
-          <a *nzTabLink nz-tab-link [routerLink]="['/admin', 'monitor', 'extend']" i18n> 扩展服务 </a>
+          <a *nzTabLink nz-tab-link [routerLink]="['/admin', 'monitor', 'extend']" i18n> 扩展 </a>
         </nz-tab>
       </nz-tabset>
     </nz-page-header-footer>
   </nz-page-header>
+
+  <nz-content style="padding: 8px">
+    <router-outlet></router-outlet>
+  </nz-content>
 </nz-layout>

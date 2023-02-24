@@ -7,6 +7,11 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule, Routes } from '@angular/router';
 
+import { LayoutComponent } from '@common/layout/layout.component';
+import { LayoutModule } from '@common/layout/layout.module';
+import { AuthorizedComponent } from '@common/result/authorized/authorized.component';
+import { ResultModule } from '@common/result/result.module';
+import { UnauthorizeComponent } from '@common/result/unauthorize/unauthorize.component';
 import { ShareModule } from '@common/share.module';
 import { TranslationModule } from '@common/translation/translation.module';
 import { environment } from '@env';
@@ -14,16 +19,12 @@ import { WpxRichtextModule } from '@weplanx/ng/richtext';
 import { WpxStoreModule } from '@weplanx/ng/store';
 import { NZ_CONFIG, NzConfig } from 'ng-zorro-antd/core/config';
 import { NZ_I18N, zh_CN } from 'ng-zorro-antd/i18n';
-import { NzLayoutModule } from 'ng-zorro-antd/layout';
 import { NzMenuModule } from 'ng-zorro-antd/menu';
 import { NzMessageModule } from 'ng-zorro-antd/message';
 
 import { AppComponent } from './app.component';
 import { AppGuard } from './app.guard';
 import { AppInterceptors } from './app.interceptors';
-import { ProfileModule } from './profile/profile.module';
-import { QuickComponent } from './quick/quick.component';
-import { QuickModule } from './quick/quick.module';
 
 registerLocaleData(zh);
 
@@ -38,25 +39,31 @@ const routes: Routes = [
   },
   {
     path: 'unauthorize',
-    loadChildren: () => import('./unauthorize/unauthorize.module').then(m => m.UnauthorizeModule)
+    component: UnauthorizeComponent
   },
   {
     path: 'authorized',
-    loadChildren: () => import('./authorized/authorized.module').then(m => m.AuthorizedModule),
-    canActivate: [AppGuard]
+    component: AuthorizedComponent
   },
   {
-    path: 'admin',
-    loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule),
-    canActivate: [AppGuard],
-    data: {
-      breadcrumb: $localize`管理后台`
-    }
-  },
-  {
-    path: ':namespace',
-    loadChildren: () => import('./projects/projects.module').then(m => m.ProjectsModule),
-    canActivate: [AppGuard]
+    path: '',
+    component: LayoutComponent,
+    children: [
+      {
+        path: 'admin',
+        loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule),
+        canActivate: [AppGuard],
+        data: {
+          breadcrumb: $localize`管理后台`
+        }
+      },
+      {
+        path: ':namespace',
+        loadChildren: () => import('./projects/projects.module').then(m => m.ProjectsModule),
+        canActivate: [AppGuard]
+      },
+      { path: '', redirectTo: 'admin', pathMatch: 'full' }
+    ]
   },
   { path: '', redirectTo: 'admin', pathMatch: 'full' }
 ];
@@ -80,10 +87,9 @@ if (!environment.production) {
     HttpClientModule,
     HttpClientXsrfModule,
     FormsModule,
-    NzLayoutModule,
+    LayoutModule,
+    ResultModule,
     NzMessageModule,
-    QuickModule,
-    ProfileModule,
     WpxRichtextModule.forRoot({
       url: 'https://cdn.kainonly.com/assets/editorjs/editorjs.js',
       plugins: [

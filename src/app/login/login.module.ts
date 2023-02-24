@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
+import { BlankLayoutModule } from '@common/blank-layout/blank-layout.module';
 import { ShareModule } from '@common/share.module';
 import { TranslationModule } from '@common/translation/translation.module';
 
@@ -14,7 +15,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [ShareModule, TranslationModule, RouterModule.forChild(routes)],
+  imports: [ShareModule, TranslationModule, RouterModule.forChild(routes), BlankLayoutModule],
   declarations: [LoginComponent]
 })
 export class LoginModule {}

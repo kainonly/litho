@@ -1,5 +1,5 @@
 import { HttpClient, HttpParams, HttpResponse } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Inject, Injectable, LOCALE_ID } from '@angular/core';
 import { Observable, switchMap } from 'rxjs';
 import { map } from 'rxjs/operators';
 
@@ -11,7 +11,7 @@ export class AppService {
   project?: AnyDto<Project>;
   user?: AnyDto<User>;
 
-  constructor(private http: HttpClient, private wpx: WpxService) {}
+  constructor(private http: HttpClient, private wpx: WpxService, @Inject(LOCALE_ID) private locale: string) {}
 
   ping(): Observable<any> {
     return this.http.get('');
@@ -54,11 +54,12 @@ export class AppService {
 
   oauth(action?: string): Observable<string> {
     const state = JSON.stringify({
-      action
+      action,
+      locale: this.locale
     });
     return this.http
       .get<any>('options', {
-        params: { type: 'office' }
+        params: { type: 'collaboration' }
       })
       .pipe(
         map(v => {

@@ -18,7 +18,7 @@
                     <span *nzSpaceItem i18n>
                       已累计登录 <b> {{ user.sessions }} </b> 次
                     </span>
-                    <span *nzSpaceItem i18n> 登录于 {{ l.timestamp | date: 'yyyy-MM-dd HH:mm:ss' }} </span>
+                    <span *nzSpaceItem i18n> 登录于 {{ l.timestamp | date : 'yyyy-MM-dd HH:mm:ss' }} </span>
                   </nz-space>
                 </p>
                 <p *ngIf="user.last as l">

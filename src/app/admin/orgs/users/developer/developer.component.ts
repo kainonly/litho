@@ -1,7 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
 
+import { UsersService } from '@common/services/users.service';
 import { User } from '@common/types';
-import { UsersService } from '@common/users.service';
 import { AnyDto, WpxData, WpxService } from '@weplanx/ng';
 import { TableField, WpxTableComponent } from '@weplanx/ng/table';
 import { NzMessageService } from 'ng-zorro-antd/message';

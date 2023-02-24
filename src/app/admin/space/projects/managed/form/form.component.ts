@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { AbstractControl, FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Observable, of } from 'rxjs';
 
-import { ProjectsService } from '@common/projects.service';
+import { ProjectsService } from '@common/services/projects.service';
 import { Project } from '@common/types';
 import { AnyDto, WpxService } from '@weplanx/ng';
 import { nanoid } from 'nanoid';

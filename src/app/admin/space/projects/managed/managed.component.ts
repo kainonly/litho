@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { ProjectsService } from '@common/projects.service';
+import { ProjectsService } from '@common/services/projects.service';
 import { Project } from '@common/types';
 import { AnyDto, WpxData, WpxService } from '@weplanx/ng';
 import { NzMessageService } from 'ng-zorro-antd/message';

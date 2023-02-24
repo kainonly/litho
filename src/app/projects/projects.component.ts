@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { map, switchMap } from 'rxjs/operators';
 
 import { AppService } from '@app';
-import { ProjectsService } from '@common/projects.service';
+import { ProjectsService } from '@common/services/projects.service';
 
 import { PagesService } from './pages/pages.service';
 

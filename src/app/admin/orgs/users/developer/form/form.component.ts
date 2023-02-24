@@ -2,8 +2,8 @@ import { Component, Input, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Observable, of } from 'rxjs';
 
+import { UsersService } from '@common/services/users.service';
 import { User } from '@common/types';
-import { UsersService } from '@common/users.service';
 import { AnyDto, validates, WpxService } from '@weplanx/ng';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalRef } from 'ng-zorro-antd/modal';

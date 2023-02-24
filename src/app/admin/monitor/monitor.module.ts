@@ -4,6 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { ShareModule } from '@common/share.module';
 
 import { MonitorComponent } from './monitor.component';
+import { MonitorService } from './monitor.service';
 
 const routes: Routes = [
   {
@@ -14,35 +15,35 @@ const routes: Routes = [
         path: 'apm',
         loadChildren: () => import('./apm/apm.module').then(m => m.ApmModule),
         data: {
-          breadcrumb: `APM`
+          breadcrumb: $localize`应用观测`
         }
       },
       {
         path: 'mongodb',
         loadChildren: () => import('./mongodb/mongodb.module').then(m => m.MongodbModule),
         data: {
-          breadcrumb: `MongoDB`
+          breadcrumb: $localize`数据库`
         }
       },
       {
         path: 'redis',
         loadChildren: () => import('./redis/redis.module').then(m => m.RedisModule),
         data: {
-          breadcrumb: `Redis`
+          breadcrumb: $localize`缓存`
         }
       },
       {
         path: 'nats',
         loadChildren: () => import('./nats/nats.module').then(m => m.NatsModule),
         data: {
-          breadcrumb: `Nats`
+          breadcrumb: $localize`队列`
         }
       },
       {
         path: 'extend',
         loadChildren: () => import('./extend/extend.module').then(m => m.ExtendModule),
         data: {
-          breadcrumb: $localize`扩展服务`
+          breadcrumb: $localize`扩展`
         }
       },
       { path: '', redirectTo: 'apm', pathMatch: 'full' }
@@ -52,6 +53,7 @@ const routes: Routes = [
 
 @NgModule({
   imports: [ShareModule, RouterModule.forChild(routes)],
-  declarations: [MonitorComponent]
+  declarations: [MonitorComponent],
+  providers: [MonitorService]
 })
 export class MonitorModule {}
