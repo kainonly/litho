@@ -1,4 +1,1 @@
-export interface CgoCallsValue {
-  timestamp: string;
-  value: number;
-}
+export type A = unknown[][];
