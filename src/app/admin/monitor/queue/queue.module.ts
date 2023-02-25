@@ -3,17 +3,17 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { ShareModule } from '@common/share.module';
 
-import { RedisComponent } from './redis.component';
+import { QueueComponent } from './queue.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: RedisComponent
+    component: QueueComponent
   }
 ];
 
 @NgModule({
   imports: [ShareModule, RouterModule.forChild(routes)],
-  declarations: [RedisComponent]
+  declarations: [QueueComponent]
 })
-export class RedisModule {}
+export class QueueModule {}

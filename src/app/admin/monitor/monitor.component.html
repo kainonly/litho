@@ -1,27 +1,41 @@
 <nz-layout class="common-layout">
   <nz-page-header [nzGhost]="false" nzTitle="监控" i18n-nzTitle nzSubtitle="服务观测与告警" i18n-nzSubtitle>
+    <nz-page-header-extra>
+      <nz-space>
+        <nz-select
+          *nzSpaceItem
+          style="width: 180px"
+          [ngModel]="monitor.interval | async"
+          (ngModelChange)="monitor.setInterval($event)"
+        >
+          <nz-option [nzValue]="10" nzLabel="每 10s 刷新" i18n-nzLabel></nz-option>
+          <nz-option [nzValue]="30" nzLabel="每 30s 刷新" i18n-nzLabel></nz-option>
+          <nz-option [nzValue]="60" nzLabel="每 60s 刷新" i18n-nzLabel></nz-option>
+        </nz-select>
+      </nz-space>
+    </nz-page-header-extra>
     <nz-page-header-footer>
       <nz-tabset nzLinkRouter>
         <nz-tab>
-          <a *nzTabLink nz-tab-link [routerLink]="['/admin', 'monitor', 'apm']" i18n> 应用观测 </a>
+          <a *nzTabLink nz-tab-link [routerLink]="['/admin', 'monitor', 'apm']" i18n> 应用 </a>
         </nz-tab>
         <nz-tab>
-          <a *nzTabLink nz-tab-link [routerLink]="['/admin', 'monitor', 'mongodb']" i18n> 数据库 </a>
+          <a *nzTabLink nz-tab-link [routerLink]="['/admin', 'monitor', 'db']" i18n> 数据库 </a>
         </nz-tab>
         <nz-tab>
-          <a *nzTabLink nz-tab-link [routerLink]="['/admin', 'monitor', 'redis']" i18n> 缓存 </a>
+          <a *nzTabLink nz-tab-link [routerLink]="['/admin', 'monitor', 'cache']" i18n> 缓存 </a>
         </nz-tab>
         <nz-tab>
-          <a *nzTabLink nz-tab-link [routerLink]="['/admin', 'monitor', 'nats']" i18n> 队列 </a>
+          <a *nzTabLink nz-tab-link [routerLink]="['/admin', 'monitor', 'queue']" i18n> 队列 </a>
         </nz-tab>
-        <nz-tab>
-          <a *nzTabLink nz-tab-link [routerLink]="['/admin', 'monitor', 'extend']" i18n> 扩展 </a>
-        </nz-tab>
+        <!--        <nz-tab>-->
+        <!--          <a *nzTabLink nz-tab-link [routerLink]="['/admin', 'monitor', 'extend']" i18n> 扩展 </a>-->
+        <!--        </nz-tab>-->
       </nz-tabset>
     </nz-page-header-footer>
   </nz-page-header>
 
-  <nz-content style="padding: 8px">
+  <nz-content>
     <router-outlet></router-outlet>
   </nz-content>
 </nz-layout>

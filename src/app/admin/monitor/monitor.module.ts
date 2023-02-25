@@ -15,37 +15,37 @@ const routes: Routes = [
         path: 'apm',
         loadChildren: () => import('./apm/apm.module').then(m => m.ApmModule),
         data: {
-          breadcrumb: $localize`应用观测`
+          breadcrumb: $localize`应用`
         }
       },
       {
-        path: 'mongodb',
-        loadChildren: () => import('./mongodb/mongodb.module').then(m => m.MongodbModule),
+        path: 'db',
+        loadChildren: () => import('./db/db.module').then(m => m.DbModule),
         data: {
           breadcrumb: $localize`数据库`
         }
       },
       {
-        path: 'redis',
-        loadChildren: () => import('./redis/redis.module').then(m => m.RedisModule),
+        path: 'cache',
+        loadChildren: () => import('./cache/cache.module').then(m => m.CacheModule),
         data: {
           breadcrumb: $localize`缓存`
         }
       },
       {
-        path: 'nats',
-        loadChildren: () => import('./nats/nats.module').then(m => m.NatsModule),
+        path: 'queue',
+        loadChildren: () => import('./queue/queue.module').then(m => m.QueueModule),
         data: {
           breadcrumb: $localize`队列`
         }
       },
-      {
-        path: 'extend',
-        loadChildren: () => import('./extend/extend.module').then(m => m.ExtendModule),
-        data: {
-          breadcrumb: $localize`扩展`
-        }
-      },
+      // {
+      //   path: 'extend',
+      //   loadChildren: () => import('./extend/extend.module').then(m => m.ExtendModule),
+      //   data: {
+      //     breadcrumb: $localize`扩展`
+      //   }
+      // },
       { path: '', redirectTo: 'apm', pathMatch: 'full' }
     ]
   }

@@ -3,17 +3,17 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { ShareModule } from '@common/share.module';
 
-import { MongodbComponent } from './mongodb.component';
+import { CacheComponent } from './cache.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: MongodbComponent
+    component: CacheComponent
   }
 ];
 
 @NgModule({
   imports: [ShareModule, RouterModule.forChild(routes)],
-  declarations: [MongodbComponent]
+  declarations: [CacheComponent]
 })
-export class MongodbModule {}
+export class CacheModule {}
