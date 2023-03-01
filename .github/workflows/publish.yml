@@ -31,5 +31,5 @@ jobs:
           NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
         run: |
           cd ./dist/library
-          npm version v${{github.ref_name#ng-}}
+          npm version ${{github.ref_name#ng-}}
           npm publish --access=public
