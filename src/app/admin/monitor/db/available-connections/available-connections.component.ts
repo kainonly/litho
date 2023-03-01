@@ -9,7 +9,8 @@ import { MonitorService } from '../../monitor.service';
 @Component({
   selector: 'app-admin-monitor-db-available-connections',
   template: `
-    <nz-card nzTitle="Available Connections">
+    <ng-template #titleTpl><b i18n>可用连接</b></ng-template>
+    <nz-card [nzTitle]="titleTpl">
       <div #ref></div>
     </nz-card>
   `

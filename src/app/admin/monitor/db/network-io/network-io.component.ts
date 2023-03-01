@@ -1,4 +1,5 @@
 import { AfterViewInit, Component, ElementRef, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Meta } from '@angular/platform-browser';
 import { Subscription, timer } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 
@@ -9,7 +10,8 @@ import { MonitorService } from '../../monitor.service';
 @Component({
   selector: 'app-admin-monitor-db-network-io',
   template: `
-    <nz-card nzTitle="Network IO">
+    <ng-template #titleTpl><b i18n>网络 IO</b></ng-template>
+    <nz-card [nzTitle]="titleTpl">
       <div #ref></div>
     </nz-card>
   `
@@ -42,7 +44,12 @@ export class NetworkIoComponent implements OnInit, AfterViewInit, OnDestroy {
       data: [],
       xField: 'time',
       yField: 'value',
-      seriesField: 'type'
+      seriesField: 'type',
+      meta: {
+        value: {
+          formatter: value => `${value} bytes`
+        }
+      }
     });
     this.plot.render();
   }
@@ -55,9 +62,9 @@ export class NetworkIoComponent implements OnInit, AfterViewInit, OnDestroy {
   getType(v: number): string {
     switch (v) {
       case 1:
-        return 'net_out_bytes';
+        return $localize`输出`;
       default:
-        return 'net_in_bytes';
+        return $localize`输入`;
     }
   }
 }

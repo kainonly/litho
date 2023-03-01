@@ -9,7 +9,8 @@ import { MonitorService } from '../../monitor.service';
 @Component({
   selector: 'app-admin-monitor-db-document-operations',
   template: `
-    <nz-card nzTitle="Document Operations">
+    <ng-template #titleTpl><b i18n>文档操作</b></ng-template>
+    <nz-card [nzTitle]="titleTpl">
       <div #ref></div>
     </nz-card>
   `
@@ -42,7 +43,12 @@ export class DocumentOperationsComponent implements OnInit, AfterViewInit, OnDes
       data: [],
       xField: 'time',
       yField: 'value',
-      seriesField: 'operate'
+      seriesField: 'operate',
+      meta: {
+        value: {
+          formatter: value => `${value} ops`
+        }
+      }
     });
     this.plot.render();
   }
@@ -55,13 +61,13 @@ export class DocumentOperationsComponent implements OnInit, AfterViewInit, OnDes
   getOperate(v: number): string {
     switch (v) {
       case 1:
-        return 'inserted';
+        return $localize`插入`;
       case 2:
-        return 'updated';
+        return $localize`更新`;
       case 3:
-        return 'deleted';
+        return $localize`删除`;
       default:
-        return 'returned';
+        return $localize`返回`;
     }
   }
 }

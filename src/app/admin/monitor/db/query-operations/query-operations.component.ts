@@ -9,7 +9,8 @@ import { MonitorService } from '../../monitor.service';
 @Component({
   selector: 'app-admin-monitor-db-query-operations',
   template: `
-    <nz-card nzTitle="Query Operations">
+    <ng-template #titleTpl><b i18n>查询操作</b></ng-template>
+    <nz-card [nzTitle]="titleTpl">
       <div #ref></div>
     </nz-card>
   `
@@ -42,7 +43,12 @@ export class QueryOperationsComponent implements OnInit, AfterViewInit, OnDestro
       data: [],
       xField: 'time',
       yField: 'value',
-      seriesField: 'operate'
+      seriesField: 'operate',
+      meta: {
+        value: {
+          formatter: value => `${value} ops`
+        }
+      }
     });
     this.plot.render();
   }
@@ -55,15 +61,15 @@ export class QueryOperationsComponent implements OnInit, AfterViewInit, OnDestro
   getOperate(v: number): string {
     switch (v) {
       case 1:
-        return 'getmores';
+        return $localize`获取`;
       case 2:
-        return 'inserts';
+        return $localize`删除`;
       case 3:
-        return 'updates';
+        return $localize`更新`;
       case 4:
-        return 'deletes';
+        return $localize`删除`;
       default:
-        return 'commands';
+        return $localize`命令`;
     }
   }
 }

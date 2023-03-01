@@ -9,7 +9,8 @@ import { MonitorService } from '../../monitor.service';
 @Component({
   selector: 'app-admin-monitor-db-commands-per-second',
   template: `
-    <nz-card nzTitle="Command Per Second">
+    <ng-template #titleTpl><b i18n>每秒命令</b></ng-template>
+    <nz-card [nzTitle]="titleTpl">
       <div #ref></div>
     </nz-card>
   `
@@ -41,7 +42,12 @@ export class CommandPerSecondComponent implements OnInit, AfterViewInit, OnDestr
       height: 150,
       data: [],
       xField: 'time',
-      yField: 'value'
+      yField: 'value',
+      meta: {
+        value: {
+          formatter: value => `${value} ops`
+        }
+      }
     });
     this.plot.render();
   }
