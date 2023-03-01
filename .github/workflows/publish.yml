@@ -30,6 +30,7 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
         run: |
+          VERSION=${GITHUB_REF_NAME#v}
           cd ./dist/library
-          npm version ${{github.ref_name#ng-}}
+          npm version ${VERSION}
           npm publish --access=public
