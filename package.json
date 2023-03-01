@@ -9,7 +9,7 @@
     "preview:zh": "ng s --configuration zh",
     "build": "ng b --configuration production",
     "build:ssr": "npm run build && ng run console:server",
-    "build:ng": "ng b angular --configuration production",
+    "build:ng": "ng b angular",
     "serve:ssr": "node dist/console/server/main.js",
     "test": "ng t angular --code-coverage --no-watch --no-progress --browsers=ChromeHeadlessCI",
     "lint": "ng lint",
