@@ -101,11 +101,11 @@
           <td>
             <ng-container *ngIf="data['expire'] === 0; else hasExpire">永久</ng-container>
             <ng-template #hasExpire>
-              {{ data['expire'] * 1000 | date: 'yyyy-MM-dd' }}
+              {{ data['expire'] * 1000 | date : 'yyyy-MM-dd' }}
             </ng-template>
           </td>
-          <td> {{ data['create_time'] | date: 'yyyy-MM-dd HH:mm:ss' }} </td>
-          <td> {{ data['update_time'] | date: 'yyyy-MM-dd HH:mm:ss' }}</td>
+          <td> {{ data['create_time'] | date : 'yyyy-MM-dd HH:mm:ss' }} </td>
+          <td> {{ data['update_time'] | date : 'yyyy-MM-dd HH:mm:ss' }}</td>
           <td nzRight nzAlign="center">
             <button nz-button nzType="text" nz-dropdown [nzDropdownMenu]="menu">
               <i nz-icon nzType="ellipsis"></i>

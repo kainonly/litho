@@ -1,8 +1,10 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
+import { WpxData } from './data';
+import { setHttpOptions } from './helper';
 import {
   AnyDto,
   CreateOption,
@@ -14,10 +16,12 @@ import {
   UpdateOneByIdOption,
   R,
   FilterOption,
-  FindByIdOption
+  FindByIdOption,
+  DeleteOption,
+  BulkDeleteOption,
+  SortOption,
+  ReplaceOption
 } from '../types';
-import { WpxData } from './data';
-import { setHttpOptions } from './helper';
 
 @Injectable()
 export abstract class WpxApi<T> {
@@ -32,14 +36,16 @@ export abstract class WpxApi<T> {
   create(doc: T, options?: CreateOption<T>): Observable<R> {
     return this.http.post(this.url(), {
       data: doc,
-      format: options?.xdata
+      format: options?.xdata,
+      txn: options?.txn
     });
   }
 
   bulkCreate(docs: T[], options?: CreateOption<T>): Observable<R> {
-    return this.http.post(this.url('bulk-create'), {
+    return this.http.post(this.url('bulk_create'), {
       data: docs,
-      format: options?.xdata
+      format: options?.xdata,
+      txn: options?.txn
     });
   }
 
@@ -100,7 +106,8 @@ export abstract class WpxApi<T> {
       this.url(),
       {
         data: update,
-        format: options?.xdata
+        format: options?.xdata,
+        txn: options?.txn
       },
       setHttpOptions<T>(filter, options as ApiOptions<T>)
     );
@@ -109,31 +116,40 @@ export abstract class WpxApi<T> {
   updateById(id: string, update: R, options?: UpdateOneByIdOption<T>): Observable<R> {
     return this.http.patch(this.url(id), {
       data: update,
-      format: options?.xdata
+      format: options?.xdata,
+      txn: options?.txn
     });
   }
 
-  replace(id: string, doc: T, options?: UpdateOneByIdOption<T>): Observable<R> {
+  replace(id: string, doc: T, options?: ReplaceOption<T>): Observable<R> {
     return this.http.put(this.url(id), {
       data: doc,
-      format: options?.xdata
+      format: options?.xdata,
+      txn: options?.txn
     });
   }
 
-  delete(id: string): Observable<R> {
-    return this.http.delete(this.url(id));
+  delete(id: string, options?: DeleteOption<T>): Observable<R> {
+    const params = new HttpParams();
+    if (options?.txn) {
+      params.set('txn', options.txn);
+    }
+
+    return this.http.delete(this.url(id), { params });
   }
 
-  bulkDelete(filter: Filter<T>, options?: FilterOption<T>): Observable<R> {
-    return this.http.post(this.url('bulk-delete'), {
+  bulkDelete(filter: Filter<T>, options?: BulkDeleteOption<T>): Observable<R> {
+    return this.http.post(this.url('bulk_delete'), {
       data: filter,
-      format: options?.xfilter
+      format: options?.xfilter,
+      txn: options?.txn
     });
   }
 
-  sort(ids: string[]): Observable<R> {
+  sort(ids: string[], options?: SortOption<T>): Observable<R> {
     return this.http.post(this.url('sort'), {
-      data: ids
+      data: ids,
+      txn: options?.txn
     });
   }
 }

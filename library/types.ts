@@ -23,47 +23,31 @@ export type XFilter = 'oid' | 'oids' | 'date';
 export type XData = 'oid' | 'oids' | 'date' | 'password';
 
 export interface ApiOptions<T> {
-  /**
-   * 映射字段
-   */
   keys?: Array<keyof AnyDto<T>>;
-  /**
-   * 排序规则
-   */
   sort?: Map<keyof AnyDto<T>, -1 | 1>;
-  /**
-   * 页码
-   */
   page?: number;
-  /**
-   * 分页大小
-   */
   pagesize?: number;
-  /**
-   * 筛选转换
-   */
   xfilter?: Record<string, XFilter>;
-  /**
-   * 数据转换
-   */
   xdata?: Record<string, XData>;
-  /**
-   * 数组过滤
-   */
-  array_filters?: any[];
+  txn?: string;
 }
 
 export type FilterOption<T> = Pick<ApiOptions<T>, 'xfilter'>;
-export type CreateOption<T> = Pick<ApiOptions<T>, 'xdata'>;
-export type FindOption<T> = Omit<ApiOptions<T>, 'xdata' | 'array_filters'>;
+export type CreateOption<T> = Pick<ApiOptions<T>, 'xdata' | 'txn'>;
+export type FindOption<T> = Omit<ApiOptions<T>, 'xdata' | 'txn'>;
 export type FindOneOption<T> = Pick<ApiOptions<T>, 'keys' | 'xfilter'>;
 export type FindByIdOption<T> = Pick<ApiOptions<T>, 'keys'>;
-export type UpdateOption<T> = Pick<ApiOptions<T>, 'xfilter' | 'xdata' | 'array_filters'>;
-export type UpdateOneByIdOption<T> = Pick<ApiOptions<T>, 'xdata' | 'array_filters'>;
+export type UpdateOption<T> = Pick<ApiOptions<T>, 'xfilter' | 'xdata' | 'txn'>;
+export type UpdateOneByIdOption<T> = Pick<ApiOptions<T>, 'xdata' | 'txn'>;
+export type ReplaceOption<T> = Pick<ApiOptions<T>, 'xdata' | 'txn'>;
+export type DeleteOption<T> = Pick<ApiOptions<T>, 'txn'>;
+export type BulkDeleteOption<T> = Pick<ApiOptions<T>, 'xfilter' | 'txn'>;
+export type SortOption<T> = Pick<ApiOptions<T>, 'txn'>;
 
-/**
- * 低码类型
- */
+export interface TransactionResult {
+  txn: string;
+}
+
 export type PageKind = 'default' | 'aggregation' | 'manual' | 'group';
 export type PageManifest = 'default' | 'form' | 'dashboard';
 
