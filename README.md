@@ -10,7 +10,7 @@
 [![TypeScript](https://img.shields.io/badge/%3C%2F%3E-TypeScript-blue.svg?style=flat-square)](https://www.typescriptlang.org/)
 [![GitHub license](https://img.shields.io/github/license/weplanx/console?style=flat-square)](https://raw.githubusercontent.com/weplanx/console/main/LICENSE)
 
-Sharing of components based on NG-ZORRO design
+Open Source DevOps Console Experimentation and Sharing
 
 ## Usage
 
