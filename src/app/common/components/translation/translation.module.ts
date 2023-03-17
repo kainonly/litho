@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 
+import { TranslationComponent } from '@common/components/translation/translation.component';
 import { ShareModule } from '@common/share.module';
-import { TranslationComponent } from '@common/translation/translation.component';
 
 @NgModule({
   imports: [ShareModule],

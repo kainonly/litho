@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 
-import { BlankLayoutComponent } from '@common/blank-layout/blank-layout.component';
+import { BlankLayoutComponent } from '@common/components/blank-layout/blank-layout.component';
 import { ShareModule } from '@common/share.module';
 
 @NgModule({

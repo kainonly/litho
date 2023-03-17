@@ -2,8 +2,8 @@ import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { AppService } from '@app';
-import { ProfileComponent } from '@common/layout/profile/profile.component';
-import { QuickComponent } from '@common/layout/quick/quick.component';
+import { ProfileComponent } from '@common/components/layout/profile/profile.component';
+import { QuickComponent } from '@common/components/layout/quick/quick.component';
 import { WpxService } from '@weplanx/ng';
 import { NzDrawerRef, NzDrawerService } from 'ng-zorro-antd/drawer';
 

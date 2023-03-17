@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { BlankLayoutModule } from '@common/blank-layout/blank-layout.module';
+import { BlankLayoutModule } from '@common/components/blank-layout/blank-layout.module';
+import { TranslationModule } from '@common/components/translation/translation.module';
 import { ShareModule } from '@common/share.module';
-import { TranslationModule } from '@common/translation/translation.module';
 import { NzStepsModule } from 'ng-zorro-antd/steps';
 
 import { ForgetComponent } from './forget.component';
