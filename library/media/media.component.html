@@ -1,11 +1,11 @@
 <nz-space>
   <button *nzSpaceItem type="button" nz-button (click)="view()">
     <i nz-icon nzType="import"></i>
-    <span i18n>Import</span>
+    <span i18n>导入</span>
   </button>
   <button *nzSpaceItem type="button" nz-button nzType="link" [disabled]="values?.length === 0" (click)="openSort()">
     <i nz-icon nzType="sort-descending"></i>
-    Sort
+    <span i18n>排序</span>
   </button>
 </nz-space>
 
@@ -36,10 +36,10 @@
             </nz-col>
             <nz-col></nz-col>
             <nz-col>
-              <a target="_blank" [href]="[x] | wpxAssets" nz-button nzType="text" nz-tooltip="下载">
+              <a target="_blank" [href]="[x] | wpxAssets" nz-button nzType="text" nz-tooltip="下载" i18n-nz-tooltip>
                 <i nz-icon nzType="download"></i>
               </a>
-              <button nz-button nzType="text" nz-tooltip="移除" (click)="removeValue(i)">
+              <button nz-button nzType="text" nz-tooltip="移除" i18n-nz-tooltip (click)="removeValue(i)">
                 <i nz-icon nzType="delete"></i>
               </button>
             </nz-col>
@@ -50,7 +50,14 @@
   </nz-row>
 </nz-list>
 
-<nz-drawer nzTitle="排序" [nzVisible]="sortVisible" nzPlacement="right" [nzWidth]="420" (nzOnClose)="closeSort()">
+<nz-drawer
+  nzTitle="排序"
+  i18n-nzTitle
+  [nzVisible]="sortVisible"
+  nzPlacement="right"
+  [nzWidth]="420"
+  (nzOnClose)="closeSort()"
+>
   <ng-container *nzDrawerContent>
     <nz-list cdkDropList (cdkDropListDropped)="sort($event)">
       <nz-list-item *ngFor="let x of values" cdkDrag>

@@ -12,7 +12,8 @@ export class UploadComponent implements OnInit {
 
   ngOnInit(): void {
     this.form = this.fb.group({
-      avatar: [null]
+      avatar: [null],
+      media: [[]]
     });
   }
 

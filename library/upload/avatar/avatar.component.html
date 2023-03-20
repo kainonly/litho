@@ -1,18 +1,18 @@
 <nz-upload
-  class="upload"
   wpxUpload
-  [wpxExt]="wpxExt"
   nzListType="picture-card"
+  [wpxExt]="wpxExt"
   [nzAccept]="wpxAccept"
   [nzFileType]="wpxAccept | wpxJoin : ','"
   (nzChange)="change($event)"
 >
-  <ng-container *ngIf="value; else uploadBtn">
+  <ng-container *ngIf="url; else uploadBtn">
     <img
+      style="width: 100%"
       wpxRetry
       nz-image
       nzDisablePreview
-      [nzSrc]="[value, 'thumbnail'] | wpxAssets"
+      [nzSrc]="[url, 'thumbnail'] | wpxAssets"
       [nzFallback]="wpxFallback"
       alt=""
     />

@@ -78,12 +78,8 @@ export class WpxService {
     this.document.location = `${l.origin}/${id}/${l.hash}`;
   }
 
-  /**
-   * @deprecated
-   * 对象存储预签名
-   */
   cosPresigned(): Observable<any> {
-    return this.http.get(`tencent/cos-presigned`);
+    return this.http.get(`tencent/cos_presigned`);
   }
 
   /**

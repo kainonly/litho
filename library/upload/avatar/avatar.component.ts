@@ -7,7 +7,6 @@ import { NzUploadChangeParam } from 'ng-zorro-antd/upload';
 @Component({
   selector: 'wpx-upload-avatar',
   templateUrl: './avatar.component.html',
-  styleUrls: ['./avatar.component.scss'],
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
@@ -22,7 +21,7 @@ export class WpxUploadAvatarComponent implements ControlValueAccessor {
   @Input() wpxFallback!: string;
 
   loading = false;
-  value?: string;
+  url?: string;
 
   private onChange!: (value: string) => void;
   private onTouched!: () => void;
@@ -38,17 +37,17 @@ export class WpxUploadAvatarComponent implements ControlValueAccessor {
   }
 
   writeValue(v: any): void {
-    this.value = v;
+    this.url = v;
   }
 
   change(info: NzUploadChangeParam): void {
     if (info.type === 'start') {
-      this.value = undefined;
+      this.url = undefined;
       this.loading = true;
     }
     if (info.type === 'success') {
-      this.value = Reflect.get(info.file.originFileObj!, 'key');
-      this.onChange(this.value!);
+      this.url = Reflect.get(info.file.originFileObj!, 'key');
+      this.onChange(this.url!);
       this.loading = false;
       this.message.success($localize`上传成功`);
     }
