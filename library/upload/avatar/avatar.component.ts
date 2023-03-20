@@ -50,7 +50,7 @@ export class WpxUploadAvatarComponent implements ControlValueAccessor {
       this.value = Reflect.get(info.file.originFileObj!, 'key');
       this.onChange(this.value!);
       this.loading = false;
-      this.message.success('Avatar uploaded successfully');
+      this.message.success($localize`上传成功`);
     }
   }
 }

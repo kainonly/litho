@@ -1,0 +1,16 @@
+<nz-card>
+  <form nz-form nzLayout="vertical" id="form" [formGroup]="form" (wpxSubmit)="submit($event)">
+    <nz-form-item>
+      <nz-form-label>Avatar</nz-form-label>
+      <nz-form-control>
+        <wpx-upload-avatar
+          wpxExt="image"
+          [wpxAccept]="['image/jpeg', 'image/png']"
+          [wpxFallback]="['assets', 'photon.svg'] | wpxAssets"
+          formControlName="avatar"
+        >
+        </wpx-upload-avatar>
+      </nz-form-control>
+    </nz-form-item>
+  </form>
+</nz-card>

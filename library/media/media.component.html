@@ -1,7 +1,7 @@
 <nz-space>
   <button *nzSpaceItem type="button" nz-button (click)="view()">
     <i nz-icon nzType="import"></i>
-    Import
+    <span i18n>Import</span>
   </button>
   <button *nzSpaceItem type="button" nz-button nzType="link" [disabled]="values?.length === 0" (click)="openSort()">
     <i nz-icon nzType="sort-descending"></i>

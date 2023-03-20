@@ -5,7 +5,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { RouterModule, Routes } from '@angular/router';
+import { Route, RouterModule, Routes } from '@angular/router';
 
 import { LayoutComponent } from '@common/components/layout/layout.component';
 import { LayoutModule } from '@common/components/layout/layout.module';
@@ -25,6 +25,7 @@ import { NzMessageModule } from 'ng-zorro-antd/message';
 import { AppComponent } from './app.component';
 import { AppGuard } from './app.guard';
 import { AppInterceptors } from './app.interceptors';
+import { experiments } from '../experiment/experiment';
 
 registerLocaleData(zh);
 
@@ -62,22 +63,12 @@ const routes: Routes = [
         loadChildren: () => import('./projects/projects.module').then(m => m.ProjectsModule),
         canActivate: [AppGuard]
       },
+      ...experiments,
       { path: '', redirectTo: 'admin', pathMatch: 'full' }
     ]
   },
   { path: '', redirectTo: 'admin', pathMatch: 'full' }
 ];
-
-if (!environment.production) {
-  routes.unshift({
-    path: 'experiment',
-    loadChildren: () => import('../experiment/experiment.module').then(m => m.ExperimentModule),
-    canActivate: [AppGuard],
-    data: {
-      breadcrumb: $localize`实验开发`
-    }
-  });
-}
 
 @NgModule({
   declarations: [AppComponent],
