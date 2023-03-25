@@ -3,8 +3,8 @@ import { Component, EventEmitter, Input, Output, TemplateRef, ViewChild } from '
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzUploadChangeParam, NzUploadFile } from 'ng-zorro-antd/upload';
 
-import { Transport } from '../types';
 import { TransportDataSource } from './transport.data-source';
+import { Transport } from '../types';
 
 @Component({
   selector: 'wpx-upload-transport',

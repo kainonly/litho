@@ -5,10 +5,10 @@
     [wpxExt]="wpxExt"
     nzMultiple
     [nzAccept]="wpxAccept"
-    [nzFileType]="wpxAccept | wpxJoin: ','"
+    [nzFileType]="wpxAccept | wpxJoin : ','"
     (nzChange)="change($event)"
   >
-    <button nz-button i18n> <i nz-icon [nzType]="'upload'"></i> 上传 </button>
+    <button nz-button i18n> <i nz-icon nzType="upload"></i> 上传 </button>
   </nz-upload>
   <button
     class="transport-btn"

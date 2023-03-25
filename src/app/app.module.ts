@@ -58,12 +58,12 @@ const routes: Routes = [
           breadcrumb: $localize`管理后台`
         }
       },
+      ...experiments,
       {
         path: ':namespace',
         loadChildren: () => import('./projects/projects.module').then(m => m.ProjectsModule),
         canActivate: [AppGuard]
       },
-      ...experiments,
       { path: '', redirectTo: 'admin', pathMatch: 'full' }
     ]
   },

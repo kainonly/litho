@@ -1,9 +1,7 @@
-import { HttpClient } from '@angular/common/http';
 import { Directive, Input } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzUploadComponent, NzUploadFile } from 'ng-zorro-antd/upload';
 
 import { WpxService } from '../wpx.service';
@@ -14,12 +12,7 @@ import { WpxService } from '../wpx.service';
 export class WpxUploadDirective {
   @Input() wpxExt?: string;
 
-  constructor(
-    private wpx: WpxService,
-    private http: HttpClient,
-    private message: NzMessageService,
-    private nzUploadComponent: NzUploadComponent
-  ) {
+  constructor(wpx: WpxService, nzUploadComponent: NzUploadComponent) {
     wpx.upload.subscribe(({ type, url, limit }) => {
       nzUploadComponent.nzName = 'file';
       nzUploadComponent.nzShowUploadList = false;
