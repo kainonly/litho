@@ -31,21 +31,12 @@ export class WpxMediaViewComponent implements OnInit, AfterViewInit {
   @Input() wpxType!: MediaType;
   @Input() wpxFallback!: string;
   @Input() wpxHeight?: string;
-  /**
-   * 最大确认数量
-   */
   @Input() wpxMax?: number;
 
   ds!: WpxMediaViewDataSource;
   ext!: string;
   accept!: string[];
   searchText: string = '';
-  labels: string[] = [];
-  matchLabels: Set<string> = new Set<string>();
-  /**
-   * 超出最大确认提示
-   * @private
-   */
   private maxMessage?: string;
 
   constructor(
@@ -90,69 +81,17 @@ export class WpxMediaViewComponent implements OnInit, AfterViewInit {
     this.resizeObserver.observe(this.viewport.elementRef.nativeElement);
   }
 
-  /**
-   * 获取数据
-   * @param refresh
-   */
   getData(refresh = false): void {
-    if (this.searchText) {
-      this.ds.setSearchText(this.searchText);
-    }
+    this.ds.setSearchText(this.searchText);
     this.ds.fetch(refresh);
   }
 
-  /**
-   * 获取标签
-   */
-  getLabels(): void {
-    // this.pictures.findLabels().subscribe(data => {
-    //   this.labels = [...data];
-    // });
-  }
-
-  /**
-   * 设置标签状态
-   * @param checked
-   * @param data
-   * @param fetch
-   */
-  matchLabelChange(checked: boolean, data: string, fetch = true): void {
-    if (checked) {
-      this.matchLabels.add(data);
-    } else {
-      this.matchLabels.delete(data);
-    }
-    if (fetch) {
-      this.getData();
-    }
-  }
-
-  /**
-   * 设置所有标签
-   * @param checked
-   */
-  matchLabelsChange(checked: boolean): void {
-    this.labels.forEach(data => {
-      this.matchLabelChange(checked, data, false);
-    });
-    this.getData();
-  }
-
-  /**
-   * 清除筛选
-   */
   clearSearch(): void {
     this.searchText = '';
     this.ds.clearSearchText();
-    this.matchLabels.clear();
     this.getData(true);
   }
 
-  /**
-   * 检测确认范围
-   * @param id
-   * @param checked
-   */
   checked(id: string, checked: boolean): void {
     this.ds.setChecked(id, checked);
     if (this.wpxMax && this.ds.checkedNumber > this.wpxMax) {
@@ -166,11 +105,6 @@ export class WpxMediaViewComponent implements OnInit, AfterViewInit {
     }
   }
 
-  /**
-   * 计算每行个数
-   * @param width
-   * @private
-   */
   private calculate(width: number): void {
     const n = width >= 1600 ? 8 : 6;
     if (this.ds.n !== n) {
@@ -187,26 +121,16 @@ export class WpxMediaViewComponent implements OnInit, AfterViewInit {
     }
   }
 
-  /**
-   * 关闭对话框
-   */
   close(): void {
     this.closeMaxMessage();
     this.modalRef.triggerCancel();
   }
 
-  /**
-   * 确认对话框
-   */
   submit(): void {
     this.closeMaxMessage();
     this.modalRef.triggerOk();
   }
 
-  /**
-   * 查看图片
-   * @param data
-   */
   previewPicture(data: AnyDto<Media>): void {
     const url = new URL(`${this.wpx.assets}/${data.url}`);
     if (data.params) {
@@ -222,10 +146,6 @@ export class WpxMediaViewComponent implements OnInit, AfterViewInit {
     ]);
   }
 
-  /**
-   * 查看视频封面
-   * @param data
-   */
   previewPoster(data: AnyDto<Media>): void {
     this.image.preview(
       [0, 1, 2].map(n => ({
@@ -234,10 +154,6 @@ export class WpxMediaViewComponent implements OnInit, AfterViewInit {
     );
   }
 
-  /**
-   * 编辑
-   * @param editable
-   */
   form(editable: AnyDto<Media>): void {
     this.modal.create({
       nzTitle: '编辑',
@@ -249,10 +165,6 @@ export class WpxMediaViewComponent implements OnInit, AfterViewInit {
     });
   }
 
-  /**
-   * 设置图片
-   * @param data
-   */
   picture(data: AnyDto<Media>): void {
     this.modal.create({
       nzTitle: '图片设置',
@@ -264,10 +176,6 @@ export class WpxMediaViewComponent implements OnInit, AfterViewInit {
     });
   }
 
-  /**
-   * 查看视频
-   * @param data
-   */
   video(data: AnyDto<Media>): void {
     this.modal.create({
       nzTitle: data.name,
@@ -280,10 +188,6 @@ export class WpxMediaViewComponent implements OnInit, AfterViewInit {
     });
   }
 
-  /**
-   * 上传
-   * @param data
-   */
   upload(data: Transport[]): void {
     const docs: Media[] = data.map(v => ({
       name: v.name,
@@ -294,18 +198,11 @@ export class WpxMediaViewComponent implements OnInit, AfterViewInit {
     });
   }
 
-  /**
-   * 批量取消
-   */
   bulkUnchecked(): void {
     this.ds.checkedIds.clear();
     this.ds.updateCheckedStatus();
   }
 
-  /**
-   * 删除
-   * @param data
-   */
   delete(data: AnyDto<Media>): void {
     this.media.delete(data._id).subscribe(() => {
       this.message.success('数据删除完成');
@@ -313,9 +210,6 @@ export class WpxMediaViewComponent implements OnInit, AfterViewInit {
     });
   }
 
-  /**
-   * 批量删除
-   */
   bulkDelete(): void {
     this.modal.confirm({
       nzTitle: '您确认要删除这些文件吗?',

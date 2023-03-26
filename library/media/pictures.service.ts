@@ -15,7 +15,7 @@ export class PicturesService extends MediaService {
    * @param url
    */
   cosImageInfo(url: string): Observable<ImageInfoDto> {
-    return this.http.get<any>(`tencent/cos-image-info`, { params: { url } }).pipe(
+    return this.http.get<any>(`tencent/cos_image_info`, { params: { url } }).pipe(
       retry(2),
       map(v => {
         v.size = parseInt(v.size);

@@ -2,36 +2,6 @@
   <wpx-upload-transport [wpxExt]="ext" [wpxAccept]="accept" (wpxChange)="upload($event)"></wpx-upload-transport>
 </ng-template>
 
-<ng-template #searchRef>
-  <nz-row [nzGutter]="6">
-    <nz-col>
-      <nz-input-group nzSuffixIcon="search">
-        <input
-          style="width: 180px"
-          type="text"
-          nz-input
-          placeholder="关键词搜索"
-          [(ngModel)]="searchText"
-          (keyup.enter)="getData(true)"
-        />
-      </nz-input-group>
-    </nz-col>
-    <nz-col>
-      <nz-button-group>
-        <button nz-button nzType="text" nz-tooltip="刷新" (click)="getData(true)">
-          <i nz-icon nzType="reload"></i>
-        </button>
-        <button nz-button nzType="text" nz-tooltip="重置" (click)="clearSearch()">
-          <i nz-icon nzType="clear"></i>
-        </button>
-        <button nz-button nzType="text" nz-tooltip="搜索">
-          <i nz-icon nzType="filter"></i>
-        </button>
-      </nz-button-group>
-    </nz-col>
-  </nz-row>
-</ng-template>
-
 <cdk-virtual-scroll-viewport class="infinite-container" [style.height]="wpxHeight ?? '100%'" itemSize="226">
   <nz-list nzGrid nzItemLayout="vertical" [nzBordered]="false">
     <nz-list-item *cdkVirtualFor="let item of ds" style="padding-top: 0">
