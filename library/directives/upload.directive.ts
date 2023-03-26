@@ -12,19 +12,19 @@ import { WpxService } from '../wpx.service';
 export class WpxUploadDirective {
   @Input() wpxExt?: string;
 
-  constructor(wpx: WpxService, nzUploadComponent: NzUploadComponent) {
-    wpx.upload.subscribe(({ type, url, limit }) => {
-      nzUploadComponent.nzName = 'file';
-      nzUploadComponent.nzShowUploadList = false;
-      nzUploadComponent.nzAction = url;
-      nzUploadComponent.nzSize = limit ?? 5120;
-      switch (type) {
+  constructor(wpx: WpxService, component: NzUploadComponent) {
+    wpx.upload.subscribe(option => {
+      component.nzName = 'file';
+      component.nzShowUploadList = false;
+      component.nzAction = option.url;
+      component.nzSize = option.limit ?? 5120;
+      switch (option.type) {
         case 'cos':
-          nzUploadComponent.nzData = (file: NzUploadFile): Observable<any> =>
+          component.nzData = (file: NzUploadFile): Observable<any> =>
             wpx.cosPresigned().pipe(
               map(v => {
                 v['Content-Type'] = file.type;
-                Reflect.set(file, 'key', v.key);
+                file['key'] = v.key;
                 if (this.wpxExt) {
                   v.key = `${v.key}.${this.wpxExt}`;
                 }

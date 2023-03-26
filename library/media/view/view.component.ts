@@ -7,14 +7,14 @@ import { NzImageService } from 'ng-zorro-antd/image';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalRef, NzModalService } from 'ng-zorro-antd/modal';
 
-import { MediaService } from '../media.service';
-import { PicturesService } from '../pictures.service';
-import { Media, MediaType } from '../types';
-import { VideosService } from '../videos.service';
 import { FormComponent } from './form/form.component';
 import { PictureComponent } from './picture/picture.component';
 import { VideoComponent } from './video/video.component';
 import { WpxMediaViewDataSource } from './view.data-source';
+import { MediaService } from '../media.service';
+import { PicturesService } from '../pictures.service';
+import { Media, MediaType } from '../types';
+import { VideosService } from '../videos.service';
 
 @Component({
   selector: 'wpx-media-view',

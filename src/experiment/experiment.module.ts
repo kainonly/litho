@@ -18,6 +18,13 @@ const routes: Routes = [
         }
       },
       {
+        path: 'media',
+        loadChildren: () => import('./media/media.module').then(m => m.MediaModule),
+        data: {
+          breadcrumb: '媒体'
+        }
+      },
+      {
         path: 'blocks',
         loadChildren: () => import('./blocks/blocks.module').then(m => m.BlocksModule),
         data: {

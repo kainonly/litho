@@ -1,15 +1,17 @@
 <nz-button-group>
-  <nz-upload
-    class="upload"
-    wpxUpload
-    [wpxExt]="wpxExt"
-    nzMultiple
-    [nzAccept]="wpxAccept"
-    [nzFileType]="wpxAccept | wpxJoin : ','"
-    (nzChange)="change($event)"
-  >
-    <button nz-button i18n> <i nz-icon nzType="upload"></i> 上传 </button>
-  </nz-upload>
+  <ng-container *ngIf="wpx.upload | async">
+    <nz-upload
+      class="upload"
+      wpxUpload
+      [wpxExt]="wpxExt"
+      [nzMultiple]="true"
+      [nzAccept]="wpxAccept"
+      [nzFileType]="wpxAccept | wpxJoin : ','"
+      (nzChange)="change($event)"
+    >
+      <button nz-button i18n> <i nz-icon nzType="upload"></i> 上传 </button>
+    </nz-upload>
+  </ng-container>
   <button
     class="transport-btn"
     nz-button

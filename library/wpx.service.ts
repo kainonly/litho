@@ -11,7 +11,7 @@ import { ComponentTypeOption, R, TransactionResult, UploadOption, Value } from '
 @Injectable({ providedIn: 'root' })
 export class WpxService {
   assets = '/assets';
-  upload: AsyncSubject<UploadOption> = new AsyncSubject<UploadOption>();
+  upload: AsyncSubject<UploadOption> = new AsyncSubject();
   scopes: Map<string, ComponentTypeOption<any>> = new Map<string, ComponentTypeOption<any>>();
   components: Map<string, ComponentTypeOption<any>> = new Map<string, ComponentTypeOption<any>>();
   scripts: Map<string, AsyncSubject<void>> = new Map();
@@ -20,11 +20,6 @@ export class WpxService {
 
   setAssets(url: string): void {
     this.assets = url;
-  }
-
-  setUpload(option: UploadOption): void {
-    this.upload.next(option);
-    this.upload.complete();
   }
 
   setScope<T>(key: string, name: string, component: ComponentType<T>): void {

@@ -1,6 +1,7 @@
 import { Component, forwardRef, Input } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
+import { WpxService } from '@weplanx/ng';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzUploadChangeParam } from 'ng-zorro-antd/upload';
 
@@ -26,7 +27,7 @@ export class WpxUploadAvatarComponent implements ControlValueAccessor {
   private onChange!: (value: string) => void;
   private onTouched!: () => void;
 
-  constructor(private message: NzMessageService) {}
+  constructor(public wpx: WpxService, private message: NzMessageService) {}
 
   registerOnChange(fn: any): void {
     this.onChange = fn;

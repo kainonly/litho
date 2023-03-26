@@ -46,7 +46,8 @@ export class AppService {
       })
       .pipe(
         map(v => {
-          this.wpx.setUpload(v);
+          this.wpx.upload.next(v);
+          this.wpx.upload.complete();
           return v;
         })
       );

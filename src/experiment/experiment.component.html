@@ -9,6 +9,26 @@
           <li nz-menu-item nzMatchRouter [routerLink]="['/experiment', 'plugins', 'upload']">上传</li>
         </ul>
       </li>
+      <li nz-menu-group nzTitle="媒体">
+        <ul>
+          <li nz-menu-item nzMatchRouter [routerLink]="['/experiment', 'media', 'pictures']">
+            <span nz-icon nzType="picture"></span>
+            <span>图片</span>
+          </li>
+          <li nz-menu-item nzMatchRouter [routerLink]="['/experiment', 'media', 'videos']">
+            <span nz-icon nzType="video-camera"></span>
+            <span>视频</span>
+          </li>
+          <li nz-menu-item nzDisabled>
+            <span nz-icon nzType="sound"></span>
+            <span>音频</span>
+          </li>
+          <li nz-menu-item nzDisabled>
+            <span nz-icon nzType="file-word"></span>
+            <span>文档</span>
+          </li>
+        </ul>
+      </li>
       <li nz-menu-group nzTitle="引擎">
         <ul>
           <li nz-menu-item nzMatchRouter [routerLink]="['/experiment', 'blocks', 'grid']">栅格</li>

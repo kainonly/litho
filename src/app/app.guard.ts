@@ -20,7 +20,6 @@ export class AppGuard implements CanActivate {
           this.router.navigateByUrl('/login').then(_ => {});
         }
         this.app.getUser().subscribe(() => {});
-        this.app.getUpload().subscribe(() => {});
         if (this.refreshTokenSubscription) {
           this.refreshTokenSubscription.unsubscribe();
         }

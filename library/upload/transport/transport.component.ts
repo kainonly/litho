@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, Output, TemplateRef, ViewChild } from '@angular/core';
 
+import { WpxService } from '@weplanx/ng';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzUploadChangeParam, NzUploadFile } from 'ng-zorro-antd/upload';
 
@@ -27,7 +28,7 @@ export class WpxUploadTransportComponent {
   @ViewChild('messageRef') messageRef!: TemplateRef<any>;
   private messageId?: string;
 
-  constructor(private message: NzMessageService) {}
+  constructor(public wpx: WpxService, private message: NzMessageService) {}
 
   change(info: NzUploadChangeParam): void {
     if (this.complete) {
