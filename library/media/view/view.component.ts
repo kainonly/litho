@@ -67,13 +67,6 @@ export class WpxMediaViewComponent implements OnInit, AfterViewInit {
         this.calculate(entry.contentRect.width);
       }
     });
-    // if (this.modalRef) {
-    //   this.modalRef.afterOpen.subscribe(() => {
-    //     this.modalRef.updateConfig({
-    //       nzTitle: this.wpxSearchRef
-    //     });
-    //   });
-    // }
   }
 
   ngAfterViewInit(): void {
