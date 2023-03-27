@@ -15,11 +15,28 @@
     <nz-form-item>
       <nz-form-label>媒体</nz-form-label>
       <nz-form-control>
+        <ng-template #searchRef>
+          <ng-container *ngIf="media.modalRef?.componentInstance as view">
+            <nz-input-group style="width: 180px" nzSuffixIcon="search">
+              <input
+                (keyup.enter)="view.getData(true)"
+                [(ngModel)]="view.searchText"
+                [ngModelOptions]="{ standalone: true }"
+                type="text"
+                nz-input
+                placeholder="搜索"
+                i18n-placeholder
+              />
+            </nz-input-group>
+          </ng-container>
+        </ng-template>
         <wpx-media
+          #media
           [wpxType]="'pictures'"
           [wpxFallback]="['assets', 'photon.svg'] | wpxAssets"
           [wpxLimit]="5"
           [wpxMax]="5"
+          [wpxSearch]="searchRef"
           formControlName="media"
         ></wpx-media>
       </nz-form-control>

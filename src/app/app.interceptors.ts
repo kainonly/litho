@@ -60,9 +60,6 @@ export class AppInterceptors implements HttpInterceptor {
       case 403:
         this.message.error($localize`访问权限被禁用，请联系管理员`);
         break;
-      case 404:
-        this.message.error($localize`访问请求不存在`);
-        break;
       case 500:
       case 503:
         this.message.error($localize`服务器运行异常`);

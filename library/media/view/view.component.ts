@@ -23,7 +23,6 @@ import { VideosService } from '../videos.service';
 })
 export class WpxMediaViewComponent implements OnInit, AfterViewInit {
   @ViewChild('uploadRef', { static: true }) uploadRef!: TemplateRef<any>;
-  @ViewChild('searchRef', { static: true }) searchRef!: TemplateRef<any>;
   @ViewChild(CdkVirtualScrollViewport) viewport!: CdkVirtualScrollViewport;
   private resizeObserver!: ResizeObserver;
   private media!: MediaService;
@@ -68,13 +67,13 @@ export class WpxMediaViewComponent implements OnInit, AfterViewInit {
         this.calculate(entry.contentRect.width);
       }
     });
-    if (this.modalRef) {
-      this.modalRef.afterOpen.subscribe(() => {
-        this.modalRef.updateConfig({
-          nzTitle: this.searchRef
-        });
-      });
-    }
+    // if (this.modalRef) {
+    //   this.modalRef.afterOpen.subscribe(() => {
+    //     this.modalRef.updateConfig({
+    //       nzTitle: this.wpxSearchRef
+    //     });
+    //   });
+    // }
   }
 
   ngAfterViewInit(): void {

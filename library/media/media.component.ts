@@ -1,11 +1,11 @@
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
-import { Component, forwardRef, Input, Optional } from '@angular/core';
+import { Component, forwardRef, Input, Optional, TemplateRef } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 import { WpxService } from '@weplanx/ng';
 import { NzImageService } from 'ng-zorro-antd/image';
 import { NzMessageService } from 'ng-zorro-antd/message';
-import { NzModalService } from 'ng-zorro-antd/modal';
+import { NzModalRef, NzModalService } from 'ng-zorro-antd/modal';
 
 import { MediaType } from './types';
 import { VideoComponent } from './view/video/video.component';
@@ -28,7 +28,9 @@ export class WpxMediaComponent implements ControlValueAccessor {
   @Input() wpxFallback!: string;
   @Input() wpxLimit?: number;
   @Input() wpxMax?: number;
+  @Input() wpxSearch?: TemplateRef<any>;
 
+  modalRef?: NzModalRef<WpxMediaViewComponent>;
   values?: string[];
 
   sortVisible = false;
@@ -55,11 +57,9 @@ export class WpxMediaComponent implements ControlValueAccessor {
     this.values = v ?? [];
   }
 
-  /**
-   * 开启媒体库
-   */
-  view(): void {
-    this.modal.create({
+  openView(): void {
+    this.modalRef = this.modal.create({
+      nzTitle: this.wpxSearch,
       nzBodyStyle: { background: '#f0f2f5' },
       nzWidth: 960,
       nzContent: WpxMediaViewComponent,

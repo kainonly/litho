@@ -1,11 +1,33 @@
-<nz-card [nzTitle]="ref.searchRef" [nzExtra]="ref.uploadRef">
-  <nz-space [nzWrap]="true">
-    <strong *nzSpaceItem>标签：</strong>
-    <nz-tag *nzSpaceItem nzMode="checkable"> 全部 </nz-tag>
-  </nz-space>
-</nz-card>
+<nz-page-header [nzGhost]="false">
+  <nz-page-header-title>图片</nz-page-header-title>
+  <nz-page-header-extra>
+    <ng-container *ngTemplateOutlet="ref.uploadRef"></ng-container>
+  </nz-page-header-extra>
+  <nz-page-header-content>
+    <nz-row nzJustify="space-between">
+      <nz-col>
+        <div>
+          <nz-space>
+            <nz-input-group *nzSpaceItem style="width: 180px" nzSuffixIcon="search">
+              <input
+                (keyup.enter)="ref.getData(true)"
+                [(ngModel)]="ref.searchText"
+                type="text"
+                nz-input
+                placeholder="搜索"
+                i18n-placeholder
+              />
+            </nz-input-group>
+          </nz-space>
+        </div>
+      </nz-col>
+      <nz-col> </nz-col>
+      <nz-col> </nz-col>
+    </nz-row>
+  </nz-page-header-content>
+</nz-page-header>
 
-<div style="padding: 8px 8px 24px; height: calc(100% - 104px)">
+<div style="padding: 8px 8px 24px; height: calc(100% - 76px)">
   <wpx-media-view #ref wpxType="pictures" [wpxFallback]="['assets', 'photon.svg'] | wpxAssets"></wpx-media-view>
 </div>
 
