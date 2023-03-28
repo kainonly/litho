@@ -19,7 +19,7 @@
       <nz-col>
         <p nz-typography>
           <span nz-icon nzType="check-circle"></span>
-          上传不限大小，支持 jpeg、png、bmp、gif、webp、avif 等格式
+          上传不超出 {{ (wpx.upload | async)?.limit | nzBytes : 0 : 'KB' }}，支持 jpeg、png、bmp、gif、webp、avif 等格式
         </p>
         <nz-space>
           <nz-input-group *nzSpaceItem style="width: 180px" nzSuffixIcon="search">
@@ -44,7 +44,7 @@
       </nz-col>
       <nz-col></nz-col>
       <nz-col>
-        <nz-statistic [nzValue]="'-'" [nzTitle]="'元素数量'"></nz-statistic>
+        <nz-statistic *ngIf="ref" [nzValue]="ref.ds!.total" [nzTitle]="'元素数量'"></nz-statistic>
       </nz-col>
     </nz-row>
   </nz-page-header-content>
