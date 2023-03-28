@@ -141,7 +141,7 @@ export class WpxMediaViewComponent implements OnInit, AfterViewInit {
   previewPoster(data: AnyDto<Media>): void {
     this.image.preview(
       [0, 1, 2].map(n => ({
-        src: `${this.wpx.assets}/${data.url}_${n}.jpg`
+        src: `${this.wpx.assets}/${data.url}_${n}`
       }))
     );
   }
