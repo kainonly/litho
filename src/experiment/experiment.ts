@@ -13,7 +13,7 @@ if (!environment.production) {
       loadChildren: () => import('../experiment/experiment.module').then(m => m.ExperimentModule),
       canActivate: [AppGuard],
       data: {
-        breadcrumb: $localize`实验开发`
+        breadcrumb: $localize`实验`
       }
     }
   ];

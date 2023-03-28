@@ -1,0 +1,61 @@
+<nz-page-header [nzGhost]="false">
+  <nz-page-header-title>视频</nz-page-header-title>
+  <nz-page-header-tags>
+    <nz-select style="min-width: 180px" nzMode="multiple" nzPlaceHolder="筛选标签" nzAllowClear nzBorderless>
+    </nz-select>
+  </nz-page-header-tags>
+  <nz-page-header-extra>
+    <ng-container *ngTemplateOutlet="ref.uploadRef"></ng-container>
+  </nz-page-header-extra>
+  <nz-page-header-content>
+    <nz-row nzJustify="space-between">
+      <nz-col>
+        <p nz-typography>
+          <span nz-icon nzType="check-circle"></span>
+          上传不限大小，支持 mp4 文件类型的上传
+        </p>
+        <nz-space>
+          <nz-input-group *nzSpaceItem style="width: 180px" nzSuffixIcon="search">
+            <input
+              (keyup.enter)="ref.getData(true)"
+              [(ngModel)]="ref.searchText"
+              type="text"
+              nz-input
+              placeholder="搜索"
+              i18n-placeholder
+            />
+          </nz-input-group>
+          <nz-button-group *nzSpaceItem>
+            <button nz-button nzType="text" nz-tooltip="刷新" i18n-nz-tooltip (click)="ref.getData(true)">
+              <i nz-icon nzType="reload"></i>
+            </button>
+            <button nz-button nzType="text" nz-tooltip="重置" i18n-nz-tooltip (click)="ref.clearSearch()">
+              <i nz-icon nzType="clear"></i>
+            </button>
+          </nz-button-group>
+        </nz-space>
+      </nz-col>
+      <nz-col></nz-col>
+      <nz-col>
+        <nz-statistic [nzValue]="'-'" [nzTitle]="'元素数量'"></nz-statistic>
+      </nz-col>
+    </nz-row>
+  </nz-page-header-content>
+</nz-page-header>
+
+<div style="padding: 8px 8px 24px; height: calc(100% - 104px)">
+  <wpx-media-view #ref wpxType="videos" [wpxFallback]="['assets', 'photon.svg'] | wpxAssets"></wpx-media-view>
+</div>
+
+<ng-container *ngIf="ref.ds.checkedNumber !== 0">
+  <nz-alert class="actions" nzType="info" nzBanner nzMessage="批量" [nzDescription]="description" [nzAction]="bulk">
+    <ng-template #description>
+      已选中 <nz-tag>{{ ref.ds.checkedNumber }}</nz-tag> 项
+    </ng-template>
+    <ng-template #bulk>
+      <a nz-button nzType="link" nzSize="small" (click)="ref.ds.clearChecked()">取消选择</a>
+      <br />
+      <a style="float: right" nz-button nzType="link" nzSize="small" nzDanger (click)="ref.bulkDelete()">删除</a>
+    </ng-template>
+  </nz-alert>
+</ng-container>

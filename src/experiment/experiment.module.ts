@@ -18,10 +18,10 @@ const routes: Routes = [
         }
       },
       {
-        path: 'media',
-        loadChildren: () => import('./media/media.module').then(m => m.MediaModule),
+        path: 'resources',
+        loadChildren: () => import('./resources/resources.module').then(m => m.ResourcesModule),
         data: {
-          breadcrumb: '媒体'
+          breadcrumb: '资源'
         }
       },
       {

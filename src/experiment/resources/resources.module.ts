@@ -29,4 +29,4 @@ const routes: Routes = [
 @NgModule({
   imports: [ShareModule, RouterModule.forChild(routes)]
 })
-export class MediaModule {}
+export class ResourcesModule {}

@@ -32,7 +32,7 @@ export class ValuesComponent implements OnInit {
           .map(v => {
             let [key, value] = v;
             switch (key) {
-              case 'dsl':
+              case 'resources':
               case 'ip_blacklist':
               case 'ip_whitelist':
                 value = JSON.stringify(value);

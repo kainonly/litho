@@ -13,7 +13,7 @@ export class WpxMediaViewDataSource extends WpxData<AnyDto<Media>> implements Da
   private readonly dict: Map<string, AnyDto<Media>> = new Map<string, AnyDto<Media>>();
   private cache: Array<AnyDto<Media>> = [];
   /**
-   * 每个列表包含卡片数量
+   * Each list contains the number of cards
    */
   n = 0;
 
@@ -69,17 +69,10 @@ export class WpxMediaViewDataSource extends WpxData<AnyDto<Media>> implements Da
     });
   }
 
-  /**
-   * 获取指定数据
-   * @param id
-   */
   getValue(id: string): AnyDto<Media> {
     return this.dict.get(id)!;
   }
 
-  /**
-   * 获取 URL
-   */
   getUrls(ids: string[]): string[] {
     return ids.map(v => this.dict.get(v)!.url);
   }
