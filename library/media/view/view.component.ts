@@ -11,9 +11,8 @@ import { FormComponent } from './form/form.component';
 import { PictureComponent } from './picture/picture.component';
 import { VideoComponent } from './video/video.component';
 import { WpxMediaViewDataSource } from './view.data-source';
-import { MediaService } from '../media.service';
 import { PicturesService } from '../pictures.service';
-import { Media, MediaType } from '../types';
+import { Media, MediaType, Picture, Video } from '../types';
 import { VideosService } from '../videos.service';
 
 @Component({
@@ -25,12 +24,13 @@ export class WpxMediaViewComponent implements OnInit, AfterViewInit {
   @ViewChild('uploadRef', { static: true }) uploadRef!: TemplateRef<any>;
   @ViewChild(CdkVirtualScrollViewport) viewport!: CdkVirtualScrollViewport;
   private resizeObserver!: ResizeObserver;
-  private media!: MediaService;
+  private media!: PicturesService | VideosService;
 
   @Input() wpxType!: MediaType;
   @Input() wpxFallback!: string;
   @Input() wpxHeight?: string;
   @Input() wpxMax?: number;
+  @Input() wpxForm?: (editable: AnyDto<Media>) => void;
 
   ds!: WpxMediaViewDataSource;
   ext!: string;
@@ -88,7 +88,7 @@ export class WpxMediaViewComponent implements OnInit, AfterViewInit {
     this.ds.setChecked(id, checked);
     if (this.wpxMax && this.ds.checkedNumber > this.wpxMax) {
       if (!this.maxMessage) {
-        this.maxMessage = this.message.info(`超出确认范围，系统将截取前${this.wpxMax}个元素，批量操作请忽略`, {
+        this.maxMessage = this.message.info($localize`超出确认范围，系统将截取前${this.wpxMax}个元素，批量操作请忽略`, {
           nzDuration: 0
         }).messageId;
       }
@@ -123,7 +123,7 @@ export class WpxMediaViewComponent implements OnInit, AfterViewInit {
     this.modalRef.triggerOk();
   }
 
-  previewPicture(data: AnyDto<Media>): void {
+  previewPicture(data: AnyDto<Picture>): void {
     const url = new URL(`${this.wpx.assets}/${data.url}`);
     if (data.params) {
       for (const [name, value] of Object.entries(data.params)) {
@@ -138,7 +138,7 @@ export class WpxMediaViewComponent implements OnInit, AfterViewInit {
     ]);
   }
 
-  previewPoster(data: AnyDto<Media>): void {
+  previewPoster(data: AnyDto<Video>): void {
     this.image.preview(
       [0, 1, 2].map(n => ({
         src: `${this.wpx.assets}/${data.url}_${n}`
@@ -147,19 +147,23 @@ export class WpxMediaViewComponent implements OnInit, AfterViewInit {
   }
 
   form(editable: AnyDto<Media>): void {
-    this.modal.create({
-      nzTitle: '编辑',
-      nzContent: FormComponent,
-      nzComponentParams: {
-        editable,
-        media: this.media
-      }
-    });
+    if (!this.wpxForm) {
+      this.modal.create({
+        nzTitle: $localize`编辑`,
+        nzContent: FormComponent,
+        nzComponentParams: {
+          editable,
+          media: this.media
+        }
+      });
+    } else {
+      this.wpxForm(editable);
+    }
   }
 
-  picture(data: AnyDto<Media>): void {
+  picture(data: AnyDto<Picture>): void {
     this.modal.create({
-      nzTitle: '图片设置',
+      nzTitle: $localize`图片设置`,
       nzWidth: 960,
       nzContent: PictureComponent,
       nzComponentParams: {
@@ -168,7 +172,7 @@ export class WpxMediaViewComponent implements OnInit, AfterViewInit {
     });
   }
 
-  video(data: AnyDto<Media>): void {
+  video(data: AnyDto<Video>): void {
     this.modal.create({
       nzTitle: data.name,
       nzWidth: 960,
@@ -197,15 +201,15 @@ export class WpxMediaViewComponent implements OnInit, AfterViewInit {
 
   delete(data: AnyDto<Media>): void {
     this.media.delete(data._id).subscribe(() => {
-      this.message.success('数据删除完成');
+      this.message.success($localize`数据删除完成`);
       this.ds.fetch(true);
     });
   }
 
   bulkDelete(): void {
     this.modal.confirm({
-      nzTitle: '您确认要删除这些文件吗?',
-      nzOkText: '是的',
+      nzTitle: $localize`您确认要删除这些文件吗?`,
+      nzOkText: $localize`是的`,
       nzOkType: 'primary',
       nzOkDanger: true,
       nzOnOk: () => {
@@ -224,10 +228,10 @@ export class WpxMediaViewComponent implements OnInit, AfterViewInit {
             this.ds.checkedIds.clear();
             this.ds.updateCheckedStatus();
             this.ds.fetch(true);
-            this.message.success('数据删除完成');
+            this.message.success($localize`数据删除完成`);
           });
       },
-      nzCancelText: '否'
+      nzCancelText: $localize`否`
     });
   }
 }

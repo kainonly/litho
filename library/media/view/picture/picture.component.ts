@@ -2,12 +2,10 @@ import { Component, Input, OnInit } from '@angular/core';
 import { UntypedFormBuilder, UntypedFormControl, UntypedFormGroup } from '@angular/forms';
 
 import { AnyDto, ImageInfoDto, Page } from '@weplanx/ng';
+import { Picture, PicturesService } from '@weplanx/ng/media';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalRef } from 'ng-zorro-antd/modal';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
-
-import { PicturesService } from '../../pictures.service';
-import { Media } from '../../types';
 
 @Component({
   selector: 'wpx-media-view-picture',
@@ -15,7 +13,7 @@ import { Media } from '../../types';
   styleUrls: ['./picture.component.scss']
 })
 export class PictureComponent implements OnInit {
-  @Input() data!: AnyDto<Media>;
+  @Input() data!: AnyDto<Picture>;
   original?: ImageInfoDto;
   output?: ImageInfoDto;
 
@@ -43,13 +41,13 @@ export class PictureComponent implements OnInit {
   }
 
   getOriginalInfo(): void {
-    this.pictures.cosImageInfo(`/${this.data.url}.image`).subscribe(data => {
+    this.pictures.getCosImageInfo(`/${this.data.url}.image`).subscribe(data => {
       this.original = data;
     });
   }
 
   getOutputInfo(): void {
-    this.pictures.cosImageInfo(`/${this.data.url}`).subscribe(data => {
+    this.pictures.getCosImageInfo(`/${this.data.url}`).subscribe(data => {
       this.output = data;
     });
   }

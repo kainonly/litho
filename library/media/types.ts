@@ -1,20 +1,15 @@
-export interface Media {
-  /**
-   * 媒体名称
-   */
+export type Media = Picture | Video;
+export type MediaType = 'pictures' | 'videos';
+
+export interface Picture {
   name: string;
-  /**
-   * 媒体URL
-   */
   url: string;
-  /**
-   * 数据参数
-   */
   params?: Record<string, string>;
-  /**
-   * 标记
-   */
-  labels?: string[];
+  tags?: string[];
 }
 
-export type MediaType = 'pictures' | 'videos';
+export interface Video {
+  name: string;
+  url: string;
+  tags?: string[];
+}

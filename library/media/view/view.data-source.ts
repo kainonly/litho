@@ -3,8 +3,9 @@ import { BehaviorSubject, Observable, Subject, takeUntil } from 'rxjs';
 
 import { AnyDto, WpxData } from '@weplanx/ng';
 
-import { MediaService } from '../media.service';
+import { PicturesService } from '../pictures.service';
 import { Media } from '../types';
+import { VideosService } from '../videos.service';
 
 export class WpxMediaViewDataSource extends WpxData<AnyDto<Media>> implements DataSource<Array<AnyDto<Media>>> {
   private readonly stream = new BehaviorSubject<Array<Array<AnyDto<Media>>>>([]);
@@ -17,7 +18,7 @@ export class WpxMediaViewDataSource extends WpxData<AnyDto<Media>> implements Da
    */
   n = 0;
 
-  constructor(private media: MediaService) {
+  constructor(private media: PicturesService | VideosService) {
     super();
   }
 

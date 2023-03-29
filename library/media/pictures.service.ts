@@ -2,19 +2,15 @@ import { Injectable } from '@angular/core';
 import { Observable, retry } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { ImageInfoDto } from '@weplanx/ng';
+import { ImageInfoDto, WpxApi } from '@weplanx/ng';
 
-import { MediaService } from './media.service';
+import { Picture } from './types';
 
 @Injectable()
-export class PicturesService extends MediaService {
+export class PicturesService extends WpxApi<Picture> {
   protected override collection = 'pictures';
 
-  /**
-   * 查看图片信息
-   * @param url
-   */
-  cosImageInfo(url: string): Observable<ImageInfoDto> {
+  getCosImageInfo(url: string): Observable<ImageInfoDto> {
     return this.http.get<any>(`tencent/cos_image_info`, { params: { url } }).pipe(
       retry(2),
       map(v => {

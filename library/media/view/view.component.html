@@ -47,23 +47,25 @@
             <ng-template #tagsRef>
               <ng-container [ngSwitch]="wpxType">
                 <ng-container *ngSwitchCase="'pictures'">
-                  <i nz-icon nzType="setting" nz-tooltip="设置" (click)="picture(item)"></i>
+                  <i nz-icon nzType="setting" nz-tooltip="设置" i18n-nz-tooltip (click)="picture(item)"></i>
                 </ng-container>
                 <ng-container *ngSwitchCase="'videos'">
-                  <i nz-icon nzType="play-square" nz-tooltip="播放" (click)="video(item)"></i>
+                  <i nz-icon nzType="play-square" nz-tooltip="播放" i18n-nz-tooltip (click)="video(item)"></i>
                 </ng-container>
               </ng-container>
             </ng-template>
             <ng-template #editRef>
-              <i nz-icon nzType="edit" nz-tooltip="编辑" (click)="form(item)"></i>
+              <i nz-icon nzType="edit" nz-tooltip="编辑" i18n-nz-tooltip (click)="form(item)"></i>
             </ng-template>
             <ng-template #deleteRef>
               <i
                 nz-icon
                 nzType="delete"
                 nz-tooltip="删除"
+                i18n-nz-tooltip
                 nz-popconfirm
                 nzPopconfirmTitle="您确定要删除该资源吗?"
+                i18n-nzPopconfirmTitle
                 nzPopconfirmPlacement="bottom"
                 (nzOnConfirm)="delete(item)"
               ></i>
@@ -84,11 +86,11 @@
     <nz-col>
       <nz-row [nzGutter]="8">
         <nz-col>
-          <button nz-button type="button" nzType="default" (click)="close()">取消</button>
+          <button nz-button type="button" nzType="default" (click)="close()" i18n>取消</button>
         </nz-col>
         <nz-col>
           <nz-badge [nzCount]="wpxMax && ds.checkedNumber >= wpxMax ? wpxMax : ds.checkedNumber">
-            <button nz-button type="button" nzType="primary" [disabled]="!ds.checkedNumber" (click)="submit()">
+            <button nz-button type="button" nzType="primary" [disabled]="!ds.checkedNumber" (click)="submit()" i18n>
               确认
             </button>
           </nz-badge>

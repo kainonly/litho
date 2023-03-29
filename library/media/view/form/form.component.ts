@@ -1,21 +1,19 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 
-import { AnyDto, Page } from '@weplanx/ng';
+import { AnyDto } from '@weplanx/ng';
+import { Picture, PicturesService, Video, VideosService } from '@weplanx/ng/media';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalRef } from 'ng-zorro-antd/modal';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
-
-import { MediaService } from '../../media.service';
-import { Media } from '../../types';
 
 @Component({
   selector: 'wpx-media-view-form',
   templateUrl: './form.component.html'
 })
 export class FormComponent implements OnInit {
-  @Input() editable!: AnyDto<Media>;
-  @Input() media!: MediaService;
+  @Input() editable!: AnyDto<Picture | Video>;
+  @Input() media!: PicturesService | VideosService;
 
   form?: UntypedFormGroup;
 
@@ -37,7 +35,7 @@ export class FormComponent implements OnInit {
     this.modalRef.triggerCancel();
   }
 
-  submit(data: Page): void {
+  submit(data: any): void {
     this.media.updateById(this.editable._id, { $set: data }).subscribe(v => {
       for (const [k, v] of Object.entries(data)) {
         // TODO:待检查
