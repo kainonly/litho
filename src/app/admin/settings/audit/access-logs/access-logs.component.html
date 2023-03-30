@@ -21,7 +21,7 @@
 
 <ng-template #actions>
   <nz-space>
-    <button *nzSpaceItem nz-button i18n> 导出 </button>
+    <button *nzSpaceItem nz-button i18n disabled> 导出 </button>
   </nz-space>
 </ng-template>
 
@@ -41,37 +41,23 @@
   >
     <thead>
       <tr>
-        <th
-          nzWidth="60px"
-          nzLeft
-          nzAlign="center"
-          [nzChecked]="dataset.checked"
-          [nzIndeterminate]="dataset.indeterminate"
-          (nzCheckedChange)="dataset.setNChecked($event)"
-        >
+        <th style="padding: 8px 4px" nzLeft nzWidth="240px">
+          <span style="margin: 0 3px" nz-icon nzType="field-time"></span>
+          <b i18n>时间戳</b>
         </th>
-        <th nzWidth="150px"><b i18n>时间戳</b></th>
         <th><b i18n>操作人</b></th>
         <th><b i18n>资源</b></th>
-        <th nzWidth="60px" nzRight nzAlign="center">
-          <button nz-button nzType="text" nzBlock disabled>
-            <i nz-icon nzType="setting"></i>
-          </button>
-        </th>
       </tr>
     </thead>
     <tbody>
       <ng-container *ngFor="let data of basicTable.data">
         <tr>
           <td
+            style="padding: 8px 4px"
             nzLeft
-            nzAlign="center"
-            [nzDisabled]="data['disabled']"
-            [nzChecked]="dataset.checkedIds.has(data['_id'])"
-            (nzCheckedChange)="dataset.setChecked(data['_id'], $event)"
+            [nzExpand]="expands.has(data._id)"
+            (nzExpandChange)="expandsChange(data._id, $event)"
           >
-          </td>
-          <td>
             {{ data['timestamp'] | date : 'yyyy-MM-dd HH:mm:ss' }}
           </td>
           <td>
@@ -86,19 +72,17 @@
             </ng-template>
           </td>
           <td>
-            <a (click)="openResourceDetail(data)">
-              <code>{{ data.metadata.method }} {{ data.metadata.path }}</code>
-            </a>
+            <nz-space [nzSplit]="spaceSplit">
+              <code *nzSpaceItem>{{ data.status }}</code>
+              <code *nzSpaceItem>{{ data.metadata.method }}</code>
+              <code *nzSpaceItem>{{ data.metadata.path }}</code>
+            </nz-space>
           </td>
-          <td nzRight nzAlign="center">
-            <button nz-button nzType="text" nz-dropdown [nzDropdownMenu]="menu">
-              <i nz-icon nzType="ellipsis"></i>
-            </button>
-            <nz-dropdown-menu #menu="nzDropdownMenu">
-              <ul nz-menu>
-                <li nz-menu-item i18n>定义</li>
-              </ul>
-            </nz-dropdown-menu>
+        </tr>
+        <tr [nzExpand]="expands.has(data._id)">
+          <td style="padding: 8px 4px"> </td>
+          <td colspan="4">
+            <code>{{ data.user_agent }}</code>
           </td>
         </tr>
       </ng-container>
@@ -145,9 +129,6 @@
       </nz-descriptions-item>
       <nz-descriptions-item nzTitle="地区 ISP" i18n-nzTitle [nzSpan]="2">
         <nz-space *ngIf="u.history as history" [nzSplit]="spaceSplit">
-          <ng-template #spaceSplit>
-            <nz-divider nzType="vertical"></nz-divider>
-          </ng-template>
           <span *nzSpaceItem i18n>{{ !history.country ? '未知' : history.country }}</span>
           <span *nzSpaceItem i18n>{{ !history.province ? '未知' : history.province }}</span>
           <span *nzSpaceItem i18n>{{ !history.city ? '未知' : history.city }}</span>
@@ -164,27 +145,6 @@
   </ng-container>
 </nz-drawer>
 
-<nz-drawer
-  [nzClosable]="false"
-  [nzVisible]="resourceDetailVisible"
-  [nzWidth]="640"
-  nzPlacement="right"
-  nzTitle="资源详情"
-  i18n-nzTitle
-  (nzOnClose)="closeResourceDetail()"
->
-  <ng-container *nzDrawerContent>
-    <nz-descriptions *ngIf="resourceDetail as r" nzBordered [nzColumn]="2">
-      <nz-descriptions-item nzTitle="ID" [nzSpan]="2">
-        <code>{{ r._id }}</code>
-      </nz-descriptions-item>
-      <nz-descriptions-item nzTitle="Url" [nzSpan]="2">
-        <code>{{ r.metadata.method }} {{ r.metadata.path }}</code>
-      </nz-descriptions-item>
-      <nz-descriptions-item nzTitle="Status" [nzSpan]="2">{{ r.status }}</nz-descriptions-item>
-      <nz-descriptions-item nzTitle="Agent" [nzSpan]="2">
-        <code>{{ r.user_agent }}</code>
-      </nz-descriptions-item>
-    </nz-descriptions>
-  </ng-container>
-</nz-drawer>
+<ng-template #spaceSplit>
+  <nz-divider nzType="vertical"></nz-divider>
+</ng-template>

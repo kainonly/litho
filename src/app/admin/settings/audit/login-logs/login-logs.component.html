@@ -21,7 +21,7 @@
 
 <ng-template #actions>
   <nz-space>
-    <button *nzSpaceItem nz-button i18n> 导出 </button>
+    <button *nzSpaceItem nz-button i18n disabled> 导出 </button>
   </nz-space>
 </ng-template>
 
@@ -41,39 +41,24 @@
   >
     <thead>
       <tr>
-        <th
-          nzWidth="60px"
-          nzLeft
-          nzAlign="center"
-          [nzChecked]="dataset.checked"
-          [nzIndeterminate]="dataset.indeterminate"
-          (nzCheckedChange)="dataset.setNChecked($event)"
-        >
+        <th style="padding: 8px 4px" nzLeft nzWidth="240px">
+          <span style="margin: 0 3px" nz-icon nzType="field-time"></span>
+          <b i18n> 时间戳</b>
         </th>
-        <th nzWidth="150px"><b i18n>时间戳</b></th>
         <th><b i18n>用户</b></th>
         <th><b i18n>模式</b></th>
         <th><b i18n>地区 ISP</b></th>
-        <th><b i18n>代理</b></th>
-        <th nzWidth="60px" nzRight nzAlign="center">
-          <button nz-button nzType="text" nzBlock disabled>
-            <i nz-icon nzType="setting"></i>
-          </button>
-        </th>
       </tr>
     </thead>
     <tbody>
       <ng-container *ngFor="let data of basicTable.data">
         <tr>
           <td
+            style="padding: 8px 4px"
             nzLeft
-            nzAlign="center"
-            [nzDisabled]="data['disabled']"
-            [nzChecked]="dataset.checkedIds.has(data['key'])"
-            (nzCheckedChange)="dataset.setChecked(data['key'], $event)"
+            [nzExpand]="expands.has(data._id)"
+            (nzExpandChange)="expandsChange(data._id, $event)"
           >
-          </td>
-          <td>
             {{ data['timestamp'] | date : 'yyyy-MM-dd HH:mm:ss' }}
           </td>
           <td>
@@ -92,10 +77,6 @@
           </td>
           <td>
             <nz-space [nzSplit]="spaceSplit">
-              <ng-template #spaceSplit>
-                <nz-divider nzType="vertical"></nz-divider>
-              </ng-template>
-
               <span *nzSpaceItem>{{ data.metadata.client_ip }}</span>
               <span *nzSpaceItem i18n>{{ !data.country ? '未知' : data.country }}</span>
               <span *nzSpaceItem i18n>{{ !data.province ? '未知' : data.province }}</span>
@@ -103,18 +84,11 @@
               <span *nzSpaceItem i18n>{{ !data.isp ? '未知' : data.isp }}</span>
             </nz-space>
           </td>
-          <td>
+        </tr>
+        <tr [nzExpand]="expands.has(data._id)">
+          <td style="padding: 8px 4px"> </td>
+          <td colspan="4">
             <code>{{ data.user_agent }}</code>
-          </td>
-          <td nzRight nzAlign="center">
-            <button nz-button nzType="text" nz-dropdown [nzDropdownMenu]="menu">
-              <i nz-icon nzType="ellipsis"></i>
-            </button>
-            <nz-dropdown-menu #menu="nzDropdownMenu">
-              <ul nz-menu>
-                <li nz-menu-item i18n>定义</li>
-              </ul>
-            </nz-dropdown-menu>
           </td>
         </tr>
       </ng-container>
@@ -161,9 +135,6 @@
       </nz-descriptions-item>
       <nz-descriptions-item nzTitle="地区 ISP" i18n-nzTitle [nzSpan]="2">
         <nz-space *ngIf="u.history as history" [nzSplit]="spaceSplit">
-          <ng-template #spaceSplit>
-            <nz-divider nzType="vertical"></nz-divider>
-          </ng-template>
           <span *nzSpaceItem i18n>{{ !history.country ? '未知' : history.country }}</span>
           <span *nzSpaceItem i18n>{{ !history.province ? '未知' : history.province }}</span>
           <span *nzSpaceItem i18n>{{ !history.city ? '未知' : history.city }}</span>
@@ -179,3 +150,7 @@
     </nz-descriptions>
   </ng-container>
 </nz-drawer>
+
+<ng-template #spaceSplit>
+  <nz-divider nzType="vertical"></nz-divider>
+</ng-template>

@@ -16,12 +16,11 @@ import { AccessLogsService } from './access-logs.service';
 export class AccessLogsComponent implements OnInit {
   disabledDate = (current: Date): boolean => differenceInCalendarDays(current, new Date()) > 0;
   date: Date[] = [];
+  expands = new Set<string>();
   dataset: WpxData<AnyDto<AccessLog>> = new WpxData<AnyDto<AccessLog>>();
   userKV: Record<string, AnyDto<User>> = {};
   userDetailVisible = false;
   userDetail?: AnyDto<User>;
-  resourceDetailVisible = false;
-  resourceDetail?: AnyDto<AccessLog>;
 
   constructor(private access_logs: AccessLogsService, private users: UsersService) {}
 
@@ -74,6 +73,14 @@ export class AccessLogsComponent implements OnInit {
     this.getData(true);
   }
 
+  expandsChange(id: string, checked: boolean): void {
+    if (checked) {
+      this.expands.add(id);
+    } else {
+      this.expands.delete(id);
+    }
+  }
+
   openUserDetail(data: AnyDto<User>): void {
     this.userDetailVisible = true;
     this.userDetail = data;
@@ -82,15 +89,5 @@ export class AccessLogsComponent implements OnInit {
   closeUserDetail(): void {
     this.userDetailVisible = false;
     this.userDetail = undefined;
-  }
-
-  openResourceDetail(data: AnyDto<AccessLog>): void {
-    this.resourceDetailVisible = true;
-    this.resourceDetail = data;
-  }
-
-  closeResourceDetail(): void {
-    this.resourceDetailVisible = false;
-    this.resourceDetail = undefined;
   }
 }
