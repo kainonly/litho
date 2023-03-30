@@ -53,7 +53,7 @@
       <tr *ngFor="let data of basicTable.data">
         <td nzLeft [nzChecked]="checkedKeys.has(data['key'])" (nzCheckedChange)="setChecked(data['key'], $event)"></td>
         <td>{{ data.key }}</td>
-        <td>
+        <td nzBreakWord>
           <code>{{ data.value }}</code>
         </td>
         <td nzRight nzAlign="center">

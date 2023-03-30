@@ -61,6 +61,7 @@ export class LoginLogsComponent implements OnInit {
         })
       )
       .subscribe(data => {
+        console.log(data);
         for (const x of data) {
           this.userKV[x._id] = x;
         }

@@ -52,31 +52,31 @@
             <nz-list-item-meta-description>
               <nz-descriptions [nzColumn]="2">
                 <nz-descriptions-item nzTitle="创建时间" i18n-nzTitle>
-                  {{ user.create_time | date: 'yyyy-MM-dd HH:mm:ss' }}
+                  {{ user.create_time | date : 'yyyy-MM-dd HH:mm:ss' }}
                 </nz-descriptions-item>
                 <nz-descriptions-item nzTitle="更新时间" i18n-nzTitle>
-                  {{ user.update_time | date: 'yyyy-MM-dd HH:mm:ss' }}
+                  {{ user.update_time | date : 'yyyy-MM-dd HH:mm:ss' }}
                 </nz-descriptions-item>
                 <nz-descriptions-item nzTitle="累计会话" i18n-nzTitle>
                   <span i18n>
                     已累计登录 <b> {{ user.sessions }} </b> 次
                   </span>
                 </nz-descriptions-item>
-                <nz-descriptions-item *ngIf="user.last as l" nzTitle="登录于" i18n-nzTitle>
-                  {{ l.timestamp | date: 'yyyy-MM-dd HH:mm:ss' }}
+                <nz-descriptions-item *ngIf="user.history as history" nzTitle="登录于" i18n-nzTitle>
+                  {{ history.timestamp | date : 'yyyy-MM-dd HH:mm:ss' }}
                 </nz-descriptions-item>
-                <nz-descriptions-item *ngIf="user.last as l" nzTitle="IP" [nzSpan]="2">
-                  <b>[ {{ l.ip }} ]</b>
+                <nz-descriptions-item *ngIf="user.history as history" nzTitle="IP" [nzSpan]="2">
+                  <b>[ {{ history.client_ip }} ]</b>
                 </nz-descriptions-item>
                 <nz-descriptions-item nzTitle="地区ISP" i18n-nzTitle [nzSpan]="2">
-                  <nz-space *ngIf="user.last as l" [nzSplit]="spaceSplit">
+                  <nz-space *ngIf="user.history as history" [nzSplit]="spaceSplit">
                     <ng-template #spaceSplit>
                       <nz-divider nzType="vertical"></nz-divider>
                     </ng-template>
-                    <span *nzSpaceItem>{{ !l.country ? '未知' : l.country }}</span>
-                    <span *nzSpaceItem>{{ !l.province ? '未知' : l.province }}</span>
-                    <span *nzSpaceItem>{{ !l.city ? '未知' : l.city }}</span>
-                    <span *nzSpaceItem>{{ !l.isp ? '未知' : l.isp }}</span>
+                    <span *nzSpaceItem>{{ !history.country ? '未知' : history.country }}</span>
+                    <span *nzSpaceItem>{{ !history.province ? '未知' : history.province }}</span>
+                    <span *nzSpaceItem>{{ !history.city ? '未知' : history.city }}</span>
+                    <span *nzSpaceItem>{{ !history.isp ? '未知' : history.isp }}</span>
                   </nz-space>
                 </nz-descriptions-item>
               </nz-descriptions>
@@ -198,7 +198,7 @@
           <nz-descriptions *ngIf="user.feishu as feishu" nzSize="small" nzBordered [nzColumn]="2">
             <nz-descriptions-item nzTitle="用户姓名" i18n-nzTitle>{{ feishu.name }}</nz-descriptions-item>
             <nz-descriptions-item nzTitle="用户英文名称" i18n-nzTitle>
-              {{ feishu.en_name | nzSafeNull: '-' }}
+              {{ feishu.en_name | nzSafeNull : '-' }}
             </nz-descriptions-item>
             <nz-descriptions-item nzTitle="用户应用唯一标识" i18n-nzTitle>{{ feishu.open_id }}</nz-descriptions-item>
           </nz-descriptions>

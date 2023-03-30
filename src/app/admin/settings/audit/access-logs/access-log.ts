@@ -1,20 +1,14 @@
-import { Log } from '@common/types';
+export interface AccessLog {
+  timestamp: Date;
+  metadata: AccessLogMetadata;
+  status: number;
+  user_agent: string;
+}
 
-export type AccessLog = Log<AccessLogMetaData, AccessLogData>;
-
-export interface AccessLogMetaData {
+export interface AccessLogMetadata {
   method: string;
   host: string;
   path: string;
   ip: string;
   user_id: string;
-}
-
-export interface AccessLogData {
-  user_agent: string;
-  header: string;
-  query: string;
-  body: string;
-  cost: number;
-  status: number;
 }

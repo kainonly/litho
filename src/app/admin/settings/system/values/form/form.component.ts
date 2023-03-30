@@ -52,7 +52,7 @@ export class FormComponent implements OnInit {
 
   submit(data: any): void {
     switch (this.key) {
-      case 'dsl':
+      case 'resources':
         data.value = JSON.parse(data.value);
         break;
     }

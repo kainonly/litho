@@ -57,7 +57,7 @@ export interface User {
   /**
    * 最近一次登录
    */
-  last?: UserLast;
+  history?: UserHistory;
   /**
    * 飞书授权
    */
@@ -68,9 +68,9 @@ export interface User {
   status: boolean;
 }
 
-export interface UserLast {
+export interface UserHistory {
   timestamp: Date;
-  ip: string;
+  client_ip: string;
   country: string;
   province: string;
   city: string;
@@ -109,9 +109,3 @@ export interface SetUserDto {
 }
 
 export type UnsetUserDto = 'feishu';
-
-export interface Log<M, T> {
-  metadata: M;
-  data: T;
-  timestamp: Date;
-}

@@ -1,4 +1,4 @@
-import { Component, Type } from '@angular/core';
+import { Component, OnInit, Type } from '@angular/core';
 import { Router } from '@angular/router';
 import { timer } from 'rxjs';
 
@@ -17,7 +17,7 @@ import { PasswordComponent } from './password/password.component';
   selector: 'app-layout-profile',
   templateUrl: './profile.component.html'
 })
-export class ProfileComponent {
+export class ProfileComponent implements OnInit {
   constructor(
     public app: AppService,
     private modal: NzModalService,
@@ -25,6 +25,10 @@ export class ProfileComponent {
     private router: Router,
     private draw: NzDrawerRef
   ) {}
+
+  ngOnInit(): void {
+    console.log(this.app.user);
+  }
 
   private setModal(component: Type<void>, callback?: () => void): void {
     this.modal.create({

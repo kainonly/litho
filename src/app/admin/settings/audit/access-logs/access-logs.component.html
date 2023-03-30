@@ -72,7 +72,7 @@
           >
           </td>
           <td>
-            {{ data['timestamp'] | date: 'yyyy-MM-dd HH:mm:ss' }}
+            {{ data['timestamp'] | date : 'yyyy-MM-dd HH:mm:ss' }}
           </td>
           <td>
             <a *ngIf="userKV[data.metadata.user_id] as user; else isSystem" (click)="openUserDetail(user)">
@@ -87,8 +87,6 @@
           </td>
           <td>
             <a (click)="openResourceDetail(data)">
-              <code>{{ data._id }}</code>
-              <nz-divider nzType="vertical"></nz-divider>
               <code>{{ data.metadata.method }} {{ data.metadata.path }}</code>
             </a>
           </td>
@@ -139,26 +137,28 @@
           已登录 <b> {{ u.sessions }} </b> 次
         </span>
       </nz-descriptions-item>
-      <nz-descriptions-item *ngIf="u.last as l" nzTitle="最近登录时间" i18n-nzTitle [nzSpan]="2">
-        {{ l.timestamp | date: 'yyyy/MM/dd HH:mm:ss' }}
+      <nz-descriptions-item *ngIf="u.history as history" nzTitle="最近登录时间" i18n-nzTitle [nzSpan]="2">
+        {{ history.timestamp | date : 'yyyy/MM/dd HH:mm:ss' }}
       </nz-descriptions-item>
-      <nz-descriptions-item *ngIf="u.last as l" nzTitle="IP" [nzSpan]="2"> {{ l.ip }} </nz-descriptions-item>
+      <nz-descriptions-item *ngIf="u.history as history" nzTitle="IP" [nzSpan]="2">
+        {{ history.client_ip }}
+      </nz-descriptions-item>
       <nz-descriptions-item nzTitle="地区 ISP" i18n-nzTitle [nzSpan]="2">
-        <nz-space *ngIf="u.last as l" [nzSplit]="spaceSplit">
+        <nz-space *ngIf="u.history as history" [nzSplit]="spaceSplit">
           <ng-template #spaceSplit>
             <nz-divider nzType="vertical"></nz-divider>
           </ng-template>
-          <span *nzSpaceItem i18n>{{ !l.country ? '未知' : l.country }}</span>
-          <span *nzSpaceItem i18n>{{ !l.province ? '未知' : l.province }}</span>
-          <span *nzSpaceItem i18n>{{ !l.city ? '未知' : l.city }}</span>
-          <span *nzSpaceItem i18n>{{ !l.isp ? '未知' : l.isp }}</span>
+          <span *nzSpaceItem i18n>{{ !history.country ? '未知' : history.country }}</span>
+          <span *nzSpaceItem i18n>{{ !history.province ? '未知' : history.province }}</span>
+          <span *nzSpaceItem i18n>{{ !history.city ? '未知' : history.city }}</span>
+          <span *nzSpaceItem i18n>{{ !history.isp ? '未知' : history.isp }}</span>
         </nz-space>
       </nz-descriptions-item>
       <nz-descriptions-item nzTitle="创建时间" i18n-nzTitle [nzSpan]="2">
-        {{ u.create_time | date: 'yyyy/MM/dd HH:mm:ss' }}
+        {{ u.create_time | date : 'yyyy/MM/dd HH:mm:ss' }}
       </nz-descriptions-item>
       <nz-descriptions-item nzTitle="更新时间" i18n-nzTitle [nzSpan]="2">
-        {{ u.update_time | date: 'yyyy/MM/dd HH:mm:ss' }}
+        {{ u.update_time | date : 'yyyy/MM/dd HH:mm:ss' }}
       </nz-descriptions-item>
     </nz-descriptions>
   </ng-container>
@@ -181,18 +181,9 @@
       <nz-descriptions-item nzTitle="Url" [nzSpan]="2">
         <code>{{ r.metadata.method }} {{ r.metadata.path }}</code>
       </nz-descriptions-item>
-      <nz-descriptions-item nzTitle="Host">{{ r.metadata.host }}</nz-descriptions-item>
-      <nz-descriptions-item nzTitle="Cost">{{ r.data.cost }}ms</nz-descriptions-item>
-      <nz-descriptions-item nzTitle="IP">{{ r.metadata.ip }}</nz-descriptions-item>
-      <nz-descriptions-item nzTitle="Status">{{ r.data.status }}</nz-descriptions-item>
-      <nz-descriptions-item nzTitle="Query" [nzSpan]="2">
-        <code>{{ r.data.query }}</code>
-      </nz-descriptions-item>
-      <nz-descriptions-item nzTitle="Body" [nzSpan]="2">
-        <code>{{ r.data.body }}</code>
-      </nz-descriptions-item>
+      <nz-descriptions-item nzTitle="Status" [nzSpan]="2">{{ r.status }}</nz-descriptions-item>
       <nz-descriptions-item nzTitle="Agent" [nzSpan]="2">
-        <code>{{ r.data.user_agent }}</code>
+        <code>{{ r.user_agent }}</code>
       </nz-descriptions-item>
     </nz-descriptions>
   </ng-container>
