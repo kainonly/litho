@@ -47,10 +47,10 @@
             <ng-template #tagsRef>
               <ng-container [ngSwitch]="wpxType">
                 <ng-container *ngSwitchCase="'pictures'">
-                  <i nz-icon nzType="setting" nz-tooltip="设置" i18n-nz-tooltip (click)="picture(item)"></i>
+                  <i nz-icon nzType="setting" nz-tooltip="设置" i18n-nz-tooltip (click)="openPicture(item)"></i>
                 </ng-container>
                 <ng-container *ngSwitchCase="'videos'">
-                  <i nz-icon nzType="play-square" nz-tooltip="播放" i18n-nz-tooltip (click)="video(item)"></i>
+                  <i nz-icon nzType="play-square" nz-tooltip="播放" i18n-nz-tooltip (click)="openVideo(item)"></i>
                 </ng-container>
               </ng-container>
             </ng-template>

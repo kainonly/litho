@@ -1,11 +1,40 @@
 <nz-page-header [nzGhost]="false">
   <nz-page-header-title>视频</nz-page-header-title>
   <nz-page-header-tags>
-    <nz-select style="min-width: 180px" nzMode="multiple" nzPlaceHolder="筛选标签" nzAllowClear nzBorderless>
+    <nz-select
+      style="min-width: 180px"
+      nzMode="multiple"
+      nzPlaceHolder="筛选标签"
+      nzAllowClear
+      nzBorderless
+      [(ngModel)]="ref.tagIds"
+      [nzServerSearch]="true"
+      (nzOnSearch)="ref.getTags($event)"
+      (ngModelChange)="ref.getData(true)"
+    >
+      <ng-container *ngFor="let item of ref.tagOptions">
+        <nz-option [nzLabel]="item.name" [nzValue]="item._id"></nz-option>
+      </ng-container>
     </nz-select>
   </nz-page-header-tags>
   <nz-page-header-extra>
-    <ng-container *ngTemplateOutlet="ref.uploadRef"></ng-container>
+    <nz-space>
+      <ng-container *nzSpaceItem>
+        <ng-container *ngTemplateOutlet="ref.uploadRef"></ng-container>
+      </ng-container>
+      <ng-container *nzSpaceItem>
+        <button
+          nz-button
+          nzType="primary"
+          nzShape="circle"
+          nz-tooltip="设置标签"
+          i18n-nz-tooltip
+          (click)="ref.openTags()"
+        >
+          <i nz-icon nzType="tags"></i>
+        </button>
+      </ng-container>
+    </nz-space>
   </nz-page-header-extra>
   <nz-page-header-content>
     <nz-row nzJustify="space-between">

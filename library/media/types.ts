@@ -1,6 +1,10 @@
 export type Media = Picture | Video;
 export type MediaType = 'pictures' | 'videos';
 
+export interface MediaTag {
+  name: string;
+}
+
 export interface Picture {
   name: string;
   url: string;

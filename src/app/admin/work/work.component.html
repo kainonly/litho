@@ -14,19 +14,22 @@
               <div class="user-info">
                 <h2 i18n> {{ user.email | uppercase }} ( {{ !user.name ? '无称呼' : (user.name | uppercase) }} )</h2>
                 <p>
-                  <nz-space *ngIf="user.last as l" [nzSplit]="spaceSplit">
+                  <nz-space *ngIf="user.history as history" [nzSplit]="spaceSplit">
                     <span *nzSpaceItem i18n>
                       已累计登录 <b> {{ user.sessions }} </b> 次
                     </span>
-                    <span *nzSpaceItem i18n> 登录于 {{ l.timestamp | date : 'yyyy-MM-dd HH:mm:ss' }} </span>
+                    <span *nzSpaceItem i18n> 登录于 {{ history.timestamp | date : 'yyyy-MM-dd HH:mm:ss' }} </span>
                   </nz-space>
                 </p>
-                <p *ngIf="user.last as l">
-                  <span i18n>地区 & ISP：</span>
-                  <span> {{ !l.country ? '未知' : l.country }} /</span>
-                  <span> {{ !l.province ? '未知' : l.province }} /</span>
-                  <span> {{ !l.city ? '未知' : l.city }} /</span>
-                  <span> {{ !l.isp ? '未知' : l.isp }}</span>
+                <p>
+                  <nz-space *ngIf="user.history as history" [nzSplit]="spaceSplit">
+                    <span *nzSpaceItem> {{ history.client_ip }} - {{ !history.isp ? '未知' : history.isp }}</span>
+                    <span *nzSpaceItem>
+                      {{ !history.country ? '未知' : history.country }} -
+                      {{ !history.province ? '未知' : history.province }} -
+                      {{ !history.city ? '未知' : history.city }}
+                    </span>
+                  </nz-space>
                 </p>
               </div>
             </div>

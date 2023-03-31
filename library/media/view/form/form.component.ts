@@ -1,34 +1,51 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { AnyDto } from '@weplanx/ng';
-import { Picture, PicturesService, Video, VideosService } from '@weplanx/ng/media';
+import { MediaTag, Picture, PicturesService, Video, VideosService } from '@weplanx/ng/media';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalRef } from 'ng-zorro-antd/modal';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
+
+import { PictureTagsService } from '../../picture-tags.service';
+import { VideoTagsService } from '../../video-tags.service';
 
 @Component({
   selector: 'wpx-media-view-form',
   templateUrl: './form.component.html'
 })
 export class FormComponent implements OnInit {
-  @Input() editable!: AnyDto<Picture | Video>;
+  @Input() doc!: AnyDto<Picture | Video>;
   @Input() media!: PicturesService | VideosService;
+  @Input() tags!: PictureTagsService | VideoTagsService;
 
-  form?: UntypedFormGroup;
+  form!: FormGroup;
+  tagOptions: Array<AnyDto<MediaTag>> = [];
 
   constructor(
     private modalRef: NzModalRef,
     private message: NzMessageService,
     private notification: NzNotificationService,
-    private fb: UntypedFormBuilder
+    private fb: FormBuilder
   ) {}
 
   ngOnInit(): void {
+    this.getTags();
     this.form = this.fb.group({
-      name: [null, [Validators.required]]
+      name: [null, [Validators.required]],
+      tags: [[]]
     });
-    this.form.patchValue(this.editable);
+    this.form.patchValue(this.doc);
+  }
+
+  getTags(name?: string): void {
+    const filter: Record<string, any> = {};
+    if (name) {
+      filter['name'] = { $regex: name };
+    }
+    this.tags.find(filter, { pagesize: 1000 }).subscribe(data => {
+      this.tagOptions = [...data];
+    });
   }
 
   close(): void {
@@ -36,13 +53,22 @@ export class FormComponent implements OnInit {
   }
 
   submit(data: any): void {
-    this.media.updateById(this.editable._id, { $set: data }).subscribe(v => {
-      for (const [k, v] of Object.entries(data)) {
-        // TODO:待检查
-        Reflect.set(this.editable, k, v);
-      }
-      this.message.success('数据更新完成');
-      this.modalRef.triggerOk();
-    });
+    this.media
+      .updateById(
+        this.doc._id,
+        {
+          $set: data
+        },
+        {
+          xdata: { '$set.tags': 'oids' }
+        }
+      )
+      .subscribe(v => {
+        for (const [k, v] of Object.entries(data)) {
+          Reflect.set(this.doc, k, v);
+        }
+        this.message.success('数据更新完成');
+        this.modalRef.triggerOk();
+      });
   }
 }

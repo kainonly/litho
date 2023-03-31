@@ -39,14 +39,6 @@ export class WpxMediaViewDataSource extends WpxData<AnyDto<Media>> implements Da
     this.disconnect$.complete();
   }
 
-  setSearchText(v: string): void {
-    this.filter = { name: { $regex: v } };
-  }
-
-  clearSearchText(): void {
-    this.filter = {};
-  }
-
   fetch(refresh = false): void {
     if (refresh) {
       this.cache = [];

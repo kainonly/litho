@@ -3,16 +3,20 @@ import { AfterViewInit, Component, Input, OnInit, Optional, TemplateRef, ViewChi
 
 import { AnyDto, WpxService } from '@weplanx/ng';
 import { Transport } from '@weplanx/ng/upload';
+import { NzDrawerService } from 'ng-zorro-antd/drawer';
 import { NzImageService } from 'ng-zorro-antd/image';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalRef, NzModalService } from 'ng-zorro-antd/modal';
 
 import { FormComponent } from './form/form.component';
 import { PictureComponent } from './picture/picture.component';
+import { TagsComponent } from './tags/tags.component';
 import { VideoComponent } from './video/video.component';
 import { WpxMediaViewDataSource } from './view.data-source';
+import { PictureTagsService } from '../picture-tags.service';
 import { PicturesService } from '../pictures.service';
-import { Media, MediaType, Picture, Video } from '../types';
+import { Media, MediaTag, MediaType, Picture, Video } from '../types';
+import { VideoTagsService } from '../video-tags.service';
 import { VideosService } from '../videos.service';
 
 @Component({
@@ -25,6 +29,7 @@ export class WpxMediaViewComponent implements OnInit, AfterViewInit {
   @ViewChild(CdkVirtualScrollViewport) viewport!: CdkVirtualScrollViewport;
   private resizeObserver!: ResizeObserver;
   private media!: PicturesService | VideosService;
+  private tags!: PictureTagsService | VideoTagsService;
 
   @Input() wpxType!: MediaType;
   @Input() wpxFallback!: string;
@@ -36,6 +41,8 @@ export class WpxMediaViewComponent implements OnInit, AfterViewInit {
   ext!: string;
   accept!: string[];
   searchText: string = '';
+  tagOptions: Array<AnyDto<MediaTag>> = [];
+  tagIds: string[] = [];
   private maxMessage?: string;
 
   constructor(
@@ -43,24 +50,30 @@ export class WpxMediaViewComponent implements OnInit, AfterViewInit {
     private image: NzImageService,
     private message: NzMessageService,
     private modal: NzModalService,
+    private drawer: NzDrawerService,
     @Optional() public modalRef: NzModalRef,
     @Optional() private pictures: PicturesService,
-    @Optional() private videos: VideosService
+    @Optional() private pictureTags: PictureTagsService,
+    @Optional() private videos: VideosService,
+    @Optional() private videoTags: VideoTagsService
   ) {}
 
   ngOnInit(): void {
     switch (this.wpxType) {
       case 'pictures':
         this.media = this.pictures;
+        this.tags = this.pictureTags;
         this.ext = 'image';
         this.accept = ['image/jpeg', 'image/png', 'image/bmp', 'image/gif', 'image/webp', 'image/avif'];
         break;
       case 'videos':
         this.media = this.videos;
+        this.tags = this.videoTags;
         this.ext = 'video';
         this.accept = ['video/mp4'];
         break;
     }
+    this.getTags();
     this.ds = new WpxMediaViewDataSource(this.media);
     this.resizeObserver = new ResizeObserver(entries => {
       for (const entry of entries) {
@@ -74,13 +87,29 @@ export class WpxMediaViewComponent implements OnInit, AfterViewInit {
   }
 
   getData(refresh = false): void {
-    this.ds.setSearchText(this.searchText);
+    this.ds.filter = {};
+    this.ds.xfilter = { 'tags.$in': 'oids' };
+    if (this.searchText) {
+      this.ds.filter['name'] = { $regex: this.searchText };
+    }
+    if (this.tagIds.length !== 0) {
+      this.ds.filter['tags'] = { $in: this.tagIds };
+    }
     this.ds.fetch(refresh);
+  }
+
+  getTags(name?: string): void {
+    const filter: Record<string, any> = {};
+    if (name) {
+      filter['name'] = { $regex: name };
+    }
+    this.tags.find(filter, { pagesize: 1000 }).subscribe(data => {
+      this.tagOptions = [...data];
+    });
   }
 
   clearSearch(): void {
     this.searchText = '';
-    this.ds.clearSearchText();
     this.getData(true);
   }
 
@@ -146,22 +175,34 @@ export class WpxMediaViewComponent implements OnInit, AfterViewInit {
     );
   }
 
-  form(editable: AnyDto<Media>): void {
+  openTags(): void {
+    this.drawer.create({
+      nzClosable: false,
+      nzWidth: 640,
+      nzContent: TagsComponent,
+      nzContentParams: {
+        tags: this.tags
+      }
+    });
+  }
+
+  form(doc: AnyDto<Media>): void {
     if (!this.wpxForm) {
       this.modal.create({
         nzTitle: $localize`编辑`,
         nzContent: FormComponent,
         nzComponentParams: {
-          editable,
-          media: this.media
+          doc,
+          media: this.media,
+          tags: this.tags
         }
       });
     } else {
-      this.wpxForm(editable);
+      this.wpxForm(doc);
     }
   }
 
-  picture(data: AnyDto<Picture>): void {
+  openPicture(data: AnyDto<Picture>): void {
     this.modal.create({
       nzTitle: $localize`图片设置`,
       nzWidth: 960,
@@ -172,7 +213,7 @@ export class WpxMediaViewComponent implements OnInit, AfterViewInit {
     });
   }
 
-  video(data: AnyDto<Video>): void {
+  openVideo(data: AnyDto<Video>): void {
     this.modal.create({
       nzTitle: data.name,
       nzWidth: 960,
