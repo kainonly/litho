@@ -1,3 +1,10 @@
+import { InjectionToken } from '@angular/core';
+
+import { LoadOption } from '@weplanx/ng';
+
+export const OPTION = new InjectionToken<Option>('media.option');
+export interface Option extends LoadOption {}
+
 export type Media = Picture | Video;
 export type MediaType = 'pictures' | 'videos';
 

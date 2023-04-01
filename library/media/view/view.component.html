@@ -16,8 +16,8 @@
                       wpxRetry
                       nz-image
                       nzDisablePreview
-                      [nzSrc]="[item.url, 'thumbnail'] | wpxAssets : { params: item.params }"
-                      [nzPlaceholder]="[item.url, 'placeholder'] | wpxAssets : { params: item.params }"
+                      [nzSrc]="[item.url, 'thumbnail'] | wpxAssets : item.params"
+                      [nzPlaceholder]="[item.url, 'placeholder'] | wpxAssets : item.params"
                       [nzFallback]="wpxFallback"
                       [alt]="item.name"
                     />

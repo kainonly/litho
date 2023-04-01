@@ -60,7 +60,7 @@
         </td>
         <td>
           <ng-container *ngIf="app.user?.email === data.email">
-            <nz-tag nzColor="success" i18n>self</nz-tag>
+            <nz-tag nzColor="success" i18n>本人</nz-tag>
           </ng-container>
           <span>
             {{ data.email }} <b i18n>[ {{ !data.name ? '无称呼' : data.name }} ]</b>

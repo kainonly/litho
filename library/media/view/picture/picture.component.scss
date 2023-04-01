@@ -1,12 +1,8 @@
 .photo {
+  width: 100%;
   cursor: pointer;
 
-  width: 100%;
-
   img {
-    height: auto;
-    width: auto;
-    max-height: 100%;
     max-width: 100%;
   }
 }

@@ -1,13 +1,14 @@
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { ScrollingModule } from '@angular/cdk/scrolling';
-import { NgModule } from '@angular/core';
+import { Inject, ModuleWithProviders, NgModule } from '@angular/core';
 
-import { WpxModule, WpxShareModule } from '@weplanx/ng';
+import { WpxModule, WpxService, WpxShareModule } from '@weplanx/ng';
 import { WpxUploadModule } from '@weplanx/ng/upload';
 
 import { WpxMediaComponent } from './media.component';
 import { PictureTagsService } from './picture-tags.service';
 import { PicturesService } from './pictures.service';
+import { OPTION, Option } from './types';
 import { VideoTagsService } from './video-tags.service';
 import { VideosService } from './videos.service';
 import { FormComponent } from './view/form/form.component';
@@ -28,7 +29,23 @@ import { WpxMediaViewComponent } from './view/view.component';
     TagsComponent,
     TagFormComponent
   ],
-  exports: [WpxMediaComponent, WpxMediaViewComponent],
-  providers: [PicturesService, PictureTagsService, VideosService, VideoTagsService]
+  exports: [WpxMediaComponent, WpxMediaViewComponent]
 })
-export class WpxMediaModule {}
+export class WpxMediaModule {
+  static forRoot(option: Option): ModuleWithProviders<WpxMediaModule> {
+    return {
+      ngModule: WpxMediaModule,
+      providers: [
+        { provide: OPTION, useValue: option },
+        PicturesService,
+        PictureTagsService,
+        VideosService,
+        VideoTagsService
+      ]
+    };
+  }
+
+  constructor(@Inject(OPTION) option: Option, wpx: WpxService) {
+    wpx.loadScript('media', option.url, option.plugins);
+  }
+}

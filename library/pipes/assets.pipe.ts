@@ -6,29 +6,14 @@ import { WpxService } from '../wpx.service';
 export class WpxAssetsPipe implements PipeTransform {
   constructor(private wpx: WpxService) {}
 
-  /**
-   * @param values
-   * @param option
-   */
-  transform(
-    values: string[],
-    option?: {
-      params?: Record<string, string>;
-      css?: boolean;
-    }
-  ): string {
+  transform(values: string[], query?: string, css?: boolean): string {
     if (values.length === 0) {
       return '';
     }
-    const url = new URL([this.wpx.assets, ...values].join('/'));
-    if (option?.params) {
-      for (const [name, value] of Object.entries(option.params)) {
-        url.searchParams.append(name, value);
-      }
+    let url = [this.wpx.assets, ...values].join('/');
+    if (query) {
+      url = `${url}?${query}`;
     }
-    if (option?.css) {
-      return `url("${url.toString()}")`;
-    }
-    return url.toString();
+    return !css ? url : `url("${url}")`;
   }
 }

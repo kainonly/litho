@@ -5,7 +5,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { Route, RouterModule, Routes } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
 
 import { LayoutComponent } from '@common/components/layout/layout.component';
 import { LayoutModule } from '@common/components/layout/layout.module';
@@ -14,7 +14,7 @@ import { ResultModule } from '@common/components/result/result.module';
 import { UnauthorizeComponent } from '@common/components/result/unauthorize/unauthorize.component';
 import { TranslationModule } from '@common/components/translation/translation.module';
 import { ShareModule } from '@common/share.module';
-import { environment } from '@env';
+import { WpxMediaModule } from '@weplanx/ng/media';
 import { WpxRichtextModule } from '@weplanx/ng/richtext';
 import { WpxStoreModule } from '@weplanx/ng/store';
 import { NZ_CONFIG, NzConfig } from 'ng-zorro-antd/core/config';
@@ -94,9 +94,13 @@ const routes: Routes = [
       ]
     }),
     WpxStoreModule.forRoot({
+      name: 'weplanx',
       url: 'https://cdn.kainonly.com/assets/localforage/localforage.min.js',
-      plugins: [],
-      name: 'weplanx'
+      plugins: []
+    }),
+    WpxMediaModule.forRoot({
+      url: 'https://cdn.kainonly.com/assets/cropperjs/cropper.min.js',
+      plugins: []
     }),
     RouterModule.forRoot(routes, { useHash: true, initialNavigation: 'enabledBlocking' }),
     NzMenuModule,
