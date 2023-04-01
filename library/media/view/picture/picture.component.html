@@ -1,17 +1,17 @@
 <nz-row [nzGutter]="16">
   <nz-col [nzSpan]="15">
     <div class="photo">
-      <img #painting [src]="[data.url] | wpxAssets" [alt]="data.name" />
+      <img #painting [src]="[doc.url] | wpxAssets" [alt]="doc.name" />
     </div>
     <nz-descriptions style="margin-top: 16px" [nzColumn]="2">
-      <nz-descriptions-item nzTitle="名称" [nzSpan]="2">{{ data.name }}</nz-descriptions-item>
+      <nz-descriptions-item nzTitle="名称" [nzSpan]="2">{{ doc.name }}</nz-descriptions-item>
       <nz-descriptions-item nzTitle="原图宽度">{{ original?.width }} PX</nz-descriptions-item>
       <nz-descriptions-item nzTitle="原图高度">{{ original?.height }} PX</nz-descriptions-item>
       <nz-descriptions-item nzTitle="原图类型">{{ original?.format }}</nz-descriptions-item>
       <nz-descriptions-item nzTitle="原图大小">{{ original?.size | nzBytes }}</nz-descriptions-item>
       <nz-descriptions-item nzTitle="加载类型">{{ output?.format }}</nz-descriptions-item>
       <nz-descriptions-item nzTitle="加载大小">{{ output?.size | nzBytes }}</nz-descriptions-item>
-      <nz-descriptions-item nzTitle="路径" [nzSpan]="2">{{ [data.url] | wpxAssets }}</nz-descriptions-item>
+      <nz-descriptions-item nzTitle="路径" [nzSpan]="2">{{ [doc.url] | wpxAssets }}</nz-descriptions-item>
     </nz-descriptions>
   </nz-col>
   <nz-col [nzSpan]="9">
@@ -25,7 +25,7 @@
         </nz-form-label>
         <nz-form-control>
           <div class="photo">
-            <img nz-image [nzSrc]="[data.url] | wpxAssets : query" [alt]="data.name" />
+            <img nz-image [nzSrc]="[doc.url] | wpxAssets : query" [alt]="doc.name" />
           </div>
         </nz-form-control>
       </nz-form-item>
@@ -107,5 +107,5 @@
 
 <div *nzModalFooter>
   <button nz-button type="button" nzType="default" (click)="close()">取消</button>
-  <button nz-button nzType="primary" form="form" [disabled]="true">提交</button>
+  <button nz-button nzType="primary" form="form">提交</button>
 </div>

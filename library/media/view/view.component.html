@@ -12,15 +12,28 @@
               <ng-container [ngSwitch]="wpxType">
                 <ng-container *ngSwitchCase="'pictures'">
                   <div class="photo" (click)="previewPicture(item)">
-                    <img
-                      wpxRetry
-                      nz-image
-                      nzDisablePreview
-                      [nzSrc]="[item.url, 'thumbnail'] | wpxAssets : item.params"
-                      [nzPlaceholder]="[item.url, 'placeholder'] | wpxAssets : item.params"
-                      [nzFallback]="wpxFallback"
-                      [alt]="item.name"
-                    />
+                    <ng-container *ngIf="item.query; else notQueryTpl">
+                      <img
+                        wpxRetry
+                        nz-image
+                        nzDisablePreview
+                        [nzSrc]="[item.url] | wpxAssets : item.query + '/quality/90'"
+                        [nzPlaceholder]="[item.url] | wpxAssets : item.query + '/quality/50/blur/10x1'"
+                        [nzFallback]="wpxFallback"
+                        [alt]="item.name"
+                      />
+                    </ng-container>
+                    <ng-template #notQueryTpl>
+                      <img
+                        wpxRetry
+                        nz-image
+                        nzDisablePreview
+                        [nzSrc]="[item.url] | wpxAssets : 'imageMogr2/thumbnail/400x/quality/90'"
+                        [nzPlaceholder]="[item.url] | wpxAssets : 'imageMogr2/thumbnail/400x/quality/50/blur/10x1'"
+                        [nzFallback]="wpxFallback"
+                        [alt]="item.name"
+                      />
+                    </ng-template>
                   </div>
                 </ng-container>
                 <ng-container *ngSwitchCase="'videos'">

@@ -153,15 +153,13 @@ export class WpxMediaViewComponent implements OnInit, AfterViewInit {
   }
 
   previewPicture(data: AnyDto<Picture>): void {
-    const url = new URL(`${this.wpx.assets}/${data.url}`);
-    if (data.params) {
-      for (const [name, value] of Object.entries(data.params)) {
-        url.searchParams.append(name, value);
-      }
+    let url = `${this.wpx.assets}/${data.url}`;
+    if (data.query) {
+      url += `?${data.query}`;
     }
     this.image.preview([
       {
-        src: url.toString(),
+        src: url,
         alt: data.name
       }
     ]);
@@ -202,24 +200,24 @@ export class WpxMediaViewComponent implements OnInit, AfterViewInit {
     }
   }
 
-  openPicture(data: AnyDto<Picture>): void {
+  openPicture(doc: AnyDto<Picture>): void {
     this.modal.create({
       nzTitle: $localize`图片设置`,
       nzWidth: 960,
       nzContent: PictureComponent,
       nzComponentParams: {
-        data
+        doc
       }
     });
   }
 
-  openVideo(data: AnyDto<Video>): void {
+  openVideo(doc: AnyDto<Video>): void {
     this.modal.create({
-      nzTitle: data.name,
+      nzTitle: doc.name,
       nzWidth: 960,
       nzContent: VideoComponent,
       nzComponentParams: {
-        url: data.url
+        url: doc.url
       },
       nzFooter: null
     });

@@ -15,8 +15,15 @@ export interface MediaTag {
 export interface Picture {
   name: string;
   url: string;
-  params?: Record<string, string>;
+  query?: string;
+  process?: PictureProcess;
   tags?: string[];
+}
+
+export interface PictureProcess {
+  mode: 0 | 1 | 2 | 3;
+  cut: { x: number; y: number; w: number; h: number };
+  zoom: { w: number | null; h: number | null };
 }
 
 export interface Video {

@@ -15,7 +15,7 @@ import { NzNotificationService } from 'ng-zorro-antd/notification';
   styleUrls: ['./picture.component.scss']
 })
 export class PictureComponent implements OnInit, AfterViewInit {
-  @Input() data!: AnyDto<Picture>;
+  @Input() doc!: AnyDto<Picture>;
   @ViewChild('painting') painting!: ElementRef;
   original?: ImageInfoDto;
   output?: ImageInfoDto;
@@ -42,6 +42,7 @@ export class PictureComponent implements OnInit, AfterViewInit {
     });
     this.getOriginalInfo();
     this.getOutputInfo();
+    this.form.patchValue({ process: this.doc.process, query: this.doc.query });
   }
 
   ngAfterViewInit(): void {
@@ -75,13 +76,13 @@ export class PictureComponent implements OnInit, AfterViewInit {
   }
 
   getOriginalInfo(): void {
-    this.pictures.getCosImageInfo(`/${this.data.url}.image`).subscribe(data => {
+    this.pictures.getCosImageInfo(`/${this.doc.url}.image`).subscribe(data => {
       this.original = data;
     });
   }
 
   getOutputInfo(): void {
-    this.pictures.getCosImageInfo(`/${this.data.url}`).subscribe(data => {
+    this.pictures.getCosImageInfo(`/${this.doc.url}`).subscribe(data => {
       this.output = data;
     });
   }
@@ -157,7 +158,18 @@ export class PictureComponent implements OnInit, AfterViewInit {
     this.modalRef.triggerCancel();
   }
 
-  submit(data: any): void {
-    console.log(data);
+  submit(process: any): void {
+    this.updateQuery();
+    this.pictures
+      .updateById(this.doc._id, {
+        $set: {
+          query: this.query,
+          process
+        }
+      })
+      .subscribe(() => {
+        this.message.success($localize`数据更新成功`);
+        this.modalRef.triggerOk();
+      });
   }
 }
