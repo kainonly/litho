@@ -42,7 +42,8 @@ export class PictureComponent implements OnInit, AfterViewInit {
     });
     this.getOriginalInfo();
     this.getOutputInfo();
-    this.form.patchValue({ process: this.doc.process, query: this.doc.query });
+    this.query = this.doc.query;
+    this.form.patchValue({ ...this.doc.process });
   }
 
   ngAfterViewInit(): void {
@@ -52,7 +53,11 @@ export class PictureComponent implements OnInit, AfterViewInit {
         movable: false,
         zoomable: false,
         ready: (_: Cropper.ReadyEvent<HTMLImageElement>) => {
-          this.cropper.disable();
+          if (![1, 3].includes(this.mode.value)) {
+            this.cropper.disable();
+          } else {
+            this.updateCrop();
+          }
         },
         cropend: (_: Cropper.CropEndEvent<HTMLImageElement>) => {
           this.zone.run(() => {
