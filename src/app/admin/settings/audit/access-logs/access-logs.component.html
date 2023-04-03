@@ -41,23 +41,37 @@
   >
     <thead>
       <tr>
-        <th style="padding: 8px 4px" nzLeft nzWidth="240px">
-          <span style="margin: 0 3px" nz-icon nzType="field-time"></span>
-          <b i18n>时间戳</b>
+        <th
+          nzWidth="60px"
+          nzLeft
+          nzAlign="center"
+          [nzChecked]="dataset.checked"
+          [nzIndeterminate]="dataset.indeterminate"
+          (nzCheckedChange)="dataset.setNChecked($event)"
+        >
         </th>
+        <th nzWidth="240px"><b i18n>时间戳</b></th>
         <th><b i18n>操作人</b></th>
         <th><b i18n>资源</b></th>
+        <th nzWidth="60px" nzRight nzAlign="center">
+          <button nz-button nzType="text" nzBlock disabled>
+            <i nz-icon nzType="setting"></i>
+          </button>
+        </th>
       </tr>
     </thead>
     <tbody>
       <ng-container *ngFor="let data of basicTable.data">
         <tr>
           <td
-            style="padding: 8px 4px"
             nzLeft
-            [nzExpand]="expands.has(data._id)"
-            (nzExpandChange)="expandsChange(data._id, $event)"
+            nzAlign="center"
+            [nzDisabled]="data['disabled']"
+            [nzChecked]="dataset.checkedIds.has(data['_id'])"
+            (nzCheckedChange)="dataset.setChecked(data['_id'], $event)"
           >
+          </td>
+          <td [nzExpand]="expands.has(data._id)" (nzExpandChange)="expandsChange(data._id, $event)">
             {{ data['timestamp'] | date : 'yyyy-MM-dd HH:mm:ss' }}
           </td>
           <td>
@@ -72,18 +86,27 @@
             </ng-template>
           </td>
           <td>
-            <nz-space [nzSplit]="spaceSplit">
+            <nz-space>
               <code *nzSpaceItem>{{ data.status }}</code>
               <code *nzSpaceItem>{{ data.metadata.method }}</code>
               <code *nzSpaceItem>{{ data.metadata.path }}</code>
             </nz-space>
           </td>
+          <td nzRight nzAlign="center">
+            <button nz-button nzType="text" nz-dropdown [nzDropdownMenu]="menu">
+              <i nz-icon nzType="ellipsis"></i>
+            </button>
+            <nz-dropdown-menu #menu="nzDropdownMenu">
+              <ul nz-menu>
+                <li nz-menu-item i18n>标记</li>
+              </ul>
+            </nz-dropdown-menu>
+          </td>
         </tr>
         <tr [nzExpand]="expands.has(data._id)">
-          <td style="padding: 8px 4px"> </td>
-          <td colspan="4">
+          <div style="padding: 3.5px 4px">
             <code>{{ data.user_agent }}</code>
-          </td>
+          </div>
         </tr>
       </ng-container>
     </tbody>
