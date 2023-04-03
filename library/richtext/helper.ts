@@ -15,6 +15,16 @@ export function defaultTools(windowAny: any): any {
     checklist: {
       class: windowAny.Checklist,
       inlineToolbar: true
+    },
+    quote: windowAny.Quote,
+    code: windowAny.CodeTool,
+    marker: {
+      class: windowAny.Marker,
+      shortcut: 'CMD+SHIFT+M'
+    },
+    inlineCode: {
+      class: windowAny.InlineCode,
+      shortcut: 'CMD+SHIFT+M'
     }
   };
 }

@@ -15,6 +15,13 @@ const routes: Routes = [
         }
       },
       {
+        path: 'editor',
+        loadChildren: () => import('./editor/editor.module').then(m => m.EditorModule),
+        data: {
+          breadcrumb: '代码编辑器'
+        }
+      },
+      {
         path: 'store',
         loadChildren: () => import('./store/store.module').then(m => m.StoreModule),
         data: {

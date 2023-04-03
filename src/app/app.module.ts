@@ -90,7 +90,11 @@ const routes: Routes = [
         'https://cdn.kainonly.com/npm/@editorjs/underline@1.1.0/dist/bundle.min.js',
         'https://cdn.kainonly.com/npm/@editorjs/nested-list@1.3.0/dist/nested-list.min.js',
         'https://cdn.kainonly.com/npm/@editorjs/checklist@1.4.0/dist/bundle.min.js',
-        'https://cdn.kainonly.com/npm/@editorjs/table@2.2.1/dist/table.min.js'
+        'https://cdn.kainonly.com/npm/@editorjs/table@2.2.1/dist/table.min.js',
+        'https://cdn.kainonly.com/npm/@editorjs/quote@2.5.0/dist/bundle.js',
+        'https://cdn.kainonly.com/npm/@editorjs/code@2.8.0/dist/bundle.js',
+        'https://cdn.kainonly.com/npm/@editorjs/marker@1.3.0/dist/bundle.js',
+        'https://cdn.kainonly.com/npm/@editorjs/inline-code@1.4.0/dist/bundle.js'
       ]
     }),
     WpxStoreModule.forRoot({
@@ -126,7 +130,7 @@ const routes: Routes = [
         notification: { nzPlacement: 'bottomRight' },
         table: { nzSize: 'small' },
         codeEditor: {
-          assetsRoot: `https://cdn.kainonly.com/assets`
+          assetsRoot: `https://cdn.kainonly.com/npm/monaco-editor@0.36.1/min`
         }
       }
     }
