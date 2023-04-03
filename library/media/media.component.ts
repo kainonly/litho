@@ -61,7 +61,7 @@ export class WpxMediaComponent implements ControlValueAccessor {
     this.modalRef = this.modal.create({
       nzTitle: this.wpxSearch,
       nzBodyStyle: { background: '#f0f2f5' },
-      nzWidth: 960,
+      nzWidth: 1280,
       nzContent: WpxMediaViewComponent,
       nzComponentParams: {
         wpxType: this.wpxType,
@@ -75,7 +75,7 @@ export class WpxMediaComponent implements ControlValueAccessor {
           ...instance.ds.getUrls([...instance.ds.checkedIds.values()].splice(0, this.wpxMax))
         ];
         if (this.wpxLimit && this.wpxLimit < this.values.length) {
-          this.message.warning(`最多允许导入${this.wpxLimit}个元素`);
+          this.message.warning($localize`最多允许导入${this.wpxLimit}个元素`);
           this.values = this.values.splice(0, this.wpxLimit);
         }
         this.onChanged(this.values!);
@@ -83,42 +83,24 @@ export class WpxMediaComponent implements ControlValueAccessor {
     });
   }
 
-  /**
-   * 移除媒体
-   * @param i
-   */
   removeValue(i: number): void {
     this.values!.splice(i, 1);
     this.onChanged(this.values!);
   }
 
-  /**
-   * 开启排序
-   */
   openSort(): void {
     this.sortVisible = true;
   }
 
-  /**
-   * 关闭排序
-   */
   closeSort(): void {
     this.sortVisible = false;
   }
 
-  /**
-   * 排序
-   * @param event
-   */
   sort(event: CdkDragDrop<string[]>): void {
     moveItemInArray(this.values!, event.previousIndex, event.currentIndex);
     this.onChanged(this.values!);
   }
 
-  /**
-   * 预览图片
-   * @param url
-   */
   preview(url: string): void {
     this.image.preview([
       {
@@ -127,10 +109,6 @@ export class WpxMediaComponent implements ControlValueAccessor {
     ]);
   }
 
-  /**
-   * 查看视频
-   * @param url
-   */
   video(url: string): void {
     this.modal.create({
       nzWidth: 960,

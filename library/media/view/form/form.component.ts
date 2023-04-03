@@ -20,6 +20,13 @@ export class FormComponent implements OnInit {
   @Input() tags!: PictureTagsService | VideoTagsService;
 
   form!: FormGroup;
+  readonly tips: any = {
+    name: {
+      default: {
+        required: $localize`名称不能为空`
+      }
+    }
+  };
   tagOptions: Array<AnyDto<MediaTag>> = [];
 
   constructor(
@@ -63,11 +70,10 @@ export class FormComponent implements OnInit {
           xdata: { '$set.tags': 'oids' }
         }
       )
-      .subscribe(v => {
-        for (const [k, v] of Object.entries(data)) {
-          Reflect.set(this.doc, k, v);
-        }
-        this.message.success('数据更新完成');
+      .subscribe(_ => {
+        this.doc.name = data.name;
+        this.doc.tags = data.tags;
+        this.message.success($localize`数据更新完成`);
         this.modalRef.triggerOk();
       });
   }

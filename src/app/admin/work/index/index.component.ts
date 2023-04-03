@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
+import { Project } from '@common/interfaces/project';
 import { ProjectsService } from '@common/services/projects.service';
-import { Project } from '@common/types';
 import { AnyDto, WpxData } from '@weplanx/ng';
 
 @Component({

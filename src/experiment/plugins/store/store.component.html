@@ -1,29 +1,31 @@
-<nz-card>
-  <form nz-form nzLayout="vertical">
-    <nz-form-item>
-      <nz-form-control>
-        <nz-space>
-          <button *nzSpaceItem nz-button (click)="set()">设置</button>
-        </nz-space>
-      </nz-form-control>
-    </nz-form-item>
-    <nz-form-item>
-      <nz-form-control>
-        <nz-space>
-          <input *nzSpaceItem nz-input [(ngModel)]="title" [ngModelOptions]="{ standalone: true }" />
-          <button *nzSpaceItem nz-button (click)="update()">更新</button>
-        </nz-space>
-      </nz-form-control>
-    </nz-form-item>
-    <nz-form-item>
-      <nz-form-control>
-        <button nz-button (click)="get()">获取</button>
-      </nz-form-control>
-    </nz-form-item>
-    <nz-form-item>
-      <nz-form-control>
-        <button nz-button (click)="delete()">删除</button>
-      </nz-form-control>
-    </nz-form-item>
-  </form>
-</nz-card>
+<div style="padding: 6px">
+  <nz-card>
+    <form nz-form nzLayout="vertical">
+      <nz-form-item>
+        <nz-form-control>
+          <nz-space>
+            <button *nzSpaceItem nz-button (click)="set()">设置</button>
+          </nz-space>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-control>
+          <nz-space>
+            <input *nzSpaceItem nz-input [(ngModel)]="title" [ngModelOptions]="{ standalone: true }" />
+            <button *nzSpaceItem nz-button (click)="update()">更新</button>
+          </nz-space>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-control>
+          <button nz-button (click)="get()">获取</button>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-control>
+          <button nz-button (click)="delete()">删除</button>
+        </nz-form-control>
+      </nz-form-item>
+    </form>
+  </nz-card>
+</div>

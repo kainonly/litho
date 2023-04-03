@@ -1,30 +1,3 @@
-export interface Project {
-  /**
-   * 项目名称
-   */
-  name: string;
-  /**
-   * 命名空间
-   */
-  namespace: string;
-  /**
-   * 密钥
-   */
-  secret?: string;
-  /**
-   * 白名单
-   */
-  entry: string[];
-  /**
-   * 有效期
-   */
-  expire: number;
-  /**
-   * 状态
-   */
-  status: boolean;
-}
-
 export interface User {
   /**
    * 电子邮件
@@ -61,7 +34,7 @@ export interface User {
   /**
    * 飞书授权
    */
-  feishu?: FeishuUserData;
+  feishu?: UserFeishu;
   /**
    * 状态
    */
@@ -77,7 +50,7 @@ export interface UserHistory {
   isp: string;
 }
 
-export interface FeishuUserData {
+export interface UserFeishu {
   access_token: string;
   token_type: string;
   expires_in: number;

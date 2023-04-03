@@ -173,6 +173,8 @@ export class PictureComponent implements OnInit, AfterViewInit {
         }
       })
       .subscribe(() => {
+        this.doc.query = this.query;
+        this.doc.process = process;
         this.message.success($localize`数据更新成功`);
         this.modalRef.triggerOk();
       });

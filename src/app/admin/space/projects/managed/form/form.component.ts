@@ -2,8 +2,8 @@ import { Component, Input, OnInit } from '@angular/core';
 import { AbstractControl, FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Observable, of } from 'rxjs';
 
+import { Project } from '@common/interfaces/project';
 import { ProjectsService } from '@common/services/projects.service';
-import { Project } from '@common/types';
 import { AnyDto, WpxService } from '@weplanx/ng';
 import { nanoid } from 'nanoid';
 import { NzMessageService } from 'ng-zorro-antd/message';

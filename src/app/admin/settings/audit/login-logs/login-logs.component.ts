@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { switchMap } from 'rxjs';
 
+import { User } from '@common/interfaces/user';
 import { UsersService } from '@common/services/users.service';
-import { User } from '@common/types';
 import { AnyDto, Filter, WpxData } from '@weplanx/ng';
 import { differenceInCalendarDays } from 'date-fns';
 

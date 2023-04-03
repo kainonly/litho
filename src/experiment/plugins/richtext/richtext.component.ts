@@ -8,9 +8,6 @@ import { RichtextData } from '@weplanx/ng/richtext';
   templateUrl: './richtext.component.html'
 })
 export class RichtextComponent implements OnInit {
-  /**
-   * 表单
-   */
   form!: FormGroup;
 
   constructor(private fb: FormBuilder) {}

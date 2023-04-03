@@ -2,9 +2,8 @@ import { Injectable } from '@angular/core';
 import { Observable, timer } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
 
+import { Project } from '@common/interfaces/project';
 import { WpxApi } from '@weplanx/ng';
-
-import { Project } from '../types';
 
 @Injectable({ providedIn: 'root' })
 export class ProjectsService extends WpxApi<Project> {

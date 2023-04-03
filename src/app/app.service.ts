@@ -3,7 +3,8 @@ import { Inject, Injectable, LOCALE_ID } from '@angular/core';
 import { Observable, switchMap } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { Project, SetUserDto, UnsetUserDto, User } from '@common/types';
+import { Project } from '@common/interfaces/project';
+import { SetUserDto, UnsetUserDto, User } from '@common/interfaces/user';
 import { AnyDto, UploadOption, WpxService } from '@weplanx/ng';
 
 @Injectable({ providedIn: 'root' })

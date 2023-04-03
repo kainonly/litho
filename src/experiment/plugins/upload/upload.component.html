@@ -1,45 +1,35 @@
-<nz-card>
-  <form nz-form nzLayout="vertical" id="form" [formGroup]="form" (wpxSubmit)="submit($event)">
-    <nz-form-item>
-      <nz-form-label>头像</nz-form-label>
-      <nz-form-control>
-        <wpx-upload-avatar
-          wpxExt="image"
-          [wpxAccept]="['image/jpeg', 'image/png']"
-          [wpxFallback]="['assets', 'photon.svg'] | wpxAssets"
-          formControlName="avatar"
-        >
-        </wpx-upload-avatar>
-      </nz-form-control>
-    </nz-form-item>
-    <nz-form-item>
-      <nz-form-label>媒体</nz-form-label>
-      <nz-form-control>
-        <ng-template #searchRef>
-          <ng-container *ngIf="media.modalRef?.componentInstance as view">
-            <nz-input-group style="width: 180px" nzSuffixIcon="search">
-              <input
-                (keyup.enter)="view.getData(true)"
-                [(ngModel)]="view.searchText"
-                [ngModelOptions]="{ standalone: true }"
-                type="text"
-                nz-input
-                placeholder="搜索"
-                i18n-placeholder
-              />
-            </nz-input-group>
-          </ng-container>
-        </ng-template>
-        <wpx-media
-          #media
-          [wpxType]="'pictures'"
-          [wpxFallback]="['assets', 'photon.svg'] | wpxAssets"
-          [wpxLimit]="5"
-          [wpxMax]="5"
-          [wpxSearch]="searchRef"
-          formControlName="media"
-        ></wpx-media>
-      </nz-form-control>
-    </nz-form-item>
-  </form>
-</nz-card>
+<div style="padding: 6px">
+  <nz-card>
+    <form nz-form nzLayout="vertical" [formGroup]="form" (wpxSubmit)="submit($event)">
+      <nz-form-item>
+        <nz-form-label>头像</nz-form-label>
+        <nz-form-control>
+          <wpx-upload-avatar
+            wpxExt="image"
+            [wpxAccept]="['image/jpeg', 'image/png']"
+            [wpxFallback]="['assets', 'photon.svg'] | wpxAssets"
+            formControlName="avatar"
+          >
+          </wpx-upload-avatar>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label>图库</nz-form-label>
+        <nz-form-control>
+          <app-pictures formControlName="pictures"></app-pictures>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label>视频库</nz-form-label>
+        <nz-form-control>
+          <app-videos formControlName="videos"></app-videos>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-control>
+          <button nz-button nzType="primary" [disabled]="!form.valid">提交</button>
+        </nz-form-control>
+      </nz-form-item>
+    </form>
+  </nz-card>
+</div>

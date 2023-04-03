@@ -3,8 +3,8 @@ import { Subscription, timer } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 
 import { AppService } from '@app';
+import { User } from '@common/interfaces/user';
 import { UsersService } from '@common/services/users.service';
-import { User } from '@common/types';
 import { AnyDto } from '@weplanx/ng';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalService } from 'ng-zorro-antd/modal';
