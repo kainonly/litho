@@ -82,24 +82,24 @@ const routes: Routes = [
     ResultModule,
     NzMessageModule,
     WpxRichtextModule.forRoot({
-      url: 'https://cdn.kainonly.com/assets/editorjs/editorjs.js',
+      url: 'https://cdn.kainonly.com/npm/@editorjs/editorjs@2.26.5/dist/editor.min.js',
       plugins: [
-        'https://cdn.kainonly.com/assets/editorjs/paragraph.js',
-        'https://cdn.kainonly.com/assets/editorjs/header.js',
-        'https://cdn.kainonly.com/assets/editorjs/delimiter.js',
-        'https://cdn.kainonly.com/assets/editorjs/underline.js',
-        'https://cdn.kainonly.com/assets/editorjs/nested-list.js',
-        'https://cdn.kainonly.com/assets/editorjs/checklist.js',
-        'https://cdn.kainonly.com/assets/editorjs/table.js'
+        'https://cdn.kainonly.com/npm/@editorjs/paragraph@2.9.0/dist/bundle.min.js',
+        'https://cdn.kainonly.com/npm/@editorjs/header@2.7.0/dist/bundle.min.js',
+        'https://cdn.kainonly.com/npm/@editorjs/delimiter@1.3.0/dist/bundle.min.js',
+        'https://cdn.kainonly.com/npm/@editorjs/underline@1.1.0/dist/bundle.min.js',
+        'https://cdn.kainonly.com/npm/@editorjs/nested-list@1.3.0/dist/nested-list.min.js',
+        'https://cdn.kainonly.com/npm/@editorjs/checklist@1.4.0/dist/bundle.min.js',
+        'https://cdn.kainonly.com/npm/@editorjs/table@2.2.1/dist/table.min.js'
       ]
     }),
     WpxStoreModule.forRoot({
       name: 'weplanx',
-      url: 'https://cdn.kainonly.com/assets/localforage/localforage.min.js',
+      url: 'https://cdn.kainonly.com/npm/localforage@1.10.0/dist/localforage.min.js',
       plugins: []
     }),
     WpxMediaModule.forRoot({
-      url: 'https://cdn.kainonly.com/assets/cropperjs/cropper.min.js',
+      url: 'https://cdn.kainonly.com/npm/cropperjs@1.5.13/dist/cropper.min.js',
       plugins: [],
       style: {
         default: {

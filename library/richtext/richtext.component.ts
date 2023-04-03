@@ -28,7 +28,7 @@ declare const EditorJS: any;
 @Component({
   selector: 'wpx-richtext',
   exportAs: 'wpxRichtext',
-  template: ` <div class="wpx-richtext" #richtext></div> `,
+  template: `<div class="wpx-richtext" #richtext> </div>`,
   styleUrls: ['./richtext.component.scss'],
   providers: [
     {
@@ -44,8 +44,10 @@ export class WpxRichtextComponent implements ControlValueAccessor, AfterViewInit
   @ViewChild('richtext', { static: true }) ref!: ElementRef;
   @Input() wpxPlaceholder?: string;
   @Input() wpxFallback?: string;
-  $data: BehaviorSubject<RichtextData> = new BehaviorSubject(<RichtextData>null);
+  @Input() wpxPictures?: (done: ResolveDone) => void;
+  @Input() wpxVideos?: (done: ResolveDone) => void;
 
+  $data: BehaviorSubject<RichtextData> = new BehaviorSubject(<RichtextData>null);
   /**
    * EditorJS
    * @private
@@ -97,29 +99,30 @@ export class WpxRichtextComponent implements ControlValueAccessor, AfterViewInit
 
   private initialize(): void {
     this.zone.runOutsideAngular(() => {
+      const tools = { ...defaultTools(window) };
+      if (this.wpxPictures) {
+        tools.image = {
+          class: Image,
+          config: {
+            resolve: (done: ResolveDone) => this.wpxPictures!(done),
+            change: () => this.save()
+          }
+        };
+      }
+      if (this.wpxVideos) {
+        tools.video = {
+          class: Video,
+          config: {
+            resolve: (done: ResolveDone) => this.wpxVideos!(done),
+            change: () => this.save()
+          }
+        };
+      }
       this.instance = new EditorJS({
         holder: this.ref.nativeElement,
         placeholder: this.wpxPlaceholder,
         logLevel: 'ERROR',
-        tools: {
-          ...defaultTools(window),
-          image: {
-            class: Image,
-            config: {
-              resolve: (done: ResolveDone) => this.openMediaView('pictures', done),
-              change: () => this.save()
-            }
-          },
-          video: {
-            class: Video,
-            config: {
-              resolve: (done: ResolveDone) => {
-                this.openMediaView('videos', done);
-              },
-              change: () => this.save()
-            }
-          }
-        },
+        tools,
         i18n: zh_CN,
         onChange: () => this.save()
       });
