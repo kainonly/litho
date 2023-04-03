@@ -28,7 +28,7 @@ declare const EditorJS: any;
 @Component({
   selector: 'wpx-richtext',
   exportAs: 'wpxRichtext',
-  template: ` <div #richtext></div> `,
+  template: ` <div class="wpx-richtext" #richtext></div> `,
   styleUrls: ['./richtext.component.scss'],
   providers: [
     {
@@ -147,9 +147,13 @@ export class WpxRichtextComponent implements ControlValueAccessor, AfterViewInit
       },
       nzOnOk: instance => {
         const data = instance.ds.getValue([...instance.ds.checkedIds.values()][0]);
+        let url = data.url;
+        if (data.query) {
+          url += `?${data.query}`;
+        }
         done({
           assets: this.wpx.assets,
-          url: data.url
+          url
         });
       }
     });

@@ -3,7 +3,11 @@
     <form nz-form nzLayout="vertical" [formGroup]="form" (wpxSubmit)="submit($event)">
       <nz-form-item>
         <nz-form-control>
-          <wpx-richtext formControlName="content" (ngModelChange)="test($event)"></wpx-richtext>
+          <wpx-richtext
+            formControlName="content"
+            (ngModelChange)="test($event)"
+            wpxPlaceholder="直接输入正文"
+          ></wpx-richtext>
         </nz-form-control>
       </nz-form-item>
       <nz-form-item>

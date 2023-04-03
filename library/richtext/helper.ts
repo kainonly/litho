@@ -7,7 +7,7 @@ export function defaultTools(windowAny: any): any {
     header: windowAny.Header,
     table: windowAny.Table,
     delimiter: windowAny.Delimiter,
-    underline: windowAny.Underline,
+    // underline: windowAny.Underline,
     list: {
       class: windowAny.NestedList,
       inlineToolbar: true
