@@ -100,7 +100,17 @@ const routes: Routes = [
     }),
     WpxMediaModule.forRoot({
       url: 'https://cdn.kainonly.com/assets/cropperjs/cropper.min.js',
-      plugins: []
+      plugins: [],
+      style: {
+        default: {
+          thumbnail: 'imageMogr2/thumbnail/400x/quality/90',
+          placeholder: 'imageMogr2/thumbnail/400x/quality/50/blur/10x1'
+        },
+        processed: {
+          thumbnail: '/quality/90',
+          placeholder: '/quality/50/blur/10x1'
+        }
+      }
     }),
     RouterModule.forRoot(routes, { useHash: true, initialNavigation: 'enabledBlocking' }),
     NzMenuModule,

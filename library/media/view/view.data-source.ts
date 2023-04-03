@@ -67,6 +67,13 @@ export class WpxMediaViewDataSource extends WpxData<AnyDto<Media>> implements Da
   }
 
   getUrls(ids: string[]): string[] {
-    return ids.map(v => this.dict.get(v)!.url);
+    return ids.map(v => {
+      const data = this.dict.get(v)!;
+      let url = data.url;
+      if (data.query) {
+        url += `?${data.query}`;
+      }
+      return url;
+    });
   }
 }

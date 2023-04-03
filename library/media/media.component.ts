@@ -1,5 +1,5 @@
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
-import { Component, forwardRef, Input, Optional, TemplateRef } from '@angular/core';
+import { Component, forwardRef, Inject, Input, Optional, TemplateRef } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 import { WpxService } from '@weplanx/ng';
@@ -7,7 +7,7 @@ import { NzImageService } from 'ng-zorro-antd/image';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalRef, NzModalService } from 'ng-zorro-antd/modal';
 
-import { MediaType } from './types';
+import { MediaType, Option, OPTION } from './types';
 import { VideoComponent } from './view/video/video.component';
 import { WpxMediaViewComponent } from './view/view.component';
 
@@ -41,6 +41,7 @@ export class WpxMediaComponent implements ControlValueAccessor {
   constructor(
     private modal: NzModalService,
     private message: NzMessageService,
+    @Inject(OPTION) public option: Option,
     @Optional() private wpx: WpxService,
     @Optional() private image: NzImageService
   ) {}

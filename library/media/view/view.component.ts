@@ -1,5 +1,5 @@
 import { CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
-import { AfterViewInit, Component, Input, OnInit, Optional, TemplateRef, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, Inject, Input, OnInit, Optional, TemplateRef, ViewChild } from '@angular/core';
 
 import { AnyDto, WpxService } from '@weplanx/ng';
 import { Transport } from '@weplanx/ng/upload';
@@ -15,7 +15,7 @@ import { VideoComponent } from './video/video.component';
 import { WpxMediaViewDataSource } from './view.data-source';
 import { PictureTagsService } from '../picture-tags.service';
 import { PicturesService } from '../pictures.service';
-import { Media, MediaTag, MediaType, Picture, Video } from '../types';
+import { Media, MediaTag, MediaType, Option, OPTION, Picture, Video } from '../types';
 import { VideoTagsService } from '../video-tags.service';
 import { VideosService } from '../videos.service';
 
@@ -51,6 +51,7 @@ export class WpxMediaViewComponent implements OnInit, AfterViewInit {
     private message: NzMessageService,
     private modal: NzModalService,
     private drawer: NzDrawerService,
+    @Inject(OPTION) public option: Option,
     @Optional() public modalRef: NzModalRef,
     @Optional() private pictures: PicturesService,
     @Optional() private pictureTags: PictureTagsService,

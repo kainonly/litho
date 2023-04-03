@@ -17,8 +17,8 @@
                         wpxRetry
                         nz-image
                         nzDisablePreview
-                        [nzSrc]="[item.url] | wpxAssets : item.query + '/quality/90'"
-                        [nzPlaceholder]="[item.url] | wpxAssets : item.query + '/quality/50/blur/10x1'"
+                        [nzSrc]="[item.url] | wpxAssets : item.query + option.style.processed.thumbnail"
+                        [nzPlaceholder]="[item.url] | wpxAssets : item.query + option.style.processed.placeholder"
                         [nzFallback]="wpxFallback"
                         [alt]="item.name"
                       />
@@ -28,8 +28,8 @@
                         wpxRetry
                         nz-image
                         nzDisablePreview
-                        [nzSrc]="[item.url] | wpxAssets : 'imageMogr2/thumbnail/400x/quality/90'"
-                        [nzPlaceholder]="[item.url] | wpxAssets : 'imageMogr2/thumbnail/400x/quality/50/blur/10x1'"
+                        [nzSrc]="[item.url] | wpxAssets : option.style.default.thumbnail"
+                        [nzPlaceholder]="[item.url] | wpxAssets : option.style.default.placeholder"
                         [nzFallback]="wpxFallback"
                         [alt]="item.name"
                       />
@@ -42,7 +42,7 @@
                       wpxRetry
                       nz-image
                       nzDisablePreview
-                      [nzSrc]="[item.url + '_chart'] | wpxAssets"
+                      [nzSrc]="[item.url + '_chart'] | wpxAssets : option.style.default.thumbnail"
                       [nzFallback]="wpxFallback"
                       [alt]="item.name"
                     />
