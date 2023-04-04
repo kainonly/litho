@@ -2,12 +2,12 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { AnyDto } from '@weplanx/ng';
-import { MediaTag } from '@weplanx/ng/media';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NZ_MODAL_DATA, NzModalRef } from 'ng-zorro-antd/modal';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 
 import { PictureTagsService } from '../../picture-tags.service';
+import { MediaTag } from '../../types';
 import { VideoTagsService } from '../../video-tags.service';
 
 export interface TagFormData {

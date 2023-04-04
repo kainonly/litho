@@ -1,11 +1,11 @@
 import { Component, Input, OnInit } from '@angular/core';
 
 import { AnyDto, WpxData } from '@weplanx/ng';
-import { MediaTag } from '@weplanx/ng/media';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalService } from 'ng-zorro-antd/modal';
 
 import { PictureTagsService } from '../../picture-tags.service';
+import { MediaTag } from '../../types';
 import { VideoTagsService } from '../../video-tags.service';
 import { TagFormComponent, TagFormData } from '../tag-form/tag-form.component';
 

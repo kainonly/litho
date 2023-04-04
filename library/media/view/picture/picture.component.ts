@@ -4,10 +4,12 @@ import { AfterViewInit, Component, ElementRef, Inject, NgZone, OnInit, ViewChild
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 
 import { AnyDto, ImageInfoDto } from '@weplanx/ng';
-import { Picture, PicturesService } from '@weplanx/ng/media';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NZ_MODAL_DATA, NzModalRef } from 'ng-zorro-antd/modal';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
+
+import { PicturesService } from '../../pictures.service';
+import { Picture } from '../../types';
 
 export interface ViewPictureData {
   doc: AnyDto<Picture>;

@@ -2,13 +2,15 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { AnyDto } from '@weplanx/ng';
-import { MediaTag, Picture, PicturesService, Video, VideosService } from '@weplanx/ng/media';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NZ_MODAL_DATA, NzModalRef } from 'ng-zorro-antd/modal';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 
 import { PictureTagsService } from '../../picture-tags.service';
+import { PicturesService } from '../../pictures.service';
+import { Picture, Video, MediaTag } from '../../types';
 import { VideoTagsService } from '../../video-tags.service';
+import { VideosService } from '../../videos.service';
 
 export interface ViewFormData {
   doc: AnyDto<Picture | Video>;
