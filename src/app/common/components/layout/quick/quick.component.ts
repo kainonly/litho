@@ -10,8 +10,8 @@ import { NzDrawerRef } from 'ng-zorro-antd/drawer';
   templateUrl: './quick.component.html'
 })
 export class QuickComponent implements OnInit {
-  searchText?: string;
   ds: WpxData<AnyDto<Project>> = new WpxData();
+  searchText?: string;
 
   constructor(private projects: ProjectsService, private ref: NzDrawerRef) {}
 

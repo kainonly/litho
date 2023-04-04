@@ -1,4 +1,10 @@
-import { Component, Input } from '@angular/core';
+import { Component, Inject } from '@angular/core';
+
+import { NZ_MODAL_DATA } from 'ng-zorro-antd/modal';
+
+export interface ViewVideoData {
+  url: string;
+}
 
 @Component({
   selector: 'wpx-media-view-video',
@@ -6,5 +12,5 @@ import { Component, Input } from '@angular/core';
   styleUrls: ['./video.component.scss']
 })
 export class VideoComponent {
-  @Input() url!: string;
+  constructor(@Inject(NZ_MODAL_DATA) public data: ViewVideoData) {}
 }

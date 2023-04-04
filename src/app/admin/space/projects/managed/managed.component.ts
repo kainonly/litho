@@ -6,7 +6,7 @@ import { AnyDto, WpxData, WpxService } from '@weplanx/ng';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalService } from 'ng-zorro-antd/modal';
 
-import { FormComponent } from './form/form.component';
+import { FormComponent, ManagedFormData } from './form/form.component';
 
 @Component({
   selector: 'app-admin-space-projects-managed',
@@ -56,10 +56,10 @@ export class ManagedComponent implements OnInit {
   }
 
   form(doc?: AnyDto<Project>): void {
-    this.modal.create({
+    this.modal.create<FormComponent, ManagedFormData>({
       nzTitle: !doc ? $localize`新增` : $localize`编辑`,
       nzContent: FormComponent,
-      nzComponentParams: {
+      nzData: {
         doc
       },
       nzOnOk: () => {

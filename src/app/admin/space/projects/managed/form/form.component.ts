@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { AbstractControl, FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Observable, of } from 'rxjs';
 
@@ -7,14 +7,19 @@ import { ProjectsService } from '@common/services/projects.service';
 import { AnyDto, WpxService } from '@weplanx/ng';
 import { nanoid } from 'nanoid';
 import { NzMessageService } from 'ng-zorro-antd/message';
-import { NzModalRef } from 'ng-zorro-antd/modal';
+import { NZ_MODAL_DATA, NzModalRef } from 'ng-zorro-antd/modal';
+
+export interface ManagedFormData {
+  doc?: AnyDto<Project>;
+}
 
 @Component({
   selector: 'app-admin-space-projects-managed-form',
   templateUrl: './form.component.html'
 })
 export class FormComponent implements OnInit {
-  tips = {
+  form!: FormGroup;
+  tips: any = {
     name: {
       default: {
         required: $localize`项目名称不能为空`,
@@ -28,14 +33,14 @@ export class FormComponent implements OnInit {
       }
     }
   };
-  @Input() doc?: AnyDto<Project>;
-  form!: FormGroup;
 
   expireDisableDate = (current: Date): boolean => {
     return current < new Date();
   };
 
   constructor(
+    @Inject(NZ_MODAL_DATA)
+    private data: ManagedFormData,
     public wpx: WpxService,
     private modalRef: NzModalRef,
     private message: NzMessageService,
@@ -52,8 +57,8 @@ export class FormComponent implements OnInit {
       entry: this.fb.array([]),
       status: [true]
     });
-    if (this.doc) {
-      const value: any = { ...this.doc };
+    if (this.data.doc) {
+      const value: any = { ...this.data.doc };
       if (value.expire !== 0) {
         value.expire = new Date(value.expire * 1000);
       }
@@ -81,14 +86,14 @@ export class FormComponent implements OnInit {
   }
 
   existsName = (control: AbstractControl): Observable<any> => {
-    if (control.value === this.doc?.name) {
+    if (control.value === this.data.doc?.name) {
       return of(null);
     }
     return this.projects.existsName(control.value);
   };
 
   existsNamespace = (control: AbstractControl): Observable<any> => {
-    if (control.value === this.doc?.namespace) {
+    if (control.value === this.data.doc?.namespace) {
       return of(null);
     }
     return this.projects.existsNamespace(control.value);
@@ -112,13 +117,13 @@ export class FormComponent implements OnInit {
     } else {
       value.expire = 0;
     }
-    if (!this.doc) {
+    if (!this.data.doc) {
       this.projects.create(value).subscribe(() => {
         this.message.success($localize`数据更新成功`);
         this.modalRef.triggerOk();
       });
     } else {
-      this.projects.updateById(this.doc._id, { $set: value }).subscribe(() => {
+      this.projects.updateById(this.data.doc._id, { $set: value }).subscribe(() => {
         this.message.success($localize`数据更新成功`);
         this.modalRef.triggerOk();
       });

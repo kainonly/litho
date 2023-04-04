@@ -1,26 +1,27 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { WpxService } from '@weplanx/ng';
 import { NzMessageService } from 'ng-zorro-antd/message';
-import { NzModalRef } from 'ng-zorro-antd/modal';
+import { NZ_MODAL_DATA, NzModalRef } from 'ng-zorro-antd/modal';
 
 @Component({
   selector: 'app-admin-settings-integrated-collaboration-redirect',
   templateUrl: './redirect.component.html'
 })
 export class RedirectComponent implements OnInit {
-  tips = {
+  form!: FormGroup;
+  tips: any = {
     redirect_url: {
       default: {
         required: $localize`跳转地址不能为空`
       }
     }
   };
-  @Input() values!: Record<string, any>;
-  form!: FormGroup;
 
   constructor(
+    @Inject(NZ_MODAL_DATA)
+    public values: Record<string, any>,
     public wpx: WpxService,
     private modalRef: NzModalRef,
     private message: NzMessageService,

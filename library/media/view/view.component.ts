@@ -6,16 +6,16 @@ import { Transport } from '@weplanx/ng/upload';
 import { NzDrawerService } from 'ng-zorro-antd/drawer';
 import { NzImageService } from 'ng-zorro-antd/image';
 import { NzMessageService } from 'ng-zorro-antd/message';
-import { NzModalRef, NzModalService } from 'ng-zorro-antd/modal';
+import { NZ_MODAL_DATA, NzModalRef, NzModalService } from 'ng-zorro-antd/modal';
 
-import { FormComponent } from './form/form.component';
-import { PictureComponent } from './picture/picture.component';
+import { FormComponent, ViewFormData } from './form/form.component';
+import { PictureComponent, ViewPictureData } from './picture/picture.component';
 import { TagsComponent } from './tags/tags.component';
-import { VideoComponent } from './video/video.component';
+import { VideoComponent, ViewVideoData } from './video/video.component';
 import { WpxMediaViewDataSource } from './view.data-source';
 import { PictureTagsService } from '../picture-tags.service';
 import { PicturesService } from '../pictures.service';
-import { Media, MediaTag, MediaType, Option, OPTION, Picture, Video } from '../types';
+import { Media, MediaTag, MediaType, Option, OPTION, Picture, Video, WpxMediaViewData } from '../types';
 import { VideoTagsService } from '../video-tags.service';
 import { VideosService } from '../videos.service';
 
@@ -56,8 +56,17 @@ export class WpxMediaViewComponent implements OnInit, AfterViewInit {
     @Optional() private pictures: PicturesService,
     @Optional() private pictureTags: PictureTagsService,
     @Optional() private videos: VideosService,
-    @Optional() private videoTags: VideoTagsService
-  ) {}
+    @Optional() private videoTags: VideoTagsService,
+    @Optional() @Inject(NZ_MODAL_DATA) data: WpxMediaViewData
+  ) {
+    if (data) {
+      this.wpxType = data.wpxType;
+      this.wpxFallback = data.wpxFallback;
+      this.wpxHeight = data.wpxHeight;
+      this.wpxMax = data.wpxMax;
+      this.wpxForm = data.wpxForm;
+    }
+  }
 
   ngOnInit(): void {
     switch (this.wpxType) {
@@ -187,10 +196,10 @@ export class WpxMediaViewComponent implements OnInit, AfterViewInit {
 
   form(doc: AnyDto<Media>): void {
     if (!this.wpxForm) {
-      this.modal.create({
+      this.modal.create<FormComponent, ViewFormData>({
         nzTitle: $localize`编辑`,
         nzContent: FormComponent,
-        nzComponentParams: {
+        nzData: {
           doc,
           media: this.media,
           tags: this.tags
@@ -202,22 +211,22 @@ export class WpxMediaViewComponent implements OnInit, AfterViewInit {
   }
 
   openPicture(doc: AnyDto<Picture>): void {
-    this.modal.create({
+    this.modal.create<PictureComponent, ViewPictureData>({
       nzTitle: $localize`图片设置`,
       nzWidth: 960,
       nzContent: PictureComponent,
-      nzComponentParams: {
+      nzData: {
         doc
       }
     });
   }
 
   openVideo(doc: AnyDto<Video>): void {
-    this.modal.create({
+    this.modal.create<VideoComponent, ViewVideoData>({
       nzTitle: doc.name,
       nzWidth: 960,
       nzContent: VideoComponent,
-      nzComponentParams: {
+      nzData: {
         url: doc.url
       },
       nzFooter: null

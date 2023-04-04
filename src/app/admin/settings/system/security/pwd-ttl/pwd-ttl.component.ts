@@ -1,27 +1,28 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { WpxService } from '@weplanx/ng';
 import { NzMessageService } from 'ng-zorro-antd/message';
-import { NzModalRef } from 'ng-zorro-antd/modal';
+import { NZ_MODAL_DATA, NzModalRef } from 'ng-zorro-antd/modal';
 
 @Component({
   selector: 'app-admin-settings-system-security-pwd-ttl',
   templateUrl: './pwd-ttl.component.html'
 })
 export class PwdTtlComponent implements OnInit {
-  tips = {
+  form!: FormGroup;
+  tips: any = {
     pwd_ttl: {
       default: {
         required: $localize`密码有效期不能为空`
       }
     }
   };
-  @Input() values!: Record<string, any>;
   formatterTimes = (value: number): string => $localize`${value} 天`;
-  form!: FormGroup;
 
   constructor(
+    @Inject(NZ_MODAL_DATA)
+    public values: Record<string, any>,
     public wpx: WpxService,
     private modalRef: NzModalRef,
     private message: NzMessageService,

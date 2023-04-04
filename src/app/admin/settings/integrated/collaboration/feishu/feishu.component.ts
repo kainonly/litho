@@ -1,16 +1,17 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { WpxService } from '@weplanx/ng';
 import { NzMessageService } from 'ng-zorro-antd/message';
-import { NzModalRef } from 'ng-zorro-antd/modal';
+import { NZ_MODAL_DATA, NzModalRef } from 'ng-zorro-antd/modal';
 
 @Component({
   selector: 'app-admin-settings-integrated-collaboration-feishu',
   templateUrl: './feishu.component.html'
 })
 export class FeishuComponent implements OnInit {
-  tips = {
+  form!: FormGroup;
+  tips: any = {
     feishu_app_id: {
       default: {
         required: $localize`应用 ID 不能为空`
@@ -33,10 +34,9 @@ export class FeishuComponent implements OnInit {
     }
   };
 
-  @Input() values!: Record<string, any>;
-  form!: FormGroup;
-
   constructor(
+    @Inject(NZ_MODAL_DATA)
+    public values: Record<string, any>,
     public wpx: WpxService,
     private modalRef: NzModalRef,
     private message: NzMessageService,

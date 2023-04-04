@@ -1,7 +1,7 @@
 <form nz-form nzLayout="vertical" id="form" [formGroup]="form" (wpxSubmit)="submit($event)">
   <nz-form-item>
     <nz-form-label i18n>IP 地址</nz-form-label>
-    <nz-form-control [formArrayName]="this.key">
+    <nz-form-control [formArrayName]="this.data.type">
       <ng-container *ngFor="let x of list?.controls; index as i; first as isFirst">
         <nz-input-group nzCompact [ngStyle]="{ 'margin-top': isFirst ? null : '-1px' }">
           <input

@@ -11,14 +11,14 @@ import { NzModalRef } from 'ng-zorro-antd/modal';
   templateUrl: './backup-email.component.html'
 })
 export class BackupEmailComponent implements OnInit {
-  tips = {
+  form!: FormGroup;
+  tips: any = {
     email: {
       default: {
         email: $localize`电子邮件格式不规范`
       }
     }
   };
-  form!: FormGroup;
 
   constructor(
     private app: AppService,

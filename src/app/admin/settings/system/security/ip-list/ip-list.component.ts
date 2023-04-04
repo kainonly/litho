@@ -1,20 +1,25 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Inject, Input, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { WpxService } from '@weplanx/ng';
 import { NzMessageService } from 'ng-zorro-antd/message';
-import { NzModalRef } from 'ng-zorro-antd/modal';
+import { NZ_MODAL_DATA, NzModalRef } from 'ng-zorro-antd/modal';
+
+export interface IpListData {
+  type: 'ip_whitelist' | 'ip_blacklist';
+  ip: string[];
+}
 
 @Component({
   selector: 'app-admin-settings-system-security-ip-list',
   templateUrl: './ip-list.component.html'
 })
 export class IpListComponent implements OnInit {
-  @Input() key!: 'ip_whitelist' | 'ip_blacklist';
-  @Input() ip!: string[];
   form!: FormGroup;
 
   constructor(
+    @Inject(NZ_MODAL_DATA)
+    public data: IpListData,
     public wpx: WpxService,
     private modalRef: NzModalRef,
     private message: NzMessageService,
@@ -23,15 +28,15 @@ export class IpListComponent implements OnInit {
 
   ngOnInit(): void {
     this.form = this.fb.group({
-      [this.key]: this.fb.array([])
+      [this.data.type]: this.fb.array([])
     });
-    this.ip.forEach(v => {
+    this.data.ip.forEach(v => {
       this.append(v);
     });
   }
 
   get list(): FormArray {
-    return this.form?.get(this.key) as FormArray;
+    return this.form?.get(this.data.type) as FormArray;
   }
 
   append(value?: string): void {

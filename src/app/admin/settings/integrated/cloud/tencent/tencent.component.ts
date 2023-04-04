@@ -1,16 +1,17 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { WpxService } from '@weplanx/ng';
 import { NzMessageService } from 'ng-zorro-antd/message';
-import { NzModalRef } from 'ng-zorro-antd/modal';
+import { NZ_MODAL_DATA, NzModalRef } from 'ng-zorro-antd/modal';
 
 @Component({
   selector: 'app-admin-settings-integrated-cloud-tencent',
   templateUrl: './tencent.component.html'
 })
 export class TencentComponent implements OnInit {
-  tips = {
+  form!: FormGroup;
+  tips: any = {
     tencent_secret_id: {
       default: {
         required: $localize`SecretId 不能为空`
@@ -23,10 +24,9 @@ export class TencentComponent implements OnInit {
     }
   };
 
-  @Input() values!: Record<string, any>;
-  form!: FormGroup;
-
   constructor(
+    @Inject(NZ_MODAL_DATA)
+    public values: Record<string, any>,
     public wpx: WpxService,
     private modalRef: NzModalRef,
     private message: NzMessageService,
@@ -38,7 +38,6 @@ export class TencentComponent implements OnInit {
       tencent_secret_id: [null, [Validators.required]],
       tencent_secret_key: [null, [Validators.required]]
     });
-
     this.form.patchValue({
       tencent_secret_id: this.values['tencent_secret_id']
     });

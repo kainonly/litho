@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Directive, Input, OnInit, Renderer2 } from '@angular/core';
-import { concatMap, delay, fromEvent, iif, of, retryWhen, switchMapTo, throwError } from 'rxjs';
+import { delay, fromEvent, retry, switchMap } from 'rxjs';
 
 import { NzImageDirective } from 'ng-zorro-antd/image';
 
@@ -14,13 +14,18 @@ export class WpxRetryDirective implements OnInit {
   constructor(private image: NzImageDirective, private http: HttpClient, private renderer: Renderer2) {}
 
   ngOnInit(): void {
-    const retry = retryWhen(errors =>
-      errors.pipe(
-        concatMap((e, i) => iif(() => i > this.wpxRetryCount, throwError(e), of(e).pipe(delay(this.wpxDelay))))
-      )
-    );
     fromEvent(this.image.backLoadImage, 'error')
-      .pipe(delay(this.wpxDelay), switchMapTo(this.http.head(this.image.nzSrc, { observe: 'response' }).pipe(retry)))
+      .pipe(
+        delay(this.wpxDelay),
+        switchMap(() =>
+          this.http.head(this.image.nzSrc, { observe: 'response' }).pipe(
+            retry({
+              delay: this.wpxDelay,
+              count: this.wpxRetryCount
+            })
+          )
+        )
+      )
       .subscribe(() => {
         this.renderer.setAttribute(this.image.backLoadImage, 'src', this.image.nzSrc);
       });

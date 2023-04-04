@@ -7,7 +7,7 @@ import { NzModalService } from 'ng-zorro-antd/modal';
 
 import { PictureTagsService } from '../../picture-tags.service';
 import { VideoTagsService } from '../../video-tags.service';
-import { TagFormComponent } from '../tag-form/tag-form.component';
+import { TagFormComponent, TagFormData } from '../tag-form/tag-form.component';
 
 @Component({
   selector: 'wpx-media-view-tags',
@@ -46,10 +46,10 @@ export class TagsComponent implements OnInit {
   }
 
   form(doc?: AnyDto<MediaTag>): void {
-    this.modal.create({
+    this.modal.create<TagFormComponent, TagFormData>({
       nzTitle: !doc ? $localize`新增` : $localize`编辑`,
       nzContent: TagFormComponent,
-      nzComponentParams: {
+      nzData: {
         doc,
         tags: this.tags
       },

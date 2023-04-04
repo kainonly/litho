@@ -1,26 +1,28 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { AnyDto } from '@weplanx/ng';
 import { MediaTag, Picture, PicturesService, Video, VideosService } from '@weplanx/ng/media';
 import { NzMessageService } from 'ng-zorro-antd/message';
-import { NzModalRef } from 'ng-zorro-antd/modal';
+import { NZ_MODAL_DATA, NzModalRef } from 'ng-zorro-antd/modal';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 
 import { PictureTagsService } from '../../picture-tags.service';
 import { VideoTagsService } from '../../video-tags.service';
+
+export interface ViewFormData {
+  doc: AnyDto<Picture | Video>;
+  media: PicturesService | VideosService;
+  tags: PictureTagsService | VideoTagsService;
+}
 
 @Component({
   selector: 'wpx-media-view-form',
   templateUrl: './form.component.html'
 })
 export class FormComponent implements OnInit {
-  @Input() doc!: AnyDto<Picture | Video>;
-  @Input() media!: PicturesService | VideosService;
-  @Input() tags!: PictureTagsService | VideoTagsService;
-
   form!: FormGroup;
-  readonly tips: any = {
+  tips: any = {
     name: {
       default: {
         required: $localize`名称不能为空`
@@ -30,6 +32,7 @@ export class FormComponent implements OnInit {
   tagOptions: Array<AnyDto<MediaTag>> = [];
 
   constructor(
+    @Inject(NZ_MODAL_DATA) public data: ViewFormData,
     private modalRef: NzModalRef,
     private message: NzMessageService,
     private notification: NzNotificationService,
@@ -42,7 +45,7 @@ export class FormComponent implements OnInit {
       name: [null, [Validators.required]],
       tags: [[]]
     });
-    this.form.patchValue(this.doc);
+    this.form.patchValue(this.data.doc);
   }
 
   getTags(name?: string): void {
@@ -50,7 +53,7 @@ export class FormComponent implements OnInit {
     if (name) {
       filter['name'] = { $regex: name };
     }
-    this.tags.find(filter, { pagesize: 1000 }).subscribe(data => {
+    this.data.tags.find(filter, { pagesize: 1000 }).subscribe(data => {
       this.tagOptions = [...data];
     });
   }
@@ -60,9 +63,9 @@ export class FormComponent implements OnInit {
   }
 
   submit(data: any): void {
-    this.media
+    this.data.media
       .updateById(
-        this.doc._id,
+        this.data.doc._id,
         {
           $set: data
         },
@@ -71,8 +74,8 @@ export class FormComponent implements OnInit {
         }
       )
       .subscribe(_ => {
-        this.doc.name = data.name;
-        this.doc.tags = data.tags;
+        this.data.doc.name = data.name;
+        this.data.doc.tags = data.tags;
         this.message.success($localize`数据更新完成`);
         this.modalRef.triggerOk();
       });

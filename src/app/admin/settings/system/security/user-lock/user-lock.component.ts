@@ -1,16 +1,17 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { WpxService } from '@weplanx/ng';
 import { NzMessageService } from 'ng-zorro-antd/message';
-import { NzModalRef } from 'ng-zorro-antd/modal';
+import { NZ_MODAL_DATA, NzModalRef } from 'ng-zorro-antd/modal';
 
 @Component({
   selector: 'app-admin-settings-system-security-user-lock',
   templateUrl: './user-lock.component.html'
 })
 export class UserLockComponent implements OnInit {
-  tips = {
+  form!: FormGroup;
+  tips: any = {
     login_failures: {
       default: {
         required: $localize`连续登录失败上限不能为空`
@@ -22,12 +23,12 @@ export class UserLockComponent implements OnInit {
       }
     }
   };
-  @Input() values!: Record<string, any>;
   formatterTimes = (value: number): string => $localize`${value} 次`;
   formatterSec = (value: number): string => `${value} s`;
-  form!: FormGroup;
 
   constructor(
+    @Inject(NZ_MODAL_DATA)
+    public values: Record<string, any>,
     public wpx: WpxService,
     private modalRef: NzModalRef,
     private message: NzMessageService,

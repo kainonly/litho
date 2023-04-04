@@ -38,13 +38,11 @@ export class ExtendComponent implements OnInit {
       });
   }
 
-  private setModal(nzTitle: string, component: Type<{ values: Record<string, any> }>): void {
-    this.modal.create({
+  private setModal(nzTitle: string, component: Type<any>): void {
+    this.modal.create<Type<any>, Record<string, any>>({
       nzTitle,
       nzContent: component,
-      nzComponentParams: {
-        values: this.values
-      },
+      nzData: this.values,
       nzOnOk: () => {
         this.getData();
       }

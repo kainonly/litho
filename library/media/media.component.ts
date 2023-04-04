@@ -7,8 +7,8 @@ import { NzImageService } from 'ng-zorro-antd/image';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalRef, NzModalService } from 'ng-zorro-antd/modal';
 
-import { MediaType, Option, OPTION } from './types';
-import { VideoComponent } from './view/video/video.component';
+import { MediaType, Option, OPTION, WpxMediaViewData } from './types';
+import { VideoComponent, ViewVideoData } from './view/video/video.component';
 import { WpxMediaViewComponent } from './view/view.component';
 
 @Component({
@@ -59,12 +59,12 @@ export class WpxMediaComponent implements ControlValueAccessor {
   }
 
   openView(): void {
-    this.modalRef = this.modal.create({
+    this.modalRef = this.modal.create<WpxMediaViewComponent, WpxMediaViewData>({
       nzTitle: this.wpxSearch,
       nzBodyStyle: { background: '#f0f2f5' },
       nzWidth: 1280,
       nzContent: WpxMediaViewComponent,
-      nzComponentParams: {
+      nzData: {
         wpxType: this.wpxType,
         wpxFallback: this.wpxFallback,
         wpxHeight: '600px',
@@ -111,10 +111,10 @@ export class WpxMediaComponent implements ControlValueAccessor {
   }
 
   video(url: string): void {
-    this.modal.create({
+    this.modal.create<VideoComponent, ViewVideoData>({
       nzWidth: 960,
       nzContent: VideoComponent,
-      nzComponentParams: {
+      nzData: {
         url
       },
       nzFooter: null

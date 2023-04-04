@@ -11,7 +11,8 @@ import { NzModalRef } from 'ng-zorro-antd/modal';
   templateUrl: './password.component.html'
 })
 export class PasswordComponent implements OnInit {
-  tips = {
+  form!: FormGroup;
+  tips: any = {
     password: {
       default: {
         required: $localize`新密码不能为空`,
@@ -23,7 +24,6 @@ export class PasswordComponent implements OnInit {
       }
     }
   };
-  form!: FormGroup;
   passwordVisible = false;
 
   constructor(

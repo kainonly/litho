@@ -17,10 +17,10 @@
     <nz-form-label i18n>密钥</nz-form-label>
     <nz-form-control nzHasFeedback>
       <nz-input-group nzSearch [nzAddOnAfter]="suffixIconButton">
-        <input nz-input type="text" formControlName="secret" />
+        <input nz-input type="text" formControlName="secret" placeholder="点击右侧生成密钥" i18n-placeholder />
       </nz-input-group>
       <ng-template #suffixIconButton>
-        <button nz-button type="button" nz-tooltip="生成" (click)="randomSecret()">
+        <button nz-button type="button" nz-tooltip="生成" i18n-nz-tooltip (click)="randomSecret()">
           <span nz-icon nzType="thunderbolt"></span>
         </button>
       </ng-template>

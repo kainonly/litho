@@ -1,16 +1,17 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { WpxService } from '@weplanx/ng';
 import { NzMessageService } from 'ng-zorro-antd/message';
-import { NzModalRef } from 'ng-zorro-antd/modal';
+import { NZ_MODAL_DATA, NzModalRef } from 'ng-zorro-antd/modal';
 
 @Component({
   selector: 'app-admin-settings-integrated-extend-email',
   templateUrl: './email.component.html'
 })
 export class EmailComponent implements OnInit {
-  tips = {
+  form!: FormGroup;
+  tips: any = {
     email_username: {
       default: {
         required: $localize`用户名不能为空`
@@ -22,10 +23,10 @@ export class EmailComponent implements OnInit {
       }
     }
   };
-  @Input() values!: Record<string, any>;
-  form!: FormGroup;
 
   constructor(
+    @Inject(NZ_MODAL_DATA)
+    public values: Record<string, any>,
     public wpx: WpxService,
     private modalRef: NzModalRef,
     private message: NzMessageService,

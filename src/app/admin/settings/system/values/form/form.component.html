@@ -2,7 +2,7 @@
   <nz-form-item>
     <nz-form-label nzRequired i18n>键名</nz-form-label>
     <nz-form-control nzHasFeedback [nzAutoTips]="tips.key">
-      <input nz-input formControlName="key" [readOnly]="data" />
+      <input nz-input formControlName="key" [readOnly]="!!data" />
     </nz-form-control>
   </nz-form-item>
   <nz-form-item>

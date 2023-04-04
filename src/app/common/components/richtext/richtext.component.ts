@@ -9,7 +9,7 @@ import {
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 import { WpxService } from '@weplanx/ng';
-import { MediaType, WpxMediaViewComponent } from '@weplanx/ng/media';
+import { WpxMediaViewComponent, WpxMediaViewData } from '@weplanx/ng/media';
 import { ResolveDone, RichtextData, WpxRichtextComponent } from '@weplanx/ng/richtext';
 import { NzModalRef, NzModalService } from 'ng-zorro-antd/modal';
 
@@ -52,14 +52,14 @@ export class RichtextComponent implements ControlValueAccessor {
   }
 
   openPictures = (done: ResolveDone): void => {
-    this.modalRef = this.modal.create({
+    this.modalRef = this.modal.create<WpxMediaViewComponent, WpxMediaViewData>({
       nzTitle: this.searchRef,
       nzBodyStyle: { background: '#f0f2f5' },
       nzWidth: 1280,
       nzContent: WpxMediaViewComponent,
-      nzComponentParams: {
+      nzData: {
         wpxType: 'pictures',
-        wpxFallback: this.richtext.wpxFallback,
+        wpxFallback: this.richtext.wpxFallback!,
         wpxHeight: '600px',
         wpxMax: 1
       },
@@ -78,14 +78,14 @@ export class RichtextComponent implements ControlValueAccessor {
   };
 
   openVideos = (done: ResolveDone): void => {
-    this.modalRef = this.modal.create({
+    this.modalRef = this.modal.create<WpxMediaViewComponent, WpxMediaViewData>({
       nzTitle: this.searchRef,
       nzBodyStyle: { background: '#f0f2f5' },
       nzWidth: 1280,
       nzContent: WpxMediaViewComponent,
-      nzComponentParams: {
+      nzData: {
         wpxType: 'videos',
-        wpxFallback: this.richtext.wpxFallback,
+        wpxFallback: this.richtext.wpxFallback!,
         wpxHeight: '600px',
         wpxMax: 1
       },

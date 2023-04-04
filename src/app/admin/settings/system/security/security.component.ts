@@ -4,7 +4,7 @@ import { WpxService } from '@weplanx/ng';
 import { WpxStoreService } from '@weplanx/ng/store';
 import { NzModalService } from 'ng-zorro-antd/modal';
 
-import { IpListComponent } from './ip-list/ip-list.component';
+import { IpListComponent, IpListData } from './ip-list/ip-list.component';
 import { IpLockComponent } from './ip-lock/ip-lock.component';
 import { PwdStrategyComponent } from './pwd-strategy/pwd-strategy.component';
 import { PwdTtlComponent } from './pwd-ttl/pwd-ttl.component';
@@ -51,13 +51,11 @@ export class SecurityComponent implements OnInit {
       });
   }
 
-  private setModal(component: Type<{ values: Record<string, any> }>): void {
-    this.modal.create({
+  private setModal(component: Type<any>): void {
+    this.modal.create<Type<any>, Record<string, any>>({
       nzTitle: $localize`设置`,
       nzContent: component,
-      nzComponentParams: {
-        values: this.values
-      },
+      nzData: this.values,
       nzOnOk: () => {
         this.getData();
       }
@@ -84,14 +82,14 @@ export class SecurityComponent implements OnInit {
     this.setModal(PwdTtlComponent);
   }
 
-  setIpList(key: 'ip_whitelist' | 'ip_blacklist'): void {
-    const name = key === 'ip_whitelist' ? $localize`白名单` : $localize`黑名单`;
-    this.modal.create({
+  setIpList(type: 'ip_whitelist' | 'ip_blacklist'): void {
+    const name = type === 'ip_whitelist' ? $localize`白名单` : $localize`黑名单`;
+    this.modal.create<IpListComponent, IpListData>({
       nzTitle: $localize`${name}设置`,
       nzContent: IpListComponent,
-      nzComponentParams: {
-        key,
-        ip: this.values[key]
+      nzData: {
+        type,
+        ip: this.values[type]
       },
       nzOnOk: () => {
         this.getData();

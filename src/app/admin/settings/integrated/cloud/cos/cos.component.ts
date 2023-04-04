@@ -1,16 +1,17 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { WpxService } from '@weplanx/ng';
 import { NzMessageService } from 'ng-zorro-antd/message';
-import { NzModalRef } from 'ng-zorro-antd/modal';
+import { NZ_MODAL_DATA, NzModalRef } from 'ng-zorro-antd/modal';
 
 @Component({
   selector: 'app-admin-settings-integrated-cloud-cos',
   templateUrl: './cos.component.html'
 })
 export class CosComponent implements OnInit {
-  tips = {
+  form!: FormGroup;
+  tips: any = {
     tencent_cos_bucket: {
       default: {
         required: $localize`Bucket 名称不能为空`
@@ -33,10 +34,9 @@ export class CosComponent implements OnInit {
     }
   };
 
-  @Input() values!: Record<string, any>;
-  form!: FormGroup;
-
   constructor(
+    @Inject(NZ_MODAL_DATA)
+    public values: Record<string, any>,
     public wpx: WpxService,
     private modalRef: NzModalRef,
     private message: NzMessageService,

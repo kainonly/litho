@@ -12,7 +12,9 @@ import { NzMessageService } from 'ng-zorro-antd/message';
   styleUrls: ['./forget.component.scss']
 })
 export class ForgetComponent implements OnInit {
-  tips = {
+  verifyForm?: FormGroup;
+  pwdForm?: FormGroup;
+  tips: any = {
     email: {
       default: {
         required: $localize`电子邮件不能为空`,
@@ -37,8 +39,6 @@ export class ForgetComponent implements OnInit {
   };
 
   step = 0;
-  verifyForm?: FormGroup;
-  pwdForm?: FormGroup;
   passwordVisible = false;
   countdown = 0;
 

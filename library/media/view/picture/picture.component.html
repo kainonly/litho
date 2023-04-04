@@ -1,17 +1,19 @@
 <nz-row [nzGutter]="16">
   <nz-col [nzSpan]="15">
     <div class="photo">
-      <img #painting [src]="[doc.url] | wpxAssets" [alt]="doc.name" />
+      <img #painting [src]="[data.doc.url] | wpxAssets" [alt]="data.doc.name" />
     </div>
     <nz-descriptions style="margin-top: 16px" [nzColumn]="2">
-      <nz-descriptions-item nzTitle="名称" i18n-nzTitle [nzSpan]="2">{{ doc.name }}</nz-descriptions-item>
+      <nz-descriptions-item nzTitle="名称" i18n-nzTitle [nzSpan]="2">{{ data.doc.name }}</nz-descriptions-item>
       <nz-descriptions-item nzTitle="原图宽度" i18n-nzTitle>{{ original?.width }} PX</nz-descriptions-item>
       <nz-descriptions-item nzTitle="原图高度" i18n-nzTitle>{{ original?.height }} PX</nz-descriptions-item>
       <nz-descriptions-item nzTitle="原图类型" i18n-nzTitle>{{ original?.format }}</nz-descriptions-item>
       <nz-descriptions-item nzTitle="原图大小" i18n-nzTitle>{{ original?.size | nzBytes }}</nz-descriptions-item>
       <nz-descriptions-item nzTitle="加载类型" i18n-nzTitle>{{ output?.format }}</nz-descriptions-item>
       <nz-descriptions-item nzTitle="加载大小" i18n-nzTitle>{{ output?.size | nzBytes }}</nz-descriptions-item>
-      <nz-descriptions-item nzTitle="路径" i18n-nzTitle [nzSpan]="2">{{ [doc.url] | wpxAssets }}</nz-descriptions-item>
+      <nz-descriptions-item nzTitle="路径" i18n-nzTitle [nzSpan]="2">{{
+        [data.doc.url] | wpxAssets
+      }}</nz-descriptions-item>
     </nz-descriptions>
   </nz-col>
   <nz-col [nzSpan]="9">
@@ -25,7 +27,7 @@
         </nz-form-label>
         <nz-form-control>
           <div class="photo">
-            <img nz-image [nzSrc]="[doc.url] | wpxAssets : query" [alt]="doc.name" />
+            <img nz-image [nzSrc]="[data.doc.url] | wpxAssets : query" [alt]="data.doc.name" />
           </div>
         </nz-form-control>
       </nz-form-item>

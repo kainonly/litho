@@ -5,6 +5,7 @@ import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalService } from 'ng-zorro-antd/modal';
 
 import { FormComponent } from './form/form.component';
+import { KeyValue } from './types';
 
 @Component({
   selector: 'app-admin-settings-system-values',
@@ -12,7 +13,7 @@ import { FormComponent } from './form/form.component';
   styleUrls: ['./values.component.scss']
 })
 export class ValuesComponent implements OnInit {
-  values: any[] = [];
+  values: KeyValue[] = [];
   readonly checkedKeys: Set<string> = new Set<string>();
   checked: boolean = false;
   indeterminate = false;
@@ -38,7 +39,7 @@ export class ValuesComponent implements OnInit {
                 value = JSON.stringify(value);
                 break;
             }
-            return { key, value };
+            return <KeyValue>{ key, value };
           })
           .filter(v => {
             if (!this.searchText) {
@@ -47,7 +48,6 @@ export class ValuesComponent implements OnInit {
             return v.key.match(this.searchText);
           })
       ];
-      console.debug('refresh');
     });
   }
 
@@ -80,14 +80,12 @@ export class ValuesComponent implements OnInit {
     this.checkedNumber = this.checkedKeys.size;
   }
 
-  form(data?: any): void {
-    this.modal.create({
+  form(data?: KeyValue): void {
+    this.modal.create<FormComponent, KeyValue>({
       nzTitle: $localize`动态配置表单`,
       nzWidth: '732px',
       nzContent: FormComponent,
-      nzComponentParams: {
-        data
-      },
+      nzData: data,
       nzOnOk: () => {
         this.getData();
       }
@@ -102,7 +100,7 @@ export class ValuesComponent implements OnInit {
       nzOkDanger: true,
       nzOnOk: () => {
         this.wpx.deleteValue(key).subscribe(() => {
-          this.message.success($localize`Data deleted successfully`);
+          this.message.success($localize`数据删除成功`);
           this.getData();
         });
       },

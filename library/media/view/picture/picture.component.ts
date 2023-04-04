@@ -1,13 +1,17 @@
 /// <reference types="cropperjs" />
 
-import { AfterViewInit, Component, ElementRef, Input, NgZone, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, Inject, NgZone, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 
 import { AnyDto, ImageInfoDto } from '@weplanx/ng';
 import { Picture, PicturesService } from '@weplanx/ng/media';
 import { NzMessageService } from 'ng-zorro-antd/message';
-import { NzModalRef } from 'ng-zorro-antd/modal';
+import { NZ_MODAL_DATA, NzModalRef } from 'ng-zorro-antd/modal';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
+
+export interface ViewPictureData {
+  doc: AnyDto<Picture>;
+}
 
 @Component({
   selector: 'wpx-media-view-picture',
@@ -15,7 +19,6 @@ import { NzNotificationService } from 'ng-zorro-antd/notification';
   styleUrls: ['./picture.component.scss']
 })
 export class PictureComponent implements OnInit, AfterViewInit {
-  @Input() doc!: AnyDto<Picture>;
   @ViewChild('painting') painting!: ElementRef;
   original?: ImageInfoDto;
   output?: ImageInfoDto;
@@ -26,6 +29,7 @@ export class PictureComponent implements OnInit, AfterViewInit {
   private locked = false;
 
   constructor(
+    @Inject(NZ_MODAL_DATA) public data: ViewPictureData,
     private modalRef: NzModalRef,
     private message: NzMessageService,
     private notification: NzNotificationService,
@@ -42,8 +46,8 @@ export class PictureComponent implements OnInit, AfterViewInit {
     });
     this.getOriginalInfo();
     this.getOutputInfo();
-    this.query = this.doc.query;
-    this.form.patchValue({ ...this.doc.process });
+    this.query = this.data.doc.query;
+    this.form.patchValue({ ...this.data.doc.process });
   }
 
   ngAfterViewInit(): void {
@@ -81,13 +85,13 @@ export class PictureComponent implements OnInit, AfterViewInit {
   }
 
   getOriginalInfo(): void {
-    this.pictures.getCosImageInfo(`/${this.doc.url}.image`).subscribe(data => {
+    this.pictures.getCosImageInfo(`/${this.data.doc.url}.image`).subscribe(data => {
       this.original = data;
     });
   }
 
   getOutputInfo(): void {
-    this.pictures.getCosImageInfo(`/${this.doc.url}`).subscribe(data => {
+    this.pictures.getCosImageInfo(`/${this.data.doc.url}`).subscribe(data => {
       this.output = data;
     });
   }
@@ -166,15 +170,15 @@ export class PictureComponent implements OnInit, AfterViewInit {
   submit(process: any): void {
     this.updateQuery();
     this.pictures
-      .updateById(this.doc._id, {
+      .updateById(this.data.doc._id, {
         $set: {
           query: this.query,
           process
         }
       })
       .subscribe(() => {
-        this.doc.query = this.query;
-        this.doc.process = process;
+        this.data.doc.query = this.query;
+        this.data.doc.process = process;
         this.message.success($localize`数据更新成功`);
         this.modalRef.triggerOk();
       });

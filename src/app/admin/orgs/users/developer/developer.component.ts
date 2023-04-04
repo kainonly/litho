@@ -7,7 +7,7 @@ import { TableField, WpxTableComponent } from '@weplanx/ng/table';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalService } from 'ng-zorro-antd/modal';
 
-import { FormComponent } from './form/form.component';
+import { DeveloperFormData, FormComponent } from './form/form.component';
 
 @Component({
   selector: 'app-admin-orgs-users-developer',
@@ -32,11 +32,11 @@ export class DeveloperComponent {
   ) {}
 
   form(doc?: AnyDto<User>): void {
-    this.modal.create({
+    this.modal.create<FormComponent, DeveloperFormData>({
       nzTitle: !doc ? '创建' : `编辑【${doc.email}】`,
       nzWidth: 640,
       nzContent: FormComponent,
-      nzComponentParams: {
+      nzData: {
         doc
       },
       nzOnOk: () => {

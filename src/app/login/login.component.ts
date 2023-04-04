@@ -12,8 +12,8 @@ import { NzNotificationService } from 'ng-zorro-antd/notification';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
-  loading = false;
   form!: FormGroup;
+  loading = false;
 
   constructor(
     public wpx: WpxService,
@@ -38,9 +38,6 @@ export class LoginComponent implements OnInit {
     return this.form.get('password') as FormControl;
   }
 
-  /**
-   * 飞书授权
-   */
   feishuOAuth(): void {
     this.app.oauth().subscribe(v => {
       window.location.href = v;

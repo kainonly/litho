@@ -15,7 +15,6 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { auditTime, BehaviorSubject, delay, from, switchMap } from 'rxjs';
 
 import { WpxService } from '@weplanx/ng';
-import { MediaType, WpxMediaViewComponent } from '@weplanx/ng/media';
 import { NzModalService } from 'ng-zorro-antd/modal';
 
 import { defaultTools, zh_CN } from './helper';
@@ -134,31 +133,6 @@ export class WpxRichtextComponent implements ControlValueAccessor, AfterViewInit
             this.instance!.render(data);
           }
         });
-    });
-  }
-
-  private openMediaView(type: MediaType, done: ResolveDone): void {
-    this.modal.create({
-      nzBodyStyle: { background: '#f0f2f5' },
-      nzWidth: 960,
-      nzContent: WpxMediaViewComponent,
-      nzComponentParams: {
-        wpxType: type,
-        wpxFallback: this.wpxFallback,
-        wpxHeight: '600px',
-        wpxMax: 1
-      },
-      nzOnOk: instance => {
-        const data = instance.ds.getValue([...instance.ds.checkedIds.values()][0]);
-        let url = data.url;
-        if (data.query) {
-          url += `?${data.query}`;
-        }
-        done({
-          assets: this.wpx.assets,
-          url
-        });
-      }
     });
   }
 
