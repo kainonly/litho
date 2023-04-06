@@ -1,10 +1,9 @@
 import { Injectable } from '@angular/core';
 
 import { WpxApi } from '@weplanx/ng';
+import { Tag } from '@weplanx/ng/tags';
 
-import { MediaTag } from './types';
-
-@Injectable()
-export class PictureTagsService extends WpxApi<MediaTag> {
+@Injectable({ providedIn: 'root' })
+export class PictureTagsService extends WpxApi<Tag> {
   protected override collection = 'picture_tags';
 }

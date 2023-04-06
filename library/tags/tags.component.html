@@ -1,0 +1,94 @@
+<ng-template #searchTpl>
+  <nz-row [nzGutter]="6">
+    <nz-col>
+      <nz-input-group style="width: 180px" nzSuffixIcon="search">
+        <input
+          (keyup.enter)="getData()"
+          [(ngModel)]="searchText"
+          type="text"
+          nz-input
+          placeholder="搜索"
+          i18n-placeholder
+        />
+      </nz-input-group>
+    </nz-col>
+    <nz-col>
+      <nz-button-group>
+        <button nz-button nzType="text" nz-tooltip="刷新" i18n-nz-tooltip (click)="getData(true)">
+          <i nz-icon nzType="reload"></i>
+        </button>
+        <button nz-button nzType="text" nz-tooltip="重置" i18n-nz-tooltip (click)="clear()">
+          <i nz-icon nzType="clear"></i>
+        </button>
+      </nz-button-group>
+    </nz-col>
+  </nz-row>
+</ng-template>
+
+<ng-template #extraTpl>
+  <button nz-button nzType="primary" (click)="form()" i18n> 新增 </button>
+</ng-template>
+
+<nz-drawer [nzVisible]="visible" [nzClosable]="false" [nzWidth]="640" (nzOnClose)="close()">
+  <ng-container *nzDrawerContent>
+    <nz-card [nzBordered]="false" [nzTitle]="searchTpl" [nzExtra]="extraTpl">
+      <nz-table
+        #basicTable
+        [nzFrontPagination]="false"
+        [nzShowSizeChanger]="true"
+        [nzHideOnSinglePage]="true"
+        [nzLoading]="dataset.loading"
+        [nzData]="dataset.values"
+        [nzTotal]="dataset.total"
+        [(nzPageSize)]="dataset.pagesize"
+        [(nzPageIndex)]="dataset.page"
+        (nzPageIndexChange)="getData(false)"
+        (nzPageSizeChange)="getData(true)"
+      >
+        <thead>
+          <tr>
+            <th
+              nzWidth="60px"
+              nzLeft
+              nzAlign="center"
+              [nzChecked]="dataset.checked"
+              [nzIndeterminate]="dataset.indeterminate"
+              (nzCheckedChange)="dataset.setNChecked($event)"
+            >
+            </th>
+            <th><b i18n>名称</b></th>
+            <th nzWidth="60px" nzRight nzAlign="center">
+              <button nz-button nzType="text" nzBlock disabled>
+                <i nz-icon nzType="setting"></i>
+              </button>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let data of basicTable.data">
+            <td
+              nzLeft
+              nzAlign="center"
+              [nzDisabled]="data['disabled']"
+              [nzChecked]="dataset.checkedIds.has(data['_id'])"
+              (nzCheckedChange)="dataset.setChecked(data['_id'], $event)"
+            >
+            </td>
+            <td>{{ data.name }}</td>
+            <td nzRight nzAlign="center">
+              <button nz-button nzType="text" nz-dropdown [nzDropdownMenu]="menu">
+                <i nz-icon nzType="ellipsis"></i>
+              </button>
+              <nz-dropdown-menu #menu="nzDropdownMenu">
+                <ul nz-menu>
+                  <li nz-menu-item (click)="form(data)" i18n>编辑</li>
+                  <li nz-menu-item nzDanger (click)="delete(data)" i18n>删除</li>
+                </ul>
+              </nz-dropdown-menu>
+            </td>
+          </tr>
+        </tbody>
+      </nz-table>
+    </nz-card>
+  </ng-container>
+</nz-drawer>

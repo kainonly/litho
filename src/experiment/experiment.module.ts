@@ -25,8 +25,8 @@ const routes: Routes = [
         }
       },
       {
-        path: 'blocks',
-        loadChildren: () => import('./blocks/blocks.module').then(m => m.BlocksModule),
+        path: 'engine',
+        loadChildren: () => import('./engine/engine.module').then(m => m.EngineModule),
         data: {
           breadcrumb: '引擎'
         }

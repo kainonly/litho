@@ -1,12 +1,55 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
-import { WpxService } from '@weplanx/ng';
+import { PictureTagsService } from '@common/services/picture-tags.service';
+import { AnyDto, WpxService } from '@weplanx/ng';
+import { PicturesService, WpxMediaViewComponent, WpxMediaViewDataSource } from '@weplanx/ng/media';
+import { Tag } from '@weplanx/ng/tags';
 
 @Component({
   selector: 'app-resources-pictures',
   templateUrl: './pictures.component.html',
   styleUrls: ['./pictures.component.scss']
 })
-export class PicturesComponent {
-  constructor(public wpx: WpxService) {}
+export class PicturesComponent implements OnInit {
+  @ViewChild('view') view!: WpxMediaViewComponent;
+
+  ds!: WpxMediaViewDataSource;
+  searchText = '';
+  tagItems: Array<AnyDto<Tag>> = [];
+  tagIds: string[] = [];
+
+  constructor(public wpx: WpxService, private pictures: PicturesService, public tags: PictureTagsService) {}
+
+  ngOnInit(): void {
+    this.ds = new WpxMediaViewDataSource(this.pictures);
+    this.ds.xfilter = { 'tags.$in': 'oids' };
+    this.getTags();
+  }
+
+  getData(refresh = false): void {
+    this.ds.filter = {};
+    if (this.searchText) {
+      this.ds.filter['name'] = { $regex: this.searchText };
+    }
+    if (this.tagIds.length !== 0) {
+      this.ds.filter['tags'] = { $in: this.tagIds };
+    }
+    this.ds.fetch(refresh);
+  }
+
+  getTags(name?: string): void {
+    const filter: Record<string, any> = {};
+    if (name) {
+      filter['name'] = { $regex: name };
+    }
+    this.tags.find(filter, { pagesize: 1000 }).subscribe(data => {
+      this.tagItems = [...data];
+    });
+  }
+
+  clear(): void {
+    this.searchText = '';
+    this.getData(true);
+  }
 }

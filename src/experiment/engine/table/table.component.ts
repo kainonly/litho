@@ -9,7 +9,7 @@ import { TableService } from './table.service';
 import { Order } from './types';
 
 @Component({
-  selector: 'exp-table',
+  selector: 'exp-engine-table',
   templateUrl: './table.component.html'
 })
 export class TableComponent {

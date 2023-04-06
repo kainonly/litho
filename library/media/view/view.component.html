@@ -1,12 +1,12 @@
 <ng-template #uploadRef>
-  <wpx-upload-transport [wpxExt]="ext" [wpxAccept]="accept" (wpxChange)="upload($event)"></wpx-upload-transport>
+  <wpx-upload-transport [wpxExt]="ext" [wpxAccept]="accept" (wpxChange)="wpxUpload($event)"></wpx-upload-transport>
 </ng-template>
 
 <cdk-virtual-scroll-viewport class="infinite-container" [style.height]="wpxHeight ?? '100%'" itemSize="226">
   <nz-list nzGrid nzItemLayout="vertical" [nzBordered]="false">
-    <nz-list-item *cdkVirtualFor="let items of ds" style="padding-top: 0">
+    <nz-list-item *cdkVirtualFor="let items of wpxData" style="padding-top: 0">
       <nz-row style="width: 100%" [nzGutter]="8">
-        <div *ngFor="let item of items" nz-col [nzSpan]="24 / ds.n">
+        <div *ngFor="let item of items" nz-col [nzSpan]="24 / wpxData.n">
           <nz-card nzHoverable [nzCover]="coverRef" [nzActions]="[tagsRef, editRef, deleteRef]">
             <ng-template #coverRef>
               <ng-container [ngSwitch]="wpxType">
@@ -52,7 +52,11 @@
             </ng-template>
             <nz-card-meta style="height: 50px" [nzDescription]="descriptionRef">
               <ng-template #descriptionRef>
-                <label nz-checkbox [ngModel]="ds.checkedIds.has(item._id)" (ngModelChange)="checked(item._id, $event)">
+                <label
+                  nz-checkbox
+                  [ngModel]="wpxData.checkedIds.has(item._id)"
+                  (ngModelChange)="checked(item._id, $event)"
+                >
                   <p nz-typography nzEllipsis [nzEllipsisRows]="2" [nzContent]="item.name"></p>
                 </label>
               </ng-template>
@@ -102,8 +106,15 @@
           <button nz-button type="button" nzType="default" (click)="close()" i18n>取消</button>
         </nz-col>
         <nz-col>
-          <nz-badge [nzCount]="wpxMax && ds.checkedNumber >= wpxMax ? wpxMax : ds.checkedNumber">
-            <button nz-button type="button" nzType="primary" [disabled]="!ds.checkedNumber" (click)="submit()" i18n>
+          <nz-badge [nzCount]="wpxMax && wpxData.checkedNumber >= wpxMax ? wpxMax : wpxData.checkedNumber">
+            <button
+              nz-button
+              type="button"
+              nzType="primary"
+              [disabled]="!wpxData.checkedNumber"
+              (click)="submit()"
+              i18n
+            >
               确认
             </button>
           </nz-badge>

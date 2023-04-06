@@ -6,16 +6,13 @@ import { NzMessageService } from 'ng-zorro-antd/message';
 import { NZ_MODAL_DATA, NzModalRef } from 'ng-zorro-antd/modal';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 
-import { PictureTagsService } from '../../picture-tags.service';
 import { PicturesService } from '../../pictures.service';
 import { Picture, Video, MediaTag } from '../../types';
-import { VideoTagsService } from '../../video-tags.service';
 import { VideosService } from '../../videos.service';
 
 export interface ViewFormData {
   doc: AnyDto<Picture | Video>;
   media: PicturesService | VideosService;
-  tags: PictureTagsService | VideoTagsService;
 }
 
 @Component({
@@ -55,9 +52,9 @@ export class FormComponent implements OnInit {
     if (name) {
       filter['name'] = { $regex: name };
     }
-    this.data.tags.find(filter, { pagesize: 1000 }).subscribe(data => {
-      this.tagOptions = [...data];
-    });
+    // this.data.tags.find(filter, { pagesize: 1000 }).subscribe(data => {
+    //   this.tagOptions = [...data];
+    // });
   }
 
   close(): void {

@@ -1,0 +1,26 @@
+<form nz-form nzLayout="vertical" id="form" [formGroup]="form" (wpxSubmit)="submit($event)">
+  <ng-container *ngIf="data.formTemplate; else defaultTemplate">
+    <ng-container *ngTemplateOutlet="data.formTemplate"></ng-container>
+  </ng-container>
+
+  <ng-template #defaultTemplate>
+    <nz-form-item>
+      <nz-form-label nzRequired i18n>名称</nz-form-label>
+      <nz-form-control
+        nzHasFeedback
+        [nzAutoTips]="{
+          default: {
+            required: '标签名称不能为空'
+          }
+        }"
+      >
+        <input nz-input type="text" formControlName="name" placeholder="请填写标签名称" i18n-placeholder />
+      </nz-form-control>
+    </nz-form-item>
+  </ng-template>
+</form>
+
+<div *nzModalFooter>
+  <button nz-button type="button" nzType="default" (click)="close()" i18n>取消</button>
+  <button nz-button nzType="primary" form="form" [disabled]="!form.valid" i18n>提交</button>
+</div>

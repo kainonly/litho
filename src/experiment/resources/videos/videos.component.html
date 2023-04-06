@@ -7,12 +7,12 @@
       nzPlaceHolder="筛选标签"
       nzAllowClear
       nzBorderless
-      [(ngModel)]="ref.tagIds"
+      [(ngModel)]="tagIds"
       [nzServerSearch]="true"
-      (nzOnSearch)="ref.getTags($event)"
-      (ngModelChange)="ref.getData(true)"
+      (nzOnSearch)="getTags($event)"
+      (ngModelChange)="getData(true)"
     >
-      <ng-container *ngFor="let item of ref.tagOptions">
+      <ng-container *ngFor="let item of tagItems">
         <nz-option [nzLabel]="item.name" [nzValue]="item._id"></nz-option>
       </ng-container>
     </nz-select>
@@ -20,7 +20,7 @@
   <nz-page-header-extra>
     <nz-space>
       <ng-container *nzSpaceItem>
-        <ng-container *ngTemplateOutlet="ref.uploadRef"></ng-container>
+        <ng-container *ngTemplateOutlet="view.uploadRef"></ng-container>
       </ng-container>
       <ng-container *nzSpaceItem>
         <button
@@ -29,10 +29,35 @@
           nzShape="circle"
           nz-tooltip="设置标签"
           i18n-nz-tooltip
-          (click)="ref.openTags()"
+          (click)="tagsRef.open()"
         >
           <i nz-icon nzType="tags"></i>
         </button>
+        <wpx-tags #tagsRef [wpxApi]="tags" [wpxForm]="tagform" [wpxFormTemplate]="wpxFormTemplate">
+          <ng-template #wpxFormTemplate>
+            <ng-container [formGroup]="tagform">
+              <nz-form-item>
+                <nz-form-label nzRequired i18n>名称</nz-form-label>
+                <nz-form-control
+                  nzHasFeedback
+                  [nzAutoTips]="{
+                    default: {
+                      required: '标签名称不能为空'
+                    }
+                  }"
+                >
+                  <input nz-input type="text" formControlName="name" placeholder="请填写标签名称" i18n-placeholder />
+                </nz-form-control>
+              </nz-form-item>
+              <nz-form-item>
+                <nz-form-label nzRequired i18n>TID</nz-form-label>
+                <nz-form-control>
+                  <input nz-input type="text" formControlName="tid" readonly />
+                </nz-form-control>
+              </nz-form-item>
+            </ng-container>
+          </ng-template>
+        </wpx-tags>
       </ng-container>
     </nz-space>
   </nz-page-header-extra>
@@ -46,8 +71,8 @@
         <nz-space>
           <nz-input-group *nzSpaceItem style="width: 180px" nzSuffixIcon="search">
             <input
-              (keyup.enter)="ref.getData(true)"
-              [(ngModel)]="ref.searchText"
+              (keyup.enter)="getData(true)"
+              [(ngModel)]="searchText"
               type="text"
               nz-input
               placeholder="搜索"
@@ -55,10 +80,10 @@
             />
           </nz-input-group>
           <nz-button-group *nzSpaceItem>
-            <button nz-button nzType="text" nz-tooltip="刷新" i18n-nz-tooltip (click)="ref.getData(true)">
+            <button nz-button nzType="text" nz-tooltip="刷新" i18n-nz-tooltip (click)="getData(true)">
               <i nz-icon nzType="reload"></i>
             </button>
-            <button nz-button nzType="text" nz-tooltip="重置" i18n-nz-tooltip (click)="ref.clearSearch()">
+            <button nz-button nzType="text" nz-tooltip="重置" i18n-nz-tooltip (click)="clear()">
               <i nz-icon nzType="clear"></i>
             </button>
           </nz-button-group>
@@ -66,25 +91,30 @@
       </nz-col>
       <nz-col></nz-col>
       <nz-col>
-        <nz-statistic *ngIf="ref" [nzValue]="ref.ds.total" [nzTitle]="'元素数量'"></nz-statistic>
+        <nz-statistic *ngIf="view" [nzValue]="ds!.total" [nzTitle]="'元素数量'"></nz-statistic>
       </nz-col>
     </nz-row>
   </nz-page-header-content>
 </nz-page-header>
 
 <div style="padding: 6px; height: calc(100% - 116px)">
-  <wpx-media-view #ref wpxType="videos" [wpxFallback]="['assets', 'photon.svg'] | wpxAssets"></wpx-media-view>
+  <wpx-media-view
+    #view
+    [wpxData]="ds"
+    [wpxType]="'videos'"
+    [wpxFallback]="['assets', 'photon.svg'] | wpxAssets"
+  ></wpx-media-view>
 </div>
 
-<ng-container *ngIf="ref.ds.checkedNumber !== 0">
+<ng-container *ngIf="ds.checkedNumber !== 0">
   <nz-alert class="actions" nzType="info" nzBanner nzMessage="批量" [nzDescription]="description" [nzAction]="bulk">
     <ng-template #description>
-      已选中 <nz-tag>{{ ref.ds.checkedNumber }}</nz-tag> 项
+      已选中 <nz-tag>{{ ds.checkedNumber }}</nz-tag> 项
     </ng-template>
     <ng-template #bulk>
-      <a nz-button nzType="link" nzSize="small" (click)="ref.ds.clearChecked()">取消选择</a>
+      <a nz-button nzType="link" nzSize="small" (click)="ds.clearChecked()">取消选择</a>
       <br />
-      <a style="float: right" nz-button nzType="link" nzSize="small" nzDanger (click)="ref.bulkDelete()">删除</a>
+      <a style="float: right" nz-button nzType="link" nzSize="small" nzDanger (click)="view.bulkDelete()">删除</a>
     </ng-template>
   </nz-alert>
 </ng-container>

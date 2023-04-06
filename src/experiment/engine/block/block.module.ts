@@ -4,17 +4,17 @@ import { RouterModule, Routes } from '@angular/router';
 import { ShareModule } from '@common/share.module';
 import { WpxBlockModule } from '@weplanx/block';
 
-import { GridComponent } from './grid.component';
+import { BlockComponent } from './block.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: GridComponent
+    component: BlockComponent
   }
 ];
 
 @NgModule({
   imports: [ShareModule, WpxBlockModule, RouterModule.forChild(routes)],
-  declarations: [GridComponent]
+  declarations: [BlockComponent]
 })
-export class GridModule {}
+export class BlockModule {}

@@ -29,13 +29,6 @@ const routes: Routes = [
         }
       },
       {
-        path: 'table',
-        loadChildren: () => import('./table/table.module').then(m => m.TableModule),
-        data: {
-          breadcrumb: '动态表格'
-        }
-      },
-      {
         path: 'upload',
         loadChildren: () => import('./upload/upload.module').then(m => m.UploadModule),
         data: {

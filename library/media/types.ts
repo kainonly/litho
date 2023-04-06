@@ -1,6 +1,7 @@
 import { InjectionToken, Input } from '@angular/core';
 
 import { AnyDto, LoadOption } from '@weplanx/ng';
+import { Transport } from '@weplanx/ng/upload';
 
 export const OPTION = new InjectionToken<Option>('media.option');
 export interface Option extends LoadOption {
@@ -22,6 +23,7 @@ export interface WpxMediaViewData {
   wpxHeight?: string;
   wpxMax?: number;
   wpxForm?: (editable: AnyDto<Media>) => void;
+  wpxUpload: (data: Transport[]) => void;
 }
 
 export type Media = Picture | Video;

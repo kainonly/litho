@@ -29,6 +29,7 @@
       "@weplanx/ng/checkbox": ["library/checkbox/public-api.ts"],
       "@weplanx/ng/upload": ["library/upload/public-api.ts"],
       "@weplanx/ng/media": ["library/media/public-api.ts"],
+      "@weplanx/ng/tags": ["library/tags/public-api.ts"],
       "@weplanx/ng/table": ["library/table/public-api.ts"],
       "@weplanx/ng/form": ["library/form/public-api.ts"],
       "@weplanx/ng/richtext": ["library/richtext/public-api.ts"],

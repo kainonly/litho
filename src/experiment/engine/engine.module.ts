@@ -8,20 +8,20 @@ const routes: Routes = [
     path: '',
     children: [
       {
-        path: 'grid',
-        loadChildren: () => import('./grid/grid.module').then(m => m.GridModule),
+        path: 'block',
+        loadChildren: () => import('./block/block.module').then(m => m.BlockModule),
         data: {
-          breadcrumb: '栅格'
+          breadcrumb: '块布局'
         }
       },
       {
-        path: 'card',
-        loadChildren: () => import('./card/card.module').then(m => m.CardModule),
+        path: 'table',
+        loadChildren: () => import('./table/table.module').then(m => m.TableModule),
         data: {
-          breadcrumb: '卡片'
+          breadcrumb: '动态表格'
         }
       },
-      { path: '', redirectTo: 'grid', pathMatch: 'full' }
+      { path: '', redirectTo: 'block', pathMatch: 'full' }
     ]
   }
 ];
@@ -29,4 +29,4 @@ const routes: Routes = [
 @NgModule({
   imports: [ShareModule, RouterModule.forChild(routes)]
 })
-export class BlocksModule {}
+export class EngineModule {}

@@ -10,13 +10,10 @@ import { NZ_MODAL_DATA, NzModalRef, NzModalService } from 'ng-zorro-antd/modal';
 
 import { FormComponent, ViewFormData } from './form/form.component';
 import { PictureComponent, ViewPictureData } from './picture/picture.component';
-import { TagsComponent } from './tags/tags.component';
 import { VideoComponent, ViewVideoData } from './video/video.component';
 import { WpxMediaViewDataSource } from './view.data-source';
-import { PictureTagsService } from '../picture-tags.service';
 import { PicturesService } from '../pictures.service';
-import { Media, MediaTag, MediaType, Option, OPTION, Picture, Video, WpxMediaViewData } from '../types';
-import { VideoTagsService } from '../video-tags.service';
+import { Media, MediaType, Option, OPTION, Picture, Video, WpxMediaViewData } from '../types';
 import { VideosService } from '../videos.service';
 
 @Component({
@@ -29,20 +26,19 @@ export class WpxMediaViewComponent implements OnInit, AfterViewInit {
   @ViewChild(CdkVirtualScrollViewport) viewport!: CdkVirtualScrollViewport;
   private resizeObserver!: ResizeObserver;
   private media!: PicturesService | VideosService;
-  private tags!: PictureTagsService | VideoTagsService;
 
+  @Input() wpxData!: WpxMediaViewDataSource;
   @Input() wpxType!: MediaType;
   @Input() wpxFallback!: string;
   @Input() wpxHeight?: string;
   @Input() wpxMax?: number;
   @Input() wpxForm?: (editable: AnyDto<Media>) => void;
+  @Input() wpxUpload!: (data: Transport[]) => void;
 
-  ds!: WpxMediaViewDataSource;
   ext!: string;
   accept!: string[];
   searchText: string = '';
-  tagOptions: Array<AnyDto<MediaTag>> = [];
-  tagIds: string[] = [];
+
   private maxMessage?: string;
 
   constructor(
@@ -54,9 +50,7 @@ export class WpxMediaViewComponent implements OnInit, AfterViewInit {
     @Inject(OPTION) public option: Option,
     @Optional() public modalRef: NzModalRef,
     @Optional() private pictures: PicturesService,
-    @Optional() private pictureTags: PictureTagsService,
     @Optional() private videos: VideosService,
-    @Optional() private videoTags: VideoTagsService,
     @Optional() @Inject(NZ_MODAL_DATA) data: WpxMediaViewData
   ) {
     if (data) {
@@ -65,6 +59,7 @@ export class WpxMediaViewComponent implements OnInit, AfterViewInit {
       this.wpxHeight = data.wpxHeight;
       this.wpxMax = data.wpxMax;
       this.wpxForm = data.wpxForm;
+      this.wpxUpload = data.wpxUpload;
     }
   }
 
@@ -72,19 +67,15 @@ export class WpxMediaViewComponent implements OnInit, AfterViewInit {
     switch (this.wpxType) {
       case 'pictures':
         this.media = this.pictures;
-        this.tags = this.pictureTags;
         this.ext = 'image';
         this.accept = ['image/jpeg', 'image/png', 'image/bmp', 'image/gif', 'image/webp', 'image/avif'];
         break;
       case 'videos':
         this.media = this.videos;
-        this.tags = this.videoTags;
         this.ext = 'video';
         this.accept = ['video/mp4'];
         break;
     }
-    this.getTags();
-    this.ds = new WpxMediaViewDataSource(this.media);
     this.resizeObserver = new ResizeObserver(entries => {
       for (const entry of entries) {
         this.calculate(entry.contentRect.width);
@@ -96,36 +87,9 @@ export class WpxMediaViewComponent implements OnInit, AfterViewInit {
     this.resizeObserver.observe(this.viewport.elementRef.nativeElement);
   }
 
-  getData(refresh = false): void {
-    this.ds.filter = {};
-    this.ds.xfilter = { 'tags.$in': 'oids' };
-    if (this.searchText) {
-      this.ds.filter['name'] = { $regex: this.searchText };
-    }
-    if (this.tagIds.length !== 0) {
-      this.ds.filter['tags'] = { $in: this.tagIds };
-    }
-    this.ds.fetch(refresh);
-  }
-
-  getTags(name?: string): void {
-    const filter: Record<string, any> = {};
-    if (name) {
-      filter['name'] = { $regex: name };
-    }
-    this.tags.find(filter, { pagesize: 1000 }).subscribe(data => {
-      this.tagOptions = [...data];
-    });
-  }
-
-  clearSearch(): void {
-    this.searchText = '';
-    this.getData(true);
-  }
-
   checked(id: string, checked: boolean): void {
-    this.ds.setChecked(id, checked);
-    if (this.wpxMax && this.ds.checkedNumber > this.wpxMax) {
+    this.wpxData.setChecked(id, checked);
+    if (this.wpxMax && this.wpxData.checkedNumber > this.wpxMax) {
       if (!this.maxMessage) {
         this.maxMessage = this.message.info($localize`超出确认范围，系统将截取前${this.wpxMax}个元素，批量操作请忽略`, {
           nzDuration: 0
@@ -138,10 +102,10 @@ export class WpxMediaViewComponent implements OnInit, AfterViewInit {
 
   private calculate(width: number): void {
     const n = width >= 1600 ? 8 : 6;
-    if (this.ds.n !== n) {
-      this.ds.n = n;
-      this.ds.pagesize = n * 3;
-      this.getData(true);
+    if (this.wpxData.n !== n) {
+      this.wpxData.n = n;
+      this.wpxData.pagesize = n * 3;
+      this.wpxData.fetch(true);
     }
   }
 
@@ -183,17 +147,6 @@ export class WpxMediaViewComponent implements OnInit, AfterViewInit {
     );
   }
 
-  openTags(): void {
-    this.drawer.create({
-      nzClosable: false,
-      nzWidth: 640,
-      nzContent: TagsComponent,
-      nzContentParams: {
-        tags: this.tags
-      }
-    });
-  }
-
   form(doc: AnyDto<Media>): void {
     if (!this.wpxForm) {
       this.modal.create<FormComponent, ViewFormData>({
@@ -201,8 +154,7 @@ export class WpxMediaViewComponent implements OnInit, AfterViewInit {
         nzContent: FormComponent,
         nzData: {
           doc,
-          media: this.media,
-          tags: this.tags
+          media: this.media
         }
       });
     } else {
@@ -233,25 +185,29 @@ export class WpxMediaViewComponent implements OnInit, AfterViewInit {
     });
   }
 
-  upload(data: Transport[]): void {
-    const docs: Media[] = data.map(v => ({
-      name: v.name,
-      url: Reflect.get(v.file.originFileObj!, 'key')
-    }));
-    this.media.bulkCreate(docs).subscribe(v => {
-      this.getData(true);
-    });
-  }
+  // upload(data: Transport[]): void {
+  //   if (!this.wpxUpload) {
+  //     const docs: Media[] = data.map(v => ({
+  //       name: v.name,
+  //       url: Reflect.get(v.file.originFileObj!, 'key')
+  //     }));
+  //     this.media.bulkCreate(docs).subscribe(v => {
+  //       // this.getData(true);
+  //     });
+  //   } else {
+  //     this.wpxUpload(data);
+  //   }
+  // }
 
   bulkUnchecked(): void {
-    this.ds.checkedIds.clear();
-    this.ds.updateCheckedStatus();
+    this.wpxData.checkedIds.clear();
+    this.wpxData.updateCheckedStatus();
   }
 
   delete(data: AnyDto<Media>): void {
     this.media.delete(data._id).subscribe(() => {
       this.message.success($localize`数据删除完成`);
-      this.ds.fetch(true);
+      this.wpxData.fetch(true);
     });
   }
 
@@ -265,7 +221,7 @@ export class WpxMediaViewComponent implements OnInit, AfterViewInit {
         this.media
           .bulkDelete(
             {
-              _id: { $in: [...this.ds.checkedIds.values()] }
+              _id: { $in: [...this.wpxData.checkedIds.values()] }
             },
             {
               xfilter: {
@@ -274,9 +230,9 @@ export class WpxMediaViewComponent implements OnInit, AfterViewInit {
             }
           )
           .subscribe(() => {
-            this.ds.checkedIds.clear();
-            this.ds.updateCheckedStatus();
-            this.ds.fetch(true);
+            this.wpxData.checkedIds.clear();
+            this.wpxData.updateCheckedStatus();
+            this.wpxData.fetch(true);
             this.message.success($localize`数据删除完成`);
           });
       },

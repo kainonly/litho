@@ -6,34 +6,22 @@
           <li nz-menu-item nzMatchRouter [routerLink]="['/experiment', 'plugins', 'richtext']">块编辑器</li>
           <li nz-menu-item nzMatchRouter [routerLink]="['/experiment', 'plugins', 'editor']">代码编辑器</li>
           <li nz-menu-item nzMatchRouter [routerLink]="['/experiment', 'plugins', 'store']">本地存储</li>
-          <li nz-menu-item nzMatchRouter [routerLink]="['/experiment', 'plugins', 'table']">动态表格</li>
           <li nz-menu-item nzMatchRouter [routerLink]="['/experiment', 'plugins', 'upload']">上传</li>
         </ul>
       </li>
       <li nz-menu-group nzTitle="资源">
         <ul>
-          <li nz-menu-item nzMatchRouter [routerLink]="['/experiment', 'resources', 'pictures']">
-            <span nz-icon nzType="picture"></span>
-            <span>图片</span>
-          </li>
-          <li nz-menu-item nzMatchRouter [routerLink]="['/experiment', 'resources', 'videos']">
-            <span nz-icon nzType="video-camera"></span>
-            <span>视频</span>
-          </li>
-          <li nz-menu-item nzDisabled>
-            <span nz-icon nzType="sound"></span>
-            <span>音频</span>
-          </li>
-          <li nz-menu-item nzDisabled>
-            <span nz-icon nzType="file-word"></span>
-            <span>文档</span>
-          </li>
+          <li nz-menu-item nzMatchRouter [routerLink]="['/experiment', 'resources', 'pictures']"> 图片 & 通用标签 </li>
+          <li nz-menu-item nzMatchRouter [routerLink]="['/experiment', 'resources', 'videos']"> 视频 & 定制标签 </li>
+          <li nz-menu-item nzDisabled> 音频 </li>
+          <li nz-menu-item nzDisabled> 文档 </li>
         </ul>
       </li>
       <li nz-menu-group nzTitle="引擎">
         <ul>
-          <li nz-menu-item nzMatchRouter [routerLink]="['/experiment', 'blocks', 'grid']">栅格</li>
-          <li nz-menu-item nzMatchRouter [routerLink]="['/experiment', 'blocks', 'card']">卡片</li>
+          <li nz-menu-item nzMatchRouter [routerLink]="['/experiment', 'engine', 'block']">块布局</li>
+          <li nz-menu-item nzMatchRouter [routerLink]="['/experiment', 'engine', 'table']">动态表格</li>
+          <li nz-menu-item nzDisabled>动态表单</li>
         </ul>
       </li>
     </ul>

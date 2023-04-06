@@ -68,12 +68,13 @@ export class WpxMediaComponent implements ControlValueAccessor {
         wpxType: this.wpxType,
         wpxFallback: this.wpxFallback,
         wpxHeight: '600px',
-        wpxMax: this.wpxMax
+        wpxMax: this.wpxMax,
+        wpxUpload: data => {}
       },
       nzOnOk: instance => {
         this.values = [
           ...this.values!,
-          ...instance.ds.getUrls([...instance.ds.checkedIds.values()].splice(0, this.wpxMax))
+          ...instance.wpxData.getUrls([...instance.wpxData.checkedIds.values()].splice(0, this.wpxMax))
         ];
         if (this.wpxLimit && this.wpxLimit < this.values.length) {
           this.message.warning($localize`最多允许导入${this.wpxLimit}个元素`);

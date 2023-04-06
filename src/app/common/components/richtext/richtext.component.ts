@@ -13,6 +13,8 @@ import { WpxMediaViewComponent, WpxMediaViewData } from '@weplanx/ng/media';
 import { ResolveDone, RichtextData, WpxRichtextComponent } from '@weplanx/ng/richtext';
 import { NzModalRef, NzModalService } from 'ng-zorro-antd/modal';
 
+import { data } from '../../../../experiment/plugins/editor/data';
+
 @Component({
   selector: 'app-richtext',
   templateUrl: './richtext.component.html',
@@ -61,10 +63,11 @@ export class RichtextComponent implements ControlValueAccessor {
         wpxType: 'pictures',
         wpxFallback: this.richtext.wpxFallback!,
         wpxHeight: '600px',
-        wpxMax: 1
+        wpxMax: 1,
+        wpxUpload: data => {}
       },
       nzOnOk: instance => {
-        const data = instance.ds.getValue([...instance.ds.checkedIds.values()][0]);
+        const data = instance.wpxData.getValue([...instance.wpxData.checkedIds.values()][0]);
         let url = data.url;
         if (data.query) {
           url += `?${data.query}`;
@@ -87,10 +90,11 @@ export class RichtextComponent implements ControlValueAccessor {
         wpxType: 'videos',
         wpxFallback: this.richtext.wpxFallback!,
         wpxHeight: '600px',
-        wpxMax: 1
+        wpxMax: 1,
+        wpxUpload: data => {}
       },
       nzOnOk: instance => {
-        const data = instance.ds.getValue([...instance.ds.checkedIds.values()][0]);
+        const data = instance.wpxData.getValue([...instance.wpxData.checkedIds.values()][0]);
         done({
           assets: this.wpx.assets,
           url: data.url
