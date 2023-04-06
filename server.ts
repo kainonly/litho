@@ -44,7 +44,7 @@ export function app(lang: string): express.Express {
 }
 
 function run(): void {
-  const port = process.env['PORT'] || 4200;
+  const port = process.env['PORT'] || 4201;
   const lang = process.env['LANG'] || 'en-US';
   const appEn = app('en-US');
   const appZh = app('zh-CN');
