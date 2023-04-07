@@ -13,7 +13,7 @@ import { PictureComponent, ViewPictureData } from './picture/picture.component';
 import { VideoComponent, ViewVideoData } from './video/video.component';
 import { WpxMediaViewDataSource } from './view.data-source';
 import { PicturesService } from '../pictures.service';
-import { Media, MediaType, Option, OPTION, Picture, Video, WpxMediaViewData } from '../types';
+import { Media, MediaType, MediaViewData, Option, OPTION, Picture, Video } from '../types';
 import { VideosService } from '../videos.service';
 
 @Component({
@@ -51,19 +51,20 @@ export class WpxMediaViewComponent implements OnInit, AfterViewInit {
     @Optional() public modalRef: NzModalRef,
     @Optional() private pictures: PicturesService,
     @Optional() private videos: VideosService,
-    @Optional() @Inject(NZ_MODAL_DATA) data: WpxMediaViewData
-  ) {
-    if (data) {
-      this.wpxType = data.wpxType;
-      this.wpxFallback = data.wpxFallback;
-      this.wpxHeight = data.wpxHeight;
-      this.wpxMax = data.wpxMax;
-      this.wpxForm = data.wpxForm;
-      this.wpxUpload = data.wpxUpload;
-    }
-  }
+    @Optional()
+    @Inject(NZ_MODAL_DATA)
+    private data: MediaViewData
+  ) {}
 
   ngOnInit(): void {
+    if (this.data) {
+      this.wpxType = this.data.type;
+      this.wpxFallback = this.data.fallback;
+      this.wpxHeight = this.data.height;
+      this.wpxMax = this.data.max;
+      this.wpxForm = this.data.form;
+      this.wpxUpload = this.data.upload;
+    }
     switch (this.wpxType) {
       case 'pictures':
         this.media = this.pictures;
@@ -184,20 +185,6 @@ export class WpxMediaViewComponent implements OnInit, AfterViewInit {
       nzFooter: null
     });
   }
-
-  // upload(data: Transport[]): void {
-  //   if (!this.wpxUpload) {
-  //     const docs: Media[] = data.map(v => ({
-  //       name: v.name,
-  //       url: Reflect.get(v.file.originFileObj!, 'key')
-  //     }));
-  //     this.media.bulkCreate(docs).subscribe(v => {
-  //       // this.getData(true);
-  //     });
-  //   } else {
-  //     this.wpxUpload(data);
-  //   }
-  // }
 
   bulkUnchecked(): void {
     this.wpxData.checkedIds.clear();

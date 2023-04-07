@@ -9,11 +9,9 @@ import {
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 import { WpxService } from '@weplanx/ng';
-import { WpxMediaViewComponent, WpxMediaViewData } from '@weplanx/ng/media';
+import { MediaViewData, WpxMediaViewComponent } from '@weplanx/ng/media';
 import { ResolveDone, RichtextData, WpxRichtextComponent } from '@weplanx/ng/richtext';
 import { NzModalRef, NzModalService } from 'ng-zorro-antd/modal';
-
-import { data } from '../../../../experiment/plugins/editor/data';
 
 @Component({
   selector: 'app-richtext',
@@ -54,17 +52,17 @@ export class RichtextComponent implements ControlValueAccessor {
   }
 
   openPictures = (done: ResolveDone): void => {
-    this.modalRef = this.modal.create<WpxMediaViewComponent, WpxMediaViewData>({
+    this.modalRef = this.modal.create<WpxMediaViewComponent, MediaViewData>({
       nzTitle: this.searchRef,
       nzBodyStyle: { background: '#f0f2f5' },
       nzWidth: 1280,
       nzContent: WpxMediaViewComponent,
       nzData: {
-        wpxType: 'pictures',
-        wpxFallback: this.richtext.wpxFallback!,
-        wpxHeight: '600px',
-        wpxMax: 1,
-        wpxUpload: data => {}
+        type: 'pictures',
+        fallback: this.richtext.wpxFallback!,
+        height: '600px',
+        max: 1,
+        upload: data => {}
       },
       nzOnOk: instance => {
         const data = instance.wpxData.getValue([...instance.wpxData.checkedIds.values()][0]);
@@ -81,17 +79,17 @@ export class RichtextComponent implements ControlValueAccessor {
   };
 
   openVideos = (done: ResolveDone): void => {
-    this.modalRef = this.modal.create<WpxMediaViewComponent, WpxMediaViewData>({
+    this.modalRef = this.modal.create<WpxMediaViewComponent, MediaViewData>({
       nzTitle: this.searchRef,
       nzBodyStyle: { background: '#f0f2f5' },
       nzWidth: 1280,
       nzContent: WpxMediaViewComponent,
       nzData: {
-        wpxType: 'videos',
-        wpxFallback: this.richtext.wpxFallback!,
-        wpxHeight: '600px',
-        wpxMax: 1,
-        wpxUpload: data => {}
+        type: 'videos',
+        fallback: this.richtext.wpxFallback!,
+        height: '600px',
+        max: 1,
+        upload: data => {}
       },
       nzOnOk: instance => {
         const data = instance.wpxData.getValue([...instance.wpxData.checkedIds.values()][0]);

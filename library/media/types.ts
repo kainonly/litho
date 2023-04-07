@@ -1,4 +1,4 @@
-import { InjectionToken, Input } from '@angular/core';
+import { InjectionToken } from '@angular/core';
 
 import { AnyDto, LoadOption } from '@weplanx/ng';
 import { Transport } from '@weplanx/ng/upload';
@@ -17,21 +17,17 @@ export interface Option extends LoadOption {
   };
 }
 
-export interface WpxMediaViewData {
-  wpxType: MediaType;
-  wpxFallback: string;
-  wpxHeight?: string;
-  wpxMax?: number;
-  wpxForm?: (editable: AnyDto<Media>) => void;
-  wpxUpload: (data: Transport[]) => void;
+export interface MediaViewData {
+  type: MediaType;
+  fallback: string;
+  height?: string;
+  max?: number;
+  form?: (editable: AnyDto<Media>) => void;
+  upload: (data: Transport[]) => void;
 }
 
 export type Media = Picture | Video;
 export type MediaType = 'pictures' | 'videos';
-
-export interface MediaTag {
-  name: string;
-}
 
 export interface Picture {
   name: string;

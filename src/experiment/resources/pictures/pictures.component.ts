@@ -1,10 +1,12 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { PictureTagsService } from '@common/services/picture-tags.service';
 import { AnyDto, WpxService } from '@weplanx/ng';
-import { PicturesService, WpxMediaViewComponent, WpxMediaViewDataSource } from '@weplanx/ng/media';
+import { Media, PicturesService, WpxMediaViewComponent, WpxMediaViewDataSource } from '@weplanx/ng/media';
 import { Tag } from '@weplanx/ng/tags';
+import { NzModalService } from 'ng-zorro-antd/modal';
+
+import { FormComponent, FormData } from './form/form.component';
 
 @Component({
   selector: 'app-resources-pictures',
@@ -19,7 +21,12 @@ export class PicturesComponent implements OnInit {
   tagItems: Array<AnyDto<Tag>> = [];
   tagIds: string[] = [];
 
-  constructor(public wpx: WpxService, private pictures: PicturesService, public tags: PictureTagsService) {}
+  constructor(
+    public wpx: WpxService,
+    private pictures: PicturesService,
+    public tags: PictureTagsService,
+    private modal: NzModalService
+  ) {}
 
   ngOnInit(): void {
     this.ds = new WpxMediaViewDataSource(this.pictures);
@@ -52,4 +59,15 @@ export class PicturesComponent implements OnInit {
     this.searchText = '';
     this.getData(true);
   }
+
+  form = (doc: AnyDto<Media>): void => {
+    this.modal.create<FormComponent, FormData>({
+      nzTitle: $localize`编辑`,
+      nzContent: FormComponent,
+      nzData: {
+        doc,
+        pictures: this.pictures
+      }
+    });
+  };
 }

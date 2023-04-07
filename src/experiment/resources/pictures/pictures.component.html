@@ -1,10 +1,11 @@
 <nz-page-header [nzGhost]="false">
-  <nz-page-header-title>图片</nz-page-header-title>
+  <nz-page-header-title i18n>图片</nz-page-header-title>
   <nz-page-header-tags>
     <nz-select
       style="min-width: 180px"
       nzMode="multiple"
       nzPlaceHolder="筛选标签"
+      i18n-nzPlaceHolder
       nzAllowClear
       nzBorderless
       [(ngModel)]="tagIds"
@@ -40,7 +41,7 @@
   <nz-page-header-content>
     <nz-row nzJustify="space-between">
       <nz-col>
-        <p nz-typography>
+        <p nz-typography i18n>
           <span nz-icon nzType="check-circle"></span>
           上传不超出 {{ (wpx.upload | async)?.limit | nzBytes : 0 : 'KB' }}，支持 jpeg、png、bmp、gif、webp、avif 等格式
         </p>
@@ -67,7 +68,7 @@
       </nz-col>
       <nz-col></nz-col>
       <nz-col>
-        <nz-statistic *ngIf="view" [nzValue]="ds!.total" [nzTitle]="'元素数量'"></nz-statistic>
+        <nz-statistic *ngIf="view" [nzValue]="ds!.total" nzTitle="元素数量" i18n-nzTitle></nz-statistic>
       </nz-col>
     </nz-row>
   </nz-page-header-content>
@@ -79,18 +80,29 @@
     [wpxData]="ds"
     [wpxType]="'pictures'"
     [wpxFallback]="['assets', 'photon.svg'] | wpxAssets"
+    [wpxForm]="form"
   ></wpx-media-view>
 </div>
 
 <ng-container *ngIf="ds.checkedNumber !== 0">
-  <nz-alert class="actions" nzType="info" nzBanner nzMessage="批量" [nzDescription]="description" [nzAction]="bulk">
+  <nz-alert
+    class="actions"
+    nzType="info"
+    nzBanner
+    nzMessage="批量"
+    i18n-nzMessage
+    [nzDescription]="description"
+    [nzAction]="bulk"
+  >
     <ng-template #description>
-      已选中 <nz-tag>{{ ds.checkedNumber }}</nz-tag> 项
+      <span i18n>
+        已选中 <nz-tag>{{ ds.checkedNumber }}</nz-tag> 项
+      </span>
     </ng-template>
     <ng-template #bulk>
-      <a nz-button nzType="link" nzSize="small" (click)="ds.clearChecked()">取消选择</a>
+      <a nz-button nzType="link" nzSize="small" (click)="ds.clearChecked()" i18n>取消选择</a>
       <br />
-      <a style="float: right" nz-button nzType="link" nzSize="small" nzDanger (click)="view.bulkDelete()">删除</a>
+      <a style="float: right" nz-button nzType="link" nzSize="small" nzDanger (click)="view.bulkDelete()" i18n>删除</a>
     </ng-template>
   </nz-alert>
 </ng-container>

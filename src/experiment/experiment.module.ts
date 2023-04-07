@@ -31,7 +31,7 @@ const routes: Routes = [
           breadcrumb: '引擎'
         }
       },
-      { path: '', redirectTo: 'plugins', pathMatch: 'full' }
+      { path: '', redirectTo: 'resources', pathMatch: 'full' }
     ]
   }
 ];

@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { ShareModule } from '@common/share.module';
 
+import { FormComponent } from './form/form.component';
 import { PicturesComponent } from './pictures.component';
 
 const routes: Routes = [
@@ -14,6 +15,6 @@ const routes: Routes = [
 
 @NgModule({
   imports: [ShareModule, RouterModule.forChild(routes)],
-  declarations: [PicturesComponent]
+  declarations: [PicturesComponent, FormComponent]
 })
 export class PicturesModule {}

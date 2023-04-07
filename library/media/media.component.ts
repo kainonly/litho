@@ -7,7 +7,7 @@ import { NzImageService } from 'ng-zorro-antd/image';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalRef, NzModalService } from 'ng-zorro-antd/modal';
 
-import { MediaType, Option, OPTION, WpxMediaViewData } from './types';
+import { MediaType, MediaViewData, Option, OPTION } from './types';
 import { VideoComponent, ViewVideoData } from './view/video/video.component';
 import { WpxMediaViewComponent } from './view/view.component';
 
@@ -59,17 +59,19 @@ export class WpxMediaComponent implements ControlValueAccessor {
   }
 
   openView(): void {
-    this.modalRef = this.modal.create<WpxMediaViewComponent, WpxMediaViewData>({
+    this.modalRef = this.modal.create<WpxMediaViewComponent, MediaViewData>({
       nzTitle: this.wpxSearch,
       nzBodyStyle: { background: '#f0f2f5' },
       nzWidth: 1280,
       nzContent: WpxMediaViewComponent,
       nzData: {
-        wpxType: this.wpxType,
-        wpxFallback: this.wpxFallback,
-        wpxHeight: '600px',
-        wpxMax: this.wpxMax,
-        wpxUpload: data => {}
+        type: this.wpxType,
+        fallback: this.wpxFallback,
+        height: '600px',
+        max: this.wpxMax,
+        upload: data => {
+          // TODO: ...
+        }
       },
       nzOnOk: instance => {
         this.values = [

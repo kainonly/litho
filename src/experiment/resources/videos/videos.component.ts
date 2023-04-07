@@ -3,8 +3,9 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { VideoTagsService } from '@common/services/video-tags.service';
 import { AnyDto, WpxService } from '@weplanx/ng';
-import { VideosService, WpxMediaViewComponent, WpxMediaViewDataSource } from '@weplanx/ng/media';
+import { Media, VideosService, WpxMediaViewComponent, WpxMediaViewDataSource } from '@weplanx/ng/media';
 import { Tag } from '@weplanx/ng/tags';
+import { Transport } from '@weplanx/ng/upload';
 
 @Component({
   selector: 'app-resources-videos',
@@ -62,5 +63,15 @@ export class VideosComponent implements OnInit {
   clear(): void {
     this.searchText = '';
     this.getData(true);
+  }
+
+  upload(data: Transport[]): void {
+    const docs: Media[] = data.map(v => ({
+      name: v.name,
+      url: Reflect.get(v.file.originFileObj!, 'key')
+    }));
+    this.videos.bulkCreate(docs).subscribe(v => {
+      this.getData(true);
+    });
   }
 }
