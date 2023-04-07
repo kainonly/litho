@@ -7,9 +7,7 @@ export interface Tag {
   name: string;
 }
 
-export interface FormData {
+export interface TagFormData {
   api: WpxApi<Tag>;
   doc?: AnyDto<Tag>;
-  form?: FormGroup;
-  formTemplate?: TemplateRef<any>;
 }

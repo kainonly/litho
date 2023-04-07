@@ -1,10 +1,19 @@
 <nz-page-header [nzGhost]="false">
-  <nz-page-header-title>视频</nz-page-header-title>
+  <nz-page-header-title i18n>视频</nz-page-header-title>
+  <nz-page-header-subtitle>
+    <span nz-icon nzType="shop"></span>
+    <nz-select nzBorderless [(ngModel)]="shop" (ngModelChange)="shopChange()">
+      <ng-container *ngFor="let item of shopItems">
+        <nz-option [nzValue]="item._id" [nzLabel]="item.name"></nz-option>
+      </ng-container>
+    </nz-select>
+  </nz-page-header-subtitle>
   <nz-page-header-tags>
     <nz-select
       style="min-width: 180px"
       nzMode="multiple"
       nzPlaceHolder="筛选标签"
+      i18n-nzPlaceHolder
       nzAllowClear
       nzBorderless
       [(ngModel)]="tagIds"
@@ -29,42 +38,18 @@
           nzShape="circle"
           nz-tooltip="设置标签"
           i18n-nz-tooltip
-          (click)="tagsRef.open()"
+          (click)="wpxTags.open()"
         >
           <i nz-icon nzType="tags"></i>
         </button>
-        <wpx-tags #tagsRef [wpxApi]="tags" [wpxForm]="tagform" [wpxFormTemplate]="wpxFormTemplate">
-          <ng-template #wpxFormTemplate>
-            <ng-container [formGroup]="tagform">
-              <nz-form-item>
-                <nz-form-label nzRequired i18n>名称</nz-form-label>
-                <nz-form-control
-                  nzHasFeedback
-                  [nzAutoTips]="{
-                    default: {
-                      required: '标签名称不能为空'
-                    }
-                  }"
-                >
-                  <input nz-input type="text" formControlName="name" placeholder="请填写标签名称" i18n-placeholder />
-                </nz-form-control>
-              </nz-form-item>
-              <nz-form-item>
-                <nz-form-label nzRequired i18n>TID</nz-form-label>
-                <nz-form-control>
-                  <input nz-input type="text" formControlName="tid" readonly />
-                </nz-form-control>
-              </nz-form-item>
-            </ng-container>
-          </ng-template>
-        </wpx-tags>
+        <wpx-tags #wpxTags [wpxApi]="tags" [wpxFilter]="tagFilter" [wpxForm]="tagForm"> </wpx-tags>
       </ng-container>
     </nz-space>
   </nz-page-header-extra>
   <nz-page-header-content>
     <nz-row nzJustify="space-between">
       <nz-col>
-        <p nz-typography>
+        <p nz-typography i18n>
           <span nz-icon nzType="check-circle"></span>
           上传不超出 {{ (wpx.upload | async)?.limit | nzBytes : 0 : 'KB' }}，支持 mp4 文件类型的上传
         </p>
@@ -91,7 +76,7 @@
       </nz-col>
       <nz-col></nz-col>
       <nz-col>
-        <nz-statistic *ngIf="view" [nzValue]="ds!.total" [nzTitle]="'元素数量'"></nz-statistic>
+        <nz-statistic *ngIf="view" [nzValue]="ds!.total" nzTitle="元素数量" i18n-nzTitle></nz-statistic>
       </nz-col>
     </nz-row>
   </nz-page-header-content>
@@ -103,18 +88,30 @@
     [wpxData]="ds"
     [wpxType]="'videos'"
     [wpxFallback]="['assets', 'photon.svg'] | wpxAssets"
+    [wpxForm]="form"
+    [wpxUpload]="upload"
   ></wpx-media-view>
 </div>
 
 <ng-container *ngIf="ds.checkedNumber !== 0">
-  <nz-alert class="actions" nzType="info" nzBanner nzMessage="批量" [nzDescription]="description" [nzAction]="bulk">
+  <nz-alert
+    class="actions"
+    nzType="info"
+    nzBanner
+    nzMessage="批量"
+    i18n-nzMessage
+    [nzDescription]="description"
+    [nzAction]="bulk"
+  >
     <ng-template #description>
-      已选中 <nz-tag>{{ ds.checkedNumber }}</nz-tag> 项
+      <span i18n>
+        已选中 <nz-tag>{{ ds.checkedNumber }}</nz-tag> 项
+      </span>
     </ng-template>
     <ng-template #bulk>
-      <a nz-button nzType="link" nzSize="small" (click)="ds.clearChecked()">取消选择</a>
+      <a nz-button nzType="link" nzSize="small" (click)="ds.clearChecked()" i18n>取消选择</a>
       <br />
-      <a style="float: right" nz-button nzType="link" nzSize="small" nzDanger (click)="view.bulkDelete()">删除</a>
+      <a style="float: right" nz-button nzType="link" nzSize="small" nzDanger (click)="view.bulkDelete()" i18n>删除</a>
     </ng-template>
   </nz-alert>
 </ng-container>

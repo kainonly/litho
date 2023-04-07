@@ -1,20 +1,21 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
-import { PictureTagsService } from '@common/services/picture-tags.service';
+import { VideoTagsService } from '@common/services/video-tags.service';
 import { AnyDto } from '@weplanx/ng';
-import { Picture, PicturesService } from '@weplanx/ng/media';
+import { Video, VideosService } from '@weplanx/ng/media';
 import { Tag } from '@weplanx/ng/tags';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NZ_MODAL_DATA, NzModalRef } from 'ng-zorro-antd/modal';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 
 export interface FormData {
-  doc: AnyDto<Picture>;
+  shop_id: string;
+  doc: AnyDto<Video>;
 }
 
 @Component({
-  selector: 'app-resources-pictures-form',
+  selector: 'app-resources-videos-form',
   templateUrl: './form.component.html'
 })
 export class FormComponent implements OnInit {
@@ -29,13 +30,12 @@ export class FormComponent implements OnInit {
   tagItems: Array<AnyDto<Tag>> = [];
 
   constructor(
-    @Inject(NZ_MODAL_DATA)
-    public data: FormData,
+    @Inject(NZ_MODAL_DATA) public data: FormData,
     private modalRef: NzModalRef,
     private message: NzMessageService,
     private notification: NzNotificationService,
-    private pictures: PicturesService,
-    private tags: PictureTagsService,
+    private videos: VideosService,
+    private tags: VideoTagsService,
     private fb: FormBuilder
   ) {}
 
@@ -49,13 +49,18 @@ export class FormComponent implements OnInit {
   }
 
   getTags(name?: string): void {
-    const filter: Record<string, any> = {};
+    const filter: Record<string, any> = { shop_id: this.data.shop_id };
     if (name) {
       filter['name'] = { $regex: name };
     }
-    this.tags.find(filter, { pagesize: 1000 }).subscribe(data => {
-      this.tagItems = [...data];
-    });
+    this.tags
+      .find(filter, {
+        pagesize: 1000,
+        xfilter: { shop_id: 'oid' }
+      })
+      .subscribe(data => {
+        this.tagItems = [...data];
+      });
   }
 
   close(): void {
@@ -63,7 +68,7 @@ export class FormComponent implements OnInit {
   }
 
   submit(data: any): void {
-    this.pictures
+    this.videos
       .updateById(
         this.data.doc._id,
         {

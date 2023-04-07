@@ -11,17 +11,17 @@ const routes: Routes = [
     component: ExperimentComponent,
     children: [
       {
-        path: 'plugins',
-        loadChildren: () => import('./plugins/plugins.module').then(m => m.PluginsModule),
-        data: {
-          breadcrumb: '插件'
-        }
-      },
-      {
         path: 'resources',
         loadChildren: () => import('./resources/resources.module').then(m => m.ResourcesModule),
         data: {
           breadcrumb: '资源'
+        }
+      },
+      {
+        path: 'plugins',
+        loadChildren: () => import('./plugins/plugins.module').then(m => m.PluginsModule),
+        data: {
+          breadcrumb: '插件'
         }
       },
       {

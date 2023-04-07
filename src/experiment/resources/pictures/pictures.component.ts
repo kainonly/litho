@@ -65,8 +65,7 @@ export class PicturesComponent implements OnInit {
       nzTitle: $localize`编辑`,
       nzContent: FormComponent,
       nzData: {
-        doc,
-        pictures: this.pictures
+        doc
       }
     });
   };

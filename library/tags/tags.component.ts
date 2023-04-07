@@ -1,12 +1,11 @@
-import { Component, Input, TemplateRef, ViewChild } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { Component, Input } from '@angular/core';
 
-import { AnyDto, Filter, WpxApi, WpxData } from '@weplanx/ng';
+import { AnyDto, WpxApi, WpxData } from '@weplanx/ng';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalService } from 'ng-zorro-antd/modal';
 
 import { FormComponent } from './form/form.component';
-import { FormData, Tag } from './types';
+import { TagFormData, Tag } from './types';
 
 @Component({
   selector: 'wpx-tags',
@@ -14,9 +13,8 @@ import { FormData, Tag } from './types';
 })
 export class WpxTagsComponent {
   @Input() wpxApi!: WpxApi<Tag>;
-  @Input() wpxFilter?: (v: Filter<AnyDto<Tag>>) => void;
-  @Input() wpxForm?: FormGroup;
-  @Input() wpxFormTemplate?: TemplateRef<any>;
+  @Input() wpxFilter?: (ds: WpxData<AnyDto<any>>) => void;
+  @Input() wpxForm?: (doc?: AnyDto<any>) => void;
 
   visible = false;
 
@@ -41,7 +39,7 @@ export class WpxTagsComponent {
         name: { $regex: this.searchText }
       };
     }
-    this.wpxFilter?.(this.dataset.filter);
+    this.wpxFilter?.(this.dataset);
     this.wpxApi.pages(this.dataset, refresh).subscribe(() => {});
   }
 
@@ -50,20 +48,22 @@ export class WpxTagsComponent {
     this.getData(true);
   }
 
-  form(doc?: AnyDto<Tag>): void {
-    this.modal.create<FormComponent, FormData>({
-      nzTitle: !doc ? $localize`新增` : $localize`编辑`,
-      nzContent: FormComponent,
-      nzData: {
-        doc: doc,
-        api: this.wpxApi,
-        form: this.wpxForm,
-        formTemplate: this.wpxFormTemplate
-      },
-      nzOnOk: () => {
-        this.getData(true);
-      }
-    });
+  form(doc?: AnyDto<any>): void {
+    if (!this.wpxForm) {
+      this.modal.create<FormComponent, TagFormData>({
+        nzTitle: !doc ? $localize`新增` : $localize`编辑`,
+        nzContent: FormComponent,
+        nzData: {
+          doc: doc,
+          api: this.wpxApi
+        },
+        nzOnOk: () => {
+          this.getData(true);
+        }
+      });
+    } else {
+      this.wpxForm(doc);
+    }
   }
 
   delete(doc: AnyDto<Tag>): void {

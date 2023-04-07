@@ -32,7 +32,7 @@ export class WpxMediaViewComponent implements OnInit, AfterViewInit {
   @Input() wpxFallback!: string;
   @Input() wpxHeight?: string;
   @Input() wpxMax?: number;
-  @Input() wpxForm?: (editable: AnyDto<Media>) => void;
+  @Input() wpxForm?: (doc: AnyDto<Media>) => void;
   @Input() wpxUpload!: (data: Transport[]) => void;
 
   ext!: string;
@@ -51,9 +51,7 @@ export class WpxMediaViewComponent implements OnInit, AfterViewInit {
     @Optional() public modalRef: NzModalRef,
     @Optional() private pictures: PicturesService,
     @Optional() private videos: VideosService,
-    @Optional()
-    @Inject(NZ_MODAL_DATA)
-    private data: MediaViewData
+    @Optional() @Inject(NZ_MODAL_DATA) public data: MediaViewData
   ) {}
 
   ngOnInit(): void {
