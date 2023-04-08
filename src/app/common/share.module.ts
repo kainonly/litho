@@ -13,11 +13,11 @@ import { WpxUploadModule } from '@weplanx/ng/upload';
     RouterModule,
     WpxModule,
     WpxShareModule,
-    RichtextModule,
     WpxTableModule,
     WpxUploadModule,
     WpxMediaModule,
-    WpxTagsModule
+    WpxTagsModule,
+    RichtextModule
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

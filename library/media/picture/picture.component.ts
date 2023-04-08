@@ -8,15 +8,15 @@ import { NzMessageService } from 'ng-zorro-antd/message';
 import { NZ_MODAL_DATA, NzModalRef } from 'ng-zorro-antd/modal';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 
-import { PicturesService } from '../../pictures.service';
-import { Picture } from '../../types';
+import { PicturesService } from '../services/pictures.service';
+import { WpxPicture } from '../types';
 
 export interface ViewPictureData {
-  doc: AnyDto<Picture>;
+  doc: AnyDto<WpxPicture>;
 }
 
 @Component({
-  selector: 'wpx-media-view-picture',
+  selector: 'wpx-media-picture',
   templateUrl: './picture.component.html',
   styleUrls: ['./picture.component.scss']
 })

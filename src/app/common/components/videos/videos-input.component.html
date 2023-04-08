@@ -1,0 +1,32 @@
+<wpx-media-input
+  [wpxType]="'videos'"
+  [wpxFallback]="['assets', 'photon.svg'] | wpxAssets"
+  [wpxLimit]="limit"
+  [wpxMax]="max"
+  [wpxHeader]="header"
+  [wpxFooter]="footer"
+  [wpxComponent]="component"
+  [(ngModel)]="values"
+  (ngModelChange)="onChanged($event)"
+>
+</wpx-media-input>
+
+<ng-template #header>
+  <ng-container *ngTemplateOutlet="instance.searchRef"></ng-container>
+  <ng-container *ngTemplateOutlet="instance.tagSearchRef"></ng-container>
+</ng-template>
+
+<ng-template #footer>
+  <nz-space>
+    <ng-container *nzSpaceItem>
+      <ng-container *ngTemplateOutlet="instance.shopSearchRef"></ng-container>
+    </ng-container>
+    <ng-container *nzSpaceItem>
+      <wpx-tags #tagsRef [wpxApi]="instance.tags"> </wpx-tags>
+      <button nz-button (click)="tagsRef.open()" i18n> 设置标签 </button>
+    </ng-container>
+    <ng-container *nzSpaceItem>
+      <ng-container *ngTemplateOutlet="instance.uploadRef"></ng-container>
+    </ng-container>
+  </nz-space>
+</ng-template>

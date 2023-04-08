@@ -1,22 +1,22 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
+import { Video } from '@common/interfaces/video';
+import { VideoTagsService } from '@common/services/video-tags.service';
 import { AnyDto } from '@weplanx/ng';
+import { VideosService } from '@weplanx/ng/media';
+import { Tag } from '@weplanx/ng/tags';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NZ_MODAL_DATA, NzModalRef } from 'ng-zorro-antd/modal';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 
-import { PicturesService } from '../../pictures.service';
-import { Picture, Video } from '../../types';
-import { VideosService } from '../../videos.service';
-
-export interface ViewFormData {
-  doc: AnyDto<Picture | Video>;
-  media: PicturesService | VideosService;
+export interface FormData {
+  shop_id: string;
+  doc: AnyDto<Video>;
 }
 
 @Component({
-  selector: 'wpx-media-view-form',
+  selector: 'app-videos-form',
   templateUrl: './form.component.html'
 })
 export class FormComponent implements OnInit {
@@ -28,20 +28,40 @@ export class FormComponent implements OnInit {
       }
     }
   };
+  tagItems: Array<AnyDto<Tag>> = [];
 
   constructor(
-    @Inject(NZ_MODAL_DATA) public data: ViewFormData,
+    @Inject(NZ_MODAL_DATA) public data: FormData,
     private modalRef: NzModalRef,
     private message: NzMessageService,
     private notification: NzNotificationService,
+    private videos: VideosService,
+    private tags: VideoTagsService,
     private fb: FormBuilder
   ) {}
 
   ngOnInit(): void {
     this.form = this.fb.group({
-      name: [null, [Validators.required]]
+      name: [null, [Validators.required]],
+      tags: [[]]
     });
+    this.getTags();
     this.form.patchValue(this.data.doc);
+  }
+
+  getTags(name?: string): void {
+    const filter: Record<string, any> = { shop_id: this.data.shop_id };
+    if (name) {
+      filter['name'] = { $regex: name };
+    }
+    this.tags
+      .find(filter, {
+        pagesize: 1000,
+        xfilter: { shop_id: 'oid' }
+      })
+      .subscribe(data => {
+        this.tagItems = [...data];
+      });
   }
 
   close(): void {
@@ -49,7 +69,7 @@ export class FormComponent implements OnInit {
   }
 
   submit(data: any): void {
-    this.data.media
+    this.videos
       .updateById(
         this.data.doc._id,
         {
@@ -61,6 +81,7 @@ export class FormComponent implements OnInit {
       )
       .subscribe(_ => {
         this.data.doc.name = data.name;
+        this.data.doc.tags = data.tags;
         this.message.success($localize`数据更新完成`);
         this.modalRef.triggerOk();
       });

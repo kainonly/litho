@@ -1,35 +1,82 @@
-import { Component, forwardRef, Input } from '@angular/core';
-import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
+
+import { FormComponent, FormData } from '@common/components/pictures/form/form.component';
+import { Picture } from '@common/interfaces/picture';
+import { PictureTagsService } from '@common/services/picture-tags.service';
+import { AnyDto } from '@weplanx/ng';
+import { PicturesService, WpxMediaComponent, WpxMediaDataSource } from '@weplanx/ng/media';
+import { Tag, WpxTagsComponent } from '@weplanx/ng/tags';
+import { Transport } from '@weplanx/ng/upload';
+import { NzModalService } from 'ng-zorro-antd/modal';
 
 @Component({
   selector: 'app-pictures',
-  templateUrl: './pictures.component.html',
-  providers: [
-    {
-      provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => PicturesComponent),
-      multi: true
-    }
-  ]
+  templateUrl: './pictures.component.html'
 })
-export class PicturesComponent implements ControlValueAccessor {
-  @Input() limit = 5;
-  @Input() max = 5;
+export class PicturesComponent implements OnInit {
+  @ViewChild('uploadRef', { static: true }) uploadRef!: TemplateRef<any>;
+  @ViewChild('tagSearchRef', { static: true }) tagSearchRef!: TemplateRef<any>;
+  @ViewChild('searchRef', { static: true }) searchRef!: TemplateRef<any>;
+  @ViewChild(WpxMediaComponent, { static: true }) mediaRef!: WpxMediaComponent;
+  @ViewChild(WpxTagsComponent, { static: true }) tagsRef!: WpxTagsComponent;
 
-  values: string[] = [];
+  ds!: WpxMediaDataSource;
+  searchText = '';
 
-  onChanged!: (value: any[]) => void;
-  private onTouched!: () => void;
+  tagItems: Array<AnyDto<Tag>> = [];
+  tagIds: string[] = [];
 
-  registerOnChange(fn: any): void {
-    this.onChanged = fn;
+  constructor(private pictures: PicturesService, public tags: PictureTagsService, private modal: NzModalService) {}
+
+  ngOnInit(): void {
+    this.ds = new WpxMediaDataSource(this.pictures);
+    this.ds.xfilter = { 'tags.$in': 'oids' };
+    this.getTags();
   }
 
-  registerOnTouched(fn: any): void {
-    this.onTouched = fn;
+  getData(refresh = false): void {
+    this.ds.filter = {};
+    if (this.searchText) {
+      this.ds.filter['name'] = { $regex: this.searchText };
+    }
+    if (this.tagIds.length !== 0) {
+      this.ds.filter['tags'] = { $in: this.tagIds };
+    }
+    this.ds.fetch(refresh);
   }
 
-  writeValue(v: any): void {
-    this.values = v ?? [];
+  getTags(name?: string): void {
+    const filter: Record<string, any> = {};
+    if (name) {
+      filter['name'] = { $regex: name };
+    }
+    this.tags.find(filter, { pagesize: 1000 }).subscribe(data => {
+      this.tagItems = [...data];
+    });
   }
+
+  clear(): void {
+    this.searchText = '';
+    this.getData(true);
+  }
+
+  upload(data: Transport[]): void {
+    const docs: Picture[] = data.map(v => ({
+      name: v.name,
+      url: Reflect.get(v.file.originFileObj!, 'key')
+    }));
+    this.pictures.bulkCreate(docs).subscribe(v => {
+      this.getData(true);
+    });
+  }
+
+  form = (doc: AnyDto<Picture>): void => {
+    this.modal.create<FormComponent, FormData>({
+      nzTitle: $localize`编辑`,
+      nzContent: FormComponent,
+      nzData: {
+        doc
+      }
+    });
+  };
 }

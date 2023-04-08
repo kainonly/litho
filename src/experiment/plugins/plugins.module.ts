@@ -8,6 +8,13 @@ const routes: Routes = [
     path: '',
     children: [
       {
+        path: 'upload',
+        loadChildren: () => import('./upload/upload.module').then(m => m.UploadModule),
+        data: {
+          breadcrumb: '上传'
+        }
+      },
+      {
         path: 'richtext',
         loadChildren: () => import('./richtext/richtext.module').then(m => m.RichtextModule),
         data: {
@@ -28,14 +35,7 @@ const routes: Routes = [
           breadcrumb: '本地存储'
         }
       },
-      {
-        path: 'upload',
-        loadChildren: () => import('./upload/upload.module').then(m => m.UploadModule),
-        data: {
-          breadcrumb: '上传'
-        }
-      },
-      { path: '', redirectTo: 'richtext', pathMatch: 'full' }
+      { path: '', redirectTo: 'upload', pathMatch: 'full' }
     ]
   }
 ];

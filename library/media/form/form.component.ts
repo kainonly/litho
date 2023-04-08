@@ -1,20 +1,22 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
-import { PictureTagsService } from '@common/services/picture-tags.service';
 import { AnyDto } from '@weplanx/ng';
-import { Picture, PicturesService } from '@weplanx/ng/media';
-import { Tag } from '@weplanx/ng/tags';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NZ_MODAL_DATA, NzModalRef } from 'ng-zorro-antd/modal';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 
+import { PicturesService } from '../services/pictures.service';
+import { VideosService } from '../services/videos.service';
+import { WpxPicture, WpxVideo } from '../types';
+
 export interface FormData {
-  doc: AnyDto<Picture>;
+  doc: AnyDto<WpxPicture | WpxVideo>;
+  service: PicturesService | VideosService;
 }
 
 @Component({
-  selector: 'app-resources-pictures-form',
+  selector: 'wpx-media-form',
   templateUrl: './form.component.html'
 })
 export class FormComponent implements OnInit {
@@ -26,36 +28,20 @@ export class FormComponent implements OnInit {
       }
     }
   };
-  tagItems: Array<AnyDto<Tag>> = [];
 
   constructor(
-    @Inject(NZ_MODAL_DATA)
-    public data: FormData,
+    @Inject(NZ_MODAL_DATA) public data: FormData,
     private modalRef: NzModalRef,
     private message: NzMessageService,
     private notification: NzNotificationService,
-    private pictures: PicturesService,
-    private tags: PictureTagsService,
     private fb: FormBuilder
   ) {}
 
   ngOnInit(): void {
     this.form = this.fb.group({
-      name: [null, [Validators.required]],
-      tags: [[]]
+      name: [null, [Validators.required]]
     });
-    this.getTags();
     this.form.patchValue(this.data.doc);
-  }
-
-  getTags(name?: string): void {
-    const filter: Record<string, any> = {};
-    if (name) {
-      filter['name'] = { $regex: name };
-    }
-    this.tags.find(filter, { pagesize: 1000 }).subscribe(data => {
-      this.tagItems = [...data];
-    });
   }
 
   close(): void {
@@ -63,7 +49,7 @@ export class FormComponent implements OnInit {
   }
 
   submit(data: any): void {
-    this.pictures
+    this.data.service
       .updateById(
         this.data.doc._id,
         {
@@ -75,7 +61,6 @@ export class FormComponent implements OnInit {
       )
       .subscribe(_ => {
         this.data.doc.name = data.name;
-        this.data.doc.tags = data.tags;
         this.message.success($localize`数据更新完成`);
         this.modalRef.triggerOk();
       });

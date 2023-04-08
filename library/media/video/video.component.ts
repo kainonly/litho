@@ -7,7 +7,7 @@ export interface ViewVideoData {
 }
 
 @Component({
-  selector: 'wpx-media-view-video',
+  selector: 'wpx-media-video',
   templateUrl: './video.component.html',
   styleUrls: ['./video.component.scss']
 })

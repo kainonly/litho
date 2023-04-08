@@ -1,21 +1,21 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
-import { VideoTagsService } from '@common/services/video-tags.service';
+import { Picture } from '@common/interfaces/picture';
+import { PictureTagsService } from '@common/services/picture-tags.service';
 import { AnyDto } from '@weplanx/ng';
-import { Video, VideosService } from '@weplanx/ng/media';
+import { PicturesService } from '@weplanx/ng/media';
 import { Tag } from '@weplanx/ng/tags';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NZ_MODAL_DATA, NzModalRef } from 'ng-zorro-antd/modal';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 
 export interface FormData {
-  shop_id: string;
-  doc: AnyDto<Video>;
+  doc: AnyDto<Picture>;
 }
 
 @Component({
-  selector: 'app-resources-videos-form',
+  selector: 'app-pictures-form',
   templateUrl: './form.component.html'
 })
 export class FormComponent implements OnInit {
@@ -34,8 +34,8 @@ export class FormComponent implements OnInit {
     private modalRef: NzModalRef,
     private message: NzMessageService,
     private notification: NzNotificationService,
-    private videos: VideosService,
-    private tags: VideoTagsService,
+    private pictures: PicturesService,
+    private tags: PictureTagsService,
     private fb: FormBuilder
   ) {}
 
@@ -49,18 +49,13 @@ export class FormComponent implements OnInit {
   }
 
   getTags(name?: string): void {
-    const filter: Record<string, any> = { shop_id: this.data.shop_id };
+    const filter: Record<string, any> = {};
     if (name) {
       filter['name'] = { $regex: name };
     }
-    this.tags
-      .find(filter, {
-        pagesize: 1000,
-        xfilter: { shop_id: 'oid' }
-      })
-      .subscribe(data => {
-        this.tagItems = [...data];
-      });
+    this.tags.find(filter, { pagesize: 1000 }).subscribe(data => {
+      this.tagItems = [...data];
+    });
   }
 
   close(): void {
@@ -68,7 +63,7 @@ export class FormComponent implements OnInit {
   }
 
   submit(data: any): void {
-    this.videos
+    this.pictures
       .updateById(
         this.data.doc._id,
         {

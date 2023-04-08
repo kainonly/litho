@@ -2,29 +2,10 @@
   <nz-page-header-title i18n>视频</nz-page-header-title>
   <nz-page-header-subtitle>
     <span nz-icon nzType="shop"></span>
-    <nz-select nzBorderless [(ngModel)]="shop" (ngModelChange)="shopChange()">
-      <ng-container *ngFor="let item of shopItems">
-        <nz-option [nzValue]="item._id" [nzLabel]="item.name"></nz-option>
-      </ng-container>
-    </nz-select>
+    <ng-container *ngTemplateOutlet="view.shopSearchRef"></ng-container>
   </nz-page-header-subtitle>
   <nz-page-header-tags>
-    <nz-select
-      style="min-width: 180px"
-      nzMode="multiple"
-      nzPlaceHolder="筛选标签"
-      i18n-nzPlaceHolder
-      nzAllowClear
-      nzBorderless
-      [(ngModel)]="tagIds"
-      [nzServerSearch]="true"
-      (nzOnSearch)="getTags($event)"
-      (ngModelChange)="getData(true)"
-    >
-      <ng-container *ngFor="let item of tagItems">
-        <nz-option [nzLabel]="item.name" [nzValue]="item._id"></nz-option>
-      </ng-container>
-    </nz-select>
+    <ng-container *ngTemplateOutlet="view.tagSearchRef"></ng-container>
   </nz-page-header-tags>
   <nz-page-header-extra>
     <nz-space>
@@ -38,11 +19,10 @@
           nzShape="circle"
           nz-tooltip="设置标签"
           i18n-nz-tooltip
-          (click)="wpxTags.open()"
+          (click)="view.tagsRef.open()"
         >
           <i nz-icon nzType="tags"></i>
         </button>
-        <wpx-tags #wpxTags [wpxApi]="tags" [wpxFilter]="tagFilter" [wpxForm]="tagForm"> </wpx-tags>
       </ng-container>
     </nz-space>
   </nz-page-header-extra>
@@ -53,47 +33,21 @@
           <span nz-icon nzType="check-circle"></span>
           上传不超出 {{ (wpx.upload | async)?.limit | nzBytes : 0 : 'KB' }}，支持 mp4 文件类型的上传
         </p>
-        <nz-space>
-          <nz-input-group *nzSpaceItem style="width: 180px" nzSuffixIcon="search">
-            <input
-              (keyup.enter)="getData(true)"
-              [(ngModel)]="searchText"
-              type="text"
-              nz-input
-              placeholder="搜索"
-              i18n-placeholder
-            />
-          </nz-input-group>
-          <nz-button-group *nzSpaceItem>
-            <button nz-button nzType="text" nz-tooltip="刷新" i18n-nz-tooltip (click)="getData(true)">
-              <i nz-icon nzType="reload"></i>
-            </button>
-            <button nz-button nzType="text" nz-tooltip="重置" i18n-nz-tooltip (click)="clear()">
-              <i nz-icon nzType="clear"></i>
-            </button>
-          </nz-button-group>
-        </nz-space>
+        <ng-container *ngTemplateOutlet="view.searchRef"></ng-container>
       </nz-col>
       <nz-col></nz-col>
       <nz-col>
-        <nz-statistic *ngIf="view" [nzValue]="ds!.total" nzTitle="元素数量" i18n-nzTitle></nz-statistic>
+        <nz-statistic *ngIf="view" [nzValue]="view.ds.total" nzTitle="元素数量" i18n-nzTitle></nz-statistic>
       </nz-col>
     </nz-row>
   </nz-page-header-content>
 </nz-page-header>
 
 <div style="padding: 6px; height: calc(100% - 116px)">
-  <wpx-media-view
-    #view
-    [wpxData]="ds"
-    [wpxType]="'videos'"
-    [wpxFallback]="['assets', 'photon.svg'] | wpxAssets"
-    [wpxForm]="form"
-    [wpxUpload]="upload"
-  ></wpx-media-view>
+  <app-videos #view></app-videos>
 </div>
 
-<ng-container *ngIf="ds.checkedNumber !== 0">
+<ng-container *ngIf="view.ds.checkedNumber !== 0">
   <nz-alert
     class="actions"
     nzType="info"
@@ -105,13 +59,15 @@
   >
     <ng-template #description>
       <span i18n>
-        已选中 <nz-tag>{{ ds.checkedNumber }}</nz-tag> 项
+        已选中 <nz-tag>{{ view.ds.checkedNumber }}</nz-tag> 项
       </span>
     </ng-template>
     <ng-template #bulk>
-      <a nz-button nzType="link" nzSize="small" (click)="ds.clearChecked()" i18n>取消选择</a>
+      <a nz-button nzType="link" nzSize="small" (click)="view.ds.clearChecked()" i18n>取消选择</a>
       <br />
-      <a style="float: right" nz-button nzType="link" nzSize="small" nzDanger (click)="view.bulkDelete()" i18n>删除</a>
+      <a style="float: right" nz-button nzType="link" nzSize="small" nzDanger (click)="view.mediaRef.bulkDelete()" i18n>
+        删除
+      </a>
     </ng-template>
   </nz-alert>
 </ng-container>

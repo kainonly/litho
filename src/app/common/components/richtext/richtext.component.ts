@@ -9,7 +9,7 @@ import {
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 import { WpxService } from '@weplanx/ng';
-import { MediaViewData, WpxMediaViewComponent } from '@weplanx/ng/media';
+import { WpxMediaData, WpxMediaComponent, WpxMediaDataSource } from '@weplanx/ng/media';
 import { ResolveDone, RichtextData, WpxRichtextComponent } from '@weplanx/ng/richtext';
 import { NzModalRef, NzModalService } from 'ng-zorro-antd/modal';
 
@@ -32,7 +32,7 @@ export class RichtextComponent implements ControlValueAccessor {
 
   placeholder = $localize`直接输入正文`;
   value: RichtextData | null = null;
-  modalRef?: NzModalRef<WpxMediaViewComponent>;
+  modalRef?: NzModalRef<WpxMediaComponent>;
 
   onChanged!: (value: any) => void;
   private onTouched!: () => void;
@@ -52,18 +52,18 @@ export class RichtextComponent implements ControlValueAccessor {
   }
 
   openPictures = (done: ResolveDone): void => {
-    this.modalRef = this.modal.create<WpxMediaViewComponent, MediaViewData>({
+    this.modalRef = this.modal.create<WpxMediaComponent>({
       nzTitle: this.searchRef,
       nzBodyStyle: { background: '#f0f2f5' },
       nzWidth: 1280,
-      nzContent: WpxMediaViewComponent,
-      nzData: {
-        type: 'pictures',
-        fallback: this.richtext.wpxFallback!,
-        height: '600px',
-        max: 1,
-        upload: data => {}
-      },
+      nzContent: WpxMediaComponent,
+      // nzData: {
+      //   type: 'pictures',
+      //   fallback: this.richtext.wpxFallback!,
+      //   height: '600px',
+      //   max: 1,
+      //   upload: data => {}
+      // },
       nzOnOk: instance => {
         const data = instance.wpxData.getValue([...instance.wpxData.checkedIds.values()][0]);
         let url = data.url;
@@ -79,18 +79,19 @@ export class RichtextComponent implements ControlValueAccessor {
   };
 
   openVideos = (done: ResolveDone): void => {
-    this.modalRef = this.modal.create<WpxMediaViewComponent, MediaViewData>({
+    this.modalRef = this.modal.create<WpxMediaComponent>({
       nzTitle: this.searchRef,
       nzBodyStyle: { background: '#f0f2f5' },
       nzWidth: 1280,
-      nzContent: WpxMediaViewComponent,
-      nzData: {
-        type: 'videos',
-        fallback: this.richtext.wpxFallback!,
-        height: '600px',
-        max: 1,
-        upload: data => {}
-      },
+      nzContent: WpxMediaComponent,
+      // nzData: {
+      //   // data: new WpxMediaViewDataSource()
+      //   type: 'videos',
+      //   fallback: this.richtext.wpxFallback!,
+      //   height: '600px',
+      //   max: 1,
+      //   upload: data => {}
+      // },
       nzOnOk: instance => {
         const data = instance.wpxData.getValue([...instance.wpxData.checkedIds.values()][0]);
         done({

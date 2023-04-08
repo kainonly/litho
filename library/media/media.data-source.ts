@@ -3,16 +3,16 @@ import { BehaviorSubject, Observable, Subject, takeUntil } from 'rxjs';
 
 import { AnyDto, WpxData } from '@weplanx/ng';
 
-import { PicturesService } from '../pictures.service';
-import { Media } from '../types';
-import { VideosService } from '../videos.service';
+import { PicturesService } from './services/pictures.service';
+import { VideosService } from './services/videos.service';
+import { WpxMedia } from './types';
 
-export class WpxMediaViewDataSource extends WpxData<AnyDto<Media>> implements DataSource<Array<AnyDto<Media>>> {
-  private readonly stream = new BehaviorSubject<Array<Array<AnyDto<Media>>>>([]);
+export class WpxMediaDataSource extends WpxData<AnyDto<WpxMedia>> implements DataSource<Array<AnyDto<WpxMedia>>> {
+  private readonly stream = new BehaviorSubject<Array<Array<AnyDto<WpxMedia>>>>([]);
   private readonly disconnect$ = new Subject<void>();
   private readonly indexs: Set<number> = new Set<number>();
-  private readonly dict: Map<string, AnyDto<Media>> = new Map<string, AnyDto<Media>>();
-  private cache: Array<AnyDto<Media>> = [];
+  private readonly dict: Map<string, AnyDto<WpxMedia>> = new Map<string, AnyDto<WpxMedia>>();
+  private cache: Array<AnyDto<WpxMedia>> = [];
   /**
    * Each list contains the number of cards
    */
@@ -22,7 +22,7 @@ export class WpxMediaViewDataSource extends WpxData<AnyDto<Media>> implements Da
     super();
   }
 
-  connect(collectionViewer: CollectionViewer): Observable<Array<Array<AnyDto<Media>>>> {
+  connect(collectionViewer: CollectionViewer): Observable<Array<Array<AnyDto<WpxMedia>>>> {
     collectionViewer.viewChange.pipe(takeUntil(this.disconnect$)).subscribe(range => {
       const index = Math.floor((range.end * this.n) / this.pagesize) + 1;
       if (this.indexs.has(index)) {
@@ -47,7 +47,7 @@ export class WpxMediaViewDataSource extends WpxData<AnyDto<Media>> implements Da
       this.dict.clear();
     }
     this.media.pages(this, refresh).subscribe(v => {
-      const values: Array<Array<AnyDto<Media>>> = [];
+      const values: Array<Array<AnyDto<WpxMedia>>> = [];
       this.cache.splice(this.page * this.pagesize, this.pagesize, ...v);
       this.cache.forEach((value, index) => {
         this.dict.set(value._id, value);
@@ -62,7 +62,7 @@ export class WpxMediaViewDataSource extends WpxData<AnyDto<Media>> implements Da
     });
   }
 
-  getValue(id: string): AnyDto<Media> {
+  getValue(id: string): AnyDto<WpxMedia> {
     return this.dict.get(id)!;
   }
 

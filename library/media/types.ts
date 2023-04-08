@@ -1,7 +1,9 @@
-import { InjectionToken } from '@angular/core';
+import { InjectionToken, TemplateRef } from '@angular/core';
 
 import { AnyDto, LoadOption } from '@weplanx/ng';
 import { Transport } from '@weplanx/ng/upload';
+
+import { WpxMediaDataSource } from './media.data-source';
 
 export const OPTION = new InjectionToken<Option>('media.option');
 export interface Option extends LoadOption {
@@ -17,34 +19,31 @@ export interface Option extends LoadOption {
   };
 }
 
-export interface MediaViewData {
-  type: MediaType;
+export interface WpxMediaData {
+  type: WpxMediaType;
   fallback: string;
   height?: string;
   max?: number;
-  form?: (editable: AnyDto<Media>) => void;
-  upload: (data: Transport[]) => void;
+  footer?: TemplateRef<any>;
 }
 
-export type Media = Picture | Video;
-export type MediaType = 'pictures' | 'videos';
+export type WpxMedia = WpxPicture | WpxVideo;
+export type WpxMediaType = 'pictures' | 'videos';
 
-export interface Picture {
+export interface WpxPicture {
   name: string;
   url: string;
   query?: string;
-  process?: PictureProcess;
-  tags?: string[];
+  process?: WpxPictureProcess;
 }
 
-export interface PictureProcess {
+export interface WpxPictureProcess {
   mode: 0 | 1 | 2 | 3;
   cut: { x: number; y: number; w: number; h: number };
   zoom: { w: number | null; h: number | null };
 }
 
-export interface Video {
+export interface WpxVideo {
   name: string;
   url: string;
-  tags?: string[];
 }

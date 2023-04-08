@@ -5,19 +5,19 @@ import { Inject, ModuleWithProviders, NgModule } from '@angular/core';
 import { WpxModule, WpxService, WpxShareModule } from '@weplanx/ng';
 import { WpxUploadModule } from '@weplanx/ng/upload';
 
+import { FormComponent } from './form/form.component';
+import { WpxMediaInputComponent } from './media-input.component';
 import { WpxMediaComponent } from './media.component';
-import { PicturesService } from './pictures.service';
+import { PictureComponent } from './picture/picture.component';
+import { PicturesService } from './services/pictures.service';
+import { VideosService } from './services/videos.service';
 import { OPTION, Option } from './types';
-import { VideosService } from './videos.service';
-import { FormComponent } from './view/form/form.component';
-import { PictureComponent } from './view/picture/picture.component';
-import { VideoComponent } from './view/video/video.component';
-import { WpxMediaViewComponent } from './view/view.component';
+import { VideoComponent } from './video/video.component';
 
 @NgModule({
   imports: [ScrollingModule, DragDropModule, WpxModule, WpxUploadModule, WpxShareModule],
-  declarations: [WpxMediaComponent, WpxMediaViewComponent, FormComponent, PictureComponent, VideoComponent],
-  exports: [WpxMediaComponent, WpxMediaViewComponent]
+  declarations: [WpxMediaComponent, WpxMediaInputComponent, FormComponent, PictureComponent, VideoComponent],
+  exports: [WpxMediaComponent, WpxMediaInputComponent]
 })
 export class WpxMediaModule {
   static forRoot(option: Option): ModuleWithProviders<WpxMediaModule> {

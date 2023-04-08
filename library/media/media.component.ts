@@ -1,126 +1,214 @@
-import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
-import { Component, forwardRef, Inject, Input, Optional, TemplateRef } from '@angular/core';
-import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
+import { AfterViewInit, Component, Inject, Input, OnInit, Optional, ViewChild } from '@angular/core';
 
-import { WpxService } from '@weplanx/ng';
+import { AnyDto, WpxService } from '@weplanx/ng';
 import { NzImageService } from 'ng-zorro-antd/image';
 import { NzMessageService } from 'ng-zorro-antd/message';
-import { NzModalRef, NzModalService } from 'ng-zorro-antd/modal';
+import { NZ_MODAL_DATA, NzModalRef, NzModalService } from 'ng-zorro-antd/modal';
 
-import { MediaType, MediaViewData, Option, OPTION } from './types';
-import { VideoComponent, ViewVideoData } from './view/video/video.component';
-import { WpxMediaViewComponent } from './view/view.component';
+import { FormComponent, FormData } from './form/form.component';
+import { WpxMediaDataSource } from './media.data-source';
+import { PictureComponent, ViewPictureData } from './picture/picture.component';
+import { PicturesService } from './services/pictures.service';
+import { VideosService } from './services/videos.service';
+import { WpxMedia, WpxMediaType, WpxMediaData, Option, OPTION, WpxPicture, WpxVideo } from './types';
+import { VideoComponent, ViewVideoData } from './video/video.component';
 
 @Component({
   selector: 'wpx-media',
   templateUrl: './media.component.html',
-  styleUrls: ['./media.component.scss'],
-  providers: [
-    {
-      provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => WpxMediaComponent),
-      multi: true
-    }
-  ]
+  styleUrls: ['./media.component.scss']
 })
-export class WpxMediaComponent implements ControlValueAccessor {
-  @Input() wpxType!: MediaType;
+export class WpxMediaComponent implements OnInit, AfterViewInit {
+  @Input() wpxData!: WpxMediaDataSource;
+  @Input() wpxType!: WpxMediaType;
   @Input() wpxFallback!: string;
-  @Input() wpxLimit?: number;
+  @Input() wpxHeight?: string;
   @Input() wpxMax?: number;
-  @Input() wpxSearch?: TemplateRef<any>;
+  @Input() wpxForm?: (doc: AnyDto<any>) => void;
+  @ViewChild(CdkVirtualScrollViewport) viewport!: CdkVirtualScrollViewport;
 
-  modalRef?: NzModalRef<WpxMediaViewComponent>;
-  values?: string[];
+  private resizeObserver!: ResizeObserver;
+  private service!: PicturesService | VideosService;
 
-  sortVisible = false;
+  searchText: string = '';
 
-  private onChanged!: (value: any[]) => void;
-  private onTouched!: () => void;
+  private maxMessage?: string;
 
   constructor(
-    private modal: NzModalService,
+    private wpx: WpxService,
+    private image: NzImageService,
     private message: NzMessageService,
+    private modal: NzModalService,
     @Inject(OPTION) public option: Option,
-    @Optional() private wpx: WpxService,
-    @Optional() private image: NzImageService
+    @Optional() public modalRef: NzModalRef,
+    @Optional() public pictures: PicturesService,
+    @Optional() public videos: VideosService,
+    @Optional() @Inject(NZ_MODAL_DATA) public data: WpxMediaData
   ) {}
 
-  registerOnChange(fn: any): void {
-    this.onChanged = fn;
-  }
-
-  registerOnTouched(fn: any): void {
-    this.onTouched = fn;
-  }
-
-  writeValue(v: any): void {
-    this.values = v ?? [];
-  }
-
-  openView(): void {
-    this.modalRef = this.modal.create<WpxMediaViewComponent, MediaViewData>({
-      nzTitle: this.wpxSearch,
-      nzBodyStyle: { background: '#f0f2f5' },
-      nzWidth: 1280,
-      nzContent: WpxMediaViewComponent,
-      nzData: {
-        type: this.wpxType,
-        fallback: this.wpxFallback,
-        height: '600px',
-        max: this.wpxMax,
-        upload: data => {
-          // TODO: ...
-        }
-      },
-      nzOnOk: instance => {
-        this.values = [
-          ...this.values!,
-          ...instance.wpxData.getUrls([...instance.wpxData.checkedIds.values()].splice(0, this.wpxMax))
-        ];
-        if (this.wpxLimit && this.wpxLimit < this.values.length) {
-          this.message.warning($localize`最多允许导入${this.wpxLimit}个元素`);
-          this.values = this.values.splice(0, this.wpxLimit);
-        }
-        this.onChanged(this.values!);
+  ngOnInit(): void {
+    if (this.data) {
+      this.wpxType = this.data.type;
+      this.wpxFallback = this.data.fallback;
+      this.wpxHeight = this.data.height;
+      this.wpxMax = this.data.max;
+    }
+    switch (this.wpxType) {
+      case 'pictures':
+        this.service = this.pictures;
+        break;
+      case 'videos':
+        this.service = this.videos;
+        break;
+    }
+    this.resizeObserver = new ResizeObserver(entries => {
+      for (const entry of entries) {
+        this.calculate(entry.contentRect.width);
       }
     });
   }
 
-  removeValue(i: number): void {
-    this.values!.splice(i, 1);
-    this.onChanged(this.values!);
+  ngAfterViewInit(): void {
+    this.resizeObserver.observe(this.viewport.elementRef.nativeElement);
   }
 
-  openSort(): void {
-    this.sortVisible = true;
+  checked(id: string, checked: boolean): void {
+    this.wpxData.setChecked(id, checked);
+    if (this.wpxMax && this.wpxData.checkedNumber > this.wpxMax) {
+      if (!this.maxMessage) {
+        this.maxMessage = this.message.info($localize`超出确认范围，系统将截取前${this.wpxMax}个元素，批量操作请忽略`, {
+          nzDuration: 0
+        }).messageId;
+      }
+    } else {
+      this.closeMaxMessage();
+    }
   }
 
-  closeSort(): void {
-    this.sortVisible = false;
+  private calculate(width: number): void {
+    const n = width >= 1600 ? 8 : 6;
+    if (this.wpxData.n !== n) {
+      this.wpxData.n = n;
+      this.wpxData.pagesize = n * 3;
+      this.wpxData.fetch(true);
+    }
   }
 
-  sort(event: CdkDragDrop<string[]>): void {
-    moveItemInArray(this.values!, event.previousIndex, event.currentIndex);
-    this.onChanged(this.values!);
+  private closeMaxMessage(): void {
+    if (this.maxMessage) {
+      this.message.remove(this.maxMessage);
+      this.maxMessage = undefined;
+    }
   }
 
-  preview(url: string): void {
+  close(): void {
+    this.closeMaxMessage();
+    this.modalRef.triggerCancel();
+  }
+
+  submit(): void {
+    this.closeMaxMessage();
+    this.modalRef.triggerOk();
+  }
+
+  previewPicture(data: AnyDto<WpxPicture>): void {
+    let url = `${this.wpx.assets}/${data.url}`;
+    if (data.query) {
+      url += `?${data.query}`;
+    }
     this.image.preview([
       {
-        src: `${this.wpx.assets}/${url}`
+        src: url,
+        alt: data.name
       }
     ]);
   }
 
-  video(url: string): void {
+  previewPoster(data: AnyDto<WpxVideo>): void {
+    this.image.preview(
+      [0, 1, 2].map(n => ({
+        src: `${this.wpx.assets}/${data.url}_${n}`
+      }))
+    );
+  }
+
+  form(doc: AnyDto<WpxMedia>): void {
+    if (!this.wpxForm) {
+      this.modal.create<FormComponent, FormData>({
+        nzTitle: $localize`编辑`,
+        nzContent: FormComponent,
+        nzData: {
+          doc,
+          service: this.service
+        }
+      });
+    } else {
+      this.wpxForm(doc);
+    }
+  }
+
+  openPicture(doc: AnyDto<WpxPicture>): void {
+    this.modal.create<PictureComponent, ViewPictureData>({
+      nzTitle: $localize`图片设置`,
+      nzWidth: 960,
+      nzContent: PictureComponent,
+      nzData: {
+        doc
+      }
+    });
+  }
+
+  openVideo(doc: AnyDto<WpxVideo>): void {
     this.modal.create<VideoComponent, ViewVideoData>({
+      nzTitle: doc.name,
       nzWidth: 960,
       nzContent: VideoComponent,
       nzData: {
-        url
+        url: doc.url
       },
       nzFooter: null
+    });
+  }
+
+  bulkUnchecked(): void {
+    this.wpxData.checkedIds.clear();
+    this.wpxData.updateCheckedStatus();
+  }
+
+  delete(data: AnyDto<WpxMedia>): void {
+    this.service.delete(data._id).subscribe(() => {
+      this.message.success($localize`数据删除完成`);
+      this.wpxData.fetch(true);
+    });
+  }
+
+  bulkDelete(): void {
+    this.modal.confirm({
+      nzTitle: $localize`您确认要删除这些文件吗?`,
+      nzOkText: $localize`是的`,
+      nzOkType: 'primary',
+      nzOkDanger: true,
+      nzOnOk: () => {
+        this.service
+          .bulkDelete(
+            {
+              _id: { $in: [...this.wpxData.checkedIds.values()] }
+            },
+            {
+              xfilter: {
+                '_id.$in': 'oids'
+              }
+            }
+          )
+          .subscribe(() => {
+            this.wpxData.checkedIds.clear();
+            this.wpxData.updateCheckedStatus();
+            this.wpxData.fetch(true);
+            this.message.success($localize`数据删除完成`);
+          });
+      },
+      nzCancelText: $localize`否`
     });
   }
 }

@@ -4,10 +4,10 @@ import { map } from 'rxjs/operators';
 
 import { ImageInfoDto, WpxApi } from '@weplanx/ng';
 
-import { Picture } from './types';
+import { WpxPicture } from '../types';
 
 @Injectable()
-export class PicturesService extends WpxApi<Picture> {
+export class PicturesService extends WpxApi<WpxPicture> {
   protected override collection = 'pictures';
 
   getCosImageInfo(url: string): Observable<ImageInfoDto> {
