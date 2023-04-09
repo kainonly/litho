@@ -2,14 +2,17 @@ import {
   ChangeDetectionStrategy,
   Component,
   forwardRef,
+  NgZone,
   TemplateRef,
   ViewChild,
   ViewEncapsulation
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
+import { PicturesComponent, PicturesData } from '@common/components/pictures/pictures.component';
+import { VideosComponent } from '@common/components/videos/videos.component';
 import { WpxService } from '@weplanx/ng';
-import { WpxMediaData, WpxMediaComponent, WpxMediaDataSource } from '@weplanx/ng/media';
+import { WpxMediaData } from '@weplanx/ng/media';
 import { ResolveDone, RichtextData, WpxRichtextComponent } from '@weplanx/ng/richtext';
 import { NzModalRef, NzModalService } from 'ng-zorro-antd/modal';
 
@@ -27,17 +30,18 @@ import { NzModalRef, NzModalService } from 'ng-zorro-antd/modal';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class RichtextComponent implements ControlValueAccessor {
-  @ViewChild('richtext') richtext!: WpxRichtextComponent;
-  @ViewChild('searchRef') searchRef!: TemplateRef<any>;
+  @ViewChild(WpxRichtextComponent) richtext!: WpxRichtextComponent;
+  @ViewChild('header') header!: TemplateRef<any>;
+  @ViewChild('footer') footer!: TemplateRef<any>;
 
   placeholder = $localize`直接输入正文`;
   value: RichtextData | null = null;
-  modalRef?: NzModalRef<WpxMediaComponent>;
+  modalRef?: NzModalRef<PicturesComponent | VideosComponent>;
 
   onChanged!: (value: any) => void;
   private onTouched!: () => void;
 
-  constructor(private modal: NzModalService, private wpx: WpxService) {}
+  constructor(private modal: NzModalService, private wpx: WpxService, private zone: NgZone) {}
 
   registerOnChange(fn: any): void {
     this.onChanged = fn;
@@ -51,21 +55,25 @@ export class RichtextComponent implements ControlValueAccessor {
     this.value = v;
   }
 
+  get instance(): PicturesComponent | VideosComponent {
+    return this.modalRef?.componentInstance as PicturesComponent | VideosComponent;
+  }
+
   openPictures = (done: ResolveDone): void => {
-    this.modalRef = this.modal.create<WpxMediaComponent>({
-      nzTitle: this.searchRef,
+    this.modalRef = this.modal.create<PicturesComponent, WpxMediaData>({
+      nzTitle: this.header,
       nzBodyStyle: { background: '#f0f2f5' },
       nzWidth: 1280,
-      nzContent: WpxMediaComponent,
-      // nzData: {
-      //   type: 'pictures',
-      //   fallback: this.richtext.wpxFallback!,
-      //   height: '600px',
-      //   max: 1,
-      //   upload: data => {}
-      // },
+      nzContent: PicturesComponent,
+      nzData: {
+        type: 'pictures',
+        fallback: this.richtext.wpxFallback!,
+        height: '600px',
+        max: 1,
+        footer: this.footer
+      },
       nzOnOk: instance => {
-        const data = instance.wpxData.getValue([...instance.wpxData.checkedIds.values()][0]);
+        const data = instance.ds.getValue([...instance.ds.checkedIds.values()][0]);
         let url = data.url;
         if (data.query) {
           url += `?${data.query}`;
@@ -79,21 +87,20 @@ export class RichtextComponent implements ControlValueAccessor {
   };
 
   openVideos = (done: ResolveDone): void => {
-    this.modalRef = this.modal.create<WpxMediaComponent>({
-      nzTitle: this.searchRef,
+    this.modalRef = this.modal.create<VideosComponent, WpxMediaData>({
+      nzTitle: this.header,
       nzBodyStyle: { background: '#f0f2f5' },
       nzWidth: 1280,
-      nzContent: WpxMediaComponent,
-      // nzData: {
-      //   // data: new WpxMediaViewDataSource()
-      //   type: 'videos',
-      //   fallback: this.richtext.wpxFallback!,
-      //   height: '600px',
-      //   max: 1,
-      //   upload: data => {}
-      // },
+      nzContent: VideosComponent,
+      nzData: {
+        type: 'videos',
+        fallback: this.richtext.wpxFallback!,
+        height: '600px',
+        max: 1,
+        footer: this.footer
+      },
       nzOnOk: instance => {
-        const data = instance.wpxData.getValue([...instance.wpxData.checkedIds.values()][0]);
+        const data = instance.ds.getValue([...instance.ds.checkedIds.values()][0]);
         done({
           assets: this.wpx.assets,
           url: data.url

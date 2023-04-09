@@ -1,4 +1,4 @@
-import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { Component, Inject, OnInit, Optional, TemplateRef, ViewChild } from '@angular/core';
 
 import { FormComponent, FormData } from '@common/components/pictures/form/form.component';
 import { Picture } from '@common/interfaces/picture';
@@ -7,7 +7,11 @@ import { AnyDto } from '@weplanx/ng';
 import { PicturesService, WpxMediaComponent, WpxMediaDataSource } from '@weplanx/ng/media';
 import { Tag, WpxTagsComponent } from '@weplanx/ng/tags';
 import { Transport } from '@weplanx/ng/upload';
-import { NzModalService } from 'ng-zorro-antd/modal';
+import { NZ_MODAL_DATA, NzModalService } from 'ng-zorro-antd/modal';
+
+export interface PicturesData {
+  height?: string;
+}
 
 @Component({
   selector: 'app-pictures',

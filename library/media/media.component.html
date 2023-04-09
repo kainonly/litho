@@ -93,7 +93,7 @@
 <ng-container *nzModalFooter>
   <nz-row nzJustify="space-between">
     <nz-col>
-      <ng-container *ngIf="data.footer">
+      <ng-container *ngIf="data && data.footer">
         <ng-container *ngTemplateOutlet="data.footer"></ng-container>
       </ng-container>
     </nz-col>
