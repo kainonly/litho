@@ -4,7 +4,7 @@ import { NzContextMenuService, NzDropdownMenuComponent } from 'ng-zorro-antd/dro
 import { NzFormatEmitEvent, NzTreeNode } from 'ng-zorro-antd/tree';
 
 @Component({
-  selector: 'app-projects-pages-outline',
+  selector: 'app-design-outline',
   templateUrl: './outline.component.html',
   styleUrls: ['./outline.component.scss']
 })

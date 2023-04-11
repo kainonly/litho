@@ -61,7 +61,7 @@ const routes: Routes = [
       ...experiments,
       {
         path: ':namespace',
-        loadChildren: () => import('./projects/projects.module').then(m => m.ProjectsModule),
+        loadChildren: () => import('./index.module').then(m => m.IndexModule),
         canActivate: [AppGuard]
       },
       { path: '', redirectTo: 'admin', pathMatch: 'full' }

@@ -1,11 +1,11 @@
 <nz-layout class="common-layout">
-  <nz-sider nzWidth="300px" nzTheme="light" [nzCollapsedWidth]="0" [nzCollapsed]="pages.collapsed">
-    <app-projects-pages-outline></app-projects-pages-outline>
+  <nz-sider nzWidth="300px" nzTheme="light" [nzCollapsedWidth]="0" [nzCollapsed]="design.collapsed">
+    <app-design-outline></app-design-outline>
   </nz-sider>
 
   <nz-layout>
     <nz-content class="content">
-      <app-projects-pages-diagram></app-projects-pages-diagram>
+      <app-design-diagram></app-design-diagram>
     </nz-content>
 
     <nz-sider
@@ -17,7 +17,7 @@
       [nzCollapsedWidth]="0"
       [(nzCollapsed)]="controlCollapsed"
     >
-      <app-projects-pages-control></app-projects-pages-control>
+      <app-design-control></app-design-control>
       <div class="control-panel-trigger" [ngClass]="{ hide: controlCollapsed }">
         <button nz-button [nzType]="controlCollapsed ? 'primary' : 'text'" (click)="toggleControlCollapsed()">
           <span nz-icon [nzType]="controlCollapsed ? 'left' : 'right'"></span>

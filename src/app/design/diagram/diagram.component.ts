@@ -4,7 +4,7 @@ import { Component } from '@angular/core';
 import { NzContextMenuService, NzDropdownMenuComponent } from 'ng-zorro-antd/dropdown';
 
 @Component({
-  selector: 'app-projects-pages-diagram',
+  selector: 'app-design-diagram',
   templateUrl: './diagram.component.html',
   styleUrls: ['./diagram.component.scss']
 })
