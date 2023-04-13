@@ -3,11 +3,11 @@ import { NgModule } from '@angular/core';
 import { WpxModule, WpxShareModule } from '@weplanx/ng';
 
 import { FormComponent } from './form/form.component';
-import { WpxTagsComponent } from './tags.component';
+import { WpxQuickComponent } from './quick.component';
 
 @NgModule({
   imports: [WpxModule, WpxShareModule],
-  declarations: [WpxTagsComponent, FormComponent],
-  exports: [WpxTagsComponent]
+  declarations: [WpxQuickComponent, FormComponent],
+  exports: [WpxQuickComponent]
 })
-export class WpxTagsModule {}
+export class WpxQuickModule {}

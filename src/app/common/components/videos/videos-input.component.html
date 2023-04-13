@@ -22,7 +22,7 @@
       <ng-container *ngTemplateOutlet="instance.shopSearchRef"></ng-container>
     </ng-container>
     <ng-container *nzSpaceItem>
-      <wpx-tags #tagsRef [wpxApi]="instance.tags"> </wpx-tags>
+      <wpx-quick #tagsRef [wpxApi]="instance.tags"> </wpx-quick>
       <button nz-button (click)="tagsRef.open()" i18n> 设置标签 </button>
     </ng-container>
     <ng-container *nzSpaceItem>

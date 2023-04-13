@@ -4,8 +4,8 @@ import { RouterModule } from '@angular/router';
 import { RichtextModule } from '@common/components/richtext/richtext.module';
 import { WpxModule, WpxShareModule } from '@weplanx/ng';
 import { WpxMediaModule } from '@weplanx/ng/media';
+import { WpxQuickModule } from '@weplanx/ng/quick';
 import { WpxTableModule } from '@weplanx/ng/table';
-import { WpxTagsModule } from '@weplanx/ng/tags';
 import { WpxUploadModule } from '@weplanx/ng/upload';
 
 @NgModule({
@@ -16,7 +16,7 @@ import { WpxUploadModule } from '@weplanx/ng/upload';
     WpxTableModule,
     WpxUploadModule,
     WpxMediaModule,
-    WpxTagsModule,
+    WpxQuickModule,
     RichtextModule
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]

@@ -1,11 +1,11 @@
-import { Component, Inject, OnInit, Optional, TemplateRef, ViewChild } from '@angular/core';
+import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 
 import { FormComponent, FormData } from '@common/components/pictures/form/form.component';
 import { Picture } from '@common/interfaces/picture';
 import { PictureTagsService } from '@common/services/picture-tags.service';
 import { AnyDto } from '@weplanx/ng';
 import { PicturesService, WpxMediaComponent, WpxMediaDataSource } from '@weplanx/ng/media';
-import { Tag, WpxTagsComponent } from '@weplanx/ng/tags';
+import { Quick, WpxQuickComponent } from '@weplanx/ng/quick';
 import { Transport } from '@weplanx/ng/upload';
 import { NZ_MODAL_DATA, NzModalService } from 'ng-zorro-antd/modal';
 
@@ -22,12 +22,12 @@ export class PicturesComponent implements OnInit {
   @ViewChild('tagSearchRef', { static: true }) tagSearchRef!: TemplateRef<any>;
   @ViewChild('searchRef', { static: true }) searchRef!: TemplateRef<any>;
   @ViewChild(WpxMediaComponent, { static: true }) mediaRef!: WpxMediaComponent;
-  @ViewChild(WpxTagsComponent, { static: true }) tagsRef!: WpxTagsComponent;
+  @ViewChild(WpxQuickComponent, { static: true }) tagsRef!: WpxQuickComponent;
 
   ds!: WpxMediaDataSource;
   searchText = '';
 
-  tagItems: Array<AnyDto<Tag>> = [];
+  tagItems: Array<AnyDto<Quick>> = [];
   tagIds: string[] = [];
 
   constructor(private pictures: PicturesService, public tags: PictureTagsService, private modal: NzModalService) {}

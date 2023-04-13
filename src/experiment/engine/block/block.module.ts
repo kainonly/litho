@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { ShareModule } from '@common/share.module';
-import { WpxBlockModule } from '@weplanx/block';
+import { WpxBlockModule } from '@weplanx/ng/block';
 
 import { BlockComponent } from './block.component';
 

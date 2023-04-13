@@ -5,10 +5,10 @@ import { NzMessageService } from 'ng-zorro-antd/message';
 import { NZ_MODAL_DATA, NzModalRef } from 'ng-zorro-antd/modal';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 
-import { TagFormData } from '../types';
+import { QuickFormData } from '../types';
 
 @Component({
-  selector: 'wpx-tags-form',
+  selector: 'wpx-quick-form',
   templateUrl: './form.component.html'
 })
 export class FormComponent implements OnInit {
@@ -22,7 +22,7 @@ export class FormComponent implements OnInit {
   };
 
   constructor(
-    @Inject(NZ_MODAL_DATA) public data: TagFormData,
+    @Inject(NZ_MODAL_DATA) public data: QuickFormData,
     private modalRef: NzModalRef,
     private message: NzMessageService,
     private notification: NzNotificationService,

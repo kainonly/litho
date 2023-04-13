@@ -1,11 +1,10 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
-import { Video } from '@common/interfaces/video';
+import { Video, VideoTag } from '@common/interfaces/video';
 import { VideoTagsService } from '@common/services/video-tags.service';
 import { AnyDto } from '@weplanx/ng';
 import { VideosService } from '@weplanx/ng/media';
-import { Tag } from '@weplanx/ng/tags';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NZ_MODAL_DATA, NzModalRef } from 'ng-zorro-antd/modal';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
@@ -28,7 +27,7 @@ export class FormComponent implements OnInit {
       }
     }
   };
-  tagItems: Array<AnyDto<Tag>> = [];
+  tagItems: Array<AnyDto<VideoTag>> = [];
 
   constructor(
     @Inject(NZ_MODAL_DATA) public data: FormData,

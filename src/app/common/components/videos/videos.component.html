@@ -14,7 +14,18 @@
   </nz-select>
 </ng-template>
 
-<wpx-tags [wpxApi]="tags" [wpxFilter]="tagFilter" [wpxForm]="tagForm"> </wpx-tags>
+<wpx-quick
+  [wpxApi]="tags"
+  [wpxFilter]="tagFilter"
+  [wpxForm]="tagForm"
+  [wpxHeaderCell]="[th0, th1]"
+  [wpxCell]="[td0, td1]"
+>
+  <ng-template #th0> <b>名称</b> </ng-template>
+  <ng-template #th1> <b>SHOP</b> </ng-template>
+  <ng-template #td0 let-data>{{ data.name }}</ng-template>
+  <ng-template #td1 let-data>{{ data.shop_id }}</ng-template>
+</wpx-quick>
 <ng-template #tagSearchRef>
   <nz-select
     style="min-width: 180px"

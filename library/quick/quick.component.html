@@ -34,14 +34,15 @@
     <nz-card [nzBordered]="false" [nzTitle]="searchTpl" [nzExtra]="extraTpl">
       <nz-table
         #basicTable
+        nzTableLayout="auto"
         [nzFrontPagination]="false"
         [nzShowSizeChanger]="true"
         [nzHideOnSinglePage]="true"
-        [nzLoading]="dataset.loading"
-        [nzData]="dataset.values"
-        [nzTotal]="dataset.total"
-        [(nzPageSize)]="dataset.pagesize"
-        [(nzPageIndex)]="dataset.page"
+        [nzLoading]="ds.loading"
+        [nzData]="ds.values"
+        [nzTotal]="ds.total"
+        [(nzPageSize)]="ds.pagesize"
+        [(nzPageIndex)]="ds.page"
         (nzPageIndexChange)="getData(false)"
         (nzPageSizeChange)="getData(true)"
       >
@@ -51,12 +52,19 @@
               nzWidth="60px"
               nzLeft
               nzAlign="center"
-              [nzChecked]="dataset.checked"
-              [nzIndeterminate]="dataset.indeterminate"
-              (nzCheckedChange)="dataset.setNChecked($event)"
+              [nzChecked]="ds.checked"
+              [nzIndeterminate]="ds.indeterminate"
+              (nzCheckedChange)="ds.setNChecked($event)"
             >
             </th>
-            <th><b i18n>名称</b></th>
+            <ng-container *ngIf="wpxHeaderCell; else defaultHeaderCell">
+              <th *ngFor="let tpl of wpxHeaderCell">
+                <ng-container *ngTemplateOutlet="tpl"></ng-container>
+              </th>
+            </ng-container>
+            <ng-template #defaultHeaderCell>
+              <th><b i18n>名称</b></th>
+            </ng-template>
             <th nzWidth="60px" nzRight nzAlign="center">
               <button nz-button nzType="text" nzBlock disabled>
                 <i nz-icon nzType="setting"></i>
@@ -70,11 +78,18 @@
               nzLeft
               nzAlign="center"
               [nzDisabled]="data['disabled']"
-              [nzChecked]="dataset.checkedIds.has(data['_id'])"
-              (nzCheckedChange)="dataset.setChecked(data['_id'], $event)"
+              [nzChecked]="ds.checkedIds.has(data['_id'])"
+              (nzCheckedChange)="ds.setChecked(data['_id'], $event)"
             >
             </td>
-            <td>{{ data.name }}</td>
+            <ng-container *ngIf="wpxCell; else defaultCell">
+              <td *ngFor="let tpl of wpxCell">
+                <ng-container *ngTemplateOutlet="tpl; context: { $implicit: data }"></ng-container>
+              </td>
+            </ng-container>
+            <ng-template #defaultCell>
+              <td>{{ data.name }}</td>
+            </ng-template>
             <td nzRight nzAlign="center">
               <button nz-button nzType="text" nz-dropdown [nzDropdownMenu]="menu">
                 <i nz-icon nzType="ellipsis"></i>

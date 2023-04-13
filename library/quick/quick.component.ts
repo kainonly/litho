@@ -1,24 +1,26 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, TemplateRef } from '@angular/core';
 
 import { AnyDto, WpxApi, WpxData } from '@weplanx/ng';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalService } from 'ng-zorro-antd/modal';
 
 import { FormComponent } from './form/form.component';
-import { TagFormData, Tag } from './types';
+import { QuickFormData, Quick } from './types';
 
 @Component({
-  selector: 'wpx-tags',
-  templateUrl: './tags.component.html'
+  selector: 'wpx-quick',
+  templateUrl: './quick.component.html'
 })
-export class WpxTagsComponent {
-  @Input() wpxApi!: WpxApi<Tag>;
+export class WpxQuickComponent {
+  @Input() wpxApi!: WpxApi<Quick>;
+  @Input() wpxHeaderCell?: Array<TemplateRef<any>>;
+  @Input() wpxCell?: Array<TemplateRef<any>>;
   @Input() wpxFilter?: (ds: WpxData<AnyDto<any>>) => void;
   @Input() wpxForm?: (doc?: AnyDto<any>) => void;
 
   visible = false;
 
-  dataset: WpxData<AnyDto<Tag>> = new WpxData<AnyDto<Tag>>();
+  ds: WpxData<AnyDto<Quick>> = new WpxData<AnyDto<Quick>>();
   searchText = '';
 
   constructor(private modal: NzModalService, private message: NzMessageService) {}
@@ -33,14 +35,14 @@ export class WpxTagsComponent {
   }
 
   getData(refresh = false): void {
-    this.dataset.filter = {};
+    this.ds.filter = {};
     if (this.searchText) {
-      this.dataset.filter = {
+      this.ds.filter = {
         name: { $regex: this.searchText }
       };
     }
-    this.wpxFilter?.(this.dataset);
-    this.wpxApi.pages(this.dataset, refresh).subscribe(() => {});
+    this.wpxFilter?.(this.ds);
+    this.wpxApi.pages(this.ds, refresh).subscribe(() => {});
   }
 
   clear(): void {
@@ -50,7 +52,7 @@ export class WpxTagsComponent {
 
   form(doc?: AnyDto<any>): void {
     if (!this.wpxForm) {
-      this.modal.create<FormComponent, TagFormData>({
+      this.modal.create<FormComponent, QuickFormData>({
         nzTitle: !doc ? $localize`新增` : $localize`编辑`,
         nzContent: FormComponent,
         nzData: {
@@ -66,7 +68,7 @@ export class WpxTagsComponent {
     }
   }
 
-  delete(doc: AnyDto<Tag>): void {
+  delete(doc: AnyDto<Quick>): void {
     this.modal.confirm({
       nzTitle: $localize`您确定要删除这个标签？`,
       nzOkText: $localize`是的`,

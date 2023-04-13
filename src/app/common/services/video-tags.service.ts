@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 
+import { VideoTag } from '@common/interfaces/video';
 import { WpxApi } from '@weplanx/ng';
-import { Tag } from '@weplanx/ng/tags';
 
 @Injectable({ providedIn: 'root' })
-export class VideoTagsService extends WpxApi<Tag> {
+export class VideoTagsService extends WpxApi<VideoTag> {
   protected override collection = 'video_tags';
 }
