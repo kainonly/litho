@@ -4,7 +4,7 @@ import { Video, VideoTag } from '@common/interfaces/video';
 import { VideoTagsService } from '@common/services/video-tags.service';
 import { AnyDto, WpxData, XFilter } from '@weplanx/ng';
 import { VideosService, WpxMediaComponent, WpxMediaDataSource } from '@weplanx/ng/media';
-import { Quick, WpxQuickComponent } from '@weplanx/ng/quick';
+import { WpxQuick, WpxQuickComponent } from '@weplanx/ng/quick';
 import { Transport } from '@weplanx/ng/upload';
 import { NzModalService } from 'ng-zorro-antd/modal';
 
@@ -33,7 +33,7 @@ export class VideosComponent implements OnInit {
     { _id: '642569d0b16d000cd6bcfb60', name: '店铺 C' }
   ];
 
-  tagItems: Array<AnyDto<Quick>> = [];
+  tagItems: Array<AnyDto<WpxQuick>> = [];
   tagIds: string[] = [];
 
   constructor(private videos: VideosService, public tags: VideoTagsService, private modal: NzModalService) {}

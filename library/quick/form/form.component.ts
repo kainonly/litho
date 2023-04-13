@@ -5,7 +5,7 @@ import { NzMessageService } from 'ng-zorro-antd/message';
 import { NZ_MODAL_DATA, NzModalRef } from 'ng-zorro-antd/modal';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 
-import { QuickFormData } from '../types';
+import { WpxQuickFormData } from '../types';
 
 @Component({
   selector: 'wpx-quick-form',
@@ -22,7 +22,7 @@ export class FormComponent implements OnInit {
   };
 
   constructor(
-    @Inject(NZ_MODAL_DATA) public data: QuickFormData,
+    @Inject(NZ_MODAL_DATA) public data: WpxQuickFormData,
     private modalRef: NzModalRef,
     private message: NzMessageService,
     private notification: NzNotificationService,

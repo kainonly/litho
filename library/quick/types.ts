@@ -1,10 +1,10 @@
 import { AnyDto, WpxApi } from '@weplanx/ng';
 
-export interface Quick {
+export interface WpxQuick {
   name: string;
 }
 
-export interface QuickFormData {
-  api: WpxApi<Quick>;
-  doc?: AnyDto<Quick>;
+export interface WpxQuickFormData {
+  api: WpxApi<WpxQuick>;
+  doc?: AnyDto<WpxQuick>;
 }

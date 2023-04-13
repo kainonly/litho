@@ -5,9 +5,9 @@ import { Picture } from '@common/interfaces/picture';
 import { PictureTagsService } from '@common/services/picture-tags.service';
 import { AnyDto } from '@weplanx/ng';
 import { PicturesService, WpxMediaComponent, WpxMediaDataSource } from '@weplanx/ng/media';
-import { Quick, WpxQuickComponent } from '@weplanx/ng/quick';
+import { WpxQuick, WpxQuickComponent } from '@weplanx/ng/quick';
 import { Transport } from '@weplanx/ng/upload';
-import { NZ_MODAL_DATA, NzModalService } from 'ng-zorro-antd/modal';
+import { NzModalService } from 'ng-zorro-antd/modal';
 
 export interface PicturesData {
   height?: string;
@@ -27,7 +27,7 @@ export class PicturesComponent implements OnInit {
   ds!: WpxMediaDataSource;
   searchText = '';
 
-  tagItems: Array<AnyDto<Quick>> = [];
+  tagItems: Array<AnyDto<WpxQuick>> = [];
   tagIds: string[] = [];
 
   constructor(private pictures: PicturesService, public tags: PictureTagsService, private modal: NzModalService) {}

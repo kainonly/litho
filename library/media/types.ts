@@ -1,9 +1,6 @@
 import { InjectionToken, TemplateRef } from '@angular/core';
 
-import { AnyDto, LoadOption } from '@weplanx/ng';
-import { Transport } from '@weplanx/ng/upload';
-
-import { WpxMediaDataSource } from './media.data-source';
+import { LoadOption } from '@weplanx/ng';
 
 export const OPTION = new InjectionToken<Option>('media.option');
 export interface Option extends LoadOption {

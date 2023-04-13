@@ -5,14 +5,14 @@ import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalService } from 'ng-zorro-antd/modal';
 
 import { FormComponent } from './form/form.component';
-import { QuickFormData, Quick } from './types';
+import { WpxQuickFormData, WpxQuick } from './types';
 
 @Component({
   selector: 'wpx-quick',
   templateUrl: './quick.component.html'
 })
 export class WpxQuickComponent {
-  @Input() wpxApi!: WpxApi<Quick>;
+  @Input() wpxApi!: WpxApi<WpxQuick>;
   @Input() wpxHeaderCell?: Array<TemplateRef<any>>;
   @Input() wpxCell?: Array<TemplateRef<any>>;
   @Input() wpxFilter?: (ds: WpxData<AnyDto<any>>) => void;
@@ -20,7 +20,7 @@ export class WpxQuickComponent {
 
   visible = false;
 
-  ds: WpxData<AnyDto<Quick>> = new WpxData<AnyDto<Quick>>();
+  ds: WpxData<AnyDto<WpxQuick>> = new WpxData<AnyDto<WpxQuick>>();
   searchText = '';
 
   constructor(private modal: NzModalService, private message: NzMessageService) {}
@@ -52,7 +52,7 @@ export class WpxQuickComponent {
 
   form(doc?: AnyDto<any>): void {
     if (!this.wpxForm) {
-      this.modal.create<FormComponent, QuickFormData>({
+      this.modal.create<FormComponent, WpxQuickFormData>({
         nzTitle: !doc ? $localize`新增` : $localize`编辑`,
         nzContent: FormComponent,
         nzData: {
@@ -68,7 +68,7 @@ export class WpxQuickComponent {
     }
   }
 
-  delete(doc: AnyDto<Quick>): void {
+  delete(doc: AnyDto<WpxQuick>): void {
     this.modal.confirm({
       nzTitle: $localize`您确定要删除这个标签？`,
       nzOkText: $localize`是的`,

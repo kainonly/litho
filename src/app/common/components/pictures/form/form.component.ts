@@ -5,7 +5,7 @@ import { Picture } from '@common/interfaces/picture';
 import { PictureTagsService } from '@common/services/picture-tags.service';
 import { AnyDto } from '@weplanx/ng';
 import { PicturesService } from '@weplanx/ng/media';
-import { Quick } from '@weplanx/ng/quick';
+import { WpxQuick } from '@weplanx/ng/quick';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NZ_MODAL_DATA, NzModalRef } from 'ng-zorro-antd/modal';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
@@ -27,7 +27,7 @@ export class FormComponent implements OnInit {
       }
     }
   };
-  tagItems: Array<AnyDto<Quick>> = [];
+  tagItems: Array<AnyDto<WpxQuick>> = [];
 
   constructor(
     @Inject(NZ_MODAL_DATA) public data: FormData,
