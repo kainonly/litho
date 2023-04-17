@@ -19,8 +19,8 @@ export interface BasicDto extends R {
 
 export type Filter<T> = Partial<{ [P in keyof AnyDto<T>]: any }>;
 export type Sort<T> = Partial<{ [P in keyof AnyDto<T>]: -1 | 1 }>;
-export type XFilter = 'oid' | 'oids' | 'date' | 'timestamp';
-export type XData = 'oid' | 'oids' | 'date' | 'timestamp' | 'password';
+export type XFilter = 'oid' | 'oids' | 'date' | 'dates' | 'timestamp' | 'timestamps';
+export type XData = 'oid' | 'oids' | 'date' | 'dates' | 'timestamp' | 'timestamps' | 'password';
 
 export interface ApiOptions<T> {
   keys?: Array<keyof AnyDto<T>>;
