@@ -134,7 +134,6 @@ export abstract class WpxApi<T> {
     if (options?.txn) {
       params.set('txn', options.txn);
     }
-
     return this.http.delete(this.url(id), { params });
   }
 
@@ -146,9 +145,9 @@ export abstract class WpxApi<T> {
     });
   }
 
-  sort(ids: string[], options?: SortOption<T>): Observable<R> {
+  sort(key: string, values: string[], options?: SortOption<T>): Observable<R> {
     return this.http.post(this.url('sort'), {
-      data: ids,
+      data: { key, values },
       txn: options?.txn
     });
   }
