@@ -10,7 +10,7 @@ import { NzMessageService } from 'ng-zorro-antd/message';
 import { NZ_MODAL_DATA, NzModalRef } from 'ng-zorro-antd/modal';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 
-export interface FormData {
+export interface InputData {
   doc: AnyDto<Picture>;
 }
 
@@ -30,7 +30,7 @@ export class FormComponent implements OnInit {
   tagItems: Array<AnyDto<WpxQuick>> = [];
 
   constructor(
-    @Inject(NZ_MODAL_DATA) public data: FormData,
+    @Inject(NZ_MODAL_DATA) public data: InputData,
     private modalRef: NzModalRef,
     private message: NzMessageService,
     private notification: NzNotificationService,

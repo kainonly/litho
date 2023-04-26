@@ -10,7 +10,7 @@ import { PicturesService } from '../services/pictures.service';
 import { VideosService } from '../services/videos.service';
 import { WpxPicture, WpxVideo } from '../types';
 
-export interface FormData {
+export interface InputData {
   doc: AnyDto<WpxPicture | WpxVideo>;
   service: PicturesService | VideosService;
 }
@@ -30,7 +30,7 @@ export class FormComponent implements OnInit {
   };
 
   constructor(
-    @Inject(NZ_MODAL_DATA) public data: FormData,
+    @Inject(NZ_MODAL_DATA) public data: InputData,
     private modalRef: NzModalRef,
     private message: NzMessageService,
     private notification: NzNotificationService,

@@ -4,7 +4,7 @@ export interface WpxQuick {
   name: string;
 }
 
-export interface WpxQuickFormData {
+export interface WpxQuickInputData {
   api: WpxApi<WpxQuick>;
   doc?: AnyDto<WpxQuick>;
 }

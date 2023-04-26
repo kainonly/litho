@@ -6,7 +6,7 @@ import { Component } from '@angular/core';
   styleUrls: ['./control.component.scss']
 })
 export class ControlComponent {
-  panels = [
+  panels: any = [
     {
       active: true,
       name: 'This is panel header 1',

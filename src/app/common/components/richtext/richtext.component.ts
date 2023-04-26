@@ -2,14 +2,13 @@ import {
   ChangeDetectionStrategy,
   Component,
   forwardRef,
-  NgZone,
   TemplateRef,
   ViewChild,
   ViewEncapsulation
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
-import { PicturesComponent, PicturesData } from '@common/components/pictures/pictures.component';
+import { PicturesComponent } from '@common/components/pictures/pictures.component';
 import { VideosComponent } from '@common/components/videos/videos.component';
 import { WpxService } from '@weplanx/ng';
 import { WpxMediaData } from '@weplanx/ng/media';
@@ -41,7 +40,7 @@ export class RichtextComponent implements ControlValueAccessor {
   onChanged!: (value: any) => void;
   private onTouched!: () => void;
 
-  constructor(private modal: NzModalService, private wpx: WpxService, private zone: NgZone) {}
+  constructor(private modal: NzModalService, private wpx: WpxService) {}
 
   registerOnChange(fn: any): void {
     this.onChanged = fn;

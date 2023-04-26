@@ -1,6 +1,6 @@
 import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 
-import { FormComponent, FormData } from '@common/components/pictures/form/form.component';
+import { FormComponent, InputData } from '@common/components/pictures/form/form.component';
 import { Picture } from '@common/interfaces/picture';
 import { PictureTagsService } from '@common/services/picture-tags.service';
 import { AnyDto } from '@weplanx/ng';
@@ -75,7 +75,7 @@ export class PicturesComponent implements OnInit {
   }
 
   form = (doc: AnyDto<Picture>): void => {
-    this.modal.create<FormComponent, FormData>({
+    this.modal.create<FormComponent, InputData>({
       nzTitle: $localize`编辑`,
       nzContent: FormComponent,
       nzData: {

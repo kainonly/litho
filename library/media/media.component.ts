@@ -6,7 +6,7 @@ import { NzImageService } from 'ng-zorro-antd/image';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NZ_MODAL_DATA, NzModalRef, NzModalService } from 'ng-zorro-antd/modal';
 
-import { FormComponent, FormData } from './form/form.component';
+import { FormComponent, InputData } from './form/form.component';
 import { WpxMediaDataSource } from './media.data-source';
 import { PictureComponent, ViewPictureData } from './picture/picture.component';
 import { PicturesService } from './services/pictures.service';
@@ -135,7 +135,7 @@ export class WpxMediaComponent implements OnInit, AfterViewInit {
 
   form(doc: AnyDto<WpxMedia>): void {
     if (!this.wpxForm) {
-      this.modal.create<FormComponent, FormData>({
+      this.modal.create<FormComponent, InputData>({
         nzTitle: $localize`编辑`,
         nzContent: FormComponent,
         nzData: {

@@ -8,8 +8,8 @@ import { WpxQuick, WpxQuickComponent } from '@weplanx/ng/quick';
 import { Transport } from '@weplanx/ng/upload';
 import { NzModalService } from 'ng-zorro-antd/modal';
 
-import { FormComponent, FormData } from './form/form.component';
-import { TagFormComponent, TagFormData } from './tag-form/tag-form.component';
+import { FormComponent, InputData } from './form/form.component';
+import { TagFormComponent, TagInputData } from './tag-form/tag-form.component';
 
 @Component({
   selector: 'app-videos',
@@ -98,7 +98,7 @@ export class VideosComponent implements OnInit {
   };
 
   tagForm = (doc?: AnyDto<VideoTag>): void => {
-    this.modal.create<TagFormComponent, TagFormData>({
+    this.modal.create<TagFormComponent, TagInputData>({
       nzTitle: !doc ? $localize`新增` : $localize`编辑`,
       nzContent: TagFormComponent,
       nzData: {
@@ -114,7 +114,7 @@ export class VideosComponent implements OnInit {
   };
 
   form = (doc: AnyDto<Video>): void => {
-    this.modal.create<FormComponent, FormData>({
+    this.modal.create<FormComponent, InputData>({
       nzTitle: $localize`编辑`,
       nzContent: FormComponent,
       nzData: {

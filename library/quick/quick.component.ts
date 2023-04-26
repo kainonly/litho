@@ -5,7 +5,7 @@ import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalService } from 'ng-zorro-antd/modal';
 
 import { FormComponent } from './form/form.component';
-import { WpxQuickFormData, WpxQuick } from './types';
+import { WpxQuickInputData, WpxQuick } from './types';
 
 @Component({
   selector: 'wpx-quick',
@@ -50,9 +50,9 @@ export class WpxQuickComponent {
     this.getData(true);
   }
 
-  form(doc?: AnyDto<any>): void {
+  form(doc?: AnyDto<WpxQuick>): void {
     if (!this.wpxForm) {
-      this.modal.create<FormComponent, WpxQuickFormData>({
+      this.modal.create<FormComponent, WpxQuickInputData>({
         nzTitle: !doc ? $localize`新增` : $localize`编辑`,
         nzContent: FormComponent,
         nzData: {

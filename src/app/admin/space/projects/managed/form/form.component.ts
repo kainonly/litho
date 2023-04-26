@@ -9,7 +9,7 @@ import { nanoid } from 'nanoid';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NZ_MODAL_DATA, NzModalRef } from 'ng-zorro-antd/modal';
 
-export interface ManagedFormData {
+export interface ManagedInputData {
   doc?: AnyDto<Project>;
 }
 
@@ -39,8 +39,7 @@ export class FormComponent implements OnInit {
   };
 
   constructor(
-    @Inject(NZ_MODAL_DATA)
-    private data: ManagedFormData,
+    @Inject(NZ_MODAL_DATA) public data: ManagedInputData,
     public wpx: WpxService,
     private modalRef: NzModalRef,
     private message: NzMessageService,

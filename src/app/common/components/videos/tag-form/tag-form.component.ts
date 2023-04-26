@@ -1,12 +1,12 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
-import { WpxQuickFormData } from '@weplanx/ng/quick';
+import { WpxQuickInputData } from '@weplanx/ng/quick';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NZ_MODAL_DATA, NzModalRef } from 'ng-zorro-antd/modal';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 
-export interface TagFormData extends WpxQuickFormData {
+export interface TagInputData extends WpxQuickInputData {
   shop_id: string;
 }
 
@@ -25,7 +25,7 @@ export class TagFormComponent implements OnInit {
   };
 
   constructor(
-    @Inject(NZ_MODAL_DATA) public data: TagFormData,
+    @Inject(NZ_MODAL_DATA) public data: TagInputData,
     private modalRef: NzModalRef,
     private message: NzMessageService,
     private notification: NzNotificationService,
