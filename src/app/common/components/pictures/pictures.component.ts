@@ -1,17 +1,14 @@
 import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 
 import { FormComponent, InputData } from '@common/components/pictures/form/form.component';
-import { Picture } from '@common/interfaces/picture';
+import { TagsComponent } from '@common/components/pictures/tags/tags.component';
+import { Picture, PictureTag } from '@common/interfaces/picture';
 import { PictureTagsService } from '@common/services/picture-tags.service';
-import { AnyDto } from '@weplanx/ng';
+import { AnyDto, Filter } from '@weplanx/ng';
 import { PicturesService, WpxMediaComponent, WpxMediaDataSource } from '@weplanx/ng/media';
-import { WpxQuick, WpxQuickComponent } from '@weplanx/ng/quick';
 import { Transport } from '@weplanx/ng/upload';
+import { NzDrawerService } from 'ng-zorro-antd/drawer';
 import { NzModalService } from 'ng-zorro-antd/modal';
-
-export interface PicturesData {
-  height?: string;
-}
 
 @Component({
   selector: 'app-pictures',
@@ -22,15 +19,19 @@ export class PicturesComponent implements OnInit {
   @ViewChild('tagSearchRef', { static: true }) tagSearchRef!: TemplateRef<any>;
   @ViewChild('searchRef', { static: true }) searchRef!: TemplateRef<any>;
   @ViewChild(WpxMediaComponent, { static: true }) mediaRef!: WpxMediaComponent;
-  @ViewChild(WpxQuickComponent, { static: true }) tagsRef!: WpxQuickComponent;
 
   ds!: WpxMediaDataSource;
   searchText = '';
 
-  tagItems: Array<AnyDto<WpxQuick>> = [];
+  tagItems: Array<AnyDto<PictureTag>> = [];
   tagIds: string[] = [];
 
-  constructor(private pictures: PicturesService, public tags: PictureTagsService, private modal: NzModalService) {}
+  constructor(
+    private pictures: PicturesService,
+    public tags: PictureTagsService,
+    private modal: NzModalService,
+    private drawer: NzDrawerService
+  ) {}
 
   ngOnInit(): void {
     this.ds = new WpxMediaDataSource(this.pictures);
@@ -49,8 +50,13 @@ export class PicturesComponent implements OnInit {
     this.ds.fetch(refresh);
   }
 
+  clear(): void {
+    this.searchText = '';
+    this.getData(true);
+  }
+
   getTags(name?: string): void {
-    const filter: Record<string, any> = {};
+    const filter: Filter<PictureTag> = {};
     if (name) {
       filter['name'] = { $regex: name };
     }
@@ -59,9 +65,12 @@ export class PicturesComponent implements OnInit {
     });
   }
 
-  clear(): void {
-    this.searchText = '';
-    this.getData(true);
+  openTags(): void {
+    this.drawer.create({
+      nzWidth: 600,
+      nzClosable: false,
+      nzContent: TagsComponent
+    });
   }
 
   upload(data: Transport[]): void {

@@ -55,3 +55,12 @@ $content-left: 60px;
   overflow-x: hidden;
   overflow-y: auto;
 }
+
+nz-sider.nav {
+  border-right: 1px solid #f0f0f0;
+  padding: 8px;
+
+  ul[nz-menu] {
+    border: none;
+  }
+}

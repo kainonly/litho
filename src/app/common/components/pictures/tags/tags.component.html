@@ -1,0 +1,123 @@
+<nz-page-header [nzGhost]="false">
+  <nz-page-header-title i18n>图片标签</nz-page-header-title>
+  <nz-page-header-extra>
+    <nz-space>
+      <ng-container *nzSpaceItem>
+        <button nz-button nzType="primary" nzShape="circle" nz-tooltip="新增" i18n-nz-tooltip (click)="form()">
+          <span nz-icon nzType="plus"></span>
+        </button>
+      </ng-container>
+    </nz-space>
+  </nz-page-header-extra>
+  <nz-page-header-content>
+    <nz-row nzJustify="space-between" nzAlign="bottom">
+      <nz-col>
+        <nz-space>
+          <nz-input-group *nzSpaceItem style="width: 180px" nzSuffixIcon="search">
+            <input
+              (keyup.enter)="getData(true)"
+              [(ngModel)]="searchText"
+              type="text"
+              nz-input
+              placeholder="搜索"
+              i18n-placeholder
+            />
+          </nz-input-group>
+          <nz-button-group *nzSpaceItem>
+            <button nz-button nzType="text" nz-tooltip="刷新" i18n-nz-tooltip (click)="getData(true)">
+              <span nz-icon nzType="reload"></span>
+            </button>
+            <button nz-button nzType="text" nz-tooltip="重置" i18n-nz-tooltip (click)="clear()">
+              <span nz-icon nzType="clear"></span>
+            </button>
+          </nz-button-group>
+        </nz-space>
+      </nz-col>
+      <nz-col> </nz-col>
+      <nz-col>
+        <span>共计 {{ ds.total }} 条记录</span>
+      </nz-col>
+    </nz-row>
+  </nz-page-header-content>
+</nz-page-header>
+
+<nz-card [nzBordered]="false">
+  <nz-table
+    #basicTable
+    [nzFrontPagination]="false"
+    [nzShowSizeChanger]="true"
+    [nzHideOnSinglePage]="true"
+    [nzLoading]="false"
+    [nzData]="ds.values"
+    [nzTotal]="ds.total"
+    [(nzPageSize)]="ds.pagesize"
+    [(nzPageIndex)]="ds.page"
+    (nzPageIndexChange)="getData(false)"
+    (nzPageSizeChange)="getData(true)"
+  >
+    <thead>
+      <tr>
+        <th
+          nzWidth="60px"
+          nzLeft
+          nzAlign="center"
+          [nzChecked]="ds.checked"
+          [nzIndeterminate]="ds.indeterminate"
+          (nzCheckedChange)="ds.setNChecked($event)"
+        ></th>
+        <th><b>标签名称</b></th>
+        <th nzWidth="60px" nzRight nzAlign="center">
+          <button nz-button nzType="text" nzBlock disabled>
+            <span nz-icon nzType="setting"></span>
+          </button>
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let data of basicTable.data">
+        <td
+          nzLeft
+          nzAlign="center"
+          [nzDisabled]="data['disabled']"
+          [nzChecked]="ds.checkedIds.has(data['_id'])"
+          (nzCheckedChange)="ds.setChecked(data['_id'], $event)"
+        ></td>
+
+        <td>{{ data.name }}</td>
+
+        <td nzRight nzAlign="center">
+          <button nz-button nzType="text" nz-dropdown [nzDropdownMenu]="menu">
+            <span nz-icon nzType="ellipsis"></span>
+          </button>
+          <nz-dropdown-menu #menu="nzDropdownMenu">
+            <ul nz-menu>
+              <li nz-menu-item i18n (click)="form(data)">编辑</li>
+              <li nz-menu-item nzDanger i18n (click)="delete(data)">删除</li>
+            </ul>
+          </nz-dropdown-menu>
+        </td>
+      </tr>
+    </tbody>
+  </nz-table>
+</nz-card>
+
+<ng-template #noRef>-</ng-template>
+
+<nz-alert
+  *ngIf="ds.checkedNumber !== 0"
+  nzType="info"
+  nzBanner
+  nzMessage="批量"
+  i18n-nzMessage
+  [nzDescription]="descriptionRef"
+  [nzAction]="bulkRef"
+>
+  <ng-template #descriptionRef>
+    <span i18n> 已选中 {{ ds.checkedNumber }} 项 </span>
+  </ng-template>
+  <ng-template #bulkRef>
+    <a nz-button nzType="link" nzSize="small" (click)="ds.clearChecked()" i18n>取消选择</a>
+    <br />
+    <a style="float: right" nz-button nzType="link" nzSize="small" nzDanger (click)="bulkDelete()" i18n> 删除 </a>
+  </ng-template>
+</nz-alert>

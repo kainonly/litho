@@ -1,11 +1,10 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
-import { Picture } from '@common/interfaces/picture';
+import { Picture, PictureTag } from '@common/interfaces/picture';
 import { PictureTagsService } from '@common/services/picture-tags.service';
 import { AnyDto } from '@weplanx/ng';
 import { PicturesService } from '@weplanx/ng/media';
-import { WpxQuick } from '@weplanx/ng/quick';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NZ_MODAL_DATA, NzModalRef } from 'ng-zorro-antd/modal';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
@@ -27,7 +26,7 @@ export class FormComponent implements OnInit {
       }
     }
   };
-  tagItems: Array<AnyDto<WpxQuick>> = [];
+  tagItems: Array<AnyDto<PictureTag>> = [];
 
   constructor(
     @Inject(NZ_MODAL_DATA) public data: InputData,
