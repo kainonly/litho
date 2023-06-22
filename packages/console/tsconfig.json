@@ -7,7 +7,12 @@
     "noImplicitOverride": true,
     "noPropertyAccessFromIndexSignature": true,
     "noImplicitReturns": true,
-    "noFallthroughCasesInSwitch": true
+    "noFallthroughCasesInSwitch": true,
+    "paths": {
+      "@env": ["packages/console/src/environments/environment.ts"],
+      "@app": ["packages/console/src/app/app.service.ts"],
+      "@common/*": ["packages/console/src/common/*"]
+    }
   },
   "files": [],
   "include": [],
