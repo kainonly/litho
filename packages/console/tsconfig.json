@@ -9,6 +9,7 @@
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
     "paths": {
+      "@weplanx/ng": ["packages/ng/src/index.ts"],
       "@env": ["packages/console/src/environments/environment.ts"],
       "@app": ["packages/console/src/app/app.service.ts"],
       "@common/*": ["packages/console/src/common/*"]

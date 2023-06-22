@@ -1,9 +1,11 @@
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Inject, Injectable, LOCALE_ID } from '@angular/core';
-import { Observable, switchMap } from 'rxjs';
+import { Observable, Subscription, switchMap, timer } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class AppService {
+  private refreshTokenSubscription?: Subscription;
+
   constructor(private http: HttpClient, @Inject(LOCALE_ID) private locale: string) {}
 
   ping(): Observable<any> {
@@ -18,14 +20,24 @@ export class AppService {
     return this.http.get('verify', { observe: 'response' });
   }
 
-  refreshToken(): Observable<any> {
-    return this.http.get<any>('code').pipe(
-      switchMap(v =>
-        this.http.post('refresh_token', {
-          code: v.code
-        })
+  autoRefreshToken(): void {
+    this.stopRefreshToken();
+    this.refreshTokenSubscription = timer(0, 3200 * 1000)
+      .pipe(
+        switchMap(() => this.http.get<any>('code')),
+        switchMap(v =>
+          this.http.post('refresh_token', {
+            code: v.code
+          })
+        )
       )
-    );
+      .subscribe(() => {
+        console.debug('refresh_token');
+      });
+  }
+
+  stopRefreshToken(): void {
+    this.refreshTokenSubscription?.unsubscribe();
   }
 
   logout(): Observable<any> {
