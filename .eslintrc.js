@@ -35,7 +35,7 @@ module.exports = {
             groups: ['external', 'builtin', 'internal', ['parent', 'sibling', 'index']],
             pathGroups: [
               {
-                pattern: '{@angular/**,@nestjs/**,rxjs,rxjs/operators}',
+                pattern: '{@angular/**,@nestjs/**,@prisma/**,rxjs,rxjs/operators}',
                 group: 'external',
                 position: 'before'
               }

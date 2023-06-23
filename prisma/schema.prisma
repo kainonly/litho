@@ -10,12 +10,12 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model User {
-  id        Int      @id @default(autoincrement())
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  status    Boolean  @default(true)
-  email     String   @unique @db.VarChar()
-  password  String   @db.VarChar()
-  name      String?  @db.VarChar()
+model user {
+  id          BigInt   @id @default(autoincrement())
+  create_time DateTime @default(now())
+  update_time DateTime @updatedAt
+  status      Boolean  @default(true)
+  email       String   @unique @db.VarChar()
+  password    String   @db.VarChar()
+  name        String?  @db.VarChar()
 }
