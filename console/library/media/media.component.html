@@ -1,0 +1,123 @@
+<cdk-virtual-scroll-viewport class="infinite-container" [style.height]="wpxHeight ?? '100%'" itemSize="226">
+  <nz-list nzGrid nzItemLayout="vertical" [nzBordered]="false">
+    <nz-list-item *cdkVirtualFor="let items of wpxData" style="padding-top: 0">
+      <nz-row style="width: 100%" [nzGutter]="8">
+        <div *ngFor="let item of items" nz-col [nzSpan]="24 / wpxData.n">
+          <nz-card nzHoverable [nzCover]="coverRef" [nzActions]="[tagsRef, editRef, deleteRef]">
+            <ng-template #coverRef>
+              <ng-container [ngSwitch]="wpxType">
+                <ng-container *ngSwitchCase="'pictures'">
+                  <div class="photo" (click)="previewPicture(item)">
+                    <ng-container *ngIf="item.query; else notQueryTpl">
+                      <img
+                        wpxRetry
+                        nz-image
+                        nzDisablePreview
+                        [nzSrc]="[item.url] | wpxAssets : item.query + option.style.processed.thumbnail"
+                        [nzPlaceholder]="[item.url] | wpxAssets : item.query + option.style.processed.placeholder"
+                        [nzFallback]="wpxFallback"
+                        [alt]="item.name"
+                      />
+                    </ng-container>
+                    <ng-template #notQueryTpl>
+                      <img
+                        wpxRetry
+                        nz-image
+                        nzDisablePreview
+                        [nzSrc]="[item.url] | wpxAssets : option.style.default.thumbnail"
+                        [nzPlaceholder]="[item.url] | wpxAssets : option.style.default.placeholder"
+                        [nzFallback]="wpxFallback"
+                        [alt]="item.name"
+                      />
+                    </ng-template>
+                  </div>
+                </ng-container>
+                <ng-container *ngSwitchCase="'videos'">
+                  <div class="photo" (click)="previewPoster(item)">
+                    <img
+                      wpxRetry
+                      nz-image
+                      nzDisablePreview
+                      [nzSrc]="[item.url + '_chart'] | wpxAssets : option.style.default.thumbnail"
+                      [nzFallback]="wpxFallback"
+                      [alt]="item.name"
+                    />
+                  </div>
+                </ng-container>
+              </ng-container>
+            </ng-template>
+            <nz-card-meta style="height: 50px" [nzDescription]="descriptionRef">
+              <ng-template #descriptionRef>
+                <label
+                  nz-checkbox
+                  [ngModel]="wpxData.checkedIds.has(item._id)"
+                  (ngModelChange)="checked(item._id, $event)"
+                >
+                  <p nz-typography nzEllipsis [nzEllipsisRows]="2" [nzContent]="item.name"></p>
+                </label>
+              </ng-template>
+            </nz-card-meta>
+            <ng-template #tagsRef>
+              <ng-container [ngSwitch]="wpxType">
+                <ng-container *ngSwitchCase="'pictures'">
+                  <i nz-icon nzType="setting" nz-tooltip="设置" i18n-nz-tooltip (click)="openPicture(item)"></i>
+                </ng-container>
+                <ng-container *ngSwitchCase="'videos'">
+                  <i nz-icon nzType="play-square" nz-tooltip="播放" i18n-nz-tooltip (click)="openVideo(item)"></i>
+                </ng-container>
+              </ng-container>
+            </ng-template>
+            <ng-template #editRef>
+              <i nz-icon nzType="edit" nz-tooltip="编辑" i18n-nz-tooltip (click)="form(item)"></i>
+            </ng-template>
+            <ng-template #deleteRef>
+              <i
+                nz-icon
+                nzType="delete"
+                nz-tooltip="删除"
+                i18n-nz-tooltip
+                nz-popconfirm
+                nzPopconfirmTitle="您确定要删除该资源吗?"
+                i18n-nzPopconfirmTitle
+                nzPopconfirmPlacement="bottom"
+                (nzOnConfirm)="delete(item)"
+              ></i>
+            </ng-template>
+          </nz-card>
+        </div>
+      </nz-row>
+    </nz-list-item>
+  </nz-list>
+</cdk-virtual-scroll-viewport>
+
+<ng-container *nzModalFooter>
+  <nz-row nzJustify="space-between">
+    <nz-col>
+      <ng-container *ngIf="data && data.footer">
+        <ng-container *ngTemplateOutlet="data.footer"></ng-container>
+      </ng-container>
+    </nz-col>
+    <nz-col></nz-col>
+    <nz-col>
+      <nz-row [nzGutter]="8">
+        <nz-col>
+          <button nz-button type="button" nzType="default" (click)="close()" i18n>取消</button>
+        </nz-col>
+        <nz-col>
+          <nz-badge [nzCount]="wpxMax && wpxData.checkedNumber >= wpxMax ? wpxMax : wpxData.checkedNumber">
+            <button
+              nz-button
+              type="button"
+              nzType="primary"
+              [disabled]="!wpxData.checkedNumber"
+              (click)="submit()"
+              i18n
+            >
+              确认
+            </button>
+          </nz-badge>
+        </nz-col>
+      </nz-row>
+    </nz-col>
+  </nz-row>
+</ng-container>

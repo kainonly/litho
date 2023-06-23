@@ -1,0 +1,17 @@
+.resize-trigger {
+  width: 1px;
+  border-right: 1px #40a9ff dashed;
+  height: 100%;
+}
+
+.nz-resizable-preview {
+  border-width: 0;
+  border-right-width: 1px;
+}
+
+.bulk {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  z-index: 999;
+}

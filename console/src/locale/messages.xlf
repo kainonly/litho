@@ -1,0 +1,2683 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+  <file source-language="zh-Hans" datatype="plaintext" original="ng2.template">
+    <body>
+      <trans-unit id="4580988005648117665" datatype="html">
+        <source>Search</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">library/table/table.component.html</context>
+          <context context-type="linenumber">10</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/sessions/sessions.component.html</context>
+          <context context-type="linenumber">9</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/values/values.component.html</context>
+          <context context-type="linenumber">9</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/space/projects/projects.component.html</context>
+          <context context-type="linenumber">10</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1102717806459547726" datatype="html">
+        <source>Refresh</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">library/table/table.component.html</context>
+          <context context-type="linenumber">17</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/access-logs/access-logs.component.html</context>
+          <context context-type="linenumber">12</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/login-logs/login-logs.component.html</context>
+          <context context-type="linenumber">12</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/sessions/sessions.component.html</context>
+          <context context-type="linenumber">19</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/values/values.component.html</context>
+          <context context-type="linenumber">14</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/space/projects/projects.component.html</context>
+          <context context-type="linenumber">17</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7808756054397155068" datatype="html">
+        <source>Reset</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">library/table/table.component.html</context>
+          <context context-type="linenumber">20</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/access-logs/access-logs.component.html</context>
+          <context context-type="linenumber">15</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/login-logs/login-logs.component.html</context>
+          <context context-type="linenumber">15</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/sessions/sessions.component.html</context>
+          <context context-type="linenumber">22</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/values/values.component.html</context>
+          <context context-type="linenumber">17</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/space/projects/projects.component.html</context>
+          <context context-type="linenumber">20</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/forget/forget.component.html</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8829497237648100098" datatype="html">
+        <source>Filter</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">library/table/table.component.html</context>
+          <context context-type="linenumber">23</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2079395509894825886" datatype="html">
+        <source>Conditions</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">library/table/table.component.html</context>
+          <context context-type="linenumber">30</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1486798856022867011" datatype="html">
+        <source>Column Width</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">library/table/table.component.html</context>
+          <context context-type="linenumber">141</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6932865105766151309" datatype="html">
+        <source>Upload</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">library/upload/avatar/avatar.component.html</context>
+          <context context-type="linenumber">22</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5339931948287419155" datatype="html">
+        <source>Do not switch pages, currently uploading files</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">library/upload/transport/transport.component.html</context>
+          <context context-type="linenumber">47</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2678752869879385108" datatype="html">
+        <source>Wrok</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/admin.component.html</context>
+          <context context-type="linenumber">5</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8946906119075338535" datatype="html">
+        <source>Space</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/admin.component.html</context>
+          <context context-type="linenumber">15</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/admin.module.ts</context>
+          <context context-type="linenumber">24</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="9102353655460400811" datatype="html">
+        <source>Orgs</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/admin.component.html</context>
+          <context context-type="linenumber">25</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/admin.module.ts</context>
+          <context context-type="linenumber">31</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8058994642732449354" datatype="html">
+        <source>Monitor</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/admin.component.html</context>
+          <context context-type="linenumber">35</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/admin.module.ts</context>
+          <context context-type="linenumber">38</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4930506384627295710" datatype="html">
+        <source>Settings</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/admin.component.html</context>
+          <context context-type="linenumber">45</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/admin.module.ts</context>
+          <context context-type="linenumber">45</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5491084532551383168" datatype="html">
+        <source>Work</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/admin.module.ts</context>
+          <context context-type="linenumber">17</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4555457172864212828" datatype="html">
+        <source>Users</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/orgs/orgs.component.html</context>
+          <context context-type="linenumber">4</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/orgs/orgs.module.ts</context>
+          <context context-type="linenumber">17</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/sessions/sessions.component.html</context>
+          <context context-type="linenumber">48</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3724068243287682962" datatype="html">
+        <source>Team</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/orgs/orgs.component.html</context>
+          <context context-type="linenumber">8</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2895747618881739814" datatype="html">
+        <source>Visitor</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/orgs/orgs.component.html</context>
+          <context context-type="linenumber">12</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8623978917681527907" datatype="html">
+        <source>Group</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/orgs/orgs.component.html</context>
+          <context context-type="linenumber">16</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7314814725704332646" datatype="html">
+        <source>Permissions</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/orgs/orgs.component.html</context>
+          <context context-type="linenumber">20</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1690636272435370777" datatype="html">
+        <source>Policy</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/orgs/orgs.component.html</context>
+          <context context-type="linenumber">24</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4145496584631696119" datatype="html">
+        <source>Role</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/orgs/orgs.component.html</context>
+          <context context-type="linenumber">28</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="795890916060309463" datatype="html">
+        <source>Roles</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/orgs/orgs.module.ts</context>
+          <context context-type="linenumber">24</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7941428823403788384" datatype="html">
+        <source> Create </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/orgs/users/users.component.html</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/values/values.component.html</context>
+          <context context-type="linenumber">26</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7585826646011739428" datatype="html">
+        <source>Edit</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/orgs/users/users.component.html</context>
+          <context context-type="linenumber">11</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/security/security.component.html</context>
+          <context context-type="linenumber">23</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/security/security.component.html</context>
+          <context context-type="linenumber">44</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/security/security.component.html</context>
+          <context context-type="linenumber">85</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/security/security.component.html</context>
+          <context context-type="linenumber">107</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/security/security.component.html</context>
+          <context context-type="linenumber">135</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/security/security.component.html</context>
+          <context context-type="linenumber">170</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/values/values.component.html</context>
+          <context context-type="linenumber">65</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/space/projects/projects.component.html</context>
+          <context context-type="linenumber">116</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/space/projects/projects.component.ts</context>
+          <context context-type="linenumber">60</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/profile/profile.component.html</context>
+          <context context-type="linenumber">11</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/profile/profile.component.html</context>
+          <context context-type="linenumber">27</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/profile/profile.component.html</context>
+          <context context-type="linenumber">44</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/profile/profile.component.html</context>
+          <context context-type="linenumber">105</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/profile/profile.component.html</context>
+          <context context-type="linenumber">133</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/profile/profile.component.html</context>
+          <context context-type="linenumber">152</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/profile/profile.component.html</context>
+          <context context-type="linenumber">166</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/profile/profile.component.html</context>
+          <context context-type="linenumber">180</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7022070615528435141" datatype="html">
+        <source>Delete</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/orgs/users/users.component.html</context>
+          <context context-type="linenumber">12</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/orgs/users/users.component.html</context>
+          <context context-type="linenumber">20</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/values/values.component.html</context>
+          <context context-type="linenumber">66</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/space/projects/projects.component.html</context>
+          <context context-type="linenumber">117</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2159130950882492111" datatype="html">
+        <source>Cancel</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/orgs/users/users.component.html</context>
+          <context context-type="linenumber">18</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/cloud/cos/cos.component.html</context>
+          <context context-type="linenumber">41</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/cloud/tencent/tencent.component.html</context>
+          <context context-type="linenumber">27</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/collaboration/feishu/feishu.component.html</context>
+          <context context-type="linenumber">29</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/collaboration/redirect/redirect.component.html</context>
+          <context context-type="linenumber">11</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/extend/email/email.component.html</context>
+          <context context-type="linenumber">29</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/extend/openapi/openapi.component.html</context>
+          <context context-type="linenumber">23</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/security/ip-list/ip-list.component.html</context>
+          <context context-type="linenumber">28</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/security/ip-lock/ip-lock.component.html</context>
+          <context context-type="linenumber">17</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/security/pwd-strategy/pwd-strategy.component.html</context>
+          <context context-type="linenumber">16</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/security/pwd-ttl/pwd-ttl.component.html</context>
+          <context context-type="linenumber">17</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/security/session/session.component.html</context>
+          <context context-type="linenumber">22</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/security/user-lock/user-lock.component.html</context>
+          <context context-type="linenumber">34</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/values/form/form.component.html</context>
+          <context context-type="linenumber">33</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/space/projects/form/form.component.html</context>
+          <context context-type="linenumber">78</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/profile/avatar/avatar.component.html</context>
+          <context context-type="linenumber">17</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/profile/backup-email/backup-email.component.html</context>
+          <context context-type="linenumber">11</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/profile/email/email.component.html</context>
+          <context context-type="linenumber">16</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/profile/name/name.component.html</context>
+          <context context-type="linenumber">11</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/profile/password/password.component.html</context>
+          <context context-type="linenumber">27</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4375214631223740583" datatype="html">
+        <source> Export </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/access-logs/access-logs.component.html</context>
+          <context context-type="linenumber">24</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/login-logs/login-logs.component.html</context>
+          <context context-type="linenumber">24</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5667900632592970266" datatype="html">
+        <source>Timestamp</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/access-logs/access-logs.component.html</context>
+          <context context-type="linenumber">53</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/login-logs/login-logs.component.html</context>
+          <context context-type="linenumber">53</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1179184907489210406" datatype="html">
+        <source>Operator</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/access-logs/access-logs.component.html</context>
+          <context context-type="linenumber">54</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1664620352147673062" datatype="html">
+        <source>Resource</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/access-logs/access-logs.component.html</context>
+          <context context-type="linenumber">55</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7445457977004232464" datatype="html">
+        <source>system</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/access-logs/access-logs.component.html</context>
+          <context context-type="linenumber">85</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1626270852419683091" datatype="html">
+        <source>Definition</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/access-logs/access-logs.component.html</context>
+          <context context-type="linenumber">101</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/login-logs/login-logs.component.html</context>
+          <context context-type="linenumber">115</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4562697866186740078" datatype="html">
+        <source>Tencent Cloud</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/cloud/cloud.component.html</context>
+          <context context-type="linenumber">8</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5612709566632732179" datatype="html">
+        <source>Detail</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/cloud/cloud.component.html</context>
+          <context context-type="linenumber">20</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/cloud/cloud.component.html</context>
+          <context context-type="linenumber">99</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/cloud/cloud.component.html</context>
+          <context context-type="linenumber">123</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/collaboration/collaboration.component.html</context>
+          <context context-type="linenumber">12</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/sessions/sessions.component.html</context>
+          <context context-type="linenumber">49</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/profile/profile.component.html</context>
+          <context context-type="linenumber">51</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2458370331012178061" datatype="html">
+        <source>Already Set</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/cloud/cloud.component.html</context>
+          <context context-type="linenumber">34</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/collaboration/collaboration.component.html</context>
+          <context context-type="linenumber">26</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/collaboration/collaboration.component.html</context>
+          <context context-type="linenumber">31</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/collaboration/collaboration.component.html</context>
+          <context context-type="linenumber">36</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/extend/extend.component.html</context>
+          <context context-type="linenumber">33</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/extend/extend.component.html</context>
+          <context context-type="linenumber">70</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="755085347582694608" datatype="html">
+        <source>Object Storage</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/cloud/cloud.component.html</context>
+          <context context-type="linenumber">42</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/cloud/cloud.component.html</context>
+          <context context-type="linenumber">105</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/cloud/cloud.component.html</context>
+          <context context-type="linenumber">129</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7695372390899132175" datatype="html">
+        <source>Store static files in COS object storage, and then distribute content through CDN back-to-source</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/cloud/cloud.component.html</context>
+          <context context-type="linenumber">48</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5947435010326534759" datatype="html">
+        <source>Bucket Name</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/cloud/cloud.component.html</context>
+          <context context-type="linenumber">50</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/cloud/cos/cos.component.html</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2702200797962830082" datatype="html">
+        <source>Region</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/cloud/cloud.component.html</context>
+          <context context-type="linenumber">55</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/cloud/cos/cos.component.html</context>
+          <context context-type="linenumber">9</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5547480416710912951" datatype="html">
+        <source>Pre-signature TTL</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/cloud/cloud.component.html</context>
+          <context context-type="linenumber">60</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/cloud/cos/cos.component.html</context>
+          <context context-type="linenumber">15</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3649413152338359480" datatype="html">
+        <source>Upload size limit (KB)</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/cloud/cloud.component.html</context>
+          <context context-type="linenumber">65</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/cloud/cos/cos.component.html</context>
+          <context context-type="linenumber">27</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2591665071060045707" datatype="html">
+        <source>Message Queue</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/cloud/cloud.component.html</context>
+          <context context-type="linenumber">74</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="219595469286891227" datatype="html">
+        <source>Use Tencent Cloud TDMQ Plusar for Transaction Compensation</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/cloud/cloud.component.html</context>
+          <context context-type="linenumber">75</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7048422922815757014" datatype="html">
+        <source>Log System</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/cloud/cloud.component.html</context>
+          <context context-type="linenumber">80</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1759079778858145030" datatype="html">
+        <source>Use Tencent Cloud CLS log service to collect logs</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/cloud/cloud.component.html</context>
+          <context context-type="linenumber">81</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="653438372293304623" datatype="html">
+        <source>Alibaba Cloud</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/cloud/cloud.component.html</context>
+          <context context-type="linenumber">87</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1670498244428630057" datatype="html">
+        <source>Store static files in OSS object storage, and then distribute content through CDN back-to-source</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/cloud/cloud.component.html</context>
+          <context context-type="linenumber">106</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8713280475774700227" datatype="html">
+        <source>Huawei Cloud</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/cloud/cloud.component.html</context>
+          <context context-type="linenumber">112</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4281696213413089599" datatype="html">
+        <source>Store static files in OBS object storage, and then distribute content through CDN back-to-source</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/cloud/cloud.component.html</context>
+          <context context-type="linenumber">130</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1289323303527102650" datatype="html">
+        <source>Not Set</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/cloud/cloud.component.html</context>
+          <context context-type="linenumber">140</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/collaboration/collaboration.component.html</context>
+          <context context-type="linenumber">93</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/extend/extend.component.html</context>
+          <context context-type="linenumber">80</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3545029985348967998" datatype="html">
+        <source>Are you sure to use this public cloud?</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/cloud/cloud.component.ts</context>
+          <context context-type="linenumber">69</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4646493990556746839" datatype="html">
+        <source>Are you sure stop it?</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/cloud/cloud.component.ts</context>
+          <context context-type="linenumber">72</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1547116809893235979" datatype="html">
+        <source>A public cloud already exists, enabling it will automatically stop the previous!</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/cloud/cloud.component.ts</context>
+          <context context-type="linenumber">75</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3928344980249634240" datatype="html">
+        <source>Public Cloud Switch</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/cloud/cloud.component.ts</context>
+          <context context-type="linenumber">79</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5089578480844633741" datatype="html">
+        <source>Data update complete</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/cloud/cloud.component.ts</context>
+          <context context-type="linenumber">89</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/cloud/cos/cos.component.ts</context>
+          <context context-type="linenumber">65</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/cloud/tencent/tencent.component.ts</context>
+          <context context-type="linenumber">48</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/collaboration/feishu/feishu.component.ts</context>
+          <context context-type="linenumber">60</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/collaboration/redirect/redirect.component.ts</context>
+          <context context-type="linenumber">43</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/extend/email/email.component.ts</context>
+          <context context-type="linenumber">65</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/extend/openapi/openapi.component.ts</context>
+          <context context-type="linenumber">58</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/security/ip-list/ip-list.component.ts</context>
+          <context context-type="linenumber">58</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/security/ip-lock/ip-lock.component.ts</context>
+          <context context-type="linenumber">44</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/security/pwd-strategy/pwd-strategy.component.ts</context>
+          <context context-type="linenumber">37</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/security/pwd-ttl/pwd-ttl.component.ts</context>
+          <context context-type="linenumber">48</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/security/session/session.component.ts</context>
+          <context context-type="linenumber">48</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/security/user-lock/user-lock.component.ts</context>
+          <context context-type="linenumber">56</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/values/form/form.component.ts</context>
+          <context context-type="linenumber">64</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/space/projects/form/form.component.ts</context>
+          <context context-type="linenumber">117</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/space/projects/form/form.component.ts</context>
+          <context context-type="linenumber">122</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/profile/avatar/avatar.component.ts</context>
+          <context context-type="linenumber">40</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/profile/backup-email/backup-email.component.ts</context>
+          <context context-type="linenumber">49</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/profile/name/name.component.ts</context>
+          <context context-type="linenumber">35</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/profile/password/password.component.ts</context>
+          <context context-type="linenumber">60</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3710325021829197582" datatype="html">
+        <source>Tencent Cloud Form</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/cloud/cloud.component.ts</context>
+          <context context-type="linenumber">96</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5821834587530914035" datatype="html">
+        <source>Tencent Cloud Cos Form</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/cloud/cloud.component.ts</context>
+          <context context-type="linenumber">100</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8313447710552684395" datatype="html">
+        <source>For example: ap-guangzhou</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/cloud/cos/cos.component.html</context>
+          <context context-type="linenumber">11</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="935187492052582731" datatype="html">
+        <source>Submit</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/cloud/cos/cos.component.html</context>
+          <context context-type="linenumber">42</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/cloud/tencent/tencent.component.html</context>
+          <context context-type="linenumber">28</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/collaboration/feishu/feishu.component.html</context>
+          <context context-type="linenumber">30</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/collaboration/redirect/redirect.component.html</context>
+          <context context-type="linenumber">12</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/extend/email/email.component.html</context>
+          <context context-type="linenumber">30</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/extend/openapi/openapi.component.html</context>
+          <context context-type="linenumber">24</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/security/ip-list/ip-list.component.html</context>
+          <context context-type="linenumber">29</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/security/ip-lock/ip-lock.component.html</context>
+          <context context-type="linenumber">18</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/security/pwd-strategy/pwd-strategy.component.html</context>
+          <context context-type="linenumber">17</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/security/pwd-ttl/pwd-ttl.component.html</context>
+          <context context-type="linenumber">18</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/security/session/session.component.html</context>
+          <context context-type="linenumber">23</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/security/user-lock/user-lock.component.html</context>
+          <context context-type="linenumber">35</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/values/form/form.component.html</context>
+          <context context-type="linenumber">34</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/space/projects/form/form.component.html</context>
+          <context context-type="linenumber">79</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/forget/forget.component.html</context>
+          <context context-type="linenumber">61</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/forget/forget.component.html</context>
+          <context context-type="linenumber">100</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/profile/avatar/avatar.component.html</context>
+          <context context-type="linenumber">18</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/profile/backup-email/backup-email.component.html</context>
+          <context context-type="linenumber">12</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/profile/email/email.component.html</context>
+          <context context-type="linenumber">17</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/profile/name/name.component.html</context>
+          <context context-type="linenumber">12</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/profile/password/password.component.html</context>
+          <context context-type="linenumber">28</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3965912367405513914" datatype="html">
+        <source>The bucket name cannot be empty</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/cloud/cos/cos.component.ts</context>
+          <context context-type="linenumber">16</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2251552793208823034" datatype="html">
+        <source>the region cannot be empty</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/cloud/cos/cos.component.ts</context>
+          <context context-type="linenumber">21</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="973931975421167063" datatype="html">
+        <source>the pre-signature ttl cannot be empty</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/cloud/cos/cos.component.ts</context>
+          <context context-type="linenumber">26</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8645726188665849578" datatype="html">
+        <source>the upload size limit cannot be empty</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/cloud/cos/cos.component.ts</context>
+          <context context-type="linenumber">31</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3504355475785271527" datatype="html">
+        <source>Please enter the tencent cloud SecretId</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/cloud/tencent/tencent.component.html</context>
+          <context context-type="linenumber">8</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5186591766010970273" datatype="html">
+        <source>Please enter the tencent cloud SecretKey</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/cloud/tencent/tencent.component.html</context>
+          <context context-type="linenumber">19</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8819892726203660798" datatype="html">
+        <source>The SecretId cannot be empty</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/cloud/tencent/tencent.component.ts</context>
+          <context context-type="linenumber">16</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4688649228661702035" datatype="html">
+        <source>The SecretKey cannot be empty</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/cloud/tencent/tencent.component.ts</context>
+          <context context-type="linenumber">21</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="947480092463292583" datatype="html">
+        <source>Feishu</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/collaboration/collaboration.component.html</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/profile/profile.component.html</context>
+          <context context-type="linenumber">200</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4203282418350687000" datatype="html">
+        <source>Encrypt Key</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/collaboration/collaboration.component.html</context>
+          <context context-type="linenumber">29</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/collaboration/feishu/feishu.component.html</context>
+          <context context-type="linenumber">15</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8331143825025953979" datatype="html">
+        <source>Verification Token</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/collaboration/collaboration.component.html</context>
+          <context context-type="linenumber">34</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/collaboration/feishu/feishu.component.html</context>
+          <context context-type="linenumber">21</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4027789265299413024" datatype="html">
+        <source>Login-free Authorization</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/collaboration/collaboration.component.html</context>
+          <context context-type="linenumber">47</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5283409311831762819" datatype="html">
+        <source>Allow Feishu platform user authentication to log in</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/collaboration/collaboration.component.html</context>
+          <context context-type="linenumber">56</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6762090905776336676" datatype="html">
+        <source>Redirect URL</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/collaboration/collaboration.component.html</context>
+          <context context-type="linenumber">58</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/collaboration/redirect/redirect.component.html</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4578192247039196794" datatype="html">
+        <source>Task</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/collaboration/collaboration.component.html</context>
+          <context context-type="linenumber">67</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8051054244003913210" datatype="html">
+        <source> The open API provided for task resources can support operations such as creating, updating, and deleting tasks </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/collaboration/collaboration.component.html</context>
+          <context context-type="linenumber">68,71</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3825802286872185103" datatype="html">
+        <source>Calendar</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/collaboration/collaboration.component.html</context>
+          <context context-type="linenumber">76</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6229096600803059479" datatype="html">
+        <source> Based on the Feishu calendar function, the ability to operate and query entities such as calendars, schedules, and busy schedules is opened, and developers can call calendar APIs as &quot;applications&quot; or &quot;users&quot;. </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/collaboration/collaboration.component.html</context>
+          <context context-type="linenumber">77,81</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6492631321851552126" datatype="html">
+        <source>DingTalk</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/collaboration/collaboration.component.html</context>
+          <context context-type="linenumber">87</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/profile/profile.component.html</context>
+          <context context-type="linenumber">257</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6405536375793156566" datatype="html">
+        <source>WeCom</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/collaboration/collaboration.component.html</context>
+          <context context-type="linenumber">88</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/profile/profile.component.html</context>
+          <context context-type="linenumber">241</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7072958336030508117" datatype="html">
+        <source>Feishu Form</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/collaboration/collaboration.component.ts</context>
+          <context context-type="linenumber">50</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1622000612081258433" datatype="html">
+        <source>Login-free Authorization Form</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/collaboration/collaboration.component.ts</context>
+          <context context-type="linenumber">54</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6907846712155781327" datatype="html">
+        <source>The app id cannot be empty</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/collaboration/feishu/feishu.component.ts</context>
+          <context context-type="linenumber">16</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7473063373463376457" datatype="html">
+        <source>The app secret cannot be empty</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/collaboration/feishu/feishu.component.ts</context>
+          <context context-type="linenumber">21</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5088199318099395688" datatype="html">
+        <source>The encrypt key cannot be empty</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/collaboration/feishu/feishu.component.ts</context>
+          <context context-type="linenumber">26</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2751649474003318600" datatype="html">
+        <source>The verification token cannot be empty</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/collaboration/feishu/feishu.component.ts</context>
+          <context context-type="linenumber">31</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8346434610772518593" datatype="html">
+        <source>The redirect url cannot be empty</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/collaboration/redirect/redirect.component.ts</context>
+          <context context-type="linenumber">16</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5248717555542428023" datatype="html">
+        <source>Username</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/extend/email/email.component.html</context>
+          <context context-type="linenumber">15</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1431416938026210429" datatype="html">
+        <source>Password</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/extend/email/email.component.html</context>
+          <context context-type="linenumber">21</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/profile/profile.component.html</context>
+          <context context-type="linenumber">94</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8659661787707874292" datatype="html">
+        <source>The SMTP host cannot be empty</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/extend/email/email.component.ts</context>
+          <context context-type="linenumber">16</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5190149624358000764" datatype="html">
+        <source>The SMTP port cannot be empty</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/extend/email/email.component.ts</context>
+          <context context-type="linenumber">21</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6112728120849534990" datatype="html">
+        <source>The email username cannot be empty</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/extend/email/email.component.ts</context>
+          <context context-type="linenumber">26</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7346507065988641887" datatype="html">
+        <source>The email password cannot be empty</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/extend/email/email.component.ts</context>
+          <context context-type="linenumber">31</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6382205373127316172" datatype="html">
+        <source>Public Mailbox Basic Form</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/extend/extend.component.ts</context>
+          <context context-type="linenumber">55</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5741053297868964719" datatype="html">
+        <source>Openapi Service Basic Form</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/extend/extend.component.ts</context>
+          <context context-type="linenumber">59</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1444351021424532135" datatype="html">
+        <source>The openapi url cannot be empty</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/extend/openapi/openapi.component.ts</context>
+          <context context-type="linenumber">16</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2808118166775826270" datatype="html">
+        <source>The openapi app key cannot be empty</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/extend/openapi/openapi.component.ts</context>
+          <context context-type="linenumber">21</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="242317826411663450" datatype="html">
+        <source>The openapi app secret cannot be empty</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/extend/openapi/openapi.component.ts</context>
+          <context context-type="linenumber">26</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7315714079098881460" datatype="html">
+        <source>email</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/login-logs/login-logs.component.html</context>
+          <context context-type="linenumber">89</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="795708576057361787" datatype="html">
+        <source>feishu</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/login-logs/login-logs.component.html</context>
+          <context context-type="linenumber">90</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1827245616056417685" datatype="html">
+        <source>IP Address</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/security/ip-list/ip-list.component.html</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/security/security.component.html</context>
+          <context context-type="linenumber">126</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/security/security.component.html</context>
+          <context context-type="linenumber">161</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3363366237525396164" datatype="html">
+        <source>Please enter an IP address</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/security/ip-list/ip-list.component.html</context>
+          <context context-type="linenumber">12</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/space/projects/form/form.component.html</context>
+          <context context-type="linenumber">54</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4469883561010281489" datatype="html">
+        <source><x id="START_ITALIC_TEXT" ctype="x-i" equiv-text="&lt;i nz-icon nzType=&quot;plus-circle&quot;&gt;"/><x id="CLOSE_ITALIC_TEXT" ctype="x-i" equiv-text="&lt;/i&gt;"/> Add Address </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/security/ip-list/ip-list.component.html</context>
+          <context context-type="linenumber">21,22</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2369310791788268887" datatype="html">
+        <source>Maximum number of login failures for the user&apos;s host IP</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/security/ip-lock/ip-lock.component.html</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1043934017461806030" datatype="html">
+        <source>The times cannot be empty</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/security/ip-lock/ip-lock.component.ts</context>
+          <context context-type="linenumber">16</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/security/user-lock/user-lock.component.ts</context>
+          <context context-type="linenumber">16</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2176736764332274115" datatype="html">
+        <source><x id="PH" equiv-text="value"/> times</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/security/ip-lock/ip-lock.component.ts</context>
+          <context context-type="linenumber">21</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/security/user-lock/user-lock.component.ts</context>
+          <context context-type="linenumber">26</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6989965038484631684" datatype="html">
+        <source>Password Strength</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/security/pwd-strategy/pwd-strategy.component.html</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3493278756250185609" datatype="html">
+        <source>unlimited</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/security/pwd-strategy/pwd-strategy.component.html</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7225838789172645597" datatype="html">
+        <source>uppercase and lowercase letters</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/security/pwd-strategy/pwd-strategy.component.html</context>
+          <context context-type="linenumber">7</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="9035844657456650200" datatype="html">
+        <source>uppercase and lowercase letters, numbers</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/security/pwd-strategy/pwd-strategy.component.html</context>
+          <context context-type="linenumber">8</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5528514114593399492" datatype="html">
+        <source>uppercase and lowercase letters, numbers, special characters</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/security/pwd-strategy/pwd-strategy.component.html</context>
+          <context context-type="linenumber">9</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8340223574100759946" datatype="html">
+        <source>Password Expiration</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/security/pwd-ttl/pwd-ttl.component.html</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1543900015926141068" datatype="html">
+        <source>0 is permanent</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/security/pwd-ttl/pwd-ttl.component.html</context>
+          <context context-type="linenumber">4</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3807928107308065344" datatype="html">
+        <source>The days cannot be empty</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/security/pwd-ttl/pwd-ttl.component.ts</context>
+          <context context-type="linenumber">16</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="9011283288288218227" datatype="html">
+        <source><x id="PH" equiv-text="value"/> day</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/security/pwd-ttl/pwd-ttl.component.ts</context>
+          <context context-type="linenumber">21</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8643289769990675407" datatype="html">
+        <source>Basic</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/security/security.component.html</context>
+          <context context-type="linenumber">8</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/profile/profile.component.html</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3616854223821167567" datatype="html">
+        <source>Session Timeout Policy</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/security/security.component.html</context>
+          <context context-type="linenumber">12</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3452439099883683941" datatype="html">
+        <source> If the user does not operate within <x id="INTERPOLATION" equiv-text="{{ values[&apos;session_ttl&apos;] / 1e9 }}"/> seconds, log out of the current account. </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/security/security.component.html</context>
+          <context context-type="linenumber">13,16</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6781947045713061965" datatype="html">
+        <source>Account Lockout Policy</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/security/security.component.html</context>
+          <context context-type="linenumber">33</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4441552831847813001" datatype="html">
+        <source> The user failed to log in <x id="INTERPOLATION" equiv-text="{{ values[&apos;login_failures&apos;] }}"/> times consecutively, and the account was locked for <x id="INTERPOLATION_1" equiv-text="{{ values[&apos;login_ttl&apos;] / 1e9 }}"/> seconds. </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/security/security.component.html</context>
+          <context context-type="linenumber">34,37</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2963369150644233588" datatype="html">
+        <source>IP Lockout Policy</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/security/security.component.html</context>
+          <context context-type="linenumber">54</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1554523599863375784" datatype="html">
+        <source> IP After <x id="INTERPOLATION" equiv-text="{{ values[&apos;ip_login_failures&apos;] }}"/> consecutive login failures (enabled when there is no whitelist), lock the IP. </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/security/security.component.html</context>
+          <context context-type="linenumber">55,58</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7885238333798525584" datatype="html">
+        <source>Password Strength Policy</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/security/security.component.html</context>
+          <context context-type="linenumber">68</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2333098940705131299" datatype="html">
+        <source> unlimited </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/security/security.component.html</context>
+          <context context-type="linenumber">71</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5278686377873177303" datatype="html">
+        <source> uppercase and lowercase letters </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/security/security.component.html</context>
+          <context context-type="linenumber">72</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5509957463330322394" datatype="html">
+        <source> uppercase and lowercase letters, numbers </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/security/security.component.html</context>
+          <context context-type="linenumber">73</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2807154799576843953" datatype="html">
+        <source> uppercase and lowercase letters, numbers, special characters </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/security/security.component.html</context>
+          <context context-type="linenumber">74,76</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3581047794919293301" datatype="html">
+        <source>Password Expiration Policy</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/security/security.component.html</context>
+          <context context-type="linenumber">95</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8369772075727866676" datatype="html">
+        <source> Permanent </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/security/security.component.html</context>
+          <context context-type="linenumber">97</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1630514688808662120" datatype="html">
+        <source> The password will expire after <x id="INTERPOLATION" equiv-text="{{ values[&apos;pwd_ttl&apos;] / 86400e9 }}"/> days, and the system will force you to change the password. </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/security/security.component.html</context>
+          <context context-type="linenumber">99,102</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8304625484950752327" datatype="html">
+        <source>Security Basic Form</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/security/security.component.ts</context>
+          <context context-type="linenumber">56</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6847012349231440909" datatype="html">
+        <source>Whitelist</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/security/security.component.ts</context>
+          <context context-type="linenumber">88</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8352962266652288744" datatype="html">
+        <source>Blacklist</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/security/security.component.ts</context>
+          <context context-type="linenumber">88</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6817925613597386158" datatype="html">
+        <source><x id="PH" equiv-text="name"/> Form</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/security/security.component.ts</context>
+          <context context-type="linenumber">90</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8468023131509493479" datatype="html">
+        <source>After the setting is successful, the session starts to take effect gradually</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/security/session/session.component.html</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4750805688931241023" datatype="html">
+        <source>The TTL cannot be empty</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/security/session/session.component.ts</context>
+          <context context-type="linenumber">16</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2295914060720266717" datatype="html">
+        <source><x id="PH" equiv-text="value"/> s</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/security/session/session.component.ts</context>
+          <context context-type="linenumber">21</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/security/user-lock/user-lock.component.ts</context>
+          <context context-type="linenumber">27</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6312348970930006442" datatype="html">
+        <source>Maximum number of login failures for a user</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/security/user-lock/user-lock.component.html</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1940112664677318916" datatype="html">
+        <source>Lock Time</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/security/user-lock/user-lock.component.html</context>
+          <context context-type="linenumber">15</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5903715058676660334" datatype="html">
+        <source>The account has been logged in continuously or has been locked for a limited time</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/security/user-lock/user-lock.component.html</context>
+          <context context-type="linenumber">18</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="540518936077764260" datatype="html">
+        <source>The TTL cannot by empty</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/security/user-lock/user-lock.component.ts</context>
+          <context context-type="linenumber">21</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8403930362257439027" datatype="html">
+        <source>Refresh every 15s</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/sessions/sessions.component.html</context>
+          <context context-type="linenumber">14</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3334409203387850627" datatype="html">
+        <source>Refresh every 30s</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/sessions/sessions.component.html</context>
+          <context context-type="linenumber">15</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7061433394379610911" datatype="html">
+        <source>Refresh every 60s</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/sessions/sessions.component.html</context>
+          <context context-type="linenumber">16</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="9066413409785716325" datatype="html">
+        <source> <x id="INTERPOLATION" equiv-text="{{ checkedIds.size }}"/> selected, can be break </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/sessions/sessions.component.html</context>
+          <context context-type="linenumber">30,32</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6033869360950460242" datatype="html">
+        <source>self</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/sessions/sessions.component.html</context>
+          <context context-type="linenumber">63</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8567947945667246784" datatype="html">
+        <source>Launched at <x id="INTERPOLATION" equiv-text="{{ l.timestamp | date: &apos;yyyy/MM/dd HH:mm:ss&apos; }}"/></source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/sessions/sessions.component.html</context>
+          <context context-type="linenumber">74</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3158504787270375228" datatype="html">
+        <source>break session</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/sessions/sessions.component.html</context>
+          <context context-type="linenumber">86</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8411543568822048217" datatype="html">
+        <source>Are you sure to disconnect the session?</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/sessions/sessions.component.html</context>
+          <context context-type="linenumber">87</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1222392354346362652" datatype="html">
+        <source>session offline</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/sessions/sessions.component.ts</context>
+          <context context-type="linenumber">111</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3578027108523737507" datatype="html">
+        <source>sessions offline</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/sessions/sessions.component.ts</context>
+          <context context-type="linenumber">121</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4336467119528049143" datatype="html">
+        <source>Integrated</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/settings.component.html</context>
+          <context context-type="linenumber">4</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/settings.module.ts</context>
+          <context context-type="linenumber">40</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6062494351834633919" datatype="html">
+        <source>Public Cloud</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/settings.component.html</context>
+          <context context-type="linenumber">8</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/settings.module.ts</context>
+          <context context-type="linenumber">20</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7850449208404662279" datatype="html">
+        <source>Collaboration</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/settings.component.html</context>
+          <context context-type="linenumber">12</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/settings.module.ts</context>
+          <context context-type="linenumber">27</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/profile/profile.component.html</context>
+          <context context-type="linenumber">188</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7845405749549184854" datatype="html">
+        <source>Extend Services</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/settings.component.html</context>
+          <context context-type="linenumber">16</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/settings.module.ts</context>
+          <context context-type="linenumber">34</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="29832309535656200" datatype="html">
+        <source>System</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/settings.component.html</context>
+          <context context-type="linenumber">20</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/settings.module.ts</context>
+          <context context-type="linenumber">70</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8878700331247603166" datatype="html">
+        <source>Security</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/settings.component.html</context>
+          <context context-type="linenumber">24</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/settings.module.ts</context>
+          <context context-type="linenumber">50</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/profile/profile.component.html</context>
+          <context context-type="linenumber">89</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="721963055036507192" datatype="html">
+        <source>Sessions</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/settings.component.html</context>
+          <context context-type="linenumber">28</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/settings.module.ts</context>
+          <context context-type="linenumber">57</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/profile/profile.component.html</context>
+          <context context-type="linenumber">60</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1805506778275601584" datatype="html">
+        <source>Values</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/settings.component.html</context>
+          <context context-type="linenumber">32</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/settings.module.ts</context>
+          <context context-type="linenumber">64</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5925317536387204677" datatype="html">
+        <source>Aduit</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/settings.component.html</context>
+          <context context-type="linenumber">36</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7474185307101117878" datatype="html">
+        <source>Login Logs</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/settings.component.html</context>
+          <context context-type="linenumber">40</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/settings.module.ts</context>
+          <context context-type="linenumber">80</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6608430139972016177" datatype="html">
+        <source>Access Logs</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/settings.component.html</context>
+          <context context-type="linenumber">44</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/settings.module.ts</context>
+          <context context-type="linenumber">87</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3309973566259313398" datatype="html">
+        <source>Audit</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/settings.module.ts</context>
+          <context context-type="linenumber">93</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2176659033176029418" datatype="html">
+        <source>Key</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/values/form/form.component.html</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/values/values.component.html</context>
+          <context context-type="linenumber">43</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6555318547274416232" datatype="html">
+        <source>Value</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/values/form/form.component.html</context>
+          <context context-type="linenumber">9</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/values/values.component.html</context>
+          <context context-type="linenumber">44</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6870016122141646537" datatype="html">
+        <source>The configuration value will be stored as a string type, please submit the default configuration carefully</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/values/form/form.component.html</context>
+          <context context-type="linenumber">11</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="984253953431747157" datatype="html">
+        <source>The key cannot be empty</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/values/form/form.component.ts</context>
+          <context context-type="linenumber">16</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/values/form/form.component.ts</context>
+          <context context-type="linenumber">21</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1888836770270509581" datatype="html">
+        <source>Value Form</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/values/values.component.ts</context>
+          <context context-type="linenumber">85</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="332528410788285087" datatype="html">
+        <source>Are you sure you want to delete [<x id="PH" equiv-text="key"/>] configuration?</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/values/values.component.ts</context>
+          <context context-type="linenumber">99</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2807800733729323332" datatype="html">
+        <source>Yes</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/values/values.component.ts</context>
+          <context context-type="linenumber">100</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/space/projects/projects.component.ts</context>
+          <context context-type="linenumber">74</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1006192750499573051" datatype="html">
+        <source>Data deleted successfully</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/values/values.component.ts</context>
+          <context context-type="linenumber">105</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5578447898771503218" datatype="html">
+        <source>Think again</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/values/values.component.ts</context>
+          <context context-type="linenumber">109</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4157564596155275219" datatype="html">
+        <source>Project Name</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/space/projects/form/form.component.html</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6732783276368011334" datatype="html">
+        <source>Please enter project name</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/space/projects/form/form.component.html</context>
+          <context context-type="linenumber">5</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3294686077659093992" datatype="html">
+        <source>Namespace</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/space/projects/form/form.component.html</context>
+          <context context-type="linenumber">10</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8196563094178987324" datatype="html">
+        <source>Please enter namespace</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/space/projects/form/form.component.html</context>
+          <context context-type="linenumber">12</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7896650584449704588" datatype="html">
+        <source>Secret</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/space/projects/form/form.component.html</context>
+          <context context-type="linenumber">17</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8162174944366182860" datatype="html">
+        <source>Validity Period</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/space/projects/form/form.component.html</context>
+          <context context-type="linenumber">31</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/space/projects/projects.component.html</context>
+          <context context-type="linenumber">65</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2481659262727220657" datatype="html">
+        <source>* Permanently valid without setting a validity period</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/space/projects/form/form.component.html</context>
+          <context context-type="linenumber">32</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5539102139398381855" datatype="html">
+        <source>Entry</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/space/projects/form/form.component.html</context>
+          <context context-type="linenumber">44</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/space/projects/projects.component.html</context>
+          <context context-type="linenumber">115</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5611592591303869712" datatype="html">
+        <source>Status</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/space/projects/form/form.component.html</context>
+          <context context-type="linenumber">70</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/space/projects/projects.component.html</context>
+          <context context-type="linenumber">64</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="484945040297435597" datatype="html">
+        <source>The project name cannot be empty</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/space/projects/form/form.component.ts</context>
+          <context context-type="linenumber">20</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2769341931022083458" datatype="html">
+        <source>Duplicate definitions exist, project name must be unique</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/space/projects/form/form.component.ts</context>
+          <context context-type="linenumber">21</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1930169043604083051" datatype="html">
+        <source>The namespace cannot be empty</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/space/projects/form/form.component.ts</context>
+          <context context-type="linenumber">26</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8671264759703900125" datatype="html">
+        <source>Duplicate definitions exist, namespace must be unique</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/space/projects/form/form.component.ts</context>
+          <context context-type="linenumber">27</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6837120068258449026" datatype="html">
+        <source>Project Name </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/space/projects/projects.component.html</context>
+          <context context-type="linenumber">58</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6357092181834516038" datatype="html">
+        <source>App Id</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/space/projects/projects.component.html</context>
+          <context context-type="linenumber">62</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="291439248872552145" datatype="html">
+        <source>Create Time</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/space/projects/projects.component.html</context>
+          <context context-type="linenumber">66</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/profile/profile.component.html</context>
+          <context context-type="linenumber">54</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="691394063331319000" datatype="html">
+        <source>Update Time</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/space/projects/projects.component.html</context>
+          <context context-type="linenumber">67</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/profile/profile.component.html</context>
+          <context context-type="linenumber">57</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3249513483374643425" datatype="html">
+        <source>Add</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/space/projects/projects.component.ts</context>
+          <context context-type="linenumber">60</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="9088934214462705716" datatype="html">
+        <source>Are you sure delete this item?</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/space/projects/projects.component.ts</context>
+          <context context-type="linenumber">73</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3838305145176522931" datatype="html">
+        <source>Data delete complete</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/space/projects/projects.component.ts</context>
+          <context context-type="linenumber">79</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7810796535183838122" datatype="html">
+        <source>Think Again</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/space/projects/projects.component.ts</context>
+          <context context-type="linenumber">83</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7091571651222742304" datatype="html">
+        <source>Projects</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/space/space.component.html</context>
+          <context context-type="linenumber">4</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1839078535528840918" datatype="html">
+        <source>Managed</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/space/space.component.html</context>
+          <context context-type="linenumber">8</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1562584780596394495" datatype="html">
+        <source>Archived</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/space/space.component.html</context>
+          <context context-type="linenumber">12</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="9180110319941008393" datatype="html">
+        <source>Environment</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/space/space.component.html</context>
+          <context context-type="linenumber">16</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4584891373856762843" datatype="html">
+        <source>Multi-Tenant</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/space/space.component.html</context>
+          <context context-type="linenumber">20</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2944102521023817891" datatype="html">
+        <source>Cluster</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/space/space.component.html</context>
+          <context context-type="linenumber">24</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8117668572148231876" datatype="html">
+        <source>Project</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/space/space.module.ts</context>
+          <context context-type="linenumber">17</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4915431133669985304" datatype="html">
+        <source>Profile</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/app.component.html</context>
+          <context context-type="linenumber">87</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5045200874122539692" datatype="html">
+        <source>Exit</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/app.component.html</context>
+          <context context-type="linenumber">90</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8489386029514097450" datatype="html">
+        <source>Notification(0)</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/app.component.html</context>
+          <context context-type="linenumber">95</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1871517119097760234" datatype="html">
+        <source>Todo(0)</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/app.component.html</context>
+          <context context-type="linenumber">100</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="544513301085658025" datatype="html">
+        <source>Login failed, please confirm whether the account password is correct</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/app.interceptors.ts</context>
+          <context context-type="linenumber">47</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4548368160445675580" datatype="html">
+        <source>You have failed to log in too many times, please try again later</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/app.interceptors.ts</context>
+          <context context-type="linenumber">50</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3581812770841560708" datatype="html">
+        <source>Execution failed [<x id="PH" equiv-text="e.error.code"/>] <x id="PH_1" equiv-text="e.error.message"/></source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/app.interceptors.ts</context>
+          <context context-type="linenumber">53</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5971703556391247281" datatype="html">
+        <source>Access is disabled, please contact administrator</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/app.interceptors.ts</context>
+          <context context-type="linenumber">61</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1537117667304042275" datatype="html">
+        <source>Access request does not exist</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/app.interceptors.ts</context>
+          <context context-type="linenumber">64</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1311089998428616444" datatype="html">
+        <source>Request server exception</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/app.interceptors.ts</context>
+          <context context-type="linenumber">68</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3054671387383020791" datatype="html">
+        <source>Authorization successful</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/authorized/authorized.component.html</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4918824175773877049" datatype="html">
+        <source>You have successfully associated your Feishu account</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/authorized/authorized.component.html</context>
+          <context context-type="linenumber">4</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7819314041543176992" datatype="html">
+        <source>Close</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/authorized/authorized.component.html</context>
+          <context context-type="linenumber">9</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="139453091882433681" datatype="html">
+        <source>Retrieve Your Password</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/forget/forget.component.html</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8913794084097958305" datatype="html">
+        <source>Verify</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/forget/forget.component.html</context>
+          <context context-type="linenumber">5</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8384225360105280028" datatype="html">
+        <source>Complete</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/forget/forget.component.html</context>
+          <context context-type="linenumber">7</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1713271461473302108" datatype="html">
+        <source>Mode</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/forget/forget.component.html</context>
+          <context context-type="linenumber">23</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4768749765465246664" datatype="html">
+        <source>Email</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/forget/forget.component.html</context>
+          <context context-type="linenumber">26</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/forget/forget.component.html</context>
+          <context context-type="linenumber">32</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/profile/email/email.component.html</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/profile/profile.component.html</context>
+          <context context-type="linenumber">7</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7451233168808859381" datatype="html">
+        <source>Verification Code</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/forget/forget.component.html</context>
+          <context context-type="linenumber">39</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4012884271247596077" datatype="html">
+        <source>*Emails may be automatically blocked due to personal settings</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/forget/forget.component.html</context>
+          <context context-type="linenumber">41</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6542283139659606573" datatype="html">
+        <source>Get</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/forget/forget.component.html</context>
+          <context context-type="linenumber">49</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3969642018190845113" datatype="html">
+        <source><x id="INTERPOLATION" equiv-text="{{ countdown }}"/> s</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/forget/forget.component.html</context>
+          <context context-type="linenumber">51</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1221596867309460035" datatype="html">
+        <source>New Password</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/forget/forget.component.html</context>
+          <context context-type="linenumber">76</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1031010231455577880" datatype="html">
+        <source>Please enter the new password</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/forget/forget.component.html</context>
+          <context context-type="linenumber">91</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="453103120349697726" datatype="html">
+        <source>Your password has been updated</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/forget/forget.component.html</context>
+          <context context-type="linenumber">106</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4621977698636848939" datatype="html">
+        <source>Back Sign In</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/forget/forget.component.html</context>
+          <context context-type="linenumber">108</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/unauthorize/unauthorize.component.html</context>
+          <context context-type="linenumber">8</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2332274176698345691" datatype="html">
+        <source>The email cannot be empty</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/forget/forget.component.ts</context>
+          <context context-type="linenumber">18</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7192231947891615697" datatype="html">
+        <source>The email format is not standardized</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/forget/forget.component.ts</context>
+          <context context-type="linenumber">19</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="534712409505488684" datatype="html">
+        <source>The verification code cannot be empty</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/forget/forget.component.ts</context>
+          <context context-type="linenumber">24</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1024557341560800417" datatype="html">
+        <source>The new password cannot be empty</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/forget/forget.component.ts</context>
+          <context context-type="linenumber">29</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/profile/password/password.component.ts</context>
+          <context context-type="linenumber">17</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8414072584928977963" datatype="html">
+        <source>The length of the new password cannot be less than 12 characters</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/forget/forget.component.ts</context>
+          <context context-type="linenumber">30</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/profile/password/password.component.ts</context>
+          <context context-type="linenumber">18</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4148509926842503094" datatype="html">
+        <source>The new password needs to contain lowercase letters</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/forget/forget.component.ts</context>
+          <context context-type="linenumber">31</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/profile/password/password.component.ts</context>
+          <context context-type="linenumber">19</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="9111778664628354097" datatype="html">
+        <source>The new password needs to contain capital letters</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/forget/forget.component.ts</context>
+          <context context-type="linenumber">32</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/profile/password/password.component.ts</context>
+          <context context-type="linenumber">20</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5362230347455191865" datatype="html">
+        <source>The new password needs to contain numbers</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/forget/forget.component.ts</context>
+          <context context-type="linenumber">33</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/profile/password/password.component.ts</context>
+          <context context-type="linenumber">21</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3722846858953666542" datatype="html">
+        <source>The new password needs to contain symbols (@$!%*?&amp;-+)</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/forget/forget.component.ts</context>
+          <context context-type="linenumber">34</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/profile/password/password.component.ts</context>
+          <context context-type="linenumber">22</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4361821213507897425" datatype="html">
+        <source>Please enter the email first</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/forget/forget.component.ts</context>
+          <context context-type="linenumber">74</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2845492490119721204" datatype="html">
+        <source>A verification code has been sent to your email</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/forget/forget.component.ts</context>
+          <context context-type="linenumber">86</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5635692239128131475" datatype="html">
+        <source>After verification, please set a new password within 5 minutes</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/forget/forget.component.ts</context>
+          <context context-type="linenumber">95</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3495545914080970775" datatype="html">
+        <source>🚀 欢迎使用</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/login/login.component.html</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="745787528600147728" datatype="html">
+        <source>电子邮件</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/login/login.component.html</context>
+          <context context-type="linenumber">5</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5522861522278906349" datatype="html">
+        <source>请输入电子邮件</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/login/login.component.html</context>
+          <context context-type="linenumber">11</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6971624281171557374" datatype="html">
+        <source>密码</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/login/login.component.html</context>
+          <context context-type="linenumber">19,18</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7332007941983408209" datatype="html">
+        <source>忘记了？</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/login/login.component.html</context>
+          <context context-type="linenumber">19</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3269641429365312721" datatype="html">
+        <source>请输入密码</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/login/login.component.html</context>
+          <context context-type="linenumber">32,31</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1496302481389750951" datatype="html">
+        <source>登录</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/login/login.component.html</context>
+          <context context-type="linenumber">41,40</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1470473098099974901" datatype="html">
+        <source>其他方式登录</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/login/login.component.html</context>
+          <context context-type="linenumber">45</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5620822951702644837" datatype="html">
+        <source>飞书</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/login/login.component.html</context>
+          <context context-type="linenumber">47</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5449542569146592819" datatype="html">
+        <source>authorization status</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/login/login.component.ts</context>
+          <context context-type="linenumber">56</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2580737554453924010" datatype="html">
+        <source>🚀Successful login, loading data...</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/login/login.component.ts</context>
+          <context context-type="linenumber">56</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6525109356951792180" datatype="html">
+        <source>Avatar</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/profile/avatar/avatar.component.html</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/profile/profile.component.html</context>
+          <context context-type="linenumber">34</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8354493596706356608" datatype="html">
+        <source>Backup Email</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/profile/backup-email/backup-email.component.html</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/profile/profile.component.html</context>
+          <context context-type="linenumber">115</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3066724903219558979" datatype="html">
+        <source>Please use the correct email format</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/profile/backup-email/backup-email.component.ts</context>
+          <context context-type="linenumber">17</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/profile/email/email.component.ts</context>
+          <context context-type="linenumber">18</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8850235936316570325" datatype="html">
+        <source>*Re-login to the system is required after modification</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/profile/email/email.component.html</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6305196643790221253" datatype="html">
+        <source>Duplicate definitions exist, email must be unique</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/profile/email/email.component.ts</context>
+          <context context-type="linenumber">19</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2482091275950756628" datatype="html">
+        <source>The data update is complete, you need to log in to the system again</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/profile/email/email.component.ts</context>
+          <context context-type="linenumber">58</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6398433642385327932" datatype="html">
+        <source>Call</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/profile/name/name.component.html</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/profile/profile.component.html</context>
+          <context context-type="linenumber">18</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1557080315836233628" datatype="html">
+        <source> Password </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/profile/password/password.component.html</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4835532079381244289" datatype="html">
+        <source>Please enter password</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/profile/password/password.component.html</context>
+          <context context-type="linenumber">18</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5410689534718848355" datatype="html">
+        <source> Already Set: <x id="INTERPOLATION" equiv-text="{{ user.email }}"/> </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/profile/profile.component.html</context>
+          <context context-type="linenumber">8</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/profile/profile.component.html</context>
+          <context context-type="linenumber">20</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2943496065572567693" datatype="html">
+        <source>It is recommended to set work title or real name</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/profile/profile.component.html</context>
+          <context context-type="linenumber">22</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1257582370680180626" datatype="html">
+        <source> Recommended size 256*256 </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/profile/profile.component.html</context>
+          <context context-type="linenumber">35</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5992814868375418920" datatype="html">
+        <source> Total number of sessions logged in <x id="START_BOLD_TEXT" ctype="x-b" equiv-text="&lt;b&gt;"/> <x id="INTERPOLATION" equiv-text="{{ user.sessions }}"/> <x id="CLOSE_BOLD_TEXT" ctype="x-b" equiv-text="&lt;/b&gt;"/> times </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/profile/profile.component.html</context>
+          <context context-type="linenumber">61,63</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8870711330013548872" datatype="html">
+        <source>Online</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/profile/profile.component.html</context>
+          <context context-type="linenumber">65</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4344307190446523330" datatype="html">
+        <source>Regional &amp; ISP</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/profile/profile.component.html</context>
+          <context context-type="linenumber">71</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2242055998046100423" datatype="html">
+        <source> A combination of uppercase letters, lowercase letters, numbers, and special characters (@$!%*?&amp;-+) is recommended for passwords </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/profile/profile.component.html</context>
+          <context context-type="linenumber">95,98</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5659521520280493399" datatype="html">
+        <source> There is currently no backup mailbox set up, mainly used to restore account security related operations, it is recommended to use a personal mailbox </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/profile/profile.component.html</context>
+          <context context-type="linenumber">121,124</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8557322228683128744" datatype="html">
+        <source>Recovery Codes</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/profile/profile.component.html</context>
+          <context context-type="linenumber">143</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="885751075807886402" datatype="html">
+        <source> Currently no recovery codes is set, it is can be used to access your account in the event you lose access to your device and cannot receive two-factor authentication codes. </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/profile/profile.component.html</context>
+          <context context-type="linenumber">145,148</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3989114122203035158" datatype="html">
+        <source>Authenticator App</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/profile/profile.component.html</context>
+          <context context-type="linenumber">159</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4245627485625131578" datatype="html">
+        <source> Currently no authenticator app is set, Use an application on your phone to get two-factor authentication codes when prompted </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/profile/profile.component.html</context>
+          <context context-type="linenumber">160,163</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7505233173230519594" datatype="html">
+        <source>Remote Login Protection</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/profile/profile.component.html</context>
+          <context context-type="linenumber">173</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2730844882575924239" datatype="html">
+        <source> Judging based on whether the login IP belongs to a common login city, if the account is logged in in an unused city, identity verification is required </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/profile/profile.component.html</context>
+          <context context-type="linenumber">174,177</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1970603914511540443" datatype="html">
+        <source> No Feishu account is currently set up </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/profile/profile.component.html</context>
+          <context context-type="linenumber">201,203</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8953033926734869941" datatype="html">
+        <source>Name</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/profile/profile.component.html</context>
+          <context context-type="linenumber">206</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3608174522010393962" datatype="html">
+        <source>English Name</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/profile/profile.component.html</context>
+          <context context-type="linenumber">207</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4164796296331721280" datatype="html">
+        <source>Identifier</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/profile/profile.component.html</context>
+          <context context-type="linenumber">210</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1407894693327733301" datatype="html">
+        <source>Are you sure you want to cancel this association?</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/profile/profile.component.html</context>
+          <context context-type="linenumber">218</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2330577642930707695" datatype="html">
+        <source> Cancel </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/profile/profile.component.html</context>
+          <context context-type="linenumber">223,225</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4359847060009771702" datatype="html">
+        <source>Set</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/profile/profile.component.html</context>
+          <context context-type="linenumber">228</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1078511924496511041" datatype="html">
+        <source>No WeCom account is currently set up</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/profile/profile.component.html</context>
+          <context context-type="linenumber">242</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2671827835175438409" datatype="html">
+        <source> Set </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/profile/profile.component.html</context>
+          <context context-type="linenumber">245</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/profile/profile.component.html</context>
+          <context context-type="linenumber">261</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5396594327083453391" datatype="html">
+        <source>No DingTalk account is currently set up</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/profile/profile.component.html</context>
+          <context context-type="linenumber">258</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3310353754446209373" datatype="html">
+        <source>Profile Update Form</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/profile/profile.component.ts</context>
+          <context context-type="linenumber">31</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3031964147485243589" datatype="html">
+        <source>Association has been successfully disconnected</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/profile/profile.component.ts</context>
+          <context context-type="linenumber">83</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3349394715936807925" datatype="html">
+        <source>Sorry, you have not yet linked your Feishu account, please contact the administrator to set up relevant enterprise collaboration</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/unauthorize/unauthorize.component.html</context>
+          <context context-type="linenumber">4</context>
+        </context-group>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

@@ -1,0 +1,22 @@
+.infinite-container {
+  width: 100%;
+  overflow-x: hidden;
+}
+
+.photo {
+  height: 120px;
+  width: 100%;
+  overflow: hidden;
+
+  img {
+    max-width: 120%;
+    position: relative;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+}
+
+.label-text {
+  height: 45px;
+}
