@@ -20,5 +20,8 @@
     "name": "kain",
     "email": "kainonly@qq.com"
   },
-  "license": "BSD-3-Clause License"
+  "license": "BSD-3-Clause License",
+  "dependencies": {
+    "uuid": "^9.0.0"
+  }
 }

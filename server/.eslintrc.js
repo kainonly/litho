@@ -41,5 +41,20 @@ module.exports = {
         pathGroupsExcludedImportTypes: []
       }
     ]
-  }
+  },
+  overrides: [
+    {
+      files: ['*.html'],
+      excludedFiles: ['*inline-template-*.component.html'],
+      extends: ['plugin:prettier/recommended'],
+      rules: {
+        'prettier/prettier': [
+          'error',
+          {
+            parser: 'angular'
+          }
+        ]
+      }
+    }
+  ]
 };

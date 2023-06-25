@@ -8,11 +8,13 @@ datasource db {
 }
 
 model user {
-  id          BigInt   @id @default(autoincrement())
+  id          Int      @id @default(autoincrement())
   create_time DateTime @default(now())
   update_time DateTime @updatedAt
+  metadata    Json
   status      Boolean  @default(true)
   email       String   @unique @db.VarChar()
   password    String   @db.VarChar()
+  roles       String[]
   name        String?  @db.VarChar()
 }

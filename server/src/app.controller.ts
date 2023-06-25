@@ -11,14 +11,14 @@ export class AppController {
 
   @Get()
   @Public()
-  index(@Ip() ip: string): any {
-    return { ip, time: new Date() };
+  async index(@Ip() ip: string) {
+    return { ip };
   }
 
   @Post('login')
   @HttpCode(204)
   @Public()
-  async authLogin(@Body() body: LoginDto, @Res({ passthrough: true }) res: FastifyReply): Promise<any> {
+  async authLogin(@Body() body: LoginDto, @Res({ passthrough: true }) res: FastifyReply): Promise<void> {
     const access_token = await this.app.login(body.email, body.password);
     res.setCookie('access_token', access_token, {
       httpOnly: true,

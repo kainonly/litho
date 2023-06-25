@@ -135,6 +135,19 @@ module.exports = {
       files: ['*.html'],
       extends: ['plugin:@angular-eslint/template/recommended', 'plugin:@angular-eslint/template/accessibility'],
       rules: {}
+    },
+    {
+      files: ['*.html'],
+      excludedFiles: ['*inline-template-*.component.html'],
+      extends: ['plugin:prettier/recommended'],
+      rules: {
+        'prettier/prettier': [
+          'error',
+          {
+            parser: 'angular'
+          }
+        ]
+      }
     }
   ]
 };

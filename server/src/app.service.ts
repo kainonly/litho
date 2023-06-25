@@ -1,39 +1,44 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-
-// import { nanoid } from 'nanoid';
+import { verify } from '@node-rs/argon2';
+import { LockerService } from '@weplanx/utils';
+import { v4 as uuidv4 } from 'uuid';
 
 import { PrismaService } from './prisma.service';
+import { SessionsService } from './sessions/sessions.service';
 
 @Injectable()
 export class AppService {
-  constructor(private db: PrismaService, private jwt: JwtService) {}
-  /**
-   * Login
-   * @param email
-   * @param password
-   */
+  constructor(
+    private db: PrismaService,
+    private jwt: JwtService,
+    private locker: LockerService,
+    private sessions: SessionsService
+  ) {}
+
   async login(email: string, password: string): Promise<string> {
-    const user = await this.db.user.findFirst({ where: { email } });
+    const user = await this.db.user.findFirst({ where: { email, status: true } });
+    if (!user) {
+      throw new UnauthorizedException('the password verification error');
+    }
+    const uid = user.id.toString();
+    const isLocked = await this.locker.verify(uid);
+    if (isLocked) {
+      throw new UnauthorizedException('the maximum number of user login failures has been exceeded');
+    }
 
-    // const isLocked = await this.locker.verify(user.id);
-    // if (isLocked) {
-    //   throw new UnauthorizedException('用户登录失败已超出最大次数');
-    // }
+    const incorrect = await verify(user.password, password);
+    if (!incorrect) {
+      await this.locker.update(uid);
+      throw new UnauthorizedException('the password verification error');
+    }
 
-    // const verify = await argon2.verify(user.password, password);
-    // if (!verify) {
-    //   // await this.locker.update(user.id);
-    //   throw new UnauthorizedException('用户名或密码验证错误');
-    // }
+    const jti = uuidv4();
+    const access_token = await this.jwt.signAsync({ uid: user.id }, { jwtid: jti });
 
-    // const jti = nanoid();
-    // const access_token = await this.jwt.signAsync({ uid: user.id }, { jwtid: jti });
+    await this.locker.delete(uid);
+    await this.sessions.set(uid, jti);
 
-    // 移除锁定，建立会话
-    // await this.locker.delete(uid);
-    // await this.sessions.set(uid, jti);
-
-    return 'access_token';
+    return access_token;
   }
 }

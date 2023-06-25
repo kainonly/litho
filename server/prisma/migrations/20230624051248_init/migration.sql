@@ -1,6 +1,6 @@
 -- CreateTable
 CREATE TABLE "user" (
-    "id" BIGSERIAL NOT NULL,
+    "id" SERIAL NOT NULL,
     "create_time" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "update_time" TIMESTAMP(3) NOT NULL,
     "status" BOOLEAN NOT NULL DEFAULT true,
