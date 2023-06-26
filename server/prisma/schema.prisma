@@ -7,7 +7,7 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model user {
+model User {
   id          Int      @id @default(autoincrement())
   create_time DateTime @default(now())
   update_time DateTime @updatedAt
