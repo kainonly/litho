@@ -7,14 +7,14 @@
             <nz-divider nzType="vertical"></nz-divider>
           </ng-template>
           <ng-container *nzSpaceItem>
-            <button nz-button nzType="text" (click)="quick()">
+            <button nz-button nzType="text">
               <span nz-icon nzType="appstore"></span>
             </button>
           </ng-container>
           <nz-breadcrumb *nzSpaceItem class="breadcrumb" nzAutoGenerate>
-            <nz-breadcrumb-item *ngIf="app.project as p">
-              <a [routerLink]="['/', p.namespace]" i18n> 项目【{{ p.name }}】</a>
-            </nz-breadcrumb-item>
+            <!--            <nz-breadcrumb-item *ngIf="app.project as p">-->
+            <!--              <a [routerLink]="['/', p.namespace]" i18n> 项目【{{ p.name }}】</a>-->
+            <!--            </nz-breadcrumb-item>-->
           </nz-breadcrumb>
         </nz-space>
       </nz-col>
@@ -27,24 +27,24 @@
           nzPopoverPlacement="bottomRight"
           nzPopoverTrigger="click"
         >
-          <ng-container *ngIf="app.user as u">
-            <nz-badge nzDot>
-              <ng-container *ngIf="!!u.avatar; else defaultAvatar">
-                <nz-avatar nzShape="square" [nzSize]="25" [nzSrc]="[u.avatar] | wpxAssets"></nz-avatar>
-              </ng-container>
-              <ng-template #defaultAvatar>
-                <nz-avatar nzShape="square" [nzSize]="25" nzIcon="user"></nz-avatar>
-              </ng-template>
-            </nz-badge>
-            <span class="username">
-              <ng-container *ngIf="!u.name; else name">
-                {{ u.email | uppercase }}
-              </ng-container>
-              <ng-template #name>
-                {{ u.name | uppercase }}
-              </ng-template>
-            </span>
-          </ng-container>
+          <!--          <ng-container *ngIf="app.user as u">-->
+          <!--            <nz-badge nzDot>-->
+          <!--              <ng-container *ngIf="!!u.avatar; else defaultAvatar">-->
+          <!--                <nz-avatar nzShape="square" [nzSize]="25" [nzSrc]="[u.avatar] | wpxAssets"></nz-avatar>-->
+          <!--              </ng-container>-->
+          <!--              <ng-template #defaultAvatar>-->
+          <!--                <nz-avatar nzShape="square" [nzSize]="25" nzIcon="user"></nz-avatar>-->
+          <!--              </ng-template>-->
+          <!--            </nz-badge>-->
+          <!--            <span class="username">-->
+          <!--              <ng-container *ngIf="!u.name; else name">-->
+          <!--                {{ u.email | uppercase }}-->
+          <!--              </ng-container>-->
+          <!--              <ng-template #name>-->
+          <!--                {{ u.name | uppercase }}-->
+          <!--              </ng-template>-->
+          <!--            </span>-->
+          <!--          </ng-container>-->
         </div>
       </nz-col>
     </nz-row>
@@ -57,7 +57,7 @@
     <nz-col i18n>快捷导航</nz-col>
     <nz-col></nz-col>
     <nz-col>
-      <a [routerLink]="['/']" (click)="closeQuick()" i18n> 管理后台 </a>
+      <a [routerLink]="['/']" i18n> 管理后台 </a>
     </nz-col>
   </nz-row>
 </ng-template>

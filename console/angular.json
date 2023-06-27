@@ -87,7 +87,8 @@
           "options": {
             "host": "0.0.0.0",
             "disableHostCheck": true,
-            "proxyConfig": "proxy.conf.json"
+            "proxyConfig": "proxy.conf.json",
+            "hmr": true
           },
           "defaultConfiguration": "development"
         },

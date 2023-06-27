@@ -12,7 +12,7 @@ export class AppService {
     return this.http.get('');
   }
 
-  login(data: { identity: string; password: string }): Observable<any> {
+  login(data: { email: string; password: string }): Observable<any> {
     return this.http.post('login', data);
   }
 

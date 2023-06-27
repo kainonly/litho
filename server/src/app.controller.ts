@@ -25,6 +25,7 @@ export class AppController {
     res.setCookie('access_token', access_token, {
       httpOnly: true,
       secure: true,
+      path: '/',
       sameSite: 'strict'
     });
   }
@@ -53,6 +54,7 @@ export class AppController {
     res.setCookie('access_token', access_token, {
       httpOnly: true,
       secure: true,
+      path: '/',
       sameSite: 'strict'
     });
   }

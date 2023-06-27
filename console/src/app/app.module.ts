@@ -4,7 +4,8 @@ import {
   HttpClientModule,
   HttpClientXsrfModule,
   provideHttpClient,
-  withFetch
+  withFetch,
+  withInterceptorsFromDi
 } from '@angular/common/http';
 import zh from '@angular/common/locales/zh';
 import { NgModule } from '@angular/core';
@@ -15,7 +16,6 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { NZ_CONFIG, NzConfig } from 'ng-zorro-antd/core/config';
 import { zh_CN, NZ_I18N } from 'ng-zorro-antd/i18n';
-import { NzMenuModule } from 'ng-zorro-antd/menu';
 import { NzMessageModule } from 'ng-zorro-antd/message';
 
 import { AppComponent } from './app.component';
@@ -38,13 +38,14 @@ const routes: Routes = [
     HttpClientModule,
     HttpClientXsrfModule,
     FormsModule,
+    NzMessageModule,
     RouterModule.forRoot(routes, {
       useHash: true,
       initialNavigation: 'enabledBlocking'
     })
   ],
   providers: [
-    provideHttpClient(withFetch()),
+    provideHttpClient(withFetch(), withInterceptorsFromDi()),
     { provide: HTTP_INTERCEPTORS, useClass: AppInterceptors, multi: true },
     { provide: NZ_I18N, useValue: zh_CN },
     {

@@ -8,8 +8,8 @@ import {
 } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable, throwError } from 'rxjs';
-import { catchError, tap } from 'rxjs/operators';
+import { catchError, Observable, throwError } from 'rxjs';
+import { tap } from 'rxjs/operators';
 
 import { environment } from '@env';
 import { NzMessageService } from 'ng-zorro-antd/message';
@@ -19,6 +19,7 @@ export class AppInterceptors implements HttpInterceptor {
   constructor(private router: Router, private message: NzMessageService) {}
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+    console.log(req);
     const regex = new RegExp('^http(|s)://');
     let update: any;
     if (!regex.test(req.url)) {
@@ -29,6 +30,7 @@ export class AppInterceptors implements HttpInterceptor {
       update = { url: req.url };
     }
     const request = req.clone(update);
+
     return next.handle(request).pipe(
       tap(event => {
         if (event instanceof HttpResponse) {
