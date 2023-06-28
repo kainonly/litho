@@ -69,16 +69,11 @@
             }
           },
           "options": {
+            "disableHostCheck": true,
             "host": "0.0.0.0",
             "hmr": true
           },
           "defaultConfiguration": "development"
-        },
-        "extract-i18n": {
-          "builder": "@angular-devkit/build-angular:extract-i18n",
-          "options": {
-            "browserTarget": "console:build"
-          }
         },
         "lint": {
           "builder": "@angular-eslint/builder:lint",
