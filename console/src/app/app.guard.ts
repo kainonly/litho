@@ -5,12 +5,13 @@ import { map } from 'rxjs/operators';
 
 import { AppService } from '@app';
 
-export const appGuard: CanActivateFn = (): Observable<boolean> => {
+export const AppGuard: CanActivateFn = (): Observable<boolean> => {
   const router = inject(Router);
   const app = inject(AppService);
+
   return app.verify().pipe(
-    map(valid => {
-      if (!valid) {
+    map(v => {
+      if (!v) {
         // app.user = undefined;
         app.stopRefreshToken();
         router.navigateByUrl('/login');

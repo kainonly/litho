@@ -15,7 +15,7 @@
       "prefix": "app",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-angular:browser",
+          "builder": "@angular-devkit/build-angular:browser-esbuild",
           "options": {
             "outputPath": "dist/console",
             "index": "src/index.html",
@@ -32,44 +32,28 @@
                 "output": "/assets/"
               }
             ],
-            "styles": ["src/styles.scss"],
+            "styles": [
+              "./node_modules/ng-zorro-antd/ng-zorro-antd.compact.min.css",
+              "./node_modules/ng-zorro-antd/code-editor/style/index.min.css",
+              "src/styles.scss"
+            ],
             "scripts": []
           },
           "configurations": {
             "production": {
-              "budgets": [
-                {
-                  "type": "initial",
-                  "maximumWarning": "3mb",
-                  "maximumError": "5mb"
-                },
-                {
-                  "type": "anyComponentStyle",
-                  "maximumWarning": "2kb",
-                  "maximumError": "4kb"
-                }
-              ],
               "outputHashing": "all"
             },
             "development": {
               "buildOptimizer": false,
               "optimization": false,
-              "vendorChunk": true,
               "extractLicenses": false,
               "sourceMap": true,
-              "namedChunks": true,
               "fileReplacements": [
                 {
                   "replace": "src/environments/environment.ts",
                   "with": "src/environments/environment.development.ts"
                 }
-              ],
-              "localize": ["zh-Hans"],
-              "baseHref": "/zh-Hans"
-            },
-            "en": {
-              "localize": ["en-US"],
-              "baseHref": "/en-US"
+              ]
             }
           },
           "defaultConfiguration": "production"
@@ -86,8 +70,6 @@
           },
           "options": {
             "host": "0.0.0.0",
-            "disableHostCheck": true,
-            "proxyConfig": "proxy.conf.json",
             "hmr": true
           },
           "defaultConfiguration": "development"
@@ -102,15 +84,6 @@
           "builder": "@angular-eslint/builder:lint",
           "options": {
             "lintFilePatterns": ["src/**/*.ts", "src/**/*.html"]
-          }
-        }
-      },
-      "i18n": {
-        "sourceLocale": "zh-Hans",
-        "locales": {
-          "en-US": {
-            "translation": "src/locale/messages.en-US.xlf",
-            "baseHref": "en-US/"
           }
         }
       }

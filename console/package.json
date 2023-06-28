@@ -13,7 +13,6 @@
     "lint": "ng lint",
     "e2e": "ng e2e"
   },
-  "private": false,
   "dependencies": {
     "@angular/animations": "~16.1.0",
     "@angular/common": "~16.1.0",
@@ -27,7 +26,6 @@
     "ng-zorro-antd": "^16.0.0",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
-    "weplanx": "file:..",
     "zone.js": "~0.13.0"
   },
   "devDependencies": {
@@ -39,7 +37,6 @@
     "@angular-eslint/template-parser": "16.0.3",
     "@angular/cli": "~16.1.0",
     "@angular/compiler-cli": "~16.1.0",
-    "@angular/localize": "^16.1.2",
     "@typescript-eslint/eslint-plugin": "^5.60.0",
     "@typescript-eslint/parser": "^5.60.0",
     "ng-packagr": "^16.1.0",

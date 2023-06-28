@@ -30,12 +30,13 @@ export class AppController {
     });
   }
 
-  // @Get('verify')
-  // async authVerify(@Active() data: ActiveData) {
-  //   return {
-  //     jti: data.jti
-  //   };
-  // }
+  @Get('verify')
+  @HttpCode(204)
+  async authVerify(@Active() data: ActiveData) {
+    return {
+      jti: data.jti
+    };
+  }
 
   @Get('code')
   async authCode(@Active() data: ActiveData): Promise<{ code: string }> {

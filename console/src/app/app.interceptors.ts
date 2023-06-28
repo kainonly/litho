@@ -19,7 +19,6 @@ export class AppInterceptors implements HttpInterceptor {
   constructor(private router: Router, private message: NzMessageService) {}
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    console.log(req);
     const regex = new RegExp('^http(|s)://');
     let update: any;
     if (!regex.test(req.url)) {
@@ -46,25 +45,25 @@ export class AppInterceptors implements HttpInterceptor {
       case 400:
         switch (e.error.code) {
           case 'AUTH_INCORRECT':
-            this.message.error($localize`您的登录失败，请确实账户口令是否正确`);
+            this.message.error(`您的登录失败，请确实账户口令是否正确`);
             break;
           case 'AUTH_MANY_INCORRECT':
-            this.message.error($localize`您登录失败的次数过多，请稍后再试`);
+            this.message.error(`您登录失败的次数过多，请稍后再试`);
             break;
           default:
-            this.message.error($localize`操作失败 [${e.error.code}] ${e.error.message}`);
+            this.message.error(`操作失败 [${e.error.code}] ${e.error.message}`);
         }
         break;
       case 401:
-        this.message.error($localize`认证已失效，请重新登录`);
+        this.message.error(`认证已失效，请重新登录`);
         this.router.navigateByUrl('/login');
         break;
       case 403:
-        this.message.error($localize`访问权限被禁用，请联系管理员`);
+        this.message.error(`访问权限被禁用，请联系管理员`);
         break;
       case 500:
       case 503:
-        this.message.error($localize`服务器运行异常`);
+        this.message.error(`服务器运行异常`);
         break;
     }
     return throwError(() => e);

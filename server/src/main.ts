@@ -8,6 +8,7 @@ import { AppModule } from './app.module';
 
 async function bootstrap() {
   const app = await NestFactory.create<NestFastifyApplication>(AppModule, new FastifyAdapter());
+  app.setGlobalPrefix('api');
   const config = app.get(ConfigService);
   app.useGlobalPipes(
     new ValidationPipe({
@@ -19,7 +20,7 @@ async function bootstrap() {
     secret: config.get('KEY')
   });
   const port = process.env.PORT || 3000;
-  await app.listen(port);
+  await app.listen(port, '0.0.0.0');
   Logger.log(`🚀 Application is running on: http://localhost:${port}}`);
 }
 
