@@ -1,46 +1,51 @@
 {
-  "name": "@weplanx/console",
-  "version": "0.0.0-NOT-USED",
+  "name": "console",
+  "version": "0.1.0",
   "scripts": {
-    "start": "ng s",
-    "build": "ng b --configuration production",
-    "build:ssr": "npm run build && ng run console:server",
-    "build:ng": "ng b angular",
-    "lint": "ng lint"
+    "reset": "npx rimraf ./**/node_modules",
+    "dev": "modern dev",
+    "build": "modern build",
+    "start": "modern start",
+    "serve": "modern serve",
+    "new": "modern new",
+    "lint": "modern lint",
+    "prepare": "husky install",
+    "upgrade": "modern upgrade"
   },
+  "engines": {
+    "node": ">=16.18.1"
+  },
+  "lint-staged": {
+    "*.{ts,tsx}": [
+      "node --max_old_space_size=8192 ./node_modules/eslint/bin/eslint.js --fix --color --cache --quiet"
+    ],
+    "*.{js,jsx,mjs,mjsx,cjs,cjsx}": [
+      "node --max_old_space_size=8192 ./node_modules/eslint/bin/eslint.js --fix --color --cache --quiet"
+    ]
+  },
+  "eslintIgnore": [
+    "node_modules/",
+    "dist/"
+  ],
   "dependencies": {
-    "@angular/animations": "~16.1.0",
-    "@angular/common": "~16.1.0",
-    "@angular/compiler": "~16.1.0",
-    "@angular/core": "~16.1.0",
-    "@angular/forms": "~16.1.0",
-    "@angular/platform-browser": "~16.1.0",
-    "@angular/platform-browser-dynamic": "~16.1.0",
-    "@angular/router": "~16.1.0",
-    "monaco-editor": "^0.39.0",
-    "ng-zorro-antd": "^16.0.0",
-    "rxjs": "~7.8.0",
-    "tslib": "^2.3.0",
-    "zone.js": "~0.13.0"
+    "@modern-js/runtime": "2.25.0",
+    "react": "~18.2.0",
+    "react-dom": "~18.2.0"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "~16.1.0",
-    "@angular-eslint/builder": "16.0.3",
-    "@angular-eslint/eslint-plugin": "16.0.3",
-    "@angular-eslint/eslint-plugin-template": "16.0.3",
-    "@angular-eslint/schematics": "16.0.3",
-    "@angular-eslint/template-parser": "16.0.3",
-    "@angular/cli": "~16.1.0",
-    "@angular/compiler-cli": "~16.1.0",
-    "@typescript-eslint/eslint-plugin": "^5.60.0",
-    "@typescript-eslint/parser": "^5.60.0",
-    "eslint": "^8.42.0",
-    "eslint-config-prettier": "^8.8.0",
-    "eslint-plugin-import": "^2.27.5",
-    "eslint-plugin-prettier": "^4.2.1",
-    "prettier": "^2.8.8",
-    "prettier-plugin-prisma": "^4.13.0",
-    "ng-packagr": "^16.1.0",
-    "typescript": "~5.0.2"
+    "@modern-js/app-tools": "2.25.0",
+    "@modern-js/eslint-config": "2.25.0",
+    "@modern-js/tsconfig": "2.25.0",
+    "@modern-js-app/eslint-config": "2.25.0",
+    "lint-staged": "~13.1.0",
+    "prettier": "~2.8.1",
+    "husky": "~8.0.1",
+    "rimraf": "~3.0.2",
+    "typescript": "~5.0.4",
+    "@types/jest": "~29.2.4",
+    "@types/node": "~16.11.7",
+    "@types/react": "~18.0.26",
+    "@types/react-dom": "~18.0.10",
+    "@modern-js/builder-rspack-provider": "2.25.0"
   }
 }

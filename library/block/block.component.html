@@ -1,8 +1,0 @@
-<ng-container [ngSwitch]="wpxValue.component">
-  <ng-container *ngSwitchCase="'row'">
-    <nz-row [nzGutter]="[8, 8]"> </nz-row>
-  </ng-container>
-  <ng-container *ngSwitchCase="'card'">
-    <nz-card [nzTitle]="wpxValue.metadata?.title ?? '无'"><ng-content></ng-content></nz-card>
-  </ng-container>
-</ng-container>

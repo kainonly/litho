@@ -1,19 +1,37 @@
-# WEPALNX
+# Modern.js App
 
-Open Source DevOps
+## Setup
 
-## Usage
+Install the dependencies:
 
-Install angular libraries
-
-```shell
-npm install @weplanx/ng
+```bash
+npm install
 ```
 
-> thanks to the open source license provided by [JetBrains](https://www.jetbrains.com/?from=ngx-bit) sponsor
->
-> [![JetBrains](https://cdn.kainonly.com/assets/jetbrains.svg)](https://www.jetbrains.com/?from=ngx-bit)
+## Get Started
 
-## License
+Start the dev server:
 
-[BSD-3-Clause License](https://github.com/weplanx/console/blob/main/LICENSE)
+```
+npm dev
+```
+
+Enable optional features or add a new entry:
+
+```
+npm new
+```
+
+Build the app for production:
+
+```
+npm build
+```
+
+Preview the production build locally:
+
+```
+npm serve
+```
+
+For more information, see the [Modern.js documentation](https://modernjs.dev/en).
