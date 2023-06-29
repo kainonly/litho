@@ -1,4 +1,4 @@
 module.exports = {
   root: true,
-  extends: ['@modern-js'],
+  extends: ['@modern-js']
 };

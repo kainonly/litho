@@ -1,37 +1,11 @@
-# Modern.js App
+# Weplanx Console
 
-## Setup
+Console UI for weplanx devops
 
-Install the dependencies:
+> thanks to the open source license provided by [JetBrains](https://www.jetbrains.com/?from=ngx-bit) sponsor
+>
+> [![JetBrains](https://cdn.kainonly.com/assets/jetbrains.svg)](https://www.jetbrains.com/?from=ngx-bit)
 
-```bash
-npm install
-```
+## License
 
-## Get Started
-
-Start the dev server:
-
-```
-npm dev
-```
-
-Enable optional features or add a new entry:
-
-```
-npm new
-```
-
-Build the app for production:
-
-```
-npm build
-```
-
-Preview the production build locally:
-
-```
-npm serve
-```
-
-For more information, see the [Modern.js documentation](https://modernjs.dev/en).
+[BSD-3-Clause License](https://github.com/weplanx/console/blob/main/LICENSE)

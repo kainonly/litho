@@ -4,6 +4,6 @@ module.exports = {
   extends: ['@modern-js-app'],
   parserOptions: {
     tsconfigRootDir: __dirname,
-    project: ['../tsconfig.json'],
-  },
+    project: ['../tsconfig.json']
+  }
 };
