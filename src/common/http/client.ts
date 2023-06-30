@@ -22,28 +22,28 @@ export class HttpClient {
   }
 
   async request<R, D>(method: string, url: string, options: Options<D>): Promise<Response | R> {
-    const def = { ...this.default };
+    const init: RequestInit = { method };
+    const opts = { ...this.default };
     options.headers?.forEach((value, key) => {
-      def.headers!.set(key, value);
+      opts.headers!.set(key, value);
     });
     Object.entries(options).forEach(([key, value]) => {
       if (key !== 'headers') {
-        Reflect.set(def, key, value);
+        Reflect.set(opts, key, value);
       }
     });
-    const init: RequestInit = { method };
     if (options.body) {
-      if (def.headers!.get('Content-Type') === 'application/json') {
+      if (opts.headers!.get('Content-Type') === 'application/json') {
         init.body = JSON.stringify(options.body);
       } else {
         init.body = options.body as FormData | URLSearchParams;
       }
     }
-    init.headers = def.headers;
+    init.headers = opts.headers;
     // TODO: Interceptors...
     const input = `${this.baseURL}/${url}${options.params ? `?${options.params.toQuery()}` : ''}`;
     const response = await fetch(input, init);
-    switch (def.responseType) {
+    switch (opts.responseType) {
       case 'none':
         return response;
       case 'json':
