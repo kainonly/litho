@@ -1,26 +1,49 @@
-import { Options } from './types';
+import { DefaultOptions, Options } from './types';
 
 export class HttpClient {
-  baseURL: string = 'api';
+  /**
+   * @example https://api.example.com
+   */
+  baseURL: string;
 
-  headers: Headers = new Headers({
-    'Content-Type': 'application/json'
-  });
+  /**
+   * options default
+   */
+  default: DefaultOptions;
 
-  async request<R>(method: string, url: string, options: Options = { responseType: 'json' }): Promise<Response | R> {
-    const init: RequestInit = {
-      method,
-      headers: this.headers
+  constructor(baseURL?: string, options?: DefaultOptions) {
+    this.baseURL = baseURL ?? 'api';
+    this.default = options ?? {
+      headers: new Headers({
+        'Content-Type': 'application/json'
+      }),
+      responseType: 'json'
     };
-    options.header?.forEach((value, key) => {
-      (init.headers as Headers).set(key, value);
+  }
+
+  async request<R, D>(method: string, url: string, options: Options<D>): Promise<Response | R> {
+    const def = { ...this.default };
+    options.headers?.forEach((value, key) => {
+      def.headers!.set(key, value);
     });
+    Object.entries(options).forEach(([key, value]) => {
+      if (key !== 'headers') {
+        Reflect.set(def, key, value);
+      }
+    });
+    const init: RequestInit = { method };
     if (options.body) {
-      init.body = JSON.stringify(options.body);
+      if (def.headers!.get('Content-Type') === 'application/json') {
+        init.body = JSON.stringify(options.body);
+      } else {
+        init.body = options.body as FormData | URLSearchParams;
+      }
     }
+    init.headers = def.headers;
+    // TODO: Interceptors...
     const input = `${this.baseURL}/${url}${options.params ? `?${options.params.toQuery()}` : ''}`;
     const response = await fetch(input, init);
-    switch (options?.responseType) {
+    switch (def.responseType) {
       case 'none':
         return response;
       case 'json':
@@ -29,41 +52,41 @@ export class HttpClient {
     }
   }
 
-  head(url: string, options?: Omit<Options, 'body' | 'responseType'>): Promise<Response> {
+  head(url: string, options?: Omit<Options<never>, 'body' | 'responseType'>): Promise<Response> {
     return this.request('HEAD', url, {
       responseType: 'none',
       ...options
     });
   }
 
-  get<R>(url: string, options?: Omit<Options, 'body'>): Promise<Response | R> {
+  get<R>(url: string, options?: Omit<Options<never>, 'body'>): Promise<Response | R> {
     return this.request('GET', url, {
       ...options
     });
   }
 
-  post<R, D>(url: string, body: D, options?: Omit<Options, 'body'>): Promise<Response | R> {
+  post<R, D>(url: string, body: D, options?: Omit<Options<D>, 'body'>): Promise<Response | R> {
     return this.request('POST', url, {
       body,
       ...options
     });
   }
 
-  put<R, D>(url: string, body: D, options?: Omit<Options, 'body'>): Promise<Response | R> {
+  put<R, D>(url: string, body: D, options?: Omit<Options<D>, 'body'>): Promise<Response | R> {
     return this.request('PUT', url, {
       body,
       ...options
     });
   }
 
-  patch<R, D>(url: string, body: Partial<D>, options?: Omit<Options, 'body'>): Promise<Response | R> {
+  patch<R, D>(url: string, body: Partial<D>, options?: Omit<Options<D>, 'body'>): Promise<Response | R> {
     return this.request('PATCH', url, {
       body,
       ...options
     });
   }
 
-  delete<R>(url: string, options?: Omit<Options, 'body'>): Promise<Response | R> {
+  delete<R>(url: string, options?: Omit<Options<never>, 'body'>): Promise<Response | R> {
     return this.request('DELETE', url, {
       ...options
     });
