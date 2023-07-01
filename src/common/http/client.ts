@@ -1,4 +1,4 @@
-import { DefaultOptions, Options } from './types';
+import { DefaultHttpOptions, HttpOptions } from './types';
 
 export class HttpClient {
   /**
@@ -9,9 +9,9 @@ export class HttpClient {
   /**
    * options default
    */
-  default: DefaultOptions;
+  default: DefaultHttpOptions;
 
-  constructor(baseURL?: string, options?: DefaultOptions) {
+  constructor(baseURL?: string, options?: DefaultHttpOptions) {
     this.baseURL = baseURL ?? 'api';
     this.default = options ?? {
       headers: new Headers({
@@ -21,7 +21,7 @@ export class HttpClient {
     };
   }
 
-  async request<R, D>(method: string, url: string, options: Options<D>): Promise<Response | R> {
+  async request<R, D>(method: string, url: string, options: HttpOptions<D>): Promise<R> {
     const init: RequestInit = { method };
     const opts = { ...this.default };
     options.headers?.forEach((value, key) => {
@@ -45,48 +45,48 @@ export class HttpClient {
     const response = await fetch(input, init);
     switch (opts.responseType) {
       case 'none':
-        return response;
+        return response as R;
       case 'json':
       default:
         return response.json() as R;
     }
   }
 
-  head(url: string, options?: Omit<Options<never>, 'body' | 'responseType'>): Promise<Response> {
+  head(url: string, options?: Omit<HttpOptions<never>, 'body' | 'responseType'>): Promise<never> {
     return this.request('HEAD', url, {
       responseType: 'none',
       ...options
     });
   }
 
-  get<R>(url: string, options?: Omit<Options<never>, 'body'>): Promise<Response | R> {
+  get<R>(url: string, options?: Omit<HttpOptions<never>, 'body'>): Promise<R> {
     return this.request('GET', url, {
       ...options
     });
   }
 
-  post<R, D>(url: string, body: D, options?: Omit<Options<D>, 'body'>): Promise<Response | R> {
+  post<R, D>(url: string, body: D, options?: Omit<HttpOptions<D>, 'body'>): Promise<R> {
     return this.request('POST', url, {
       body,
       ...options
     });
   }
 
-  put<R, D>(url: string, body: D, options?: Omit<Options<D>, 'body'>): Promise<Response | R> {
+  put<R, D>(url: string, body: D, options?: Omit<HttpOptions<D>, 'body'>): Promise<R> {
     return this.request('PUT', url, {
       body,
       ...options
     });
   }
 
-  patch<R, D>(url: string, body: Partial<D>, options?: Omit<Options<D>, 'body'>): Promise<Response | R> {
+  patch<R, D>(url: string, body: Partial<D>, options?: Omit<HttpOptions<D>, 'body'>): Promise<R> {
     return this.request('PATCH', url, {
       body,
       ...options
     });
   }
 
-  delete<R>(url: string, options?: Omit<Options<never>, 'body'>): Promise<Response | R> {
+  delete<R>(url: string, options?: Omit<HttpOptions<never>, 'body'>): Promise<R> {
     return this.request('DELETE', url, {
       ...options
     });

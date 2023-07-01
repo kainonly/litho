@@ -1,6 +1,6 @@
 import { Params } from './params';
 
-export interface Options<D> {
+export interface HttpOptions<D> {
   headers?: Headers;
   params?: Params;
   body?: D | FormData | URLSearchParams;
@@ -21,4 +21,4 @@ export interface Options<D> {
   referrer?: string;
 }
 
-export type DefaultOptions = Omit<Options<never>, 'params' | 'body'>;
+export type DefaultHttpOptions = Omit<HttpOptions<never>, 'params' | 'body'>;
