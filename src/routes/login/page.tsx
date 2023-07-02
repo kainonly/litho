@@ -1,6 +1,5 @@
-import * as url from 'url';
 import { CopyrightOutlined, GithubOutlined, SelectOutlined } from '@ant-design/icons';
-import { Avatar, Button, Col, Divider, Layout, Row, Space, Tabs, Typography } from 'antd';
+import { Avatar, Button, Carousel, Col, Divider, Layout, Row, Space, Tabs, Typography } from 'antd';
 import { Sms } from '@/routes/login/sms';
 import { Basic } from '@/routes/login/basic';
 
@@ -57,7 +56,33 @@ export default () => {
             </Layout.Footer>
           </Layout>
         </Col>
-        <Col span={12} />
+        <Col
+          span={12}
+          style={{
+            backgroundImage: 'url(https://cdn.kainonly.com/assets/bg.svg)',
+            backgroundRepeat: 'no-repeat',
+            backgroundPosition: 'center',
+            backgroundSize: '100%'
+          }}
+        >
+          <div
+            style={{
+              textAlign: 'center',
+              marginTop: '25%'
+            }}
+          >
+            <Carousel autoplay dots={false} dotPosition={'left'}>
+              <Typography.Title level={2}>DEPLOYMENT</Typography.Title>
+              <Typography.Title level={2}>SCHEDULE</Typography.Title>
+              <Typography.Title level={2}>LOW-CODE</Typography.Title>
+            </Carousel>
+            <Typography.Title style={{ marginTop: 0 }} level={3}>
+              manage easily with
+            </Typography.Title>
+
+            <img src={'https://cdn.kainonly.com/assets/weplanx_transparent.png'} alt={'weplanx'} />
+          </div>
+        </Col>
       </Row>
     </>
   );
