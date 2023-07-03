@@ -6,9 +6,14 @@ export default defineConfig<'rspack'>({
     router: true,
     state: true
   },
-  // server: {
-  //   ssr: true
-  // },
+
+  tools: {
+    devServer: {
+      client: {
+        port: '8443'
+      }
+    }
+  },
   plugins: [
     appTools({
       bundler: 'experimental-rspack'

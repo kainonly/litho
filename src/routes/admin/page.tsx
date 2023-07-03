@@ -3,8 +3,8 @@ import { Card, Col, Row, Statistic } from 'antd';
 import { ArrowDownOutlined, ArrowUpOutlined } from '@ant-design/icons';
 
 export default () => {
-  const user = useRouteLoaderData('admin/layout');
-  console.log(user);
+  // const user = useRouteLoaderData('admin/layout');
+  // console.log(user);
   return (
     <>
       <Row gutter={8}>
