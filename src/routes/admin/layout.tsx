@@ -1,15 +1,25 @@
-import { AppstoreOutlined, CoffeeOutlined, DesktopOutlined } from '@ant-design/icons';
-import { Link, Outlet } from '@modern-js/runtime/router';
-import { Layout, Breadcrumb, Button, Col, Divider, Menu, message, Row, Space, theme } from 'antd';
+import {
+  AppstoreOutlined,
+  DesktopOutlined,
+  MonitorOutlined,
+  ProjectOutlined,
+  SettingOutlined,
+  TeamOutlined,
+  UserOutlined
+} from '@ant-design/icons';
+import { Link, Outlet, useLocation } from '@modern-js/runtime/router';
+import { Layout, Breadcrumb, Button, Col, Divider, Menu, Row, Space, theme, Avatar } from 'antd';
 
 export default () => {
   const {
     token: { colorBgContainer }
   } = theme.useToken();
+  const location = useLocation();
+  const current = location.pathname.replace('/admin/', '');
 
   const breadcrumbItems = [
     {
-      title: <Link to="/admin">工作台</Link>,
+      title: <Link to="/admin">Admin Controls</Link>,
       key: 'home'
     }
   ];
@@ -22,7 +32,7 @@ export default () => {
               <Button
                 type="text"
                 onClick={() => {
-                  message.success('Success!');
+                  // message.success('Success!');
                 }}
               >
                 <AppstoreOutlined />
@@ -31,17 +41,28 @@ export default () => {
             </Space>
           </Col>
           <Col />
-          <Col />
+          <Col>
+            <Space>
+              <div>
+                <Avatar icon={<UserOutlined />} />
+              </div>
+            </Space>
+          </Col>
         </Row>
       </Layout.Header>
       <Layout>
-        <Layout.Sider width={240} style={{ background: colorBgContainer, padding: '8px' }}>
+        <Layout.Sider width={300} style={{ background: colorBgContainer, padding: '10px' }}>
           <Menu
-            mode="inline"
+            mode="vertical"
+            selectedKeys={[current]}
             style={{ height: '100%', borderRight: 0 }}
             items={[
-              { key: 'example1', icon: <DesktopOutlined />, label: <Link to={'example1'}>案例 1</Link> },
-              { key: 'example2', icon: <CoffeeOutlined />, label: <Link to={'example2'}>案例 2</Link> }
+              { key: 'overview', icon: <DesktopOutlined />, label: <Link to={'overview'}>Overview</Link> },
+              { key: 'projects', icon: <ProjectOutlined />, label: <Link to={'projects'}>Projects</Link> },
+              { key: 'monitor', icon: <MonitorOutlined />, label: <Link to={'monitor'}>Monitor</Link> },
+              { type: 'divider' },
+              { key: 'users', icon: <TeamOutlined />, label: <Link to={'users'}>Users</Link> },
+              { key: 'settings', icon: <SettingOutlined />, label: <Link to={'settings'}>Settings</Link> }
             ]}
           />
         </Layout.Sider>

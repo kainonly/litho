@@ -7,7 +7,7 @@ export default () => {
   return (
     <>
       <Row style={{ height: '100%' }}>
-        <Col span={12} style={{ background: '#fff' }}>
+        <Col md={24} lg={12} style={{ background: '#fff' }}>
           <Layout style={{ height: '100%' }}>
             <Layout.Header style={{ background: '#fff' }}>
               <Button size={'large'} type="text" icon={<GithubOutlined />}>
@@ -57,7 +57,8 @@ export default () => {
           </Layout>
         </Col>
         <Col
-          span={12}
+          md={0}
+          lg={12}
           style={{
             backgroundImage: 'url(https://cdn.kainonly.com/assets/bg.svg)',
             backgroundRepeat: 'no-repeat',
@@ -68,7 +69,7 @@ export default () => {
           <div
             style={{
               textAlign: 'center',
-              marginTop: '20%'
+              marginTop: '30%'
             }}
           >
             <Carousel autoplay dots={false} dotPosition={'left'}>
@@ -77,12 +78,12 @@ export default () => {
               <Typography.Title level={2}>SCHEDULE</Typography.Title>
               <Typography.Title level={2}>LOW-CODE</Typography.Title>
             </Carousel>
-            <Typography.Title style={{ marginTop: 0 }} level={2}>
+            <Typography.Title style={{ marginTop: 0 }} level={3}>
               DevOps Manage Easily With
             </Typography.Title>
-            <div style={{ marginTop: -32 }}>
-              <img height={256} src={'https://cdn.kainonly.com/assets/weplanx_transparent.png'} alt={'weplanx'} />
-            </div>
+          </div>
+          <div style={{ position: 'absolute', bottom: -32, right: 0 }}>
+            <img height={256} src={'https://cdn.kainonly.com/assets/weplanx_transparent.png'} alt={'weplanx'} />
           </div>
         </Col>
       </Row>
