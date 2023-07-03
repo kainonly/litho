@@ -68,19 +68,21 @@ export default () => {
           <div
             style={{
               textAlign: 'center',
-              marginTop: '25%'
+              marginTop: '20%'
             }}
           >
             <Carousel autoplay dots={false} dotPosition={'left'}>
               <Typography.Title level={2}>DEPLOYMENT</Typography.Title>
+              <Typography.Title level={2}>CONNECTOR</Typography.Title>
               <Typography.Title level={2}>SCHEDULE</Typography.Title>
               <Typography.Title level={2}>LOW-CODE</Typography.Title>
             </Carousel>
-            <Typography.Title style={{ marginTop: 0 }} level={3}>
-              manage easily with
+            <Typography.Title style={{ marginTop: 0 }} level={2}>
+              DevOps Manage Easily With
             </Typography.Title>
-
-            <img src={'https://cdn.kainonly.com/assets/weplanx_transparent.png'} alt={'weplanx'} />
+            <div style={{ marginTop: -32 }}>
+              <img height={256} src={'https://cdn.kainonly.com/assets/weplanx_transparent.png'} alt={'weplanx'} />
+            </div>
           </div>
         </Col>
       </Row>

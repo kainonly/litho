@@ -36,6 +36,7 @@
     "@modern-js/builder-rspack-provider": "2.25.0",
     "@modern-js/eslint-config": "2.25.0",
     "@modern-js/tsconfig": "2.25.0",
+    "@rspack/binding-linux-x64-gnu": "^0.2.4",
     "@types/jest": "~29.2.4",
     "@types/node": "~16.11.7",
     "@types/react": "~18.0.26",
