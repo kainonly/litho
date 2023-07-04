@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/rules-of-hooks */
-import { Params } from '../http';
-import { useOptions } from './helper';
+import { Params } from '../http/params';
+import { HttpClient } from '../http/client';
 import {
   AnyDto,
   BulkDeleteOption,
@@ -16,12 +16,18 @@ import {
   SortOption,
   UpdateOneByIdOption,
   UpdateOption
-} from './types';
-import { client } from '@/common';
+} from '../types';
+import { useOptions } from './helper';
 
 export class REST<T> {
+  client!: HttpClient;
+
+  constructor(client: HttpClient) {
+    this.client = client;
+  }
+
   create(doc: T, options?: CreateOption<T>): Promise<R> {
-    return client.post(``, {
+    return this.client.post(``, {
       data: doc,
       format: options?.xdata,
       txn: options?.txn
@@ -29,7 +35,7 @@ export class REST<T> {
   }
 
   bulkCreate(docs: T[], options?: CreateOption<T>): Promise<R> {
-    return client.post(`bulk_create`, {
+    return this.client.post(`bulk_create`, {
       data: docs,
       format: options?.xdata,
       txn: options?.txn
@@ -37,7 +43,7 @@ export class REST<T> {
   }
 
   async size(filter?: Filter<T>, options?: FilterOption<T>): Promise<number> {
-    const response = await client.get<Response>(`_size`, {
+    const response = await this.client.get<Response>(`_size`, {
       responseType: 'none',
       ...useOptions<T>(filter, options)
     });
@@ -49,19 +55,19 @@ export class REST<T> {
   }
 
   find(filter: Filter<T>, options?: FindOption<T>): Promise<Array<AnyDto<T>>> {
-    return client.get<Array<AnyDto<T>>>(``, useOptions<T>(filter, options));
+    return this.client.get<Array<AnyDto<T>>>(``, useOptions<T>(filter, options));
   }
 
   findOne(filter: Filter<T>, options?: FindOneOption<T>): Promise<AnyDto<T>> {
-    return client.get<AnyDto<T>>(`_one`, useOptions<T>(filter, options));
+    return this.client.get<AnyDto<T>>(`_one`, useOptions<T>(filter, options));
   }
 
   findById(id: string, options?: FindByIdOption<T>): Promise<AnyDto<T>> {
-    return client.get<AnyDto<T>>(id, useOptions<T>(undefined, options));
+    return this.client.get<AnyDto<T>>(id, useOptions<T>(undefined, options));
   }
 
   update(filter: Filter<T>, update: R, options?: UpdateOption<T>): Promise<R> {
-    return client.patch(
+    return this.client.patch(
       ``,
       {
         data: update,
@@ -73,7 +79,7 @@ export class REST<T> {
   }
 
   updateById(id: string, update: R, options?: UpdateOneByIdOption<T>): Promise<R> {
-    return client.patch(id, {
+    return this.client.patch(id, {
       data: update,
       format: options?.xdata,
       txn: options?.txn
@@ -81,7 +87,7 @@ export class REST<T> {
   }
 
   replace(id: string, doc: T, options?: ReplaceOption<T>): Promise<R> {
-    return client.put(id, {
+    return this.client.put(id, {
       data: doc,
       format: options?.xdata,
       txn: options?.txn
@@ -93,11 +99,11 @@ export class REST<T> {
     if (options?.txn) {
       params.set('txn', options.txn);
     }
-    return client.delete(id, { params });
+    return this.client.delete(id, { params });
   }
 
   bulkDelete(filter: Filter<T>, options?: BulkDeleteOption<T>): Promise<R> {
-    return client.post(`bulk_delete`, {
+    return this.client.post(`bulk_delete`, {
       data: filter,
       format: options?.xfilter,
       txn: options?.txn
@@ -105,7 +111,7 @@ export class REST<T> {
   }
 
   sort(key: string, values: string[], options?: SortOption<T>): Promise<R> {
-    return client.post(`sort`, {
+    return this.client.post(`sort`, {
       data: { key, values },
       txn: options?.txn
     });

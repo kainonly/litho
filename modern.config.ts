@@ -6,8 +6,10 @@ export default defineConfig<'rspack'>({
     router: true,
     state: true
   },
-
   tools: {
+    sass: {
+      sourceMap: true
+    },
     devServer: {
       client: {
         port: '8443'

@@ -1,7 +1,7 @@
 import { CopyrightOutlined, GithubOutlined, SelectOutlined } from '@ant-design/icons';
 import { Avatar, Button, Carousel, Col, Divider, Layout, Row, Space, Tabs, Typography } from 'antd';
-import { Sms } from '@/routes/login/sms';
-import { Basic } from '@/routes/login/basic';
+import { Sms } from './sms';
+import { Basic } from './basic';
 
 export default () => {
   return (

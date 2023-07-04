@@ -1,4 +1,4 @@
-import { DefaultHttpOptions, HttpOptions } from './types';
+import { DefaultHttpOptions, HttpOptions } from '../types';
 
 export class HttpClient {
   /**

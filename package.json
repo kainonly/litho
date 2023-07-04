@@ -31,6 +31,7 @@
     "reactflow": "^11.7.4"
   },
   "devDependencies": {
+    "@faker-js/faker": "^8.0.2",
     "@modern-js-app/eslint-config": "2.25.0",
     "@modern-js/app-tools": "2.25.0",
     "@modern-js/builder-rspack-provider": "2.25.0",

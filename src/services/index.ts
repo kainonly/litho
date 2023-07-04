@@ -1,4 +1,4 @@
-import { client } from '@/common';
+import { http } from '@common/http';
 
-export const info = () => client.get<Response>('info', { responseType: 'none' });
-export const info1 = () => client.get<Response>('info1', { responseType: 'none' });
+export const info = () => http.get<Response>('info', { responseType: 'none' });
+export const info1 = () => http.get<Response>('info1', { responseType: 'none' });

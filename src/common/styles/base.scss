@@ -1,0 +1,32 @@
+@import 'https://cdn.kainonly.com/reset-css@5.0.1/reset.css';
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+.header {
+  padding: 0 12px;
+  z-index: 1000;
+  background: #fff;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.center {
+  height: 100%;
+  padding: 0 24px;
+
+  &:hover,
+  &:focus {
+    cursor: pointer;
+    background: rgba(0, 0, 0, 0.018);
+  }
+
+  .username {
+    display: inline-block;
+    margin-left: 12px;
+    vertical-align: middle;
+    font-weight: bold;
+  }
+}

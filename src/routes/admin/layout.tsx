@@ -8,21 +8,39 @@ import {
   UserOutlined
 } from '@ant-design/icons';
 import { Link, Outlet, useLocation } from '@modern-js/runtime/router';
-import { Layout, Breadcrumb, Button, Col, Divider, Menu, Row, Space, theme, Avatar } from 'antd';
+import { Layout, Breadcrumb, Button, Col, Divider, Menu, Row, Space, theme, Avatar, Badge } from 'antd';
+
+// const routes = [
+//   { key: '/admin/overview', label: 'Overview' },
+//   { key: '/admin/projects', label: 'Projects' },
+//   { key: '/admin/monitor', label: 'Monitor' },
+//   { key: '/admin/users', label: 'Users' },
+//   { key: '/admin/settings', label: 'Settings' }
+// ];
+const navMap: Record<string, string> = {
+  '/admin': 'Admin Controls',
+  '/admin/overview': 'Overview',
+  '/admin/projects': 'Projects',
+  '/admin/monitor': 'Monitor',
+  '/admin/users': 'Users',
+  '/admin/settings': 'Settings'
+};
 
 export default () => {
   const {
     token: { colorBgContainer }
   } = theme.useToken();
   const location = useLocation();
-  const current = location.pathname.replace('/admin/', '');
-
-  const breadcrumbItems = [
-    {
-      title: <Link to="/admin">Admin Controls</Link>,
-      key: 'home'
-    }
-  ];
+  const pathSnippets = location.pathname.split('/').filter(i => i);
+  const menuKeys: string[] = [];
+  const breadcrumbItems = pathSnippets.map((v, index) => {
+    const url = `/${pathSnippets.slice(0, index + 1).join('/')}`;
+    menuKeys.push(v);
+    return {
+      key: url,
+      title: <Link to={url}>{navMap[url]}</Link>
+    };
+  });
   return (
     <>
       <Layout.Header className={'header'}>
@@ -42,19 +60,19 @@ export default () => {
           </Col>
           <Col />
           <Col>
-            <Space>
-              <div>
-                <Avatar icon={<UserOutlined />} />
-              </div>
-            </Space>
+            <div className={'center'}>
+              <Badge dot>
+                <Avatar shape="square" icon={<UserOutlined />} />
+              </Badge>
+            </div>
           </Col>
         </Row>
       </Layout.Header>
       <Layout>
-        <Layout.Sider width={300} style={{ background: colorBgContainer, padding: '10px' }}>
+        <Layout.Sider width={300} style={{ background: colorBgContainer, padding: '12px' }}>
           <Menu
             mode="vertical"
-            selectedKeys={[current]}
+            selectedKeys={menuKeys}
             style={{ height: '100%', borderRight: 0 }}
             items={[
               { key: 'overview', icon: <DesktopOutlined />, label: <Link to={'overview'}>Overview</Link> },
@@ -66,7 +84,7 @@ export default () => {
             ]}
           />
         </Layout.Sider>
-        <Layout style={{ padding: '10px 12px 0' }}>
+        <Layout style={{ padding: '12px 12px 0' }}>
           <Layout.Content>
             <Outlet />
           </Layout.Content>
