@@ -1,7 +1,7 @@
+import { AnyDto } from '@common/types';
 import { model } from '@modern-js/runtime/model';
-import { AnyDto, BasicState } from '@common/types';
 
-export interface Users {
+export interface User {
   email: string;
   password: string;
   name: string;
@@ -9,14 +9,28 @@ export interface Users {
   status: boolean;
 }
 
-type State = BasicState<AnyDto<Users>>;
+type State = {
+  items: AnyDto<User>[];
+  pending: boolean;
+  error: null | Error;
+  selected: React.Key[];
+  page: number;
+  pageSize: number;
+};
 
 export default model<State>('users').define({
   state: {
     items: [],
     pending: false,
-    error: null
+    error: null,
+    selected: [],
+    page: 1,
+    pageSize: 10
   },
-  computed: {},
+  computed: {
+    selectedItems: state => {
+      return state.items.filter(v => state.selected.includes(v._id));
+    }
+  },
   actions: {}
 });

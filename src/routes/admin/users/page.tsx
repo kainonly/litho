@@ -1,16 +1,24 @@
 import { useModel } from '@modern-js/runtime/model';
 import { useLoaderData } from '@modern-js/runtime/router';
-import { Button, Input, Card, Space, Table } from 'antd';
+import { Button, Input, Card, Space, Table, Badge, Dropdown } from 'antd';
 import users from '@models/users';
-import { ClearOutlined, EllipsisOutlined, FilterOutlined, ReloadOutlined } from '@ant-design/icons';
+import {
+  CheckOutlined,
+  ClearOutlined,
+  DeleteOutlined,
+  EllipsisOutlined,
+  FilterOutlined,
+  PlusOutlined,
+  ReloadOutlined
+} from '@ant-design/icons';
 import { faker } from '@faker-js/faker';
 import { LoaderData } from './page.loader';
 
 export default () => {
   const { data } = useLoaderData() as LoaderData;
-  const [{ items }, { setItems }] = useModel(users);
-  if (items.length === 0) {
-    setItems(data);
+  const [state, action] = useModel(users);
+  if (state.items.length === 0) {
+    action.setItems(data);
   }
   return (
     <>
@@ -18,7 +26,7 @@ export default () => {
         bordered={false}
         title={
           <Space>
-            <Input placeholder="Keyword" style={{ width: 180 }} bordered={false} />
+            <Input placeholder="Search" style={{ width: 180 }} bordered={false} />
             <Button.Group>
               <Button type="text">
                 <ReloadOutlined />
@@ -33,52 +41,70 @@ export default () => {
           </Space>
         }
         extra={
-          <Button
-            type="primary"
-            onClick={() => {
-              const create_time = faker.date.anytime();
-              setItems([
-                ...items,
-                {
-                  _id: faker.database.mongodbObjectId(),
-                  email: faker.internet.email(),
-                  password: faker.internet.password(),
-                  name: faker.person.fullName(),
-                  avatar: faker.image.avatar(),
-                  status: true,
-                  create_time,
-                  update_time: faker.date.past({ refDate: create_time })
-                }
-              ]);
-            }}
-          >
-            Add
-          </Button>
+          <Space>
+            {state.selectedItems.length === 0 ? undefined : (
+              <Dropdown
+                menu={{
+                  items: [
+                    {
+                      danger: true,
+                      key: 'delete',
+                      icon: <DeleteOutlined />,
+                      label: 'Delete All'
+                    }
+                  ]
+                }}
+              >
+                <Button type="text" icon={<CheckOutlined />}>
+                  {state.selectedItems.length} row selected
+                </Button>
+              </Dropdown>
+            )}
+            <Button
+              type="primary"
+              icon={<PlusOutlined />}
+              onClick={() => {
+                const create_time = faker.date.anytime();
+                action.setItems([
+                  ...state.items,
+                  {
+                    _id: faker.database.mongodbObjectId(),
+                    email: faker.internet.email(),
+                    password: faker.internet.password(),
+                    name: faker.person.fullName(),
+                    avatar: faker.image.avatar(),
+                    status: true,
+                    create_time,
+                    update_time: faker.date.past({ refDate: create_time })
+                  }
+                ]);
+              }}
+            />
+          </Space>
         }
       >
         <Table
           size={'middle'}
-          dataSource={items}
+          rowKey={'_id'}
+          dataSource={state.items}
           columns={[
             {
               title: 'Email',
-              dataIndex: 'email',
-              key: 'email'
+              dataIndex: 'email'
             },
             {
               title: 'Name',
-              dataIndex: 'name',
-              key: 'name'
+              dataIndex: 'name'
             },
             {
               title: 'Status',
               dataIndex: 'status',
-              key: 'status'
+              render: value => (!value ? <Badge status="error" text="Off" /> : <Badge status="success" text="On" />)
             },
             {
-              title: 'Action',
               key: 'action',
               align: 'center',
+              width: 64,
               render: () => (
                 <Space size="middle">
                   <Button type={'text'}>
@@ -88,6 +114,23 @@ export default () => {
               )
             }
           ]}
+          rowSelection={{
+            columnWidth: 64,
+            selectedRowKeys: state.selected,
+            onChange: (keys: React.Key[]) => {
+              action.setSelected(keys);
+            }
+          }}
+          pagination={{
+            showSizeChanger: true,
+            current: state.page,
+            pageSize: state.pageSize,
+            onChange: (page, pageSize) => {
+              console.log(page);
+              action.setPage(page);
+              action.setPageSize(pageSize);
+            }
+          }}
         />
       </Card>
     </>

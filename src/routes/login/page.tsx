@@ -11,7 +11,7 @@ export default () => {
           <Layout style={{ height: '100%' }}>
             <Layout.Header style={{ background: '#fff' }}>
               <Button size={'large'} type="text" icon={<GithubOutlined />}>
-                <b>STAR</b>
+                <b>Star</b>
               </Button>
             </Layout.Header>
             <Layout.Content style={{ background: '#fff', flex: '1 1 auto' }}>
@@ -73,10 +73,10 @@ export default () => {
             }}
           >
             <Carousel autoplay dots={false} dotPosition={'left'}>
-              <Typography.Title level={2}>DEPLOYMENT</Typography.Title>
-              <Typography.Title level={2}>CONNECTOR</Typography.Title>
-              <Typography.Title level={2}>SCHEDULE</Typography.Title>
-              <Typography.Title level={2}>LOW-CODE</Typography.Title>
+              <Typography.Title level={2}>Deployment</Typography.Title>
+              <Typography.Title level={2}>Connector</Typography.Title>
+              <Typography.Title level={2}>Schedule</Typography.Title>
+              <Typography.Title level={2}>Low-Code</Typography.Title>
             </Carousel>
             <Typography.Title style={{ marginTop: 0 }} level={3}>
               DevOps Manage Easily With

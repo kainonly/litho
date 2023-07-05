@@ -10,15 +10,8 @@ import {
 import { Link, Outlet, useLocation } from '@modern-js/runtime/router';
 import { Layout, Breadcrumb, Button, Col, Divider, Menu, Row, Space, theme, Avatar, Badge } from 'antd';
 
-// const routes = [
-//   { key: '/admin/overview', label: 'Overview' },
-//   { key: '/admin/projects', label: 'Projects' },
-//   { key: '/admin/monitor', label: 'Monitor' },
-//   { key: '/admin/users', label: 'Users' },
-//   { key: '/admin/settings', label: 'Settings' }
-// ];
 const navMap: Record<string, string> = {
-  '/admin': 'Admin Controls',
+  '/admin': 'Admin',
   '/admin/overview': 'Overview',
   '/admin/projects': 'Projects',
   '/admin/monitor': 'Monitor',
@@ -84,7 +77,7 @@ export default () => {
             ]}
           />
         </Layout.Sider>
-        <Layout style={{ padding: '12px 12px 0' }}>
+        <Layout style={{ padding: '12px', overflowY: 'auto' }}>
           <Layout.Content>
             <Outlet />
           </Layout.Content>

@@ -1,9 +1,9 @@
 import { AnyDto } from '@common/types';
-import { Users } from '@models/users';
+import { User } from '@models/users';
 import { faker } from '@faker-js/faker';
 
 export type LoaderData = {
-  data: AnyDto<Users>[];
+  data: AnyDto<User>[];
 };
 
 export default async (): Promise<LoaderData> => {
