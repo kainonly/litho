@@ -1,6 +1,9 @@
-import { Button, Form, Input } from 'antd';
+import { Button, Form, Input, notification } from 'antd';
+import { useNavigate } from '@modern-js/runtime/router';
+import { main } from '@services/main';
 
 export const Basic = () => {
+  const navigate = useNavigate();
   return (
     <>
       <Form
@@ -9,6 +12,17 @@ export const Basic = () => {
         initialValues={{ remember: true }}
         size={'large'}
         style={{ padding: '10px 0 0' }}
+        onFinish={async (data: any) => {
+          const response = await main.login(data.email, data.password);
+          if (!response.code) {
+            navigate('/admin');
+            notification.success({
+              message: `Authentication`,
+              description: '🚀Successful login, loading data~',
+              placement: 'bottomRight'
+            });
+          }
+        }}
         autoComplete="off"
       >
         <Form.Item name="email" rules={[{ required: true, message: 'Please input your email address!' }]}>
