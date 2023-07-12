@@ -1,11 +1,33 @@
 import { http } from '@common/http';
 import { R } from '@common/types';
+import { HttpClient } from '@common/http/client';
 
-export const main = {
-  login: (email: string, password: string) =>
-    http.post<R, { email: string; password: string }>(`login`, { email, password }),
-  verify: () => http.get<Response>(`verify`, { responseType: 'none' }),
-  code: () => http.get(`code`),
-  refreshToken: (code: string) => http.post<R, { code: string }>(`refresh_token`, { code }),
-  logout: () => http.post(`logout`, {})
-};
+class Main {
+  client!: HttpClient;
+
+  constructor(client: HttpClient) {
+    this.client = client;
+  }
+
+  login(email: string, password: string) {
+    return this.client.post<R, { email: string; password: string }>(`login`, { email, password });
+  }
+
+  verify() {
+    return this.client.get<Response>(`verify`, { responseType: 'none' });
+  }
+
+  code() {
+    return this.client.get(`code`);
+  }
+
+  refreshToken(code: string) {
+    return this.client.post<R, { code: string }>(`refresh_token`, { code });
+  }
+
+  logout() {
+    return http.post(`logout`, {});
+  }
+}
+
+export const main = new Main(http);

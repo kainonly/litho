@@ -1,4 +1,5 @@
 import { Params } from '@common/http/params';
+import { HttpClient } from '@common/http/client';
 
 export interface HttpOptions<D> {
   headers?: Headers;

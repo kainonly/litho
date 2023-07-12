@@ -9,6 +9,7 @@ import {
 } from '@ant-design/icons';
 import { Link, Outlet, useLocation } from '@modern-js/runtime/router';
 import { Layout, Breadcrumb, Button, Col, Divider, Menu, Row, Space, theme, Avatar, Badge } from 'antd';
+import './layout.css';
 
 const navMap: Record<string, string> = {
   '/admin': 'Admin',
@@ -36,7 +37,7 @@ export default () => {
   });
   return (
     <>
-      <Layout.Header className={'header'}>
+      <Layout.Header style={{ padding: '0 12px', zIndex: 1000, background: '#fff', borderBottom: '1px solid #f0f0f0' }}>
         <Row style={{ width: '100%' }} justify={'space-between'}>
           <Col>
             <Space split={<Divider type="vertical" />}>

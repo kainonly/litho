@@ -1,6 +1,6 @@
 import { AnyDto } from '@common/types';
-import { User } from '@models/users';
 import { faker } from '@faker-js/faker';
+import { User } from '@models/users';
 
 export type LoaderData = {
   data: AnyDto<User>[];
@@ -20,6 +20,7 @@ export default async (): Promise<LoaderData> => {
       update_time: faker.date.past({ refDate: create_time })
     };
   });
+
   return {
     data
   };
