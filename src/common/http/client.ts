@@ -1,4 +1,4 @@
-import { DefaultHttpOptions, HttpOptions } from '../types';
+import { DefaultHttpOptions, HttpOptions } from './types';
 
 export class HttpClient {
   /**
@@ -9,16 +9,16 @@ export class HttpClient {
   /**
    * options default
    */
-  default: DefaultHttpOptions;
+  default: DefaultHttpOptions = {};
 
   constructor(baseURL?: string, options?: DefaultHttpOptions) {
     this.baseURL = baseURL ?? 'api';
-    this.default = options ?? {
-      headers: new Headers({
+    this.default.headers =
+      options?.headers ??
+      new Headers({
         'Content-Type': 'application/json'
-      }),
-      responseType: 'json'
-    };
+      });
+    this.default.responseType = options?.responseType ?? 'json';
   }
 
   async request<R, D>(method: string, url: string, options: HttpOptions<D>): Promise<R> {

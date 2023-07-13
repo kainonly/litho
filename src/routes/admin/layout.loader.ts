@@ -1,9 +1,8 @@
+import api from '@common/api';
 import { redirect } from '@modern-js/runtime/router';
 
-import { main } from '@services/main';
-
 export default async () => {
-  const response = await main.verify();
+  const response = await api.main.verify();
   if (!response.ok) {
     return redirect('/login');
   }

@@ -1,6 +1,6 @@
 import { Outlet } from '@modern-js/runtime/router';
 import { Layout, ConfigProvider } from 'antd';
-import '@common/styles/common.css';
+import './layout.css';
 
 export default () => {
   return (

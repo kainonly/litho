@@ -1,6 +1,6 @@
-import { AnyDto } from '@common/types';
+import { AnyDto } from '@common/rest';
+import { User } from '@common/types';
 import { faker } from '@faker-js/faker';
-import { User } from '@models/users';
 
 export type LoaderData = {
   data: AnyDto<User>[];

@@ -1,13 +1,6 @@
-import { AnyDto } from '@common/types';
+import { AnyDto } from '@common/rest';
+import { User } from '@common/types';
 import { model } from '@modern-js/runtime/model';
-
-export interface User {
-  email: string;
-  password: string;
-  name: string;
-  avatar: string;
-  status: boolean;
-}
 
 type State = {
   items: AnyDto<User>[];

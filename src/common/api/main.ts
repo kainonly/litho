@@ -1,8 +1,7 @@
-import { http } from '@common/http';
-import { R } from '@common/types';
 import { HttpClient } from '@common/http/client';
+import { R } from '@common/rest';
 
-class Main {
+export class Main {
   client!: HttpClient;
 
   constructor(client: HttpClient) {
@@ -26,8 +25,6 @@ class Main {
   }
 
   logout() {
-    return http.post(`logout`, {});
+    return this.client.post(`logout`, {});
   }
 }
-
-export const main = new Main(http);

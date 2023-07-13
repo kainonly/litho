@@ -1,6 +1,5 @@
 /* eslint-disable react-hooks/rules-of-hooks */
-import { Params } from '../http/params';
-import { HttpClient } from '../http/client';
+import { HttpClient, Params } from '@common/http';
 import {
   AnyDto,
   BulkDeleteOption,
@@ -16,7 +15,7 @@ import {
   SortOption,
   UpdateOneByIdOption,
   UpdateOption
-} from '../types';
+} from './types';
 import { useOptions } from './helper';
 
 export class REST<T> {

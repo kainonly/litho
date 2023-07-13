@@ -1,5 +1,5 @@
-import { Params } from '../http/params';
-import { HttpOptions, Filter, RestOptions } from '../types';
+import { HttpOptions, Params } from '@common/http';
+import { Filter, RestOptions } from './types';
 
 export const useOptions = <T>(
   filter?: Filter<T>,

@@ -1,6 +1,6 @@
 import { Button, Form, Input, notification } from 'antd';
 import { useNavigate } from '@modern-js/runtime/router';
-import { main } from '@services/main';
+import api from '@common/api';
 
 export const Basic = () => {
   const navigate = useNavigate();
@@ -13,7 +13,7 @@ export const Basic = () => {
         size={'large'}
         style={{ padding: '10px 0 0' }}
         onFinish={async (data: any) => {
-          const response = await main.login(data.email, data.password);
+          const response = await api.main.login(data.email, data.password);
           if (!response.code) {
             navigate('/admin');
             notification.success({
