@@ -1,0 +1,22 @@
+<nz-row nzJustify="space-between" nzAlign="middle">
+  <nz-col>
+    <nz-space nzAlign="center" nzSize="large">
+      <ng-container *nzSpaceItem>
+        <button nz-button nzType="text">
+          <span nz-icon nzType="appstore" nzTheme="outline"></span>
+        </button>
+      </ng-container>
+      <ng-container *nzSpaceItem>
+        <nz-breadcrumb nzAutoGenerate> </nz-breadcrumb>
+      </ng-container>
+    </nz-space>
+  </nz-col>
+  <nz-col></nz-col>
+  <nz-col>
+    <div class="center">
+      <nz-badge nzDot>
+        <nz-avatar nzIcon="user" [nzShape]="'square'"></nz-avatar>
+      </nz-badge>
+    </div>
+  </nz-col>
+</nz-row>

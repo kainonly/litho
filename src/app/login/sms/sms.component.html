@@ -1,0 +1,29 @@
+<form nz-form nzLayout="vertical" [formGroup]="form" (wpxSubmit)="submit($event)">
+  <nz-form-item>
+    <nz-form-control [nzAutoTips]="tips.phone">
+      <nz-input-group nzCompact>
+        <nz-select formControlName="area" style="width: 30%" nzPlaceHolder="区号">
+          <nz-option [nzLabel]="'+86 中国'" [nzValue]="'+86'"></nz-option>
+        </nz-select>
+        <input type="text" nz-input formControlName="phone" style="width: 70%" placeholder="手机号码" />
+      </nz-input-group>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-control [nzAutoTips]="tips.captcha">
+      <nz-row [nzGutter]="8">
+        <nz-col [nzSpan]="12">
+          <input nz-input formControlName="captcha" placeholder="验证码" />
+        </nz-col>
+        <nz-col [nzSpan]="12">
+          <button nz-button>获取</button>
+        </nz-col>
+      </nz-row>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-control>
+      <button nz-button nzBlock nzType="primary" [nzLoading]="loading" [disabled]="!form.valid">开始使用</button>
+    </nz-form-control>
+  </nz-form-item>
+</form>

@@ -1,0 +1,35 @@
+<nz-layout style="height: 100%">
+  <nz-header class="nav">
+    <app-nav></app-nav>
+  </nz-header>
+  <nz-layout>
+    <nz-sider nzWidth="240px" nzTheme="light">
+      <ul nz-menu style="border: none">
+        <li nz-menu-item nzMatchRouter routerLink="overview">
+          <span nz-icon nzType="desktop" nzTheme="outline"></span>
+          <span>总览</span>
+        </li>
+        <li nz-menu-item nzMatchRouter routerLink="projects">
+          <span nz-icon nzType="project" nzTheme="outline"></span>
+          <span>项目</span>
+        </li>
+        <li nz-menu-item nzMatchRouter routerLink="monitor">
+          <span nz-icon nzType="line-chart" nzTheme="outline"></span>
+          <span>监控</span>
+        </li>
+        <li nz-menu-divider></li>
+        <li nz-menu-item nzMatchRouter routerLink="users">
+          <span nz-icon nzType="team" nzTheme="outline"></span>
+          <span>成员</span>
+        </li>
+        <li nz-menu-item nzMatchRouter routerLink="settings">
+          <span nz-icon nzType="setting" nzTheme="outline"></span>
+          <span>设置</span>
+        </li>
+      </ul>
+    </nz-sider>
+    <nz-layout>
+      <nz-content style="padding: 8px"> </nz-content>
+    </nz-layout>
+  </nz-layout>
+</nz-layout>

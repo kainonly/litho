@@ -1,14 +1,36 @@
+/* To learn more about this file see: https://angular.io/config/tsconfig. */
 {
-  "extends": "@modern-js/tsconfig/base",
+  "compileOnSave": false,
   "compilerOptions": {
-    "declaration": false,
-    "jsx": "preserve",
     "baseUrl": "./",
+    "outDir": "./dist/out-tsc",
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
+    "noImplicitOverride": true,
+    "noPropertyAccessFromIndexSignature": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "sourceMap": true,
+    "declaration": false,
+    "downlevelIteration": true,
+    "experimentalDecorators": true,
+    "moduleResolution": "node",
+    "importHelpers": true,
+    "target": "ES2022",
+    "module": "ES2022",
+    "useDefineForClassFields": false,
+    "lib": ["ES2022", "dom"],
     "paths": {
-      "@common/*": ["./src/common/*"],
-      "@models/*": ["./src/models/*"],
-      "@services/*": ["./src/services/*"]
+      "@env": ["src/environments/environment.ts"],
+      "@app": ["src/app/app.service.ts"],
+      "@common/*": ["src/common/*"],
+      "@weplanx/ng": ["library/public-api.ts"]
     }
   },
-  "include": ["src", "shared", "config", "modern.config.ts"]
+  "angularCompilerOptions": {
+    "enableI18nLegacyMessageIdFormat": false,
+    "strictInjectionParameters": true,
+    "strictInputAccessModifiers": true,
+    "strictTemplates": true
+  }
 }
