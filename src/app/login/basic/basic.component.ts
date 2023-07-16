@@ -51,9 +51,9 @@ export class BasicComponent implements OnInit {
   submit(data: any): void {
     this.loading = true;
     this.app.login(data).subscribe({
-      next: async () => {
+      next: () => {
         this.loading = false;
-        await this.router.navigateByUrl('/');
+        this.router.navigateByUrl('/');
         this.notification.success(`认证状态`, `🚀登录成功，正在加载数据~`);
       },
       error: () => {

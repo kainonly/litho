@@ -1,0 +1,59 @@
+<ng-template #searchRef>
+  <nz-space>
+    <nz-input-group *nzSpaceItem nzSuffixIcon="search">
+      <input style="width: 180px" nz-input placeholder="关键词搜索" />
+    </nz-input-group>
+    <nz-button-group *nzSpaceItem>
+      <button nz-button nzType="text" nz-tooltip="刷新">
+        <span nz-icon nzType="reload" nzTheme="outline"></span>
+      </button>
+      <button nz-button nzType="text" nz-tooltip="清除">
+        <span nz-icon nzType="clear" nzTheme="outline"></span>
+      </button>
+      <button nz-button nzType="text" nz-tooltip="检索">
+        <span nz-icon nzType="filter" nzTheme="outline"></span>
+      </button>
+    </nz-button-group>
+  </nz-space>
+</ng-template>
+<ng-template #actionRef>
+  <nz-space>
+    <button *nzSpaceItem nz-button nzType="primary"> 新增 </button>
+  </nz-space>
+</ng-template>
+
+<nz-card [nzTitle]="searchRef" [nzExtra]="actionRef">
+  <nz-table
+    #rowSelectionTable
+    nzShowPagination
+    nzShowSizeChanger
+    [nzData]="listOfData"
+    (nzCurrentPageDataChange)="onCurrentPageDataChange($event)"
+  >
+    <thead>
+      <tr>
+        <th
+          nzWidth="60px"
+          [nzChecked]="checked"
+          [nzIndeterminate]="indeterminate"
+          (nzCheckedChange)="onAllChecked($event)"
+        ></th>
+        <th>Name</th>
+        <th>Age</th>
+        <th>Address</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let data of rowSelectionTable.data">
+        <td
+          [nzChecked]="setOfCheckedId.has(data.id)"
+          [nzDisabled]="data.disabled"
+          (nzCheckedChange)="onItemChecked(data.id, $event)"
+        ></td>
+        <td>{{ data.name }}</td>
+        <td>{{ data.age }}</td>
+        <td>{{ data.address }}</td>
+      </tr>
+    </tbody>
+  </nz-table>
+</nz-card>

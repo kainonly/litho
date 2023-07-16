@@ -1,4 +1,5 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { Injectable } from '@angular/core';
 import { map, Observable } from 'rxjs';
 
 import { toHttpParams } from './helper';
@@ -20,17 +21,14 @@ import {
   UpdateOption
 } from '../types';
 
+@Injectable()
 export abstract class WpxApi<T> {
   protected collection = '';
 
   constructor(protected http: HttpClient) {}
 
-  protected url(...fragments: string[]): string {
-    return `${this.collection ? `${this.collection}` : ''}${fragments.length !== 0 ? `/${fragments.join('/')}` : ''}`;
-  }
-
   create(doc: T, options?: CreateOption<T>): Observable<R> {
-    return this.http.post(this.url('create'), {
+    return this.http.post(`db/${this.collection}/create`, {
       data: doc,
       xdata: options?.xdata,
       txn: options?.txn
@@ -38,7 +36,7 @@ export abstract class WpxApi<T> {
   }
 
   bulkCreate(docs: T[], options?: CreateOption<T>): Observable<R> {
-    return this.http.post(this.url('bulk_create'), {
+    return this.http.post(`db/${this.collection}/bulk_create`, {
       data: docs,
       xdata: options?.xdata,
       txn: options?.txn
@@ -48,7 +46,7 @@ export abstract class WpxApi<T> {
   size(filter: Filter<T>, options?: FilterOption<T>): Observable<number> {
     return this.http
       .post(
-        this.url('size'),
+        `db/${this.collection}/size`,
         {
           filter,
           xfilter: options?.xfilter
@@ -72,10 +70,10 @@ export abstract class WpxApi<T> {
 
   find(filter: Filter<T>, options?: FindOption<T>): Observable<Array<AnyDto<T>>> {
     return this.http.post<Array<AnyDto<T>>>(
-      this.url('find'),
+      `db/${this.collection}/find`,
       {
         filter,
-        xfilter: options?.xfilter
+        xfilter: options?.xfilter ?? {}
       },
       {
         headers: new HttpHeaders({
@@ -89,7 +87,7 @@ export abstract class WpxApi<T> {
 
   findOne(filter: Filter<T>, options?: FindOneOption<T>): Observable<AnyDto<T>> {
     return this.http.post<AnyDto<T>>(
-      this.url('find_one'),
+      `db/${this.collection}/find_one`,
       {
         filter,
         xfilter: options?.xfilter
@@ -101,7 +99,7 @@ export abstract class WpxApi<T> {
   }
 
   findById(id: string, options?: FindByIdOption<T>): Observable<AnyDto<T>> {
-    return this.http.get<AnyDto<T>>(this.url(id), {
+    return this.http.get<AnyDto<T>>(`db/${this.collection}/${id}`, {
       params: toHttpParams(options)
     });
   }
@@ -134,7 +132,7 @@ export abstract class WpxApi<T> {
   // }
 
   update(filter: Filter<T>, update: Update<T>, options?: UpdateOption<T>): Observable<R> {
-    return this.http.post(this.url('update'), {
+    return this.http.post(`db/${this.collection}/update`, {
       filter,
       xfilter: options?.xfilter,
       data: update,
@@ -144,7 +142,7 @@ export abstract class WpxApi<T> {
   }
 
   updateById(id: string, update: Update<T>, options?: UpdateOneByIdOption<T>): Observable<R> {
-    return this.http.patch(this.url(id), {
+    return this.http.patch(`db/${this.collection}/${id}`, {
       data: update,
       xdata: options?.xdata,
       txn: options?.txn
@@ -152,7 +150,7 @@ export abstract class WpxApi<T> {
   }
 
   replace(id: string, doc: T, options?: ReplaceOption<T>): Observable<R> {
-    return this.http.put(this.url(id), {
+    return this.http.put(`db/${this.collection}/${id}`, {
       data: doc,
       xdata: options?.xdata,
       txn: options?.txn
@@ -164,11 +162,11 @@ export abstract class WpxApi<T> {
     if (options?.txn) {
       params.set('txn', options.txn);
     }
-    return this.http.delete(this.url(id), { params });
+    return this.http.delete(`db/${this.collection}/${id}`, { params });
   }
 
   bulkDelete(filter: Filter<T>, options?: BulkDeleteOption<T>): Observable<R> {
-    return this.http.post(this.url('bulk_delete'), {
+    return this.http.post(`db/${this.collection}/bulk_delete`, {
       filter,
       xfilter: options?.xfilter,
       txn: options?.txn
@@ -176,7 +174,7 @@ export abstract class WpxApi<T> {
   }
 
   sort(key: string, values: string[], options?: SortOption<T>): Observable<R> {
-    return this.http.post(this.url('sort'), {
+    return this.http.post(`db/${this.collection}/sort`, {
       data: { key, values },
       txn: options?.txn
     });

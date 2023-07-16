@@ -15,6 +15,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule, Routes } from '@angular/router';
 
 import { ShareModule } from '@common/share.module';
+import { NZ_CONFIG, NzConfig } from 'ng-zorro-antd/core/config';
 import { zh_CN, NZ_I18N } from 'ng-zorro-antd/i18n';
 import { NzMenuModule } from 'ng-zorro-antd/menu';
 import { NzMessageModule } from 'ng-zorro-antd/message';
@@ -51,6 +52,10 @@ const routes: Routes = [
   }
 ];
 
+const ngZorroConfig: NzConfig = {
+  card: { nzBordered: false }
+};
+
 @NgModule({
   declarations: [AppComponent],
   imports: [
@@ -67,7 +72,8 @@ const routes: Routes = [
   providers: [
     provideHttpClient(withFetch(), withInterceptorsFromDi()),
     { provide: HTTP_INTERCEPTORS, useClass: AppInterceptors, multi: true },
-    { provide: NZ_I18N, useValue: zh_CN }
+    { provide: NZ_I18N, useValue: zh_CN },
+    { provide: NZ_CONFIG, useValue: ngZorroConfig }
   ],
   bootstrap: [AppComponent]
 })
