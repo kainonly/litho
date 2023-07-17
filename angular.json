@@ -24,9 +24,7 @@
             "tsConfig": "tsconfig.app.json",
             "inlineStyleLanguage": "less",
             "assets": ["src/favicon.ico", "src/assets"],
-            "styles": [
-              "src/styles.less"
-            ],
+            "styles": ["src/styles.less"],
             "scripts": []
           },
           "configurations": {
@@ -74,7 +72,7 @@
           },
           "options": {
             "host": "0.0.0.0",
-            "disableHostCheck": true,
+            "allowedHosts": ["xconsole.kainonly.com:8443"],
             "publicHost": "xconsole.kainonly.com:8443",
             "hmr": true
           },

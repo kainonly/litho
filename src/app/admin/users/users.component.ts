@@ -1,4 +1,6 @@
+import { DataSource } from '@angular/cdk/collections';
 import { Component, OnInit } from '@angular/core';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 import { UsersService } from '@common/services/users.service';
 
@@ -21,6 +23,9 @@ export class UsersComponent implements OnInit {
   listOfData: readonly Data[] = [];
   listOfCurrentPageData: readonly Data[] = [];
   setOfCheckedId = new Set<number>();
+
+  displayedColumns: string[] = ['name', 'age', 'address'];
+  dataSource = new UserDataSource();
 
   constructor(private users: UsersService) {}
 
@@ -78,4 +83,24 @@ export class UsersComponent implements OnInit {
       this.loading = false;
     }, 1000);
   }
+}
+
+export class UserDataSource extends DataSource<Data> {
+  /** Stream of data that is provided to the table. */
+  data = new BehaviorSubject<Data[]>(
+    new Array(100).fill(0).map((_, index) => ({
+      id: index,
+      name: `Edward King ${index}`,
+      age: 32,
+      address: `London, Park Lane no. ${index}`,
+      disabled: index % 2 === 0
+    }))
+  );
+
+  /** Connect function called by the table to retrieve one stream containing the data to render. */
+  connect(): Observable<Data[]> {
+    return this.data;
+  }
+
+  disconnect() {}
 }

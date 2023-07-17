@@ -25,6 +25,8 @@
 <nz-card [nzTitle]="searchRef" [nzExtra]="actionRef">
   <nz-table
     #rowSelectionTable
+    nzSize="middle"
+    nzBordered
     nzShowPagination
     nzShowSizeChanger
     [nzData]="listOfData"
@@ -38,7 +40,7 @@
           [nzIndeterminate]="indeterminate"
           (nzCheckedChange)="onAllChecked($event)"
         ></th>
-        <th>Name</th>
+        <th>电子邮件</th>
         <th>Age</th>
         <th>Address</th>
       </tr>

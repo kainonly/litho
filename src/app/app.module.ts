@@ -15,6 +15,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule, Routes } from '@angular/router';
 
 import { ShareModule } from '@common/share.module';
+import { environment } from '@env';
 import { NZ_CONFIG, NzConfig } from 'ng-zorro-antd/core/config';
 import { zh_CN, NZ_I18N } from 'ng-zorro-antd/i18n';
 import { NzMenuModule } from 'ng-zorro-antd/menu';
@@ -25,6 +26,20 @@ import { AppGuard } from './app.guard';
 import { AppInterceptors } from './app.interceptors';
 
 registerLocaleData(zh);
+
+export let experiments: Routes = [];
+
+if (!environment.production) {
+  experiments = [
+    {
+      path: 'experiment',
+      loadChildren: () => import('../experiment/experiment.module').then(m => m.ExperimentModule),
+      data: {
+        breadcrumb: `实验`
+      }
+    }
+  ];
+}
 
 const routes: Routes = [
   {
@@ -47,6 +62,7 @@ const routes: Routes = [
       //   loadChildren: () => import('./index.module').then(m => m.IndexModule),
       //   canActivate: [AppGuard]
       // },
+      ...experiments,
       { path: '', redirectTo: 'admin', pathMatch: 'full' }
     ]
   }

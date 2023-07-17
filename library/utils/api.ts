@@ -78,7 +78,7 @@ export abstract class WpxApi<T> {
       {
         headers: new HttpHeaders({
           'x-page': options?.page ?? 1,
-          'x-pagesize': options?.pagesize ?? 10
+          'x-pagesize': options?.pagesize ?? 100
         }),
         params: toHttpParams(options)
       }
