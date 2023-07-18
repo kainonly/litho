@@ -20,11 +20,18 @@
             "outputPath": "dist/console",
             "index": "src/index.html",
             "main": "src/main.ts",
-            "polyfills": ["zone.js"],
+            "polyfills": [
+              "zone.js"
+            ],
             "tsConfig": "tsconfig.app.json",
             "inlineStyleLanguage": "less",
-            "assets": ["src/favicon.ico", "src/assets"],
-            "styles": ["src/styles.less"],
+            "assets": [
+              "src/favicon.ico",
+              "src/assets"
+            ],
+            "styles": [
+              "src/styles.less"
+            ],
             "scripts": []
           },
           "configurations": {
@@ -72,7 +79,9 @@
           },
           "options": {
             "host": "0.0.0.0",
-            "allowedHosts": ["xconsole.kainonly.com:8443"],
+            "allowedHosts": [
+              "xconsole.kainonly.com:8443"
+            ],
             "publicHost": "xconsole.kainonly.com:8443",
             "hmr": true
           },
@@ -87,39 +96,50 @@
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
-            "polyfills": ["zone.js", "zone.js/testing"],
+            "polyfills": [
+              "zone.js",
+              "zone.js/testing"
+            ],
             "tsConfig": "tsconfig.spec.json",
             "inlineStyleLanguage": "less",
-            "assets": ["src/favicon.ico", "src/assets"],
-            "styles": ["src/styles.less"],
+            "assets": [
+              "src/favicon.ico",
+              "src/assets"
+            ],
+            "styles": [
+              "src/styles.less"
+            ],
             "scripts": []
           }
         },
         "lint": {
           "builder": "@angular-eslint/builder:lint",
           "options": {
-            "lintFilePatterns": ["src/**/*.ts", "src/**/*.html"]
+            "lintFilePatterns": [
+              "src/**/*.ts",
+              "src/**/*.html"
+            ]
           }
         }
       }
     },
-    "angular": {
+    "ng": {
       "projectType": "library",
-      "root": "library",
-      "sourceRoot": "library",
-      "prefix": "wpx",
+      "root": "projects/ng",
+      "sourceRoot": "projects/ng/src",
+      "prefix": "lib",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:ng-packagr",
           "options": {
-            "project": "library/ng-package.json"
+            "project": "projects/ng/ng-package.json"
           },
           "configurations": {
             "production": {
-              "tsConfig": "library/tsconfig.lib.prod.json"
+              "tsConfig": "projects/ng/tsconfig.lib.prod.json"
             },
             "development": {
-              "tsConfig": "library/tsconfig.lib.json"
+              "tsConfig": "projects/ng/tsconfig.lib.json"
             }
           },
           "defaultConfiguration": "production"
@@ -127,14 +147,104 @@
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
-            "tsConfig": "library/tsconfig.spec.json",
-            "polyfills": ["zone.js", "zone.js/testing"]
+            "tsConfig": "projects/ng/tsconfig.spec.json",
+            "polyfills": [
+              "zone.js",
+              "zone.js/testing"
+            ]
           }
         },
         "lint": {
           "builder": "@angular-eslint/builder:lint",
           "options": {
-            "lintFilePatterns": ["library/**/*.ts", "library/**/*.html"]
+            "lintFilePatterns": [
+              "projects/ng/**/*.ts",
+              "projects/ng/**/*.html"
+            ]
+          }
+        }
+      }
+    },
+    "table": {
+      "projectType": "library",
+      "root": "projects/table",
+      "sourceRoot": "projects/table/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "project": "projects/table/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/table/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/table/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "tsConfig": "projects/table/tsconfig.spec.json",
+            "polyfills": [
+              "zone.js",
+              "zone.js/testing"
+            ]
+          }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "projects/table/**/*.ts",
+              "projects/table/**/*.html"
+            ]
+          }
+        }
+      }
+    },
+    "store": {
+      "projectType": "library",
+      "root": "projects/store",
+      "sourceRoot": "projects/store/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "project": "projects/store/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/store/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/store/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "tsConfig": "projects/store/tsconfig.spec.json",
+            "polyfills": [
+              "zone.js",
+              "zone.js/testing"
+            ]
+          }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "projects/store/**/*.ts",
+              "projects/store/**/*.html"
+            ]
           }
         }
       }
@@ -142,6 +252,8 @@
   },
   "cli": {
     "analytics": "2b52ea7e-ec3c-41b1-b3f8-98a998be3750",
-    "schematicCollections": ["@angular-eslint/schematics"]
+    "schematicCollections": [
+      "@angular-eslint/schematics"
+    ]
   }
 }

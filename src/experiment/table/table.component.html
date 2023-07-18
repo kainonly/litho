@@ -1,32 +1,48 @@
-<nz-page-header [nzGhost]="false">
-  <nz-page-header-title>表格</nz-page-header-title>
-  <nz-page-header-content>
-    <nz-space>
-      <nz-input-group *nzSpaceItem nzSuffixIcon="search">
-        <input style="width: 180px" nz-input nzBorderless placeholder="关键词搜索" />
-      </nz-input-group>
-      <nz-button-group *nzSpaceItem>
-        <button nz-button nzType="text" nz-tooltip="高级检索">
-          <span nz-icon nzType="filter" nzTheme="outline"></span>
-        </button>
-        <button nz-button nzType="text" nz-tooltip="重置条件">
-          <span nz-icon nzType="clear" nzTheme="outline"></span>
-        </button>
-        <button nz-button nzType="text" nz-tooltip="刷新数据">
-          <span nz-icon nzType="reload" nzTheme="outline"></span>
-        </button>
-      </nz-button-group>
-    </nz-space>
-  </nz-page-header-content>
-  <nz-page-header-extra>
-    <nz-space>
-      <button *nzSpaceItem nz-button nzType="primary" nzShape="circle">
-        <span nz-icon nzType="plus" nzTheme="outline"></span>
+<ng-template #search>
+  <nz-space>
+    <nz-input-group *nzSpaceItem nzSuffixIcon="search">
+      <input style="width: 180px" nz-input nzBorderless placeholder="关键词搜索" />
+    </nz-input-group>
+    <nz-button-group *nzSpaceItem>
+      <button nz-button nzType="text" nz-tooltip="高级检索">
+        <span nz-icon nzType="filter" nzTheme="outline"></span>
       </button>
-    </nz-space>
-  </nz-page-header-extra>
-</nz-page-header>
+      <button nz-button nzType="text" nz-tooltip="重置条件">
+        <span nz-icon nzType="clear" nzTheme="outline"></span>
+      </button>
+      <button nz-button nzType="text" nz-tooltip="刷新数据">
+        <span nz-icon nzType="reload" nzTheme="outline"></span>
+      </button>
+    </nz-button-group>
+  </nz-space>
+</ng-template>
 
-<div style="padding: 8px">
-  <wpx-table [wpxColumns]="columns" [wpxData]="data"></wpx-table>
-</div>
+<ng-template #extra>
+  <nz-space>
+    <button *nzSpaceItem nz-button nzType="primary"> 新增 </button>
+  </nz-space>
+</ng-template>
+
+<ng-template #actions let-v>
+  <button nz-button nzType="text" nz-dropdown [nzDropdownMenu]="menu">
+    <span nz-icon nzType="ellipsis" nzTheme="outline"></span>
+  </button>
+  <nz-dropdown-menu #menu="nzDropdownMenu">
+    <ul nz-menu>
+      <li nz-menu-item>{{ v.no }}</li>
+      <li nz-menu-divider></li>
+      <li nz-menu-item> 修改 </li>
+      <li nz-menu-item nzDanger> 删除 </li>
+    </ul>
+  </nz-dropdown-menu>
+</ng-template>
+
+<wpx-table
+  [wpxData]="data"
+  [wpxColumns]="columns"
+  [wpxItemSize]="50"
+  [wpxSearch]="search"
+  [wpxExtra]="extra"
+  [wpxActions]="actions"
+  (wpxQuery)="getData($event)"
+></wpx-table>

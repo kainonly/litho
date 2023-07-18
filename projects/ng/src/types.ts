@@ -22,6 +22,10 @@ export interface ApiOptions<T> {
 export type FilterOption<T> = Pick<ApiOptions<T>, 'xfilter'>;
 export type CreateOption<T> = Pick<ApiOptions<T>, 'xdata' | 'txn'>;
 export type FindOption<T> = Omit<ApiOptions<T>, 'xdata' | 'txn'>;
+export type FindResult<T> = {
+  data: Array<AnyDto<T>>;
+  total: number;
+};
 export type FindOneOption<T> = Pick<ApiOptions<T>, 'keys' | 'xfilter'>;
 export type FindByIdOption<T> = Pick<ApiOptions<T>, 'keys'>;
 export type UpdateOption<T> = Pick<ApiOptions<T>, 'xfilter' | 'xdata' | 'txn'>;
@@ -33,4 +37,9 @@ export type SortOption<T> = Pick<ApiOptions<T>, 'txn'>;
 
 export interface TransactionResult {
   txn: string;
+}
+
+export interface LoadOption {
+  url: string;
+  plugins: string[];
 }

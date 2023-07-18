@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
-import { AnyDto } from '@weplanx/ng';
-import { ColumnsType } from '@weplanx/ng/table';
+import { AnyDto, WpxModel } from '@weplanx/ng';
+import { WpxColumns, TableQuery } from '@weplanx/table';
 
 import { OrdersService } from '../orders.service';
 import { Order } from '../types';
@@ -12,26 +12,29 @@ import { Order } from '../types';
 })
 export class TableComponent implements OnInit {
   data: Array<AnyDto<Order>> = [];
-  columns: ColumnsType<AnyDto<Order>>[] = [
+  columns: WpxColumns<AnyDto<Order>>[] = [
     {
       title: '订单号',
-      dataIndex: 'no'
+      key: 'no'
     },
     {
       title: '姓名',
-      dataIndex: 'name'
+      key: 'name'
     },
     {
       title: '账户',
-      dataIndex: 'account'
+      key: 'account'
     }
   ];
+  model: WpxModel<AnyDto<Order>> = new WpxModel();
 
-  constructor(private orders: OrdersService) {}
+  constructor(public orders: OrdersService) {}
 
-  ngOnInit(): void {
-    this.orders.find({}).subscribe(data => {
-      this.data = [...data];
+  ngOnInit(): void {}
+
+  getData(query: TableQuery): void {
+    this.orders.find({}, { page: query.index, pagesize: 100 }).subscribe(({ data }) => {
+      this.data = [...this.data, ...data];
     });
   }
 }

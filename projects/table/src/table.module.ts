@@ -3,8 +3,8 @@ import { NgModule } from '@angular/core';
 
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzCardModule } from 'ng-zorro-antd/card';
-import { NzTransitionPatchModule } from 'ng-zorro-antd/core/transition-patch/transition-patch.module';
-import { NzWaveModule } from 'ng-zorro-antd/core/wave';
+import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
+import { NzGridModule } from 'ng-zorro-antd/grid';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzSpaceModule } from 'ng-zorro-antd/space';
@@ -22,7 +22,9 @@ import { WpxTableComponent } from './table.component';
     NzIconModule,
     NzInputModule,
     NzSpaceModule,
-    NzToolTipModule
+    NzToolTipModule,
+    NzGridModule,
+    NzDropDownModule
   ],
   declarations: [WpxTableComponent],
   exports: [WpxTableComponent]

@@ -1,0 +1,69 @@
+<nz-card #block style="height: 100%">
+  <nz-row #box style="padding-bottom: 12px" nzJustify="space-between">
+    <nz-col>
+      <ng-container *ngIf="wpxSearch">
+        <ng-container *ngTemplateOutlet="wpxSearch"></ng-container>
+      </ng-container>
+    </nz-col>
+    <nz-col></nz-col>
+    <nz-col>
+      <ng-container *ngIf="wpxExtra">
+        <ng-container *ngTemplateOutlet="wpxExtra"></ng-container>
+      </ng-container>
+    </nz-col>
+  </nz-row>
+  <nz-table
+    #tb
+    [nzData]="wpxData"
+    [nzFrontPagination]="false"
+    [nzShowPagination]="false"
+    [nzVirtualItemSize]="wpxItemSize"
+    [nzVirtualMinBufferPx]="wpxItemSize * 10"
+    [nzVirtualMaxBufferPx]="wpxItemSize * 20"
+    [nzScroll]="{ y: y + 'px', x: '1200px' }"
+  >
+    <thead>
+      <tr [ngStyle]="{ height: wpxItemSize + 'px' }">
+        <th
+          nzWidth="60px"
+          nzLeft
+          nzAlign="center"
+          [nzChecked]="checked"
+          [nzIndeterminate]="indeterminate"
+          (nzCheckedChange)="setCurrentSelection($event)"
+        ></th>
+        <ng-container *ngFor="let x of wpxColumns">
+          <th [nzFilterFn]="true" [nzSortFn]="true">
+            <b>{{ x.title }}</b>
+          </th>
+        </ng-container>
+        <th nzWidth="60px" nzRight nzAlign="center">
+          <button nz-button nzType="text">
+            <span nz-icon nzType="setting"></span>
+          </button>
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <ng-container *nz-virtual-scroll="let v; index as index">
+        <tr [ngStyle]="{ height: wpxItemSize + 'px' }">
+          <td
+            nzLeft
+            nzAlign="center"
+            [nzDisabled]="v['disabled']"
+            [nzChecked]="selection.has(v['_id'])"
+            (nzCheckedChange)="$event ? setSelection(v) : removeSelection(v['_id'])"
+          ></td>
+          <ng-container *ngFor="let x of wpxColumns">
+            <td>{{ v[x.key] }}</td>
+          </ng-container>
+          <td nzRight nzAlign="center">
+            <ng-container *ngIf="wpxActions">
+              <ng-container *ngTemplateOutlet="wpxActions; context: { $implicit: v }"></ng-container>
+            </ng-container>
+          </td>
+        </tr>
+      </ng-container>
+    </tbody>
+  </nz-table>
+</nz-card>

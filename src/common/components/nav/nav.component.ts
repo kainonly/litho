@@ -1,7 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-nav',
   templateUrl: './nav.component.html'
 })
-export class NavComponent {}
+export class NavComponent {
+  @Input({ required: true }) menu!: string;
+}

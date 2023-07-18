@@ -13,6 +13,7 @@ import {
   FindByIdOption,
   FindOneOption,
   FindOption,
+  FindResult,
   R,
   ReplaceOption,
   SortOption,
@@ -68,21 +69,29 @@ export abstract class WpxApi<T> {
     return this.size(filter, options).pipe(map(v => v !== 0));
   }
 
-  find(filter: Filter<T>, options?: FindOption<T>): Observable<Array<AnyDto<T>>> {
-    return this.http.post<Array<AnyDto<T>>>(
-      `db/${this.collection}/find`,
-      {
-        filter,
-        xfilter: options?.xfilter ?? {}
-      },
-      {
-        headers: new HttpHeaders({
-          'x-page': options?.page ?? 1,
-          'x-pagesize': options?.pagesize ?? 100
-        }),
-        params: toHttpParams(options)
-      }
-    );
+  find(filter: Filter<T>, options?: FindOption<T>): Observable<FindResult<T>> {
+    return this.http
+      .post<Array<AnyDto<T>>>(
+        `db/${this.collection}/find`,
+        {
+          filter,
+          xfilter: options?.xfilter ?? {}
+        },
+        {
+          observe: 'response',
+          headers: new HttpHeaders({
+            'x-page': options?.page ?? 1,
+            'x-pagesize': options?.pagesize ?? 50
+          }),
+          params: toHttpParams(options)
+        }
+      )
+      .pipe(
+        map(response => ({
+          data: response.body ?? [],
+          total: parseInt(response.headers.get('x-total') ?? '0')
+        }))
+      );
   }
 
   findOne(filter: Filter<T>, options?: FindOneOption<T>): Observable<AnyDto<T>> {

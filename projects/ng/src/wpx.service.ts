@@ -4,6 +4,8 @@ import { HttpClient } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
 import { AsyncSubject, fromEvent } from 'rxjs';
 
+import { LoadOption } from './types';
+
 @Injectable({ providedIn: 'root' })
 export class WpxService {
   assets = '/assets';
@@ -30,14 +32,14 @@ export class WpxService {
     return script;
   }
 
-  loadScript(key: string, url: string, plugins: string[]): void {
+  loadScript(key: string, option: LoadOption): void {
     if (this.scripts.has(key)) {
       return;
     }
-    const script = this.createScript(url);
+    const script = this.createScript(option.url);
     const async: AsyncSubject<void> = new AsyncSubject();
     this.scripts.set(key, async);
-    for (const plugin of plugins) {
+    for (const plugin of option.plugins) {
       this.createScript(plugin);
     }
     if (script) {
