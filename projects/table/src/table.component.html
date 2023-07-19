@@ -1,68 +1,58 @@
 <nz-card #block style="height: 100%">
   <nz-row #box style="padding-bottom: 12px" nzJustify="space-between">
-    <nz-col>
-      <ng-content select="nz-space[wpxSearch]"></ng-content>
-      <!--      <ng-container *ngIf="wpxSearch">-->
-      <!--        <ng-container *ngTemplateOutlet="wpxSearch"></ng-container>-->
-      <!--      </ng-container>-->
-    </nz-col>
+    <nz-col><ng-content select="nz-space[wpxSearch]"></ng-content></nz-col>
     <nz-col></nz-col>
-    <nz-col>
-      <ng-container *ngIf="wpxExtra">
-        <ng-container *ngTemplateOutlet="wpxExtra"></ng-container>
-      </ng-container>
-    </nz-col>
+    <nz-col><ng-content select="nz-space[wpxExtra]"></ng-content></nz-col>
   </nz-row>
+  <ng-template #totalRef let-total>共 {{ total }} 条记录</ng-template>
   <nz-table
-    #tb
-    [nzData]="wpxData"
+    #basicTable
+    [nzData]="wpxModel.data()"
     [nzFrontPagination]="false"
-    [nzShowPagination]="false"
+    [nzShowPagination]="true"
+    [nzShowSizeChanger]="true"
+    [nzShowTotal]="totalRef"
+    [nzTotal]="wpxModel.total"
+    [(nzPageIndex)]="wpxModel.page"
+    [(nzPageSize)]="wpxModel.pagesize"
+    [nzPageSizeOptions]="[20, 50, 100, 500, 1000]"
     [nzVirtualItemSize]="wpxItemSize"
     [nzVirtualMinBufferPx]="wpxItemSize * 10"
-    [nzVirtualMaxBufferPx]="wpxItemSize * 20"
-    [nzScroll]="{ y: y + 'px', x: '1200px' }"
+    [nzVirtualMaxBufferPx]="wpxItemSize * 15"
+    [nzScroll]="{ y: y() + 'px', x: '1200px' }"
+    (nzPageIndexChange)="update()"
+    (nzPageSizeChange)="update()"
   >
     <thead>
       <tr [ngStyle]="{ height: wpxItemSize + 'px' }">
         <th
-          nzWidth="60px"
           nzLeft
           nzAlign="center"
-          [nzChecked]="checked"
-          [nzIndeterminate]="indeterminate"
-          (nzCheckedChange)="setCurrentSelection($event)"
+          nzWidth="60px"
+          [nzChecked]="wpxModel.checked"
+          [nzIndeterminate]="wpxModel.indeterminate"
+          (nzCheckedChange)="wpxModel.setCurrentSelection($event)"
         ></th>
         <ng-container *ngFor="let x of wpxColumns">
-          <th [nzFilterFn]="true" [nzSortFn]="true">
+          <th>
             <b>{{ x.title }}</b>
           </th>
         </ng-container>
-        <th nzWidth="60px" nzRight nzAlign="center">
-          <button nz-button nzType="text">
-            <span nz-icon nzType="setting"></span>
-          </button>
-        </th>
       </tr>
     </thead>
     <tbody>
       <ng-container *nz-virtual-scroll="let v; index as index">
-        <tr [ngStyle]="{ height: wpxItemSize + 'px' }">
+        <tr [ngStyle]="{ height: wpxItemSize + 'px' }" (contextmenu)="openActions($event, v)">
           <td
             nzLeft
             nzAlign="center"
             [nzDisabled]="v['disabled']"
-            [nzChecked]="selection.has(v['_id'])"
-            (nzCheckedChange)="$event ? setSelection(v) : removeSelection(v['_id'])"
+            [nzChecked]="wpxModel.selection.has(v['_id'])"
+            (nzCheckedChange)="$event ? wpxModel.setSelection(v) : wpxModel.removeSelection(v['_id'])"
           ></td>
           <ng-container *ngFor="let x of wpxColumns">
             <td>{{ v[x.key] }}</td>
           </ng-container>
-          <td nzRight nzAlign="center">
-            <ng-container *ngIf="wpxActions">
-              <ng-container *ngTemplateOutlet="wpxActions; context: { $implicit: v }"></ng-container>
-            </ng-container>
-          </td>
         </tr>
       </ng-container>
     </tbody>

@@ -16,7 +16,6 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { ShareModule } from '@common/share.module';
 import { environment } from '@env';
-import { WpxStoreModule } from '@weplanx/store';
 import { NZ_CONFIG, NzConfig } from 'ng-zorro-antd/core/config';
 import { zh_CN, NZ_I18N } from 'ng-zorro-antd/i18n';
 import { NzMenuModule } from 'ng-zorro-antd/menu';
@@ -27,20 +26,6 @@ import { AppGuard } from './app.guard';
 import { AppInterceptors } from './app.interceptors';
 
 registerLocaleData(zh);
-
-export let experiments: Routes = [];
-
-if (!environment.production) {
-  experiments = [
-    {
-      path: 'experiment',
-      loadChildren: () => import('../experiment/experiment.module').then(m => m.ExperimentModule),
-      data: {
-        breadcrumb: `实验`
-      }
-    }
-  ];
-}
 
 const routes: Routes = [
   {
@@ -61,20 +46,12 @@ const routes: Routes = [
       // {
       //   path: ':namespace',
       //   loadChildren: () => import('./index.module').then(m => m.IndexModule),
-      //   canActivate: [AppGuard]
       // },
-      ...experiments,
+      ...environment.extend,
       { path: '', redirectTo: 'admin', pathMatch: 'full' }
     ]
   }
 ];
-
-const ngZorroConfig: NzConfig = {
-  card: { nzBordered: false },
-  codeEditor: {
-    assetsRoot: `https://cdn.kainonly.com/npm/monaco-editor@0.40.0/min`
-  }
-};
 
 @NgModule({
   declarations: [AppComponent],
@@ -87,18 +64,21 @@ const ngZorroConfig: NzConfig = {
     NzMessageModule,
     NzMenuModule,
     ShareModule,
-    WpxStoreModule.forRoot({
-      name: 'weplanx',
-      url: 'https://cdn.kainonly.com/npm/localforage@1.10.0/dist/localforage.min.js',
-      plugins: []
-    }),
-    RouterModule.forRoot(routes, { useHash: true, initialNavigation: 'enabledBlocking' })
+    RouterModule.forRoot(routes, { useHash: true })
   ],
   providers: [
     provideHttpClient(withFetch(), withInterceptorsFromDi()),
     { provide: HTTP_INTERCEPTORS, useClass: AppInterceptors, multi: true },
     { provide: NZ_I18N, useValue: zh_CN },
-    { provide: NZ_CONFIG, useValue: ngZorroConfig }
+    {
+      provide: NZ_CONFIG,
+      useValue: <NzConfig>{
+        card: { nzBordered: false },
+        codeEditor: {
+          assetsRoot: `https://cdn.kainonly.com/npm/monaco-editor@0.40.0/min`
+        }
+      }
+    }
   ],
   bootstrap: [AppComponent]
 })

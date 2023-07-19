@@ -39,7 +39,7 @@ export interface TransactionResult {
   txn: string;
 }
 
-export interface LoadOption {
-  url: string;
-  plugins: string[];
+export interface WpxModelStore {
+  page: number;
+  pagesize: number;
 }

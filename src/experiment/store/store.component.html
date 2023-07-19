@@ -8,15 +8,15 @@
         <nz-form-item>
           <nz-form-control>
             <nz-space>
-              <button *nzSpaceItem nz-button (click)="set()">设置</button>
+              <input *nzSpaceItem nz-input [(ngModel)]="title" [ngModelOptions]="{ standalone: true }" />
+              <button *nzSpaceItem nz-button (click)="update()">更新</button>
             </nz-space>
           </nz-form-control>
         </nz-form-item>
         <nz-form-item>
           <nz-form-control>
             <nz-space>
-              <input *nzSpaceItem nz-input [(ngModel)]="title" [ngModelOptions]="{ standalone: true }" />
-              <button *nzSpaceItem nz-button (click)="update()">更新</button>
+              <button *nzSpaceItem nz-button (click)="set()">重置</button>
             </nz-space>
           </nz-form-control>
         </nz-form-item>

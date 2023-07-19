@@ -1,5 +1,5 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { map, Observable } from 'rxjs';
 
 import { toHttpParams } from './helper';
@@ -25,8 +25,7 @@ import {
 @Injectable()
 export abstract class WpxApi<T> {
   protected collection = '';
-
-  constructor(protected http: HttpClient) {}
+  protected http = inject(HttpClient);
 
   create(doc: T, options?: CreateOption<T>): Observable<R> {
     return this.http.post(`db/${this.collection}/create`, {
@@ -112,33 +111,6 @@ export abstract class WpxApi<T> {
       params: toHttpParams(options)
     });
   }
-
-  // pages(data: WpxData<AnyDto<T>>, refresh?: boolean): Observable<Array<AnyDto<T>>> {
-  //   data.loading = true;
-  //   if (refresh) {
-  //     data.reset();
-  //   }
-  //   return this.http
-  //     .get<Array<AnyDto<T>>>(this.url(), {
-  //       observe: 'response',
-  //       ...setHttpOptions<T>(data.filter, {
-  //         keys: data.keys,
-  //         sort: data.sort,
-  //         page: data.page,
-  //         pagesize: data.pagesize,
-  //         xfilter: data.xfilter
-  //       })
-  //     })
-  //     .pipe(
-  //       map(res => {
-  //         data.total = parseInt(res.headers.get('x-total')!);
-  //         data.set(res.body!);
-  //         data.loading = false;
-  //         data.updateCheckedStatus();
-  //         return res.body!;
-  //       })
-  //     );
-  // }
 
   update(filter: Filter<T>, update: Update<T>, options?: UpdateOption<T>): Observable<R> {
     return this.http.post(`db/${this.collection}/update`, {

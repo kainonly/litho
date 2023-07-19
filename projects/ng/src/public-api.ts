@@ -1,5 +1,6 @@
 export * from './types';
 export * from './wpx.service';
+export * from './wpx-store.service';
 export * from './wpx.module';
 export * from './share.module';
 export * from './utils/api';

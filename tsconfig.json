@@ -27,8 +27,7 @@
       "@app": ["src/app/app.service.ts"],
       "@common/*": ["src/common/*"],
       "@weplanx/ng": ["projects/ng/src/public-api.ts"],
-      "@weplanx/table": ["projects/table/src/public-api.ts"],
-      "@weplanx/store": ["projects/store/src/public-api.ts"]
+      "@weplanx/table": ["projects/table/src/public-api.ts"]
     }
   },
   "angularCompilerOptions": {

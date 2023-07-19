@@ -3,7 +3,7 @@ import { from, Observable } from 'rxjs';
 
 declare let localforage: LocalForage;
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class WpxStoreService {
   set<T>(key: string, value: T): Observable<T> {
     return from(localforage.setItem<T>(key, value));

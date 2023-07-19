@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { WpxStoreService } from '@weplanx/store';
+import { WpxStoreService } from '@weplanx/ng';
 
 interface MyDoc {
   title: string;
