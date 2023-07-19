@@ -1,9 +1,10 @@
 <nz-card #block style="height: 100%">
   <nz-row #box style="padding-bottom: 12px" nzJustify="space-between">
     <nz-col>
-      <ng-container *ngIf="wpxSearch">
-        <ng-container *ngTemplateOutlet="wpxSearch"></ng-container>
-      </ng-container>
+      <ng-content select="nz-space[wpxSearch]"></ng-content>
+      <!--      <ng-container *ngIf="wpxSearch">-->
+      <!--        <ng-container *ngTemplateOutlet="wpxSearch"></ng-container>-->
+      <!--      </ng-container>-->
     </nz-col>
     <nz-col></nz-col>
     <nz-col>

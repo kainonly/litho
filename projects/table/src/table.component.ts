@@ -3,6 +3,7 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
+  ContentChild,
   ElementRef,
   EventEmitter,
   Input,
@@ -15,6 +16,7 @@ import {
 import { Subject, takeUntil } from 'rxjs';
 
 import { AnyDto } from '@weplanx/ng';
+import { NzDropdownMenuComponent } from 'ng-zorro-antd/dropdown';
 import { NzTableComponent } from 'ng-zorro-antd/table';
 
 import { WpxColumns, TableQuery } from './types';
@@ -31,8 +33,9 @@ export class WpxTableComponent<T> implements OnInit, AfterViewInit, OnDestroy {
   @Input({ required: true }) wpxColumns!: WpxColumns<T>[];
   @Input({ required: true }) wpxData!: Array<AnyDto<T>>;
   @Input({ required: true }) wpxItemSize!: number;
-  @Input() wpxSearch?: TemplateRef<unknown>;
+  // @Input() wpxSearch?: TemplateRef<unknown>;
   @Input() wpxExtra?: TemplateRef<unknown>;
+  @ContentChild('wpx-table-search') wpxSearch?: TemplateRef<unknown>;
   @Input() wpxActions?: TemplateRef<{ $implicit: T }>;
   @Input() wpxPagesize = 100;
   @Output() wpxQuery: EventEmitter<TableQuery> = new EventEmitter<TableQuery>();
@@ -41,6 +44,7 @@ export class WpxTableComponent<T> implements OnInit, AfterViewInit, OnDestroy {
   checked = false;
   indeterminate = false;
   selection: Map<string, T> = new Map<string, T>();
+
   private destroy$ = new Subject<boolean>();
   private resizeObserver!: ResizeObserver;
   private indexs: Set<number> = new Set<number>();
@@ -80,7 +84,7 @@ export class WpxTableComponent<T> implements OnInit, AfterViewInit, OnDestroy {
   }
 
   private calculate(height: number): void {
-    this.y = height - this.box.nativeElement.offsetHeight - this.wpxItemSize - 48;
+    this.y = height - this.box.nativeElement.offsetHeight - this.wpxItemSize - 60;
     this.cd.detectChanges();
   }
 

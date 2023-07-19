@@ -1,9 +1,7 @@
-/// <reference types="localforage" />
-
-declare let localforage: LocalForage;
-
 import { Injectable } from '@angular/core';
 import { from, Observable } from 'rxjs';
+
+declare let localforage: LocalForage;
 
 @Injectable()
 export class WpxStoreService {

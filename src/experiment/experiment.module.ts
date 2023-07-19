@@ -12,13 +12,20 @@ const routes: Routes = [
     component: ExperimentComponent,
     children: [
       {
+        path: 'store',
+        loadChildren: () => import('./store/store.module').then(m => m.StoreModule),
+        data: {
+          breadcrumb: `本地存储`
+        }
+      },
+      {
         path: 'table',
         loadChildren: () => import('./table/table.module').then(m => m.TableModule),
         data: {
           breadcrumb: `表格`
         }
       },
-      { path: '', redirectTo: 'table', pathMatch: 'full' }
+      { path: '', redirectTo: 'store', pathMatch: 'full' }
     ]
   }
 ];

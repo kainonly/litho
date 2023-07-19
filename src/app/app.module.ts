@@ -16,6 +16,7 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { ShareModule } from '@common/share.module';
 import { environment } from '@env';
+import { WpxStoreModule } from '@weplanx/store';
 import { NZ_CONFIG, NzConfig } from 'ng-zorro-antd/core/config';
 import { zh_CN, NZ_I18N } from 'ng-zorro-antd/i18n';
 import { NzMenuModule } from 'ng-zorro-antd/menu';
@@ -69,7 +70,10 @@ const routes: Routes = [
 ];
 
 const ngZorroConfig: NzConfig = {
-  card: { nzBordered: false }
+  card: { nzBordered: false },
+  codeEditor: {
+    assetsRoot: `https://cdn.kainonly.com/npm/monaco-editor@0.40.0/min`
+  }
 };
 
 @NgModule({
@@ -83,6 +87,11 @@ const ngZorroConfig: NzConfig = {
     NzMessageModule,
     NzMenuModule,
     ShareModule,
+    WpxStoreModule.forRoot({
+      name: 'weplanx',
+      url: 'https://cdn.kainonly.com/npm/localforage@1.10.0/dist/localforage.min.js',
+      plugins: []
+    }),
     RouterModule.forRoot(routes, { useHash: true, initialNavigation: 'enabledBlocking' })
   ],
   providers: [

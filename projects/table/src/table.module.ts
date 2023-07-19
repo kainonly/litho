@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzCardModule } from 'ng-zorro-antd/card';
@@ -12,6 +12,7 @@ import { NzTableModule } from 'ng-zorro-antd/table';
 import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
 
 import { WpxTableComponent } from './table.component';
+import { WpxToolboxComponent } from './toolbox.component';
 
 @NgModule({
   imports: [
@@ -26,7 +27,7 @@ import { WpxTableComponent } from './table.component';
     NzGridModule,
     NzDropDownModule
   ],
-  declarations: [WpxTableComponent],
-  exports: [WpxTableComponent]
+  declarations: [WpxTableComponent, WpxToolboxComponent],
+  exports: [WpxTableComponent, WpxToolboxComponent]
 })
 export class WpxTableModule {}

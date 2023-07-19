@@ -20,18 +20,11 @@
             "outputPath": "dist/console",
             "index": "src/index.html",
             "main": "src/main.ts",
-            "polyfills": [
-              "zone.js"
-            ],
+            "polyfills": ["zone.js"],
             "tsConfig": "tsconfig.app.json",
             "inlineStyleLanguage": "less",
-            "assets": [
-              "src/favicon.ico",
-              "src/assets"
-            ],
-            "styles": [
-              "src/styles.less"
-            ],
+            "assets": ["src/favicon.ico", "src/assets"],
+            "styles": ["node_modules/ng-zorro-antd/ng-zorro-antd.min.css", "src/styles.less"],
             "scripts": []
           },
           "configurations": {
@@ -79,9 +72,7 @@
           },
           "options": {
             "host": "0.0.0.0",
-            "allowedHosts": [
-              "xconsole.kainonly.com:8443"
-            ],
+            "allowedHosts": ["xconsole.kainonly.com:8443"],
             "publicHost": "xconsole.kainonly.com:8443",
             "hmr": true
           },
@@ -96,29 +87,18 @@
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
-            "polyfills": [
-              "zone.js",
-              "zone.js/testing"
-            ],
+            "polyfills": ["zone.js", "zone.js/testing"],
             "tsConfig": "tsconfig.spec.json",
             "inlineStyleLanguage": "less",
-            "assets": [
-              "src/favicon.ico",
-              "src/assets"
-            ],
-            "styles": [
-              "src/styles.less"
-            ],
+            "assets": ["src/favicon.ico", "src/assets"],
+            "styles": ["src/styles.less"],
             "scripts": []
           }
         },
         "lint": {
           "builder": "@angular-eslint/builder:lint",
           "options": {
-            "lintFilePatterns": [
-              "src/**/*.ts",
-              "src/**/*.html"
-            ]
+            "lintFilePatterns": ["src/**/*.ts", "src/**/*.html"]
           }
         }
       }
@@ -148,19 +128,13 @@
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
             "tsConfig": "projects/ng/tsconfig.spec.json",
-            "polyfills": [
-              "zone.js",
-              "zone.js/testing"
-            ]
+            "polyfills": ["zone.js", "zone.js/testing"]
           }
         },
         "lint": {
           "builder": "@angular-eslint/builder:lint",
           "options": {
-            "lintFilePatterns": [
-              "projects/ng/**/*.ts",
-              "projects/ng/**/*.html"
-            ]
+            "lintFilePatterns": ["projects/ng/**/*.ts", "projects/ng/**/*.html"]
           }
         }
       }
@@ -190,19 +164,13 @@
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
             "tsConfig": "projects/table/tsconfig.spec.json",
-            "polyfills": [
-              "zone.js",
-              "zone.js/testing"
-            ]
+            "polyfills": ["zone.js", "zone.js/testing"]
           }
         },
         "lint": {
           "builder": "@angular-eslint/builder:lint",
           "options": {
-            "lintFilePatterns": [
-              "projects/table/**/*.ts",
-              "projects/table/**/*.html"
-            ]
+            "lintFilePatterns": ["projects/table/**/*.ts", "projects/table/**/*.html"]
           }
         }
       }
@@ -232,19 +200,13 @@
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
             "tsConfig": "projects/store/tsconfig.spec.json",
-            "polyfills": [
-              "zone.js",
-              "zone.js/testing"
-            ]
+            "polyfills": ["zone.js", "zone.js/testing"]
           }
         },
         "lint": {
           "builder": "@angular-eslint/builder:lint",
           "options": {
-            "lintFilePatterns": [
-              "projects/store/**/*.ts",
-              "projects/store/**/*.html"
-            ]
+            "lintFilePatterns": ["projects/store/**/*.ts", "projects/store/**/*.html"]
           }
         }
       }
@@ -252,8 +214,6 @@
   },
   "cli": {
     "analytics": "2b52ea7e-ec3c-41b1-b3f8-98a998be3750",
-    "schematicCollections": [
-      "@angular-eslint/schematics"
-    ]
+    "schematicCollections": ["@angular-eslint/schematics"]
   }
 }
