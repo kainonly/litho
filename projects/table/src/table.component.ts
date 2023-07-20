@@ -1,6 +1,7 @@
 import {
   AfterViewInit,
   ChangeDetectionStrategy,
+  ChangeDetectorRef,
   Component,
   ElementRef,
   EventEmitter,
@@ -27,17 +28,23 @@ export class WpxTableComponent<T> implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('block', { read: ElementRef, static: true }) block!: ElementRef;
   @ViewChild('box', { static: true }) box!: ElementRef;
   @ViewChild('basicTable', { static: true }) basicTable!: NzTableComponent<unknown>;
+
   @Input({ required: true }) wpxColumns!: WpxColumns<T>[];
-  @Input({ required: true }) wpxModel!: WpxModel<AnyDto<T>>;
+  @Input({ required: true }) wpxModel!: WpxModel<T>;
   @Input({ required: true }) wpxItemSize!: number;
+  @Input() wpxOffset = 0;
   @Input() wpxActions?: NzDropdownMenuComponent;
-  @Output() wpxUpdate = new EventEmitter<void>();
+  @Output() wpxChange = new EventEmitter<void>();
 
   actived?: AnyDto<T>;
+
   y = signal<number>(0);
   private resizeObserver!: ResizeObserver;
 
-  constructor(private contextMenu: NzContextMenuService) {}
+  constructor(
+    private contextMenu: NzContextMenuService,
+    private cdr: ChangeDetectorRef
+  ) {}
 
   ngOnInit(): void {
     this.resizeObserver = new ResizeObserver(entries => {
@@ -66,7 +73,10 @@ export class WpxTableComponent<T> implements OnInit, AfterViewInit, OnDestroy {
     }
   }
 
-  update(): void {
-    this.wpxUpdate.emit();
+  clearSelections(): void {
+    this.wpxModel.checked = false;
+    this.wpxModel.indeterminate = false;
+    this.wpxModel.selection.clear();
+    this.cdr.detectChanges();
   }
 }

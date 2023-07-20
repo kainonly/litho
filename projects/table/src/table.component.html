@@ -1,6 +1,10 @@
-<nz-card #block style="height: 100%">
+<nz-card
+  #block
+  style="transition: height 0.3s cubic-bezier(0.645, 0.045, 0.355, 1)"
+  [ngStyle]="{ height: 'calc(100% - ' + (wpxModel.advanced() ? wpxOffset : 0) + 'px)' }"
+>
   <nz-row #box style="padding-bottom: 12px" nzJustify="space-between">
-    <nz-col><ng-content select="nz-space[wpxSearch]"></ng-content></nz-col>
+    <nz-col><ng-content select="nz-space[wpxTitle]"></ng-content></nz-col>
     <nz-col></nz-col>
     <nz-col><ng-content select="nz-space[wpxExtra]"></ng-content></nz-col>
   </nz-row>
@@ -8,6 +12,7 @@
   <nz-table
     #basicTable
     [nzData]="wpxModel.data()"
+    [nzLoading]="wpxModel.loading()"
     [nzFrontPagination]="false"
     [nzShowPagination]="true"
     [nzShowSizeChanger]="true"
@@ -20,8 +25,8 @@
     [nzVirtualMinBufferPx]="wpxItemSize * 10"
     [nzVirtualMaxBufferPx]="wpxItemSize * 15"
     [nzScroll]="{ y: y() + 'px', x: '1200px' }"
-    (nzPageIndexChange)="update()"
-    (nzPageSizeChange)="update()"
+    (nzPageIndexChange)="wpxChange.emit()"
+    (nzPageSizeChange)="wpxChange.emit()"
   >
     <thead>
       <tr [ngStyle]="{ height: wpxItemSize + 'px' }">
@@ -31,7 +36,7 @@
           nzWidth="60px"
           [nzChecked]="wpxModel.checked"
           [nzIndeterminate]="wpxModel.indeterminate"
-          (nzCheckedChange)="wpxModel.setCurrentSelection($event)"
+          (nzCheckedChange)="wpxModel.setCurrentSelections($event)"
         ></th>
         <ng-container *ngFor="let x of wpxColumns">
           <th>

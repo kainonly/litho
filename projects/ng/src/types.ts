@@ -1,22 +1,25 @@
+export type Any = any; // eslint-disable-line
 export type AnyDto<T> = T & BasicDto;
-export type R = Record<string, any>;
+export type R = { [key: string]: Any };
 export interface BasicDto extends R {
   _id: string;
   create_time: Date;
   update_time: Date;
 }
-export type Filter<T> = Partial<{ [P in keyof AnyDto<T>]: any }>;
-export type Update<T> = { [op: string]: Partial<{ [P in keyof AnyDto<T>]: any }> };
+export type Filter<T> = Partial<{ [P in keyof AnyDto<T> & '$or']: Any }>;
+export type Update<T> = { [op: string]: Partial<{ [P in keyof AnyDto<T>]: Any }> };
 export type Sort<T> = Partial<{ [P in keyof AnyDto<T>]: -1 | 1 }>;
-export type XFilter = 'oid' | 'oids' | 'date' | 'dates' | 'timestamp' | 'timestamps';
-export type XData = 'oid' | 'oids' | 'date' | 'dates' | 'timestamp' | 'timestamps' | 'password';
+export type XFilter = { [key: string]: XFilterKind };
+export type XFilterKind = 'oid' | 'oids' | 'date' | 'dates' | 'timestamp' | 'timestamps';
+export type XData = { [key: string]: XDataKind };
+export type XDataKind = 'oid' | 'oids' | 'date' | 'dates' | 'timestamp' | 'timestamps' | 'password';
 export interface ApiOptions<T> {
   keys?: Array<keyof AnyDto<T>>;
   sort?: Map<keyof AnyDto<T>, -1 | 1>;
   page?: number;
   pagesize?: number;
-  xfilter?: Record<string, XFilter>;
-  xdata?: Record<string, XData>;
+  xfilter?: XFilter;
+  xdata?: XData;
   txn?: string;
 }
 export type FilterOption<T> = Pick<ApiOptions<T>, 'xfilter'>;
@@ -39,7 +42,10 @@ export interface TransactionResult {
   txn: string;
 }
 
-export interface WpxModelStore {
+export interface WpxModelStore<T> {
+  // filter: Filter<T>;
+  searchText: string;
+  keywords: Any[];
   page: number;
   pagesize: number;
 }

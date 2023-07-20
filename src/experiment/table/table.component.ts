@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
-import { AnyDto, WpxModel, WpxService } from '@weplanx/ng';
+import { Any, WpxModel, WpxService } from '@weplanx/ng';
 import { WpxColumns } from '@weplanx/table';
 
 import { OrdersService } from '../orders.service';
@@ -11,7 +12,6 @@ import { Order } from '../types';
   templateUrl: './table.component.html'
 })
 export class TableComponent implements OnInit {
-  model!: WpxModel<AnyDto<Order>>;
   columns: WpxColumns<Order>[] = [
     {
       title: '订单号',
@@ -26,23 +26,32 @@ export class TableComponent implements OnInit {
       key: 'account'
     }
   ];
+  model!: WpxModel<Order>;
+  form!: FormGroup;
 
   constructor(
     private wpx: WpxService,
+    private fb: FormBuilder,
     public orders: OrdersService
-  ) {
-    this.model = wpx.setModel<Order>('exp');
-  }
+  ) {}
 
   ngOnInit(): void {
+    this.form = this.fb.group({
+      no: []
+    });
+    this.model = this.wpx.setModel<Order>('exp', this.orders);
     this.model.ready().subscribe(() => {
       this.getData();
     });
   }
 
   getData(): void {
-    this.orders.find({}, { ...this.model.options }).subscribe(v => {
-      this.model.set(v);
+    this.model.fetch().subscribe(() => {
+      // console.log(data);
     });
+  }
+
+  search(data: Any): void {
+    console.log(data);
   }
 }

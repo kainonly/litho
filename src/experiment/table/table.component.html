@@ -3,21 +3,71 @@
   [wpxModel]="model"
   [wpxColumns]="columns"
   [wpxItemSize]="50"
+  [wpxOffset]="310"
   [wpxActions]="actions"
-  (wpxUpdate)="getData()"
+  (wpxChange)="getData()"
 >
-  <nz-space wpxSearch>
-    <nz-input-group *nzSpaceItem nzSuffixIcon="search">
-      <input style="width: 180px" nz-input nzBorderless placeholder="关键词搜索" />
-    </nz-input-group>
-    <wpx-toolbox *nzSpaceItem></wpx-toolbox>
+  <nz-space wpxTitle>
+    <wpx-keyword
+      *nzSpaceItem
+      [wpxModel]="model"
+      [wpxKeys]="['no', 'name', 'account']"
+      (wpxSubmit)="getData()"
+      wpxPlaceholder="订单号、姓名、账户"
+    ></wpx-keyword>
+    <wpx-toolbox *nzSpaceItem [wpxModel]="model" [wpxSearchForm]="form" (wpxRefresh)="getData()">
+      <form *ngIf="form" nz-form id="search" [formGroup]="form" (wpxSubmit)="search($event)">
+        <nz-row [nzGutter]="[16, 16]">
+          <nz-col [nzSpan]="6">
+            <nz-form-item>
+              <nz-form-label>订单号</nz-form-label>
+              <nz-form-control>
+                <input nz-input formControlName="no" />
+              </nz-form-control>
+            </nz-form-item>
+          </nz-col>
+          <nz-col [nzSpan]="6">
+            <nz-form-item>
+              <nz-form-label>订单号</nz-form-label>
+              <nz-form-control>
+                <input nz-input formControlName="no" />
+              </nz-form-control>
+            </nz-form-item>
+          </nz-col>
+          <nz-col [nzSpan]="6">
+            <nz-form-item>
+              <nz-form-label>订单号</nz-form-label>
+              <nz-form-control>
+                <input nz-input formControlName="no" />
+              </nz-form-control>
+            </nz-form-item>
+          </nz-col>
+          <nz-col [nzSpan]="6">
+            <nz-form-item>
+              <nz-form-label>订单号</nz-form-label>
+              <nz-form-control>
+                <input nz-input formControlName="no" />
+              </nz-form-control>
+            </nz-form-item>
+          </nz-col>
+          <nz-col [nzSpan]="6">
+            <nz-form-item>
+              <nz-form-label>订单号</nz-form-label>
+              <nz-form-control>
+                <input nz-input formControlName="no" />
+              </nz-form-control>
+            </nz-form-item>
+          </nz-col>
+        </nz-row>
+      </form>
+    </wpx-toolbox>
   </nz-space>
   <nz-space wpxExtra>
     <ng-container *ngIf="model.selection.size as size">
       <button *nzSpaceItem nz-button nzType="dashed" nz-dropdown [nzDropdownMenu]="menu"> 已选中 {{ size }} 项 </button>
       <nz-dropdown-menu #menu="nzDropdownMenu">
         <ul nz-menu>
-          <li nz-menu-item (click)="model.clearSelection()"> 取消选择 </li>
+          <li nz-menu-item (click)="tb.clearSelections()"> 取消选择 </li>
         </ul>
         <ul nz-menu>
           <li nz-menu-item nzDanger> 删除 </li>
@@ -28,7 +78,9 @@
   </nz-space>
   <nz-dropdown-menu #actions="nzDropdownMenu">
     <ul *ngIf="tb.actived as v" nz-menu>
-      <li nz-menu-item>{{ v.no }}</li>
+      <li nz-menu-item nzDisabled>
+        <b>订单号 [{{ v.no }}]</b>
+      </li>
       <li nz-menu-divider></li>
       <li nz-menu-item> 修改 </li>
       <li nz-menu-item nzDanger> 删除 </li>

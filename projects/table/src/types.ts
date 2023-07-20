@@ -5,7 +5,3 @@ export interface WpxColumns<T> {
   key: keyof AnyDto<T>;
   keyword?: boolean;
 }
-
-export interface TableQuery {
-  index: number;
-}

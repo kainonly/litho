@@ -1,39 +1,46 @@
 import { computed, signal } from '@angular/core';
 import { map, Observable } from 'rxjs';
 
-import { AnyDto, BasicDto, WpxModelStore } from '../types';
+import { WpxApi } from './api';
+import { Any, AnyDto, Filter, FindResult, WpxModelStore, XFilter } from '../types';
 import { WpxStoreService } from '../wpx-store.service';
 
-export class WpxModel<T extends BasicDto> {
+export class WpxModel<T> {
   data = signal<AnyDto<T>[]>([]);
   dataFilter = computed(() => this.data().filter(v => !v['disabled']));
-
+  loading = signal<boolean>(false);
   total = 0;
   page = 1;
   pagesize = 20;
+  private xfilter: XFilter = {};
+
+  advanced = signal<boolean>(false);
+  searchText = '';
+  keywords: Any[] = [];
 
   checked = false;
   indeterminate = false;
-  selection: Map<string, T> = new Map<string, T>();
+  selection = new Map<string, T>();
 
   constructor(
     private key: string,
-    private store: WpxStoreService
+    private store: WpxStoreService,
+    private api: WpxApi<T>
   ) {}
 
-  get options() {
-    return {
-      page: this.page,
-      pagesize: this.pagesize
-    };
-  }
-
-  ready(): Observable<WpxModelStore> {
-    return this.store.get<WpxModelStore>(this.key).pipe(
-      map(v => {
-        this.page = v?.page ?? 1;
-        this.pagesize = v?.pagesize ?? 20;
+  ready(xfilter?: XFilter): Observable<WpxModelStore<AnyDto<T>>> {
+    if (xfilter) {
+      this.xfilter = xfilter;
+    }
+    return this.store.get<WpxModelStore<AnyDto<T>>>(this.key).pipe(
+      map(data => {
+        this.searchText = data?.searchText ?? '';
+        this.keywords = data?.keywords ?? [];
+        this.page = data?.page ?? 1;
+        this.pagesize = data?.pagesize ?? 20;
         return {
+          searchText: this.searchText,
+          keywords: this.keywords,
           page: this.page,
           pagesize: this.pagesize
         };
@@ -41,20 +48,27 @@ export class WpxModel<T extends BasicDto> {
     );
   }
 
-  set(v: { data: AnyDto<T>[]; total: number }): void {
-    this.data.set(v.data);
-    this.total = v.total;
-    this.updateStatus();
-    this.updateSelectionStatus();
+  fetch(filter: Filter<T> = {}): Observable<FindResult<T>> {
+    this.loading.set(true);
+    if (!this.advanced() && this.keywords.length !== 0) {
+      filter['$or'] = this.keywords;
+    }
+
+    console.log(filter);
+
+    return this.api.find(filter, { page: this.page, pagesize: this.pagesize, xfilter: this.xfilter }).pipe(
+      map(result => {
+        this.data.set(result.data);
+        this.total = result.total;
+        this.updateStatus();
+        this.updateSelectionStatus();
+        this.loading.set(false);
+        return result;
+      })
+    );
   }
 
-  clear(): void {
-    this.data.set([]);
-    this.page = 1;
-    this.total = 0;
-  }
-
-  setSelection(data: T): void {
+  setSelection(data: AnyDto<T>): void {
     this.selection.set(data._id, data);
     this.updateSelectionStatus();
   }
@@ -64,15 +78,9 @@ export class WpxModel<T extends BasicDto> {
     this.updateSelectionStatus();
   }
 
-  setCurrentSelection(checked: boolean): void {
+  setCurrentSelections(checked: boolean): void {
     this.dataFilter().forEach(v => (checked ? this.setSelection(v) : this.removeSelection(v._id)));
     this.updateSelectionStatus();
-  }
-
-  clearSelection(): void {
-    this.checked = false;
-    this.indeterminate = false;
-    this.selection.clear();
   }
 
   private updateSelectionStatus(): void {
@@ -82,7 +90,10 @@ export class WpxModel<T extends BasicDto> {
   }
 
   private updateStatus(): void {
-    this.store.set<WpxModelStore>(this.key, {
+    this.store.set<WpxModelStore<AnyDto<T>>>(this.key, {
+      // filter: this.filter,
+      searchText: this.searchText,
+      keywords: this.keywords,
       page: this.page,
       pagesize: this.pagesize
     });
