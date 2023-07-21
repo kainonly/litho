@@ -17,13 +17,13 @@ import { NzMessageService } from 'ng-zorro-antd/message';
   template: `
     <nz-button-group>
       <button *ngIf="wpxSearchForm" nz-button nzType="text" nz-tooltip="高级检索" (click)="open()">
-        <span nz-icon nzType="filter" nzTheme="outline"></span>
+        <i nz-icon nzType="filter" nzTheme="outline"></i>
       </button>
       <button nz-button nzType="text" nz-tooltip="清除查询" (click)="clear()">
-        <span nz-icon nzType="clear" nzTheme="outline"></span>
+        <i nz-icon nzType="clear" nzTheme="outline"></i>
       </button>
       <button nz-button nzType="text" nz-tooltip="刷新数据" (click)="refresh()">
-        <span nz-icon nzType="reload" nzTheme="outline"></span>
+        <i nz-icon nzType="reload" nzTheme="outline"></i>
       </button>
     </nz-button-group>
 
@@ -41,7 +41,6 @@ import { NzMessageService } from 'ng-zorro-antd/message';
     >
       <ng-template #searchBtnRef>
         <nz-space>
-          <button *nzSpaceItem nz-button nzType="text">Text Button</button>
           <button *nzSpaceItem nz-button nzType="primary" form="search" [disabled]="!wpxSearchForm.valid">查询</button>
           <button *nzSpaceItem nz-button type="button" (click)="close()">关闭</button>
         </nz-space>

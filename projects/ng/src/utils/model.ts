@@ -48,10 +48,10 @@ export class WpxModel<T> {
     );
   }
 
-  fetch(filter: Filter<T> = {}): Observable<FindResult<T>> {
+  fetch(filter: Filter<T>): Observable<FindResult<T>> {
     this.loading.set(true);
     if (!this.advanced() && this.keywords.length !== 0) {
-      filter['$or'] = this.keywords;
+      filter.$or = this.keywords;
     }
 
     console.log(filter);

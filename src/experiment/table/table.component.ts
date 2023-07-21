@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 
-import { Any, WpxModel, WpxService } from '@weplanx/ng';
+import { Any, Filter, WpxModel, WpxService } from '@weplanx/ng';
 import { WpxColumns } from '@weplanx/table';
 
 import { OrdersService } from '../orders.service';
@@ -28,6 +28,7 @@ export class TableComponent implements OnInit {
   ];
   model!: WpxModel<Order>;
   form!: FormGroup;
+  filter: Filter<Order> = {};
 
   constructor(
     private wpx: WpxService,
@@ -37,7 +38,9 @@ export class TableComponent implements OnInit {
 
   ngOnInit(): void {
     this.form = this.fb.group({
-      no: []
+      no: [],
+      name: [],
+      account: []
     });
     this.model = this.wpx.setModel<Order>('exp', this.orders);
     this.model.ready().subscribe(() => {
@@ -46,12 +49,17 @@ export class TableComponent implements OnInit {
   }
 
   getData(): void {
-    this.model.fetch().subscribe(() => {
-      // console.log(data);
+    this.model.fetch(this.filter).subscribe(() => {
+      // console.log('ok');
     });
   }
 
   search(data: Any): void {
-    console.log(data);
+    for (const [k, v] of Object.entries(data)) {
+      if (v) {
+        this.filter[k] = { $regex: `${v}`, $options: 'i' };
+      }
+    }
+    this.getData();
   }
 }

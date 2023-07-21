@@ -6,8 +6,20 @@ export interface BasicDto extends R {
   create_time: Date;
   update_time: Date;
 }
-export type Filter<T> = Partial<{ [P in keyof AnyDto<T> & '$or']: Any }>;
-export type Update<T> = { [op: string]: Partial<{ [P in keyof AnyDto<T>]: Any }> };
+export type FilterLogical = {
+  $and: Any[];
+  $not: Any;
+  $nor: Any;
+  $or: Any[];
+};
+export type Filter<T> = Partial<{ [P in keyof AnyDto<T>]: AnyDto<T>[P] }> & Partial<FilterLogical> & R;
+export type UpdateOperators<T> = {
+  $inc: Partial<{ [P in keyof AnyDto<T>]: number }> & { [key: string]: number };
+  $rename: Partial<{ [P in keyof AnyDto<T>]: string }> & { [key: string]: string };
+  $set: Partial<{ [P in keyof AnyDto<T>]: AnyDto<T>[P] }> & R;
+  $unset: Partial<{ [P in keyof AnyDto<T>]: '' }> & { [key: string]: '' };
+};
+export type Update<T> = Partial<UpdateOperators<T>>;
 export type Sort<T> = Partial<{ [P in keyof AnyDto<T>]: -1 | 1 }>;
 export type XFilter = { [key: string]: XFilterKind };
 export type XFilterKind = 'oid' | 'oids' | 'date' | 'dates' | 'timestamp' | 'timestamps';
