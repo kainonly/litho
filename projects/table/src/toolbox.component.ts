@@ -1,12 +1,4 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  EventEmitter,
-  Input,
-  Output,
-  TemplateRef,
-  ViewEncapsulation
-} from '@angular/core';
+import { Component, EventEmitter, Input, Output, TemplateRef, ViewEncapsulation } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 
 import { Any, WpxModel } from '@weplanx/ng';
@@ -51,7 +43,6 @@ import { NzMessageService } from 'ng-zorro-antd/message';
     </nz-drawer>
   `,
   encapsulation: ViewEncapsulation.None,
-  changeDetection: ChangeDetectionStrategy.OnPush,
   styles: [
     `
       .ant-drawer-bottom.ant-drawer-open.no-mask {
@@ -69,6 +60,7 @@ export class WpxToolboxComponent<T> {
   @Input() wpxSearchHeight = 340;
   @Input() wpxSearchForm?: FormGroup;
   @Input() wpxSearchTitle?: TemplateRef<Any>;
+  @Output() wpxClear = new EventEmitter<void>();
   @Output() wpxRefresh = new EventEmitter<void>();
 
   constructor(private message: NzMessageService) {}
@@ -90,7 +82,7 @@ export class WpxToolboxComponent<T> {
     this.wpxModel.keywords = [];
     this.wpxModel.page = 1;
     this.message.success('正在清除查询');
-    this.wpxRefresh.emit();
+    this.wpxClear.emit();
   }
 
   refresh(): void {

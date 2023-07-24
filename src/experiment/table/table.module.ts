@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { ShareModule } from '@common/share.module';
 
+import { FormComponent } from './form/form.component';
 import { TableComponent } from './table.component';
 import { OrdersService } from '../orders.service';
 
@@ -15,7 +16,7 @@ const routes: Routes = [
 
 @NgModule({
   imports: [ShareModule, RouterModule.forChild(routes)],
-  declarations: [TableComponent],
+  declarations: [TableComponent, FormComponent],
   providers: [OrdersService]
 })
 export class TableModule {}

@@ -38,15 +38,13 @@
           [nzIndeterminate]="wpxModel.indeterminate"
           (nzCheckedChange)="wpxModel.setCurrentSelections($event)"
         ></th>
-        <ng-container *ngFor="let x of wpxColumns">
-          <th>
-            <b>{{ x.title }}</b>
-          </th>
-        </ng-container>
+        <th *ngFor="let x of wpxColumns">
+          <b>{{ x.title }}</b>
+        </th>
       </tr>
     </thead>
     <tbody>
-      <ng-container *nz-virtual-scroll="let v; index as index">
+      <ng-container *nz-virtual-scroll="let v">
         <tr [ngStyle]="{ height: wpxItemSize + 'px' }" (contextmenu)="openActions($event, v)">
           <td
             nzLeft
@@ -55,9 +53,7 @@
             [nzChecked]="wpxModel.selection.has(v['_id'])"
             (nzCheckedChange)="$event ? wpxModel.setSelection(v) : wpxModel.removeSelection(v['_id'])"
           ></td>
-          <ng-container *ngFor="let x of wpxColumns">
-            <td>{{ v[x.key] }}</td>
-          </ng-container>
+          <td *ngFor="let x of wpxColumns">{{ v[x.key] }}</td>
         </tr>
       </ng-container>
     </tbody>

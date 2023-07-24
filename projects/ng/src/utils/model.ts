@@ -48,11 +48,15 @@ export class WpxModel<T> {
     );
   }
 
-  fetch(filter: Filter<T>): Observable<FindResult<T>> {
+  fetch(search?: Filter<T>): Observable<FindResult<T>> {
+    let filter: Filter<T> = {};
     this.loading.set(true);
+
     if (!this.advanced() && this.keywords.length !== 0) {
       filter.$or = this.keywords;
     }
+
+    filter = { ...filter, ...search };
 
     console.log(filter);
 
@@ -91,7 +95,6 @@ export class WpxModel<T> {
 
   private updateStatus(): void {
     this.store.set<WpxModelStore<AnyDto<T>>>(this.key, {
-      // filter: this.filter,
       searchText: this.searchText,
       keywords: this.keywords,
       page: this.page,

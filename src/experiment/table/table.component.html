@@ -15,7 +15,7 @@
       (wpxSubmit)="getData()"
       wpxPlaceholder="订单号、姓名、账户"
     ></wpx-keyword>
-    <wpx-toolbox *nzSpaceItem [wpxModel]="model" [wpxSearchForm]="form" (wpxRefresh)="getData()">
+    <wpx-toolbox *nzSpaceItem [wpxModel]="model" [wpxSearchForm]="form" (wpxClear)="clear()" (wpxRefresh)="getData()">
       <form *ngIf="form" nz-form id="search" [formGroup]="form" (wpxSubmit)="search($event)">
         <nz-row [nzGutter]="[16, 16]">
           <nz-col [nzSpan]="6">
@@ -54,11 +54,11 @@
           <li nz-menu-item (click)="tb.clearSelections()"> 取消选择 </li>
         </ul>
         <ul nz-menu>
-          <li nz-menu-item nzDanger> 删除 </li>
+          <li nz-menu-item nzDanger (click)="bulkDelete()"> 删除 </li>
         </ul>
       </nz-dropdown-menu>
     </ng-container>
-    <button *nzSpaceItem nz-button nzType="primary"> 新增 </button>
+    <button *nzSpaceItem nz-button nzType="primary" (click)="open()"> 新增 </button>
   </nz-space>
   <nz-dropdown-menu #actions="nzDropdownMenu">
     <ul *ngIf="tb.actived as v" nz-menu>
@@ -66,8 +66,8 @@
         <b>订单号 [{{ v.no }}]</b>
       </li>
       <li nz-menu-divider></li>
-      <li nz-menu-item> 修改 </li>
-      <li nz-menu-item nzDanger> 删除 </li>
+      <li nz-menu-item (click)="open(v)"> 修改 </li>
+      <li nz-menu-item nzDanger (click)="delete(v)"> 删除 </li>
     </ul>
   </nz-dropdown-menu>
 </wpx-table>
