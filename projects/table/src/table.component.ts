@@ -32,8 +32,8 @@ export class WpxTableComponent<T> implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('box', { static: true }) box!: ElementRef;
   @ViewChild('basicTable', { static: true }) basicTable!: NzTableComponent<unknown>;
 
-  @Input({ required: true }) wpxColumns!: WpxColumn<T>[];
   @Input({ required: true }) wpxModel!: WpxModel<T>;
+  @Input({ required: true }) wpxColumns!: WpxColumn<T>[];
   @Input({ required: true }) wpxItemSize!: number;
   @Input() wpxOffset = 0;
   @Input() wpxActions?: NzDropdownMenuComponent;

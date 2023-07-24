@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 
 import { Any, AnyDto, Filter, WpxApi, WpxModel, WpxService } from '@weplanx/ng';
-import { WpxColumn } from '@weplanx/table';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalService } from 'ng-zorro-antd/modal';
 
@@ -15,45 +14,6 @@ import { Order } from '../types';
   templateUrl: './table.component.html'
 })
 export class TableComponent implements OnInit {
-  columns: WpxColumn<Order>[] = [
-    {
-      title: '订单号',
-      key: 'no'
-    },
-    {
-      title: '姓名',
-      key: 'name'
-    },
-    {
-      title: '描述',
-      key: 'description',
-      ellipsis: true
-    },
-    {
-      title: '账户',
-      key: 'account'
-    },
-    {
-      title: '客户',
-      key: 'customer'
-    },
-    {
-      title: '电子邮件',
-      key: 'email'
-    },
-    {
-      title: '电话号',
-      key: 'phone'
-    },
-    {
-      title: '价格',
-      key: 'price'
-    },
-    {
-      title: '有效期',
-      key: 'valid'
-    }
-  ];
   model!: WpxModel<Order>;
   form!: FormGroup;
   filter: Filter<Order> = {};
