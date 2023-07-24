@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
+import { WpxModule } from '@weplanx/ng';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzCardModule } from 'ng-zorro-antd/card';
 import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
@@ -40,7 +41,8 @@ import { WpxToolboxComponent } from './toolbox.component';
     NzCheckboxModule,
     NzSwitchModule,
     NzResizableModule,
-    DragDropModule
+    DragDropModule,
+    WpxModule
   ],
   declarations: [WpxTableComponent, WpxKeywordComponent, WpxToolboxComponent],
   exports: [WpxTableComponent, WpxKeywordComponent, WpxToolboxComponent]

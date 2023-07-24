@@ -1,8 +1,4 @@
-<nz-card
-  #block
-  style="transition: height 0.3s cubic-bezier(0.645, 0.045, 0.355, 1)"
-  [ngStyle]="{ height: 'calc(100% - ' + (wpxModel.advanced() ? wpxOffset : 0) + 'px)' }"
->
+<nz-card #block class="card" [ngStyle]="{ height: 'calc(100% - ' + (wpxModel.advanced() ? wpxOffset : 0) + 'px)' }">
   <nz-row #box style="padding-bottom: 12px" nzJustify="space-between">
     <nz-col><ng-content select="nz-space[wpxTitle]"></ng-content></nz-col>
     <nz-col></nz-col>
@@ -43,16 +39,23 @@
             *ngIf="column.display"
             nz-resizable
             nzBounds="window"
-            [nzLeft]="isFirst ? '60px' : false"
             [nzDisabled]="!resizable"
             [nzPreview]="resizable"
             [nzMaxWidth]="420"
             [nzMinWidth]="100"
-            [nzWidth]="column.width!"
-            (nzResizeEnd)="resize($event, column)"
+            [nzWidth]="column.width ?? '240px'"
+            [nzLeft]="isFirst ? '60px' : false"
+            (nzResize)="resize($event, column)"
+            (nzResizeEnd)="resizeEnd()"
             (contextmenu)="openManager($event, settingsMenu, column)"
           >
             <b>{{ column.title }}</b>
+            <nz-resize-handle nzDirection="right" *ngIf="resizable">
+              <div class="column">{{ column.width }}</div>
+              <div class="resize-wrap">
+                <span class="right" nz-icon nzType="more" nzTheme="outline"></span>
+              </div>
+            </nz-resize-handle>
           </th>
         </ng-container>
       </tr>
@@ -93,12 +96,12 @@
 </nz-dropdown-menu>
 
 <ng-template #settingsTitleRef>
-  <nz-switch nz-tooltip="自定义列宽度"></nz-switch>
+  <nz-switch nz-tooltip="自定义列宽度" [(ngModel)]="resizable">宽度</nz-switch>
 </ng-template>
 
 <ng-template #settingsExtraRef>
   <nz-space nzAlign="center">
-    <button *nzSpaceItem nz-button type="button">初始自定义</button>
+    <button *nzSpaceItem nz-button type="button" (click)="initPreferences()">初始自定义</button>
     <button *nzSpaceItem nz-button type="button" (click)="closeSettings()">关闭</button>
   </nz-space>
 </ng-template>
@@ -121,7 +124,16 @@
       (cdkDropListDropped)="drop($event)"
     >
       <ng-container *ngFor="let column of columns">
-        <label cdkDrag nz-checkbox [(ngModel)]="column.display">{{ column.title }}</label>
+        <label
+          style="cursor: move"
+          cdkDrag
+          nz-checkbox
+          [(ngModel)]="column.display"
+          (ngModelChange)="updatePreferences()"
+        >
+          <span class="drag-placeholder" *cdkDragPlaceholder>{{ column.title }}</span>
+          <b>{{ column.title }}</b>
+        </label>
       </ng-container>
     </nz-checkbox-wrapper>
   </ng-container>

@@ -2,9 +2,11 @@
   "name": "console",
   "version": "0.0.0-NOT-USED",
   "scripts": {
-    "start": "ng s"
+    "start": "ng s",
+    "build": "ng b --configuration production",
+    "build:ng": "ng b angular"
   },
-  "private": true,
+  "private": false,
   "dependencies": {
     "@angular/animations": "^16.1.0",
     "@angular/cdk": "^16.1.4",

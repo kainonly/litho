@@ -26,8 +26,8 @@
       "@env": ["src/environments/environment.ts"],
       "@app": ["src/app/app.service.ts"],
       "@common/*": ["src/common/*"],
-      "@weplanx/ng": ["projects/ng/src/public-api.ts"],
-      "@weplanx/table": ["projects/table/src/public-api.ts"]
+      "@weplanx/ng": ["library/public-api.ts"],
+      "@weplanx/ng/table": ["library/table/public-api.ts"]
     }
   },
   "angularCompilerOptions": {

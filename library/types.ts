@@ -75,9 +75,13 @@ export interface TransactionResult {
 }
 
 export interface WpxModelStore<T> {
-  // filter: Filter<T>;
   searchText: string;
   keywords: Any[];
   page: number;
   pagesize: number;
+}
+
+export interface LoadOption {
+  url: string;
+  plugins: string[];
 }

@@ -23,7 +23,7 @@ export class WpxModel<T> {
   selection = new Map<string, T>();
 
   constructor(
-    private key: string,
+    public key: string,
     private store: WpxStoreService,
     private api: WpxApi<T>
   ) {}
@@ -32,8 +32,9 @@ export class WpxModel<T> {
     if (xfilter) {
       this.xfilter = xfilter;
     }
-    return this.store.get<WpxModelStore<AnyDto<T>>>(this.key).pipe(
-      map(data => {
+    return this.store.get(this.key).pipe(
+      map(unkown => {
+        const data = unkown as WpxModelStore<AnyDto<T>>;
         this.searchText = data?.searchText ?? '';
         this.keywords = data?.keywords ?? [];
         this.page = data?.page ?? 1;
@@ -94,7 +95,7 @@ export class WpxModel<T> {
   }
 
   private updateStatus(): void {
-    this.store.set<WpxModelStore<AnyDto<T>>>(this.key, {
+    this.store.set(this.key, {
       searchText: this.searchText,
       keywords: this.keywords,
       page: this.page,

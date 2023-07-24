@@ -14,17 +14,17 @@ import {
   ViewChild
 } from '@angular/core';
 
-import { AnyDto, WpxModel } from '@weplanx/ng';
+import { AnyDto, WpxModel, WpxStoreService } from '@weplanx/ng';
 import { NzContextMenuService, NzDropdownMenuComponent } from 'ng-zorro-antd/dropdown';
-import { NzModalService } from 'ng-zorro-antd/modal';
 import { NzResizeEvent } from 'ng-zorro-antd/resizable';
 import { NzTableComponent } from 'ng-zorro-antd/table';
 
-import { WpxColumn, WpxTableColumn } from './types';
+import { Column, Preferences, WpxColumn } from './types';
 
 @Component({
   selector: 'wpx-table',
   templateUrl: './table.component.html',
+  styleUrls: ['./table.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class WpxTableComponent<T> implements OnInit, AfterViewInit, OnDestroy {
@@ -39,32 +39,42 @@ export class WpxTableComponent<T> implements OnInit, AfterViewInit, OnDestroy {
   @Input() wpxActions?: NzDropdownMenuComponent;
   @Output() wpxChange = new EventEmitter<void>();
 
-  columns: WpxTableColumn<T>[] = [];
+  columns: Column<T>[] = [];
   settings = false;
   resizable = false;
 
   actived?: AnyDto<T>;
-  activedColumn?: WpxTableColumn<T>;
+  activedColumn?: WpxColumn<T>;
 
   y = signal<number>(0);
   private resizeObserver!: ResizeObserver;
 
   constructor(
+    private store: WpxStoreService,
     private contextMenu: NzContextMenuService,
-    private modal: NzModalService,
     private cdr: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
-    this.wpxColumns.forEach((value, index) => {
-      this.columns[index] = {
-        ...value,
-        display: true,
-        width: '240px'
-      };
+    this.store.get<Map<string, Preferences<T>>>(`${this.wpxModel.key}:table`).subscribe(data => {
+      if (!data) {
+        this.initColumns();
+        return;
+      }
+      this.columns = [
+        ...this.wpxColumns
+          .map<Column<T>>(v => {
+            const x = data.get(v.key as string);
+            return {
+              ...v,
+              width: x!.width,
+              display: x!.display,
+              sort: x!.sort
+            };
+          })
+          .sort((a, b) => a.sort! - b.sort!)
+      ];
     });
-
-    console.log(this.columns);
 
     this.resizeObserver = new ResizeObserver(entries => {
       for (const entry of entries) {
@@ -79,6 +89,15 @@ export class WpxTableComponent<T> implements OnInit, AfterViewInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.resizeObserver.disconnect();
+  }
+
+  private initColumns(): void {
+    this.columns = [
+      ...this.wpxColumns.map<Column<T>>(v => ({
+        ...v,
+        display: true
+      }))
+    ];
   }
 
   private calculate(height: number): void {
@@ -99,17 +118,19 @@ export class WpxTableComponent<T> implements OnInit, AfterViewInit, OnDestroy {
     }
   }
 
-  openManager($event: MouseEvent, menu: NzDropdownMenuComponent, data: WpxTableColumn<T>): void {
+  openManager($event: MouseEvent, menu: NzDropdownMenuComponent, data: Column<T>): void {
     this.activedColumn = data;
     this.contextMenu.create($event, menu);
   }
 
   displayAll(): void {
     this.columns.forEach(v => (v.display = true));
+    this.updatePreferences();
   }
 
-  hide(column: WpxTableColumn<T>): void {
+  hide(column: Column<T>): void {
     column.display = false;
+    this.updatePreferences();
   }
 
   openSettings(): void {
@@ -118,13 +139,44 @@ export class WpxTableComponent<T> implements OnInit, AfterViewInit, OnDestroy {
 
   drop(event: CdkDragDrop<string[]>) {
     moveItemInArray(this.columns, event.previousIndex, event.currentIndex);
+    this.updatePreferences();
   }
 
   closeSettings(): void {
     this.settings = false;
+    this.resizable = false;
   }
 
-  resize({ width }: NzResizeEvent, column: WpxTableColumn<T>): void {
+  resize({ width }: NzResizeEvent, column: Column<T>): void {
     column.width = `${width}px`;
+  }
+
+  resizeEnd(): void {
+    this.cdr.detectChanges();
+    this.updatePreferences();
+  }
+
+  updatePreferences(): void {
+    this.store
+      .set<Map<string, Preferences<T>>>(
+        `${this.wpxModel.key}:table`,
+        new Map([
+          ...this.columns.map<[string, Preferences<T>]>((value, index) => [
+            value.key as string,
+            { display: value.display, width: value.width, sort: index }
+          ])
+        ])
+      )
+      .subscribe(() => {
+        console.debug('updatePreferences:ok');
+      });
+  }
+
+  initPreferences(): void {
+    this.store.remove(`${this.wpxModel.key}:table`).subscribe(() => {
+      this.initColumns();
+      this.cdr.detectChanges();
+      console.debug('initPreferences:ok');
+    });
   }
 }
