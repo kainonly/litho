@@ -38,24 +38,93 @@
           [nzIndeterminate]="wpxModel.indeterminate"
           (nzCheckedChange)="wpxModel.setCurrentSelections($event)"
         ></th>
-        <th *ngFor="let x of wpxColumns">
-          <b>{{ x.title }}</b>
-        </th>
+        <ng-container *ngFor="let column of columns; first as isFirst">
+          <th
+            *ngIf="column.display"
+            nz-resizable
+            nzBounds="window"
+            [nzLeft]="isFirst ? '60px' : false"
+            [nzDisabled]="!resizable"
+            [nzPreview]="resizable"
+            [nzMaxWidth]="420"
+            [nzMinWidth]="100"
+            [nzWidth]="column.width!"
+            (nzResizeEnd)="resize($event, column)"
+            (contextmenu)="openManager($event, settingsMenu, column)"
+          >
+            <b>{{ column.title }}</b>
+          </th>
+        </ng-container>
       </tr>
     </thead>
     <tbody>
-      <ng-container *nz-virtual-scroll="let v">
-        <tr [ngStyle]="{ height: wpxItemSize + 'px' }" (contextmenu)="openActions($event, v)">
+      <ng-container *nz-virtual-scroll="let data">
+        <tr [ngStyle]="{ height: wpxItemSize + 'px' }" (contextmenu)="openActions($event, data)">
           <td
             nzLeft
             nzAlign="center"
-            [nzDisabled]="v['disabled']"
-            [nzChecked]="wpxModel.selection.has(v['_id'])"
-            (nzCheckedChange)="$event ? wpxModel.setSelection(v) : wpxModel.removeSelection(v['_id'])"
+            [nzDisabled]="data['disabled']"
+            [nzChecked]="wpxModel.selection.has(data['_id'])"
+            (nzCheckedChange)="$event ? wpxModel.setSelection(data) : wpxModel.removeSelection(data['_id'])"
           ></td>
-          <td *ngFor="let x of wpxColumns">{{ v[x.key] }}</td>
+          <ng-container *ngFor="let column of columns; first as isFirst">
+            <td *ngIf="column.display" [nzLeft]="isFirst ? '60px' : false" [nzEllipsis]="column.ellipsis">
+              <ng-container *ngIf="column.render; else isDefault">
+                <ng-container
+                  *ngTemplateOutlet="column.render; context: { $implicit: data[column.key] }"
+                ></ng-container>
+              </ng-container>
+              <ng-template #isDefault>
+                {{ data[column.key] }}
+              </ng-template>
+            </td>
+          </ng-container>
         </tr>
       </ng-container>
     </tbody>
   </nz-table>
 </nz-card>
+
+<nz-dropdown-menu #settingsMenu="nzDropdownMenu">
+  <ul nz-menu>
+    <li nz-menu-item (click)="hide(activedColumn!)"> 不显示 </li>
+    <li nz-menu-item (click)="displayAll()"> 全部显示 </li>
+    <li nz-menu-divider></li>
+    <li nz-menu-item (click)="openSettings()"> 设置 </li>
+  </ul>
+</nz-dropdown-menu>
+
+<ng-template #settingsTitleRef>
+  <nz-switch nz-tooltip="自定义列宽度"></nz-switch>
+</ng-template>
+
+<ng-template #settingsExtraRef>
+  <nz-space nzAlign="center">
+    <button *nzSpaceItem nz-button type="button">初始自定义</button>
+    <button *nzSpaceItem nz-button type="button" (click)="closeSettings()">关闭</button>
+  </nz-space>
+</ng-template>
+
+<nz-drawer
+  [nzTitle]="settingsTitleRef"
+  [nzExtra]="settingsExtraRef"
+  [nzHeight]="200"
+  [nzMask]="false"
+  [nzMaskClosable]="false"
+  [nzPlacement]="'bottom'"
+  [nzClosable]="false"
+  [nzVisible]="settings"
+>
+  <ng-container *nzDrawerContent>
+    <nz-checkbox-wrapper
+      cdkDropList
+      cdkDropListOrientation="horizontal"
+      style="width: 100%"
+      (cdkDropListDropped)="drop($event)"
+    >
+      <ng-container *ngFor="let column of columns">
+        <label cdkDrag nz-checkbox [(ngModel)]="column.display">{{ column.title }}</label>
+      </ng-container>
+    </nz-checkbox-wrapper>
+  </ng-container>
+</nz-drawer>

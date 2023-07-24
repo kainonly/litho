@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 
-import { Any, AnyDto, Filter, WpxModel, WpxService } from '@weplanx/ng';
-import { WpxColumns } from '@weplanx/table';
+import { Any, AnyDto, Filter, WpxApi, WpxModel, WpxService } from '@weplanx/ng';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalService } from 'ng-zorro-antd/modal';
 
@@ -15,20 +14,6 @@ import { Order } from '../types';
   templateUrl: './table.component.html'
 })
 export class TableComponent implements OnInit {
-  columns: WpxColumns<Order>[] = [
-    {
-      title: '订单号',
-      key: 'no'
-    },
-    {
-      title: '姓名',
-      key: 'name'
-    },
-    {
-      title: '账户',
-      key: 'account'
-    }
-  ];
   model!: WpxModel<Order>;
   form!: FormGroup;
   filter: Filter<Order> = {};
@@ -134,4 +119,6 @@ export class TableComponent implements OnInit {
       nzCancelText: `再想想`
     });
   }
+
+  protected readonly WpxApi = WpxApi;
 }

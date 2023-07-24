@@ -29,7 +29,6 @@ import { NzMessageService } from 'ng-zorro-antd/message';
       [nzPlacement]="'bottom'"
       [nzClosable]="false"
       [nzVisible]="wpxModel.advanced()"
-      (nzOnClose)="close()"
     >
       <ng-template #searchBtnRef>
         <nz-space>

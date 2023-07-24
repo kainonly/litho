@@ -1,7 +1,46 @@
 <wpx-table
   #tb
   [wpxModel]="model"
-  [wpxColumns]="columns"
+  [wpxColumns]="[
+    {
+      title: '订单号',
+      key: 'no'
+    },
+    {
+      title: '姓名',
+      key: 'name'
+    },
+    {
+      title: '描述',
+      key: 'description',
+      ellipsis: true
+    },
+    {
+      title: '账户',
+      key: 'account'
+    },
+    {
+      title: '客户',
+      key: 'customer'
+    },
+    {
+      title: '电子邮件',
+      key: 'email'
+    },
+    {
+      title: '电话号',
+      key: 'phone'
+    },
+    {
+      title: '价格',
+      key: 'price'
+    },
+    {
+      title: '有效期',
+      key: 'valid',
+      render: validRef
+    }
+  ]"
   [wpxItemSize]="50"
   [wpxOffset]="310"
   [wpxActions]="actions"
@@ -60,14 +99,21 @@
     </ng-container>
     <button *nzSpaceItem nz-button nzType="primary" (click)="open()"> 新增 </button>
   </nz-space>
-  <nz-dropdown-menu #actions="nzDropdownMenu">
-    <ul *ngIf="tb.actived as v" nz-menu>
-      <li nz-menu-item nzDisabled>
-        <b>订单号 [{{ v.no }}]</b>
-      </li>
-      <li nz-menu-divider></li>
-      <li nz-menu-item (click)="open(v)"> 修改 </li>
-      <li nz-menu-item nzDanger (click)="delete(v)"> 删除 </li>
-    </ul>
-  </nz-dropdown-menu>
 </wpx-table>
+
+<nz-dropdown-menu #actions="nzDropdownMenu">
+  <ul *ngIf="tb.actived as v" nz-menu>
+    <li nz-menu-item nzDisabled>
+      <b>订单号 [{{ v.no }}]</b>
+    </li>
+    <li nz-menu-divider></li>
+    <li nz-menu-item (click)="open(v)"> 修改 </li>
+    <li nz-menu-item nzDanger (click)="delete(v)"> 删除 </li>
+  </ul>
+</nz-dropdown-menu>
+
+<ng-template #validRef let-data>
+  <nz-tag *ngFor="let x of data">
+    {{ x }}
+  </nz-tag>
+</ng-template>
