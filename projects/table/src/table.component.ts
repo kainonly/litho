@@ -11,17 +11,16 @@ import {
   OnInit,
   Output,
   signal,
-  TemplateRef,
   ViewChild
 } from '@angular/core';
 
-import { Any, AnyDto, WpxModel } from '@weplanx/ng';
+import { AnyDto, WpxModel } from '@weplanx/ng';
 import { NzContextMenuService, NzDropdownMenuComponent } from 'ng-zorro-antd/dropdown';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { NzResizeEvent } from 'ng-zorro-antd/resizable';
 import { NzTableComponent } from 'ng-zorro-antd/table';
 
-import { WpxColumns, WpxTableColumns } from './types';
+import { WpxColumn, WpxTableColumn } from './types';
 
 @Component({
   selector: 'wpx-table',
@@ -33,19 +32,19 @@ export class WpxTableComponent<T> implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('box', { static: true }) box!: ElementRef;
   @ViewChild('basicTable', { static: true }) basicTable!: NzTableComponent<unknown>;
 
+  @Input({ required: true }) wpxColumns!: WpxColumn<T>[];
   @Input({ required: true }) wpxModel!: WpxModel<T>;
-  @Input({ required: true }) wpxColumns!: WpxColumns<T>[];
   @Input({ required: true }) wpxItemSize!: number;
   @Input() wpxOffset = 0;
   @Input() wpxActions?: NzDropdownMenuComponent;
   @Output() wpxChange = new EventEmitter<void>();
 
-  columns: WpxTableColumns<T>[] = [];
+  columns: WpxTableColumn<T>[] = [];
   settings = false;
   resizable = false;
 
   actived?: AnyDto<T>;
-  activedColumn?: WpxTableColumns<T>;
+  activedColumn?: WpxTableColumn<T>;
 
   y = signal<number>(0);
   private resizeObserver!: ResizeObserver;
@@ -100,7 +99,7 @@ export class WpxTableComponent<T> implements OnInit, AfterViewInit, OnDestroy {
     }
   }
 
-  openManager($event: MouseEvent, menu: NzDropdownMenuComponent, data: WpxTableColumns<T>): void {
+  openManager($event: MouseEvent, menu: NzDropdownMenuComponent, data: WpxTableColumn<T>): void {
     this.activedColumn = data;
     this.contextMenu.create($event, menu);
   }
@@ -109,7 +108,7 @@ export class WpxTableComponent<T> implements OnInit, AfterViewInit, OnDestroy {
     this.columns.forEach(v => (v.display = true));
   }
 
-  hide(column: WpxTableColumns<T>): void {
+  hide(column: WpxTableColumn<T>): void {
     column.display = false;
   }
 
@@ -125,7 +124,7 @@ export class WpxTableComponent<T> implements OnInit, AfterViewInit, OnDestroy {
     this.settings = false;
   }
 
-  resize({ width }: NzResizeEvent, column: WpxTableColumns<T>): void {
+  resize({ width }: NzResizeEvent, column: WpxTableColumn<T>): void {
     column.width = `${width}px`;
   }
 }

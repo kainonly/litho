@@ -1,46 +1,7 @@
 <wpx-table
   #tb
+  [wpxColumns]="columns"
   [wpxModel]="model"
-  [wpxColumns]="[
-    {
-      title: '订单号',
-      key: 'no'
-    },
-    {
-      title: '姓名',
-      key: 'name'
-    },
-    {
-      title: '描述',
-      key: 'description',
-      ellipsis: true
-    },
-    {
-      title: '账户',
-      key: 'account'
-    },
-    {
-      title: '客户',
-      key: 'customer'
-    },
-    {
-      title: '电子邮件',
-      key: 'email'
-    },
-    {
-      title: '电话号',
-      key: 'phone'
-    },
-    {
-      title: '价格',
-      key: 'price'
-    },
-    {
-      title: '有效期',
-      key: 'valid',
-      render: validRef
-    }
-  ]"
   [wpxItemSize]="50"
   [wpxOffset]="310"
   [wpxActions]="actions"

@@ -1,14 +1,11 @@
-import { TemplateRef } from '@angular/core';
+import { AnyDto } from '@weplanx/ng';
 
-import { Any, AnyDto } from '@weplanx/ng';
+export type WpxColumn<T> = Omit<WpxTableColumn<T>, 'display'>;
 
-export type WpxColumns<T> = Omit<WpxTableColumns<T>, 'display'>;
-
-export interface WpxTableColumns<T> {
+export interface WpxTableColumn<T> {
   title: string;
   key: keyof AnyDto<T>;
   display: boolean;
   width?: string;
   ellipsis?: boolean;
-  render?: TemplateRef<Any>;
 }

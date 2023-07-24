@@ -69,14 +69,7 @@
           ></td>
           <ng-container *ngFor="let column of columns; first as isFirst">
             <td *ngIf="column.display" [nzLeft]="isFirst ? '60px' : false" [nzEllipsis]="column.ellipsis">
-              <ng-container *ngIf="column.render; else isDefault">
-                <ng-container
-                  *ngTemplateOutlet="column.render; context: { $implicit: data[column.key] }"
-                ></ng-container>
-              </ng-container>
-              <ng-template #isDefault>
-                {{ data[column.key] }}
-              </ng-template>
+              {{ data[column.key] }}
             </td>
           </ng-container>
         </tr>
