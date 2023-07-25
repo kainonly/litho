@@ -25,7 +25,8 @@
             "inlineStyleLanguage": "less",
             "assets": ["src/favicon.ico", "src/assets"],
             "styles": ["src/styles.less"],
-            "scripts": []
+            "scripts": [],
+            "localize": true
           },
           "configurations": {
             "production": {
@@ -55,7 +56,13 @@
                   "replace": "src/environments/environment.ts",
                   "with": "src/environments/environment.development.ts"
                 }
-              ]
+              ],
+              "localize": ["zh-Hans"],
+              "baseHref": "/zh-Hans"
+            },
+            "en": {
+              "localize": ["en-US"],
+              "baseHref": "/en-US"
             }
           },
           "defaultConfiguration": "production"
@@ -99,6 +106,15 @@
           "builder": "@angular-eslint/builder:lint",
           "options": {
             "lintFilePatterns": ["src/**/*.ts", "src/**/*.html"]
+          }
+        }
+      },
+      "i18n": {
+        "sourceLocale": "zh-Hans",
+        "locales": {
+          "en-US": {
+            "translation": "src/locale/messages.en-US.xlf",
+            "baseHref": "en-US/"
           }
         }
       }

@@ -1,0 +1,35 @@
+<form nz-form nzLayout="vertical" id="form" [formGroup]="form" (wpxSubmit)="submit($event)">
+  <nz-form-item>
+    <nz-form-label nzRequired i18n>Bucket 名称</nz-form-label>
+    <nz-form-control nzHasFeedback [nzAutoTips]="tips.TencentCosBucket">
+      <input nz-input formControlName="TencentCosBucket" />
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label nzRequired i18n>地区</nz-form-label>
+    <nz-form-control nzHasFeedback [nzAutoTips]="tips.TencentCosRegion">
+      <input nz-input formControlName="TencentCosRegion" placeholder="例如：ap-guangzhou" i18n-placeholder />
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label nzRequired i18n>预签名有效期</nz-form-label>
+    <nz-form-control [nzAutoTips]="tips.TencentCosExpired">
+      <nz-input-number-group nzAddOnAfter="秒" i18n-nzAddOnAfter>
+        <nz-input-number formControlName="TencentCosExpired" [nzMin]="0" [nzStep]="1"></nz-input-number>
+      </nz-input-number-group>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label nzRequired i18n>上传大小限制</nz-form-label>
+    <nz-form-control [nzAutoTips]="tips.TencentCosLimit">
+      <nz-input-number-group nzAddOnAfter="KB">
+        <nz-input-number formControlName="TencentCosLimit" [nzMin]="0" [nzStep]="1"></nz-input-number>
+      </nz-input-number-group>
+    </nz-form-control>
+  </nz-form-item>
+</form>
+
+<div *nzModalFooter>
+  <button nz-button type="button" nzType="default" (click)="close()" i18n>取消</button>
+  <button nz-button nzType="primary" form="form" [disabled]="!form.valid" i18n>提交</button>
+</div>

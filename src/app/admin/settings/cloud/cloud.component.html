@@ -1,0 +1,152 @@
+<nz-card>
+  <nz-tabset
+    style="height: 100%"
+    nzTabPosition="left"
+    [(nzSelectedIndex)]="tabIndex"
+    (nzSelectedIndexChange)="saveTabIndex()"
+  >
+    <nz-tab nzTitle="腾讯云" i18n-nzTitle>
+      <nz-row style="padding-bottom: 12px" nzJustify="space-between">
+        <nz-col>
+          <img style="height: 96px" [src]="['assets', 'Tencent-Cloud.svg'] | wpxAssets" alt="" />
+        </nz-col>
+        <nz-col></nz-col>
+        <nz-col>
+          <nz-switch [nzControl]="true" [ngModel]="values['Cloud'] === 'tencent'" (click)="useCloud('tencent')">
+          </nz-switch>
+        </nz-col>
+      </nz-row>
+
+      <nz-card nzSize="small" nzType="inner" nzTitle="详情" i18n-nzTitle [nzExtra]="tencentEditTpl">
+        <ng-template #tencentEditTpl>
+          <button nz-button nzType="text" (click)="setTencent()">
+            <span nz-icon nzType="edit"></span>
+          </button>
+        </ng-template>
+        <nz-descriptions nzLayout="vertical">
+          <nz-descriptions-item nzTitle="SecretId">
+            <ng-container *ngIf="values['TencentSecretId']; else unkown">
+              {{ values['TencentSecretId'] }}
+            </ng-container>
+          </nz-descriptions-item>
+          <nz-descriptions-item nzTitle="SecretKey">
+            <ng-container *ngIf="values['TencentSecretKey']; else unkown">
+              <span i18n>已设置</span>
+            </ng-container>
+          </nz-descriptions-item>
+        </nz-descriptions>
+      </nz-card>
+
+      <nz-row style="padding-top: 12px" [nzGutter]="[8, 8]">
+        <nz-col [nzSpan]="12">
+          <nz-card nzSize="small" nzType="inner" nzTitle="对象存储" i18n-nzTitle [nzExtra]="cosEditTpl">
+            <ng-template #cosEditTpl>
+              <button nz-button nzType="text" (click)="setCos()">
+                <span nz-icon nzType="edit"></span>
+              </button>
+            </ng-template>
+            <p i18n>将静态文件存储在 COS 对象存储中，再通过 CDN 回源分发内容</p>
+            <nz-descriptions nzLayout="vertical" [nzColumn]="2">
+              <nz-descriptions-item nzTitle="Bucket 名称" i18n-nzTitle>
+                <ng-container *ngIf="values['TencentCosBucket']; else unkown">
+                  {{ values['TencentCosBucket'] }}
+                </ng-container>
+              </nz-descriptions-item>
+              <nz-descriptions-item nzTitle="地区" i18n-nzTitle>
+                <ng-container *ngIf="values['TencentCosRegion']; else unkown">
+                  {{ values['TencentCosRegion'] }}
+                </ng-container>
+              </nz-descriptions-item>
+              <nz-descriptions-item nzTitle="预签名有效期" i18n-nzTitle>
+                <ng-container *ngIf="values['TencentCosExpired']; else unkown" i18n>
+                  {{ values['TencentCosExpired'] }} 秒
+                </ng-container>
+              </nz-descriptions-item>
+              <nz-descriptions-item nzTitle="上传大小限制" i18n-nzTitle>
+                <ng-container *ngIf="values['TencentCosLimit']; else unkown">
+                  {{ values['TencentCosLimit'] }} KB
+                </ng-container>
+              </nz-descriptions-item>
+            </nz-descriptions>
+          </nz-card>
+        </nz-col>
+        <nz-col [nzSpan]="12">
+          <nz-card nzSize="small" nzType="inner" nzTitle="消息队列" i18n-nzTitle [nzExtra]="notYetTpl">
+            <p i18n>使用腾讯云 TDMQ Plusar 进行消息事务补偿</p>
+            <nz-empty nzNotFoundContent=""></nz-empty>
+          </nz-card>
+        </nz-col>
+        <nz-col [nzSpan]="12">
+          <nz-card nzSize="small" nzType="inner" nzTitle="日志系统" i18n-nzTitle [nzExtra]="notYetTpl">
+            <p i18n>使用腾讯云 CLS 日志服务收集日志</p>
+            <nz-empty nzNotFoundContent=""></nz-empty>
+          </nz-card>
+        </nz-col>
+      </nz-row>
+    </nz-tab>
+    <nz-tab nzTitle="阿里云" i18n-nzTitle>
+      <nz-row style="padding-bottom: 12px" nzJustify="space-between">
+        <nz-col>
+          <img style="height: 80px; padding: 16px 8px" [src]="['assets', 'AlibabaCloud.png'] | wpxAssets" alt="" />
+        </nz-col>
+        <nz-col></nz-col>
+        <nz-col>
+          <nz-switch
+            [nzControl]="true"
+            [ngModel]="values['Cloud'] === 'aliyun'"
+            (click)="useCloud('aliyun')"
+            nzDisabled
+          >
+          </nz-switch>
+        </nz-col>
+      </nz-row>
+
+      <nz-card nzSize="small" nzType="inner" nzTitle="详情" i18n-nzTitle [nzExtra]="notYetTpl">
+        <nz-empty nzNotFoundContent=""></nz-empty>
+      </nz-card>
+
+      <nz-row style="padding-top: 12px" [nzGutter]="[8, 8]">
+        <nz-col [nzSpan]="12">
+          <nz-card nzSize="small" nzType="inner" nzTitle="对象存储" i18n-nzTitle [nzExtra]="notYetTpl">
+            <p i18n>将静态文件存储在 OSS 对象存储中，再通过 CDN 回源分发内容</p>
+            <nz-empty nzNotFoundContent=""></nz-empty>
+          </nz-card>
+        </nz-col>
+      </nz-row>
+    </nz-tab>
+    <nz-tab nzTitle="AWS" i18n-nzTitle>
+      <nz-row style="padding-bottom: 12px" nzJustify="space-between">
+        <nz-col>
+          <img style="height: 80px; padding: 16px 8px" [src]="['assets', 'AWS.png'] | wpxAssets" alt="" />
+        </nz-col>
+        <nz-col></nz-col>
+        <nz-col>
+          <nz-switch nzSize="default" nzDisabled></nz-switch>
+        </nz-col>
+      </nz-row>
+
+      <nz-card nzSize="small" nzType="inner" nzTitle="详情" i18n-nzTitle [nzExtra]="notYetTpl">
+        <nz-empty nzNotFoundContent=""></nz-empty>
+      </nz-card>
+
+      <nz-row style="padding-top: 12px" [nzGutter]="[8, 8]">
+        <nz-col [nzSpan]="12">
+          <nz-card nzSize="small" nzType="inner" nzTitle="对象存储" i18n-nzTitle [nzExtra]="notYetTpl">
+            <p i18n>将静态文件存储在 S3 对象存储中，再通过 CDN 回源分发内容</p>
+            <nz-empty nzNotFoundContent=""></nz-empty>
+          </nz-card>
+        </nz-col>
+      </nz-row>
+    </nz-tab>
+  </nz-tabset>
+</nz-card>
+
+<ng-template #unkown>
+  <span i18n>未设置</span>
+</ng-template>
+
+<ng-template #notYetTpl>
+  <button nz-button nzType="text" disabled>
+    <span nz-icon nzType="edit"></span>
+  </button>
+</ng-template>

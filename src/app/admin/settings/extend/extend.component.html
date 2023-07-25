@@ -1,0 +1,86 @@
+<nz-row [nzGutter]="[8, 8]">
+  <nz-col [nzSpan]="24">
+    <nz-card nzTitle="公共邮箱" [nzExtra]="emailBookTpl">
+      <ng-template #emailBookTpl>
+        <button nz-button nzType="text">
+          <span nz-icon nzType="read"></span>
+        </button>
+      </ng-template>
+      <nz-row [nzGutter]="[8, 8]">
+        <nz-col [nzSpan]="12">
+          <nz-card nzSize="small" nzTitle="基本设置" i18n-nzTitle nzType="inner" [nzExtra]="emailEditTpl">
+            <ng-template #emailEditTpl>
+              <button nz-button nzType="text" (click)="setEmail()">
+                <span nz-icon nzType="edit"></span>
+              </button>
+            </ng-template>
+            <nz-descriptions nzLayout="vertical" [nzColumn]="2">
+              <nz-descriptions-item nzTitle="SMTP 主机" i18n-nzTitle>
+                <ng-container *ngIf="values['EmailHost']; else unkown">
+                  {{ values['EmailHost'] }}
+                </ng-container>
+              </nz-descriptions-item>
+              <nz-descriptions-item nzTitle="SMTP 端口（SSL）" i18n-nzTitle>
+                <ng-container *ngIf="values['EmailPort']; else unkown">
+                  {{ values['EmailPort'] }}
+                </ng-container>
+              </nz-descriptions-item>
+              <nz-descriptions-item nzTitle="用户名" i18n-nzTitle>
+                <ng-container *ngIf="values['EmailUsername']; else unkown">
+                  {{ values['EmailUsername'] }}
+                </ng-container>
+              </nz-descriptions-item>
+              <nz-descriptions-item nzTitle="密码" i18n-nzTitle>
+                <ng-container *ngIf="values['EmailPassword']; else unkown">
+                  <span i18n>已设置</span>
+                </ng-container>
+              </nz-descriptions-item>
+            </nz-descriptions>
+          </nz-card>
+        </nz-col>
+      </nz-row>
+    </nz-card>
+  </nz-col>
+  <nz-col [nzSpan]="24">
+    <nz-card nzTitle="开放服务" [nzExtra]="openapiBookTpl">
+      <ng-template #openapiBookTpl>
+        <button nz-button nzType="text">
+          <span nz-icon nzType="read"></span>
+        </button>
+      </ng-template>
+      <nz-row [nzGutter]="[8, 8]">
+        <nz-col [nzSpan]="12">
+          <nz-card nzSize="small" nzTitle="基本设置" i18n-nzTitle nzType="inner" [nzExtra]="openapiEditTpl">
+            <ng-template #openapiEditTpl>
+              <button nz-button nzType="text" (click)="setOpenapi()">
+                <span nz-icon nzType="edit"></span>
+              </button>
+            </ng-template>
+
+            <nz-descriptions nzLayout="vertical" [nzColumn]="2">
+              <nz-descriptions-item nzTitle="地址" i18n-nzTitle [nzSpan]="2">
+                <ng-container *ngIf="values['OpenapiUrl']; else unkown">
+                  {{ values['OpenapiUrl'] }}
+                </ng-container>
+              </nz-descriptions-item>
+              <nz-descriptions-item nzTitle="应用 Key" i18n-nzTitle>
+                <ng-container *ngIf="values['OpenapiKey']; else unkown">
+                  {{ values['OpenapiKey'] }}
+                </ng-container>
+              </nz-descriptions-item>
+              <nz-descriptions-item nzTitle="应用密码" i18n-nzTitle>
+                <ng-container *ngIf="values['OpenapiSecret']; else unkown">
+                  <span i18n>已设置</span>
+                </ng-container>
+              </nz-descriptions-item>
+            </nz-descriptions>
+          </nz-card>
+        </nz-col>
+      </nz-row>
+    </nz-card>
+  </nz-col>
+</nz-row>
+
+<ng-template #unkown>
+  <span i18n>未设置</span>
+</ng-template>

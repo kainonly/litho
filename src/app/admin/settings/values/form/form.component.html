@@ -1,0 +1,35 @@
+<form nz-form nzLayout="vertical" id="form" [formGroup]="form" (wpxSubmit)="submit($event)">
+  <nz-form-item>
+    <nz-form-label nzRequired i18n>键名</nz-form-label>
+    <nz-form-control nzHasFeedback [nzAutoTips]="tips.key">
+      <input nz-input formControlName="key" [readOnly]="!!data" />
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label nzRequired i18n>键值</nz-form-label>
+    <nz-form-control
+      nzExtra="* 配置值将存储为字符串类型，请谨慎提交默认配置"
+      i18n-nzExtra
+      nzHasFeedback
+      [nzAutoTips]="tips.value"
+    >
+      <ng-container [ngSwitch]="key">
+        <ng-container *ngSwitchCase="'resources'">
+          <nz-code-editor
+            style="height: 400px; width: 100%"
+            formControlName="value"
+            [nzEditorOption]="{ language: 'json' }"
+          ></nz-code-editor>
+        </ng-container>
+        <ng-container *ngSwitchDefault>
+          <textarea nz-input formControlName="value" nzAutosize rows="6"></textarea>
+        </ng-container>
+      </ng-container>
+    </nz-form-control>
+  </nz-form-item>
+</form>
+
+<div *nzModalFooter>
+  <button nz-button type="button" nzType="default" (click)="close()" i18n>取消</button>
+  <button nz-button nzType="primary" form="form" [disabled]="!form.valid" i18n>提交</button>
+</div>

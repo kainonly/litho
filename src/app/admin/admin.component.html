@@ -22,9 +22,43 @@
           <span nz-icon nzType="team" nzTheme="outline"></span>
           <span>成员</span>
         </li>
-        <li nz-menu-item nzMatchRouter routerLink="settings">
-          <span nz-icon nzType="setting" nzTheme="outline"></span>
-          <span>设置</span>
+        <li nz-submenu nzTitle="设置" nzIcon="setting">
+          <ul>
+            <li nz-menu-item nzMatchRouter routerLink="settings/security">
+              <span nz-icon nzType="safety" nzTheme="outline"></span>
+              <span>安全策略</span>
+            </li>
+            <li nz-menu-item nzMatchRouter routerLink="settings/sessions">
+              <span nz-icon nzType="rocket" nzTheme="outline"></span>
+              <span>在线会话</span>
+            </li>
+            <li nz-menu-item nzMatchRouter routerLink="settings/values">
+              <span nz-icon nzType="field-binary" nzTheme="outline"></span>
+              <span>动态配置</span>
+            </li>
+            <li nz-menu-divider></li>
+            <li nz-menu-item nzMatchRouter routerLink="settings/cloud">
+              <span nz-icon nzType="cloud" nzTheme="outline"></span>
+              <span>公有云</span>
+            </li>
+            <li nz-menu-item nzMatchRouter routerLink="settings/collaboration">
+              <span nz-icon nzType="coffee" nzTheme="outline"></span>
+              <span>办公协作</span>
+            </li>
+            <li nz-menu-item nzMatchRouter routerLink="settings/extend">
+              <span nz-icon nzType="tool" nzTheme="outline"></span>
+              <span>扩展服务</span>
+            </li>
+            <li nz-menu-divider></li>
+            <li nz-menu-item nzMatchRouter routerLink="settings/login_logs">
+              <span nz-icon nzType="audit"></span>
+              <span i18n>登录日志</span>
+            </li>
+            <li nz-menu-item nzMatchRouter routerLink="settings/access_logs">
+              <span nz-icon nzType="history"></span>
+              <span i18n>访问日志</span>
+            </li>
+          </ul>
         </li>
       </ul>
     </nz-sider>
