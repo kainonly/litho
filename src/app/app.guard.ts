@@ -12,13 +12,13 @@ export const AppGuard: CanActivateFn = (): Observable<boolean> => {
   return app.verify().pipe(
     map(v => {
       if (!v) {
-        // app.user = undefined;
+        app.user.set(null);
         app.stopRefreshToken();
         router.navigateByUrl('/login');
       }
-      // app.getUser().subscribe(() => {
-      //   app.autoRefreshToken();
-      // });
+      app.getUser().subscribe(() => {
+        app.autoRefreshToken();
+      });
       return true;
     })
   );

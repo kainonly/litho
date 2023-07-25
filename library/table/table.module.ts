@@ -22,6 +22,7 @@ import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
 import { WpxKeywordComponent } from './keyword.component';
 import { WpxTableComponent } from './table.component';
 import { WpxToolboxComponent } from './toolbox.component';
+import { NzBadgeModule } from 'ng-zorro-antd/badge';
 
 @NgModule({
   imports: [
@@ -41,6 +42,7 @@ import { WpxToolboxComponent } from './toolbox.component';
     NzCheckboxModule,
     NzSwitchModule,
     NzResizableModule,
+    NzBadgeModule,
     DragDropModule,
     WpxModule
   ],

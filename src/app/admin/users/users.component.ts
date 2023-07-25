@@ -1,106 +1,121 @@
-import { DataSource } from '@angular/cdk/collections';
 import { Component, OnInit } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
+import { User } from '@common/models/user';
 import { UsersService } from '@common/services/users.service';
+import { Any, AnyDto, Filter, WpxModel, WpxService } from '@weplanx/ng';
+import { NzMessageService } from 'ng-zorro-antd/message';
+import { NzModalService } from 'ng-zorro-antd/modal';
 
-export interface Data {
-  id: number;
-  name: string;
-  age: number;
-  address: string;
-  disabled: boolean;
-}
+import { FormComponent } from './form/form.component';
 
 @Component({
   selector: 'app-admin-users',
   templateUrl: './users.component.html'
 })
 export class UsersComponent implements OnInit {
-  checked = false;
-  loading = false;
-  indeterminate = false;
-  listOfData: readonly Data[] = [];
-  listOfCurrentPageData: readonly Data[] = [];
-  setOfCheckedId = new Set<number>();
+  model!: WpxModel<User>;
+  form!: FormGroup;
+  filter: Filter<User> = {};
 
-  displayedColumns: string[] = ['name', 'age', 'address'];
-  dataSource = new UserDataSource();
-
-  constructor(private users: UsersService) {}
+  constructor(
+    private wpx: WpxService,
+    private fb: FormBuilder,
+    private modal: NzModalService,
+    private message: NzMessageService,
+    public users: UsersService
+  ) {}
 
   ngOnInit(): void {
-    this.users.find({}).subscribe(data => {
-      console.log(data);
+    this.form = this.fb.group({
+      email: [],
+      name: []
     });
-    this.listOfData = new Array(100).fill(0).map((_, index) => ({
-      id: index,
-      name: `Edward King ${index}`,
-      age: 32,
-      address: `London, Park Lane no. ${index}`,
-      disabled: index % 2 === 0
-    }));
+    this.model = this.wpx.setModel<User>('users', this.users);
+    this.model.ready().subscribe(() => {
+      this.getData(true);
+    });
   }
 
-  updateCheckedSet(id: number, checked: boolean): void {
-    if (checked) {
-      this.setOfCheckedId.add(id);
-    } else {
-      this.setOfCheckedId.delete(id);
+  getData(refresh = false): void {
+    if (refresh) {
+      this.model.page = 1;
     }
+    this.model.fetch(this.filter).subscribe(() => {
+      console.debug('fetch:ok');
+    });
   }
 
-  onCurrentPageDataChange(listOfCurrentPageData: readonly Data[]): void {
-    this.listOfCurrentPageData = listOfCurrentPageData;
-    this.refreshCheckedStatus();
+  clear(): void {
+    this.form.reset();
+    this.filter = {};
+    this.getData();
   }
 
-  refreshCheckedStatus(): void {
-    const listOfEnabledData = this.listOfCurrentPageData.filter(({ disabled }) => !disabled);
-    this.checked = listOfEnabledData.every(({ id }) => this.setOfCheckedId.has(id));
-    this.indeterminate = listOfEnabledData.some(({ id }) => this.setOfCheckedId.has(id)) && !this.checked;
+  search(data: Any): void {
+    for (const [k, v] of Object.entries(data)) {
+      if (v) {
+        this.filter[k] = { $regex: `${v}` };
+      }
+    }
+    this.getData();
   }
 
-  onItemChecked(id: number, checked: boolean): void {
-    this.updateCheckedSet(id, checked);
-    this.refreshCheckedStatus();
+  open(doc?: AnyDto<User>): void {
+    this.modal.create({
+      nzTitle: !doc ? '创建' : `编辑【${doc.email}】`,
+      nzWidth: 640,
+      nzContent: FormComponent,
+      nzData: {
+        doc
+      },
+      nzOnOk: () => {
+        this.getData(true);
+      }
+    });
   }
 
-  onAllChecked(checked: boolean): void {
-    this.listOfCurrentPageData
-      .filter(({ disabled }) => !disabled)
-      .forEach(({ id }) => this.updateCheckedSet(id, checked));
-    this.refreshCheckedStatus();
+  delete(doc: AnyDto<User>): void {
+    this.modal.confirm({
+      nzTitle: `您确定要删除【${doc.email}】?`,
+      nzOkText: `是的`,
+      nzOkType: 'primary',
+      nzOkDanger: true,
+      nzOnOk: () => {
+        this.users.delete(doc._id).subscribe(() => {
+          this.message.success(`数据删除成功`);
+          this.getData(true);
+        });
+      },
+      nzCancelText: `再想想`
+    });
   }
 
-  sendRequest(): void {
-    this.loading = true;
-    const requestData = this.listOfData.filter(data => this.setOfCheckedId.has(data.id));
-    console.log(requestData);
-    setTimeout(() => {
-      this.setOfCheckedId.clear();
-      this.refreshCheckedStatus();
-      this.loading = false;
-    }, 1000);
+  bulkDelete(): void {
+    this.modal.confirm({
+      nzTitle: `您确定删除这些用户吗？`,
+      nzOkText: `是的`,
+      nzOkType: 'primary',
+      nzOkDanger: true,
+      nzOnOk: () => {
+        this.users
+          .bulkDelete(
+            {
+              _id: { $in: [...this.model.selection.keys()] }
+            },
+            {
+              xfilter: {
+                '_id.$in': 'oids'
+              }
+            }
+          )
+          .subscribe(() => {
+            this.message.success(`数据删除成功`);
+            this.getData(true);
+            this.model.setCurrentSelections(false);
+          });
+      },
+      nzCancelText: `再想想`
+    });
   }
-}
-
-export class UserDataSource extends DataSource<Data> {
-  /** Stream of data that is provided to the table. */
-  data = new BehaviorSubject<Data[]>(
-    new Array(100).fill(0).map((_, index) => ({
-      id: index,
-      name: `Edward King ${index}`,
-      age: 32,
-      address: `London, Park Lane no. ${index}`,
-      disabled: index % 2 === 0
-    }))
-  );
-
-  /** Connect function called by the table to retrieve one stream containing the data to render. */
-  connect(): Observable<Data[]> {
-    return this.data;
-  }
-
-  disconnect() {}
 }

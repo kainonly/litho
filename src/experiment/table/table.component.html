@@ -4,45 +4,55 @@
   [wpxColumns]="[
     {
       title: '订单号',
-      key: 'no'
+      key: 'no',
+      width: '240px'
     },
     {
       title: '姓名',
-      key: 'name'
+      key: 'name',
+      width: '240px'
     },
     {
       title: '描述',
       key: 'description',
+      width: '240px',
       ellipsis: true
     },
     {
       title: '账户',
-      key: 'account'
+      key: 'account',
+      width: '240px'
     },
     {
       title: '客户',
-      key: 'customer'
+      key: 'customer',
+      width: '240px'
     },
     {
       title: '电子邮件',
-      key: 'email'
+      key: 'email',
+      width: '240px'
     },
     {
       title: '电话号',
-      key: 'phone'
+      key: 'phone',
+      width: '240px'
     },
     {
       title: '价格',
-      key: 'price'
+      key: 'price',
+      width: '240px'
     },
     {
       title: '有效期',
       key: 'valid',
+      width: '300px',
       render: validRef
     }
   ]"
   [wpxItemSize]="50"
   [wpxOffset]="310"
+  [wpxX]="'1400px'"
   [wpxActions]="actions"
   (wpxChange)="getData()"
 >

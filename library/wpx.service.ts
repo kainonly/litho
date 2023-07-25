@@ -1,7 +1,9 @@
 import { Platform } from '@angular/cdk/platform';
 import { DOCUMENT } from '@angular/common';
 import { Inject, Injectable, Optional } from '@angular/core';
+import { AsyncSubject } from 'rxjs';
 
+import { UploadOption } from './types';
 import { WpxApi } from './utils/api';
 import { WpxModel } from './utils/model';
 import { WpxStoreService } from './wpx-store.service';
@@ -9,6 +11,7 @@ import { WpxStoreService } from './wpx-store.service';
 @Injectable({ providedIn: 'root' })
 export class WpxService {
   assets = '/assets';
+  upload: AsyncSubject<UploadOption> = new AsyncSubject();
 
   constructor(
     @Optional() @Inject(DOCUMENT) private document: Document,

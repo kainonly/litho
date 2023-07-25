@@ -50,27 +50,25 @@ export class WpxModel<T> {
   }
 
   fetch(search?: Filter<T>): Observable<FindResult<T>> {
-    let filter: Filter<T> = {};
+    const filter: Filter<T> = {};
     this.loading.set(true);
 
     if (!this.advanced() && this.keywords.length !== 0) {
       filter.$or = this.keywords;
     }
 
-    filter = { ...filter, ...search };
-
-    console.log(filter);
-
-    return this.api.find(filter, { page: this.page, pagesize: this.pagesize, xfilter: this.xfilter }).pipe(
-      map(result => {
-        this.data.set(result.data);
-        this.total = result.total;
-        this.updateStatus();
-        this.updateSelectionStatus();
-        this.loading.set(false);
-        return result;
-      })
-    );
+    return this.api
+      .find({ ...filter, ...search }, { page: this.page, pagesize: this.pagesize, xfilter: this.xfilter })
+      .pipe(
+        map(result => {
+          this.data.set(result.data);
+          this.total = result.total;
+          this.updateStatus();
+          this.updateSelectionStatus();
+          this.loading.set(false);
+          return result;
+        })
+      );
   }
 
   setSelection(data: AnyDto<T>): void {

@@ -19,7 +19,7 @@ import { NzContextMenuService, NzDropdownMenuComponent } from 'ng-zorro-antd/dro
 import { NzResizeEvent } from 'ng-zorro-antd/resizable';
 import { NzTableComponent } from 'ng-zorro-antd/table';
 
-import { Column, Preferences, WpxColumn } from './types';
+import { Column, Preferences, Scroll, WpxColumn } from './types';
 
 @Component({
   selector: 'wpx-table',
@@ -35,6 +35,7 @@ export class WpxTableComponent<T> implements OnInit, AfterViewInit, OnDestroy {
   @Input({ required: true }) wpxModel!: WpxModel<T>;
   @Input({ required: true }) wpxColumns!: WpxColumn<T>[];
   @Input({ required: true }) wpxItemSize!: number;
+  @Input() wpxX?: string;
   @Input() wpxOffset = 0;
   @Input() wpxActions?: NzDropdownMenuComponent;
   @Output() wpxChange = new EventEmitter<void>();
@@ -46,7 +47,7 @@ export class WpxTableComponent<T> implements OnInit, AfterViewInit, OnDestroy {
   actived?: AnyDto<T>;
   activedColumn?: WpxColumn<T>;
 
-  y = signal<number>(0);
+  scroll = signal<Scroll>({ y: '0px' });
   private resizeObserver!: ResizeObserver;
 
   constructor(
@@ -75,7 +76,6 @@ export class WpxTableComponent<T> implements OnInit, AfterViewInit, OnDestroy {
           .sort((a, b) => a.sort! - b.sort!)
       ];
     });
-
     this.resizeObserver = new ResizeObserver(entries => {
       for (const entry of entries) {
         this.calculate(entry.contentRect.height);
@@ -101,7 +101,10 @@ export class WpxTableComponent<T> implements OnInit, AfterViewInit, OnDestroy {
   }
 
   private calculate(height: number): void {
-    this.y.set(height - this.box.nativeElement.offsetHeight - this.wpxItemSize - 112);
+    this.scroll.set({
+      x: this.wpxX ?? this.box.nativeElement.offsetWidth + 'px',
+      y: height - this.box.nativeElement.offsetHeight - this.wpxItemSize - 112 + 'px'
+    });
   }
 
   clearSelections(): void {

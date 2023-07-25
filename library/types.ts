@@ -81,7 +81,8 @@ export interface WpxModelStore<T> {
   pagesize: number;
 }
 
-export interface LoadOption {
+export interface UploadOption {
+  type: 'cos';
   url: string;
-  plugins: string[];
+  limit: number;
 }

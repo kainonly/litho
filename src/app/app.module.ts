@@ -73,9 +73,10 @@ const routes: Routes = [
     {
       provide: NZ_CONFIG,
       useValue: <NzConfig>{
+        notification: { nzPlacement: 'bottomRight' },
         card: { nzBordered: false },
         codeEditor: {
-          assetsRoot: `https://cdn.kainonly.com/npm/monaco-editor@0.40.0/min`
+          assetsRoot: `${environment.cdn}/npm/monaco-editor@0.40.0/min`
         }
       }
     }

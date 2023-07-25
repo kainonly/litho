@@ -1,9 +1,15 @@
 import { HttpClient, HttpResponse } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, signal } from '@angular/core';
 import { Observable, Subscription, switchMap, timer } from 'rxjs';
+import { map } from 'rxjs/operators';
+
+import { User } from '@common/models/user';
+import { SetUserDto, UnsetUserDto } from '@common/types';
+import { AnyDto } from '@weplanx/ng';
 
 @Injectable({ providedIn: 'root' })
 export class AppService {
+  user = signal<AnyDto<User> | null>(null);
   private refreshTokenSubscription?: Subscription;
 
   constructor(private http: HttpClient) {}
@@ -52,5 +58,22 @@ export class AppService {
 
   logout(): Observable<any> {
     return this.http.post('logout', {});
+  }
+
+  getUser(): Observable<AnyDto<User>> {
+    return this.http.get<AnyDto<User>>('user').pipe(
+      map(v => {
+        this.user.set(v);
+        return v;
+      })
+    );
+  }
+
+  setUser(data: SetUserDto): Observable<any> {
+    return this.http.post('user', data);
+  }
+
+  unsetUser(data: UnsetUserDto): Observable<any> {
+    return this.http.delete(`user/${data}`);
   }
 }

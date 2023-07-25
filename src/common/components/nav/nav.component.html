@@ -13,9 +13,14 @@
   </nz-col>
   <nz-col></nz-col>
   <nz-col>
-    <div class="center">
+    <div class="center" *ngIf="app.user() as u">
       <nz-badge nzDot>
-        <nz-avatar nzText="KAIN" [nzShape]="'square'"></nz-avatar>
+        <ng-container *ngIf="u.avatar; else iconAvatarRef">
+          <nz-avatar nzIcon="user" [nzSrc]="[u.avatar] | wpxAssets" [nzShape]="'square'"></nz-avatar>
+        </ng-container>
+        <ng-template #iconAvatarRef>
+          <nz-avatar nzIcon="user" [nzShape]="'square'"></nz-avatar>
+        </ng-template>
       </nz-badge>
     </div>
   </nz-col>

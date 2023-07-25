@@ -20,7 +20,7 @@
     [nzVirtualItemSize]="wpxItemSize"
     [nzVirtualMinBufferPx]="wpxItemSize * 10"
     [nzVirtualMaxBufferPx]="wpxItemSize * 15"
-    [nzScroll]="{ y: y() + 'px', x: '1200px' }"
+    [nzScroll]="scroll()"
     (nzPageIndexChange)="wpxChange.emit()"
     (nzPageSizeChange)="wpxChange.emit()"
   >
@@ -43,7 +43,7 @@
             [nzPreview]="resizable"
             [nzMaxWidth]="420"
             [nzMinWidth]="100"
-            [nzWidth]="column.width ?? '240px'"
+            [nzWidth]="column.width ?? null"
             [nzLeft]="isFirst ? '60px' : false"
             (nzResize)="resize($event, column)"
             (nzResizeEnd)="resizeEnd()"
@@ -77,7 +77,20 @@
                   *ngTemplateOutlet="column.render; context: { $implicit: data[column.key] }"
                 ></ng-container>
               </ng-container>
-              <ng-template #def>{{ data[column.key] }}</ng-template>
+              <ng-template #def [ngSwitch]="column.format">
+                <ng-container *ngSwitchCase="'status'">
+                  <ng-container *ngIf="data[column.key]; else isOff">
+                    <nz-badge nzStatus="processing" nzText="启用"></nz-badge>
+                  </ng-container>
+                  <ng-template #isOff>
+                    <nz-badge nzStatus="default" nzText="关闭"></nz-badge>
+                  </ng-template>
+                </ng-container>
+                <ng-container *ngSwitchCase="'date'">
+                  {{ data[column.key] | date: 'yyyy/MM/dd HH:mm:ss' }}
+                </ng-container>
+                <ng-container *ngSwitchDefault>{{ data[column.key] }}</ng-container>
+              </ng-template>
             </td>
           </ng-container>
         </tr>
