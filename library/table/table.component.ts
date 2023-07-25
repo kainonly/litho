@@ -11,10 +11,12 @@ import {
   OnInit,
   Output,
   signal,
+  TemplateRef,
   ViewChild
 } from '@angular/core';
 
-import { AnyDto, WpxModel, WpxStoreService } from '@weplanx/ng';
+import { Any, AnyDto, WpxModel, WpxStoreService } from '@weplanx/ng';
+import { NzCardComponent } from 'ng-zorro-antd/card';
 import { NzContextMenuService, NzDropdownMenuComponent } from 'ng-zorro-antd/dropdown';
 import { NzResizeEvent } from 'ng-zorro-antd/resizable';
 import { NzTableComponent } from 'ng-zorro-antd/table';
@@ -24,17 +26,19 @@ import { Column, Preferences, Scroll, WpxColumn } from './types';
 @Component({
   selector: 'wpx-table',
   templateUrl: './table.component.html',
-  styleUrls: ['./table.component.scss'],
+  styleUrls: ['./table.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class WpxTableComponent<T> implements OnInit, AfterViewInit, OnDestroy {
-  @ViewChild('block', { read: ElementRef, static: true }) block!: ElementRef;
-  @ViewChild('box', { static: true }) box!: ElementRef;
-  @ViewChild('basicTable', { static: true }) basicTable!: NzTableComponent<unknown>;
+  @ViewChild(NzCardComponent, { read: ElementRef, static: true }) card!: ElementRef;
+  @ViewChild(NzTableComponent, { read: ElementRef, static: true }) basicTable!: ElementRef;
 
   @Input({ required: true }) wpxModel!: WpxModel<T>;
   @Input({ required: true }) wpxColumns!: WpxColumn<T>[];
+  @Input({ required: true }) wpxTitle!: TemplateRef<Any>;
+  @Input({ required: true }) wpxExtra!: TemplateRef<Any>;
   @Input({ required: true }) wpxItemSize!: number;
+
   @Input() wpxX?: string;
   @Input() wpxOffset = 0;
   @Input() wpxActions?: NzDropdownMenuComponent;
@@ -68,23 +72,27 @@ export class WpxTableComponent<T> implements OnInit, AfterViewInit, OnDestroy {
             const x = data.get(v.key as string);
             return {
               ...v,
-              width: x!.width,
-              display: x!.display,
-              sort: x!.sort
+              width: x?.width,
+              display: x?.display,
+              sort: x?.sort
             };
           })
-          .sort((a, b) => a.sort! - b.sort!)
+          .sort((a, b) => (a.sort as number) - (b.sort as number))
       ];
     });
     this.resizeObserver = new ResizeObserver(entries => {
       for (const entry of entries) {
-        this.calculate(entry.contentRect.height);
+        const { height } = entry.contentRect;
+        this.scroll.set({
+          x: this.wpxX ?? this.basicTable.nativeElement.offsetWidth + 'px',
+          y: height - this.wpxItemSize - 180 + 'px'
+        });
       }
     });
   }
 
   ngAfterViewInit(): void {
-    this.resizeObserver.observe(this.block.nativeElement);
+    this.resizeObserver.observe(this.card.nativeElement);
   }
 
   ngOnDestroy(): void {
@@ -98,13 +106,6 @@ export class WpxTableComponent<T> implements OnInit, AfterViewInit, OnDestroy {
         display: true
       }))
     ];
-  }
-
-  private calculate(height: number): void {
-    this.scroll.set({
-      x: this.wpxX ?? this.box.nativeElement.offsetWidth + 'px',
-      y: height - this.box.nativeElement.offsetHeight - this.wpxItemSize - 112 + 'px'
-    });
   }
 
   clearSelections(): void {
