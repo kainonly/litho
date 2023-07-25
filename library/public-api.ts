@@ -4,6 +4,7 @@ export * from './wpx-store.service';
 export * from './wpx.module';
 export * from './share.module';
 export * from './utils/api';
+export * from './utils/list';
 export * from './utils/model';
 export * from './utils/helper';
 export * from './directives/submit.directive';

@@ -2,7 +2,7 @@
   <nz-space>
     <nz-input-group *nzSpaceItem style="width: 220px" nzSuffixIcon="search">
       <input
-        [(ngModel)]="searchText"
+        [(ngModel)]="list.searchText"
         (ngModelChange)="getData(500)"
         type="text"
         nz-input
@@ -27,15 +27,15 @@
 </ng-template>
 
 <ng-template #extraRef>
-  <!--  <button nz-button nzType="primary" nzDanger (click)="bulkDelete()" [disabled]="checkedIds.size === 0" i18n>-->
-  <!--    选中 {{ checkedIds.size }} 可中断-->
-  <!--  </button>-->
+  <button nz-button nzType="primary" nzDanger (click)="bulkDelete()" [disabled]="list.selection.size === 0" i18n>
+    选中 {{ list.selection.size }} 可中断
+  </button>
 </ng-template>
 
 <nz-card style="height: 100%" [nzTitle]="titleRef" [nzExtra]="extraRef">
   <nz-table
-    [nzData]="items"
-    [nzLoading]="loading"
+    [nzData]="list.data"
+    [nzLoading]="list.loading"
     [nzFrontPagination]="false"
     [nzShowPagination]="false"
     [nzVirtualItemSize]="56"
@@ -45,15 +45,26 @@
   >
     <thead>
       <tr>
-        <!--        <th nzWidth="60px" nzLeft nzAlign="center"> </th>-->
+        <th
+          nzWidth="60px"
+          nzLeft
+          nzAlign="center"
+          [nzChecked]="list.checked"
+          [nzIndeterminate]="list.indeterminate"
+          (nzCheckedChange)="list.setCurrentSelections($event)"
+        >
+        </th>
         <th nzWidth="320px"><b i18n>用户</b></th>
         <th><b i18n>详情</b></th>
       </tr>
     </thead>
     <tbody>
       <tr *nz-virtual-scroll="let data" (contextmenu)="openActions($event, actions, data)">
-        <!--        <td nzAlign="center" [nzChecked]="checkedIds.has(data._id)" (nzCheckedChange)="setChecked(data._id, $event)">-->
-        <!--        </td>-->
+        <td
+          [nzChecked]="list.selection.has(data['_id'])"
+          (nzCheckedChange)="$event ? list.setSelection(data) : list.removeSelection(data['_id'])"
+        >
+        </td>
         <td>
           <ng-container *ngIf="app.user()?.email === data.email">
             <nz-tag nzColor="success" i18n>本人</nz-tag>
@@ -82,18 +93,6 @@
 
 <nz-dropdown-menu #actions="nzDropdownMenu">
   <ul *ngIf="actived" nz-menu>
-    <li nz-menu-item nzDanger (click)="delete(actived._id)" i18n>中断会话</li>
+    <li nz-menu-item nzDanger (click)="delete(actived)" i18n>中断会话</li>
   </ul>
 </nz-dropdown-menu>
-
-<!--<button-->
-<!--  nz-button-->
-<!--  nzType="text"-->
-<!--  nz-tooltip="中断会话"-->
-<!--  i18n-nz-tooltip-->
-<!--  nz-popconfirm="您确定要中断这个会话吗？"-->
-<!--  i18n-nz-popconfirm-->
-<!--  (nzOnConfirm)="delete(data._id)"-->
-<!--&gt;-->
-<!--  <i nz-icon nzType="disconnect"></i>-->
-<!--</button>-->

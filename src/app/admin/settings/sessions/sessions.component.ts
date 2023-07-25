@@ -5,7 +5,7 @@ import { switchMap } from 'rxjs/operators';
 import { AppService } from '@app';
 import { User } from '@common/models/user';
 import { UsersService } from '@common/services/users.service';
-import { AnyDto } from '@weplanx/ng';
+import { AnyDto, WpxList } from '@weplanx/ng';
 import { NzCardComponent } from 'ng-zorro-antd/card';
 import { NzContextMenuService, NzDropdownMenuComponent } from 'ng-zorro-antd/dropdown';
 import { NzMessageService } from 'ng-zorro-antd/message';
@@ -20,14 +20,11 @@ import { SessionsService } from './sessions.service';
 export class SessionsComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild(NzCardComponent, { read: ElementRef, static: true }) card!: ElementRef;
 
-  searchText = '';
-  items: Array<AnyDto<User>> = [];
-  loading = false;
+  list = new WpxList<AnyDto<User>>('_id');
   interval = 15;
   actived?: AnyDto<User>;
 
   y = '0px';
-
   private refresh!: Subscription;
   private resizeObserver!: ResizeObserver;
 
@@ -78,10 +75,10 @@ export class SessionsComponent implements OnInit, AfterViewInit, OnDestroy {
         )
       )
       .subscribe(({ data }) => {
-        this.items = [
+        this.list.data = [
           ...data.filter(v => {
-            if (this.searchText !== '') {
-              return !!v.email.match(`^${this.searchText}`);
+            if (this.list.searchText !== '') {
+              return !!v.email.match(`^${this.list.searchText}`);
             }
             return v;
           })
@@ -91,7 +88,7 @@ export class SessionsComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   clearSearch(): void {
-    this.searchText = '';
+    this.list.searchText = '';
     this.getData();
   }
 
@@ -100,9 +97,15 @@ export class SessionsComponent implements OnInit, AfterViewInit, OnDestroy {
     this.contextMenu.create($event, menu);
   }
 
-  delete(id: string): void {
-    this.sessions.delete(id).subscribe(() => {
-      this.message.success($localize`会话已中断`);
+  delete(doc: AnyDto<User>): void {
+    this.modal.confirm({
+      nzTitle: `您确定要中断【${doc.email}】的会话吗？`,
+      nzOkDanger: true,
+      nzOnOk: () => {
+        this.sessions.delete(doc._id).subscribe(() => {
+          this.message.success($localize`会话已中断`);
+        });
+      }
     });
   }
 
