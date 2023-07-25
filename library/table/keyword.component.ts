@@ -5,10 +5,14 @@ import { WpxModel } from '@weplanx/ng';
 @Component({
   selector: 'wpx-keyword',
   template: `
-    <nz-input-group nzSuffixIcon="search" nz-tooltip="键盘 Enter 开始搜索" nzTooltipTrigger="focus">
+    <nz-input-group
+      [ngStyle]="{ width: wpxWidth + 'px' }"
+      nzSuffixIcon="search"
+      nz-tooltip="键盘 Enter 开始搜索"
+      nzTooltipTrigger="focus"
+    >
       <input
         nz-input
-        [ngStyle]="{ width: wpxWidth + 'px' }"
         [placeholder]="wpxPlaceholder"
         [(ngModel)]="wpxModel.searchText"
         [disabled]="wpxModel.advanced()"
@@ -20,7 +24,7 @@ import { WpxModel } from '@weplanx/ng';
 export class WpxKeywordComponent<T> {
   @Input({ required: true }) wpxModel!: WpxModel<T>;
   @Input({ required: true }) wpxKeys!: string[];
-  @Input() wpxWidth = 180;
+  @Input() wpxWidth = 220;
   @Input() wpxPlaceholder = '关键词搜索';
   @Output() wpxSubmit = new EventEmitter<void>();
 

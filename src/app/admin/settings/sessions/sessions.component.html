@@ -1,6 +1,6 @@
-<ng-template #searchRef>
+<ng-template #titleRef>
   <nz-space>
-    <nz-input-group *nzSpaceItem style="width: 180px" nzSuffixIcon="search">
+    <nz-input-group *nzSpaceItem style="width: 220px" nzSuffixIcon="search">
       <input
         [(ngModel)]="searchText"
         (ngModelChange)="getData(500)"
@@ -10,7 +10,7 @@
         i18n-placeholder
       />
     </nz-input-group>
-    <nz-select *nzSpaceItem style="width: 180px" [(ngModel)]="interval" (ngModelChange)="getData(500)">
+    <nz-select *nzSpaceItem style="width: 220px" [(ngModel)]="interval" (ngModelChange)="getData(500)">
       <nz-option [nzValue]="15" nzLabel="每 15s 刷新" i18n-nzLabel></nz-option>
       <nz-option [nzValue]="30" nzLabel="每 30s 刷新" i18n-nzLabel></nz-option>
       <nz-option [nzValue]="60" nzLabel="每 60s 刷新" i18n-nzLabel></nz-option>
@@ -26,38 +26,34 @@
   </nz-space>
 </ng-template>
 
-<ng-template #actions>
-  <button nz-button nzType="primary" nzDanger (click)="bulkDelete()" [disabled]="checkedIds.size === 0" i18n>
-    选中 {{ checkedIds.size }} 可中断
-  </button>
+<ng-template #extraRef>
+  <!--  <button nz-button nzType="primary" nzDanger (click)="bulkDelete()" [disabled]="checkedIds.size === 0" i18n>-->
+  <!--    选中 {{ checkedIds.size }} 可中断-->
+  <!--  </button>-->
 </ng-template>
 
-<nz-card [nzTitle]="searchRef" [nzExtra]="actions">
-  <nz-table #basicTable [nzData]="values" [nzHideOnSinglePage]="true">
+<nz-card style="height: 100%" [nzTitle]="titleRef" [nzExtra]="extraRef">
+  <nz-table
+    [nzData]="items"
+    [nzLoading]="loading"
+    [nzFrontPagination]="false"
+    [nzShowPagination]="false"
+    [nzVirtualItemSize]="56"
+    [nzVirtualMinBufferPx]="56 * 10"
+    [nzVirtualMaxBufferPx]="56 * 15"
+    [nzScroll]="{ y }"
+  >
     <thead>
       <tr>
-        <th
-          nzWidth="60px"
-          nzLeft
-          nzAlign="center"
-          [nzChecked]="checked"
-          [nzIndeterminate]="indeterminate"
-          (nzCheckedChange)="setNChecked($event)"
-        >
-        </th>
+        <!--        <th nzWidth="60px" nzLeft nzAlign="center"> </th>-->
         <th nzWidth="320px"><b i18n>用户</b></th>
         <th><b i18n>详情</b></th>
-        <th nzWidth="60px" nzRight nzAlign="center">
-          <button nz-button nzType="text" nzBlock disabled>
-            <i nz-icon nzType="setting"></i>
-          </button>
-        </th>
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let data of basicTable.data">
-        <td nzAlign="center" [nzChecked]="checkedIds.has(data._id)" (nzCheckedChange)="setChecked(data._id, $event)">
-        </td>
+      <tr *nz-virtual-scroll="let data" (contextmenu)="openActions($event, actions, data)">
+        <!--        <td nzAlign="center" [nzChecked]="checkedIds.has(data._id)" (nzCheckedChange)="setChecked(data._id, $event)">-->
+        <!--        </td>-->
         <td>
           <ng-container *ngIf="app.user()?.email === data.email">
             <nz-tag nzColor="success" i18n>本人</nz-tag>
@@ -79,20 +75,25 @@
             <span *nzSpaceItem i18n>{{ !history.isp ? '未知' : history.isp }}</span>
           </nz-space>
         </td>
-        <td nzAlign="center">
-          <button
-            nz-button
-            nzType="text"
-            nz-tooltip="中断会话"
-            i18n-nz-tooltip
-            nz-popconfirm="您确定要中断这个会话吗？"
-            i18n-nz-popconfirm
-            (nzOnConfirm)="delete(data._id)"
-          >
-            <i nz-icon nzType="disconnect"></i>
-          </button>
-        </td>
       </tr>
     </tbody>
   </nz-table>
 </nz-card>
+
+<nz-dropdown-menu #actions="nzDropdownMenu">
+  <ul *ngIf="actived" nz-menu>
+    <li nz-menu-item nzDanger (click)="delete(actived._id)" i18n>中断会话</li>
+  </ul>
+</nz-dropdown-menu>
+
+<!--<button-->
+<!--  nz-button-->
+<!--  nzType="text"-->
+<!--  nz-tooltip="中断会话"-->
+<!--  i18n-nz-tooltip-->
+<!--  nz-popconfirm="您确定要中断这个会话吗？"-->
+<!--  i18n-nz-popconfirm-->
+<!--  (nzOnConfirm)="delete(data._id)"-->
+<!--&gt;-->
+<!--  <i nz-icon nzType="disconnect"></i>-->
+<!--</button>-->

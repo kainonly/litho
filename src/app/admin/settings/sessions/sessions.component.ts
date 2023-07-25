@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Subscription, timer } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 
@@ -6,6 +6,8 @@ import { AppService } from '@app';
 import { User } from '@common/models/user';
 import { UsersService } from '@common/services/users.service';
 import { AnyDto } from '@weplanx/ng';
+import { NzCardComponent } from 'ng-zorro-antd/card';
+import { NzContextMenuService, NzDropdownMenuComponent } from 'ng-zorro-antd/dropdown';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalService } from 'ng-zorro-antd/modal';
 
@@ -15,61 +17,77 @@ import { SessionsService } from './sessions.service';
   selector: 'app-admin-settings-sessions',
   templateUrl: './sessions.component.html'
 })
-export class SessionsComponent implements OnInit, OnDestroy {
-  values: Array<AnyDto<User>> = [];
-  interval = 15;
-  searchText = '';
-  readonly checkedIds: Set<string> = new Set<string>();
-  checked = false;
-  indeterminate = false;
+export class SessionsComponent implements OnInit, AfterViewInit, OnDestroy {
+  @ViewChild(NzCardComponent, { read: ElementRef, static: true }) card!: ElementRef;
 
-  private dataSubscription!: Subscription;
+  searchText = '';
+  items: Array<AnyDto<User>> = [];
+  loading = false;
+  interval = 15;
+  actived?: AnyDto<User>;
+
+  y = '0px';
+
+  private refresh!: Subscription;
+  private resizeObserver!: ResizeObserver;
 
   constructor(
     public app: AppService,
     private sessions: SessionsService,
     private users: UsersService,
     private message: NzMessageService,
-    private modal: NzModalService
+    private modal: NzModalService,
+    private contextMenu: NzContextMenuService
   ) {}
 
   ngOnInit(): void {
     this.getData();
+    this.resizeObserver = new ResizeObserver(entries => {
+      for (const entry of entries) {
+        const { height } = entry.contentRect;
+        this.y = height - 180 + 'px';
+      }
+    });
+  }
+
+  ngAfterViewInit(): void {
+    this.resizeObserver.observe(this.card.nativeElement);
   }
 
   ngOnDestroy(): void {
-    this.dataSubscription.unsubscribe();
+    this.resizeObserver.disconnect();
+    this.refresh.unsubscribe();
   }
 
   getData(due = 0): void {
-    // if (this.dataSubscription) {
-    //   this.dataSubscription.unsubscribe();
-    // }
-    // this.dataSubscription = timer(due, this.interval * 1000)
-    //   .pipe(
-    //     switchMap(() => this.sessions.get()),
-    //     switchMap(v =>
-    //       this.users.find(
-    //         {
-    //           _id: { $in: v }
-    //         },
-    //         {
-    //           xfilter: { '_id.$in': 'oids' }
-    //         }
-    //       )
-    //     )
-    //   )
-    //   .subscribe(v => {
-    //     this.values = [
-    //       ...v.filter(v => {
-    //         if (this.searchText !== '') {
-    //           return !!v.email.match(`^${this.searchText}`);
-    //         }
-    //         return v;
-    //       })
-    //     ];
-    //     console.debug(`session refreshed`);
-    //   });
+    if (this.refresh) {
+      this.refresh.unsubscribe();
+    }
+    this.refresh = timer(due, this.interval * 1000)
+      .pipe(
+        switchMap(() => this.sessions.get()),
+        switchMap(v =>
+          this.users.find(
+            {
+              _id: { $in: v }
+            },
+            {
+              xfilter: { '_id.$in': 'oids' }
+            }
+          )
+        )
+      )
+      .subscribe(({ data }) => {
+        this.items = [
+          ...data.filter(v => {
+            if (this.searchText !== '') {
+              return !!v.email.match(`^${this.searchText}`);
+            }
+            return v;
+          })
+        ];
+        console.debug(`session: refreshed`);
+      });
   }
 
   clearSearch(): void {
@@ -77,33 +95,9 @@ export class SessionsComponent implements OnInit, OnDestroy {
     this.getData();
   }
 
-  setCheckedIds(id: string, checked: boolean): void {
-    if (checked) {
-      this.checkedIds.add(id);
-    } else {
-      this.checkedIds.delete(id);
-    }
-  }
-
-  setChecked(id: string, checked: boolean): void {
-    this.setCheckedIds(id, checked);
-    this.updateCheckedStatus();
-  }
-
-  setNChecked(checked: boolean): void {
-    this.values.forEach(v => this.setCheckedIds(v._id!, checked));
-    this.updateCheckedStatus();
-  }
-
-  updateCheckedStatus(): void {
-    this.checked = this.values.every(v => this.checkedIds.has(v._id!));
-    this.indeterminate = this.values.some(v => this.checkedIds.has(v._id!)) && !this.checked;
-  }
-
-  clearChecked(): void {
-    this.checked = false;
-    this.indeterminate = false;
-    this.checkedIds.clear();
+  openActions($event: MouseEvent, menu: NzDropdownMenuComponent, data: AnyDto<User>): void {
+    this.actived = data;
+    this.contextMenu.create($event, menu);
   }
 
   delete(id: string): void {

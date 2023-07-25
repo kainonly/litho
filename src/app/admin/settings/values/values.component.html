@@ -1,8 +1,13 @@
 <ng-template #titleRef>
   <nz-space>
-    <nz-input-group *nzSpaceItem nzSuffixIcon="search" nz-tooltip="键盘 Enter 开始搜索" nzTooltipTrigger="focus">
+    <nz-input-group
+      *nzSpaceItem
+      style="width: 220px"
+      nzSuffixIcon="search"
+      nz-tooltip="键盘 Enter 开始搜索"
+      nzTooltipTrigger="focus"
+    >
       <input
-        style="width: 180px"
         [(ngModel)]="searchText"
         (keyup.enter)="getData()"
         type="text"
@@ -46,14 +51,12 @@
       </tr>
     </thead>
     <tbody>
-      <ng-container *nz-virtual-scroll="let data">
-        <tr (contextmenu)="openActions($event, actions, data)">
-          <td>{{ data.key }}</td>
-          <td nzBreakWord>
-            <code>{{ data.value }}</code>
-          </td>
-        </tr>
-      </ng-container>
+      <tr *nz-virtual-scroll="let data" (contextmenu)="openActions($event, actions, data)">
+        <td>{{ data.key }}</td>
+        <td nzBreakWord>
+          <code>{{ data.value }}</code>
+        </td>
+      </tr>
     </tbody>
   </nz-table>
 </nz-card>
