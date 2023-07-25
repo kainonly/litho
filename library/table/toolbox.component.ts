@@ -2,7 +2,6 @@ import { Component, EventEmitter, Input, Output, TemplateRef, ViewEncapsulation 
 import { FormGroup } from '@angular/forms';
 
 import { Any, WpxModel } from '@weplanx/ng';
-import { NzMessageService } from 'ng-zorro-antd/message';
 
 @Component({
   selector: 'wpx-toolbox',
@@ -62,8 +61,6 @@ export class WpxToolboxComponent<T> {
   @Output() wpxClear = new EventEmitter<void>();
   @Output() wpxRefresh = new EventEmitter<void>();
 
-  constructor(private message: NzMessageService) {}
-
   open(): void {
     if (this.wpxModel.advanced()) {
       this.close();
@@ -80,13 +77,11 @@ export class WpxToolboxComponent<T> {
     this.wpxModel.searchText = '';
     this.wpxModel.keywords = [];
     this.wpxModel.page = 1;
-    this.message.success('正在清除查询');
     this.wpxClear.emit();
   }
 
   refresh(): void {
     this.wpxModel.page = 1;
-    this.message.success('正在刷新数据');
     this.wpxRefresh.emit();
   }
 }

@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 
 import { AppService } from '@app';
+import { NzCardComponent } from 'ng-zorro-antd/card';
+import { NzContextMenuService, NzDropdownMenuComponent } from 'ng-zorro-antd/dropdown';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalService } from 'ng-zorro-antd/modal';
 
@@ -12,34 +14,52 @@ import { KeyValue } from './types';
   templateUrl: './values.component.html',
   styleUrls: ['./values.component.scss']
 })
-export class ValuesComponent implements OnInit {
-  values: KeyValue[] = [];
-  readonly checkedKeys: Set<string> = new Set<string>();
-  checked = false;
-  indeterminate = false;
-  checkedNumber = 0;
+export class ValuesComponent implements OnInit, AfterViewInit, OnDestroy {
+  @ViewChild(NzCardComponent, { read: ElementRef, static: true }) card!: ElementRef;
+
   searchText = '';
+  items: KeyValue[] = [];
+  loading = false;
+  actived?: KeyValue;
+
+  y = '0px';
+  private resizeObserver!: ResizeObserver;
 
   constructor(
     private app: AppService,
     private modal: NzModalService,
-    private message: NzMessageService
+    private message: NzMessageService,
+    private contextMenu: NzContextMenuService
   ) {}
 
   ngOnInit(): void {
     this.getData();
+    this.resizeObserver = new ResizeObserver(entries => {
+      for (const entry of entries) {
+        const { height } = entry.contentRect;
+        this.y = height - 180 + 'px';
+      }
+    });
+  }
+
+  ngAfterViewInit(): void {
+    this.resizeObserver.observe(this.card.nativeElement);
+  }
+
+  ngOnDestroy(): void {
+    this.resizeObserver.disconnect();
   }
 
   getData(): void {
+    this.loading = true;
     this.app.getValues().subscribe(data => {
-      this.values = [
+      this.items = [
         ...Object.entries(data)
-          .map(v => {
-            let [key, value] = v;
+          .map(([key, value]) => {
             switch (key) {
-              case 'resources':
-              case 'ip_blacklist':
-              case 'ip_whitelist':
+              case 'IpBlacklist':
+              case 'IpWhitelist':
+              case 'RestControls':
                 value = JSON.stringify(value);
                 break;
             }
@@ -52,6 +72,7 @@ export class ValuesComponent implements OnInit {
             return v.key.match(this.searchText);
           })
       ];
+      this.loading = false;
     });
   }
 
@@ -60,28 +81,9 @@ export class ValuesComponent implements OnInit {
     this.getData();
   }
 
-  setCheckedKeys(key: string, checked: boolean): void {
-    if (checked) {
-      this.checkedKeys.add(key);
-    } else {
-      this.checkedKeys.delete(key);
-    }
-  }
-
-  setChecked(key: string, checked: boolean): void {
-    this.setCheckedKeys(key, checked);
-    this.updateCheckedStatus();
-  }
-
-  setNChecked(checked: boolean): void {
-    this.values.forEach(v => this.setCheckedKeys(v.key!, checked));
-    this.updateCheckedStatus();
-  }
-
-  updateCheckedStatus(): void {
-    this.checked = this.values.every(v => this.checkedKeys.has(v.key));
-    this.indeterminate = this.values.some(v => this.checkedKeys.has(v.key)) && !this.checked;
-    this.checkedNumber = this.checkedKeys.size;
+  openActions($event: MouseEvent, menu: NzDropdownMenuComponent, data: KeyValue): void {
+    this.actived = data;
+    this.contextMenu.create($event, menu);
   }
 
   form(data?: KeyValue): void {

@@ -20,7 +20,7 @@
   align-items: center;
   justify-content: center;
 
-  span.right {
+  > span.right {
     background: #fff;
     border: 1px solid #ddd;
     text-align: center;

@@ -1,12 +1,10 @@
-<nz-card #block class="card" [ngStyle]="{ height: 'calc(100% - ' + (wpxModel.advanced() ? wpxOffset : 0) + 'px)' }">
-  <nz-row #box style="padding-bottom: 12px" nzJustify="space-between">
-    <nz-col><ng-content select="nz-space[wpxTitle]"></ng-content></nz-col>
-    <nz-col></nz-col>
-    <nz-col><ng-content select="nz-space[wpxExtra]"></ng-content></nz-col>
-  </nz-row>
-  <ng-template #totalRef let-total>共 {{ total }} 条记录</ng-template>
+<nz-card
+  class="card"
+  [ngStyle]="{ height: 'calc(100% - ' + (wpxModel.advanced() ? wpxOffset : 0) + 'px)' }"
+  [nzTitle]="wpxTitle"
+  [nzExtra]="wpxExtra"
+>
   <nz-table
-    #basicTable
     [nzData]="wpxModel.data()"
     [nzLoading]="wpxModel.loading()"
     [nzFrontPagination]="false"
@@ -97,6 +95,7 @@
       </ng-container>
     </tbody>
   </nz-table>
+  <ng-template #totalRef let-total>共 {{ total }} 条记录</ng-template>
 </nz-card>
 
 <nz-dropdown-menu #settingsMenu="nzDropdownMenu">

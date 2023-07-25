@@ -1,12 +1,13 @@
-<ng-template #searchRef>
+<ng-template #titleRef>
   <nz-space>
-    <nz-input-group *nzSpaceItem style="width: 180px" nzSuffixIcon="search">
+    <nz-input-group *nzSpaceItem nzSuffixIcon="search" nz-tooltip="键盘 Enter 开始搜索" nzTooltipTrigger="focus">
       <input
+        style="width: 180px"
         [(ngModel)]="searchText"
         (keyup.enter)="getData()"
         type="text"
         nz-input
-        placeholder="搜索"
+        placeholder="键名"
         i18n-placeholder
       />
     </nz-input-group>
@@ -21,53 +22,45 @@
   </nz-space>
 </ng-template>
 
-<ng-template #actions>
+<ng-template #extraRef>
   <nz-space>
     <button *nzSpaceItem nz-button nzType="primary" (click)="form()" i18n> 新增 </button>
   </nz-space>
 </ng-template>
 
-<nz-card [nzTitle]="searchRef" [nzExtra]="actions">
-  <nz-table #basicTable [nzShowSizeChanger]="true" [nzData]="values">
+<nz-card style="height: 100%" [nzTitle]="titleRef" [nzExtra]="extraRef">
+  <nz-table
+    [nzData]="items"
+    [nzLoading]="loading"
+    [nzFrontPagination]="false"
+    [nzShowPagination]="false"
+    [nzVirtualItemSize]="56"
+    [nzVirtualMinBufferPx]="56 * 10"
+    [nzVirtualMaxBufferPx]="56 * 15"
+    [nzScroll]="{ y }"
+  >
     <thead>
       <tr>
-        <th
-          nzWidth="60px"
-          nzLeft
-          nzAlign="center"
-          [nzChecked]="checked"
-          [nzIndeterminate]="indeterminate"
-          (nzCheckedChange)="setNChecked($event)"
-        >
-        </th>
         <th nzWidth="320px"><b i18n>键名</b></th>
         <th><b i18n>键值</b></th>
-        <th nzWidth="60px" nzRight nzAlign="center">
-          <button nz-button nzType="text" nzBlock disabled>
-            <i nz-icon nzType="setting"></i>
-          </button>
-        </th>
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let data of basicTable.data">
-        <td nzLeft [nzChecked]="checkedKeys.has(data['key'])" (nzCheckedChange)="setChecked(data['key'], $event)"></td>
-        <td>{{ data.key }}</td>
-        <td nzBreakWord>
-          <code>{{ data.value }}</code>
-        </td>
-        <td nzRight nzAlign="center">
-          <button nz-button nzType="text" nz-dropdown [nzDropdownMenu]="actions">
-            <i nz-icon nzType="ellipsis"></i>
-          </button>
-          <nz-dropdown-menu #actions="nzDropdownMenu">
-            <ul nz-menu>
-              <li nz-menu-item (click)="form(data)" i18n>编辑</li>
-              <li nz-menu-item nzDanger (click)="delete(data.key)" i18n>删除</li>
-            </ul>
-          </nz-dropdown-menu>
-        </td>
-      </tr>
+      <ng-container *nz-virtual-scroll="let data">
+        <tr (contextmenu)="openActions($event, actions, data)">
+          <td>{{ data.key }}</td>
+          <td nzBreakWord>
+            <code>{{ data.value }}</code>
+          </td>
+        </tr>
+      </ng-container>
     </tbody>
   </nz-table>
 </nz-card>
+
+<nz-dropdown-menu #actions="nzDropdownMenu">
+  <ul *ngIf="actived" nz-menu>
+    <li nz-menu-item (click)="form(actived)" i18n>编辑</li>
+    <li nz-menu-item nzDanger (click)="delete(actived.key)" i18n>删除</li>
+  </ul>
+</nz-dropdown-menu>

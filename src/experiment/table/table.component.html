@@ -1,5 +1,66 @@
+<ng-template #titleRef>
+  <nz-space>
+    <wpx-keyword
+      *nzSpaceItem
+      [wpxModel]="model"
+      [wpxKeys]="['no', 'name', 'account']"
+      (wpxSubmit)="getData()"
+      wpxPlaceholder="订单号、姓名、账户"
+    ></wpx-keyword>
+    <wpx-toolbox *nzSpaceItem [wpxModel]="model" [wpxSearchForm]="form" (wpxClear)="clear()" (wpxRefresh)="getData()">
+      <form *ngIf="form" nz-form id="search" [formGroup]="form" (wpxSubmit)="search($event)">
+        <nz-row [nzGutter]="[16, 16]">
+          <nz-col [nzSpan]="6">
+            <nz-form-item>
+              <nz-form-label>订单号</nz-form-label>
+              <nz-form-control>
+                <input nz-input formControlName="no" />
+              </nz-form-control>
+            </nz-form-item>
+          </nz-col>
+          <nz-col [nzSpan]="6">
+            <nz-form-item>
+              <nz-form-label>姓名</nz-form-label>
+              <nz-form-control>
+                <input nz-input formControlName="name" />
+              </nz-form-control>
+            </nz-form-item>
+          </nz-col>
+          <nz-col [nzSpan]="6">
+            <nz-form-item>
+              <nz-form-label>账户</nz-form-label>
+              <nz-form-control>
+                <input nz-input formControlName="account" />
+              </nz-form-control>
+            </nz-form-item>
+          </nz-col>
+        </nz-row>
+      </form>
+    </wpx-toolbox>
+  </nz-space>
+</ng-template>
+
+<ng-template #extraRef>
+  <nz-space>
+    <ng-container *ngIf="model.selection.size as size">
+      <button *nzSpaceItem nz-button nzType="dashed" nz-dropdown [nzDropdownMenu]="menu"> 已选中 {{ size }} 项 </button>
+      <nz-dropdown-menu #menu="nzDropdownMenu">
+        <ul nz-menu>
+          <li nz-menu-item (click)="tb.clearSelections()"> 取消选择 </li>
+        </ul>
+        <ul nz-menu>
+          <li nz-menu-item nzDanger (click)="bulkDelete()"> 删除 </li>
+        </ul>
+      </nz-dropdown-menu>
+    </ng-container>
+    <button *nzSpaceItem nz-button nzType="primary" (click)="open()"> 新增 </button>
+  </nz-space>
+</ng-template>
+
 <wpx-table
   #tb
+  [wpxTitle]="titleRef"
+  [wpxExtra]="extraRef"
   [wpxModel]="model"
   [wpxColumns]="[
     {
@@ -46,69 +107,16 @@
     {
       title: '有效期',
       key: 'valid',
-      width: '300px',
+      width: '400px',
       render: validRef
     }
   ]"
-  [wpxItemSize]="50"
+  [wpxItemSize]="55"
   [wpxOffset]="310"
   [wpxX]="'1400px'"
   [wpxActions]="actions"
   (wpxChange)="getData()"
 >
-  <nz-space wpxTitle>
-    <wpx-keyword
-      *nzSpaceItem
-      [wpxModel]="model"
-      [wpxKeys]="['no', 'name', 'account']"
-      (wpxSubmit)="getData()"
-      wpxPlaceholder="订单号、姓名、账户"
-    ></wpx-keyword>
-    <wpx-toolbox *nzSpaceItem [wpxModel]="model" [wpxSearchForm]="form" (wpxClear)="clear()" (wpxRefresh)="getData()">
-      <form *ngIf="form" nz-form id="search" [formGroup]="form" (wpxSubmit)="search($event)">
-        <nz-row [nzGutter]="[16, 16]">
-          <nz-col [nzSpan]="6">
-            <nz-form-item>
-              <nz-form-label>订单号</nz-form-label>
-              <nz-form-control>
-                <input nz-input formControlName="no" />
-              </nz-form-control>
-            </nz-form-item>
-          </nz-col>
-          <nz-col [nzSpan]="6">
-            <nz-form-item>
-              <nz-form-label>姓名</nz-form-label>
-              <nz-form-control>
-                <input nz-input formControlName="name" />
-              </nz-form-control>
-            </nz-form-item>
-          </nz-col>
-          <nz-col [nzSpan]="6">
-            <nz-form-item>
-              <nz-form-label>账户</nz-form-label>
-              <nz-form-control>
-                <input nz-input formControlName="account" />
-              </nz-form-control>
-            </nz-form-item>
-          </nz-col>
-        </nz-row>
-      </form>
-    </wpx-toolbox>
-  </nz-space>
-  <nz-space wpxExtra>
-    <ng-container *ngIf="model.selection.size as size">
-      <button *nzSpaceItem nz-button nzType="dashed" nz-dropdown [nzDropdownMenu]="menu"> 已选中 {{ size }} 项 </button>
-      <nz-dropdown-menu #menu="nzDropdownMenu">
-        <ul nz-menu>
-          <li nz-menu-item (click)="tb.clearSelections()"> 取消选择 </li>
-        </ul>
-        <ul nz-menu>
-          <li nz-menu-item nzDanger (click)="bulkDelete()"> 删除 </li>
-        </ul>
-      </nz-dropdown-menu>
-    </ng-container>
-    <button *nzSpaceItem nz-button nzType="primary" (click)="open()"> 新增 </button>
-  </nz-space>
 </wpx-table>
 
 <nz-dropdown-menu #actions="nzDropdownMenu">
