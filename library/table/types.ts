@@ -1,12 +1,12 @@
 import { TemplateRef } from '@angular/core';
 
-import { Any, AnyDto } from '@weplanx/ng';
+import { AnyDto } from '@weplanx/ng';
 
 export type Scroll = { x?: string; y: string };
 export type Column<T> = {
   title: string;
-  key: keyof AnyDto<T>;
-  render?: TemplateRef<Any>;
+  key?: keyof AnyDto<T>;
+  render?: TemplateRef<{ $implicit: AnyDto<T> }>;
   width?: string;
   display?: boolean;
   ellipsis?: boolean;

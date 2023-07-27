@@ -1,5 +1,3 @@
-import { TemplateRef } from '@angular/core';
-
 export interface Order {
   no: string;
   name: string;

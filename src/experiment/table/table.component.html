@@ -106,9 +106,8 @@
     },
     {
       title: '有效期',
-      key: 'valid',
       width: '400px',
-      render: validRef
+      render: valid
     }
   ]"
   [wpxItemSize]="55"
@@ -118,6 +117,12 @@
   (wpxChange)="getData()"
 >
 </wpx-table>
+
+<ng-template #valid let-data>
+  <nz-tag *ngFor="let x of data.valid">
+    {{ x }}
+  </nz-tag>
+</ng-template>
 
 <nz-dropdown-menu #actions="nzDropdownMenu">
   <ul *ngIf="tb.actived as v" nz-menu>
@@ -129,9 +134,3 @@
     <li nz-menu-item nzDanger (click)="delete(v)"> 删除 </li>
   </ul>
 </nz-dropdown-menu>
-
-<ng-template #validRef let-data>
-  <nz-tag *ngFor="let x of data">
-    {{ x }}
-  </nz-tag>
-</ng-template>

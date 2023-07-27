@@ -71,9 +71,7 @@
           <ng-container *ngFor="let column of columns; first as isFirst">
             <td *ngIf="column.display" [nzLeft]="isFirst ? '60px' : false" [nzEllipsis]="column.ellipsis">
               <ng-container *ngIf="column.render; else def">
-                <ng-container
-                  *ngTemplateOutlet="column.render; context: { $implicit: data[column.key] }"
-                ></ng-container>
+                <ng-container *ngTemplateOutlet="column.render; context: setContext(data)"></ng-container>
               </ng-container>
               <ng-template #def [ngSwitch]="column.format">
                 <ng-container *ngSwitchCase="'status'">

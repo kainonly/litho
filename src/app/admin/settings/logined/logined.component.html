@@ -1,0 +1,26 @@
+<ng-template #titleRef></ng-template>
+<ng-template #extraRef></ng-template>
+
+<wpx-table
+  #basicTable
+  [wpxTitle]="titleRef"
+  [wpxExtra]="extraRef"
+  [wpxModel]="model"
+  [wpxColumns]="[
+    {
+      title: '时间',
+      key: 'timestamp',
+      width: '240px',
+      format: 'date'
+    },
+    {
+      title: '来源',
+      render: source
+    }
+  ]"
+  [wpxItemSize]="50"
+  [wpxOffset]="310"
+  (wpxChange)="getData()"
+>
+  <ng-template #source let-data> </ng-template>
+</wpx-table>

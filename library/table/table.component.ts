@@ -35,8 +35,8 @@ export class WpxTableComponent<T> implements OnInit, AfterViewInit, OnDestroy {
 
   @Input({ required: true }) wpxModel!: WpxModel<T>;
   @Input({ required: true }) wpxColumns!: WpxColumn<T>[];
-  @Input({ required: true }) wpxTitle!: TemplateRef<Any>;
-  @Input({ required: true }) wpxExtra!: TemplateRef<Any>;
+  @Input({ required: true }) wpxTitle!: TemplateRef<void>;
+  @Input({ required: true }) wpxExtra!: TemplateRef<void>;
   @Input({ required: true }) wpxItemSize!: number;
 
   @Input() wpxX?: string;
@@ -106,6 +106,10 @@ export class WpxTableComponent<T> implements OnInit, AfterViewInit, OnDestroy {
         display: true
       }))
     ];
+  }
+
+  setContext(data: Any): { $implicit: AnyDto<T> } {
+    return { $implicit: data };
   }
 
   clearSelections(): void {

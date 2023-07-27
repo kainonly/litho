@@ -49,6 +49,20 @@ const routes: Routes = [
           breadcrumb: $localize`扩展服务`
         }
       },
+      {
+        path: 'logined',
+        loadChildren: () => import('./logined/logined.module').then(m => m.LoginedModule),
+        data: {
+          breadcrumb: $localize`登录历史`
+        }
+      },
+      {
+        path: 'audit',
+        loadChildren: () => import('./audit/audit.module').then(m => m.AuditModule),
+        data: {
+          breadcrumb: $localize`审计日志`
+        }
+      },
       { path: '', redirectTo: 'security', pathMatch: 'full' }
     ]
   }

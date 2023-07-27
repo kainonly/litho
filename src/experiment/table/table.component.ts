@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 
 import { Any, AnyDto, Filter, WpxModel, WpxService } from '@weplanx/ng';
@@ -14,6 +14,8 @@ import { Order } from '../types';
   templateUrl: './table.component.html'
 })
 export class TableComponent implements OnInit {
+  @ViewChild('valid') valid!: TemplateRef<{ $implicit: AnyDto<Order> }>;
+
   model!: WpxModel<Order>;
   form!: FormGroup;
   filter: Filter<Order> = {};

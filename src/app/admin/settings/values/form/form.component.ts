@@ -56,7 +56,7 @@ export class FormComponent implements OnInit {
 
   submit(data: Any): void {
     switch (this.key) {
-      case 'resources':
+      case 'RestControls':
         data.value = JSON.parse(data.value);
         break;
     }

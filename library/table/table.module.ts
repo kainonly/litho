@@ -4,6 +4,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
 import { WpxModule } from '@weplanx/ng';
+import { NzBadgeModule } from 'ng-zorro-antd/badge';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzCardModule } from 'ng-zorro-antd/card';
 import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
@@ -22,7 +23,6 @@ import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
 import { WpxKeywordComponent } from './keyword.component';
 import { WpxTableComponent } from './table.component';
 import { WpxToolboxComponent } from './toolbox.component';
-import { NzBadgeModule } from 'ng-zorro-antd/badge';
 
 @NgModule({
   imports: [
