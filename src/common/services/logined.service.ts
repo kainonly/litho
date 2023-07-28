@@ -5,5 +5,5 @@ import { WpxApi } from '@weplanx/ng';
 
 @Injectable({ providedIn: 'root' })
 export class LoginedService extends WpxApi<Logined> {
-  protected override collection = 'logset_audit';
+  protected override collection = 'logset_logined';
 }

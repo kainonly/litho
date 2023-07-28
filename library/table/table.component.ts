@@ -17,6 +17,7 @@ import {
 
 import { Any, AnyDto, WpxModel, WpxStoreService } from '@weplanx/ng';
 import { NzCardComponent } from 'ng-zorro-antd/card';
+import { NzDrawerRef, NzDrawerService } from 'ng-zorro-antd/drawer';
 import { NzContextMenuService, NzDropdownMenuComponent } from 'ng-zorro-antd/dropdown';
 import { NzResizeEvent } from 'ng-zorro-antd/resizable';
 import { NzTableComponent } from 'ng-zorro-antd/table';
@@ -32,6 +33,9 @@ import { Column, Preferences, Scroll, WpxColumn } from './types';
 export class WpxTableComponent<T> implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild(NzCardComponent, { read: ElementRef, static: true }) card!: ElementRef;
   @ViewChild(NzTableComponent, { read: ElementRef, static: true }) basicTable!: ElementRef;
+  @ViewChild('settingsTitleRef') settingsTitleRef!: TemplateRef<Any>;
+  @ViewChild('settingsExtraRef') settingsExtraRef!: TemplateRef<Any>;
+  @ViewChild('settingsContentRef') settingsContentRef!: TemplateRef<Any>;
 
   @Input({ required: true }) wpxModel!: WpxModel<T>;
   @Input({ required: true }) wpxColumns!: WpxColumn<T>[];
@@ -45,7 +49,7 @@ export class WpxTableComponent<T> implements OnInit, AfterViewInit, OnDestroy {
   @Output() wpxChange = new EventEmitter<void>();
 
   columns: Column<T>[] = [];
-  settings = false;
+  settingsRef?: NzDrawerRef;
   resizable = false;
 
   actived?: AnyDto<T>;
@@ -57,6 +61,7 @@ export class WpxTableComponent<T> implements OnInit, AfterViewInit, OnDestroy {
   constructor(
     private store: WpxStoreService,
     private contextMenu: NzContextMenuService,
+    private drawer: NzDrawerService,
     private cdr: ChangeDetectorRef
   ) {}
 
@@ -142,7 +147,26 @@ export class WpxTableComponent<T> implements OnInit, AfterViewInit, OnDestroy {
   }
 
   openSettings(): void {
-    this.settings = true;
+    if (this.settingsRef) {
+      return;
+    }
+    this.settingsRef = this.drawer.create({
+      nzTitle: this.settingsTitleRef,
+      nzExtra: this.settingsExtraRef,
+      nzContent: this.settingsContentRef,
+      nzHeight: 200,
+      nzMask: false,
+      nzMaskClosable: false,
+      nzPlacement: 'bottom',
+      nzClosable: false
+    });
+  }
+
+  closeSettings(): void {
+    this.settingsRef?.close();
+    this.settingsRef = undefined;
+    this.resizable = false;
+    this.cdr.detectChanges();
   }
 
   drop(event: CdkDragDrop<string[]>) {
@@ -150,9 +174,8 @@ export class WpxTableComponent<T> implements OnInit, AfterViewInit, OnDestroy {
     this.updatePreferences();
   }
 
-  closeSettings(): void {
-    this.settings = false;
-    this.resizable = false;
+  resizableChange(): void {
+    this.cdr.detectChanges();
   }
 
   resize({ width }: NzResizeEvent, column: Column<T>): void {

@@ -1,6 +1,8 @@
 import { computed, signal } from '@angular/core';
 import { map, Observable } from 'rxjs';
 
+import { NzDrawerRef } from 'ng-zorro-antd/drawer';
+
 import { WpxApi } from './api';
 import { Any, AnyDto, Filter, FindResult, WpxModelStore, XFilter } from '../types';
 import { WpxStoreService } from '../wpx-store.service';
@@ -14,7 +16,7 @@ export class WpxModel<T> {
   pagesize = 20;
   private xfilter: XFilter = {};
 
-  advanced = signal<boolean>(false);
+  advanced = signal<NzDrawerRef | null>(null);
   searchText = '';
   keywords: Any[] = [];
 

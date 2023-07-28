@@ -4,6 +4,7 @@ import { WpxRetryDirective } from './directives/retry.directive';
 import { WpxSubmitDirective } from './directives/submit.directive';
 import { WpxUploadDirective } from './directives/upload.directive';
 import { WpxAssetsPipe } from './pipes/assets.pipe';
+import { WpxBlankPipe } from './pipes/blank.pipe';
 import { WpxEmptyPipe } from './pipes/empty.pipe';
 import { WpxJoinPipe } from './pipes/join.pipe';
 import { WpxMapPipe } from './pipes/map.pipe';
@@ -22,6 +23,7 @@ import { WpxSplitPipe } from './pipes/split.pipe';
     WpxObjectPipe,
     WpxMapPipe,
     WpxSortPipe,
+    WpxBlankPipe,
     WpxAssetsPipe
   ],
   exports: [
@@ -34,6 +36,7 @@ import { WpxSplitPipe } from './pipes/split.pipe';
     WpxObjectPipe,
     WpxMapPipe,
     WpxSortPipe,
+    WpxBlankPipe,
     WpxAssetsPipe
   ]
 })

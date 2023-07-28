@@ -15,7 +15,7 @@ import { WpxModel } from '@weplanx/ng';
         nz-input
         [placeholder]="wpxPlaceholder"
         [(ngModel)]="wpxModel.searchText"
-        [disabled]="wpxModel.advanced()"
+        [disabled]="!!wpxModel.advanced()"
         (keyup.enter)="submit()"
       />
     </nz-input-group>

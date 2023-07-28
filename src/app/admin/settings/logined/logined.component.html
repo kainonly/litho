@@ -1,5 +1,66 @@
-<ng-template #titleRef></ng-template>
-<ng-template #extraRef></ng-template>
+<ng-template #titleRef>
+  <wpx-toolbox [wpxModel]="model" [wpxSearchForm]="form" (wpxClear)="clear()" (wpxRefresh)="getData()">
+    <form *ngIf="form" nz-form nzLayout="vertical" id="search" [formGroup]="form" (wpxSubmit)="search($event)">
+      <nz-row [nzGutter]="[16, 16]">
+        <nz-col [nzSpan]="6">
+          <nz-form-item>
+            <nz-form-label>时间</nz-form-label>
+            <nz-form-control>
+              <nz-range-picker
+                [nzShowTime]="{ nzFormat: 'HH:mm' }"
+                nzFormat="yyyy-MM-dd HH:mm"
+                formControlName="timestamp"
+              ></nz-range-picker>
+            </nz-form-control>
+          </nz-form-item>
+        </nz-col>
+        <nz-col [nzSpan]="6">
+          <nz-form-item>
+            <nz-form-label>来源</nz-form-label>
+            <nz-form-control>
+              <nz-select formControlName="source" nzMode="multiple" nzAllowClear nzPlaceHolder="筛选登录来源">
+                <nz-option nzValue="email" nzLabel="电子邮件"></nz-option>
+                <nz-option nzValue="lark" nzLabel="Lark"></nz-option>
+              </nz-select>
+            </nz-form-control>
+          </nz-form-item>
+        </nz-col>
+        <nz-col [nzSpan]="6">
+          <nz-form-item>
+            <nz-form-label>用户</nz-form-label>
+            <nz-form-control>
+              <input nz-input formControlName="user_id" />
+            </nz-form-control>
+          </nz-form-item>
+        </nz-col>
+        <nz-col [nzSpan]="6">
+          <nz-form-item>
+            <nz-form-label>IP</nz-form-label>
+            <nz-form-control>
+              <input nz-input formControlName="client_ip" placeholder="筛选 IP 地址" />
+            </nz-form-control>
+          </nz-form-item>
+        </nz-col>
+      </nz-row>
+    </form>
+  </wpx-toolbox>
+</ng-template>
+<ng-template #extraRef>
+  <nz-space>
+    <ng-container *ngIf="model.selection.size as size">
+      <button *nzSpaceItem nz-button nzType="dashed" nz-dropdown [nzDropdownMenu]="menu"> 已选中 {{ size }} 项 </button>
+      <nz-dropdown-menu #menu="nzDropdownMenu">
+        <ul nz-menu>
+          <li nz-menu-item (click)="basicTable.clearSelections()"> 取消选择 </li>
+        </ul>
+        <ul nz-menu>
+          <li nz-menu-item> 导出 </li>
+        </ul>
+      </nz-dropdown-menu>
+    </ng-container>
+    <button *nzSpaceItem nz-button> 全部导出 </button>
+  </nz-space>
+</ng-template>
 
 <wpx-table
   #basicTable
@@ -15,12 +76,56 @@
     },
     {
       title: '来源',
+      width: '240px',
       render: source
+    },
+    {
+      title: '用户',
+      width: '240px',
+      render: user
+    },
+    {
+      title: '详情',
+      render: detail
     }
   ]"
+  wpxX="1400px"
   [wpxItemSize]="50"
   [wpxOffset]="310"
   (wpxChange)="getData()"
 >
-  <ng-template #source let-data> </ng-template>
+  <ng-template #source let-data>
+    <ng-container [ngSwitch]="data.metadata.source">
+      <ng-container *ngSwitchCase="'email'">电子邮件</ng-container>
+      <ng-container *ngSwitchCase="'lark'">Lark</ng-container>
+    </ng-container>
+  </ng-template>
+  <ng-template #user let-data>
+    <ng-container *ngIf="userKv && userKv.hasOwnProperty(data.metadata.user_id)">
+      <a *ngIf="userKv[data.metadata.user_id] as u" [nz-tooltip]="u.name">
+        {{ u.email }}
+        <span nz-icon nzType="select" nzTheme="outline"></span>
+      </a>
+    </ng-container>
+  </ng-template>
+  <ng-template #detail let-data>
+    <nz-space [nzSplit]="spaceSplit">
+      <a *nzSpaceItem>
+        {{ data.metadata.client_ip }}
+        <span nz-icon nzType="select" nzTheme="outline"></span>
+      </a>
+      <ng-container [ngSwitch]="data.metadata.version">
+        <ng-container *ngSwitchCase="'shuliancloud.v4'">
+          <span *nzSpaceItem>{{ data.detail.continent }}</span>
+          <span *nzSpaceItem>{{ data.detail.country | wpxBlank }}</span>
+          <span *nzSpaceItem>{{ data.detail.prov | wpxBlank }}</span>
+          <span *nzSpaceItem>{{ data.detail.isp | wpxBlank }}</span>
+        </ng-container>
+      </ng-container>
+    </nz-space>
+  </ng-template>
 </wpx-table>
+
+<ng-template #spaceSplit>
+  <nz-divider nzType="vertical"></nz-divider>
+</ng-template>

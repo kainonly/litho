@@ -1,8 +1,10 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
+import { Any } from '../types';
+
 @Pipe({ name: 'wpxMap' })
 export class WpxMapPipe implements PipeTransform {
-  transform(value: Map<any, any>, key: any): any {
+  transform(value: Map<Any, Any>, key: Any): Any {
     return value.get(key);
   }
 }

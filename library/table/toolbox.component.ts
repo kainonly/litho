@@ -1,7 +1,17 @@
-import { Component, EventEmitter, Input, Output, TemplateRef, ViewEncapsulation } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  Input,
+  Output,
+  TemplateRef,
+  ViewChild,
+  ViewEncapsulation
+} from '@angular/core';
 import { FormGroup } from '@angular/forms';
 
 import { Any, WpxModel } from '@weplanx/ng';
+import { NzDrawerService } from 'ng-zorro-antd/drawer';
 
 @Component({
   selector: 'wpx-toolbox',
@@ -18,27 +28,15 @@ import { Any, WpxModel } from '@weplanx/ng';
       </button>
     </nz-button-group>
 
-    <nz-drawer
-      *ngIf="wpxSearchForm"
-      [nzTitle]="!wpxSearchTitle ? '高级检索' : wpxSearchTitle"
-      [nzExtra]="searchBtnRef"
-      [nzHeight]="wpxSearchHeight"
-      [nzMask]="false"
-      [nzMaskClosable]="false"
-      [nzPlacement]="'bottom'"
-      [nzClosable]="false"
-      [nzVisible]="wpxModel.advanced()"
-    >
-      <ng-template #searchBtnRef>
-        <nz-space>
-          <button *nzSpaceItem nz-button nzType="primary" form="search" [disabled]="!wpxSearchForm.valid">查询</button>
-          <button *nzSpaceItem nz-button type="button" (click)="close()">关闭</button>
-        </nz-space>
-      </ng-template>
-      <ng-container *nzDrawerContent>
-        <ng-content></ng-content>
-      </ng-container>
-    </nz-drawer>
+    <ng-template #searchBtnRef>
+      <nz-space *ngIf="wpxSearchForm">
+        <button *nzSpaceItem nz-button nzType="primary" form="search" [disabled]="!wpxSearchForm.valid">查询</button>
+        <button *nzSpaceItem nz-button type="button" (click)="close()">关闭</button>
+      </nz-space>
+    </ng-template>
+    <ng-template #searchContentRef>
+      <ng-content></ng-content>
+    </ng-template>
   `,
   encapsulation: ViewEncapsulation.None,
   styles: [
@@ -51,9 +49,13 @@ import { Any, WpxModel } from '@weplanx/ng';
         pointer-events: auto;
       }
     `
-  ]
+  ],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class WpxToolboxComponent<T> {
+  @ViewChild('searchBtnRef') searchBtnRef!: TemplateRef<Any>;
+  @ViewChild('searchContentRef') searchContentRef!: TemplateRef<Any>;
+
   @Input({ required: true }) wpxModel!: WpxModel<T>;
   @Input() wpxSearchHeight = 340;
   @Input() wpxSearchForm?: FormGroup;
@@ -61,16 +63,30 @@ export class WpxToolboxComponent<T> {
   @Output() wpxClear = new EventEmitter<void>();
   @Output() wpxRefresh = new EventEmitter<void>();
 
+  constructor(private drawer: NzDrawerService) {}
+
   open(): void {
     if (this.wpxModel.advanced()) {
       this.close();
       return;
     }
-    this.wpxModel.advanced.set(true);
+    this.wpxModel.advanced.set(
+      this.drawer.create({
+        nzTitle: !this.wpxSearchTitle ? '高级检索' : this.wpxSearchTitle,
+        nzExtra: this.searchBtnRef,
+        nzContent: this.searchContentRef,
+        nzHeight: this.wpxSearchHeight,
+        nzMask: false,
+        nzMaskClosable: false,
+        nzPlacement: 'bottom',
+        nzClosable: false
+      })
+    );
   }
 
   close(): void {
-    this.wpxModel.advanced.set(false);
+    this.wpxModel.advanced()?.close();
+    this.wpxModel.advanced.set(null);
   }
 
   clear(): void {

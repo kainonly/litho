@@ -1,6 +1,6 @@
 <nz-card
   class="card"
-  [ngStyle]="{ height: 'calc(100% - ' + (wpxModel.advanced() ? wpxOffset : 0) + 'px)' }"
+  [ngStyle]="{ height: 'calc(100% - ' + (!wpxModel.advanced() ? 0 : wpxOffset) + 'px)' }"
   [nzTitle]="wpxTitle"
   [nzExtra]="wpxExtra"
 >
@@ -106,7 +106,7 @@
 </nz-dropdown-menu>
 
 <ng-template #settingsTitleRef>
-  <nz-switch nz-tooltip="自定义列宽度" [(ngModel)]="resizable">宽度</nz-switch>
+  <nz-switch nz-tooltip="自定义列宽度" [(ngModel)]="resizable" (ngModelChange)="resizableChange()">宽度</nz-switch>
 </ng-template>
 
 <ng-template #settingsExtraRef>
@@ -116,35 +116,24 @@
   </nz-space>
 </ng-template>
 
-<nz-drawer
-  [nzTitle]="settingsTitleRef"
-  [nzExtra]="settingsExtraRef"
-  [nzHeight]="200"
-  [nzMask]="false"
-  [nzMaskClosable]="false"
-  [nzPlacement]="'bottom'"
-  [nzClosable]="false"
-  [nzVisible]="settings"
->
-  <ng-container *nzDrawerContent>
-    <nz-checkbox-wrapper
-      cdkDropList
-      cdkDropListOrientation="horizontal"
-      style="width: 100%"
-      (cdkDropListDropped)="drop($event)"
-    >
-      <ng-container *ngFor="let column of columns">
-        <label
-          style="cursor: move"
-          cdkDrag
-          nz-checkbox
-          [(ngModel)]="column.display"
-          (ngModelChange)="updatePreferences()"
-        >
-          <span class="drag-placeholder" *cdkDragPlaceholder>{{ column.title }}</span>
-          <b>{{ column.title }}</b>
-        </label>
-      </ng-container>
-    </nz-checkbox-wrapper>
-  </ng-container>
-</nz-drawer>
+<ng-template #settingsContentRef>
+  <nz-checkbox-wrapper
+    cdkDropList
+    cdkDropListOrientation="horizontal"
+    style="width: 100%"
+    (cdkDropListDropped)="drop($event)"
+  >
+    <ng-container *ngFor="let column of columns">
+      <label
+        style="cursor: move"
+        cdkDrag
+        nz-checkbox
+        [(ngModel)]="column.display"
+        (ngModelChange)="updatePreferences()"
+      >
+        <span class="drag-placeholder" *cdkDragPlaceholder>{{ column.title }}</span>
+        <b>{{ column.title }}</b>
+      </label>
+    </ng-container>
+  </nz-checkbox-wrapper>
+</ng-template>
