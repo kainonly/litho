@@ -17,17 +17,6 @@
         </nz-col>
         <nz-col [nzSpan]="6">
           <nz-form-item>
-            <nz-form-label>来源</nz-form-label>
-            <nz-form-control>
-              <nz-select formControlName="source" nzMode="multiple" nzAllowClear nzPlaceHolder="筛选登录来源">
-                <nz-option nzValue="email" nzLabel="电子邮件"></nz-option>
-                <nz-option nzValue="lark" nzLabel="Lark"></nz-option>
-              </nz-select>
-            </nz-form-control>
-          </nz-form-item>
-        </nz-col>
-        <nz-col [nzSpan]="6">
-          <nz-form-item>
             <nz-form-label>用户</nz-form-label>
             <nz-form-control>
               <nz-select
@@ -45,6 +34,17 @@
                     {{ item.email }} [{{ item.name | wpxBlank: '无称呼' }}]
                   </nz-option>
                 </ng-container>
+              </nz-select>
+            </nz-form-control>
+          </nz-form-item>
+        </nz-col>
+        <nz-col [nzSpan]="6">
+          <nz-form-item>
+            <nz-form-label>来源</nz-form-label>
+            <nz-form-control>
+              <nz-select formControlName="source" nzMode="multiple" nzAllowClear nzPlaceHolder="筛选登录来源">
+                <nz-option nzValue="email" nzLabel="电子邮件"></nz-option>
+                <nz-option nzValue="lark" nzLabel="Lark"></nz-option>
               </nz-select>
             </nz-form-control>
           </nz-form-item>
@@ -103,14 +103,14 @@
       format: 'date'
     },
     {
-      title: '来源',
-      width: '120px',
-      render: source
-    },
-    {
       title: '用户',
       width: '240px',
       render: user
+    },
+    {
+      title: '来源',
+      width: '120px',
+      render: source
     },
     {
       title: '信息',
