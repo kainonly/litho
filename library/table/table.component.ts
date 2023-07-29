@@ -101,6 +101,7 @@ export class WpxTableComponent<T> implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
+    this.closeSettings();
     this.resizeObserver.disconnect();
   }
 

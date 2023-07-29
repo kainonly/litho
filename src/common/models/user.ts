@@ -1,3 +1,5 @@
+import { Logined } from '@common/models/logined';
+
 export interface User {
   email: string;
   password: string;
@@ -6,18 +8,9 @@ export interface User {
   avatar: string;
   backup_email?: string;
   sessions?: number;
-  history?: UserHistory;
+  history?: Logined;
   lark?: UserLark;
   status: boolean;
-}
-
-export interface UserHistory {
-  timestamp: Date;
-  client_ip: string;
-  country: string;
-  province: string;
-  city: string;
-  isp: string;
 }
 
 export interface UserLark {

@@ -3,6 +3,7 @@ import {
   Component,
   EventEmitter,
   Input,
+  OnDestroy,
   Output,
   TemplateRef,
   ViewChild,
@@ -52,7 +53,7 @@ import { NzDrawerService } from 'ng-zorro-antd/drawer';
   ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class WpxToolboxComponent<T> {
+export class WpxToolboxComponent<T> implements OnDestroy {
   @ViewChild('searchBtnRef') searchBtnRef!: TemplateRef<Any>;
   @ViewChild('searchContentRef') searchContentRef!: TemplateRef<Any>;
 
@@ -64,6 +65,10 @@ export class WpxToolboxComponent<T> {
   @Output() wpxRefresh = new EventEmitter<void>();
 
   constructor(private drawer: NzDrawerService) {}
+
+  ngOnDestroy(): void {
+    this.close();
+  }
 
   open(): void {
     if (this.wpxModel.advanced()) {

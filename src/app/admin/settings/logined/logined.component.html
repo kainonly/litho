@@ -7,6 +7,7 @@
             <nz-form-label>时间</nz-form-label>
             <nz-form-control>
               <nz-range-picker
+                style="width: 100%"
                 [nzShowTime]="{ nzFormat: 'HH:mm' }"
                 nzFormat="yyyy-MM-dd HH:mm"
                 formControlName="timestamp"
@@ -29,7 +30,22 @@
           <nz-form-item>
             <nz-form-label>用户</nz-form-label>
             <nz-form-control>
-              <input nz-input formControlName="user_id" />
+              <nz-select
+                style="width: 100%"
+                nzMode="multiple"
+                formControlName="user_id"
+                nzPlaceHolder="输入电子邮件、姓名"
+                nzAllowClear
+                nzShowSearch
+                nzServerSearch
+                (nzOnSearch)="searchUsers$.next($event)"
+              >
+                <ng-container *ngFor="let item of searchUserItems">
+                  <nz-option nzCustomContent [nzValue]="item._id" [nzLabel]="item.email">
+                    {{ item.email }} [{{ item.name | wpxBlank: '无称呼' }}]
+                  </nz-option>
+                </ng-container>
+              </nz-select>
             </nz-form-control>
           </nz-form-item>
         </nz-col>
@@ -37,7 +53,19 @@
           <nz-form-item>
             <nz-form-label>IP</nz-form-label>
             <nz-form-control>
-              <input nz-input formControlName="client_ip" placeholder="筛选 IP 地址" />
+              <nz-input-group [nzSuffix]="clear">
+                <input type="text" nz-input formControlName="client_ip" placeholder="筛选 IP 地址" />
+                <ng-template #clear>
+                  <span
+                    nz-icon
+                    class="ant-input-clear-icon"
+                    nzTheme="fill"
+                    nzType="close-circle"
+                    *ngIf="client_ip.value"
+                    (click)="client_ip.reset()"
+                  ></span>
+                </ng-template>
+              </nz-input-group>
             </nz-form-control>
           </nz-form-item>
         </nz-col>
@@ -71,12 +99,12 @@
     {
       title: '时间',
       key: 'timestamp',
-      width: '240px',
+      width: '200px',
       format: 'date'
     },
     {
       title: '来源',
-      width: '240px',
+      width: '120px',
       render: source
     },
     {
@@ -85,13 +113,19 @@
       render: user
     },
     {
-      title: '详情',
+      title: '信息',
+      width: '600px',
       render: detail
+    },
+    {
+      title: 'User Agent',
+      width: '600px',
+      render: userAgent
     }
   ]"
-  wpxX="1400px"
-  [wpxItemSize]="50"
+  [wpxItemSize]="80"
   [wpxOffset]="310"
+  wpxX="1400px"
   (wpxChange)="getData()"
 >
   <ng-template #source let-data>
@@ -101,8 +135,8 @@
     </ng-container>
   </ng-template>
   <ng-template #user let-data>
-    <ng-container *ngIf="userKv && userKv.hasOwnProperty(data.metadata.user_id)">
-      <a *ngIf="userKv[data.metadata.user_id] as u" [nz-tooltip]="u.name">
+    <ng-container *ngIf="userKv && userKv[data.metadata.user_id] as u">
+      <a [nz-tooltip]="u.name" (click)="openUserDetail(u)">
         {{ u.email }}
         <span nz-icon nzType="select" nzTheme="outline"></span>
       </a>
@@ -110,21 +144,90 @@
   </ng-template>
   <ng-template #detail let-data>
     <nz-space [nzSplit]="spaceSplit">
-      <a *nzSpaceItem>
-        {{ data.metadata.client_ip }}
-        <span nz-icon nzType="select" nzTheme="outline"></span>
-      </a>
+      <span *nzSpaceItem>{{ data.metadata.client_ip }}</span>
       <ng-container [ngSwitch]="data.metadata.version">
         <ng-container *ngSwitchCase="'shuliancloud.v4'">
-          <span *nzSpaceItem>{{ data.detail.continent }}</span>
-          <span *nzSpaceItem>{{ data.detail.country | wpxBlank }}</span>
-          <span *nzSpaceItem>{{ data.detail.prov | wpxBlank }}</span>
-          <span *nzSpaceItem>{{ data.detail.isp | wpxBlank }}</span>
+          <ng-container *ngIf="data.detail as detail">
+            <span *nzSpaceItem>{{ detail.isp | wpxBlank: '未知' }}</span>
+            <span *nzSpaceItem>{{ detail.country | wpxBlank: '未知' }}[{{ detail.continent }}]</span>
+            <span *nzSpaceItem>{{ detail.prov | wpxBlank: '未知' }}</span>
+            <span *nzSpaceItem>
+              {{ detail.city | wpxBlank: '未知' }}[{{ detail.lng | wpxBlank: '0' }},{{ detail.lat | wpxBlank: '0' }}]
+            </span>
+          </ng-container>
         </ng-container>
       </ng-container>
     </nz-space>
   </ng-template>
+  <ng-template #userAgent let-data>
+    <code>{{ data.user_agent }}</code>
+  </ng-template>
 </wpx-table>
+
+<nz-drawer
+  nzTitle="用户详情"
+  [nzWidth]="640"
+  [nzPlacement]="'right'"
+  [nzClosable]="false"
+  [nzVisible]="!!userDetail"
+  (nzOnClose)="closeUserDetail()"
+>
+  <ng-container *nzDrawerContent>
+    <nz-descriptions *ngIf="userDetail as u" nzBordered [nzColumn]="2">
+      <nz-descriptions-item nzTitle="ID" [nzSpan]="2">{{ u._id }}</nz-descriptions-item>
+      <nz-descriptions-item nzTitle="电子邮件">{{ u.email }}</nz-descriptions-item>
+      <nz-descriptions-item nzTitle="称呼">
+        <ng-container *ngIf="u.name; else noName">
+          {{ u.name }}
+        </ng-container>
+        <ng-template #noName> None </ng-template>
+      </nz-descriptions-item>
+      <nz-descriptions-item nzTitle="头像" [nzSpan]="2">{{ u.avatar }}</nz-descriptions-item>
+      <nz-descriptions-item nzTitle="状态" [nzSpan]="2">
+        <ng-container *ngIf="u.status; else isFalse">
+          <nz-badge nzStatus="processing"></nz-badge> <span i18n>开启</span>
+        </ng-container>
+        <ng-template #isFalse> <nz-badge nzStatus="default"></nz-badge> <span i18n>关闭</span> </ng-template>
+      </nz-descriptions-item>
+      <nz-descriptions-item nzTitle="累计会话" [nzSpan]="2">
+        <span i18n>
+          已登录 <b> {{ u.sessions }} </b> 次
+        </span>
+      </nz-descriptions-item>
+      <ng-container *ngIf="u.history as history">
+        <nz-descriptions-item nzTitle="最近登录时间" i18n-nzTitle [nzSpan]="2">
+          {{ history.timestamp | date: 'yyyy/MM/dd HH:mm:ss' }}
+        </nz-descriptions-item>
+        <nz-descriptions-item nzTitle="IP" [nzSpan]="2">
+          {{ history.metadata.client_ip }}
+        </nz-descriptions-item>
+        <ng-container [ngSwitch]="u.history.metadata.version">
+          <ng-container *ngSwitchCase="'shuliancloud.v4'">
+            <nz-descriptions-item nzTitle="位置" i18n-nzTitle [nzSpan]="2">
+              <nz-space *ngIf="u.history.detail as detail" [nzSplit]="spaceSplit">
+                <span *nzSpaceItem>{{ detail.country | wpxBlank: '未知' }}[{{ detail.continent }}]</span>
+                <span *nzSpaceItem>{{ detail.prov | wpxBlank: '未知' }}</span>
+                <span *nzSpaceItem>{{ detail.city | wpxBlank: '未知' }}[{{ detail.lng }},{{ detail.lat }}]</span>
+              </nz-space>
+            </nz-descriptions-item>
+            <nz-descriptions-item nzTitle="ISP" i18n-nzTitle [nzSpan]="2">
+              <nz-space *ngIf="u.history.detail as detail" [nzSplit]="spaceSplit">
+                <span *nzSpaceItem>{{ detail.isp }}</span>
+                <span *nzSpaceItem>{{ detail.timezone }}</span>
+              </nz-space>
+            </nz-descriptions-item>
+          </ng-container>
+        </ng-container>
+      </ng-container>
+      <nz-descriptions-item nzTitle="创建时间" i18n-nzTitle [nzSpan]="2">
+        {{ u.create_time | date: 'yyyy/MM/dd HH:mm' }}
+      </nz-descriptions-item>
+      <nz-descriptions-item nzTitle="更新时间" i18n-nzTitle [nzSpan]="2">
+        {{ u.update_time | date: 'yyyy/MM/dd HH:mm' }}
+      </nz-descriptions-item>
+    </nz-descriptions>
+  </ng-container>
+</nz-drawer>
 
 <ng-template #spaceSplit>
   <nz-divider nzType="vertical"></nz-divider>
