@@ -14,6 +14,9 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule, Routes } from '@angular/router';
 
+import { AuthorizedComponent } from '@common/components/result/authorized/authorized.component';
+import { ResultModule } from '@common/components/result/result.module';
+import { UnauthorizeComponent } from '@common/components/result/unauthorize/unauthorize.component';
 import { ShareModule } from '@common/share.module';
 import { environment } from '@env';
 import { NZ_CONFIG, NzConfig } from 'ng-zorro-antd/core/config';
@@ -31,6 +34,14 @@ const routes: Routes = [
   {
     path: 'login',
     loadChildren: () => import('./login/login.module').then(m => m.LoginModule)
+  },
+  {
+    path: 'unauthorize',
+    component: UnauthorizeComponent
+  },
+  {
+    path: 'authorized',
+    component: AuthorizedComponent
   },
   {
     path: '',
@@ -64,7 +75,8 @@ const routes: Routes = [
     NzMessageModule,
     NzMenuModule,
     ShareModule,
-    RouterModule.forRoot(routes, { useHash: true })
+    ResultModule,
+    RouterModule.forRoot(routes)
   ],
   providers: [
     provideHttpClient(withFetch(), withInterceptorsFromDi()),

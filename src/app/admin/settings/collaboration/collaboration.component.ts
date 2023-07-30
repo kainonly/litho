@@ -43,7 +43,7 @@ export class CollaborationComponent implements OnInit {
   }
 
   setLark(): void {
-    this.setModal($localize`Lark 设置`, LarkComponent);
+    this.setModal($localize`设置`, LarkComponent);
   }
 
   setLoginFree(): void {

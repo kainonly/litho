@@ -1,7 +1,7 @@
 import { Component, forwardRef, Input } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
-import { WpxService } from '@weplanx/ng';
+import { Any, WpxService } from '@weplanx/ng';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzUploadChangeParam } from 'ng-zorro-antd/upload';
 
@@ -32,15 +32,15 @@ export class WpxUploadAvatarComponent implements ControlValueAccessor {
     private message: NzMessageService
   ) {}
 
-  registerOnChange(fn: any): void {
+  registerOnChange(fn: Any): void {
     this.onChange = fn;
   }
 
-  registerOnTouched(fn: any): void {
+  registerOnTouched(fn: Any): void {
     this.onTouched = fn;
   }
 
-  writeValue(v: any): void {
+  writeValue(v: Any): void {
     this.url = v;
   }
 
@@ -50,8 +50,8 @@ export class WpxUploadAvatarComponent implements ControlValueAccessor {
       this.loading = true;
     }
     if (info.type === 'success') {
-      this.url = Reflect.get(info.file.originFileObj!, 'key');
-      this.onChange(this.url!);
+      this.url = Reflect.get(info.file.originFileObj as File, 'key');
+      this.onChange(this.url as string);
       this.loading = false;
       this.message.success(`上传成功`);
     }

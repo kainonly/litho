@@ -1,18 +1,21 @@
 import { HttpClient, HttpParams, HttpResponse } from '@angular/common/http';
-import { Injectable, signal } from '@angular/core';
+import { Inject, Injectable, LOCALE_ID, signal } from '@angular/core';
 import { Observable, Subscription, switchMap, timer } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { User } from '@common/models/user';
-import { SetUserDto, UnsetUserDto } from '@common/types';
-import { AnyDto, R } from '@weplanx/ng';
+import { CollaborationOption, SetUserDto, UnsetUserKey } from '@common/types';
+import { AnyDto, R, UploadOption } from '@weplanx/ng';
 
 @Injectable({ providedIn: 'root' })
 export class AppService {
   user = signal<AnyDto<User> | null>(null);
   private refreshTokenSubscription?: Subscription;
 
-  constructor(private http: HttpClient) {}
+  constructor(
+    private http: HttpClient,
+    @Inject(LOCALE_ID) private locale: string
+  ) {}
 
   ping(): Observable<R> {
     return this.http.get('');
@@ -60,6 +63,31 @@ export class AppService {
     return this.http.post('logout', {});
   }
 
+  getUploadOption(): Observable<UploadOption> {
+    return this.http.get<UploadOption>('options', {
+      params: { type: 'upload' }
+    });
+  }
+
+  getCollaborationOption(): Observable<CollaborationOption> {
+    return this.http.get<CollaborationOption>('options', {
+      params: { type: 'collaboration' }
+    });
+  }
+
+  oauth(action?: string): Observable<string> {
+    const state = JSON.stringify({
+      action,
+      locale: this.locale
+    });
+    return this.getCollaborationOption().pipe(
+      map(v => {
+        const redirect_uri = encodeURIComponent(v.redirect);
+        return `${v.url}?redirect_uri=${redirect_uri}&app_id=${v.app_id}&state=${state}`;
+      })
+    );
+  }
+
   getUser(): Observable<AnyDto<User>> {
     return this.http.get<AnyDto<User>>('user').pipe(
       map(v => {
@@ -73,8 +101,8 @@ export class AppService {
     return this.http.post('user', data);
   }
 
-  unsetUser(data: UnsetUserDto): Observable<R> {
-    return this.http.delete(`user/${data}`);
+  unsetUser(key: UnsetUserKey): Observable<R> {
+    return this.http.delete(`user/${key}`);
   }
 
   getValues(keys?: string[]): Observable<R> {

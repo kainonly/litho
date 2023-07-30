@@ -1,6 +1,6 @@
 import { Platform } from '@angular/cdk/platform';
 import { DOCUMENT } from '@angular/common';
-import { Inject, Injectable, Optional } from '@angular/core';
+import { Inject, Injectable, LOCALE_ID, Optional } from '@angular/core';
 import { AsyncSubject } from 'rxjs';
 
 import { UploadOption } from './types';
@@ -14,13 +14,19 @@ export class WpxService {
   upload: AsyncSubject<UploadOption> = new AsyncSubject();
 
   constructor(
+    @Inject(LOCALE_ID) private locale: string,
     @Optional() @Inject(DOCUMENT) private document: Document,
     @Optional() private platform: Platform,
     @Optional() private store: WpxStoreService
   ) {}
 
-  setAssets(url: string): void {
-    this.assets = url;
+  setAssets(v: string): void {
+    this.assets = v;
+  }
+
+  setUpload(v: UploadOption): void {
+    this.upload.next(v);
+    this.upload.complete();
   }
 
   setModel<T>(key: string, api: WpxApi<T>): WpxModel<T> {
@@ -31,7 +37,8 @@ export class WpxService {
     if (!this.platform.isBrowser) {
       return;
     }
-    const l = this.document.location;
-    this.document.location = `${l.origin}/${id}/${l.hash}`;
+    const location = this.document.location;
+    const path = location.pathname.replace(this.locale, id);
+    this.document.location = `${location.origin}/${path}`;
   }
 }

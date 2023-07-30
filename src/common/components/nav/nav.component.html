@@ -13,7 +13,14 @@
   </nz-col>
   <nz-col></nz-col>
   <nz-col>
-    <div class="center" *ngIf="app.user() as u">
+    <div
+      *ngIf="app.user() as u"
+      class="center"
+      nz-popover
+      [nzPopoverContent]="centerTpl"
+      nzPopoverPlacement="bottomRight"
+      nzPopoverTrigger="click"
+    >
       <nz-badge nzDot>
         <ng-container *ngIf="u.avatar; else iconAvatarRef">
           <nz-avatar nzIcon="user" [nzSrc]="[u.avatar] | wpxAssets" [nzShape]="'square'"></nz-avatar>
@@ -25,3 +32,29 @@
     </div>
   </nz-col>
 </nz-row>
+
+<ng-template #centerTpl>
+  <nz-tabset style="width: 360px" [nzTabBarExtraContent]="actions">
+    <ng-template #actions>
+      <nz-space>
+        <!--        <app-translation *nzSpaceItem [simple]="true"></app-translation>-->
+        <button *nzSpaceItem nz-button nzType="text" nz-tooltip="个人中心" i18n-nz-tooltip (click)="profile()">
+          <i nz-icon nzType="user"></i>
+        </button>
+        <button *nzSpaceItem nz-button nzType="text" nz-tooltip="退出" i18n-nz-tooltip (click)="logout()">
+          <i nz-icon nzType="logout"></i>
+        </button>
+      </nz-space>
+    </ng-template>
+    <nz-tab nzTitle="通知(0)" i18n-nzTitle>
+      <nz-list nzItemLayout="horizontal">
+        <nz-list-empty></nz-list-empty>
+      </nz-list>
+    </nz-tab>
+    <nz-tab nzTitle="任务(0)" i18n-nzTitle>
+      <nz-list nzItemLayout="horizontal">
+        <nz-list-empty></nz-list-empty>
+      </nz-list>
+    </nz-tab>
+  </nz-tabset>
+</ng-template>

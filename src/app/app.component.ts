@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
+import { AppService } from '@app';
 import { environment } from '@env';
 import { WpxService } from '@weplanx/ng';
 import { NzIconService } from 'ng-zorro-antd/icon';
@@ -10,6 +11,7 @@ import { NzIconService } from 'ng-zorro-antd/icon';
 })
 export class AppComponent implements OnInit {
   constructor(
+    private app: AppService,
     private wpx: WpxService,
     private icon: NzIconService
   ) {}
@@ -17,5 +19,8 @@ export class AppComponent implements OnInit {
   ngOnInit(): void {
     this.icon.changeAssetsSource(environment.cdn);
     this.wpx.setAssets(environment.cdn);
+    this.app.getUploadOption().subscribe(v => {
+      this.wpx.setUpload(v);
+    });
   }
 }

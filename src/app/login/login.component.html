@@ -1,9 +1,17 @@
 <nz-layout style="height: 100%">
   <nz-header>
-    <button nz-button nzType="text">
-      <span nz-icon nzType="github" nzTheme="outline"></span>
-      关注
-    </button>
+    <nz-row nzJustify="space-between">
+      <nz-col>
+        <button nz-button nzType="text">
+          <span nz-icon nzType="github" nzTheme="outline"></span>
+          关注
+        </button>
+      </nz-col>
+      <nz-col></nz-col>
+      <nz-col>
+        <app-translation></app-translation>
+      </nz-col>
+    </nz-row>
   </nz-header>
   <nz-content>
     <div class="sign">
@@ -22,7 +30,7 @@
       <nz-divider nzPlain nzText="其他登录方式"></nz-divider>
 
       <nz-space>
-        <a *nzSpaceItem nz-tooltip="Lark">
+        <a *nzSpaceItem nz-tooltip="飞书" (click)="lark()">
           <nz-avatar [nzSize]="32" [nzSrc]="['assets', 'Lark.png'] | wpxAssets"></nz-avatar>
         </a>
       </nz-space>
