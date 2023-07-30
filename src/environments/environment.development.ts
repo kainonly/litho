@@ -9,7 +9,7 @@ export const environment = {
       path: 'experiment',
       loadChildren: () => import('../experiment/experiment.module').then(m => m.ExperimentModule),
       data: {
-        breadcrumb: `实验`
+        breadcrumb: `实验中心`
       }
     }
   ]

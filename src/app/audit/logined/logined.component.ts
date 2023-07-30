@@ -2,22 +2,22 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { BehaviorSubject, debounceTime } from 'rxjs';
 
-import { Operates } from '@common/models/operates';
+import { Logined } from '@common/models/logined';
 import { User } from '@common/models/user';
-import { OperatesService } from '@common/services/operates.service';
+import { LoginedService } from '@common/services/logined.service';
 import { UsersService } from '@common/services/users.service';
 import { Any, AnyDto, Filter, WpxModel, WpxService } from '@weplanx/ng';
 
 @Component({
-  selector: 'app-admin-settings-audit',
-  templateUrl: './audit.component.html'
+  selector: 'app-audit-logined',
+  templateUrl: './logined.component.html'
 })
-export class AuditComponent implements OnInit {
-  model!: WpxModel<Operates>;
+export class LoginedComponent implements OnInit {
+  model!: WpxModel<Logined>;
   userKv?: Record<string, AnyDto<User>>;
 
   form!: FormGroup;
-  filter: Filter<Operates> = {};
+  filter: Filter<Logined> = {};
   searchUsers$ = new BehaviorSubject<string>('');
   searchUserItems: AnyDto<User>[] = [];
 
@@ -26,18 +26,18 @@ export class AuditComponent implements OnInit {
   constructor(
     private wpx: WpxService,
     private fb: FormBuilder,
-    private audit: OperatesService,
+    private logined: LoginedService,
     private users: UsersService
   ) {}
 
   ngOnInit(): void {
     this.form = this.fb.group({
       timestamp: [],
+      source: [],
       user_id: [],
-      method: [],
-      path: []
+      client_ip: []
     });
-    this.model = this.wpx.setModel<Operates>('audit', this.audit);
+    this.model = this.wpx.setModel<Logined>('logined', this.logined);
     this.model
       .ready({
         'timestamp->$gte': 'date',
@@ -102,8 +102,8 @@ export class AuditComponent implements OnInit {
     this.getData();
   }
 
-  get path(): FormControl {
-    return this.form.get('path') as FormControl;
+  get client_ip(): FormControl {
+    return this.form.get('client_ip') as FormControl;
   }
 
   search(data: Any): void {
@@ -114,14 +114,14 @@ export class AuditComponent implements OnInit {
         $lt: data.timestamp[1].toUTCString()
       };
     }
-    if (data.method && data.method.length !== 0 && data.method.length !== 2) {
-      this.filter['metadata.method'] = { $in: data.method };
+    if (data.source && data.source.length !== 0 && data.source.length !== 2) {
+      this.filter['metadata.source'] = { $in: data.source };
     }
     if (data.user_id && data.user_id.length !== 0) {
       this.filter['metadata.user_id'] = { $in: data.user_id };
     }
-    if (data.path) {
-      this.filter['metadata.path'] = { $regex: '^' + data.path };
+    if (data.client_ip) {
+      this.filter['metadata.client_ip'] = data.client_ip;
     }
     this.getData(true);
   }

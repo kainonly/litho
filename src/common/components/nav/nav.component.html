@@ -1,23 +1,46 @@
+<ng-template #menuRef>
+  <button nzSize="large" nz-button nzType="text" routerLink="/admin">
+    <span nz-icon nzType="control" nzTheme="outline"></span> 管理后台
+  </button>
+  <button nzSize="large" nz-button nzType="text" routerLink="/audit">
+    <span nz-icon nzType="audit" nzTheme="outline"></span> 审计日志
+  </button>
+  <button nzSize="large" nz-button nzType="text" routerLink="/experiment">
+    <span nz-icon nzType="experiment" nzTheme="outline"></span> 实验中心
+  </button>
+</ng-template>
+
 <nz-row nzJustify="space-between" nzAlign="middle">
   <nz-col>
     <nz-space nzAlign="center" nzSize="large">
       <ng-container *nzSpaceItem>
-        <button nz-button nzType="text">
+        <button
+          nz-button
+          nzType="text"
+          nz-popover
+          [nzPopoverContent]="menuRef"
+          nzPopoverPlacement="bottomLeft"
+          nzPopoverTrigger="click"
+        >
           <i nz-icon nzType="appstore" nzTheme="outline"></i>
         </button>
       </ng-container>
-      <ng-container *nzSpaceItem>
-        <nz-breadcrumb nzAutoGenerate> </nz-breadcrumb>
+      <ng-container *ngIf="type" [ngSwitch]="type">
+        <ng-container *ngSwitchDefault>
+          <nz-breadcrumb *nzSpaceItem nzAutoGenerate> </nz-breadcrumb>
+        </ng-container>
       </ng-container>
     </nz-space>
   </nz-col>
-  <nz-col></nz-col>
+  <nz-col>
+    <ng-content></ng-content>
+  </nz-col>
   <nz-col>
     <div
       *ngIf="app.user() as u"
       class="center"
       nz-popover
-      [nzPopoverContent]="centerTpl"
+      [nzPopoverContent]="centerRef"
       nzPopoverPlacement="bottomRight"
       nzPopoverTrigger="click"
     >
@@ -33,7 +56,7 @@
   </nz-col>
 </nz-row>
 
-<ng-template #centerTpl>
+<ng-template #centerRef>
   <nz-tabset style="width: 360px" [nzTabBarExtraContent]="actions">
     <ng-template #actions>
       <nz-space>

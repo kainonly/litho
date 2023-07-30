@@ -54,6 +54,13 @@ const routes: Routes = [
           breadcrumb: `管理后台`
         }
       },
+      {
+        path: 'audit',
+        loadChildren: () => import('./audit/audit.module').then(m => m.AuditModule),
+        data: {
+          breadcrumb: `审计日志`
+        }
+      },
       // {
       //   path: ':namespace',
       //   loadChildren: () => import('./index.module').then(m => m.IndexModule),

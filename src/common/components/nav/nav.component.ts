@@ -10,7 +10,7 @@ import { NzDrawerService } from 'ng-zorro-antd/drawer';
   templateUrl: './nav.component.html'
 })
 export class NavComponent {
-  @Input({ required: true }) menu!: string;
+  @Input() type?: string;
 
   constructor(
     public app: AppService,

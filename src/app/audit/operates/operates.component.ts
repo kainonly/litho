@@ -9,10 +9,10 @@ import { UsersService } from '@common/services/users.service';
 import { Any, AnyDto, Filter, WpxModel, WpxService } from '@weplanx/ng';
 
 @Component({
-  selector: 'app-admin-settings-audit',
-  templateUrl: './audit.component.html'
+  selector: 'app-audit-operates',
+  templateUrl: './operates.component.html'
 })
-export class AuditComponent implements OnInit {
+export class OperatesComponent implements OnInit {
   model!: WpxModel<Operates>;
   userKv?: Record<string, AnyDto<User>>;
 
@@ -26,7 +26,7 @@ export class AuditComponent implements OnInit {
   constructor(
     private wpx: WpxService,
     private fb: FormBuilder,
-    private audit: OperatesService,
+    private operates: OperatesService,
     private users: UsersService
   ) {}
 
@@ -37,7 +37,7 @@ export class AuditComponent implements OnInit {
       method: [],
       path: []
     });
-    this.model = this.wpx.setModel<Operates>('audit', this.audit);
+    this.model = this.wpx.setModel<Operates>('operates', this.operates);
     this.model
       .ready({
         'timestamp->$gte': 'date',
