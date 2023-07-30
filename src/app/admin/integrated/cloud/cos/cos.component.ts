@@ -7,25 +7,30 @@ import { NzMessageService } from 'ng-zorro-antd/message';
 import { NZ_MODAL_DATA, NzModalRef } from 'ng-zorro-antd/modal';
 
 @Component({
-  selector: 'app-admin-settings-extend-openapi',
-  templateUrl: './openapi.component.html'
+  selector: 'app-admin-integrated-cloud-cos',
+  templateUrl: './cos.component.html'
 })
-export class OpenapiComponent implements OnInit {
+export class CosComponent implements OnInit {
   form!: FormGroup;
   tips = {
-    OpenapiUrl: {
+    TencentCosBucket: {
       default: {
-        required: $localize`地址不能为空`
+        required: $localize`Bucket 名称不能为空`
       }
     },
-    OpenapiKey: {
+    TencentCosRegion: {
       default: {
-        required: $localize`应用 Key 不能为空`
+        required: $localize`地区不能为空`
       }
     },
-    OpenapiSecret: {
+    TencentCosExpired: {
       default: {
-        required: $localize`应用密钥不能为空`
+        required: $localize`预签名有效期不能为空`
+      }
+    },
+    TencentCosLimit: {
+      default: {
+        required: $localize`上传大小限制不能为空`
       }
     }
   };
@@ -41,14 +46,13 @@ export class OpenapiComponent implements OnInit {
 
   ngOnInit(): void {
     this.form = this.fb.group({
-      OpenapiUrl: [null, [Validators.required]],
-      OpenapiKey: [null, [Validators.required]],
-      OpenapiSecret: [null, [Validators.required]]
+      TencentCosBucket: [null, [Validators.required]],
+      TencentCosRegion: [null, [Validators.required]],
+      TencentCosExpired: [null, [Validators.required]],
+      TencentCosLimit: [null, [Validators.required]]
     });
-    this.form.patchValue({
-      OpenapiUrl: this.values['OpenapiUrl'],
-      OpenapiKey: this.values['OpenapiKey']
-    });
+    const values = { ...this.values };
+    this.form.patchValue(values);
   }
 
   close(): void {

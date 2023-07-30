@@ -7,20 +7,15 @@ import { NzMessageService } from 'ng-zorro-antd/message';
 import { NZ_MODAL_DATA, NzModalRef } from 'ng-zorro-antd/modal';
 
 @Component({
-  selector: 'app-admin-settings-extend-email',
-  templateUrl: './email.component.html'
+  selector: 'app-admin-integrated-collaboration-redirect',
+  templateUrl: './redirect.component.html'
 })
-export class EmailComponent implements OnInit {
+export class RedirectComponent implements OnInit {
   form!: FormGroup;
   tips = {
-    EmailUsername: {
+    RedirectUrl: {
       default: {
-        required: $localize`用户名不能为空`
-      }
-    },
-    EmailPassword: {
-      default: {
-        required: $localize`密码不能为空`
+        required: $localize`跳转地址不能为空`
       }
     }
   };
@@ -36,16 +31,9 @@ export class EmailComponent implements OnInit {
 
   ngOnInit(): void {
     this.form = this.fb.group({
-      EmailHost: [null, [Validators.required]],
-      EmailPort: [null, [Validators.required]],
-      EmailUsername: [null, [Validators.required]],
-      EmailPassword: [null, [Validators.required]]
+      RedirectUrl: [null, [Validators.required]]
     });
-    this.form.patchValue({
-      EmailHost: this.values['EmailHost'],
-      EmailPort: this.values['EmailPort'],
-      EmailUsername: this.values['EmailUsername']
-    });
+    this.form.patchValue(this.values);
   }
 
   close(): void {

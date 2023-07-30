@@ -8,7 +8,7 @@ import { LarkComponent } from './lark/lark.component';
 import { RedirectComponent } from './redirect/redirect.component';
 
 @Component({
-  selector: 'app-admin-settings-collaboration',
+  selector: 'app-admin-integrated-collaboration',
   templateUrl: './collaboration.component.html'
 })
 export class CollaborationComponent implements OnInit {

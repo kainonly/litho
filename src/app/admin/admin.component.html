@@ -22,6 +22,22 @@
           <span nz-icon nzType="team" nzTheme="outline"></span>
           <span>成员</span>
         </li>
+        <li nz-submenu nzTitle="集成" nzIcon="api">
+          <ul>
+            <li nz-menu-item nzMatchRouter routerLink="integrated/cloud">
+              <span nz-icon nzType="cloud" nzTheme="outline"></span>
+              <span>公有云</span>
+            </li>
+            <li nz-menu-item nzMatchRouter routerLink="integrated/collaboration">
+              <span nz-icon nzType="coffee" nzTheme="outline"></span>
+              <span>办公协作</span>
+            </li>
+            <li nz-menu-item nzMatchRouter routerLink="integrated/extend">
+              <span nz-icon nzType="tool" nzTheme="outline"></span>
+              <span>扩展服务</span>
+            </li>
+          </ul>
+        </li>
         <li nz-submenu nzTitle="设置" nzIcon="setting">
           <ul>
             <li nz-menu-item nzMatchRouter routerLink="settings/security">
@@ -35,19 +51,6 @@
             <li nz-menu-item nzMatchRouter routerLink="settings/values">
               <span nz-icon nzType="field-binary" nzTheme="outline"></span>
               <span>动态配置</span>
-            </li>
-            <li nz-menu-divider></li>
-            <li nz-menu-item nzMatchRouter routerLink="settings/cloud">
-              <span nz-icon nzType="cloud" nzTheme="outline"></span>
-              <span>公有云</span>
-            </li>
-            <li nz-menu-item nzMatchRouter routerLink="settings/collaboration">
-              <span nz-icon nzType="coffee" nzTheme="outline"></span>
-              <span>办公协作</span>
-            </li>
-            <li nz-menu-item nzMatchRouter routerLink="settings/extend">
-              <span nz-icon nzType="tool" nzTheme="outline"></span>
-              <span>扩展服务</span>
             </li>
           </ul>
         </li>

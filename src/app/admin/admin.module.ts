@@ -40,6 +40,13 @@ const routes: Routes = [
         }
       },
       {
+        path: 'integrated',
+        loadChildren: () => import('./integrated/integrated.module').then(m => m.IntegratedModule),
+        data: {
+          breadcrumb: `集成`
+        }
+      },
+      {
         path: 'settings',
         loadChildren: () => import('./settings/settings.module').then(m => m.SettingsModule),
         data: {

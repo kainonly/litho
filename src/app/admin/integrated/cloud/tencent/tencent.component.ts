@@ -7,30 +7,20 @@ import { NzMessageService } from 'ng-zorro-antd/message';
 import { NZ_MODAL_DATA, NzModalRef } from 'ng-zorro-antd/modal';
 
 @Component({
-  selector: 'app-admin-settings-cloud-cos',
-  templateUrl: './cos.component.html'
+  selector: 'app-admin-integrated-cloud-tencent',
+  templateUrl: './tencent.component.html'
 })
-export class CosComponent implements OnInit {
+export class TencentComponent implements OnInit {
   form!: FormGroup;
   tips = {
-    TencentCosBucket: {
+    TencentSecretId: {
       default: {
-        required: $localize`Bucket 名称不能为空`
+        required: $localize`SecretId 不能为空`
       }
     },
-    TencentCosRegion: {
+    TencentSecretKey: {
       default: {
-        required: $localize`地区不能为空`
-      }
-    },
-    TencentCosExpired: {
-      default: {
-        required: $localize`预签名有效期不能为空`
-      }
-    },
-    TencentCosLimit: {
-      default: {
-        required: $localize`上传大小限制不能为空`
+        required: $localize`SecretKey 不能为空`
       }
     }
   };
@@ -46,13 +36,12 @@ export class CosComponent implements OnInit {
 
   ngOnInit(): void {
     this.form = this.fb.group({
-      TencentCosBucket: [null, [Validators.required]],
-      TencentCosRegion: [null, [Validators.required]],
-      TencentCosExpired: [null, [Validators.required]],
-      TencentCosLimit: [null, [Validators.required]]
+      TencentSecretId: [null, [Validators.required]],
+      TencentSecretKey: [null, [Validators.required]]
     });
-    const values = { ...this.values };
-    this.form.patchValue(values);
+    this.form.patchValue({
+      TencentSecretId: this.values['TencentSecretId']
+    });
   }
 
   close(): void {

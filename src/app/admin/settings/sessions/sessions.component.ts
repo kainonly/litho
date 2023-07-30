@@ -69,7 +69,7 @@ export class SessionsComponent implements OnInit, AfterViewInit, OnDestroy {
               _id: { $in: v }
             },
             {
-              xfilter: { '_id.$in': 'oids' }
+              xfilter: { '_id->$in': 'oids' }
             }
           )
         )

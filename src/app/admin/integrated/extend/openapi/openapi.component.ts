@@ -7,30 +7,25 @@ import { NzMessageService } from 'ng-zorro-antd/message';
 import { NZ_MODAL_DATA, NzModalRef } from 'ng-zorro-antd/modal';
 
 @Component({
-  selector: 'app-admin-settings-collaboration-lark',
-  templateUrl: './lark.component.html'
+  selector: 'app-admin-integrated-extend-openapi',
+  templateUrl: './openapi.component.html'
 })
-export class LarkComponent implements OnInit {
+export class OpenapiComponent implements OnInit {
   form!: FormGroup;
   tips = {
-    LarkAppId: {
+    OpenapiUrl: {
       default: {
-        required: $localize`应用 ID 不能为空`
+        required: $localize`地址不能为空`
       }
     },
-    LarkAppSecret: {
+    OpenapiKey: {
+      default: {
+        required: $localize`应用 Key 不能为空`
+      }
+    },
+    OpenapiSecret: {
       default: {
         required: $localize`应用密钥不能为空`
-      }
-    },
-    LarkEncryptKey: {
-      default: {
-        required: $localize`事件订阅安全校验数据密钥不能为空`
-      }
-    },
-    LarkVerificationToken: {
-      default: {
-        required: $localize`事件订阅验证令牌不能为空`
       }
     }
   };
@@ -46,13 +41,13 @@ export class LarkComponent implements OnInit {
 
   ngOnInit(): void {
     this.form = this.fb.group({
-      LarkAppId: [null, [Validators.required]],
-      LarkAppSecret: [null, [Validators.required]],
-      LarkEncryptKey: [null, [Validators.required]],
-      LarkVerificationToken: [null, [Validators.required]]
+      OpenapiUrl: [null, [Validators.required]],
+      OpenapiKey: [null, [Validators.required]],
+      OpenapiSecret: [null, [Validators.required]]
     });
     this.form.patchValue({
-      LarkAppId: this.values['LarkAppId']
+      OpenapiUrl: this.values['OpenapiUrl'],
+      OpenapiKey: this.values['OpenapiKey']
     });
   }
 

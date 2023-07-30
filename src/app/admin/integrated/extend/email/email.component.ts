@@ -7,20 +7,20 @@ import { NzMessageService } from 'ng-zorro-antd/message';
 import { NZ_MODAL_DATA, NzModalRef } from 'ng-zorro-antd/modal';
 
 @Component({
-  selector: 'app-admin-settings-cloud-tencent',
-  templateUrl: './tencent.component.html'
+  selector: 'app-admin-integrated-extend-email',
+  templateUrl: './email.component.html'
 })
-export class TencentComponent implements OnInit {
+export class EmailComponent implements OnInit {
   form!: FormGroup;
   tips = {
-    TencentSecretId: {
+    EmailUsername: {
       default: {
-        required: $localize`SecretId 不能为空`
+        required: $localize`用户名不能为空`
       }
     },
-    TencentSecretKey: {
+    EmailPassword: {
       default: {
-        required: $localize`SecretKey 不能为空`
+        required: $localize`密码不能为空`
       }
     }
   };
@@ -36,11 +36,15 @@ export class TencentComponent implements OnInit {
 
   ngOnInit(): void {
     this.form = this.fb.group({
-      TencentSecretId: [null, [Validators.required]],
-      TencentSecretKey: [null, [Validators.required]]
+      EmailHost: [null, [Validators.required]],
+      EmailPort: [null, [Validators.required]],
+      EmailUsername: [null, [Validators.required]],
+      EmailPassword: [null, [Validators.required]]
     });
     this.form.patchValue({
-      TencentSecretId: this.values['TencentSecretId']
+      EmailHost: this.values['EmailHost'],
+      EmailPort: this.values['EmailPort'],
+      EmailUsername: this.values['EmailUsername']
     });
   }
 

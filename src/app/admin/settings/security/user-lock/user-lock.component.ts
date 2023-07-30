@@ -13,12 +13,12 @@ import { NZ_MODAL_DATA, NzModalRef } from 'ng-zorro-antd/modal';
 export class UserLockComponent implements OnInit {
   form!: FormGroup;
   tips = {
-    login_failures: {
+    LoginFailures: {
       default: {
         required: $localize`连续登录失败上限不能为空`
       }
     },
-    login_ttl: {
+    LoginTTL: {
       default: {
         required: $localize`锁定时间不能为空`
       }
@@ -42,8 +42,8 @@ export class UserLockComponent implements OnInit {
       LoginTTL: [0, [Validators.required]]
     });
     const data = {
-      LoginFailures: this.values['login_failures'],
-      LoginTTL: this.values['login_ttl'] / 1e9
+      LoginFailures: this.values['LoginFailures'],
+      LoginTTL: this.values['LoginTTL'] / 1e9
     };
     this.form.patchValue(data);
   }

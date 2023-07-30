@@ -7,15 +7,30 @@ import { NzMessageService } from 'ng-zorro-antd/message';
 import { NZ_MODAL_DATA, NzModalRef } from 'ng-zorro-antd/modal';
 
 @Component({
-  selector: 'app-admin-settings-collaboration-redirect',
-  templateUrl: './redirect.component.html'
+  selector: 'app-admin-integrated-collaboration-lark',
+  templateUrl: './lark.component.html'
 })
-export class RedirectComponent implements OnInit {
+export class LarkComponent implements OnInit {
   form!: FormGroup;
   tips = {
-    RedirectUrl: {
+    LarkAppId: {
       default: {
-        required: $localize`跳转地址不能为空`
+        required: $localize`应用 ID 不能为空`
+      }
+    },
+    LarkAppSecret: {
+      default: {
+        required: $localize`应用密钥不能为空`
+      }
+    },
+    LarkEncryptKey: {
+      default: {
+        required: $localize`事件订阅安全校验数据密钥不能为空`
+      }
+    },
+    LarkVerificationToken: {
+      default: {
+        required: $localize`事件订阅验证令牌不能为空`
       }
     }
   };
@@ -31,9 +46,14 @@ export class RedirectComponent implements OnInit {
 
   ngOnInit(): void {
     this.form = this.fb.group({
-      RedirectUrl: [null, [Validators.required]]
+      LarkAppId: [null, [Validators.required]],
+      LarkAppSecret: [null, [Validators.required]],
+      LarkEncryptKey: [null, [Validators.required]],
+      LarkVerificationToken: [null, [Validators.required]]
     });
-    this.form.patchValue(this.values);
+    this.form.patchValue({
+      LarkAppId: this.values['LarkAppId']
+    });
   }
 
   close(): void {

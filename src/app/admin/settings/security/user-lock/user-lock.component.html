@@ -1,7 +1,7 @@
 <form *ngIf="form" nz-form nzLayout="vertical" id="form" [formGroup]="form" (wpxSubmit)="submit($event)">
   <nz-form-item>
     <nz-form-label nzRequired i18n>连续登录失败上限</nz-form-label>
-    <nz-form-control nzHasFeedback [nzAutoTips]="tips.login_failures">
+    <nz-form-control nzHasFeedback [nzAutoTips]="tips.LoginFailures">
       <nz-input-number
         style="width: 100%"
         formControlName="LoginFailures"
@@ -13,12 +13,7 @@
   </nz-form-item>
   <nz-form-item>
     <nz-form-label nzRequired i18n>锁定时间</nz-form-label>
-    <nz-form-control
-      nzHasFeedback
-      nzExtra="账户连续登录或已被锁定的有限时间"
-      i18n-nzExtra
-      [nzAutoTips]="tips.login_ttl"
-    >
+    <nz-form-control nzHasFeedback nzExtra="账户连续登录或已被锁定的有限时间" i18n-nzExtra [nzAutoTips]="tips.LoginTTL">
       <nz-input-number
         style="width: 100%"
         formControlName="LoginTTL"
