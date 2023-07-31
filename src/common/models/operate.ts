@@ -1,15 +1,15 @@
 import { Any } from '@weplanx/ng';
 
-export interface Operates {
+export interface Operate {
   timestamp: Date;
-  metadata: OperatesMetadata;
+  metadata: OperateMetadata;
   params: string;
   body: Any;
   status: number;
   user_agent: string;
 }
 
-export interface OperatesMetadata {
+export interface OperateMetadata {
   client_ip: string;
   method: string;
   path: string;

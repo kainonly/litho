@@ -15,14 +15,14 @@ const routes: Routes = [
         path: 'logined',
         loadChildren: () => import('./logined/logined.module').then(m => m.LoginedModule),
         data: {
-          breadcrumb: $localize`登录日志`
+          breadcrumb: $localize`登录`
         }
       },
       {
         path: 'operates',
         loadChildren: () => import('./operates/operates.module').then(m => m.OperatesModule),
         data: {
-          breadcrumb: $localize`操作日志`
+          breadcrumb: $localize`操作`
         }
       },
       { path: '', redirectTo: 'logined', pathMatch: 'full' }

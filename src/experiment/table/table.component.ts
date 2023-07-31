@@ -108,7 +108,7 @@ export class TableComponent implements OnInit {
             },
             {
               xfilter: {
-                '_id.$in': 'oids'
+                '_id->$in': 'oids'
               }
             }
           )

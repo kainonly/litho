@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { BehaviorSubject, debounceTime } from 'rxjs';
 
-import { Operates } from '@common/models/operates';
+import { Operate } from '@common/models/operate';
 import { User } from '@common/models/user';
 import { OperatesService } from '@common/services/operates.service';
 import { UsersService } from '@common/services/users.service';
@@ -13,11 +13,11 @@ import { Any, AnyDto, Filter, WpxModel, WpxService } from '@weplanx/ng';
   templateUrl: './operates.component.html'
 })
 export class OperatesComponent implements OnInit {
-  model!: WpxModel<Operates>;
+  model!: WpxModel<Operate>;
   userKv?: Record<string, AnyDto<User>>;
 
   form!: FormGroup;
-  filter: Filter<Operates> = {};
+  filter: Filter<Operate> = {};
   searchUsers$ = new BehaviorSubject<string>('');
   searchUserItems: AnyDto<User>[] = [];
 
@@ -37,7 +37,7 @@ export class OperatesComponent implements OnInit {
       method: [],
       path: []
     });
-    this.model = this.wpx.setModel<Operates>('operates', this.operates);
+    this.model = this.wpx.setModel<Operate>('operates', this.operates);
     this.model
       .ready({
         'timestamp->$gte': 'date',

@@ -109,7 +109,7 @@
     },
     {
       title: '来源',
-      width: '120px',
+      width: '240px',
       render: source
     },
     {
@@ -131,7 +131,7 @@
   <ng-template #source let-data>
     <ng-container [ngSwitch]="data.metadata.source">
       <ng-container *ngSwitchCase="'email'">电子邮件</ng-container>
-      <ng-container *ngSwitchCase="'lark'">Lark/Feishu</ng-container>
+      <ng-container *ngSwitchCase="'lark'">Lark / Feishu</ng-container>
     </ng-container>
   </ng-template>
   <ng-template #user let-data>

@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, Output, TemplateRef, ViewChild } from '@angular/core';
 
-import { WpxService } from '@weplanx/ng';
+import { Any, WpxService } from '@weplanx/ng';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzUploadChangeParam, NzUploadFile } from 'ng-zorro-antd/upload';
 
@@ -10,7 +10,23 @@ import { Transport } from '../types';
 @Component({
   selector: 'wpx-upload-transport',
   templateUrl: './transport.component.html',
-  styleUrls: ['./transport.component.scss']
+  styles: [
+    `
+      .upload {
+        z-index: 2;
+      }
+
+      .transport {
+        height: 420px;
+        width: 640px;
+        overflow-x: hidden;
+      }
+
+      .transport-btn {
+        margin-left: -1px;
+      }
+    `
+  ]
 })
 export class WpxUploadTransportComponent {
   @Input() wpxExt?: string;
@@ -25,7 +41,7 @@ export class WpxUploadTransportComponent {
   done = 0;
   percent = 0;
 
-  @ViewChild('messageRef') messageRef!: TemplateRef<any>;
+  @ViewChild('messageRef') messageRef!: TemplateRef<Any>;
   private messageId?: string;
 
   constructor(

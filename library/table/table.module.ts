@@ -20,9 +20,7 @@ import { NzSwitchModule } from 'ng-zorro-antd/switch';
 import { NzTableModule } from 'ng-zorro-antd/table';
 import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
 
-import { WpxKeywordComponent } from './keyword.component';
 import { WpxTableComponent } from './table.component';
-import { WpxToolboxComponent } from './toolbox.component';
 
 @NgModule({
   imports: [
@@ -46,7 +44,7 @@ import { WpxToolboxComponent } from './toolbox.component';
     DragDropModule,
     WpxModule
   ],
-  declarations: [WpxTableComponent, WpxKeywordComponent, WpxToolboxComponent],
-  exports: [WpxTableComponent, WpxKeywordComponent, WpxToolboxComponent]
+  declarations: [WpxTableComponent],
+  exports: [WpxTableComponent]
 })
 export class WpxTableModule {}

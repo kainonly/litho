@@ -55,6 +55,13 @@ const routes: Routes = [
         }
       },
       {
+        path: 'filebrowser',
+        loadChildren: () => import('./filebrowser/filebrowser.module').then(m => m.FilebrowserModule),
+        data: {
+          breadcrumb: `资源中心`
+        }
+      },
+      {
         path: 'audit',
         loadChildren: () => import('./audit/audit.module').then(m => m.AuditModule),
         data: {

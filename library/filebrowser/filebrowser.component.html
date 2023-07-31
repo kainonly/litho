@@ -1,0 +1,22 @@
+<ng-template #titleRef>
+  <nz-space>
+    <wpx-keyword
+      *nzSpaceItem
+      [wpxModel]="wpxModel"
+      [wpxKeys]="['name', 'key']"
+      (wpxSubmit)="wpxModel.fetch()"
+      wpxPlaceholder="名称、路径"
+    ></wpx-keyword>
+  </nz-space>
+</ng-template>
+
+<ng-template #extraRef>
+  <wpx-upload-transport></wpx-upload-transport>
+</ng-template>
+
+<nz-layout style="height: 100%">
+  <nz-sider nzWidth="240px" nzTheme="light"> </nz-sider>
+  <nz-content style="height: 100%">
+    <nz-card style="height: 100%" [nzTitle]="wpxTitle ?? titleRef" [nzExtra]="wpxExtra ?? extraRef"></nz-card>
+  </nz-content>
+</nz-layout>
