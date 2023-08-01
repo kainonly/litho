@@ -74,7 +74,7 @@ export interface TransactionResult {
   txn: string;
 }
 
-export interface WpxModelStore<T> {
+export interface WpxModelStore {
   searchText: string;
   keywords: Any[];
   page: number;

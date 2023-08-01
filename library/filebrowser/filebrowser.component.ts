@@ -9,7 +9,7 @@ import { WpxFile } from './types';
   templateUrl: './filebrowser.component.html',
   styleUrls: ['./filebrowser.component.less']
 })
-export class WpxFilebrowserComponent<T extends WpxFile> {
+export class WpxFilebrowserComponent<T = WpxFile> {
   @Input({ required: true }) wpxModel!: WpxModel<T>;
   @Input() wpxTitle?: TemplateRef<void>;
   @Input() wpxExtra?: TemplateRef<void>;

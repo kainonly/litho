@@ -30,13 +30,13 @@ export class WpxModel<T> {
     private api: WpxApi<T>
   ) {}
 
-  ready(xfilter?: XFilter): Observable<WpxModelStore<AnyDto<T>>> {
+  ready(xfilter?: XFilter): Observable<WpxModelStore> {
     if (xfilter) {
       this.xfilter = xfilter;
     }
     return this.store.get(this.key).pipe(
       map(unkown => {
-        const data = unkown as WpxModelStore<AnyDto<T>>;
+        const data = unkown as WpxModelStore;
         this.searchText = data?.searchText ?? '';
         this.keywords = data?.keywords ?? [];
         this.page = data?.page ?? 1;

@@ -50,6 +50,7 @@ export class WpxUploadTransportComponent {
   ) {}
 
   change(info: NzUploadChangeParam): void {
+    console.log(info);
     if (this.complete) {
       this.start();
     }
@@ -76,7 +77,7 @@ export class WpxUploadTransportComponent {
     }
     this.transports.set(file.uid, {
       name: file.name,
-      percent: Math.floor(file.percent!),
+      percent: Math.floor(file.percent as number),
       file: file
     });
     const list = [...this.transports.values()];

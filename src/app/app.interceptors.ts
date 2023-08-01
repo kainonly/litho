@@ -23,15 +23,10 @@ export class AppInterceptors implements HttpInterceptor {
 
   intercept(req: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
     const regex = new RegExp('^http(|s)://');
-    let update: { url?: string };
-    if (!regex.test(req.url)) {
-      update = {
-        url: `${environment.baseUrl}/${req.url}`
-      };
-    } else {
-      update = { url: req.url };
-    }
-    const request = req.clone(update);
+    const request = req.clone({
+      ...req,
+      url: !regex.test(req.url) ? `${environment.baseUrl}/${req.url}` : req.url
+    });
 
     return next.handle(request).pipe(
       tap(event => {

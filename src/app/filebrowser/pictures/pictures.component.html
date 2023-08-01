@@ -1,1 +1,26 @@
-<wpx-filebrowser [wpxModel]="model"></wpx-filebrowser>
+<ng-template #titleRef>
+  <nz-space>
+    <wpx-keyword
+      *nzSpaceItem
+      [wpxModel]="model"
+      [wpxKeys]="['name', 'key']"
+      (wpxSubmit)="getData(true)"
+      wpxPlaceholder="名称、路径"
+    ></wpx-keyword>
+  </nz-space>
+</ng-template>
+
+<ng-template #extraRef>
+  <wpx-upload-transport
+    [wpxExt]="'image'"
+    [wpxAccept]="['image/jpeg', 'image/png', 'image/bmp', 'image/gif', 'image/webp', 'image/avif']"
+    (wpxChange)="upload($event)"
+  ></wpx-upload-transport>
+</ng-template>
+
+<nz-layout style="height: 100%">
+  <nz-sider nzWidth="240px" nzTheme="light"> </nz-sider>
+  <nz-content style="height: 100%">
+    <wpx-filebrowser [wpxModel]="model" [wpxTitle]="titleRef" [wpxExtra]="extraRef"></wpx-filebrowser>
+  </nz-content>
+</nz-layout>
