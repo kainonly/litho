@@ -1,6 +1,6 @@
 <nz-button-group *ngIf="wpx.upload | async">
   <nz-upload
-    class="upload"
+    style="z-index: 2"
     wpxUpload
     [wpxExt]="wpxExt"
     [nzMultiple]="true"
@@ -11,7 +11,7 @@
     <button nz-button> <i nz-icon nzType="upload"></i> 上传 </button>
   </nz-upload>
   <button
-    class="transport-btn"
+    style="margin-left: -1px"
     nz-button
     nz-popover
     [nzPopoverContent]="transportRef"
@@ -26,10 +26,15 @@
 </nz-button-group>
 
 <ng-template #transportRef>
-  <cdk-virtual-scroll-viewport itemSize="39" class="transport">
+  <cdk-virtual-scroll-viewport
+    style="height: 400px; width: 640px; overflow-x: hidden"
+    [itemSize]="40"
+    [minBufferPx]="400"
+    [maxBufferPx]="600"
+  >
     <nz-list nzSize="small">
       <ng-container *ngIf="!!size; else empty">
-        <nz-list-item *cdkVirtualFor="let x of ds">
+        <nz-list-item *cdkVirtualFor="let x of ds" style="height: 40px">
           <span nz-typography nzEllipsis style="width: 450px">{{ x.name }}</span>
           <div style="width: 150px">
             <nz-progress [nzPercent]="x.percent" nzSize="small"></nz-progress>

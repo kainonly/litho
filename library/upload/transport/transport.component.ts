@@ -9,29 +9,12 @@ import { Transport } from '../types';
 
 @Component({
   selector: 'wpx-upload-transport',
-  templateUrl: './transport.component.html',
-  styles: [
-    `
-      .upload {
-        z-index: 2;
-      }
-
-      .transport {
-        height: 420px;
-        width: 640px;
-        overflow-x: hidden;
-      }
-
-      .transport-btn {
-        margin-left: -1px;
-      }
-    `
-  ]
+  templateUrl: './transport.component.html'
 })
 export class WpxUploadTransportComponent {
   @Input() wpxExt?: string;
   @Input() wpxAccept: string[] = [];
-  @Output() readonly wpxChange: EventEmitter<Transport[]> = new EventEmitter();
+  @Output() wpxChange = new EventEmitter<Transport[]>();
 
   ds: TransportDataSource = new TransportDataSource();
   private readonly transports = new Map<string, Transport>();
@@ -50,7 +33,6 @@ export class WpxUploadTransportComponent {
   ) {}
 
   change(info: NzUploadChangeParam): void {
-    console.log(info);
     if (this.complete) {
       this.start();
     }
