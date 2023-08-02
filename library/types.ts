@@ -92,3 +92,10 @@ export interface UploadOption {
   url: string;
   limit: number;
 }
+
+export interface ImageInfo {
+  format: string;
+  height: number;
+  width: number;
+  size: number;
+}

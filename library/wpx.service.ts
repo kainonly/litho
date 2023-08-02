@@ -2,9 +2,9 @@ import { Platform } from '@angular/cdk/platform';
 import { DOCUMENT } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Inject, Injectable, LOCALE_ID, Optional } from '@angular/core';
-import { AsyncSubject, Observable } from 'rxjs';
+import { AsyncSubject, map, Observable } from 'rxjs';
 
-import { R, UploadOption } from './types';
+import { Any, ImageInfo, R, UploadOption } from './types';
 import { WpxApi } from './utils/api';
 import { WpxModel } from './utils/model';
 import { WpxStoreService } from './wpx-store.service';
@@ -46,5 +46,17 @@ export class WpxService {
 
   cosPresigned(): Observable<R> {
     return this.http.get(`tencent/cos_presigned`);
+  }
+
+  cosImageInfo(url: string): Observable<ImageInfo> {
+    return this.http.get<Any>(`tencent/cos_image_info`, { params: { url } }).pipe(
+      map(v => {
+        v.size = parseInt(v.size);
+        v.height = parseInt(v.height);
+        v.width = parseInt(v.width);
+        v.format = v.format === 'unknown' ? 'avif' : v.format;
+        return v;
+      })
+    );
   }
 }

@@ -1,5 +1,7 @@
 import {
   AfterViewInit,
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
   Component,
   ElementRef,
   Inject,
@@ -19,23 +21,31 @@ import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalService } from 'ng-zorro-antd/modal';
 
 import { FilebrowserDataSource } from './filebrowser.data-source';
+import { FormComponent } from './form/form.component';
+import { PictureComponent } from './picture/picture.component';
 import { OPTION } from './provide';
 import { Option, WpxFile, WpxFileType } from './types';
+import { VideoComponent } from './video/video.component';
 
 @Component({
   selector: 'wpx-filebrowser',
   templateUrl: './filebrowser.component.html',
-  styleUrls: ['./filebrowser.component.css']
-  // changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./filebrowser.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class WpxFilebrowserComponent<T extends WpxFile> implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild(NzCardComponent, { read: ElementRef, static: true }) card!: ElementRef;
 
   @Input({ required: true }) wpxApi!: WpxApi<T>;
-  @Input() wpxType!: WpxFileType;
-  @Input() wpxFallback!: string;
+  @Input({ required: true }) wpxType!: WpxFileType;
+  @Input({ required: true }) wpxFallback!: string;
+  @Input() wpxMax?: number;
+  @Input() wpxForm?: (doc: AnyDto<T>) => void;
   @Input() wpxTitle?: TemplateRef<void>;
   @Input() wpxExtra?: TemplateRef<void>;
+
+  accept: string[] = [];
+  ext!: string;
 
   ds!: FilebrowserDataSource<T>;
   actived?: AnyDto<T>;
@@ -48,11 +58,22 @@ export class WpxFilebrowserComponent<T extends WpxFile> implements OnInit, After
     private image: NzImageService,
     private message: NzMessageService,
     private modal: NzModalService,
-    private contextMenu: NzContextMenuService
+    private contextMenu: NzContextMenuService,
+    private cdr: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
     this.ds = new FilebrowserDataSource<T>(this.wpxApi);
+    switch (this.wpxType) {
+      case 'picture':
+        this.ext = 'image';
+        this.accept = ['image/jpeg', 'image/png', 'image/bmp', 'image/gif', 'image/webp', 'image/avif'];
+        break;
+      case 'video':
+        this.ext = 'video';
+        this.accept = ['video/mp4'];
+        break;
+    }
     this.resizeObserver = new ResizeObserver(entries => {
       for (const entry of entries) {
         const { width } = entry.contentRect;
@@ -109,27 +130,49 @@ export class WpxFilebrowserComponent<T extends WpxFile> implements OnInit, After
     this.contextMenu.create($event, menu);
   }
 
+  openForm(doc: AnyDto<T>): void {
+    if (!this.wpxForm) {
+      this.modal.create<FormComponent>({
+        nzTitle: `编辑`,
+        nzContent: FormComponent,
+        nzData: {
+          doc,
+          api: this.wpxApi
+        },
+        nzOnOk: () => {
+          this.cdr.detectChanges();
+        }
+      });
+    } else {
+      this.wpxForm(doc);
+    }
+  }
+
   openPicture(doc: AnyDto<T>): void {
-    // this.modal.create<PictureComponent, ViewPictureData>({
-    //   nzTitle: $localize`图片设置`,
-    //   nzWidth: 960,
-    //   nzContent: PictureComponent,
-    //   nzData: {
-    //     doc
-    //   }
-    // });
+    this.modal.create<PictureComponent>({
+      nzTitle: `图片设置`,
+      nzWidth: 960,
+      nzContent: PictureComponent,
+      nzData: {
+        doc,
+        api: this.wpxApi
+      },
+      nzOnOk: () => {
+        this.cdr.detectChanges();
+      }
+    });
   }
 
   openVideo(doc: AnyDto<T>): void {
-    // this.modal.create<VideoComponent, ViewVideoData>({
-    //   nzTitle: doc.name,
-    //   nzWidth: 960,
-    //   nzContent: VideoComponent,
-    //   nzData: {
-    //     url: doc.url
-    //   },
-    //   nzFooter: null
-    // });
+    this.modal.create<VideoComponent>({
+      nzTitle: doc.name,
+      nzWidth: 960,
+      nzContent: VideoComponent,
+      nzData: {
+        url: doc.url
+      },
+      nzFooter: null
+    });
   }
 
   delete(data: AnyDto<T>): void {
@@ -143,7 +186,9 @@ export class WpxFilebrowserComponent<T extends WpxFile> implements OnInit, After
       nzOnOk: () => {
         this.wpxApi.delete(data._id).subscribe(() => {
           this.message.success(`数据删除完成`);
-          this.ds.fetch(true);
+          this.ds.removeSelection(data._id);
+          data.deleted = true;
+          this.cdr.detectChanges();
         });
       },
       nzCancelText: `否`
@@ -171,8 +216,11 @@ export class WpxFilebrowserComponent<T extends WpxFile> implements OnInit, After
             }
           )
           .subscribe(() => {
+            this.ds.selection.forEach(value => {
+              value.deleted = true;
+            });
             this.ds.selection.clear();
-            this.ds.fetch(true);
+            this.cdr.detectChanges();
             this.message.success(`数据删除完成`);
           });
       },

@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 
-import { Video } from '@common/models/video';
 import { WpxApi } from '@weplanx/ng';
+import { WpxFile } from '@weplanx/ng/filebrowser';
 
 @Injectable({ providedIn: 'root' })
-export class PicturesService extends WpxApi<Video> {
+export class VideosService extends WpxApi<WpxFile> {
   protected override collection = 'videos';
 }
