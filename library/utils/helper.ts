@@ -11,8 +11,8 @@ export const toHttpParams = <T>(options?: ApiOptions<T>): HttpParams => {
     options.keys.forEach(v => (params = params.append('keys', v as string)));
   }
   if (options?.sort) {
-    options.sort.forEach((v, k) => {
-      params = params.append('sort', `${k as string}:${v}`);
+    Object.entries(options.sort).forEach(([k, v]) => {
+      params = params.append('sort', `${k}:${v}`);
     });
   }
   return params;

@@ -1,0 +1,77 @@
+<nz-select
+  style="width: 220px"
+  nzShowSearch
+  nzAllowClear
+  nzMode="multiple"
+  nzPlaceHolder="分类"
+  [nzLoading]="loading"
+  [nzDropdownRender]="menuRef"
+  [(ngModel)]="value"
+  (ngModelChange)="update($event)"
+>
+  <ng-container *ngFor="let item of items">
+    <nz-option [nzLabel]="item.name" [nzValue]="item._id"> </nz-option>
+  </ng-container>
+</nz-select>
+
+<ng-template #menuRef>
+  <nz-divider style="margin: 6px 0 0"></nz-divider>
+  <div style="width: 100%">
+    <button style="width: 50%" nz-button nzType="link" nzBlock (click)="getData()">
+      <span nz-icon nzType="sync" nzTheme="outline"></span>
+      刷新
+    </button>
+    <button style="width: 50%" nz-button nzType="link" nzBlock (click)="openPanel()">
+      <span nz-icon nzType="ordered-list" nzTheme="outline"></span>
+      管理
+    </button>
+  </div>
+</ng-template>
+
+<nz-drawer [nzWidth]="640" [nzClosable]="false" [nzVisible]="panel" (nzOnClose)="closePanel()">
+  <ng-container *nzDrawerContent>
+    <nz-page-header nzTitle="分类管理" [nzSubtitle]="wpxType">
+      <nz-page-header-extra>
+        <button nz-button nzType="primary" nzShape="circle" (click)="openForm()">
+          <span nz-icon nzType="plus" nzTheme="outline"></span>
+        </button>
+      </nz-page-header-extra>
+    </nz-page-header>
+
+    <nz-card>
+      <nz-table
+        #basicTable
+        [nzData]="items"
+        [nzFrontPagination]="false"
+        [nzShowPagination]="false"
+        [nzLoading]="loading"
+      >
+        <thead>
+          <tr>
+            <th nzWidth="60px" nzLeft nzAlign="center">
+              <span style="cursor: pointer" nz-icon nzType="sync" nzTheme="outline" (click)="getData()"></span>
+            </th>
+            <th><b>名称</b></th>
+          </tr>
+        </thead>
+        <tbody cdkDropList (cdkDropListDropped)="drop($event)">
+          <tr *ngFor="let data of basicTable.data" (contextmenu)="openMenu($event, actions, data)" cdkDrag>
+            <td nzLeft nzAlign="center">
+              <span cdkDragHandle style="cursor: move" nz-icon nzType="holder" nzTheme="outline"></span>
+            </td>
+            <td>{{ data.name }}</td>
+          </tr>
+        </tbody>
+      </nz-table>
+    </nz-card>
+  </ng-container>
+</nz-drawer>
+
+<nz-dropdown-menu #actions="nzDropdownMenu">
+  <ul *ngIf="actived" nz-menu>
+    <li nz-menu-item nzDisabled>{{ actived.name }}</li>
+    <li nz-menu-divider></li>
+    <li nz-menu-item (click)="openForm(actived)">编辑</li>
+    <li nz-menu-item nzDanger (click)="delete(actived)">删除</li>
+  </ul>
+</nz-dropdown-menu>

@@ -3,6 +3,7 @@ import { ScrollingModule } from '@angular/cdk/scrolling';
 import { NgModule } from '@angular/core';
 
 import { WpxModule, WpxShareModule } from '@weplanx/ng';
+import { WpxCategoriesModule } from '@weplanx/ng/categories';
 import { WpxKeywordModule } from '@weplanx/ng/keyword';
 import { WpxTableModule } from '@weplanx/ng/table';
 import { WpxUploadModule } from '@weplanx/ng/upload';
@@ -20,7 +21,8 @@ import { VideoComponent } from './video/video.component';
     WpxUploadModule,
     WpxShareModule,
     WpxKeywordModule,
-    WpxTableModule
+    WpxTableModule,
+    WpxCategoriesModule
   ],
   declarations: [WpxFilebrowserComponent, FormComponent, PictureComponent, VideoComponent],
   exports: [WpxFilebrowserComponent]

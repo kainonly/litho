@@ -4,7 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { Inject, Injectable, LOCALE_ID, Optional } from '@angular/core';
 import { AsyncSubject, map, Observable } from 'rxjs';
 
-import { Any, ImageInfo, R, UploadOption } from './types';
+import { Any, WpxImageInfo, R, UploadOption } from './types';
 import { WpxApi } from './utils/api';
 import { WpxModel } from './utils/model';
 import { WpxStoreService } from './wpx-store.service';
@@ -48,7 +48,7 @@ export class WpxService {
     return this.http.get(`tencent/cos_presigned`);
   }
 
-  cosImageInfo(url: string): Observable<ImageInfo> {
+  cosImageInfo(url: string): Observable<WpxImageInfo> {
     return this.http.get<Any>(`tencent/cos_image_info`, { params: { url } }).pipe(
       map(v => {
         v.size = parseInt(v.size);

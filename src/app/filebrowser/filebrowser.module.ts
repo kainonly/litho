@@ -3,7 +3,6 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { NavModule } from '@common/components/nav/nav.module';
 import { ShareModule } from '@common/share.module';
-import { WpxFilebrowserModule } from '@weplanx/ng/filebrowser';
 
 import { FilebrowserComponent } from './filebrowser.component';
 

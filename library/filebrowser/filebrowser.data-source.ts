@@ -10,6 +10,7 @@ export class FilebrowserDataSource<T extends WpxFile> implements DataSource<AnyD
   private indexs: Set<number> = new Set<number>();
   private cache: AnyDto<T>[][] = [[]];
   loading = false;
+  total = 0;
 
   /**
    * Each list contains the number of cards
@@ -18,6 +19,7 @@ export class FilebrowserDataSource<T extends WpxFile> implements DataSource<AnyD
   page = 1;
   pagesize = 0;
 
+  categories: string[] = [];
   searchText = '';
   selection = new Map<string, T>();
 
@@ -52,25 +54,38 @@ export class FilebrowserDataSource<T extends WpxFile> implements DataSource<AnyD
     }
 
     const filter: Filter<T> = {};
+
+    if (this.categories.length !== 0) {
+      filter.categories = { $in: this.categories };
+    }
     if (this.searchText !== '') {
       filter.name = { $regex: '^' + this.searchText };
     }
 
-    this.api.find(filter, { pagesize: this.pagesize, page: this.page }).subscribe(({ data }) => {
-      let l = this.cache.length - 1;
-      data.forEach(value => {
-        if (this.cache[l].length === this.n) {
-          l++;
-        }
-        if (!this.cache[l]) {
-          this.cache[l] = [];
-        }
-        this.cache[l].push(value);
+    this.api
+      .find(filter, {
+        xfilter: {
+          'categories->$in': 'oids'
+        },
+        pagesize: this.pagesize,
+        page: this.page
+      })
+      .subscribe(({ data, total }) => {
+        this.total = total;
+        let l = this.cache.length - 1;
+        data.forEach(value => {
+          if (this.cache[l].length === this.n) {
+            l++;
+          }
+          if (!this.cache[l]) {
+            this.cache[l] = [];
+          }
+          this.cache[l].push(value);
+        });
+        this.indexs.add(this.page);
+        this.stream.next(this.cache);
+        this.loading = false;
       });
-      this.indexs.add(this.page);
-      this.stream.next(this.cache);
-      this.loading = false;
-    });
   }
 
   setSelection(data: AnyDto<T>): void {

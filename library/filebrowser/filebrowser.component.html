@@ -1,5 +1,11 @@
 <ng-template #titleRef>
   <nz-space>
+    <wpx-categories
+      *nzSpaceItem
+      [wpxType]="wpxType"
+      [(ngModel)]="ds.categories"
+      (ngModelChange)="ds.fetch(true)"
+    ></wpx-categories>
     <nz-input-group
       *nzSpaceItem
       style="width: 220px"
@@ -38,6 +44,7 @@
 <nz-card [nzBodyStyle]="{ height: 'calc(100% - 64px)' }" [nzTitle]="titleRef" [nzExtra]="extraRef">
   <cdk-virtual-scroll-viewport [itemSize]="200">
     <nz-list nzGrid [nzSplit]="false" [nzLoading]="ds.loading">
+      <nz-list-empty *ngIf="ds.total === 0"></nz-list-empty>
       <nz-list-item *cdkVirtualFor="let items of ds" style="height: 200px">
         <nz-row [nzGutter]="12" style="width: 100%">
           <nz-col *ngFor="let item of items" [nzSpan]="24 / ds.n">

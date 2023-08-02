@@ -77,7 +77,7 @@ export class WpxFilebrowserComponent<T extends WpxFile> implements OnInit, After
     this.resizeObserver = new ResizeObserver(entries => {
       for (const entry of entries) {
         const { width } = entry.contentRect;
-        const n = width >= 1600 ? 6 : 4;
+        const n = width >= 1400 ? 6 : 4;
         if (this.ds.n !== n) {
           this.ds.n = n;
           this.ds.pagesize = n * 10;

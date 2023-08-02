@@ -1,10 +1,5 @@
-<nz-layout style="height: 100%">
-  <nz-sider nzWidth="240px" nzTheme="light"> </nz-sider>
-  <nz-content style="height: 100%">
-    <wpx-filebrowser
-      [wpxApi]="videos"
-      [wpxType]="'video'"
-      [wpxFallback]="['assets', 'photon.svg'] | wpxAssets"
-    ></wpx-filebrowser>
-  </nz-content>
-</nz-layout>
+<wpx-filebrowser
+  [wpxApi]="videos"
+  [wpxType]="'video'"
+  [wpxFallback]="['assets', 'photon.svg'] | wpxAssets"
+></wpx-filebrowser>

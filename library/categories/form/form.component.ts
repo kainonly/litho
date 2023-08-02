@@ -1,15 +1,20 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
-import { Any, AnyDto, WpxApi } from '@weplanx/ng';
+import { Any, AnyDto } from '@weplanx/ng';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NZ_MODAL_DATA, NzModalRef } from 'ng-zorro-antd/modal';
-import { NzNotificationService } from 'ng-zorro-antd/notification';
 
-import { WpxFile } from '../types';
+import { WpxCategoriesService } from '../categories.service';
+import { WpxCategory } from '../types';
+
+export interface ModalData {
+  type: string;
+  doc?: AnyDto<WpxCategory>;
+}
 
 @Component({
-  selector: 'wpx-filebrowser-form',
+  selector: 'wpx-categories-form',
   templateUrl: './form.component.html'
 })
 export class FormComponent implements OnInit {
@@ -24,21 +29,20 @@ export class FormComponent implements OnInit {
 
   constructor(
     @Inject(NZ_MODAL_DATA)
-    public data: {
-      doc: AnyDto<WpxFile>;
-      api: WpxApi<WpxFile>;
-    },
+    public data: ModalData,
     private modalRef: NzModalRef,
     private message: NzMessageService,
-    private notification: NzNotificationService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private categories: WpxCategoriesService
   ) {}
 
   ngOnInit(): void {
     this.form = this.fb.group({
       name: [null, [Validators.required]]
     });
-    this.form.patchValue(this.data.doc);
+    if (this.data.doc) {
+      this.form.patchValue(this.data.doc);
+    }
   }
 
   close(): void {
@@ -46,20 +50,18 @@ export class FormComponent implements OnInit {
   }
 
   submit(data: Any): void {
-    this.data.api
-      .updateById(
-        this.data.doc._id,
-        {
-          $set: data
-        },
-        {
-          xdata: { '$set->categories': 'oids' }
-        }
-      )
-      .subscribe(() => {
-        this.data.doc.name = data.name;
-        this.message.success(`数据更新完成`);
+    data.type = this.data.type;
+    if (!this.data.doc) {
+      data.sort = 0;
+      this.categories.create(data).subscribe(() => {
+        this.message.success(`数据更新成功`);
         this.modalRef.triggerOk();
       });
+    } else {
+      this.categories.updateById(this.data.doc._id, { $set: data }).subscribe(() => {
+        this.message.success(`数据更新成功`);
+        this.modalRef.triggerOk();
+      });
+    }
   }
 }

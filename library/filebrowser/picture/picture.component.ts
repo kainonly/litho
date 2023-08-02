@@ -3,7 +3,7 @@
 import { AfterViewInit, Component, ElementRef, Inject, NgZone, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 
-import { Any, AnyDto, ImageInfo, WpxApi, WpxService } from '@weplanx/ng';
+import { Any, AnyDto, WpxImageInfo, WpxApi, WpxService } from '@weplanx/ng';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NZ_MODAL_DATA, NzModalRef } from 'ng-zorro-antd/modal';
 
@@ -16,8 +16,8 @@ import { WpxPicture } from '../types';
 })
 export class PictureComponent implements OnInit, AfterViewInit {
   @ViewChild('painting') painting!: ElementRef;
-  original?: ImageInfo;
-  output?: ImageInfo;
+  original?: WpxImageInfo;
+  output?: WpxImageInfo;
 
   form!: FormGroup;
   query?: string;

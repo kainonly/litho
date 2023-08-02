@@ -29,6 +29,7 @@
       "@weplanx/ng": ["library/public-api.ts"],
       "@weplanx/ng/keyword": ["library/keyword/public-api.ts"],
       "@weplanx/ng/toolbox": ["library/toolbox/public-api.ts"],
+      "@weplanx/ng/categories": ["library/categories/public-api.ts"],
       "@weplanx/ng/filebrowser": ["library/filebrowser/public-api.ts"],
       "@weplanx/ng/upload": ["library/upload/public-api.ts"],
       "@weplanx/ng/table": ["library/table/public-api.ts"]

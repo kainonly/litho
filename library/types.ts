@@ -53,7 +53,7 @@ export interface XData {
 export type XDataKind = 'oid' | 'oids' | 'date' | 'dates' | 'timestamp' | 'timestamps' | 'password';
 export interface ApiOptions<T> {
   keys?: Array<keyof AnyDto<T>>;
-  sort?: Map<keyof AnyDto<T>, -1 | 1>;
+  sort?: Sort<T>;
   page?: number;
   pagesize?: number;
   xfilter?: XFilter;
@@ -93,7 +93,7 @@ export interface UploadOption {
   limit: number;
 }
 
-export interface ImageInfo {
+export interface WpxImageInfo {
   format: string;
   height: number;
   width: number;
