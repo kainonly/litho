@@ -68,8 +68,8 @@ export class WpxUploadDirective {
               }
               args.onProgress!(res, args.file);
             }
-            if (res.type === 'upload_load') {
-              args.onSuccess!(res.response, args.file, res.xhr);
+            if (res.type === 'download_load') {
+              args.onSuccess!(res.responseHeaders, args.file, res.xhr);
             }
           },
           error: e => {

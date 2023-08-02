@@ -19,6 +19,7 @@ import { ResultModule } from '@common/components/result/result.module';
 import { UnauthorizeComponent } from '@common/components/result/unauthorize/unauthorize.component';
 import { ShareModule } from '@common/share.module';
 import { environment } from '@env';
+import { provideFilebrowser } from '@weplanx/ng/filebrowser';
 import { NZ_CONFIG, NzConfig } from 'ng-zorro-antd/core/config';
 import { zh_CN, NZ_I18N } from 'ng-zorro-antd/i18n';
 import { NzMenuModule } from 'ng-zorro-antd/menu';
@@ -105,7 +106,19 @@ const routes: Routes = [
           assetsRoot: `${environment.cdn}/npm/monaco-editor@0.40.0/min`
         }
       }
-    }
+    },
+    provideFilebrowser({
+      style: {
+        default: {
+          thumbnail: 'imageMogr2/thumbnail/400x/quality/90',
+          placeholder: 'imageMogr2/thumbnail/400x/quality/50/blur/10x1'
+        },
+        processed: {
+          thumbnail: '/quality/90',
+          placeholder: '/quality/50/blur/10x1'
+        }
+      }
+    })
   ],
   bootstrap: [AppComponent]
 })

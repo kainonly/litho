@@ -1,8 +1,6 @@
 import { WpxFile } from '@weplanx/ng/filebrowser';
 
 export interface Picture extends WpxFile {
-  categories: string[];
-  query?: string;
   process?: PictureProcess;
 }
 

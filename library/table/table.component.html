@@ -1,10 +1,12 @@
 <nz-card
   class="card"
   [ngStyle]="{ height: 'calc(100% - ' + (!wpxModel.advanced() ? 0 : wpxOffset) + 'px)' }"
+  [nzBodyStyle]="{ height: 'calc(100% - 64px)' }"
   [nzTitle]="wpxTitle"
   [nzExtra]="wpxExtra"
 >
   <nz-table
+    style="height: 100%"
     [nzData]="wpxModel.data()"
     [nzLoading]="wpxModel.loading()"
     [nzFrontPagination]="false"

@@ -1,20 +1,22 @@
 export type Any = any; // eslint-disable-line
 export type AnyDto<T> = T & BasicDto;
-export type R = { [key: string]: Any };
+export interface R {
+  [key: string]: Any;
+}
 export interface BasicDto extends R {
   _id: string;
   create_time: Date;
   update_time: Date;
 }
-export type FieldOperators<Type> = Partial<{
-  $eq: Type;
-  $gt: Type;
-  $gte: Type;
-  $in: Type[];
-  $lt: Type;
-  $lte: Type;
-  $ne: Type;
-  $nin: Type[];
+export type FieldOperators<DataType> = Partial<{
+  $eq: DataType;
+  $gt: DataType;
+  $gte: DataType;
+  $in: DataType[];
+  $lt: DataType;
+  $lte: DataType;
+  $ne: DataType;
+  $nin: DataType[];
   $regex: string;
   $exists: boolean;
 }>;
@@ -33,17 +35,21 @@ export type Operators = Partial<{
 export type Filter<T> = Partial<{ [P in keyof AnyDto<T>]: AnyDto<T>[P] | FieldOperators<AnyDto<T>[P]> }> &
   Operators &
   R;
-export type UpdateOperators<T> = {
+export interface UpdateOperators<T> {
   $inc: Partial<{ [P in keyof AnyDto<T>]: number }> & { [key: string]: number };
   $rename: Partial<{ [P in keyof AnyDto<T>]: string }> & { [key: string]: string };
   $set: Partial<{ [P in keyof AnyDto<T>]: AnyDto<T>[P] }> & R;
   $unset: Partial<{ [P in keyof AnyDto<T>]: '' }> & { [key: string]: '' };
-};
+}
 export type Update<T> = Partial<UpdateOperators<T>>;
 export type Sort<T> = Partial<{ [P in keyof AnyDto<T>]: -1 | 1 }>;
-export type XFilter = { [key: string]: XFilterKind };
+export interface XFilter {
+  [key: string]: XFilterKind;
+}
 export type XFilterKind = 'oid' | 'oids' | 'date' | 'dates' | 'timestamp' | 'timestamps';
-export type XData = { [key: string]: XDataKind };
+export interface XData {
+  [key: string]: XDataKind;
+}
 export type XDataKind = 'oid' | 'oids' | 'date' | 'dates' | 'timestamp' | 'timestamps' | 'password';
 export interface ApiOptions<T> {
   keys?: Array<keyof AnyDto<T>>;
@@ -57,10 +63,10 @@ export interface ApiOptions<T> {
 export type FilterOption<T> = Pick<ApiOptions<T>, 'xfilter'>;
 export type CreateOption<T> = Pick<ApiOptions<T>, 'xdata' | 'txn'>;
 export type FindOption<T> = Omit<ApiOptions<T>, 'xdata' | 'txn'>;
-export type FindResult<T> = {
+export interface FindResult<T> {
   data: Array<AnyDto<T>>;
   total: number;
-};
+}
 export type FindOneOption<T> = Pick<ApiOptions<T>, 'keys' | 'xfilter'>;
 export type FindByIdOption<T> = Pick<ApiOptions<T>, 'keys'>;
 export type UpdateOption<T> = Pick<ApiOptions<T>, 'xfilter' | 'xdata' | 'txn'>;

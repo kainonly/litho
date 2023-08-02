@@ -90,14 +90,14 @@ export class WpxTableComponent<T> implements OnInit, AfterViewInit, OnDestroy {
         const { height } = entry.contentRect;
         this.scroll.set({
           x: this.wpxX ?? this.basicTable.nativeElement.offsetWidth + 'px',
-          y: height - this.wpxItemSize - 180 + 'px'
+          y: height - this.wpxItemSize - 64 + 'px'
         });
       }
     });
   }
 
   ngAfterViewInit(): void {
-    this.resizeObserver.observe(this.card.nativeElement);
+    this.resizeObserver.observe(this.basicTable.nativeElement);
   }
 
   ngOnDestroy(): void {

@@ -1,1 +1,114 @@
-<nz-card style="height: 100%" [nzTitle]="wpxTitle" [nzExtra]="wpxExtra"> </nz-card>
+<ng-template #titleRef>
+  <nz-space>
+    <nz-input-group
+      *nzSpaceItem
+      style="width: 220px"
+      nzSuffixIcon="search"
+      nz-tooltip="键盘 Enter 开始搜索"
+      nzTooltipTrigger="focus"
+    >
+      <input nz-input placeholder="名称" [(ngModel)]="ds.searchText" (keyup.enter)="ds.fetch(true)" />
+    </nz-input-group>
+    <button *nzSpaceItem nz-button nzType="text" nz-tooltip="刷新数据" (click)="ds.fetch(true)">
+      <i nz-icon nzType="reload" nzTheme="outline"></i>
+    </button>
+  </nz-space>
+</ng-template>
+
+<ng-template #extraRef>
+  <nz-space>
+    <ng-container *ngIf="ds.selection.size as size">
+      <button *nzSpaceItem nz-button nzType="dashed" nz-dropdown [nzDropdownMenu]="menu"> 已选中 {{ size }} 项 </button>
+      <nz-dropdown-menu #menu="nzDropdownMenu">
+        <ul nz-menu>
+          <li nz-menu-item (click)="ds.selection.clear()"> 取消选择 </li>
+          <li nz-menu-item nzDanger (click)="bulkDelete()"> 删除 </li>
+        </ul>
+      </nz-dropdown-menu>
+    </ng-container>
+    <wpx-upload-transport
+      *nzSpaceItem
+      [wpxExt]="'image'"
+      [wpxAccept]="['image/jpeg', 'image/png', 'image/bmp', 'image/gif', 'image/webp', 'image/avif']"
+      (wpxChange)="upload($event)"
+    ></wpx-upload-transport>
+  </nz-space>
+</ng-template>
+
+<nz-card [nzBodyStyle]="{ height: 'calc(100% - 64px)' }" [nzTitle]="titleRef" [nzExtra]="extraRef">
+  <cdk-virtual-scroll-viewport [itemSize]="200">
+    <nz-list nzGrid [nzSplit]="false" [nzLoading]="ds.loading">
+      <nz-list-item *cdkVirtualFor="let items of ds" style="height: 200px">
+        <nz-row [nzGutter]="12" style="width: 100%">
+          <nz-col *ngFor="let item of items" [nzSpan]="24 / ds.n">
+            <nz-card
+              nzHoverable
+              nzSize="small"
+              nzType="inner"
+              [nzCover]="coverRef"
+              (contextmenu)="openActions($event, actions, item)"
+            >
+              <ng-template #coverRef [ngSwitch]="wpxType">
+                <div *ngSwitchCase="'picture'" class="photo" (click)="previewPicture(item)">
+                  <ng-container *ngIf="item.query; else notQueryTpl">
+                    <img
+                      wpxRetry
+                      nz-image
+                      nzDisablePreview
+                      [nzSrc]="[item.url] | wpxAssets: item.query + option.style.processed.thumbnail"
+                      [nzPlaceholder]="[item.url] | wpxAssets: item.query + option.style.processed.placeholder"
+                      [nzFallback]="wpxFallback"
+                      [alt]="item.name"
+                    />
+                  </ng-container>
+                  <ng-template #notQueryTpl>
+                    <img
+                      wpxRetry
+                      nz-image
+                      nzDisablePreview
+                      [nzSrc]="[item.url] | wpxAssets: option.style.default.thumbnail"
+                      [nzPlaceholder]="[item.url] | wpxAssets: option.style.default.placeholder"
+                      [nzFallback]="wpxFallback"
+                      [alt]="item.name"
+                    />
+                  </ng-template>
+                </div>
+                <div *ngSwitchCase="'video'" class="photo" (click)="previewPoster(item)">
+                  <img
+                    wpxRetry
+                    nz-image
+                    nzDisablePreview
+                    [nzSrc]="[item.url + '_chart'] | wpxAssets: option.style.default.thumbnail"
+                    [nzFallback]="wpxFallback"
+                    [alt]="item.name"
+                  />
+                </div>
+              </ng-template>
+              <nz-card-meta style="height: 50px" [nzDescription]="descriptionRef">
+                <ng-template #descriptionRef>
+                  <label
+                    nz-checkbox
+                    [nzChecked]="ds.selection.has(item._id)"
+                    (nzCheckedChange)="$event ? ds.setSelection(item) : ds.removeSelection(item._id)"
+                  >
+                    <p nz-typography nzEllipsis [nzEllipsisRows]="2" [nzContent]="item.name"></p>
+                  </label>
+                </ng-template>
+              </nz-card-meta>
+            </nz-card>
+          </nz-col>
+        </nz-row>
+      </nz-list-item>
+    </nz-list>
+  </cdk-virtual-scroll-viewport>
+</nz-card>
+
+<nz-dropdown-menu #actions="nzDropdownMenu">
+  <ul *ngIf="actived as data" nz-menu style="width: 320px">
+    <li nz-menu-item nzDisabled>{{ data.name }}</li>
+    <li nz-menu-divider></li>
+    <li nz-menu-item> 设置 </li>
+    <li nz-menu-item>编辑</li>
+    <li nz-menu-item nzDanger (click)="delete(data)">删除</li>
+  </ul>
+</nz-dropdown-menu>
