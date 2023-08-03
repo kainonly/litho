@@ -28,7 +28,8 @@ export class FilebrowserDataSource<T extends WpxFile> implements DataSource<AnyD
   connect(collectionViewer: CollectionViewer): Observable<AnyDto<T>[][]> {
     collectionViewer.viewChange.pipe(takeUntil(this.disconnect$)).subscribe(range => {
       const index = Math.floor((range.end * this.n) / this.pagesize) + 1;
-      if (this.indexs.has(index)) {
+      const max = Math.trunc(this.total / this.pagesize);
+      if (this.indexs.has(index) || index > max) {
         return;
       }
       this.page = index;

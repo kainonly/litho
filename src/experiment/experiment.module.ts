@@ -25,6 +25,13 @@ const routes: Routes = [
           breadcrumb: `表格`
         }
       },
+      {
+        path: 'upload',
+        loadChildren: () => import('./upload/upload.module').then(m => m.UploadModule),
+        data: {
+          breadcrumb: `上传`
+        }
+      },
       { path: '', redirectTo: 'store', pathMatch: 'full' }
     ]
   }

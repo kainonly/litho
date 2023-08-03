@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 import { PicturesService } from '@common/services/pictures.service';
 
@@ -6,8 +6,6 @@ import { PicturesService } from '@common/services/pictures.service';
   selector: 'app-filebrowser-pictures',
   templateUrl: './pictures.component.html'
 })
-export class PicturesComponent implements OnInit {
+export class PicturesComponent {
   constructor(public pictures: PicturesService) {}
-
-  ngOnInit(): void {}
 }

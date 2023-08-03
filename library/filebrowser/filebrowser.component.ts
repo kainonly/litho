@@ -8,18 +8,19 @@ import {
   Input,
   OnDestroy,
   OnInit,
+  Optional,
   TemplateRef,
   ViewChild
 } from '@angular/core';
 
-import { AnyDto, Filter, WpxApi, WpxService } from '@weplanx/ng';
+import { Any, AnyDto, Filter, WpxApi, WpxService } from '@weplanx/ng';
 import { WpxCategoriesComponent } from '@weplanx/ng/categories';
 import { Transport } from '@weplanx/ng/upload';
 import { NzCardComponent } from 'ng-zorro-antd/card';
 import { NzContextMenuService, NzDropdownMenuComponent } from 'ng-zorro-antd/dropdown';
 import { NzImageService } from 'ng-zorro-antd/image';
 import { NzMessageService } from 'ng-zorro-antd/message';
-import { NzModalService } from 'ng-zorro-antd/modal';
+import { NZ_MODAL_DATA, NzModalRef, NzModalService } from 'ng-zorro-antd/modal';
 
 import { CategoriesComponent, CategoriesModal } from './categories/categories.component';
 import { FilebrowserDataSource } from './filebrowser.data-source';
@@ -28,6 +29,12 @@ import { PictureComponent } from './picture/picture.component';
 import { OPTION } from './provide';
 import { Option, WpxFile, WpxFileType } from './types';
 import { VideoComponent } from './video/video.component';
+
+export interface WpxFilebrowserModal<T> {
+  api: WpxApi<T>;
+  type: WpxFileType;
+  fallback: string;
+}
 
 @Component({
   selector: 'wpx-filebrowser',
@@ -38,11 +45,12 @@ import { VideoComponent } from './video/video.component';
 export class WpxFilebrowserComponent<T extends WpxFile> implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild(NzCardComponent, { read: ElementRef, static: true }) card!: ElementRef;
   @ViewChild(WpxCategoriesComponent) categories!: WpxCategoriesComponent;
+  @ViewChild('titleRef', { static: true }) titleRef!: TemplateRef<Any>;
+  @ViewChild('extraRef', { static: true }) extraRef!: TemplateRef<Any>;
 
   @Input({ required: true }) wpxApi!: WpxApi<T>;
   @Input({ required: true }) wpxType!: WpxFileType;
   @Input({ required: true }) wpxFallback!: string;
-  @Input() wpxMax?: number;
   @Input() wpxForm?: (doc: AnyDto<T>) => void;
   @Input() wpxTitle?: TemplateRef<void>;
   @Input() wpxExtra?: TemplateRef<void>;
@@ -62,10 +70,17 @@ export class WpxFilebrowserComponent<T extends WpxFile> implements OnInit, After
     private message: NzMessageService,
     private modal: NzModalService,
     private contextMenu: NzContextMenuService,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    @Optional() public modalRef: NzModalRef,
+    @Optional() @Inject(NZ_MODAL_DATA) public data: WpxFilebrowserModal<T>
   ) {}
 
   ngOnInit(): void {
+    if (this.modalRef) {
+      this.wpxApi = this.data.api;
+      this.wpxType = this.data.type;
+      this.wpxFallback = this.data.fallback;
+    }
     this.ds = new FilebrowserDataSource<T>(this.wpxApi);
     switch (this.wpxType) {
       case 'picture':
