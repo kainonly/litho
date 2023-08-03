@@ -2,7 +2,7 @@ import { Platform } from '@angular/cdk/platform';
 import { DOCUMENT } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Inject, Injectable, LOCALE_ID, Optional } from '@angular/core';
-import { AsyncSubject, map, Observable } from 'rxjs';
+import { AsyncSubject, fromEvent, map, Observable } from 'rxjs';
 
 import { Any, WpxImageInfo, R, UploadOption } from './types';
 import { WpxApi } from './utils/api';
@@ -13,6 +13,7 @@ import { WpxStoreService } from './wpx-store.service';
 export class WpxService {
   assets = '/assets';
   upload: AsyncSubject<UploadOption> = new AsyncSubject();
+  scripts = new Map<string, AsyncSubject<void>>();
 
   constructor(
     @Inject(LOCALE_ID) private locale: string,
@@ -42,6 +43,35 @@ export class WpxService {
     const location = this.document.location;
     const path = location.pathname.replace(this.locale, id);
     this.document.location = `${location.origin}/${path}`;
+  }
+
+  private createScript(url: string): HTMLScriptElement | void {
+    if (!this.platform.isBrowser) {
+      return;
+    }
+    const script = this.document.createElement('script');
+    script.src = url;
+    script.async = true;
+    this.document.body.append(script);
+    return script;
+  }
+
+  loadScript(key: string, url: string, plugins: string[]): void {
+    if (this.scripts.has(key)) {
+      return;
+    }
+    const script = this.createScript(url);
+    const async: AsyncSubject<void> = new AsyncSubject();
+    this.scripts.set(key, async);
+    for (const plugin of plugins) {
+      this.createScript(plugin);
+    }
+    if (script) {
+      fromEvent(script, 'load').subscribe(() => {
+        async.next();
+        async.complete();
+      });
+    }
   }
 
   cosPresigned(): Observable<R> {

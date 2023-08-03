@@ -12,9 +12,9 @@ import {
   ViewEncapsulation
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { auditTime, BehaviorSubject, from, switchMap } from 'rxjs';
+import { auditTime, BehaviorSubject, delay, from, switchMap } from 'rxjs';
 
-import { Any } from '@weplanx/ng';
+import { Any, WpxService } from '@weplanx/ng';
 
 import { defaultTools, zh_CN } from './helper';
 import { Image } from './image';
@@ -55,6 +55,7 @@ export class WpxRichtextComponent implements ControlValueAccessor, AfterViewInit
   private onTouched?: () => void;
 
   constructor(
+    private wpx: WpxService,
     private platform: Platform,
     private zone: NgZone
   ) {}
@@ -75,7 +76,12 @@ export class WpxRichtextComponent implements ControlValueAccessor, AfterViewInit
     if (!this.platform.isBrowser) {
       return;
     }
-    this.initialize();
+    this.wpx.scripts
+      .get('editorjs')!
+      .pipe(delay(200))
+      .subscribe(() => {
+        this.initialize();
+      });
     return;
   }
 
