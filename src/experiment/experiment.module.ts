@@ -32,6 +32,13 @@ const routes: Routes = [
           breadcrumb: `上传`
         }
       },
+      {
+        path: 'article',
+        loadChildren: () => import('./article/article.module').then(m => m.ArticleModule),
+        data: {
+          breadcrumb: `文章`
+        }
+      },
       { path: '', redirectTo: 'store', pathMatch: 'full' }
     ]
   }

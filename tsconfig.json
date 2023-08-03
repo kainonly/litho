@@ -32,6 +32,7 @@
       "@weplanx/ng/categories": ["library/categories/public-api.ts"],
       "@weplanx/ng/filebrowser": ["library/filebrowser/public-api.ts"],
       "@weplanx/ng/upload": ["library/upload/public-api.ts"],
+      "@weplanx/ng/richtext": ["library/richtext/public-api.ts"],
       "@weplanx/ng/table": ["library/table/public-api.ts"]
     }
   },
