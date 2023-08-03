@@ -8,6 +8,7 @@ import { WpxKeywordModule } from '@weplanx/ng/keyword';
 import { WpxTableModule } from '@weplanx/ng/table';
 import { WpxUploadModule } from '@weplanx/ng/upload';
 
+import { CategoriesComponent } from './categories/categories.component';
 import { WpxFilebrowserComponent } from './filebrowser.component';
 import { FormComponent } from './form/form.component';
 import { PictureComponent } from './picture/picture.component';
@@ -24,7 +25,7 @@ import { VideoComponent } from './video/video.component';
     WpxTableModule,
     WpxCategoriesModule
   ],
-  declarations: [WpxFilebrowserComponent, FormComponent, PictureComponent, VideoComponent],
+  declarations: [WpxFilebrowserComponent, FormComponent, CategoriesComponent, PictureComponent, VideoComponent],
   exports: [WpxFilebrowserComponent]
 })
 export class WpxFilebrowserModule {}

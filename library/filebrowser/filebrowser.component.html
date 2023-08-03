@@ -28,6 +28,7 @@
       <nz-dropdown-menu #menu="nzDropdownMenu">
         <ul nz-menu>
           <li nz-menu-item (click)="ds.selection.clear()"> 取消选择 </li>
+          <li nz-menu-item (click)="bulkCategories()"> 分类至 </li>
           <li nz-menu-item nzDanger (click)="bulkDelete()"> 删除 </li>
         </ul>
       </nz-dropdown-menu>

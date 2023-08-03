@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
 import { Any, AnyDto, WpxApi } from '@weplanx/ng';
 import { WpxCategory } from '@weplanx/ng/categories';
@@ -8,29 +8,22 @@ import { NZ_MODAL_DATA, NzModalRef } from 'ng-zorro-antd/modal';
 
 import { WpxFile } from '../types';
 
-export interface FormModal {
-  doc: AnyDto<WpxFile>;
+export interface CategoriesModal {
+  docs: AnyDto<WpxFile>[];
   api: WpxApi<WpxFile>;
   categories: AnyDto<WpxCategory>[];
 }
 
 @Component({
-  selector: 'wpx-filebrowser-form',
-  templateUrl: './form.component.html'
+  selector: 'wpx-filebrowser-categories',
+  templateUrl: './categories.component.html'
 })
-export class FormComponent implements OnInit {
+export class CategoriesComponent implements OnInit {
   form!: FormGroup;
-  tips = {
-    name: {
-      default: {
-        required: `名称不能为空`
-      }
-    }
-  };
 
   constructor(
     @Inject(NZ_MODAL_DATA)
-    public data: FormModal,
+    public data: CategoriesModal,
     private modalRef: NzModalRef,
     private message: NzMessageService,
     private fb: FormBuilder
@@ -38,10 +31,8 @@ export class FormComponent implements OnInit {
 
   ngOnInit(): void {
     this.form = this.fb.group({
-      name: [null, [Validators.required]],
       categories: [[]]
     });
-    this.form.patchValue(this.data.doc);
   }
 
   close(): void {
@@ -50,16 +41,16 @@ export class FormComponent implements OnInit {
 
   submit(data: Any): void {
     this.data.api
-      .updateById(
-        this.data.doc._id,
+      .update(
+        { _id: { $in: this.data.docs.map(v => v._id) } },
         { $set: data },
         {
+          xfilter: { '_id->$in': 'oids' },
           xdata: { '$set->categories': 'oids' }
         }
       )
       .subscribe(() => {
-        this.data.doc.name = data.name;
-        this.data.doc.categories = data.categories;
+        this.data.docs.forEach(value => (value.categories = data.categories));
         this.message.success(`数据更新完成`);
         this.modalRef.triggerOk();
       });

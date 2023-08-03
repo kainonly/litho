@@ -13,6 +13,7 @@ import {
 } from '@angular/core';
 
 import { AnyDto, Filter, WpxApi, WpxService } from '@weplanx/ng';
+import { WpxCategoriesComponent } from '@weplanx/ng/categories';
 import { Transport } from '@weplanx/ng/upload';
 import { NzCardComponent } from 'ng-zorro-antd/card';
 import { NzContextMenuService, NzDropdownMenuComponent } from 'ng-zorro-antd/dropdown';
@@ -20,8 +21,9 @@ import { NzImageService } from 'ng-zorro-antd/image';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalService } from 'ng-zorro-antd/modal';
 
+import { CategoriesComponent, CategoriesModal } from './categories/categories.component';
 import { FilebrowserDataSource } from './filebrowser.data-source';
-import { FormComponent } from './form/form.component';
+import { FormComponent, FormModal } from './form/form.component';
 import { PictureComponent } from './picture/picture.component';
 import { OPTION } from './provide';
 import { Option, WpxFile, WpxFileType } from './types';
@@ -35,6 +37,7 @@ import { VideoComponent } from './video/video.component';
 })
 export class WpxFilebrowserComponent<T extends WpxFile> implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild(NzCardComponent, { read: ElementRef, static: true }) card!: ElementRef;
+  @ViewChild(WpxCategoriesComponent) categories!: WpxCategoriesComponent;
 
   @Input({ required: true }) wpxApi!: WpxApi<T>;
   @Input({ required: true }) wpxType!: WpxFileType;
@@ -132,12 +135,13 @@ export class WpxFilebrowserComponent<T extends WpxFile> implements OnInit, After
 
   openForm(doc: AnyDto<T>): void {
     if (!this.wpxForm) {
-      this.modal.create<FormComponent>({
+      this.modal.create<FormComponent, FormModal>({
         nzTitle: `编辑`,
         nzContent: FormComponent,
         nzData: {
           doc,
-          api: this.wpxApi
+          api: this.wpxApi as WpxApi<WpxFile>,
+          categories: this.categories.items
         },
         nzOnOk: () => {
           this.cdr.detectChanges();
@@ -225,6 +229,22 @@ export class WpxFilebrowserComponent<T extends WpxFile> implements OnInit, After
           });
       },
       nzCancelText: `否`
+    });
+  }
+
+  bulkCategories(): void {
+    this.modal.create<CategoriesComponent, CategoriesModal>({
+      nzTitle: `编辑`,
+      nzContent: CategoriesComponent,
+      nzData: {
+        docs: [...this.ds.selection.values()] as AnyDto<T>[],
+        api: this.wpxApi as WpxApi<WpxFile>,
+        categories: this.categories.items
+      },
+      nzOnOk: () => {
+        this.ds.selection.clear();
+        this.cdr.detectChanges();
+      }
     });
   }
 }

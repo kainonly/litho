@@ -41,7 +41,7 @@ export class WpxCategoriesComponent implements ControlValueAccessor, OnInit {
   items: AnyDto<WpxCategory>[] = [];
   loading = false;
   actived?: AnyDto<WpxCategory>;
-  panel = true;
+  panel = false;
 
   private onChange?: (value: string[]) => void;
   private onTouched?: () => void;
