@@ -26,10 +26,10 @@ const routes: Routes = [
         }
       },
       {
-        path: 'monitor',
-        loadChildren: () => import('./monitor/monitor.module').then(m => m.MonitorModule),
+        path: 'observability',
+        loadChildren: () => import('./observability/observability.module').then(m => m.ObservabilityModule),
         data: {
-          breadcrumb: `监控`
+          breadcrumb: `观测`
         }
       },
       {

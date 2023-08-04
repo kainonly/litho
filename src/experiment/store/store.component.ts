@@ -7,7 +7,7 @@ interface MyDoc {
 }
 
 @Component({
-  selector: 'app-exp-store',
+  selector: 'x-store',
   templateUrl: './store.component.html'
 })
 export class StoreComponent implements OnInit {

@@ -1,0 +1,27 @@
+<nz-segmented [nzOptions]="options" [ngModel]="index" (ngModelChange)="link($event)"></nz-segmented>
+
+<div style="padding: 8px 0" [ngSwitch]="index">
+  <nz-row *ngSwitchCase="1" [nzGutter]="[8, 8]">
+    <nz-col [nzSpan]="8">
+      <v-mongo-available-connections></v-mongo-available-connections>
+    </nz-col>
+    <nz-col [nzSpan]="8">
+      <v-mongo-open-connections></v-mongo-open-connections>
+    </nz-col>
+    <nz-col [nzSpan]="8">
+      <v-mongo-commands-per-second></v-mongo-commands-per-second>
+    </nz-col>
+    <nz-col [nzSpan]="12">
+      <v-mongo-query-operations></v-mongo-query-operations>
+    </nz-col>
+    <nz-col [nzSpan]="12">
+      <v-mongo-document-operations></v-mongo-document-operations>
+    </nz-col>
+    <nz-col [nzSpan]="12">
+      <v-mongo-flushes></v-mongo-flushes>
+    </nz-col>
+    <nz-col [nzSpan]="12">
+      <v-mongo-network-io></v-mongo-network-io>
+    </nz-col>
+  </nz-row>
+</div>

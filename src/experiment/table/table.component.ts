@@ -10,7 +10,7 @@ import { OrdersService } from '../orders.service';
 import { Order } from '../types';
 
 @Component({
-  selector: 'app-exp-table',
+  selector: 'x-table',
   templateUrl: './table.component.html'
 })
 export class TableComponent implements OnInit {

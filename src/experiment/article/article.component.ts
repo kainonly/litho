@@ -5,7 +5,7 @@ import { Any } from '@weplanx/ng';
 import { RichtextData } from '@weplanx/ng/richtext';
 
 @Component({
-  selector: 'app-exp-article',
+  selector: 'x-article',
   templateUrl: './article.component.html'
 })
 export class ArticleComponent implements OnInit {

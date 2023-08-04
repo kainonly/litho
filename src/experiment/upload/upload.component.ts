@@ -4,7 +4,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { Any } from '@weplanx/ng';
 
 @Component({
-  selector: 'app-exp-upload',
+  selector: 'x-upload',
   templateUrl: './upload.component.html'
 })
 export class UploadComponent implements OnInit {

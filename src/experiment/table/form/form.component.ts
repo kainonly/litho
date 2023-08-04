@@ -8,7 +8,7 @@ import { NZ_MODAL_DATA, NzModalRef } from 'ng-zorro-antd/modal';
 import { Order } from '../../types';
 
 @Component({
-  selector: 'app-exp-table-form',
+  selector: 'x-table-form',
   templateUrl: './form.component.html'
 })
 export class FormComponent implements OnInit {
