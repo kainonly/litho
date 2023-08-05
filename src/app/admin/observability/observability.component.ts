@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
-import { Area, AreaOptions } from '@antv/g2plot';
+import { Area, AreaOptions, Line, LineOptions } from '@antv/g2plot';
 import { Any } from '@weplanx/ng';
 
 import { ObservabilityService } from './observability.service';
@@ -13,9 +13,19 @@ import { ExporterName, MetaType } from './types';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ObservabilityComponent implements OnInit {
-  dashboards = ['APM', 'MONGO', 'REDIS', 'NATS'];
+  dashboards = ['APM', 'MONGO', 'REDIS', 'NATS', 'RUNTIME'];
   index = 0;
-  options: Partial<Record<ExporterName, Omit<AreaOptions, 'data'>>> = {
+  options: Partial<Record<ExporterName, Omit<AreaOptions & LineOptions, 'data'>>> = {
+    qps_rate: {
+      seriesField: 'method',
+      meta: MetaType['fixed']
+    },
+    p99: {
+      height: 300,
+      seriesField: 'url',
+      smooth: true,
+      meta: MetaType['ms']
+    },
     mongo_available_connections: {
       meta: MetaType['k']
     },
@@ -51,7 +61,7 @@ export class ObservabilityComponent implements OnInit {
     },
     redis_cpu: {
       seriesField: 'type',
-      meta: MetaType['per']
+      meta: MetaType['fixed']
     },
     redis_evi_exp_keys: {
       seriesField: 'type',
@@ -92,7 +102,37 @@ export class ObservabilityComponent implements OnInit {
     nats_bytes_io: {
       seriesField: 'type',
       meta: MetaType['bytes']
+    },
+    goroutines: {
+      meta: MetaType['default']
+    },
+    mem_heap_sys: {
+      meta: MetaType['bytes']
+    },
+    mem_heap_alloc: {
+      meta: MetaType['bytes']
+    },
+    mem_heap_idle: {
+      meta: MetaType['bytes']
+    },
+    mem_heap_released: {
+      meta: MetaType['bytes']
+    },
+    mem_heap_inuse: {
+      meta: MetaType['bytes']
+    },
+    mem_heap_objects: {
+      meta: MetaType['k']
+    },
+    mem_live_objects: {
+      meta: MetaType['k']
     }
+  };
+  qps_rate = (plot: Area, data: Any[][]): void => {
+    plot.changeData(data.map(v => ({ time: v[0], value: v[1], method: v[2] })));
+  };
+  p99 = (plot: Line, data: Any[][]): void => {
+    plot.changeData(data.map(v => ({ time: v[0], value: v[1], url: `${v[2]} ${v[3]}` })));
   };
   mongo_query_operations = (plot: Area, data: Any[][]): void => {
     const text = [$localize`命令`, $localize`读取`, $localize`新增`, $localize`更新`, $localize`删除`];
@@ -129,6 +169,9 @@ export class ObservabilityComponent implements OnInit {
   nats_bytes_io = (plot: Area, data: Any[][]): void => {
     const text = [$localize`输入`, $localize`输出`];
     plot.changeData(data.map(v => ({ time: v[0], value: v[1], type: text[v[2]] })));
+  };
+  uptime = (v: Any): Any => {
+    return new Date(v).toISOString().slice(11, 19);
   };
 
   constructor(

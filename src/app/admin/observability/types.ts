@@ -3,9 +3,7 @@ import { Meta } from '@antv/g2plot';
 export type ExporterName =
   | 'qps_rate'
   | 'error_rate'
-  | 'goroutines'
-  | 'gc_count'
-  | 'cgo_calls'
+  | 'p99'
   | 'mongo_available_connections'
   | 'mongo_open_connections'
   | 'mongo_commands_per_second'
@@ -27,7 +25,19 @@ export type ExporterName =
   | 'nats_subscriptions'
   | 'nats_slow_consumers'
   | 'nats_msg_io'
-  | 'nats_bytes_io';
+  | 'nats_bytes_io'
+  | 'mem_heap_sys'
+  | 'mem_heap_released'
+  | 'mem_heap_alloc'
+  | 'mem_heap_inuse'
+  | 'mem_heap_idle'
+  | 'mem_heap_objects'
+  | 'mem_live_objects'
+  | 'goroutines'
+  | 'mem_lookups'
+  | 'cgo_calls'
+  | 'gc_count'
+  | 'uptime';
 
 export const MetaType: Record<string, Record<string, Meta>> = {
   default: {
@@ -40,16 +50,22 @@ export const MetaType: Record<string, Record<string, Meta>> = {
       alias: '数值',
       formatter: v => {
         if (v > 1000000) {
-          return (v / 1000000).toFixed(2) + ' m';
+          return (v / 1000000).toFixed(2) + ' 百万';
         }
-        if (v > 1000) {
-          return (v / 1000).toFixed(2) + ' k';
+        if (v > 10000) {
+          return (v / 10000).toFixed(2) + ' 万';
         }
         return Math.trunc(v);
       }
     }
   },
-  per: {
+  ms: {
+    value: {
+      alias: '毫秒',
+      formatter: v => v + 'ms'
+    }
+  },
+  fixed: {
     value: {
       alias: '数值',
       formatter: v => {
@@ -60,7 +76,7 @@ export const MetaType: Record<string, Record<string, Meta>> = {
   ops: {
     value: {
       alias: '数值',
-      formatter: value => `${value} ops`
+      formatter: value => `${value} Ops`
     }
   },
   bytes: {
@@ -68,10 +84,10 @@ export const MetaType: Record<string, Record<string, Meta>> = {
       alias: '数值',
       formatter: v => {
         if (v > 1048576) {
-          return (v / 1048576).toFixed(2) + ` M`;
+          return (v / 1048576).toFixed(2) + ` Mb`;
         }
         if (v > 1024) {
-          return (v / 1024).toFixed(2) + ` k`;
+          return (v / 1024).toFixed(2) + ` Kb`;
         }
         return `${v} b`;
       }

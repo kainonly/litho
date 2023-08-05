@@ -11,14 +11,14 @@ import {
 import { Subscription, timer } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 
-import { Area, AreaOptions } from '@antv/g2plot';
+import { Line, LineOptions } from '@antv/g2plot';
 import { Any } from '@weplanx/ng';
 
 import { ObservabilityService } from './observability.service';
 import { ExporterName } from './types';
 
 @Component({
-  selector: 'app-observability-area',
+  selector: 'app-observability-line',
   template: `
     <ng-template #titleRef>
       <b>{{ title }}</b>
@@ -29,23 +29,23 @@ import { ExporterName } from './types';
   `,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class AreaComponent implements AfterContentInit, OnDestroy {
+export class LineComponent implements AfterContentInit, OnDestroy {
   @ViewChild('ref', { static: true }) ref!: ElementRef;
 
   @Input({ required: true }) title!: string;
   @Input({ required: true }) name!: ExporterName;
   @Input() height = '200px';
-  @Input() options?: Omit<AreaOptions, 'data'>;
-  @Input() fn?: (plot: Area, data: Any[][]) => void;
+  @Input() options?: Omit<LineOptions, 'data'>;
+  @Input() fn?: (plot: Line, data: Any[][]) => void;
 
   loading = signal(true);
-  private plot!: Area;
+  private plot!: Line;
   private subscription!: Subscription;
 
   constructor(private observability: ObservabilityService) {}
 
   ngAfterContentInit(): void {
-    this.plot = new Area(this.ref.nativeElement, {
+    this.plot = new Line(this.ref.nativeElement, {
       data: [],
       height: 200,
       xField: 'time',

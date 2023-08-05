@@ -4,8 +4,10 @@ import { RouterModule, Routes } from '@angular/router';
 import { ShareModule } from '@common/share.module';
 
 import { AreaComponent } from './area.component';
+import { LineComponent } from './line.component';
 import { ObservabilityComponent } from './observability.component';
 import { ObservabilityService } from './observability.service';
+import { SumComponent } from './sum.component';
 
 const routes: Routes = [
   {
@@ -20,7 +22,7 @@ const routes: Routes = [
 
 @NgModule({
   imports: [ShareModule, RouterModule.forChild(routes)],
-  declarations: [ObservabilityComponent, AreaComponent],
+  declarations: [ObservabilityComponent, AreaComponent, LineComponent, SumComponent],
   providers: [ObservabilityService]
 })
 export class ObservabilityModule {}
