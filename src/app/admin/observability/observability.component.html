@@ -145,4 +145,49 @@
       ></app-observability-area>
     </nz-col>
   </nz-row>
+  <nz-row *ngSwitchCase="3" [nzGutter]="[8, 8]">
+    <nz-col [nzSpan]="8">
+      <app-observability-area
+        title="连接数"
+        name="nats_connections"
+        [options]="options.nats_connections"
+      ></app-observability-area>
+    </nz-col>
+    <nz-col [nzSpan]="8">
+      <app-observability-area
+        title="订阅数"
+        name="nats_subscriptions"
+        [options]="options.nats_subscriptions"
+      ></app-observability-area>
+    </nz-col>
+    <nz-col [nzSpan]="8">
+      <app-observability-area
+        title="慢消费者"
+        name="nats_slow_consumers"
+        [options]="options.nats_slow_consumers"
+      ></app-observability-area>
+    </nz-col>
+    <nz-col [nzSpan]="12">
+      <app-observability-area title="CPU 使用率" name="nats_cpu" [options]="options.nats_cpu"></app-observability-area>
+    </nz-col>
+    <nz-col [nzSpan]="12">
+      <app-observability-area
+        title="消息 IO"
+        name="nats_msg_io"
+        [options]="options.nats_msg_io"
+        [fn]="nats_msg_io"
+      ></app-observability-area>
+    </nz-col>
+    <nz-col [nzSpan]="12">
+      <app-observability-area title="内存用量" name="nats_mem" [options]="options.nats_mem"></app-observability-area>
+    </nz-col>
+    <nz-col [nzSpan]="12">
+      <app-observability-area
+        title="网络 IO"
+        name="nats_bytes_io"
+        [options]="options.nats_bytes_io"
+        [fn]="nats_bytes_io"
+      ></app-observability-area>
+    </nz-col>
+  </nz-row>
 </div>

@@ -64,6 +64,34 @@ export class ObservabilityComponent implements OnInit {
     redis_network_io: {
       seriesField: 'type',
       meta: MetaType['bytes']
+    },
+    nats_connections: {
+      meta: MetaType['k']
+    },
+    nats_subscriptions: {
+      meta: MetaType['k']
+    },
+    nats_slow_consumers: {
+      meta: MetaType['k']
+    },
+    nats_cpu: {
+      meta: {
+        value: {
+          alias: '数值',
+          formatter: v => v / 100
+        }
+      }
+    },
+    nats_mem: {
+      meta: MetaType['bytes']
+    },
+    nats_msg_io: {
+      seriesField: 'type',
+      meta: MetaType['default']
+    },
+    nats_bytes_io: {
+      seriesField: 'type',
+      meta: MetaType['bytes']
     }
   };
   mongo_query_operations = (plot: Area, data: Any[][]): void => {
@@ -91,6 +119,14 @@ export class ObservabilityComponent implements OnInit {
     plot.changeData(data.map(v => ({ time: v[0], value: v[1], type: text[v[2]] })));
   };
   redis_network_io = (plot: Area, data: Any[][]): void => {
+    const text = [$localize`输入`, $localize`输出`];
+    plot.changeData(data.map(v => ({ time: v[0], value: v[1], type: text[v[2]] })));
+  };
+  nats_msg_io = (plot: Area, data: Any[][]): void => {
+    const text = [$localize`输入`, $localize`输出`];
+    plot.changeData(data.map(v => ({ time: v[0], value: v[1], type: text[v[2]] })));
+  };
+  nats_bytes_io = (plot: Area, data: Any[][]): void => {
     const text = [$localize`输入`, $localize`输出`];
     plot.changeData(data.map(v => ({ time: v[0], value: v[1], type: text[v[2]] })));
   };
