@@ -27,10 +27,7 @@ const routes: Routes = [
       },
       {
         path: 'observability',
-        loadChildren: () => import('./observability/observability.module').then(m => m.ObservabilityModule),
-        data: {
-          breadcrumb: `观测`
-        }
+        loadChildren: () => import('./observability/observability.module').then(m => m.ObservabilityModule)
       },
       {
         path: 'users',
