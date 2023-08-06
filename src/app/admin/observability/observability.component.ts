@@ -17,11 +17,16 @@ export class ObservabilityComponent implements OnInit {
   index = 0;
   options: Partial<Record<ExporterName, Omit<AreaOptions & LineOptions, 'data'>>> = {
     qps_rate: {
+      height: 300,
       seriesField: 'method',
       meta: MetaType['fixed']
     },
-    p99: {
+    error_rate: {
       height: 300,
+      meta: MetaType['fixed']
+    },
+    p99: {
+      height: 360,
       seriesField: 'url',
       smooth: true,
       meta: MetaType['ms']

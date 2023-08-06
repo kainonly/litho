@@ -50,7 +50,6 @@ export class LineComponent implements AfterContentInit, OnDestroy {
       height: 200,
       xField: 'time',
       yField: 'value',
-      supportCSSTransform: true,
       ...this.options
     });
     this.plot.render();

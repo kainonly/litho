@@ -41,22 +41,30 @@
       <app-observability-area
         title="每秒查询率"
         name="qps_rate"
-        height="300"
+        height="300px"
         [options]="options.qps_rate"
         [fn]="qps_rate"
       ></app-observability-area>
     </nz-col>
-    <nz-col [nzSpan]="8"> </nz-col> <nz-col [nzSpan]="8"> </nz-col>
 
-    <!--    <nz-col [nzSpan]="24">-->
-    <!--      <app-observability-line-->
-    <!--        title="P99"-->
-    <!--        name="p99"-->
-    <!--        height="300px"-->
-    <!--        [options]="options.p99"-->
-    <!--        [fn]="p99"-->
-    <!--      ></app-observability-line>-->
-    <!--    </nz-col>-->
+    <nz-col [nzSpan]="12">
+      <app-observability-area
+        title="错误率"
+        name="error_rate"
+        height="300px"
+        [options]="options.error_rate"
+      ></app-observability-area>
+    </nz-col>
+
+    <nz-col [nzSpan]="24">
+      <app-observability-line
+        title="P99"
+        name="p99"
+        height="360px"
+        [options]="options.p99"
+        [fn]="p99"
+      ></app-observability-line>
+    </nz-col>
   </nz-row>
   <nz-row *ngSwitchCase="1" [nzGutter]="[8, 8]">
     <nz-col [nzSpan]="8">
@@ -236,7 +244,7 @@
           <app-observability-sum title="Lookups" name="mem_lookups"></app-observability-sum>
         </nz-col>
         <nz-col [nzSpan]="24">
-          <app-observability-sum title="服务累计运行时长" name="uptime" [fn]="uptime"></app-observability-sum>
+          <app-observability-sum title="服务运行时长" name="uptime" [fn]="uptime"></app-observability-sum>
         </nz-col>
       </nz-row>
     </nz-col>
