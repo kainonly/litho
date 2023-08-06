@@ -17,17 +17,15 @@ export class ObservabilityComponent implements OnInit {
   index = 0;
   options: Partial<Record<ExporterName, Omit<AreaOptions & LineOptions, 'data'>>> = {
     qps_rate: {
-      height: 300,
       seriesField: 'method',
       meta: MetaType['fixed']
     },
     error_rate: {
-      height: 300,
       meta: MetaType['fixed']
     },
     p99: {
-      height: 360,
-      seriesField: 'url',
+      height: 450,
+      seriesField: 'route',
       smooth: true,
       meta: MetaType['ms']
     },
@@ -137,7 +135,7 @@ export class ObservabilityComponent implements OnInit {
     plot.changeData(data.map(v => ({ time: v[0], value: v[1], method: v[2] })));
   };
   p99 = (plot: Line, data: Any[][]): void => {
-    plot.changeData(data.map(v => ({ time: v[0], value: v[1], url: `${v[2]} ${v[3]}` })));
+    plot.changeData(data.map(v => ({ time: v[0], value: v[1], route: v[2] })));
   };
   mongo_query_operations = (plot: Area, data: Any[][]): void => {
     const text = [$localize`命令`, $localize`读取`, $localize`新增`, $localize`更新`, $localize`删除`];

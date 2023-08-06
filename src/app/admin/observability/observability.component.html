@@ -41,26 +41,20 @@
       <app-observability-area
         title="每秒查询率"
         name="qps_rate"
-        height="300px"
         [options]="options.qps_rate"
         [fn]="qps_rate"
       ></app-observability-area>
     </nz-col>
 
     <nz-col [nzSpan]="12">
-      <app-observability-area
-        title="错误率"
-        name="error_rate"
-        height="300px"
-        [options]="options.error_rate"
-      ></app-observability-area>
+      <app-observability-area title="错误率" name="error_rate" [options]="options.error_rate"></app-observability-area>
     </nz-col>
 
     <nz-col [nzSpan]="24">
       <app-observability-line
-        title="P99"
+        title="Duration P99 Latency"
         name="p99"
-        height="360px"
+        height="450px"
         [options]="options.p99"
         [fn]="p99"
       ></app-observability-line>
