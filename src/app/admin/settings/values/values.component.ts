@@ -12,7 +12,7 @@ import { KeyValue } from './types';
 @Component({
   selector: 'app-admin-settings-values',
   templateUrl: './values.component.html',
-  styleUrls: ['./values.component.scss']
+  styleUrls: ['./values.component.css']
 })
 export class ValuesComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild(NzCardComponent, { read: ElementRef, static: true }) card!: ElementRef;

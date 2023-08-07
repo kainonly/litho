@@ -3,6 +3,9 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { ShareModule } from '@common/share.module';
 
+import { EntryComponent } from './entry/entry.component';
+import { ExpirePipe } from './expire.pipe';
+import { FormComponent } from './form/form.component';
 import { ProjectsComponent } from './projects.component';
 
 const routes: Routes = [
@@ -14,6 +17,6 @@ const routes: Routes = [
 
 @NgModule({
   imports: [ShareModule, RouterModule.forChild(routes)],
-  declarations: [ProjectsComponent]
+  declarations: [ProjectsComponent, FormComponent, EntryComponent, ExpirePipe]
 })
 export class ProjectsModule {}

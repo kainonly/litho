@@ -12,11 +12,11 @@
         <nz-form-control nzHasFeedback nzExtra="非必须，为空不更新" [nzAutoTips]="tips.password">
           <nz-input-group [nzSuffix]="suffixTemplate">
             <ng-template #suffixTemplate>
-              <i
+              <span
                 nz-icon
                 [nzType]="passwordVisible ? 'eye-invisible' : 'eye'"
                 (click)="passwordVisible = !passwordVisible"
-              ></i>
+              ></span>
             </ng-template>
             <input
               [type]="passwordVisible ? 'text' : 'password'"

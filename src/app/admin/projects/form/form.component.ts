@@ -2,37 +2,36 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Observable, of } from 'rxjs';
 
-import { User } from '@common/models/user';
-import { UsersService } from '@common/services/users.service';
-import { Any, AnyDto, validates } from '@weplanx/ng';
+import { AppService } from '@app';
+import { Project } from '@common/models/project';
+import { ProjectsService } from '@common/services/projects.service';
+import { Any, AnyDto } from '@weplanx/ng';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NZ_MODAL_DATA, NzModalRef } from 'ng-zorro-antd/modal';
 
 export interface ModalData {
-  doc?: AnyDto<User>;
+  doc?: AnyDto<Project>;
 }
 
 @Component({
-  selector: 'app-users-form',
+  selector: 'app-admin-projects-form',
   templateUrl: './form.component.html'
 })
 export class FormComponent implements OnInit {
   form!: FormGroup;
   tips = {
-    email: {
+    name: {
       default: {
-        required: `电子邮件不能为空`,
-        duplicated: `存在重复的定义，电子邮件必须是唯一的`
+        required: `项目名称不能为空`
       }
     },
-    password: {
+    namespace: {
       default: {
-        required: `密码不能为空`,
-        minlength: `密码长度必须大于6位`
+        required: `命名空间不能为空`,
+        duplicated: `存在重复的定义，命名空间必须是唯一的`
       }
     }
   };
-  passwordVisible = false;
 
   constructor(
     @Inject(NZ_MODAL_DATA)
@@ -40,63 +39,68 @@ export class FormComponent implements OnInit {
     private modalRef: NzModalRef,
     private message: NzMessageService,
     private fb: FormBuilder,
-    private users: UsersService
+    private projects: ProjectsService,
+    private app: AppService
   ) {}
 
   ngOnInit(): void {
     this.form = this.fb.group({
-      email: ['', [Validators.required, Validators.email], [this.checkEmail]],
-      password: ['', [Validators.required, Validators.minLength(6)]],
-      name: [''],
-      avatar: [''],
+      name: ['', [Validators.required]],
+      namespace: ['', [Validators.required], [this.checkNamespace]],
+      secret_id: [''],
+      secret_key: [''],
+      expire: [0],
+      logo: [''],
       status: [true, [Validators.required]]
     });
     if (this.data.doc) {
-      this.form.get('password')?.setValidators([Validators.minLength(6)]);
       this.form.patchValue(this.data.doc);
+    } else {
+      this.generateSecret();
     }
   }
 
-  checkEmail = (control: AbstractControl): Observable<Any> => {
-    if (control.value === this.data.doc?.email) {
+  checkNamespace = (control: AbstractControl): Observable<Any> => {
+    if (control.value === this.data.doc?.namespace) {
       return of(null);
     }
-    return this.users.existsEmail(control.value);
-  };
-
-  validedPassword = (control: AbstractControl): Any => {
-    if (!control.value) {
-      return !this.data.doc ? { required: true } : null;
-    }
-    return validates.password(control.value);
+    return this.projects.existsNamespace(control.value);
   };
 
   close(): void {
     this.modalRef.triggerCancel();
   }
 
+  generateSecret(): void {
+    this.app.generateSecret().subscribe(data => {
+      this.form.patchValue({
+        secret_id: data.id,
+        secret_key: data.key
+      });
+    });
+  }
+
   submit(data: Any): void {
     if (!this.data.doc) {
-      this.users
+      this.projects
         .create(data, {
-          xdata: { password: 'password' }
+          xdata: {
+            expire: 'timestamp'
+          }
         })
         .subscribe(() => {
           this.message.success(`数据更新成功`);
           this.modalRef.triggerOk();
         });
     } else {
-      if (!data.password) {
-        delete data.password;
-      }
-      this.users
+      this.projects
         .updateById(
           this.data.doc._id,
+          { $set: data },
           {
-            $set: data
-          },
-          {
-            xdata: { password: 'password' }
+            xdata: {
+              '$set->expire': 'timestamp'
+            }
           }
         )
         .subscribe(() => {

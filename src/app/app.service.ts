@@ -5,7 +5,7 @@ import { map } from 'rxjs/operators';
 
 import { User } from '@common/models/user';
 import { CollaborationOption, SetUserDto, UnsetUserKey } from '@common/types';
-import { AnyDto, R, UploadOption } from '@weplanx/ng';
+import { Any, AnyDto, R, UploadOption } from '@weplanx/ng';
 
 @Injectable({ providedIn: 'root' })
 export class AppService {
@@ -103,6 +103,12 @@ export class AppService {
 
   unsetUser(key: UnsetUserKey): Observable<R> {
     return this.http.delete(`user/${key}`);
+  }
+
+  generateSecret(): Observable<Any> {
+    return this.http.get('options', {
+      params: { type: 'generate-secret' }
+    });
   }
 
   getValues(keys?: string[]): Observable<R> {
