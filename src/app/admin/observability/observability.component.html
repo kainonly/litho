@@ -11,23 +11,34 @@
       <nz-select
         *nzSpaceItem
         nzBorderless
-        [ngModel]="observability.interval | async"
+        [ngModel]="observability.interval$ | async"
         (ngModelChange)="observability.setInterval($event)"
       >
         <nz-option [nzValue]="10" nzLabel="每 10s 自动刷新" i18n-nzLabel></nz-option>
         <nz-option [nzValue]="30" nzLabel="每 30s 自动刷新" i18n-nzLabel></nz-option>
         <nz-option [nzValue]="60" nzLabel="每 60s 自动刷新" i18n-nzLabel></nz-option>
+        <nz-option [nzValue]="86400" nzLabel="停止刷新" i18n-nzLabel></nz-option>
       </nz-select>
     </nz-space>
   </nz-col>
   <nz-col></nz-col>
   <nz-col>
     <nz-space nzAlign="center">
-      <button *nzSpaceItem nz-button nzType="text" disabled> <span nz-icon nzType="sync"></span> </button>
+      <button
+        *nzSpaceItem
+        nz-button
+        nzType="text"
+        (click)="observability.setInterval(86400)"
+        [disabled]="(observability.interval$ | async) !== 86400"
+      >
+        <span nz-icon nzType="sync"></span>
+      </button>
       <nz-range-picker
         *nzSpaceItem
         nzBorderless
-        nzDisabled
+        [(ngModel)]="observability.date"
+        (ngModelChange)="observability.setInterval(86400)"
+        [nzDisabled]="(observability.interval$ | async) !== 86400"
         [nzShowTime]="{ nzFormat: 'HH:mm' }"
         nzFormat="yyyy-MM-dd HH:mm"
       ></nz-range-picker>

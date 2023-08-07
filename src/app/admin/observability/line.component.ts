@@ -53,7 +53,7 @@ export class LineComponent implements AfterContentInit, OnDestroy {
       ...this.options
     });
     this.plot.render();
-    this.subscription = this.observability.interval
+    this.subscription = this.observability.interval$
       .pipe(
         switchMap(v => timer(0, v * 1000)),
         switchMap(() => this.observability.exporter<Any[][]>(this.name))

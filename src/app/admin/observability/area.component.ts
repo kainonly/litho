@@ -8,7 +8,7 @@ import {
   signal,
   ViewChild
 } from '@angular/core';
-import { Subscription, timer } from 'rxjs';
+import { empty, Subscription, timer } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 
 import { Area, AreaOptions } from '@antv/g2plot';
@@ -54,7 +54,7 @@ export class AreaComponent implements AfterContentInit, OnDestroy {
       ...this.options
     });
     this.plot.render();
-    this.subscription = this.observability.interval
+    this.subscription = this.observability.interval$
       .pipe(
         switchMap(v => timer(0, v * 1000)),
         switchMap(() => this.observability.exporter<Any[][]>(this.name))

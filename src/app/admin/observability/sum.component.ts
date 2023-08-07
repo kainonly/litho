@@ -32,7 +32,7 @@ export class SumComponent implements OnInit, OnDestroy {
   constructor(private observability: ObservabilityService) {}
 
   ngOnInit(): void {
-    this.subscription = this.observability.interval
+    this.subscription = this.observability.interval$
       .pipe(
         switchMap(v => timer(0, v * 1000)),
         switchMap(() => this.observability.exporter<Any>(this.name))
