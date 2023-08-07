@@ -1,27 +1,30 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 
 import { Project } from '@common/models/project';
 import { ProjectsService } from '@common/services/projects.service';
-import { AnyDto, Filter, WpxService } from '@weplanx/ng';
+import { AnyDto } from '@weplanx/ng';
+import { NzCardComponent } from 'ng-zorro-antd/card';
 import { NzContextMenuService, NzDropdownMenuComponent } from 'ng-zorro-antd/dropdown';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalService } from 'ng-zorro-antd/modal';
 
 import { EntryComponent, EntryModalData } from './entry/entry.component';
 import { FormComponent, ModalData } from './form/form.component';
+import { ProjectsDataSource } from './projects.data-source';
 
 @Component({
   selector: 'app-admin-projects',
   templateUrl: './projects.component.html'
 })
-export class ProjectsComponent implements OnInit {
-  items: AnyDto<Project>[] = [];
+export class ProjectsComponent implements OnInit, AfterViewInit, OnDestroy {
+  @ViewChild(NzCardComponent, { read: ElementRef, static: true }) card!: ElementRef;
+
+  ds!: ProjectsDataSource;
   actived?: AnyDto<Project>;
 
-  searchText = '';
+  private resizeObserver!: ResizeObserver;
 
   constructor(
-    private wpx: WpxService,
     private modal: NzModalService,
     private message: NzMessageService,
     private contextMenu: NzContextMenuService,
@@ -29,24 +32,31 @@ export class ProjectsComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.getData();
-  }
-
-  getData(): void {
-    const filter: Filter<Project> = {};
-
-    if (this.searchText !== '') {
-      filter.$or = [{ name: { $regex: '^' + this.searchText } }, { namespace: { $regex: '^' + this.searchText } }];
-    }
-
-    this.projects.find(filter).subscribe(({ data }) => {
-      this.items = [...data];
+    this.ds = new ProjectsDataSource(this.projects);
+    this.resizeObserver = new ResizeObserver(entries => {
+      for (const entry of entries) {
+        const { width } = entry.contentRect;
+        const n = width >= 1400 ? 3 : 2;
+        if (this.ds.n !== n) {
+          this.ds.n = n;
+          this.ds.pagesize = n * 10;
+          this.ds.fetch(true);
+        }
+      }
     });
   }
 
+  ngAfterViewInit(): void {
+    this.resizeObserver.observe(this.card.nativeElement);
+  }
+
+  ngOnDestroy(): void {
+    this.resizeObserver.disconnect();
+  }
+
   clearSearch(): void {
-    this.searchText = '';
-    this.getData();
+    this.ds.searchText = '';
+    this.ds.fetch(true);
   }
 
   openMenu($event: MouseEvent, menu: NzDropdownMenuComponent, doc: AnyDto<Project>): void {
@@ -63,7 +73,7 @@ export class ProjectsComponent implements OnInit {
         doc
       },
       nzOnOk: () => {
-        this.getData();
+        this.ds.fetch(true);
       }
     });
   }
@@ -77,7 +87,7 @@ export class ProjectsComponent implements OnInit {
         doc
       },
       nzOnOk: () => {
-        this.getData();
+        this.ds.fetch(true);
       }
     });
   }
@@ -91,7 +101,7 @@ export class ProjectsComponent implements OnInit {
       nzOnOk: () => {
         this.projects.delete(doc._id).subscribe(() => {
           this.message.success(`数据删除成功`);
-          this.getData();
+          this.ds.fetch(true);
         });
       },
       nzCancelText: `再想想`
