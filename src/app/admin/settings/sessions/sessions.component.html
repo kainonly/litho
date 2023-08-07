@@ -54,7 +54,7 @@
           (nzCheckedChange)="list.setCurrentSelections($event)"
         >
         </th>
-        <th nzWidth="320px"><b i18n>用户</b></th>
+        <th nzWidth="400px"><b i18n>用户</b></th>
         <th><b i18n>详情</b></th>
       </tr>
     </thead>
@@ -75,15 +75,22 @@
         </td>
         <td>
           <nz-space *ngIf="data.history as history" [nzSplit]="spaceSplit">
-            <ng-template #spaceSplit>
-              <nz-divider nzType="vertical"></nz-divider>
-            </ng-template>
-            <span *nzSpaceItem i18n>登录于 {{ history.timestamp | date: 'yyyy/MM/dd HH:mm:ss' }}</span>
-            <b *nzSpaceItem>[ {{ history.client_ip }} ]</b>
-            <span *nzSpaceItem i18n>{{ !history.country ? '未知' : history.country }}</span>
-            <span *nzSpaceItem i18n>{{ !history.province ? '未知' : history.province }}</span>
-            <span *nzSpaceItem i18n>{{ !history.city ? '未知' : history.city }}</span>
-            <span *nzSpaceItem i18n>{{ !history.isp ? '未知' : history.isp }}</span>
+            <span *nzSpaceItem> 登录于 {{ history.timestamp | date: 'yyyy/MM/dd HH:mm:ss' }} </span>
+            <span *nzSpaceItem>{{ history.metadata.client_ip }}</span>
+            <ng-container [ngSwitch]="history.metadata.version">
+              <ng-container *ngSwitchCase="'shuliancloud.v4'">
+                <span *nzSpaceItem>
+                  {{ history.detail.country | wpxBlank: '未知' }}
+                  [{{ history.detail.continent }}]
+                </span>
+                <span *nzSpaceItem>{{ history.detail.prov | wpxBlank: '未知' }}</span>
+                <span *nzSpaceItem>
+                  {{ history.detail.city | wpxBlank: '未知' }}[{{ history.detail.lng }},{{ history.detail.lat }}]
+                </span>
+                <span *nzSpaceItem>{{ history.detail.isp }}</span>
+                <span *nzSpaceItem>{{ history.detail.timezone }}</span>
+              </ng-container>
+            </ng-container>
           </nz-space>
         </td>
       </tr>
@@ -96,3 +103,7 @@
     <li nz-menu-item nzDanger (click)="delete(actived)" i18n>中断会话</li>
   </ul>
 </nz-dropdown-menu>
+
+<ng-template #spaceSplit>
+  <nz-divider nzType="vertical"></nz-divider>
+</ng-template>

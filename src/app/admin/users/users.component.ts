@@ -1,13 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 
+import { AppService } from '@app';
 import { User } from '@common/models/user';
 import { UsersService } from '@common/services/users.service';
 import { Any, AnyDto, Filter, WpxModel, WpxService } from '@weplanx/ng';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalService } from 'ng-zorro-antd/modal';
 
-import { FormComponent } from './form/form.component';
+import { FormComponent, ModalData } from './form/form.component';
 
 @Component({
   selector: 'app-admin-users',
@@ -19,6 +20,7 @@ export class UsersComponent implements OnInit {
   filter: Filter<User> = {};
 
   constructor(
+    public app: AppService,
     private wpx: WpxService,
     private fb: FormBuilder,
     private modal: NzModalService,
@@ -61,8 +63,19 @@ export class UsersComponent implements OnInit {
     this.getData();
   }
 
+  isSelf(doc?: AnyDto<User>): boolean {
+    const result = this.app.user()?._id === doc?._id;
+    if (result) {
+      this.message.warning(`请通过【个人中心】更新当前登录用户`);
+    }
+    return result;
+  }
+
   open(doc?: AnyDto<User>): void {
-    this.modal.create({
+    if (this.isSelf(doc)) {
+      return;
+    }
+    this.modal.create<FormComponent, ModalData>({
       nzTitle: !doc ? '创建' : `编辑【${doc.email}】`,
       nzWidth: 640,
       nzContent: FormComponent,
@@ -76,6 +89,9 @@ export class UsersComponent implements OnInit {
   }
 
   delete(doc: AnyDto<User>): void {
+    if (this.isSelf(doc)) {
+      return;
+    }
     this.modal.confirm({
       nzTitle: `您确定要删除【${doc.email}】?`,
       nzOkText: `是的`,
@@ -92,6 +108,10 @@ export class UsersComponent implements OnInit {
   }
 
   bulkDelete(): void {
+    if (this.model.selection.has(this.app.user()!._id)) {
+      this.message.warning(`请通过【个人中心】更新当前登录用户`);
+      return;
+    }
     this.modal.confirm({
       nzTitle: `您确定删除这些用户吗？`,
       nzOkText: `是的`,
