@@ -49,7 +49,7 @@ export class FormComponent implements OnInit {
       namespace: ['', [Validators.required], [this.checkNamespace]],
       secret_id: [''],
       secret_key: [''],
-      expire: [0],
+      expire: [null],
       logo: [''],
       status: [true, [Validators.required]]
     });

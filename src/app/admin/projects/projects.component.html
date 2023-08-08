@@ -91,7 +91,7 @@
                         </ng-container>
                       </nz-descriptions-item>
                       <nz-descriptions-item nzTitle="入口" [nzSpan]="2">
-                        <ng-container *ngIf="item.entry.length !== 0; else unsetRef">
+                        <ng-container *ngIf="item.entry && item.entry.length !== 0; else unsetRef">
                           <p nz-typography nzEllipsis [nzEllipsisRows]="2" [nzContent]="item.entry.toString()"></p>
                         </ng-container>
                       </nz-descriptions-item>
