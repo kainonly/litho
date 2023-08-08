@@ -1,22 +1,14 @@
 <ng-template #titleRef>
   <nz-space nzAlign="center">
-    <nz-input-group
+    <wpx-keyword
       *nzSpaceItem
-      style="width: 360px"
-      nzSuffixIcon="search"
-      nz-tooltip="键盘 Enter 开始搜索"
-      nzTooltipTrigger="focus"
-    >
-      <input nz-input [(ngModel)]="ds.searchText" (keyup.enter)="ds.fetch(true)" placeholder="项目名称、命名空间" />
-    </nz-input-group>
-    <nz-button-group *nzSpaceItem>
-      <button nz-button nzType="text" nz-tooltip="刷新" i18n-nz-tooltip (click)="ds.fetch(true)">
-        <i nz-icon nzType="reload"></i>
-      </button>
-      <button nz-button nzType="text" nz-tooltip="重置" i18n-nz-tooltip (click)="clearSearch()">
-        <i nz-icon nzType="clear"></i>
-      </button>
-    </nz-button-group>
+      [wpxWidth]="320"
+      [wpxModel]="model"
+      [wpxKeys]="['name', 'namespace']"
+      (wpxSubmit)="getData()"
+      wpxPlaceholder="项目名称、命名空间"
+    ></wpx-keyword>
+    <wpx-toolbox *nzSpaceItem [wpxModel]="model" (wpxClear)="getData()" (wpxRefresh)="getData()"> </wpx-toolbox>
   </nz-space>
 </ng-template>
 
@@ -24,97 +16,61 @@
   <button nz-button nzType="primary" (click)="open()"> 新增 </button>
 </ng-template>
 
-<nz-card
-  style="height: 100%"
-  [nzBodyStyle]="{
-    height: 'calc(100% - 64px)'
-  }"
-  [nzTitle]="titleRef"
-  [nzExtra]="extraRef"
+<wpx-list
+  #wpxList
+  [wpxModel]="model"
+  [wpxTitle]="titleRef"
+  [wpxExtra]="extraRef"
+  [wpxRender]="render"
+  [wpxActions]="actions"
+  (wpxChange)="getData()"
 >
-  <cdk-virtual-scroll-viewport
-    style="height: 100%; overflow-x: hidden"
-    [itemSize]="175"
-    [minBufferPx]="800"
-    [maxBufferPx]="1000"
-  >
-    <nz-list nzGrid [nzSplit]="false" [nzLoading]="ds.loading">
-      <nz-list-empty *ngIf="ds.total === 0"></nz-list-empty>
-      <nz-list-item *cdkVirtualFor="let items of ds" style="height: 175px">
-        <nz-row [nzGutter]="16" style="width: 100%">
-          <nz-col *ngFor="let item of items" [nzSpan]="24 / ds.n">
-            <nz-ribbon [nzText]="item | expire" [nzColor]="!item.status ? 'gray' : 'red'">
-              <nz-card nzHoverable nzSize="small" nzType="inner" (contextmenu)="openMenu($event, actions, item)">
-                <nz-space nzSize="large" nzAlign="start">
-                  <ng-container *nzSpaceItem>
-                    <ng-container *ngIf="item.logo; else nameAvatarRef">
-                      <nz-avatar
-                        nzShape="square"
-                        [nzSize]="96"
-                        [nzSrc]="[item.logo] | wpxAssets"
-                        style="font-size: 32px"
-                      ></nz-avatar>
-                    </ng-container>
-                    <ng-template #nameAvatarRef>
-                      <nz-avatar
-                        nzShape="square"
-                        [nzSize]="96"
-                        [nzText]="item.name"
-                        style="font-size: 32px"
-                      ></nz-avatar>
-                    </ng-template>
-                  </ng-container>
-                  <div *nzSpaceItem>
-                    <nz-descriptions nzSize="small" [nzColumn]="1">
-                      <nz-descriptions-item nzTitle="项目名称"> {{ item.name }} </nz-descriptions-item>
-                      <nz-descriptions-item nzTitle="命名空间">
-                        <span nz-typography nzCopyable [nzContent]="item.namespace"></span>
-                      </nz-descriptions-item>
-                      <nz-descriptions-item nzTitle="密钥">
-                        <ng-container *ngIf="item.secret_id && item.secret_key; else unsetRef">
-                          <nz-space [nzSplit]="spaceSplit">
-                            <span
-                              *nzSpaceItem
-                              nz-typography
-                              nzCopyable
-                              [nzCopyText]="item.secret_id"
-                              nzContent="ID"
-                            ></span>
-                            <span
-                              *nzSpaceItem
-                              nz-typography
-                              nzCopyable
-                              [nzCopyText]="item.secret_key"
-                              nzContent="KEY"
-                            ></span>
-                          </nz-space>
-                        </ng-container>
-                      </nz-descriptions-item>
-                      <nz-descriptions-item nzTitle="入口" [nzSpan]="2">
-                        <ng-container *ngIf="item.entry && item.entry.length !== 0; else unsetRef">
-                          <p nz-typography nzEllipsis [nzEllipsisRows]="2" [nzContent]="item.entry.toString()"></p>
-                        </ng-container>
-                      </nz-descriptions-item>
-                    </nz-descriptions>
-                  </div>
-                </nz-space>
-              </nz-card>
-            </nz-ribbon>
-          </nz-col>
-        </nz-row>
-      </nz-list-item>
-    </nz-list>
-  </cdk-virtual-scroll-viewport>
-</nz-card>
-
-<ng-template #unsetRef>未设置</ng-template>
-
-<ng-template #spaceSplit>
-  <nz-divider nzType="vertical"></nz-divider>
-</ng-template>
+  <ng-template #render let-item>
+    <nz-ribbon [nzText]="item | expire">
+      <nz-card nzSize="small" nzType="inner">
+        <nz-space nzSize="large" nzAlign="start">
+          <ng-container *nzSpaceItem>
+            <ng-container *ngIf="item.logo; else nameAvatarRef">
+              <nz-avatar
+                nzShape="square"
+                [nzSize]="128"
+                [nzSrc]="[item.logo] | wpxAssets"
+                style="font-size: 32px"
+              ></nz-avatar>
+            </ng-container>
+            <ng-template #nameAvatarRef>
+              <nz-avatar nzShape="square" [nzSize]="128" [nzText]="item.name" style="font-size: 32px"></nz-avatar>
+            </ng-template>
+          </ng-container>
+          <div *nzSpaceItem>
+            <ng-template #titleRef> {{ item.name }} <nz-tag nzColor="blue">标准类型</nz-tag> </ng-template>
+            <nz-descriptions nzLayout="vertical" nzSize="small" [nzTitle]="titleRef" [nzColumn]="6">
+              <nz-descriptions-item nzTitle="命名空间">
+                <span nz-typography nzCopyable [nzContent]="item.namespace"></span>
+              </nz-descriptions-item>
+              <nz-descriptions-item nzTitle="OpenAPI 密钥" [nzSpan]="2">
+                <ng-container *ngIf="item.secret_id && item.secret_key; else unsetRef">
+                  <nz-space [nzSplit]="spaceSplit">
+                    <span *nzSpaceItem nz-typography nzCopyable [nzContent]="item.secret_id"></span>
+                    <span *nzSpaceItem nz-typography nzCopyable [nzCopyText]="item.secret_key" nzContent="KEY"></span>
+                  </nz-space>
+                </ng-container>
+              </nz-descriptions-item>
+              <nz-descriptions-item nzTitle="入口" [nzSpan]="3">
+                <ng-container *ngIf="item.entry && item.entry.length !== 0; else unsetRef">
+                  <p nz-typography nzEllipsis [nzEllipsisRows]="2" [nzContent]="item.entry.toString()"></p>
+                </ng-container>
+              </nz-descriptions-item>
+            </nz-descriptions>
+          </div>
+        </nz-space>
+      </nz-card>
+    </nz-ribbon>
+  </ng-template>
+</wpx-list>
 
 <nz-dropdown-menu #actions="nzDropdownMenu">
-  <ul *ngIf="actived as v" nz-menu>
+  <ul *ngIf="wpxList.actived as v" nz-menu>
     <li nz-menu-item nzDisabled>
       <b>{{ v.name }}</b>
     </li>
@@ -124,3 +80,9 @@
     <li nz-menu-item nzDanger (click)="delete(v)"> 删除 </li>
   </ul>
 </nz-dropdown-menu>
+
+<ng-template #unsetRef>未设置</ng-template>
+
+<ng-template #spaceSplit>
+  <nz-divider nzType="vertical"></nz-divider>
+</ng-template>

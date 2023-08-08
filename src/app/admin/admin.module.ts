@@ -26,10 +26,10 @@ const routes: Routes = [
         }
       },
       {
-        path: 'environment',
-        loadChildren: () => import('./environment/environment.module').then(m => m.EnvironmentModule),
+        path: 'clusters',
+        loadChildren: () => import('./clusters/clusters.module').then(m => m.ClustersModule),
         data: {
-          breadcrumb: `环境`
+          breadcrumb: `集群`
         }
       },
       {

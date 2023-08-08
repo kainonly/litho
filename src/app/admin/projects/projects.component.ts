@@ -1,67 +1,66 @@
-import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
 import { Project } from '@common/models/project';
+import { User } from '@common/models/user';
 import { ProjectsService } from '@common/services/projects.service';
-import { AnyDto } from '@weplanx/ng';
-import { NzCardComponent } from 'ng-zorro-antd/card';
-import { NzContextMenuService, NzDropdownMenuComponent } from 'ng-zorro-antd/dropdown';
+import { Any, AnyDto, Filter, WpxModel, WpxService } from '@weplanx/ng';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalService } from 'ng-zorro-antd/modal';
 
 import { EntryComponent, EntryModalData } from './entry/entry.component';
 import { FormComponent, ModalData } from './form/form.component';
-import { ProjectsDataSource } from './projects.data-source';
 
 @Component({
   selector: 'app-admin-projects',
   templateUrl: './projects.component.html'
 })
-export class ProjectsComponent implements OnInit, AfterViewInit, OnDestroy {
-  @ViewChild(NzCardComponent, { read: ElementRef, static: true }) card!: ElementRef;
-
-  ds!: ProjectsDataSource;
-  actived?: AnyDto<Project>;
-
-  private resizeObserver!: ResizeObserver;
+export class ProjectsComponent implements OnInit {
+  model!: WpxModel<Project>;
+  form!: FormGroup;
+  filter: Filter<User> = {};
 
   constructor(
+    private wpx: WpxService,
     private modal: NzModalService,
     private message: NzMessageService,
-    private contextMenu: NzContextMenuService,
-    private projects: ProjectsService
+    private projects: ProjectsService,
+    private fb: FormBuilder
   ) {}
 
   ngOnInit(): void {
-    this.ds = new ProjectsDataSource(this.projects);
-    this.resizeObserver = new ResizeObserver(entries => {
-      for (const entry of entries) {
-        const { width } = entry.contentRect;
-        const n = width >= 1400 ? 3 : 2;
-        if (this.ds.n !== n) {
-          this.ds.n = n;
-          this.ds.pagesize = n * 10;
-          this.ds.fetch(true);
-        }
-      }
+    this.form = this.fb.group({
+      email: [],
+      name: []
+    });
+    this.model = this.wpx.setModel<Project>('projects', this.projects);
+    this.model.ready().subscribe(() => {
+      this.getData(true);
     });
   }
 
-  ngAfterViewInit(): void {
-    this.resizeObserver.observe(this.card.nativeElement);
+  getData(refresh = false): void {
+    if (refresh) {
+      this.model.page = 1;
+    }
+    this.model.fetch({}).subscribe(() => {
+      console.debug('fetch:ok');
+    });
   }
 
-  ngOnDestroy(): void {
-    this.resizeObserver.disconnect();
+  clear(): void {
+    this.form.reset();
+    this.filter = {};
+    this.getData();
   }
 
-  clearSearch(): void {
-    this.ds.searchText = '';
-    this.ds.fetch(true);
-  }
-
-  openMenu($event: MouseEvent, menu: NzDropdownMenuComponent, doc: AnyDto<Project>): void {
-    this.actived = doc;
-    this.contextMenu.create($event, menu);
+  search(data: Any): void {
+    for (const [k, v] of Object.entries(data)) {
+      if (v) {
+        this.filter[k] = { $regex: `${v}` };
+      }
+    }
+    this.getData();
   }
 
   open(doc?: AnyDto<Project>): void {
@@ -73,7 +72,7 @@ export class ProjectsComponent implements OnInit, AfterViewInit, OnDestroy {
         doc
       },
       nzOnOk: () => {
-        this.ds.fetch(true);
+        this.getData(true);
       }
     });
   }
@@ -87,7 +86,7 @@ export class ProjectsComponent implements OnInit, AfterViewInit, OnDestroy {
         doc
       },
       nzOnOk: () => {
-        this.ds.fetch(true);
+        this.getData(true);
       }
     });
   }
@@ -101,7 +100,7 @@ export class ProjectsComponent implements OnInit, AfterViewInit, OnDestroy {
       nzOnOk: () => {
         this.projects.delete(doc._id).subscribe(() => {
           this.message.success(`数据删除成功`);
-          this.ds.fetch(true);
+          this.getData(true);
         });
       },
       nzCancelText: `再想想`

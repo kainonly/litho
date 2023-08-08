@@ -45,14 +45,14 @@
 <nz-card
   [nzBodyStyle]="{
     height: 'calc(100% - 64px)',
-    padding: modalRef ? '0' : '24px'
+    padding: 0
   }"
   [ngClass]="{ modal: !!modalRef }"
   [nzTitle]="wpxTitle ?? titleRef"
   [nzExtra]="wpxExtra ?? extraRef"
 >
-  <cdk-virtual-scroll-viewport [itemSize]="200" [minBufferPx]="800" [maxBufferPx]="1000">
-    <nz-list nzGrid [nzSplit]="false" [nzLoading]="ds.loading">
+  <cdk-virtual-scroll-viewport style="height: 100%" [itemSize]="200" [minBufferPx]="800" [maxBufferPx]="1000">
+    <nz-list style="padding: 12px 12px 0 24px" nzGrid [nzSplit]="false" [nzLoading]="ds.loading">
       <nz-list-empty *ngIf="ds.total === 0"></nz-list-empty>
       <nz-list-item *cdkVirtualFor="let items of ds" style="height: 200px">
         <nz-row [nzGutter]="12" style="width: 100%">

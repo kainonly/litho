@@ -170,7 +170,7 @@ export class WpxTableComponent<T> implements OnInit, AfterViewInit, OnDestroy {
     this.cdr.detectChanges();
   }
 
-  drop(event: CdkDragDrop<string[]>) {
+  drop(event: CdkDragDrop<string[]>): void {
     moveItemInArray(this.columns, event.previousIndex, event.currentIndex);
     this.updatePreferences();
   }

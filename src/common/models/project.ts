@@ -3,7 +3,7 @@ export interface Project {
   namespace: string;
   secret_id?: string;
   secret_key?: string;
-  entry: string[];
+  entry?: string[];
   expire?: Date;
   logo?: string;
   status: boolean;

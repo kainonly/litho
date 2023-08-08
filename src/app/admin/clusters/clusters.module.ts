@@ -3,17 +3,17 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { ShareModule } from '@common/share.module';
 
-import { EnvironmentComponent } from './environment.component';
+import { ClustersComponent } from './clusters.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: EnvironmentComponent
+    component: ClustersComponent
   }
 ];
 
 @NgModule({
   imports: [ShareModule, RouterModule.forChild(routes)],
-  declarations: [EnvironmentComponent]
+  declarations: [ClustersComponent]
 })
-export class EnvironmentModule {}
+export class ClustersModule {}

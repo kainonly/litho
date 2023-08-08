@@ -1,4 +1,4 @@
-export class WpxList<T> {
+export class WpxItems<T> {
   data: T[] = [];
   loading = false;
 

@@ -2,8 +2,11 @@ import { TemplateRef } from '@angular/core';
 
 import { AnyDto } from '@weplanx/ng';
 
-export type Scroll = { x?: string; y: string };
-export type Column<T> = {
+export interface Scroll {
+  x?: string;
+  y: string;
+}
+export interface Column<T> {
   title: string;
   key?: keyof AnyDto<T>;
   render?: TemplateRef<{ $implicit: AnyDto<T> }>;
@@ -12,7 +15,7 @@ export type Column<T> = {
   ellipsis?: boolean;
   sort?: number;
   format?: ColumnFormat;
-};
+}
 export type ColumnFormat = 'status' | 'date';
 export type Preferences<T> = Pick<Column<T>, 'display' | 'width' | 'sort'>;
 export type WpxColumn<T> = Omit<Column<T>, 'display' | 'sort'>;

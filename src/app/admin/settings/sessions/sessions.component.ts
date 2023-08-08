@@ -5,7 +5,7 @@ import { switchMap } from 'rxjs/operators';
 import { AppService } from '@app';
 import { User } from '@common/models/user';
 import { UsersService } from '@common/services/users.service';
-import { AnyDto, WpxList } from '@weplanx/ng';
+import { AnyDto, WpxItems } from '@weplanx/ng';
 import { NzCardComponent } from 'ng-zorro-antd/card';
 import { NzContextMenuService, NzDropdownMenuComponent } from 'ng-zorro-antd/dropdown';
 import { NzMessageService } from 'ng-zorro-antd/message';
@@ -20,7 +20,7 @@ import { SessionsService } from './sessions.service';
 export class SessionsComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild(NzCardComponent, { read: ElementRef, static: true }) card!: ElementRef;
 
-  list = new WpxList<AnyDto<User>>('_id');
+  items = new WpxItems<AnyDto<User>>('_id');
   interval = 15;
   actived?: AnyDto<User>;
 
@@ -75,10 +75,10 @@ export class SessionsComponent implements OnInit, AfterViewInit, OnDestroy {
         )
       )
       .subscribe(({ data }) => {
-        this.list.data = [
+        this.items.data = [
           ...data.filter(v => {
-            if (this.list.searchText !== '') {
-              return !!v.email.match(`^${this.list.searchText}`);
+            if (this.items.searchText !== '') {
+              return !!v.email.match(`^${this.items.searchText}`);
             }
             return v;
           })
@@ -88,7 +88,7 @@ export class SessionsComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   clearSearch(): void {
-    this.list.searchText = '';
+    this.items.searchText = '';
     this.getData();
   }
 

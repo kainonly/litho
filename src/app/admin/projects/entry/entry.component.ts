@@ -31,7 +31,7 @@ export class EntryComponent implements OnInit {
     this.form = this.fb.group({
       entry: this.fb.array([])
     });
-    this.data.doc.entry.forEach(v => {
+    this.data.doc.entry?.forEach(v => {
       this.append(v);
     });
   }

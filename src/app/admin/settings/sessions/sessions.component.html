@@ -2,7 +2,7 @@
   <nz-space>
     <nz-input-group *nzSpaceItem style="width: 220px" nzSuffixIcon="search">
       <input
-        [(ngModel)]="list.searchText"
+        [(ngModel)]="items.searchText"
         (ngModelChange)="getData(500)"
         type="text"
         nz-input
@@ -27,15 +27,15 @@
 </ng-template>
 
 <ng-template #extraRef>
-  <button nz-button nzType="primary" nzDanger (click)="bulkDelete()" [disabled]="list.selection.size === 0" i18n>
-    选中 {{ list.selection.size }} 可中断
+  <button nz-button nzType="primary" nzDanger (click)="bulkDelete()" [disabled]="items.selection.size === 0" i18n>
+    选中 {{ items.selection.size }} 可中断
   </button>
 </ng-template>
 
 <nz-card style="height: 100%" [nzTitle]="titleRef" [nzExtra]="extraRef">
   <nz-table
-    [nzData]="list.data"
-    [nzLoading]="list.loading"
+    [nzData]="items.data"
+    [nzLoading]="items.loading"
     [nzFrontPagination]="false"
     [nzShowPagination]="false"
     [nzVirtualItemSize]="56"
@@ -49,9 +49,9 @@
           nzWidth="60px"
           nzLeft
           nzAlign="center"
-          [nzChecked]="list.checked"
-          [nzIndeterminate]="list.indeterminate"
-          (nzCheckedChange)="list.setCurrentSelections($event)"
+          [nzChecked]="items.checked"
+          [nzIndeterminate]="items.indeterminate"
+          (nzCheckedChange)="items.setCurrentSelections($event)"
         >
         </th>
         <th nzWidth="400px"><b i18n>用户</b></th>
@@ -61,8 +61,8 @@
     <tbody>
       <tr *nz-virtual-scroll="let data" (contextmenu)="openActions($event, actions, data)">
         <td
-          [nzChecked]="list.selection.has(data['_id'])"
-          (nzCheckedChange)="$event ? list.setSelection(data) : list.removeSelection(data['_id'])"
+          [nzChecked]="items.selection.has(data['_id'])"
+          (nzCheckedChange)="$event ? items.setSelection(data) : items.removeSelection(data['_id'])"
         >
         </td>
         <td>
