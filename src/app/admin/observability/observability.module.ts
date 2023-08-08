@@ -14,7 +14,7 @@ const routes: Routes = [
     path: ':type',
     component: ObservabilityComponent,
     data: {
-      breadcrumb: `观测`
+      breadcrumb: `可观测`
     }
   },
   { path: '', redirectTo: 'apm', pathMatch: 'full' }

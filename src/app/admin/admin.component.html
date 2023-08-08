@@ -7,22 +7,42 @@
       <ul nz-menu style="border: none">
         <li nz-menu-item nzMatchRouter routerLink="overview">
           <span nz-icon nzType="desktop" nzTheme="outline"></span>
-          <span>总览</span>
+          <span>工作台</span>
         </li>
         <li nz-menu-item nzMatchRouter routerLink="projects">
           <span nz-icon nzType="project" nzTheme="outline"></span>
           <span>项目</span>
         </li>
+        <li nz-menu-item nzMatchRouter routerLink="environment">
+          <span nz-icon nzType="deployment-unit" nzTheme="outline"></span>
+          <span>环境</span>
+        </li>
+        <li nz-menu-item nzMatchRouter routerLink="workflow">
+          <span nz-icon nzType="schedule" nzTheme="outline"></span>
+          <span>工作流</span>
+        </li>
+        <li nz-menu-item nzMatchRouter routerLink="queue">
+          <span nz-icon nzType="pull-request" nzTheme="outline"></span>
+          <span>消息队列</span>
+        </li>
+        <li nz-menu-item nzMatchRouter routerLink="im">
+          <span nz-icon nzType="thunderbolt" nzTheme="outline"></span>
+          <span>即时通信</span>
+        </li>
+        <li nz-menu-item nzMatchRouter routerLink="logset">
+          <span nz-icon nzType="database" nzTheme="outline"></span>
+          <span>日志采集</span>
+        </li>
         <li nz-menu-item nzMatchRouter routerLink="observability">
           <span nz-icon nzType="line-chart" nzTheme="outline"></span>
-          <span>观测</span>
+          <span>可观测</span>
         </li>
         <li nz-menu-divider></li>
         <li nz-menu-item nzMatchRouter routerLink="users">
           <span nz-icon nzType="team" nzTheme="outline"></span>
-          <span>成员</span>
+          <span>团队成员</span>
         </li>
-        <li nz-submenu nzTitle="集成" nzIcon="api">
+        <li nz-submenu nzTitle="集成服务" nzIcon="api">
           <ul>
             <li nz-menu-item nzMatchRouter routerLink="integrated/cloud">
               <span nz-icon nzType="cloud" nzTheme="outline"></span>
@@ -34,7 +54,7 @@
             </li>
             <li nz-menu-item nzMatchRouter routerLink="integrated/extend">
               <span nz-icon nzType="tool" nzTheme="outline"></span>
-              <span>扩展服务</span>
+              <span>扩展功能</span>
             </li>
           </ul>
         </li>

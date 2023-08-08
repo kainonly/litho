@@ -15,7 +15,7 @@ const routes: Routes = [
         path: 'overview',
         loadChildren: () => import('./overview/overview.module').then(m => m.OverviewModule),
         data: {
-          breadcrumb: `总览`
+          breadcrumb: `工作台`
         }
       },
       {
@@ -26,6 +26,41 @@ const routes: Routes = [
         }
       },
       {
+        path: 'environment',
+        loadChildren: () => import('./environment/environment.module').then(m => m.EnvironmentModule),
+        data: {
+          breadcrumb: `环境`
+        }
+      },
+      {
+        path: 'workflow',
+        loadChildren: () => import('./workflow/workflow.module').then(m => m.WorkflowModule),
+        data: {
+          breadcrumb: `工作流`
+        }
+      },
+      {
+        path: 'queue',
+        loadChildren: () => import('./queue/queue.module').then(m => m.QueueModule),
+        data: {
+          breadcrumb: `消息队列`
+        }
+      },
+      {
+        path: 'im',
+        loadChildren: () => import('./im/im.module').then(m => m.ImModule),
+        data: {
+          breadcrumb: `即时通信`
+        }
+      },
+      {
+        path: 'logset',
+        loadChildren: () => import('./logset/logset.module').then(m => m.LogsetModule),
+        data: {
+          breadcrumb: `日志采集`
+        }
+      },
+      {
         path: 'observability',
         loadChildren: () => import('./observability/observability.module').then(m => m.ObservabilityModule)
       },
@@ -33,14 +68,14 @@ const routes: Routes = [
         path: 'users',
         loadChildren: () => import('./users/users.module').then(m => m.UsersModule),
         data: {
-          breadcrumb: `成员`
+          breadcrumb: `团队成员`
         }
       },
       {
         path: 'integrated',
         loadChildren: () => import('./integrated/integrated.module').then(m => m.IntegratedModule),
         data: {
-          breadcrumb: `集成`
+          breadcrumb: `集成服务`
         }
       },
       {

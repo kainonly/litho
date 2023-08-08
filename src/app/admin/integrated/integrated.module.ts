@@ -25,7 +25,7 @@ const routes: Routes = [
         path: 'extend',
         loadChildren: () => import('./extend/extend.module').then(m => m.ExtendModule),
         data: {
-          breadcrumb: $localize`扩展服务`
+          breadcrumb: $localize`扩展功能`
         }
       },
       { path: '', redirectTo: 'cloud', pathMatch: 'full' }
