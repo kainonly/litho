@@ -110,20 +110,4 @@ export class AppService {
       params: { type: 'generate-secret' }
     });
   }
-
-  getValues(keys?: string[]): Observable<R> {
-    let params = new HttpParams();
-    keys?.forEach(value => {
-      params = params.append('keys', value);
-    });
-    return this.http.get('values', { params });
-  }
-
-  setValues(update: R): Observable<R> {
-    return this.http.patch('values', { update });
-  }
-
-  deleteValue(key: string): Observable<R> {
-    return this.http.delete(`values/${key}`);
-  }
 }

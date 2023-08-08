@@ -1,8 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 
-import { AppService } from '@app';
-import { Any } from '@weplanx/ng';
+import { Any, WpxService } from '@weplanx/ng';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NZ_MODAL_DATA, NzModalRef } from 'ng-zorro-antd/modal';
 
@@ -21,7 +20,7 @@ export class IpListComponent implements OnInit {
   constructor(
     @Inject(NZ_MODAL_DATA)
     public data: IpListData,
-    public app: AppService,
+    private wpx: WpxService,
     private modalRef: NzModalRef,
     private message: NzMessageService,
     private fb: FormBuilder
@@ -60,7 +59,7 @@ export class IpListComponent implements OnInit {
   }
 
   submit(data: Any): void {
-    this.app.setValues(data).subscribe(() => {
+    this.wpx.setValues(data).subscribe(() => {
       this.message.success($localize`数据更新成功`);
       this.modalRef.triggerOk();
     });

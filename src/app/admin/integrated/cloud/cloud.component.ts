@@ -1,7 +1,6 @@
 import { Component, OnInit, Type } from '@angular/core';
 
-import { AppService } from '@app';
-import { Any, R, WpxStoreService } from '@weplanx/ng';
+import { Any, R, WpxService, WpxStoreService } from '@weplanx/ng';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalService } from 'ng-zorro-antd/modal';
 
@@ -17,7 +16,7 @@ export class CloudComponent implements OnInit {
   values: R = {};
 
   constructor(
-    private app: AppService,
+    private wpx: WpxService,
     private store: WpxStoreService,
     private modal: NzModalService,
     private message: NzMessageService
@@ -37,7 +36,7 @@ export class CloudComponent implements OnInit {
         this.tabIndex = v;
       }
     });
-    this.app
+    this.wpx
       .getValues([
         'Cloud',
         'TencentSecretId',
@@ -78,14 +77,10 @@ export class CloudComponent implements OnInit {
       nzContent: message,
       nzMaskClosable: true,
       nzOnOk: () => {
-        this.app
-          .setValues({
-            Cloud: platform
-          })
-          .subscribe(() => {
-            this.getData();
-            this.message.success(`数据更新成功`);
-          });
+        this.wpx.setValues({ Cloud: platform }).subscribe(() => {
+          this.getData();
+          this.message.success(`数据更新成功`);
+        });
       }
     });
   }

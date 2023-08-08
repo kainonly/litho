@@ -1,8 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
-import { AppService } from '@app';
-import { Any, R } from '@weplanx/ng';
+import { Any, R, WpxService } from '@weplanx/ng';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NZ_MODAL_DATA, NzModalRef } from 'ng-zorro-antd/modal';
 
@@ -25,8 +24,8 @@ export class PwdStrategyComponent implements OnInit {
 
   constructor(
     @Inject(NZ_MODAL_DATA)
-    public values: R,
-    private app: AppService,
+    public data: R,
+    private wpx: WpxService,
     private modalRef: NzModalRef,
     private message: NzMessageService,
     private fb: FormBuilder
@@ -36,7 +35,7 @@ export class PwdStrategyComponent implements OnInit {
     this.form = this.fb.group({
       PwdStrategy: [0, [Validators.required]]
     });
-    this.form.patchValue(this.values);
+    this.form.patchValue(this.data);
   }
 
   close(): void {
@@ -44,7 +43,7 @@ export class PwdStrategyComponent implements OnInit {
   }
 
   submit(data: Any): void {
-    this.app.setValues(data).subscribe(() => {
+    this.wpx.setValues(data).subscribe(() => {
       this.message.success($localize`数据更新成功`);
       this.modalRef.triggerOk();
     });

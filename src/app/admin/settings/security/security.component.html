@@ -12,7 +12,7 @@
             <nz-list-item-meta>
               <nz-list-item-meta-title><b i18n>会话超时策略</b></nz-list-item-meta-title>
               <nz-list-item-meta-description i18n>
-                用户在 {{ values['SessionTTL'] / 1e9 }} 秒内没有操作，退出当前帐号。
+                用户在 {{ data['SessionTTL'] / 1e9 }} 秒内没有操作，退出当前帐号。
               </nz-list-item-meta-description>
             </nz-list-item-meta>
             <nz-list-item-extra>
@@ -32,7 +32,7 @@
             <nz-list-item-meta>
               <nz-list-item-meta-title><b i18n>帐号锁定策略</b></nz-list-item-meta-title>
               <nz-list-item-meta-description i18n>
-                用户连续登录失败 {{ values['LoginFailures'] }} 次， 锁定帐号 {{ values['LoginTTL'] / 1e9 }} 秒。
+                用户连续登录失败 {{ data['LoginFailures'] }} 次， 锁定帐号 {{ data['LoginTTL'] / 1e9 }} 秒。
               </nz-list-item-meta-description>
             </nz-list-item-meta>
             <nz-list-item-extra>
@@ -52,7 +52,7 @@
             <nz-list-item-meta>
               <nz-list-item-meta-title><b i18n>IP 锁定策略</b></nz-list-item-meta-title>
               <nz-list-item-meta-description i18n>
-                IP 连续 {{ values['IpLoginFailures'] }} 次登录失败后（无白名单时启用），锁定 IP。
+                IP 连续 {{ data['IpLoginFailures'] }} 次登录失败后（无白名单时启用），锁定 IP。
               </nz-list-item-meta-description>
             </nz-list-item-meta>
             <nz-list-item-extra>
@@ -65,7 +65,7 @@
             <nz-list-item-meta>
               <nz-list-item-meta-title><b i18n>密码强度策略</b></nz-list-item-meta-title>
               <nz-list-item-meta-description>
-                <ng-container [ngSwitch]="values['PwdStrategy']">
+                <ng-container [ngSwitch]="data['PwdStrategy']">
                   <ng-container *ngSwitchCase="0" i18n> 无限制 </ng-container>
                   <ng-container *ngSwitchCase="1" i18n> 需要大写字母和小写字母 </ng-container>
                   <ng-container *ngSwitchCase="2" i18n> 需要大写字母、小写字母和数字 </ng-container>
@@ -90,10 +90,10 @@
             <nz-list-item-meta>
               <nz-list-item-meta-title><b i18n>密码有效期策略</b></nz-list-item-meta-title>
               <nz-list-item-meta-description>
-                <ng-container *ngIf="values['PwdTTL'] === 0; else passwordExpire" i18n> 永久 </ng-container>
+                <ng-container *ngIf="data['PwdTTL'] === 0; else passwordExpire" i18n> 永久 </ng-container>
                 <ng-template #passwordExpire>
                   <ng-container i18n>
-                    {{ values['PwdTTL'] / 86400e9 }} 天后密码过期，系统强制要求修改密码。
+                    {{ data['PwdTTL'] / 86400e9 }} 天后密码过期，系统强制要求修改密码。
                   </ng-container>
                 </ng-template>
               </nz-list-item-meta-description>
@@ -121,7 +121,7 @@
             <nz-table
               nzSize="default"
               #whitelist
-              [nzData]="values['IpWhitelist']"
+              [nzData]="data['IpWhitelist']"
               [nzHideOnSinglePage]="true"
               [nzFooter]="whitelistActions"
             >
@@ -159,7 +159,7 @@
             <nz-table
               nzSize="default"
               #blacklist
-              [nzData]="values['IpBlacklist']"
+              [nzData]="data['IpBlacklist']"
               [nzHideOnSinglePage]="true"
               [nzFooter]="blacklistActions"
             >

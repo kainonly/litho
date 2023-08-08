@@ -1,7 +1,6 @@
 import { Component, OnInit, Type } from '@angular/core';
 
-import { AppService } from '@app';
-import { Any, R } from '@weplanx/ng';
+import { Any, R, WpxService } from '@weplanx/ng';
 import { NzModalService } from 'ng-zorro-antd/modal';
 
 import { EmailComponent } from './email/email.component';
@@ -12,10 +11,10 @@ import { OpenapiComponent } from './openapi/openapi.component';
   templateUrl: './extend.component.html'
 })
 export class ExtendComponent implements OnInit {
-  values: R = {};
+  data: R = {};
 
   constructor(
-    private app: AppService,
+    private wpx: WpxService,
     private modal: NzModalService
   ) {}
 
@@ -24,7 +23,7 @@ export class ExtendComponent implements OnInit {
   }
 
   getData(): void {
-    this.app
+    this.wpx
       .getValues([
         'EmailHost',
         'EmailPort',
@@ -35,8 +34,7 @@ export class ExtendComponent implements OnInit {
         'OpenapiSecret'
       ])
       .subscribe(data => {
-        console.log(data);
-        this.values = data;
+        this.data = data;
       });
   }
 
@@ -44,7 +42,7 @@ export class ExtendComponent implements OnInit {
     this.modal.create<Type<Any>, Record<string, Any>>({
       nzTitle,
       nzContent: component,
-      nzData: this.values,
+      nzData: this.data,
       nzOnOk: () => {
         this.getData();
       }

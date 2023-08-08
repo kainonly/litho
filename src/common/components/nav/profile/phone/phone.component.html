@@ -1,8 +1,8 @@
 <form nz-form nzLayout="vertical" id="form" [formGroup]="form" (wpxSubmit)="submit($event)">
   <nz-form-item>
-    <nz-form-label nzRequired i18n>备用邮箱</nz-form-label>
-    <nz-form-control style="width: 328px" [nzAutoTips]="tips.email">
-      <input type="text" nz-input formControlName="backup_email" placeholder="mail@example.com" />
+    <nz-form-label nzRequired i18n>手机号码</nz-form-label>
+    <nz-form-control style="width: 328px">
+      <input type="text" nz-input formControlName="phone" />
     </nz-form-control>
   </nz-form-item>
 </form>

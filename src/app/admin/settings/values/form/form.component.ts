@@ -1,8 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
-import { AppService } from '@app';
-import { Any } from '@weplanx/ng';
+import { Any, WpxService } from '@weplanx/ng';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NZ_MODAL_DATA, NzModalRef } from 'ng-zorro-antd/modal';
 
@@ -30,7 +29,7 @@ export class FormComponent implements OnInit {
   constructor(
     @Inject(NZ_MODAL_DATA)
     public data: KeyValue,
-    private app: AppService,
+    private wpx: WpxService,
     private modalRef: NzModalRef,
     private message: NzMessageService,
     private fb: FormBuilder
@@ -60,13 +59,9 @@ export class FormComponent implements OnInit {
         data.value = JSON.parse(data.value);
         break;
     }
-    this.app
-      .setValues({
-        [data.key]: data.value
-      })
-      .subscribe(() => {
-        this.message.success($localize`数据更新成功`);
-        this.modalRef.triggerOk();
-      });
+    this.wpx.setValues({ [data.key]: data.value }).subscribe(() => {
+      this.message.success($localize`数据更新成功`);
+      this.modalRef.triggerOk();
+    });
   }
 }

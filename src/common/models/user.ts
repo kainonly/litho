@@ -6,7 +6,7 @@ export interface User {
   roles: string[];
   name: string;
   avatar: string;
-  backup_email?: string;
+  phone?: string;
   sessions?: number;
   history?: Logined;
   lark?: UserLark;

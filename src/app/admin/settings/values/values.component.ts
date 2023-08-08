@@ -1,6 +1,6 @@
 import { AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 
-import { AppService } from '@app';
+import { WpxService } from '@weplanx/ng';
 import { NzCardComponent } from 'ng-zorro-antd/card';
 import { NzContextMenuService, NzDropdownMenuComponent } from 'ng-zorro-antd/dropdown';
 import { NzMessageService } from 'ng-zorro-antd/message';
@@ -26,7 +26,7 @@ export class ValuesComponent implements OnInit, AfterViewInit, OnDestroy {
   private resizeObserver!: ResizeObserver;
 
   constructor(
-    private app: AppService,
+    private wpx: WpxService,
     private modal: NzModalService,
     private message: NzMessageService,
     private contextMenu: NzContextMenuService
@@ -52,7 +52,7 @@ export class ValuesComponent implements OnInit, AfterViewInit, OnDestroy {
 
   getData(): void {
     this.loading = true;
-    this.app.getValues().subscribe(data => {
+    this.wpx.getValues().subscribe(data => {
       this.items = [
         ...Object.entries(data)
           .map(([key, value]) => {
@@ -105,7 +105,7 @@ export class ValuesComponent implements OnInit, AfterViewInit, OnDestroy {
       nzOkType: 'primary',
       nzOkDanger: true,
       nzOnOk: () => {
-        this.app.deleteValue(key).subscribe(() => {
+        this.wpx.deleteValue(key).subscribe(() => {
           this.message.success($localize`数据删除成功`);
           this.getData();
         });

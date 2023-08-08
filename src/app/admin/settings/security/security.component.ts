@@ -1,7 +1,6 @@
 import { Component, OnInit, Type } from '@angular/core';
 
-import { AppService } from '@app';
-import { Any, R, WpxStoreService } from '@weplanx/ng';
+import { Any, R, WpxService, WpxStoreService } from '@weplanx/ng';
 import { NzModalService } from 'ng-zorro-antd/modal';
 
 import { IpListComponent, IpListData } from './ip-list/ip-list.component';
@@ -17,11 +16,11 @@ import { UserLockComponent } from './user-lock/user-lock.component';
 })
 export class SecurityComponent implements OnInit {
   tabIndex = 0;
-  values: R = {};
+  data: R = {};
 
   constructor(
+    private wpx: WpxService,
     private modal: NzModalService,
-    private app: AppService,
     private store: WpxStoreService
   ) {}
 
@@ -39,7 +38,7 @@ export class SecurityComponent implements OnInit {
         this.tabIndex = v;
       }
     });
-    this.app
+    this.wpx
       .getValues([
         'SessionTTL',
         'LoginTTL',
@@ -51,8 +50,7 @@ export class SecurityComponent implements OnInit {
         'PwdTTL'
       ])
       .subscribe(data => {
-        console.log(data);
-        this.values = data;
+        this.data = data;
       });
   }
 
@@ -60,7 +58,7 @@ export class SecurityComponent implements OnInit {
     this.modal.create<Type<Any>, R>({
       nzTitle: $localize`设置`,
       nzContent: component,
-      nzData: this.values,
+      nzData: this.data,
       nzOnOk: () => {
         this.getData();
       }
@@ -94,7 +92,7 @@ export class SecurityComponent implements OnInit {
       nzContent: IpListComponent,
       nzData: {
         type,
-        ip: this.values[type]
+        ip: this.data[type]
       },
       nzOnOk: () => {
         this.getData();

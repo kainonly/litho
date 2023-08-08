@@ -8,18 +8,11 @@ import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalRef } from 'ng-zorro-antd/modal';
 
 @Component({
-  selector: 'app-nav-profile-backup-email',
-  templateUrl: './backup-email.component.html'
+  selector: 'app-nav-profile-phone',
+  templateUrl: './phone.component.html'
 })
-export class BackupEmailComponent implements OnInit {
+export class PhoneComponent implements OnInit {
   form!: FormGroup;
-  tips = {
-    email: {
-      default: {
-        email: $localize`电子邮件格式不规范`
-      }
-    }
-  };
 
   constructor(
     private app: AppService,
@@ -31,9 +24,8 @@ export class BackupEmailComponent implements OnInit {
 
   ngOnInit(): void {
     this.form = this.fb.group({
-      backup_email: [null, [Validators.email]]
+      phone: [null, [Validators.required]]
     });
-    this.form.patchValue(this.app.user()!);
   }
 
   close(): void {
@@ -41,14 +33,9 @@ export class BackupEmailComponent implements OnInit {
   }
 
   submit(data: Any): void {
-    this.app
-      .setUser({
-        $set: 'backup_email',
-        backup_email: data.backup_email
-      })
-      .subscribe(() => {
-        this.message.success($localize`数据更新成功`);
-        this.modalRef.triggerOk();
-      });
+    this.app.setUser({ key: 'phone', phone: data.phone }).subscribe(() => {
+      this.message.success($localize`数据更新成功`);
+      this.modalRef.triggerOk();
+    });
   }
 }

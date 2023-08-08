@@ -2,9 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 
 import { AppService } from '@app';
+import { Any } from '@weplanx/ng';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalRef } from 'ng-zorro-antd/modal';
-import { Any } from '@weplanx/ng';
 
 @Component({
   selector: 'app-nav-profile-avatar',
@@ -32,14 +32,9 @@ export class AvatarComponent implements OnInit {
   }
 
   submit(data: Any): void {
-    this.app
-      .setUser({
-        $set: 'avatar',
-        avatar: data.avatar
-      })
-      .subscribe(() => {
-        this.message.success($localize`数据更新成功`);
-        this.modalRef.triggerOk();
-      });
+    this.app.setUser({ key: 'avatar', avatar: data.avatar }).subscribe(() => {
+      this.message.success($localize`数据更新成功`);
+      this.modalRef.triggerOk();
+    });
   }
 }

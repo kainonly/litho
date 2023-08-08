@@ -1,6 +1,6 @@
 import { Platform } from '@angular/cdk/platform';
 import { DOCUMENT } from '@angular/common';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Inject, Injectable, LOCALE_ID, Optional } from '@angular/core';
 import { AsyncSubject, fromEvent, map, Observable } from 'rxjs';
 
@@ -72,6 +72,22 @@ export class WpxService {
         async.complete();
       });
     }
+  }
+
+  getValues(keys?: string[]): Observable<R> {
+    let params = new HttpParams();
+    keys?.forEach(value => {
+      params = params.append('keys', value);
+    });
+    return this.http.get('values', { params });
+  }
+
+  setValues(update: R): Observable<R> {
+    return this.http.patch('values', { update });
+  }
+
+  deleteValue(key: string): Observable<R> {
+    return this.http.delete(`values/${key}`);
   }
 
   cosPresigned(): Observable<R> {

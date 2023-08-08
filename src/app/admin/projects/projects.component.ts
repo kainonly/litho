@@ -1,10 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
 
 import { Project } from '@common/models/project';
-import { User } from '@common/models/user';
 import { ProjectsService } from '@common/services/projects.service';
-import { Any, AnyDto, Filter, WpxModel, WpxService } from '@weplanx/ng';
+import { AnyDto, WpxModel, WpxService } from '@weplanx/ng';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalService } from 'ng-zorro-antd/modal';
 
@@ -17,22 +15,15 @@ import { FormComponent, ModalData } from './form/form.component';
 })
 export class ProjectsComponent implements OnInit {
   model!: WpxModel<Project>;
-  form!: FormGroup;
-  filter: Filter<User> = {};
 
   constructor(
     private wpx: WpxService,
     private modal: NzModalService,
     private message: NzMessageService,
-    private projects: ProjectsService,
-    private fb: FormBuilder
+    private projects: ProjectsService
   ) {}
 
   ngOnInit(): void {
-    this.form = this.fb.group({
-      email: [],
-      name: []
-    });
     this.model = this.wpx.setModel<Project>('projects', this.projects);
     this.model.ready().subscribe(() => {
       this.getData(true);
@@ -46,21 +37,6 @@ export class ProjectsComponent implements OnInit {
     this.model.fetch({}).subscribe(() => {
       console.debug('fetch:ok');
     });
-  }
-
-  clear(): void {
-    this.form.reset();
-    this.filter = {};
-    this.getData();
-  }
-
-  search(data: Any): void {
-    for (const [k, v] of Object.entries(data)) {
-      if (v) {
-        this.filter[k] = { $regex: `${v}` };
-      }
-    }
-    this.getData();
   }
 
   open(doc?: AnyDto<Project>): void {

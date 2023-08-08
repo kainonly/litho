@@ -15,22 +15,22 @@
     </ng-template>
     <nz-descriptions nzLayout="vertical" [nzColumn]="2">
       <nz-descriptions-item nzTitle="应用 ID">
-        <ng-container *ngIf="values['LarkAppId']; else unkown">
-          {{ values['LarkAppId'] }}
+        <ng-container *ngIf="data['LarkAppId']; else unkown">
+          {{ data['LarkAppId'] }}
         </ng-container>
       </nz-descriptions-item>
       <nz-descriptions-item nzTitle="应用密码">
-        <ng-container *ngIf="values['LarkAppSecret']; else unkown">
+        <ng-container *ngIf="data['LarkAppSecret']; else unkown">
           <span i18n>已设置</span>
         </ng-container>
       </nz-descriptions-item>
       <nz-descriptions-item nzTitle="事件订阅安全校验数据密钥" i18n-nzTitle>
-        <ng-container *ngIf="values['LarkEncryptKey']; else unkown">
+        <ng-container *ngIf="data['LarkEncryptKey']; else unkown">
           <span i18n>已设置</span>
         </ng-container>
       </nz-descriptions-item>
       <nz-descriptions-item nzTitle="事件订阅验证令牌" i18n-nzTitle>
-        <ng-container *ngIf="values['LarkVerificationToken']; else unkown">
+        <ng-container *ngIf="data['LarkVerificationToken']; else unkown">
           <span i18n>已设置</span>
         </ng-container>
       </nz-descriptions-item>
@@ -48,8 +48,8 @@
         <p i18n>允许通过企业平台用户身份进行登录</p>
         <nz-descriptions nzLayout="vertical" [nzColumn]="2">
           <nz-descriptions-item nzTitle="跳转地址" i18n-nzTitle>
-            <ng-container *ngIf="values['RedirectUrl']; else unkown">
-              {{ values['RedirectUrl'] }}
+            <ng-container *ngIf="data['RedirectUrl']; else unkown">
+              {{ data['RedirectUrl'] }}
             </ng-container>
           </nz-descriptions-item>
         </nz-descriptions>

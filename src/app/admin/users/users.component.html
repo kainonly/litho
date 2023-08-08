@@ -1,5 +1,5 @@
 <ng-template #titleRef>
-  <nz-space>
+  <nz-space nzAlign="center">
     <wpx-keyword
       *nzSpaceItem
       [wpxModel]="model"
@@ -33,7 +33,7 @@
 </ng-template>
 
 <ng-template #extraRef>
-  <nz-space>
+  <nz-space nzAlign="center">
     <ng-container *ngIf="model.selection.size as size">
       <button *nzSpaceItem nz-button nzType="dashed" nz-dropdown [nzDropdownMenu]="menu"> 已选中 {{ size }} 项 </button>
       <nz-dropdown-menu #menu="nzDropdownMenu">

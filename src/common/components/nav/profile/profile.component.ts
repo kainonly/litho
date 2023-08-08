@@ -8,16 +8,18 @@ import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalService } from 'ng-zorro-antd/modal';
 
 import { AvatarComponent } from './avatar/avatar.component';
-import { BackupEmailComponent } from './backup-email/backup-email.component';
 import { EmailComponent } from './email/email.component';
 import { NameComponent } from './name/name.component';
 import { PasswordComponent } from './password/password.component';
+import { PhoneComponent } from './phone/phone.component';
 
 @Component({
   selector: 'app-layout-profile',
   templateUrl: './profile.component.html'
 })
 export class ProfileComponent implements OnInit {
+  index = 1;
+
   constructor(
     public app: AppService,
     private modal: NzModalService,
@@ -68,8 +70,8 @@ export class ProfileComponent implements OnInit {
     this.setModal(PasswordComponent);
   }
 
-  setBackupEmail(): void {
-    this.setModal(BackupEmailComponent);
+  setPhone(): void {
+    this.setModal(PhoneComponent);
   }
 
   linkLark(): void {

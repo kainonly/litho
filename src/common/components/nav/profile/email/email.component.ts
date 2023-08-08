@@ -50,14 +50,9 @@ export class EmailComponent implements OnInit {
   }
 
   submit(data: Any): void {
-    this.app
-      .setUser({
-        $set: 'email',
-        email: data.email
-      })
-      .subscribe(() => {
-        this.message.success($localize`数据更新成功，需要重新登录系统`);
-        this.modalRef.triggerOk();
-      });
+    this.app.setUser({ key: 'email', email: data.email }).subscribe(() => {
+      this.message.success($localize`数据更新成功，需要重新登录系统`);
+      this.modalRef.triggerOk();
+    });
   }
 }

@@ -32,7 +32,7 @@ export class WpxKeywordComponent<T> {
     this.wpxModel.keywords = !this.wpxModel.searchText
       ? []
       : this.wpxKeys.map(key => ({
-          [key]: this.wpxModel.searchText
+          [key]: { $regex: '^' + this.wpxModel.searchText }
         }));
     this.wpxSubmit.emit();
   }

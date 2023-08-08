@@ -1,7 +1,6 @@
 import { Component, OnInit, Type } from '@angular/core';
 
-import { AppService } from '@app';
-import { Any, R } from '@weplanx/ng';
+import { Any, R, WpxService } from '@weplanx/ng';
 import { NzModalService } from 'ng-zorro-antd/modal';
 
 import { LarkComponent } from './lark/lark.component';
@@ -12,10 +11,10 @@ import { RedirectComponent } from './redirect/redirect.component';
   templateUrl: './collaboration.component.html'
 })
 export class CollaborationComponent implements OnInit {
-  values: R = {};
+  data: R = {};
 
   constructor(
-    private app: AppService,
+    private wpx: WpxService,
     private modal: NzModalService
   ) {}
 
@@ -24,10 +23,10 @@ export class CollaborationComponent implements OnInit {
   }
 
   getData(): void {
-    this.app
+    this.wpx
       .getValues(['LarkAppId', 'LarkAppSecret', 'LarkEncryptKey', 'LarkVerificationToken', 'RedirectUrl'])
       .subscribe(data => {
-        this.values = data;
+        this.data = data;
       });
   }
 
@@ -35,7 +34,7 @@ export class CollaborationComponent implements OnInit {
     this.modal.create<Type<Any>, Record<string, Any>>({
       nzTitle,
       nzContent: component,
-      nzData: this.values,
+      nzData: this.data,
       nzOnOk: () => {
         this.getData();
       }

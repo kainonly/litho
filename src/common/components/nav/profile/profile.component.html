@@ -1,227 +1,181 @@
-<nz-tabset style="height: 100%" nzTabPosition="left">
-  <nz-tab nzTitle="基本信息" i18n-nzTitle>
-    <nz-card *ngIf="app.user() as u">
-      <nz-list nzItemLayout="vertical">
-        <nz-list-item>
-          <nz-list-item-meta>
-            <nz-list-item-meta-title><b i18n>电子邮件</b></nz-list-item-meta-title>
-            <nz-list-item-meta-description i18n> 已设置： {{ u.email }} </nz-list-item-meta-description>
-          </nz-list-item-meta>
-          <nz-list-item-extra>
-            <button nz-button nzType="primary" nzShape="circle" nz-tooltip="编辑" i18n-nz-tooltip (click)="setEmail()">
-              <i nz-icon nzType="edit"></i>
-            </button>
-          </nz-list-item-extra>
-        </nz-list-item>
-        <nz-list-item>
-          <nz-list-item-meta>
-            <nz-list-item-meta-title><b i18n>称呼</b></nz-list-item-meta-title>
-            <nz-list-item-meta-description>
-              <ng-container *ngIf="!!u.name; else emptyNameTpl" i18n> 已设置： {{ u.name }} </ng-container>
-              <ng-template #emptyNameTpl>
-                <span i18n>推荐设置工作称呼或真实姓名</span>
-              </ng-template>
-            </nz-list-item-meta-description>
-          </nz-list-item-meta>
-          <nz-list-item-extra>
-            <button nz-button nzType="primary" nzShape="circle" nz-tooltip="编辑" i18n-nz-tooltip (click)="setName()">
-              <i nz-icon nzType="edit"></i>
-            </button>
-          </nz-list-item-extra>
-        </nz-list-item>
-        <nz-list-item>
-          <nz-list-item-meta>
-            <nz-list-item-meta-title><b i18n>头像</b></nz-list-item-meta-title>
-            <nz-list-item-meta-description i18n> 推荐采用尺寸 256*256 </nz-list-item-meta-description>
-          </nz-list-item-meta>
-          <ng-container *ngIf="!!u.avatar; else emptyAvatarTpl">
-            <nz-avatar nzShape="square" [nzSize]="128" [nzSrc]="[u.avatar] | wpxAssets"></nz-avatar>
-          </ng-container>
-          <ng-template #emptyAvatarTpl>
-            <nz-avatar nzShape="square" [nzSize]="128" nzIcon="user"></nz-avatar>
-          </ng-template>
-          <nz-list-item-extra>
-            <button nz-button nzType="primary" nzShape="circle" nz-tooltip="编辑" i18n-nz-tooltip (click)="setAvatar()">
-              <i nz-icon nzType="edit"></i>
-            </button>
-          </nz-list-item-extra>
-        </nz-list-item>
-        <nz-list-item>
-          <nz-list-item-meta>
-            <nz-list-item-meta-title><b i18n>详情</b></nz-list-item-meta-title>
-            <nz-list-item-meta-description>
-              <nz-descriptions [nzColumn]="2">
-                <nz-descriptions-item nzTitle="累计会话" [nzSpan]="2">
-                  <span i18n>
-                    已登录 <b> {{ u.sessions }} </b> 次
-                  </span>
-                </nz-descriptions-item>
-                <ng-container *ngIf="u.history as history">
-                  <nz-descriptions-item nzTitle="最近登录时间" i18n-nzTitle [nzSpan]="2">
-                    {{ history.timestamp | date: 'yyyy/MM/dd HH:mm:ss' }}
-                  </nz-descriptions-item>
-                  <nz-descriptions-item nzTitle="IP" [nzSpan]="2">
-                    {{ history.metadata.client_ip }}
-                  </nz-descriptions-item>
-                  <ng-container [ngSwitch]="u.history.metadata.version">
-                    <ng-container *ngSwitchCase="'shuliancloud.v4'">
-                      <nz-descriptions-item nzTitle="位置" i18n-nzTitle [nzSpan]="2">
-                        <nz-space *ngIf="u.history.detail as detail" [nzSplit]="spaceSplit">
-                          <span *nzSpaceItem>{{ detail.country | wpxBlank: '未知' }}[{{ detail.continent }}]</span>
-                          <span *nzSpaceItem>{{ detail.prov | wpxBlank: '未知' }}</span>
-                          <span *nzSpaceItem
-                            >{{ detail.city | wpxBlank: '未知' }}[{{ detail.lng }},{{ detail.lat }}]</span
-                          >
-                        </nz-space>
-                      </nz-descriptions-item>
-                      <nz-descriptions-item nzTitle="ISP" i18n-nzTitle [nzSpan]="2">
-                        <nz-space *ngIf="u.history.detail as detail" [nzSplit]="spaceSplit">
-                          <span *nzSpaceItem>{{ detail.isp }}</span>
-                          <span *nzSpaceItem>{{ detail.timezone }}</span>
-                        </nz-space>
-                      </nz-descriptions-item>
-                    </ng-container>
-                  </ng-container>
-                </ng-container>
-              </nz-descriptions>
-            </nz-list-item-meta-description>
-          </nz-list-item-meta>
-        </nz-list-item>
-      </nz-list>
-    </nz-card>
-  </nz-tab>
-  <nz-tab nzTitle="安全设置" i18n-nzTitle>
-    <nz-card *ngIf="app.user() as u">
-      <nz-list nzItemLayout="vertical">
-        <nz-list-item>
-          <nz-list-item-meta>
-            <nz-list-item-meta-title><b i18n>账户密码</b></nz-list-item-meta-title>
-            <nz-list-item-meta-description i18n>
-              建议采用大写字母、小写字母、数字和特殊字符（@$!%*?&-+）组合的密码
-            </nz-list-item-meta-description>
-          </nz-list-item-meta>
-          <nz-list-item-extra>
-            <button
-              nz-button
-              nzType="primary"
-              nzShape="circle"
-              nz-tooltip="编辑"
-              i18n-nz-tooltip
-              (click)="setPassword()"
-            >
-              <i nz-icon nzType="edit"></i>
-            </button>
-          </nz-list-item-extra>
-        </nz-list-item>
-        <nz-list-item>
-          <nz-list-item-meta>
-            <nz-list-item-meta-title><b i18n>备用邮箱</b></nz-list-item-meta-title>
-            <nz-list-item-meta-description>
-              <ng-container *ngIf="!!u.backup_email; else emailEmptyTpl"> 已设置： {{ u.backup_email }} </ng-container>
-              <ng-template #emailEmptyTpl>
-                <span i18n> 未设置备用邮箱，主要用于恢复账号安全相关操作，建议采用个人邮箱 </span>
-              </ng-template>
-            </nz-list-item-meta-description>
-          </nz-list-item-meta>
-          <nz-list-item-extra>
-            <button
-              nz-button
-              nzType="primary"
-              nzShape="circle"
-              nz-tooltip="编辑"
-              i18n-nz-tooltip
-              (click)="setBackupEmail()"
-            >
-              <i nz-icon nzType="edit"></i>
-            </button>
-          </nz-list-item-extra>
-        </nz-list-item>
-        <nz-list-item>
-          <nz-list-item-meta>
-            <nz-list-item-meta-title><b i18n>恢复代码</b></nz-list-item-meta-title>
-            <nz-list-item-meta-description>
-              <span i18n>
-                目前没有设置恢复代码，它可以用来在你丢失的情况下访问你的帐户访问您的设备并且无法接收双因素身份验证代码。
-              </span>
-            </nz-list-item-meta-description>
-          </nz-list-item-meta>
-          <nz-list-item-extra>
-            <button nz-button nzType="primary" nzShape="circle" nz-tooltip="Edit" i18n-nz-tooltip disabled>
-              <i nz-icon nzType="edit"></i>
-            </button>
-          </nz-list-item-extra>
-        </nz-list-item>
-        <nz-list-item>
-          <nz-list-item-meta>
-            <nz-list-item-meta-title><b i18n>身份验证器</b></nz-list-item-meta-title>
-            <nz-list-item-meta-description i18n>
-              目前没有设置身份验证器应用程序，使用手机上的应用程序进行双因素身份验证出现提示时的代码
-            </nz-list-item-meta-description>
-          </nz-list-item-meta>
-          <nz-list-item-extra>
-            <button nz-button nzType="primary" nzShape="circle" nz-tooltip="编辑" i18n-nz-tooltip disabled>
-              <i nz-icon nzType="edit"></i>
-            </button>
-          </nz-list-item-extra>
-        </nz-list-item>
-        <nz-list-item>
-          <nz-list-item-meta>
-            <nz-list-item-meta-title><b i18n>异地登录保护</b></nz-list-item-meta-title>
-            <nz-list-item-meta-description i18n>
-              根据登录IP是否所属常用登录城市进行判断，若账号在非常用城市登录，需进行身份校验
-            </nz-list-item-meta-description>
-          </nz-list-item-meta>
-          <nz-list-item-extra>
-            <button nz-button nzType="primary" nzShape="circle" nz-tooltip="编辑" i18n-nz-tooltip disabled>
-              <i nz-icon nzType="edit"></i>
-            </button>
-          </nz-list-item-extra>
-        </nz-list-item>
-      </nz-list>
-    </nz-card>
-  </nz-tab>
-  <nz-tab nzTitle="办公协作" i18n-nzTitle>
-    <nz-card *ngIf="app.user() as u">
-      <nz-list nzItemLayout="vertical">
-        <nz-list-item>
-          <nz-list-item-meta>
-            <nz-list-item-meta-avatar>
-              <nz-avatar nzShape="square" nzSize="large" [nzSrc]="['assets', 'Lark.png'] | wpxAssets"></nz-avatar>
-            </nz-list-item-meta-avatar>
-            <nz-list-item-meta-title><b i18n>飞书</b></nz-list-item-meta-title>
-            <nz-list-item-meta-description *ngIf="!u.lark" i18n> 当前未关联飞书账号 </nz-list-item-meta-description>
-          </nz-list-item-meta>
-          <nz-descriptions *ngIf="u.lark as lark" nzBordered [nzColumn]="1">
-            <nz-descriptions-item nzTitle="用户姓名" i18n-nzTitle>{{ lark.name }}</nz-descriptions-item>
-            <nz-descriptions-item nzTitle="用户英文名称" i18n-nzTitle>
-              {{ lark.en_name | nzSafeNull: '-' }}
-            </nz-descriptions-item>
-            <nz-descriptions-item nzTitle="用户应用唯一标识" i18n-nzTitle>{{ lark.open_id }}</nz-descriptions-item>
-          </nz-descriptions>
-          <nz-list-item-extra>
-            <ng-container *ngIf="u.lark; else linkLarkRef">
-              <button
-                nz-button
-                nzType="link"
-                nz-popconfirm
-                nzPopconfirmTitle="您确定要取消该关联吗？"
-                nzPopconfirmPlacement="bottom"
-                (nzOnConfirm)="unlinkLark()"
-                i18n-nzPopconfirmTitle
-                i18n
-              >
-                取消
-              </button>
-            </ng-container>
-            <ng-template #linkLarkRef>
-              <button nz-button nzType="link" (click)="linkLark()" i18n>设置</button>
+<nz-page-header nzTitle="个人中心">
+  <nz-page-header-footer>
+    <nz-tabset nzSize="small" [(nzSelectedIndex)]="index">
+      <nz-tab nzTitle="基本信息" i18n-nzTitle></nz-tab>
+      <nz-tab nzTitle="安全设置" i18n-nzTitle></nz-tab>
+      <nz-tab nzTitle="办公协作" i18n-nzTitle></nz-tab>
+    </nz-tabset>
+  </nz-page-header-footer>
+</nz-page-header>
+
+<nz-card *ngIf="app.user() as u">
+  <nz-list [ngSwitch]="index" nzItemLayout="vertical">
+    <ng-container *ngSwitchCase="0">
+      <nz-list-item>
+        <nz-list-item-meta>
+          <nz-list-item-meta-title><b i18n>电子邮件</b></nz-list-item-meta-title>
+          <nz-list-item-meta-description i18n> 已设置： {{ u.email }} </nz-list-item-meta-description>
+        </nz-list-item-meta>
+        <nz-list-item-extra>
+          <button nz-button nzType="primary" nzShape="circle" nz-tooltip="编辑" i18n-nz-tooltip (click)="setEmail()">
+            <i nz-icon nzType="edit"></i>
+          </button>
+        </nz-list-item-extra>
+      </nz-list-item>
+      <nz-list-item>
+        <nz-list-item-meta>
+          <nz-list-item-meta-title><b i18n>称呼</b></nz-list-item-meta-title>
+          <nz-list-item-meta-description>
+            <ng-container *ngIf="!!u.name; else emptyNameTpl" i18n> 已设置： {{ u.name }} </ng-container>
+            <ng-template #emptyNameTpl>
+              <span i18n>推荐设置工作称呼或真实姓名</span>
             </ng-template>
-          </nz-list-item-extra>
-        </nz-list-item>
-      </nz-list>
-    </nz-card>
-  </nz-tab>
-</nz-tabset>
+          </nz-list-item-meta-description>
+        </nz-list-item-meta>
+        <nz-list-item-extra>
+          <button nz-button nzType="primary" nzShape="circle" nz-tooltip="编辑" i18n-nz-tooltip (click)="setName()">
+            <i nz-icon nzType="edit"></i>
+          </button>
+        </nz-list-item-extra>
+      </nz-list-item>
+      <nz-list-item>
+        <nz-list-item-meta>
+          <nz-list-item-meta-title><b i18n>头像</b></nz-list-item-meta-title>
+          <nz-list-item-meta-description i18n> 推荐采用尺寸 256*256 </nz-list-item-meta-description>
+        </nz-list-item-meta>
+        <ng-container *ngIf="!!u.avatar; else emptyAvatarTpl">
+          <nz-avatar nzShape="square" [nzSize]="96" [nzSrc]="[u.avatar] | wpxAssets"></nz-avatar>
+        </ng-container>
+        <ng-template #emptyAvatarTpl>
+          <nz-avatar nzShape="square" [nzSize]="96" nzIcon="user"></nz-avatar>
+        </ng-template>
+        <nz-list-item-extra>
+          <button nz-button nzType="primary" nzShape="circle" nz-tooltip="编辑" i18n-nz-tooltip (click)="setAvatar()">
+            <i nz-icon nzType="edit"></i>
+          </button>
+        </nz-list-item-extra>
+      </nz-list-item>
+      <nz-list-item>
+        <nz-list-item-meta>
+          <nz-list-item-meta-title><b i18n>详情</b></nz-list-item-meta-title>
+          <nz-list-item-meta-description>
+            <nz-descriptions *ngIf="u.history as history" nzLayout="vertical" [nzColumn]="3">
+              <nz-descriptions-item nzTitle="累计会话">
+                <span i18n>
+                  已登录 <b> {{ u.sessions }} </b> 次
+                </span>
+              </nz-descriptions-item>
+              <nz-descriptions-item nzTitle="最近登录时间" i18n-nzTitle>
+                {{ history.timestamp | date: 'yyyy/MM/dd HH:mm:ss' }}
+              </nz-descriptions-item>
+              <nz-descriptions-item nzTitle="ISP" i18n-nzTitle>
+                <nz-space *ngIf="u.history.detail as detail" [nzSplit]="spaceSplit">
+                  <span *nzSpaceItem>{{ detail.isp }}</span>
+                  <span *nzSpaceItem>{{ detail.timezone }}</span>
+                </nz-space>
+              </nz-descriptions-item>
+              <ng-container [ngSwitch]="u.history.metadata.version">
+                <ng-container *ngSwitchCase="'shuliancloud.v4'">
+                  <nz-descriptions-item nzTitle="位置" i18n-nzTitle [nzSpan]="3">
+                    <nz-space *ngIf="u.history.detail as detail" [nzSplit]="spaceSplit">
+                      <b *nzSpaceItem> {{ history.metadata.client_ip }}</b>
+                      <span *nzSpaceItem>{{ detail.country | wpxBlank: '未知' }}[{{ detail.continent }}]</span>
+                      <span *nzSpaceItem>{{ detail.prov | wpxBlank: '未知' }}</span>
+                      <span *nzSpaceItem>{{ detail.city | wpxBlank: '未知' }}[{{ detail.lng }},{{ detail.lat }}]</span>
+                    </nz-space>
+                  </nz-descriptions-item>
+                </ng-container>
+              </ng-container>
+            </nz-descriptions>
+          </nz-list-item-meta-description>
+        </nz-list-item-meta>
+      </nz-list-item>
+    </ng-container>
+    <ng-container *ngSwitchCase="1">
+      <nz-list-item>
+        <nz-list-item-meta>
+          <nz-list-item-meta-title><b i18n>账户密码</b></nz-list-item-meta-title>
+          <nz-list-item-meta-description i18n>
+            建议采用大写字母、小写字母、数字和特殊字符（@$!%*?&-+）组合的密码
+          </nz-list-item-meta-description>
+        </nz-list-item-meta>
+        <nz-list-item-extra>
+          <button nz-button nzType="primary" nzShape="circle" nz-tooltip="编辑" i18n-nz-tooltip (click)="setPassword()">
+            <i nz-icon nzType="edit"></i>
+          </button>
+        </nz-list-item-extra>
+      </nz-list-item>
+      <nz-list-item>
+        <nz-list-item-meta>
+          <nz-list-item-meta-title><b i18n>手机号码</b></nz-list-item-meta-title>
+          <nz-list-item-meta-description>
+            <ng-container *ngIf="!!u.phone; else phoneEmptyTpl"> 已设置 </ng-container>
+            <ng-template #phoneEmptyTpl>
+              <span i18n> 目前没有设置手机号码，可用于手机验证登录或恢复账号等安全相关操作 </span>
+            </ng-template>
+          </nz-list-item-meta-description>
+        </nz-list-item-meta>
+        <nz-list-item-extra>
+          <button nz-button nzType="primary" nzShape="circle" nz-tooltip="编辑" i18n-nz-tooltip (click)="setPhone()">
+            <i nz-icon nzType="edit"></i>
+          </button>
+        </nz-list-item-extra>
+      </nz-list-item>
+      <nz-list-item>
+        <nz-list-item-meta>
+          <nz-list-item-meta-title><b i18n>身份验证器</b></nz-list-item-meta-title>
+          <nz-list-item-meta-description i18n>
+            目前没有设置身份验证器应用程序，使用手机上的应用程序进行双因素身份验证出现提示时的代码
+          </nz-list-item-meta-description>
+        </nz-list-item-meta>
+        <nz-list-item-extra>
+          <button nz-button nzType="primary" nzShape="circle" nz-tooltip="编辑" i18n-nz-tooltip>
+            <i nz-icon nzType="edit"></i>
+          </button>
+        </nz-list-item-extra>
+      </nz-list-item>
+    </ng-container>
+    <ng-container *ngSwitchCase="2">
+      <nz-list-item>
+        <nz-list-item-meta>
+          <nz-list-item-meta-avatar>
+            <nz-avatar nzShape="square" nzSize="large" [nzSrc]="['assets', 'Lark.png'] | wpxAssets"></nz-avatar>
+          </nz-list-item-meta-avatar>
+          <nz-list-item-meta-title><b i18n>飞书</b></nz-list-item-meta-title>
+          <nz-list-item-meta-description *ngIf="!u.lark" i18n> 当前未关联飞书账号 </nz-list-item-meta-description>
+        </nz-list-item-meta>
+        <nz-descriptions *ngIf="u.lark as lark" nzLayout="vertical" [nzColumn]="2">
+          <nz-descriptions-item nzTitle="用户姓名" i18n-nzTitle>{{ lark.name }}</nz-descriptions-item>
+          <nz-descriptions-item nzTitle="用户英文名称" i18n-nzTitle>
+            {{ lark.en_name | nzSafeNull: '-' }}
+          </nz-descriptions-item>
+          <nz-descriptions-item nzTitle="用户应用唯一标识" i18n-nzTitle [nzSpan]="2">
+            {{ lark.open_id }}
+          </nz-descriptions-item>
+        </nz-descriptions>
+        <nz-list-item-extra>
+          <ng-container *ngIf="u.lark; else linkLarkRef">
+            <button
+              nz-button
+              nzType="link"
+              nz-popconfirm
+              nzPopconfirmTitle="您确定要取消该关联吗？"
+              nzPopconfirmPlacement="bottom"
+              (nzOnConfirm)="unlinkLark()"
+              i18n-nzPopconfirmTitle
+              i18n
+            >
+              取消
+            </button>
+          </ng-container>
+          <ng-template #linkLarkRef>
+            <button nz-button nzType="link" (click)="linkLark()" i18n>设置</button>
+          </ng-template>
+        </nz-list-item-extra>
+      </nz-list-item>
+    </ng-container>
+  </nz-list>
+</nz-card>
 
 <ng-template #spaceSplit>
   <nz-divider nzType="vertical"></nz-divider>

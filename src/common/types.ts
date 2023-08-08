@@ -1,10 +1,11 @@
 export interface SetUserDto {
-  $set: 'email' | 'password' | 'name' | 'backup_email' | 'avatar';
+  key: Omit<keyof SetUserDto, 'key' | 'phone_code'>;
   email?: string;
-  password?: string;
   name?: string;
-  backup_email?: string;
   avatar?: string;
+  password?: string;
+  phone?: string;
+  phone_code?: string;
 }
 export type UnsetUserKey = 'lark';
 export interface CollaborationOption {
