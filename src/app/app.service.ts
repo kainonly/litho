@@ -106,6 +106,10 @@ export class AppService {
     return this.http.post(`user/password`, { old, password });
   }
 
+  getUserPhoneCode(phone: string): Observable<R> {
+    return this.http.get(`user/phone_code`, { params: { phone } });
+  }
+
   setUserPhone(phone: string, code: string): Observable<R> {
     return this.http.post(`user/phone`, { phone, code });
   }

@@ -27,8 +27,8 @@ export class TotpComponent implements OnInit {
   ngOnInit(): void {
     this.getTotp();
     this.form = this.fb.group({
-      ts1: [null, [Validators.required]],
-      ts2: [null, [Validators.required]]
+      ts1: [null, [Validators.required, Validators.pattern(/[0-9]{6}/)]],
+      ts2: [null, [Validators.required, Validators.pattern(/[0-9]{6}/)]]
     });
   }
 

@@ -72,6 +72,15 @@ export class ProfileComponent {
     this.setModal(PhoneComponent);
   }
 
+  unsetPhone(): void {
+    this.app.unsetUser('phone').subscribe(() => {
+      this.message.success($localize`取消成功`);
+      this.app.getUser().subscribe(() => {
+        console.debug('user:update');
+      });
+    });
+  }
+
   setTotp(): void {
     this.setModal(TotpComponent);
   }

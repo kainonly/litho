@@ -1,0 +1,42 @@
+<form nz-form nzLayout="vertical" id="form" [formGroup]="form" (wpxSubmit)="submit($event)">
+  <nz-form-item>
+    <nz-form-label nzRequired i18n>App Key</nz-form-label>
+    <nz-form-control nzHasFeedback [nzAutoTips]="tips.SmsSecretId">
+      <input nz-input formControlName="SmsSecretId" placeholder="请输入 Secret Id" i18n-placeholder />
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label nzRequired i18n>Secret Key</nz-form-label>
+    <nz-form-control nzHasFeedback [nzAutoTips]="tips.SmsSecretKey">
+      <input
+        nz-input
+        type="password"
+        autocomplete="new-password"
+        formControlName="SmsSecretKey"
+        placeholder="请输入 Secret Key"
+        i18n-placeholder
+      />
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label nzRequired i18n>App Id</nz-form-label>
+    <nz-form-control nzHasFeedback [nzAutoTips]="tips.SmsAppId">
+      <input nz-input formControlName="SmsAppId" placeholder="请输入 App Id" i18n-placeholder />
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label nzRequired i18n>地域</nz-form-label>
+    <nz-form-control nzHasFeedback [nzAutoTips]="tips.SmsRegion">
+      <nz-select style="width: 100%" formControlName="SmsRegion">
+        <nz-option nzValue="ap-guangzhou" nzLabel="广州"></nz-option>
+        <nz-option nzValue="ap-beijing" nzLabel="北京"></nz-option>
+        <nz-option nzValue="ap-nanjing" nzLabel="南京" nzDisabled></nz-option>
+      </nz-select>
+    </nz-form-control>
+  </nz-form-item>
+</form>
+
+<div *nzModalFooter>
+  <button nz-button type="button" nzType="default" (click)="close()" i18n>取消</button>
+  <button nz-button nzType="primary" form="form" [disabled]="!form.valid" i18n>提交</button>
+</div>

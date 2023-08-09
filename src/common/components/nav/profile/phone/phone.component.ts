@@ -15,15 +15,19 @@ export class PhoneComponent implements OnInit {
   tips = {
     phone: {
       default: {
-        required: `手机号码不能为空`
+        required: `手机号码不能为空`,
+        pattern: '手机号码格式不规范'
       }
     },
     code: {
       default: {
-        required: `验证码不能为空`
+        required: `验证码不能为空`,
+        pattern: '验证码格式不规范'
       }
     }
   };
+  timer = 0;
+  private timeId?: number;
 
   constructor(
     private app: AppService,
@@ -35,17 +39,35 @@ export class PhoneComponent implements OnInit {
   ngOnInit(): void {
     this.form = this.fb.group({
       area: ['+86', [Validators.required]],
-      phone: [null, [Validators.required]],
-      code: [null, [Validators.required]]
+      phone: [null, [Validators.required, Validators.pattern(/[0-9]{11}/)]],
+      code: [null, [Validators.required, Validators.pattern(/[0-9]{6}/)]]
+    });
+  }
+
+  getCode(): void {
+    const phone = this.form.get('area')!.value + this.form.get('phone')!.value;
+    this.app.getUserPhoneCode(phone).subscribe(() => {
+      this.timer = 60;
+      this.timeId = setInterval(() => {
+        if (!this.timer) {
+          clearInterval(this.timeId);
+          return;
+        }
+        this.timer--;
+      }, 1000);
+      console.debug('code:ok');
     });
   }
 
   close(): void {
+    if (this.timeId) {
+      clearInterval(this.timeId);
+    }
     this.modalRef.triggerCancel();
   }
 
   submit(data: Any): void {
-    this.app.setUserPhone(data.phone, data.code).subscribe(() => {
+    this.app.setUserPhone(data.area + data.phone, data.code).subscribe(() => {
       this.message.success($localize`数据更新成功`);
       this.modalRef.triggerOk();
     });

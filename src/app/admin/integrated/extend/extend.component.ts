@@ -5,6 +5,7 @@ import { NzModalService } from 'ng-zorro-antd/modal';
 
 import { EmailComponent } from './email/email.component';
 import { OpenapiComponent } from './openapi/openapi.component';
+import { SmsComponent } from './sms/sms.component';
 
 @Component({
   selector: 'app-admin-integrated-extend',
@@ -29,6 +30,10 @@ export class ExtendComponent implements OnInit {
         'EmailPort',
         'EmailUsername',
         'EmailPassword',
+        'SmsSecretId',
+        'SmsSecretKey',
+        'SmsAppId',
+        'SmsRegion',
         'OpenapiUrl',
         'OpenapiKey',
         'OpenapiSecret'
@@ -53,7 +58,11 @@ export class ExtendComponent implements OnInit {
     this.setModal($localize`公共邮箱设置`, EmailComponent);
   }
 
+  setSms(): void {
+    this.setModal($localize`腾讯 SMS 设置`, SmsComponent);
+  }
+
   setOpenapi(): void {
-    this.setModal($localize`开放服务设置`, OpenapiComponent);
+    this.setModal($localize`API 网关设置`, OpenapiComponent);
   }
 }

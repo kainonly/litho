@@ -6,25 +6,30 @@ import { NzMessageService } from 'ng-zorro-antd/message';
 import { NZ_MODAL_DATA, NzModalRef } from 'ng-zorro-antd/modal';
 
 @Component({
-  selector: 'app-admin-integrated-extend-openapi',
-  templateUrl: './openapi.component.html'
+  selector: 'app-admin-integrated-extend-sms',
+  templateUrl: './sms.component.html'
 })
-export class OpenapiComponent implements OnInit {
+export class SmsComponent implements OnInit {
   form!: FormGroup;
   tips = {
-    OpenapiKey: {
+    SmsSecretId: {
       default: {
-        required: $localize`App Key 不能为空`
+        required: $localize`Secret Id 不能为空`
       }
     },
-    OpenapiSecret: {
+    SmsSecretKey: {
       default: {
-        required: $localize`App Secret 不能为空`
+        required: $localize`Secret Key 不能为空`
       }
     },
-    OpenapiUrl: {
+    SmsAppId: {
       default: {
-        required: $localize`地址不能为空`
+        required: $localize`App Id 不能为空`
+      }
+    },
+    SmsRegion: {
+      default: {
+        required: $localize`地域不能为空`
       }
     }
   };
@@ -40,13 +45,15 @@ export class OpenapiComponent implements OnInit {
 
   ngOnInit(): void {
     this.form = this.fb.group({
-      OpenapiUrl: [null, [Validators.required]],
-      OpenapiKey: [null, [Validators.required]],
-      OpenapiSecret: [null, [Validators.required]]
+      SmsSecretId: [null, [Validators.required]],
+      SmsSecretKey: [null, [Validators.required]],
+      SmsAppId: [null, [Validators.required]],
+      SmsRegion: ['ap-guangzhou', [Validators.required]]
     });
     this.form.patchValue({
-      OpenapiUrl: this.data['OpenapiUrl'],
-      OpenapiKey: this.data['OpenapiKey']
+      SmsSecretId: this.data['SmsSecretId'],
+      SmsAppId: this.data['SmsAppId'],
+      SmsRegion: this.data['SmsRegion']
     });
   }
 

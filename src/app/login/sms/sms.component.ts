@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
+import { AppService } from '@app';
 import { Any } from '@weplanx/ng';
 
 @Component({
@@ -23,7 +24,10 @@ export class SmsComponent implements OnInit {
     }
   };
 
-  constructor(private fb: FormBuilder) {}
+  constructor(
+    private app: AppService,
+    private fb: FormBuilder
+  ) {}
 
   ngOnInit(): void {
     this.form = this.fb.group({
@@ -32,6 +36,8 @@ export class SmsComponent implements OnInit {
       code: [null, [Validators.required]]
     });
   }
+
+  getCode(): void {}
 
   submit(data: Any): void {
     this.loading = true;

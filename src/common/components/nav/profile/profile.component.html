@@ -82,9 +82,27 @@
           </nz-list-item-meta-description>
         </nz-list-item-meta>
         <nz-list-item-extra>
-          <button nz-button nzType="primary" nzShape="circle" (click)="setPhone()">
-            <i nz-icon nzType="edit"></i>
-          </button>
+          <nz-space>
+            <ng-container *ngIf="!!u.phone; else phoneEmptyRef">
+              <button
+                *nzSpaceItem
+                nz-button
+                nzDanger
+                nzShape="circle"
+                nz-popconfirm
+                nzPopconfirmTitle="您确定要取消吗？"
+                nzPopconfirmPlacement="bottom"
+                (nzOnConfirm)="unsetPhone()"
+              >
+                <i nz-icon nzType="close"></i>
+              </button>
+            </ng-container>
+            <ng-template #phoneEmptyRef>
+              <button *nzSpaceItem nz-button nzType="primary" nzShape="circle" (click)="setPhone()">
+                <i nz-icon nzType="edit"></i>
+              </button>
+            </ng-template>
+          </nz-space>
         </nz-list-item-extra>
       </nz-list-item>
       <nz-list-item>
