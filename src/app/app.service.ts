@@ -4,7 +4,7 @@ import { Observable, Subscription, switchMap, timer } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { User } from '@common/models/user';
-import { CollaborationOption, SetUserDto, UnsetUserKey } from '@common/types';
+import { CollaborationOption, LoginDto, SetUserDto, UnsetUserKey } from '@common/types';
 import { Any, AnyDto, R, UploadOption } from '@weplanx/ng';
 
 @Injectable({ providedIn: 'root' })
@@ -21,8 +21,12 @@ export class AppService {
     return this.http.get('');
   }
 
-  login(data: { email: string; password: string }): Observable<R> {
-    return this.http.post('login', data);
+  login(email: string, password: string): Observable<R> {
+    return this.http.post('login', { email, password });
+  }
+
+  loginTotp(email: string, code: string): Observable<R> {
+    return this.http.post('login/totp', { email, code });
   }
 
   verify(): Observable<HttpResponse<R>> {

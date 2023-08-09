@@ -44,6 +44,7 @@
             <nz-form-control>
               <nz-select formControlName="source" nzMode="multiple" nzAllowClear nzPlaceHolder="筛选登录来源">
                 <nz-option nzValue="email" nzLabel="电子邮件"></nz-option>
+                <nz-option nzValue="totp" nzLabel="动态口令"></nz-option>
                 <nz-option nzValue="lark" nzLabel="Lark"></nz-option>
               </nz-select>
             </nz-form-control>
@@ -131,6 +132,7 @@
   <ng-template #source let-data>
     <ng-container [ngSwitch]="data.metadata.source">
       <ng-container *ngSwitchCase="'email'">电子邮件</ng-container>
+      <ng-container *ngSwitchCase="'totp'">动态口令</ng-container>
       <ng-container *ngSwitchCase="'lark'">Lark / Feishu</ng-container>
     </ng-container>
   </ng-template>

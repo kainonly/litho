@@ -7,10 +7,10 @@ import { Any } from '@weplanx/ng';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 
 @Component({
-  selector: 'app-login-basic',
-  templateUrl: './basic.component.html'
+  selector: 'app-login-totp',
+  templateUrl: './totp.component.html'
 })
-export class BasicComponent implements OnInit {
+export class TotpComponent implements OnInit {
   form!: FormGroup;
   loading = false;
   tips = {
@@ -20,9 +20,9 @@ export class BasicComponent implements OnInit {
         email: `电子邮件格式不规范`
       }
     },
-    password: {
+    totp: {
       default: {
-        required: `密码不能为空`
+        required: `口令不能为空`
       }
     }
   };
@@ -45,13 +45,13 @@ export class BasicComponent implements OnInit {
   ngOnInit(): void {
     this.form = this.fb.group({
       email: [null, [Validators.required, Validators.email]],
-      password: [null, [Validators.required, Validators.minLength(6)]]
+      code: [null, [Validators.required]]
     });
   }
 
   submit(data: Any): void {
     this.loading = true;
-    this.app.login(data.email, data.password).subscribe({
+    this.app.loginTotp(data.email, data.code).subscribe({
       next: () => {
         this.loading = false;
         this.router.navigateByUrl('/');

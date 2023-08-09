@@ -16,6 +16,10 @@ const routes: Routes = [
         loadChildren: () => import('./basic/basic.module').then(m => m.BasicModule)
       },
       {
+        path: 'totp',
+        loadChildren: () => import('./totp/totp.module').then(m => m.TotpModule)
+      },
+      {
         path: 'sms',
         loadChildren: () => import('./sms/sms.module').then(m => m.SmsModule)
       },
