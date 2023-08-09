@@ -20,7 +20,7 @@ export class NavComponent {
 
   profile(): void {
     this.drawer.create<ProfileComponent, { value: string }, string>({
-      nzWidth: 720,
+      nzWidth: 640,
       nzContent: ProfileComponent,
       nzClosable: false
     });

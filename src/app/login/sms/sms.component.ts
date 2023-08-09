@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
+import { Any } from '@weplanx/ng';
+
 @Component({
   selector: 'app-login-sms',
   templateUrl: './sms.component.html'
@@ -27,11 +29,11 @@ export class SmsComponent implements OnInit {
     this.form = this.fb.group({
       area: ['+86', [Validators.required]],
       phone: [null, [Validators.required]],
-      captcha: [null, [Validators.required]]
+      code: [null, [Validators.required]]
     });
   }
 
-  submit(data: any): void {
+  submit(data: Any): void {
     this.loading = true;
     console.log(data);
   }

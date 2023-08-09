@@ -102,8 +102,8 @@ export class AppService {
     return this.http.patch('user', data);
   }
 
-  setUserPassword(password: string): Observable<R> {
-    return this.http.post(`user/password`, { password });
+  setUserPassword(old: string, password: string): Observable<R> {
+    return this.http.post(`user/password`, { old, password });
   }
 
   setUserPhone(phone: string, code: string): Observable<R> {

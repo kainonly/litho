@@ -1,7 +1,7 @@
 <form nz-form nzLayout="vertical" id="form" [formGroup]="form" (wpxSubmit)="submit($event)">
   <nz-form-item>
     <nz-form-label nzRequired i18n>电子邮件</nz-form-label>
-    <nz-form-control style="width: 328px" nzExtra="*修改后需要重新登录系统" i18n-nzExtra [nzAutoTips]="tips.email">
+    <nz-form-control nzExtra="*修改后需要重新登录系统" i18n-nzExtra [nzAutoTips]="tips.email">
       <input type="text" nz-input formControlName="email" placeholder="mail@example.com" />
     </nz-form-control>
   </nz-form-item>

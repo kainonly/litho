@@ -31,7 +31,8 @@ export class ProfileComponent {
 
   private setModal(component: Type<void>, callback?: () => void): void {
     this.modal.create({
-      nzTitle: $localize`更新`,
+      nzTitle: $localize`用户更新`,
+      nzWidth: 420,
       nzContent: component,
       nzOnOk: () => {
         if (!callback) {

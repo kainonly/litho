@@ -24,6 +24,7 @@ export class PasswordComponent implements OnInit {
       }
     }
   };
+  oldVisible = false;
   passwordVisible = false;
 
   constructor(
@@ -35,6 +36,7 @@ export class PasswordComponent implements OnInit {
 
   ngOnInit(): void {
     this.form = this.fb.group({
+      old: [null, [Validators.required, this.validedPassword]],
       password: [null, [Validators.required, this.validedPassword]]
     });
   }
@@ -51,7 +53,7 @@ export class PasswordComponent implements OnInit {
   }
 
   submit(data: Any): void {
-    this.app.setUserPassword(data.password).subscribe(() => {
+    this.app.setUserPassword(data.old, data.password).subscribe(() => {
       this.message.success($localize`数据更新成功`);
       this.modalRef.triggerOk();
     });

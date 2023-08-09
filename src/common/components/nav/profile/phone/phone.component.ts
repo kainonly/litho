@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { AppService } from '@app';
-import { UsersService } from '@common/services/users.service';
 import { Any } from '@weplanx/ng';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalRef } from 'ng-zorro-antd/modal';
@@ -13,17 +12,29 @@ import { NzModalRef } from 'ng-zorro-antd/modal';
 })
 export class PhoneComponent implements OnInit {
   form!: FormGroup;
+  tips = {
+    phone: {
+      default: {
+        required: `手机号码不能为空`
+      }
+    },
+    code: {
+      default: {
+        required: `验证码不能为空`
+      }
+    }
+  };
 
   constructor(
     private app: AppService,
     private modalRef: NzModalRef,
     private fb: FormBuilder,
-    private users: UsersService,
     private message: NzMessageService
   ) {}
 
   ngOnInit(): void {
     this.form = this.fb.group({
+      area: ['+86', [Validators.required]],
       phone: [null, [Validators.required]],
       code: [null, [Validators.required]]
     });

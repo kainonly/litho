@@ -4,6 +4,7 @@
       <nz-tab nzTitle="基本信息" i18n-nzTitle></nz-tab>
       <nz-tab nzTitle="安全设置" i18n-nzTitle></nz-tab>
       <nz-tab nzTitle="办公协作" i18n-nzTitle></nz-tab>
+      <nz-tab nzTitle="登录状态" i18n-nzTitle></nz-tab>
     </nz-tabset>
   </nz-page-header-footer>
 </nz-page-header>
@@ -55,41 +56,6 @@
           </button>
         </nz-list-item-extra>
       </nz-list-item>
-      <nz-list-item>
-        <nz-list-item-meta>
-          <nz-list-item-meta-title><b i18n>详情</b></nz-list-item-meta-title>
-          <nz-list-item-meta-description>
-            <nz-descriptions *ngIf="u.history as history" nzLayout="vertical" [nzColumn]="3">
-              <nz-descriptions-item nzTitle="累计会话">
-                <span i18n>
-                  已登录 <b> {{ u.sessions }} </b> 次
-                </span>
-              </nz-descriptions-item>
-              <nz-descriptions-item nzTitle="最近登录时间" i18n-nzTitle>
-                {{ history.timestamp | date: 'yyyy/MM/dd HH:mm:ss' }}
-              </nz-descriptions-item>
-              <nz-descriptions-item nzTitle="ISP" i18n-nzTitle>
-                <nz-space *ngIf="u.history.detail as detail" [nzSplit]="spaceSplit">
-                  <span *nzSpaceItem>{{ detail.isp }}</span>
-                  <span *nzSpaceItem>{{ detail.timezone }}</span>
-                </nz-space>
-              </nz-descriptions-item>
-              <ng-container [ngSwitch]="u.history.metadata.version">
-                <ng-container *ngSwitchCase="'shuliancloud.v4'">
-                  <nz-descriptions-item nzTitle="位置" i18n-nzTitle [nzSpan]="3">
-                    <nz-space *ngIf="u.history.detail as detail" [nzSplit]="spaceSplit">
-                      <b *nzSpaceItem> {{ history.metadata.client_ip }}</b>
-                      <span *nzSpaceItem>{{ detail.country | wpxBlank: '未知' }}[{{ detail.continent }}]</span>
-                      <span *nzSpaceItem>{{ detail.prov | wpxBlank: '未知' }}</span>
-                      <span *nzSpaceItem>{{ detail.city | wpxBlank: '未知' }}[{{ detail.lng }},{{ detail.lat }}]</span>
-                    </nz-space>
-                  </nz-descriptions-item>
-                </ng-container>
-              </ng-container>
-            </nz-descriptions>
-          </nz-list-item-meta-description>
-        </nz-list-item-meta>
-      </nz-list-item>
     </ng-container>
     <ng-container *ngSwitchCase="1">
       <nz-list-item>
@@ -109,8 +75,8 @@
         <nz-list-item-meta>
           <nz-list-item-meta-title><b i18n>手机号码</b></nz-list-item-meta-title>
           <nz-list-item-meta-description>
-            <ng-container *ngIf="!!u.phone; else phoneEmptyTpl"> 已设置 </ng-container>
-            <ng-template #phoneEmptyTpl>
+            <ng-container *ngIf="!!u.phone; else phoneEmptyText"> 已设置 </ng-container>
+            <ng-template #phoneEmptyText>
               <span i18n> 目前没有设置手机号码，可用于手机验证登录或恢复账号等安全相关操作 </span>
             </ng-template>
           </nz-list-item-meta-description>
@@ -192,6 +158,45 @@
             <button nz-button nzType="link" (click)="linkLark()" i18n>设置</button>
           </ng-template>
         </nz-list-item-extra>
+      </nz-list-item>
+    </ng-container>
+    <ng-container *ngSwitchCase="3">
+      <nz-list-item>
+        <nz-list-item-meta>
+          <nz-list-item-meta-title><b i18n>详情</b></nz-list-item-meta-title>
+          <nz-list-item-meta-description>
+            <nz-descriptions *ngIf="u.history as history" nzLayout="vertical" [nzColumn]="2">
+              <nz-descriptions-item nzTitle="累计会话">
+                <span i18n>
+                  已登录 <i> {{ u.sessions }} </i> 次
+                </span>
+              </nz-descriptions-item>
+              <nz-descriptions-item nzTitle="最近登录时间" i18n-nzTitle>
+                {{ history.timestamp | date: 'yyyy/MM/dd HH:mm:ss' }}
+              </nz-descriptions-item>
+              <nz-descriptions-item nzTitle="IP">
+                <span> {{ history.metadata.client_ip }}</span>
+              </nz-descriptions-item>
+              <nz-descriptions-item nzTitle="ISP" i18n-nzTitle>
+                <nz-space *ngIf="u.history.detail as detail" [nzSplit]="spaceSplit">
+                  <span *nzSpaceItem>{{ detail.isp }}</span>
+                  <span *nzSpaceItem>{{ detail.timezone }}</span>
+                </nz-space>
+              </nz-descriptions-item>
+              <ng-container [ngSwitch]="u.history.metadata.version">
+                <ng-container *ngSwitchCase="'shuliancloud.v4'">
+                  <nz-descriptions-item nzTitle="地理信息" i18n-nzTitle [nzSpan]="2">
+                    <nz-space *ngIf="u.history.detail as detail" [nzSplit]="spaceSplit">
+                      <span *nzSpaceItem>{{ detail.country | wpxBlank: '未知' }}[{{ detail.continent }}]</span>
+                      <span *nzSpaceItem>{{ detail.prov | wpxBlank: '未知' }}</span>
+                      <span *nzSpaceItem>{{ detail.city | wpxBlank: '未知' }}[{{ detail.lng }},{{ detail.lat }}]</span>
+                    </nz-space>
+                  </nz-descriptions-item>
+                </ng-container>
+              </ng-container>
+            </nz-descriptions>
+          </nz-list-item-meta-description>
+        </nz-list-item-meta>
       </nz-list-item>
     </ng-container>
   </nz-list>
