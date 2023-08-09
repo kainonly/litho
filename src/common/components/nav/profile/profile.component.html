@@ -100,7 +100,7 @@
           </nz-list-item-meta-description>
         </nz-list-item-meta>
         <nz-list-item-extra>
-          <button nz-button nzType="primary" nzShape="circle" nz-tooltip="编辑" i18n-nz-tooltip (click)="setPassword()">
+          <button nz-button nzType="primary" nzShape="circle" (click)="setPassword()">
             <i nz-icon nzType="edit"></i>
           </button>
         </nz-list-item-extra>
@@ -116,7 +116,7 @@
           </nz-list-item-meta-description>
         </nz-list-item-meta>
         <nz-list-item-extra>
-          <button nz-button nzType="primary" nzShape="circle" nz-tooltip="编辑" i18n-nz-tooltip (click)="setPhone()">
+          <button nz-button nzType="primary" nzShape="circle" (click)="setPhone()">
             <i nz-icon nzType="edit"></i>
           </button>
         </nz-list-item-extra>
@@ -125,13 +125,34 @@
         <nz-list-item-meta>
           <nz-list-item-meta-title><b i18n>身份验证器</b></nz-list-item-meta-title>
           <nz-list-item-meta-description i18n>
-            目前没有设置身份验证器应用程序，使用手机上的应用程序进行双因素身份验证出现提示时的代码
+            <ng-container *ngIf="!!u.totp; else totpEmptyText"> 已设置 </ng-container>
+            <ng-template #totpEmptyText>
+              目前没有设置身份验证器应用程序，使用手机上的应用程序进行双因素身份验证出现提示时的代码
+            </ng-template>
           </nz-list-item-meta-description>
         </nz-list-item-meta>
         <nz-list-item-extra>
-          <button nz-button nzType="primary" nzShape="circle" nz-tooltip="编辑" i18n-nz-tooltip>
-            <i nz-icon nzType="edit"></i>
-          </button>
+          <nz-space>
+            <ng-container *ngIf="!!u.totp; else totpEmptyRef">
+              <button
+                *nzSpaceItem
+                nz-button
+                nzDanger
+                nzShape="circle"
+                nz-popconfirm
+                nzPopconfirmTitle="您确定要取消吗？"
+                nzPopconfirmPlacement="bottom"
+                (nzOnConfirm)="unsetTotp()"
+              >
+                <i nz-icon nzType="close"></i>
+              </button>
+            </ng-container>
+            <ng-template #totpEmptyRef>
+              <button *nzSpaceItem nz-button nzType="primary" nzShape="circle" (click)="setTotp()">
+                <i nz-icon nzType="edit"></i>
+              </button>
+            </ng-template>
+          </nz-space>
         </nz-list-item-extra>
       </nz-list-item>
     </ng-container>
@@ -157,15 +178,14 @@
           <ng-container *ngIf="u.lark; else linkLarkRef">
             <button
               nz-button
-              nzType="link"
+              nzDanger
+              nzShape="circle"
               nz-popconfirm
               nzPopconfirmTitle="您确定要取消该关联吗？"
               nzPopconfirmPlacement="bottom"
               (nzOnConfirm)="unlinkLark()"
-              i18n-nzPopconfirmTitle
-              i18n
             >
-              取消
+              <i nz-icon nzType="close"></i>
             </button>
           </ng-container>
           <ng-template #linkLarkRef>

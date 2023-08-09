@@ -7,9 +7,10 @@ export interface User {
   name: string;
   avatar: string;
   phone?: string;
+  totp?: string;
+  lark?: UserLark;
   sessions?: number;
   history?: Logined;
-  lark?: UserLark;
   status: boolean;
 }
 

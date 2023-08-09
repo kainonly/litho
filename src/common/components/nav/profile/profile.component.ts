@@ -1,8 +1,9 @@
-import { Component, OnInit, Type } from '@angular/core';
+import { Component, Type } from '@angular/core';
 import { Router } from '@angular/router';
 import { timer } from 'rxjs';
 
 import { AppService } from '@app';
+import { TotpComponent } from '@common/components/nav/profile/totp/totp.component';
 import { NzDrawerRef } from 'ng-zorro-antd/drawer';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalService } from 'ng-zorro-antd/modal';
@@ -17,7 +18,7 @@ import { PhoneComponent } from './phone/phone.component';
   selector: 'app-layout-profile',
   templateUrl: './profile.component.html'
 })
-export class ProfileComponent implements OnInit {
+export class ProfileComponent {
   index = 1;
 
   constructor(
@@ -25,12 +26,8 @@ export class ProfileComponent implements OnInit {
     private modal: NzModalService,
     private message: NzMessageService,
     private router: Router,
-    private draw: NzDrawerRef
+    private drawer: NzDrawerRef
   ) {}
-
-  ngOnInit(): void {
-    console.debug(this.app.user());
-  }
 
   private setModal(component: Type<void>, callback?: () => void): void {
     this.modal.create({
@@ -51,7 +48,7 @@ export class ProfileComponent implements OnInit {
   setEmail(): void {
     this.setModal(EmailComponent, () => {
       this.app.logout().subscribe(() => {
-        this.draw.close();
+        this.drawer.close();
         this.app.user.set(null);
         this.router.navigateByUrl('/login');
       });
@@ -72,6 +69,19 @@ export class ProfileComponent implements OnInit {
 
   setPhone(): void {
     this.setModal(PhoneComponent);
+  }
+
+  setTotp(): void {
+    this.setModal(TotpComponent);
+  }
+
+  unsetTotp(): void {
+    this.app.unsetUser('totp').subscribe(() => {
+      this.message.success($localize`取消成功`);
+      this.app.getUser().subscribe(() => {
+        console.debug('user:update');
+      });
+    });
   }
 
   linkLark(): void {

@@ -9,6 +9,7 @@ import { WpxTableModule } from '@weplanx/ng/table';
 import { WpxToolboxModule } from '@weplanx/ng/toolbox';
 import { WpxUploadModule } from '@weplanx/ng/upload';
 import { NzCodeEditorModule } from 'ng-zorro-antd/code-editor';
+import { NzQRCodeModule } from 'ng-zorro-antd/qr-code';
 
 @NgModule({
   exports: [
@@ -21,6 +22,7 @@ import { NzCodeEditorModule } from 'ng-zorro-antd/code-editor';
     WpxTableModule,
     WpxListModule,
     NzCodeEditorModule,
+    NzQRCodeModule,
     ScrollingModule
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]

@@ -1,13 +1,10 @@
 export interface SetUserDto {
-  key: Omit<keyof SetUserDto, 'key' | 'phone_code'>;
+  key: Omit<keyof SetUserDto, 'key'>;
   email?: string;
   name?: string;
   avatar?: string;
-  password?: string;
-  phone?: string;
-  phone_code?: string;
 }
-export type UnsetUserKey = 'lark';
+export type UnsetUserKey = 'phone' | 'totp' | 'lark';
 export interface CollaborationOption {
   url: string;
   redirect: string;

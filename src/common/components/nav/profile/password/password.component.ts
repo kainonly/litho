@@ -51,7 +51,7 @@ export class PasswordComponent implements OnInit {
   }
 
   submit(data: Any): void {
-    this.app.setUser({ key: 'password', password: data.password }).subscribe(() => {
+    this.app.setUserPassword(data.password).subscribe(() => {
       this.message.success($localize`数据更新成功`);
       this.modalRef.triggerOk();
     });

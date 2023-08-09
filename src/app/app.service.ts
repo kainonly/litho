@@ -1,4 +1,4 @@
-import { HttpClient, HttpParams, HttpResponse } from '@angular/common/http';
+import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Inject, Injectable, LOCALE_ID, signal } from '@angular/core';
 import { Observable, Subscription, switchMap, timer } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -76,10 +76,7 @@ export class AppService {
   }
 
   oauth(action?: string): Observable<string> {
-    const state = JSON.stringify({
-      action,
-      locale: this.locale
-    });
+    const state = JSON.stringify({ action, locale: this.locale });
     return this.getCollaborationOption().pipe(
       map(v => {
         const redirect_uri = encodeURIComponent(v.redirect);
@@ -98,7 +95,23 @@ export class AppService {
   }
 
   setUser(data: SetUserDto): Observable<R> {
-    return this.http.post('user', data);
+    return this.http.patch('user', data);
+  }
+
+  setUserPassword(password: string): Observable<R> {
+    return this.http.post(`user/password`, { password });
+  }
+
+  setUserPhone(phone: string, code: string): Observable<R> {
+    return this.http.post(`user/phone`, { phone, code });
+  }
+
+  getTotp(): Observable<R> {
+    return this.http.get(`user/totp`);
+  }
+
+  setUserTotp(totp: string, tss: string[]): Observable<R> {
+    return this.http.post(`user/totp`, { totp, tss });
   }
 
   unsetUser(key: UnsetUserKey): Observable<R> {

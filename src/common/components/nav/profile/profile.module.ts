@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 
+import { TotpComponent } from '@common/components/nav/profile/totp/totp.component';
 import { ShareModule } from '@common/share.module';
 
 import { AvatarComponent } from './avatar/avatar.component';
@@ -11,7 +12,15 @@ import { ProfileComponent } from './profile.component';
 
 @NgModule({
   imports: [ShareModule],
-  declarations: [ProfileComponent, EmailComponent, NameComponent, AvatarComponent, PasswordComponent, PhoneComponent],
+  declarations: [
+    ProfileComponent,
+    EmailComponent,
+    NameComponent,
+    AvatarComponent,
+    PasswordComponent,
+    PhoneComponent,
+    TotpComponent
+  ],
   exports: [ProfileComponent]
 })
 export class ProfileModule {}
