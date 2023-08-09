@@ -25,6 +25,14 @@ export class AppService {
     return this.http.post('login', { email, password });
   }
 
+  getLoginSms(phone: string): Observable<R> {
+    return this.http.get('login/sms', { params: { phone } });
+  }
+
+  loginSms(phone: string, code: string): Observable<R> {
+    return this.http.post('login/sms', { phone, code });
+  }
+
   loginTotp(email: string, code: string): Observable<R> {
     return this.http.post('login/totp', { email, code });
   }
