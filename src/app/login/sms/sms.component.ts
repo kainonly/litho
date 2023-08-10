@@ -53,8 +53,8 @@ export class SmsComponent implements OnInit, OnDestroy {
 
   getCode(): void {
     const phone = this.form.get('area')!.value + this.form.get('phone')!.value;
+    this.timer = 60;
     this.app.getLoginSms(phone).subscribe(() => {
-      this.timer = 60;
       this.timeId = setInterval(() => {
         if (!this.timer) {
           clearInterval(this.timeId);
@@ -62,7 +62,6 @@ export class SmsComponent implements OnInit, OnDestroy {
         }
         this.timer--;
       }, 1000);
-      console.debug('code:ok');
     });
   }
 

@@ -16,7 +16,13 @@
           <input nz-input formControlName="code" placeholder="验证码" />
         </nz-col>
         <nz-col [nzSpan]="12">
-          <button nz-button type="button" [disabled]="!form.get('phone')?.value || timer !== 0" (click)="getCode()">
+          <button
+            nz-button
+            type="button"
+            [nzLoading]="timer === 60"
+            [disabled]="!form.get('phone')?.value || timer !== 0"
+            (click)="getCode()"
+          >
             <ng-container *ngIf="timer === 0; else timerText">获取</ng-container>
             <ng-template #timerText>{{ timer }} 秒</ng-template>
           </button>

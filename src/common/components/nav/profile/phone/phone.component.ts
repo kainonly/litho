@@ -46,8 +46,8 @@ export class PhoneComponent implements OnInit {
 
   getCode(): void {
     const phone = this.form.get('area')!.value + this.form.get('phone')!.value;
+    this.timer = 60;
     this.app.getUserPhoneCode(phone).subscribe(() => {
-      this.timer = 60;
       this.timeId = setInterval(() => {
         if (!this.timer) {
           clearInterval(this.timeId);
@@ -55,7 +55,6 @@ export class PhoneComponent implements OnInit {
         }
         this.timer--;
       }, 1000);
-      console.debug('code:ok');
     });
   }
 
