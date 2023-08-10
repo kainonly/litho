@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
+import { PageModule } from '@common/components/page/page.module';
 import { TranslationModule } from '@common/components/translation/translation.module';
 import { ShareModule } from '@common/share.module';
 
@@ -29,7 +30,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [ShareModule, TranslationModule, RouterModule.forChild(routes)],
+  imports: [ShareModule, PageModule, RouterModule.forChild(routes)],
   declarations: [LoginComponent]
 })
 export class LoginModule {}

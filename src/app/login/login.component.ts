@@ -4,8 +4,7 @@ import { AppService } from '@app';
 
 @Component({
   selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.less']
+  templateUrl: './login.component.html'
 })
 export class LoginComponent {
   constructor(private app: AppService) {}

@@ -37,25 +37,23 @@ export class AppService {
     return this.http.post('login/totp', { email, code });
   }
 
+  getForgetCode(email: string): Observable<R> {
+    return this.http.get('forget_code', { params: { email } });
+  }
+
+  forgetReset(email: string, code: string, password: string): Observable<R> {
+    return this.http.post('forget_reset', { email, code, password });
+  }
+
   verify(): Observable<HttpResponse<R>> {
     return this.http.get('verify', { observe: 'response' });
-  }
-
-  code(): Observable<{ code: string }> {
-    return this.http.get<{ code: string }>('code');
-  }
-
-  refresh_token(code: string): Observable<R> {
-    return this.http.post('refresh_token', {
-      code
-    });
   }
 
   autoRefreshToken(): void {
     this.stopRefreshToken();
     this.refreshTokenSubscription = timer(0, 3200 * 1000)
       .pipe(
-        switchMap(() => this.code()),
+        switchMap(() => this.http.get<{ code: string }>('refresh_code')),
         switchMap(v =>
           this.http.post('refresh_token', {
             code: v.code

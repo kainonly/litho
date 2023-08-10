@@ -15,12 +15,12 @@ export class PasswordComponent implements OnInit {
   tips = {
     password: {
       default: {
-        required: $localize`新密码不能为空`,
-        minlength: $localize`新密码不能小于 8 位`,
-        lowercase: $localize`新密码需要包含小写字母`,
-        uppercase: $localize`新密码需要包含大写字母`,
-        number: $localize`新密码需要包含数字`,
-        symbol: $localize`新密码需要包含符号 (@$!%*?&-+)`
+        required: $localize`密码不能为空`,
+        minlength: $localize`密码不能小于 8 位`,
+        lowercase: $localize`密码需要包含小写字母`,
+        uppercase: $localize`密码需要包含大写字母`,
+        number: $localize`密码需要包含数字`,
+        symbol: $localize`密码需要包含符号 (@$!%*?&-+)`
       }
     }
   };

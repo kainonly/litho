@@ -1,20 +1,6 @@
-<nz-layout style="height: 100%">
-  <nz-header>
-    <nz-row nzJustify="space-between">
-      <nz-col>
-        <button nz-button nzType="text">
-          <span nz-icon nzType="github" nzTheme="outline"></span>
-          关注
-        </button>
-      </nz-col>
-      <nz-col></nz-col>
-      <nz-col>
-        <app-translation></app-translation>
-      </nz-col>
-    </nz-row>
-  </nz-header>
-  <nz-content>
-    <div class="sign">
+<app-blank-page>
+  <nz-row style="min-height: 85%" nzJustify="center" nzAlign="middle">
+    <div style="min-width: 360px">
       <h2 nz-typography>登 录</h2>
       <nz-tabset nzLinkRouter>
         <nz-tab>
@@ -32,23 +18,19 @@
 
       <nz-divider nzPlain nzText="其他登录方式"></nz-divider>
 
-      <nz-space>
-        <a *nzSpaceItem nz-tooltip="飞书" (click)="lark()">
-          <nz-avatar [nzSize]="32" [nzSrc]="['assets', 'Lark.png'] | wpxAssets"></nz-avatar>
-        </a>
-      </nz-space>
+      <nz-row nzJustify="space-between" nzAlign="middle">
+        <nz-col>
+          <nz-space nzAlign="center">
+            <a *nzSpaceItem nz-tooltip="飞书" (click)="lark()">
+              <nz-avatar [nzSize]="32" [nzSrc]="['assets', 'Lark.png'] | wpxAssets"></nz-avatar>
+            </a>
+          </nz-space>
+        </nz-col>
+        <nz-col></nz-col>
+        <nz-col>
+          <a routerLink="/forget" i18n>忘记密码了？</a>
+        </nz-col>
+      </nz-row>
     </div>
-  </nz-content>
-  <nz-footer>
-    <nz-space nzDirection="vertical" nzSize="small">
-      <ng-container *nzSpaceItem>
-        <span nz-typography>BSD-3-Clause License</span>
-      </ng-container>
-      <ng-container *nzSpaceItem>
-        <span nz-typography>
-          Copyright <span nz-icon nzType="copyright" nzTheme="outline"></span> 2023. Open Source DevOps by WEPLANX.
-        </span>
-      </ng-container>
-    </nz-space>
-  </nz-footer>
-</nz-layout>
+  </nz-row>
+</app-blank-page>

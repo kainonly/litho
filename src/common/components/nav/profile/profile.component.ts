@@ -19,7 +19,7 @@ import { PhoneComponent } from './phone/phone.component';
   templateUrl: './profile.component.html'
 })
 export class ProfileComponent {
-  index = 1;
+  index = 0;
 
   constructor(
     public app: AppService,
