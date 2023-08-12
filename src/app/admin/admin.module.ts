@@ -54,10 +54,10 @@ const routes: Routes = [
         }
       },
       {
-        path: 'logset',
-        loadChildren: () => import('./logset/logset.module').then(m => m.LogsetModule),
+        path: 'dataset',
+        loadChildren: () => import('./dataset/dataset.module').then(m => m.DatasetModule),
         data: {
-          breadcrumb: `日志采集`
+          breadcrumb: `数据集合`
         }
       },
       {

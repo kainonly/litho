@@ -1,0 +1,53 @@
+<ng-template #titleRef>
+  <nz-space nzAlign="center">
+    <wpx-keyword
+      *nzSpaceItem
+      [wpxWidth]="320"
+      [wpxModel]="model"
+      [wpxKeys]="['name', 'namespace']"
+      (wpxSubmit)="getData()"
+      wpxPlaceholder="集群名称"
+    ></wpx-keyword>
+    <wpx-toolbox *nzSpaceItem [wpxModel]="model" (wpxClear)="getData()" (wpxRefresh)="getData()"> </wpx-toolbox>
+  </nz-space>
+</ng-template>
+
+<ng-template #extraRef>
+  <button nz-button nzType="primary" (click)="open()"> 新增 </button>
+</ng-template>
+
+<wpx-list
+  #wpxList
+  [wpxModel]="model"
+  [wpxTitle]="titleRef"
+  [wpxExtra]="extraRef"
+  [wpxRender]="render"
+  [wpxActions]="actions"
+  (wpxChange)="getData()"
+>
+  <ng-template #render let-item>
+    <nz-card nzSize="small" nzType="inner">
+      <ng-template #titleRef>
+        {{ item.name }} <nz-tag nzColor="blue">{{ item.kind }}</nz-tag>
+      </ng-template>
+      <nz-descriptions nzLayout="vertical" nzSize="small" [nzTitle]="titleRef" [nzColumn]="6"> </nz-descriptions>
+    </nz-card>
+  </ng-template>
+</wpx-list>
+
+<nz-dropdown-menu #actions="nzDropdownMenu">
+  <ul *ngIf="wpxList.actived as v" nz-menu>
+    <li nz-menu-item nzDisabled>
+      <b>{{ v.name }}</b>
+    </li>
+    <li nz-menu-divider></li>
+    <li nz-menu-item> 修改 </li>
+    <li nz-menu-item nzDanger (click)="delete(v)"> 删除 </li>
+  </ul>
+</nz-dropdown-menu>
+
+<ng-template #unsetRef>未设置</ng-template>
+
+<ng-template #spaceSplit>
+  <nz-divider nzType="vertical"></nz-divider>
+</ng-template>

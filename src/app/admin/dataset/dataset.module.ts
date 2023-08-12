@@ -3,17 +3,17 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { ShareModule } from '@common/share.module';
 
-import { LogsetComponent } from './logset.component';
+import { DatasetComponent } from './dataset.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: LogsetComponent
+    component: DatasetComponent
   }
 ];
 
 @NgModule({
   imports: [ShareModule, RouterModule.forChild(routes)],
-  declarations: [LogsetComponent]
+  declarations: [DatasetComponent]
 })
-export class LogsetModule {}
+export class DatasetModule {}

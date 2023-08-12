@@ -4,6 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { ShareModule } from '@common/share.module';
 
 import { ClustersComponent } from './clusters.component';
+import { FormComponent } from './form/form.component';
 
 const routes: Routes = [
   {
@@ -14,6 +15,6 @@ const routes: Routes = [
 
 @NgModule({
   imports: [ShareModule, RouterModule.forChild(routes)],
-  declarations: [ClustersComponent]
+  declarations: [ClustersComponent, FormComponent]
 })
 export class ClustersModule {}

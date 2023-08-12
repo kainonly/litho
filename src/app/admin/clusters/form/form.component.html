@@ -1,0 +1,32 @@
+<form *ngIf="form" nz-form nzLayout="vertical" id="form" [formGroup]="form" (wpxSubmit)="submit($event)">
+  <nz-form-item>
+    <nz-form-label nzRequired>集群名称</nz-form-label>
+    <nz-form-control nzHasFeedback [nzAutoTips]="tips.name">
+      <input nz-input formControlName="name" placeholder="请输入集群名称" />
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label nzRequired> 集群类型 </nz-form-label>
+    <nz-form-control nzHasFeedback>
+      <nz-select formControlName="kind">
+        <nz-option nzValue="kubernetes" nzLabel="kubernetes"></nz-option>
+      </nz-select>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label nzRequired> 配置文件 </nz-form-label>
+    <nz-form-control nzHasFeedback [nzAutoTips]="tips.config">
+      <textarea
+        nz-input
+        rows="5"
+        formControlName="config"
+        placeholder="请复制 kubeconfig 文件内容，上下文以 default 为主"
+      ></textarea>
+    </nz-form-control>
+  </nz-form-item>
+</form>
+
+<div *nzModalFooter>
+  <button nz-button type="button" nzType="default" (click)="close()">取消</button>
+  <button nz-button nzType="primary" form="form" [disabled]="!form.valid">提交</button>
+</div>
