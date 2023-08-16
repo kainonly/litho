@@ -13,11 +13,17 @@
           <span nz-icon nzType="project" nzTheme="outline"></span>
           <span>项目</span>
         </li>
-        <li nz-menu-item nzMatchRouter routerLink="clusters">
-          <span nz-icon nzType="cluster" nzTheme="outline"></span>
-          <span>集群</span>
+        <li nz-submenu nzTitle="集群" nzIcon="cluster">
+          <ul>
+            <li nz-menu-item nzMatchRouter routerLink="clusters/kubernetes">
+              <span>Kubernetes</span>
+            </li>
+            <li nz-menu-item nzDisabled>
+              <span>Agent</span>
+            </li>
+          </ul>
         </li>
-        <li nz-menu-item nzMatchRouter routerLink="workflow">
+        <li nz-menu-item nzMatchRouter routerLink="workflows">
           <span nz-icon nzType="schedule" nzTheme="outline"></span>
           <span>工作流</span>
         </li>

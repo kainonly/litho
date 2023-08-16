@@ -3,18 +3,23 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { ShareModule } from '@common/share.module';
 
-import { ClustersComponent } from './clusters.component';
-import { FormComponent } from './form/form.component';
-
 const routes: Routes = [
   {
     path: '',
-    component: ClustersComponent
+    children: [
+      {
+        path: 'kubernetes',
+        loadChildren: () => import('./kubernetes/kubernetes.module').then(m => m.KubernetesModule),
+        data: {
+          breadcrumb: `Kubernetes`
+        }
+      },
+      { path: '', redirectTo: 'kubernetes', pathMatch: 'full' }
+    ]
   }
 ];
 
 @NgModule({
-  imports: [ShareModule, RouterModule.forChild(routes)],
-  declarations: [ClustersComponent, FormComponent]
+  imports: [ShareModule, RouterModule.forChild(routes)]
 })
 export class ClustersModule {}

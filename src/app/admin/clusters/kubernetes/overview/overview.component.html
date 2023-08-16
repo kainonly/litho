@@ -1,0 +1,15 @@
+<nz-card>
+  <nz-list>
+    <nz-list-empty *ngIf="nodes.length === 0"></nz-list-empty>
+    <ng-container *ngFor="let node of nodes">
+      <nz-list-item>
+        <nz-descriptions nzTitle="节点" nzLayout="vertical" [nzColumn]="6">
+          <!--          <nz-descriptions-item nzTitle="Name">{{ node.metadata.name }}</nz-descriptions-item>-->
+          <!--          <nz-descriptions-item nzTitle="CPU">{{ node.metadata.creationTime }}</nz-descriptions-item>-->
+          <!--          <nz-descriptions-item nzTitle="Version">{{ node.status.nodeInfo.kubeletVersion }}</nz-descriptions-item>-->
+          <!--          <nz-descriptions-item nzTitle="SystemOS">{{ node.status.nodeInfo.osImage }}</nz-descriptions-item>-->
+        </nz-descriptions>
+      </nz-list-item>
+    </ng-container>
+  </nz-list>
+</nz-card>

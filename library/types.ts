@@ -50,7 +50,7 @@ export type XFilterKind = 'oid' | 'oids' | 'date' | 'dates' | 'timestamp' | 'tim
 export interface XData {
   [key: string]: XDataKind;
 }
-export type XDataKind = 'oid' | 'oids' | 'date' | 'dates' | 'timestamp' | 'timestamps' | 'password';
+export type XDataKind = 'oid' | 'oids' | 'date' | 'dates' | 'timestamp' | 'timestamps' | 'password' | 'cipher';
 export interface ApiOptions<T> {
   keys?: Array<keyof AnyDto<T>>;
   sort?: Sort<T>;

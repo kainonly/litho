@@ -1,0 +1,39 @@
+<form *ngIf="form" nz-form nzLayout="vertical" id="form" [formGroup]="form" (wpxSubmit)="submit($event)">
+  <nz-form-item>
+    <nz-form-label nzRequired>集群名称</nz-form-label>
+    <nz-form-control nzHasFeedback [nzAutoTips]="tips.name">
+      <input nz-input formControlName="name" placeholder="请输入集群名称" />
+    </nz-form-control>
+  </nz-form-item>
+  <ng-container formGroupName="config">
+    <nz-form-item>
+      <nz-form-label nzRequired> Host </nz-form-label>
+      <nz-form-control nzHasFeedback>
+        <input nz-input formControlName="host" placeholder="kubeconfig [cluster.server]" />
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label nzRequired> CAData </nz-form-label>
+      <nz-form-control nzHasFeedback>
+        <input nz-input formControlName="ca_data" placeholder="kubeconfig [cluster.certificate-authority-data]" />
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label nzRequired> CertData </nz-form-label>
+      <nz-form-control nzHasFeedback>
+        <input nz-input formControlName="cert_data" placeholder="kubeconfig [user.client-certificate-data]" />
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label nzRequired> KeyData </nz-form-label>
+      <nz-form-control nzHasFeedback>
+        <input nz-input formControlName="key_data" placeholder="kubeconfig [user.client-key-data]" />
+      </nz-form-control>
+    </nz-form-item>
+  </ng-container>
+</form>
+
+<div *nzModalFooter>
+  <button nz-button type="button" nzType="default" (click)="close()">取消</button>
+  <button nz-button nzType="primary" form="form" [disabled]="!form.valid">提交</button>
+</div>

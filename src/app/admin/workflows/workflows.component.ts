@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
-import { Cluster } from '@common/models/cluster';
-import { ClustersService } from '@common/services/clusters.service';
+import { Workflow } from '@common/models/workflow';
+import { WorkflowsService } from '@common/services/workflows.service';
 import { AnyDto, WpxModel, WpxService } from '@weplanx/ng';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalService } from 'ng-zorro-antd/modal';
@@ -9,21 +9,21 @@ import { NzModalService } from 'ng-zorro-antd/modal';
 import { FormComponent, ModalData } from './form/form.component';
 
 @Component({
-  selector: 'app-admin-clusters',
-  templateUrl: './clusters.component.html'
+  selector: 'app-admin-workflows',
+  templateUrl: './workflows.component.html'
 })
-export class ClustersComponent implements OnInit {
-  model!: WpxModel<Cluster>;
+export class WorkflowsComponent implements OnInit {
+  model!: WpxModel<Workflow>;
 
   constructor(
     private wpx: WpxService,
     private modal: NzModalService,
     private message: NzMessageService,
-    private clusters: ClustersService
+    private workflows: WorkflowsService
   ) {}
 
   ngOnInit(): void {
-    this.model = this.wpx.setModel<Cluster>('clusters', this.clusters);
+    this.model = this.wpx.setModel<Workflow>('workflows', this.workflows);
     this.model.ready().subscribe(() => {
       this.getData(true);
     });
@@ -33,12 +33,12 @@ export class ClustersComponent implements OnInit {
     if (refresh) {
       this.model.page = 1;
     }
-    this.model.fetch({}).subscribe(() => {
-      console.debug('fetch:ok');
+    this.model.fetch({}).subscribe(({ data }) => {
+      console.debug('fetch', data);
     });
   }
 
-  open(doc?: AnyDto<Cluster>): void {
+  open(doc?: AnyDto<Workflow>): void {
     this.modal.create<FormComponent, ModalData>({
       nzTitle: !doc ? '创建' : `编辑【${doc.name}】`,
       nzWidth: 640,
@@ -52,14 +52,14 @@ export class ClustersComponent implements OnInit {
     });
   }
 
-  delete(doc: AnyDto<Cluster>): void {
+  delete(doc: AnyDto<Workflow>): void {
     this.modal.confirm({
       nzTitle: `您确定要删除【${doc.name}】?`,
       nzOkText: `是的`,
       nzOkType: 'primary',
       nzOkDanger: true,
       nzOnOk: () => {
-        this.clusters.delete(doc._id).subscribe(() => {
+        this.workflows.delete(doc._id).subscribe(() => {
           this.message.success(`数据删除成功`);
           this.getData(true);
         });

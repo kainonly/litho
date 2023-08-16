@@ -1,18 +1,18 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
-import { Cluster } from '@common/models/cluster';
-import { ClustersService } from '@common/services/clusters.service';
+import { Workflow } from '@common/models/workflow';
+import { WorkflowsService } from '@common/services/workflows.service';
 import { Any, AnyDto } from '@weplanx/ng';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NZ_MODAL_DATA, NzModalRef } from 'ng-zorro-antd/modal';
 
 export interface ModalData {
-  doc?: AnyDto<Cluster>;
+  doc?: AnyDto<Workflow>;
 }
 
 @Component({
-  selector: 'app-admin-clusters-form',
+  selector: 'app-admin-workflows-form',
   templateUrl: './form.component.html'
 })
 export class FormComponent implements OnInit {
@@ -36,17 +36,34 @@ export class FormComponent implements OnInit {
     private modalRef: NzModalRef,
     private message: NzMessageService,
     private fb: FormBuilder,
-    private clusters: ClustersService
+    private workflows: WorkflowsService
   ) {}
 
   ngOnInit(): void {
     this.form = this.fb.group({
       name: ['', [Validators.required]],
-      kind: ['kubernetes', [Validators.required]],
-      config: ['', [Validators.required]]
+      kind: ['schedule', [Validators.required]]
     });
     if (this.data.doc) {
-      this.form.patchValue(this.data.doc);
+      this.setKindOption(this.data.doc.kind);
+      this.form.patchValue({
+        name: this.data.doc.name,
+        kind: this.data.doc.kind
+      });
+    } else {
+      this.setKindOption('schedule');
+    }
+    this.form.get('kind')!.valueChanges.subscribe(v => {
+      this.form.removeControl('option');
+      this.setKindOption(v);
+    });
+  }
+
+  private setKindOption(kind: string): void {
+    switch (kind) {
+      case 'schedule':
+        this.form.addControl('option', this.fb.group({}));
+        break;
     }
   }
 
@@ -55,13 +72,14 @@ export class FormComponent implements OnInit {
   }
 
   submit(data: Any): void {
+    data.config = JSON.stringify(data.config);
     if (!this.data.doc) {
-      this.clusters.create(data).subscribe(() => {
+      this.workflows.create(data).subscribe(() => {
         this.message.success(`数据更新成功`);
         this.modalRef.triggerOk();
       });
     } else {
-      this.clusters.updateById(this.data.doc._id, { $set: data }).subscribe(() => {
+      this.workflows.updateById(this.data.doc._id, { $set: data }).subscribe(() => {
         this.message.success(`数据更新成功`);
         this.modalRef.triggerOk();
       });

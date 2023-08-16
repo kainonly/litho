@@ -33,8 +33,8 @@ const routes: Routes = [
         }
       },
       {
-        path: 'workflow',
-        loadChildren: () => import('./workflow/workflow.module').then(m => m.WorkflowModule),
+        path: 'workflows',
+        loadChildren: () => import('./workflows/workflows.module').then(m => m.WorkflowsModule),
         data: {
           breadcrumb: `工作流`
         }

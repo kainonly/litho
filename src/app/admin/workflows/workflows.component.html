@@ -6,7 +6,7 @@
       [wpxModel]="model"
       [wpxKeys]="['name', 'namespace']"
       (wpxSubmit)="getData()"
-      wpxPlaceholder="集群名称"
+      wpxPlaceholder="工作流名称"
     ></wpx-keyword>
     <wpx-toolbox *nzSpaceItem [wpxModel]="model" (wpxClear)="getData()" (wpxRefresh)="getData()"> </wpx-toolbox>
   </nz-space>
@@ -30,7 +30,9 @@
       <ng-template #titleRef>
         {{ item.name }} <nz-tag nzColor="blue">{{ item.kind }}</nz-tag>
       </ng-template>
-      <nz-descriptions nzLayout="vertical" nzSize="small" [nzTitle]="titleRef" [nzColumn]="6"> </nz-descriptions>
+      <nz-descriptions nzLayout="vertical" nzSize="small" [nzTitle]="titleRef" [nzColumn]="6">
+        <nz-descriptions-item nzTitle=""></nz-descriptions-item>
+      </nz-descriptions>
     </nz-card>
   </ng-template>
 </wpx-list>
@@ -41,7 +43,7 @@
       <b>{{ v.name }}</b>
     </li>
     <li nz-menu-divider></li>
-    <li nz-menu-item> 修改 </li>
+    <li nz-menu-item (click)="open(v)"> 修改 </li>
     <li nz-menu-item nzDanger (click)="delete(v)"> 删除 </li>
   </ul>
 </nz-dropdown-menu>
