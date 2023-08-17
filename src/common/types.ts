@@ -2,14 +2,6 @@ export interface LoginDto {
   email: string;
   password: string;
 }
-export interface LoginTotpDto {
-  email: string;
-  code: string;
-}
-export interface LoginSmsDto {
-  phone: string;
-  code: string;
-}
 export interface SetUserDto {
   key: Omit<keyof SetUserDto, 'key'>;
   email?: string;

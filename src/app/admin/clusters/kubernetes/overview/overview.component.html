@@ -3,13 +3,22 @@
     <nz-list-empty *ngIf="nodes.length === 0"></nz-list-empty>
     <ng-container *ngFor="let node of nodes">
       <nz-list-item>
-        <nz-descriptions nzTitle="节点" nzLayout="vertical" [nzColumn]="6">
-          <!--          <nz-descriptions-item nzTitle="Name">{{ node.metadata.name }}</nz-descriptions-item>-->
-          <!--          <nz-descriptions-item nzTitle="CPU">{{ node.metadata.creationTime }}</nz-descriptions-item>-->
-          <!--          <nz-descriptions-item nzTitle="Version">{{ node.status.nodeInfo.kubeletVersion }}</nz-descriptions-item>-->
-          <!--          <nz-descriptions-item nzTitle="SystemOS">{{ node.status.nodeInfo.osImage }}</nz-descriptions-item>-->
+        <ng-template #nodeText>
+          {{ node.name }} <nz-tag>{{ node.version }}</nz-tag>
+        </ng-template>
+        <nz-descriptions [nzTitle]="nodeText" nzLayout="vertical" [nzColumn]="4">
+          <nz-descriptions-item nzTitle="Hostname / IP"> {{ node.hostname }} / {{ node.ip }} </nz-descriptions-item>
+          <nz-descriptions-item nzTitle="Cpu / 内存 / 存储">
+            {{ node.cpu }} / {{ node.mem | nzBytes }} / {{ node.storage | nzBytes }}
+          </nz-descriptions-item>
+          <nz-descriptions-item nzTitle="操作系统">{{ node.os }} [{{ node.architecture }}]</nz-descriptions-item>
+          <nz-descriptions-item nzTitle="加入时间">{{ node.create | date: 'yyyy-MM-dd HH:mm' }}</nz-descriptions-item>
         </nz-descriptions>
       </nz-list-item>
     </ng-container>
   </nz-list>
 </nz-card>
+
+<ng-template #spaceSplit>
+  <nz-divider nzType="vertical"></nz-divider>
+</ng-template>
