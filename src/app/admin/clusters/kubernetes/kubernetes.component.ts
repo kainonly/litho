@@ -1,9 +1,9 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { Cluster } from '@common/models/cluster';
 import { ClustersService } from '@common/services/clusters.service';
-import { AnyDto, WpxService } from '@weplanx/ng';
+import { Any, AnyDto } from '@weplanx/ng';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalService } from 'ng-zorro-antd/modal';
 
@@ -11,22 +11,26 @@ import { FormComponent, ModalData } from './form/form.component';
 
 @Component({
   selector: 'app-admin-clusters-kubernetes',
-  templateUrl: './kubernetes.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  templateUrl: './kubernetes.component.html'
 })
 export class KubernetesComponent implements OnInit {
   items: AnyDto<Cluster>[] = [];
   itemDict: Record<string, AnyDto<Cluster>> = {};
+  context = '';
 
   constructor(
     private modal: NzModalService,
     private message: NzMessageService,
     public clusters: ClustersService,
-    private router: Router
+    private router: Router,
+    private route: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
-    this.getData();
+    this.route.firstChild!.params.subscribe(data => {
+      this.context = data['id'] ?? '';
+      this.getData();
+    });
   }
 
   getData(): void {
@@ -40,14 +44,15 @@ export class KubernetesComponent implements OnInit {
       .subscribe(({ data }) => {
         this.items = [...data];
         this.items.forEach(value => (this.itemDict[value._id] = value));
-        // if (this.items.length !== 0 && !this.context) {
-        //   this.context = this.items[0]._id;
-        // }
       });
   }
 
-  open(id: string): void {
-    this.router.navigate(['/admin', 'clusters', 'kubernetes', id, 'overview']);
+  open(): void {
+    const params: Any = {};
+    if (this.context) {
+      params['id'] = this.context;
+    }
+    this.router.navigate(['/admin', 'clusters', 'kubernetes', 'nodes', params]);
   }
 
   form(doc?: AnyDto<Cluster>): void {

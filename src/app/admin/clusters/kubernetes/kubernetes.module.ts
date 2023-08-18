@@ -12,13 +12,20 @@ const routes: Routes = [
     component: KubernetesComponent,
     children: [
       {
-        path: ':id/overview',
-        loadChildren: () => import('./overview/overview.module').then(m => m.OverviewModule),
+        path: 'nodes',
+        loadChildren: () => import('./nodes/nodes.module').then(m => m.NodesModule),
         data: {
-          breadcrumb: $localize`总览`
+          breadcrumb: $localize`节点`
         }
       },
-      { path: '', redirectTo: 'overview', pathMatch: 'full' }
+      {
+        path: 'ingresses',
+        loadChildren: () => import('./ingresses/ingresses.module').then(m => m.IngressesModule),
+        data: {
+          breadcrumb: `Ingresses`
+        }
+      },
+      { path: '', redirectTo: 'nodes', pathMatch: 'full' }
     ]
   }
 ];

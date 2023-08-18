@@ -5,11 +5,11 @@ import { ClusterNode } from '@common/models/cluster';
 import { ClustersService } from '@common/services/clusters.service';
 
 @Component({
-  selector: 'app-admin-clusters-kubernetes-overview',
-  templateUrl: './overview.component.html'
+  selector: 'app-admin-clusters-kubernetes-nodes',
+  templateUrl: './nodes.component.html'
 })
-export class OverviewComponent implements OnInit {
-  nodes: ClusterNode[] = [];
+export class NodesComponent implements OnInit {
+  items: ClusterNode[] = [];
 
   constructor(
     private route: ActivatedRoute,
@@ -18,15 +18,17 @@ export class OverviewComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.params.subscribe(data => {
-      this.clusters.context.set(data['id']);
-      this.getNodes(data['id']);
+      if (data['id']) {
+        this.getData(data['id']);
+      } else {
+        this.items = [];
+      }
     });
   }
 
-  getNodes(id: string): void {
+  getData(id: string): void {
     this.clusters.getNodes(id).subscribe(data => {
-      this.nodes = [...data];
-      console.log(this.nodes);
+      this.items = [...data];
     });
   }
 }

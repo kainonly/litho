@@ -2,10 +2,11 @@
   <nz-page-header-title>集群上下文</nz-page-header-title>
   <nz-page-header-subtitle>
     <nz-select
-      [ngModel]="clusters.context()"
-      (ngModelChange)="open($event)"
+      [(ngModel)]="context"
+      (ngModelChange)="open()"
       style="width: 200px"
       nzBorderless
+      nzAllowClear
       nzPlaceHolder="请选择集群名称"
     >
       <ng-container *ngFor="let item of items">
@@ -18,22 +19,32 @@
       <button *nzSpaceItem nz-button nzType="primary" nzShape="circle" (click)="form()">
         <span nz-icon nzType="plus"></span>
       </button>
-      <button *nzSpaceItem nz-button nzShape="circle" nz-dropdown [nzDropdownMenu]="actions">
-        <span nz-icon nzType="more"></span>
-      </button>
+      <ng-container *ngIf="context">
+        <button *nzSpaceItem nz-button nzShape="circle" nz-dropdown [nzDropdownMenu]="actions">
+          <span nz-icon nzType="more"></span>
+        </button>
+      </ng-container>
     </nz-space>
   </nz-page-header-extra>
   <nz-page-header-footer>
-    <nz-tabset *ngIf="clusters.context() as id" nzLinkRouter>
-      <nz-tab nzTitle="总览">
-        <a *nzTabLink nz-tab-link [routerLink]="['/admin', 'clusters', 'kubernetes', id, 'overview']"> 总览 </a>
+    <nz-tabset *ngIf="context; else notContextRef" nzLinkRouter>
+      <nz-tab>
+        <a *nzTabLink nz-tab-link [routerLink]="['/admin', 'clusters', 'kubernetes', 'nodes', { id: context }]">
+          节点
+        </a>
+      </nz-tab>
+      <nz-tab>
+        <a *nzTabLink nz-tab-link [routerLink]="['/admin', 'clusters', 'kubernetes', 'ingresses', { id: context }]">
+          入口
+        </a>
       </nz-tab>
     </nz-tabset>
+    <ng-template #notContextRef> </ng-template>
   </nz-page-header-footer>
 </nz-page-header>
 
 <nz-dropdown-menu #actions="nzDropdownMenu">
-  <ul *ngIf="itemDict[clusters.context()] as v" nz-menu>
+  <ul *ngIf="itemDict[context] as v" nz-menu>
     <li nz-menu-item (click)="form(v)"> 修改 </li>
     <li nz-menu-item nzDanger (click)="delete(v)"> 删除 </li>
   </ul>
