@@ -5,7 +5,7 @@ import { ClusterNode } from '@common/models/cluster';
 import { ClustersService } from '@common/services/clusters.service';
 
 @Component({
-  selector: 'app-admin-clusters-kubernetes-nodes',
+  selector: 'app-admin-clusters-nodes',
   templateUrl: './nodes.component.html'
 })
 export class NodesComponent implements OnInit {
@@ -17,11 +17,9 @@ export class NodesComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.route.params.subscribe(data => {
+    this.route.parent!.parent!.params.subscribe(data => {
       if (data['id']) {
         this.getData(data['id']);
-      } else {
-        this.items = [];
       }
     });
   }

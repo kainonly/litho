@@ -4,6 +4,12 @@ export interface Cluster {
   config: string;
 }
 
+export interface ClusterInfo {
+  version: string;
+  platform: string;
+  nodes: number;
+}
+
 export interface ClusterNode {
   name: string;
   create: Date;

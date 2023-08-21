@@ -3,23 +3,46 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { ShareModule } from '@common/share.module';
 
+import { ClustersComponent } from './clusters.component';
+import { FormComponent } from './form/form.component';
+
 const routes: Routes = [
   {
-    path: '',
+    path: 'all',
+    component: ClustersComponent,
+    data: {
+      breadcrumb: $localize`列表`
+    }
+  },
+  {
+    path: ':id',
+    component: ClustersComponent,
     children: [
       {
-        path: 'kubernetes',
-        loadChildren: () => import('./kubernetes/kubernetes.module').then(m => m.KubernetesModule),
+        path: 'nodes',
+        loadChildren: () => import('./nodes/nodes.module').then(m => m.NodesModule),
         data: {
-          breadcrumb: `Kubernetes`
+          breadcrumb: $localize`节点`
         }
       },
-      { path: '', redirectTo: 'kubernetes', pathMatch: 'full' }
-    ]
-  }
+      {
+        path: 'ingresses',
+        loadChildren: () => import('./ingresses/ingresses.module').then(m => m.IngressesModule),
+        data: {
+          breadcrumb: `Ingresses`
+        }
+      },
+      { path: '', redirectTo: 'nodes', pathMatch: 'full' }
+    ],
+    data: {
+      breadcrumb: $localize`上下文`
+    }
+  },
+  { path: '', redirectTo: 'all', pathMatch: 'full' }
 ];
 
 @NgModule({
-  imports: [ShareModule, RouterModule.forChild(routes)]
+  imports: [ShareModule, RouterModule.forChild(routes)],
+  declarations: [ClustersComponent, FormComponent]
 })
 export class ClustersModule {}

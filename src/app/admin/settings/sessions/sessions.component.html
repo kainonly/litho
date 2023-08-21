@@ -3,7 +3,7 @@
     <nz-input-group *nzSpaceItem style="width: 220px" nzSuffixIcon="search">
       <input
         [(ngModel)]="items.searchText"
-        (ngModelChange)="getData(500)"
+        (keyup.enter)="getData(500)"
         type="text"
         nz-input
         placeholder="搜索"

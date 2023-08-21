@@ -12,7 +12,7 @@ export interface ModalData {
 }
 
 @Component({
-  selector: 'app-admin-clusters-kubernetes-form',
+  selector: 'app-admin-clusters-form',
   templateUrl: './form.component.html'
 })
 export class FormComponent implements OnInit {
