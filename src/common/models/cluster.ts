@@ -8,6 +8,9 @@ export interface ClusterInfo {
   version: string;
   platform: string;
   nodes: number;
+  cpu: number;
+  mem: number;
+  storage: number;
 }
 
 export interface ClusterNode {

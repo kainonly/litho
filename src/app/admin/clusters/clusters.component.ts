@@ -54,6 +54,7 @@ export class ClustersComponent implements OnInit {
 
   getInfo(value: AnyDto<Cluster>): void {
     this.clusters.getInfo(value._id).subscribe(data => {
+      console.log(data);
       this.itemDict[value._id] = {
         ...value,
         ...data
