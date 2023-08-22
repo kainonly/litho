@@ -57,8 +57,8 @@
   [wpxColumns]="[
     {
       title: '电子邮件',
-      key: 'email',
-      width: '320px'
+      width: '420px',
+      render: username
     },
     {
       title: '姓名',
@@ -67,18 +67,18 @@
     {
       title: '状态',
       key: 'status',
-      width: '120px',
+      width: '180px',
       format: 'status'
     },
     {
       title: '近期登录 (会话数)',
-      width: '240px',
+      width: '270px',
       render: history
     },
     {
       title: '加入时间',
       key: 'create_time',
-      width: '240px',
+      width: '270px',
       format: 'date'
     }
   ]"
@@ -87,6 +87,20 @@
   [wpxActions]="actions"
   (wpxChange)="getData()"
 >
+  <ng-template #username let-data>
+    <nz-space>
+      <span *nzSpaceItem>{{ data.email }}</span>
+      <ng-container *ngIf="data.lark">
+        <span *nzSpaceItem nz-icon nzType="idcard" nzTheme="outline" nz-tooltip="已绑定飞书"></span>
+      </ng-container>
+      <ng-container *ngIf="data.phone">
+        <span *nzSpaceItem nz-icon nzType="phone" nzTheme="outline" nz-tooltip="已绑定手机"></span>
+      </ng-container>
+      <ng-container *ngIf="data.totp">
+        <span *nzSpaceItem nz-icon nzType="safety" nzTheme="outline" nz-tooltip="已绑定TOTP"></span>
+      </ng-container>
+    </nz-space>
+  </ng-template>
   <ng-template #history let-data>
     {{ data.history.timestamp | date: 'yyyy-MM-dd HH:mm:ss' }} （{{ data.sessions }}）
   </ng-template>

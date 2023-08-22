@@ -6,7 +6,6 @@ export interface Cluster {
 
 export interface ClusterInfo {
   version: string;
-  platform: string;
   nodes: number;
   cpu: number;
   mem: number;
