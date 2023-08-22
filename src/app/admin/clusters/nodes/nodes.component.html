@@ -1,23 +1,19 @@
-<nz-card *ngIf="items.length !== 0; else emptyRef">
-  <nz-list>
-    <ng-container *ngFor="let item of items">
-      <nz-list-item>
-        <ng-template #nodeText>
-          {{ item.name }} <nz-tag>{{ item.version }}</nz-tag>
-        </ng-template>
-        <nz-descriptions [nzTitle]="nodeText" nzLayout="vertical" [nzColumn]="4">
-          <nz-descriptions-item nzTitle="Hostname / IP"> {{ item.hostname }} / {{ item.ip }} </nz-descriptions-item>
-          <nz-descriptions-item nzTitle="Cpu / 内存 / 存储">
-            {{ item.cpu }} / {{ item.mem | nzBytes }} / {{ item.storage | nzBytes }}
-          </nz-descriptions-item>
-          <nz-descriptions-item nzTitle="操作系统">{{ item.os }} [{{ item.architecture }}]</nz-descriptions-item>
-          <nz-descriptions-item nzTitle="加入时间">{{ item.create | date: 'yyyy-MM-dd HH:mm' }}</nz-descriptions-item>
-        </nz-descriptions>
-      </nz-list-item>
-    </ng-container>
-  </nz-list>
-</nz-card>
+<nz-list>
+  <ng-container *ngFor="let item of items">
+    <nz-list-item>
+      <ng-template #nodeText>
+        {{ item.name }} <nz-tag>{{ item.version }}</nz-tag>
+      </ng-template>
+      <nz-descriptions [nzTitle]="nodeText" nzLayout="vertical" [nzColumn]="4">
+        <nz-descriptions-item nzTitle="Cpu / 内存 / 存储">
+          {{ item.cpu }} / {{ item.mem | nzBytes }} / {{ item.storage | nzBytes }}
+        </nz-descriptions-item>
+        <nz-descriptions-item nzTitle="Hostname / IP"> {{ item.hostname }} / {{ item.ip }} </nz-descriptions-item>
+        <nz-descriptions-item nzTitle="操作系统">{{ item.os }} [{{ item.architecture }}]</nz-descriptions-item>
+        <nz-descriptions-item nzTitle="加入时间">{{ item.create | date: 'yyyy-MM-dd HH:mm' }}</nz-descriptions-item>
+      </nz-descriptions>
+    </nz-list-item>
+  </ng-container>
+</nz-list>
 
-<ng-template #emptyRef>
-  <nz-empty *ngIf="items.length === 0"></nz-empty>
-</ng-template>
+<nz-empty *ngIf="items.length === 0"></nz-empty>

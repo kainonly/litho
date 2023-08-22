@@ -5,6 +5,7 @@ import { ShareModule } from '@common/share.module';
 
 import { ClustersComponent } from './clusters.component';
 import { FormComponent } from './form/form.component';
+import { PageComponent } from './page.component';
 
 const routes: Routes = [
   {
@@ -16,7 +17,7 @@ const routes: Routes = [
   },
   {
     path: ':id',
-    component: ClustersComponent,
+    component: PageComponent,
     children: [
       {
         path: 'nodes',
@@ -29,7 +30,7 @@ const routes: Routes = [
         path: 'ingresses',
         loadChildren: () => import('./ingresses/ingresses.module').then(m => m.IngressesModule),
         data: {
-          breadcrumb: `Ingresses`
+          breadcrumb: `入口`
         }
       },
       { path: '', redirectTo: 'nodes', pathMatch: 'full' }
@@ -43,6 +44,6 @@ const routes: Routes = [
 
 @NgModule({
   imports: [ShareModule, RouterModule.forChild(routes)],
-  declarations: [ClustersComponent, FormComponent]
+  declarations: [ClustersComponent, PageComponent, FormComponent]
 })
 export class ClustersModule {}

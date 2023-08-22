@@ -54,8 +54,8 @@ const routes: Routes = [
         }
       },
       {
-        path: 'dataset',
-        loadChildren: () => import('./dataset/dataset.module').then(m => m.DatasetModule),
+        path: 'datasets',
+        loadChildren: () => import('./datasets/datasets.module').then(m => m.DatasetsModule),
         data: {
           breadcrumb: `数据集合`
         }

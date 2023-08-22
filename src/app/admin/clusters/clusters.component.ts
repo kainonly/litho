@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 import { Cluster, ClusterInfo } from '@common/models/cluster';
 import { ClustersService } from '@common/services/clusters.service';
-import { AnyDto, Filter } from '@weplanx/ng';
+import { AnyDto, WpxModel, WpxService } from '@weplanx/ng';
 import { NzContextMenuService, NzDropdownMenuComponent } from 'ng-zorro-antd/dropdown';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalService } from 'ng-zorro-antd/modal';
@@ -15,14 +15,11 @@ import { FormComponent, ModalData } from './form/form.component';
   templateUrl: './clusters.component.html'
 })
 export class ClustersComponent implements OnInit {
-  context = '';
-  items: AnyDto<Cluster>[] = [];
-  itemDict: Record<string, AnyDto<Cluster> & ClusterInfo> = {};
-
-  searchText = '';
-  actived?: AnyDto<Cluster>;
+  model!: WpxModel<Cluster>;
+  infos: Record<string, ClusterInfo> = {};
 
   constructor(
+    private wpx: WpxService,
     private modal: NzModalService,
     private message: NzMessageService,
     public clusters: ClustersService,
@@ -32,48 +29,30 @@ export class ClustersComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.route.params.subscribe(data => {
-      this.context = data['id'] ?? '';
-      this.getData();
+    this.model = this.wpx.setModel<Cluster>('clusters', this.clusters);
+    this.model.ready().subscribe(() => {
+      this.getData(true);
     });
   }
 
-  getData(): void {
-    const filter: Filter<Cluster> = {};
-    if (this.searchText) {
-      filter.name = { $regex: '^' + this.searchText };
+  getData(refresh = false): void {
+    if (refresh) {
+      this.model.page = 1;
     }
-
-    this.clusters.find(filter, { pagesize: 1000 }).subscribe(({ data }) => {
-      this.items = [...data];
-      this.items.forEach(value => {
-        this.getInfo(value);
-      });
+    this.model.fetch({}).subscribe(({ data }) => {
+      data.forEach(value => this.getInfo(value));
+      console.debug('fetch:ok');
     });
   }
 
   getInfo(value: AnyDto<Cluster>): void {
     this.clusters.getInfo(value._id).subscribe(data => {
-      console.log(data);
-      this.itemDict[value._id] = {
-        ...value,
-        ...data
-      };
+      this.infos[value._id] = data;
     });
-  }
-
-  clearSearch(): void {
-    this.searchText = '';
-    this.getData();
   }
 
   open(context: string): void {
     this.router.navigate(['/admin', 'clusters', context, 'nodes']);
-  }
-
-  openMenu($event: MouseEvent, data: AnyDto<Cluster>, menu: NzDropdownMenuComponent): void {
-    this.actived = data;
-    this.contextMenu.create($event, menu);
   }
 
   form(doc?: AnyDto<Cluster>): void {
@@ -85,7 +64,7 @@ export class ClustersComponent implements OnInit {
         doc
       },
       nzOnOk: () => {
-        this.getData();
+        this.getData(true);
       }
     });
   }
@@ -99,7 +78,7 @@ export class ClustersComponent implements OnInit {
       nzOnOk: () => {
         this.clusters.delete(doc._id).subscribe(() => {
           this.message.success(`数据删除成功`);
-          this.getData();
+          this.getData(true);
         });
       },
       nzCancelText: `再想想`
