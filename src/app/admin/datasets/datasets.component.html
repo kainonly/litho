@@ -22,7 +22,7 @@
 </ng-template>
 
 <ng-template #extraRef>
-  <button nz-button nzType="primary"> 新增 </button>
+  <button nz-button nzType="primary" (click)="openForm()"> 新增 </button>
 </ng-template>
 
 <nz-card style="height: 100%" [nzTitle]="titleRef" [nzExtra]="extraRef">
@@ -52,7 +52,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr *nz-virtual-scroll="let data">
+      <tr *nz-virtual-scroll="let data" (contextmenu)="openActions($event, actions, data)">
         <td
           [nzChecked]="items.selection.has(data['name'])"
           (nzCheckedChange)="$event ? items.setSelection(data) : items.removeSelection(data['name'])"
@@ -94,6 +94,13 @@
   </nz-table>
 </nz-card>
 
-<ng-template #spaceSplit>
-  <nz-divider nzType="vertical"></nz-divider>
-</ng-template>
+<nz-dropdown-menu #actions="nzDropdownMenu">
+  <ul *ngIf="actived as v" nz-menu>
+    <li nz-menu-item nzDisabled>
+      <b>{{ v.name }}</b>
+    </li>
+    <li nz-menu-divider></li>
+    <li nz-menu-item (click)="openControls(v.name)"> 控制 </li>
+    <li nz-menu-item nzDanger (click)="delete(v)"> 删除 </li>
+  </ul>
+</nz-dropdown-menu>

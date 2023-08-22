@@ -20,7 +20,7 @@ export class FormComponent implements OnInit {
   tips = {
     name: {
       default: {
-        required: `项目名称不能为空`
+        required: `集群名称不能为空`
       }
     },
     config: {

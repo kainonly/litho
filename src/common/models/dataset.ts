@@ -8,3 +8,15 @@ export interface Dataset {
   event: boolean;
   options: Any;
 }
+
+export interface DatasetCreateDto {
+  name: string;
+  kind: string;
+  option?: DatasetCreateOptionDto;
+}
+
+export interface DatasetCreateOptionDto {
+  time: string;
+  meta: string;
+  expire: number;
+}
