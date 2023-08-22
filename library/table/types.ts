@@ -1,13 +1,13 @@
 import { TemplateRef } from '@angular/core';
 
-import { AnyDto } from '@weplanx/ng';
+import { Any, AnyDto } from '@weplanx/ng';
 
 export interface Scroll {
   x?: string;
   y: string;
 }
 export interface Column<T> {
-  title: string;
+  title: string | TemplateRef<Any>;
   key?: keyof AnyDto<T>;
   render?: TemplateRef<{ $implicit: AnyDto<T> }>;
   width?: string;

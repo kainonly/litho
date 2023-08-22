@@ -184,7 +184,6 @@ export class WpxTableComponent<T> implements OnInit, AfterViewInit, OnDestroy {
   }
 
   resizeEnd(): void {
-    this.cdr.detectChanges();
     this.updatePreferences();
   }
 
@@ -200,6 +199,7 @@ export class WpxTableComponent<T> implements OnInit, AfterViewInit, OnDestroy {
         ])
       )
       .subscribe(() => {
+        this.cdr.detectChanges();
         console.debug('updatePreferences:ok');
       });
   }

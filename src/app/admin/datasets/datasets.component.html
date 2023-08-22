@@ -4,7 +4,7 @@
       <input
         type="text"
         nz-input
-        placeholder="名称"
+        placeholder="集合名称"
         i18n-placeholder
         [(ngModel)]="items.searchText"
         (keyup.enter)="getData()"
@@ -47,8 +47,8 @@
           (nzCheckedChange)="items.setCurrentSelections($event)"
         >
         </th>
-        <th nzWidth="320px"><b>名称</b></th>
-        <th><b>属性</b></th>
+        <th nzWidth="320px"><b>集合名称</b></th>
+        <th><b>集合属性</b></th>
       </tr>
     </thead>
     <tbody>

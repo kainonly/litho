@@ -13,70 +13,69 @@
 </ng-template>
 
 <ng-template #extraRef>
-  <button nz-button nzType="primary" (click)="open()"> 新增 </button>
+  <nz-space nzAlign="center">
+    <ng-container *ngIf="model.selection.size as size">
+      <button *nzSpaceItem nz-button nzType="dashed" nz-dropdown [nzDropdownMenu]="menu"> 已选中 {{ size }} 项 </button>
+      <nz-dropdown-menu #menu="nzDropdownMenu">
+        <ul nz-menu>
+          <li nz-menu-item (click)="basicTable.clearSelections()"> 取消选择 </li>
+        </ul>
+        <ul nz-menu>
+          <li nz-menu-item nzDanger (click)="bulkDelete()"> 删除 </li>
+        </ul>
+      </nz-dropdown-menu>
+    </ng-container>
+    <button *nzSpaceItem nz-button nzType="primary" (click)="openForm()"> 新增 </button>
+  </nz-space>
 </ng-template>
 
-<wpx-list
-  #wpxList
-  [wpxModel]="model"
+<wpx-table
+  #basicTable
   [wpxTitle]="titleRef"
   [wpxExtra]="extraRef"
-  [wpxRender]="render"
+  [wpxModel]="model"
+  [wpxColumns]="[
+    {
+      title: '项目名称',
+      width: '420px',
+      render: name
+    },
+    {
+      title: 'OpenAPI 密钥',
+      width: '420px',
+      render: openapi
+    },
+    {
+      title: '入口限制',
+      key: 'entry'
+    }
+  ]"
+  [wpxItemSize]="50"
+  [wpxOffset]="310"
   [wpxActions]="actions"
   (wpxChange)="getData()"
 >
-  <ng-template #render let-item>
-    <nz-ribbon [nzText]="item | expire">
-      <nz-card nzSize="small" nzType="inner">
-        <nz-space nzSize="large" nzAlign="start">
-          <ng-container *nzSpaceItem>
-            <ng-container *ngIf="item.logo; else nameAvatarRef">
-              <nz-avatar
-                nzShape="square"
-                [nzSize]="128"
-                [nzSrc]="[item.logo] | wpxAssets"
-                style="font-size: 32px"
-              ></nz-avatar>
-            </ng-container>
-            <ng-template #nameAvatarRef>
-              <nz-avatar nzShape="square" [nzSize]="128" [nzText]="item.name" style="font-size: 32px"></nz-avatar>
-            </ng-template>
-          </ng-container>
-          <div *nzSpaceItem>
-            <ng-template #titleRef> {{ item.name }} <nz-tag nzColor="blue">标准类型</nz-tag> </ng-template>
-            <nz-descriptions nzLayout="vertical" nzSize="small" [nzTitle]="titleRef" [nzColumn]="6">
-              <nz-descriptions-item nzTitle="命名空间">
-                <span nz-typography nzCopyable [nzContent]="item.namespace"></span>
-              </nz-descriptions-item>
-              <nz-descriptions-item nzTitle="OpenAPI 密钥" [nzSpan]="2">
-                <ng-container *ngIf="item.secret_id && item.secret_key; else unsetRef">
-                  <nz-space [nzSplit]="spaceSplit">
-                    <span *nzSpaceItem nz-typography nzCopyable [nzContent]="item.secret_id"></span>
-                    <span *nzSpaceItem nz-typography nzCopyable [nzCopyText]="item.secret_key" nzContent="KEY"></span>
-                  </nz-space>
-                </ng-container>
-              </nz-descriptions-item>
-              <nz-descriptions-item nzTitle="入口" [nzSpan]="3">
-                <ng-container *ngIf="item.entry && item.entry.length !== 0; else unsetRef">
-                  <p nz-typography nzEllipsis [nzEllipsisRows]="2" [nzContent]="item.entry.toString()"></p>
-                </ng-container>
-              </nz-descriptions-item>
-            </nz-descriptions>
-          </div>
-        </nz-space>
-      </nz-card>
-    </nz-ribbon>
+  <ng-template #name let-data>
+    <nz-tag nzColor="blue">标准类型</nz-tag> {{ data.name }} [{{ data.namespace }}]
   </ng-template>
-</wpx-list>
+  <ng-template #openapi let-data>
+    <ng-container *ngIf="data.secret_id && data.secret_key; else unsetRef">
+      <nz-space [nzSplit]="spaceSplit">
+        <span *nzSpaceItem nz-typography nzCopyable [nzContent]="data.secret_id"></span>
+        <span *nzSpaceItem nz-typography nzCopyable [nzCopyText]="data.secret_key" nzContent="KEY"></span>
+      </nz-space>
+    </ng-container>
+  </ng-template>
+</wpx-table>
 
 <nz-dropdown-menu #actions="nzDropdownMenu">
-  <ul *ngIf="wpxList.actived as v" nz-menu>
+  <ul *ngIf="basicTable.actived as v" nz-menu>
     <li nz-menu-item nzDisabled>
       <b>{{ v.name }}</b>
     </li>
     <li nz-menu-divider></li>
     <li nz-menu-item (click)="openEntry(v)"> 设置入口 </li>
-    <li nz-menu-item (click)="open(v)"> 修改 </li>
+    <li nz-menu-item (click)="openForm(v)"> 修改 </li>
     <li nz-menu-item nzDanger (click)="delete(v)"> 删除 </li>
   </ul>
 </nz-dropdown-menu>

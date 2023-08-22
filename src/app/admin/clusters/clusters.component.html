@@ -13,52 +13,65 @@
 </ng-template>
 
 <ng-template #extraRef>
-  <button nz-button nzType="primary" (click)="form()"> 新增 </button>
+  <nz-space nzAlign="center">
+    <ng-container *ngIf="model.selection.size as size">
+      <button *nzSpaceItem nz-button nzType="dashed" nz-dropdown [nzDropdownMenu]="menu"> 已选中 {{ size }} 项 </button>
+      <nz-dropdown-menu #menu="nzDropdownMenu">
+        <ul nz-menu>
+          <li nz-menu-item (click)="basicTable.clearSelections()"> 取消选择 </li>
+        </ul>
+        <ul nz-menu>
+          <li nz-menu-item nzDanger (click)="bulkDelete()"> 删除 </li>
+        </ul>
+      </nz-dropdown-menu>
+    </ng-container>
+    <button *nzSpaceItem nz-button nzType="primary" (click)="openForm()"> 新增 </button>
+  </nz-space>
 </ng-template>
 
-<wpx-list
-  #wpxList
-  [wpxModel]="model"
+<wpx-table
+  #basicTable
   [wpxTitle]="titleRef"
   [wpxExtra]="extraRef"
-  [wpxRender]="render"
+  [wpxModel]="model"
+  [wpxColumns]="[
+    {
+      title: '集群名称（节点）',
+      width: '420px',
+      render: name
+    },
+    {
+      title: 'Cpu / 内存 / 存储 / 版本',
+      render: detail
+    }
+  ]"
+  [wpxItemSize]="50"
+  [wpxOffset]="310"
   [wpxActions]="actions"
   (wpxChange)="getData()"
 >
-  <ng-template #render let-item>
-    <nz-card nzSize="small" nzType="inner" [nzLoading]="!infos[item._id]">
-      <ng-template #titleRef>
-        {{ item.name }}
-        <nz-tag nzColor="blue">
-          {{ item.kind }}
-        </nz-tag>
-      </ng-template>
-      <nz-descriptions
-        *ngIf="infos[item._id] as v"
-        nzLayout="vertical"
-        nzSize="small"
-        [nzTitle]="titleRef"
-        [nzColumn]="4"
-      >
-        <nz-descriptions-item nzTitle="Cpu / 内存 / 存储">
-          {{ v.cpu }} / {{ v.mem | nzBytes }} / {{ v.storage | nzBytes }}
-        </nz-descriptions-item>
-        <nz-descriptions-item nzTitle="版本"> {{ v.version }}</nz-descriptions-item>
-        <nz-descriptions-item nzTitle="平台"> {{ v.platform }}</nz-descriptions-item>
-        <nz-descriptions-item nzTitle="节点"> {{ v.nodes }} </nz-descriptions-item>
-      </nz-descriptions>
-    </nz-card>
+  <ng-template #name let-data>
+    <nz-tag nzColor="blue">
+      {{ data.kind }}
+    </nz-tag>
+    {{ data.name }}
+    <ng-container *ngIf="infos[data._id] as v"> ({{ v.nodes }}) </ng-container>
   </ng-template>
-</wpx-list>
+  <ng-template #detail let-data>
+    <ng-container *ngIf="infos[data._id] as v">
+      {{ v.cpu }} / {{ v.mem | nzBytes }} / {{ v.storage | nzBytes }} / {{ v.version }}
+    </ng-container>
+  </ng-template>
+</wpx-table>
 
 <nz-dropdown-menu #actions="nzDropdownMenu">
-  <ul *ngIf="wpxList.actived as v" nz-menu>
+  <ul *ngIf="basicTable.actived as v" nz-menu>
     <li nz-menu-item nzDisabled>
       <b>{{ v.name }}</b>
     </li>
     <li nz-menu-divider></li>
-    <li nz-menu-item (click)="open(v._id)"> 管理 </li>
-    <li nz-menu-item (click)="form(v)"> 修改 </li>
+    <li nz-menu-item (click)="openControls(v)"> 管理 </li>
+    <li nz-menu-item (click)="openForm(v)"> 修改 </li>
     <li nz-menu-item nzDanger (click)="delete(v)"> 删除 </li>
   </ul>
 </nz-dropdown-menu>

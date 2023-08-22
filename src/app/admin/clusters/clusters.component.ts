@@ -1,13 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 
 import { Cluster, ClusterInfo } from '@common/models/cluster';
 import { ClustersService } from '@common/services/clusters.service';
 import { AnyDto, WpxModel, WpxService } from '@weplanx/ng';
-import { NzContextMenuService, NzDropdownMenuComponent } from 'ng-zorro-antd/dropdown';
+import { NzDrawerService } from 'ng-zorro-antd/drawer';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalService } from 'ng-zorro-antd/modal';
 
+import { ControlsComponent } from './controls/controls.component';
 import { FormComponent, ModalData } from './form/form.component';
 
 @Component({
@@ -24,8 +25,7 @@ export class ClustersComponent implements OnInit {
     private message: NzMessageService,
     public clusters: ClustersService,
     private router: Router,
-    private route: ActivatedRoute,
-    private contextMenu: NzContextMenuService
+    private drawer: NzDrawerService
   ) {}
 
   ngOnInit(): void {
@@ -55,7 +55,18 @@ export class ClustersComponent implements OnInit {
     this.router.navigate(['/admin', 'clusters', context, 'nodes']);
   }
 
-  form(doc?: AnyDto<Cluster>): void {
+  openControls(doc: AnyDto<Cluster>): void {
+    this.drawer.create({
+      nzClosable: false,
+      nzContent: ControlsComponent,
+      nzContentParams: {
+        data: doc
+      },
+      nzWidth: 1200
+    });
+  }
+
+  openForm(doc?: AnyDto<Cluster>): void {
     this.modal.create<FormComponent, ModalData>({
       nzTitle: !doc ? '创建' : `编辑【${doc.name}】`,
       nzWidth: 640,
@@ -80,6 +91,34 @@ export class ClustersComponent implements OnInit {
           this.message.success(`数据删除成功`);
           this.getData(true);
         });
+      },
+      nzCancelText: `再想想`
+    });
+  }
+
+  bulkDelete(): void {
+    this.modal.confirm({
+      nzTitle: `您确定删除这些集群吗？`,
+      nzOkText: `是的`,
+      nzOkType: 'primary',
+      nzOkDanger: true,
+      nzOnOk: () => {
+        this.clusters
+          .bulkDelete(
+            {
+              _id: { $in: [...this.model.selection.keys()] }
+            },
+            {
+              xfilter: {
+                '_id->$in': 'oids'
+              }
+            }
+          )
+          .subscribe(() => {
+            this.message.success(`数据删除成功`);
+            this.getData(true);
+            this.model.setCurrentSelections(false);
+          });
       },
       nzCancelText: `再想想`
     });

@@ -39,7 +39,7 @@ export class ProjectsComponent implements OnInit {
     });
   }
 
-  open(doc?: AnyDto<Project>): void {
+  openForm(doc?: AnyDto<Project>): void {
     this.modal.create<FormComponent, ModalData>({
       nzTitle: !doc ? '创建' : `编辑【${doc.name}】`,
       nzWidth: 640,
@@ -78,6 +78,34 @@ export class ProjectsComponent implements OnInit {
           this.message.success(`数据删除成功`);
           this.getData(true);
         });
+      },
+      nzCancelText: `再想想`
+    });
+  }
+
+  bulkDelete(): void {
+    this.modal.confirm({
+      nzTitle: `您确定删除这些项目吗？`,
+      nzOkText: `是的`,
+      nzOkType: 'primary',
+      nzOkDanger: true,
+      nzOnOk: () => {
+        this.projects
+          .bulkDelete(
+            {
+              _id: { $in: [...this.model.selection.keys()] }
+            },
+            {
+              xfilter: {
+                '_id->$in': 'oids'
+              }
+            }
+          )
+          .subscribe(() => {
+            this.message.success(`数据删除成功`);
+            this.getData(true);
+            this.model.setCurrentSelections(false);
+          });
       },
       nzCancelText: `再想想`
     });

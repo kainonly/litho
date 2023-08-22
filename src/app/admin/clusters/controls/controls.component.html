@@ -1,0 +1,43 @@
+<nz-layout style="height: 100%; background: transparent">
+  <nz-page-header>
+    <nz-page-header-title>集群节点</nz-page-header-title>
+    <nz-page-header-tags>
+      <nz-tag>{{ data.name }}</nz-tag>
+    </nz-page-header-tags>
+    <nz-page-header-footer>
+      <nz-tabset nzSize="small" [(nzSelectedIndex)]="index">
+        <nz-tab nzTitle="节点"> </nz-tab>
+        <nz-tab nzTitle="入口"> </nz-tab>
+      </nz-tabset>
+    </nz-page-header-footer>
+  </nz-page-header>
+
+  <nz-content style="overflow: hidden auto">
+    <nz-card [ngSwitch]="index">
+      <nz-list *ngSwitchCase="0" nzItemLayout="vertical">
+        <nz-list-empty *ngIf="nodes.length === 0"></nz-list-empty>
+        <ng-container *ngFor="let item of nodes">
+          <nz-list-item>
+            <ng-template #nodeText>
+              {{ item.name }} <nz-tag>{{ item.version }}</nz-tag>
+            </ng-template>
+            <nz-descriptions [nzTitle]="nodeText" nzLayout="vertical" [nzColumn]="4">
+              <nz-descriptions-item nzTitle="Cpu / 内存 / 存储">
+                {{ item.cpu }} / {{ item.mem | nzBytes }} / {{ item.storage | nzBytes }}
+              </nz-descriptions-item>
+              <nz-descriptions-item nzTitle="Hostname / IP"> {{ item.hostname }} / {{ item.ip }} </nz-descriptions-item>
+              <nz-descriptions-item nzTitle="操作系统">{{ item.os }} [{{ item.architecture }}]</nz-descriptions-item>
+              <nz-descriptions-item nzTitle="加入时间">{{
+                item.create | date: 'yyyy-MM-dd HH:mm'
+              }}</nz-descriptions-item>
+            </nz-descriptions>
+          </nz-list-item>
+        </ng-container>
+      </nz-list>
+      <nz-list *ngSwitchCase="1" nzItemLayout="vertical">
+        <nz-list-empty *ngIf="ingresses.length === 0"></nz-list-empty>
+        <ng-container *ngFor="let item of ingresses"> </ng-container>
+      </nz-list>
+    </nz-card>
+  </nz-content>
+</nz-layout>

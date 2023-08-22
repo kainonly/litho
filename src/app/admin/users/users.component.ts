@@ -125,7 +125,7 @@ export class UsersComponent implements OnInit {
             },
             {
               xfilter: {
-                '_id.$in': 'oids'
+                '_id->$in': 'oids'
               }
             }
           )

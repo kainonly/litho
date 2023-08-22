@@ -4,46 +4,18 @@ import { RouterModule, Routes } from '@angular/router';
 import { ShareModule } from '@common/share.module';
 
 import { ClustersComponent } from './clusters.component';
+import { ControlsComponent } from './controls/controls.component';
 import { FormComponent } from './form/form.component';
-import { PageComponent } from './page.component';
 
 const routes: Routes = [
   {
-    path: 'all',
-    component: ClustersComponent,
-    data: {
-      breadcrumb: $localize`列表`
-    }
-  },
-  {
-    path: ':id',
-    component: PageComponent,
-    children: [
-      {
-        path: 'nodes',
-        loadChildren: () => import('./nodes/nodes.module').then(m => m.NodesModule),
-        data: {
-          breadcrumb: $localize`节点`
-        }
-      },
-      {
-        path: 'ingresses',
-        loadChildren: () => import('./ingresses/ingresses.module').then(m => m.IngressesModule),
-        data: {
-          breadcrumb: `入口`
-        }
-      },
-      { path: '', redirectTo: 'nodes', pathMatch: 'full' }
-    ],
-    data: {
-      breadcrumb: $localize`上下文`
-    }
-  },
-  { path: '', redirectTo: 'all', pathMatch: 'full' }
+    path: '',
+    component: ClustersComponent
+  }
 ];
 
 @NgModule({
   imports: [ShareModule, RouterModule.forChild(routes)],
-  declarations: [ClustersComponent, PageComponent, FormComponent]
+  declarations: [ClustersComponent, FormComponent, ControlsComponent]
 })
 export class ClustersModule {}

@@ -67,17 +67,17 @@
     {
       title: '状态',
       key: 'status',
+      width: '120px',
       format: 'status'
     },
     {
-      title: '创建时间',
-      key: 'create_time',
+      title: '近期登录 (会话数)',
       width: '240px',
-      format: 'date'
+      render: history
     },
     {
-      title: '修改时间',
-      key: 'update_time',
+      title: '加入时间',
+      key: 'create_time',
       width: '240px',
       format: 'date'
     }
@@ -87,6 +87,9 @@
   [wpxActions]="actions"
   (wpxChange)="getData()"
 >
+  <ng-template #history let-data>
+    {{ data.history.timestamp | date: 'yyyy-MM-dd HH:mm:ss' }} （{{ data.sessions }}）
+  </ng-template>
 </wpx-table>
 
 <nz-dropdown-menu #actions="nzDropdownMenu">
