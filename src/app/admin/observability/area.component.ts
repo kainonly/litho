@@ -8,7 +8,7 @@ import {
   signal,
   ViewChild
 } from '@angular/core';
-import { empty, Subscription, timer } from 'rxjs';
+import { Subscription, timer } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 
 import { Area, AreaOptions } from '@antv/g2plot';

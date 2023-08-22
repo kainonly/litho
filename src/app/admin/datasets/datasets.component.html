@@ -1,0 +1,99 @@
+<ng-template #titleRef>
+  <nz-space>
+    <nz-input-group *nzSpaceItem style="width: 320px" nzSuffixIcon="search">
+      <input
+        type="text"
+        nz-input
+        placeholder="名称"
+        i18n-placeholder
+        [(ngModel)]="items.searchText"
+        (keyup.enter)="getData()"
+      />
+    </nz-input-group>
+    <nz-button-group *nzSpaceItem>
+      <button nz-button nzType="text" nz-tooltip="刷新" i18n-nz-tooltip (click)="getData()">
+        <i nz-icon nzType="reload"></i>
+      </button>
+      <button nz-button nzType="text" nz-tooltip="重置" i18n-nz-tooltip (click)="clearSearch()">
+        <i nz-icon nzType="clear"></i>
+      </button>
+    </nz-button-group>
+  </nz-space>
+</ng-template>
+
+<ng-template #extraRef>
+  <button nz-button nzType="primary"> 新增 </button>
+</ng-template>
+
+<nz-card style="height: 100%" [nzTitle]="titleRef" [nzExtra]="extraRef">
+  <nz-table
+    [nzData]="items.data"
+    [nzLoading]="items.loading"
+    [nzFrontPagination]="false"
+    [nzShowPagination]="false"
+    [nzVirtualItemSize]="56"
+    [nzVirtualMinBufferPx]="56 * 10"
+    [nzVirtualMaxBufferPx]="56 * 15"
+    [nzScroll]="{ y }"
+  >
+    <thead>
+      <tr>
+        <th
+          nzWidth="60px"
+          nzLeft
+          nzAlign="center"
+          [nzChecked]="items.checked"
+          [nzIndeterminate]="items.indeterminate"
+          (nzCheckedChange)="items.setCurrentSelections($event)"
+        >
+        </th>
+        <th nzWidth="320px"><b>名称</b></th>
+        <th><b>属性</b></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *nz-virtual-scroll="let data">
+        <td
+          [nzChecked]="items.selection.has(data['name'])"
+          (nzCheckedChange)="$event ? items.setSelection(data) : items.removeSelection(data['name'])"
+        >
+        </td>
+        <td>
+          <nz-tag nzColor="blue" [ngSwitch]="data.type">
+            <ng-container *ngSwitchCase="'collection'">通用</ng-container>
+            <ng-container *ngSwitchCase="'timeseries'">时序</ng-container>
+          </nz-tag>
+          {{ data.name }}
+        </td>
+        <td>
+          <nz-tag *ngIf="data.status; else isOffRef" nzColor="blue">允许访问</nz-tag>
+          <ng-template #isOffRef>
+            <nz-tag nzColor="red">禁止访问</nz-tag>
+          </ng-template>
+          <nz-tag *ngIf="data.event">事件回调</nz-tag>
+          <nz-tag *ngIf="data.keys && data.keys.length !== 0" [nz-tooltip]="data.keys"> 投影限制 </nz-tag>
+          <ng-container [ngSwitch]="data.type">
+            <ng-container *ngSwitchCase="'collection'">
+              <nz-tag *ngIf="data.options.validator">数据校验</nz-tag>
+            </ng-container>
+            <ng-container *ngSwitchCase="'timeseries'">
+              <nz-tag>
+                存储周期：
+                <ng-container *ngIf="data.options.expireAfterSeconds; else notExpireText">
+                  {{ data.options.expireAfterSeconds / 86400 }} 天
+                </ng-container>
+                <ng-template #notExpireText> 永久 </ng-template>
+              </nz-tag>
+              <nz-tag> 时序字段：{{ data.options.timeseries.timeField }} </nz-tag>
+              <nz-tag> 元数据字段：{{ data.options.timeseries.metaField }} </nz-tag>
+            </ng-container>
+          </ng-container>
+        </td>
+      </tr>
+    </tbody>
+  </nz-table>
+</nz-card>
+
+<ng-template #spaceSplit>
+  <nz-divider nzType="vertical"></nz-divider>
+</ng-template>
