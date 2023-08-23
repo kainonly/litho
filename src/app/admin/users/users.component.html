@@ -57,28 +57,29 @@
   [wpxColumns]="[
     {
       title: '电子邮件',
-      width: '420px',
+      width: '320px',
       render: username
     },
     {
       title: '姓名',
-      key: 'name'
+      key: 'name',
+      width: '160px'
     },
     {
       title: '状态',
       key: 'status',
-      width: '180px',
+      width: '120px',
       format: 'status'
     },
     {
       title: '近期登录 (会话数)',
-      width: '270px',
+      width: '240px',
       render: history
     },
     {
       title: '加入时间',
       key: 'create_time',
-      width: '270px',
+      width: '240px',
       format: 'date'
     }
   ]"
@@ -90,14 +91,14 @@
   <ng-template #username let-data>
     <nz-space>
       <span *nzSpaceItem>{{ data.email }}</span>
-      <ng-container *ngIf="data.lark">
-        <span *nzSpaceItem nz-icon nzType="idcard" nzTheme="outline" nz-tooltip="已绑定飞书"></span>
+      <ng-container *ngIf="data.lark && data.lark === '*'">
+        <span *nzSpaceItem nz-icon nzType="idcard" nzTheme="twotone" nz-tooltip="已绑定飞书"></span>
       </ng-container>
-      <ng-container *ngIf="data.phone">
-        <span *nzSpaceItem nz-icon nzType="phone" nzTheme="outline" nz-tooltip="已绑定手机"></span>
+      <ng-container *ngIf="data.phone && data.phone === '*'">
+        <span *nzSpaceItem nz-icon nzType="phone" nzTheme="twotone" nz-tooltip="已绑定手机"></span>
       </ng-container>
-      <ng-container *ngIf="data.totp">
-        <span *nzSpaceItem nz-icon nzType="safety" nzTheme="outline" nz-tooltip="已绑定TOTP"></span>
+      <ng-container *ngIf="data.totp && data.totp === '*'">
+        <span *nzSpaceItem nz-icon nzType="safety-certificate" nzTheme="twotone" nz-tooltip="已绑定TOTP"></span>
       </ng-container>
     </nz-space>
   </ng-template>
