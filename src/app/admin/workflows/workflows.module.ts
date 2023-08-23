@@ -4,6 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { ShareModule } from '@common/share.module';
 
 import { FormComponent } from './form/form.component';
+import { SchedulesModule } from './schedules/schedules.module';
 import { WorkflowsComponent } from './workflows.component';
 
 const routes: Routes = [
@@ -14,7 +15,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [ShareModule, RouterModule.forChild(routes)],
+  imports: [ShareModule, SchedulesModule, RouterModule.forChild(routes)],
   declarations: [WorkflowsComponent, FormComponent]
 })
 export class WorkflowsModule {}

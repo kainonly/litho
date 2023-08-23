@@ -1,0 +1,19 @@
+<form *ngIf="form" nz-form nzLayout="vertical" id="form" [formGroup]="form" (wpxSubmit)="submit($event)">
+  <nz-form-item>
+    <nz-form-label nzRequired> 调度服务 </nz-form-label>
+    <nz-form-control nzHasFeedback [nzAutoTips]="tips.name">
+      <input nz-input formControlName="name" placeholder="请输入调度服务名称" />
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label nzRequired> 节点 ID </nz-form-label>
+    <nz-form-control nzHasFeedback [nzAutoTips]="tips.node_id">
+      <input nz-input formControlName="node_id" placeholder="请输入命名空间下的节点 ID" />
+    </nz-form-control>
+  </nz-form-item>
+</form>
+
+<div *nzModalFooter>
+  <button nz-button type="button" nzType="default" (click)="close()">取消</button>
+  <button nz-button nzType="primary" form="form" [disabled]="!form.valid">提交</button>
+</div>

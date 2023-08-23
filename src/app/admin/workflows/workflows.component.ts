@@ -3,10 +3,12 @@ import { Component, OnInit } from '@angular/core';
 import { Workflow } from '@common/models/workflow';
 import { WorkflowsService } from '@common/services/workflows.service';
 import { AnyDto, WpxModel, WpxService } from '@weplanx/ng';
+import { NzDrawerService } from 'ng-zorro-antd/drawer';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalService } from 'ng-zorro-antd/modal';
 
 import { FormComponent, ModalData } from './form/form.component';
+import { SchedulesComponent } from './schedules/schedules.component';
 
 @Component({
   selector: 'app-admin-workflows',
@@ -19,7 +21,8 @@ export class WorkflowsComponent implements OnInit {
     private wpx: WpxService,
     private modal: NzModalService,
     private message: NzMessageService,
-    private workflows: WorkflowsService
+    private workflows: WorkflowsService,
+    private drawer: NzDrawerService
   ) {}
 
   ngOnInit(): void {
@@ -27,6 +30,7 @@ export class WorkflowsComponent implements OnInit {
     this.model.ready().subscribe(() => {
       this.getData(true);
     });
+    this.openSchedules();
   }
 
   getData(refresh = false): void {
@@ -38,7 +42,7 @@ export class WorkflowsComponent implements OnInit {
     });
   }
 
-  open(doc?: AnyDto<Workflow>): void {
+  openForm(doc?: AnyDto<Workflow>): void {
     this.modal.create<FormComponent, ModalData>({
       nzTitle: !doc ? '创建' : `编辑【${doc.name}】`,
       nzWidth: 640,
@@ -49,6 +53,14 @@ export class WorkflowsComponent implements OnInit {
       nzOnOk: () => {
         this.getData(true);
       }
+    });
+  }
+
+  openSchedules(): void {
+    this.drawer.create({
+      nzClosable: false,
+      nzContent: SchedulesComponent,
+      nzWidth: 800
     });
   }
 

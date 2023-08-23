@@ -56,7 +56,6 @@ export class DatasetsComponent implements OnInit, AfterViewInit, OnDestroy {
   getData(): void {
     this.datasets.lists(this.items.searchText).subscribe(data => {
       this.items.data = [...data];
-      // this.openControls(this.items.data.find(v => v.name === 'users')!.name);
     });
   }
 

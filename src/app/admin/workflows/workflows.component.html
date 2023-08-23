@@ -13,37 +13,49 @@
 </ng-template>
 
 <ng-template #extraRef>
-  <button nz-button nzType="primary" (click)="open()"> 新增 </button>
+  <nz-space>
+    <button *nzSpaceItem nz-button (click)="openSchedules()"> 服务接入 </button>
+    <button *nzSpaceItem nz-button nzType="primary" (click)="openForm()"> 新增 </button>
+  </nz-space>
 </ng-template>
 
-<wpx-list
-  #wpxList
-  [wpxModel]="model"
+<wpx-table
+  #basicTable
   [wpxTitle]="titleRef"
   [wpxExtra]="extraRef"
-  [wpxRender]="render"
+  [wpxModel]="model"
+  [wpxColumns]="[
+    {
+      title: '工作流名称',
+      width: '420px',
+      render: name
+    },
+    {
+      title: '详情',
+      render: detail
+    }
+  ]"
+  [wpxItemSize]="50"
+  [wpxOffset]="310"
   [wpxActions]="actions"
   (wpxChange)="getData()"
 >
-  <ng-template #render let-item>
-    <nz-card nzSize="small" nzType="inner">
-      <ng-template #titleRef>
-        {{ item.name }} <nz-tag nzColor="blue">{{ item.kind }}</nz-tag>
-      </ng-template>
-      <nz-descriptions nzLayout="vertical" nzSize="small" [nzTitle]="titleRef" [nzColumn]="6">
-        <nz-descriptions-item nzTitle=""></nz-descriptions-item>
-      </nz-descriptions>
-    </nz-card>
+  <ng-template #name let-data>
+    <nz-tag nzColor="blue">
+      {{ data.kind }}
+    </nz-tag>
+    {{ data.name }}
   </ng-template>
-</wpx-list>
+  <ng-template #detail let-data> </ng-template>
+</wpx-table>
 
 <nz-dropdown-menu #actions="nzDropdownMenu">
-  <ul *ngIf="wpxList.actived as v" nz-menu>
+  <ul *ngIf="basicTable.actived as v" nz-menu>
     <li nz-menu-item nzDisabled>
       <b>{{ v.name }}</b>
     </li>
     <li nz-menu-divider></li>
-    <li nz-menu-item (click)="open(v)"> 修改 </li>
+    <li nz-menu-item (click)="openForm(v)"> 修改 </li>
     <li nz-menu-item nzDanger (click)="delete(v)"> 删除 </li>
   </ul>
 </nz-dropdown-menu>
