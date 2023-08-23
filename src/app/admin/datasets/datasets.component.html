@@ -34,13 +34,12 @@
     [nzVirtualItemSize]="56"
     [nzVirtualMinBufferPx]="56 * 10"
     [nzVirtualMaxBufferPx]="56 * 15"
-    [nzScroll]="{ y }"
+    [nzScroll]="scroll"
   >
     <thead>
       <tr>
         <th
           nzWidth="60px"
-          nzLeft
           nzAlign="center"
           [nzChecked]="items.checked"
           [nzIndeterminate]="items.indeterminate"
@@ -49,6 +48,8 @@
         </th>
         <th nzWidth="320px"><b>集合名称</b></th>
         <th><b>集合属性</b></th>
+        <th nzWidth="90px"><b>事件回调</b></th>
+        <th nzWidth="90px"><b>允许访问</b></th>
       </tr>
     </thead>
     <tbody>
@@ -65,13 +66,12 @@
           </nz-tag>
           {{ data.name }}
         </td>
+
         <td>
-          <nz-tag *ngIf="data.status; else isOffRef" nzColor="blue">允许访问</nz-tag>
-          <ng-template #isOffRef>
-            <nz-tag nzColor="red">禁止访问</nz-tag>
-          </ng-template>
-          <nz-tag *ngIf="data.event">事件回调</nz-tag>
           <nz-tag *ngIf="data.keys && data.keys.length !== 0" [nz-tooltip]="data.keys"> 投影限制 </nz-tag>
+          <nz-tag *ngIf="data.sensitives && data.sensitives.length !== 0" [nz-tooltip]="data.sensitives">
+            脱敏限制
+          </nz-tag>
           <ng-container [ngSwitch]="data.type">
             <ng-container *ngSwitchCase="'collection'">
               <nz-tag *ngIf="data.options.validator">数据校验</nz-tag>
@@ -89,18 +89,24 @@
             </ng-container>
           </ng-container>
         </td>
+        <td>
+          <nz-switch nzControl [ngModel]="data.event" (click)="update(data.name, 'Event')"></nz-switch>
+        </td>
+        <td>
+          <nz-switch nzControl [(ngModel)]="data.status" (click)="update(data.name, 'Status')"></nz-switch>
+        </td>
       </tr>
     </tbody>
   </nz-table>
 </nz-card>
 
 <nz-dropdown-menu #actions="nzDropdownMenu">
-  <ul *ngIf="actived as v" nz-menu>
+  <ul *ngIf="activated as v" nz-menu>
     <li nz-menu-item nzDisabled>
       <b>{{ v.name }}</b>
     </li>
     <li nz-menu-divider></li>
-    <li nz-menu-item (click)="openControls(v.name)"> 控制 </li>
+    <li nz-menu-item (click)="openControls(v.name)"> 管理 </li>
     <li nz-menu-item nzDanger (click)="delete(v)"> 删除 </li>
   </ul>
 </nz-dropdown-menu>

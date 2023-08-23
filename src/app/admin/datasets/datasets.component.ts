@@ -1,9 +1,11 @@
 import { AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { switchMap } from 'rxjs';
 
 import { Dataset } from '@common/models/dataset';
 import { DatasetsService } from '@common/services/datasets.service';
-import { WpxItems } from '@weplanx/ng';
+import { WpxItems, WpxService } from '@weplanx/ng';
 import { NzCardComponent } from 'ng-zorro-antd/card';
+import { NzDrawerService } from 'ng-zorro-antd/drawer';
 import { NzContextMenuService, NzDropdownMenuComponent } from 'ng-zorro-antd/dropdown';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalService } from 'ng-zorro-antd/modal';
@@ -19,24 +21,26 @@ export class DatasetsComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild(NzCardComponent, { read: ElementRef, static: true }) card!: ElementRef;
 
   items = new WpxItems<Dataset>('name');
-  actived?: Dataset;
-  y = '0px';
+  activated?: Dataset;
+  scroll = { x: '0px', y: '0px' };
 
   private resizeObserver!: ResizeObserver;
 
   constructor(
+    private wpx: WpxService,
     private datasets: DatasetsService,
     private modal: NzModalService,
     private message: NzMessageService,
-    private contextMenu: NzContextMenuService
+    private contextMenu: NzContextMenuService,
+    private drawer: NzDrawerService
   ) {}
 
   ngOnInit(): void {
     this.getData();
     this.resizeObserver = new ResizeObserver(entries => {
       for (const entry of entries) {
-        const { height } = entry.contentRect;
-        this.y = height - 180 + 'px';
+        const { height, width } = entry.contentRect;
+        this.scroll = { x: width - 64 + 'px', y: height - 180 + 'px' };
       }
     });
   }
@@ -52,6 +56,7 @@ export class DatasetsComponent implements OnInit, AfterViewInit, OnDestroy {
   getData(): void {
     this.datasets.lists(this.items.searchText).subscribe(data => {
       this.items.data = [...data];
+      // this.openControls(this.items.data.find(v => v.name === 'users')!.name);
     });
   }
 
@@ -71,19 +76,40 @@ export class DatasetsComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   openActions($event: MouseEvent, menu: NzDropdownMenuComponent, data: Dataset): void {
-    this.actived = data;
+    this.activated = data;
     this.contextMenu.create($event, menu);
   }
 
   openControls(name: string): void {
-    this.modal.create<ControlsComponent, string>({
-      nzTitle: `控制【${name}】`,
+    this.drawer.create({
       nzContent: ControlsComponent,
-      nzData: name,
-      nzOnOk: () => {
-        this.getData();
-      }
+      nzContentParams: {
+        name,
+        updated: () => {
+          this.getData();
+        }
+      },
+      nzClosable: false,
+      nzWidth: 640
     });
+  }
+
+  update(name: string, status: string): void {
+    this.wpx
+      .getValues(['RestControls'])
+      .pipe(
+        switchMap(data => {
+          const controls = data['RestControls'];
+          controls[name][status] = !controls[name][status];
+          return this.wpx.setValues({
+            RestControls: controls
+          });
+        })
+      )
+      .subscribe(() => {
+        this.message.success(`数据更新成功`);
+        this.getData();
+      });
   }
 
   delete(data: Dataset): void {

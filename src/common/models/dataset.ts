@@ -4,6 +4,7 @@ export interface Dataset {
   name: string;
   type: string;
   keys: string[];
+  sensitives: string[];
   status: boolean;
   event: boolean;
   options: Any;
