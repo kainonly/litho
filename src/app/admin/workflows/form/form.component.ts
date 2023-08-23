@@ -1,7 +1,12 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { BehaviorSubject, debounceTime } from 'rxjs';
 
+import { Project } from '@common/models/project';
+import { Schedule } from '@common/models/schedule';
 import { Workflow } from '@common/models/workflow';
+import { ProjectsService } from '@common/services/projects.service';
+import { SchedulesService } from '@common/services/schedules.service';
 import { WorkflowsService } from '@common/services/workflows.service';
 import { Any, AnyDto } from '@weplanx/ng';
 import { NzMessageService } from 'ng-zorro-antd/message';
@@ -20,15 +25,25 @@ export class FormComponent implements OnInit {
   tips = {
     name: {
       default: {
-        required: `项目名称不能为空`
+        required: `工作流名称不能为空`
       }
     },
-    config: {
+    project: {
       default: {
-        required: `配置不能为空`
+        required: `所属项目不能为空`
+      }
+    },
+    kind: {
+      default: {
+        required: `工作流类型不能为空`
       }
     }
   };
+
+  projects$ = new BehaviorSubject<string>('');
+  projectItems: AnyDto<Project>[] = [];
+  schedules$ = new BehaviorSubject<string>('');
+  scheduleItems: AnyDto<Schedule>[] = [];
 
   constructor(
     @Inject(NZ_MODAL_DATA)
@@ -36,12 +51,15 @@ export class FormComponent implements OnInit {
     private modalRef: NzModalRef,
     private message: NzMessageService,
     private fb: FormBuilder,
-    private workflows: WorkflowsService
+    private workflows: WorkflowsService,
+    private projects: ProjectsService,
+    private schedules: SchedulesService
   ) {}
 
   ngOnInit(): void {
     this.form = this.fb.group({
       name: ['', [Validators.required]],
+      project: ['', [Validators.required]],
       kind: ['schedule', [Validators.required]]
     });
     if (this.data.doc) {
@@ -57,14 +75,70 @@ export class FormComponent implements OnInit {
       this.form.removeControl('option');
       this.setKindOption(v);
     });
+    this.projects$
+      .asObservable()
+      .pipe(debounceTime(500))
+      .subscribe(v => {
+        this.getProjects(v);
+      });
+    this.schedules$
+      .asObservable()
+      .pipe(debounceTime(500))
+      .subscribe(v => {
+        this.getSchedules(v);
+      });
   }
 
   private setKindOption(kind: string): void {
     switch (kind) {
       case 'schedule':
-        this.form.addControl('option', this.fb.group({}));
+        this.form.addControl(
+          'schedule',
+          this.fb.group({
+            schedule_id: ['', [Validators.required]],
+            status: [true, [Validators.required]],
+            jobs: this.fb.array([])
+          })
+        );
+        break;
+      default:
+        this.form.removeControl('schedule');
         break;
     }
+  }
+
+  getProjects(v: string): void {
+    this.projects.find({ name: { $regex: '^' + v } }).subscribe(({ data }) => {
+      this.projectItems = [...data];
+    });
+  }
+
+  getSchedules(v: string): void {
+    this.schedules.find({ name: { $regex: '^' + v } }).subscribe(({ data }) => {
+      this.scheduleItems = [...data];
+    });
+  }
+
+  get jobs(): FormArray {
+    return this.form.get('schedule')?.get('jobs') as FormArray;
+  }
+
+  appendJob(value?: Any): void {
+    this.jobs.push(
+      this.fb.group({
+        mode: ['', [Validators.required]],
+        spec: ['', [Validators.required]],
+        option: this.fb.group({
+          url: [],
+          headers: [],
+          body: []
+        })
+      })
+    );
+  }
+
+  removeJob(index: number): void {
+    this.jobs.removeAt(index);
   }
 
   close(): void {

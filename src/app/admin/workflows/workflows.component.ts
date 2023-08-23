@@ -30,7 +30,6 @@ export class WorkflowsComponent implements OnInit {
     this.model.ready().subscribe(() => {
       this.getData(true);
     });
-    this.openSchedules();
   }
 
   getData(refresh = false): void {
