@@ -40,8 +40,6 @@ export class FormComponent implements OnInit {
 
   projects$ = new BehaviorSubject<string>('');
   projectItems: AnyDto<Project>[] = [];
-  // schedules$ = new BehaviorSubject<string>('');
-  // scheduleItems: AnyDto<Schedule>[] = [];
 
   constructor(
     @Inject(NZ_MODAL_DATA)
@@ -60,80 +58,21 @@ export class FormComponent implements OnInit {
       kind: ['schedule', [Validators.required]]
     });
     if (this.data.doc) {
-      // this.setKindOption(this.data.doc.kind);
       this.form.patchValue(this.data.doc);
-    } else {
-      // this.setKindOption('schedule');
     }
-    // this.form.get('kind')!.valueChanges.subscribe(v => {
-    //   this.form.removeControl('option');
-    //   this.setKindOption(v);
-    // });
     this.projects$
       .asObservable()
       .pipe(debounceTime(500))
       .subscribe(v => {
         this.getProjects(v);
       });
-    // this.schedules$
-    //   .asObservable()
-    //   .pipe(debounceTime(500))
-    //   .subscribe(v => {
-    //     this.getSchedules(v);
-    //   });
   }
-
-  // private setKindOption(kind: string): void {
-  //   switch (kind) {
-  //     case 'schedule':
-  //       this.form.addControl(
-  //         'schedule',
-  //         this.fb.group({
-  //           schedule_id: ['', [Validators.required]],
-  //           status: [true, [Validators.required]],
-  //           jobs: this.fb.array([])
-  //         })
-  //       );
-  //       break;
-  //     default:
-  //       this.form.removeControl('schedule');
-  //       break;
-  //   }
-  // }
 
   getProjects(v: string): void {
     this.projects.find({ name: { $regex: '^' + v } }).subscribe(({ data }) => {
       this.projectItems = [...data];
     });
   }
-
-  // getSchedules(v: string): void {
-  //   this.schedules.find({ name: { $regex: '^' + v } }).subscribe(({ data }) => {
-  //     this.scheduleItems = [...data];
-  //   });
-  // }
-  //
-  // get jobs(): FormArray {
-  //   return this.form.get('schedule')?.get('jobs') as FormArray;
-  // }
-  //
-  // appendJob(value?: Any): void {
-  //   this.jobs.push(
-  //     this.fb.group({
-  //       mode: ['', [Validators.required]],
-  //       spec: ['', [Validators.required]],
-  //       option: this.fb.group({
-  //         url: [],
-  //         headers: [],
-  //         body: []
-  //       })
-  //     })
-  //   );
-  // }
-  //
-  // removeJob(index: number): void {
-  //   this.jobs.removeAt(index);
-  // }
 
   close(): void {
     this.modalRef.triggerCancel();

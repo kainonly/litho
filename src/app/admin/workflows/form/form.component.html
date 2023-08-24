@@ -26,38 +26,10 @@
     <nz-form-label nzRequired> 工作流类型 </nz-form-label>
     <nz-form-control nzHasFeedback [nzAutoTips]="tips.kind">
       <nz-select formControlName="kind" nzAllowClear nzPlaceHolder="请选择工作流类型">
-        <nz-option nzValue="schedule" nzLabel="定时回调"></nz-option>
+        <nz-option nzValue="schedule" nzLabel="定时启用"></nz-option>
       </nz-select>
     </nz-form-control>
   </nz-form-item>
-  <ng-container [ngSwitch]="form.get('kind')?.value" formGroupName="option">
-    <ng-container *ngSwitchCase="'schedule'">
-      <!--      <nz-form-item>-->
-      <!--        <nz-form-label nzRequired> Host </nz-form-label>-->
-      <!--        <nz-form-control nzHasFeedback>-->
-      <!--          <input nz-input formControlName="host" placeholder="kubeconfig [cluster.server]" />-->
-      <!--        </nz-form-control>-->
-      <!--      </nz-form-item>-->
-      <!--      <nz-form-item>-->
-      <!--        <nz-form-label nzRequired> CAData </nz-form-label>-->
-      <!--        <nz-form-control nzHasFeedback>-->
-      <!--          <input nz-input formControlName="ca_data" placeholder="kubeconfig [cluster.certificate-authority-data]" />-->
-      <!--        </nz-form-control>-->
-      <!--      </nz-form-item>-->
-      <!--      <nz-form-item>-->
-      <!--        <nz-form-label nzRequired> CertData </nz-form-label>-->
-      <!--        <nz-form-control nzHasFeedback>-->
-      <!--          <input nz-input formControlName="cert_data" placeholder="kubeconfig [user.client-certificate-data]" />-->
-      <!--        </nz-form-control>-->
-      <!--      </nz-form-item>-->
-      <!--      <nz-form-item>-->
-      <!--        <nz-form-label nzRequired> KeyData </nz-form-label>-->
-      <!--        <nz-form-control nzHasFeedback>-->
-      <!--          <input nz-input formControlName="key_data" placeholder="kubeconfig [user.client-key-data]" />-->
-      <!--        </nz-form-control>-->
-      <!--      </nz-form-item>-->
-    </ng-container>
-  </ng-container>
 </form>
 
 <div *nzModalFooter>

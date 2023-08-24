@@ -1,4 +1,4 @@
 export interface Schedule {
+  cluster_id: string;
   name: string;
-  node_id: string;
 }

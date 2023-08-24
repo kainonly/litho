@@ -66,6 +66,7 @@
       <b>{{ v.name }}</b>
     </li>
     <li nz-menu-divider></li>
+    <li nz-menu-item (click)="openControls(v)">管理</li>
     <li nz-menu-item (click)="openForm(v)"> 修改 </li>
     <li nz-menu-item nzDanger (click)="delete(v)"> 删除 </li>
   </ul>

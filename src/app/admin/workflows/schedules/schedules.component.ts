@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
+import { switchMap } from 'rxjs';
 
+import { Cluster } from '@common/models/cluster';
 import { Schedule } from '@common/models/schedule';
+import { ClustersService } from '@common/services/clusters.service';
 import { SchedulesService } from '@common/services/schedules.service';
-import { AnyDto } from '@weplanx/ng';
-import { NzContextMenuService, NzDropdownMenuComponent } from 'ng-zorro-antd/dropdown';
+import { AnyDto, WpxModel, WpxService } from '@weplanx/ng';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalService } from 'ng-zorro-antd/modal';
 
@@ -14,37 +16,46 @@ import { FormComponent, ModalData } from './form/form.component';
   templateUrl: './schedules.component.html'
 })
 export class SchedulesComponent implements OnInit {
-  items: AnyDto<Schedule>[] = [];
+  model!: WpxModel<Schedule>;
+  clusterDict: Record<string, AnyDto<Cluster>> = {};
   statusDict: Record<string, boolean> = {};
-  activated?: AnyDto<Schedule>;
 
   constructor(
+    private wpx: WpxService,
     private schedules: SchedulesService,
+    private clusters: ClustersService,
     private modal: NzModalService,
-    private message: NzMessageService,
-    private contextMenu: NzContextMenuService
+    private message: NzMessageService
   ) {}
 
   ngOnInit(): void {
-    this.getData();
-  }
-
-  getData(): void {
-    this.schedules.find({}).subscribe(({ data }) => {
-      this.items = [...data];
-      this.items.forEach(v => this.getPing(v.node_id));
+    this.model = this.wpx.setModel('schedules', this.schedules);
+    this.model.ready().subscribe(() => {
+      this.getData(true);
     });
   }
 
-  getPing(node_id: string): void {
-    this.schedules.ping(node_id).subscribe(() => {
-      this.statusDict[node_id] = true;
+  getData(refresh = false): void {
+    if (refresh) {
+      this.model.page = 1;
+    }
+    this.model.fetch({}).subscribe(({ data }) => {
+      console.debug('fetch', data);
+      this.getClusters(data.map(v => v.cluster_id));
+      data.forEach(v => this.getStatus(v._id));
     });
   }
 
-  openActions($event: MouseEvent, menu: NzDropdownMenuComponent, data: AnyDto<Schedule>): void {
-    this.activated = data;
-    this.contextMenu.create($event, menu);
+  getClusters(ids: string[]): void {
+    this.clusters.find({ _id: { $in: ids } }, { xfilter: { '_id->$in': 'oids' } }).subscribe(({ data }) => {
+      data.forEach(v => (this.clusterDict[v._id] = v));
+    });
+  }
+
+  getStatus(node: string): void {
+    this.schedules.ping(node).subscribe(() => {
+      this.statusDict[node] = true;
+    });
   }
 
   openForm(doc?: AnyDto<Schedule>): void {
@@ -56,8 +67,14 @@ export class SchedulesComponent implements OnInit {
         doc
       },
       nzOnOk: () => {
-        this.getData();
+        this.getData(true);
       }
+    });
+  }
+
+  deploy(doc: AnyDto<Schedule>): void {
+    this.schedules.deploy(doc._id).subscribe(() => {
+      this.message.success(`正在执行部署请稍后刷新`);
     });
   }
 
@@ -68,10 +85,13 @@ export class SchedulesComponent implements OnInit {
       nzOkType: 'primary',
       nzOkDanger: true,
       nzOnOk: () => {
-        this.schedules.delete(doc._id).subscribe(() => {
-          this.message.success(`数据删除成功`);
-          this.getData();
-        });
+        this.schedules
+          .undeploy(doc._id)
+          .pipe(switchMap(() => this.schedules.delete(doc._id)))
+          .subscribe(() => {
+            this.message.success(`数据删除成功`);
+            this.getData(true);
+          });
       },
       nzCancelText: `再想想`
     });
