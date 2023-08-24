@@ -17,6 +17,7 @@ import {
 
 import { Any, AnyDto, WpxModel, WpxStoreService } from '@weplanx/ng';
 import { NzCardComponent } from 'ng-zorro-antd/card';
+import { NgStyleInterface } from 'ng-zorro-antd/core/types';
 import { NzDrawerRef, NzDrawerService } from 'ng-zorro-antd/drawer';
 import { NzContextMenuService, NzDropdownMenuComponent } from 'ng-zorro-antd/dropdown';
 import { NzResizeEvent } from 'ng-zorro-antd/resizable';
@@ -45,6 +46,7 @@ export class WpxTableComponent<T> implements OnInit, AfterViewInit, OnDestroy {
 
   @Input() wpxX?: string;
   @Input() wpxOffset = 0;
+  @Input() wpxBodyStyle: NgStyleInterface | null = { height: 'calc(100% - 64px)' };
   @Input() wpxActions?: NzDropdownMenuComponent;
   @Output() wpxChange = new EventEmitter<void>();
 

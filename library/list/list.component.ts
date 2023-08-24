@@ -9,6 +9,7 @@ import {
 } from '@angular/core';
 
 import { AnyDto, WpxModel } from '@weplanx/ng';
+import { NgStyleInterface } from 'ng-zorro-antd/core/types';
 import { NzContextMenuService, NzDropdownMenuComponent } from 'ng-zorro-antd/dropdown';
 
 @Component({
@@ -18,15 +19,16 @@ import { NzContextMenuService, NzDropdownMenuComponent } from 'ng-zorro-antd/dro
 })
 export class WpxListComponent<T> {
   @Input({ required: true }) wpxModel!: WpxModel<T>;
-  @Input({ required: true }) wpxTitle!: TemplateRef<void>;
-  @Input({ required: true }) wpxExtra!: TemplateRef<void>;
   @Input({ required: true }) wpxRender!: TemplateRef<{ $implicit: AnyDto<T> }>;
+  @Input() wpxTitle?: TemplateRef<void>;
+  @Input() wpxExtra?: TemplateRef<void>;
   @Input() wpxOffset = 0;
+  @Input() wpxBodyStyle: NgStyleInterface | null = { height: 'calc(100% - 64px)' };
   @Input() wpxActions?: NzDropdownMenuComponent;
 
   @Output() wpxChange = new EventEmitter<void>();
 
-  actived?: AnyDto<T>;
+  activated?: AnyDto<T>;
 
   constructor(
     private contextMenu: NzContextMenuService,
@@ -42,7 +44,7 @@ export class WpxListComponent<T> {
 
   openActions($event: MouseEvent, data: AnyDto<T>): void {
     if (this.wpxActions) {
-      this.actived = data;
+      this.activated = data;
       this.contextMenu.create($event, this.wpxActions);
     }
   }
