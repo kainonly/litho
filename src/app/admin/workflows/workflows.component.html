@@ -13,7 +13,18 @@
 </ng-template>
 
 <ng-template #extraRef>
-  <nz-space>
+  <nz-space nzAlign="center">
+    <ng-container *ngIf="model.selection.size as size">
+      <button *nzSpaceItem nz-button nzType="dashed" nz-dropdown [nzDropdownMenu]="menu"> 已选中 {{ size }} 项 </button>
+      <nz-dropdown-menu #menu="nzDropdownMenu">
+        <ul nz-menu>
+          <li nz-menu-item (click)="basicTable.clearSelections()"> 取消选择 </li>
+        </ul>
+        <ul nz-menu>
+          <li nz-menu-item nzDanger (click)="bulkDelete()"> 删除 </li>
+        </ul>
+      </nz-dropdown-menu>
+    </ng-container>
     <button *nzSpaceItem nz-button (click)="openSchedules()"> 服务接入 </button>
     <button *nzSpaceItem nz-button nzType="primary" (click)="openForm()"> 新增 </button>
   </nz-space>
