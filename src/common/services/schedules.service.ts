@@ -8,6 +8,10 @@ import { Any, WpxApi } from '@weplanx/ng';
 export class SchedulesService extends WpxApi<Schedule> {
   protected override collection = 'schedules';
 
+  keys(id: string): Observable<string[]> {
+    return this.http.get<string[]>(`${this.collection}/${id}/keys`);
+  }
+
   ping(ids: string[]): Observable<Any> {
     return this.http.post(`${this.collection}/ping`, { ids });
   }

@@ -1,0 +1,25 @@
+<nz-layout style="height: 100%; background: transparent">
+  <nz-page-header>
+    <nz-page-header-title>运行中的 Cron</nz-page-header-title>
+    <nz-page-header-subtitle>{{ doc.name }}</nz-page-header-subtitle>
+  </nz-page-header>
+
+  <nz-content style="height: 100%">
+    <nz-card>
+      <nz-table nzSize="middle" nzTemplateMode>
+        <thead>
+          <tr>
+            <th nzWidth="60px"></th>
+            <th><b>Key</b></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of items; index as i">
+            <td nzAlign="center">{{ i + 1 }}</td>
+            <td>{{ item }}</td>
+          </tr>
+        </tbody>
+      </nz-table>
+    </nz-card>
+  </nz-content>
+</nz-layout>

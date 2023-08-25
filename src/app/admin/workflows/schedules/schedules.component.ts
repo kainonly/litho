@@ -6,10 +6,12 @@ import { Schedule } from '@common/models/schedule';
 import { ClustersService } from '@common/services/clusters.service';
 import { SchedulesService } from '@common/services/schedules.service';
 import { AnyDto, WpxModel, WpxService } from '@weplanx/ng';
+import { NzDrawerService } from 'ng-zorro-antd/drawer';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalService } from 'ng-zorro-antd/modal';
 
 import { FormComponent, ModalData } from './form/form.component';
+import { KeysComponent, KeysData } from './keys/keys.component';
 
 @Component({
   selector: 'app-admin-workflows-schedules',
@@ -27,7 +29,8 @@ export class SchedulesComponent implements OnInit, OnDestroy {
     private schedules: SchedulesService,
     private clusters: ClustersService,
     private modal: NzModalService,
-    private message: NzMessageService
+    private message: NzMessageService,
+    private drawer: NzDrawerService
   ) {}
 
   ngOnInit(): void {
@@ -72,6 +75,17 @@ export class SchedulesComponent implements OnInit, OnDestroy {
       },
       nzOnOk: () => {
         this.getData(true);
+      }
+    });
+  }
+
+  openKeys(doc: AnyDto<Schedule>): void {
+    this.drawer.create({
+      nzClosable: false,
+      nzWidth: 600,
+      nzContent: KeysComponent,
+      nzContentParams: {
+        doc
       }
     });
   }

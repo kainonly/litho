@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Observable, Subscription, switchMap, timer } from 'rxjs';
+import { Subscription, switchMap, timer } from 'rxjs';
 
 import { Project } from '@common/models/project';
 import { Schedule } from '@common/models/schedule';
@@ -18,8 +18,7 @@ import { SchedulesComponent } from './schedules/schedules.component';
 
 @Component({
   selector: 'app-admin-workflows',
-  templateUrl: './workflows.component.html',
-  styleUrls: ['./workflows.component.css']
+  templateUrl: './workflows.component.html'
 })
 export class WorkflowsComponent implements OnInit, OnDestroy {
   model!: WpxModel<Workflow>;

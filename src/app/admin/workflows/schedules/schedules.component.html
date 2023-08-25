@@ -32,37 +32,40 @@
       [wpxBodyStyle]="{ height: '100%' }"
     >
       <ng-template #render let-item>
-        <nz-descriptions nzLayout="vertical" [nzColumn]="3">
-          <nz-descriptions-item nzTitle="名称">
-            {{ item.name }}
-          </nz-descriptions-item>
-          <nz-descriptions-item nzTitle="所属集群">
-            <ng-container *ngIf="clusterDict[item.cluster_id]">
-              {{ clusterDict[item.cluster_id].name }}
-            </ng-container>
-          </nz-descriptions-item>
-          <nz-descriptions-item nzTitle="状态">
-            <ng-container *ngIf="pingDict[item._id]; else stopRef">
-              <nz-tag nzColor="processing">
-                <span nz-icon nzType="sync" nzSpin></span>
-                <span>运行中</span>
-              </nz-tag>
-            </ng-container>
-            <ng-template #stopRef>
-              <nz-tag nzColor="error">
-                <span nz-icon nzType="close-circle"></span>
-                <span>异常</span>
-              </nz-tag>
-            </ng-template>
-          </nz-descriptions-item>
-          <nz-descriptions-item nzTitle="镜像地址" [nzSpan]="3">
-            {{ item.image }}
-          </nz-descriptions-item>
-        </nz-descriptions>
+        <ng-template #titleRef>
+          <b>{{ item.name }}</b>
+        </ng-template>
+        <ng-template #extraRef>
+          <ng-container *ngIf="clusterDict[item.cluster_id]">
+            所属集群：{{ clusterDict[item.cluster_id].name }}
+          </ng-container>
+        </ng-template>
+        <nz-card nzType="inner" [nzTitle]="titleRef" [nzExtra]="extraRef">
+          <nz-descriptions nzLayout="vertical" [nzColumn]="3">
+            <nz-descriptions-item nzTitle="镜像地址" [nzSpan]="2">
+              {{ item.image }}
+            </nz-descriptions-item>
+            <nz-descriptions-item nzTitle="状态">
+              <ng-container *ngIf="pingDict[item._id]; else stopRef">
+                <nz-tag nzColor="processing">
+                  <span nz-icon nzType="sync" nzSpin></span>
+                  <span>运行中</span>
+                </nz-tag>
+              </ng-container>
+            </nz-descriptions-item>
+          </nz-descriptions>
+        </nz-card>
       </ng-template>
     </wpx-list>
   </nz-content>
 </nz-layout>
+
+<ng-template #stopRef>
+  <nz-tag nzColor="error">
+    <span nz-icon nzType="close-circle"></span>
+    <span>异常</span>
+  </nz-tag>
+</ng-template>
 
 <nz-dropdown-menu #actions="nzDropdownMenu">
   <ul *ngIf="wpxList.activated as v" nz-menu>
@@ -71,6 +74,7 @@
     </li>
     <li nz-menu-divider></li>
     <li nz-menu-item (click)="redeploy(v)"> 重新部署 </li>
+    <li nz-menu-item (click)="openKeys(v)"> 查看 Cron </li>
     <li nz-menu-item (click)="openForm(v)"> 修改 </li>
     <li nz-menu-item nzDanger (click)="delete(v)"> 删除 </li>
   </ul>
