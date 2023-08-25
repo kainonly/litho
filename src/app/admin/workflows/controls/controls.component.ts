@@ -16,6 +16,8 @@ import { NzMessageService } from 'ng-zorro-antd/message';
 })
 export class ControlsComponent implements OnInit {
   @Input({ required: true }) doc!: AnyDto<Workflow>;
+  @Input({ required: true }) updated!: () => void;
+
   form!: FormGroup;
   tips = {
     schedule_id: {
@@ -108,6 +110,7 @@ export class ControlsComponent implements OnInit {
       )
       .subscribe(() => {
         this.message.success(`数据更新成功`);
+        this.updated();
       });
   }
 }

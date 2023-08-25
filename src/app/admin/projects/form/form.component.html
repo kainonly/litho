@@ -1,6 +1,6 @@
 <form *ngIf="form" nz-form nzLayout="vertical" id="form" [formGroup]="form" (wpxSubmit)="submit($event)">
   <nz-row [nzGutter]="24">
-    <nz-col [nzSpan]="14">
+    <nz-col [nzSpan]="12">
       <nz-form-item>
         <nz-form-label nzRequired>项目名称</nz-form-label>
         <nz-form-control nzHasFeedback [nzAutoTips]="tips.name">
@@ -30,7 +30,7 @@
         </nz-form-control>
       </nz-form-item>
     </nz-col>
-    <nz-col [nzSpan]="10">
+    <nz-col [nzSpan]="12">
       <nz-form-item>
         <nz-form-label nzRequired> 命名空间 </nz-form-label>
         <nz-form-control nzHasFeedback [nzAutoTips]="tips.namespace">
@@ -42,19 +42,6 @@
         <nz-form-label nzRequired>状态</nz-form-label>
         <nz-form-control>
           <nz-switch formControlName="status"></nz-switch>
-        </nz-form-control>
-      </nz-form-item>
-
-      <nz-form-item>
-        <nz-form-label>Logo</nz-form-label>
-        <nz-form-control>
-          <wpx-upload-avatar
-            wpxExt="image"
-            [wpxAccept]="['image/jpeg', 'image/png']"
-            [wpxFallback]="['assets', 'photon.svg'] | wpxAssets"
-            formControlName="logo"
-          >
-          </wpx-upload-avatar>
         </nz-form-control>
       </nz-form-item>
     </nz-col>

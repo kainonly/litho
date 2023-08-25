@@ -50,7 +50,6 @@ export class FormComponent implements OnInit {
       secret_id: [''],
       secret_key: [''],
       expire: [null],
-      logo: [''],
       status: [true, [Validators.required]]
     });
     if (this.data.doc) {

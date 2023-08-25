@@ -1,6 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Observable, Subscription, switchMap, timer } from 'rxjs';
 
-import { Workflow } from '@common/models/workflow';
+import { Project } from '@common/models/project';
+import { Schedule } from '@common/models/schedule';
+import { States, Workflow } from '@common/models/workflow';
+import { ProjectsService } from '@common/services/projects.service';
+import { SchedulesService } from '@common/services/schedules.service';
 import { WorkflowsService } from '@common/services/workflows.service';
 import { AnyDto, WpxModel, WpxService } from '@weplanx/ng';
 import { NzDrawerService } from 'ng-zorro-antd/drawer';
@@ -13,16 +18,24 @@ import { SchedulesComponent } from './schedules/schedules.component';
 
 @Component({
   selector: 'app-admin-workflows',
-  templateUrl: './workflows.component.html'
+  templateUrl: './workflows.component.html',
+  styleUrls: ['./workflows.component.css']
 })
-export class WorkflowsComponent implements OnInit {
+export class WorkflowsComponent implements OnInit, OnDestroy {
   model!: WpxModel<Workflow>;
+  projectDict: Record<string, AnyDto<Project>> = {};
+  scheduleDict: Record<string, AnyDto<Schedule>> = {};
+  statesDict: States = {};
+
+  private refresh!: Subscription;
 
   constructor(
     private wpx: WpxService,
     private modal: NzModalService,
     private message: NzMessageService,
     private workflows: WorkflowsService,
+    private projects: ProjectsService,
+    private scheudles: SchedulesService,
     private drawer: NzDrawerService
   ) {}
 
@@ -30,7 +43,16 @@ export class WorkflowsComponent implements OnInit {
     this.model = this.wpx.setModel<Workflow>('workflows', this.workflows);
     this.model.ready().subscribe(() => {
       this.getData(true);
+      this.refresh = timer(0, 1000)
+        .pipe(switchMap(() => this.workflows.states(this.model.data().map(v => v._id))))
+        .subscribe(data => {
+          this.statesDict = data;
+        });
     });
+  }
+
+  ngOnDestroy(): void {
+    this.refresh.unsubscribe();
   }
 
   getData(refresh = false): void {
@@ -39,8 +61,35 @@ export class WorkflowsComponent implements OnInit {
     }
     this.model.fetch({}).subscribe(({ data }) => {
       console.debug('fetch', data);
-      // this.openControls(data[0]);
+      this.getProjects(data.map(v => v.project));
+      this.getSchedules(data.filter(v => v.schedule).map(v => v.schedule!.schedule_id));
     });
+  }
+
+  getProjects(ids: string[]): void {
+    this.projects
+      .find(
+        { _id: { $in: ids } },
+        {
+          xfilter: { '_id->$in': 'oids' }
+        }
+      )
+      .subscribe(({ data }) => {
+        data.forEach(v => (this.projectDict[v._id] = v));
+      });
+  }
+
+  getSchedules(ids: string[]): void {
+    this.scheudles
+      .find(
+        { _id: { $in: ids } },
+        {
+          xfilter: { '_id->$in': 'oids' }
+        }
+      )
+      .subscribe(({ data }) => {
+        data.forEach(v => (this.scheduleDict[v._id] = v));
+      });
   }
 
   openForm(doc?: AnyDto<Workflow>): void {
@@ -70,9 +119,18 @@ export class WorkflowsComponent implements OnInit {
       nzClosable: false,
       nzContent: ControlsComponent,
       nzContentParams: {
-        doc
+        doc,
+        updated: () => {
+          this.getData();
+        }
       },
       nzWidth: 640
+    });
+  }
+
+  sync(doc: AnyDto<Workflow>): void {
+    this.workflows.sync(doc._id).subscribe(() => {
+      this.message.success(`触发事件已同步`);
     });
   }
 
@@ -83,38 +141,21 @@ export class WorkflowsComponent implements OnInit {
       nzOkType: 'primary',
       nzOkDanger: true,
       nzOnOk: () => {
-        this.workflows.delete(doc._id).subscribe(() => {
-          this.message.success(`数据删除成功`);
-          this.getData(true);
-        });
-      },
-      nzCancelText: `再想想`
-    });
-  }
-
-  bulkDelete(): void {
-    this.modal.confirm({
-      nzTitle: `您确定删除这些工作流吗？`,
-      nzOkText: `是的`,
-      nzOkType: 'primary',
-      nzOkDanger: true,
-      nzOnOk: () => {
-        this.workflows
-          .bulkDelete(
-            {
-              _id: { $in: [...this.model.selection.keys()] }
-            },
-            {
-              xfilter: {
-                '_id->$in': 'oids'
-              }
-            }
-          )
-          .subscribe(() => {
+        const del = this.workflows.delete(doc._id);
+        if (doc.schedule) {
+          this.scheudles
+            .revoke(doc.schedule.schedule_id, doc._id)
+            .pipe(switchMap(() => del))
+            .subscribe(() => {
+              this.message.success(`数据删除成功`);
+              this.getData(true);
+            });
+        } else {
+          del.subscribe(() => {
             this.message.success(`数据删除成功`);
             this.getData(true);
-            this.model.setCurrentSelections(false);
           });
+        }
       },
       nzCancelText: `再想想`
     });

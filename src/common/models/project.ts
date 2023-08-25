@@ -5,6 +5,5 @@ export interface Project {
   secret_key?: string;
   entry?: string[];
   expire?: Date;
-  logo?: string;
   status: boolean;
 }

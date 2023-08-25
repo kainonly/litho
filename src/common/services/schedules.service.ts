@@ -19,4 +19,8 @@ export class SchedulesService extends WpxApi<Schedule> {
   undeploy(id: string): Observable<void> {
     return this.http.post<void>(`${this.collection}/undeploy`, { id });
   }
+
+  revoke(id: string, key: string): Observable<void> {
+    return this.http.post<void>(`${this.collection}/revoke`, { id, key });
+  }
 }
