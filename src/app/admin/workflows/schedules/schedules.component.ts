@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { switchMap } from 'rxjs';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Subscription, switchMap, timer } from 'rxjs';
 
 import { Cluster } from '@common/models/cluster';
 import { Schedule } from '@common/models/schedule';
@@ -15,10 +15,12 @@ import { FormComponent, ModalData } from './form/form.component';
   selector: 'app-admin-workflows-schedules',
   templateUrl: './schedules.component.html'
 })
-export class SchedulesComponent implements OnInit {
+export class SchedulesComponent implements OnInit, OnDestroy {
   model!: WpxModel<Schedule>;
   clusterDict: Record<string, AnyDto<Cluster>> = {};
-  statusDict: Record<string, boolean> = {};
+  pingDict: Record<string, boolean> = {};
+
+  private refresh!: Subscription;
 
   constructor(
     private wpx: WpxService,
@@ -32,7 +34,16 @@ export class SchedulesComponent implements OnInit {
     this.model = this.wpx.setModel('schedules', this.schedules);
     this.model.ready().subscribe(() => {
       this.getData(true);
+      this.refresh = timer(0, 1000)
+        .pipe(switchMap(() => this.schedules.ping(this.model.data().map(v => v._id))))
+        .subscribe(data => {
+          this.pingDict = data;
+        });
     });
+  }
+
+  ngOnDestroy(): void {
+    this.refresh.unsubscribe();
   }
 
   getData(refresh = false): void {
@@ -42,19 +53,12 @@ export class SchedulesComponent implements OnInit {
     this.model.fetch({}).subscribe(({ data }) => {
       console.debug('fetch', data);
       this.getClusters(data.map(v => v.cluster_id));
-      data.forEach(v => this.getStatus(v._id));
     });
   }
 
   getClusters(ids: string[]): void {
     this.clusters.find({ _id: { $in: ids } }, { xfilter: { '_id->$in': 'oids' } }).subscribe(({ data }) => {
       data.forEach(v => (this.clusterDict[v._id] = v));
-    });
-  }
-
-  getStatus(node: string): void {
-    this.schedules.ping(node).subscribe(() => {
-      this.statusDict[node] = true;
     });
   }
 
@@ -72,10 +76,14 @@ export class SchedulesComponent implements OnInit {
     });
   }
 
-  deploy(doc: AnyDto<Schedule>): void {
-    this.schedules.deploy(doc._id).subscribe(() => {
-      this.message.success(`正在执行部署请稍后刷新`);
-    });
+  redeploy(doc: AnyDto<Schedule>): void {
+    this.schedules
+      .undeploy(doc._id)
+      .pipe(switchMap(() => this.schedules.deploy(doc._id)))
+      .subscribe(() => {
+        this.message.success(`正在执行部署请稍后刷新`);
+        this.getData();
+      });
   }
 
   delete(doc: AnyDto<Schedule>): void {

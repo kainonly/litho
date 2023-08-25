@@ -2,21 +2,21 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
 import { Schedule } from '@common/models/schedule';
-import { WpxApi } from '@weplanx/ng';
+import { Any, WpxApi } from '@weplanx/ng';
 
 @Injectable({ providedIn: 'root' })
 export class SchedulesService extends WpxApi<Schedule> {
   protected override collection = 'schedules';
 
-  ping(id: string): Observable<void> {
-    return this.http.get<void>(`${this.collection}/${id}/ping`);
+  ping(ids: string[]): Observable<Any> {
+    return this.http.post(`${this.collection}/ping`, { ids });
   }
 
   deploy(id: string): Observable<void> {
-    return this.http.post<void>(`${this.collection}/${id}/deploy`, {});
+    return this.http.post<void>(`${this.collection}/deploy`, { id });
   }
 
   undeploy(id: string): Observable<void> {
-    return this.http.post<void>(`${this.collection}/${id}/undeploy`, {});
+    return this.http.post<void>(`${this.collection}/undeploy`, { id });
   }
 }

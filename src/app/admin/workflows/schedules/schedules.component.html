@@ -42,7 +42,7 @@
             </ng-container>
           </nz-descriptions-item>
           <nz-descriptions-item nzTitle="状态">
-            <ng-container *ngIf="statusDict[item._id]; else stopRef">
+            <ng-container *ngIf="pingDict[item._id]; else stopRef">
               <nz-tag nzColor="processing">
                 <span nz-icon nzType="sync" nzSpin></span>
                 <span>运行中</span>
@@ -70,7 +70,7 @@
       <b>{{ v.name }}</b>
     </li>
     <li nz-menu-divider></li>
-    <li nz-menu-item (click)="deploy(v)"> 重新部署 </li>
+    <li nz-menu-item (click)="redeploy(v)"> 重新部署 </li>
     <li nz-menu-item (click)="openForm(v)"> 修改 </li>
     <li nz-menu-item nzDanger (click)="delete(v)"> 删除 </li>
   </ul>
