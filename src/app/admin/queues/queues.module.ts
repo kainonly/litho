@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { ShareModule } from '@common/share.module';
 
+import { FormComponent } from './form/form.component';
 import { QueuesComponent } from './queues.component';
 
 const routes: Routes = [
@@ -14,6 +15,6 @@ const routes: Routes = [
 
 @NgModule({
   imports: [ShareModule, RouterModule.forChild(routes)],
-  declarations: [QueuesComponent]
+  declarations: [QueuesComponent, FormComponent]
 })
 export class QueuesModule {}

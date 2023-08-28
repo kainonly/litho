@@ -1,0 +1,79 @@
+<form *ngIf="form" nz-form nzLayout="vertical" id="form" [formGroup]="form" (wpxSubmit)="submit($event)">
+  <nz-row [nzGutter]="24">
+    <nz-col [nzSpan]="14">
+      <nz-form-item>
+        <nz-form-label nzRequired>队列名称</nz-form-label>
+        <nz-form-control nzHasFeedback [nzAutoTips]="tips.name">
+          <input nz-input formControlName="name" placeholder="请输入队列名称" />
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label nzRequired> 所属项目 </nz-form-label>
+        <nz-form-control nzHasFeedback [nzAutoTips]="tips.project">
+          <nz-select
+            formControlName="project"
+            nzAllowClear
+            nzPlaceHolder="请选择所属项目"
+            nzShowSearch
+            nzServerSearch
+            (nzOnSearch)="projects$.next($event)"
+          >
+            <ng-container *ngFor="let item of projectItems">
+              <nz-option [nzValue]="item._id" [nzLabel]="item.name"> </nz-option>
+            </ng-container>
+          </nz-select>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label nzRequired>队列主题</nz-form-label>
+        <nz-form-control nzHasFeedback [nzAutoTips]="tips.subjects">
+          <nz-select nzMode="tags" nzPlaceHolder="请输入队列主题" formControlName="subjects">
+            <nz-option *ngFor="let v of form.get('subjects')?.value" [nzLabel]="v" [nzValue]="v"></nz-option>
+          </nz-select>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label>队列描述</nz-form-label>
+        <nz-form-control nzHasFeedback>
+          <textarea nz-input rows="4" formControlName="description" placeholder="描述一段队列功能"></textarea>
+        </nz-form-control>
+      </nz-form-item>
+    </nz-col>
+    <nz-col [nzSpan]="10">
+      <nz-form-item>
+        <nz-form-label nzTooltipTitle="-1 代表无限制">最大消费者</nz-form-label>
+        <nz-form-control>
+          <nz-input-number
+            style="width: 100%"
+            formControlName="max_consumers"
+            [nzMin]="-1"
+            [nzStep]="1"
+          ></nz-input-number>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label nzTooltipTitle="-1 代表无限制">最大消息数</nz-form-label>
+        <nz-form-control>
+          <nz-input-number style="width: 100%" formControlName="max_msgs" [nzMin]="-1" [nzStep]="1"></nz-input-number>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label nzTooltipTitle="-1 代表无限制">最大字节数</nz-form-label>
+        <nz-form-control>
+          <nz-input-number style="width: 100%" formControlName="max_bytes" [nzMin]="-1" [nzStep]="1"></nz-input-number>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label>存储周期</nz-form-label>
+        <nz-form-control>
+          <nz-input-number style="width: 100%" formControlName="max_age" [nzMin]="0" [nzStep]="1"></nz-input-number>
+        </nz-form-control>
+      </nz-form-item>
+    </nz-col>
+  </nz-row>
+</form>
+
+<div *nzModalFooter>
+  <button nz-button type="button" nzType="default" (click)="close()">取消</button>
+  <button nz-button nzType="primary" form="form" [disabled]="!form.valid">提交</button>
+</div>
