@@ -4,7 +4,7 @@
   [nzTitle]="wpxTitle"
   [nzExtra]="wpxExtra"
 >
-  <nz-list style="padding-right: 24px; height: calc(100% - 60px); overflow: auto" [nzLoading]="wpxModel.loading()">
+  <nz-list style="height: calc(100% - 60px); overflow: auto" [nzLoading]="wpxModel.loading()">
     <nz-list-empty *ngIf="wpxModel.total === 0"></nz-list-empty>
     <ng-container *ngFor="let data of wpxModel.data()">
       <nz-list-item style="padding: 0" (contextmenu)="openActions($event, data)">

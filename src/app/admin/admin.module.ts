@@ -40,8 +40,8 @@ const routes: Routes = [
         }
       },
       {
-        path: 'queue',
-        loadChildren: () => import('./queue/queue.module').then(m => m.QueueModule),
+        path: 'queues',
+        loadChildren: () => import('./queues/queues.module').then(m => m.QueuesModule),
         data: {
           breadcrumb: `消息队列`
         }

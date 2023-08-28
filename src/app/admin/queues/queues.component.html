@@ -1,0 +1,81 @@
+<ng-template #titleRef>
+  <nz-space nzAlign="center">
+    <wpx-keyword
+      *nzSpaceItem
+      [wpxWidth]="320"
+      [wpxModel]="model"
+      [wpxKeys]="['name']"
+      (wpxSubmit)="getData()"
+      wpxPlaceholder="队列名称、主题"
+    ></wpx-keyword>
+    <wpx-toolbox *nzSpaceItem [wpxModel]="model" (wpxClear)="getData()" (wpxRefresh)="getData()"> </wpx-toolbox>
+  </nz-space>
+</ng-template>
+
+<ng-template #extraRef>
+  <nz-space nzAlign="center">
+    <ng-container *ngIf="model.selection.size as size">
+      <button *nzSpaceItem nz-button nzType="dashed" nz-dropdown [nzDropdownMenu]="menu"> 已选中 {{ size }} 项 </button>
+      <nz-dropdown-menu #menu="nzDropdownMenu">
+        <ul nz-menu>
+          <li nz-menu-item (click)="basicTable.clearSelections()"> 取消选择 </li>
+        </ul>
+        <ul nz-menu>
+          <li nz-menu-item nzDanger> 删除 </li>
+        </ul>
+      </nz-dropdown-menu>
+    </ng-container>
+    <button *nzSpaceItem nz-button nzType="primary"> 新增 </button>
+  </nz-space>
+</ng-template>
+
+<wpx-table
+  #basicTable
+  [wpxTitle]="titleRef"
+  [wpxExtra]="extraRef"
+  [wpxModel]="model"
+  [wpxColumns]="[
+    {
+      title: '队列名称',
+      width: '420px',
+      render: name
+    },
+    {
+      title: '主题',
+      width: '420px',
+      render: subjects
+    },
+    {
+      title: '属性',
+      render: detail
+    }
+  ]"
+  [wpxItemSize]="50"
+  [wpxOffset]="310"
+  [wpxActions]="actions"
+  (wpxChange)="getData()"
+>
+  <ng-template #name let-data>
+    <span>{{ data.name }}</span>
+  </ng-template>
+  <ng-template #subjects let-data>
+    {{ data.subjects }}
+  </ng-template>
+  <ng-template #detail let-data>
+    <nz-tag *ngIf="data.max_consumers">最大消费者：{{ data.max_consumers }}</nz-tag>
+    <nz-tag *ngIf="data.max_msgs">最大消息数：{{ data.max_msgs }}</nz-tag>
+    <nz-tag *ngIf="data.max_bytes">最大字节数：{{ data.max_bytes }}</nz-tag>
+    <nz-tag *ngIf="data.max_age">有效期：{{ data.max_age }}</nz-tag>
+  </ng-template>
+</wpx-table>
+
+<nz-dropdown-menu #actions="nzDropdownMenu">
+  <ul *ngIf="basicTable.actived as v" nz-menu>
+    <li nz-menu-item nzDisabled>
+      <b>{{ v.name }}</b>
+    </li>
+    <li nz-menu-divider></li>
+    <li nz-menu-item> 修改 </li>
+    <li nz-menu-item nzDanger> 删除 </li>
+  </ul>
+</nz-dropdown-menu>

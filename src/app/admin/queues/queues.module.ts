@@ -3,17 +3,17 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { ShareModule } from '@common/share.module';
 
-import { QueueComponent } from './queue.component';
+import { QueuesComponent } from './queues.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: QueueComponent
+    component: QueuesComponent
   }
 ];
 
 @NgModule({
   imports: [ShareModule, RouterModule.forChild(routes)],
-  declarations: [QueueComponent]
+  declarations: [QueuesComponent]
 })
-export class QueueModule {}
+export class QueuesModule {}
