@@ -4,9 +4,9 @@
       *nzSpaceItem
       [wpxWidth]="320"
       [wpxModel]="model"
-      [wpxKeys]="['name']"
+      [wpxKeys]="['topic']"
       (wpxSubmit)="getData()"
-      wpxPlaceholder="队列名称、主题"
+      wpxPlaceholder="主题名称"
     ></wpx-keyword>
     <wpx-toolbox *nzSpaceItem [wpxModel]="model" (wpxClear)="getData()" (wpxRefresh)="getData()"> </wpx-toolbox>
   </nz-space>
@@ -36,18 +36,13 @@
   [wpxModel]="model"
   [wpxColumns]="[
     {
-      title: '队列名称',
+      title: '主题名称',
       width: '420px',
       render: name
     },
     {
-      title: '主题',
-      width: '420px',
-      render: subjects
-    },
-    {
-      title: '属性',
-      render: detail
+      title: '授权项目',
+      render: projects
     }
   ]"
   [wpxItemSize]="50"
@@ -56,43 +51,19 @@
   (wpxChange)="getData()"
 >
   <ng-template #name let-data>
-    <span>{{ data.name }}</span>
+    <span>{{ data.topic }}</span>
   </ng-template>
-  <ng-template #subjects let-data>
-    {{ data.subjects }}
-  </ng-template>
-  <ng-template #detail let-data>
-    <nz-tag *ngIf="data.max_consumers">
-      最大消费者：
-      <ng-container *ngIf="data.max_consumers !== -1; else unlimitedText">
-        {{ data.max_consumers }}
-      </ng-container>
-    </nz-tag>
-    <nz-tag *ngIf="data.max_msgs">
-      最大消息数：
-      <ng-container *ngIf="data.max_msgs !== -1; else unlimitedText">
-        {{ data.max_msgs }}
-      </ng-container>
-    </nz-tag>
-    <nz-tag *ngIf="data.max_bytes">
-      最大字节数：
-      <ng-container *ngIf="data.max_bytes !== -1; else unlimitedText">
-        {{ data.max_bytes }}
-      </ng-container>
-    </nz-tag>
-    <nz-tag *ngIf="data.max_age"> 有效期：{{ data.max_age }} </nz-tag>
+  <ng-template #projects let-data>
+    {{ data.projects }}
   </ng-template>
 </wpx-table>
-
-<ng-template #unlimitedText> ∞ </ng-template>
 
 <nz-dropdown-menu #actions="nzDropdownMenu">
   <ul *ngIf="basicTable.actived as v" nz-menu>
     <li nz-menu-item nzDisabled>
-      <b>{{ v.name }}</b>
+      <b>{{ v.topic }}</b>
     </li>
     <li nz-menu-divider></li>
-    <li nz-menu-item (click)="sync(v)">同步</li>
     <li nz-menu-item (click)="openForm(v)"> 修改 </li>
     <li nz-menu-item nzDanger (click)="delete(v)"> 删除 </li>
   </ul>

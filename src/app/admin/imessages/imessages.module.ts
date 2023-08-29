@@ -3,17 +3,18 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { ShareModule } from '@common/share.module';
 
-import { ImComponent } from './im.component';
+import { FormComponent } from './form/form.component';
+import { ImessagesComponent } from './imessages.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: ImComponent
+    component: ImessagesComponent
   }
 ];
 
 @NgModule({
   imports: [ShareModule, RouterModule.forChild(routes)],
-  declarations: [ImComponent]
+  declarations: [ImessagesComponent, FormComponent]
 })
-export class ImModule {}
+export class ImessagesModule {}

@@ -47,8 +47,8 @@ const routes: Routes = [
         }
       },
       {
-        path: 'im',
-        loadChildren: () => import('./im/im.module').then(m => m.ImModule),
+        path: 'imessages',
+        loadChildren: () => import('./imessages/imessages.module').then(m => m.ImessagesModule),
         data: {
           breadcrumb: `即时通信`
         }

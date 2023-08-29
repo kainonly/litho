@@ -1,0 +1,37 @@
+<form *ngIf="form" nz-form nzLayout="vertical" id="form" [formGroup]="form" (wpxSubmit)="submit($event)">
+  <nz-form-item>
+    <nz-form-label nzRequired>主题名称</nz-form-label>
+    <nz-form-control nzHasFeedback [nzAutoTips]="tips.topic">
+      <input nz-input formControlName="topic" placeholder="请输入主题名称" />
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label nzRequired> 授权项目 </nz-form-label>
+    <nz-form-control nzHasFeedback [nzAutoTips]="tips.projects">
+      <nz-select
+        formControlName="projects"
+        nzAllowClear
+        nzPlaceHolder="请选择授权项目"
+        nzMode="multiple"
+        nzShowSearch
+        nzServerSearch
+        (nzOnSearch)="projects$.next($event)"
+      >
+        <ng-container *ngFor="let item of projectItems">
+          <nz-option [nzValue]="item._id" [nzLabel]="item.name"> </nz-option>
+        </ng-container>
+      </nz-select>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label>主题描述</nz-form-label>
+    <nz-form-control nzHasFeedback>
+      <textarea nz-input rows="4" formControlName="description" placeholder="描述一段主题功能"></textarea>
+    </nz-form-control>
+  </nz-form-item>
+</form>
+
+<div *nzModalFooter>
+  <button nz-button type="button" nzType="default" (click)="close()">取消</button>
+  <button nz-button nzType="primary" form="form" [disabled]="!form.valid">提交</button>
+</div>
