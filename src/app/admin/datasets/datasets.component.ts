@@ -40,7 +40,7 @@ export class DatasetsComponent implements OnInit, AfterViewInit, OnDestroy {
     this.resizeObserver = new ResizeObserver(entries => {
       for (const entry of entries) {
         const { height, width } = entry.contentRect;
-        this.scroll = { x: width - 64 + 'px', y: height - 180 + 'px' };
+        this.scroll = { x: width - 65 + 'px', y: height - 180 + 'px' };
       }
     });
   }

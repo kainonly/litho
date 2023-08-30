@@ -1,0 +1,44 @@
+<nz-layout style="height: 100%; background: transparent">
+  <nz-page-header>
+    <nz-page-header-title>授权项目</nz-page-header-title>
+    <nz-page-header-tags>
+      <nz-tag>{{ doc.topic }}</nz-tag>
+    </nz-page-header-tags>
+    <nz-page-header-extra>
+      <button nz-button nzType="primary" nzShape="circle">
+        <span nz-icon nzType="sync" nzTheme="outline"></span>
+      </button>
+    </nz-page-header-extra>
+  </nz-page-header>
+
+  <nz-content style="overflow: hidden auto">
+    <nz-card>
+      <nz-table nzSize="middle" nzTemplateMode>
+        <thead>
+          <tr>
+            <th nzLeft nzWidth="200px"><b>项目名称</b></th>
+            <th><b>授权主题</b></th>
+            <th nzRight nzWidth="100px"><b>消息流入</b></th>
+            <th nzRight nzWidth="100px"><b>消息流出</b></th>
+            <th nzRight nzWidth="100px"><b>消息废弃</b></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let id of doc.projects">
+            <td>
+              <ng-container *ngIf="projectDict[id] as project">
+                {{ project.name }}
+              </ng-container>
+            </td>
+            <td>
+              <ng-container *ngIf="projectDict[id] as project"> {{ doc.topic }}/{{ project.namespace }} </ng-container>
+            </td>
+            <td>-</td>
+            <td>-</td>
+            <td>-</td>
+          </tr>
+        </tbody>
+      </nz-table>
+    </nz-card>
+  </nz-content>
+</nz-layout>

@@ -28,7 +28,7 @@ export class WpxListComponent<T> {
 
   @Output() wpxChange = new EventEmitter<void>();
 
-  activated?: AnyDto<T>;
+  actived?: AnyDto<T>;
 
   constructor(
     private contextMenu: NzContextMenuService,
@@ -44,7 +44,7 @@ export class WpxListComponent<T> {
 
   openActions($event: MouseEvent, data: AnyDto<T>): void {
     if (this.wpxActions) {
-      this.activated = data;
+      this.actived = data;
       this.contextMenu.create($event, this.wpxActions);
     }
   }

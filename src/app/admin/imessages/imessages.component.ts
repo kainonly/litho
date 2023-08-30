@@ -3,9 +3,11 @@ import { Component, OnInit } from '@angular/core';
 import { Imessage } from '@common/models/imessage';
 import { ImessagesService } from '@common/services/imessages.service';
 import { AnyDto, WpxModel, WpxService } from '@weplanx/ng';
+import { NzDrawerService } from 'ng-zorro-antd/drawer';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalService } from 'ng-zorro-antd/modal';
 
+import { ControlsComponent } from './controls/controls.component';
 import { FormComponent, FormInput } from './form/form.component';
 
 @Component({
@@ -19,7 +21,8 @@ export class ImessagesComponent implements OnInit {
     private wpx: WpxService,
     private imessages: ImessagesService,
     private modal: NzModalService,
-    private message: NzMessageService
+    private message: NzMessageService,
+    private drawer: NzDrawerService
   ) {}
 
   ngOnInit(): void {
@@ -41,7 +44,6 @@ export class ImessagesComponent implements OnInit {
   openForm(doc?: AnyDto<Imessage>): void {
     this.modal.create<FormComponent, FormInput>({
       nzTitle: !doc ? '创建' : `编辑【${doc.topic}】`,
-      nzWidth: 640,
       nzContent: FormComponent,
       nzData: {
         doc
@@ -49,6 +51,20 @@ export class ImessagesComponent implements OnInit {
       nzOnOk: () => {
         this.getData(true);
       }
+    });
+  }
+
+  openControls(doc: AnyDto<Imessage>): void {
+    this.drawer.create({
+      nzClosable: false,
+      nzContent: ControlsComponent,
+      nzContentParams: {
+        doc,
+        updated: () => {
+          this.getData();
+        }
+      },
+      nzWidth: 960
     });
   }
 

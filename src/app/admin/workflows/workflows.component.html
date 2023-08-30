@@ -28,7 +28,7 @@
   [wpxActions]="actions"
 >
   <ng-template #render let-item>
-    <ng-template #titleRef>
+    <ng-template #titleText>
       <nz-tag nzColor="blue">
         <ng-container [ngSwitch]="item.kind">
           <ng-container *ngSwitchCase="'schedule'">定时启动</ng-container>
@@ -36,10 +36,10 @@
       </nz-tag>
       <b>{{ item.name }}</b>
     </ng-template>
-    <ng-template #extraRef>
+    <ng-template #projectText>
       <ng-container *ngIf="projectDict[item.project] as project"> 所属项目：{{ project.name }} </ng-container>
     </ng-template>
-    <nz-card style="width: 100%" [ngSwitch]="item.kind" [nzTitle]="titleRef" [nzExtra]="extraRef" nzType="inner">
+    <nz-card style="width: 100%" [ngSwitch]="item.kind" [nzTitle]="titleText" [nzExtra]="projectText" nzType="inner">
       <ng-container *ngSwitchCase="'schedule'">
         <ng-container *ngIf="item.schedule as schedule; else emptyScheduleRef">
           <nz-descriptions nzSize="small" [nzColumn]="3" nzLayout="vertical">
@@ -101,7 +101,7 @@
 </ng-template>
 
 <nz-dropdown-menu #actions="nzDropdownMenu">
-  <ul *ngIf="wpxList.activated as v" nz-menu>
+  <ul *ngIf="wpxList.actived as v" nz-menu>
     <li nz-menu-item nzDisabled>
       <b>{{ v.name }}</b>
     </li>

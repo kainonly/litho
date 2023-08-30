@@ -6,7 +6,7 @@
       [wpxModel]="model"
       [wpxKeys]="['topic']"
       (wpxSubmit)="getData()"
-      wpxPlaceholder="主题名称"
+      wpxPlaceholder="主题命名"
     ></wpx-keyword>
     <wpx-toolbox *nzSpaceItem [wpxModel]="model" (wpxClear)="getData()" (wpxRefresh)="getData()"> </wpx-toolbox>
   </nz-space>
@@ -36,7 +36,7 @@
   [wpxModel]="model"
   [wpxColumns]="[
     {
-      title: '主题名称',
+      title: '主题命名',
       width: '420px',
       render: name
     },
@@ -51,10 +51,13 @@
   (wpxChange)="getData()"
 >
   <ng-template #name let-data>
-    <span>{{ data.topic }}</span>
+    {{ data.topic }}
+    <ng-container *ngIf="data.description">
+      <span nz-icon nzType="question-circle" nzTheme="outline" [nz-tooltip]="data.description"></span>
+    </ng-container>
   </ng-template>
   <ng-template #projects let-data>
-    {{ data.projects }}
+    <a (click)="openControls(data)">已授权 {{ data.projects.length }} 个项目</a>
   </ng-template>
 </wpx-table>
 
