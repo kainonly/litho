@@ -9,7 +9,7 @@ import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalService } from 'ng-zorro-antd/modal';
 
 import { ControlsComponent } from './controls/controls.component';
-import { FormComponent, ModalData } from './form/form.component';
+import { FormComponent, FormInput } from './form/form.component';
 
 @Component({
   selector: 'app-admin-clusters',
@@ -67,7 +67,7 @@ export class ClustersComponent implements OnInit {
   }
 
   openForm(doc?: AnyDto<Cluster>): void {
-    this.modal.create<FormComponent, ModalData>({
+    this.modal.create<FormComponent, FormInput>({
       nzTitle: !doc ? '创建' : `编辑【${doc.name}】`,
       nzWidth: 640,
       nzContent: FormComponent,

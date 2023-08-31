@@ -8,7 +8,7 @@ import { Any, AnyDto, validates } from '@weplanx/ng';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NZ_MODAL_DATA, NzModalRef } from 'ng-zorro-antd/modal';
 
-export interface ModalData {
+export interface FormInput {
   doc?: AnyDto<User>;
 }
 
@@ -36,7 +36,7 @@ export class FormComponent implements OnInit {
 
   constructor(
     @Inject(NZ_MODAL_DATA)
-    public data: ModalData,
+    public data: FormInput,
     private modalRef: NzModalRef,
     private message: NzMessageService,
     private fb: FormBuilder,

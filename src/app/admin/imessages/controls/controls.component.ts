@@ -1,11 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
 
 import { Imessage } from '@common/models/imessage';
 import { Project } from '@common/models/project';
 import { ProjectsService } from '@common/services/projects.service';
 import { AnyDto } from '@weplanx/ng';
-import { NzMessageService } from 'ng-zorro-antd/message';
 
 @Component({
   selector: 'app-admin-imessages-controls',
@@ -17,11 +15,7 @@ export class ControlsComponent implements OnInit {
 
   projectDict: Record<string, AnyDto<Project>> = {};
 
-  constructor(
-    private message: NzMessageService,
-    private fb: FormBuilder,
-    private projects: ProjectsService
-  ) {}
+  constructor(private projects: ProjectsService) {}
 
   ngOnInit(): void {
     this.getProjects(this.doc.projects);

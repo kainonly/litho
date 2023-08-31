@@ -8,6 +8,7 @@ import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalService } from 'ng-zorro-antd/modal';
 
 import { ControlsComponent } from './controls/controls.component';
+import { EmqxComponent } from './emqx/emqx.component';
 import { FormComponent, FormInput } from './form/form.component';
 
 @Component({
@@ -51,6 +52,14 @@ export class ImessagesComponent implements OnInit {
       nzOnOk: () => {
         this.getData(true);
       }
+    });
+  }
+
+  openEmqx(): void {
+    this.drawer.create({
+      nzClosable: false,
+      nzContent: EmqxComponent,
+      nzWidth: 960
     });
   }
 

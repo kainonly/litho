@@ -8,7 +8,7 @@ import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalService } from 'ng-zorro-antd/modal';
 
 import { WpxCategoriesService } from './categories.service';
-import { FormComponent, ModalData } from './form/form.component';
+import { FormComponent, FormInput } from './form/form.component';
 import { WpxCategory } from './types';
 
 @Component({
@@ -117,7 +117,7 @@ export class WpxCategoriesComponent implements ControlValueAccessor, OnInit {
   }
 
   openForm(doc?: AnyDto<WpxCategory>): void {
-    this.modal.create<FormComponent, ModalData>({
+    this.modal.create<FormComponent, FormInput>({
       nzTitle: !doc ? `新增` : `编辑`,
       nzContent: FormComponent,
       nzData: {

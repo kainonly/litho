@@ -6,8 +6,8 @@ import { AnyDto, WpxModel, WpxService } from '@weplanx/ng';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalService } from 'ng-zorro-antd/modal';
 
-import { EntryComponent, EntryModalData } from './entry/entry.component';
-import { FormComponent, ModalData } from './form/form.component';
+import { EntryComponent, EntryInput } from './entry/entry.component';
+import { FormComponent, FormInput } from './form/form.component';
 
 @Component({
   selector: 'app-admin-projects',
@@ -40,7 +40,7 @@ export class ProjectsComponent implements OnInit {
   }
 
   openForm(doc?: AnyDto<Project>): void {
-    this.modal.create<FormComponent, ModalData>({
+    this.modal.create<FormComponent, FormInput>({
       nzTitle: !doc ? '创建' : `编辑【${doc.name}】`,
       nzWidth: 640,
       nzContent: FormComponent,
@@ -54,7 +54,7 @@ export class ProjectsComponent implements OnInit {
   }
 
   openEntry(doc: AnyDto<Project>): void {
-    this.modal.create<EntryComponent, EntryModalData>({
+    this.modal.create<EntryComponent, EntryInput>({
       nzTitle: `入口编辑【${doc.name}】`,
       nzWidth: 640,
       nzContent: EntryComponent,

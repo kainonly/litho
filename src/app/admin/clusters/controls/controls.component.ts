@@ -10,6 +10,7 @@ import { Any, AnyDto } from '@weplanx/ng';
 })
 export class ControlsComponent implements OnInit {
   @Input({ required: true }) data!: AnyDto<Cluster>;
+
   index = 0;
   nodes: ClusterNode[] = [];
   ingresses: Any[] = [];

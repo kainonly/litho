@@ -8,7 +8,7 @@ import { Any, AnyDto, Filter, WpxModel, WpxService } from '@weplanx/ng';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalService } from 'ng-zorro-antd/modal';
 
-import { FormComponent, ModalData } from './form/form.component';
+import { FormComponent, FormInput } from './form/form.component';
 
 @Component({
   selector: 'app-admin-users',
@@ -75,7 +75,7 @@ export class UsersComponent implements OnInit {
     if (this.isSelf(doc)) {
       return;
     }
-    this.modal.create<FormComponent, ModalData>({
+    this.modal.create<FormComponent, FormInput>({
       nzTitle: !doc ? '创建' : `编辑【${doc.email}】`,
       nzWidth: 640,
       nzContent: FormComponent,

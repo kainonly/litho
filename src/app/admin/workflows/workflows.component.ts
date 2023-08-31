@@ -13,7 +13,7 @@ import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalService } from 'ng-zorro-antd/modal';
 
 import { ControlsComponent } from './controls/controls.component';
-import { FormComponent, ModalData } from './form/form.component';
+import { FormComponent, FormInput } from './form/form.component';
 import { SchedulesComponent } from './schedules/schedules.component';
 
 @Component({
@@ -92,7 +92,7 @@ export class WorkflowsComponent implements OnInit, OnDestroy {
   }
 
   openForm(doc?: AnyDto<Workflow>): void {
-    this.modal.create<FormComponent, ModalData>({
+    this.modal.create<FormComponent, FormInput>({
       nzTitle: !doc ? '创建' : `编辑【${doc.name}】`,
       nzWidth: 640,
       nzContent: FormComponent,
