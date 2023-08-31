@@ -1,9 +1,14 @@
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 
-import { Imessage } from '@common/models/imessage';
+import { EmqxNode, Imessage } from '@common/models/imessage';
 import { WpxApi } from '@weplanx/ng';
 
 @Injectable({ providedIn: 'root' })
 export class ImessagesService extends WpxApi<Imessage> {
   protected override collection = 'imessages';
+
+  getNodes(): Observable<EmqxNode[]> {
+    return this.http.get<EmqxNode[]>(`${this.collection}/nodes`);
+  }
 }
