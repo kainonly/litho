@@ -68,10 +68,7 @@ export class ImessagesComponent implements OnInit {
       nzClosable: false,
       nzContent: ControlsComponent,
       nzContentParams: {
-        doc,
-        updated: () => {
-          this.getData();
-        }
+        doc
       },
       nzWidth: 960
     });

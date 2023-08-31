@@ -2,8 +2,10 @@ import { Component, Input, OnInit } from '@angular/core';
 
 import { Imessage } from '@common/models/imessage';
 import { Project } from '@common/models/project';
+import { ImessagesService } from '@common/services/imessages.service';
 import { ProjectsService } from '@common/services/projects.service';
 import { AnyDto } from '@weplanx/ng';
+import { NzMessageService } from 'ng-zorro-antd/message';
 
 @Component({
   selector: 'app-admin-imessages-controls',
@@ -11,11 +13,14 @@ import { AnyDto } from '@weplanx/ng';
 })
 export class ControlsComponent implements OnInit {
   @Input({ required: true }) doc!: AnyDto<Imessage>;
-  @Input({ required: true }) updated!: () => void;
 
   projectDict: Record<string, AnyDto<Project>> = {};
 
-  constructor(private projects: ProjectsService) {}
+  constructor(
+    private projects: ProjectsService,
+    private imessages: ImessagesService,
+    private message: NzMessageService
+  ) {}
 
   ngOnInit(): void {
     this.getProjects(this.doc.projects);
@@ -32,5 +37,9 @@ export class ControlsComponent implements OnInit {
       .subscribe(({ data }) => {
         data.forEach(v => (this.projectDict[v._id] = v));
       });
+  }
+
+  sync(): void {
+    this.imessages.createMetrics(this.doc._id).subscribe(() => {});
   }
 }

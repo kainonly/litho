@@ -5,7 +5,14 @@
       <nz-tag>{{ doc.topic }}</nz-tag>
     </nz-page-header-tags>
     <nz-page-header-extra>
-      <button nz-button nzType="primary" nzShape="circle">
+      <button
+        nz-button
+        nzType="primary"
+        nzShape="circle"
+        nz-popconfirm
+        nzPopconfirmTitle="您确定要同步监控吗?"
+        (nzOnConfirm)="sync()"
+      >
         <span nz-icon nzType="sync" nzTheme="outline"></span>
       </button>
     </nz-page-header-extra>
@@ -30,9 +37,7 @@
                 {{ project.name }}
               </ng-container>
             </td>
-            <td>
-              <ng-container *ngIf="projectDict[id] as project"> {{ doc.topic }}/{{ project.namespace }} </ng-container>
-            </td>
+            <td> {{ doc.topic }}/{{ id }} </td>
             <td>-</td>
             <td>-</td>
             <td>-</td>
