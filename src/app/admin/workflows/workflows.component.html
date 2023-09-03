@@ -19,68 +19,117 @@
   </nz-space>
 </ng-template>
 
-<wpx-list
-  #wpxList
+<wpx-table
+  #wpxTable
   [wpxTitle]="titleRef"
   [wpxExtra]="extraRef"
   [wpxModel]="model"
-  [wpxRender]="render"
+  [wpxColumns]="[
+    {
+      title: '工作流名称',
+      width: '420px',
+      render: name
+    },
+    {
+      title: '所属项目',
+      width: '420px',
+      render: project
+    },
+    {
+      title: '详情',
+      render: detail
+    }
+  ]"
+  [wpxItemSize]="50"
+  [wpxOffset]="310"
   [wpxActions]="actions"
+  (wpxChange)="getData()"
 >
-  <ng-template #render let-item>
-    <ng-template #titleText>
-      <nz-tag nzColor="blue">
-        <ng-container [ngSwitch]="item.kind">
-          <ng-container *ngSwitchCase="'schedule'">定时启动</ng-container>
+  <ng-template #name let-data>
+    <nz-tag nzColor="blue">
+      <ng-container [ngSwitch]="data.kind">
+        <ng-container *ngSwitchCase="'schedule'">定时启动</ng-container>
+      </ng-container>
+    </nz-tag>
+    {{ data.name }}
+  </ng-template>
+  <ng-template #project let-data>
+    <ng-container *ngIf="projectDict[data.project] as project"> {{ project.name }} </ng-container>
+  </ng-template>
+  <ng-template #detail let-data>
+    <ng-container *ngIf="data.schedule as schedule">
+      <ng-container *ngIf="schedule.status; else stopRef">
+        <nz-tag *ngIf="statesDict[data._id]?.status; else notSyncRef" nzColor="processing">
+          <span nz-icon nzType="sync" nzSpin></span>
+          <span>运行中</span>
+        </nz-tag>
+      </ng-container>
+      <nz-tag>
+        节点：
+        <ng-container *ngIf="scheduleDict[schedule.schedule_id] as v">
+          {{ v.name }}
         </ng-container>
       </nz-tag>
-      <b>{{ item.name }}</b>
-    </ng-template>
-    <ng-template #projectText>
-      <ng-container *ngIf="projectDict[item.project] as project"> 所属项目：{{ project.name }} </ng-container>
-    </ng-template>
-    <nz-card style="width: 100%" [ngSwitch]="item.kind" [nzTitle]="titleText" [nzExtra]="projectText" nzType="inner">
-      <ng-container *ngSwitchCase="'schedule'">
-        <ng-container *ngIf="item.schedule as schedule; else emptyScheduleRef">
-          <nz-descriptions nzSize="small" [nzColumn]="3" nzLayout="vertical">
-            <nz-descriptions-item nzTitle="服务节点">
-              <ng-container *ngIf="scheduleDict[schedule.schedule_id] as v">
-                {{ v.name }}
-              </ng-container>
-            </nz-descriptions-item>
-            <nz-descriptions-item nzTitle="状态">
-              <ng-container *ngIf="schedule.status; else stopRef">
-                <nz-tag *ngIf="statesDict[item._id]?.status; else notSyncRef" nzColor="processing">
-                  <span nz-icon nzType="sync" nzSpin></span>
-                  <span>运行中</span>
-                </nz-tag>
-              </ng-container>
-            </nz-descriptions-item>
-            <nz-descriptions-item nzTitle="事件数">
-              {{ schedule.jobs.length }}
-            </nz-descriptions-item>
-          </nz-descriptions>
-          <nz-divider nzPlain nzText="触发事件" nzOrientation="left"></nz-divider>
-          <nz-list style="width: 100%" nzSize="small" [nzSplit]="false">
-            <nz-list-item *ngFor="let job of schedule.jobs; index as i" [ngSwitch]="job.mode">
-              <ng-container *ngSwitchCase="'HTTP'">
-                <span nz-typography> <nz-tag nzColor="blue">网络回调</nz-tag> {{ job.option.url }} </span>
-                <nz-space
-                  *ngIf="statesDict[item._id] && statesDict[item._id].jobs[i]!.schedule_state as state"
-                  [nzSplit]="spaceSplit"
-                >
-                  <span *nzSpaceItem nz-icon nzType="loading" nzTheme="outline"></span>
-                  <span *nzSpaceItem>最近调度：{{ state.prev | date: 'yyyy-MM-dd HH:mm:ss' }} </span>
-                  <span *nzSpaceItem>下次调度：{{ state.next | date: 'yyyy-MM-dd HH:mm:ss' }} </span>
-                </nz-space>
-              </ng-container>
-            </nz-list-item>
-          </nz-list>
-        </ng-container>
-      </ng-container>
-    </nz-card>
+      <nz-divider nzType="vertical"></nz-divider>
+      <a>共 {{ schedule.jobs.length }} 个事件</a>
+    </ng-container>
   </ng-template>
-</wpx-list>
+</wpx-table>
+
+<!--<wpx-list-->
+<!--  #wpxList-->
+<!--  [wpxTitle]="titleRef"-->
+<!--  [wpxExtra]="extraRef"-->
+<!--  [wpxModel]="model"-->
+<!--  [wpxRender]="render"-->
+<!--  [wpxActions]="actions"-->
+<!--&gt;-->
+<!--  <ng-template #render let-item>-->
+<!--    <ng-template #projectText>-->
+<!--      <ng-container *ngIf="projectDict[item.project] as project"> 所属项目：{{ project.name }} </ng-container>-->
+<!--    </ng-template>-->
+<!--    <nz-card style="width: 100%" [ngSwitch]="item.kind" [nzTitle]="titleText" [nzExtra]="projectText" nzType="inner">-->
+<!--      <ng-container *ngSwitchCase="'schedule'">-->
+<!--        <ng-container *ngIf="item.schedule as schedule; else emptyScheduleRef">-->
+<!--          <nz-descriptions nzSize="small" [nzColumn]="3" nzLayout="vertical">-->
+<!--            <nz-descriptions-item nzTitle="服务节点">-->
+<!--              <ng-container *ngIf="scheduleDict[schedule.schedule_id] as v">-->
+<!--                {{ v.name }}-->
+<!--              </ng-container>-->
+<!--            </nz-descriptions-item>-->
+<!--            <nz-descriptions-item nzTitle="状态">-->
+<!--              <ng-container *ngIf="schedule.status; else stopRef">-->
+<!--                <nz-tag *ngIf="statesDict[item._id]?.status; else notSyncRef" nzColor="processing">-->
+<!--                  <span nz-icon nzType="sync" nzSpin></span>-->
+<!--                  <span>运行中</span>-->
+<!--                </nz-tag>-->
+<!--              </ng-container>-->
+<!--            </nz-descriptions-item>-->
+<!--            <nz-descriptions-item nzTitle="事件数">-->
+<!--              {{ schedule.jobs.length }}-->
+<!--            </nz-descriptions-item>-->
+<!--          </nz-descriptions>-->
+<!--          <nz-divider nzPlain nzText="触发事件" nzOrientation="left"></nz-divider>-->
+<!--          <nz-list style="width: 100%" nzSize="small" [nzSplit]="false">-->
+<!--            <nz-list-item *ngFor="let job of schedule.jobs; index as i" [ngSwitch]="job.mode">-->
+<!--              <ng-container *ngSwitchCase="'HTTP'">-->
+<!--                <span nz-typography> <nz-tag nzColor="blue">网络回调</nz-tag> {{ job.option.url }} </span>-->
+<!--                <nz-space-->
+<!--                  *ngIf="statesDict[item._id] && statesDict[item._id].jobs[i]!.schedule_state as state"-->
+<!--                  [nzSplit]="spaceSplit"-->
+<!--                >-->
+<!--                  <span *nzSpaceItem nz-icon nzType="loading" nzTheme="outline"></span>-->
+<!--                  <span *nzSpaceItem>最近调度：{{ state.prev | date: 'yyyy-MM-dd HH:mm:ss' }} </span>-->
+<!--                  <span *nzSpaceItem>下次调度：{{ state.next | date: 'yyyy-MM-dd HH:mm:ss' }} </span>-->
+<!--                </nz-space>-->
+<!--              </ng-container>-->
+<!--            </nz-list-item>-->
+<!--          </nz-list>-->
+<!--        </ng-container>-->
+<!--      </ng-container>-->
+<!--    </nz-card>-->
+<!--  </ng-template>-->
+<!--</wpx-list>-->
 
 <ng-template #emptyScheduleRef>
   <nz-empty></nz-empty>
@@ -101,7 +150,7 @@
 </ng-template>
 
 <nz-dropdown-menu #actions="nzDropdownMenu">
-  <ul *ngIf="wpxList.actived as v" nz-menu>
+  <ul *ngIf="wpxTable.actived as v" nz-menu>
     <li nz-menu-item nzDisabled>
       <b>{{ v.name }}</b>
     </li>
