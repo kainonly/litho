@@ -6,6 +6,7 @@ import { NzCarouselModule } from 'ng-zorro-antd/carousel';
 import { NzCronExpressionModule } from 'ng-zorro-antd/cron-expression';
 
 import { ControlsComponent } from './controls/controls.component';
+import { DetailComponent } from './detail/detail.component';
 import { FormComponent } from './form/form.component';
 import { SchedulesModule } from './schedules/schedules.module';
 import { WorkflowsComponent } from './workflows.component';
@@ -19,6 +20,6 @@ const routes: Routes = [
 
 @NgModule({
   imports: [ShareModule, SchedulesModule, NzCronExpressionModule, RouterModule.forChild(routes), NzCarouselModule],
-  declarations: [WorkflowsComponent, FormComponent, ControlsComponent]
+  declarations: [WorkflowsComponent, FormComponent, ControlsComponent, DetailComponent]
 })
 export class WorkflowsModule {}
