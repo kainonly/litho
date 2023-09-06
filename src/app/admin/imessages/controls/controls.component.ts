@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 
-import { Imessage } from '@common/models/imessage';
+import { Imessage, Metrics } from '@common/models/imessage';
 import { Project } from '@common/models/project';
 import { ImessagesService } from '@common/services/imessages.service';
 import { ProjectsService } from '@common/services/projects.service';
@@ -15,6 +15,7 @@ export class ControlsComponent implements OnInit {
   @Input({ required: true }) doc!: AnyDto<Imessage>;
 
   projectDict: Record<string, AnyDto<Project>> = {};
+  metricsDict: Record<string, Metrics> = {};
 
   constructor(
     private projects: ProjectsService,
@@ -24,6 +25,7 @@ export class ControlsComponent implements OnInit {
 
   ngOnInit(): void {
     this.getProjects(this.doc.projects);
+    this.getMetrics();
   }
 
   getProjects(ids: string[]): void {
@@ -39,7 +41,16 @@ export class ControlsComponent implements OnInit {
       });
   }
 
+  getMetrics(): void {
+    this.imessages.getMetrics(this.doc._id).subscribe(data => {
+      data.forEach(v => (this.metricsDict[v.topic] = v.metrics));
+    });
+  }
+
   sync(): void {
-    this.imessages.createMetrics(this.doc._id).subscribe(() => {});
+    this.imessages.createMetrics(this.doc._id).subscribe(() => {
+      this.message.success('主题监控已同步');
+      this.getMetrics();
+    });
   }
 }
