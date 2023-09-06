@@ -46,12 +46,7 @@
               {{ item.image }}
             </nz-descriptions-item>
             <nz-descriptions-item nzTitle="状态">
-              <ng-container *ngIf="pingDict[item._id]; else stopRef">
-                <nz-tag nzColor="processing">
-                  <span nz-icon nzType="sync" nzSpin></span>
-                  <span>运行中</span>
-                </nz-tag>
-              </ng-container>
+              <nz-badge *ngIf="pingDict[item._id]; else stopRef" nzStatus="processing" nzText="运行中"></nz-badge>
             </nz-descriptions-item>
           </nz-descriptions>
         </nz-card>
@@ -61,10 +56,7 @@
 </nz-layout>
 
 <ng-template #stopRef>
-  <nz-tag nzColor="error">
-    <span nz-icon nzType="close-circle"></span>
-    <span>异常</span>
-  </nz-tag>
+  <nz-badge nzStatus="error" nzText="终止"></nz-badge>
 </ng-template>
 
 <nz-dropdown-menu #actions="nzDropdownMenu">

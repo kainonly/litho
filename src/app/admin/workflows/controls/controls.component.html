@@ -3,7 +3,11 @@
     <nz-page-header-title>工作流管理</nz-page-header-title>
     <nz-page-header-subtitle>{{ doc.name }}</nz-page-header-subtitle>
     <nz-page-header-tags>
-      <nz-tag>{{ doc.kind }}</nz-tag>
+      <nz-tag nzColor="blue">
+        <ng-container [ngSwitch]="doc.kind">
+          <ng-container *ngSwitchCase="'schedule'">定时启动</ng-container>
+        </ng-container>
+      </nz-tag>
     </nz-page-header-tags>
     <nz-page-header-extra>
       <button nz-button nzType="primary" form="form" nzShape="circle" [disabled]="!form.valid">
@@ -33,7 +37,7 @@
           </nz-form-control>
         </nz-form-item>
         <nz-form-item>
-          <nz-form-label nzRequired> 运行状态 </nz-form-label>
+          <nz-form-label nzRequired> 启用 </nz-form-label>
           <nz-form-control>
             <nz-switch formControlName="status"></nz-switch>
           </nz-form-control>

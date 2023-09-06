@@ -1,9 +1,9 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Subscription, switchMap, timer } from 'rxjs';
+import { Component, OnInit } from '@angular/core';
+import { Subscription, switchMap } from 'rxjs';
 
 import { Project } from '@common/models/project';
 import { Schedule } from '@common/models/schedule';
-import { States, Workflow } from '@common/models/workflow';
+import { Workflow } from '@common/models/workflow';
 import { ProjectsService } from '@common/services/projects.service';
 import { SchedulesService } from '@common/services/schedules.service';
 import { WorkflowsService } from '@common/services/workflows.service';
@@ -13,6 +13,7 @@ import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalService } from 'ng-zorro-antd/modal';
 
 import { ControlsComponent } from './controls/controls.component';
+import { DetailComponent } from './detail/detail.component';
 import { FormComponent, FormInput } from './form/form.component';
 import { SchedulesComponent } from './schedules/schedules.component';
 
@@ -20,13 +21,10 @@ import { SchedulesComponent } from './schedules/schedules.component';
   selector: 'app-admin-workflows',
   templateUrl: './workflows.component.html'
 })
-export class WorkflowsComponent implements OnInit, OnDestroy {
+export class WorkflowsComponent implements OnInit {
   model!: WpxModel<Workflow>;
   projectDict: Record<string, AnyDto<Project>> = {};
   scheduleDict: Record<string, AnyDto<Schedule>> = {};
-  statesDict: States = {};
-
-  private refresh!: Subscription;
 
   constructor(
     private wpx: WpxService,
@@ -42,16 +40,7 @@ export class WorkflowsComponent implements OnInit, OnDestroy {
     this.model = this.wpx.setModel<Workflow>('workflows', this.workflows);
     this.model.ready().subscribe(() => {
       this.getData(true);
-      this.refresh = timer(0, 1000)
-        .pipe(switchMap(() => this.workflows.states(this.model.data().map(v => v._id))))
-        .subscribe(data => {
-          this.statesDict = data;
-        });
     });
-  }
-
-  ngOnDestroy(): void {
-    this.refresh.unsubscribe();
   }
 
   getData(refresh = false): void {
@@ -109,7 +98,7 @@ export class WorkflowsComponent implements OnInit, OnDestroy {
     this.drawer.create({
       nzClosable: false,
       nzContent: SchedulesComponent,
-      nzWidth: 800
+      nzWidth: 960
     });
   }
 
@@ -123,13 +112,19 @@ export class WorkflowsComponent implements OnInit, OnDestroy {
           this.getData();
         }
       },
-      nzWidth: 640
+      nzWidth: 960
     });
   }
 
-  sync(doc: AnyDto<Workflow>): void {
-    this.workflows.sync(doc._id).subscribe(() => {
-      this.message.success(`触发事件已同步`);
+  openDetail(doc: AnyDto<Workflow>, schedule: AnyDto<Schedule>): void {
+    this.drawer.create({
+      nzClosable: false,
+      nzContent: DetailComponent,
+      nzContentParams: {
+        doc,
+        schedule
+      },
+      nzWidth: 960
     });
   }
 

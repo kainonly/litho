@@ -20,4 +20,4 @@ export interface WorkflowScheduleJob {
   schedule_state?: { next: Date; prev: Date };
 }
 
-export type States = Record<string, Omit<WorkflowSchedule, 'schedule_id'>>;
+export type State = Omit<WorkflowSchedule, 'schedule_id'>;
