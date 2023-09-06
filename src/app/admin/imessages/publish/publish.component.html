@@ -1,0 +1,23 @@
+<form *ngIf="form" nz-form nzLayout="vertical" id="form" [formGroup]="form" (wpxSubmit)="submit($event)">
+  <nz-form-item>
+    <nz-form-label nzRequired>主题名称</nz-form-label>
+    <nz-form-control nzHasFeedback [nzAutoTips]="tips.topic">
+      <input nz-input formControlName="topic" placeholder="请输入主题名称" />
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label nzRequired> 载荷 </nz-form-label>
+    <nz-form-control nzExtra="*必须使用JSON格式">
+      <nz-code-editor
+        style="height: 300px; width: 100%"
+        formControlName="payload"
+        [nzEditorOption]="{ language: 'json' }"
+      ></nz-code-editor>
+    </nz-form-control>
+  </nz-form-item>
+</form>
+
+<div *nzModalFooter>
+  <button nz-button type="button" nzType="default" (click)="close()">取消</button>
+  <button nz-button nzType="primary" form="form" [disabled]="!form.valid">提交</button>
+</div>

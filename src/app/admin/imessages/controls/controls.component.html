@@ -5,16 +5,20 @@
       <nz-tag>{{ doc.topic }}</nz-tag>
     </nz-page-header-tags>
     <nz-page-header-extra>
-      <button
-        nz-button
-        nzType="primary"
-        nzShape="circle"
-        nz-popconfirm
-        nzPopconfirmTitle="您确定要同步监控吗?"
-        (nzOnConfirm)="sync()"
-      >
-        <span nz-icon nzType="sync" nzTheme="outline"></span>
-      </button>
+      <nz-space nzAlign="center">
+        <button
+          *nzSpaceItem
+          nz-button
+          nzType="primary"
+          nzShape="circle"
+          nz-tooltip="同步"
+          nz-popconfirm
+          nzPopconfirmTitle="您确定要同步监控吗?"
+          (nzOnConfirm)="sync()"
+        >
+          <span nz-icon nzType="sync" nzTheme="outline"></span>
+        </button>
+      </nz-space>
     </nz-page-header-extra>
   </nz-page-header>
 
@@ -23,21 +27,21 @@
       <nz-table nzSize="middle" nzTemplateMode>
         <thead>
           <tr>
-            <th nzLeft nzWidth="360px"><b>授权主题</b></th>
-            <th><b>项目名称</b></th>
-            <th nzRight nzWidth="100px"><b>消息流入</b></th>
-            <th nzRight nzWidth="100px"><b>消息流出</b></th>
-            <th nzRight nzWidth="100px"><b>消息废弃</b></th>
+            <th nzLeft nzWidth="200px"><b>项目名称</b></th>
+            <th><b>授权主题</b></th>
+            <th nzRight nzWidth="80px"><b>消息流入</b></th>
+            <th nzRight nzWidth="80px"><b>消息流出</b></th>
+            <th nzRight nzWidth="80px"><b>消息废弃</b></th>
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let id of doc.projects">
-            <td> {{ doc.topic }}/{{ id }} </td>
+          <tr *ngFor="let id of doc.projects" (contextmenu)="openActions($event, actions, id)">
             <td>
               <ng-container *ngIf="projectDict[id] as project">
                 {{ project.name }}
               </ng-container>
             </td>
+            <td> {{ doc.topic }}/{{ id }} </td>
             <td>
               <ng-container *ngIf="metricsDict[doc.topic + '/' + id] as metric">
                 {{ metric['messages.in.count'] | nzSafeNull }}
@@ -59,3 +63,13 @@
     </nz-card>
   </nz-content>
 </nz-layout>
+
+<nz-dropdown-menu #actions="nzDropdownMenu">
+  <ul *ngIf="actived as v" nz-menu>
+    <li nz-menu-item nzDisabled>
+      <b>{{ projectDict[v].name }}</b>
+    </li>
+    <li nz-menu-divider></li>
+    <li nz-menu-item (click)="openPublish(v)"> 发布 </li>
+  </ul>
+</nz-dropdown-menu>

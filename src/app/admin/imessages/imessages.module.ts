@@ -7,6 +7,7 @@ import { ControlsComponent } from './controls/controls.component';
 import { EmqxModule } from './emqx/emqx.module';
 import { FormComponent } from './form/form.component';
 import { ImessagesComponent } from './imessages.component';
+import { PublishComponent } from './publish/publish.component';
 
 const routes: Routes = [
   {
@@ -17,6 +18,6 @@ const routes: Routes = [
 
 @NgModule({
   imports: [ShareModule, EmqxModule, RouterModule.forChild(routes)],
-  declarations: [ImessagesComponent, FormComponent, ControlsComponent]
+  declarations: [ImessagesComponent, FormComponent, ControlsComponent, PublishComponent]
 })
 export class ImessagesModule {}

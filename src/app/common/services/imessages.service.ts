@@ -23,4 +23,8 @@ export class ImessagesService extends WpxApi<Imessage> {
   deleteMetrics(id: string): Observable<Any> {
     return this.http.delete(`${this.collection}/${id}/metrics`);
   }
+
+  publish(topic: string, payload: Any): Observable<Any> {
+    return this.http.post(`${this.collection}/publish`, { topic, payload });
+  }
 }

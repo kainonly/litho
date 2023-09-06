@@ -10,6 +10,7 @@ import { NzModalService } from 'ng-zorro-antd/modal';
 import { ControlsComponent } from './controls/controls.component';
 import { EmqxComponent } from './emqx/emqx.component';
 import { FormComponent, FormInput } from './form/form.component';
+import { PublishComponent, PublishInput } from './publish/publish.component';
 
 @Component({
   selector: 'app-admin-imessages',
@@ -71,6 +72,14 @@ export class ImessagesComponent implements OnInit {
         doc
       },
       nzWidth: 960
+    });
+  }
+
+  openPublish(): void {
+    this.modal.create<PublishComponent, PublishInput>({
+      nzTitle: '发布消息',
+      nzContent: PublishComponent,
+      nzWidth: 640
     });
   }
 
