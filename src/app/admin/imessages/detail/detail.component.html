@@ -36,13 +36,15 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let id of doc.projects" (contextmenu)="openActions($event, actions, id)">
+          <tr *ngFor="let id of doc.projects">
             <td>
               <ng-container *ngIf="projectDict[id] as project">
                 {{ project.name }}
               </ng-container>
             </td>
-            <td> {{ doc.topic }}/{{ id }} </td>
+            <td>
+              <a (click)="openPublish(id)">{{ doc.topic }}/{{ id }}</a>
+            </td>
             <ng-container [ngSwitch]="index" *ngIf="metricsDict[doc.topic + '/' + id] as metric">
               <ng-container *ngSwitchCase="0">
                 <td>
@@ -107,13 +109,3 @@
     </nz-card>
   </nz-content>
 </nz-layout>
-
-<nz-dropdown-menu #actions="nzDropdownMenu">
-  <ul *ngIf="actived as v" nz-menu>
-    <li nz-menu-item nzDisabled>
-      <b>{{ projectDict[v].name }}</b>
-    </li>
-    <li nz-menu-divider></li>
-    <li nz-menu-item (click)="openPublish(v)"> 发布 </li>
-  </ul>
-</nz-dropdown-menu>

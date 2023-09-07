@@ -6,7 +6,6 @@ import { Project } from '@common/models/project';
 import { ImessagesService } from '@common/services/imessages.service';
 import { ProjectsService } from '@common/services/projects.service';
 import { AnyDto } from '@weplanx/ng';
-import { NzContextMenuService, NzDropdownMenuComponent } from 'ng-zorro-antd/dropdown';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalService } from 'ng-zorro-antd/modal';
 
@@ -24,15 +23,12 @@ export class DetailComponent implements OnInit, OnDestroy {
   projectDict: Record<string, AnyDto<Project>> = {};
   metricsDict: Record<string, Metrics> = {};
 
-  actived?: string;
-
   private refresh!: Subscription;
 
   constructor(
     private projects: ProjectsService,
     private imessages: ImessagesService,
     private message: NzMessageService,
-    private contextMenu: NzContextMenuService,
     private modal: NzModalService
   ) {}
 
@@ -66,11 +62,6 @@ export class DetailComponent implements OnInit, OnDestroy {
     this.imessages.createMetrics(this.doc._id).subscribe(() => {
       this.message.success('主题监控已同步');
     });
-  }
-
-  openActions($event: MouseEvent, menu: NzDropdownMenuComponent, actived: string): void {
-    this.actived = actived;
-    this.contextMenu.create($event, menu);
   }
 
   openPublish(pid: string): void {
