@@ -37,17 +37,17 @@
   [wpxColumns]="[
     {
       title: '项目名称',
-      width: '420px',
+      width: '360px',
       render: name
     },
     {
       title: 'OpenAPI 密钥',
-      width: '420px',
+      width: '240px',
       render: openapi
     },
     {
-      title: '入口限制',
-      key: 'entry'
+      title: '详情',
+      render: detail
     }
   ]"
   [wpxItemSize]="50"
@@ -65,6 +65,9 @@
         <span *nzSpaceItem nz-typography nzCopyable [nzCopyText]="data.secret_key" nzContent="KEY"></span>
       </nz-space>
     </ng-container>
+  </ng-template>
+  <ng-template #detail let-data>
+    <nz-tag *ngIf="data.entry && data.entry.length !== 0">入口限制</nz-tag>
   </ng-template>
 </wpx-table>
 

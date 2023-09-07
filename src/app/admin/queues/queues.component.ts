@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { switchMap } from 'rxjs';
 
+import { Project } from '@common/models/project';
 import { Queue } from '@common/models/queue';
+import { ProjectsService } from '@common/services/projects.service';
 import { QueuesService } from '@common/services/queues.service';
 import { AnyDto, WpxModel, WpxService } from '@weplanx/ng';
 import { NzMessageService } from 'ng-zorro-antd/message';
@@ -15,12 +17,14 @@ import { FormComponent, FormInput } from './form/form.component';
 })
 export class QueuesComponent implements OnInit {
   model!: WpxModel<Queue>;
+  projectDict: Record<string, AnyDto<Project>> = {};
 
   constructor(
     private wpx: WpxService,
     private queues: QueuesService,
     private modal: NzModalService,
-    private message: NzMessageService
+    private message: NzMessageService,
+    private projects: ProjectsService
   ) {}
 
   ngOnInit(): void {
@@ -34,9 +38,23 @@ export class QueuesComponent implements OnInit {
     if (refresh) {
       this.model.page = 1;
     }
-    this.model.fetch({}).subscribe(() => {
+    this.model.fetch({}).subscribe(({ data }) => {
       console.debug('fetch:ok');
+      this.getProjects(data.map(v => v.project));
     });
+  }
+
+  getProjects(ids: string[]): void {
+    this.projects
+      .find(
+        { _id: { $in: ids } },
+        {
+          xfilter: { '_id->$in': 'oids' }
+        }
+      )
+      .subscribe(({ data }) => {
+        data.forEach(v => (this.projectDict[v._id] = v));
+      });
   }
 
   openForm(doc?: AnyDto<Queue>): void {

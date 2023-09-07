@@ -27,7 +27,7 @@
   [wpxColumns]="[
     {
       title: '工作流名称',
-      width: '420px',
+      width: '360px',
       render: name
     },
     {
@@ -58,12 +58,10 @@
   </ng-template>
   <ng-template #detail let-data>
     <ng-container *ngIf="data.schedule as v">
-      <ng-container *ngIf="!v.status">
-        <nz-tag nzColor="error">
-          <span nz-icon nzType="stop"></span>
-          <span>禁用</span>
-        </nz-tag>
-      </ng-container>
+      <nz-tag *ngIf="!v.status" nzColor="error">
+        <span nz-icon nzType="stop"></span>
+        <span>禁用</span>
+      </nz-tag>
       <nz-tag>
         <span nz-icon nzType="deployment-unit" nzTheme="outline"></span>
         <ng-container *ngIf="scheduleDict[v.schedule_id] as schedule">

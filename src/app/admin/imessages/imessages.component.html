@@ -39,12 +39,12 @@
   [wpxColumns]="[
     {
       title: '主题命名',
-      width: '420px',
+      width: '360px',
       render: name
     },
     {
-      title: '授权项目',
-      render: projects
+      title: '详情',
+      render: detail
     }
   ]"
   [wpxItemSize]="50"
@@ -58,7 +58,7 @@
       <span nz-icon nzType="question-circle" nzTheme="outline" [nz-tooltip]="data.description"></span>
     </ng-container>
   </ng-template>
-  <ng-template #projects let-data>
+  <ng-template #detail let-data>
     <a (click)="openControls(data)">已授权 {{ data.projects.length }} 个项目</a>
   </ng-template>
 </wpx-table>

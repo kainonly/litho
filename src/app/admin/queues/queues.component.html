@@ -36,17 +36,17 @@
   [wpxModel]="model"
   [wpxColumns]="[
     {
-      title: '队列名称',
-      width: '420px',
+      title: '队列流',
+      width: '360px',
       render: name
     },
     {
-      title: '主题',
-      width: '420px',
-      render: subjects
+      title: '所属项目',
+      width: '240px',
+      render: project
     },
     {
-      title: '属性',
+      title: '详情',
       render: detail
     }
   ]"
@@ -56,35 +56,24 @@
   (wpxChange)="getData()"
 >
   <ng-template #name let-data>
-    <span>{{ data.name }}</span>
+    {{ data.name }}
+    <ng-container *ngIf="data.description">
+      <span nz-icon nzType="question-circle" nzTheme="outline" [nz-tooltip]="data.description"></span>
+    </ng-container>
+  </ng-template>
+  <ng-template #project let-data>
+    <ng-container *ngIf="projectDict[data.project] as project"> {{ project.name }} </ng-container>
   </ng-template>
   <ng-template #subjects let-data>
     {{ data.subjects }}
   </ng-template>
   <ng-template #detail let-data>
-    <nz-tag *ngIf="data.max_consumers">
-      最大消费者：
-      <ng-container *ngIf="data.max_consumers !== -1; else unlimitedText">
-        {{ data.max_consumers }}
-      </ng-container>
-    </nz-tag>
-    <nz-tag *ngIf="data.max_msgs">
-      最大消息数：
-      <ng-container *ngIf="data.max_msgs !== -1; else unlimitedText">
-        {{ data.max_msgs }}
-      </ng-container>
-    </nz-tag>
-    <nz-tag *ngIf="data.max_bytes">
-      最大字节数：
-      <ng-container *ngIf="data.max_bytes !== -1; else unlimitedText">
-        {{ data.max_bytes }}
-      </ng-container>
-    </nz-tag>
+    <nz-tag *ngIf="data.max_consumers && data.max_consumers !== -1"> 最大消费者：{{ data.max_consumers }} </nz-tag>
+    <nz-tag *ngIf="data.max_msgs && data.max_msgs !== -1"> 最大消息数：{{ data.max_msgs }} </nz-tag>
+    <nz-tag *ngIf="data.max_bytes && data.max_bytes !== -1"> 最大字节数：{{ data.max_bytes }} </nz-tag>
     <nz-tag *ngIf="data.max_age"> 有效期：{{ data.max_age }} </nz-tag>
   </ng-template>
 </wpx-table>
-
-<ng-template #unlimitedText> ∞ </ng-template>
 
 <nz-dropdown-menu #actions="nzDropdownMenu">
   <ul *ngIf="basicTable.actived as v" nz-menu>

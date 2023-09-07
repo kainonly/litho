@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Subscription, switchMap } from 'rxjs';
+import { switchMap } from 'rxjs';
 
 import { Project } from '@common/models/project';
 import { Schedule } from '@common/models/schedule';
