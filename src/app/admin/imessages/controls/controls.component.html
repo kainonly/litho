@@ -20,6 +20,9 @@
         </button>
       </nz-space>
     </nz-page-header-extra>
+    <nz-page-header-footer>
+      <nz-segmented [nzOptions]="options" [(ngModel)]="index"></nz-segmented>
+    </nz-page-header-footer>
   </nz-page-header>
 
   <nz-content style="overflow: hidden auto">
@@ -29,9 +32,9 @@
           <tr>
             <th nzLeft nzWidth="200px"><b>项目名称</b></th>
             <th><b>授权主题</b></th>
-            <th nzRight nzWidth="80px"><b>消息流入</b></th>
-            <th nzRight nzWidth="80px"><b>消息流出</b></th>
-            <th nzRight nzWidth="80px"><b>消息废弃</b></th>
+            <th nzRight nzWidth="100px"><b>消息流入</b></th>
+            <th nzRight nzWidth="100px"><b>消息流出</b></th>
+            <th *ngIf="index === 0" nzRight nzWidth="100px"><b>消息废弃</b></th>
           </tr>
         </thead>
         <tbody>
@@ -42,19 +45,62 @@
               </ng-container>
             </td>
             <td> {{ doc.topic }}/{{ id }} </td>
-            <td>
-              <ng-container *ngIf="metricsDict[doc.topic + '/' + id] as metric">
-                {{ metric['messages.in.count'] | nzSafeNull }}
+            <ng-container [ngSwitch]="index" *ngIf="metricsDict[doc.topic + '/' + id] as metric">
+              <ng-container *ngSwitchCase="0">
+                <td>
+                  {{ metric['messages.in.count'] | nzSafeNull }}
+                  <nz-divider nzType="vertical"></nz-divider>
+                  {{ metric['messages.in.rate'] | nzSafeNull }}/s
+                </td>
+                <td>
+                  {{ metric['messages.out.count'] | nzSafeNull }}
+                  <nz-divider nzType="vertical"></nz-divider>
+                  {{ metric['messages.out.rate'] | nzSafeNull }}/s
+                </td>
               </ng-container>
-            </td>
-            <td>
-              <ng-container *ngIf="metricsDict[doc.topic + '/' + id] as metric">
-                {{ metric['messages.out.count'] | nzSafeNull }}
+              <ng-container *ngSwitchCase="1">
+                <td>
+                  {{ metric['messages.qos0.in.count'] | nzSafeNull }}
+                  <nz-divider nzType="vertical"></nz-divider>
+                  {{ metric['messages.qos0.in.rate'] | nzSafeNull }}/s
+                </td>
+                <td>
+                  {{ metric['messages.qos0.out.count'] | nzSafeNull }}
+                  <nz-divider nzType="vertical"></nz-divider>
+                  {{ metric['messages.qos0.out.rate'] | nzSafeNull }}/s
+                </td>
               </ng-container>
-            </td>
-            <td>
+              <ng-container *ngSwitchCase="2">
+                <td>
+                  {{ metric['messages.qos1.in.count'] | nzSafeNull }}
+                  <nz-divider nzType="vertical"></nz-divider>
+                  {{ metric['messages.qos1.in.rate'] | nzSafeNull }}/s
+                </td>
+                <td>
+                  {{ metric['messages.qos1.out.count'] | nzSafeNull }}
+                  <nz-divider nzType="vertical"></nz-divider>
+                  {{ metric['messages.qos1.out.rate'] | nzSafeNull }}/s
+                </td>
+              </ng-container>
+              <ng-container *ngSwitchCase="3">
+                <td>
+                  {{ metric['messages.qos2.in.count'] | nzSafeNull }}
+                  <nz-divider nzType="vertical"></nz-divider>
+                  {{ metric['messages.qos2.in.rate'] | nzSafeNull }}/s
+                </td>
+                <td>
+                  {{ metric['messages.qos2.out.count'] | nzSafeNull }}
+                  <nz-divider nzType="vertical"></nz-divider>
+                  {{ metric['messages.qos2.out.rate'] | nzSafeNull }}/s
+                </td>
+              </ng-container>
+            </ng-container>
+
+            <td *ngIf="index === 0">
               <ng-container *ngIf="metricsDict[doc.topic + '/' + id] as metric">
                 {{ metric['messages.dropped.count'] | nzSafeNull }}
+                <nz-divider nzType="vertical"></nz-divider>
+                {{ metric['messages.dropped.rate'] | nzSafeNull }}/s
               </ng-container>
             </td>
           </tr>

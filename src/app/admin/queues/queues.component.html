@@ -36,9 +36,14 @@
   [wpxModel]="model"
   [wpxColumns]="[
     {
-      title: '队列流',
-      width: '360px',
+      title: '队列名称',
+      width: '240px',
       render: name
+    },
+    {
+      title: '队列主题',
+      width: '360px',
+      render: subjects
     },
     {
       title: '所属项目',
@@ -65,7 +70,16 @@
     <ng-container *ngIf="projectDict[data.project] as project"> {{ project.name }} </ng-container>
   </ng-template>
   <ng-template #subjects let-data>
-    {{ data.subjects }}
+    <ng-container *ngIf="data.subjects.length > 1; else subjectText">
+      {{ data.subjects[0] }}
+      <nz-divider nzType="vertical"></nz-divider>
+      <a [nz-tooltip]="data.subjects">
+        <span nz-icon nzType="ellipsis" nzTheme="outline"></span>
+      </a>
+    </ng-container>
+    <ng-template #subjectText>
+      {{ data.subjects }}
+    </ng-template>
   </ng-template>
   <ng-template #detail let-data>
     <nz-tag *ngIf="data.max_consumers && data.max_consumers !== -1"> 最大消费者：{{ data.max_consumers }} </nz-tag>

@@ -18,6 +18,8 @@ import { PublishComponent, PublishInput } from '../publish/publish.component';
 })
 export class ControlsComponent implements OnInit, OnDestroy {
   @Input({ required: true }) doc!: AnyDto<Imessage>;
+  options = ['全部', 'QoS0', 'QoS1', 'QoS2'];
+  index = 0;
 
   projectDict: Record<string, AnyDto<Project>> = {};
   metricsDict: Record<string, Metrics> = {};
