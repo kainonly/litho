@@ -46,9 +46,6 @@ export class WpxService {
   }
 
   private createScript(url: string): HTMLScriptElement | void {
-    if (!this.platform.isBrowser) {
-      return;
-    }
     const script = this.document.createElement('script');
     script.src = url;
     script.async = true;
@@ -57,7 +54,10 @@ export class WpxService {
   }
 
   loadScript(key: string, url: string, plugins: string[]): void {
-    if (this.scripts.has(key)) {
+    if (!this.platform.isBrowser) {
+      return;
+    }
+    if (this.document.querySelector(`script[src='${url}']`)) {
       return;
     }
     const script = this.createScript(url);
