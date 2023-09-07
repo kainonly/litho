@@ -1,8 +1,8 @@
 <form *ngIf="form" nz-form nzLayout="vertical" id="form" [formGroup]="form" (wpxSubmit)="submit($event)">
   <nz-form-item>
-    <nz-form-label nzRequired>主题名称</nz-form-label>
+    <nz-form-label nzRequired>主题命名</nz-form-label>
     <nz-form-control nzHasFeedback [nzAutoTips]="tips.topic">
-      <input nz-input formControlName="topic" placeholder="请输入主题名称" />
+      <input nz-input formControlName="topic" placeholder="请输入主题命名" />
     </nz-form-control>
   </nz-form-item>
   <nz-form-item>

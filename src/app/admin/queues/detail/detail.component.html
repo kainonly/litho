@@ -29,7 +29,7 @@
         <nz-descriptions-item nzTitle="主题" [nzSpan]="3">
           <nz-space nzAlign="center" nzWrap>
             <ng-container *ngFor="let x of info.config.subjects">
-              <span *nzSpaceItem nz-typography nzCopyable [nzContent]="x"></span>
+              <a *nzSpaceItem nz-typography nzCopyable [nzContent]="x" (click)="openPublish(x)"></a>
             </ng-container>
           </nz-space>
         </nz-descriptions-item>
@@ -58,12 +58,7 @@
         <nz-descriptions-item nzTitle="消息数">{{ info.state.messages }}</nz-descriptions-item>
         <nz-descriptions-item nzTitle="消息大小">{{ info.state.bytes | nzBytes }}</nz-descriptions-item>
         <nz-descriptions-item nzTitle="活跃消费者">{{ info.state.consumer_count }}</nz-descriptions-item>
-        <nz-descriptions-item nzTitle="主题数">{{ info.state.num_subjects }}</nz-descriptions-item>
-        <nz-descriptions-item nzTitle="首个序列">{{ info.state.first_seq }}</nz-descriptions-item>
-        <nz-descriptions-item nzTitle="首个发布">
-          {{ info.state.first_ts | date: 'yyyy-MM-dd HH:mm:ss' }}
-        </nz-descriptions-item>
-        <nz-descriptions-item nzTitle="删除数">{{ info.state.num_deleted }}</nz-descriptions-item>
+        <nz-descriptions-item nzTitle="第一序列">{{ info.state.first_seq }}</nz-descriptions-item>
         <nz-descriptions-item nzTitle="最后序列">{{ info.state.last_seq }}</nz-descriptions-item>
         <nz-descriptions-item nzTitle="最后发布">
           {{ info.state.last_ts | date: 'yyyy-MM-dd HH:mm:ss' }}

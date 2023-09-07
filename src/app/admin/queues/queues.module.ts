@@ -5,6 +5,7 @@ import { ShareModule } from '@common/share.module';
 
 import { DetailComponent } from './detail/detail.component';
 import { FormComponent } from './form/form.component';
+import { PublishComponent } from './publish/publish.component';
 import { QueuesComponent } from './queues.component';
 
 const routes: Routes = [
@@ -16,6 +17,6 @@ const routes: Routes = [
 
 @NgModule({
   imports: [ShareModule, RouterModule.forChild(routes)],
-  declarations: [QueuesComponent, FormComponent, DetailComponent]
+  declarations: [QueuesComponent, FormComponent, DetailComponent, PublishComponent]
 })
 export class QueuesModule {}

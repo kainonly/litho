@@ -12,6 +12,7 @@ import { NzModalService } from 'ng-zorro-antd/modal';
 
 import { DetailComponent } from './detail/detail.component';
 import { FormComponent, FormInput } from './form/form.component';
+import { PublishComponent, PublishInput } from './publish/publish.component';
 
 @Component({
   selector: 'app-admin-queues',
@@ -83,6 +84,14 @@ export class QueuesComponent implements OnInit {
         project
       },
       nzWidth: 960
+    });
+  }
+
+  openPublish(): void {
+    this.modal.create<PublishComponent, PublishInput>({
+      nzTitle: '发布消息',
+      nzContent: PublishComponent,
+      nzWidth: 640
     });
   }
 
