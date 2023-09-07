@@ -74,12 +74,13 @@ export class QueuesComponent implements OnInit {
     });
   }
 
-  openDetail(doc: AnyDto<Queue>): void {
+  openDetail(doc: AnyDto<Queue>, project: AnyDto<Project>): void {
     this.drawer.create({
       nzClosable: false,
       nzContent: DetailComponent,
       nzContentParams: {
-        doc
+        doc,
+        project
       },
       nzWidth: 960
     });

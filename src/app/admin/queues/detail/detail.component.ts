@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 
-import { Queue } from '@common/models/queue';
+import { Project } from '@common/models/project';
+import { Queue, QueueInfo } from '@common/models/queue';
 import { QueuesService } from '@common/services/queues.service';
 import { AnyDto } from '@weplanx/ng';
 import { NzMessageService } from 'ng-zorro-antd/message';
@@ -11,6 +12,9 @@ import { NzMessageService } from 'ng-zorro-antd/message';
 })
 export class DetailComponent implements OnInit {
   @Input({ required: true }) doc!: AnyDto<Queue>;
+  @Input({ required: true }) project!: AnyDto<Project>;
+
+  info?: QueueInfo;
 
   constructor(
     private message: NzMessageService,
@@ -19,7 +23,7 @@ export class DetailComponent implements OnInit {
 
   ngOnInit(): void {
     this.queues.info(this.doc._id).subscribe(data => {
-      console.log(data);
+      this.info = data;
     });
   }
 

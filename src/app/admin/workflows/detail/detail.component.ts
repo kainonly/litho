@@ -1,6 +1,7 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { Subscription, switchMap, timer } from 'rxjs';
 
+import { Project } from '@common/models/project';
 import { Schedule } from '@common/models/schedule';
 import { State, Workflow } from '@common/models/workflow';
 import { WorkflowsService } from '@common/services/workflows.service';
@@ -13,6 +14,7 @@ import { NzMessageService } from 'ng-zorro-antd/message';
 })
 export class DetailComponent implements OnInit, OnDestroy {
   @Input({ required: true }) doc!: AnyDto<Workflow>;
+  @Input({ required: true }) project!: AnyDto<Project>;
   @Input({ required: true }) schedule!: AnyDto<Schedule>;
 
   state?: State;

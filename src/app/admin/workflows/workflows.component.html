@@ -68,7 +68,9 @@
           {{ schedule.name }}
         </ng-container>
       </nz-tag>
-      <a (click)="openDetail(data, scheduleDict[v.schedule_id])">已设置 {{ v.jobs.length }} 个事件</a>
+      <a (click)="openDetail(data, projectDict[data.project], scheduleDict[v.schedule_id])">
+        已设置 {{ v.jobs.length }} 个事件
+      </a>
     </ng-container>
   </ng-template>
 </wpx-table>

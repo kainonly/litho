@@ -1,8 +1,9 @@
 <nz-layout style="height: 100%; background: transparent">
   <nz-page-header>
     <nz-page-header-title>消息队列详情</nz-page-header-title>
+    <nz-page-header-subtitle>{{ doc.name }}</nz-page-header-subtitle>
     <nz-page-header-tags>
-      <nz-tag>{{ doc.name }}</nz-tag>
+      <nz-tag>{{ project.name }}</nz-tag>
     </nz-page-header-tags>
     <nz-page-header-extra>
       <nz-space nzAlign="center">
@@ -23,6 +24,12 @@
   </nz-page-header>
 
   <nz-content style="overflow: hidden auto">
-    <nz-card> </nz-card>
+    <nz-card>
+      <nz-descriptions *ngIf="info" nzLayout="vertical" [nzColumn]="3">
+        <nz-descriptions-item nzTitle="集群名">{{ info.cluster.name }}</nz-descriptions-item>
+        <nz-descriptions-item nzTitle="Leader节点">{{ info.cluster.leader }}</nz-descriptions-item>
+        <nz-descriptions-item nzTitle="创建时间">{{ info.created | date: 'yyyy-MM-dd HH:mm:ss' }}</nz-descriptions-item>
+      </nz-descriptions>
+    </nz-card>
   </nz-content>
 </nz-layout>

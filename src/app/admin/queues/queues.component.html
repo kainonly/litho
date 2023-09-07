@@ -82,7 +82,7 @@
     <nz-tag *ngIf="data.max_msgs && data.max_msgs !== -1"> 最大消息数：{{ data.max_msgs }} </nz-tag>
     <nz-tag *ngIf="data.max_bytes && data.max_bytes !== -1"> 最大字节数：{{ data.max_bytes | nzBytes }} </nz-tag>
     <nz-tag *ngIf="data.max_age"> 有效期：{{ data.max_age / 1e9 }}s </nz-tag>
-    <a (click)="openDetail(data)">查看</a>
+    <a (click)="openDetail(data, projectDict[data.project])">查看</a>
   </ng-template>
 </wpx-table>
 

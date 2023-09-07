@@ -116,12 +116,13 @@ export class WorkflowsComponent implements OnInit {
     });
   }
 
-  openDetail(doc: AnyDto<Workflow>, schedule: AnyDto<Schedule>): void {
+  openDetail(doc: AnyDto<Workflow>, project: AnyDto<Project>, schedule: AnyDto<Schedule>): void {
     this.drawer.create({
       nzClosable: false,
       nzContent: DetailComponent,
       nzContentParams: {
         doc,
+        project,
         schedule
       },
       nzWidth: 960
