@@ -24,12 +24,53 @@
   </nz-page-header>
 
   <nz-content style="overflow: hidden auto">
-    <nz-card>
-      <nz-descriptions *ngIf="info" nzLayout="vertical" [nzColumn]="3">
-        <nz-descriptions-item nzTitle="集群名">{{ info.cluster.name }}</nz-descriptions-item>
-        <nz-descriptions-item nzTitle="Leader节点">{{ info.cluster.leader }}</nz-descriptions-item>
-        <nz-descriptions-item nzTitle="创建时间">{{ info.created | date: 'yyyy-MM-dd HH:mm:ss' }}</nz-descriptions-item>
+    <nz-card *ngIf="info">
+      <nz-descriptions nzLayout="vertical" [nzColumn]="3">
+        <nz-descriptions-item nzTitle="主题" [nzSpan]="3">
+          <nz-space nzAlign="center" nzWrap>
+            <ng-container *ngFor="let x of info.config.subjects">
+              <span *nzSpaceItem nz-typography nzCopyable [nzContent]="x"></span>
+            </ng-container>
+          </nz-space>
+        </nz-descriptions-item>
+        <nz-descriptions-item nzTitle="最大消息数">
+          <ng-container *ngIf="info.config.max_msgs !== -1; else unlimitedText">
+            {{ info.config.max_msgs }}
+          </ng-container>
+        </nz-descriptions-item>
+        <nz-descriptions-item nzTitle="最大字节数">
+          <ng-container *ngIf="info.config.max_bytes !== -1; else unlimitedText">
+            {{ info.config.max_bytes | nzBytes }}
+          </ng-container>
+        </nz-descriptions-item>
+        <nz-descriptions-item nzTitle="有效期">
+          <ng-container *ngIf="info.config.max_age !== 0; else unlimitedText">
+            {{ info.config.max_age / 1e9 }}s
+          </ng-container>
+        </nz-descriptions-item>
+        <nz-descriptions-item nzTitle="描述" [nzSpan]="2">{{ info.config.description }}</nz-descriptions-item>
+        <nz-descriptions-item nzTitle="创建时间">
+          {{ info.created | date: 'yyyy-MM-dd HH:mm:ss' }}
+        </nz-descriptions-item>
+      </nz-descriptions>
+      <nz-divider nzPlain nzText="实时状态" nzOrientation="left"></nz-divider>
+      <nz-descriptions nzLayout="vertical" [nzColumn]="3">
+        <nz-descriptions-item nzTitle="消息数">{{ info.state.messages }}</nz-descriptions-item>
+        <nz-descriptions-item nzTitle="消息大小">{{ info.state.bytes | nzBytes }}</nz-descriptions-item>
+        <nz-descriptions-item nzTitle="活跃消费者">{{ info.state.consumer_count }}</nz-descriptions-item>
+        <nz-descriptions-item nzTitle="主题数">{{ info.state.num_subjects }}</nz-descriptions-item>
+        <nz-descriptions-item nzTitle="首个序列">{{ info.state.first_seq }}</nz-descriptions-item>
+        <nz-descriptions-item nzTitle="首个发布">
+          {{ info.state.first_ts | date: 'yyyy-MM-dd HH:mm:ss' }}
+        </nz-descriptions-item>
+        <nz-descriptions-item nzTitle="删除数">{{ info.state.num_deleted }}</nz-descriptions-item>
+        <nz-descriptions-item nzTitle="最后序列">{{ info.state.last_seq }}</nz-descriptions-item>
+        <nz-descriptions-item nzTitle="最后发布">
+          {{ info.state.last_ts | date: 'yyyy-MM-dd HH:mm:ss' }}
+        </nz-descriptions-item>
       </nz-descriptions>
     </nz-card>
   </nz-content>
 </nz-layout>
+
+<ng-template #unlimitedText>无限制</ng-template>

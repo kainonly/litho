@@ -11,10 +11,6 @@ export interface Queue {
 }
 
 export interface QueueInfo {
-  cluster: {
-    leader: string;
-    name: string;
-  };
   config: {
     allow_direct: boolean;
     description: string;
