@@ -13,10 +13,10 @@ import { NzModalService } from 'ng-zorro-antd/modal';
 import { PublishComponent, PublishInput } from '../publish/publish.component';
 
 @Component({
-  selector: 'app-admin-imessages-controls',
-  templateUrl: './controls.component.html'
+  selector: 'app-admin-imessages-detail',
+  templateUrl: './detail.component.html'
 })
-export class ControlsComponent implements OnInit, OnDestroy {
+export class DetailComponent implements OnInit, OnDestroy {
   @Input({ required: true }) doc!: AnyDto<Imessage>;
   options = ['全部', 'QoS0', 'QoS1', 'QoS2'];
   index = 0;

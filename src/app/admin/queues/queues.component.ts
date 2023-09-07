@@ -6,9 +6,11 @@ import { Queue } from '@common/models/queue';
 import { ProjectsService } from '@common/services/projects.service';
 import { QueuesService } from '@common/services/queues.service';
 import { AnyDto, WpxModel, WpxService } from '@weplanx/ng';
+import { NzDrawerService } from 'ng-zorro-antd/drawer';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalService } from 'ng-zorro-antd/modal';
 
+import { DetailComponent } from './detail/detail.component';
 import { FormComponent, FormInput } from './form/form.component';
 
 @Component({
@@ -24,7 +26,8 @@ export class QueuesComponent implements OnInit {
     private queues: QueuesService,
     private modal: NzModalService,
     private message: NzMessageService,
-    private projects: ProjectsService
+    private projects: ProjectsService,
+    private drawer: NzDrawerService
   ) {}
 
   ngOnInit(): void {
@@ -71,9 +74,14 @@ export class QueuesComponent implements OnInit {
     });
   }
 
-  sync(doc: AnyDto<Queue>): void {
-    this.queues.sync(doc._id).subscribe(() => {
-      this.message.success(`队列配置已同步`);
+  openDetail(doc: AnyDto<Queue>): void {
+    this.drawer.create({
+      nzClosable: false,
+      nzContent: DetailComponent,
+      nzContentParams: {
+        doc
+      },
+      nzWidth: 960
     });
   }
 

@@ -7,7 +7,7 @@ import { NzDrawerService } from 'ng-zorro-antd/drawer';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalService } from 'ng-zorro-antd/modal';
 
-import { ControlsComponent } from './controls/controls.component';
+import { DetailComponent } from './detail/detail.component';
 import { EmqxComponent } from './emqx/emqx.component';
 import { FormComponent, FormInput } from './form/form.component';
 import { PublishComponent, PublishInput } from './publish/publish.component';
@@ -64,10 +64,10 @@ export class ImessagesComponent implements OnInit {
     });
   }
 
-  openControls(doc: AnyDto<Imessage>): void {
+  openDetail(doc: AnyDto<Imessage>): void {
     this.drawer.create({
       nzClosable: false,
-      nzContent: ControlsComponent,
+      nzContent: DetailComponent,
       nzContentParams: {
         doc
       },

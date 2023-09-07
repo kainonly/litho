@@ -72,20 +72,17 @@
   <ng-template #subjects let-data>
     <ng-container *ngIf="data.subjects.length > 1; else subjectText">
       {{ data.subjects[0] }}
-      <nz-divider nzType="vertical"></nz-divider>
-      <a [nz-tooltip]="data.subjects">
-        <span nz-icon nzType="ellipsis" nzTheme="outline"></span>
-      </a>
+      <span nz-icon nzType="info-circle" nzTheme="outline" [nz-tooltip]="data.subjects"></span>
     </ng-container>
     <ng-template #subjectText>
       {{ data.subjects }}
     </ng-template>
   </ng-template>
   <ng-template #detail let-data>
-    <nz-tag *ngIf="data.max_consumers && data.max_consumers !== -1"> 最大消费者：{{ data.max_consumers }} </nz-tag>
     <nz-tag *ngIf="data.max_msgs && data.max_msgs !== -1"> 最大消息数：{{ data.max_msgs }} </nz-tag>
-    <nz-tag *ngIf="data.max_bytes && data.max_bytes !== -1"> 最大字节数：{{ data.max_bytes }} </nz-tag>
-    <nz-tag *ngIf="data.max_age"> 有效期：{{ data.max_age }} </nz-tag>
+    <nz-tag *ngIf="data.max_bytes && data.max_bytes !== -1"> 最大字节数：{{ data.max_bytes | nzBytes }} </nz-tag>
+    <nz-tag *ngIf="data.max_age"> 有效期：{{ data.max_age / 1e9 }}s </nz-tag>
+    <a (click)="openDetail(data)">查看</a>
   </ng-template>
 </wpx-table>
 
@@ -95,7 +92,6 @@
       <b>{{ v.name }}</b>
     </li>
     <li nz-menu-divider></li>
-    <li nz-menu-item (click)="sync(v)">同步</li>
     <li nz-menu-item (click)="openForm(v)"> 修改 </li>
     <li nz-menu-item nzDanger (click)="delete(v)"> 删除 </li>
   </ul>

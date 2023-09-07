@@ -37,6 +37,7 @@ export class FormComponent implements OnInit {
       }
     }
   };
+  formatterSec = (value: number): string => `${value} s`;
 
   projects$ = new BehaviorSubject<string>('');
   projectItems: AnyDto<Project>[] = [];
@@ -57,13 +58,16 @@ export class FormComponent implements OnInit {
       name: ['', [Validators.required]],
       subjects: [[], [Validators.required]],
       description: [''],
-      max_consumers: [-1],
       max_msgs: [-1],
       max_bytes: [-1],
       max_age: [0]
     });
     if (this.data.doc) {
-      this.form.patchValue(this.data.doc);
+      const data = { ...this.data.doc };
+      if (data.max_age) {
+        data.max_age = data.max_age / 1e9;
+      }
+      this.form.patchValue(data);
     }
     this.projects$
       .asObservable()
@@ -84,6 +88,7 @@ export class FormComponent implements OnInit {
   }
 
   submit(data: Any): void {
+    data['max_age'] = data['max_age'] * 1e9;
     if (!this.data.doc) {
       this.queues.create(data, { xdata: { project: 'oid' } }).subscribe(() => {
         this.message.success(`数据更新成功`);

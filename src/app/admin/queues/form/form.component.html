@@ -41,17 +41,6 @@
     </nz-col>
     <nz-col [nzSpan]="8">
       <nz-form-item>
-        <nz-form-label nzTooltipTitle="-1 代表无限制">最大消费者</nz-form-label>
-        <nz-form-control>
-          <nz-input-number
-            style="width: 100%"
-            formControlName="max_consumers"
-            [nzMin]="-1"
-            [nzStep]="1"
-          ></nz-input-number>
-        </nz-form-control>
-      </nz-form-item>
-      <nz-form-item>
         <nz-form-label nzTooltipTitle="-1 代表无限制">最大消息数</nz-form-label>
         <nz-form-control>
           <nz-input-number style="width: 100%" formControlName="max_msgs" [nzMin]="-1" [nzStep]="1"></nz-input-number>
@@ -64,9 +53,15 @@
         </nz-form-control>
       </nz-form-item>
       <nz-form-item>
-        <nz-form-label>存储周期（秒）</nz-form-label>
+        <nz-form-label>存储周期</nz-form-label>
         <nz-form-control>
-          <nz-input-number style="width: 100%" formControlName="max_age" [nzMin]="0" [nzStep]="1"></nz-input-number>
+          <nz-input-number
+            style="width: 100%"
+            formControlName="max_age"
+            [nzMin]="0"
+            [nzStep]="1"
+            [nzFormatter]="formatterSec"
+          ></nz-input-number>
         </nz-form-control>
       </nz-form-item>
     </nz-col>

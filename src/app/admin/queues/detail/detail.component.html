@@ -1,0 +1,28 @@
+<nz-layout style="height: 100%; background: transparent">
+  <nz-page-header>
+    <nz-page-header-title>消息队列详情</nz-page-header-title>
+    <nz-page-header-tags>
+      <nz-tag>{{ doc.name }}</nz-tag>
+    </nz-page-header-tags>
+    <nz-page-header-extra>
+      <nz-space nzAlign="center">
+        <button
+          *nzSpaceItem
+          nz-button
+          nzType="primary"
+          nzShape="circle"
+          nz-tooltip="同步"
+          nz-popconfirm
+          nzPopconfirmTitle="您确定要同步队列吗?"
+          (nzOnConfirm)="sync()"
+        >
+          <span nz-icon nzType="sync" nzTheme="outline"></span>
+        </button>
+      </nz-space>
+    </nz-page-header-extra>
+  </nz-page-header>
+
+  <nz-content style="overflow: hidden auto">
+    <nz-card> </nz-card>
+  </nz-content>
+</nz-layout>
