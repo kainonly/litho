@@ -12,13 +12,6 @@ const routes: Routes = [
     component: AdminComponent,
     children: [
       {
-        path: 'overview',
-        loadChildren: () => import('./overview/overview.module').then(m => m.OverviewModule),
-        data: {
-          breadcrumb: `工作台`
-        }
-      },
-      {
         path: 'projects',
         loadChildren: () => import('./projects/projects.module').then(m => m.ProjectsModule),
         data: {
@@ -85,7 +78,7 @@ const routes: Routes = [
           breadcrumb: `设置`
         }
       },
-      { path: '', redirectTo: 'overview', pathMatch: 'full' }
+      { path: '', redirectTo: 'projects', pathMatch: 'full' }
     ]
   }
 ];

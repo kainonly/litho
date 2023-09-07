@@ -71,15 +71,35 @@
           </nz-card>
         </nz-col>
         <nz-col [nzSpan]="12">
-          <nz-card nzSize="small" nzType="inner" nzTitle="消息队列" i18n-nzTitle [nzExtra]="notYetTpl">
-            <p i18n>使用腾讯云 TDMQ Plusar 进行消息事务补偿</p>
-            <nz-empty nzNotFoundContent=""></nz-empty>
-          </nz-card>
-        </nz-col>
-        <nz-col [nzSpan]="12">
-          <nz-card nzSize="small" nzType="inner" nzTitle="日志系统" i18n-nzTitle [nzExtra]="notYetTpl">
-            <p i18n>使用腾讯云 CLS 日志服务收集日志</p>
-            <nz-empty nzNotFoundContent=""></nz-empty>
+          <nz-card nzSize="small" nzType="inner" nzTitle="SMS" i18n-nzTitle [nzExtra]="smsEditTpl">
+            <ng-template #smsEditTpl>
+              <button nz-button nzType="text" (click)="setSms()">
+                <span nz-icon nzType="edit"></span>
+              </button>
+            </ng-template>
+            <p i18n>腾讯云短信</p>
+            <nz-descriptions nzLayout="vertical" [nzColumn]="2">
+              <nz-descriptions-item nzTitle="Secret Id" i18n-nzTitle>
+                <ng-container *ngIf="values['SmsSecretId']; else unkown">
+                  {{ values['SmsSecretId'] }}
+                </ng-container>
+              </nz-descriptions-item>
+              <nz-descriptions-item nzTitle="Secret Key" i18n-nzTitle>
+                <ng-container *ngIf="values['SmsSecretKey']; else unkown">
+                  <span i18n>已设置</span>
+                </ng-container>
+              </nz-descriptions-item>
+              <nz-descriptions-item nzTitle="AppId" i18n-nzTitle>
+                <ng-container *ngIf="values['SmsAppId']; else unkown">
+                  {{ values['SmsAppId'] }}
+                </ng-container>
+              </nz-descriptions-item>
+              <nz-descriptions-item nzTitle="地域" i18n-nzTitle>
+                <ng-container *ngIf="values['SmsRegion']; else unkown">
+                  {{ values['SmsRegion'] }}
+                </ng-container>
+              </nz-descriptions-item>
+            </nz-descriptions>
           </nz-card>
         </nz-col>
       </nz-row>

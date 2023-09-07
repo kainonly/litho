@@ -1,6 +1,6 @@
 <form nz-form nzLayout="vertical" id="form" [formGroup]="form" (wpxSubmit)="submit($event)">
   <nz-form-item>
-    <nz-form-label nzRequired i18n>App Key</nz-form-label>
+    <nz-form-label nzRequired i18n>Secret Id</nz-form-label>
     <nz-form-control nzHasFeedback [nzAutoTips]="tips.SmsSecretId">
       <input nz-input formControlName="SmsSecretId" placeholder="请输入 Secret Id" i18n-placeholder />
     </nz-form-control>

@@ -7,7 +7,7 @@
     <nz-col></nz-col>
   </nz-row>
 
-  <nz-card nzSize="small" nzType="inner" nzTitle="应用配置[Lark/Feishu]" i18n-nzTitle [nzExtra]="larkEditRef">
+  <nz-card nzSize="small" nzType="inner" nzTitle="应用配置（支持Lark）" i18n-nzTitle [nzExtra]="larkEditRef">
     <ng-template #larkEditRef>
       <button nz-button nzType="text" (click)="setLark()">
         <span nz-icon nzType="edit"></span>
@@ -53,22 +53,6 @@
             </ng-container>
           </nz-descriptions-item>
         </nz-descriptions>
-      </nz-card>
-    </nz-col>
-    <nz-col [nzSpan]="12">
-      <nz-card nzSize="small" nzType="inner" nzTitle="任务" i18n-nzTitle [nzExtra]="notYetRef">
-        <p i18n> 针对任务资源提供的开放 API，可以支持任务的创建、更新、删除等操作 </p>
-        <nz-empty nzNotFoundContent=""></nz-empty>
-      </nz-card>
-    </nz-col>
-    <nz-col [nzSpan]="12">
-      <nz-card nzSize="small" nzType="inner" nzTitle="日历" i18n-nzTitle [nzExtra]="notYetRef">
-        <p i18n>
-          日历 API 基于飞书
-          日历功能开放了对日历、日程、忙闲等实体的操作查询能力，开发者能以「应用」或「用户」身份调用日历 API
-          操作对应数据
-        </p>
-        <nz-empty nzNotFoundContent=""></nz-empty>
       </nz-card>
     </nz-col>
   </nz-row>

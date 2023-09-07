@@ -5,6 +5,7 @@ import { ShareModule } from '@common/share.module';
 
 import { CloudComponent } from './cloud.component';
 import { CosComponent } from './cos/cos.component';
+import { SmsComponent } from './sms/sms.component';
 import { TencentComponent } from './tencent/tencent.component';
 
 const routes: Routes = [
@@ -16,6 +17,6 @@ const routes: Routes = [
 
 @NgModule({
   imports: [ShareModule, RouterModule.forChild(routes)],
-  declarations: [CloudComponent, TencentComponent, CosComponent]
+  declarations: [CloudComponent, TencentComponent, CosComponent, SmsComponent]
 })
 export class CloudModule {}

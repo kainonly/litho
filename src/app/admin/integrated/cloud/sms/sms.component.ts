@@ -6,7 +6,7 @@ import { NzMessageService } from 'ng-zorro-antd/message';
 import { NZ_MODAL_DATA, NzModalRef } from 'ng-zorro-antd/modal';
 
 @Component({
-  selector: 'app-admin-integrated-extend-sms',
+  selector: 'app-admin-integrated-cloud-sms',
   templateUrl: './sms.component.html'
 })
 export class SmsComponent implements OnInit {
@@ -50,6 +50,7 @@ export class SmsComponent implements OnInit {
       SmsAppId: [null, [Validators.required]],
       SmsRegion: ['ap-guangzhou', [Validators.required]]
     });
+    console.log(this.data);
     this.form.patchValue({
       SmsSecretId: this.data['SmsSecretId'],
       SmsAppId: this.data['SmsAppId'],
