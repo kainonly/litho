@@ -56,7 +56,11 @@
   (wpxChange)="getData()"
 >
   <ng-template #name let-data>
-    <nz-tag nzColor="blue">标准类型</nz-tag> {{ data.name }} [{{ data.namespace }}]
+    <nz-tag [ngSwitch]="data.kind" nzColor="blue">
+      <ng-container *ngSwitchCase="'default'">标准类型</ng-container>
+      <ng-container *ngSwitchCase="'cms'">内容类型</ng-container>
+    </nz-tag>
+    {{ data.name }} [{{ data.namespace }}]
   </ng-template>
   <ng-template #openapi let-data>
     <ng-container *ngIf="data.secret_id && data.secret_key; else unsetRef">
@@ -67,7 +71,9 @@
     </ng-container>
   </ng-template>
   <ng-template #detail let-data>
-    <nz-tag *ngIf="data.entry && data.entry.length !== 0">入口限制</nz-tag>
+    <a *ngIf="data.entry && data.entry.length !== 0" (click)="openEntry(data)">
+      已设置 {{ data.entry.length }} 个限制
+    </a>
   </ng-template>
 </wpx-table>
 
@@ -77,7 +83,6 @@
       <b>{{ v.name }}</b>
     </li>
     <li nz-menu-divider></li>
-    <li nz-menu-item (click)="openEntry(v)"> 设置入口 </li>
     <li nz-menu-item (click)="openForm(v)"> 修改 </li>
     <li nz-menu-item nzDanger (click)="delete(v)"> 删除 </li>
   </ul>

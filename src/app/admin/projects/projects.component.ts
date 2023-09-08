@@ -55,7 +55,7 @@ export class ProjectsComponent implements OnInit {
 
   openEntry(doc: AnyDto<Project>): void {
     this.modal.create<EntryComponent, EntryInput>({
-      nzTitle: `入口编辑【${doc.name}】`,
+      nzTitle: `限制入口【${doc.name}】`,
       nzWidth: 640,
       nzContent: EntryComponent,
       nzData: {

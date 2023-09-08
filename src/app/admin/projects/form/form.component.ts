@@ -47,6 +47,7 @@ export class FormComponent implements OnInit {
     this.form = this.fb.group({
       name: ['', [Validators.required]],
       namespace: ['', [Validators.required], [this.checkNamespace]],
+      kind: ['default', [Validators.required]],
       secret_id: [''],
       secret_key: [''],
       expire: [null],
