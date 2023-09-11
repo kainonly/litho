@@ -73,10 +73,6 @@ const routes: Routes = [
           breadcrumb: `审计日志`
         }
       },
-      // {
-      //   path: ':namespace',
-      //   loadChildren: () => import('./index.module').then(m => m.IndexModule),
-      // },
       ...environment.extend,
       { path: '', redirectTo: 'admin', pathMatch: 'full' }
     ]
@@ -95,7 +91,9 @@ const routes: Routes = [
     NzMenuModule,
     ShareModule,
     ResultModule,
-    RouterModule.forRoot(routes)
+    RouterModule.forRoot(routes, {
+      initialNavigation: 'enabledBlocking'
+    })
   ],
   providers: [
     provideHttpClient(withFetch(), withInterceptorsFromDi()),
@@ -105,10 +103,7 @@ const routes: Routes = [
       provide: NZ_CONFIG,
       useValue: <NzConfig>{
         notification: { nzPlacement: 'bottomRight' },
-        card: { nzBordered: false },
-        codeEditor: {
-          assetsRoot: `${environment.cdn}/npm/monaco-editor@0.40.0/min`
-        }
+        card: { nzBordered: false }
       }
     },
     provideFilebrowser({

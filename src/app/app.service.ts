@@ -4,17 +4,19 @@ import { Observable, Subscription, switchMap, timer } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { User } from '@common/models/user';
-import { CollaborationOption, LoginDto, SetUserDto, UnsetUserKey } from '@common/types';
+import { CollaborationOption, SetUserDto, UnsetUserKey } from '@common/types';
 import { Any, AnyDto, R, UploadOption } from '@weplanx/ng';
 
 @Injectable({ providedIn: 'root' })
 export class AppService {
   user = signal<AnyDto<User> | null>(null);
+
   private refreshTokenSubscription?: Subscription;
 
   constructor(
-    private http: HttpClient,
-    @Inject(LOCALE_ID) private locale: string
+    @Inject(LOCALE_ID)
+    private locale: string,
+    private http: HttpClient
   ) {}
 
   ping(): Observable<R> {

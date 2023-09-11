@@ -1,12 +1,10 @@
-import { Injectable, NgZone } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { from, Observable } from 'rxjs';
 
 import { set, get, del, clear } from 'idb-keyval';
 
 @Injectable({ providedIn: 'root' })
 export class WpxStoreService {
-  constructor(private zone: NgZone) {}
-
   set<T>(key: string, value: T): Observable<void> {
     return from(set(key, value));
   }

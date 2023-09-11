@@ -36,7 +36,7 @@ export class TableComponent implements OnInit {
     });
     this.model = this.wpx.setModel<Order>('exp', this.orders);
     this.model.ready().subscribe(() => {
-      this.getData(true);
+      this.getData();
     });
   }
 

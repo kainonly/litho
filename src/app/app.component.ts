@@ -3,7 +3,6 @@ import { Component, OnInit } from '@angular/core';
 import { AppService } from '@app';
 import { environment } from '@env';
 import { WpxService } from '@weplanx/ng';
-import { NzIconService } from 'ng-zorro-antd/icon';
 
 @Component({
   selector: 'app-root',
@@ -12,14 +11,13 @@ import { NzIconService } from 'ng-zorro-antd/icon';
 export class AppComponent implements OnInit {
   constructor(
     private app: AppService,
-    private wpx: WpxService,
-    private icon: NzIconService
+    private wpx: WpxService
   ) {}
 
   ngOnInit(): void {
-    this.icon.changeAssetsSource(environment.cdn);
-    this.wpx.setAssets(environment.cdn);
-    this.wpx.loadScript('localforage', 'https://cdn.kainonly.com/npm/localforage@1.10.0/dist/localforage.min.js', []);
+    if (environment.cdn) {
+      this.wpx.setAssets(environment.cdn);
+    }
     this.wpx.loadScript('cropperjs', 'https://cdn.kainonly.com/npm/cropperjs@1.5.13/dist/cropper.min.js', []);
     this.wpx.loadScript('editorjs', 'https://cdn.jsdelivr.net/npm/@editorjs/editorjs@2.27.2/dist/editorjs.umd.min.js', [
       'https://cdn.jsdelivr.net/npm/@editorjs/paragraph@2.10.0/dist/bundle.min.js',
