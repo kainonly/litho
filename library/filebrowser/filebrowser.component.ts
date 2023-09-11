@@ -22,15 +22,15 @@ import { NzImageService } from 'ng-zorro-antd/image';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NZ_MODAL_DATA, NzModalRef, NzModalService } from 'ng-zorro-antd/modal';
 
-import { CategoriesComponent, CategoriesModal } from './categories/categories.component';
+import { CategoriesComponent, CategoriesInput } from './categories/categories.component';
 import { FilebrowserDataSource } from './filebrowser.data-source';
-import { FormComponent, FormModal } from './form/form.component';
-import { PictureComponent } from './picture/picture.component';
+import { FormComponent, FormInput } from './form/form.component';
+import { PictureComponent, PictureInput } from './picture/picture.component';
 import { OPTION } from './provide';
 import { Option, WpxFile, WpxFileType } from './types';
-import { VideoComponent } from './video/video.component';
+import { VideoComponent, VideoInput } from './video/video.component';
 
-export interface WpxFilebrowserModal<T> {
+export interface WpxFilebrowserInput<T> {
   api: WpxApi<T>;
   type: WpxFileType;
   fallback: string;
@@ -72,7 +72,7 @@ export class WpxFilebrowserComponent<T extends WpxFile> implements OnInit, After
     private contextMenu: NzContextMenuService,
     private cdr: ChangeDetectorRef,
     @Optional() public modalRef: NzModalRef,
-    @Optional() @Inject(NZ_MODAL_DATA) public data: WpxFilebrowserModal<T>
+    @Optional() @Inject(NZ_MODAL_DATA) public data: WpxFilebrowserInput<T>
   ) {}
 
   ngOnInit(): void {
@@ -150,7 +150,7 @@ export class WpxFilebrowserComponent<T extends WpxFile> implements OnInit, After
 
   openForm(doc: AnyDto<T>): void {
     if (!this.wpxForm) {
-      this.modal.create<FormComponent, FormModal>({
+      this.modal.create<FormComponent, FormInput>({
         nzTitle: `编辑`,
         nzContent: FormComponent,
         nzData: {
@@ -168,7 +168,7 @@ export class WpxFilebrowserComponent<T extends WpxFile> implements OnInit, After
   }
 
   openPicture(doc: AnyDto<T>): void {
-    this.modal.create<PictureComponent>({
+    this.modal.create<PictureComponent, PictureInput<T>>({
       nzTitle: `图片设置`,
       nzWidth: 960,
       nzContent: PictureComponent,
@@ -183,7 +183,7 @@ export class WpxFilebrowserComponent<T extends WpxFile> implements OnInit, After
   }
 
   openVideo(doc: AnyDto<T>): void {
-    this.modal.create<VideoComponent>({
+    this.modal.create<VideoComponent, VideoInput>({
       nzTitle: doc.name,
       nzWidth: 960,
       nzContent: VideoComponent,
@@ -248,7 +248,7 @@ export class WpxFilebrowserComponent<T extends WpxFile> implements OnInit, After
   }
 
   bulkCategories(): void {
-    this.modal.create<CategoriesComponent, CategoriesModal>({
+    this.modal.create<CategoriesComponent, CategoriesInput>({
       nzTitle: `编辑`,
       nzContent: CategoriesComponent,
       nzData: {

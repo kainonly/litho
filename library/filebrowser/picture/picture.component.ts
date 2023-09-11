@@ -9,6 +9,11 @@ import { NZ_MODAL_DATA, NzModalRef } from 'ng-zorro-antd/modal';
 
 import { WpxPicture } from '../types';
 
+export interface PictureInput<T extends WpxPicture> {
+  doc: AnyDto<T>;
+  api: WpxApi<T>;
+}
+
 @Component({
   selector: 'wpx-filebrowser-picture',
   templateUrl: './picture.component.html',
@@ -26,11 +31,7 @@ export class PictureComponent implements OnInit, AfterViewInit {
   private locked = false;
 
   constructor(
-    @Inject(NZ_MODAL_DATA)
-    public data: {
-      doc: AnyDto<WpxPicture>;
-      api: WpxApi<WpxPicture>;
-    },
+    @Inject(NZ_MODAL_DATA) public data: PictureInput<WpxPicture>,
     private modalRef: NzModalRef,
     private wpx: WpxService,
     private message: NzMessageService,

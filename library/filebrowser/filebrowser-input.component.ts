@@ -2,18 +2,13 @@ import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { Component, EventEmitter, Inject, Input, Output, TemplateRef, ViewChild } from '@angular/core';
 
 import { Any, WpxApi, WpxService } from '@weplanx/ng';
-import {
-  Option,
-  OPTION,
-  WpxFile,
-  WpxFilebrowserComponent,
-  WpxFilebrowserModal,
-  WpxFileType
-} from '@weplanx/ng/filebrowser';
 import { NzDrawerService } from 'ng-zorro-antd/drawer';
 import { NzImageService } from 'ng-zorro-antd/image';
 import { NzModalRef, NzModalService } from 'ng-zorro-antd/modal';
 
+import { WpxFilebrowserComponent, WpxFilebrowserInput } from './filebrowser.component';
+import { OPTION } from './provide';
+import { WpxFileType, WpxFile, Option } from './types';
 import { VideoComponent } from './video/video.component';
 
 @Component({
@@ -48,7 +43,7 @@ export class WpxFilebroserInputComponent<T extends WpxFile> {
   }
 
   view(): void {
-    this.modalRef = this.modal.create<WpxFilebrowserComponent<T>, WpxFilebrowserModal<T>>({
+    this.modalRef = this.modal.create<WpxFilebrowserComponent<T>, WpxFilebrowserInput<T>>({
       nzClosable: false,
       nzBodyStyle: { height: this.wpxHeight + 'px', padding: '8px 24px 24px' },
       nzWidth: this.wpxWidth,

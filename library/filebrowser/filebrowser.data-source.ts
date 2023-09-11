@@ -2,7 +2,8 @@ import { CollectionViewer, DataSource } from '@angular/cdk/collections';
 import { BehaviorSubject, Observable, Subject, takeUntil } from 'rxjs';
 
 import { AnyDto, Filter, WpxApi } from '@weplanx/ng';
-import { WpxFile } from '@weplanx/ng/filebrowser';
+
+import { WpxFile } from './types';
 
 export class FilebrowserDataSource<T extends WpxFile> implements DataSource<AnyDto<T>[]> {
   private stream = new BehaviorSubject<AnyDto<T>[][]>([]);

@@ -8,7 +8,7 @@ import { NZ_MODAL_DATA, NzModalRef } from 'ng-zorro-antd/modal';
 
 import { WpxFile } from '../types';
 
-export interface FormModal {
+export interface FormInput {
   doc: AnyDto<WpxFile>;
   api: WpxApi<WpxFile>;
   categories: AnyDto<WpxCategory>[];
@@ -29,8 +29,7 @@ export class FormComponent implements OnInit {
   };
 
   constructor(
-    @Inject(NZ_MODAL_DATA)
-    public data: FormModal,
+    @Inject(NZ_MODAL_DATA) public data: FormInput,
     private modalRef: NzModalRef,
     private message: NzMessageService,
     private fb: FormBuilder

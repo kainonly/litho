@@ -1,7 +1,3 @@
-import { Observable } from 'rxjs';
-
-import { Any } from '@weplanx/ng';
-
 export interface Option {
   style: {
     default: {
@@ -25,6 +21,7 @@ export interface WpxPicture {
   deleted?: boolean;
   categories: string[];
 }
+
 export interface WpxPictureProcess {
   mode: number;
   cut: { x: number; y: number; w: number; h: number };
