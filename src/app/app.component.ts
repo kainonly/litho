@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
 import { AppService } from '@app';
-import { environment } from '@env';
 import { WpxService } from '@weplanx/ng';
 
 @Component({
@@ -15,8 +14,8 @@ export class AppComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    if (environment.cdn) {
-      this.wpx.setAssets(environment.cdn);
+    if (this.app.cdn) {
+      this.wpx.setAssets(this.app.cdn);
     }
     this.wpx.loadScript('cropperjs', 'https://cdn.kainonly.com/npm/cropperjs@1.5.13/dist/cropper.min.js', []);
     this.wpx.loadScript('editorjs', 'https://cdn.jsdelivr.net/npm/@editorjs/editorjs@2.27.2/dist/editorjs.umd.min.js', [

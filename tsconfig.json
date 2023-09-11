@@ -23,7 +23,7 @@
     "lib": ["ES2022", "dom"],
     "types": ["localforage"],
     "paths": {
-      "@env": ["src/environments/environment.ts"],
+      "@env": ["src/environment.ts"],
       "@app": ["src/app/app.service.ts"],
       "@common/*": ["src/app/common/*"],
       "@weplanx/ng": ["library/public-api.ts"],

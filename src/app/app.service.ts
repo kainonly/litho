@@ -1,14 +1,17 @@
 import { HttpClient, HttpResponse } from '@angular/common/http';
-import { Inject, Injectable, LOCALE_ID, signal } from '@angular/core';
+import { Inject, Injectable, LOCALE_ID, Optional, signal } from '@angular/core';
 import { Observable, Subscription, switchMap, timer } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { User } from '@common/models/user';
 import { CollaborationOption, SetUserDto, UnsetUserKey } from '@common/types';
+import { ENV, EnvOption } from '@env';
 import { Any, AnyDto, R, UploadOption } from '@weplanx/ng';
 
 @Injectable({ providedIn: 'root' })
 export class AppService {
+  baseUrl = '/api';
+  cdn = 'https://cdn.kainonly.com/';
   user = signal<AnyDto<User> | null>(null);
 
   private refreshTokenSubscription?: Subscription;
@@ -16,8 +19,16 @@ export class AppService {
   constructor(
     @Inject(LOCALE_ID)
     private locale: string,
-    private http: HttpClient
-  ) {}
+    private http: HttpClient,
+    @Optional()
+    @Inject(ENV)
+    env: EnvOption
+  ) {
+    if (env) {
+      this.baseUrl = env.baseUrl;
+      this.cdn = env.cdn;
+    }
+  }
 
   ping(): Observable<R> {
     return this.http.get('');

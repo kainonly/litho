@@ -4,6 +4,7 @@ import 'zone.js/node';
 import { APP_BASE_HREF } from '@angular/common';
 import { LOCALE_ID } from '@angular/core';
 
+import { provideEnv } from '@env';
 import { ngExpressEngine } from '@nguniversal/express-engine';
 import * as express from 'express';
 
@@ -23,7 +24,13 @@ export function app(lang: string): express.Express {
     'html',
     ngExpressEngine({
       bootstrap: AppServerModule,
-      providers: [{ provide: LOCALE_ID, useValue: lang }]
+      providers: [
+        provideEnv({
+          baseUrl: process.env['PUBLIC_URL'] as string,
+          cdn: process.env['CDN'] as string
+        }),
+        { provide: LOCALE_ID, useValue: lang }
+      ]
     })
   );
 
