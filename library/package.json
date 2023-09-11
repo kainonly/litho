@@ -1,6 +1,5 @@
 {
   "name": "@weplanx/ng",
-  "version": "16.1.0",
   "peerDependencies": {
     "@angular/common": "^16.1.0",
     "@angular/core": "^16.1.0"
