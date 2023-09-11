@@ -8,7 +8,7 @@ export interface Scroll {
 }
 export interface Column<T> {
   title: string | TemplateRef<Any>;
-  key?: keyof AnyDto<T>;
+  key: keyof AnyDto<T>;
   render?: TemplateRef<{ $implicit: AnyDto<T> }>;
   width?: string;
   display?: boolean;

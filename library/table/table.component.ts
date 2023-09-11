@@ -68,7 +68,7 @@ export class WpxTableComponent<T> implements OnInit, AfterViewInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    this.store.get<Map<string, Preferences<T>>>(`${this.wpxModel.key}:table`).subscribe(data => {
+    this.store.get<Map<string, Preferences<T>>>(`${this.wpxModel.key}:preferences`).subscribe(data => {
       if (!data) {
         this.initColumns();
         return;
@@ -192,7 +192,7 @@ export class WpxTableComponent<T> implements OnInit, AfterViewInit, OnDestroy {
   updatePreferences(): void {
     this.store
       .set<Map<string, Preferences<T>>>(
-        `${this.wpxModel.key}:table`,
+        `${this.wpxModel.key}:preferences`,
         new Map([
           ...this.columns.map<[string, Preferences<T>]>((value, index) => [
             value.key as string,
@@ -207,7 +207,7 @@ export class WpxTableComponent<T> implements OnInit, AfterViewInit, OnDestroy {
   }
 
   initPreferences(): void {
-    this.store.remove(`${this.wpxModel.key}:table`).subscribe(() => {
+    this.store.remove(`${this.wpxModel.key}:preferences`).subscribe(() => {
       this.initColumns();
       this.cdr.detectChanges();
       console.debug('initPreferences:ok');

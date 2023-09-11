@@ -34,13 +34,12 @@ export class WpxModel<T> {
     if (xfilter) {
       this.xfilter = xfilter;
     }
-    return this.store.get(this.key).pipe(
-      map(unkown => {
-        const data = unkown as WpxModelStore;
-        this.searchText = data?.searchText ?? '';
-        this.keywords = data?.keywords ?? [];
-        this.page = data?.page ?? 1;
-        this.pagesize = data?.pagesize ?? 20;
+    return this.store.get<WpxModelStore>(this.key).pipe(
+      map(v => {
+        this.searchText = v?.searchText ?? '';
+        this.keywords = v?.keywords ?? [];
+        this.page = v?.page ?? 1;
+        this.pagesize = v?.pagesize ?? 20;
         return {
           searchText: this.searchText,
           keywords: this.keywords,

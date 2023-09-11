@@ -1,23 +1,25 @@
-import { Injectable } from '@angular/core';
+import { Injectable, NgZone } from '@angular/core';
 import { from, Observable } from 'rxjs';
 
-declare let localforage: LocalForage;
+import { set, get, del, clear } from 'idb-keyval';
 
 @Injectable({ providedIn: 'root' })
 export class WpxStoreService {
-  set<T>(key: string, value: T): Observable<T> {
-    return from(localforage.setItem<T>(key, value));
+  constructor(private zone: NgZone) {}
+
+  set<T>(key: string, value: T): Observable<void> {
+    return from(set(key, value));
   }
 
-  get<T>(key: string): Observable<T | null> {
-    return from(localforage.getItem<T>(key));
+  get<T>(key: string): Observable<T | undefined> {
+    return from(get<T>(key));
   }
 
   remove(key: string): Observable<void> {
-    return from(localforage.removeItem(key));
+    return from(del(key));
   }
 
   clear(): Observable<void> {
-    return from(localforage.clear());
+    return from(clear());
   }
 }
