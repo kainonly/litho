@@ -27,7 +27,7 @@ export class PhoneComponent implements OnInit {
     }
   };
   timer = 0;
-  private timeId?: number;
+  private timeId?: Any;
 
   constructor(
     private app: AppService,

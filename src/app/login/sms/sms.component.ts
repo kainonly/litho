@@ -28,7 +28,7 @@ export class SmsComponent implements OnInit, OnDestroy {
     }
   };
   timer = 0;
-  private timeId?: number;
+  private timeId?: Any;
 
   constructor(
     private app: AppService,

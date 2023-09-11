@@ -31,7 +31,7 @@ export class ClustersComponent implements OnInit {
   ngOnInit(): void {
     this.model = this.wpx.setModel<Cluster>('clusters', this.clusters);
     this.model.ready().subscribe(() => {
-      this.getData(true);
+      this.getData();
     });
   }
 

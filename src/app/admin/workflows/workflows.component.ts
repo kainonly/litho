@@ -39,7 +39,7 @@ export class WorkflowsComponent implements OnInit {
   ngOnInit(): void {
     this.model = this.wpx.setModel<Workflow>('workflows', this.workflows);
     this.model.ready().subscribe(() => {
-      this.getData(true);
+      this.getData();
     });
   }
 

@@ -38,7 +38,7 @@ export class ForgetComponent implements OnInit {
 
   verifyForm!: FormGroup;
   emailTimer = 0;
-  private emailTimeId?: number;
+  private emailTimeId?: Any;
   private verifyData?: Any;
 
   resetForm!: FormGroup;

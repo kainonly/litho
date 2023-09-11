@@ -35,7 +35,7 @@ export class UsersComponent implements OnInit {
     });
     this.model = this.wpx.setModel<User>('users', this.users);
     this.model.ready().subscribe(() => {
-      this.getData(true);
+      this.getData();
     });
   }
 

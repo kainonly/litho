@@ -30,7 +30,7 @@ export class ImessagesComponent implements OnInit {
   ngOnInit(): void {
     this.model = this.wpx.setModel('imessages', this.imessages);
     this.model.ready().subscribe(() => {
-      this.getData(true);
+      this.getData();
     });
   }
 

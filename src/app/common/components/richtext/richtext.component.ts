@@ -12,7 +12,7 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { PicturesService } from '@common/services/pictures.service';
 import { VideosService } from '@common/services/videos.service';
 import { Any, WpxService } from '@weplanx/ng';
-import { WpxFile, WpxFilebrowserComponent, WpxFilebrowserModal } from '@weplanx/ng/filebrowser';
+import { WpxFile, WpxFilebrowserComponent, WpxFilebrowserInput } from '@weplanx/ng/filebrowser';
 import { ResolveDone, RichtextData, WpxRichtextComponent } from '@weplanx/ng/richtext';
 import { NzModalRef, NzModalService } from 'ng-zorro-antd/modal';
 
@@ -64,7 +64,7 @@ export class RichtextComponent implements ControlValueAccessor {
   }
 
   openPictures = (done: ResolveDone): void => {
-    this.modalRef = this.modal.create<WpxFilebrowserComponent<WpxFile>, WpxFilebrowserModal<WpxFile>>({
+    this.modalRef = this.modal.create<WpxFilebrowserComponent<WpxFile>, WpxFilebrowserInput<WpxFile>>({
       nzClosable: false,
       nzBodyStyle: { height: '640px', padding: '8px 24px 24px' },
       nzWidth: 1200,
@@ -86,7 +86,7 @@ export class RichtextComponent implements ControlValueAccessor {
   };
 
   openVideos = (done: ResolveDone): void => {
-    this.modalRef = this.modal.create<WpxFilebrowserComponent<WpxFile>, WpxFilebrowserModal<WpxFile>>({
+    this.modalRef = this.modal.create<WpxFilebrowserComponent<WpxFile>, WpxFilebrowserInput<WpxFile>>({
       nzClosable: false,
       nzBodyStyle: { height: '640px', padding: '8px 24px 24px' },
       nzWidth: 1200,

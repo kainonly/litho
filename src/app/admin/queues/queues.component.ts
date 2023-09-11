@@ -34,7 +34,7 @@ export class QueuesComponent implements OnInit {
   ngOnInit(): void {
     this.model = this.wpx.setModel('queues', this.queues);
     this.model.ready().subscribe(() => {
-      this.getData(true);
+      this.getData();
     });
   }
 

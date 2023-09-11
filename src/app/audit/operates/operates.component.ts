@@ -45,7 +45,7 @@ export class OperatesComponent implements OnInit {
         'metadata.user_id->$in': 'oids'
       })
       .subscribe(() => {
-        this.getData(true);
+        this.getData();
       });
     this.searchUsers$
       .asObservable()

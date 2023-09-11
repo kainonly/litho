@@ -26,7 +26,7 @@ export class ProjectsComponent implements OnInit {
   ngOnInit(): void {
     this.model = this.wpx.setModel<Project>('projects', this.projects);
     this.model.ready().subscribe(() => {
-      this.getData(true);
+      this.getData();
     });
   }
 

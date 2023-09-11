@@ -15,7 +15,7 @@ export class TotpComponent implements OnInit {
   status: 'active' | 'expired' | 'loading' = 'loading';
   totp: string = '';
 
-  private timeId?: number;
+  private timeId?: Any;
 
   constructor(
     private app: AppService,
