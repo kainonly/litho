@@ -21,7 +21,6 @@
     "useDefineForClassFields": false,
     "allowSyntheticDefaultImports": true,
     "lib": ["ES2022", "dom"],
-    "types": ["localforage"],
     "paths": {
       "@env": ["src/environment.ts"],
       "@app": ["src/app/app.service.ts"],

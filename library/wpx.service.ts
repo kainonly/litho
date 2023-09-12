@@ -41,7 +41,7 @@ export class WpxService {
       return;
     }
     const location = this.document.location;
-    const path = location.pathname.replace(this.locale, id);
+    const path = location.pathname.replace('/' + this.locale, id);
     this.document.location = `${location.origin}/${path}`;
   }
 

@@ -40,7 +40,8 @@
             "styles": ["src/styles.less"],
             "scripts": [],
             "allowedCommonJsDependencies": ["size-sensor", "d3-regression", "fmin", "pdfast", "cron-parser"],
-            "localize": true
+            "localize": true,
+            "i18nMissingTranslation": "error"
           },
           "configurations": {
             "production": {
@@ -69,6 +70,12 @@
               "baseHref": "/zh-Hans"
             },
             "en": {
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true,
               "localize": ["en-US"],
               "baseHref": "/en-US"
             }
@@ -83,6 +90,9 @@
             },
             "development": {
               "browserTarget": "console:build:development"
+            },
+            "en": {
+              "browserTarget": "console:build:en"
             }
           },
           "options": {
@@ -151,23 +161,6 @@
             }
           },
           "defaultConfiguration": "development"
-        },
-        "prerender": {
-          "builder": "@nguniversal/builders:prerender",
-          "options": {
-            "routes": ["/"]
-          },
-          "configurations": {
-            "production": {
-              "browserTarget": "console:build:production",
-              "serverTarget": "console:server:production"
-            },
-            "development": {
-              "browserTarget": "console:build:development",
-              "serverTarget": "console:server:development"
-            }
-          },
-          "defaultConfiguration": "production"
         }
       },
       "i18n": {

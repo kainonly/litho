@@ -1,8 +1,9 @@
 /* eslint-disable import/no-unassigned-import */
+import '@angular/platform-server/init';
 import 'zone.js/node';
 
 import { APP_BASE_HREF } from '@angular/common';
-import { LOCALE_ID } from '@angular/core';
+import { enableProdMode, LOCALE_ID } from '@angular/core';
 
 import { provideEnv } from '@env';
 import { ngExpressEngine } from '@nguniversal/express-engine';
@@ -12,6 +13,8 @@ import { existsSync } from 'node:fs';
 import { join } from 'node:path';
 
 import { AppServerModule } from './src/main.server';
+
+enableProdMode();
 
 // The Express app is exported so that it can be used by serverless Functions.
 export function app(lang: string): express.Express {
@@ -39,6 +42,9 @@ export function app(lang: string): express.Express {
 
   // Example Express Rest API endpoints
   // server.get('/api/**', (req, res) => { });
+  server.all('/api/**', (req, res) => {
+    res.status(404).send('data requests are not yet supported');
+  });
   // Serve static files from /browser
   server.get(
     '*.*',

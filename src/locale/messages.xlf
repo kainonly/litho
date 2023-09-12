@@ -2,6 +2,2544 @@
 <xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
   <file source-language="zh-Hans" datatype="plaintext" original="ng2.template">
     <body>
+      <trans-unit id="6673753548733826795" datatype="html">
+        <source>名称</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">library/categories/form/form.component.html</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">library/filebrowser/form/form.component.html</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">library/filebrowser/picture/picture.component.html</context>
+          <context context-type="linenumber">7</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2267105663080839496" datatype="html">
+        <source>请填写分类名称</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">library/categories/form/form.component.html</context>
+          <context context-type="linenumber">5</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5601254587589034652" datatype="html">
+        <source>取消</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">library/categories/form/form.component.html</context>
+          <context context-type="linenumber">11</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">library/filebrowser/categories/categories.component.html</context>
+          <context context-type="linenumber">21</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">library/filebrowser/form/form.component.html</context>
+          <context context-type="linenumber">27</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">library/filebrowser/picture/picture.component.html</context>
+          <context context-type="linenumber">111</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/imessages/emqx/form/form.component.html</context>
+          <context context-type="linenumber">30</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/integrated/cloud/cos/cos.component.html</context>
+          <context context-type="linenumber">33</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/integrated/cloud/sms/sms.component.html</context>
+          <context context-type="linenumber">40</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/integrated/cloud/tencent/tencent.component.html</context>
+          <context context-type="linenumber">24</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/integrated/collaboration/lark/lark.component.html</context>
+          <context context-type="linenumber">50</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/integrated/collaboration/redirect/redirect.component.html</context>
+          <context context-type="linenumber">11</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/integrated/extend/email/email.component.html</context>
+          <context context-type="linenumber">46</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/projects/entry/entry.component.html</context>
+          <context context-type="linenumber">25</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/security/ip-list/ip-list.component.html</context>
+          <context context-type="linenumber">28</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/security/ip-lock/ip-lock.component.html</context>
+          <context context-type="linenumber">17</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/security/pwd-strategy/pwd-strategy.component.html</context>
+          <context context-type="linenumber">16</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/security/pwd-ttl/pwd-ttl.component.html</context>
+          <context context-type="linenumber">17</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/security/session/session.component.html</context>
+          <context context-type="linenumber">17</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/security/user-lock/user-lock.component.html</context>
+          <context context-type="linenumber">29</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/values/form/form.component.html</context>
+          <context context-type="linenumber">33</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/common/components/nav/profile/avatar/avatar.component.html</context>
+          <context context-type="linenumber">17</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/common/components/nav/profile/email/email.component.html</context>
+          <context context-type="linenumber">11</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/common/components/nav/profile/name/name.component.html</context>
+          <context context-type="linenumber">11</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/common/components/nav/profile/password/password.component.html</context>
+          <context context-type="linenumber">45</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/common/components/nav/profile/phone/phone.component.html</context>
+          <context context-type="linenumber">41</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/common/components/nav/profile/totp/totp.component.html</context>
+          <context context-type="linenumber">19</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4131680963607422457" datatype="html">
+        <source>提交</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">library/categories/form/form.component.html</context>
+          <context context-type="linenumber">12</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">library/filebrowser/categories/categories.component.html</context>
+          <context context-type="linenumber">22</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">library/filebrowser/form/form.component.html</context>
+          <context context-type="linenumber">28</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">library/filebrowser/picture/picture.component.html</context>
+          <context context-type="linenumber">112</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/imessages/emqx/form/form.component.html</context>
+          <context context-type="linenumber">31</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/integrated/cloud/cos/cos.component.html</context>
+          <context context-type="linenumber">34</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/integrated/cloud/sms/sms.component.html</context>
+          <context context-type="linenumber">41</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/integrated/cloud/tencent/tencent.component.html</context>
+          <context context-type="linenumber">25</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/integrated/collaboration/lark/lark.component.html</context>
+          <context context-type="linenumber">51</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/integrated/collaboration/redirect/redirect.component.html</context>
+          <context context-type="linenumber">12</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/integrated/extend/email/email.component.html</context>
+          <context context-type="linenumber">47</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/projects/entry/entry.component.html</context>
+          <context context-type="linenumber">26</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/security/ip-list/ip-list.component.html</context>
+          <context context-type="linenumber">29</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/security/ip-lock/ip-lock.component.html</context>
+          <context context-type="linenumber">18</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/security/pwd-strategy/pwd-strategy.component.html</context>
+          <context context-type="linenumber">17</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/security/pwd-ttl/pwd-ttl.component.html</context>
+          <context context-type="linenumber">18</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/security/session/session.component.html</context>
+          <context context-type="linenumber">18</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/security/user-lock/user-lock.component.html</context>
+          <context context-type="linenumber">30</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/values/form/form.component.html</context>
+          <context context-type="linenumber">34</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/common/components/nav/profile/avatar/avatar.component.html</context>
+          <context context-type="linenumber">18</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/common/components/nav/profile/email/email.component.html</context>
+          <context context-type="linenumber">12</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/common/components/nav/profile/name/name.component.html</context>
+          <context context-type="linenumber">12</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/common/components/nav/profile/password/password.component.html</context>
+          <context context-type="linenumber">46</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/common/components/nav/profile/phone/phone.component.html</context>
+          <context context-type="linenumber">42</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/common/components/nav/profile/totp/totp.component.html</context>
+          <context context-type="linenumber">20</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4811716423198843602" datatype="html">
+        <source>分类</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">library/filebrowser/categories/categories.component.html</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">library/filebrowser/form/form.component.html</context>
+          <context context-type="linenumber">9</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="415845270675092715" datatype="html">
+        <source>导入</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">library/filebrowser/filebrowser-input.component.html</context>
+          <context context-type="linenumber">60</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3501352462591463026" datatype="html">
+        <source>排序</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">library/filebrowser/filebrowser-input.component.html</context>
+          <context context-type="linenumber">64</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7946449321283469638" datatype="html">
+        <source>请填写显示名称</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">library/filebrowser/form/form.component.html</context>
+          <context context-type="linenumber">5</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3422649782954439017" datatype="html">
+        <source>原图宽度</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">library/filebrowser/picture/picture.component.html</context>
+          <context context-type="linenumber">8</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1876451769584293813" datatype="html">
+        <source>原图高度</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">library/filebrowser/picture/picture.component.html</context>
+          <context context-type="linenumber">9</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3439884041654972933" datatype="html">
+        <source>原图类型</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">library/filebrowser/picture/picture.component.html</context>
+          <context context-type="linenumber">10</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5242855671208268442" datatype="html">
+        <source>原图大小</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">library/filebrowser/picture/picture.component.html</context>
+          <context context-type="linenumber">11</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5142993721241813573" datatype="html">
+        <source>加载类型</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">library/filebrowser/picture/picture.component.html</context>
+          <context context-type="linenumber">12</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7539052503215845073" datatype="html">
+        <source>加载大小</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">library/filebrowser/picture/picture.component.html</context>
+          <context context-type="linenumber">13</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8993366676354719237" datatype="html">
+        <source>CDN</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">library/filebrowser/picture/picture.component.html</context>
+          <context context-type="linenumber">14</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2033746521195353781" datatype="html">
+        <source><x id="START_TAG_BUTTON" ctype="x-button" equiv-text="&lt;button style=&quot;margin-left: 4px&quot; nz-button type=&quot;button&quot; nzType=&quot;text&quot; (click)=&quot;updateQuery()&quot;&gt;"/><x id="START_TAG_SPAN" ctype="x-span" equiv-text="&lt;span nz-icon nzType=&quot;sync&quot;&gt;"/><x id="CLOSE_TAG_SPAN" ctype="x-span" equiv-text="&lt;/span&gt;"/> 预览 <x id="CLOSE_TAG_BUTTON" ctype="x-button" equiv-text="&lt;/button&gt;"/></source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">library/filebrowser/picture/picture.component.html</context>
+          <context context-type="linenumber">23,26</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6468677092630757500" datatype="html">
+        <source>加工方式</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">library/filebrowser/picture/picture.component.html</context>
+          <context context-type="linenumber">35</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5099646846713222560" datatype="html">
+        <source>不缩放</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">library/filebrowser/picture/picture.component.html</context>
+          <context context-type="linenumber">38</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6684124647134381470" datatype="html">
+        <source>只裁剪</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">library/filebrowser/picture/picture.component.html</context>
+          <context context-type="linenumber">39</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="622032671322712196" datatype="html">
+        <source>只缩放</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">library/filebrowser/picture/picture.component.html</context>
+          <context context-type="linenumber">40</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1839339497335305703" datatype="html">
+        <source>缩放+裁剪</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">library/filebrowser/picture/picture.component.html</context>
+          <context context-type="linenumber">41</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4300201619635493369" datatype="html">
+        <source>裁剪尺寸</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">library/filebrowser/picture/picture.component.html</context>
+          <context context-type="linenumber">47</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5183952452232385006" datatype="html">
+        <source>宽</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">library/filebrowser/picture/picture.component.html</context>
+          <context context-type="linenumber">50</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">library/filebrowser/picture/picture.component.html</context>
+          <context context-type="linenumber">97</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5982567110100943128" datatype="html">
+        <source>高</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">library/filebrowser/picture/picture.component.html</context>
+          <context context-type="linenumber">58</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">library/filebrowser/picture/picture.component.html</context>
+          <context context-type="linenumber">100</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8761594530398647281" datatype="html">
+        <source>裁剪偏移</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">library/filebrowser/picture/picture.component.html</context>
+          <context context-type="linenumber">70</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3085559454177776152" datatype="html">
+        <source>向右</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">library/filebrowser/picture/picture.component.html</context>
+          <context context-type="linenumber">73</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4432983275671518126" datatype="html">
+        <source>向下</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">library/filebrowser/picture/picture.component.html</context>
+          <context context-type="linenumber">81</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1139435581182932357" datatype="html">
+        <source>缩放尺寸</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">library/filebrowser/picture/picture.component.html</context>
+          <context context-type="linenumber">94</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7779458126224596657" datatype="html">
+        <source>宽或高非0为空时将等比缩放</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">library/filebrowser/picture/picture.component.html</context>
+          <context context-type="linenumber">95</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1868613745520676288" datatype="html">
+        <source> 您的浏览器不支持 HTML5 视频. 请点击 <x id="START_LINK" ctype="x-a" equiv-text="&lt;a [href]=&quot;[data.url] | wpxAssets&quot;&gt;"/>视频链接<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a&gt;"/> 代替. </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">library/filebrowser/video/video.component.ts</context>
+          <context context-type="linenumber">14,17</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2986584891001552072" datatype="html">
+        <source>集合名称</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/datasets/datasets.component.html</context>
+          <context context-type="linenumber">7</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8666329139889049125" datatype="html">
+        <source>重置</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/datasets/datasets.component.html</context>
+          <context context-type="linenumber">14</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/sessions/sessions.component.html</context>
+          <context context-type="linenumber">19</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/values/values.component.html</context>
+          <context context-type="linenumber">23</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/forget/forget.component.html</context>
+          <context context-type="linenumber">4</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3592687622992817834" datatype="html">
+        <source>刷新</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/datasets/datasets.component.html</context>
+          <context context-type="linenumber">17</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/sessions/sessions.component.html</context>
+          <context context-type="linenumber">22</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/values/values.component.html</context>
+          <context context-type="linenumber">20</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5086079960232085969" datatype="html">
+        <source>请输入 Host</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/imessages/emqx/form/form.component.html</context>
+          <context context-type="linenumber">5</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5476449002050013362" datatype="html">
+        <source>请输入 ApiKey</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/imessages/emqx/form/form.component.html</context>
+          <context context-type="linenumber">11</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5845453604565733264" datatype="html">
+        <source>请输入 SecretKey</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/imessages/emqx/form/form.component.html</context>
+          <context context-type="linenumber">22</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1142724676608853636" datatype="html">
+        <source>EMQX Host 不能为空</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/imessages/emqx/form/form.component.ts</context>
+          <context context-type="linenumber">17</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8161465147058729268" datatype="html">
+        <source>Emqx ApiKey 不能为空</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/imessages/emqx/form/form.component.ts</context>
+          <context context-type="linenumber">22</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8598844215707180108" datatype="html">
+        <source>Emqx SecretKey 不能为空</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/imessages/emqx/form/form.component.ts</context>
+          <context context-type="linenumber">27</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2150912665282634402" datatype="html">
+        <source>数据更新成功</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/imessages/emqx/form/form.component.ts</context>
+          <context context-type="linenumber">59</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/integrated/cloud/cos/cos.component.ts</context>
+          <context context-type="linenumber">63</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/integrated/cloud/sms/sms.component.ts</context>
+          <context context-type="linenumber">67</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/integrated/cloud/tencent/tencent.component.ts</context>
+          <context context-type="linenumber">52</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/integrated/collaboration/lark/lark.component.ts</context>
+          <context context-type="linenumber">64</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/integrated/collaboration/redirect/redirect.component.ts</context>
+          <context context-type="linenumber">44</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/integrated/extend/email/email.component.ts</context>
+          <context context-type="linenumber">56</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/security/ip-list/ip-list.component.ts</context>
+          <context context-type="linenumber">63</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/security/ip-lock/ip-lock.component.ts</context>
+          <context context-type="linenumber">45</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/security/pwd-strategy/pwd-strategy.component.ts</context>
+          <context context-type="linenumber">47</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/security/pwd-ttl/pwd-ttl.component.ts</context>
+          <context context-type="linenumber">49</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/security/session/session.component.ts</context>
+          <context context-type="linenumber">49</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/security/user-lock/user-lock.component.ts</context>
+          <context context-type="linenumber">57</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/values/form/form.component.ts</context>
+          <context context-type="linenumber">63</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/common/components/nav/profile/avatar/avatar.component.ts</context>
+          <context context-type="linenumber">36</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/common/components/nav/profile/name/name.component.ts</context>
+          <context context-type="linenumber">36</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/common/components/nav/profile/password/password.component.ts</context>
+          <context context-type="linenumber">57</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/common/components/nav/profile/phone/phone.component.ts</context>
+          <context context-type="linenumber">70</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/common/components/nav/profile/totp/totp.component.ts</context>
+          <context context-type="linenumber">56</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6379036705430924113" datatype="html">
+        <source>腾讯云</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/integrated/cloud/cloud.component.html</context>
+          <context context-type="linenumber">8</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1394558828446930534" datatype="html">
+        <source>详情</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/integrated/cloud/cloud.component.html</context>
+          <context context-type="linenumber">20</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/integrated/cloud/cloud.component.html</context>
+          <context context-type="linenumber">124</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/integrated/cloud/cloud.component.html</context>
+          <context context-type="linenumber">148</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/sessions/sessions.component.html</context>
+          <context context-type="linenumber">58</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/common/components/nav/profile/profile.component.html</context>
+          <context context-type="linenumber">184</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7015579290521751194" datatype="html">
+        <source>已设置</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/integrated/cloud/cloud.component.html</context>
+          <context context-type="linenumber">34</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/integrated/cloud/cloud.component.html</context>
+          <context context-type="linenumber">89</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/integrated/collaboration/collaboration.component.html</context>
+          <context context-type="linenumber">24</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/integrated/collaboration/collaboration.component.html</context>
+          <context context-type="linenumber">29</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/integrated/collaboration/collaboration.component.html</context>
+          <context context-type="linenumber">34</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/integrated/extend/extend.component.html</context>
+          <context context-type="linenumber">26</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6774234146320231782" datatype="html">
+        <source>对象存储</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/integrated/cloud/cloud.component.html</context>
+          <context context-type="linenumber">42</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/integrated/cloud/cloud.component.html</context>
+          <context context-type="linenumber">130</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/integrated/cloud/cloud.component.html</context>
+          <context context-type="linenumber">154</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1203278220047522749" datatype="html">
+        <source>将静态文件存储在 COS 对象存储中，再通过 CDN 回源分发内容</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/integrated/cloud/cloud.component.html</context>
+          <context context-type="linenumber">48</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7383502708909846269" datatype="html">
+        <source>Bucket 名称</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/integrated/cloud/cloud.component.html</context>
+          <context context-type="linenumber">50</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/integrated/cloud/cos/cos.component.html</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8316501287182793316" datatype="html">
+        <source>地区</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/integrated/cloud/cloud.component.html</context>
+          <context context-type="linenumber">55</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/integrated/cloud/cos/cos.component.html</context>
+          <context context-type="linenumber">9</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4338262325736143428" datatype="html">
+        <source>预签名有效期</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/integrated/cloud/cloud.component.html</context>
+          <context context-type="linenumber">60</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/integrated/cloud/cos/cos.component.html</context>
+          <context context-type="linenumber">15</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1993403039579651267" datatype="html">
+        <source> <x id="INTERPOLATION" equiv-text="{{ values[&apos;TencentCosExpired&apos;] }}"/> 秒 </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/integrated/cloud/cloud.component.html</context>
+          <context context-type="linenumber">61,63</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="868289347409480062" datatype="html">
+        <source>上传大小限制</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/integrated/cloud/cloud.component.html</context>
+          <context context-type="linenumber">65</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/integrated/cloud/cos/cos.component.html</context>
+          <context context-type="linenumber">23</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5299830934554879298" datatype="html">
+        <source>SMS</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/integrated/cloud/cloud.component.html</context>
+          <context context-type="linenumber">74</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="437338024445663131" datatype="html">
+        <source>腾讯云短信</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/integrated/cloud/cloud.component.html</context>
+          <context context-type="linenumber">80</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="566724328639170240" datatype="html">
+        <source>Secret Id</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/integrated/cloud/cloud.component.html</context>
+          <context context-type="linenumber">82</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/integrated/cloud/sms/sms.component.html</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4877429609561900509" datatype="html">
+        <source>Secret Key</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/integrated/cloud/cloud.component.html</context>
+          <context context-type="linenumber">87</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/integrated/cloud/sms/sms.component.html</context>
+          <context context-type="linenumber">9</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3067952460071778470" datatype="html">
+        <source>AppId</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/integrated/cloud/cloud.component.html</context>
+          <context context-type="linenumber">92</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2144862575542436177" datatype="html">
+        <source>地域</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/integrated/cloud/cloud.component.html</context>
+          <context context-type="linenumber">97</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/integrated/cloud/sms/sms.component.html</context>
+          <context context-type="linenumber">28</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2685449785492688974" datatype="html">
+        <source>阿里云</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/integrated/cloud/cloud.component.html</context>
+          <context context-type="linenumber">107</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6397973777834148291" datatype="html">
+        <source>将静态文件存储在 OSS 对象存储中，再通过 CDN 回源分发内容</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/integrated/cloud/cloud.component.html</context>
+          <context context-type="linenumber">131</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6083409672770600534" datatype="html">
+        <source>AWS</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/integrated/cloud/cloud.component.html</context>
+          <context context-type="linenumber">137</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="228345313520523939" datatype="html">
+        <source>将静态文件存储在 S3 对象存储中，再通过 CDN 回源分发内容</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/integrated/cloud/cloud.component.html</context>
+          <context context-type="linenumber">155</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8172939550440239307" datatype="html">
+        <source>未设置</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/integrated/cloud/cloud.component.html</context>
+          <context context-type="linenumber">165</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/integrated/collaboration/collaboration.component.html</context>
+          <context context-type="linenumber">62</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/integrated/extend/extend.component.html</context>
+          <context context-type="linenumber">34</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="9039908738400573748" datatype="html">
+        <source>腾讯 SMS 设置</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/integrated/cloud/cloud.component.ts</context>
+          <context context-type="linenumber">102</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7025309026705679891" datatype="html">
+        <source>例如：ap-guangzhou</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/integrated/cloud/cos/cos.component.html</context>
+          <context context-type="linenumber">11</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7921460243653576145" datatype="html">
+        <source>秒</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/integrated/cloud/cos/cos.component.html</context>
+          <context context-type="linenumber">17</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3032066485382421631" datatype="html">
+        <source>Bucket 名称不能为空</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/integrated/cloud/cos/cos.component.ts</context>
+          <context context-type="linenumber">17</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2997338181671258381" datatype="html">
+        <source>地区不能为空</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/integrated/cloud/cos/cos.component.ts</context>
+          <context context-type="linenumber">22</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5191532282073096600" datatype="html">
+        <source>预签名有效期不能为空</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/integrated/cloud/cos/cos.component.ts</context>
+          <context context-type="linenumber">27</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8240063602725078752" datatype="html">
+        <source>上传大小限制不能为空</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/integrated/cloud/cos/cos.component.ts</context>
+          <context context-type="linenumber">32</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3119397953281324266" datatype="html">
+        <source>请输入 Secret Id</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/integrated/cloud/sms/sms.component.html</context>
+          <context context-type="linenumber">5</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3100970556126200115" datatype="html">
+        <source>请输入 Secret Key</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/integrated/cloud/sms/sms.component.html</context>
+          <context context-type="linenumber">16</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6357092181834516038" datatype="html">
+        <source>App Id</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/integrated/cloud/sms/sms.component.html</context>
+          <context context-type="linenumber">22</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="601575572944339624" datatype="html">
+        <source>请输入 App Id</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/integrated/cloud/sms/sms.component.html</context>
+          <context context-type="linenumber">24</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6993607664025611722" datatype="html">
+        <source>Secret Id 不能为空</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/integrated/cloud/sms/sms.component.ts</context>
+          <context context-type="linenumber">17</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8458654695690896008" datatype="html">
+        <source>Secret Key 不能为空</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/integrated/cloud/sms/sms.component.ts</context>
+          <context context-type="linenumber">22</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7069230016340257571" datatype="html">
+        <source>App Id 不能为空</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/integrated/cloud/sms/sms.component.ts</context>
+          <context context-type="linenumber">27</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8743538158158017189" datatype="html">
+        <source>地域不能为空</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/integrated/cloud/sms/sms.component.ts</context>
+          <context context-type="linenumber">32</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5285956261678918998" datatype="html">
+        <source>请输入腾讯云 SecretId</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/integrated/cloud/tencent/tencent.component.html</context>
+          <context context-type="linenumber">5</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3211310105701357301" datatype="html">
+        <source>请输入腾讯云 SecretKey</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/integrated/cloud/tencent/tencent.component.html</context>
+          <context context-type="linenumber">16</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5346741339031121330" datatype="html">
+        <source>SecretId 不能为空</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/integrated/cloud/tencent/tencent.component.ts</context>
+          <context context-type="linenumber">17</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7156663499454029751" datatype="html">
+        <source>SecretKey 不能为空</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/integrated/cloud/tencent/tencent.component.ts</context>
+          <context context-type="linenumber">22</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4609215572642772447" datatype="html">
+        <source>应用配置（支持Lark）</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/integrated/collaboration/collaboration.component.html</context>
+          <context context-type="linenumber">10</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3444869626511737497" datatype="html">
+        <source>事件订阅安全校验数据密钥</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/integrated/collaboration/collaboration.component.html</context>
+          <context context-type="linenumber">27</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/integrated/collaboration/lark/lark.component.html</context>
+          <context context-type="linenumber">22</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7581745997813449918" datatype="html">
+        <source>事件订阅验证令牌</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/integrated/collaboration/collaboration.component.html</context>
+          <context context-type="linenumber">32</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/integrated/collaboration/lark/lark.component.html</context>
+          <context context-type="linenumber">35</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4921686988963761816" datatype="html">
+        <source>第三方免登陆</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/integrated/collaboration/collaboration.component.html</context>
+          <context context-type="linenumber">42</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1546266697756467380" datatype="html">
+        <source>允许通过企业平台用户身份进行登录</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/integrated/collaboration/collaboration.component.html</context>
+          <context context-type="linenumber">48</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="614490441948226986" datatype="html">
+        <source>跳转地址</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/integrated/collaboration/collaboration.component.html</context>
+          <context context-type="linenumber">50</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1133636729557061267" datatype="html">
+        <source>设置</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/integrated/collaboration/collaboration.component.ts</context>
+          <context context-type="linenumber">45</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/security/security.component.ts</context>
+          <context context-type="linenumber">59</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/common/components/nav/profile/profile.component.html</context>
+          <context context-type="linenumber">176</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8215052753431235758" datatype="html">
+        <source>第三方免登陆设置</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/integrated/collaboration/collaboration.component.ts</context>
+          <context context-type="linenumber">49</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5156782844977459305" datatype="html">
+        <source>请输入应用 ID</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/integrated/collaboration/lark/lark.component.html</context>
+          <context context-type="linenumber">5</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2354381478859859266" datatype="html">
+        <source>请输入应用密钥</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/integrated/collaboration/lark/lark.component.html</context>
+          <context context-type="linenumber">16</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8376235715445324109" datatype="html">
+        <source>请输入事件订阅安全校验数据密钥</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/integrated/collaboration/lark/lark.component.html</context>
+          <context context-type="linenumber">29</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3938629114385665904" datatype="html">
+        <source>请输入事件订阅验证令牌</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/integrated/collaboration/lark/lark.component.html</context>
+          <context context-type="linenumber">42</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2268606421278763881" datatype="html">
+        <source>应用 ID 不能为空</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/integrated/collaboration/lark/lark.component.ts</context>
+          <context context-type="linenumber">17</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="105216290373401412" datatype="html">
+        <source>应用密钥不能为空</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/integrated/collaboration/lark/lark.component.ts</context>
+          <context context-type="linenumber">22</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4118367343019247831" datatype="html">
+        <source>事件订阅安全校验数据密钥不能为空</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/integrated/collaboration/lark/lark.component.ts</context>
+          <context context-type="linenumber">27</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6133566331115344886" datatype="html">
+        <source>事件订阅验证令牌不能为空</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/integrated/collaboration/lark/lark.component.ts</context>
+          <context context-type="linenumber">32</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8975850903452045832" datatype="html">
+        <source>重定向地址</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/integrated/collaboration/redirect/redirect.component.html</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5511901493230509136" datatype="html">
+        <source>请输入重定向地址</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/integrated/collaboration/redirect/redirect.component.html</context>
+          <context context-type="linenumber">5</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5033498258962909802" datatype="html">
+        <source>跳转地址不能为空</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/integrated/collaboration/redirect/redirect.component.ts</context>
+          <context context-type="linenumber">17</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6598064820470731355" datatype="html">
+        <source>请输入 SMTP 主机</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/integrated/extend/email/email.component.html</context>
+          <context context-type="linenumber">10</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8485954424864142528" datatype="html">
+        <source>端口</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/integrated/extend/email/email.component.html</context>
+          <context context-type="linenumber">16</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3049281848652282767" datatype="html">
+        <source>用户名</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/integrated/extend/email/email.component.html</context>
+          <context context-type="linenumber">25</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/integrated/extend/extend.component.html</context>
+          <context context-type="linenumber">19</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6971624281171557374" datatype="html">
+        <source>密码</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/integrated/extend/email/email.component.html</context>
+          <context context-type="linenumber">31</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/integrated/extend/extend.component.html</context>
+          <context context-type="linenumber">24</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3269641429365312721" datatype="html">
+        <source>请输入密码</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/integrated/extend/email/email.component.html</context>
+          <context context-type="linenumber">38</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5532196413327926897" datatype="html">
+        <source>用户名不能为空</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/integrated/extend/email/email.component.ts</context>
+          <context context-type="linenumber">17</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2266574986627641422" datatype="html">
+        <source>密码不能为空</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/integrated/extend/email/email.component.ts</context>
+          <context context-type="linenumber">22</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/common/components/nav/profile/password/password.component.ts</context>
+          <context context-type="linenumber">18</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/forget/forget.component.ts</context>
+          <context context-type="linenumber">28</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4265824851342867162" datatype="html">
+        <source>SMTP 主机</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/integrated/extend/extend.component.html</context>
+          <context context-type="linenumber">9</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5587422138995818992" datatype="html">
+        <source>SMTP 端口（SSL）</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/integrated/extend/extend.component.html</context>
+          <context context-type="linenumber">14</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8724699352111768812" datatype="html">
+        <source>公共邮箱设置</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/integrated/extend/extend.component.ts</context>
+          <context context-type="linenumber">52</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6901595264247596915" datatype="html">
+        <source>公有云</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/integrated/integrated.module.ts</context>
+          <context context-type="linenumber">14</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8721959690219940553" datatype="html">
+        <source>企业协作</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/integrated/integrated.module.ts</context>
+          <context context-type="linenumber">21</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4636004194675606849" datatype="html">
+        <source>扩展功能</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/integrated/integrated.module.ts</context>
+          <context context-type="linenumber">28</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8567367424238180211" datatype="html">
+        <source>每 10s 自动刷新</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/observability/observability.component.html</context>
+          <context context-type="linenumber">17</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7120986950292324108" datatype="html">
+        <source>每 30s 自动刷新</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/observability/observability.component.html</context>
+          <context context-type="linenumber">18</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="543607697794404021" datatype="html">
+        <source>每 60s 自动刷新</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/observability/observability.component.html</context>
+          <context context-type="linenumber">19</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2185120093008531279" datatype="html">
+        <source>停止刷新</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/observability/observability.component.html</context>
+          <context context-type="linenumber">20</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1973220255787018137" datatype="html">
+        <source>命令</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/observability/observability.component.ts</context>
+          <context context-type="linenumber">141</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1238008746930901163" datatype="html">
+        <source>读取</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/observability/observability.component.ts</context>
+          <context context-type="linenumber">141</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/observability/observability.component.ts</context>
+          <context context-type="linenumber">145</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="9159626355466524666" datatype="html">
+        <source>新增</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/observability/observability.component.ts</context>
+          <context context-type="linenumber">141</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/observability/observability.component.ts</context>
+          <context context-type="linenumber">145</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4710233104778163383" datatype="html">
+        <source>更新</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/observability/observability.component.ts</context>
+          <context context-type="linenumber">141</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/observability/observability.component.ts</context>
+          <context context-type="linenumber">145</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1329392431125715413" datatype="html">
+        <source>删除</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/observability/observability.component.ts</context>
+          <context context-type="linenumber">141</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/observability/observability.component.ts</context>
+          <context context-type="linenumber">145</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/values/values.component.html</context>
+          <context context-type="linenumber">67</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2210779654693706235" datatype="html">
+        <source>输入</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/observability/observability.component.ts</context>
+          <context context-type="linenumber">149</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/observability/observability.component.ts</context>
+          <context context-type="linenumber">165</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/observability/observability.component.ts</context>
+          <context context-type="linenumber">169</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/observability/observability.component.ts</context>
+          <context context-type="linenumber">173</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1197867220518221681" datatype="html">
+        <source>输出</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/observability/observability.component.ts</context>
+          <context context-type="linenumber">149</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/observability/observability.component.ts</context>
+          <context context-type="linenumber">165</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/observability/observability.component.ts</context>
+          <context context-type="linenumber">169</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/observability/observability.component.ts</context>
+          <context context-type="linenumber">173</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="260800610501356748" datatype="html">
+        <source>请输入 IP 地址</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/projects/entry/entry.component.html</context>
+          <context context-type="linenumber">10</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/security/ip-list/ip-list.component.html</context>
+          <context context-type="linenumber">12</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6639765603582104355" datatype="html">
+        <source><x id="START_ITALIC_TEXT" ctype="x-i" equiv-text="&lt;i nz-icon nzType=&quot;plus-circle&quot;&gt;"/><x id="CLOSE_ITALIC_TEXT" ctype="x-i" equiv-text="&lt;/i&gt;"/> 新增 </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/projects/entry/entry.component.html</context>
+          <context context-type="linenumber">19,20</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/security/ip-list/ip-list.component.html</context>
+          <context context-type="linenumber">21,22</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3989653034071283512" datatype="html">
+        <source>IP 地址</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/security/ip-list/ip-list.component.html</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/security/security.component.html</context>
+          <context context-type="linenumber">130</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/security/security.component.html</context>
+          <context context-type="linenumber">168</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5294711733815705005" datatype="html">
+        <source>IP 登录失败上限</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/security/ip-lock/ip-lock.component.html</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7265015195483127736" datatype="html">
+        <source>IP 登录失败上限不能为空</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/security/ip-lock/ip-lock.component.ts</context>
+          <context context-type="linenumber">17</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1517970612096293615" datatype="html">
+        <source><x id="PH" equiv-text="value"/> 次</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/security/ip-lock/ip-lock.component.ts</context>
+          <context context-type="linenumber">21</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/security/user-lock/user-lock.component.ts</context>
+          <context context-type="linenumber">26</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7690735095224689622" datatype="html">
+        <source>密码强度策略</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/security/pwd-strategy/pwd-strategy.component.html</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/security/security.component.html</context>
+          <context context-type="linenumber">66</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5342079773017922661" datatype="html">
+        <source>无限制</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/security/pwd-strategy/pwd-strategy.component.html</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3736120870614765849" datatype="html">
+        <source>需要大写字母和小写字母</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/security/pwd-strategy/pwd-strategy.component.html</context>
+          <context context-type="linenumber">7</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5323816359448802541" datatype="html">
+        <source>需要大写字母、小写字母和数字</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/security/pwd-strategy/pwd-strategy.component.html</context>
+          <context context-type="linenumber">8</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4965461731993922596" datatype="html">
+        <source>需要大写字母、小写字母、数字和特殊字符</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/security/pwd-strategy/pwd-strategy.component.html</context>
+          <context context-type="linenumber">9</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8041467283755044339" datatype="html">
+        <source>密码有效期</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/security/pwd-ttl/pwd-ttl.component.html</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3699667389423713388" datatype="html">
+        <source>0 为永久有效</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/security/pwd-ttl/pwd-ttl.component.html</context>
+          <context context-type="linenumber">4</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2761974592824633160" datatype="html">
+        <source>密码有效期不能为空</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/security/pwd-ttl/pwd-ttl.component.ts</context>
+          <context context-type="linenumber">17</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2707943849530399441" datatype="html">
+        <source><x id="PH" equiv-text="value"/> 天</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/security/pwd-ttl/pwd-ttl.component.ts</context>
+          <context context-type="linenumber">21</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="661561450944099091" datatype="html">
+        <source>基本设置</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/security/security.component.html</context>
+          <context context-type="linenumber">8</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6023118757437789030" datatype="html">
+        <source>会话超时策略</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/security/security.component.html</context>
+          <context context-type="linenumber">13</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5363880481063671719" datatype="html">
+        <source> 用户在 <x id="INTERPOLATION" equiv-text="{{ data[&apos;SessionTTL&apos;] / 1e9 }}"/> 秒内没有操作，退出当前帐号。 </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/security/security.component.html</context>
+          <context context-type="linenumber">14,16</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6441654809894181260" datatype="html">
+        <source>编辑</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/security/security.component.html</context>
+          <context context-type="linenumber">23</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/security/security.component.html</context>
+          <context context-type="linenumber">43</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/security/security.component.html</context>
+          <context context-type="linenumber">81</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/security/security.component.html</context>
+          <context context-type="linenumber">106</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/security/security.component.html</context>
+          <context context-type="linenumber">139</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/security/security.component.html</context>
+          <context context-type="linenumber">177</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/values/values.component.html</context>
+          <context context-type="linenumber">66</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/common/components/nav/profile/profile.component.html</context>
+          <context context-type="linenumber">21</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/common/components/nav/profile/profile.component.html</context>
+          <context context-type="linenumber">37</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/common/components/nav/profile/profile.component.html</context>
+          <context context-type="linenumber">54</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6999931918852188894" datatype="html">
+        <source>帐号锁定策略</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/security/security.component.html</context>
+          <context context-type="linenumber">33</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7385790642622681490" datatype="html">
+        <source> 用户连续登录失败 <x id="INTERPOLATION" equiv-text="{{ data[&apos;LoginFailures&apos;] }}"/> 次， 锁定帐号 <x id="INTERPOLATION_1" equiv-text="{{ data[&apos;LoginTTL&apos;] / 1e9 }}"/> 秒。 </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/security/security.component.html</context>
+          <context context-type="linenumber">34,36</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3958093950713225911" datatype="html">
+        <source>IP 锁定策略</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/security/security.component.html</context>
+          <context context-type="linenumber">53</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="20132640663461691" datatype="html">
+        <source> IP 连续 <x id="INTERPOLATION" equiv-text="{{ data[&apos;IpLoginFailures&apos;] }}"/> 次登录失败后（无白名单时启用），锁定 IP。 </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/security/security.component.html</context>
+          <context context-type="linenumber">54,56</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6619208859392923334" datatype="html">
+        <source> 无限制 </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/security/security.component.html</context>
+          <context context-type="linenumber">69</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3582204299387976472" datatype="html">
+        <source> 需要大写字母和小写字母 </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/security/security.component.html</context>
+          <context context-type="linenumber">70</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2053150808737601513" datatype="html">
+        <source> 需要大写字母、小写字母和数字 </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/security/security.component.html</context>
+          <context context-type="linenumber">71</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7553126305210479152" datatype="html">
+        <source> 需要大写字母、小写字母、数字和特殊字符 </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/security/security.component.html</context>
+          <context context-type="linenumber">72</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1953617471739858395" datatype="html">
+        <source>密码有效期策略</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/security/security.component.html</context>
+          <context context-type="linenumber">91</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2153549317608417634" datatype="html">
+        <source> 永久 </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/security/security.component.html</context>
+          <context context-type="linenumber">93</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6714174342716880262" datatype="html">
+        <source> <x id="INTERPOLATION" equiv-text="{{ data[&apos;PwdTTL&apos;] / 86400e9 }}"/> 天后密码过期，系统强制要求修改密码。 </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/security/security.component.html</context>
+          <context context-type="linenumber">95,97</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2362425950375992552" datatype="html">
+        <source>白名单</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/security/security.component.html</context>
+          <context context-type="linenumber">117</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/security/security.component.ts</context>
+          <context context-type="linenumber">89</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4979255300292433264" datatype="html">
+        <source>IP 白名单</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/security/security.component.html</context>
+          <context context-type="linenumber">147</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3482025682430339819" datatype="html">
+        <source>黑名单</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/security/security.component.html</context>
+          <context context-type="linenumber">155</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/security/security.component.ts</context>
+          <context context-type="linenumber">89</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4761465728651455018" datatype="html">
+        <source>IP 黑名单</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/security/security.component.html</context>
+          <context context-type="linenumber">185</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3456525394724875455" datatype="html">
+        <source>黑名单将被禁止访问</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/security/security.component.html</context>
+          <context context-type="linenumber">187</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4981845453061679698" datatype="html">
+        <source><x id="PH" equiv-text="name"/>设置</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/security/security.component.ts</context>
+          <context context-type="linenumber">91</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6318142747670609816" datatype="html">
+        <source>会话超时</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/security/session/session.component.html</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2405704865603686163" datatype="html">
+        <source>设置成功后会话开始渐进生效</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/security/session/session.component.html</context>
+          <context context-type="linenumber">4</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3581968461957656380" datatype="html">
+        <source>会话超时不能为空</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/security/session/session.component.ts</context>
+          <context context-type="linenumber">17</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2295914060720266717" datatype="html">
+        <source><x id="PH" equiv-text="value"/> s</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/security/session/session.component.ts</context>
+          <context context-type="linenumber">21</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2592160301214695214" datatype="html">
+        <source>连续登录失败上限</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/security/user-lock/user-lock.component.html</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6294180850703416613" datatype="html">
+        <source>锁定时间</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/security/user-lock/user-lock.component.html</context>
+          <context context-type="linenumber">15</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7663432132616737628" datatype="html">
+        <source>账户连续登录或已被锁定的有限时间</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/security/user-lock/user-lock.component.html</context>
+          <context context-type="linenumber">16</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6708623230927579600" datatype="html">
+        <source>连续登录失败上限不能为空</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/security/user-lock/user-lock.component.ts</context>
+          <context context-type="linenumber">17</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8566617182333427488" datatype="html">
+        <source>锁定时间不能为空</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/security/user-lock/user-lock.component.ts</context>
+          <context context-type="linenumber">22</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5265392794883762314" datatype="html">
+        <source>搜索</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/sessions/sessions.component.html</context>
+          <context context-type="linenumber">9</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6726629353875294584" datatype="html">
+        <source>每 15s 刷新</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/sessions/sessions.component.html</context>
+          <context context-type="linenumber">14</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2110342981673620262" datatype="html">
+        <source>每 30s 刷新</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/sessions/sessions.component.html</context>
+          <context context-type="linenumber">15</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5209709482382359337" datatype="html">
+        <source>每 60s 刷新</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/sessions/sessions.component.html</context>
+          <context context-type="linenumber">16</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1527069179044119531" datatype="html">
+        <source> 选中 <x id="INTERPOLATION" equiv-text="{{ items.selection.size }}"/> 可中断 </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/sessions/sessions.component.html</context>
+          <context context-type="linenumber">30,32</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5359661928089271827" datatype="html">
+        <source>用户</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/sessions/sessions.component.html</context>
+          <context context-type="linenumber">57</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1651182980112384879" datatype="html">
+        <source>本人</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/sessions/sessions.component.html</context>
+          <context context-type="linenumber">70</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1238230407282377212" datatype="html">
+        <source>[ <x id="INTERPOLATION" equiv-text="{{ !data.name ? &apos;无称呼&apos; : data.name }}"/> ]</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/sessions/sessions.component.html</context>
+          <context context-type="linenumber">73</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6836743294040773829" datatype="html">
+        <source>中断会话</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/sessions/sessions.component.html</context>
+          <context context-type="linenumber">103</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2599541960463947809" datatype="html">
+        <source>会话已中断</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/sessions/sessions.component.ts</context>
+          <context context-type="linenumber">106</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/sessions/sessions.component.ts</context>
+          <context context-type="linenumber">118</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1441079501343703105" datatype="html">
+        <source>安全策略</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/settings.module.ts</context>
+          <context context-type="linenumber">14</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="110530072849272057" datatype="html">
+        <source>在线会话</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/settings.module.ts</context>
+          <context context-type="linenumber">21</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3154789069975994482" datatype="html">
+        <source>动态配置</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/settings.module.ts</context>
+          <context context-type="linenumber">28</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7209921510655435563" datatype="html">
+        <source>键名</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/values/form/form.component.html</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/values/values.component.html</context>
+          <context context-type="linenumber">15</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/values/values.component.html</context>
+          <context context-type="linenumber">49</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8253534112843488975" datatype="html">
+        <source>键值</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/values/form/form.component.html</context>
+          <context context-type="linenumber">9</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/values/values.component.html</context>
+          <context context-type="linenumber">50</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7956251356704999100" datatype="html">
+        <source>* 配置值将存储为字符串类型，请谨慎提交默认配置</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/values/form/form.component.html</context>
+          <context context-type="linenumber">11</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7344684373762466330" datatype="html">
+        <source>键名不能为空</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/values/form/form.component.ts</context>
+          <context context-type="linenumber">19</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3134530795966349011" datatype="html">
+        <source>键值不能为空</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/values/form/form.component.ts</context>
+          <context context-type="linenumber">24</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5062038979127216839" datatype="html">
+        <source> 新增 </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/values/values.component.html</context>
+          <context context-type="linenumber">32</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6004779338330637564" datatype="html">
+        <source>动态配置表单</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/values/values.component.ts</context>
+          <context context-type="linenumber">91</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2881354682472332590" datatype="html">
+        <source>您确定删除 [<x id="PH" equiv-text="key"/>] 配置吗？</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/values/values.component.ts</context>
+          <context context-type="linenumber">103</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6971328832784287157" datatype="html">
+        <source>是的</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/values/values.component.ts</context>
+          <context context-type="linenumber">104</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3029031849431041398" datatype="html">
+        <source>数据删除成功</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/values/values.component.ts</context>
+          <context context-type="linenumber">109</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5876074000187806160" datatype="html">
+        <source>再想想</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/settings/values/values.component.ts</context>
+          <context context-type="linenumber">113</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1496302481389750951" datatype="html">
+        <source>登录</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/audit/audit.module.ts</context>
+          <context context-type="linenumber">18</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2261171107170127222" datatype="html">
+        <source>操作</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/audit/audit.module.ts</context>
+          <context context-type="linenumber">25</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8047098374238841494" datatype="html">
+        <source>开启</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/audit/logined/logined.component.html</context>
+          <context context-type="linenumber">196</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/audit/operates/operates.component.html</context>
+          <context context-type="linenumber">164</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5300391254526469340" datatype="html">
+        <source>关闭</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/audit/logined/logined.component.html</context>
+          <context context-type="linenumber">198</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/audit/operates/operates.component.html</context>
+          <context context-type="linenumber">166</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/common/components/result/authorized/authorized.component.ts</context>
+          <context context-type="linenumber">10</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="319992146477562846" datatype="html">
+        <source> 已登录 <x id="START_BOLD_TEXT" ctype="x-b" equiv-text="&lt;b&gt;"/> <x id="INTERPOLATION" equiv-text="{{ u.sessions }}"/> <x id="CLOSE_BOLD_TEXT" ctype="x-b" equiv-text="&lt;/b&gt;"/> 次 </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/audit/logined/logined.component.html</context>
+          <context context-type="linenumber">201,203</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/audit/operates/operates.component.html</context>
+          <context context-type="linenumber">169,171</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3201173975696384126" datatype="html">
+        <source>最近登录时间</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/audit/logined/logined.component.html</context>
+          <context context-type="linenumber">206</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/audit/operates/operates.component.html</context>
+          <context context-type="linenumber">174</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/common/components/nav/profile/profile.component.html</context>
+          <context context-type="linenumber">192</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2757920766035234523" datatype="html">
+        <source>位置</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/audit/logined/logined.component.html</context>
+          <context context-type="linenumber">214</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/audit/operates/operates.component.html</context>
+          <context context-type="linenumber">182</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6534480732067499471" datatype="html">
+        <source>ISP</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/audit/logined/logined.component.html</context>
+          <context context-type="linenumber">221</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/audit/operates/operates.component.html</context>
+          <context context-type="linenumber">189</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/common/components/nav/profile/profile.component.html</context>
+          <context context-type="linenumber">198</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5739636166086275789" datatype="html">
+        <source>创建时间</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/audit/logined/logined.component.html</context>
+          <context context-type="linenumber">230</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/audit/operates/operates.component.html</context>
+          <context context-type="linenumber">198</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1398596215999913783" datatype="html">
+        <source>更新时间</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/audit/logined/logined.component.html</context>
+          <context context-type="linenumber">233</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/audit/operates/operates.component.html</context>
+          <context context-type="linenumber">201</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7939241515956748037" datatype="html">
+        <source>个人中心</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/common/components/nav/nav.component.html</context>
+          <context context-type="linenumber">68</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4311277299278710073" datatype="html">
+        <source>退出</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/common/components/nav/nav.component.html</context>
+          <context context-type="linenumber">71</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3421650310936262234" datatype="html">
+        <source>通知(0)</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/common/components/nav/nav.component.html</context>
+          <context context-type="linenumber">76</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7289965166427925671" datatype="html">
+        <source>告警(0)</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/common/components/nav/nav.component.html</context>
+          <context context-type="linenumber">81</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5913970045693264152" datatype="html">
+        <source>头像</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/common/components/nav/profile/avatar/avatar.component.html</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/common/components/nav/profile/profile.component.html</context>
+          <context context-type="linenumber">44</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="745787528600147728" datatype="html">
+        <source>电子邮件</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/common/components/nav/profile/email/email.component.html</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/common/components/nav/profile/profile.component.html</context>
+          <context context-type="linenumber">17</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/forget/forget.component.html</context>
+          <context context-type="linenumber">13</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4366847948350445178" datatype="html">
+        <source>*修改后需要重新登录系统</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/common/components/nav/profile/email/email.component.html</context>
+          <context context-type="linenumber">4</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1369366672709770504" datatype="html">
+        <source>电子邮件格式不规范</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/common/components/nav/profile/email/email.component.ts</context>
+          <context context-type="linenumber">20</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7855704903748058952" datatype="html">
+        <source>存在重复的定义，电子邮件必须是唯一的</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/common/components/nav/profile/email/email.component.ts</context>
+          <context context-type="linenumber">21</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7557664910174884219" datatype="html">
+        <source>数据更新成功，需要重新登录系统</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/common/components/nav/profile/email/email.component.ts</context>
+          <context context-type="linenumber">54</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6447892420139669742" datatype="html">
+        <source>称呼</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/common/components/nav/profile/name/name.component.html</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/common/components/nav/profile/profile.component.html</context>
+          <context context-type="linenumber">28</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7497672584892375677" datatype="html">
+        <source>请输入称呼</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/common/components/nav/profile/name/name.component.html</context>
+          <context context-type="linenumber">5</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1437000006061594903" datatype="html">
+        <source> 旧密码 </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/common/components/nav/profile/password/password.component.html</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5930458136337804329" datatype="html">
+        <source>请输入旧密码</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/common/components/nav/profile/password/password.component.html</context>
+          <context context-type="linenumber">14</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="900162954526564272" datatype="html">
+        <source> 密码 </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/common/components/nav/profile/password/password.component.html</context>
+          <context context-type="linenumber">21</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/forget/forget.component.html</context>
+          <context context-type="linenumber">56</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2923328126793117258" datatype="html">
+        <source>请输入重置密码</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/common/components/nav/profile/password/password.component.html</context>
+          <context context-type="linenumber">36</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/forget/forget.component.html</context>
+          <context context-type="linenumber">63</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3513361134908317366" datatype="html">
+        <source>密码不能小于 8 位</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/common/components/nav/profile/password/password.component.ts</context>
+          <context context-type="linenumber">19</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/forget/forget.component.ts</context>
+          <context context-type="linenumber">29</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="66538457915858204" datatype="html">
+        <source>密码需要包含小写字母</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/common/components/nav/profile/password/password.component.ts</context>
+          <context context-type="linenumber">20</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/forget/forget.component.ts</context>
+          <context context-type="linenumber">30</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3742612199121181593" datatype="html">
+        <source>密码需要包含大写字母</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/common/components/nav/profile/password/password.component.ts</context>
+          <context context-type="linenumber">21</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/forget/forget.component.ts</context>
+          <context context-type="linenumber">31</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6971911512809817302" datatype="html">
+        <source>密码需要包含数字</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/common/components/nav/profile/password/password.component.ts</context>
+          <context context-type="linenumber">22</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/forget/forget.component.ts</context>
+          <context context-type="linenumber">32</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4123245074324522939" datatype="html">
+        <source>密码需要包含符号 (@$!%*?&amp;-+)</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/common/components/nav/profile/password/password.component.ts</context>
+          <context context-type="linenumber">23</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/forget/forget.component.ts</context>
+          <context context-type="linenumber">33</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5454627176333746822" datatype="html">
+        <source> 区号 </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/common/components/nav/profile/phone/phone.component.html</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="29924408154797962" datatype="html">
+        <source> 手机号码 </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/common/components/nav/profile/phone/phone.component.html</context>
+          <context context-type="linenumber">11</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="25125274975375243" datatype="html">
+        <source> 验证码 </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/common/components/nav/profile/phone/phone.component.html</context>
+          <context context-type="linenumber">17</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6177353257034609010" datatype="html">
+        <source>基本信息</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/common/components/nav/profile/profile.component.html</context>
+          <context context-type="linenumber">4</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="9209376397043453757" datatype="html">
+        <source>安全设置</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/common/components/nav/profile/profile.component.html</context>
+          <context context-type="linenumber">5</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8846295561474438865" datatype="html">
+        <source>办公协作</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/common/components/nav/profile/profile.component.html</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3612145816665673365" datatype="html">
+        <source>登录状态</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/common/components/nav/profile/profile.component.html</context>
+          <context context-type="linenumber">7</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6742817758246897962" datatype="html">
+        <source> 已设置： <x id="INTERPOLATION" equiv-text="{{ u.email }}"/> </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/common/components/nav/profile/profile.component.html</context>
+          <context context-type="linenumber">18</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/common/components/nav/profile/profile.component.html</context>
+          <context context-type="linenumber">30</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4229813421228944453" datatype="html">
+        <source>推荐设置工作称呼或真实姓名</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/common/components/nav/profile/profile.component.html</context>
+          <context context-type="linenumber">32</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7764113907580225066" datatype="html">
+        <source> 推荐采用尺寸 256*256 </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/common/components/nav/profile/profile.component.html</context>
+          <context context-type="linenumber">45</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6230958158099155951" datatype="html">
+        <source>账户密码</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/common/components/nav/profile/profile.component.html</context>
+          <context context-type="linenumber">63</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8725265747427187116" datatype="html">
+        <source> 建议采用大写字母、小写字母、数字和特殊字符（@$!%*?&amp;-+）组合的密码 </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/common/components/nav/profile/profile.component.html</context>
+          <context context-type="linenumber">64,66</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="486076000542996442" datatype="html">
+        <source>手机号码</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/common/components/nav/profile/profile.component.html</context>
+          <context context-type="linenumber">76</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1920607062970782318" datatype="html">
+        <source> 目前没有设置手机号码，可用于手机验证登录或恢复账号等安全相关操作 </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/common/components/nav/profile/profile.component.html</context>
+          <context context-type="linenumber">80</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7606135197066557110" datatype="html">
+        <source>身份验证器</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/common/components/nav/profile/profile.component.html</context>
+          <context context-type="linenumber">110</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8348789917457523476" datatype="html">
+        <source><x id="START_TAG_NG_CONTAINER" ctype="x-ng_container" equiv-text="&lt;ng-container *ngIf=&quot;!!u.totp; else totpEmptyText&quot;&gt;"/> 已设置 <x id="CLOSE_TAG_NG_CONTAINER" ctype="x-ng_container" equiv-text="&lt;/ng-container&gt;"/><x id="START_TAG_NG_TEMPLATE" ctype="x-ng_template" equiv-text="&lt;ng-template #totpEmptyText&gt;"/> 目前没有设置身份验证器应用程序，使用手机上的应用程序进行双因素身份验证出现提示时的代码 <x id="CLOSE_TAG_NG_TEMPLATE" ctype="x-ng_template" equiv-text="&lt;/ng-template&gt;"/></source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/common/components/nav/profile/profile.component.html</context>
+          <context context-type="linenumber">112,115</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5620822951702644837" datatype="html">
+        <source>飞书</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/common/components/nav/profile/profile.component.html</context>
+          <context context-type="linenumber">149</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4641824510286887169" datatype="html">
+        <source> 当前未关联飞书账号 </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/common/components/nav/profile/profile.component.html</context>
+          <context context-type="linenumber">150</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3070507078846532908" datatype="html">
+        <source>用户姓名</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/common/components/nav/profile/profile.component.html</context>
+          <context context-type="linenumber">153</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5846911581277442653" datatype="html">
+        <source>用户英文名称</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/common/components/nav/profile/profile.component.html</context>
+          <context context-type="linenumber">154</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="314049872135517137" datatype="html">
+        <source>用户应用唯一标识</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/common/components/nav/profile/profile.component.html</context>
+          <context context-type="linenumber">157</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6692489700455389896" datatype="html">
+        <source> 已登录 <x id="START_ITALIC_TEXT" ctype="x-i" equiv-text="&lt;i&gt;"/> <x id="INTERPOLATION" equiv-text="{{ u.sessions }}"/> <x id="CLOSE_ITALIC_TEXT" ctype="x-i" equiv-text="&lt;/i&gt;"/> 次 </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/common/components/nav/profile/profile.component.html</context>
+          <context context-type="linenumber">188,190</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="624508988230023692" datatype="html">
+        <source>地理信息</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/common/components/nav/profile/profile.component.html</context>
+          <context context-type="linenumber">206</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7499361330809432177" datatype="html">
+        <source>用户更新</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/common/components/nav/profile/profile.component.ts</context>
+          <context context-type="linenumber">34</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5727309507023438297" datatype="html">
+        <source>取消成功</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/common/components/nav/profile/profile.component.ts</context>
+          <context context-type="linenumber">77</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/common/components/nav/profile/profile.component.ts</context>
+          <context context-type="linenumber">90</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3139029016629817263" datatype="html">
+        <source>取消关联成功</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/common/components/nav/profile/profile.component.ts</context>
+          <context context-type="linenumber">113</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7017642406825818760" datatype="html">
+        <source>验证码</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/common/components/nav/profile/totp/totp.component.html</context>
+          <context context-type="linenumber">8</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/forget/forget.component.html</context>
+          <context context-type="linenumber">26</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7511022294767682826" datatype="html">
+        <source>授权成功</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/common/components/result/authorized/authorized.component.ts</context>
+          <context context-type="linenumber">8</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="948550221927078446" datatype="html">
+        <source>您已成功关联您的飞书账号</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/common/components/result/authorized/authorized.component.ts</context>
+          <context context-type="linenumber">8</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="79982298153071884" datatype="html">
+        <source>抱歉，您还没有绑定飞书账号，请联系管理员设置相关企业协作</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/common/components/result/unauthorize/unauthorize.component.ts</context>
+          <context context-type="linenumber">9</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5716252505340100876" datatype="html">
+        <source>返回登录页</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/common/components/result/unauthorize/unauthorize.component.ts</context>
+          <context context-type="linenumber">13</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/forget/forget.component.html</context>
+          <context context-type="linenumber">96</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7244587540439134448" datatype="html">
+        <source>直接输入正文</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/common/components/richtext/richtext.component.ts</context>
+          <context context-type="linenumber">36</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6566219922947680041" datatype="html">
+        <source>图片</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/filebrowser/filebrowser.module.ts</context>
+          <context context-type="linenumber">18</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7180343311527762920" datatype="html">
+        <source>视频</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/filebrowser/filebrowser.module.ts</context>
+          <context context-type="linenumber">25</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6199461778127369329" datatype="html">
+        <source>验证</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/forget/forget.component.html</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3431850801489533698" datatype="html">
+        <source>完成</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/forget/forget.component.html</context>
+          <context context-type="linenumber">5</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7603379013713882929" datatype="html">
+        <source>找回密码</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/forget/forget.component.html</context>
+          <context context-type="linenumber">9</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4533259503608508580" datatype="html">
+        <source>例如：mail@example.com</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/forget/forget.component.html</context>
+          <context context-type="linenumber">19</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6166369855675809004" datatype="html">
+        <source>*电子邮件可能会被个人设置拦截</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/forget/forget.component.html</context>
+          <context context-type="linenumber">27</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1653568213870560993" datatype="html">
+        <source> 下一步 </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/forget/forget.component.html</context>
+          <context context-type="linenumber">50</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5379483653646577707" datatype="html">
+        <source> 再次确认 </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/forget/forget.component.html</context>
+          <context context-type="linenumber">69</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2367727655852209402" datatype="html">
+        <source>请再次输入重置密码</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/forget/forget.component.html</context>
+          <context context-type="linenumber">76</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4926484529283360926" datatype="html">
+        <source> 上一步 </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/forget/forget.component.html</context>
+          <context context-type="linenumber">85</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8218017493673424276" datatype="html">
+        <source> 提交 </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/forget/forget.component.html</context>
+          <context context-type="linenumber">88</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2224557097238951914" datatype="html">
+        <source>您的密码已重置</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/forget/forget.component.html</context>
+          <context context-type="linenumber">94</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7892859883344125952" datatype="html">
+        <source>重置密码不一致</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/forget/forget.component.ts</context>
+          <context context-type="linenumber">34</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4493989343855072288" datatype="html">
+        <source>忘记密码了？</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/login/login.component.html</context>
+          <context context-type="linenumber">31</context>
+        </context-group>
+      </trans-unit>
     </body>
   </file>
 </xliff>
