@@ -14,6 +14,9 @@ export class AppComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.app.ping().subscribe(() => {
+      console.debug('XSRF:ok');
+    });
     if (this.app.cdn) {
       this.wpx.setAssets(this.app.cdn);
     }
