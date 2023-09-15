@@ -38,7 +38,7 @@
       <button *nzSpaceItem nz-button nzType="dashed" nz-dropdown [nzDropdownMenu]="menu"> 已选中 {{ size }} 项 </button>
       <nz-dropdown-menu #menu="nzDropdownMenu">
         <ul nz-menu>
-          <li nz-menu-item (click)="basicTable.clearSelections()"> 取消选择 </li>
+          <li nz-menu-item (click)="wpxTable.clearSelections()"> 取消选择 </li>
         </ul>
         <ul nz-menu>
           <li nz-menu-item nzDanger (click)="bulkDelete()"> 删除 </li>
@@ -50,7 +50,7 @@
 </ng-template>
 
 <wpx-table
-  #basicTable
+  #wpxTable
   [wpxTitle]="titleRef"
   [wpxExtra]="extraRef"
   [wpxModel]="model"
@@ -110,7 +110,7 @@
 </wpx-table>
 
 <nz-dropdown-menu #actions="nzDropdownMenu">
-  <ul *ngIf="basicTable.actived as v" nz-menu>
+  <ul *ngIf="wpxTable.actived as v" nz-menu>
     <li nz-menu-item nzDisabled>
       <b>电子邮件 [{{ v.email }}]</b>
     </li>

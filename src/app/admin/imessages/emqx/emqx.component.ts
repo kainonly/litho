@@ -32,7 +32,9 @@ export class EmqxComponent implements OnInit {
     this.modal.create<FormComponent>({
       nzTitle: `EMQX 配置`,
       nzContent: FormComponent,
-      nzOnOk: () => {}
+      nzOnOk: () => {
+        this.getNodes();
+      }
     });
   }
 }

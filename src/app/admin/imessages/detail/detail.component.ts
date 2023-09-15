@@ -34,7 +34,7 @@ export class DetailComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.getProjects(this.doc.projects);
-    this.refresh = timer(0, 1000)
+    this.refresh = timer(500, 5000)
       .pipe(switchMap(() => this.imessages.getMetrics(this.doc._id)))
       .subscribe(data => {
         data.forEach(v => (this.metricsDict[v.topic] = v.metrics));

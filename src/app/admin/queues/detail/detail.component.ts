@@ -28,7 +28,7 @@ export class DetailComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    this.refresh = timer(0, 1000)
+    this.refresh = timer(0, 5000)
       .pipe(switchMap(() => this.queues.info(this.doc._id)))
       .subscribe(data => {
         this.info = data;

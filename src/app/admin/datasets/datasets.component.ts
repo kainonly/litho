@@ -21,7 +21,7 @@ export class DatasetsComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild(NzCardComponent, { read: ElementRef, static: true }) card!: ElementRef;
 
   items = new WpxItems<Dataset>('name');
-  activated?: Dataset;
+  actived?: Dataset;
   scroll = { x: '0px', y: '0px' };
 
   private resizeObserver!: ResizeObserver;
@@ -75,7 +75,7 @@ export class DatasetsComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   openActions($event: MouseEvent, menu: NzDropdownMenuComponent, data: Dataset): void {
-    this.activated = data;
+    this.actived = data;
     this.contextMenu.create($event, menu);
   }
 
