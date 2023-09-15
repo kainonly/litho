@@ -1,9 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription, switchMap, timer } from 'rxjs';
 
-import { Cluster } from '@common/models/cluster';
 import { Schedule } from '@common/models/schedule';
-import { ClustersService } from '@common/services/clusters.service';
 import { SchedulesService } from '@common/services/schedules.service';
 import { AnyDto, WpxModel, WpxService } from '@weplanx/ng';
 import { NzDrawerService } from 'ng-zorro-antd/drawer';
@@ -11,7 +9,7 @@ import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalService } from 'ng-zorro-antd/modal';
 
 import { FormComponent, FormInput } from './form/form.component';
-import { KeysComponent, KeysData } from './keys/keys.component';
+import { KeysComponent } from './keys/keys.component';
 
 @Component({
   selector: 'app-admin-workflows-schedules',
@@ -19,7 +17,6 @@ import { KeysComponent, KeysData } from './keys/keys.component';
 })
 export class SchedulesComponent implements OnInit, OnDestroy {
   model!: WpxModel<Schedule>;
-  clusterDict: Record<string, AnyDto<Cluster>> = {};
   pingDict: Record<string, boolean> = {};
 
   private refresh!: Subscription;
@@ -27,7 +24,6 @@ export class SchedulesComponent implements OnInit, OnDestroy {
   constructor(
     private wpx: WpxService,
     private schedules: SchedulesService,
-    private clusters: ClustersService,
     private modal: NzModalService,
     private message: NzMessageService,
     private drawer: NzDrawerService
@@ -37,8 +33,8 @@ export class SchedulesComponent implements OnInit, OnDestroy {
     this.model = this.wpx.setModel('schedules', this.schedules);
     this.model.ready().subscribe(() => {
       this.getData(true);
-      this.refresh = timer(0, 1000)
-        .pipe(switchMap(() => this.schedules.ping(this.model.data().map(v => v._id))))
+      this.refresh = timer(500, 5000)
+        .pipe(switchMap(() => this.schedules.ping(this.model.data().map(v => v.node))))
         .subscribe(data => {
           this.pingDict = data;
         });
@@ -55,19 +51,12 @@ export class SchedulesComponent implements OnInit, OnDestroy {
     }
     this.model.fetch({}).subscribe(({ data }) => {
       console.debug('fetch', data);
-      this.getClusters(data.map(v => v.cluster_id));
-    });
-  }
-
-  getClusters(ids: string[]): void {
-    this.clusters.find({ _id: { $in: ids } }, { xfilter: { '_id->$in': 'oids' } }).subscribe(({ data }) => {
-      data.forEach(v => (this.clusterDict[v._id] = v));
     });
   }
 
   openForm(doc?: AnyDto<Schedule>): void {
     this.modal.create<FormComponent, FormInput>({
-      nzTitle: !doc ? '创建' : `编辑【${doc.name}】`,
+      nzTitle: !doc ? '创建' : `更新【${doc.name}】`,
       nzWidth: 640,
       nzContent: FormComponent,
       nzData: {
@@ -90,29 +79,41 @@ export class SchedulesComponent implements OnInit, OnDestroy {
     });
   }
 
-  redeploy(doc: AnyDto<Schedule>): void {
-    this.schedules
-      .undeploy(doc._id)
-      .pipe(switchMap(() => this.schedules.deploy(doc._id)))
-      .subscribe(() => {
-        this.message.success(`正在执行部署请稍后刷新`);
-        this.getData();
-      });
-  }
-
   delete(doc: AnyDto<Schedule>): void {
     this.modal.confirm({
-      nzTitle: `您确定要删除【${doc.name}】?`,
+      nzTitle: `您确定要断开【${doc.name}】?`,
       nzOkText: `是的`,
       nzOkType: 'primary',
       nzOkDanger: true,
       nzOnOk: () => {
+        this.schedules.delete(doc._id).subscribe(() => {
+          this.message.success(`数据删除成功`);
+          this.getData(true);
+        });
+      },
+      nzCancelText: `再想想`
+    });
+  }
+
+  bulkDelete(): void {
+    this.modal.confirm({
+      nzTitle: `您确定断开这些服务接入吗？`,
+      nzOkText: `是的`,
+      nzOkType: 'primary',
+      nzOkDanger: true,
+      nzOnOk: () => {
+        const ids = [...this.model.selection.keys()];
         this.schedules
-          .undeploy(doc._id)
-          .pipe(switchMap(() => this.schedules.delete(doc._id)))
+          .bulkDelete(
+            { _id: { $in: ids } },
+            {
+              xfilter: { '_id->$in': 'oids' }
+            }
+          )
           .subscribe(() => {
             this.message.success(`数据删除成功`);
             this.getData(true);
+            this.model.setCurrentSelections(false);
           });
       },
       nzCancelText: `再想想`

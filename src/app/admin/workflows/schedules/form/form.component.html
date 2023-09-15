@@ -1,31 +1,14 @@
 <form *ngIf="form" nz-form nzLayout="vertical" id="form" [formGroup]="form" (wpxSubmit)="submit($event)">
   <nz-form-item>
-    <nz-form-label nzRequired> 服务命名 </nz-form-label>
+    <nz-form-label nzRequired> 服务名称 </nz-form-label>
     <nz-form-control nzHasFeedback [nzAutoTips]="tips.name">
-      <input nz-input formControlName="name" placeholder="请输入服务命名" />
+      <input nz-input formControlName="name" placeholder="请输入服务名称" />
     </nz-form-control>
   </nz-form-item>
   <nz-form-item>
-    <nz-form-label nzRequired> 集群 </nz-form-label>
-    <nz-form-control nzHasFeedback [nzAutoTips]="tips.cluster_id">
-      <nz-select
-        formControlName="cluster_id"
-        nzAllowClear
-        nzPlaceHolder="请选择部署集群"
-        nzShowSearch
-        nzServerSearch
-        (nzOnSearch)="clusters$.next($event)"
-      >
-        <ng-container *ngFor="let item of clustersItems">
-          <nz-option [nzValue]="item._id" [nzLabel]="item.name"> </nz-option>
-        </ng-container>
-      </nz-select>
-    </nz-form-control>
-  </nz-form-item>
-  <nz-form-item>
-    <nz-form-label nzRequired> 镜像地址 </nz-form-label>
-    <nz-form-control nzHasFeedback [nzAutoTips]="tips.image">
-      <input nz-input formControlName="image" placeholder="请输入调度服务名称" />
+    <nz-form-label nzRequired> 节点命名 </nz-form-label>
+    <nz-form-control nzHasFeedback [nzAutoTips]="tips.node">
+      <input nz-input formControlName="node" placeholder="请输入节点命名" />
     </nz-form-control>
   </nz-form-item>
 </form>

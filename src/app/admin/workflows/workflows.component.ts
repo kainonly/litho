@@ -98,7 +98,7 @@ export class WorkflowsComponent implements OnInit {
     this.drawer.create({
       nzClosable: false,
       nzContent: SchedulesComponent,
-      nzWidth: 960
+      nzWidth: 800
     });
   }
 

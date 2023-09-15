@@ -8,50 +8,67 @@
         </button>
       </nz-space>
     </nz-page-header-extra>
-    <nz-page-header-content>
-      <nz-space nzAlign="center">
-        <wpx-keyword
-          *nzSpaceItem
-          [wpxWidth]="240"
-          [wpxModel]="model"
-          [wpxKeys]="['name']"
-          (wpxSubmit)="getData()"
-          wpxPlaceholder="服务名称"
-        ></wpx-keyword>
-        <wpx-toolbox *nzSpaceItem [wpxModel]="model" (wpxClear)="getData()" (wpxRefresh)="getData()"> </wpx-toolbox>
-      </nz-space>
-    </nz-page-header-content>
+    <nz-page-header-footer>
+      <nz-row nzJustify="space-between" nzAlign="middle">
+        <nz-col>
+          <nz-space nzAlign="center">
+            <wpx-keyword
+              *nzSpaceItem
+              [wpxWidth]="240"
+              [wpxModel]="model"
+              [wpxKeys]="['name']"
+              (wpxSubmit)="getData()"
+              wpxPlaceholder="服务名称"
+            ></wpx-keyword>
+            <wpx-toolbox *nzSpaceItem [wpxModel]="model" (wpxClear)="getData()" (wpxRefresh)="getData()"> </wpx-toolbox>
+          </nz-space>
+        </nz-col>
+        <nz-col></nz-col>
+        <nz-col>
+          <ng-container *ngIf="model.selection.size as size">
+            <button nz-button nzType="dashed" nz-dropdown [nzDropdownMenu]="menu"> 已选中 {{ size }} 项 </button>
+            <nz-dropdown-menu #menu="nzDropdownMenu">
+              <ul nz-menu>
+                <li nz-menu-item (click)="wpxTable.clearSelections()"> 取消选择 </li>
+              </ul>
+              <ul nz-menu>
+                <li nz-menu-item nzDanger (click)="bulkDelete()"> 删除 </li>
+              </ul>
+            </nz-dropdown-menu>
+          </ng-container>
+        </nz-col>
+      </nz-row>
+    </nz-page-header-footer>
   </nz-page-header>
 
   <nz-content style="height: 100%">
-    <wpx-list
-      #wpxList
+    <wpx-table
+      #wpxTable
       [wpxModel]="model"
-      [wpxRender]="render"
+      [wpxColumns]="[
+        {
+          title: '服务名称',
+          key: 'name',
+          width: '420px',
+          render: name
+        },
+        {
+          title: '状态',
+          key: 'status',
+          render: status
+        }
+      ]"
       [wpxActions]="actions"
+      [wpxItemSize]="50"
       [wpxBodyStyle]="{ height: '100%' }"
     >
-      <ng-template #render let-item>
-        <ng-template #titleRef>
-          <b>{{ item.name }}</b>
-        </ng-template>
-        <ng-template #extraRef>
-          <ng-container *ngIf="clusterDict[item.cluster_id]">
-            所属集群：{{ clusterDict[item.cluster_id].name }}
-          </ng-container>
-        </ng-template>
-        <nz-card nzType="inner" [nzTitle]="titleRef" [nzExtra]="extraRef">
-          <nz-descriptions nzLayout="vertical" [nzColumn]="3">
-            <nz-descriptions-item nzTitle="镜像地址" [nzSpan]="2">
-              {{ item.image }}
-            </nz-descriptions-item>
-            <nz-descriptions-item nzTitle="状态">
-              <nz-badge *ngIf="pingDict[item._id]; else stopRef" nzStatus="processing" nzText="运行中"></nz-badge>
-            </nz-descriptions-item>
-          </nz-descriptions>
-        </nz-card>
+      <ng-template #name let-data>
+        <a (click)="openKeys(data)" [nz-tooltip]="'节点命名:' + data.node">{{ data.name }}</a>
       </ng-template>
-    </wpx-list>
+      <ng-template #status let-data>
+        <nz-badge *ngIf="pingDict[data.node]; else stopRef" nzStatus="processing" nzText="运行中"></nz-badge>
+      </ng-template>
+    </wpx-table>
   </nz-content>
 </nz-layout>
 
@@ -60,14 +77,12 @@
 </ng-template>
 
 <nz-dropdown-menu #actions="nzDropdownMenu">
-  <ul *ngIf="wpxList.actived as v" nz-menu>
+  <ul *ngIf="wpxTable.actived as v" nz-menu>
     <li nz-menu-item nzDisabled>
       <b>{{ v.name }}</b>
     </li>
     <li nz-menu-divider></li>
-    <li nz-menu-item (click)="redeploy(v)"> 重新部署 </li>
-    <li nz-menu-item (click)="openKeys(v)"> 查看 Cron </li>
     <li nz-menu-item (click)="openForm(v)"> 修改 </li>
-    <li nz-menu-item nzDanger (click)="delete(v)"> 删除 </li>
+    <li nz-menu-item nzDanger (click)="delete(v)"> 断开 </li>
   </ul>
 </nz-dropdown-menu>

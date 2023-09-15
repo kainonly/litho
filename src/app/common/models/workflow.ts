@@ -19,5 +19,3 @@ export interface WorkflowScheduleJob {
   option: Any;
   schedule_state?: { next: Date; prev: Date };
 }
-
-export type State = Omit<WorkflowSchedule, 'schedule_id'>;
