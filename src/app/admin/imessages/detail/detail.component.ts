@@ -42,7 +42,7 @@ export class DetailComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.refresh.unsubscribe();
+    this.refresh?.unsubscribe();
   }
 
   getProjects(ids: string[]): void {

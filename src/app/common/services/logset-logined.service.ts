@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 
-import { Logined } from '@common/models/logined';
+import { LogsetLogined } from '@common/models/logset-logined';
 import { WpxApi } from '@weplanx/ng';
 
 @Injectable({ providedIn: 'root' })
-export class LoginedService extends WpxApi<Logined> {
+export class LogsetLoginedService extends WpxApi<LogsetLogined> {
   protected override collection = 'logset_logined';
 }

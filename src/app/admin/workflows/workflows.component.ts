@@ -112,7 +112,7 @@ export class WorkflowsComponent implements OnInit {
           this.getData();
         }
       },
-      nzWidth: 960
+      nzWidth: 1200
     });
   }
 
@@ -125,7 +125,7 @@ export class WorkflowsComponent implements OnInit {
         project,
         schedule
       },
-      nzWidth: 960
+      nzWidth: 1200
     });
   }
 

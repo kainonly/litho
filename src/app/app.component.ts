@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 import { AppService } from '@app';
 import { WpxService } from '@weplanx/ng';
+import { NzIconService } from 'ng-zorro-antd/icon';
 
 @Component({
   selector: 'app-root',
@@ -10,16 +11,16 @@ import { WpxService } from '@weplanx/ng';
 export class AppComponent implements OnInit {
   constructor(
     private app: AppService,
-    private wpx: WpxService
+    private wpx: WpxService,
+    private icon: NzIconService
   ) {}
 
   ngOnInit(): void {
     this.app.ping().subscribe(() => {
       console.debug('XSRF:ok');
     });
-    if (this.app.cdn) {
-      this.wpx.setAssets(this.app.cdn);
-    }
+    this.icon.changeAssetsSource(this.app.cdn);
+    this.wpx.setAssets(this.app.cdn);
     this.wpx.loadScript('cropperjs', 'https://cdn.jsdelivr.net/npm/cropperjs@1.6.0/dist/cropper.min.js', []);
     this.wpx.loadScript('editorjs', 'https://cdn.jsdelivr.net/npm/@editorjs/editorjs@2.27.2/dist/editorjs.umd.min.js', [
       'https://cdn.jsdelivr.net/npm/@editorjs/paragraph@2.10.0/dist/bundle.min.js',

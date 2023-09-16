@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 
-import { Operate } from '@common/models/operate';
+import { LogsetOperate } from '@common/models/logset-operate';
 import { WpxApi } from '@weplanx/ng';
 
 @Injectable({ providedIn: 'root' })
-export class OperatesService extends WpxApi<Operate> {
+export class LogsetOperatesService extends WpxApi<LogsetOperate> {
   protected override collection = 'logset_operates';
 }

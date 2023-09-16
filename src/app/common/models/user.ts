@@ -1,4 +1,4 @@
-import { Logined } from '@common/models/logined';
+import { LogsetLogined } from '@common/models/logset-logined';
 
 export interface User {
   email: string;
@@ -10,7 +10,7 @@ export interface User {
   totp?: string;
   lark?: UserLark;
   sessions?: number;
-  history?: Logined;
+  history?: LogsetLogined;
   status: boolean;
 }
 

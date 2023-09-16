@@ -7,7 +7,10 @@ import { Workflow } from '@common/models/workflow';
 import { SchedulesService } from '@common/services/schedules.service';
 import { WorkflowsService } from '@common/services/workflows.service';
 import { AnyDto } from '@weplanx/ng';
+import { NzDrawerService } from 'ng-zorro-antd/drawer';
 import { NzMessageService } from 'ng-zorro-antd/message';
+
+import { LogsComponent } from '../logs/logs.component';
 
 @Component({
   selector: 'app-admin-workflows-detail',
@@ -24,7 +27,8 @@ export class DetailComponent implements OnInit, OnDestroy {
   constructor(
     private workflows: WorkflowsService,
     private schedules: SchedulesService,
-    private message: NzMessageService
+    private message: NzMessageService,
+    private drawer: NzDrawerService
   ) {}
 
   ngOnInit(): void {
@@ -44,6 +48,18 @@ export class DetailComponent implements OnInit, OnDestroy {
   sync(): void {
     this.workflows.sync(this.doc._id).subscribe(() => {
       this.message.success(`触发事件已同步`);
+    });
+  }
+
+  openLogs(index: number): void {
+    this.drawer.create({
+      nzClosable: false,
+      nzContent: LogsComponent,
+      nzContentParams: {
+        doc: this.doc,
+        index
+      },
+      nzWidth: 960
     });
   }
 }

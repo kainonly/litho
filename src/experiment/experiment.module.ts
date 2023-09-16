@@ -39,6 +39,13 @@ const routes: Routes = [
           breadcrumb: `文章`
         }
       },
+      {
+        path: 'code-editor',
+        loadChildren: () => import('./code-editor/code-editor.module').then(m => m.CodeEditorModule),
+        data: {
+          breadcrumb: `代码编辑器`
+        }
+      },
       { path: '', redirectTo: 'store', pathMatch: 'full' }
     ]
   }

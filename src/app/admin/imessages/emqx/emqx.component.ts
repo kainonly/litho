@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Subscription, switchMap, timer } from 'rxjs';
 
 import { EmqxNode } from '@common/models/imessage';
 import { ImessagesService } from '@common/services/imessages.service';
@@ -10,8 +11,10 @@ import { FormComponent } from './form/form.component';
   selector: 'app-admin-imessages-emqx',
   templateUrl: './emqx.component.html'
 })
-export class EmqxComponent implements OnInit {
+export class EmqxComponent implements OnInit, OnDestroy {
   nodes: EmqxNode[] = [];
+
+  private refresh!: Subscription;
 
   constructor(
     private modal: NzModalService,
@@ -19,22 +22,21 @@ export class EmqxComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.getNodes();
+    this.refresh = timer(0, 5000)
+      .pipe(switchMap(() => this.imessages.getNodes()))
+      .subscribe(data => {
+        this.nodes = [...data];
+      });
   }
 
-  getNodes(): void {
-    this.imessages.getNodes().subscribe(data => {
-      this.nodes = [...data];
-    });
+  ngOnDestroy(): void {
+    this.refresh.unsubscribe();
   }
 
   openForm(): void {
     this.modal.create<FormComponent>({
       nzTitle: `EMQX 配置`,
-      nzContent: FormComponent,
-      nzOnOk: () => {
-        this.getNodes();
-      }
+      nzContent: FormComponent
     });
   }
 }

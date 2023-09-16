@@ -2,9 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { BehaviorSubject, debounceTime } from 'rxjs';
 
-import { Operate } from '@common/models/operate';
+import { LogsetOperate } from '@common/models/logset-operate';
 import { User } from '@common/models/user';
-import { OperatesService } from '@common/services/operates.service';
+import { LogsetOperatesService } from '@common/services/logset-operates.service';
 import { UsersService } from '@common/services/users.service';
 import { Any, AnyDto, Filter, WpxModel, WpxService } from '@weplanx/ng';
 
@@ -13,11 +13,11 @@ import { Any, AnyDto, Filter, WpxModel, WpxService } from '@weplanx/ng';
   templateUrl: './operates.component.html'
 })
 export class OperatesComponent implements OnInit {
-  model!: WpxModel<Operate>;
+  model!: WpxModel<LogsetOperate>;
   userKv?: Record<string, AnyDto<User>>;
 
   form!: FormGroup;
-  filter: Filter<Operate> = {};
+  filter: Filter<LogsetOperate> = {};
   searchUsers$ = new BehaviorSubject<string>('');
   searchUserItems: AnyDto<User>[] = [];
 
@@ -26,7 +26,7 @@ export class OperatesComponent implements OnInit {
   constructor(
     private wpx: WpxService,
     private fb: FormBuilder,
-    private operates: OperatesService,
+    private operates: LogsetOperatesService,
     private users: UsersService
   ) {}
 
@@ -37,7 +37,7 @@ export class OperatesComponent implements OnInit {
       method: [],
       path: []
     });
-    this.model = this.wpx.setModel<Operate>('operates', this.operates);
+    this.model = this.wpx.setModel<LogsetOperate>('operates', this.operates);
     this.model
       .ready({
         'timestamp->$gte': 'date',

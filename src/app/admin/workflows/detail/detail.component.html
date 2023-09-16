@@ -54,7 +54,10 @@
           <nz-list style="width: 100%" [nzSplit]="false">
             <nz-list-item *ngFor="let job of v.jobs; index as i" [ngSwitch]="job.mode">
               <ng-container *ngSwitchCase="'HTTP'">
-                <span nz-typography> <nz-tag>网络回调</nz-tag> {{ job.option.url }} </span>
+                <span nz-typography>
+                  <nz-tag>网络回调</nz-tag>
+                  <a (click)="openLogs(i)">{{ job.option.url }}</a>
+                </span>
                 <nz-space *ngIf="state && state.jobs[i]!.schedule_state as v" [nzSplit]="spaceSplit">
                   <span *nzSpaceItem nz-icon [nzType]="state.status ? 'loading' : 'stop'" nzTheme="outline"></span>
                   <span *nzSpaceItem>

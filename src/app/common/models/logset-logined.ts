@@ -1,11 +1,11 @@
-export interface Logined {
+export interface LogsetLogined {
   timestamp: Date;
-  metadata: LoginedMetadata;
+  metadata: LogsetLoginedMetadata;
   detail: ShuliancloudV4;
   user_agent: string;
 }
 
-export interface LoginedMetadata {
+export interface LogsetLoginedMetadata {
   client_ip: string;
   source: string;
   user_id: string;
