@@ -8,11 +8,12 @@ import {
   withInterceptorsFromDi
 } from '@angular/common/http';
 import zh from '@angular/common/locales/zh';
-import { NgModule } from '@angular/core';
+import { NgModule, isDevMode } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule, Routes } from '@angular/router';
+import { ServiceWorkerModule } from '@angular/service-worker';
 
 import { AuthorizedComponent } from '@common/components/result/authorized/authorized.component';
 import { ResultModule } from '@common/components/result/result.module';
@@ -91,7 +92,13 @@ const routes: Routes = [
     NzMenuModule,
     ShareModule,
     ResultModule,
-    RouterModule.forRoot(routes)
+    RouterModule.forRoot(routes),
+    ServiceWorkerModule.register('ngsw-worker.js', {
+      enabled: !isDevMode(),
+      // Register the ServiceWorker as soon as the application is stable
+      // or after 30 seconds (whichever comes first).
+      registrationStrategy: 'registerWhenStable:30000'
+    })
   ],
   providers: [
     provideHttpClient(withFetch(), withInterceptorsFromDi()),
