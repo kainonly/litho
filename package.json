@@ -6,9 +6,7 @@
     "build": "ng b --configuration production",
     "build:ng": "ng b angular",
     "i18n": "ng extract-i18n --output-path src/locale",
-    "preview:en": "ng s --configuration en",
-    "build:ssr": "npm run build && ng run console:server",
-    "serve:ssr": "node dist/console/server/main.js"
+    "preview:en": "ng s --configuration en"
   },
   "private": false,
   "dependencies": {
@@ -21,12 +19,9 @@
     "@angular/localize": "~16.2.5",
     "@angular/platform-browser": "~16.2.5",
     "@angular/platform-browser-dynamic": "~16.2.5",
-    "@angular/platform-server": "~16.2.5",
     "@angular/router": "~16.2.5",
     "@antv/g2plot": "^2.4.31",
-    "@nguniversal/express-engine": "~16.2.0",
     "cron-parser": "^4.9.0",
-    "express": "^4.15.2",
     "idb-keyval": "^6.2.1",
     "ng-zorro-antd": "~16.2.0",
     "rxjs": "~7.8.0",
@@ -43,9 +38,7 @@
     "@angular/cli": "~16.2.2",
     "@angular/compiler-cli": "~16.2.5",
     "@nguniversal/builders": "~16.2.0",
-    "@types/express": "^4.17.0",
     "@types/jasmine": "~4.3.0",
-    "@types/node": "^16.11.7",
     "@typescript-eslint/eslint-plugin": "5.62.0",
     "@typescript-eslint/parser": "5.62.0",
     "cropperjs": "^1.5.13",

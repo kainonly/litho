@@ -3,13 +3,13 @@ name: Publish NPM Package
 on:
   push:
     tags:
-      - ng-*
+      - v*
 
 jobs:
   release:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - uses: actions/setup-node@v3
         with:
           node-version: '18'
@@ -20,8 +20,7 @@ jobs:
         run: npm ci
 
       - name: Build Angular Library
-        run: |
-          npm run build:ng
+        run: npm run build:ng
 
       - name: Publish NPM
         env:
