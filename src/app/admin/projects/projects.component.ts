@@ -42,7 +42,7 @@ export class ProjectsComponent implements OnInit {
   openForm(doc?: AnyDto<Project>): void {
     this.modal.create<FormComponent, FormInput>({
       nzTitle: !doc ? '创建' : `编辑【${doc.name}】`,
-      nzWidth: 640,
+      nzWidth: 800,
       nzContent: FormComponent,
       nzData: {
         doc

@@ -18,6 +18,7 @@ import { AuthorizedComponent } from '@common/components/result/authorized/author
 import { ResultModule } from '@common/components/result/result.module';
 import { UnauthorizeComponent } from '@common/components/result/unauthorize/unauthorize.component';
 import { ShareModule } from '@common/share.module';
+import { environment } from '@env';
 import { provideFilebrowser } from '@weplanx/ng/filebrowser';
 import { NZ_CONFIG, NzConfig } from 'ng-zorro-antd/core/config';
 import { zh_CN, NZ_I18N } from 'ng-zorro-antd/i18n';
@@ -72,13 +73,7 @@ const routes: Routes = [
           breadcrumb: `审计日志`
         }
       },
-      {
-        path: 'experiment',
-        loadChildren: () => import('../experiment/experiment.module').then(m => m.ExperimentModule),
-        data: {
-          breadcrumb: `实验中心`
-        }
-      },
+      ...environment.extend,
       { path: '', redirectTo: 'admin', pathMatch: 'full' }
     ]
   }

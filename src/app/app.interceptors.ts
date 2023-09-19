@@ -11,13 +11,12 @@ import { Router } from '@angular/router';
 import { catchError, Observable, throwError } from 'rxjs';
 import { tap } from 'rxjs/operators';
 
-import { AppService } from '@app';
+import { environment } from '@env';
 import { NzMessageService } from 'ng-zorro-antd/message';
 
 @Injectable()
 export class AppInterceptors implements HttpInterceptor {
   constructor(
-    private app: AppService,
     private router: Router,
     private message: NzMessageService
   ) {}
@@ -26,9 +25,9 @@ export class AppInterceptors implements HttpInterceptor {
     const regex = new RegExp('^http(|s)://');
     const request = req.clone({
       ...req,
-      url: !regex.test(req.url) ? `${this.app.baseUrl}/${req.url}` : req.url
+      url: !regex.test(req.url) ? `${environment.baseUrl}/${req.url}` : req.url,
+      withCredentials: true
     });
-
     return next.handle(request).pipe(
       tap(event => {
         if (event instanceof HttpResponse) {

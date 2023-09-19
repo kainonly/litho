@@ -9,7 +9,7 @@
     <span nz-icon nzType="audit" nzTheme="outline"></span> 审计日志
   </button>
   <br />
-  <button nzSize="large" nz-button nzType="text" routerLink="/experiment">
+  <button *ngIf="experiment" nzSize="large" nz-button nzType="text" routerLink="/experiment">
     <span nz-icon nzType="experiment" nzTheme="outline"></span> 实验
   </button>
 </ng-template>
