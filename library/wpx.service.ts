@@ -40,9 +40,8 @@ export class WpxService {
     if (!this.platform.isBrowser) {
       return;
     }
-    const location = this.document.location;
-    const path = location.pathname.replace('/' + this.locale, id);
-    this.document.location = `${location.origin}/${path}`;
+    const { origin, hash } = this.document.location;
+    this.document.location = `${origin}/${id}${hash}`;
   }
 
   private createScript(url: string): HTMLScriptElement | void {

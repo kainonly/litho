@@ -92,7 +92,7 @@ const routes: Routes = [
     NzMenuModule,
     ShareModule,
     ResultModule,
-    RouterModule.forRoot(routes),
+    RouterModule.forRoot(routes, { useHash: true }),
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: !isDevMode(),
       // Register the ServiceWorker as soon as the application is stable
