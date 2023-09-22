@@ -13,6 +13,7 @@
               nzFormat="yyyy-MM-dd HH:mm"
               [(ngModel)]="timestamp"
               (ngModelChange)="getData(true)"
+              nz-tooltip="建议范围不要超过一天"
             ></nz-range-picker>
             <wpx-toolbox *nzSpaceItem [wpxModel]="model" (wpxClear)="clear()" (wpxRefresh)="getData(true)">
             </wpx-toolbox>

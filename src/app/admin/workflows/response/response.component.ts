@@ -26,7 +26,7 @@ export class ResponseComponent implements OnInit {
       this.option.language = 'json';
       this.content = JSON.stringify(data, null, 2);
     } catch (e) {
-      this.content = this.data.body;
+      this.content = this.data.response.body;
     }
   }
 

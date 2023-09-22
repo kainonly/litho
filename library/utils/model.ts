@@ -4,7 +4,7 @@ import { map, Observable } from 'rxjs';
 import { NzDrawerRef } from 'ng-zorro-antd/drawer';
 
 import { WpxApi } from './api';
-import { Any, AnyDto, Filter, FindResult, WpxModelStore, XFilter } from '../types';
+import { Any, AnyDto, Filter, FindResult, Sort, WpxModelStore, XFilter } from '../types';
 import { WpxStoreService } from '../wpx-store.service';
 
 export class WpxModel<T> {
@@ -50,7 +50,7 @@ export class WpxModel<T> {
     );
   }
 
-  fetch(search?: Filter<T>): Observable<FindResult<T>> {
+  fetch(search?: Filter<T>, sort?: Sort<T>): Observable<FindResult<T>> {
     const filter: Filter<T> = {};
     this.loading.set(true);
 
@@ -59,7 +59,15 @@ export class WpxModel<T> {
     }
 
     return this.api
-      .find({ ...filter, ...search }, { page: this.page, pagesize: this.pagesize, xfilter: this.xfilter })
+      .find(
+        { ...filter, ...search },
+        {
+          page: this.page,
+          pagesize: this.pagesize,
+          xfilter: this.xfilter,
+          sort
+        }
+      )
       .pipe(
         map(result => {
           this.data.set(result.data);

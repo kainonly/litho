@@ -5,6 +5,7 @@ import { LogsetJob } from '@common/models/logset-job';
 import { Workflow } from '@common/models/workflow';
 import { LogsetJobsService } from '@common/services/logset-jobs.service';
 import { Any, AnyDto, Filter, WpxModel, WpxService } from '@weplanx/ng';
+import { addHours } from 'date-fns';
 import { NzModalService } from 'ng-zorro-antd/modal';
 
 import { ResponseComponent } from '../response/response.component';
@@ -28,6 +29,8 @@ export class LogsComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    const now = new Date();
+    this.timestamp = [addHours(now, -12), now];
     this.model = this.wpx.setModel<LogsetJob>(`jobs:${this.index}`, this.jobs);
     this.model
       .ready({
@@ -47,13 +50,15 @@ export class LogsComponent implements OnInit {
       'metadata.key': this.doc._id,
       'metadata.index': this.index
     };
+
     if (this.timestamp.length !== 0) {
       filter.timestamp = {
         $gte: this.timestamp[0].toUTCString() as Any,
         $lt: this.timestamp[1].toUTCString() as Any
       };
     }
-    this.model.fetch(filter).subscribe(({ data }) => {
+    console.log(filter);
+    this.model.fetch(filter, { timestamp: -1 }).subscribe(({ data }) => {
       console.debug('fetch', data);
     });
   }

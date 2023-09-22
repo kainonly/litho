@@ -23,6 +23,7 @@
     "@angular/service-worker": "~16.2.5",
     "@antv/g2plot": "^2.4.31",
     "cron-parser": "^4.9.0",
+    "date-fns": "^2.30.0",
     "idb-keyval": "^6.2.1",
     "ng-zorro-antd": "~16.2.0",
     "rxjs": "~7.8.0",
