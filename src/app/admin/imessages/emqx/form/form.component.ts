@@ -1,9 +1,9 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
-import { Any, R, WpxService } from '@weplanx/ng';
+import { Any, WpxService } from '@weplanx/ng';
 import { NzMessageService } from 'ng-zorro-antd/message';
-import { NZ_MODAL_DATA, NzModalRef } from 'ng-zorro-antd/modal';
+import { NzModalRef } from 'ng-zorro-antd/modal';
 
 @Component({
   selector: 'app-admin-imessage-emqx-form',
@@ -30,8 +30,6 @@ export class FormComponent implements OnInit {
   };
 
   constructor(
-    @Inject(NZ_MODAL_DATA)
-    public data: R,
     private wpx: WpxService,
     private modalRef: NzModalRef,
     private message: NzMessageService,
@@ -44,9 +42,11 @@ export class FormComponent implements OnInit {
       EmqxApiKey: [null, [Validators.required]],
       EmqxSecretKey: [null, [Validators.required]]
     });
-    this.form.patchValue({
-      EmqxHost: this.data['EmqxHost'],
-      EmqxApiKey: this.data['EmqxApiKey']
+    this.wpx.getValues(['EmqxHost', 'EmqxApiKey']).subscribe(data => {
+      this.form.patchValue({
+        EmqxHost: data['EmqxHost'],
+        EmqxApiKey: data['EmqxApiKey']
+      });
     });
   }
 

@@ -96,8 +96,8 @@
           },
           "options": {
             "host": "0.0.0.0",
-            "allowedHosts": ["xconsole.kainonly.com:8443"],
-            "publicHost": "xconsole.kainonly.com:8443",
+            "allowedHosts": ["console-x.kainonly.com:8443"],
+            "publicHost": "console-x.kainonly.com:8443",
             "hmr": true
           },
           "defaultConfiguration": "development"
