@@ -2,22 +2,22 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { BehaviorSubject, debounceTime } from 'rxjs';
 
-import { LogsetLogined } from '@common/models/logset-logined';
+import { LogsetLogin } from '@common/models/logset-login';
 import { User } from '@common/models/user';
-import { LogsetLoginedService } from '@common/services/logset-logined.service';
+import { LogsetLoginsService } from '@common/services/logset-logins.service';
 import { UsersService } from '@common/services/users.service';
 import { Any, AnyDto, Filter, WpxModel, WpxService } from '@weplanx/ng';
 
 @Component({
-  selector: 'app-audit-logined',
-  templateUrl: './logined.component.html'
+  selector: 'app-audit-logins',
+  templateUrl: './logins.component.html'
 })
-export class LoginedComponent implements OnInit {
-  model!: WpxModel<LogsetLogined>;
+export class LoginsComponent implements OnInit {
+  model!: WpxModel<LogsetLogin>;
   userKv?: Record<string, AnyDto<User>>;
 
   form!: FormGroup;
-  filter: Filter<LogsetLogined> = {};
+  filter: Filter<LogsetLogin> = {};
   searchUsers$ = new BehaviorSubject<string>('');
   searchUserItems: AnyDto<User>[] = [];
 
@@ -26,7 +26,7 @@ export class LoginedComponent implements OnInit {
   constructor(
     private wpx: WpxService,
     private fb: FormBuilder,
-    private logined: LogsetLoginedService,
+    private logins: LogsetLoginsService,
     private users: UsersService
   ) {}
 
@@ -37,7 +37,7 @@ export class LoginedComponent implements OnInit {
       user_id: [],
       client_ip: []
     });
-    this.model = this.wpx.setModel<LogsetLogined>('logined', this.logined);
+    this.model = this.wpx.setModel<LogsetLogin>('logins', this.logins);
     this.model
       .ready({
         'timestamp->$gte': 'date',

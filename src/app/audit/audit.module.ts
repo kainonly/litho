@@ -13,7 +13,7 @@ const routes: Routes = [
     children: [
       {
         path: 'logined',
-        loadChildren: () => import('./logined/logined.module').then(m => m.LoginedModule),
+        loadChildren: () => import('./logins/logins.module').then(m => m.LoginsModule),
         data: {
           breadcrumb: $localize`登录`
         }
