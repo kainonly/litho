@@ -46,7 +46,7 @@
       <button *nzSpaceItem nz-button nzType="dashed" nz-dropdown [nzDropdownMenu]="menu"> 已选中 {{ size }} 项 </button>
       <nz-dropdown-menu #menu="nzDropdownMenu">
         <ul nz-menu>
-          <li nz-menu-item (click)="tb.clearSelections()"> 取消选择 </li>
+          <li nz-menu-item (click)="wpxTable.clearSelections()"> 取消选择 </li>
           <li nz-menu-item nzDanger (click)="bulkDelete()"> 删除 </li>
         </ul>
       </nz-dropdown-menu>
@@ -56,7 +56,7 @@
 </ng-template>
 
 <wpx-table
-  #tb
+  #wpxTable
   [wpxTitle]="titleRef"
   [wpxExtra]="extraRef"
   [wpxModel]="model"
@@ -109,10 +109,8 @@
       render: valid
     }
   ]"
-  [wpxItemSize]="55"
-  [wpxOffset]="310"
+  [wpxAction]="action"
   [wpxX]="'1400px'"
-  [wpxActions]="actions"
   (wpxChange)="getData()"
 >
 </wpx-table>
@@ -123,13 +121,14 @@
   </nz-tag>
 </ng-template>
 
-<nz-dropdown-menu #actions="nzDropdownMenu">
-  <ul *ngIf="tb.actived as v" nz-menu>
-    <li nz-menu-item nzDisabled>
-      <b>订单号 [{{ v.no }}]</b>
-    </li>
-    <li nz-menu-divider></li>
-    <li nz-menu-item (click)="open(v)"> 修改 </li>
-    <li nz-menu-item nzDanger (click)="delete(v)"> 删除 </li>
-  </ul>
-</nz-dropdown-menu>
+<ng-template #action let-data>
+  <button nz-button nzType="text" nz-dropdown [nzDropdownMenu]="menu">
+    <span nz-icon nzType="ellipsis" nzTheme="outline"></span>
+  </button>
+  <nz-dropdown-menu #menu="nzDropdownMenu">
+    <ul nz-menu>
+      <li nz-menu-item (click)="open(data)"> 修改 </li>
+      <li nz-menu-item nzDanger (click)="delete(data)"> 删除 </li>
+    </ul>
+  </nz-dropdown-menu>
+</ng-template>

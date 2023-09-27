@@ -123,9 +123,8 @@
       render: userAgent
     }
   ]"
-  [wpxItemSize]="50"
-  [wpxOffset]="310"
-  wpxX="2500px"
+  [wpxAction]="action"
+  [wpxX]="'2500px'"
   (wpxChange)="getData()"
 >
   <ng-template #source let-data>
@@ -166,6 +165,12 @@
     <code>{{ data.user_agent }}</code>
   </ng-template>
 </wpx-table>
+
+<ng-template #action let-data>
+  <button nz-button nzType="text" disabled>
+    <span nz-icon nzType="ellipsis" nzTheme="outline"></span>
+  </button>
+</ng-template>
 
 <nz-drawer
   nzTitle="用户详情"

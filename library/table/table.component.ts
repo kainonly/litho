@@ -4,6 +4,8 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
+  ContentChild,
+  Directive,
   ElementRef,
   EventEmitter,
   Input,
@@ -16,10 +18,9 @@ import {
 } from '@angular/core';
 
 import { Any, AnyDto, WpxModel, WpxStoreService } from '@weplanx/ng';
-import { NzCardComponent } from 'ng-zorro-antd/card';
 import { NgStyleInterface } from 'ng-zorro-antd/core/types';
 import { NzDrawerRef, NzDrawerService } from 'ng-zorro-antd/drawer';
-import { NzContextMenuService, NzDropdownMenuComponent } from 'ng-zorro-antd/dropdown';
+import { NzDropdownMenuComponent } from 'ng-zorro-antd/dropdown';
 import { NzResizeEvent } from 'ng-zorro-antd/resizable';
 import { NzTableComponent } from 'ng-zorro-antd/table';
 
@@ -27,42 +28,32 @@ import { Column, Preferences, Scroll, WpxColumn } from './types';
 
 @Component({
   selector: 'wpx-table',
+  exportAs: 'wpxTable',
   templateUrl: './table.component.html',
   styleUrls: ['./table.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class WpxTableComponent<T> implements OnInit, AfterViewInit, OnDestroy {
-  @ViewChild(NzCardComponent, { read: ElementRef, static: true }) card!: ElementRef;
-  @ViewChild(NzTableComponent, { read: ElementRef, static: true }) basicTable!: ElementRef;
-  @ViewChild('settingsTitleRef') settingsTitleRef!: TemplateRef<Any>;
-  @ViewChild('settingsExtraRef') settingsExtraRef!: TemplateRef<Any>;
-  @ViewChild('settingsContentRef') settingsContentRef!: TemplateRef<Any>;
-
   @Input({ required: true }) wpxModel!: WpxModel<T>;
   @Input({ required: true }) wpxColumns!: WpxColumn<T>[];
-  @Input({ required: true }) wpxItemSize!: number;
-
+  @Input({ required: true }) wpxAction!: TemplateRef<{ $implicit: AnyDto<T> }>;
   @Input() wpxTitle?: TemplateRef<void>;
   @Input() wpxExtra?: TemplateRef<void>;
   @Input() wpxX?: string;
-  @Input() wpxOffset = 0;
   @Input() wpxBodyStyle: NgStyleInterface | null = { height: 'calc(100% - 64px)' };
-  @Input() wpxActions?: NzDropdownMenuComponent;
   @Output() wpxChange = new EventEmitter<void>();
 
+  @ViewChild(NzTableComponent, { read: ElementRef, static: true }) basicTableRef!: ElementRef;
+  @ViewChild('settingsExtraRef') settingsExtraRef!: TemplateRef<Any>;
+  @ViewChild('settingsContentRef') settingsContentRef!: TemplateRef<Any>;
+
   columns: Column<T>[] = [];
-  settingsRef?: NzDrawerRef;
-  resizable = false;
-
-  actived?: AnyDto<T>;
-  activedColumn?: WpxColumn<T>;
-
   scroll = signal<Scroll>({ y: '0px' });
+  settings = signal<NzDrawerRef | null>(null);
   private resizeObserver!: ResizeObserver;
 
   constructor(
     private store: WpxStoreService,
-    private contextMenu: NzContextMenuService,
     private drawer: NzDrawerService,
     private cdr: ChangeDetectorRef
   ) {}
@@ -89,17 +80,17 @@ export class WpxTableComponent<T> implements OnInit, AfterViewInit, OnDestroy {
     });
     this.resizeObserver = new ResizeObserver(entries => {
       for (const entry of entries) {
-        const { height } = entry.contentRect;
+        const { width, height } = entry.contentRect;
         this.scroll.set({
-          x: this.wpxX ?? this.basicTable.nativeElement.offsetWidth + 'px',
-          y: height - this.wpxItemSize - 64 + 'px'
+          x: this.wpxX ?? width - 24 + 'px',
+          y: height - 128 + 'px'
         });
       }
     });
   }
 
   ngAfterViewInit(): void {
-    this.resizeObserver.observe(this.basicTable.nativeElement);
+    this.resizeObserver.observe(this.basicTableRef.nativeElement);
   }
 
   ngOnDestroy(): void {
@@ -116,10 +107,6 @@ export class WpxTableComponent<T> implements OnInit, AfterViewInit, OnDestroy {
     ];
   }
 
-  setContext(data: Any): { $implicit: AnyDto<T> } {
-    return { $implicit: data };
-  }
-
   clearSelections(): void {
     this.wpxModel.checked = false;
     this.wpxModel.indeterminate = false;
@@ -127,49 +114,28 @@ export class WpxTableComponent<T> implements OnInit, AfterViewInit, OnDestroy {
     this.cdr.detectChanges();
   }
 
-  openActions($event: MouseEvent, data: AnyDto<T>): void {
-    if (this.wpxActions) {
-      this.actived = data;
-      this.contextMenu.create($event, this.wpxActions);
-    }
-  }
-
-  openManager($event: MouseEvent, menu: NzDropdownMenuComponent, data: Column<T>): void {
-    this.activedColumn = data;
-    this.contextMenu.create($event, menu);
-  }
-
-  displayAll(): void {
-    this.columns.forEach(v => (v.display = true));
-    this.updatePreferences();
-  }
-
-  hide(column: Column<T>): void {
-    column.display = false;
-    this.updatePreferences();
-  }
-
   openSettings(): void {
-    if (this.settingsRef) {
+    if (this.settings()) {
+      this.closeSettings();
       return;
     }
-    this.settingsRef = this.drawer.create({
-      nzTitle: this.settingsTitleRef,
-      nzExtra: this.settingsExtraRef,
-      nzContent: this.settingsContentRef,
-      nzHeight: 200,
-      nzMask: false,
-      nzMaskClosable: false,
-      nzPlacement: 'bottom',
-      nzClosable: false
-    });
+    this.settings.set(
+      this.drawer.create({
+        nzTitle: '<b>表格样式自定义</b>',
+        nzExtra: this.settingsExtraRef,
+        nzContent: this.settingsContentRef,
+        nzHeight: 200,
+        nzMask: false,
+        nzMaskClosable: false,
+        nzPlacement: 'bottom',
+        nzClosable: false
+      })
+    );
   }
 
   closeSettings(): void {
-    this.settingsRef?.close();
-    this.settingsRef = undefined;
-    this.resizable = false;
-    this.cdr.detectChanges();
+    this.settings()?.close();
+    this.settings.set(null);
   }
 
   drop(event: CdkDragDrop<string[]>): void {

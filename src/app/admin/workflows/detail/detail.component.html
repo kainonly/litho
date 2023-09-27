@@ -3,11 +3,7 @@
     <nz-page-header-title>工作流详情</nz-page-header-title>
     <nz-page-header-subtitle>{{ doc.name }}</nz-page-header-subtitle>
     <nz-page-header-tags>
-      <nz-tag nzColor="blue">
-        <ng-container [ngSwitch]="doc.kind">
-          <ng-container *ngSwitchCase="'schedule'">定时启动</ng-container>
-        </ng-container>
-      </nz-tag>
+      <nz-tag nzColor="blue"> 定时启动 </nz-tag>
       <nz-tag>{{ project.name }} </nz-tag>
     </nz-page-header-tags>
     <nz-page-header-extra>
@@ -25,59 +21,65 @@
   </nz-page-header>
 
   <nz-content style="overflow: hidden auto">
-    <nz-card [ngSwitch]="doc.kind">
-      <ng-container *ngSwitchCase="'schedule'">
-        <ng-template #emptyScheduleRef>
-          <nz-empty></nz-empty>
-        </ng-template>
-        <ng-container *ngIf="doc.schedule as v; else emptyScheduleRef">
-          <nz-descriptions [nzColumn]="3" nzLayout="vertical">
-            <nz-descriptions-item nzTitle="服务节点">
-              {{ schedule.name }}
-            </nz-descriptions-item>
-            <nz-descriptions-item nzTitle="状态">
-              <ng-container *ngIf="v.status; else stopRef">
-                <nz-badge *ngIf="state?.status; else loadRef" nzStatus="processing" nzText="运行中"></nz-badge>
-                <ng-template #loadRef>
-                  <nz-badge nzStatus="default" nzText="获取中"></nz-badge>
-                </ng-template>
-              </ng-container>
-              <ng-template #stopRef>
-                <nz-badge nzStatus="error" nzText="终止"></nz-badge>
+    <nz-card>
+      <ng-template #emptyScheduleRef>
+        <nz-empty></nz-empty>
+      </ng-template>
+      <ng-container *ngIf="doc.schedule as v; else emptyScheduleRef">
+        <nz-descriptions [nzColumn]="3" nzLayout="vertical">
+          <nz-descriptions-item nzTitle="服务节点">
+            {{ schedule.name }}
+          </nz-descriptions-item>
+          <nz-descriptions-item nzTitle="状态">
+            <ng-container *ngIf="v.status; else stopRef">
+              <nz-badge *ngIf="state?.status; else loadRef" nzStatus="processing" nzText="运行中"></nz-badge>
+              <ng-template #loadRef>
+                <nz-badge nzStatus="default" nzText="获取中"></nz-badge>
               </ng-template>
-            </nz-descriptions-item>
-            <nz-descriptions-item nzTitle="事件数">
-              {{ v.jobs.length }}
-            </nz-descriptions-item>
-          </nz-descriptions>
-          <nz-divider nzPlain nzText="触发事件" nzOrientation="left"></nz-divider>
-          <nz-list style="width: 100%" [nzSplit]="false">
-            <nz-list-item *ngFor="let job of v.jobs; index as i" [ngSwitch]="job.mode">
-              <ng-container *ngSwitchCase="'HTTP'">
-                <span nz-typography>
-                  <nz-tag>网络回调</nz-tag>
-                  <a (click)="openLogs(i)">{{ job.option.url }}</a>
-                </span>
-                <nz-space *ngIf="state && state.jobs[i]!.schedule_state as v" [nzSplit]="spaceSplit">
-                  <span *nzSpaceItem nz-icon [nzType]="state.status ? 'loading' : 'stop'" nzTheme="outline"></span>
-                  <span *nzSpaceItem>
-                    最近调度：
-                    <ng-container *ngIf="state.status; else emptyText">
-                      {{ v.prev | date: 'yyyy-MM-dd HH:mm:ss' }}
-                    </ng-container>
-                  </span>
-                  <span *nzSpaceItem>
-                    下次调度：
-                    <ng-container *ngIf="state.status; else emptyText">
-                      {{ v.next | date: 'yyyy-MM-dd HH:mm:ss' }}
-                    </ng-container>
-                  </span>
-                </nz-space>
-              </ng-container>
-            </nz-list-item>
-          </nz-list>
-        </ng-container>
+            </ng-container>
+            <ng-template #stopRef>
+              <nz-badge nzStatus="error" nzText="终止"></nz-badge>
+            </ng-template>
+          </nz-descriptions-item>
+          <nz-descriptions-item nzTitle="事件数">
+            {{ v.jobs.length }}
+          </nz-descriptions-item>
+        </nz-descriptions>
       </ng-container>
+
+      <nz-table nzTemplateMode>
+        <thead>
+          <tr>
+            <th><b>触发事件</b></th>
+            <th nzRight nzWidth="150px"><b>最近调度</b></th>
+            <th nzRight nzWidth="150px"><b>下次调度</b></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let job of doc.schedule!.jobs; index as i">
+            <td [ngSwitch]="job.mode">
+              <ng-container *ngSwitchCase="'HTTP'">
+                <nz-tag>网络回调</nz-tag>
+                <a (click)="openLogs(i)">{{ job.option.url }}</a>
+              </ng-container>
+            </td>
+            <td>
+              <ng-container *ngIf="state && state.jobs[i]!.schedule_state as v">
+                <ng-container *ngIf="state.status; else emptyText">
+                  {{ v.prev | date: 'yyyy-MM-dd HH:mm:ss' }}
+                </ng-container>
+              </ng-container>
+            </td>
+            <td>
+              <ng-container *ngIf="state && state.jobs[i]!.schedule_state as v">
+                <ng-container *ngIf="state.status; else emptyText">
+                  {{ v.next | date: 'yyyy-MM-dd HH:mm:ss' }}
+                </ng-container>
+              </ng-container>
+            </td>
+          </tr>
+        </tbody>
+      </nz-table>
     </nz-card>
   </nz-content>
 </nz-layout>

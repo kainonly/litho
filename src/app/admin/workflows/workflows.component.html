@@ -43,9 +43,7 @@
       render: detail
     }
   ]"
-  [wpxItemSize]="50"
-  [wpxOffset]="310"
-  [wpxActions]="actions"
+  [wpxAction]="action"
   (wpxChange)="getData()"
 >
   <ng-template #name let-data>
@@ -78,14 +76,15 @@
   </ng-template>
 </wpx-table>
 
-<nz-dropdown-menu #actions="nzDropdownMenu">
-  <ul *ngIf="wpxTable.actived as v" nz-menu>
-    <li nz-menu-item nzDisabled>
-      <b>{{ v.name }}</b>
-    </li>
-    <li nz-menu-divider></li>
-    <li nz-menu-item (click)="openControls(v)">管理</li>
-    <li nz-menu-item (click)="openForm(v)"> 修改 </li>
-    <li nz-menu-item nzDanger (click)="delete(v)"> 删除 </li>
-  </ul>
-</nz-dropdown-menu>
+<ng-template #action let-data>
+  <button nz-button nzType="text" nz-dropdown [nzDropdownMenu]="menu">
+    <span nz-icon nzType="ellipsis" nzTheme="outline"></span>
+  </button>
+  <nz-dropdown-menu #menu="nzDropdownMenu">
+    <ul nz-menu>
+      <li nz-menu-item (click)="openControls(data)">管理</li>
+      <li nz-menu-item (click)="openForm(data)"> 修改 </li>
+      <li nz-menu-item nzDanger (click)="delete(data)"> 删除 </li>
+    </ul>
+  </nz-dropdown-menu>
+</ng-template>

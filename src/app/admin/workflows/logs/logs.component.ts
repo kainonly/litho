@@ -57,7 +57,7 @@ export class LogsComponent implements OnInit {
         $lt: this.timestamp[1].toUTCString() as Any
       };
     }
-    console.log(filter);
+
     this.model.fetch(filter, { timestamp: -1 }).subscribe(({ data }) => {
       console.debug('fetch', data);
     });

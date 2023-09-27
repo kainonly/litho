@@ -53,8 +53,8 @@
           ellipsis: true
         }
       ]"
-      [wpxItemSize]="50"
-      wpxX="1600px"
+      [wpxAction]="action"
+      [wpxX]="'1600px'"
       [wpxBodyStyle]="{ height: '100%' }"
       (wpxChange)="getData()"
     >
@@ -70,5 +70,11 @@
     </wpx-table>
   </nz-content>
 </nz-layout>
+
+<ng-template #action let-data>
+  <button nz-button nzType="text" disabled>
+    <span nz-icon nzType="ellipsis" nzTheme="outline"></span>
+  </button>
+</ng-template>
 
 <ng-template #noBodyRef>无返回结果</ng-template>

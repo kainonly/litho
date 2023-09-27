@@ -58,9 +58,8 @@
           render: status
         }
       ]"
-      [wpxActions]="actions"
-      [wpxItemSize]="50"
       [wpxBodyStyle]="{ height: '100%' }"
+      [wpxAction]="action"
     >
       <ng-template #name let-data>
         <a (click)="openKeys(data)" [nz-tooltip]="'节点命名:' + data.node">{{ data.name }}</a>
@@ -76,13 +75,14 @@
   <nz-badge nzStatus="error" nzText="终止"></nz-badge>
 </ng-template>
 
-<nz-dropdown-menu #actions="nzDropdownMenu">
-  <ul *ngIf="wpxTable.actived as v" nz-menu>
-    <li nz-menu-item nzDisabled>
-      <b>{{ v.name }}</b>
-    </li>
-    <li nz-menu-divider></li>
-    <li nz-menu-item (click)="openForm(v)"> 修改 </li>
-    <li nz-menu-item nzDanger (click)="delete(v)"> 断开 </li>
-  </ul>
-</nz-dropdown-menu>
+<ng-template #action let-data>
+  <button nz-button nzType="text" nz-dropdown [nzDropdownMenu]="menu">
+    <span nz-icon nzType="ellipsis" nzTheme="outline"></span>
+  </button>
+  <nz-dropdown-menu #menu="nzDropdownMenu">
+    <ul nz-menu>
+      <li nz-menu-item (click)="openForm(data)"> 修改 </li>
+      <li nz-menu-item nzDanger (click)="delete(data)"> 断开 </li>
+    </ul>
+  </nz-dropdown-menu>
+</ng-template>

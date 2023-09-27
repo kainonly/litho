@@ -110,9 +110,8 @@
       render: detail
     }
   ]"
-  [wpxItemSize]="50"
-  [wpxOffset]="310"
-  wpxX="2000px"
+  [wpxAction]="action"
+  [wpxX]="'2000px'"
   (wpxChange)="getData()"
 >
   <ng-template #user let-data>
@@ -125,15 +124,17 @@
   </ng-template>
   <ng-template #detail let-data>
     <nz-space [nzSplit]="spaceSplit">
-      <a *nzSpaceItem>
-        未定义
-        <span nz-icon nzType="select" nzTheme="outline"></span>
-      </a>
-      <nz-tag *nzSpaceItem nzColor="success">{{ data.metadata.method }}</nz-tag>
+      <nz-tag *nzSpaceItem>{{ data.metadata.method }}</nz-tag>
       <code *nzSpaceItem>{{ data.metadata.path }}</code>
     </nz-space>
   </ng-template>
 </wpx-table>
+
+<ng-template #action let-data>
+  <button nz-button nzType="text" disabled>
+    <span nz-icon nzType="ellipsis" nzTheme="outline"></span>
+  </button>
+</ng-template>
 
 <nz-drawer
   nzTitle="用户详情"
