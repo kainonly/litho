@@ -7,7 +7,6 @@ import { User } from '@common/models/user';
 import { UsersService } from '@common/services/users.service';
 import { AnyDto, WpxItems } from '@weplanx/ng';
 import { NzCardComponent } from 'ng-zorro-antd/card';
-import { NzContextMenuService, NzDropdownMenuComponent } from 'ng-zorro-antd/dropdown';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalService } from 'ng-zorro-antd/modal';
 
@@ -33,8 +32,7 @@ export class SessionsComponent implements OnInit, AfterViewInit, OnDestroy {
     private sessions: SessionsService,
     private users: UsersService,
     private message: NzMessageService,
-    private modal: NzModalService,
-    private contextMenu: NzContextMenuService
+    private modal: NzModalService
   ) {}
 
   ngOnInit(): void {
@@ -90,11 +88,6 @@ export class SessionsComponent implements OnInit, AfterViewInit, OnDestroy {
   clearSearch(): void {
     this.items.searchText = '';
     this.getData();
-  }
-
-  openActions($event: MouseEvent, menu: NzDropdownMenuComponent, data: AnyDto<User>): void {
-    this.actived = data;
-    this.contextMenu.create($event, menu);
   }
 
   delete(doc: AnyDto<User>): void {

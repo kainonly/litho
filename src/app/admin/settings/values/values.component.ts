@@ -2,7 +2,6 @@ import { AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild } fr
 
 import { WpxService } from '@weplanx/ng';
 import { NzCardComponent } from 'ng-zorro-antd/card';
-import { NzContextMenuService, NzDropdownMenuComponent } from 'ng-zorro-antd/dropdown';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalService } from 'ng-zorro-antd/modal';
 
@@ -20,7 +19,6 @@ export class ValuesComponent implements OnInit, AfterViewInit, OnDestroy {
   searchText = '';
   items: KeyValue[] = [];
   loading = false;
-  actived?: KeyValue;
 
   y = '0px';
   private resizeObserver!: ResizeObserver;
@@ -28,8 +26,7 @@ export class ValuesComponent implements OnInit, AfterViewInit, OnDestroy {
   constructor(
     private wpx: WpxService,
     private modal: NzModalService,
-    private message: NzMessageService,
-    private contextMenu: NzContextMenuService
+    private message: NzMessageService
   ) {}
 
   ngOnInit(): void {
@@ -79,11 +76,6 @@ export class ValuesComponent implements OnInit, AfterViewInit, OnDestroy {
   clearSearch(): void {
     this.searchText = '';
     this.getData();
-  }
-
-  openActions($event: MouseEvent, menu: NzDropdownMenuComponent, data: KeyValue): void {
-    this.actived = data;
-    this.contextMenu.create($event, menu);
   }
 
   form(data?: KeyValue): void {

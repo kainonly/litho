@@ -27,13 +27,11 @@
 
 <nz-card style="height: 100%" [nzTitle]="titleRef" [nzExtra]="extraRef">
   <nz-table
+    #basicTable
     [nzData]="items.data"
     [nzLoading]="items.loading"
     [nzFrontPagination]="false"
     [nzShowPagination]="false"
-    [nzVirtualItemSize]="56"
-    [nzVirtualMinBufferPx]="56 * 10"
-    [nzVirtualMaxBufferPx]="56 * 15"
     [nzScroll]="scroll"
   >
     <thead>
@@ -41,6 +39,7 @@
         <th
           nzWidth="60px"
           nzAlign="center"
+          nzLeft
           [nzChecked]="items.checked"
           [nzIndeterminate]="items.indeterminate"
           (nzCheckedChange)="items.setCurrentSelections($event)"
@@ -50,10 +49,15 @@
         <th><b>详情</b></th>
         <th nzWidth="90px"><b>事件回调</b></th>
         <th nzWidth="90px"><b>允许访问</b></th>
+        <th nzRight nzWidth="60px">
+          <button nz-button nzType="text" disabled>
+            <span nz-icon nzType="setting" nzTheme="outline"></span>
+          </button>
+        </th>
       </tr>
     </thead>
     <tbody>
-      <tr *nz-virtual-scroll="let data" (contextmenu)="openActions($event, actions, data)">
+      <tr *ngFor="let data of basicTable.data">
         <td
           [nzChecked]="items.selection.has(data['name'])"
           (nzCheckedChange)="$event ? items.setSelection(data) : items.removeSelection(data['name'])"
@@ -68,8 +72,10 @@
         </td>
 
         <td>
-          <nz-tag *ngIf="data.keys && data.keys.length !== 0" [nz-tooltip]="data.keys"> 投影限制 </nz-tag>
-          <nz-tag *ngIf="data.sensitives && data.sensitives.length !== 0" [nz-tooltip]="data.sensitives">
+          <nz-tag *ngIf="data.keys && data.keys.length !== 0" [nz-tooltip]="data.keys | wpxJoin: ','">
+            投影限制
+          </nz-tag>
+          <nz-tag *ngIf="data.sensitives && data.sensitives.length !== 0" [nz-tooltip]="data.sensitives | wpxJoin: ','">
             脱敏限制
           </nz-tag>
           <ng-container [ngSwitch]="data.type">
@@ -95,18 +101,18 @@
         <td>
           <nz-switch nzControl [(ngModel)]="data.status" (click)="update(data.name, 'Status')"></nz-switch>
         </td>
+        <td nzRight>
+          <button nz-button nzType="text" nz-dropdown [nzDropdownMenu]="menu">
+            <span nz-icon nzType="ellipsis" nzTheme="outline"></span>
+          </button>
+          <nz-dropdown-menu #menu="nzDropdownMenu">
+            <ul nz-menu>
+              <li nz-menu-item (click)="openControls(data.name)"> 管理 </li>
+              <li nz-menu-item nzDanger (click)="delete(data)"> 删除 </li>
+            </ul>
+          </nz-dropdown-menu>
+        </td>
       </tr>
     </tbody>
   </nz-table>
 </nz-card>
-
-<nz-dropdown-menu #actions="nzDropdownMenu">
-  <ul *ngIf="actived as v" nz-menu>
-    <li nz-menu-item nzDisabled>
-      <b>{{ v.name }}</b>
-    </li>
-    <li nz-menu-divider></li>
-    <li nz-menu-item (click)="openControls(v.name)"> 管理 </li>
-    <li nz-menu-item nzDanger (click)="delete(v)"> 删除 </li>
-  </ul>
-</nz-dropdown-menu>

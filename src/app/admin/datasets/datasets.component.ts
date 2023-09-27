@@ -6,7 +6,6 @@ import { DatasetsService } from '@common/services/datasets.service';
 import { WpxItems, WpxService } from '@weplanx/ng';
 import { NzCardComponent } from 'ng-zorro-antd/card';
 import { NzDrawerService } from 'ng-zorro-antd/drawer';
-import { NzContextMenuService, NzDropdownMenuComponent } from 'ng-zorro-antd/dropdown';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalService } from 'ng-zorro-antd/modal';
 
@@ -21,7 +20,6 @@ export class DatasetsComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild(NzCardComponent, { read: ElementRef, static: true }) card!: ElementRef;
 
   items = new WpxItems<Dataset>('name');
-  actived?: Dataset;
   scroll = { x: '0px', y: '0px' };
 
   private resizeObserver!: ResizeObserver;
@@ -31,7 +29,6 @@ export class DatasetsComponent implements OnInit, AfterViewInit, OnDestroy {
     private datasets: DatasetsService,
     private modal: NzModalService,
     private message: NzMessageService,
-    private contextMenu: NzContextMenuService,
     private drawer: NzDrawerService
   ) {}
 
@@ -74,11 +71,6 @@ export class DatasetsComponent implements OnInit, AfterViewInit, OnDestroy {
     });
   }
 
-  openActions($event: MouseEvent, menu: NzDropdownMenuComponent, data: Dataset): void {
-    this.actived = data;
-    this.contextMenu.create($event, menu);
-  }
-
   openControls(name: string): void {
     this.drawer.create({
       nzContent: ControlsComponent,
@@ -89,7 +81,7 @@ export class DatasetsComponent implements OnInit, AfterViewInit, OnDestroy {
         }
       },
       nzClosable: false,
-      nzWidth: 640
+      nzWidth: 800
     });
   }
 

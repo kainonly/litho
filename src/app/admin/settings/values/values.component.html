@@ -35,35 +35,42 @@
 
 <nz-card style="height: 100%" [nzTitle]="titleRef" [nzExtra]="extraRef">
   <nz-table
+    #basicTable
     [nzData]="items"
     [nzLoading]="loading"
     [nzFrontPagination]="false"
     [nzShowPagination]="false"
-    [nzVirtualItemSize]="56"
-    [nzVirtualMinBufferPx]="56 * 10"
-    [nzVirtualMaxBufferPx]="56 * 15"
     [nzScroll]="{ y }"
   >
     <thead>
       <tr>
         <th nzWidth="320px"><b i18n>键名</b></th>
         <th><b i18n>键值</b></th>
+        <th nzRight nzWidth="60px">
+          <button nz-button nzType="text" disabled>
+            <span nz-icon nzType="setting" nzTheme="outline"></span>
+          </button>
+        </th>
       </tr>
     </thead>
     <tbody>
-      <tr *nz-virtual-scroll="let data" (contextmenu)="openActions($event, actions, data)">
+      <tr *ngFor="let data of basicTable.data">
         <td>{{ data.key }}</td>
         <td nzBreakWord>
           <code>{{ data.value }}</code>
+        </td>
+        <td nzRight>
+          <button nz-button nzType="text" nz-dropdown [nzDropdownMenu]="menu">
+            <span nz-icon nzType="ellipsis" nzTheme="outline"></span>
+          </button>
+          <nz-dropdown-menu #menu="nzDropdownMenu">
+            <ul nz-menu>
+              <li nz-menu-item (click)="form(data)" i18n>编辑</li>
+              <li nz-menu-item nzDanger (click)="delete(data.key)" i18n>删除</li>
+            </ul>
+          </nz-dropdown-menu>
         </td>
       </tr>
     </tbody>
   </nz-table>
 </nz-card>
-
-<nz-dropdown-menu #actions="nzDropdownMenu">
-  <ul *ngIf="actived" nz-menu>
-    <li nz-menu-item (click)="form(actived)" i18n>编辑</li>
-    <li nz-menu-item nzDanger (click)="delete(actived.key)" i18n>删除</li>
-  </ul>
-</nz-dropdown-menu>
