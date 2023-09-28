@@ -28,22 +28,32 @@
       <nz-table nzTemplateMode>
         <thead>
           <tr>
-            <th nzLeft nzWidth="200px"><b>项目名称</b></th>
+            <th nzLeft nzWidth="60px">
+              <button nz-button nzType="text" nz-tooltip="发布消息" i18n-nz-tooltip disabled>
+                <span nz-icon nzType="notification" nzTheme="outline"></span>
+              </button>
+            </th>
+            <th nzWidth="240px"><b>项目名称</b></th>
             <th><b>授权主题</b></th>
-            <th nzRight nzWidth="100px"><b>消息流入</b></th>
-            <th nzRight nzWidth="100px"><b>消息流出</b></th>
-            <th *ngIf="index === 0" nzRight nzWidth="100px"><b>消息废弃</b></th>
+            <th nzRight nzWidth="150px"><b>消息流入</b></th>
+            <th nzRight nzWidth="150px"><b>消息流出</b></th>
+            <th *ngIf="index === 0" nzRight nzWidth="150px"><b>消息废弃</b></th>
           </tr>
         </thead>
         <tbody>
           <tr *ngFor="let id of doc.projects">
+            <td nzLeft>
+              <button nz-button nzType="text" (click)="openPublish(id)">
+                <span nz-icon nzType="send" nzTheme="outline"></span>
+              </button>
+            </td>
             <td>
               <ng-container *ngIf="projectDict[id] as project">
                 {{ project.name }}
               </ng-container>
             </td>
             <td>
-              <a (click)="openPublish(id)">{{ doc.topic }}/{{ id }}</a>
+              <a>{{ doc.topic }}/{{ id }}</a>
             </td>
             <ng-container [ngSwitch]="index">
               <ng-container *ngSwitchCase="0">
@@ -51,14 +61,14 @@
                   <ng-container *ngIf="metricsDict[doc.topic + '/' + id] as metric; else loadText">
                     {{ metric['messages.in.count'] | nzSafeNull }}
                     <nz-divider nzType="vertical"></nz-divider>
-                    {{ metric['messages.in.rate'] | nzSafeNull }}/s
+                    {{ metric['messages.in.rate'] | nzSafeNull | number: '1.4-4' }}/s
                   </ng-container>
                 </td>
                 <td>
                   <ng-container *ngIf="metricsDict[doc.topic + '/' + id] as metric; else loadText">
                     {{ metric['messages.out.count'] | nzSafeNull }}
                     <nz-divider nzType="vertical"></nz-divider>
-                    {{ metric['messages.out.rate'] | nzSafeNull }}/s
+                    {{ metric['messages.out.rate'] | nzSafeNull | number: '1.4-4' }}/s
                   </ng-container>
                 </td>
               </ng-container>
@@ -67,14 +77,14 @@
                   <ng-container *ngIf="metricsDict[doc.topic + '/' + id] as metric; else loadText">
                     {{ metric['messages.qos0.in.count'] | nzSafeNull }}
                     <nz-divider nzType="vertical"></nz-divider>
-                    {{ metric['messages.qos0.in.rate'] | nzSafeNull }}/s
+                    {{ metric['messages.qos0.in.rate'] | nzSafeNull | number: '1.4-4' }}/s
                   </ng-container>
                 </td>
                 <td>
                   <ng-container *ngIf="metricsDict[doc.topic + '/' + id] as metric; else loadText">
                     {{ metric['messages.qos0.out.count'] | nzSafeNull }}
                     <nz-divider nzType="vertical"></nz-divider>
-                    {{ metric['messages.qos0.out.rate'] | nzSafeNull }}/s
+                    {{ metric['messages.qos0.out.rate'] | nzSafeNull | number: '1.4-4' }}/s
                   </ng-container>
                 </td>
               </ng-container>
@@ -83,14 +93,14 @@
                   <ng-container *ngIf="metricsDict[doc.topic + '/' + id] as metric; else loadText">
                     {{ metric['messages.qos1.in.count'] | nzSafeNull }}
                     <nz-divider nzType="vertical"></nz-divider>
-                    {{ metric['messages.qos1.in.rate'] | nzSafeNull }}/s
+                    {{ metric['messages.qos1.in.rate'] | nzSafeNull | number: '1.4-4' }}/s
                   </ng-container>
                 </td>
                 <td>
                   <ng-container *ngIf="metricsDict[doc.topic + '/' + id] as metric; else loadText">
                     {{ metric['messages.qos1.out.count'] | nzSafeNull }}
                     <nz-divider nzType="vertical"></nz-divider>
-                    {{ metric['messages.qos1.out.rate'] | nzSafeNull }}/s
+                    {{ metric['messages.qos1.out.rate'] | nzSafeNull | number: '1.4-4' }}/s
                   </ng-container>
                 </td>
               </ng-container>
@@ -99,14 +109,14 @@
                   <ng-container *ngIf="metricsDict[doc.topic + '/' + id] as metric; else loadText">
                     {{ metric['messages.qos2.in.count'] | nzSafeNull }}
                     <nz-divider nzType="vertical"></nz-divider>
-                    {{ metric['messages.qos2.in.rate'] | nzSafeNull }}/s
+                    {{ metric['messages.qos2.in.rate'] | nzSafeNull | number: '1.4-4' }}/s
                   </ng-container>
                 </td>
                 <td>
                   <ng-container *ngIf="metricsDict[doc.topic + '/' + id] as metric; else loadText">
                     {{ metric['messages.qos2.out.count'] | nzSafeNull }}
                     <nz-divider nzType="vertical"></nz-divider>
-                    {{ metric['messages.qos2.out.rate'] | nzSafeNull }}/s
+                    {{ metric['messages.qos2.out.rate'] | nzSafeNull | number: '1.4-4' }}/s
                   </ng-container>
                 </td>
               </ng-container>
@@ -116,7 +126,7 @@
               <ng-container *ngIf="metricsDict[doc.topic + '/' + id] as metric; else loadText">
                 {{ metric['messages.dropped.count'] | nzSafeNull }}
                 <nz-divider nzType="vertical"></nz-divider>
-                {{ metric['messages.dropped.rate'] | nzSafeNull }}/s
+                {{ metric['messages.dropped.rate'] | nzSafeNull | number: '1.4-4' }}/s
               </ng-container>
             </td>
           </tr>

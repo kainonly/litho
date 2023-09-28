@@ -2,27 +2,27 @@ import { formatDate } from '@angular/common';
 import { Component, Inject, Input, LOCALE_ID, OnInit } from '@angular/core';
 
 import { CodeviewComponent } from '@common/components/codeview/codeview.component';
-import { LogsetJob } from '@common/models/logset-job';
-import { Workflow } from '@common/models/workflow';
-import { LogsetJobsService } from '@common/services/logset-jobs.service';
+import { Imessage } from '@common/models/imessage';
+import { LogsetImessage } from '@common/models/logset-imessage';
+import { LogsetImessagesService } from '@common/services/logset-imessages.service';
 import { Any, AnyDto, Filter, WpxModel, WpxService } from '@weplanx/ng';
 import { addHours } from 'date-fns';
 import { NzModalService } from 'ng-zorro-antd/modal';
 
 @Component({
-  selector: 'app-admin-workflows-logs',
+  selector: 'app-admin-imessages-logs',
   templateUrl: './logs.component.html'
 })
 export class LogsComponent implements OnInit {
-  @Input({ required: true }) doc!: AnyDto<Workflow>;
-  @Input({ required: true }) index!: number;
+  @Input({ required: true }) doc!: AnyDto<Imessage>;
+  @Input({ required: true }) topic!: string;
 
-  model!: WpxModel<LogsetJob>;
+  model!: WpxModel<LogsetImessage>;
   timestamp: Date[] = [];
 
   constructor(
     private wpx: WpxService,
-    private jobs: LogsetJobsService,
+    private imessages: LogsetImessagesService,
     private modal: NzModalService,
     @Inject(LOCALE_ID) private locale: string
   ) {}
@@ -30,7 +30,7 @@ export class LogsComponent implements OnInit {
   ngOnInit(): void {
     const now = new Date();
     this.timestamp = [addHours(now, -12), now];
-    this.model = this.wpx.setModel<LogsetJob>(`jobs:${this.index}`, this.jobs);
+    this.model = this.wpx.setModel<LogsetImessage>(`imessages:${this.topic}`, this.imessages);
     this.model
       .ready({
         'timestamp->$gte': 'date',
@@ -45,9 +45,8 @@ export class LogsComponent implements OnInit {
     if (refresh) {
       this.model.page = 1;
     }
-    const filter: Filter<LogsetJob> = {
-      'metadata.key': this.doc._id,
-      'metadata.index': this.index
+    const filter: Filter<LogsetImessage> = {
+      'metadata.topic': this.topic
     };
 
     if (this.timestamp.length !== 0) {
@@ -67,11 +66,11 @@ export class LogsComponent implements OnInit {
     this.getData(true);
   }
 
-  openResponse(data: AnyDto<LogsetJob>): void {
+  openResponse(data: AnyDto<LogsetImessage>): void {
     this.modal.create<CodeviewComponent>({
-      nzTitle: `响应详情 [${formatDate(data.timestamp, 'yyyy-MM-dd HH:mm:ss', this.locale)}]`,
+      nzTitle: `Payload [${formatDate(data.timestamp, 'yyyy-MM-dd HH:mm:ss', this.locale)}]`,
       nzContent: CodeviewComponent,
-      nzData: data.response.body,
+      nzData: data.payload,
       nzWidth: 960,
       nzFooter: null
     });

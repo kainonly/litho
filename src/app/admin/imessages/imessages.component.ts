@@ -71,7 +71,7 @@ export class ImessagesComponent implements OnInit {
       nzContentParams: {
         doc
       },
-      nzWidth: 960
+      nzWidth: 1200
     });
   }
 

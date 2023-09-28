@@ -1,14 +1,13 @@
 import { Component, Inject, OnInit } from '@angular/core';
 
-import { LogsetJob } from '@common/models/logset-job';
-import { Any, AnyDto } from '@weplanx/ng';
+import { Any } from '@weplanx/ng';
 import { NZ_MODAL_DATA, NzModalRef } from 'ng-zorro-antd/modal';
 
 @Component({
-  selector: 'app-admin-workflows-response',
-  templateUrl: './response.component.html'
+  selector: 'app-codeview',
+  templateUrl: './codeview.component.html'
 })
-export class ResponseComponent implements OnInit {
+export class CodeviewComponent implements OnInit {
   content = '';
   option: Any = {
     readOnly: true
@@ -16,17 +15,17 @@ export class ResponseComponent implements OnInit {
 
   constructor(
     @Inject(NZ_MODAL_DATA)
-    public data: AnyDto<LogsetJob>,
+    public data: Any,
     private modalRef: NzModalRef
   ) {}
 
   ngOnInit(): void {
     try {
-      const data = JSON.parse(this.data.response.body);
+      const data = JSON.parse(this.data);
       this.option.language = 'json';
       this.content = JSON.stringify(data, null, 2);
     } catch (e) {
-      this.content = this.data.response.body;
+      this.content = this.data;
     }
   }
 
