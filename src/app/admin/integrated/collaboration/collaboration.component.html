@@ -1,13 +1,13 @@
 <nz-card>
   <nz-row style="padding-bottom: 12px" nzJustify="space-between">
     <nz-col>
-      <img style="height: 90px" [src]="['assets', 'Feishu-logo.png'] | wpxAssets" alt="" />
+      <img style="height: 90px" [src]="['assets', 'Lark-logo.svg'] | wpxAssets" alt="" />
     </nz-col>
     <nz-col></nz-col>
     <nz-col></nz-col>
   </nz-row>
 
-  <nz-card nzSize="small" nzType="inner" nzTitle="应用配置（支持Lark）" i18n-nzTitle [nzExtra]="larkEditRef">
+  <nz-card nzSize="small" nzType="inner" nzTitle="应用配置" i18n-nzTitle [nzExtra]="larkEditRef">
     <ng-template #larkEditRef>
       <button nz-button nzType="text" (click)="setLark()">
         <span nz-icon nzType="edit"></span>

@@ -1,6 +1,6 @@
-<nz-page-header nzTitle="个人中心">
+<nz-page-header nzTitle="个人中心" i18n-nzTitle>
   <nz-page-header-footer>
-    <nz-tabset nzSize="small" [(nzSelectedIndex)]="index">
+    <nz-tabset [(nzSelectedIndex)]="index">
       <nz-tab nzTitle="基本信息" i18n-nzTitle></nz-tab>
       <nz-tab nzTitle="安全设置" i18n-nzTitle></nz-tab>
       <nz-tab nzTitle="办公协作" i18n-nzTitle></nz-tab>
@@ -75,7 +75,7 @@
         <nz-list-item-meta>
           <nz-list-item-meta-title><b i18n>手机号码</b></nz-list-item-meta-title>
           <nz-list-item-meta-description>
-            <ng-container *ngIf="!!u.phone; else phoneEmptyText"> 已设置 </ng-container>
+            <ng-container *ngIf="!!u.phone; else phoneEmptyText" i18n> 已设置 </ng-container>
             <ng-template #phoneEmptyText>
               <span i18n> 目前没有设置手机号码，可用于手机验证登录或恢复账号等安全相关操作 </span>
             </ng-template>
@@ -91,6 +91,7 @@
                 nzShape="circle"
                 nz-popconfirm
                 nzPopconfirmTitle="您确定要取消吗？"
+                i18n-nzPopconfirmTitle
                 nzPopconfirmPlacement="bottom"
                 (nzOnConfirm)="unsetPhone()"
               >
@@ -108,10 +109,12 @@
       <nz-list-item>
         <nz-list-item-meta>
           <nz-list-item-meta-title><b i18n>身份验证器</b></nz-list-item-meta-title>
-          <nz-list-item-meta-description i18n>
-            <ng-container *ngIf="!!u.totp; else totpEmptyText"> 已设置 </ng-container>
+          <nz-list-item-meta-description>
+            <ng-container *ngIf="!!u.totp; else totpEmptyText">
+              <span i18n>已设置</span>
+            </ng-container>
             <ng-template #totpEmptyText>
-              目前没有设置身份验证器应用程序，使用手机上的应用程序进行双因素身份验证出现提示时的代码
+              <span i18n>目前没有设置身份验证器应用程序，使用手机上的应用程序进行双因素身份验证出现提示时的代码</span>
             </ng-template>
           </nz-list-item-meta-description>
         </nz-list-item-meta>
@@ -125,6 +128,7 @@
                 nzShape="circle"
                 nz-popconfirm
                 nzPopconfirmTitle="您确定要取消吗？"
+                i18n-nzPopconfirmTitle
                 nzPopconfirmPlacement="bottom"
                 (nzOnConfirm)="unsetTotp()"
               >
@@ -146,8 +150,8 @@
           <nz-list-item-meta-avatar>
             <nz-avatar nzShape="square" nzSize="large" [nzSrc]="['assets', 'Lark.png'] | wpxAssets"></nz-avatar>
           </nz-list-item-meta-avatar>
-          <nz-list-item-meta-title><b i18n>飞书</b></nz-list-item-meta-title>
-          <nz-list-item-meta-description *ngIf="!u.lark" i18n> 当前未关联飞书账号 </nz-list-item-meta-description>
+          <nz-list-item-meta-title><b>Lark</b></nz-list-item-meta-title>
+          <nz-list-item-meta-description *ngIf="!u.lark" i18n> 当前未关联 Lark 账号 </nz-list-item-meta-description>
         </nz-list-item-meta>
         <nz-descriptions *ngIf="u.lark as lark" nzLayout="vertical" [nzColumn]="2">
           <nz-descriptions-item nzTitle="用户姓名" i18n-nzTitle>{{ lark.name }}</nz-descriptions-item>
@@ -166,6 +170,7 @@
               nzShape="circle"
               nz-popconfirm
               nzPopconfirmTitle="您确定要取消该关联吗？"
+              i18n-nzPopconfirmTitle
               nzPopconfirmPlacement="bottom"
               (nzOnConfirm)="unlinkLark()"
             >
@@ -184,7 +189,7 @@
           <nz-list-item-meta-title><b i18n>详情</b></nz-list-item-meta-title>
           <nz-list-item-meta-description>
             <nz-descriptions *ngIf="u.history as history" nzLayout="vertical" [nzColumn]="2">
-              <nz-descriptions-item nzTitle="累计会话">
+              <nz-descriptions-item nzTitle="累计会话" i18n-nzTitle>
                 <span i18n>
                   已登录 <i> {{ u.sessions }} </i> 次
                 </span>
@@ -195,7 +200,7 @@
               <nz-descriptions-item nzTitle="IP">
                 <span> {{ history.metadata.client_ip }}</span>
               </nz-descriptions-item>
-              <nz-descriptions-item nzTitle="ISP" i18n-nzTitle>
+              <nz-descriptions-item nzTitle="ISP">
                 <nz-space *ngIf="u.history.detail as detail" [nzSplit]="spaceSplit">
                   <span *nzSpaceItem>{{ detail.isp }}</span>
                   <span *nzSpaceItem>{{ detail.timezone }}</span>
@@ -205,9 +210,11 @@
                 <ng-container *ngSwitchCase="'shuliancloud.v4'">
                   <nz-descriptions-item nzTitle="地理信息" i18n-nzTitle [nzSpan]="2">
                     <nz-space *ngIf="u.history.detail as detail" [nzSplit]="spaceSplit">
-                      <span *nzSpaceItem>{{ detail.country | wpxBlank: '未知' }}[{{ detail.continent }}]</span>
-                      <span *nzSpaceItem>{{ detail.prov | wpxBlank: '未知' }}</span>
-                      <span *nzSpaceItem>{{ detail.city | wpxBlank: '未知' }}[{{ detail.lng }},{{ detail.lat }}]</span>
+                      <span *nzSpaceItem>{{ detail.country | wpxBlank: 'unknown' }}[{{ detail.continent }}]</span>
+                      <span *nzSpaceItem>{{ detail.prov | wpxBlank: 'unknown' }}</span>
+                      <span *nzSpaceItem>
+                        {{ detail.city | wpxBlank: 'unknown' }}[{{ detail.lng }},{{ detail.lat }}]
+                      </span>
                     </nz-space>
                   </nz-descriptions-item>
                 </ng-container>
