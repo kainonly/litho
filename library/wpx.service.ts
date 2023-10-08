@@ -4,7 +4,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Inject, Injectable, LOCALE_ID, Optional } from '@angular/core';
 import { AsyncSubject, fromEvent, map, Observable } from 'rxjs';
 
-import { Any, WpxImageInfo, R, UploadOption } from './types';
+import { Any, WpxImageInfo, R, UploadOption, TransactionResult } from './types';
 import { WpxApi } from './utils/api';
 import { WpxModel } from './utils/model';
 import { WpxStoreService } from './wpx-store.service';
@@ -87,6 +87,14 @@ export class WpxService {
 
   deleteValue(key: string): Observable<R> {
     return this.http.delete(`values/${key}`);
+  }
+
+  transaction(): Observable<TransactionResult> {
+    return this.http.post<TransactionResult>(`db/transaction`, {});
+  }
+
+  commit(txn: string): Observable<void> {
+    return this.http.post<void>(`db/commit`, { txn });
   }
 
   cosPresigned(): Observable<R> {
