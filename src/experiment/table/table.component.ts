@@ -96,7 +96,7 @@ export class TableComponent implements OnInit {
 
   bulkDelete(): void {
     this.modal.confirm({
-      nzTitle: `您确定删除这些用户吗？`,
+      nzTitle: `您确定删除这些项目吗？`,
       nzOkText: `是的`,
       nzOkType: 'primary',
       nzOkDanger: true,
