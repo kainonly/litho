@@ -54,10 +54,6 @@ const routes: Routes = [
         }
       },
       {
-        path: 'observability',
-        loadChildren: () => import('./observability/observability.module').then(m => m.ObservabilityModule)
-      },
-      {
         path: 'users',
         loadChildren: () => import('./users/users.module').then(m => m.UsersModule),
         data: {
