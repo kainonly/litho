@@ -1,0 +1,196 @@
+<nz-row nzJustify="space-between">
+  <nz-col>
+    <nz-space nzAlign="center">
+      <nz-segmented
+        *nzSpaceItem
+        style="font-weight: bold"
+        [nzOptions]="dashboards"
+        [ngModel]="index"
+        (ngModelChange)="open($event)"
+      ></nz-segmented>
+      <nz-select
+        *nzSpaceItem
+        nzBorderless
+        style="width: 200px"
+        [ngModel]="observability.interval$ | async"
+        (ngModelChange)="observability.setInterval($event)"
+      >
+        <nz-option [nzValue]="60" nzLabel="每 1 分钟自动刷新" i18n-nzLabel></nz-option>
+        <nz-option [nzValue]="300" nzLabel="每 5 分钟自动刷新" i18n-nzLabel></nz-option>
+        <nz-option [nzValue]="86400" nzLabel="停止刷新" i18n-nzLabel></nz-option>
+      </nz-select>
+    </nz-space>
+  </nz-col>
+  <nz-col></nz-col>
+  <nz-col>
+    <nz-space nzAlign="center">
+      <button
+        *nzSpaceItem
+        nz-button
+        nzType="text"
+        (click)="observability.setInterval(86400)"
+        [disabled]="(observability.interval$ | async) !== 86400"
+      >
+        <span nz-icon nzType="sync"></span>
+      </button>
+      <nz-range-picker
+        *nzSpaceItem
+        nzBorderless
+        [(ngModel)]="observability.date"
+        (ngModelChange)="observability.setInterval(86400)"
+        [nzDisabled]="(observability.interval$ | async) !== 86400"
+        [nzShowTime]="{ nzFormat: 'HH:mm' }"
+        nzFormat="yyyy-MM-dd HH:mm"
+      ></nz-range-picker>
+    </nz-space>
+  </nz-col>
+</nz-row>
+
+<div style="padding: 8px 0" [ngSwitch]="index">
+  <nz-row *ngSwitchCase="0" [nzGutter]="[8, 8]">
+    <nz-col [nzSpan]="8">
+      <app-monitor-area
+        title="可用连接"
+        name="mongo_available_connections"
+        [options]="options.mongo_available_connections"
+      ></app-monitor-area>
+    </nz-col>
+    <nz-col [nzSpan]="8">
+      <app-monitor-area
+        title="打开连接"
+        name="mongo_open_connections"
+        [options]="options.mongo_open_connections"
+      ></app-monitor-area>
+    </nz-col>
+    <nz-col [nzSpan]="8">
+      <app-monitor-area
+        title="命令"
+        name="mongo_commands_per_second"
+        [options]="options.mongo_commands_per_second"
+      ></app-monitor-area>
+    </nz-col>
+    <nz-col [nzSpan]="12">
+      <app-monitor-area
+        title="查询操作"
+        name="mongo_query_operations"
+        [options]="options.mongo_query_operations"
+        [fn]="mongo_query_operations"
+      ></app-monitor-area>
+    </nz-col>
+    <nz-col [nzSpan]="12">
+      <app-monitor-area
+        title="文档操作"
+        name="mongo_document_operations"
+        [options]="options.mongo_document_operations"
+        [fn]="mongo_document_operations"
+      ></app-monitor-area>
+    </nz-col>
+    <nz-col [nzSpan]="12">
+      <app-monitor-area title="数据刷新" name="mongo_flushes" [options]="options.mongo_flushes"></app-monitor-area>
+    </nz-col>
+    <nz-col [nzSpan]="12">
+      <app-monitor-area
+        title="网络 IO"
+        name="mongo_network_io"
+        [options]="options.mongo_network_io"
+        [fn]="mongo_network_io"
+      ></app-monitor-area>
+    </nz-col>
+  </nz-row>
+  <nz-row *ngSwitchCase="1" [nzGutter]="[8, 8]">
+    <nz-col [nzSpan]="8">
+      <app-monitor-area
+        title="处理命令数"
+        name="redis_ops_per_sec"
+        [options]="options.redis_ops_per_sec"
+      ></app-monitor-area>
+    </nz-col>
+    <nz-col [nzSpan]="8">
+      <app-monitor-area
+        title="连接数速率"
+        name="redis_collections_rate"
+        [options]="options.redis_collections_rate"
+      ></app-monitor-area>
+    </nz-col>
+    <nz-col [nzSpan]="8">
+      <app-monitor-area
+        title="Keyspace hitrate"
+        name="redis_hit_rate"
+        [options]="options.redis_hit_rate"
+      ></app-monitor-area>
+    </nz-col>
+    <nz-col [nzSpan]="12">
+      <app-monitor-area
+        title="CPU 使用率"
+        name="redis_cpu"
+        [options]="options.redis_cpu"
+        [fn]="redis_cpu"
+      ></app-monitor-area>
+    </nz-col>
+    <nz-col [nzSpan]="12">
+      <app-monitor-area
+        title="驱逐 / 过期"
+        name="redis_evi_exp_keys"
+        [options]="options.redis_evi_exp_keys"
+        [fn]="redis_evi_exp_keys"
+      ></app-monitor-area>
+    </nz-col>
+    <nz-col [nzSpan]="12">
+      <app-monitor-area
+        title="内存用量"
+        name="redis_mem"
+        [options]="options.redis_mem"
+        [fn]="redis_mem"
+      ></app-monitor-area>
+    </nz-col>
+    <nz-col [nzSpan]="12">
+      <app-monitor-area
+        title="网络 IO"
+        name="redis_network_io"
+        [options]="options.redis_network_io"
+        [fn]="redis_network_io"
+      ></app-monitor-area>
+    </nz-col>
+  </nz-row>
+  <nz-row *ngSwitchCase="2" [nzGutter]="[8, 8]">
+    <nz-col [nzSpan]="8">
+      <app-monitor-area title="连接数" name="nats_connections" [options]="options.nats_connections"></app-monitor-area>
+    </nz-col>
+    <nz-col [nzSpan]="8">
+      <app-monitor-area
+        title="订阅数"
+        name="nats_subscriptions"
+        [options]="options.nats_subscriptions"
+      ></app-monitor-area>
+    </nz-col>
+    <nz-col [nzSpan]="8">
+      <app-monitor-area
+        title="慢消费者"
+        name="nats_slow_consumers"
+        [options]="options.nats_slow_consumers"
+      ></app-monitor-area>
+    </nz-col>
+    <nz-col [nzSpan]="12">
+      <app-monitor-area title="CPU 使用率" name="nats_cpu" [options]="options.nats_cpu"></app-monitor-area>
+    </nz-col>
+    <nz-col [nzSpan]="12">
+      <app-monitor-area
+        title="消息数 IO"
+        name="nats_msg_io"
+        [options]="options.nats_msg_io"
+        [fn]="nats_msg_io"
+      ></app-monitor-area>
+    </nz-col>
+    <nz-col [nzSpan]="12">
+      <app-monitor-area title="内存用量" name="nats_mem" [options]="options.nats_mem"></app-monitor-area>
+    </nz-col>
+    <nz-col [nzSpan]="12">
+      <app-monitor-area
+        title="网络 IO"
+        name="nats_bytes_io"
+        [options]="options.nats_bytes_io"
+        [fn]="nats_bytes_io"
+      ></app-monitor-area>
+    </nz-col>
+  </nz-row>
+</div>

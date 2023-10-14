@@ -54,6 +54,13 @@ const routes: Routes = [
         }
       },
       {
+        path: 'monitor',
+        loadChildren: () => import('./monitor/monitor.module').then(m => m.MonitorModule),
+        data: {
+          breadcrumb: `服务监控`
+        }
+      },
+      {
         path: 'users',
         loadChildren: () => import('./users/users.module').then(m => m.UsersModule),
         data: {
