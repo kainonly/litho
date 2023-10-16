@@ -5,10 +5,10 @@ import { ClustersService } from '@common/services/clusters.service';
 import { Any, AnyDto } from '@weplanx/ng';
 
 @Component({
-  selector: 'app-admin-clusters-controls',
-  templateUrl: './controls.component.html'
+  selector: 'app-admin-clusters-detail',
+  templateUrl: './detail.component.html'
 })
-export class ControlsComponent implements OnInit {
+export class DetailComponent implements OnInit {
   @Input({ required: true }) data!: AnyDto<Cluster>;
 
   index = 0;

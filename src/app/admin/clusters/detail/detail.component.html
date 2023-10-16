@@ -1,0 +1,31 @@
+<nz-layout style="height: 100%; background: transparent">
+  <nz-page-header>
+    <nz-page-header-title>集群节点</nz-page-header-title>
+    <nz-page-header-tags>
+      <nz-tag>{{ data.name }}</nz-tag>
+    </nz-page-header-tags>
+  </nz-page-header>
+
+  <nz-content style="overflow: hidden auto">
+    <nz-card>
+      <nz-table nzTemplateMode>
+        <thead>
+          <tr>
+            <th nzWidth="25%"><b>主机 [IP]</b></th>
+            <th nzWidth="25%"><b>Cpu / 内存 / 存储</b></th>
+            <th nzWidth="25%"><b>操作系统</b></th>
+            <th nzWidth="25%"><b>加入时间</b></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of nodes">
+            <td> {{ item.hostname }} [{{ item.ip }}]</td>
+            <td> {{ item.cpu }} / {{ item.mem | nzBytes }} / {{ item.storage | nzBytes }} </td>
+            <td> {{ item.os }} [{{ item.architecture }}] </td>
+            <td> {{ item.create | date: 'yyyy-MM-dd HH:mm' }} </td>
+          </tr>
+        </tbody>
+      </nz-table>
+    </nz-card>
+  </nz-content>
+</nz-layout>

@@ -42,7 +42,7 @@
       render: name
     },
     {
-      title: 'Cpu / 内存 / 存储 / 版本',
+      title: '详情',
       key: 'detail',
       render: detail
     }
@@ -58,8 +58,12 @@
     <ng-container *ngIf="infos[data._id] as v"> ({{ v.nodes }}) </ng-container>
   </ng-template>
   <ng-template #detail let-data>
-    <ng-container *ngIf="infos[data._id] as v">
-      {{ v.cpu }} / {{ v.mem | nzBytes }} / {{ v.storage | nzBytes }} / {{ v.version }}
+    <ng-container *ngIf="infos[data._id] as v; else disconnect">
+      <nz-tag>{{ v.version }}</nz-tag>
+      <nz-tag>CPU：{{ v.cpu }}</nz-tag>
+      <nz-tag>MEM：{{ v.mem | nzBytes }}</nz-tag>
+      <nz-tag>STORAGE：{{ v.storage | nzBytes }}</nz-tag>
+      <a (click)="openDetail(data)">查看</a>
     </ng-container>
   </ng-template>
 </wpx-table>
@@ -70,9 +74,12 @@
   </button>
   <nz-dropdown-menu #menu="nzDropdownMenu">
     <ul nz-menu>
-      <li nz-menu-item (click)="openControls(data)"> 管理 </li>
       <li nz-menu-item (click)="openForm(data)"> 修改 </li>
       <li nz-menu-item nzDanger (click)="delete(data)"> 删除 </li>
     </ul>
   </nz-dropdown-menu>
+</ng-template>
+
+<ng-template #disconnect>
+  <nz-tag nzColor="error">脱机</nz-tag>
 </ng-template>

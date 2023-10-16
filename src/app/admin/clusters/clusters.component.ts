@@ -8,7 +8,7 @@ import { NzDrawerService } from 'ng-zorro-antd/drawer';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalService } from 'ng-zorro-antd/modal';
 
-import { ControlsComponent } from './controls/controls.component';
+import { DetailComponent } from './detail/detail.component';
 import { FormComponent, FormInput } from './form/form.component';
 
 @Component({
@@ -55,10 +55,10 @@ export class ClustersComponent implements OnInit {
     this.router.navigate(['/admin', 'clusters', context, 'nodes']);
   }
 
-  openControls(doc: AnyDto<Cluster>): void {
+  openDetail(doc: AnyDto<Cluster>): void {
     this.drawer.create({
       nzClosable: false,
-      nzContent: ControlsComponent,
+      nzContent: DetailComponent,
       nzContentParams: {
         data: doc
       },
