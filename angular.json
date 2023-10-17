@@ -23,18 +23,12 @@
             "polyfills": ["zone.js"],
             "tsConfig": "tsconfig.app.json",
             "inlineStyleLanguage": "less",
-            "assets": [
-              "src/favicon.ico",
-              "src/assets",
-              "src/manifest.webmanifest"
-            ],
+            "assets": ["src/favicon.ico", "src/assets", "src/manifest.webmanifest"],
             "styles": ["src/styles.less"],
             "scripts": [],
             "allowedCommonJsDependencies": ["size-sensor", "d3-regression", "fmin", "pdfast", "cron-parser"],
             "localize": true,
-            "i18nMissingTranslation": "error",
-            "serviceWorker": true,
-            "ngswConfigPath": "ngsw-config.json"
+            "i18nMissingTranslation": "error"
           },
           "configurations": {
             "production": {
@@ -114,11 +108,7 @@
             "polyfills": ["zone.js", "zone.js/testing"],
             "tsConfig": "tsconfig.spec.json",
             "inlineStyleLanguage": "less",
-            "assets": [
-              "src/favicon.ico",
-              "src/assets",
-              "src/manifest.webmanifest"
-            ],
+            "assets": ["src/favicon.ico", "src/assets", "src/manifest.webmanifest"],
             "styles": ["src/styles.less"],
             "scripts": []
           }

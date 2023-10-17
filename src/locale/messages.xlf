@@ -465,6 +465,13 @@
           <context context-type="linenumber">20</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="2267838258679981817" datatype="html">
+        <source>发布消息</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/imessages/detail/detail.component.html</context>
+          <context context-type="linenumber">32</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="5086079960232085969" datatype="html">
         <source>请输入 Host</source>
         <context-group purpose="location">
@@ -609,11 +616,11 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/admin/settings/sessions/sessions.component.html</context>
-          <context context-type="linenumber">58</context>
+          <context context-type="linenumber">56</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/common/components/nav/profile/profile.component.html</context>
-          <context context-type="linenumber">184</context>
+          <context context-type="linenumber">189</context>
         </context-group>
       </trans-unit>
       <trans-unit id="7015579290521751194" datatype="html">
@@ -641,6 +648,10 @@
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/admin/integrated/extend/extend.component.html</context>
           <context context-type="linenumber">26</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/common/components/nav/profile/profile.component.html</context>
+          <context context-type="linenumber">114</context>
         </context-group>
       </trans-unit>
       <trans-unit id="6774234146320231782" datatype="html">
@@ -946,8 +957,8 @@
           <context context-type="linenumber">22</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="4609215572642772447" datatype="html">
-        <source>应用配置（支持Lark）</source>
+      <trans-unit id="198445650758604009" datatype="html">
+        <source>应用配置</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/admin/integrated/collaboration/collaboration.component.html</context>
           <context context-type="linenumber">10</context>
@@ -1008,7 +1019,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/common/components/nav/profile/profile.component.html</context>
-          <context context-type="linenumber">176</context>
+          <context context-type="linenumber">181</context>
         </context-group>
       </trans-unit>
       <trans-unit id="8215052753431235758" datatype="html">
@@ -1202,125 +1213,118 @@
           <context context-type="linenumber">28</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="8567367424238180211" datatype="html">
-        <source>每 10s 自动刷新</source>
+      <trans-unit id="8258617071455443643" datatype="html">
+        <source>每 1 分钟自动刷新</source>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/admin/observability/observability.component.html</context>
-          <context context-type="linenumber">17</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="7120986950292324108" datatype="html">
-        <source>每 30s 自动刷新</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/admin/observability/observability.component.html</context>
+          <context context-type="sourcefile">src/app/admin/monitor/monitor.component.html</context>
           <context context-type="linenumber">18</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="543607697794404021" datatype="html">
-        <source>每 60s 自动刷新</source>
+      <trans-unit id="4010474125026673535" datatype="html">
+        <source>每 5 分钟自动刷新</source>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/admin/observability/observability.component.html</context>
+          <context context-type="sourcefile">src/app/admin/monitor/monitor.component.html</context>
           <context context-type="linenumber">19</context>
         </context-group>
       </trans-unit>
       <trans-unit id="2185120093008531279" datatype="html">
         <source>停止刷新</source>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/admin/observability/observability.component.html</context>
+          <context context-type="sourcefile">src/app/admin/monitor/monitor.component.html</context>
           <context context-type="linenumber">20</context>
         </context-group>
       </trans-unit>
       <trans-unit id="1973220255787018137" datatype="html">
         <source>命令</source>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/admin/observability/observability.component.ts</context>
-          <context context-type="linenumber">141</context>
+          <context context-type="sourcefile">src/app/admin/monitor/monitor.component.ts</context>
+          <context context-type="linenumber">98</context>
         </context-group>
       </trans-unit>
       <trans-unit id="1238008746930901163" datatype="html">
         <source>读取</source>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/admin/observability/observability.component.ts</context>
-          <context context-type="linenumber">141</context>
+          <context context-type="sourcefile">src/app/admin/monitor/monitor.component.ts</context>
+          <context context-type="linenumber">98</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/admin/observability/observability.component.ts</context>
-          <context context-type="linenumber">145</context>
+          <context context-type="sourcefile">src/app/admin/monitor/monitor.component.ts</context>
+          <context context-type="linenumber">102</context>
         </context-group>
       </trans-unit>
       <trans-unit id="9159626355466524666" datatype="html">
         <source>新增</source>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/admin/observability/observability.component.ts</context>
-          <context context-type="linenumber">141</context>
+          <context context-type="sourcefile">src/app/admin/monitor/monitor.component.ts</context>
+          <context context-type="linenumber">98</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/admin/observability/observability.component.ts</context>
-          <context context-type="linenumber">145</context>
+          <context context-type="sourcefile">src/app/admin/monitor/monitor.component.ts</context>
+          <context context-type="linenumber">102</context>
         </context-group>
       </trans-unit>
       <trans-unit id="4710233104778163383" datatype="html">
         <source>更新</source>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/admin/observability/observability.component.ts</context>
-          <context context-type="linenumber">141</context>
+          <context context-type="sourcefile">src/app/admin/monitor/monitor.component.ts</context>
+          <context context-type="linenumber">98</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/admin/observability/observability.component.ts</context>
-          <context context-type="linenumber">145</context>
+          <context context-type="sourcefile">src/app/admin/monitor/monitor.component.ts</context>
+          <context context-type="linenumber">102</context>
         </context-group>
       </trans-unit>
       <trans-unit id="1329392431125715413" datatype="html">
         <source>删除</source>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/admin/observability/observability.component.ts</context>
-          <context context-type="linenumber">141</context>
+          <context context-type="sourcefile">src/app/admin/monitor/monitor.component.ts</context>
+          <context context-type="linenumber">98</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/admin/observability/observability.component.ts</context>
-          <context context-type="linenumber">145</context>
+          <context context-type="sourcefile">src/app/admin/monitor/monitor.component.ts</context>
+          <context context-type="linenumber">102</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/admin/settings/values/values.component.html</context>
-          <context context-type="linenumber">67</context>
+          <context context-type="linenumber">69</context>
         </context-group>
       </trans-unit>
       <trans-unit id="2210779654693706235" datatype="html">
         <source>输入</source>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/admin/observability/observability.component.ts</context>
-          <context context-type="linenumber">149</context>
+          <context context-type="sourcefile">src/app/admin/monitor/monitor.component.ts</context>
+          <context context-type="linenumber">106</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/admin/observability/observability.component.ts</context>
-          <context context-type="linenumber">165</context>
+          <context context-type="sourcefile">src/app/admin/monitor/monitor.component.ts</context>
+          <context context-type="linenumber">122</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/admin/observability/observability.component.ts</context>
-          <context context-type="linenumber">169</context>
+          <context context-type="sourcefile">src/app/admin/monitor/monitor.component.ts</context>
+          <context context-type="linenumber">126</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/admin/observability/observability.component.ts</context>
-          <context context-type="linenumber">173</context>
+          <context context-type="sourcefile">src/app/admin/monitor/monitor.component.ts</context>
+          <context context-type="linenumber">130</context>
         </context-group>
       </trans-unit>
       <trans-unit id="1197867220518221681" datatype="html">
         <source>输出</source>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/admin/observability/observability.component.ts</context>
-          <context context-type="linenumber">149</context>
+          <context context-type="sourcefile">src/app/admin/monitor/monitor.component.ts</context>
+          <context context-type="linenumber">106</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/admin/observability/observability.component.ts</context>
-          <context context-type="linenumber">165</context>
+          <context context-type="sourcefile">src/app/admin/monitor/monitor.component.ts</context>
+          <context context-type="linenumber">122</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/admin/observability/observability.component.ts</context>
-          <context context-type="linenumber">169</context>
+          <context context-type="sourcefile">src/app/admin/monitor/monitor.component.ts</context>
+          <context context-type="linenumber">126</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/admin/observability/observability.component.ts</context>
-          <context context-type="linenumber">173</context>
+          <context context-type="sourcefile">src/app/admin/monitor/monitor.component.ts</context>
+          <context context-type="linenumber">130</context>
         </context-group>
       </trans-unit>
       <trans-unit id="260800610501356748" datatype="html">
@@ -1501,7 +1505,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/admin/settings/values/values.component.html</context>
-          <context context-type="linenumber">66</context>
+          <context context-type="linenumber">68</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/common/components/nav/profile/profile.component.html</context>
@@ -1745,39 +1749,39 @@
         <source>用户</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/admin/settings/sessions/sessions.component.html</context>
-          <context context-type="linenumber">57</context>
+          <context context-type="linenumber">55</context>
         </context-group>
       </trans-unit>
       <trans-unit id="1651182980112384879" datatype="html">
         <source>本人</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/admin/settings/sessions/sessions.component.html</context>
-          <context context-type="linenumber">70</context>
+          <context context-type="linenumber">73</context>
         </context-group>
       </trans-unit>
       <trans-unit id="1238230407282377212" datatype="html">
         <source>[ <x id="INTERPOLATION" equiv-text="{{ !data.name ? &apos;无称呼&apos; : data.name }}"/> ]</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/admin/settings/sessions/sessions.component.html</context>
-          <context context-type="linenumber">73</context>
+          <context context-type="linenumber">76</context>
         </context-group>
       </trans-unit>
       <trans-unit id="6836743294040773829" datatype="html">
         <source>中断会话</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/admin/settings/sessions/sessions.component.html</context>
-          <context context-type="linenumber">103</context>
+          <context context-type="linenumber">105</context>
         </context-group>
       </trans-unit>
       <trans-unit id="2599541960463947809" datatype="html">
         <source>会话已中断</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/admin/settings/sessions/sessions.component.ts</context>
-          <context context-type="linenumber">106</context>
+          <context context-type="linenumber">99</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/admin/settings/sessions/sessions.component.ts</context>
-          <context context-type="linenumber">118</context>
+          <context context-type="linenumber">111</context>
         </context-group>
       </trans-unit>
       <trans-unit id="1441079501343703105" datatype="html">
@@ -1813,7 +1817,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/admin/settings/values/values.component.html</context>
-          <context context-type="linenumber">49</context>
+          <context context-type="linenumber">47</context>
         </context-group>
       </trans-unit>
       <trans-unit id="8253534112843488975" datatype="html">
@@ -1824,7 +1828,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/admin/settings/values/values.component.html</context>
-          <context context-type="linenumber">50</context>
+          <context context-type="linenumber">48</context>
         </context-group>
       </trans-unit>
       <trans-unit id="7956251356704999100" datatype="html">
@@ -1859,35 +1863,35 @@
         <source>动态配置表单</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/admin/settings/values/values.component.ts</context>
-          <context context-type="linenumber">91</context>
+          <context context-type="linenumber">83</context>
         </context-group>
       </trans-unit>
       <trans-unit id="2881354682472332590" datatype="html">
         <source>您确定删除 [<x id="PH" equiv-text="key"/>] 配置吗？</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/admin/settings/values/values.component.ts</context>
-          <context context-type="linenumber">103</context>
+          <context context-type="linenumber">95</context>
         </context-group>
       </trans-unit>
       <trans-unit id="6971328832784287157" datatype="html">
         <source>是的</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/admin/settings/values/values.component.ts</context>
-          <context context-type="linenumber">104</context>
+          <context context-type="linenumber">96</context>
         </context-group>
       </trans-unit>
       <trans-unit id="3029031849431041398" datatype="html">
         <source>数据删除成功</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/admin/settings/values/values.component.ts</context>
-          <context context-type="linenumber">109</context>
+          <context context-type="linenumber">101</context>
         </context-group>
       </trans-unit>
       <trans-unit id="5876074000187806160" datatype="html">
         <source>再想想</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/admin/settings/values/values.component.ts</context>
-          <context context-type="linenumber">113</context>
+          <context context-type="linenumber">105</context>
         </context-group>
       </trans-unit>
       <trans-unit id="1496302481389750951" datatype="html">
@@ -1907,23 +1911,23 @@
       <trans-unit id="8047098374238841494" datatype="html">
         <source>开启</source>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/audit/logined/logined.component.html</context>
+          <context context-type="sourcefile">src/app/audit/logins/logins.component.html</context>
           <context context-type="linenumber">196</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/audit/operates/operates.component.html</context>
-          <context context-type="linenumber">164</context>
+          <context context-type="linenumber">160</context>
         </context-group>
       </trans-unit>
       <trans-unit id="5300391254526469340" datatype="html">
         <source>关闭</source>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/audit/logined/logined.component.html</context>
+          <context context-type="sourcefile">src/app/audit/logins/logins.component.html</context>
           <context context-type="linenumber">198</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/audit/operates/operates.component.html</context>
-          <context context-type="linenumber">166</context>
+          <context context-type="linenumber">162</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/common/components/result/authorized/authorized.component.ts</context>
@@ -1933,75 +1937,71 @@
       <trans-unit id="319992146477562846" datatype="html">
         <source> 已登录 <x id="START_BOLD_TEXT" ctype="x-b" equiv-text="&lt;b&gt;"/> <x id="INTERPOLATION" equiv-text="{{ u.sessions }}"/> <x id="CLOSE_BOLD_TEXT" ctype="x-b" equiv-text="&lt;/b&gt;"/> 次 </source>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/audit/logined/logined.component.html</context>
+          <context context-type="sourcefile">src/app/audit/logins/logins.component.html</context>
           <context context-type="linenumber">201,203</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/audit/operates/operates.component.html</context>
-          <context context-type="linenumber">169,171</context>
+          <context context-type="linenumber">165,167</context>
         </context-group>
       </trans-unit>
       <trans-unit id="3201173975696384126" datatype="html">
         <source>最近登录时间</source>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/audit/logined/logined.component.html</context>
+          <context context-type="sourcefile">src/app/audit/logins/logins.component.html</context>
           <context context-type="linenumber">206</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/audit/operates/operates.component.html</context>
-          <context context-type="linenumber">174</context>
+          <context context-type="linenumber">170</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/common/components/nav/profile/profile.component.html</context>
-          <context context-type="linenumber">192</context>
+          <context context-type="linenumber">197</context>
         </context-group>
       </trans-unit>
       <trans-unit id="2757920766035234523" datatype="html">
         <source>位置</source>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/audit/logined/logined.component.html</context>
+          <context context-type="sourcefile">src/app/audit/logins/logins.component.html</context>
           <context context-type="linenumber">214</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/audit/operates/operates.component.html</context>
-          <context context-type="linenumber">182</context>
+          <context context-type="linenumber">178</context>
         </context-group>
       </trans-unit>
       <trans-unit id="6534480732067499471" datatype="html">
         <source>ISP</source>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/audit/logined/logined.component.html</context>
+          <context context-type="sourcefile">src/app/audit/logins/logins.component.html</context>
           <context context-type="linenumber">221</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/audit/operates/operates.component.html</context>
-          <context context-type="linenumber">189</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/common/components/nav/profile/profile.component.html</context>
-          <context context-type="linenumber">198</context>
+          <context context-type="linenumber">185</context>
         </context-group>
       </trans-unit>
       <trans-unit id="5739636166086275789" datatype="html">
         <source>创建时间</source>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/audit/logined/logined.component.html</context>
+          <context context-type="sourcefile">src/app/audit/logins/logins.component.html</context>
           <context context-type="linenumber">230</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/audit/operates/operates.component.html</context>
-          <context context-type="linenumber">198</context>
+          <context context-type="linenumber">194</context>
         </context-group>
       </trans-unit>
       <trans-unit id="1398596215999913783" datatype="html">
         <source>更新时间</source>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/audit/logined/logined.component.html</context>
+          <context context-type="sourcefile">src/app/audit/logins/logins.component.html</context>
           <context context-type="linenumber">233</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/audit/operates/operates.component.html</context>
-          <context context-type="linenumber">201</context>
+          <context context-type="linenumber">197</context>
         </context-group>
       </trans-unit>
       <trans-unit id="7939241515956748037" datatype="html">
@@ -2009,6 +2009,10 @@
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/common/components/nav/nav.component.html</context>
           <context context-type="linenumber">68</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/common/components/nav/profile/profile.component.html</context>
+          <context context-type="linenumber">1</context>
         </context-group>
       </trans-unit>
       <trans-unit id="4311277299278710073" datatype="html">
@@ -2290,6 +2294,13 @@
           <context context-type="linenumber">76</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="2324561359529174543" datatype="html">
+        <source> 已设置 </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/common/components/nav/profile/profile.component.html</context>
+          <context context-type="linenumber">78</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="1920607062970782318" datatype="html">
         <source> 目前没有设置手机号码，可用于手机验证登录或恢复账号等安全相关操作 </source>
         <context-group purpose="location">
@@ -2297,67 +2308,85 @@
           <context context-type="linenumber">80</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="8237988454335627554" datatype="html">
+        <source>您确定要取消吗？</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/common/components/nav/profile/profile.component.html</context>
+          <context context-type="linenumber">93</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/common/components/nav/profile/profile.component.html</context>
+          <context context-type="linenumber">130</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="7606135197066557110" datatype="html">
         <source>身份验证器</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/common/components/nav/profile/profile.component.html</context>
-          <context context-type="linenumber">110</context>
+          <context context-type="linenumber">111</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="8348789917457523476" datatype="html">
-        <source><x id="START_TAG_NG_CONTAINER" ctype="x-ng_container" equiv-text="&lt;ng-container *ngIf=&quot;!!u.totp; else totpEmptyText&quot;&gt;"/> 已设置 <x id="CLOSE_TAG_NG_CONTAINER" ctype="x-ng_container" equiv-text="&lt;/ng-container&gt;"/><x id="START_TAG_NG_TEMPLATE" ctype="x-ng_template" equiv-text="&lt;ng-template #totpEmptyText&gt;"/> 目前没有设置身份验证器应用程序，使用手机上的应用程序进行双因素身份验证出现提示时的代码 <x id="CLOSE_TAG_NG_TEMPLATE" ctype="x-ng_template" equiv-text="&lt;/ng-template&gt;"/></source>
+      <trans-unit id="3865384125177450023" datatype="html">
+        <source>目前没有设置身份验证器应用程序，使用手机上的应用程序进行双因素身份验证出现提示时的代码</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/common/components/nav/profile/profile.component.html</context>
-          <context context-type="linenumber">112,115</context>
+          <context context-type="linenumber">117</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="5620822951702644837" datatype="html">
-        <source>飞书</source>
+      <trans-unit id="8378815731125863939" datatype="html">
+        <source> 当前未关联 Lark 账号 </source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/common/components/nav/profile/profile.component.html</context>
-          <context context-type="linenumber">149</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="4641824510286887169" datatype="html">
-        <source> 当前未关联飞书账号 </source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/common/components/nav/profile/profile.component.html</context>
-          <context context-type="linenumber">150</context>
+          <context context-type="linenumber">154</context>
         </context-group>
       </trans-unit>
       <trans-unit id="3070507078846532908" datatype="html">
         <source>用户姓名</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/common/components/nav/profile/profile.component.html</context>
-          <context context-type="linenumber">153</context>
+          <context context-type="linenumber">157</context>
         </context-group>
       </trans-unit>
       <trans-unit id="5846911581277442653" datatype="html">
         <source>用户英文名称</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/common/components/nav/profile/profile.component.html</context>
-          <context context-type="linenumber">154</context>
+          <context context-type="linenumber">158</context>
         </context-group>
       </trans-unit>
       <trans-unit id="314049872135517137" datatype="html">
         <source>用户应用唯一标识</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/common/components/nav/profile/profile.component.html</context>
-          <context context-type="linenumber">157</context>
+          <context context-type="linenumber">161</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7445293137552056726" datatype="html">
+        <source>您确定要取消该关联吗？</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/common/components/nav/profile/profile.component.html</context>
+          <context context-type="linenumber">172</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4198057662718206669" datatype="html">
+        <source>累计会话</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/common/components/nav/profile/profile.component.html</context>
+          <context context-type="linenumber">192</context>
         </context-group>
       </trans-unit>
       <trans-unit id="6692489700455389896" datatype="html">
         <source> 已登录 <x id="START_ITALIC_TEXT" ctype="x-i" equiv-text="&lt;i&gt;"/> <x id="INTERPOLATION" equiv-text="{{ u.sessions }}"/> <x id="CLOSE_ITALIC_TEXT" ctype="x-i" equiv-text="&lt;/i&gt;"/> 次 </source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/common/components/nav/profile/profile.component.html</context>
-          <context context-type="linenumber">188,190</context>
+          <context context-type="linenumber">193,195</context>
         </context-group>
       </trans-unit>
       <trans-unit id="624508988230023692" datatype="html">
         <source>地理信息</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/common/components/nav/profile/profile.component.html</context>
-          <context context-type="linenumber">206</context>
+          <context context-type="linenumber">211</context>
         </context-group>
       </trans-unit>
       <trans-unit id="7499361330809432177" datatype="html">
@@ -2426,13 +2455,6 @@
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/forget/forget.component.html</context>
           <context context-type="linenumber">96</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="7244587540439134448" datatype="html">
-        <source>直接输入正文</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/common/components/richtext/richtext.component.ts</context>
-          <context context-type="linenumber">36</context>
         </context-group>
       </trans-unit>
       <trans-unit id="6566219922947680041" datatype="html">
