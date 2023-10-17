@@ -71,7 +71,7 @@ export class SchedulesComponent implements OnInit, OnDestroy {
   openKeys(doc: AnyDto<Schedule>): void {
     this.drawer.create({
       nzClosable: false,
-      nzWidth: 600,
+      nzWidth: 960,
       nzContent: KeysComponent,
       nzContentParams: {
         doc

@@ -28,7 +28,7 @@
       <nz-table nzTemplateMode>
         <thead>
           <tr>
-            <th nzLeft nzWidth="60px">
+            <th nzWidth="60px" nzAlign="center">
               <button nz-button nzType="text" nz-tooltip="发布消息" i18n-nz-tooltip disabled>
                 <span nz-icon nzType="notification" nzTheme="outline"></span>
               </button>
@@ -42,7 +42,7 @@
         </thead>
         <tbody>
           <tr *ngFor="let id of doc.projects">
-            <td nzLeft>
+            <td nzAlign="center">
               <button nz-button nzType="text" (click)="openPublish(id)">
                 <span nz-icon nzType="send" nzTheme="outline"></span>
               </button>

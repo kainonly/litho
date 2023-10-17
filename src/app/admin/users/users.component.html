@@ -103,7 +103,9 @@
     </nz-space>
   </ng-template>
   <ng-template #history let-data>
-    {{ data.history.timestamp | date: 'yyyy-MM-dd HH:mm:ss' }} （{{ data.sessions }}）
+    <ng-container *ngIf="data.history">
+      {{ data.history?.timestamp | date: 'yyyy-MM-dd HH:mm:ss' }} （{{ data.sessions }}）
+    </ng-container>
   </ng-template>
 </wpx-table>
 

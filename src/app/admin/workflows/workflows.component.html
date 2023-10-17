@@ -8,6 +8,22 @@
       (wpxSubmit)="getData()"
       wpxPlaceholder="工作流名称"
     ></wpx-keyword>
+    <nz-select
+      *nzSpaceItem
+      style="min-width: 320px"
+      nzAllowClear
+      nzPlaceHolder="请选择所属项目"
+      nzShowSearch
+      nzServerSearch
+      nzMode="multiple"
+      [(ngModel)]="searchProjects"
+      (nzOnSearch)="projects$.next($event)"
+      (ngModelChange)="getData()"
+    >
+      <ng-container *ngFor="let item of projectItems">
+        <nz-option [nzValue]="item._id" [nzLabel]="item.name"> </nz-option>
+      </ng-container>
+    </nz-select>
     <wpx-toolbox *nzSpaceItem [wpxModel]="model" (wpxClear)="getData()" (wpxRefresh)="getData()"> </wpx-toolbox>
   </nz-space>
 </ng-template>

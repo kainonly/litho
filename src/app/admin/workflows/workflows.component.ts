@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { switchMap } from 'rxjs';
+import { BehaviorSubject, debounceTime, switchMap } from 'rxjs';
 
 import { Project } from '@common/models/project';
 import { Schedule } from '@common/models/schedule';
@@ -7,7 +7,7 @@ import { Workflow } from '@common/models/workflow';
 import { ProjectsService } from '@common/services/projects.service';
 import { SchedulesService } from '@common/services/schedules.service';
 import { WorkflowsService } from '@common/services/workflows.service';
-import { AnyDto, WpxModel, WpxService } from '@weplanx/ng';
+import { AnyDto, Filter, WpxModel, WpxService } from '@weplanx/ng';
 import { NzDrawerService } from 'ng-zorro-antd/drawer';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalService } from 'ng-zorro-antd/modal';
@@ -23,6 +23,10 @@ import { SchedulesComponent } from './schedules/schedules.component';
 })
 export class WorkflowsComponent implements OnInit {
   model!: WpxModel<Workflow>;
+  projects$ = new BehaviorSubject<string>('');
+  projectItems: AnyDto<Project>[] = [];
+  searchProjects: string[] = [];
+
   projectDict: Record<string, AnyDto<Project>> = {};
   scheduleDict: Record<string, AnyDto<Schedule>> = {};
 
@@ -38,7 +42,7 @@ export class WorkflowsComponent implements OnInit {
 
   ngOnInit(): void {
     this.model = this.wpx.setModel<Workflow>('workflows', this.workflows);
-    this.model.ready().subscribe(() => {
+    this.model.ready({ 'project->$in': 'oids' }).subscribe(() => {
       this.getData();
     });
   }
@@ -47,10 +51,26 @@ export class WorkflowsComponent implements OnInit {
     if (refresh) {
       this.model.page = 1;
     }
-    this.model.fetch({}).subscribe(({ data }) => {
+    const filter: Filter<Workflow> = {};
+    if (this.searchProjects.length !== 0) {
+      filter.project = { $in: this.searchProjects };
+    }
+    this.model.fetch(filter).subscribe(({ data }) => {
       console.debug('fetch', data);
       this.getProjects(data.map(v => v.project));
       this.getSchedules(data.filter(v => v.schedule).map(v => v.schedule!.schedule_id));
+    });
+    this.projects$
+      .asObservable()
+      .pipe(debounceTime(500))
+      .subscribe(v => {
+        this.getProjectsItems(v);
+      });
+  }
+
+  getProjectsItems(v: string): void {
+    this.projects.find({ name: { $regex: v } }).subscribe(({ data }) => {
+      this.projectItems = [...data];
     });
   }
 
@@ -98,7 +118,7 @@ export class WorkflowsComponent implements OnInit {
     this.drawer.create({
       nzClosable: false,
       nzContent: SchedulesComponent,
-      nzWidth: 800
+      nzWidth: 1200
     });
   }
 
