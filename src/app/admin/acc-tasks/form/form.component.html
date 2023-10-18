@@ -1,0 +1,27 @@
+<form *ngIf="form" nz-form nzLayout="vertical" id="form" [formGroup]="form" (wpxSubmit)="submit($event)">
+  <nz-form-item>
+    <nz-form-label nzRequired>资源种类</nz-form-label>
+    <nz-form-control nzHasFeedback [nzAutoTips]="tips.kind">
+      <nz-select formControlName="kind" nzAllowClear nzPlaceHolder="请选择资源种类">
+        <nz-option nzValue="static" nzLabel="静态资源"> </nz-option>
+      </nz-select>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label nzRequired>源地址</nz-form-label>
+    <nz-form-control nzHasFeedback [nzAutoTips]="tips.source">
+      <input nz-input formControlName="source" placeholder="请输入源地址" />
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label nzRequired>目标地址</nz-form-label>
+    <nz-form-control nzHasFeedback [nzAutoTips]="tips.target">
+      <input nz-input formControlName="target" placeholder="请输入目标地址" />
+    </nz-form-control>
+  </nz-form-item>
+</form>
+
+<div *nzModalFooter>
+  <button nz-button type="button" nzType="default" (click)="close()">取消</button>
+  <button nz-button nzType="primary" form="form" [disabled]="!form.valid">提交</button>
+</div>

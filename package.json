@@ -5,7 +5,7 @@
     "start": "ng s",
     "build": "ng b --configuration production",
     "build:ng": "ng b angular",
-    "preview:en": "ng s --configuration en"
+    "deploy": "npm run build & python deploy.py"
   },
   "private": false,
   "dependencies": {

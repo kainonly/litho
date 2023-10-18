@@ -47,6 +47,13 @@ const routes: Routes = [
         }
       },
       {
+        path: 'acc-tasks',
+        loadChildren: () => import('./acc-tasks/acc-tasks.module').then(m => m.AccTasksModule),
+        data: {
+          breadcrumb: `资源加速`
+        }
+      },
+      {
         path: 'datasets',
         loadChildren: () => import('./datasets/datasets.module').then(m => m.DatasetsModule),
         data: {
