@@ -5,7 +5,7 @@
     </nz-form-control>
   </nz-form-item>
   <nz-form-item>
-    <nz-form-label nzRequired i18n>验证码</nz-form-label>
+    <nz-form-label nzRequired>验证码</nz-form-label>
     <nz-form-control>
       <nz-input-group nzCompact>
         <input style="width: 50%" type="text" nz-input formControlName="ts1" placeholder="请输入验证码" />
@@ -16,6 +16,6 @@
 </form>
 
 <div *nzModalFooter>
-  <button nz-button type="button" nzType="default" (click)="close()" i18n>取消</button>
-  <button nz-button nzType="primary" form="form" [disabled]="!form.valid" i18n>提交</button>
+  <button nz-button type="button" nzType="default" (click)="close()">取消</button>
+  <button nz-button nzType="primary" form="form" [disabled]="!form.valid">提交</button>
 </div>

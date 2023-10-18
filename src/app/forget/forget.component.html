@@ -59,7 +59,7 @@
             </nz-form-control>
           </nz-form-item>
           <nz-form-item>
-            <nz-form-label nzRequired i18n> 再次确认 </nz-form-label>
+            <nz-form-label nzRequired> 再次确认 </nz-form-label>
             <nz-form-control nzHasFeedback [nzAutoTips]="tips.password">
               <input
                 nz-input
@@ -74,10 +74,10 @@
             <nz-form-control>
               <nz-row [nzGutter]="8">
                 <nz-col nzFlex="1">
-                  <button type="button" nz-button nzBlock i18n (click)="previous()"> 上一步 </button>
+                  <button type="button" nz-button nzBlock (click)="previous()"> 上一步 </button>
                 </nz-col>
                 <nz-col nzFlex="1">
-                  <button nz-button nzBlock [disabled]="!resetForm.valid" i18n> 提交 </button>
+                  <button nz-button nzBlock [disabled]="!resetForm.valid"> 提交 </button>
                 </nz-col>
               </nz-row>
             </nz-form-control>
@@ -85,7 +85,7 @@
         </form>
         <nz-result *ngSwitchCase="2" nzStatus="success" nzTitle="您的密码已重置">
           <div nz-result-extra>
-            <button nz-button nzType="primary" routerLink="/login" i18n>返回登录页</button>
+            <button nz-button nzType="primary" routerLink="/login">返回登录页</button>
           </div>
         </nz-result>
       </div>

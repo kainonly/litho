@@ -69,11 +69,9 @@
             <nz-list-item-meta>
               <nz-list-item-meta-title><b>密码有效期策略</b></nz-list-item-meta-title>
               <nz-list-item-meta-description>
-                <ng-container *ngIf="data['PwdTTL'] === 0; else passwordExpire" i18n> 永久 </ng-container>
+                <ng-container *ngIf="data['PwdTTL'] === 0; else passwordExpire"> 永久 </ng-container>
                 <ng-template #passwordExpire>
-                  <ng-container i18n>
-                    {{ data['PwdTTL'] / 86400e9 }} 天后密码过期，系统强制要求修改密码。
-                  </ng-container>
+                  <ng-container> {{ data['PwdTTL'] / 86400e9 }} 天后密码过期，系统强制要求修改密码。 </ng-container>
                 </ng-template>
               </nz-list-item-meta-description>
             </nz-list-item-meta>
@@ -99,7 +97,7 @@
             >
               <thead>
                 <tr>
-                  <th><b i18n>IP 地址</b></th>
+                  <th><b>IP 地址</b></th>
                 </tr>
               </thead>
               <tbody>
@@ -108,7 +106,7 @@
                 </tr>
               </tbody>
               <ng-template #whitelistActions>
-                <button nz-button nzType="text" nzBlock (click)="setIpList('IpWhitelist')" i18n>编辑</button>
+                <button nz-button nzType="text" nzBlock (click)="setIpList('IpWhitelist')">编辑</button>
               </ng-template>
             </nz-table>
           </nz-col>
@@ -136,7 +134,7 @@
             >
               <thead>
                 <tr>
-                  <th><b i18n>IP 地址</b></th>
+                  <th><b>IP 地址</b></th>
                 </tr>
               </thead>
               <tbody>
@@ -145,7 +143,7 @@
                 </tr>
               </tbody>
               <ng-template #blacklistActions>
-                <button nz-button nzType="text" nzBlock (click)="setIpList('IpBlacklist')" i18n>编辑</button>
+                <button nz-button nzType="text" nzBlock (click)="setIpList('IpBlacklist')">编辑</button>
               </ng-template>
             </nz-table>
           </nz-col>

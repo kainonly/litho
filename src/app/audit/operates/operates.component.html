@@ -157,12 +157,12 @@
       <nz-descriptions-item nzTitle="头像" [nzSpan]="2">{{ u.avatar }}</nz-descriptions-item>
       <nz-descriptions-item nzTitle="状态" [nzSpan]="2">
         <ng-container *ngIf="u.status; else isFalse">
-          <nz-badge nzStatus="processing"></nz-badge> <span i18n>开启</span>
+          <nz-badge nzStatus="processing"></nz-badge> <span>开启</span>
         </ng-container>
-        <ng-template #isFalse> <nz-badge nzStatus="default"></nz-badge> <span i18n>关闭</span> </ng-template>
+        <ng-template #isFalse> <nz-badge nzStatus="default"></nz-badge> <span>关闭</span> </ng-template>
       </nz-descriptions-item>
       <nz-descriptions-item nzTitle="累计会话" [nzSpan]="2">
-        <span i18n>
+        <span>
           已登录 <b> {{ u.sessions }} </b> 次
         </span>
       </nz-descriptions-item>

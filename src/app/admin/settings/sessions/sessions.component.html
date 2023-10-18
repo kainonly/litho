@@ -20,7 +20,7 @@
 </ng-template>
 
 <ng-template #extraRef>
-  <button nz-button nzType="primary" nzDanger (click)="bulkDelete()" [disabled]="items.selection.size === 0" i18n>
+  <button nz-button nzType="primary" nzDanger (click)="bulkDelete()" [disabled]="items.selection.size === 0">
     选中 {{ items.selection.size }} 可中断
   </button>
 </ng-template>
@@ -45,8 +45,8 @@
           (nzCheckedChange)="items.setCurrentSelections($event)"
         >
         </th>
-        <th nzWidth="400px"><b i18n>用户</b></th>
-        <th><b i18n>详情</b></th>
+        <th nzWidth="400px"><b>用户</b></th>
+        <th><b>详情</b></th>
         <th nzRight nzWidth="60px">
           <button nz-button nzType="text" disabled>
             <span nz-icon nzType="setting" nzTheme="outline"></span>
@@ -63,10 +63,10 @@
         </td>
         <td>
           <ng-container *ngIf="app.user()?.email === data.email">
-            <nz-tag i18n>本人</nz-tag>
+            <nz-tag>本人</nz-tag>
           </ng-container>
           <span>
-            {{ data.email }} <b i18n>[ {{ !data.name ? '无称呼' : data.name }} ]</b>
+            {{ data.email }} <b>[ {{ !data.name ? '无称呼' : data.name }} ]</b>
           </span>
         </td>
         <td>
@@ -95,7 +95,7 @@
           </button>
           <nz-dropdown-menu #menu="nzDropdownMenu">
             <ul nz-menu>
-              <li nz-menu-item nzDanger (click)="delete(data)" i18n>中断会话</li>
+              <li nz-menu-item nzDanger (click)="delete(data)">中断会话</li>
             </ul>
           </nz-dropdown-menu>
         </td>

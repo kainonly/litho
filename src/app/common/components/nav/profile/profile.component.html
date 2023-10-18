@@ -14,8 +14,8 @@
     <ng-container *ngSwitchCase="0">
       <nz-list-item>
         <nz-list-item-meta>
-          <nz-list-item-meta-title><b i18n>电子邮件</b></nz-list-item-meta-title>
-          <nz-list-item-meta-description i18n> 已设置： {{ u.email }} </nz-list-item-meta-description>
+          <nz-list-item-meta-title><b>电子邮件</b></nz-list-item-meta-title>
+          <nz-list-item-meta-description> 已设置： {{ u.email }} </nz-list-item-meta-description>
         </nz-list-item-meta>
         <nz-list-item-extra>
           <button nz-button nzType="primary" nzShape="circle" nz-tooltip="编辑" (click)="setEmail()">
@@ -25,11 +25,11 @@
       </nz-list-item>
       <nz-list-item>
         <nz-list-item-meta>
-          <nz-list-item-meta-title><b i18n>称呼</b></nz-list-item-meta-title>
+          <nz-list-item-meta-title><b>称呼</b></nz-list-item-meta-title>
           <nz-list-item-meta-description>
-            <ng-container *ngIf="!!u.name; else emptyNameTpl" i18n> 已设置： {{ u.name }} </ng-container>
+            <ng-container *ngIf="!!u.name; else emptyNameTpl"> 已设置： {{ u.name }} </ng-container>
             <ng-template #emptyNameTpl>
-              <span i18n>推荐设置工作称呼或真实姓名</span>
+              <span>推荐设置工作称呼或真实姓名</span>
             </ng-template>
           </nz-list-item-meta-description>
         </nz-list-item-meta>
@@ -41,8 +41,8 @@
       </nz-list-item>
       <nz-list-item>
         <nz-list-item-meta>
-          <nz-list-item-meta-title><b i18n>头像</b></nz-list-item-meta-title>
-          <nz-list-item-meta-description i18n> 推荐采用尺寸 256*256 </nz-list-item-meta-description>
+          <nz-list-item-meta-title><b>头像</b></nz-list-item-meta-title>
+          <nz-list-item-meta-description> 推荐采用尺寸 256*256 </nz-list-item-meta-description>
         </nz-list-item-meta>
         <ng-container *ngIf="!!u.avatar; else emptyAvatarTpl">
           <nz-avatar nzShape="square" [nzSize]="96" [nzSrc]="[u.avatar] | wpxAssets"></nz-avatar>
@@ -60,8 +60,8 @@
     <ng-container *ngSwitchCase="1">
       <nz-list-item>
         <nz-list-item-meta>
-          <nz-list-item-meta-title><b i18n>账户密码</b></nz-list-item-meta-title>
-          <nz-list-item-meta-description i18n>
+          <nz-list-item-meta-title><b>账户密码</b></nz-list-item-meta-title>
+          <nz-list-item-meta-description>
             建议采用大写字母、小写字母、数字和特殊字符（@$!%*?&-+）组合的密码
           </nz-list-item-meta-description>
         </nz-list-item-meta>
@@ -73,11 +73,11 @@
       </nz-list-item>
       <nz-list-item>
         <nz-list-item-meta>
-          <nz-list-item-meta-title><b i18n>手机号码</b></nz-list-item-meta-title>
+          <nz-list-item-meta-title><b>手机号码</b></nz-list-item-meta-title>
           <nz-list-item-meta-description>
-            <ng-container *ngIf="!!u.phone; else phoneEmptyText" i18n> 已设置 </ng-container>
+            <ng-container *ngIf="!!u.phone; else phoneEmptyText"> 已设置 </ng-container>
             <ng-template #phoneEmptyText>
-              <span i18n> 目前没有设置手机号码，可用于手机验证登录或恢复账号等安全相关操作 </span>
+              <span> 目前没有设置手机号码，可用于手机验证登录或恢复账号等安全相关操作 </span>
             </ng-template>
           </nz-list-item-meta-description>
         </nz-list-item-meta>
@@ -107,13 +107,13 @@
       </nz-list-item>
       <nz-list-item>
         <nz-list-item-meta>
-          <nz-list-item-meta-title><b i18n>身份验证器</b></nz-list-item-meta-title>
+          <nz-list-item-meta-title><b>身份验证器</b></nz-list-item-meta-title>
           <nz-list-item-meta-description>
             <ng-container *ngIf="!!u.totp; else totpEmptyText">
-              <span i18n>已设置</span>
+              <span>已设置</span>
             </ng-container>
             <ng-template #totpEmptyText>
-              <span i18n>目前没有设置身份验证器应用程序，使用手机上的应用程序进行双因素身份验证出现提示时的代码</span>
+              <span>目前没有设置身份验证器应用程序，使用手机上的应用程序进行双因素身份验证出现提示时的代码</span>
             </ng-template>
           </nz-list-item-meta-description>
         </nz-list-item-meta>
@@ -149,7 +149,7 @@
             <nz-avatar nzShape="square" nzSize="large" [nzSrc]="['assets', 'Lark.png'] | wpxAssets"></nz-avatar>
           </nz-list-item-meta-avatar>
           <nz-list-item-meta-title><b>Lark</b></nz-list-item-meta-title>
-          <nz-list-item-meta-description *ngIf="!u.lark" i18n> 当前未关联 Lark 账号 </nz-list-item-meta-description>
+          <nz-list-item-meta-description *ngIf="!u.lark"> 当前未关联 Lark 账号 </nz-list-item-meta-description>
         </nz-list-item-meta>
         <nz-descriptions *ngIf="u.lark as lark" nzLayout="vertical" [nzColumn]="2">
           <nz-descriptions-item nzTitle="用户姓名">{{ lark.name }}</nz-descriptions-item>
@@ -175,7 +175,7 @@
             </button>
           </ng-container>
           <ng-template #linkLarkRef>
-            <button nz-button nzType="link" (click)="linkLark()" i18n>设置</button>
+            <button nz-button nzType="link" (click)="linkLark()">设置</button>
           </ng-template>
         </nz-list-item-extra>
       </nz-list-item>
@@ -183,11 +183,11 @@
     <ng-container *ngSwitchCase="3">
       <nz-list-item>
         <nz-list-item-meta>
-          <nz-list-item-meta-title><b i18n>详情</b></nz-list-item-meta-title>
+          <nz-list-item-meta-title><b>详情</b></nz-list-item-meta-title>
           <nz-list-item-meta-description>
             <nz-descriptions *ngIf="u.history as history" nzLayout="vertical" [nzColumn]="2">
               <nz-descriptions-item nzTitle="累计会话">
-                <span i18n>
+                <span>
                   已登录 <i> {{ u.sessions }} </i> 次
                 </span>
               </nz-descriptions-item>
