@@ -91,7 +91,7 @@ const routes: Routes = [
     NzMenuModule,
     ShareModule,
     ResultModule,
-    RouterModule.forRoot(routes)
+    RouterModule.forRoot(routes, { useHash: true })
   ],
   providers: [
     provideHttpClient(withFetch(), withInterceptorsFromDi()),
