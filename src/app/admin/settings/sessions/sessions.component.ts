@@ -96,7 +96,7 @@ export class SessionsComponent implements OnInit, AfterViewInit, OnDestroy {
       nzOkDanger: true,
       nzOnOk: () => {
         this.sessions.delete(doc._id).subscribe(() => {
-          this.message.success($localize`会话已中断`);
+          this.message.success(`会话已中断`);
         });
       }
     });
@@ -108,7 +108,7 @@ export class SessionsComponent implements OnInit, AfterViewInit, OnDestroy {
       nzOkDanger: true,
       nzOnOk: () => {
         this.sessions.clear().subscribe(() => {
-          this.message.success($localize`会话已中断`);
+          this.message.success(`会话已中断`);
         });
       }
     });

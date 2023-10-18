@@ -15,9 +15,9 @@
         [ngModel]="observability.interval$ | async"
         (ngModelChange)="observability.setInterval($event)"
       >
-        <nz-option [nzValue]="60" nzLabel="每 1 分钟自动刷新" i18n-nzLabel></nz-option>
-        <nz-option [nzValue]="300" nzLabel="每 5 分钟自动刷新" i18n-nzLabel></nz-option>
-        <nz-option [nzValue]="86400" nzLabel="停止刷新" i18n-nzLabel></nz-option>
+        <nz-option [nzValue]="60" nzLabel="每 1 分钟自动刷新"></nz-option>
+        <nz-option [nzValue]="300" nzLabel="每 5 分钟自动刷新"></nz-option>
+        <nz-option [nzValue]="86400" nzLabel="停止刷新"></nz-option>
       </nz-select>
     </nz-space>
   </nz-col>

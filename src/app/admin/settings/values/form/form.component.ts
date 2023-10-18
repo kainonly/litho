@@ -16,12 +16,12 @@ export class FormComponent implements OnInit {
   tips = {
     key: {
       default: {
-        required: $localize`键名不能为空`
+        required: `键名不能为空`
       }
     },
     value: {
       default: {
-        required: $localize`键值不能为空`
+        required: `键值不能为空`
       }
     }
   };
@@ -60,7 +60,7 @@ export class FormComponent implements OnInit {
         break;
     }
     this.wpx.setValues({ [data.key]: data.value }).subscribe(() => {
-      this.message.success($localize`数据更新成功`);
+      this.message.success(`数据更新成功`);
       this.modalRef.triggerOk();
     });
   }

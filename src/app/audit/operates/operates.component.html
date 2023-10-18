@@ -167,7 +167,7 @@
         </span>
       </nz-descriptions-item>
       <ng-container *ngIf="u.history as history">
-        <nz-descriptions-item nzTitle="最近登录时间" i18n-nzTitle [nzSpan]="2">
+        <nz-descriptions-item nzTitle="最近登录时间" [nzSpan]="2">
           {{ history.timestamp | date: 'yyyy/MM/dd HH:mm:ss' }}
         </nz-descriptions-item>
         <nz-descriptions-item nzTitle="IP" [nzSpan]="2">
@@ -175,14 +175,14 @@
         </nz-descriptions-item>
         <ng-container [ngSwitch]="u.history.metadata.version">
           <ng-container *ngSwitchCase="'shuliancloud.v4'">
-            <nz-descriptions-item nzTitle="位置" i18n-nzTitle [nzSpan]="2">
+            <nz-descriptions-item nzTitle="位置" [nzSpan]="2">
               <nz-space *ngIf="u.history.detail as detail" [nzSplit]="spaceSplit">
                 <span *nzSpaceItem>{{ detail.country | wpxBlank: '未知' }}[{{ detail.continent }}]</span>
                 <span *nzSpaceItem>{{ detail.prov | wpxBlank: '未知' }}</span>
                 <span *nzSpaceItem>{{ detail.city | wpxBlank: '未知' }}[{{ detail.lng }},{{ detail.lat }}]</span>
               </nz-space>
             </nz-descriptions-item>
-            <nz-descriptions-item nzTitle="ISP" i18n-nzTitle [nzSpan]="2">
+            <nz-descriptions-item nzTitle="ISP" [nzSpan]="2">
               <nz-space *ngIf="u.history.detail as detail" [nzSplit]="spaceSplit">
                 <span *nzSpaceItem>{{ detail.isp }}</span>
                 <span *nzSpaceItem>{{ detail.timezone }}</span>
@@ -191,10 +191,10 @@
           </ng-container>
         </ng-container>
       </ng-container>
-      <nz-descriptions-item nzTitle="创建时间" i18n-nzTitle [nzSpan]="2">
+      <nz-descriptions-item nzTitle="创建时间" [nzSpan]="2">
         {{ u.create_time | date: 'yyyy/MM/dd HH:mm' }}
       </nz-descriptions-item>
-      <nz-descriptions-item nzTitle="更新时间" i18n-nzTitle [nzSpan]="2">
+      <nz-descriptions-item nzTitle="更新时间" [nzSpan]="2">
         {{ u.update_time | date: 'yyyy/MM/dd HH:mm' }}
       </nz-descriptions-item>
     </nz-descriptions>

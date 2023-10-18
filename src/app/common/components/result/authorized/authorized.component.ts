@@ -5,7 +5,7 @@ import { AppService } from '@app';
 @Component({
   selector: 'app-result-authorized',
   template: `
-    <nz-result nzStatus="success" nzTitle="授权成功" i18n-nzTitle nzSubTitle="您已成功关联您的飞书账号" i18n-nzSubTitle>
+    <nz-result nzStatus="success" nzTitle="授权成功" nzSubTitle="您已成功关联您的飞书账号">
       <div nz-result-extra>
         <button nz-button nzType="primary" (click)="close()" i18n>关闭</button>
       </div>

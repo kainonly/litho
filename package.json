@@ -5,7 +5,6 @@
     "start": "ng s",
     "build": "ng b --configuration production",
     "build:ng": "ng b angular",
-    "i18n": "ng extract-i18n --output-path src/locale",
     "preview:en": "ng s --configuration en"
   },
   "private": false,
@@ -16,7 +15,6 @@
     "@angular/compiler": "~16.2.5",
     "@angular/core": "~16.2.5",
     "@angular/forms": "~16.2.5",
-    "@angular/localize": "~16.2.5",
     "@angular/platform-browser": "~16.2.5",
     "@angular/platform-browser-dynamic": "~16.2.5",
     "@angular/router": "~16.2.5",

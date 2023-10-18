@@ -6,24 +6,24 @@
   </ng-template>
   <nz-card nzSize="small" nzType="inner" nzTitle="公共邮箱" [nzExtra]="emailRef">
     <nz-descriptions nzLayout="vertical" [nzColumn]="2">
-      <nz-descriptions-item nzTitle="SMTP 主机" i18n-nzTitle>
+      <nz-descriptions-item nzTitle="SMTP 主机">
         <ng-container *ngIf="data['EmailHost']; else unkown">
           {{ data['EmailHost'] }}
         </ng-container>
       </nz-descriptions-item>
-      <nz-descriptions-item nzTitle="SMTP 端口（SSL）" i18n-nzTitle>
+      <nz-descriptions-item nzTitle="SMTP 端口（SSL）">
         <ng-container *ngIf="data['EmailPort']; else unkown">
           {{ data['EmailPort'] }}
         </ng-container>
       </nz-descriptions-item>
-      <nz-descriptions-item nzTitle="用户名" i18n-nzTitle>
+      <nz-descriptions-item nzTitle="用户名">
         <ng-container *ngIf="data['EmailUsername']; else unkown">
           {{ data['EmailUsername'] }}
         </ng-container>
       </nz-descriptions-item>
-      <nz-descriptions-item nzTitle="密码" i18n-nzTitle>
+      <nz-descriptions-item nzTitle="密码">
         <ng-container *ngIf="data['EmailPassword']; else unkown">
-          <span i18n>已设置</span>
+          <span>已设置</span>
         </ng-container>
       </nz-descriptions-item>
     </nz-descriptions>
@@ -31,5 +31,5 @@
 </nz-card>
 
 <ng-template #unkown>
-  <span i18n>未设置</span>
+  <span>未设置</span>
 </ng-template>

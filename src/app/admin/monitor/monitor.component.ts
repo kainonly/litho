@@ -95,15 +95,15 @@ export class MonitorComponent implements OnInit {
     }
   };
   mongo_query_operations = (plot: Area, data: Any[][]): void => {
-    const text = [$localize`命令`, $localize`读取`, $localize`新增`, $localize`更新`, $localize`删除`];
+    const text = [`命令`, `读取`, `新增`, `更新`, `删除`];
     plot.changeData(data.map(v => ({ time: v[0], value: v[1], operate: text[v[2]] })));
   };
   mongo_document_operations = (plot: Area, data: Any[][]): void => {
-    const text = [$localize`读取`, $localize`新增`, $localize`更新`, $localize`删除`];
+    const text = [`读取`, `新增`, `更新`, `删除`];
     plot.changeData(data.map(v => ({ time: v[0], value: v[1], operate: text[v[2]] })));
   };
   mongo_network_io = (plot: Area, data: Any[][]): void => {
-    const text = [$localize`输入`, $localize`输出`];
+    const text = [`输入`, `输出`];
     plot.changeData(data.map(v => ({ time: v[0], value: v[1], type: text[v[2]] })));
   };
   redis_cpu = (plot: Area, data: Any[][]): void => {
@@ -119,15 +119,15 @@ export class MonitorComponent implements OnInit {
     plot.changeData(data.map(v => ({ time: v[0], value: v[1], type: text[v[2]] })));
   };
   redis_network_io = (plot: Area, data: Any[][]): void => {
-    const text = [$localize`输入`, $localize`输出`];
+    const text = [`输入`, `输出`];
     plot.changeData(data.map(v => ({ time: v[0], value: v[1], type: text[v[2]] })));
   };
   nats_msg_io = (plot: Area, data: Any[][]): void => {
-    const text = [$localize`输入`, $localize`输出`];
+    const text = [`输入`, `输出`];
     plot.changeData(data.map(v => ({ time: v[0], value: v[1], type: text[v[2]] })));
   };
   nats_bytes_io = (plot: Area, data: Any[][]): void => {
-    const text = [$localize`输入`, $localize`输出`];
+    const text = [`输入`, `输出`];
     plot.changeData(data.map(v => ({ time: v[0], value: v[1], type: text[v[2]] })));
   };
 

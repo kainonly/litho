@@ -14,22 +14,22 @@ export class CosComponent implements OnInit {
   tips = {
     TencentCosBucket: {
       default: {
-        required: $localize`Bucket 名称不能为空`
+        required: `Bucket 名称不能为空`
       }
     },
     TencentCosRegion: {
       default: {
-        required: $localize`地区不能为空`
+        required: `地区不能为空`
       }
     },
     TencentCosExpired: {
       default: {
-        required: $localize`预签名有效期不能为空`
+        required: `预签名有效期不能为空`
       }
     },
     TencentCosLimit: {
       default: {
-        required: $localize`上传大小限制不能为空`
+        required: `上传大小限制不能为空`
       }
     }
   };
@@ -60,7 +60,7 @@ export class CosComponent implements OnInit {
 
   submit(data: Any): void {
     this.wpx.setValues(data).subscribe(() => {
-      this.message.success($localize`数据更新成功`);
+      this.message.success(`数据更新成功`);
       this.modalRef.triggerOk();
     });
   }

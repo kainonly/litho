@@ -14,11 +14,11 @@ export class PwdTtlComponent implements OnInit {
   tips = {
     pwd_ttl: {
       default: {
-        required: $localize`密码有效期不能为空`
+        required: `密码有效期不能为空`
       }
     }
   };
-  formatterTimes = (value: number): string => $localize`${value} 天`;
+  formatterTimes = (value: number): string => `${value} 天`;
 
   constructor(
     @Inject(NZ_MODAL_DATA)
@@ -46,7 +46,7 @@ export class PwdTtlComponent implements OnInit {
   submit(data: Any): void {
     data.PwdTTL = data.PwdTTL * 86400e9;
     this.wpx.setValues(data).subscribe(() => {
-      this.message.success($localize`数据更新成功`);
+      this.message.success(`数据更新成功`);
       this.modalRef.triggerOk();
     });
   }

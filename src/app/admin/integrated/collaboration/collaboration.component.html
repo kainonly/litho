@@ -7,7 +7,7 @@
     <nz-col></nz-col>
   </nz-row>
 
-  <nz-card nzSize="small" nzType="inner" nzTitle="应用配置" i18n-nzTitle [nzExtra]="larkEditRef">
+  <nz-card nzSize="small" nzType="inner" nzTitle="应用配置" [nzExtra]="larkEditRef">
     <ng-template #larkEditRef>
       <button nz-button nzType="text" (click)="setLark()">
         <span nz-icon nzType="edit"></span>
@@ -21,17 +21,17 @@
       </nz-descriptions-item>
       <nz-descriptions-item nzTitle="应用密码">
         <ng-container *ngIf="data['LarkAppSecret']; else unkown">
-          <span i18n>已设置</span>
+          <span>已设置</span>
         </ng-container>
       </nz-descriptions-item>
-      <nz-descriptions-item nzTitle="事件订阅安全校验数据密钥" i18n-nzTitle>
+      <nz-descriptions-item nzTitle="事件订阅安全校验数据密钥">
         <ng-container *ngIf="data['LarkEncryptKey']; else unkown">
-          <span i18n>已设置</span>
+          <span>已设置</span>
         </ng-container>
       </nz-descriptions-item>
-      <nz-descriptions-item nzTitle="事件订阅验证令牌" i18n-nzTitle>
+      <nz-descriptions-item nzTitle="事件订阅验证令牌">
         <ng-container *ngIf="data['LarkVerificationToken']; else unkown">
-          <span i18n>已设置</span>
+          <span>已设置</span>
         </ng-container>
       </nz-descriptions-item>
     </nz-descriptions>
@@ -39,15 +39,15 @@
 
   <nz-row style="padding-top: 12px" [nzGutter]="[8, 8]">
     <nz-col [nzSpan]="12">
-      <nz-card nzSize="small" nzType="inner" nzTitle="第三方免登陆" i18n-nzTitle [nzExtra]="larkLoginRef">
+      <nz-card nzSize="small" nzType="inner" nzTitle="第三方免登陆" [nzExtra]="larkLoginRef">
         <ng-template #larkLoginRef>
           <button nz-button nzType="text" (click)="setLoginFree()">
             <span nz-icon nzType="edit"></span>
           </button>
         </ng-template>
-        <p i18n>允许通过企业平台用户身份进行登录</p>
+        <p>允许通过企业平台用户身份进行登录</p>
         <nz-descriptions nzLayout="vertical" [nzColumn]="2">
-          <nz-descriptions-item nzTitle="跳转地址" i18n-nzTitle>
+          <nz-descriptions-item nzTitle="跳转地址">
             <ng-container *ngIf="data['RedirectUrl']; else unkown">
               {{ data['RedirectUrl'] }}
             </ng-container>
@@ -59,7 +59,7 @@
 </nz-card>
 
 <ng-template #unkown>
-  <span i18n>未设置</span>
+  <span>未设置</span>
 </ng-template>
 
 <ng-template #notYetRef>

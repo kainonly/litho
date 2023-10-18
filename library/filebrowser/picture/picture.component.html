@@ -4,14 +4,14 @@
       <img #painting [src]="[data.doc.url] | wpxAssets" [alt]="data.doc.name" />
     </div>
     <nz-descriptions style="margin-top: 16px" [nzColumn]="2">
-      <nz-descriptions-item nzTitle="名称" i18n-nzTitle [nzSpan]="2">{{ data.doc.name }}</nz-descriptions-item>
-      <nz-descriptions-item nzTitle="原图宽度" i18n-nzTitle>{{ original?.width }} PX</nz-descriptions-item>
-      <nz-descriptions-item nzTitle="原图高度" i18n-nzTitle>{{ original?.height }} PX</nz-descriptions-item>
-      <nz-descriptions-item nzTitle="原图类型" i18n-nzTitle>{{ original?.format }}</nz-descriptions-item>
-      <nz-descriptions-item nzTitle="原图大小" i18n-nzTitle>{{ original?.size | nzBytes }}</nz-descriptions-item>
-      <nz-descriptions-item nzTitle="加载类型" i18n-nzTitle>{{ output?.format }}</nz-descriptions-item>
-      <nz-descriptions-item nzTitle="加载大小" i18n-nzTitle>{{ output?.size | nzBytes }}</nz-descriptions-item>
-      <nz-descriptions-item nzTitle="CDN" i18n-nzTitle [nzSpan]="2">
+      <nz-descriptions-item nzTitle="名称" [nzSpan]="2">{{ data.doc.name }}</nz-descriptions-item>
+      <nz-descriptions-item nzTitle="原图宽度">{{ original?.width }} PX</nz-descriptions-item>
+      <nz-descriptions-item nzTitle="原图高度">{{ original?.height }} PX</nz-descriptions-item>
+      <nz-descriptions-item nzTitle="原图类型">{{ original?.format }}</nz-descriptions-item>
+      <nz-descriptions-item nzTitle="原图大小">{{ original?.size | nzBytes }}</nz-descriptions-item>
+      <nz-descriptions-item nzTitle="加载类型">{{ output?.format }}</nz-descriptions-item>
+      <nz-descriptions-item nzTitle="加载大小">{{ output?.size | nzBytes }}</nz-descriptions-item>
+      <nz-descriptions-item nzTitle="CDN" [nzSpan]="2">
         {{ [data.doc.url] | wpxAssets }}
       </nz-descriptions-item>
     </nz-descriptions>
@@ -47,7 +47,7 @@
           <nz-form-label nzRequired i18n>裁剪尺寸</nz-form-label>
           <nz-form-control>
             <nz-input-number-group>
-              <nz-input-number-group style="width: 50%; margin-right: -1px" nzSuffix="PX" nzPrefix="宽" i18n-nzPrefix>
+              <nz-input-number-group style="width: 50%; margin-right: -1px" nzSuffix="PX" nzPrefix="宽">
                 <nz-input-number
                   formControlName="w"
                   nzPrecisionMode="cut"
@@ -55,7 +55,7 @@
                   (ngModelChange)="updateCrop()"
                 ></nz-input-number>
               </nz-input-number-group>
-              <nz-input-number-group style="width: 50%" nzSuffix="PX" nzPrefix="高" i18n-nzPrefix>
+              <nz-input-number-group style="width: 50%" nzSuffix="PX" nzPrefix="高">
                 <nz-input-number
                   formControlName="h"
                   nzPrecisionMode="cut"
@@ -70,7 +70,7 @@
           <nz-form-label nzRequired i18n>裁剪偏移</nz-form-label>
           <nz-form-control>
             <nz-input-number-group>
-              <nz-input-number-group style="width: 50%; margin-right: -1px" nzSuffix="PX" nzPrefix="向右" i18n-nzPrefix>
+              <nz-input-number-group style="width: 50%; margin-right: -1px" nzSuffix="PX" nzPrefix="向右">
                 <nz-input-number
                   formControlName="x"
                   nzPrecisionMode="cut"
@@ -78,7 +78,7 @@
                   (ngModelChange)="updateCrop()"
                 ></nz-input-number>
               </nz-input-number-group>
-              <nz-input-number-group style="width: 50%" nzSuffix="PX" nzPrefix="向下" i18n-nzPrefix>
+              <nz-input-number-group style="width: 50%" nzSuffix="PX" nzPrefix="向下">
                 <nz-input-number
                   formControlName="y"
                   nzPrecisionMode="cut"
@@ -92,12 +92,12 @@
       </ng-container>
       <nz-form-item *ngIf="[2, 3].includes(mode.value)" formGroupName="zoom">
         <nz-form-label nzRequired i18n>缩放尺寸</nz-form-label>
-        <nz-form-control nzExtra="宽或高非0为空时将等比缩放" i18n-nzExtra>
+        <nz-form-control nzExtra="宽或高非0为空时将等比缩放">
           <nz-input-number-group>
-            <nz-input-number-group style="width: 50%; margin-right: -1px" nzSuffix="PX" nzPrefix="宽" i18n-nzPrefix>
+            <nz-input-number-group style="width: 50%; margin-right: -1px" nzSuffix="PX" nzPrefix="宽">
               <nz-input-number formControlName="w" nzPrecisionMode="cut" [nzPrecision]="0"></nz-input-number>
             </nz-input-number-group>
-            <nz-input-number-group style="width: 50%" nzSuffix="PX" nzPrefix="高" i18n-nzPrefix>
+            <nz-input-number-group style="width: 50%" nzSuffix="PX" nzPrefix="高">
               <nz-input-number formControlName="h" nzPrecisionMode="cut" [nzPrecision]="0"></nz-input-number>
             </nz-input-number-group>
           </nz-input-number-group>

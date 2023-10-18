@@ -99,6 +99,6 @@ export class CloudComponent implements OnInit {
   }
 
   setSms(): void {
-    this.setModal($localize`腾讯 SMS 设置`, SmsComponent);
+    this.setModal(`腾讯 SMS 设置`, SmsComponent);
   }
 }

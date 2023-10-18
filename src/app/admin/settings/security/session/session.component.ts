@@ -14,11 +14,11 @@ export class SessionComponent implements OnInit {
   tips = {
     session_ttl: {
       default: {
-        required: $localize`会话超时不能为空`
+        required: `会话超时不能为空`
       }
     }
   };
-  formatterSec = (value: number): string => $localize`${value} s`;
+  formatterSec = (value: number): string => `${value} s`;
 
   constructor(
     @Inject(NZ_MODAL_DATA)
@@ -46,7 +46,7 @@ export class SessionComponent implements OnInit {
   submit(data: Any): void {
     data['SessionTTL'] = data['SessionTTL'] * 1e9;
     this.wpx.setValues(data).subscribe(() => {
-      this.message.success($localize`数据更新成功`);
+      this.message.success(`数据更新成功`);
       this.modalRef.triggerOk();
     });
   }

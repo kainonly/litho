@@ -64,21 +64,20 @@
   <nz-tabset style="width: 360px" [nzTabBarExtraContent]="actions">
     <ng-template #actions>
       <nz-space>
-        <app-translation *nzSpaceItem [simple]="true"></app-translation>
-        <button *nzSpaceItem nz-button nzType="text" nz-tooltip="个人中心" i18n-nz-tooltip (click)="profile()">
+        <button *nzSpaceItem nz-button nzType="text" nz-tooltip="个人中心" (click)="profile()">
           <i nz-icon nzType="user"></i>
         </button>
-        <button *nzSpaceItem nz-button nzType="text" nz-tooltip="退出" i18n-nz-tooltip (click)="logout()">
+        <button *nzSpaceItem nz-button nzType="text" nz-tooltip="退出" (click)="logout()">
           <i nz-icon nzType="logout"></i>
         </button>
       </nz-space>
     </ng-template>
-    <nz-tab nzTitle="通知(0)" i18n-nzTitle>
+    <nz-tab nzTitle="通知(0)">
       <nz-list nzItemLayout="horizontal">
         <nz-list-empty></nz-list-empty>
       </nz-list>
     </nz-tab>
-    <nz-tab nzTitle="告警(0)" i18n-nzTitle>
+    <nz-tab nzTitle="告警(0)">
       <nz-list nzItemLayout="horizontal">
         <nz-list-empty></nz-list-empty>
       </nz-list>

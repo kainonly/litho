@@ -11,21 +11,21 @@ const routes: Routes = [
         path: 'cloud',
         loadChildren: () => import('./cloud/cloud.module').then(m => m.CloudModule),
         data: {
-          breadcrumb: $localize`公有云`
+          breadcrumb: `公有云`
         }
       },
       {
         path: 'collaboration',
         loadChildren: () => import('./collaboration/collaboration.module').then(m => m.CollaborationModule),
         data: {
-          breadcrumb: $localize`企业协作`
+          breadcrumb: `企业协作`
         }
       },
       {
         path: 'extend',
         loadChildren: () => import('./extend/extend.module').then(m => m.ExtendModule),
         data: {
-          breadcrumb: $localize`扩展功能`
+          breadcrumb: `扩展功能`
         }
       },
       { path: '', redirectTo: 'cloud', pathMatch: 'full' }

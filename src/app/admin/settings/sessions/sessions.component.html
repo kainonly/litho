@@ -1,25 +1,18 @@
 <ng-template #titleRef>
   <nz-space>
     <nz-input-group *nzSpaceItem style="width: 220px" nzSuffixIcon="search">
-      <input
-        [(ngModel)]="items.searchText"
-        (keyup.enter)="getData(500)"
-        type="text"
-        nz-input
-        placeholder="搜索"
-        i18n-placeholder
-      />
+      <input [(ngModel)]="items.searchText" (keyup.enter)="getData(500)" type="text" nz-input placeholder="搜索" />
     </nz-input-group>
     <nz-select *nzSpaceItem style="width: 220px" [(ngModel)]="interval" (ngModelChange)="getData(500)">
-      <nz-option [nzValue]="15" nzLabel="每 15s 刷新" i18n-nzLabel></nz-option>
-      <nz-option [nzValue]="30" nzLabel="每 30s 刷新" i18n-nzLabel></nz-option>
-      <nz-option [nzValue]="60" nzLabel="每 60s 刷新" i18n-nzLabel></nz-option>
+      <nz-option [nzValue]="15" nzLabel="每 15s 刷新"></nz-option>
+      <nz-option [nzValue]="30" nzLabel="每 30s 刷新"></nz-option>
+      <nz-option [nzValue]="60" nzLabel="每 60s 刷新"></nz-option>
     </nz-select>
     <nz-button-group *nzSpaceItem>
-      <button nz-button nzType="text" nz-tooltip="重置" i18n-nz-tooltip (click)="clearSearch()">
+      <button nz-button nzType="text" nz-tooltip="重置" (click)="clearSearch()">
         <i nz-icon nzType="clear"></i>
       </button>
-      <button nz-button nzType="text" nz-tooltip="刷新" i18n-nz-tooltip (click)="getData(500)">
+      <button nz-button nzType="text" nz-tooltip="刷新" (click)="getData(500)">
         <i nz-icon nzType="reload"></i>
       </button>
     </nz-button-group>

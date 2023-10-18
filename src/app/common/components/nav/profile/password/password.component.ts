@@ -15,12 +15,12 @@ export class PasswordComponent implements OnInit {
   tips = {
     password: {
       default: {
-        required: $localize`密码不能为空`,
-        minlength: $localize`密码不能小于 8 位`,
-        lowercase: $localize`密码需要包含小写字母`,
-        uppercase: $localize`密码需要包含大写字母`,
-        number: $localize`密码需要包含数字`,
-        symbol: $localize`密码需要包含符号 (@$!%*?&-+)`
+        required: `密码不能为空`,
+        minlength: `密码不能小于 8 位`,
+        lowercase: `密码需要包含小写字母`,
+        uppercase: `密码需要包含大写字母`,
+        number: `密码需要包含数字`,
+        symbol: `密码需要包含符号 (@$!%*?&-+)`
       }
     }
   };
@@ -54,7 +54,7 @@ export class PasswordComponent implements OnInit {
 
   submit(data: Any): void {
     this.app.setUserPassword(data.old, data.password).subscribe(() => {
-      this.message.success($localize`数据更新成功`);
+      this.message.success(`数据更新成功`);
       this.modalRef.triggerOk();
     });
   }

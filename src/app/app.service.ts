@@ -1,5 +1,5 @@
 import { HttpClient, HttpResponse } from '@angular/common/http';
-import { Inject, Injectable, LOCALE_ID, signal } from '@angular/core';
+import { Injectable, signal } from '@angular/core';
 import { Observable, Subscription, switchMap, timer } from 'rxjs';
 import { map } from 'rxjs/operators';
 
@@ -13,11 +13,7 @@ export class AppService {
 
   private refreshTokenSubscription?: Subscription;
 
-  constructor(
-    @Inject(LOCALE_ID)
-    private locale: string,
-    private http: HttpClient
-  ) {}
+  constructor(private http: HttpClient) {}
 
   ping(): Observable<R> {
     return this.http.get('');
@@ -88,7 +84,10 @@ export class AppService {
   }
 
   oauth(action?: string): Observable<string> {
-    const state = JSON.stringify({ action, locale: this.locale });
+    const state = JSON.stringify({
+      action
+      // locale: this.locale
+    });
     return this.getCollaborationOption().pipe(
       map(v => {
         const redirect_uri = encodeURIComponent(v.redirect);

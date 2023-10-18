@@ -14,9 +14,7 @@ import { Component } from '@angular/core';
             </button>
           </nz-col>
           <nz-col> </nz-col>
-          <nz-col>
-            <app-translation></app-translation>
-          </nz-col>
+          <nz-col> </nz-col>
         </nz-row>
       </nz-header>
       <nz-content>

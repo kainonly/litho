@@ -31,7 +31,7 @@ export class ProfileComponent {
 
   private setModal(component: Type<void>, callback?: () => void): void {
     this.modal.create({
-      nzTitle: $localize`用户更新`,
+      nzTitle: `用户更新`,
       nzWidth: 420,
       nzContent: component,
       nzOnOk: () => {
@@ -74,7 +74,7 @@ export class ProfileComponent {
 
   unsetPhone(): void {
     this.app.unsetUser('phone').subscribe(() => {
-      this.message.success($localize`取消成功`);
+      this.message.success(`取消成功`);
       this.app.getUser().subscribe(() => {
         console.debug('user:update');
       });
@@ -87,7 +87,7 @@ export class ProfileComponent {
 
   unsetTotp(): void {
     this.app.unsetUser('totp').subscribe(() => {
-      this.message.success($localize`取消成功`);
+      this.message.success(`取消成功`);
       this.app.getUser().subscribe(() => {
         console.debug('user:update');
       });
@@ -110,7 +110,7 @@ export class ProfileComponent {
 
   unlinkLark(): void {
     this.app.unsetUser('lark').subscribe(() => {
-      this.message.success($localize`取消关联成功`);
+      this.message.success(`取消关联成功`);
       this.app.getUser().subscribe(() => {
         console.debug('user:update');
       });

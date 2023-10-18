@@ -11,7 +11,7 @@ export interface VideoInput {
   template: `
     <video style="width: 100%" controls [poster]="[data.url + '_0'] | wpxAssets">
       <source [src]="[data.url] | wpxAssets" />
-      <p i18n>
+      <p>
         您的浏览器不支持 HTML5 视频. 请点击
         <a [href]="[data.url] | wpxAssets">视频链接</a> 代替.
       </p>

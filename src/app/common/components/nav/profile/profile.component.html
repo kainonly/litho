@@ -1,10 +1,10 @@
-<nz-page-header nzTitle="个人中心" i18n-nzTitle>
+<nz-page-header nzTitle="个人中心">
   <nz-page-header-footer>
     <nz-tabset nzSize="small" [(nzSelectedIndex)]="index">
-      <nz-tab nzTitle="基本信息" i18n-nzTitle></nz-tab>
-      <nz-tab nzTitle="安全设置" i18n-nzTitle></nz-tab>
-      <nz-tab nzTitle="办公协作" i18n-nzTitle></nz-tab>
-      <nz-tab nzTitle="登录状态" i18n-nzTitle></nz-tab>
+      <nz-tab nzTitle="基本信息"></nz-tab>
+      <nz-tab nzTitle="安全设置"></nz-tab>
+      <nz-tab nzTitle="办公协作"></nz-tab>
+      <nz-tab nzTitle="登录状态"></nz-tab>
     </nz-tabset>
   </nz-page-header-footer>
 </nz-page-header>
@@ -18,7 +18,7 @@
           <nz-list-item-meta-description i18n> 已设置： {{ u.email }} </nz-list-item-meta-description>
         </nz-list-item-meta>
         <nz-list-item-extra>
-          <button nz-button nzType="primary" nzShape="circle" nz-tooltip="编辑" i18n-nz-tooltip (click)="setEmail()">
+          <button nz-button nzType="primary" nzShape="circle" nz-tooltip="编辑" (click)="setEmail()">
             <i nz-icon nzType="edit"></i>
           </button>
         </nz-list-item-extra>
@@ -34,7 +34,7 @@
           </nz-list-item-meta-description>
         </nz-list-item-meta>
         <nz-list-item-extra>
-          <button nz-button nzType="primary" nzShape="circle" nz-tooltip="编辑" i18n-nz-tooltip (click)="setName()">
+          <button nz-button nzType="primary" nzShape="circle" nz-tooltip="编辑" (click)="setName()">
             <i nz-icon nzType="edit"></i>
           </button>
         </nz-list-item-extra>
@@ -51,7 +51,7 @@
           <nz-avatar nzShape="square" [nzSize]="96" nzIcon="user"></nz-avatar>
         </ng-template>
         <nz-list-item-extra>
-          <button nz-button nzType="primary" nzShape="circle" nz-tooltip="编辑" i18n-nz-tooltip (click)="setAvatar()">
+          <button nz-button nzType="primary" nzShape="circle" nz-tooltip="编辑" (click)="setAvatar()">
             <i nz-icon nzType="edit"></i>
           </button>
         </nz-list-item-extra>
@@ -91,7 +91,6 @@
                 nzShape="circle"
                 nz-popconfirm
                 nzPopconfirmTitle="您确定要取消吗？"
-                i18n-nzPopconfirmTitle
                 nzPopconfirmPlacement="bottom"
                 (nzOnConfirm)="unsetPhone()"
               >
@@ -128,7 +127,6 @@
                 nzShape="circle"
                 nz-popconfirm
                 nzPopconfirmTitle="您确定要取消吗？"
-                i18n-nzPopconfirmTitle
                 nzPopconfirmPlacement="bottom"
                 (nzOnConfirm)="unsetTotp()"
               >
@@ -154,11 +152,11 @@
           <nz-list-item-meta-description *ngIf="!u.lark" i18n> 当前未关联 Lark 账号 </nz-list-item-meta-description>
         </nz-list-item-meta>
         <nz-descriptions *ngIf="u.lark as lark" nzLayout="vertical" [nzColumn]="2">
-          <nz-descriptions-item nzTitle="用户姓名" i18n-nzTitle>{{ lark.name }}</nz-descriptions-item>
-          <nz-descriptions-item nzTitle="用户英文名称" i18n-nzTitle>
+          <nz-descriptions-item nzTitle="用户姓名">{{ lark.name }}</nz-descriptions-item>
+          <nz-descriptions-item nzTitle="用户英文名称">
             {{ lark.en_name | nzSafeNull: '-' }}
           </nz-descriptions-item>
-          <nz-descriptions-item nzTitle="用户应用唯一标识" i18n-nzTitle [nzSpan]="2">
+          <nz-descriptions-item nzTitle="用户应用唯一标识" [nzSpan]="2">
             {{ lark.open_id }}
           </nz-descriptions-item>
         </nz-descriptions>
@@ -170,7 +168,6 @@
               nzShape="circle"
               nz-popconfirm
               nzPopconfirmTitle="您确定要取消该关联吗？"
-              i18n-nzPopconfirmTitle
               nzPopconfirmPlacement="bottom"
               (nzOnConfirm)="unlinkLark()"
             >
@@ -189,12 +186,12 @@
           <nz-list-item-meta-title><b i18n>详情</b></nz-list-item-meta-title>
           <nz-list-item-meta-description>
             <nz-descriptions *ngIf="u.history as history" nzLayout="vertical" [nzColumn]="2">
-              <nz-descriptions-item nzTitle="累计会话" i18n-nzTitle>
+              <nz-descriptions-item nzTitle="累计会话">
                 <span i18n>
                   已登录 <i> {{ u.sessions }} </i> 次
                 </span>
               </nz-descriptions-item>
-              <nz-descriptions-item nzTitle="最近登录时间" i18n-nzTitle>
+              <nz-descriptions-item nzTitle="最近登录时间">
                 {{ history.timestamp | date: 'yyyy/MM/dd HH:mm:ss' }}
               </nz-descriptions-item>
               <nz-descriptions-item nzTitle="IP">
@@ -208,7 +205,7 @@
               </nz-descriptions-item>
               <ng-container [ngSwitch]="u.history.metadata.version">
                 <ng-container *ngSwitchCase="'shuliancloud.v4'">
-                  <nz-descriptions-item nzTitle="地理信息" i18n-nzTitle [nzSpan]="2">
+                  <nz-descriptions-item nzTitle="地理信息" [nzSpan]="2">
                     <nz-space *ngIf="u.history.detail as detail" [nzSplit]="spaceSplit">
                       <span *nzSpaceItem>{{ detail.country | wpxBlank: 'unknown' }}[{{ detail.continent }}]</span>
                       <span *nzSpaceItem>{{ detail.prov | wpxBlank: 'unknown' }}</span>

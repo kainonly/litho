@@ -1,8 +1,8 @@
 <form nz-form nzLayout="vertical" id="form" [formGroup]="form" (wpxSubmit)="submit($event)">
   <nz-form-item>
-    <nz-form-label nzRequired i18n>名称</nz-form-label>
+    <nz-form-label nzRequired>名称</nz-form-label>
     <nz-form-control nzHasFeedback [nzAutoTips]="tips.name">
-      <input nz-input type="text" formControlName="name" placeholder="请填写分类名称" i18n-placeholder />
+      <input nz-input type="text" formControlName="name" placeholder="请填写分类名称" />
     </nz-form-control>
   </nz-form-item>
 </form>

@@ -49,6 +49,6 @@ export class ExtendComponent implements OnInit {
   }
 
   setEmail(): void {
-    this.setModal($localize`公共邮箱设置`, EmailComponent);
+    this.setModal(`公共邮箱设置`, EmailComponent);
   }
 }

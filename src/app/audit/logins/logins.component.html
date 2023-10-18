@@ -193,17 +193,17 @@
       <nz-descriptions-item nzTitle="头像" [nzSpan]="2">{{ u.avatar }}</nz-descriptions-item>
       <nz-descriptions-item nzTitle="状态" [nzSpan]="2">
         <ng-container *ngIf="u.status; else isFalse">
-          <nz-badge nzStatus="processing"></nz-badge> <span i18n>开启</span>
+          <nz-badge nzStatus="processing"></nz-badge> <span>开启</span>
         </ng-container>
-        <ng-template #isFalse> <nz-badge nzStatus="default"></nz-badge> <span i18n>关闭</span> </ng-template>
+        <ng-template #isFalse> <nz-badge nzStatus="default"></nz-badge> <span>关闭</span> </ng-template>
       </nz-descriptions-item>
       <nz-descriptions-item nzTitle="累计会话" [nzSpan]="2">
-        <span i18n>
+        <span>
           已登录 <b> {{ u.sessions }} </b> 次
         </span>
       </nz-descriptions-item>
       <ng-container *ngIf="u.history as history">
-        <nz-descriptions-item nzTitle="最近登录时间" i18n-nzTitle [nzSpan]="2">
+        <nz-descriptions-item nzTitle="最近登录时间" [nzSpan]="2">
           {{ history.timestamp | date: 'yyyy/MM/dd HH:mm:ss' }}
         </nz-descriptions-item>
         <nz-descriptions-item nzTitle="IP" [nzSpan]="2">
@@ -211,14 +211,14 @@
         </nz-descriptions-item>
         <ng-container [ngSwitch]="u.history.metadata.version">
           <ng-container *ngSwitchCase="'shuliancloud.v4'">
-            <nz-descriptions-item nzTitle="位置" i18n-nzTitle [nzSpan]="2">
+            <nz-descriptions-item nzTitle="位置" [nzSpan]="2">
               <nz-space *ngIf="u.history.detail as detail" [nzSplit]="spaceSplit">
                 <span *nzSpaceItem>{{ detail.country | wpxBlank: '未知' }}[{{ detail.continent }}]</span>
                 <span *nzSpaceItem>{{ detail.prov | wpxBlank: '未知' }}</span>
                 <span *nzSpaceItem>{{ detail.city | wpxBlank: '未知' }}[{{ detail.lng }},{{ detail.lat }}]</span>
               </nz-space>
             </nz-descriptions-item>
-            <nz-descriptions-item nzTitle="ISP" i18n-nzTitle [nzSpan]="2">
+            <nz-descriptions-item nzTitle="ISP" [nzSpan]="2">
               <nz-space *ngIf="u.history.detail as detail" [nzSplit]="spaceSplit">
                 <span *nzSpaceItem>{{ detail.isp }}</span>
                 <span *nzSpaceItem>{{ detail.timezone }}</span>
@@ -227,10 +227,10 @@
           </ng-container>
         </ng-container>
       </ng-container>
-      <nz-descriptions-item nzTitle="创建时间" i18n-nzTitle [nzSpan]="2">
+      <nz-descriptions-item nzTitle="创建时间" [nzSpan]="2">
         {{ u.create_time | date: 'yyyy/MM/dd HH:mm' }}
       </nz-descriptions-item>
-      <nz-descriptions-item nzTitle="更新时间" i18n-nzTitle [nzSpan]="2">
+      <nz-descriptions-item nzTitle="更新时间" [nzSpan]="2">
         {{ u.update_time | date: 'yyyy/MM/dd HH:mm' }}
       </nz-descriptions-item>
     </nz-descriptions>

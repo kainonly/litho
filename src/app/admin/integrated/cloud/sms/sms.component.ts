@@ -14,22 +14,22 @@ export class SmsComponent implements OnInit {
   tips = {
     SmsSecretId: {
       default: {
-        required: $localize`Secret Id 不能为空`
+        required: `Secret Id 不能为空`
       }
     },
     SmsSecretKey: {
       default: {
-        required: $localize`Secret Key 不能为空`
+        required: `Secret Key 不能为空`
       }
     },
     SmsAppId: {
       default: {
-        required: $localize`App Id 不能为空`
+        required: `App Id 不能为空`
       }
     },
     SmsRegion: {
       default: {
-        required: $localize`地域不能为空`
+        required: `地域不能为空`
       }
     }
   };
@@ -64,7 +64,7 @@ export class SmsComponent implements OnInit {
 
   submit(data: Any): void {
     this.wpx.setValues(data).subscribe(() => {
-      this.message.success($localize`数据更新成功`);
+      this.message.success(`数据更新成功`);
       this.modalRef.triggerOk();
     });
   }

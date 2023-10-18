@@ -15,14 +15,14 @@ const routes: Routes = [
         path: 'pictures',
         loadChildren: () => import('./pictures/pictures.module').then(m => m.PicturesModule),
         data: {
-          breadcrumb: $localize`图片`
+          breadcrumb: `图片`
         }
       },
       {
         path: 'videos',
         loadChildren: () => import('./videos/videos.module').then(m => m.VideosModule),
         data: {
-          breadcrumb: $localize`视频`
+          breadcrumb: `视频`
         }
       },
       { path: '', redirectTo: 'pictures', pathMatch: 'full' }

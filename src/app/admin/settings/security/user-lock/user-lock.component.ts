@@ -14,16 +14,16 @@ export class UserLockComponent implements OnInit {
   tips = {
     LoginFailures: {
       default: {
-        required: $localize`连续登录失败上限不能为空`
+        required: `连续登录失败上限不能为空`
       }
     },
     LoginTTL: {
       default: {
-        required: $localize`锁定时间不能为空`
+        required: `锁定时间不能为空`
       }
     }
   };
-  formatterTimes = (value: number): string => $localize`${value} 次`;
+  formatterTimes = (value: number): string => `${value} 次`;
   formatterSec = (value: number): string => `${value} s`;
 
   constructor(
@@ -54,7 +54,7 @@ export class UserLockComponent implements OnInit {
   submit(data: Any): void {
     data['LoginTTL'] = data['LoginTTL'] * 1e9;
     this.wpx.setValues(data).subscribe(() => {
-      this.message.success($localize`数据更新成功`);
+      this.message.success(`数据更新成功`);
       this.modalRef.triggerOk();
     });
   }

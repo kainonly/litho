@@ -67,7 +67,7 @@ export class PhoneComponent implements OnInit {
 
   submit(data: Any): void {
     this.app.setUserPhone(data.area + data.phone, data.code).subscribe(() => {
-      this.message.success($localize`数据更新成功`);
+      this.message.success(`数据更新成功`);
       this.modalRef.triggerOk();
     });
   }

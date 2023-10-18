@@ -53,7 +53,7 @@ export class TotpComponent implements OnInit {
 
   submit(data: Any): void {
     this.app.setUserTotp(this.totp!, [data.ts1, data.ts2]).subscribe(() => {
-      this.message.success($localize`数据更新成功`);
+      this.message.success(`数据更新成功`);
       this.modalRef.triggerOk();
     });
   }

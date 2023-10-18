@@ -2,7 +2,7 @@
   <nz-form-item>
     <nz-form-label nzRequired>应用 ID</nz-form-label>
     <nz-form-control nzHasFeedback [nzAutoTips]="tips.LarkAppId">
-      <input nz-input formControlName="LarkAppId" placeholder="请输入应用 ID" i18n-placeholder />
+      <input nz-input formControlName="LarkAppId" placeholder="请输入应用 ID" />
     </nz-form-control>
   </nz-form-item>
   <nz-form-item>
@@ -14,12 +14,11 @@
         autocomplete="new-password"
         formControlName="LarkAppSecret"
         placeholder="请输入应用密钥"
-        i18n-placeholder
       />
     </nz-form-control>
   </nz-form-item>
   <nz-form-item>
-    <nz-form-label nzRequired i18n>事件订阅安全校验数据密钥</nz-form-label>
+    <nz-form-label nzRequired>事件订阅安全校验数据密钥</nz-form-label>
     <nz-form-control nzHasFeedback [nzAutoTips]="tips.LarkEncryptKey">
       <input
         nz-input
@@ -27,12 +26,11 @@
         autocomplete="new-password"
         formControlName="LarkEncryptKey"
         placeholder="请输入事件订阅安全校验数据密钥"
-        i18n-placeholder
       />
     </nz-form-control>
   </nz-form-item>
   <nz-form-item>
-    <nz-form-label nzRequired i18n>事件订阅验证令牌</nz-form-label>
+    <nz-form-label nzRequired>事件订阅验证令牌</nz-form-label>
     <nz-form-control nzHasFeedback [nzAutoTips]="tips.LarkVerificationToken">
       <input
         nz-input
@@ -40,13 +38,12 @@
         autocomplete="new-password"
         formControlName="LarkVerificationToken"
         placeholder="请输入事件订阅验证令牌"
-        i18n-placeholder
       />
     </nz-form-control>
   </nz-form-item>
 </form>
 
 <div *nzModalFooter>
-  <button nz-button type="button" nzType="default" (click)="close()" i18n>取消</button>
-  <button nz-button nzType="primary" form="form" [disabled]="!form.valid" i18n>提交</button>
+  <button nz-button type="button" nzType="default" (click)="close()">取消</button>
+  <button nz-button nzType="primary" form="form" [disabled]="!form.valid">提交</button>
 </div>

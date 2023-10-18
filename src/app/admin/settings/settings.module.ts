@@ -11,21 +11,21 @@ const routes: Routes = [
         path: 'security',
         loadChildren: () => import('./security/security.module').then(m => m.SecurityModule),
         data: {
-          breadcrumb: $localize`安全策略`
+          breadcrumb: `安全策略`
         }
       },
       {
         path: 'sessions',
         loadChildren: () => import('./sessions/sessions.module').then(m => m.SessionsModule),
         data: {
-          breadcrumb: $localize`在线会话`
+          breadcrumb: `在线会话`
         }
       },
       {
         path: 'values',
         loadChildren: () => import('./values/values.module').then(m => m.ValuesModule),
         data: {
-          breadcrumb: $localize`动态配置`
+          breadcrumb: `动态配置`
         }
       },
       { path: '', redirectTo: 'security', pathMatch: 'full' }
