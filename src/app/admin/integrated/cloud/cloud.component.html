@@ -70,38 +70,7 @@
             </nz-descriptions>
           </nz-card>
         </nz-col>
-        <nz-col [nzSpan]="12">
-          <nz-card nzSize="small" nzType="inner" nzTitle="SMS" [nzExtra]="smsEditTpl">
-            <ng-template #smsEditTpl>
-              <button nz-button nzType="text" (click)="setSms()">
-                <span nz-icon nzType="edit"></span>
-              </button>
-            </ng-template>
-            <p>腾讯云短信</p>
-            <nz-descriptions nzLayout="vertical" [nzColumn]="2">
-              <nz-descriptions-item nzTitle="Secret Id">
-                <ng-container *ngIf="values['SmsSecretId']; else unkown">
-                  {{ values['SmsSecretId'] }}
-                </ng-container>
-              </nz-descriptions-item>
-              <nz-descriptions-item nzTitle="Secret Key">
-                <ng-container *ngIf="values['SmsSecretKey']; else unkown">
-                  <span>已设置</span>
-                </ng-container>
-              </nz-descriptions-item>
-              <nz-descriptions-item nzTitle="AppId">
-                <ng-container *ngIf="values['SmsAppId']; else unkown">
-                  {{ values['SmsAppId'] }}
-                </ng-container>
-              </nz-descriptions-item>
-              <nz-descriptions-item nzTitle="地域">
-                <ng-container *ngIf="values['SmsRegion']; else unkown">
-                  {{ values['SmsRegion'] }}
-                </ng-container>
-              </nz-descriptions-item>
-            </nz-descriptions>
-          </nz-card>
-        </nz-col>
+        <nz-col [nzSpan]="12"> </nz-col>
       </nz-row>
     </nz-tab>
     <nz-tab nzTitle="阿里云">

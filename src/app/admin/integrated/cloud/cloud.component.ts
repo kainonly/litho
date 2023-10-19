@@ -5,7 +5,6 @@ import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalService } from 'ng-zorro-antd/modal';
 
 import { CosComponent } from './cos/cos.component';
-import { SmsComponent } from './sms/sms.component';
 import { TencentComponent } from './tencent/tencent.component';
 
 @Component({
@@ -24,6 +23,11 @@ export class CloudComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.store.get<number>('admin-cloud-tab').subscribe(v => {
+      if (v) {
+        this.tabIndex = v;
+      }
+    });
     this.getData();
   }
 
@@ -32,11 +36,6 @@ export class CloudComponent implements OnInit {
   }
 
   getData(): void {
-    this.store.get<number>('admin-cloud-tab').subscribe(v => {
-      if (v) {
-        this.tabIndex = v;
-      }
-    });
     this.wpx
       .getValues([
         'Cloud',
@@ -45,11 +44,7 @@ export class CloudComponent implements OnInit {
         'TencentCosBucket',
         'TencentCosRegion',
         'TencentCosExpired',
-        'TencentCosLimit',
-        'SmsSecretId',
-        'SmsSecretKey',
-        'SmsAppId',
-        'SmsRegion'
+        'TencentCosLimit'
       ])
       .subscribe(data => {
         this.values = data;
@@ -96,9 +91,5 @@ export class CloudComponent implements OnInit {
 
   setCos(): void {
     this.setModal(`腾讯云 COS 设置`, CosComponent);
-  }
-
-  setSms(): void {
-    this.setModal(`腾讯 SMS 设置`, SmsComponent);
   }
 }

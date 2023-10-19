@@ -6,7 +6,7 @@ import { NzMessageService } from 'ng-zorro-antd/message';
 import { NZ_MODAL_DATA, NzModalRef } from 'ng-zorro-antd/modal';
 
 @Component({
-  selector: 'app-admin-integrated-cloud-sms',
+  selector: 'app-admin-integrated-extend-sms',
   templateUrl: './sms.component.html'
 })
 export class SmsComponent implements OnInit {
@@ -20,6 +20,11 @@ export class SmsComponent implements OnInit {
     SmsSecretKey: {
       default: {
         required: `Secret Key 不能为空`
+      }
+    },
+    SmsSign: {
+      default: {
+        required: `签名不能为空`
       }
     },
     SmsAppId: {
@@ -47,11 +52,13 @@ export class SmsComponent implements OnInit {
     this.form = this.fb.group({
       SmsSecretId: [null, [Validators.required]],
       SmsSecretKey: [null, [Validators.required]],
+      SmsSign: [null, [Validators.required]],
       SmsAppId: [null, [Validators.required]],
       SmsRegion: ['ap-guangzhou', [Validators.required]]
     });
     this.form.patchValue({
       SmsSecretId: this.data['SmsSecretId'],
+      SmsSign: this.data['SmsSign'],
       SmsAppId: this.data['SmsAppId'],
       SmsRegion: this.data['SmsRegion']
     });

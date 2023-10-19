@@ -1,33 +1,113 @@
 <nz-card>
-  <ng-template #emailRef>
-    <button nz-button nzType="text" (click)="setEmail()">
-      <span nz-icon nzType="edit"></span>
-    </button>
-  </ng-template>
-  <nz-card nzSize="small" nzType="inner" nzTitle="公共邮箱" [nzExtra]="emailRef">
-    <nz-descriptions nzLayout="vertical" [nzColumn]="2">
-      <nz-descriptions-item nzTitle="SMTP 主机">
-        <ng-container *ngIf="data['EmailHost']; else unkown">
-          {{ data['EmailHost'] }}
-        </ng-container>
-      </nz-descriptions-item>
-      <nz-descriptions-item nzTitle="SMTP 端口（SSL）">
-        <ng-container *ngIf="data['EmailPort']; else unkown">
-          {{ data['EmailPort'] }}
-        </ng-container>
-      </nz-descriptions-item>
-      <nz-descriptions-item nzTitle="用户名">
-        <ng-container *ngIf="data['EmailUsername']; else unkown">
-          {{ data['EmailUsername'] }}
-        </ng-container>
-      </nz-descriptions-item>
-      <nz-descriptions-item nzTitle="密码">
-        <ng-container *ngIf="data['EmailPassword']; else unkown">
-          <span>已设置</span>
-        </ng-container>
-      </nz-descriptions-item>
-    </nz-descriptions>
-  </nz-card>
+  <nz-tabset
+    style="height: 100%"
+    nzTabPosition="left"
+    [(nzSelectedIndex)]="tabIndex"
+    (nzSelectedIndexChange)="saveTabIndex()"
+  >
+    <nz-tab nzTitle="公共邮箱">
+      <ng-template #emailRef>
+        <button nz-button nzType="text" (click)="setEmail()">
+          <span nz-icon nzType="edit"></span>
+        </button>
+      </ng-template>
+      <nz-card nzSize="small" nzType="inner" nzTitle="基本信息" [nzExtra]="emailRef">
+        <nz-descriptions nzLayout="vertical" [nzColumn]="2">
+          <nz-descriptions-item nzTitle="SMTP 主机">
+            <ng-container *ngIf="values['EmailHost']; else unkown">
+              {{ values['EmailHost'] }}
+            </ng-container>
+          </nz-descriptions-item>
+          <nz-descriptions-item nzTitle="SMTP 端口（SSL）">
+            <ng-container *ngIf="values['EmailPort']; else unkown">
+              {{ values['EmailPort'] }}
+            </ng-container>
+          </nz-descriptions-item>
+          <nz-descriptions-item nzTitle="用户名">
+            <ng-container *ngIf="values['EmailUsername']; else unkown">
+              {{ values['EmailUsername'] }}
+            </ng-container>
+          </nz-descriptions-item>
+          <nz-descriptions-item nzTitle="密码">
+            <ng-container *ngIf="values['EmailPassword']; else unkown">
+              <span>已设置</span>
+            </ng-container>
+          </nz-descriptions-item>
+        </nz-descriptions>
+      </nz-card>
+    </nz-tab>
+    <nz-tab nzTitle="腾讯云 SMS">
+      <ng-template #smsEditTpl>
+        <button nz-button nzType="text" (click)="setSms()">
+          <span nz-icon nzType="edit"></span>
+        </button>
+      </ng-template>
+      <nz-card nzSize="small" nzType="inner" nzTitle="基本信息" [nzExtra]="smsEditTpl">
+        <nz-descriptions nzLayout="vertical" [nzColumn]="3">
+          <nz-descriptions-item nzTitle="Secret Id">
+            <ng-container *ngIf="values['SmsSecretId']; else unkown">
+              {{ values['SmsSecretId'] }}
+            </ng-container>
+          </nz-descriptions-item>
+          <nz-descriptions-item nzTitle="Secret Key">
+            <ng-container *ngIf="values['SmsSecretKey']; else unkown">
+              <span>已设置</span>
+            </ng-container>
+          </nz-descriptions-item>
+          <nz-descriptions-item nzTitle="签名">
+            <ng-container *ngIf="values['SmsSign']; else unkown">
+              {{ values['SmsSign'] }}
+            </ng-container>
+          </nz-descriptions-item>
+          <nz-descriptions-item nzTitle="AppId">
+            <ng-container *ngIf="values['SmsAppId']; else unkown">
+              {{ values['SmsAppId'] }}
+            </ng-container>
+          </nz-descriptions-item>
+          <nz-descriptions-item nzTitle="地域">
+            <ng-container *ngIf="values['SmsRegion']; else unkown">
+              {{ values['SmsRegion'] }}
+            </ng-container>
+          </nz-descriptions-item>
+        </nz-descriptions>
+      </nz-card>
+
+      <nz-table nzSize="small" nzTemplateMode>
+        <thead>
+          <tr>
+            <th nzWidth="60px"></th>
+            <th>配置命名</th>
+            <th>模板名称</th>
+            <th>ID</th>
+            <th nzWidth="60px" nzAlign="center">
+              <button nz-button type="button" nzType="text" disabled>
+                <span nz-icon nzType="setting" nzTheme="outline"></span>
+              </button>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let x of smsTpls">
+            <td></td>
+            <td>
+              <b>{{ x.key }}</b>
+            </td>
+            <td>{{ x.name }}</td>
+            <td>
+              <ng-container *ngIf="values[x.key]; else unkown">
+                {{ values[x.key] }}
+              </ng-container>
+            </td>
+            <td>
+              <button nz-button nzType="text" (click)="setSmsTpl(x.key)">
+                <span nz-icon nzType="edit"></span>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </nz-table>
+    </nz-tab>
+  </nz-tabset>
 </nz-card>
 
 <ng-template #unkown>

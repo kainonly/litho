@@ -18,6 +18,12 @@
     </nz-form-control>
   </nz-form-item>
   <nz-form-item>
+    <nz-form-label nzRequired>签名</nz-form-label>
+    <nz-form-control nzHasFeedback [nzAutoTips]="tips.SmsSign">
+      <input nz-input formControlName="SmsSign" placeholder="请输入签名" />
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
     <nz-form-label nzRequired>App Id</nz-form-label>
     <nz-form-control nzHasFeedback [nzAutoTips]="tips.SmsAppId">
       <input nz-input formControlName="SmsAppId" placeholder="请输入 App Id" />
