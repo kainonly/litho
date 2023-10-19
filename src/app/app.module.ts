@@ -103,7 +103,7 @@ const routes: Routes = [
         notification: { nzPlacement: 'bottomRight' },
         card: { nzBordered: false },
         codeEditor: {
-          assetsRoot: `https://cdn.kainonly.com/npm/monaco-editor@0.40.0/min`
+          assetsRoot: `${environment.cdn}/npm/monaco-editor@0.40.0/min`
         }
       }
     },

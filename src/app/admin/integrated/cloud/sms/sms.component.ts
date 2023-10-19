@@ -50,7 +50,6 @@ export class SmsComponent implements OnInit {
       SmsAppId: [null, [Validators.required]],
       SmsRegion: ['ap-guangzhou', [Validators.required]]
     });
-    console.log(this.data);
     this.form.patchValue({
       SmsSecretId: this.data['SmsSecretId'],
       SmsAppId: this.data['SmsAppId'],

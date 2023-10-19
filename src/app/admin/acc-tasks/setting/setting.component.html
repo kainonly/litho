@@ -1,0 +1,19 @@
+<form *ngIf="form" nz-form nzLayout="vertical" id="form" [formGroup]="form" (wpxSubmit)="submit($event)">
+  <nz-form-item>
+    <nz-form-label nzRequired>函数回调地址</nz-form-label>
+    <nz-form-control nzHasFeedback [nzAutoTips]="tips.AccelerateAddress">
+      <input nz-input formControlName="AccelerateAddress" placeholder="请输入函数回调地址" />
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label nzRequired>主账号 ID</nz-form-label>
+    <nz-form-control nzHasFeedback [nzAutoTips]="tips.CamUin">
+      <input nz-input formControlName="CamUin" placeholder="请输入主账号 ID 不能为空" />
+    </nz-form-control>
+  </nz-form-item>
+</form>
+
+<div *nzModalFooter>
+  <button nz-button type="button" nzType="default" (click)="close()">取消</button>
+  <button nz-button nzType="primary" form="form" [disabled]="!form.valid">提交</button>
+</div>

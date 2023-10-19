@@ -5,6 +5,7 @@ import { ShareModule } from '@common/share.module';
 
 import { AccTasksComponent } from './acc-tasks.component';
 import { FormComponent } from './form/form.component';
+import { SettingComponent } from './setting/setting.component';
 
 const routes: Routes = [
   {
@@ -15,6 +16,6 @@ const routes: Routes = [
 
 @NgModule({
   imports: [ShareModule, RouterModule.forChild(routes)],
-  declarations: [AccTasksComponent, FormComponent]
+  declarations: [AccTasksComponent, FormComponent, SettingComponent]
 })
 export class AccTasksModule {}

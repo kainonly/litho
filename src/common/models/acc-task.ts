@@ -3,3 +3,8 @@ export interface AccTask {
   source: string;
   target: string;
 }
+
+export interface InvokeResult {
+  msg: string;
+  date: Date;
+}

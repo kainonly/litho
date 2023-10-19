@@ -1,3 +1,4 @@
+import { formatDate } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 
 import { AccTask } from '@common/models/acc-task';
@@ -7,6 +8,7 @@ import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalService } from 'ng-zorro-antd/modal';
 
 import { FormComponent, FormInput } from './form/form.component';
+import { SettingComponent } from './setting/setting.component';
 
 @Component({
   selector: 'app-admin-acc-tasks',
@@ -14,6 +16,7 @@ import { FormComponent, FormInput } from './form/form.component';
 })
 export class AccTasksComponent implements OnInit {
   model!: WpxModel<AccTask>;
+  syncing = false;
 
   constructor(
     private wpx: WpxService,
@@ -48,6 +51,21 @@ export class AccTasksComponent implements OnInit {
       nzOnOk: () => {
         this.getData(true);
       }
+    });
+  }
+
+  openSetting(): void {
+    this.modal.create<SettingComponent>({
+      nzTitle: '资源加速设置',
+      nzContent: SettingComponent
+    });
+  }
+
+  sync(): void {
+    this.syncing = true;
+    this.accTasks.invoke().subscribe(data => {
+      this.message.success(`同步已完成：${formatDate(data.date, 'yyyy-MM-dd HH:mm:ss', 'zh-Hans')}`);
+      this.syncing = false;
     });
   }
 
