@@ -61,10 +61,6 @@
       <span nz-icon [nzType]="data.rule ? 'check-circle' : 'close-circle'"></span>
       <span>日志收集</span>
     </nz-tag>
-    <nz-tag nzColor="processing">
-      <span nz-icon nzType="sync" nzSpin></span>
-      <span>监控中</span>
-    </nz-tag>
     <a (click)="openDetail(data)">已授权 {{ data.projects.length }} 个项目</a>
   </ng-template>
 </wpx-table>
