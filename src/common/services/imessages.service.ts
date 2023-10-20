@@ -12,6 +12,14 @@ export class ImessagesService extends WpxApi<Imessage> {
     return this.http.get<EmqxNode[]>(`${this.collection}/nodes`);
   }
 
+  createRule(id: string): Observable<Any> {
+    return this.http.put(`${this.collection}/${id}/rule`, {});
+  }
+
+  deleteRule(id: string): Observable<Any> {
+    return this.http.delete(`${this.collection}/${id}/rule`);
+  }
+
   getMetrics(id: string): Observable<Info[]> {
     return this.http.get<Info[]>(`${this.collection}/${id}/metrics`);
   }

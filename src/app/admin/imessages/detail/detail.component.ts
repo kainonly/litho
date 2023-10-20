@@ -59,6 +59,9 @@ export class DetailComponent implements OnInit, OnDestroy {
   }
 
   sync(): void {
+    this.imessages.createRule(this.doc._id).subscribe(() => {
+      this.message.success('主题数据桥接已同步');
+    });
     this.imessages.createMetrics(this.doc._id).subscribe(() => {
       this.message.success('主题监控已同步');
     });
