@@ -2,7 +2,6 @@ import { formatDate } from '@angular/common';
 import { Component, Inject, Input, LOCALE_ID, OnInit } from '@angular/core';
 
 import { CodeviewComponent } from '@common/components/codeview/codeview.component';
-import { Imessage } from '@common/models/imessage';
 import { LogsetImessage } from '@common/models/logset-imessage';
 import { LogsetImessagesService } from '@common/services/logset-imessages.service';
 import { Any, AnyDto, Filter, WpxModel, WpxService } from '@weplanx/ng';
@@ -14,10 +13,10 @@ import { NzModalService } from 'ng-zorro-antd/modal';
   templateUrl: './logs.component.html'
 })
 export class LogsComponent implements OnInit {
-  @Input({ required: true }) doc!: AnyDto<Imessage>;
   @Input({ required: true }) topic!: string;
 
   model!: WpxModel<LogsetImessage>;
+  clientText = '';
   timestamp: Date[] = [];
 
   constructor(
@@ -48,7 +47,9 @@ export class LogsComponent implements OnInit {
     const filter: Filter<LogsetImessage> = {
       'metadata.topic': this.topic
     };
-
+    if (this.clientText !== '') {
+      filter['metadata.client'] = this.clientText;
+    }
     if (this.timestamp.length !== 0) {
       filter.timestamp = {
         $gte: this.timestamp[0].toUTCString() as Any,

@@ -6,9 +6,11 @@ import { Project } from '@common/models/project';
 import { ImessagesService } from '@common/services/imessages.service';
 import { ProjectsService } from '@common/services/projects.service';
 import { AnyDto } from '@weplanx/ng';
+import { NzDrawerService } from 'ng-zorro-antd/drawer';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalService } from 'ng-zorro-antd/modal';
 
+import { LogsComponent } from '../logs/logs.component';
 import { PublishComponent, PublishInput } from '../publish/publish.component';
 
 @Component({
@@ -29,7 +31,8 @@ export class DetailComponent implements OnInit, OnDestroy {
     private projects: ProjectsService,
     private imessages: ImessagesService,
     private message: NzMessageService,
-    private modal: NzModalService
+    private modal: NzModalService,
+    private drawer: NzDrawerService
   ) {}
 
   ngOnInit(): void {
@@ -58,12 +61,12 @@ export class DetailComponent implements OnInit, OnDestroy {
       });
   }
 
-  sync(): void {
-    this.imessages.createRule(this.doc._id).subscribe(() => {
-      this.message.success('主题数据桥接已同步');
+  restart(): void {
+    this.imessages.updateRule(this.doc._id).subscribe(() => {
+      this.message.success('日志收集已启用');
     });
     this.imessages.createMetrics(this.doc._id).subscribe(() => {
-      this.message.success('主题监控已同步');
+      this.message.success('监控已启用');
     });
   }
 
@@ -75,6 +78,17 @@ export class DetailComponent implements OnInit, OnDestroy {
         topic: `${this.doc.topic}/${pid}`
       },
       nzWidth: 640
+    });
+  }
+
+  openLogs(id: string): void {
+    this.drawer.create({
+      nzClosable: false,
+      nzContent: LogsComponent,
+      nzContentParams: {
+        topic: `${this.doc.topic}/${id}`
+      },
+      nzWidth: 960
     });
   }
 }

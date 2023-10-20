@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { ShareModule } from '@common/share.module';
 
+import { CountRateComponent } from './detail/count-rate/count-rate.component';
 import { DetailComponent } from './detail/detail.component';
 import { EmqxModule } from './emqx/emqx.module';
 import { FormComponent } from './form/form.component';
@@ -19,6 +20,13 @@ const routes: Routes = [
 
 @NgModule({
   imports: [ShareModule, EmqxModule, RouterModule.forChild(routes)],
-  declarations: [ImessagesComponent, FormComponent, DetailComponent, PublishComponent, LogsComponent]
+  declarations: [
+    ImessagesComponent,
+    FormComponent,
+    DetailComponent,
+    CountRateComponent,
+    PublishComponent,
+    LogsComponent
+  ]
 })
 export class ImessagesModule {}

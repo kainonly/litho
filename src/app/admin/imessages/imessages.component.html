@@ -19,8 +19,6 @@
       <nz-dropdown-menu #menu="nzDropdownMenu">
         <ul nz-menu>
           <li nz-menu-item (click)="wpxTable.clearSelections()"> 取消选择 </li>
-        </ul>
-        <ul nz-menu>
           <li nz-menu-item nzDanger (click)="bulkDelete()"> 删除 </li>
         </ul>
       </nz-dropdown-menu>
@@ -59,6 +57,14 @@
     </ng-container>
   </ng-template>
   <ng-template #detail let-data>
+    <nz-tag>
+      <span nz-icon [nzType]="data.rule ? 'check-circle' : 'close-circle'"></span>
+      <span>日志收集</span>
+    </nz-tag>
+    <nz-tag nzColor="processing">
+      <span nz-icon nzType="sync" nzSpin></span>
+      <span>监控中</span>
+    </nz-tag>
     <a (click)="openDetail(data)">已授权 {{ data.projects.length }} 个项目</a>
   </ng-template>
 </wpx-table>

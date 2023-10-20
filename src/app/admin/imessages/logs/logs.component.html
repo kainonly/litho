@@ -1,11 +1,14 @@
 <nz-layout style="height: 100%; background: transparent">
   <nz-page-header>
     <nz-page-header-title>日志</nz-page-header-title>
-    <nz-page-header-subtitle>{{ doc.topic }}</nz-page-header-subtitle>
+    <nz-page-header-subtitle>{{ topic }}</nz-page-header-subtitle>
     <nz-page-header-footer>
       <nz-row nzAlign="middle" nzJustify="space-between">
         <nz-col>
           <nz-space nzAlign="center">
+            <nz-input-group *nzSpaceItem style="width: 320px" nzSuffixIcon="search">
+              <input nz-input [(ngModel)]="clientText" (keyup.enter)="getData(true)" placeholder="客户端" />
+            </nz-input-group>
             <nz-range-picker
               *nzSpaceItem
               style="width: 320px"
@@ -47,6 +50,12 @@
           format: 'date'
         },
         {
+          title: '客户端',
+          key: 'client',
+          width: '200px',
+          render: client
+        },
+        {
           title: '载荷',
           key: 'payload',
           render: payload,
@@ -58,9 +67,12 @@
       [wpxBodyStyle]="{ height: '100%' }"
       (wpxChange)="getData()"
     >
+      <ng-template #client let-data>
+        {{ data.metadata.client }}
+      </ng-template>
       <ng-template #payload let-data>
         <a (click)="openResponse(data)">
-          <code>{{ data.payload }}</code>
+          <code>{{ data.payload | json }}</code>
         </a>
       </ng-template>
     </wpx-table>
@@ -72,5 +84,3 @@
     <span nz-icon nzType="ellipsis" nzTheme="outline"></span>
   </button>
 </ng-template>
-
-<ng-template #noBodyRef>无返回结果</ng-template>

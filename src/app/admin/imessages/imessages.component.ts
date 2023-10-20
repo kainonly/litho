@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { forkJoin, switchMap } from 'rxjs';
 
 import { Imessage } from '@common/models/imessage';
 import { ImessagesService } from '@common/services/imessages.service';
@@ -90,10 +91,12 @@ export class ImessagesComponent implements OnInit {
       nzOkType: 'primary',
       nzOkDanger: true,
       nzOnOk: () => {
-        this.imessages.delete(doc._id).subscribe(() => {
-          this.message.success(`数据删除成功`);
-          this.getData(true);
-        });
+        forkJoin([this.imessages.deleteRule(doc._id), this.imessages.deleteMetrics(doc._id)])
+          .pipe(switchMap(() => this.imessages.delete(doc._id)))
+          .subscribe(() => {
+            this.message.success(`数据删除成功`);
+            this.getData(true);
+          });
       },
       nzCancelText: `再想想`
     });
@@ -106,16 +109,21 @@ export class ImessagesComponent implements OnInit {
       nzOkType: 'primary',
       nzOkDanger: true,
       nzOnOk: () => {
-        this.imessages
-          .bulkDelete(
-            {
-              _id: { $in: [...this.model.selection.keys()] }
-            },
-            {
-              xfilter: {
-                '_id->$in': 'oids'
-              }
-            }
+        const ids = [...this.model.selection.keys()];
+        forkJoin([...ids.map(id => this.imessages.deleteRule(id)), ...ids.map(id => this.imessages.deleteMetrics(id))])
+          .pipe(
+            switchMap(() =>
+              this.imessages.bulkDelete(
+                {
+                  _id: { $in: ids }
+                },
+                {
+                  xfilter: {
+                    '_id->$in': 'oids'
+                  }
+                }
+              )
+            )
           )
           .subscribe(() => {
             this.message.success(`数据删除成功`);

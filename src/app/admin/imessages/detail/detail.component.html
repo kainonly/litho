@@ -11,8 +11,8 @@
           nzShape="circle"
           nz-tooltip="同步"
           nz-popconfirm
-          nzPopconfirmTitle="您确定要同步数据桥接与监控吗?"
-          (nzOnConfirm)="sync()"
+          nzPopconfirmTitle="您确定要重启日志收集与监控吗?"
+          (nzOnConfirm)="restart()"
         >
           <span nz-icon nzType="sync" nzTheme="outline"></span>
         </button>
@@ -53,81 +53,81 @@
               </ng-container>
             </td>
             <td>
-              <a>{{ doc.topic }}/{{ id }}</a>
+              <a (click)="openLogs(id)">{{ doc.topic }}/{{ id }}</a>
             </td>
             <ng-container [ngSwitch]="index">
               <ng-container *ngSwitchCase="0">
                 <td>
-                  <ng-container *ngIf="metricsDict[doc.topic + '/' + id] as metric; else loadText">
-                    {{ metric['messages.in.count'] | nzSafeNull }}
-                    <nz-divider nzType="vertical"></nz-divider>
-                    {{ metric['messages.in.rate'] | nzSafeNull | number: '1.4-4' }}/s
-                  </ng-container>
+                  <app-admin-imessages-detail-count-rate
+                    count="messages.in.count"
+                    rate="messages.in.rate"
+                    [metric]="metricsDict[doc.topic + '/' + id]"
+                  ></app-admin-imessages-detail-count-rate>
                 </td>
                 <td>
-                  <ng-container *ngIf="metricsDict[doc.topic + '/' + id] as metric; else loadText">
-                    {{ metric['messages.out.count'] | nzSafeNull }}
-                    <nz-divider nzType="vertical"></nz-divider>
-                    {{ metric['messages.out.rate'] | nzSafeNull | number: '1.4-4' }}/s
-                  </ng-container>
+                  <app-admin-imessages-detail-count-rate
+                    count="messages.out.count"
+                    rate="messages.out.rate"
+                    [metric]="metricsDict[doc.topic + '/' + id]"
+                  ></app-admin-imessages-detail-count-rate>
                 </td>
               </ng-container>
               <ng-container *ngSwitchCase="1">
                 <td>
-                  <ng-container *ngIf="metricsDict[doc.topic + '/' + id] as metric; else loadText">
-                    {{ metric['messages.qos0.in.count'] | nzSafeNull }}
-                    <nz-divider nzType="vertical"></nz-divider>
-                    {{ metric['messages.qos0.in.rate'] | nzSafeNull | number: '1.4-4' }}/s
-                  </ng-container>
+                  <app-admin-imessages-detail-count-rate
+                    count="messages.qos0.in.count"
+                    rate="messages.qos0.in.rate"
+                    [metric]="metricsDict[doc.topic + '/' + id]"
+                  ></app-admin-imessages-detail-count-rate>
                 </td>
                 <td>
-                  <ng-container *ngIf="metricsDict[doc.topic + '/' + id] as metric; else loadText">
-                    {{ metric['messages.qos0.out.count'] | nzSafeNull }}
-                    <nz-divider nzType="vertical"></nz-divider>
-                    {{ metric['messages.qos0.out.rate'] | nzSafeNull | number: '1.4-4' }}/s
-                  </ng-container>
+                  <app-admin-imessages-detail-count-rate
+                    count="messages.qos0.out.count"
+                    rate="messages.qos0.out.rate"
+                    [metric]="metricsDict[doc.topic + '/' + id]"
+                  ></app-admin-imessages-detail-count-rate>
                 </td>
               </ng-container>
               <ng-container *ngSwitchCase="2">
                 <td>
-                  <ng-container *ngIf="metricsDict[doc.topic + '/' + id] as metric; else loadText">
-                    {{ metric['messages.qos1.in.count'] | nzSafeNull }}
-                    <nz-divider nzType="vertical"></nz-divider>
-                    {{ metric['messages.qos1.in.rate'] | nzSafeNull | number: '1.4-4' }}/s
-                  </ng-container>
+                  <app-admin-imessages-detail-count-rate
+                    count="messages.qos1.in.count"
+                    rate="messages.qos1.in.rate"
+                    [metric]="metricsDict[doc.topic + '/' + id]"
+                  ></app-admin-imessages-detail-count-rate>
                 </td>
                 <td>
-                  <ng-container *ngIf="metricsDict[doc.topic + '/' + id] as metric; else loadText">
-                    {{ metric['messages.qos1.out.count'] | nzSafeNull }}
-                    <nz-divider nzType="vertical"></nz-divider>
-                    {{ metric['messages.qos1.out.rate'] | nzSafeNull | number: '1.4-4' }}/s
-                  </ng-container>
+                  <app-admin-imessages-detail-count-rate
+                    count="messages.qos1.out.count"
+                    rate="messages.qos1.out.rate"
+                    [metric]="metricsDict[doc.topic + '/' + id]"
+                  ></app-admin-imessages-detail-count-rate>
                 </td>
               </ng-container>
               <ng-container *ngSwitchCase="3">
                 <td>
-                  <ng-container *ngIf="metricsDict[doc.topic + '/' + id] as metric; else loadText">
-                    {{ metric['messages.qos2.in.count'] | nzSafeNull }}
-                    <nz-divider nzType="vertical"></nz-divider>
-                    {{ metric['messages.qos2.in.rate'] | nzSafeNull | number: '1.4-4' }}/s
-                  </ng-container>
+                  <app-admin-imessages-detail-count-rate
+                    count="messages.qos2.in.count"
+                    rate="messages.qos2.in.rate"
+                    [metric]="metricsDict[doc.topic + '/' + id]"
+                  ></app-admin-imessages-detail-count-rate>
                 </td>
                 <td>
-                  <ng-container *ngIf="metricsDict[doc.topic + '/' + id] as metric; else loadText">
-                    {{ metric['messages.qos2.out.count'] | nzSafeNull }}
-                    <nz-divider nzType="vertical"></nz-divider>
-                    {{ metric['messages.qos2.out.rate'] | nzSafeNull | number: '1.4-4' }}/s
-                  </ng-container>
+                  <app-admin-imessages-detail-count-rate
+                    count="messages.qos2.out.count"
+                    rate="messages.qos2.out.rate"
+                    [metric]="metricsDict[doc.topic + '/' + id]"
+                  ></app-admin-imessages-detail-count-rate>
                 </td>
               </ng-container>
             </ng-container>
 
             <td *ngIf="index === 0">
-              <ng-container *ngIf="metricsDict[doc.topic + '/' + id] as metric; else loadText">
-                {{ metric['messages.dropped.count'] | nzSafeNull }}
-                <nz-divider nzType="vertical"></nz-divider>
-                {{ metric['messages.dropped.rate'] | nzSafeNull | number: '1.4-4' }}/s
-              </ng-container>
+              <app-admin-imessages-detail-count-rate
+                count="messages.dropped.count"
+                rate="messages.dropped.rate"
+                [metric]="metricsDict[doc.topic + '/' + id]"
+              ></app-admin-imessages-detail-count-rate>
             </td>
           </tr>
         </tbody>
@@ -135,9 +135,3 @@
     </nz-card>
   </nz-content>
 </nz-layout>
-
-<ng-template #loadText>
-  -
-  <nz-divider nzType="vertical"></nz-divider>
-  -/s
-</ng-template>

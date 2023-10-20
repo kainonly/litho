@@ -1,7 +1,6 @@
-import { Any } from '@weplanx/ng';
-
 export interface Imessage {
   topic: string;
+  rule?: string;
   description?: string;
   projects: string[];
 }

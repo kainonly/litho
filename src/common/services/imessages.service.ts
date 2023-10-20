@@ -12,7 +12,7 @@ export class ImessagesService extends WpxApi<Imessage> {
     return this.http.get<EmqxNode[]>(`${this.collection}/nodes`);
   }
 
-  createRule(id: string): Observable<Any> {
+  updateRule(id: string): Observable<Any> {
     return this.http.put(`${this.collection}/${id}/rule`, {});
   }
 
