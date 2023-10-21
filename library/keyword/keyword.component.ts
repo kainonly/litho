@@ -5,12 +5,7 @@ import { WpxModel } from '@weplanx/ng';
 @Component({
   selector: 'wpx-keyword',
   template: `
-    <nz-input-group
-      [ngStyle]="{ width: wpxWidth + 'px' }"
-      nzSuffixIcon="search"
-      nz-tooltip="键盘 Enter 开始搜索"
-      nzTooltipTrigger="focus"
-    >
+    <nz-input-group [ngStyle]="{ width: wpxWidth + 'px' }" nzSuffixIcon="search">
       <input
         nz-input
         [placeholder]="wpxPlaceholder"

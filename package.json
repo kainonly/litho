@@ -10,7 +10,7 @@
   "private": false,
   "dependencies": {
     "@angular/animations": "~16.2.5",
-    "@angular/cdk": "~16.2.4",
+    "@angular/cdk": "~16.2.5",
     "@angular/common": "~16.2.5",
     "@angular/compiler": "~16.2.5",
     "@angular/core": "~16.2.5",
@@ -22,7 +22,7 @@
     "cron-parser": "^4.9.0",
     "date-fns": "^2.30.0",
     "idb-keyval": "^6.2.1",
-    "ng-zorro-antd": "~16.2.0",
+    "ng-zorro-antd": "16.2.0",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.13.0"
