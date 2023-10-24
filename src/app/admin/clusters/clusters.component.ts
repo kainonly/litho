@@ -18,6 +18,10 @@ import { FormComponent, FormInput } from './form/form.component';
 export class ClustersComponent implements OnInit {
   model!: WpxModel<Cluster>;
   infos: Record<string, ClusterInfo> = {};
+  kind: Record<string, string> = {
+    kubernetes: 'Kubernetes',
+    agent: '代理器'
+  };
 
   constructor(
     private wpx: WpxService,

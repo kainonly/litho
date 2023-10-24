@@ -19,8 +19,6 @@
       <nz-dropdown-menu #menu="nzDropdownMenu">
         <ul nz-menu>
           <li nz-menu-item (click)="wpxTable.clearSelections()"> 取消选择 </li>
-        </ul>
-        <ul nz-menu>
           <li nz-menu-item nzDanger (click)="bulkDelete()"> 删除 </li>
         </ul>
       </nz-dropdown-menu>
@@ -52,7 +50,7 @@
 >
   <ng-template #name let-data>
     <nz-tag nzColor="blue">
-      {{ data.kind }}
+      {{ kind[data.kind] }}
     </nz-tag>
     {{ data.name }}
     <ng-container *ngIf="infos[data._id] as v"> ({{ v.nodes }}) </ng-container>
@@ -63,8 +61,9 @@
       <nz-tag>CPU：{{ v.cpu }}</nz-tag>
       <nz-tag>MEM：{{ v.mem | nzBytes }}</nz-tag>
       <nz-tag>STORAGE：{{ v.storage | nzBytes }}</nz-tag>
-      <a (click)="openDetail(data)">查看</a>
     </ng-container>
+    <nz-tag *ngIf="data.admin" nzColor="orange">管理集群</nz-tag>
+    <a (click)="openDetail(data)">查看</a>
   </ng-template>
 </wpx-table>
 

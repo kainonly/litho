@@ -29,6 +29,7 @@ export class FormComponent implements OnInit {
       }
     }
   };
+  edit = false;
 
   constructor(
     @Inject(NZ_MODAL_DATA)
@@ -42,17 +43,23 @@ export class FormComponent implements OnInit {
   ngOnInit(): void {
     this.form = this.fb.group({
       name: ['', [Validators.required]],
+      kind: ['kubernetes', [Validators.required]],
       config: this.fb.group({
         host: ['', [Validators.required]],
         ca_data: ['', [Validators.required]],
         cert_data: ['', [Validators.required]],
         key_data: ['', [Validators.required]]
-      })
+      }),
+      admin: [false]
     });
     if (this.data.doc) {
+      this.edit = true;
+      this.form.get('kind')?.disable();
+      this.form.removeControl('config');
       this.form.patchValue({
         name: this.data.doc.name,
-        kind: this.data.doc.kind
+        kind: this.data.doc.kind,
+        admin: this.data.doc.admin
       });
     }
   }
