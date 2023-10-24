@@ -6,8 +6,8 @@ import { AnyDto, WpxModel, WpxService } from '@weplanx/ng';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalService } from 'ng-zorro-antd/modal';
 
+import { AuthorizationComponent, AuthorizationInput } from './authorization/authorization.component';
 import { FormComponent, FormInput } from './form/form.component';
-import { OpenapiComponent, OpenapiInput } from './openapi/openapi.component';
 
 @Component({
   selector: 'app-admin-projects',
@@ -39,7 +39,7 @@ export class ProjectsComponent implements OnInit {
     });
   }
 
-  setProject(doc?: AnyDto<Project>): void {
+  openForm(doc?: AnyDto<Project>): void {
     this.modal.create<FormComponent, FormInput>({
       nzTitle: !doc ? '创建' : `编辑【${doc.name}】`,
       nzContent: FormComponent,
@@ -52,10 +52,10 @@ export class ProjectsComponent implements OnInit {
     });
   }
 
-  setOpenAPI(doc: AnyDto<Project>): void {
-    this.modal.create<OpenapiComponent, OpenapiInput>({
+  openAuthorization(doc: AnyDto<Project>): void {
+    this.modal.create<AuthorizationComponent, AuthorizationInput>({
       nzTitle: `设置【${doc.name}】`,
-      nzContent: OpenapiComponent,
+      nzContent: AuthorizationComponent,
       nzData: {
         doc
       },

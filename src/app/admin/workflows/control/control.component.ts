@@ -11,10 +11,10 @@ import { Any, AnyDto } from '@weplanx/ng';
 import { NzMessageService } from 'ng-zorro-antd/message';
 
 @Component({
-  selector: 'app-admin-workflows-controls',
-  templateUrl: './controls.component.html'
+  selector: 'app-admin-workflows-control',
+  templateUrl: './control.component.html'
 })
-export class ControlsComponent implements OnInit {
+export class ControlComponent implements OnInit {
   @Input({ required: true }) doc!: AnyDto<Workflow>;
   @Input({ required: true }) updated!: () => void;
 

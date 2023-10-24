@@ -6,10 +6,10 @@ import { Any, WpxService } from '@weplanx/ng';
 import { NzMessageService } from 'ng-zorro-antd/message';
 
 @Component({
-  selector: 'app-admin-datasets-controls',
-  templateUrl: './controls.component.html'
+  selector: 'app-admin-datasets-control',
+  templateUrl: './control.component.html'
 })
-export class ControlsComponent implements OnInit {
+export class ControlComponent implements OnInit {
   @Input({ required: true }) name!: string;
   @Input({ required: true }) updated!: () => void;
 

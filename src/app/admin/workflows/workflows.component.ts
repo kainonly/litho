@@ -12,7 +12,7 @@ import { NzDrawerService } from 'ng-zorro-antd/drawer';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalService } from 'ng-zorro-antd/modal';
 
-import { ControlsComponent } from './controls/controls.component';
+import { ControlComponent } from './control/control.component';
 import { DetailComponent } from './detail/detail.component';
 import { FormComponent, FormInput } from './form/form.component';
 import { SchedulesComponent } from './schedules/schedules.component';
@@ -122,10 +122,10 @@ export class WorkflowsComponent implements OnInit {
     });
   }
 
-  openControls(doc: AnyDto<Workflow>): void {
+  openControl(doc: AnyDto<Workflow>): void {
     this.drawer.create({
       nzClosable: false,
-      nzContent: ControlsComponent,
+      nzContent: ControlComponent,
       nzContentParams: {
         doc,
         updated: () => {

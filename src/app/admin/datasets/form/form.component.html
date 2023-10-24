@@ -1,13 +1,13 @@
 <form *ngIf="form" nz-form nzLayout="vertical" id="form" [formGroup]="form" (wpxSubmit)="submit($event)">
   <nz-form-item>
     <nz-form-label nzRequired>集合名称</nz-form-label>
-    <nz-form-control nzHasFeedback [nzAutoTips]="tips.name" nzExtra="创建后不可更改">
+    <nz-form-control nzHasFeedback [nzAutoTips]="tips.name" nzExtra="*设置后不可更改">
       <input nz-input formControlName="name" placeholder="请输入集合名称" />
     </nz-form-control>
   </nz-form-item>
   <nz-form-item>
     <nz-form-label nzRequired>集合类型</nz-form-label>
-    <nz-form-control nzHasFeedback [nzAutoTips]="tips.kind" nzExtra="创建后不可更改">
+    <nz-form-control nzHasFeedback [nzAutoTips]="tips.kind" nzExtra="*设置后不可更改">
       <nz-select formControlName="kind" nzPlaceHolder="请选择集合类型">
         <nz-option nzValue="collection" nzLabel="通用"></nz-option>
         <nz-option nzValue="timeseries" nzLabel="时序"></nz-option>

@@ -9,22 +9,22 @@ import Joi from 'joi';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NZ_MODAL_DATA, NzModalRef } from 'ng-zorro-antd/modal';
 
-export interface OpenapiInput {
+export interface AuthorizationInput {
   doc: AnyDto<Project>;
 }
 
 @Component({
-  selector: 'app-admin-projects-openapi',
-  templateUrl: './openapi.component.html'
+  selector: 'app-admin-projects-authorization',
+  templateUrl: './authorization.component.html'
 })
-export class OpenapiComponent implements OnInit {
+export class AuthorizationComponent implements OnInit {
   form!: FormGroup;
 
   private ipSchema = Joi.string().ip();
 
   constructor(
     @Inject(NZ_MODAL_DATA)
-    public data: OpenapiInput,
+    public data: AuthorizationInput,
     private modalRef: NzModalRef,
     private message: NzMessageService,
     private fb: FormBuilder,

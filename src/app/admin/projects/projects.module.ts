@@ -3,9 +3,10 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { ShareModule } from '@common/share.module';
 
+import { AuthorizationComponent } from './authorization/authorization.component';
+import { ControlComponent } from './control/control.component';
 import { ExpirePipe } from './expire.pipe';
 import { FormComponent } from './form/form.component';
-import { OpenapiComponent } from './openapi/openapi.component';
 import { ProjectsComponent } from './projects.component';
 
 const routes: Routes = [
@@ -17,6 +18,6 @@ const routes: Routes = [
 
 @NgModule({
   imports: [ShareModule, RouterModule.forChild(routes)],
-  declarations: [ProjectsComponent, FormComponent, OpenapiComponent, ExpirePipe]
+  declarations: [ProjectsComponent, FormComponent, AuthorizationComponent, ControlComponent, ExpirePipe]
 })
 export class ProjectsModule {}

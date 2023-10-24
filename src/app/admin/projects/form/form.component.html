@@ -7,7 +7,7 @@
   </nz-form-item>
   <nz-form-item>
     <nz-form-label nzRequired>项目类型</nz-form-label>
-    <nz-form-control nzHasFeedback [nzAutoTips]="tips.name" nzExtra="*设置后不可修改">
+    <nz-form-control nzHasFeedback [nzAutoTips]="tips.name" nzExtra="*设置后不可更改">
       <nz-select formControlName="kind" nzAllowClear nzPlaceHolder="请选择项目类型">
         <nz-option nzValue="default" nzLabel="标准类型"> </nz-option>
         <nz-option nzValue="cms" nzLabel="内容类型"> </nz-option>
@@ -16,7 +16,7 @@
   </nz-form-item>
   <nz-form-item>
     <nz-form-label nzRequired> 命名空间 </nz-form-label>
-    <nz-form-control nzHasFeedback [nzAutoTips]="tips.namespace" nzExtra="*设置后不可修改">
+    <nz-form-control nzHasFeedback [nzAutoTips]="tips.namespace" nzExtra="*设置后不可更改">
       <input nz-input formControlName="namespace" placeholder="请输入唯一的命名空间" />
     </nz-form-control>
   </nz-form-item>

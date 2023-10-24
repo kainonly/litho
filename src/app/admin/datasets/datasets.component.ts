@@ -9,7 +9,7 @@ import { NzDrawerService } from 'ng-zorro-antd/drawer';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalService } from 'ng-zorro-antd/modal';
 
-import { ControlsComponent } from './controls/controls.component';
+import { ControlComponent } from './control/control.component';
 import { FormComponent } from './form/form.component';
 
 @Component({
@@ -71,9 +71,9 @@ export class DatasetsComponent implements OnInit, AfterViewInit, OnDestroy {
     });
   }
 
-  openControls(name: string): void {
+  openControl(name: string): void {
     this.drawer.create({
-      nzContent: ControlsComponent,
+      nzContent: ControlComponent,
       nzContentParams: {
         name,
         updated: () => {
