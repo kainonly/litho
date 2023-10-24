@@ -6,8 +6,8 @@ import { AnyDto, WpxModel, WpxService } from '@weplanx/ng';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalService } from 'ng-zorro-antd/modal';
 
-import { EntryComponent, EntryInput } from './entry/entry.component';
 import { FormComponent, FormInput } from './form/form.component';
+import { OpenapiComponent, OpenapiInput } from './openapi/openapi.component';
 
 @Component({
   selector: 'app-admin-projects',
@@ -39,10 +39,9 @@ export class ProjectsComponent implements OnInit {
     });
   }
 
-  openForm(doc?: AnyDto<Project>): void {
+  setProject(doc?: AnyDto<Project>): void {
     this.modal.create<FormComponent, FormInput>({
       nzTitle: !doc ? '创建' : `编辑【${doc.name}】`,
-      nzWidth: 800,
       nzContent: FormComponent,
       nzData: {
         doc
@@ -53,11 +52,10 @@ export class ProjectsComponent implements OnInit {
     });
   }
 
-  openEntry(doc: AnyDto<Project>): void {
-    this.modal.create<EntryComponent, EntryInput>({
-      nzTitle: `限制入口【${doc.name}】`,
-      nzWidth: 640,
-      nzContent: EntryComponent,
+  setOpenAPI(doc: AnyDto<Project>): void {
+    this.modal.create<OpenapiComponent, OpenapiInput>({
+      nzTitle: `设置【${doc.name}】`,
+      nzContent: OpenapiComponent,
       nzData: {
         doc
       },

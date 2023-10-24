@@ -19,13 +19,11 @@
       <nz-dropdown-menu #menu="nzDropdownMenu">
         <ul nz-menu>
           <li nz-menu-item (click)="wpxTable.clearSelections()"> 取消选择 </li>
-        </ul>
-        <ul nz-menu>
           <li nz-menu-item nzDanger (click)="bulkDelete()"> 删除 </li>
         </ul>
       </nz-dropdown-menu>
     </ng-container>
-    <button *nzSpaceItem nz-button nzType="primary" (click)="openForm()"> 新增 </button>
+    <button *nzSpaceItem nz-button nzType="primary" (click)="setProject()"> 新增 </button>
   </nz-space>
 </ng-template>
 
@@ -40,12 +38,6 @@
       key: 'name',
       width: '360px',
       render: name
-    },
-    {
-      title: 'OpenAPI 密钥',
-      key: 'openapi',
-      width: '240px',
-      render: openapi
     },
     {
       title: '详情',
@@ -63,20 +55,28 @@
     </nz-tag>
     {{ data.name }} [{{ data.namespace }}]
   </ng-template>
-  <ng-template #openapi let-data>
-    <ng-container *ngIf="data.secret_id && data.secret_key; else unsetRef">
-      <nz-space [nzSplit]="spaceSplit">
-        <span *nzSpaceItem nz-typography nzCopyable [nzContent]="data.secret_id"></span>
-        <span *nzSpaceItem nz-typography nzCopyable [nzCopyText]="data.secret_key" nzContent="KEY"></span>
-      </nz-space>
-    </ng-container>
-  </ng-template>
   <ng-template #detail let-data>
-    <a *ngIf="data.entry && data.entry.length !== 0" (click)="openEntry(data)">
-      已设置 {{ data.entry.length }} 个限制
+    <nz-tag>
+      <span nz-icon nzType="field-time" nzTheme="outline"></span>
+      长期
+    </nz-tag>
+    <nz-tag>
+      <span nz-icon [nzType]="data.nats ? 'check-circle' : 'close-circle'"></span>
+      NATS
+    </nz-tag>
+    <nz-tag>
+      <span nz-icon [nzType]="'close-circle'"></span>
+      REDIS
+    </nz-tag>
+    <a (click)="setOpenAPI(data)">
+      <ng-container *ngIf="data.secret_id && data.secret_key; else unsetRef">
+        <span>存在 {{ !data.entry ? 0 : data.entry.length }} 个限制</span>
+      </ng-container>
     </a>
   </ng-template>
 </wpx-table>
+
+<ng-template #unsetRef>未设置</ng-template>
 
 <ng-template #action let-data>
   <button nz-button nzType="text" nz-dropdown [nzDropdownMenu]="menu">
@@ -84,14 +84,8 @@
   </button>
   <nz-dropdown-menu #menu="nzDropdownMenu">
     <ul nz-menu>
-      <li nz-menu-item (click)="openForm(data)"> 修改 </li>
+      <li nz-menu-item (click)="setProject(data)"> 修改 </li>
       <li nz-menu-item nzDanger (click)="delete(data)"> 删除 </li>
     </ul>
   </nz-dropdown-menu>
-</ng-template>
-
-<ng-template #unsetRef>未设置</ng-template>
-
-<ng-template #spaceSplit>
-  <nz-divider nzType="vertical"></nz-divider>
 </ng-template>

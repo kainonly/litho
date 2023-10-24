@@ -26,7 +26,7 @@
             "assets": ["src/favicon.png", "src/assets", "src/manifest.webmanifest"],
             "styles": ["src/styles.less"],
             "scripts": [],
-            "allowedCommonJsDependencies": ["size-sensor", "d3-regression", "fmin", "pdfast", "cron-parser"]
+            "allowedCommonJsDependencies": ["size-sensor", "d3-regression", "fmin", "pdfast", "cron-parser", "joi"]
           },
           "configurations": {
             "production": {

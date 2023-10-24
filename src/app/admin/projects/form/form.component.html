@@ -1,59 +1,41 @@
 <form *ngIf="form" nz-form nzLayout="vertical" id="form" [formGroup]="form" (wpxSubmit)="submit($event)">
-  <nz-row [nzGutter]="24">
-    <nz-col [nzSpan]="12">
-      <nz-form-item>
-        <nz-form-label nzRequired>项目名称</nz-form-label>
-        <nz-form-control nzHasFeedback [nzAutoTips]="tips.name">
-          <input nz-input formControlName="name" placeholder="请输入项目名称" />
-        </nz-form-control>
-      </nz-form-item>
-      <nz-form-item>
-        <nz-form-label nzRequired>项目类型</nz-form-label>
-        <nz-form-control nzHasFeedback [nzAutoTips]="tips.name">
-          <nz-select formControlName="kind" nzAllowClear nzPlaceHolder="请选择项目类型">
-            <nz-option nzValue="default" nzLabel="标准类型"> </nz-option>
-            <nz-option nzValue="cms" nzLabel="内容类型"> </nz-option>
-          </nz-select>
-        </nz-form-control>
-      </nz-form-item>
-      <nz-form-item>
-        <nz-form-label>
-          <nz-space nzAlign="center">
-            <span *nzSpaceItem>OpenAPI 密钥</span>
-            <button *nzSpaceItem nz-button type="button" nzType="text" nz-tooltip="重新生成" (click)="generateSecret()">
-              <span nz-icon nzType="sync"></span>
-            </button>
-          </nz-space>
-        </nz-form-label>
-        <nz-form-control>
-          <nz-descriptions nzSize="small" [nzColumn]="1">
-            <nz-descriptions-item nzTitle="Secret Id">{{ form.get('secret_id')?.value }}</nz-descriptions-item>
-            <nz-descriptions-item nzTitle="Secret Key">{{ form.get('secret_key')?.value }}</nz-descriptions-item>
-          </nz-descriptions>
-        </nz-form-control>
-      </nz-form-item>
-    </nz-col>
-    <nz-col [nzSpan]="12">
-      <nz-form-item>
-        <nz-form-label nzRequired> 命名空间 </nz-form-label>
-        <nz-form-control nzHasFeedback [nzAutoTips]="tips.namespace">
-          <input nz-input formControlName="namespace" placeholder="请输入命名空间" />
-        </nz-form-control>
-      </nz-form-item>
-      <nz-form-item>
-        <nz-form-label>有效期</nz-form-label>
-        <nz-form-control>
-          <nz-date-picker style="width: 100%" formControlName="expire"></nz-date-picker>
-        </nz-form-control>
-      </nz-form-item>
-      <nz-form-item>
-        <nz-form-label nzRequired>状态</nz-form-label>
-        <nz-form-control>
-          <nz-switch formControlName="status"></nz-switch>
-        </nz-form-control>
-      </nz-form-item>
-    </nz-col>
-  </nz-row>
+  <nz-form-item>
+    <nz-form-label nzRequired>项目名称</nz-form-label>
+    <nz-form-control nzHasFeedback [nzAutoTips]="tips.name">
+      <input nz-input formControlName="name" placeholder="请输入项目名称" />
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label nzRequired>项目类型</nz-form-label>
+    <nz-form-control nzHasFeedback [nzAutoTips]="tips.name" nzExtra="*设置后不可修改">
+      <nz-select formControlName="kind" nzAllowClear nzPlaceHolder="请选择项目类型">
+        <nz-option nzValue="default" nzLabel="标准类型"> </nz-option>
+        <nz-option nzValue="cms" nzLabel="内容类型"> </nz-option>
+      </nz-select>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label nzRequired> 命名空间 </nz-form-label>
+    <nz-form-control nzHasFeedback [nzAutoTips]="tips.namespace" nzExtra="*设置后不可修改">
+      <input nz-input formControlName="namespace" placeholder="请输入唯一的命名空间" />
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label>有效期</nz-form-label>
+    <nz-form-control>
+      <nz-date-picker
+        style="width: 100%"
+        formControlName="expire"
+        nzPlaceHolder="请选择有效期，默认长期"
+      ></nz-date-picker>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label nzRequired>状态</nz-form-label>
+    <nz-form-control>
+      <nz-switch formControlName="status"></nz-switch>
+    </nz-form-control>
+  </nz-form-item>
 </form>
 
 <div *nzModalFooter>

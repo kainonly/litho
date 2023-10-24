@@ -64,7 +64,7 @@
                 <nz-form-label nzRequired> 操作 </nz-form-label>
                 <nz-form-control nzHasFeedback>
                   <nz-select formControlName="mode" nzAllowClear nzPlaceHolder="请选择执行操作">
-                    <nz-option nzValue="HTTP" nzLabel="HTTP：发送 POST 请求"> </nz-option>
+                    <nz-option nzValue="HTTP" nzLabel="HTTP：发送请求"> </nz-option>
                   </nz-select>
                 </nz-form-control>
               </nz-form-item>
@@ -78,8 +78,20 @@
                 <ng-container *ngSwitchCase="'HTTP'">
                   <nz-form-item>
                     <nz-form-label nzRequired> 网络回调地址 </nz-form-label>
-                    <nz-form-control nzHasFeedback>
-                      <input nz-input formControlName="url" placeholder="请输入网络回调地址" />
+                    <nz-form-control>
+                      <nz-input-group nzCompact>
+                        <nz-select style="width: 15%" formControlName="method">
+                          <nz-option [nzLabel]="'GET'" [nzValue]="'GET'"></nz-option>
+                          <nz-option [nzLabel]="'POST'" [nzValue]="'POST'"></nz-option>
+                        </nz-select>
+                        <input
+                          style="width: 85%"
+                          formControlName="url"
+                          type="url"
+                          nz-input
+                          placeholder="请输入网络回调地址"
+                        />
+                      </nz-input-group>
                     </nz-form-control>
                   </nz-form-item>
                   <nz-form-item>

@@ -73,6 +73,7 @@ export class ControlsComponent implements OnInit {
       mode: ['HTTP', [Validators.required]],
       spec: ['0 */5 * * * *', [Validators.required]],
       option: this.fb.group({
+        method: ['POST', [Validators.required]],
         url: ['', [Validators.required]],
         headers: [],
         body: []
