@@ -69,7 +69,7 @@ export class FormComponent implements OnInit {
   }
 
   getProjects(v: string): void {
-    this.projects.find({ name: { $regex: '^' + v } }).subscribe(({ data }) => {
+    this.projects.find({ name: { $regex: v } }).subscribe(({ data }) => {
       this.projectItems = [...data];
     });
   }

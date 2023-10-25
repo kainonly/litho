@@ -1,12 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 
+import { Cluster } from '@common/models/cluster';
 import { Project } from '@common/models/project';
+import { ClustersService } from '@common/services/clusters.service';
 import { ProjectsService } from '@common/services/projects.service';
 import { AnyDto, WpxModel, WpxService } from '@weplanx/ng';
+import { NzDrawerService } from 'ng-zorro-antd/drawer';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalService } from 'ng-zorro-antd/modal';
 
 import { AuthorizationComponent, AuthorizationInput } from './authorization/authorization.component';
+import { ControlComponent } from './control/control.component';
 import { FormComponent, FormInput } from './form/form.component';
 
 @Component({
@@ -15,12 +19,15 @@ import { FormComponent, FormInput } from './form/form.component';
 })
 export class ProjectsComponent implements OnInit {
   model!: WpxModel<Project>;
+  clusterDict: Record<string, AnyDto<Cluster>> = {};
 
   constructor(
     private wpx: WpxService,
     private modal: NzModalService,
+    private drawer: NzDrawerService,
     private message: NzMessageService,
-    private projects: ProjectsService
+    private projects: ProjectsService,
+    private clusters: ClustersService
   ) {}
 
   ngOnInit(): void {
@@ -36,7 +43,29 @@ export class ProjectsComponent implements OnInit {
     }
     this.model.fetch({}).subscribe(() => {
       console.debug('fetch:ok');
+      this.getClusters(
+        this.model
+          .data()
+          .filter(v => v.cluster)
+          .map(v => v.cluster!)
+      );
+      // this.openControl(this.model.data()[0]);
     });
+  }
+
+  getClusters(ids: string[]): void {
+    this.clusters
+      .find(
+        {
+          _id: { $in: ids }
+        },
+        {
+          xfilter: { '_id->$in': 'oids' }
+        }
+      )
+      .subscribe(({ data }) => {
+        data.forEach(v => (this.clusterDict[v._id] = v));
+      });
   }
 
   openForm(doc?: AnyDto<Project>): void {
@@ -62,6 +91,20 @@ export class ProjectsComponent implements OnInit {
       nzOnOk: () => {
         this.getData(true);
       }
+    });
+  }
+
+  openControl(doc: AnyDto<Project>): void {
+    this.drawer.create({
+      nzContent: ControlComponent,
+      nzContentParams: {
+        doc,
+        updated: () => {
+          this.getData();
+        }
+      },
+      nzClosable: false,
+      nzWidth: 800
     });
   }
 

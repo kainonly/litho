@@ -61,6 +61,12 @@
       长期
     </nz-tag>
     <nz-tag>
+      <span nz-icon nzType="cluster"></span>
+      <ng-container *ngIf="data.cluster && clusterDict[data.cluster]; else unsetClusterRef">
+        {{ clusterDict[data.cluster].name }}
+      </ng-container>
+    </nz-tag>
+    <nz-tag>
       <span nz-icon [nzType]="data.nats ? 'check-circle' : 'close-circle'"></span>
       NATS
     </nz-tag>
@@ -76,6 +82,7 @@
   </ng-template>
 </wpx-table>
 
+<ng-template #unsetClusterRef> 未接入</ng-template>
 <ng-template #unsetRef>未设置</ng-template>
 
 <ng-template #action let-data>
@@ -84,7 +91,7 @@
   </button>
   <nz-dropdown-menu #menu="nzDropdownMenu">
     <ul nz-menu>
-      <li nz-menu-item> 管理 </li>
+      <li nz-menu-item (click)="openControl(data)"> 管理 </li>
       <li nz-menu-item (click)="openForm(data)"> 修改 </li>
       <li nz-menu-item nzDanger (click)="delete(data)"> 删除 </li>
     </ul>

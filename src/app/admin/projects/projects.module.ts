@@ -4,6 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { ShareModule } from '@common/share.module';
 
 import { AuthorizationComponent } from './authorization/authorization.component';
+import { ClusterComponent } from './cluster/cluster.component';
 import { ControlComponent } from './control/control.component';
 import { ExpirePipe } from './expire.pipe';
 import { FormComponent } from './form/form.component';
@@ -18,6 +19,13 @@ const routes: Routes = [
 
 @NgModule({
   imports: [ShareModule, RouterModule.forChild(routes)],
-  declarations: [ProjectsComponent, FormComponent, AuthorizationComponent, ControlComponent, ExpirePipe]
+  declarations: [
+    ProjectsComponent,
+    FormComponent,
+    AuthorizationComponent,
+    ControlComponent,
+    ClusterComponent,
+    ExpirePipe
+  ]
 })
 export class ProjectsModule {}
