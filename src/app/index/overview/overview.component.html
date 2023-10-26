@@ -121,7 +121,24 @@
     </nz-card>
   </ng-container>
   <ng-container *ngSwitchCase="1">
-    <nz-card></nz-card>
+    <nz-alert nzBanner nzType="info" nzMessage="支持 CIDR，例如：192.168.1.0/24"></nz-alert>
+    <nz-card>
+      <nz-table #entryTable nzHideOnSinglePage [nzData]="data.entry ?? []" [nzFooter]="entryActions">
+        <thead>
+          <tr>
+            <th><b>IP 地址</b></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of entryTable.data">
+            <td>{{ item }}</td>
+          </tr>
+        </tbody>
+        <ng-template #entryActions>
+          <button nz-button nzType="text" nzBlock (click)="openEntry()">编辑</button>
+        </ng-template>
+      </nz-table>
+    </nz-card>
   </ng-container>
 </nz-content>
 

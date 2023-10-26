@@ -4,6 +4,7 @@ import { BehaviorSubject, debounceTime } from 'rxjs';
 
 import { AppService } from '@app';
 import { Cluster } from '@common/models/cluster';
+import { Project } from '@common/models/project';
 import { ClustersService } from '@common/services/clusters.service';
 import { ProjectsService } from '@common/services/projects.service';
 import { Any, AnyDto } from '@weplanx/ng';
@@ -15,6 +16,7 @@ import { NzModalRef } from 'ng-zorro-antd/modal';
   templateUrl: './cluster.component.html'
 })
 export class ClusterComponent implements OnInit {
+  data!: AnyDto<Project>;
   form!: FormGroup;
   tips = {
     cluster: {
@@ -37,10 +39,11 @@ export class ClusterComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.data = this.app.contextData!;
     this.form = this.fb.group({
       cluster: [null, [Validators.required]]
     });
-    this.form.patchValue(this.app.contextData!);
+    this.form.patchValue(this.data);
     this.clusters$
       .asObservable()
       .pipe(debounceTime(500))
@@ -62,7 +65,7 @@ export class ClusterComponent implements OnInit {
   submit(data: Any): void {
     this.projects
       .updateById(
-        this.app.contextData!._id,
+        this.data!._id,
         {
           $set: data
         },

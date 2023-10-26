@@ -85,78 +85,44 @@
       </nz-card>
     </nz-tab>
     <nz-tab nzTitle="白名单">
-      <nz-card>
-        <nz-row [nzGutter]="[8, 8]">
-          <nz-col nzFlex="800px">
-            <nz-table
-              nzSize="default"
-              #whitelist
-              [nzData]="data['IpWhitelist']"
-              [nzHideOnSinglePage]="true"
-              [nzFooter]="whitelistActions"
-            >
-              <thead>
-                <tr>
-                  <th><b>IP 地址</b></th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr *ngFor="let data of whitelist.data">
-                  <td>{{ data }}</td>
-                </tr>
-              </tbody>
-              <ng-template #whitelistActions>
-                <button nz-button nzType="text" nzBlock (click)="setIpList('IpWhitelist')">编辑</button>
-              </ng-template>
-            </nz-table>
-          </nz-col>
-          <nz-col>
-            <nz-alert
-              style="width: 200px"
-              nzType="info"
-              nzMessage="IP 白名单"
-              nzDescription="白名单IP不限制登录失败的锁定"
-            ></nz-alert>
-          </nz-col>
-        </nz-row>
-      </nz-card>
+      <nz-alert
+        nzType="info"
+        nzBanner
+        nzMessage="白名单不限制登录失败的锁定，支持 CIDR，例如：192.168.1.0/24"
+      ></nz-alert>
+      <nz-table #IpWhitelist nzHideOnSinglePage [nzData]="data['IpWhitelist']" [nzFooter]="whitelistActions">
+        <thead>
+          <tr>
+            <th><b>IP 地址</b></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of IpWhitelist.data">
+            <td>{{ item }}</td>
+          </tr>
+        </tbody>
+        <ng-template #whitelistActions>
+          <button nz-button nzType="text" nzBlock (click)="setIpList('IpWhitelist')">编辑</button>
+        </ng-template>
+      </nz-table>
     </nz-tab>
     <nz-tab nzTitle="黑名单">
-      <nz-card>
-        <nz-row [nzGutter]="[8, 8]">
-          <nz-col nzFlex="800px">
-            <nz-table
-              nzSize="default"
-              #blacklist
-              [nzData]="data['IpBlacklist']"
-              [nzHideOnSinglePage]="true"
-              [nzFooter]="blacklistActions"
-            >
-              <thead>
-                <tr>
-                  <th><b>IP 地址</b></th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr *ngFor="let data of blacklist.data">
-                  <td>{{ data }}</td>
-                </tr>
-              </tbody>
-              <ng-template #blacklistActions>
-                <button nz-button nzType="text" nzBlock (click)="setIpList('IpBlacklist')">编辑</button>
-              </ng-template>
-            </nz-table>
-          </nz-col>
-          <nz-col>
-            <nz-alert
-              style="width: 200px"
-              nzType="info"
-              nzMessage="IP 黑名单"
-              nzDescription="黑名单将被禁止访问"
-            ></nz-alert>
-          </nz-col>
-        </nz-row>
-      </nz-card>
+      <nz-alert nzType="info" nzBanner nzMessage="黑名单将被禁止访问，支持 CIDR，例如：192.168.1.0/24"></nz-alert>
+      <nz-table #IpBlacklist nzHideOnSinglePage [nzData]="data['IpBlacklist']" [nzFooter]="blacklistActions">
+        <thead>
+          <tr>
+            <th><b>IP 地址</b></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of IpBlacklist.data">
+            <td>{{ item }}</td>
+          </tr>
+        </tbody>
+        <ng-template #blacklistActions>
+          <button nz-button nzType="text" nzBlock (click)="setIpList('IpBlacklist')">编辑</button>
+        </ng-template>
+      </nz-table>
     </nz-tab>
   </nz-tabset>
 </nz-card>

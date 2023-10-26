@@ -9,7 +9,8 @@ import { AnyDto } from '@weplanx/ng';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalService } from 'ng-zorro-antd/modal';
 
-import { ClusterComponent } from '../../admin/projects/cluster/cluster.component';
+import { ClusterComponent } from './cluster/cluster.component';
+import { EntryComponent } from './entry/entry.component';
 
 @Component({
   selector: 'app-index-overview',
@@ -33,7 +34,6 @@ export class OverviewComponent implements OnInit {
 
   ngOnInit(): void {
     this.data = this.app.contextData!;
-    console.log(this.data);
     this.getCluster();
     this.getTenants();
   }
@@ -64,7 +64,8 @@ export class OverviewComponent implements OnInit {
       nzTitle: `接入集群`,
       nzContent: ClusterComponent,
       nzOnOk: () => {
-        this.app.fetchContextData().subscribe(() => {
+        this.app.fetchContextData().subscribe(data => {
+          this.data = data;
           this.getCluster();
         });
       }
@@ -74,6 +75,18 @@ export class OverviewComponent implements OnInit {
   deployNats(): void {
     this.projects.deployNats(this.data._id).subscribe(() => {
       this.message.success(`正在配置租户，请稍后刷新`);
+    });
+  }
+
+  openEntry(): void {
+    this.modal.create<EntryComponent>({
+      nzTitle: `OpenAPI 入口限制`,
+      nzContent: EntryComponent,
+      nzOnOk: () => {
+        this.app.fetchContextData().subscribe(data => {
+          this.data = data;
+        });
+      }
     });
   }
 }
