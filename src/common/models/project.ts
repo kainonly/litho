@@ -23,4 +23,6 @@ export interface ProjectRedis {
 
 export interface TenantsResult {
   nkey?: string;
+  redis_host?: string;
+  redis_auth?: string;
 }

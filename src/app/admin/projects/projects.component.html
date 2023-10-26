@@ -53,7 +53,7 @@
       <ng-container *ngSwitchCase="'default'">标准类型</ng-container>
       <ng-container *ngSwitchCase="'cms'">内容类型</ng-container>
     </nz-tag>
-    {{ data.name }} [{{ data.namespace }}]
+    <a [routerLink]="['/x', data.namespace]">{{ data.name }} [{{ data.namespace }}]</a>
   </ng-template>
   <ng-template #detail let-data>
     <nz-tag>

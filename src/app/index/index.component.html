@@ -1,0 +1,25 @@
+<nz-layout style="height: 100%">
+  <nz-header class="nav">
+    <ng-template #breadcrumbsRef>
+      <nz-breadcrumb nzAutoGenerate>
+        <nz-breadcrumb-item>{{ data.name }}</nz-breadcrumb-item>
+      </nz-breadcrumb>
+    </ng-template>
+    <app-nav [breadcrumbs]="breadcrumbsRef"></app-nav>
+  </nz-header>
+  <nz-layout>
+    <nz-sider nzWidth="240px" nzTheme="light">
+      <ul nz-menu style="border: none">
+        <li nz-menu-item nzMatchRouter routerLink="overview">
+          <span nz-icon nzType="project" nzTheme="outline"></span>
+          <span>项目概况</span>
+        </li>
+      </ul>
+    </nz-sider>
+    <nz-layout style="overflow: hidden auto">
+      <nz-content style="padding: 8px">
+        <router-outlet></router-outlet>
+      </nz-content>
+    </nz-layout>
+  </nz-layout>
+</nz-layout>

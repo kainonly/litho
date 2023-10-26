@@ -29,10 +29,14 @@
           <i nz-icon nzType="appstore" nzTheme="outline"></i>
         </button>
       </ng-container>
-      <ng-container *ngIf="type" [ngSwitch]="type">
-        <ng-container *ngSwitchDefault>
-          <nz-breadcrumb *nzSpaceItem nzAutoGenerate> </nz-breadcrumb>
+
+      <ng-container *nzSpaceItem>
+        <ng-container *ngIf="breadcrumbs; else breadcrumbsRef">
+          <ng-container *ngTemplateOutlet="breadcrumbs"></ng-container>
         </ng-container>
+        <ng-template #breadcrumbsRef>
+          <nz-breadcrumb nzAutoGenerate> </nz-breadcrumb>
+        </ng-template>
       </ng-container>
     </nz-space>
   </nz-col>

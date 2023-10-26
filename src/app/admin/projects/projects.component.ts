@@ -49,7 +49,6 @@ export class ProjectsComponent implements OnInit {
           .filter(v => v.cluster)
           .map(v => v.cluster!)
       );
-      // this.openControl(this.model.data()[0]);
     });
   }
 

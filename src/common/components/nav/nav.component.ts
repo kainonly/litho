@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, TemplateRef } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { AppService } from '@app';
@@ -11,7 +11,7 @@ import { NzDrawerService } from 'ng-zorro-antd/drawer';
   templateUrl: './nav.component.html'
 })
 export class NavComponent implements OnInit {
-  @Input() type?: string;
+  @Input() breadcrumbs?: TemplateRef<void>;
   experiment = false;
 
   constructor(

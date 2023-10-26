@@ -60,6 +60,10 @@ const routes: Routes = [
         }
       },
       {
+        path: 'x',
+        loadChildren: () => import('./index/index.module').then(m => m.IndexModule)
+      },
+      {
         path: 'filebrowser',
         loadChildren: () => import('./filebrowser/filebrowser.module').then(m => m.FilebrowserModule),
         data: {
