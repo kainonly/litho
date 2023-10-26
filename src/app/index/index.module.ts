@@ -20,6 +20,20 @@ const routes: Routes = [
           breadcrumb: `项目概况`
         }
       },
+      {
+        path: 'workflows',
+        loadChildren: () => import('./workflows/workflows.module').then(m => m.WorkflowsModule),
+        data: {
+          breadcrumb: `工作流`
+        }
+      },
+      {
+        path: 'queues',
+        loadChildren: () => import('./queues/queues.module').then(m => m.QueuesModule),
+        data: {
+          breadcrumb: `消息队列`
+        }
+      },
       { path: '', redirectTo: 'overview', pathMatch: 'full' }
     ],
     resolve: {

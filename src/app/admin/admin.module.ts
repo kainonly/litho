@@ -26,17 +26,10 @@ const routes: Routes = [
         }
       },
       {
-        path: 'workflows',
-        loadChildren: () => import('./workflows/workflows.module').then(m => m.WorkflowsModule),
+        path: 'endpoints',
+        loadChildren: () => import('./endpoints/entpoints.module').then(m => m.EntpointsModule),
         data: {
-          breadcrumb: `工作流`
-        }
-      },
-      {
-        path: 'queues',
-        loadChildren: () => import('./queues/queues.module').then(m => m.QueuesModule),
-        data: {
-          breadcrumb: `消息队列`
+          breadcrumb: `服务端点`
         }
       },
       {

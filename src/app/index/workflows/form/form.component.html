@@ -1,14 +1,16 @@
 <form *ngIf="form" nz-form nzLayout="vertical" id="form" [formGroup]="form" (wpxSubmit)="submit($event)">
   <nz-form-item>
-    <nz-form-label nzRequired> 服务名称 </nz-form-label>
+    <nz-form-label nzRequired> 工作流名称 </nz-form-label>
     <nz-form-control nzHasFeedback [nzAutoTips]="tips.name">
-      <input nz-input formControlName="name" placeholder="请输入服务名称" />
+      <input nz-input formControlName="name" placeholder="请输入工作流名称" />
     </nz-form-control>
   </nz-form-item>
   <nz-form-item>
-    <nz-form-label nzRequired> 节点命名 </nz-form-label>
-    <nz-form-control nzHasFeedback [nzAutoTips]="tips.node">
-      <input nz-input formControlName="node" placeholder="请输入节点命名" />
+    <nz-form-label nzRequired> 工作流类型 </nz-form-label>
+    <nz-form-control nzHasFeedback [nzAutoTips]="tips.kind">
+      <nz-select formControlName="kind" nzAllowClear nzPlaceHolder="请选择工作流类型">
+        <nz-option nzValue="schedule" nzLabel="定时启动"></nz-option>
+      </nz-select>
     </nz-form-control>
   </nz-form-item>
 </form>

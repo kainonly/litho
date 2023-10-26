@@ -1,7 +1,12 @@
 import { Any } from '@weplanx/ng';
 
-export interface Schedule {
+export interface Endpoint {
   name: string;
+  kind: 'schedule' | 'emqx';
+  schedule?: EndpointSchedule;
+}
+
+export interface EndpointSchedule {
   node: string;
 }
 

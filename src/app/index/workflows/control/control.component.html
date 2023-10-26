@@ -1,0 +1,185 @@
+<nz-layout style="height: 100%; background: transparent">
+  <nz-page-header>
+    <nz-page-header-title>{{ doc.name }}</nz-page-header-title>
+    <nz-page-header-tags>
+      <nz-tag nzColor="blue">
+        <ng-container [ngSwitch]="doc.kind">
+          <ng-container *ngSwitchCase="'schedule'">定时启动</ng-container>
+        </ng-container>
+      </nz-tag>
+    </nz-page-header-tags>
+    <nz-page-header-extra>
+      <ng-container [ngSwitch]="index">
+        <button
+          *ngSwitchCase="0"
+          nz-button
+          nzType="primary"
+          nzShape="circle"
+          [disabled]="!doc.schedule?.status"
+          (click)="sync()"
+          nz-tooltip="同步"
+        >
+          <span nz-icon nzType="sync" nzTheme="outline"></span>
+        </button>
+        <button *ngSwitchCase="1" nz-button nzType="primary" form="form" nzShape="circle" [disabled]="!form.valid">
+          <span nz-icon nzType="check" nzTheme="outline"></span>
+        </button>
+      </ng-container>
+    </nz-page-header-extra>
+    <nz-page-header-footer>
+      <nz-tabset nzSize="small" [(nzSelectedIndex)]="index">
+        <nz-tab nzTitle="工作流详情"></nz-tab>
+        <nz-tab nzTitle="设置"></nz-tab>
+      </nz-tabset>
+    </nz-page-header-footer>
+  </nz-page-header>
+
+  <nz-content style="overflow: hidden auto">
+    <nz-card [ngSwitch]="index">
+      <ng-container *ngSwitchCase="0">
+        <nz-table nzTemplateMode>
+          <thead>
+            <tr>
+              <th><b>触发事件</b></th>
+              <th nzRight nzWidth="150px"><b>最近调度</b></th>
+              <th nzRight nzWidth="150px"><b>下次调度</b></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let job of doc.schedule!.jobs; index as i">
+              <td [ngSwitch]="job.mode">
+                <ng-container *ngSwitchCase="'HTTP'">
+                  <nz-tag>网络回调</nz-tag>
+                  <a (click)="openLogs(i)">
+                    <b>{{ job.option.method }}</b>
+                    {{ job.option.url }}
+                  </a>
+                </ng-container>
+              </td>
+              <td>
+                <ng-container *ngIf="state && state.jobs[i]!.schedule_state as v">
+                  <ng-container *ngIf="state.status; else emptyText">
+                    {{ v.prev | date: 'yyyy-MM-dd HH:mm:ss' }}
+                  </ng-container>
+                </ng-container>
+              </td>
+              <td>
+                <ng-container *ngIf="state && state.jobs[i]!.schedule_state as v">
+                  <ng-container *ngIf="state.status; else emptyText">
+                    {{ v.next | date: 'yyyy-MM-dd HH:mm:ss' }}
+                  </ng-container>
+                </ng-container>
+              </td>
+            </tr>
+          </tbody>
+        </nz-table>
+      </ng-container>
+      <ng-container *ngSwitchCase="1">
+        <form nz-form nzLayout="vertical" id="form" [formGroup]="form" (wpxSubmit)="submit($event)">
+          <nz-form-item>
+            <nz-form-label nzRequired> 服务节点 </nz-form-label>
+            <nz-form-control nzHasFeedback [nzAutoTips]="tips.ref">
+              <nz-select
+                style="width: 320px"
+                formControlName="ref"
+                nzAllowClear
+                nzPlaceHolder="请选择服务节点"
+                nzShowSearch
+                nzServerSearch
+                (nzOnSearch)="scheduleText$.next($event)"
+              >
+                <ng-container *ngFor="let item of scheduleItems">
+                  <nz-option [nzValue]="item._id" [nzLabel]="item.name"> </nz-option>
+                </ng-container>
+              </nz-select>
+            </nz-form-control>
+          </nz-form-item>
+          <nz-form-item>
+            <nz-form-label nzRequired> 启用 </nz-form-label>
+            <nz-form-control>
+              <nz-switch formControlName="status"></nz-switch>
+            </nz-form-control>
+          </nz-form-item>
+          <nz-divider nzPlain nzText="触发事件" nzOrientation="left"></nz-divider>
+          <nz-collapse formArrayName="jobs" [nzBordered]="false" cdkDropList (cdkDropListDropped)="sort($event, jobs)">
+            <ng-container *ngFor="let x of jobs.controls; index as i" [formGroupName]="i">
+              <nz-collapse-panel [nzHeader]="headerRef" [nzExtra]="extraRef" cdkDrag>
+                <ng-template #headerRef>
+                  <b># {{ i + 1 }}</b>
+                </ng-template>
+                <ng-template #extraRef>
+                  <nz-button-group>
+                    <button nz-button nzType="text" type="button" (click)="removeJob(i)">
+                      <i nz-icon nzType="minus-circle" nzTheme="outline"></i>
+                    </button>
+                    <button nz-button nzType="text" type="button" cdkDragHandle>
+                      <i nz-icon nzType="holder" nzTheme="outline"></i>
+                    </button>
+                  </nz-button-group>
+                </ng-template>
+                <nz-form-item>
+                  <nz-form-label nzRequired> 操作 </nz-form-label>
+                  <nz-form-control nzHasFeedback>
+                    <nz-select formControlName="mode" nzAllowClear nzPlaceHolder="请选择执行操作">
+                      <nz-option nzValue="HTTP" nzLabel="HTTP：发送请求"> </nz-option>
+                    </nz-select>
+                  </nz-form-control>
+                </nz-form-item>
+                <nz-form-item>
+                  <nz-form-label nzRequired> 规格 </nz-form-label>
+                  <nz-form-control nzHasFeedback>
+                    <nz-cron-expression formControlName="spec" nzType="spring"></nz-cron-expression>
+                  </nz-form-control>
+                </nz-form-item>
+                <ng-container [ngSwitch]="x.get('mode')!.value" formGroupName="option">
+                  <ng-container *ngSwitchCase="'HTTP'">
+                    <nz-form-item>
+                      <nz-form-label nzRequired> 网络回调地址 </nz-form-label>
+                      <nz-form-control>
+                        <nz-input-group nzCompact>
+                          <nz-select style="width: 15%" formControlName="method">
+                            <nz-option [nzLabel]="'GET'" [nzValue]="'GET'"></nz-option>
+                            <nz-option [nzLabel]="'POST'" [nzValue]="'POST'"></nz-option>
+                          </nz-select>
+                          <input
+                            style="width: 85%"
+                            formControlName="url"
+                            type="url"
+                            nz-input
+                            placeholder="请输入网络回调地址"
+                          />
+                        </nz-input-group>
+                      </nz-form-control>
+                    </nz-form-item>
+                    <nz-form-item>
+                      <nz-form-label> 请求 Headers </nz-form-label>
+                      <nz-form-control nzHasFeedback>
+                        <textarea
+                          nz-input
+                          formControlName="headers"
+                          placeholder="请输入 JSON 格式的 Headers"
+                        ></textarea>
+                      </nz-form-control>
+                    </nz-form-item>
+                    <nz-form-item>
+                      <nz-form-label> 请求 Body </nz-form-label>
+                      <nz-form-control nzHasFeedback>
+                        <textarea nz-input formControlName="body" placeholder="请输入 JSON 格式的 Body"></textarea>
+                      </nz-form-control>
+                    </nz-form-item>
+                  </ng-container>
+                </ng-container>
+              </nz-collapse-panel>
+            </ng-container>
+          </nz-collapse>
+
+          <button nzBlock type="button" nzType="text" nzSize="large" nz-button (click)="appendJob()">
+            <i nz-icon nzType="plus-circle"></i> 新增触发
+          </button>
+        </form>
+      </ng-container>
+    </nz-card>
+  </nz-content>
+</nz-layout>
+
+<ng-template #emptyText>-</ng-template>

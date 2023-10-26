@@ -25,6 +25,8 @@ export class OverviewComponent implements OnInit {
   clusterInfo?: ClusterInfo;
   tenants!: TenantsResult;
 
+  private tenantsLoading?: string;
+
   constructor(
     public app: AppService,
     private modal: NzModalService,
@@ -65,7 +67,13 @@ export class OverviewComponent implements OnInit {
     }
     this.projects.getTenants(this.data._id).subscribe(data => {
       this.tenants = data;
-      this.message.loading(`正在获取租户信息`);
+      if (!this.tenantsLoading) {
+        const ref = this.message.loading(`正在获取服务信息`, { nzDuration: 1000 });
+        this.tenantsLoading = ref.messageId;
+        ref.onClose.subscribe(() => {
+          this.tenantsLoading = undefined;
+        });
+      }
     });
   }
 

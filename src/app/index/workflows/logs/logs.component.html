@@ -1,7 +1,9 @@
 <nz-layout style="height: 100%; background: transparent">
   <nz-page-header>
-    <nz-page-header-title>日志</nz-page-header-title>
-    <nz-page-header-subtitle>{{ doc.schedule!.jobs[index].option.url }}</nz-page-header-subtitle>
+    <nz-page-header-title *ngIf="doc.schedule!.jobs[index].option as option">
+      <b>{{ option.method }}</b>
+      {{ option.url }}
+    </nz-page-header-title>
     <nz-page-header-footer>
       <nz-row nzAlign="middle" nzJustify="space-between">
         <nz-col>

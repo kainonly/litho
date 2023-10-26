@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { switchMap } from 'rxjs';
 
+import { AppService } from '@app';
 import { Project } from '@common/models/project';
 import { Queue } from '@common/models/queue';
 import { ProjectsService } from '@common/services/projects.service';
@@ -23,6 +24,7 @@ export class QueuesComponent implements OnInit {
   projectDict: Record<string, AnyDto<Project>> = {};
 
   constructor(
+    private app: AppService,
     private wpx: WpxService,
     private queues: QueuesService,
     private modal: NzModalService,
@@ -33,7 +35,7 @@ export class QueuesComponent implements OnInit {
 
   ngOnInit(): void {
     this.model = this.wpx.setModel('queues', this.queues);
-    this.model.ready().subscribe(() => {
+    this.model.ready({ project: 'oid' }).subscribe(() => {
       this.getData();
     });
   }
@@ -42,10 +44,14 @@ export class QueuesComponent implements OnInit {
     if (refresh) {
       this.model.page = 1;
     }
-    this.model.fetch({}).subscribe(({ data }) => {
-      console.debug('fetch:ok');
-      this.getProjects(data.map(v => v.project));
-    });
+    this.model
+      .fetch({
+        project: this.app.contextData!._id
+      })
+      .subscribe(({ data }) => {
+        console.debug('fetch:ok');
+        this.getProjects(data.map(v => v.project));
+      });
   }
 
   getProjects(ids: string[]): void {

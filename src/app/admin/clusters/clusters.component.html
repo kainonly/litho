@@ -34,7 +34,7 @@
   [wpxModel]="model"
   [wpxColumns]="[
     {
-      title: '集群名称（节点）',
+      title: '集群名称',
       key: 'name',
       width: '360px',
       render: name
@@ -53,7 +53,6 @@
       {{ kind[data.kind] }}
     </nz-tag>
     {{ data.name }}
-    <ng-container *ngIf="infos[data._id] as v"> ({{ v.nodes }}) </ng-container>
   </ng-template>
   <ng-template #detail let-data>
     <ng-container *ngIf="infos[data._id] as v; else disconnect">

@@ -8,7 +8,7 @@ export interface Workflow {
 }
 
 export interface WorkflowSchedule {
-  schedule_id: string;
+  ref: string;
   status: boolean;
   jobs: WorkflowScheduleJob[];
 }

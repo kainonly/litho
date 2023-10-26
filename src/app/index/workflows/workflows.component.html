@@ -8,29 +8,12 @@
       (wpxSubmit)="getData()"
       wpxPlaceholder="工作流名称"
     ></wpx-keyword>
-    <nz-select
-      *nzSpaceItem
-      style="min-width: 320px"
-      nzAllowClear
-      nzPlaceHolder="请选择所属项目"
-      nzShowSearch
-      nzServerSearch
-      nzMode="multiple"
-      [(ngModel)]="searchProjects"
-      (nzOnSearch)="projects$.next($event)"
-      (ngModelChange)="getData()"
-    >
-      <ng-container *ngFor="let item of projectItems">
-        <nz-option [nzValue]="item._id" [nzLabel]="item.name"> </nz-option>
-      </ng-container>
-    </nz-select>
     <wpx-toolbox *nzSpaceItem [wpxModel]="model" (wpxClear)="getData()" (wpxRefresh)="getData()"> </wpx-toolbox>
   </nz-space>
 </ng-template>
 
 <ng-template #extraRef>
   <nz-space nzAlign="center">
-    <button *nzSpaceItem nz-button (click)="openSchedules()"> 服务接入 </button>
     <button *nzSpaceItem nz-button nzType="primary" (click)="openForm()"> 新增 </button>
   </nz-space>
 </ng-template>
@@ -46,12 +29,6 @@
       key: 'name',
       width: '360px',
       render: name
-    },
-    {
-      title: '所属项目',
-      key: 'project',
-      width: '240px',
-      render: project
     },
     {
       title: '详情',
@@ -70,24 +47,19 @@
     </nz-tag>
     {{ data.name }}
   </ng-template>
-  <ng-template #project let-data>
-    <ng-container *ngIf="projectDict[data.project] as project"> {{ project.name }} </ng-container>
-  </ng-template>
   <ng-template #detail let-data>
-    <ng-container *ngIf="data.schedule as v">
-      <nz-tag *ngIf="!v.status" nzColor="error">
+    <ng-container *ngIf="data.schedule as schedule">
+      <nz-tag *ngIf="!schedule.status" nzColor="error">
         <span nz-icon nzType="stop"></span>
         <span>禁用</span>
       </nz-tag>
       <nz-tag>
         <span nz-icon nzType="deployment-unit" nzTheme="outline"></span>
-        <ng-container *ngIf="scheduleDict[v.schedule_id] as schedule">
-          {{ schedule.name }}
+        <ng-container *ngIf="endpointDict[schedule.ref] as endpoint">
+          {{ endpoint.name }}
         </ng-container>
       </nz-tag>
-      <a (click)="openDetail(data, projectDict[data.project], scheduleDict[v.schedule_id])">
-        已设置 {{ v.jobs.length }} 个事件
-      </a>
+      <a (click)="openControl(data)"> 已设置 {{ schedule.jobs.length }} 个事件 </a>
     </ng-container>
   </ng-template>
 </wpx-table>
@@ -98,7 +70,6 @@
   </button>
   <nz-dropdown-menu #menu="nzDropdownMenu">
     <ul nz-menu>
-      <li nz-menu-item (click)="openControl(data)">管理</li>
       <li nz-menu-item (click)="openForm(data)"> 修改 </li>
       <li nz-menu-item nzDanger (click)="delete(data)"> 删除 </li>
     </ul>

@@ -1,46 +1,61 @@
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { BehaviorSubject, debounceTime } from 'rxjs';
+import { BehaviorSubject, debounceTime, Subscription, switchMap, timer } from 'rxjs';
 
-import { Schedule } from '@common/models/schedule';
+import { Endpoint, ScheduleState } from '@common/models/endpoint';
 import { Workflow } from '@common/models/workflow';
-import { SchedulesService } from '@common/services/schedules.service';
+import { EndpointsService } from '@common/services/endpoints.service';
 import { WorkflowsService } from '@common/services/workflows.service';
 import { Any, AnyDto } from '@weplanx/ng';
+import { NzDrawerService } from 'ng-zorro-antd/drawer';
 import { NzMessageService } from 'ng-zorro-antd/message';
 
+import { LogsComponent } from '../logs/logs.component';
+
 @Component({
-  selector: 'app-admin-workflows-control',
+  selector: 'app-index-workflows-control',
   templateUrl: './control.component.html'
 })
-export class ControlComponent implements OnInit {
+export class ControlComponent implements OnInit, OnDestroy {
   @Input({ required: true }) doc!: AnyDto<Workflow>;
   @Input({ required: true }) updated!: () => void;
+  index = 0;
+
+  state?: ScheduleState;
+  private refresh!: Subscription;
 
   form!: FormGroup;
   tips = {
-    schedule_id: {
+    ref: {
       default: {
         required: `服务节点不能为空`
       }
     }
   };
-  schedules$ = new BehaviorSubject<string>('');
-  scheduleItems: AnyDto<Schedule>[] = [];
+  scheduleText$ = new BehaviorSubject<string>('');
+  scheduleItems: AnyDto<Endpoint>[] = [];
 
   constructor(
     private fb: FormBuilder,
     private message: NzMessageService,
-    private schedules: SchedulesService,
-    private workflows: WorkflowsService
+    private endpoints: EndpointsService,
+    private workflows: WorkflowsService,
+    private drawer: NzDrawerService
   ) {}
 
   ngOnInit(): void {
+    this.endpoints.findById(this.doc.schedule!.ref).subscribe(data => {
+      this.refresh = timer(0, 5000)
+        .pipe(switchMap(() => this.endpoints.scheduleState(data.schedule!.node, this.doc._id)))
+        .subscribe(data => {
+          this.state = data;
+        });
+    });
     switch (this.doc.kind) {
       case 'schedule':
         this.form = this.fb.group({
-          schedule_id: ['', [Validators.required]],
+          ref: ['', [Validators.required]],
           status: [true, [Validators.required]],
           jobs: this.fb.array([])
         });
@@ -48,7 +63,7 @@ export class ControlComponent implements OnInit {
           this.doc.schedule.jobs.forEach(v => this.appendJob(v));
           this.form.patchValue(this.doc.schedule);
         }
-        this.schedules$
+        this.scheduleText$
           .asObservable()
           .pipe(debounceTime(500))
           .subscribe(v => {
@@ -58,8 +73,31 @@ export class ControlComponent implements OnInit {
     }
   }
 
-  getSchedules(v: string): void {
-    this.schedules.find({ name: { $regex: '^' + v } }).subscribe(({ data }) => {
+  ngOnDestroy(): void {
+    this.refresh?.unsubscribe();
+  }
+
+  sync(): void {
+    this.workflows.sync(this.doc._id).subscribe(() => {
+      this.message.success(`触发事件已同步`);
+    });
+  }
+
+  openLogs(index: number): void {
+    this.drawer.create({
+      nzClosable: false,
+      nzContent: LogsComponent,
+      nzPlacement: 'bottom',
+      nzContentParams: {
+        doc: this.doc,
+        index
+      },
+      nzHeight: 640
+    });
+  }
+
+  getSchedules(value: string): void {
+    this.endpoints.find({ kind: 'schedule', name: { $regex: value } }).subscribe(({ data }) => {
       this.scheduleItems = [...data];
     });
   }
@@ -99,19 +137,18 @@ export class ControlComponent implements OnInit {
       .updateById(
         this.doc._id,
         {
-          $set: {
-            schedule: data
-          }
+          $set: { schedule: data }
         },
         {
           xdata: {
-            '$set->schedule->schedule_id': 'oid'
+            '$set->schedule->ref': 'oid'
           }
         }
       )
       .subscribe(() => {
         this.message.success(`数据更新成功`);
         this.updated();
+        this.sync();
       });
   }
 }

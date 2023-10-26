@@ -4,9 +4,9 @@
       *nzSpaceItem
       [wpxWidth]="320"
       [wpxModel]="model"
-      [wpxKeys]="['name', 'namespace']"
+      [wpxKeys]="['name']"
       (wpxSubmit)="getData()"
-      wpxPlaceholder="项目名称、命名空间"
+      wpxPlaceholder="服务名称"
     ></wpx-keyword>
     <wpx-toolbox *nzSpaceItem [wpxModel]="model" (wpxClear)="getData()" (wpxRefresh)="getData()"> </wpx-toolbox>
   </nz-space>
@@ -34,7 +34,7 @@
   [wpxModel]="model"
   [wpxColumns]="[
     {
-      title: '项目名称',
+      title: '服务名称',
       key: 'name',
       width: '360px',
       render: name
@@ -49,42 +49,13 @@
   (wpxChange)="getData()"
 >
   <ng-template #name let-data>
-    <nz-tag [ngSwitch]="data.kind" nzColor="blue">
-      <ng-container *ngSwitchCase="'default'">标准类型</ng-container>
-      <ng-container *ngSwitchCase="'cms'">内容类型</ng-container>
+    <nz-tag nzColor="blue">
+      {{ kind[data.kind] }}
     </nz-tag>
-    <a [routerLink]="['/x', data.namespace]">{{ data.name }} [{{ data.namespace }}]</a>
+    {{ data.name }}
   </ng-template>
-  <ng-template #detail let-data>
-    <nz-tag>
-      <span nz-icon nzType="field-time" nzTheme="outline"></span>
-      长期
-    </nz-tag>
-    <nz-tag>
-      <span nz-icon nzType="cluster"></span>
-      <ng-container *ngIf="data.cluster && clusterDict[data.cluster]; else unsetClusterRef">
-        {{ clusterDict[data.cluster].name }}
-      </ng-container>
-    </nz-tag>
-    <nz-tag>
-      <span nz-icon [nzType]="data.nats ? 'check-circle' : 'close-circle'"></span>
-      NATS
-    </nz-tag>
-    <nz-tag>
-      <span nz-icon [nzType]="'close-circle'"></span>
-      REDIS
-    </nz-tag>
-    <a (click)="openAuthorization(data)">
-      <ng-container *ngIf="data.secret_id && data.secret_key; else unsetRef">
-        <span nz-icon nzType="info-circle" nzTheme="outline"></span>
-        <span> 存在 {{ !data.entry ? 0 : data.entry.length }} 个限制</span>
-      </ng-container>
-    </a>
-  </ng-template>
+  <ng-template #detail let-data> </ng-template>
 </wpx-table>
-
-<ng-template #unsetClusterRef> 未接入</ng-template>
-<ng-template #unsetRef>未设置</ng-template>
 
 <ng-template #action let-data>
   <button nz-button nzType="text" nz-dropdown [nzDropdownMenu]="menu">
@@ -96,4 +67,8 @@
       <li nz-menu-item nzDanger (click)="delete(data)"> 删除 </li>
     </ul>
   </nz-dropdown-menu>
+</ng-template>
+
+<ng-template #disconnect>
+  <nz-tag nzColor="error">脱机</nz-tag>
 </ng-template>

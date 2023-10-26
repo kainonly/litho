@@ -6,10 +6,8 @@ import { ShareModule } from '@common/share.module';
 import { NzCronExpressionModule } from 'ng-zorro-antd/cron-expression';
 
 import { ControlComponent } from './control/control.component';
-import { DetailComponent } from './detail/detail.component';
 import { FormComponent } from './form/form.component';
 import { LogsComponent } from './logs/logs.component';
-import { SchedulesModule } from './schedules/schedules.module';
 import { WorkflowsComponent } from './workflows.component';
 
 const routes: Routes = [
@@ -20,7 +18,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [ShareModule, SchedulesModule, CodeviewModule, NzCronExpressionModule, RouterModule.forChild(routes)],
-  declarations: [WorkflowsComponent, FormComponent, ControlComponent, DetailComponent, LogsComponent]
+  imports: [ShareModule, CodeviewModule, NzCronExpressionModule, RouterModule.forChild(routes)],
+  declarations: [WorkflowsComponent, FormComponent, ControlComponent, LogsComponent]
 })
 export class WorkflowsModule {}
