@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { AppService } from '@app';
+import { ProjectComponent, ProjectInput } from '@common/components/project/project.component';
 import { Cluster, ClusterInfo } from '@common/models/cluster';
 import { Project, TenantsResult } from '@common/models/project';
 import { ClustersService } from '@common/services/clusters.service';
@@ -36,6 +37,26 @@ export class OverviewComponent implements OnInit {
     this.data = this.app.contextData!;
     this.getCluster();
     this.getTenants();
+  }
+
+  refreshData(): void {
+    this.app.fetchContextData().subscribe(data => {
+      this.data = data;
+    });
+  }
+
+  openForm(): void {
+    this.modal.create<ProjectComponent, ProjectInput>({
+      nzTitle: `编辑【${this.data.name}】`,
+      nzContent: ProjectComponent,
+      nzWidth: 800,
+      nzData: {
+        doc: this.data
+      },
+      nzOnOk: () => {
+        this.refreshData();
+      }
+    });
   }
 
   getTenants(): void {
@@ -83,9 +104,7 @@ export class OverviewComponent implements OnInit {
       nzTitle: `OpenAPI 入口限制`,
       nzContent: EntryComponent,
       nzOnOk: () => {
-        this.app.fetchContextData().subscribe(data => {
-          this.data = data;
-        });
+        this.refreshData();
       }
     });
   }

@@ -76,7 +76,8 @@
     </nz-tag>
     <a (click)="openAuthorization(data)">
       <ng-container *ngIf="data.secret_id && data.secret_key; else unsetRef">
-        <span>存在 {{ !data.entry ? 0 : data.entry.length }} 个限制</span>
+        <span nz-icon nzType="api" nzTheme="outline"></span>
+        <span> 存在 {{ !data.entry ? 0 : data.entry.length }} 个限制</span>
       </ng-container>
     </a>
   </ng-template>
@@ -91,7 +92,6 @@
   </button>
   <nz-dropdown-menu #menu="nzDropdownMenu">
     <ul nz-menu>
-      <li nz-menu-item (click)="openControl(data)"> 管理 </li>
       <li nz-menu-item (click)="openForm(data)"> 修改 </li>
       <li nz-menu-item nzDanger (click)="delete(data)"> 删除 </li>
     </ul>

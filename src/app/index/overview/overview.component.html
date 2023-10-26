@@ -6,9 +6,8 @@
       <ng-container *ngSwitchCase="'cms'">内容类型</ng-container>
     </nz-tag>
   </nz-page-header-tags>
-  <nz-page-header-subtitle> </nz-page-header-subtitle>
   <nz-page-header-extra>
-    <button nz-button nzType="primary" nzShape="circle">
+    <button nz-button nzType="primary" nzShape="circle" (click)="openForm()">
       <span nz-icon nzType="edit" nzTheme="outline"></span>
     </button>
   </nz-page-header-extra>

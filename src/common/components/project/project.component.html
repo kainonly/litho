@@ -1,0 +1,76 @@
+<form *ngIf="form" nz-form nzLayout="vertical" id="form" [formGroup]="form" (wpxSubmit)="submit($event)">
+  <nz-row [nzGutter]="[24, 24]">
+    <nz-col [nzSpan]="12">
+      <nz-form-item>
+        <nz-form-label nzRequired>项目名称</nz-form-label>
+        <nz-form-control nzHasFeedback [nzAutoTips]="tips.name">
+          <input nz-input formControlName="name" placeholder="请输入项目名称" />
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label>有效期</nz-form-label>
+        <nz-form-control>
+          <nz-date-picker
+            style="width: 100%"
+            formControlName="expire"
+            nzPlaceHolder="请选择有效期，默认长期"
+          ></nz-date-picker>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label> 密钥 </nz-form-label>
+        <nz-form-control nzExtra="用于 OpenAPI 接口签名鉴权等">
+          <nz-input-group nzCompact>
+            <input
+              style="width: 40%"
+              readonly
+              type="text"
+              nz-input
+              formControlName="secret_id"
+              placeholder="SECRET ID"
+            />
+            <input
+              style="width: 50%"
+              readonly
+              type="text"
+              nz-input
+              formControlName="secret_key"
+              placeholder="SECERT KEY"
+            />
+            <button style="width: 10%" nz-button type="button" (click)="generateSecret()">
+              <span nz-icon nzType="sync"></span>
+            </button>
+          </nz-input-group>
+        </nz-form-control>
+      </nz-form-item>
+    </nz-col>
+    <nz-col [nzSpan]="12">
+      <nz-form-item>
+        <nz-form-label nzRequired>项目类型</nz-form-label>
+        <nz-form-control nzHasFeedback [nzAutoTips]="tips.name">
+          <nz-select formControlName="kind" nzAllowClear nzPlaceHolder="请选择项目类型，设置后不可更改">
+            <nz-option nzValue="default" nzLabel="标准类型"> </nz-option>
+            <nz-option nzValue="cms" nzLabel="内容类型"> </nz-option>
+          </nz-select>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label nzRequired> 命名空间 </nz-form-label>
+        <nz-form-control nzHasFeedback [nzAutoTips]="tips.namespace">
+          <input nz-input formControlName="namespace" placeholder="请输入唯一命名空间，设置后不可更改" />
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label nzRequired>状态</nz-form-label>
+        <nz-form-control>
+          <nz-switch formControlName="status"></nz-switch>
+        </nz-form-control>
+      </nz-form-item>
+    </nz-col>
+  </nz-row>
+</form>
+
+<div *nzModalFooter>
+  <button nz-button type="button" nzType="default" (click)="close()">取消</button>
+  <button nz-button nzType="primary" form="form" [disabled]="!form.valid">提交</button>
+</div>

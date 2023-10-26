@@ -2,21 +2,22 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Observable, of } from 'rxjs';
 
+import { AppService } from '@app';
 import { Project } from '@common/models/project';
 import { ProjectsService } from '@common/services/projects.service';
 import { Any, AnyDto } from '@weplanx/ng';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NZ_MODAL_DATA, NzModalRef } from 'ng-zorro-antd/modal';
 
-export interface FormInput {
+export interface ProjectInput {
   doc?: AnyDto<Project>;
 }
 
 @Component({
-  selector: 'app-admin-projects-form',
-  templateUrl: './form.component.html'
+  selector: 'app-project',
+  templateUrl: './project.component.html'
 })
-export class FormComponent implements OnInit {
+export class ProjectComponent implements OnInit {
   form!: FormGroup;
   tips = {
     name: {
@@ -34,19 +35,22 @@ export class FormComponent implements OnInit {
 
   constructor(
     @Inject(NZ_MODAL_DATA)
-    public data: FormInput,
+    public data: ProjectInput,
     private modalRef: NzModalRef,
     private message: NzMessageService,
     private fb: FormBuilder,
-    private projects: ProjectsService
+    private projects: ProjectsService,
+    private app: AppService
   ) {}
 
   ngOnInit(): void {
     this.form = this.fb.group({
       name: ['', [Validators.required]],
       namespace: ['', [Validators.required], [this.checkNamespace]],
-      kind: ['default', [Validators.required]],
+      kind: [null, [Validators.required]],
       expire: [null],
+      secret_id: [''],
+      secret_key: [''],
       status: [true, [Validators.required]]
     });
     if (this.data.doc) {
@@ -62,6 +66,15 @@ export class FormComponent implements OnInit {
     }
     return this.projects.existsNamespace(control.value);
   };
+
+  generateSecret(): void {
+    this.app.generateSecret().subscribe(data => {
+      this.form.patchValue({
+        secret_id: data.id,
+        secret_key: data.key
+      });
+    });
+  }
 
   close(): void {
     this.modalRef.triggerCancel();

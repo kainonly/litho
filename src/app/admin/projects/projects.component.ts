@@ -1,17 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 
+import { ProjectComponent, ProjectInput } from '@common/components/project/project.component';
 import { Cluster } from '@common/models/cluster';
 import { Project } from '@common/models/project';
 import { ClustersService } from '@common/services/clusters.service';
 import { ProjectsService } from '@common/services/projects.service';
 import { AnyDto, WpxModel, WpxService } from '@weplanx/ng';
-import { NzDrawerService } from 'ng-zorro-antd/drawer';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalService } from 'ng-zorro-antd/modal';
 
-import { AuthorizationComponent, AuthorizationInput } from './authorization/authorization.component';
-import { ControlComponent } from './control/control.component';
-import { FormComponent, FormInput } from './form/form.component';
+import { AuthorizationComponent } from './authorization/authorization.component';
 
 @Component({
   selector: 'app-admin-projects',
@@ -24,7 +22,6 @@ export class ProjectsComponent implements OnInit {
   constructor(
     private wpx: WpxService,
     private modal: NzModalService,
-    private drawer: NzDrawerService,
     private message: NzMessageService,
     private projects: ProjectsService,
     private clusters: ClustersService
@@ -68,9 +65,10 @@ export class ProjectsComponent implements OnInit {
   }
 
   openForm(doc?: AnyDto<Project>): void {
-    this.modal.create<FormComponent, FormInput>({
+    this.modal.create<ProjectComponent, ProjectInput>({
       nzTitle: !doc ? '创建' : `编辑【${doc.name}】`,
-      nzContent: FormComponent,
+      nzContent: ProjectComponent,
+      nzWidth: 800,
       nzData: {
         doc
       },
@@ -81,29 +79,14 @@ export class ProjectsComponent implements OnInit {
   }
 
   openAuthorization(doc: AnyDto<Project>): void {
-    this.modal.create<AuthorizationComponent, AuthorizationInput>({
-      nzTitle: `设置【${doc.name}】`,
+    this.modal.create<AuthorizationComponent, AnyDto<Project>>({
+      nzTitle: `OpenAPI 授权详情`,
       nzContent: AuthorizationComponent,
-      nzData: {
-        doc
-      },
-      nzOnOk: () => {
-        this.getData(true);
-      }
-    });
-  }
-
-  openControl(doc: AnyDto<Project>): void {
-    this.drawer.create({
-      nzContent: ControlComponent,
-      nzContentParams: {
-        doc,
-        updated: () => {
-          this.getData();
-        }
-      },
-      nzClosable: false,
-      nzWidth: 800
+      nzWidth: 600,
+      nzData: doc,
+      nzMaskClosable: true,
+      nzOkText: null,
+      nzFooter: null
     });
   }
 

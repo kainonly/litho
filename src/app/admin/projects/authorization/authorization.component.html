@@ -1,47 +1,16 @@
-<form id="form" nz-form nzLayout="vertical" [formGroup]="form" (wpxSubmit)="submit($event)">
-  <nz-form-item>
-    <nz-form-label nzRequired> 密钥 </nz-form-label>
-    <nz-form-control nzExtra="SECRET ID 与 SECERT KEY 用于 OpenAPI 接口签名鉴权等">
-      <nz-input-group nzCompact>
-        <input
-          style="width: 40%"
-          readonly
-          type="text"
-          nz-input
-          formControlName="secret_id"
-          placeholder="请初始 SECRET ID"
-        />
-        <input
-          style="width: 50%"
-          readonly
-          type="text"
-          nz-input
-          formControlName="secret_key"
-          placeholder="请初始 SECERT KEY"
-        />
-        <button style="width: 10%" nz-button type="button" (click)="generateSecret()">
-          <span nz-icon nzType="sync"></span>
-        </button>
-      </nz-input-group>
-    </nz-form-control>
-  </nz-form-item>
-  <nz-form-item formArrayName="entry">
-    <nz-form-label> 入口限制 </nz-form-label>
-    <nz-form-control *ngFor="let x of list?.controls; index as i; first as isFirst">
-      <nz-input-group nzCompact [ngStyle]="{ 'margin-top': isFirst ? null : '-1px' }">
-        <input style="width: 90%" type="text" nz-input [formControlName]="i" placeholder="请输入有效的 IP 地址" />
-        <button nz-button type="button" nzType="default" style="width: 10%" (click)="remove(i)">
-          <i nz-icon nzType="minus-circle"></i>
-        </button>
-      </nz-input-group>
-    </nz-form-control>
-    <button style="margin-top: 8px" nzBlock type="button" nz-button nzType="dashed" (click)="append()">
-      <i nz-icon nzType="plus-circle"></i> 新增
-    </button>
-  </nz-form-item>
-</form>
+<nz-descriptions nzLayout="vertical" [nzColumn]="2">
+  <nz-descriptions-item nzTitle="项目名称" [nzSpan]="1"> {{ data.name }}</nz-descriptions-item>
+  <nz-descriptions-item nzTitle="SECRET ID & KEY">
+    <nz-space *ngIf="data.secret_id && data.secret_key; else nothingRef">
+      <span *nzSpaceItem nz-typography nzCopyable [nzContent]="data.secret_id"></span>
+      <span *nzSpaceItem nz-typography nzCopyable [nzContent]="data.secret_key"></span>
+    </nz-space>
+  </nz-descriptions-item>
+  <nz-descriptions-item nzTitle="入口 IP 限制" [nzSpan]="2">
+    <ng-container *ngIf="data.entry; else nothingRef">
+      {{ data.entry }}
+    </ng-container>
+  </nz-descriptions-item>
+</nz-descriptions>
 
-<div *nzModalFooter>
-  <button nz-button type="button" nzType="default" (click)="close()">取消</button>
-  <button nz-button nzType="primary" form="form" [disabled]="!form.valid">提交</button>
-</div>
+<ng-template #nothingRef> 无 </ng-template>

@@ -1,13 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
+import { ProjectModule } from '@common/components/project/project.module';
 import { ShareModule } from '@common/share.module';
 
 import { AuthorizationComponent } from './authorization/authorization.component';
-import { ClusterComponent } from './cluster/cluster.component';
-import { ControlComponent } from './control/control.component';
 import { ExpirePipe } from './expire.pipe';
-import { FormComponent } from './form/form.component';
 import { ProjectsComponent } from './projects.component';
 
 const routes: Routes = [
@@ -18,14 +16,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [ShareModule, RouterModule.forChild(routes)],
-  declarations: [
-    ProjectsComponent,
-    FormComponent,
-    AuthorizationComponent,
-    ControlComponent,
-    ClusterComponent,
-    ExpirePipe
-  ]
+  imports: [ShareModule, ProjectModule, RouterModule.forChild(routes)],
+  declarations: [ProjectsComponent, AuthorizationComponent, ExpirePipe]
 })
 export class ProjectsModule {}
