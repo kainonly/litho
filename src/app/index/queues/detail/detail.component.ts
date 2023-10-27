@@ -1,7 +1,6 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { Subscription, switchMap, timer } from 'rxjs';
 
-import { Project } from '@common/models/project';
 import { Queue, QueueInfo } from '@common/models/queue';
 import { QueuesService } from '@common/services/queues.service';
 import { AnyDto } from '@weplanx/ng';
@@ -16,7 +15,6 @@ import { PublishComponent, PublishInput } from '../publish/publish.component';
 })
 export class DetailComponent implements OnInit, OnDestroy {
   @Input({ required: true }) doc!: AnyDto<Queue>;
-  @Input({ required: true }) project!: AnyDto<Project>;
 
   info?: QueueInfo;
   private refresh!: Subscription;

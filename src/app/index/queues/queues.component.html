@@ -47,12 +47,6 @@
       render: subjects
     },
     {
-      title: '所属项目',
-      key: 'project',
-      width: '240px',
-      render: project
-    },
-    {
       title: '详情',
       key: 'detail',
       width: '600px',
@@ -68,9 +62,6 @@
       <span nz-icon nzType="question-circle" nzTheme="outline" [nz-tooltip]="data.description"></span>
     </ng-container>
   </ng-template>
-  <ng-template #project let-data>
-    <ng-container *ngIf="projectDict[data.project] as project"> {{ project.name }} </ng-container>
-  </ng-template>
   <ng-template #subjects let-data>
     <ng-container *ngIf="data.subjects.length > 1; else subjectText">
       {{ data.subjects[0] }}
@@ -84,7 +75,7 @@
     <nz-tag *ngIf="data.max_msgs && data.max_msgs !== -1"> 最大消息数：{{ data.max_msgs }} </nz-tag>
     <nz-tag *ngIf="data.max_bytes && data.max_bytes !== -1"> 最大字节数：{{ data.max_bytes | nzBytes }} </nz-tag>
     <nz-tag *ngIf="data.max_age"> 有效期：{{ data.max_age / 1e9 }}s </nz-tag>
-    <a (click)="openDetail(data, projectDict[data.project])">查看</a>
+    <a (click)="openDetail(data)">查看</a>
   </ng-template>
 </wpx-table>
 

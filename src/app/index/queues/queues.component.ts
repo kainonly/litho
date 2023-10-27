@@ -1,10 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { switchMap } from 'rxjs';
 
 import { AppService } from '@app';
-import { Project } from '@common/models/project';
 import { Queue } from '@common/models/queue';
-import { ProjectsService } from '@common/services/projects.service';
 import { QueuesService } from '@common/services/queues.service';
 import { AnyDto, WpxModel, WpxService } from '@weplanx/ng';
 import { NzDrawerService } from 'ng-zorro-antd/drawer';
@@ -21,7 +18,6 @@ import { PublishComponent, PublishInput } from './publish/publish.component';
 })
 export class QueuesComponent implements OnInit {
   model!: WpxModel<Queue>;
-  projectDict: Record<string, AnyDto<Project>> = {};
 
   constructor(
     private app: AppService,
@@ -29,7 +25,6 @@ export class QueuesComponent implements OnInit {
     private queues: QueuesService,
     private modal: NzModalService,
     private message: NzMessageService,
-    private projects: ProjectsService,
     private drawer: NzDrawerService
   ) {}
 
@@ -48,23 +43,7 @@ export class QueuesComponent implements OnInit {
       .fetch({
         project: this.app.contextData!._id
       })
-      .subscribe(({ data }) => {
-        console.debug('fetch:ok');
-        this.getProjects(data.map(v => v.project));
-      });
-  }
-
-  getProjects(ids: string[]): void {
-    this.projects
-      .find(
-        { _id: { $in: ids } },
-        {
-          xfilter: { '_id->$in': 'oids' }
-        }
-      )
-      .subscribe(({ data }) => {
-        data.forEach(v => (this.projectDict[v._id] = v));
-      });
+      .subscribe(() => {});
   }
 
   openForm(doc?: AnyDto<Queue>): void {
@@ -81,13 +60,12 @@ export class QueuesComponent implements OnInit {
     });
   }
 
-  openDetail(doc: AnyDto<Queue>, project: AnyDto<Project>): void {
+  openDetail(doc: AnyDto<Queue>): void {
     this.drawer.create({
       nzClosable: false,
       nzContent: DetailComponent,
       nzContentParams: {
-        doc,
-        project
+        doc
       },
       nzWidth: 960
     });
@@ -108,13 +86,10 @@ export class QueuesComponent implements OnInit {
       nzOkType: 'primary',
       nzOkDanger: true,
       nzOnOk: () => {
-        this.queues
-          .destroy([doc._id])
-          .pipe(switchMap(() => this.queues.delete(doc._id)))
-          .subscribe(() => {
-            this.message.success(`数据删除成功`);
-            this.getData(true);
-          });
+        this.queues.delete(doc._id).subscribe(() => {
+          this.message.success(`数据删除成功`);
+          this.getData(true);
+        });
       },
       nzCancelText: `再想想`
     });
@@ -127,22 +102,16 @@ export class QueuesComponent implements OnInit {
       nzOkType: 'primary',
       nzOkDanger: true,
       nzOnOk: () => {
-        const ids = [...this.model.selection.keys()];
         this.queues
-          .destroy(ids)
-          .pipe(
-            switchMap(() =>
-              this.queues.bulkDelete(
-                {
-                  _id: { $in: ids }
-                },
-                {
-                  xfilter: {
-                    '_id->$in': 'oids'
-                  }
-                }
-              )
-            )
+          .bulkDelete(
+            {
+              _id: { $in: [...this.model.selection.keys()] }
+            },
+            {
+              xfilter: {
+                '_id->$in': 'oids'
+              }
+            }
           )
           .subscribe(() => {
             this.message.success(`数据删除成功`);

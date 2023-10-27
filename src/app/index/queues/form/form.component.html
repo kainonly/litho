@@ -8,23 +8,6 @@
         </nz-form-control>
       </nz-form-item>
       <nz-form-item>
-        <nz-form-label nzRequired> 所属项目 </nz-form-label>
-        <nz-form-control nzHasFeedback [nzAutoTips]="tips.project">
-          <nz-select
-            formControlName="project"
-            nzAllowClear
-            nzPlaceHolder="请选择所属项目"
-            nzShowSearch
-            nzServerSearch
-            (nzOnSearch)="projects$.next($event)"
-          >
-            <ng-container *ngFor="let item of projectItems">
-              <nz-option [nzValue]="item._id" [nzLabel]="item.name"> </nz-option>
-            </ng-container>
-          </nz-select>
-        </nz-form-control>
-      </nz-form-item>
-      <nz-form-item>
         <nz-form-label nzRequired>队列主题</nz-form-label>
         <nz-form-control nzHasFeedback [nzAutoTips]="tips.subjects">
           <nz-select nzMode="tags" nzPlaceHolder="请输入队列主题" formControlName="subjects">

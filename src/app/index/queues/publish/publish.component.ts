@@ -1,7 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
-import { ImessagesService } from '@common/services/imessages.service';
+import { AppService } from '@app';
 import { QueuesService } from '@common/services/queues.service';
 import { Any } from '@weplanx/ng';
 import { NzMessageService } from 'ng-zorro-antd/message';
@@ -31,7 +31,8 @@ export class PublishComponent implements OnInit {
     private modalRef: NzModalRef,
     private message: NzMessageService,
     private fb: FormBuilder,
-    private queues: QueuesService
+    private queues: QueuesService,
+    private app: AppService
   ) {}
 
   ngOnInit(): void {
@@ -49,7 +50,7 @@ export class PublishComponent implements OnInit {
   }
 
   submit(data: Any): void {
-    this.queues.publish(data.subject, JSON.parse(data.payload)).subscribe(() => {
+    this.queues.publish(this.app.contextData!._id, data.subject, JSON.parse(data.payload)).subscribe(() => {
       this.message.success(`发布成功`);
     });
   }

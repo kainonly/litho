@@ -30,10 +30,7 @@ export class FormComponent implements OnInit {
       }
     }
   };
-  kinds = [
-    { label: 'Schedule', key: 'schedule' },
-    { label: 'EMQX Broker', key: 'emqx' }
-  ];
+  kinds = [{ label: 'Schedule', key: 'schedule' }];
   kind?: string;
 
   constructor(
@@ -69,10 +66,6 @@ export class FormComponent implements OnInit {
             node: ['', [Validators.required, Validators.pattern(/[_a-z0-9]+/)]]
           })
         );
-        break;
-      case 'emqx':
-        this.form.removeControl('schedule');
-        this.form.addControl('emqx', this.fb.group({}));
         break;
     }
     this.kind = data;
