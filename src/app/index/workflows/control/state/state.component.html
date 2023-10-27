@@ -1,0 +1,38 @@
+<nz-table nzTemplateMode>
+  <thead>
+    <tr>
+      <th><b>触发事件</b></th>
+      <th nzRight nzWidth="150px"><b>最近调度</b></th>
+      <th nzRight nzWidth="150px"><b>下次调度</b></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let job of doc.schedule!.jobs; index as i">
+      <td [ngSwitch]="job.mode">
+        <ng-container *ngSwitchCase="'HTTP'">
+          <nz-tag>网络回调</nz-tag>
+          <a (click)="openLogs(i)">
+            <b>{{ job.option.method }}</b>
+            {{ job.option.url }}
+          </a>
+        </ng-container>
+      </td>
+      <td>
+        <ng-container *ngIf="state && state.jobs[i]!.schedule_state as v">
+          <ng-container *ngIf="state.status; else emptyText">
+            {{ v.prev | date: 'yyyy-MM-dd HH:mm:ss' }}
+          </ng-container>
+        </ng-container>
+      </td>
+      <td>
+        <ng-container *ngIf="state && state.jobs[i]!.schedule_state as v">
+          <ng-container *ngIf="state.status; else emptyText">
+            {{ v.next | date: 'yyyy-MM-dd HH:mm:ss' }}
+          </ng-container>
+        </ng-container>
+      </td>
+    </tr>
+  </tbody>
+</nz-table>
+
+<ng-template #emptyText>-</ng-template>

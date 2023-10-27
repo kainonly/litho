@@ -14,6 +14,15 @@
 
 <ng-template #extraRef>
   <nz-space nzAlign="center">
+    <ng-container *ngIf="model.selection.size as size">
+      <button *nzSpaceItem nz-button nzType="dashed" nz-dropdown [nzDropdownMenu]="menu"> 已选中 {{ size }} 项 </button>
+      <nz-dropdown-menu #menu="nzDropdownMenu">
+        <ul nz-menu>
+          <li nz-menu-item (click)="wpxTable.clearSelections()"> 取消选择 </li>
+          <li nz-menu-item nzDanger (click)="bulkDelete()"> 删除 </li>
+        </ul>
+      </nz-dropdown-menu>
+    </ng-container>
     <button *nzSpaceItem nz-button nzType="primary" (click)="openForm()"> 新增 </button>
   </nz-space>
 </ng-template>
@@ -48,18 +57,32 @@
     {{ data.name }}
   </ng-template>
   <ng-template #detail let-data>
-    <ng-container *ngIf="data.schedule as schedule">
-      <nz-tag *ngIf="!schedule.status" nzColor="error">
-        <span nz-icon nzType="stop"></span>
-        <span>禁用</span>
-      </nz-tag>
-      <nz-tag>
-        <span nz-icon nzType="deployment-unit" nzTheme="outline"></span>
-        <ng-container *ngIf="endpointDict[schedule.ref] as endpoint">
-          {{ endpoint.name }}
+    <ng-container [ngSwitch]="data.kind">
+      <ng-container *ngSwitchCase="'schedule'">
+        <ng-container *ngIf="data.schedule as schedule; else initRef">
+          <nz-tag *ngIf="!schedule.status" nzColor="error">
+            <span nz-icon nzType="stop"></span>
+            <span>禁用</span>
+          </nz-tag>
+          <nz-tag>
+            <span nz-icon nzType="deployment-unit" nzTheme="outline"></span>
+            <ng-container *ngIf="endpointDict[schedule.ref] as endpoint">
+              {{ endpoint.name }}
+            </ng-container>
+          </nz-tag>
+          <nz-tag>
+            <span nz-icon nzType="key" nzTheme="outline"></span>
+            {{ data._id }}
+          </nz-tag>
+          <a (click)="openControl(data, 0)"> 已设置 {{ schedule.jobs.length }} 个事件 </a>
         </ng-container>
-      </nz-tag>
-      <a (click)="openControl(data)"> 已设置 {{ schedule.jobs.length }} 个事件 </a>
+        <ng-template #initRef>
+          <a (click)="openControl(data, 1)">
+            <span nz-icon nzType="info-circle" nzTheme="outline"></span>
+            请初始化事件
+          </a>
+        </ng-template>
+      </ng-container>
     </ng-container>
   </ng-template>
 </wpx-table>

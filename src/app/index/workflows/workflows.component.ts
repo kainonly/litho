@@ -77,11 +77,12 @@ export class WorkflowsComponent implements OnInit {
     });
   }
 
-  openControl(doc: AnyDto<Workflow>): void {
+  openControl(doc: AnyDto<Workflow>, tabIndex: number): void {
     this.drawer.create({
       nzClosable: false,
       nzContent: ControlComponent,
       nzContentParams: {
+        tabIndex,
         doc,
         updated: () => {
           this.getData();
@@ -102,6 +103,34 @@ export class WorkflowsComponent implements OnInit {
           this.message.success(`数据删除成功`);
           this.getData(true);
         });
+      },
+      nzCancelText: `再想想`
+    });
+  }
+
+  bulkDelete(): void {
+    this.modal.confirm({
+      nzTitle: `您确定删除这些工作流吗？`,
+      nzOkText: `是的`,
+      nzOkType: 'primary',
+      nzOkDanger: true,
+      nzOnOk: () => {
+        this.workflows
+          .bulkDelete(
+            {
+              _id: { $in: [...this.model.selection.keys()] }
+            },
+            {
+              xfilter: {
+                '_id->$in': 'oids'
+              }
+            }
+          )
+          .subscribe(() => {
+            this.message.success(`数据删除成功`);
+            this.getData(true);
+            this.model.setCurrentSelections(false);
+          });
       },
       nzCancelText: `再想想`
     });

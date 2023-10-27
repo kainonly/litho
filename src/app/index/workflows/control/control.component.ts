@@ -1,29 +1,23 @@
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { BehaviorSubject, debounceTime, Subscription, switchMap, timer } from 'rxjs';
+import { BehaviorSubject, debounceTime, switchMap } from 'rxjs';
 
-import { Endpoint, ScheduleState } from '@common/models/endpoint';
+import { Endpoint } from '@common/models/endpoint';
 import { Workflow } from '@common/models/workflow';
 import { EndpointsService } from '@common/services/endpoints.service';
 import { WorkflowsService } from '@common/services/workflows.service';
 import { Any, AnyDto } from '@weplanx/ng';
-import { NzDrawerService } from 'ng-zorro-antd/drawer';
 import { NzMessageService } from 'ng-zorro-antd/message';
-
-import { LogsComponent } from '../logs/logs.component';
 
 @Component({
   selector: 'app-index-workflows-control',
   templateUrl: './control.component.html'
 })
-export class ControlComponent implements OnInit, OnDestroy {
+export class ControlComponent implements OnInit {
+  @Input({ required: true }) tabIndex!: number;
   @Input({ required: true }) doc!: AnyDto<Workflow>;
   @Input({ required: true }) updated!: () => void;
-  index = 0;
-
-  state?: ScheduleState;
-  private refresh!: Subscription;
 
   form!: FormGroup;
   tips = {
@@ -40,18 +34,10 @@ export class ControlComponent implements OnInit, OnDestroy {
     private fb: FormBuilder,
     private message: NzMessageService,
     private endpoints: EndpointsService,
-    private workflows: WorkflowsService,
-    private drawer: NzDrawerService
+    private workflows: WorkflowsService
   ) {}
 
   ngOnInit(): void {
-    this.endpoints.findById(this.doc.schedule!.ref).subscribe(data => {
-      this.refresh = timer(0, 5000)
-        .pipe(switchMap(() => this.endpoints.scheduleState(data.schedule!.node, this.doc._id)))
-        .subscribe(data => {
-          this.state = data;
-        });
-    });
     switch (this.doc.kind) {
       case 'schedule':
         this.form = this.fb.group({
@@ -73,26 +59,9 @@ export class ControlComponent implements OnInit, OnDestroy {
     }
   }
 
-  ngOnDestroy(): void {
-    this.refresh?.unsubscribe();
-  }
-
   sync(): void {
     this.workflows.sync(this.doc._id).subscribe(() => {
       this.message.success(`触发事件已同步`);
-    });
-  }
-
-  openLogs(index: number): void {
-    this.drawer.create({
-      nzClosable: false,
-      nzContent: LogsComponent,
-      nzPlacement: 'bottom',
-      nzContentParams: {
-        doc: this.doc,
-        index
-      },
-      nzHeight: 640
     });
   }
 
@@ -145,8 +114,9 @@ export class ControlComponent implements OnInit, OnDestroy {
           }
         }
       )
-      .subscribe(() => {
-        this.message.success(`数据更新成功`);
+      .pipe(switchMap(() => this.workflows.findById(this.doc._id)))
+      .subscribe(data => {
+        this.doc = data;
         this.updated();
         this.sync();
       });

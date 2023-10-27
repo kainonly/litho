@@ -54,8 +54,26 @@
     </nz-tag>
     {{ data.name }}
   </ng-template>
-  <ng-template #detail let-data> </ng-template>
+  <ng-template #detail let-data>
+    <ng-container [ngSwitch]="data.kind">
+      <ng-container *ngSwitchCase="'schedule'">
+        <nz-tag *ngIf="pingDict[data.schedule.node]; else disconnectRef" nzColor="processing">
+          <span nz-icon nzType="sync" nzSpin></span>
+          运行中
+        </nz-tag>
+        <nz-tag>命名：{{ data.schedule.node }}</nz-tag>
+        <a (click)="openSchedule(data)">查看详情</a>
+      </ng-container>
+    </ng-container>
+  </ng-template>
 </wpx-table>
+
+<ng-template #disconnectRef>
+  <nz-tag nzColor="error">
+    <span nz-icon nzType="close-circle"></span>
+    脱机
+  </nz-tag>
+</ng-template>
 
 <ng-template #action let-data>
   <button nz-button nzType="text" nz-dropdown [nzDropdownMenu]="menu">
