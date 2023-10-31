@@ -10,7 +10,7 @@ import { NzModalService } from 'ng-zorro-antd/modal';
 import { PublishComponent, PublishInput } from '../publish/publish.component';
 
 @Component({
-  selector: 'app-admin-queues-detail',
+  selector: 'app-index-queues-detail',
   templateUrl: './detail.component.html'
 })
 export class DetailComponent implements OnInit, OnDestroy {

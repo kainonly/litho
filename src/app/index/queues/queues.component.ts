@@ -13,7 +13,7 @@ import { FormComponent, FormInput } from './form/form.component';
 import { PublishComponent, PublishInput } from './publish/publish.component';
 
 @Component({
-  selector: 'app-admin-queues',
+  selector: 'app-index-queues',
   templateUrl: './queues.component.html'
 })
 export class QueuesComponent implements OnInit {

@@ -13,7 +13,7 @@ export interface FormInput {
 }
 
 @Component({
-  selector: 'app-admin-workflows-form',
+  selector: 'app-index-workflows-form',
   templateUrl: './form.component.html'
 })
 export class FormComponent implements OnInit {

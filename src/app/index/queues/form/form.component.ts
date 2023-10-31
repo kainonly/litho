@@ -13,7 +13,7 @@ export interface FormInput {
 }
 
 @Component({
-  selector: 'app-admin-queues-form',
+  selector: 'app-index-queues-form',
   templateUrl: './form.component.html'
 })
 export class FormComponent implements OnInit {

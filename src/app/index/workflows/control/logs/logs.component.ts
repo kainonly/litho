@@ -10,7 +10,7 @@ import { addHours } from 'date-fns';
 import { NzModalService } from 'ng-zorro-antd/modal';
 
 @Component({
-  selector: 'app-admin-workflows-logs',
+  selector: 'app-index-workflows-logs',
   templateUrl: './logs.component.html'
 })
 export class LogsComponent implements OnInit {

@@ -12,7 +12,7 @@ export interface PublishInput {
 }
 
 @Component({
-  selector: 'app-admin-queues-publish',
+  selector: 'app-index-queues-publish',
   templateUrl: './publish.component.html'
 })
 export class PublishComponent implements OnInit {

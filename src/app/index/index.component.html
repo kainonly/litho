@@ -14,6 +14,10 @@
           <span nz-icon nzType="project" nzTheme="outline"></span>
           <span>项目概况</span>
         </li>
+        <li *ngIf="data.kind === 'cms'" nz-menu-item nzMatchRouter routerLink="content-builder">
+          <span nz-icon nzType="layout" nzTheme="outline"></span>
+          <span>内容生成器</span>
+        </li>
         <li nz-menu-item nzMatchRouter routerLink="workflows">
           <span nz-icon nzType="schedule" nzTheme="outline"></span>
           <span>工作流</span>
