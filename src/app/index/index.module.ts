@@ -21,8 +21,8 @@ const routes: Routes = [
         }
       },
       {
-        path: 'content-builder',
-        loadChildren: () => import('./content-builder/content-builder.module').then(m => m.ContentBuilderModule),
+        path: 'builders',
+        loadChildren: () => import('./builders/builders.module').then(m => m.BuildersModule),
         data: {
           breadcrumb: `内容生成器`
         }
