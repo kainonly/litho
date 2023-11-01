@@ -7,6 +7,7 @@ export interface Builder {
   icon?: string;
   description?: string;
   schema?: BuilderSchema;
+  status: boolean;
   sort: number;
 }
 

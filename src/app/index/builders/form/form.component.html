@@ -27,7 +27,7 @@
       </nz-select>
     </nz-form-control>
   </nz-form-item>
-  <nz-form-item>
+  <nz-form-item *ngIf="kind.value === 'nav'">
     <nz-form-label>字体图标</nz-form-label>
     <nz-form-control nzHasFeedback>
       <input nz-input formControlName="icon" placeholder="Ant Design 字体图标标识" />

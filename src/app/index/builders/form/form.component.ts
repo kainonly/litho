@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
 import { AppService } from '@app';
 import { Builder } from '@common/models/builder';
@@ -49,7 +49,8 @@ export class FormComponent implements OnInit {
       name: ['', [Validators.required]],
       kind: ['', [Validators.required]],
       icon: [''],
-      description: ['']
+      description: [''],
+      status: [true, [Validators.required]]
     });
     const filter: Filter<Builder> = { kind: 'nav' };
     if (this.data.doc) {
@@ -58,21 +59,23 @@ export class FormComponent implements OnInit {
     }
     this.builders
       .getNzTreeNodeOptions(
-        filter,
-        {
-          '_id->$ne': 'oid'
-        },
         v =>
           <NzTreeNodeOptions>{
             title: v.name,
             key: v._id,
             parent: v.parent,
             isLeaf: true
-          }
+          },
+        filter,
+        { '_id->$ne': 'oid' }
       )
       .subscribe(v => {
         this.nodes = [...v];
       });
+  }
+
+  get kind(): FormControl {
+    return this.form.get('kind') as FormControl;
   }
 
   close(): void {
