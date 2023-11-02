@@ -6,7 +6,9 @@ import { Component } from '@angular/core';
     <nz-result nzStatus="info">
       <div nz-result-title> 使用说明 </div>
       <div nz-result-content>
-        <p> 🔥 左侧大纲中【点击】任意元素来编辑内容模型，通过【右键】获得更多操作，以下为内容生成器主要类型： </p>
+        <p>
+          🔥 在大纲中【点击】任意元素来查看内容模型，【右键】获得更多操作，【拖拽】进行重组，以下为内容生成器主要类型：
+        </p>
         <div style="padding: 0 1.5em">
           <nz-space nzDirection="vertical">
             <div *nzSpaceItem><nz-tag>导航</nz-tag> 通常用于导航分组显示；</div>

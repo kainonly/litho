@@ -1,10 +1,14 @@
 <nz-page-header [nzGhost]="false">
   <nz-page-header-title>{{ data?.name }}</nz-page-header-title>
   <nz-page-header-tags>
-    <nz-tag [ngSwitch]="data?.kind">
+    <nz-tag nzColor="blue" [ngSwitch]="data?.kind">
       <ng-container *ngSwitchCase="'collection'"> 集合类型</ng-container>
       <ng-container *ngSwitchCase="'single'"> 单一类型</ng-container>
       <ng-container *ngSwitchCase="'manual'"> 自定义</ng-container>
+    </nz-tag>
+    <nz-tag>
+      <span nz-icon nzType="database" nzTheme="outline"></span>
+      {{ data?.schema?.key }}
     </nz-tag>
   </nz-page-header-tags>
   <nz-page-header-content>
@@ -39,12 +43,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let item of data?.schema?.fields">
-        <!--      <td> {{ item.hostname }} [{{ item.ip }}]</td>-->
-        <!--      <td> {{ item.cpu }} / {{ item.mem | nzBytes }} / {{ item.storage | nzBytes }} </td>-->
-        <!--      <td> {{ item.os }} [{{ item.architecture }}] </td>-->
-        <!--      <td> {{ item.create | date: 'yyyy-MM-dd HH:mm' }} </td>-->
-      </tr>
+      <tr *ngFor="let item of data?.schema?.fields"> </tr>
     </tbody>
   </nz-table>
 </nz-card>

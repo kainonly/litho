@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { Subscription } from 'rxjs';
 
 import { Builder } from '@common/models/builder';
 import { BuildersService } from '@common/services/builders.service';
@@ -9,9 +10,11 @@ import { AnyDto } from '@weplanx/ng';
   selector: 'app-index-builders-page',
   templateUrl: './page.component.html'
 })
-export class PageComponent implements OnInit {
-  private id!: string;
+export class PageComponent implements OnInit, OnDestroy {
   data?: AnyDto<Builder>;
+
+  private id!: string;
+  private updated!: Subscription;
 
   constructor(
     private builders: BuildersService,
@@ -23,6 +26,15 @@ export class PageComponent implements OnInit {
       this.id = data['id'];
       this.getData();
     });
+    this.updated = this.builders.updated.subscribe(id => {
+      if (this.id === id) {
+        this.getData();
+      }
+    });
+  }
+
+  ngOnDestroy(): void {
+    this.updated.unsubscribe();
   }
 
   getData(): void {

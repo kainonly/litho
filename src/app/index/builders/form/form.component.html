@@ -27,6 +27,12 @@
       </nz-select>
     </nz-form-control>
   </nz-form-item>
+  <nz-form-item *ngIf="['collection', 'single'].includes(kind.value)" formGroupName="schema">
+    <nz-form-label nzRequired>模型命名</nz-form-label>
+    <nz-form-control nzHasFeedback [nzAutoTips]="tips.schemaKey">
+      <input nz-input formControlName="key" placeholder="请输入模型命名" />
+    </nz-form-control>
+  </nz-form-item>
   <nz-form-item *ngIf="kind.value === 'nav'">
     <nz-form-label>字体图标</nz-form-label>
     <nz-form-control nzHasFeedback>
@@ -37,6 +43,12 @@
     <nz-form-label>描述</nz-form-label>
     <nz-form-control nzHasFeedback>
       <textarea nz-input formControlName="description" placeholder="描述页面用途" rows="3"></textarea>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label nzRequired>状态</nz-form-label>
+    <nz-form-control>
+      <nz-switch formControlName="status"></nz-switch>
     </nz-form-control>
   </nz-form-item>
 </form>

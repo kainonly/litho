@@ -1,7 +1,7 @@
 <nz-layout style="height: 100%; background: #fff" class="inner-layout">
-  <nz-sider style="padding: 12px" nzWidth="330px" nzTheme="light">
+  <nz-sider style="padding: 12px" nzWidth="450px" nzTheme="light">
     <nz-space nzAlign="center">
-      <nz-input-group *nzSpaceItem [nzPrefix]="suffixIconSearch" style="width: 230px">
+      <nz-input-group *nzSpaceItem [nzPrefix]="suffixIconSearch" style="width: 320px">
         <input type="text" nz-input placeholder="搜索" [(ngModel)]="searchText" />
         <ng-template #suffixIconSearch>
           <span nz-icon nzType="search"></span>
@@ -26,8 +26,10 @@
       [nzShowExpand]="false"
       [nzTreeTemplate]="Tpl"
       [nzSearchValue]="searchText"
+      [nzBeforeDrop]="beforeDrop"
       (nzClick)="selectedNode($event)"
       (nzContextMenu)="openContextMenu($event, menu)"
+      (nzOnDrop)="reorganization($event)"
     >
     </nz-tree>
   </nz-sider>
@@ -49,17 +51,20 @@
     </nz-col>
     <nz-col></nz-col>
     <nz-col>
-      <nz-tag *ngIf="builders.dict[node.key] as data">
-        <ng-container *ngIf="data.icon">
-          <span nz-icon [nzType]="data.icon" nzTheme="outline"></span>
-        </ng-container>
-        <ng-container [ngSwitch]="data.kind">
-          <ng-container *ngSwitchCase="'nav'"> 导航</ng-container>
-          <ng-container *ngSwitchCase="'collection'"> 集合类型</ng-container>
-          <ng-container *ngSwitchCase="'single'"> 单一类型</ng-container>
-          <ng-container *ngSwitchCase="'manual'"> 自定义</ng-container>
-        </ng-container>
-      </nz-tag>
+      <ng-container *ngIf="builders.dict[node.key] as data">
+        <nz-tag *ngIf="!data.status" nzColor="error">停用</nz-tag>
+        <nz-tag nzColor="blue">
+          <ng-container *ngIf="data.icon">
+            <span nz-icon [nzType]="data.icon" nzTheme="outline"></span>
+          </ng-container>
+          <ng-container [ngSwitch]="data.kind">
+            <ng-container *ngSwitchCase="'nav'"> 导航</ng-container>
+            <ng-container *ngSwitchCase="'collection'"> 集合类型</ng-container>
+            <ng-container *ngSwitchCase="'single'"> 单一类型</ng-container>
+            <ng-container *ngSwitchCase="'manual'"> 自定义</ng-container>
+          </ng-container>
+        </nz-tag>
+      </ng-container>
     </nz-col>
   </nz-row>
 </ng-template>

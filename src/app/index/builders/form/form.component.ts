@@ -1,5 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Observable, of } from 'rxjs';
 
 import { AppService } from '@app';
 import { Builder } from '@common/models/builder';
@@ -29,6 +30,12 @@ export class FormComponent implements OnInit {
       default: {
         required: '页面种类不能为空'
       }
+    },
+    schemaKey: {
+      default: {
+        required: `模型命名不能为空`,
+        duplicated: `存在重复的定义，模型命名必须是唯一的`
+      }
     }
   };
   nodes: NzTreeNodeOptions[] = [];
@@ -53,10 +60,40 @@ export class FormComponent implements OnInit {
       status: [true, [Validators.required]]
     });
     const filter: Filter<Builder> = { kind: 'nav' };
+    this.kind.valueChanges.subscribe(data => {
+      if (['collection', 'single'].includes(data)) {
+        this.form.addControl(
+          'schema',
+          this.fb.group({
+            key: ['', [Validators.required], [this.checkSchemaKey]],
+            fields: [[]],
+            rules: [[]]
+          })
+        );
+      } else {
+        this.form.removeControl('schema');
+      }
+    });
     if (this.data.doc) {
       filter._id = { $ne: this.data.doc._id };
+      this.kind.disable();
       this.form.patchValue(this.data.doc);
     }
+    this.getNodes(filter);
+  }
+
+  checkSchemaKey = (control: AbstractControl): Observable<Any> => {
+    if (control.value === this.data.doc?.schema?.key) {
+      return of(null);
+    }
+    return this.builders.existsSchemaKey(control.value);
+  };
+
+  get kind(): FormControl {
+    return this.form.get('kind') as FormControl;
+  }
+
+  getNodes(filter: Filter<Builder>): void {
     this.builders
       .getNzTreeNodeOptions(
         v =>
@@ -72,10 +109,6 @@ export class FormComponent implements OnInit {
       .subscribe(v => {
         this.nodes = [...v];
       });
-  }
-
-  get kind(): FormControl {
-    return this.form.get('kind') as FormControl;
   }
 
   close(): void {

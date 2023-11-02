@@ -1,14 +1,16 @@
-import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { forkJoin, Observable, of, switchMap } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 import { AppService } from '@app';
 import { Builder } from '@common/models/builder';
 import { BuildersService } from '@common/services/builders.service';
-import { AnyDto } from '@weplanx/ng';
+import { Any, AnyDto, TransactionResult, WpxService } from '@weplanx/ng';
 import { NzContextMenuService, NzDropdownMenuComponent } from 'ng-zorro-antd/dropdown';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalService } from 'ng-zorro-antd/modal';
-import { NzFormatEmitEvent, NzTreeNode, NzTreeNodeOptions } from 'ng-zorro-antd/tree';
+import { NzFormatBeforeDropEvent, NzFormatEmitEvent, NzTreeNode, NzTreeNodeOptions } from 'ng-zorro-antd/tree';
 
 import { FormComponent, FormInput } from './form/form.component';
 
@@ -24,6 +26,7 @@ export class BuildersComponent implements OnInit {
   actived?: NzTreeNode;
 
   constructor(
+    private wpx: WpxService,
     private app: AppService,
     public builders: BuildersService,
     private modal: NzModalService,
@@ -48,7 +51,7 @@ export class BuildersComponent implements OnInit {
             icon: v.icon,
             isLeaf: true,
             expanded: true,
-            selectable: v.kind !== 'nav',
+            selectable: !['nav', 'manual'].includes(v.kind),
             selected: false
           }
       )
@@ -69,6 +72,9 @@ export class BuildersComponent implements OnInit {
         doc
       },
       nzOnOk: () => {
+        if (doc) {
+          this.builders.updated.next(doc._id);
+        }
         this.getData();
       }
     });
@@ -88,10 +94,10 @@ export class BuildersComponent implements OnInit {
   selectedNode(e: NzFormatEmitEvent): void {
     const node = e.node!;
     const data = this.builders.dict[node.key];
-    if (data.kind === 'nav') {
+    if (['nav', 'manual'].includes(data.kind)) {
       return;
     }
-    this.router.navigate(['/x', this.app.context, 'builders', data._id]);
+    this.router.navigate(['/x', this.app.context, 'builders', node.isSelected ? data._id : 'index']);
   }
 
   openContextMenu(e: NzFormatEmitEvent, menu: NzDropdownMenuComponent): void {
@@ -108,10 +114,56 @@ export class BuildersComponent implements OnInit {
       nzOnOk: () => {
         this.builders.delete(doc._id).subscribe(() => {
           this.message.success(`数据删除成功`);
+          if (this.activedKey.includes(doc._id)) {
+            this.router.navigate(['/x', this.app.context, 'builders', 'index']);
+          }
           this.getData();
         });
       },
       nzCancelText: `再想想`
     });
+  }
+
+  beforeDrop = (e: NzFormatBeforeDropEvent): Observable<boolean> => {
+    if (!e.node.parentNode) {
+      return of(true);
+    }
+    const kind = this.builders.dict[e.node.parentNode.key].kind;
+    if (kind === 'nav') {
+      return of(true);
+    }
+    return of(false);
+  };
+
+  reorganization(e: NzFormatEmitEvent): void {
+    const node = e.dragNode!;
+    this.wpx
+      .transaction()
+      .pipe(
+        switchMap<TransactionResult, Any>(({ txn }) => {
+          const sources: Observable<Any>[] = [];
+          if (node.origin['parent'] !== node.parentNode?.key) {
+            sources.push(
+              this.builders.updateById(
+                node.key,
+                { $set: { parent: node.parentNode ? node.parentNode.key : null } },
+                { xdata: { '$set->parent': 'oid' }, txn }
+              )
+            );
+          }
+          const values: string[] = [];
+          if (!node.parentNode) {
+            values.push(...node.service!.rootNodes.map(v => v.key));
+          } else {
+            values.push(...node.parentNode.children.map(v => v.key));
+          }
+          sources.push(this.builders.sort('sort', values, { txn }));
+          return forkJoin(sources).pipe(switchMap(() => this.wpx.commit(txn)));
+        })
+      )
+      .subscribe(() => {
+        this.message.success(`大纲重组成功`);
+        this.getData();
+      });
   }
 }
