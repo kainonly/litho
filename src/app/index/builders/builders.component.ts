@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { forkJoin, Observable, of, switchMap } from 'rxjs';
-import { map } from 'rxjs/operators';
 
 import { AppService } from '@app';
 import { Builder } from '@common/models/builder';
 import { BuildersService } from '@common/services/builders.service';
 import { Any, AnyDto, TransactionResult, WpxService } from '@weplanx/ng';
+import { WpxCategoriesService } from '@weplanx/ng/categories';
 import { NzContextMenuService, NzDropdownMenuComponent } from 'ng-zorro-antd/dropdown';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalService } from 'ng-zorro-antd/modal';
@@ -33,7 +33,8 @@ export class BuildersComponent implements OnInit {
     private message: NzMessageService,
     private router: Router,
     private route: ActivatedRoute,
-    private contextMenu: NzContextMenuService
+    private contextMenu: NzContextMenuService,
+    private categories: WpxCategoriesService
   ) {}
 
   ngOnInit(): void {
