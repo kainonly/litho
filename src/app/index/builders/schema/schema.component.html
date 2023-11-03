@@ -16,7 +16,7 @@
   </nz-page-header-content>
   <nz-page-header-extra>
     <nz-space>
-      <button *nzSpaceItem nz-button>
+      <button *nzSpaceItem nz-button (click)="openField()">
         <span nz-icon nzType="plus" nzTheme="outline"></span>
         新增字段
       </button>
@@ -43,7 +43,15 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let item of data?.schema?.fields"> </tr>
+      <tr *ngFor="let item of data?.schema?.fields">
+        <td nzLeft></td>
+        <td>
+          <nz-tag nzColor="blue">{{ fieldTypeDict[item.type] }}</nz-tag>
+          <span>{{ item.name }}</span>
+        </td>
+        <td></td>
+        <td nzRight></td>
+      </tr>
     </tbody>
   </nz-table>
 </nz-card>

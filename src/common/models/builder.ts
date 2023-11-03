@@ -1,4 +1,4 @@
-import { Any, AnyDto } from '@weplanx/ng';
+import { Any } from '@weplanx/ng';
 
 export interface Builder {
   parent: string | null;
@@ -11,11 +11,6 @@ export interface Builder {
   sort: number;
 }
 
-export type BuilderNode = AnyDto<Builder> & {
-  disabled?: boolean;
-  children?: BuilderNode[];
-};
-
 export interface BuilderSchema {
   key: string;
   fields: Field[];
@@ -25,7 +20,7 @@ export interface BuilderSchema {
 export interface Field {
   name: string;
   key: string;
-  type: string;
+  type: keyof typeof FieldTypeDict;
   required: boolean;
   visible: boolean;
   default_to: Any;
@@ -62,3 +57,21 @@ export interface RuleCondition {
   op: string;
   value: Any;
 }
+
+export const FieldTypeDict = {
+  string: '单行文本',
+  text: '多行文本',
+  password: '密码',
+  number: '数字',
+  date: '日期',
+  dates: '日期范围',
+  bool: '开关',
+  radio: '复选框',
+  select: '选择器',
+  richtext: '富文本',
+  picture: '图片',
+  video: '视频',
+  file: '附件',
+  ref: '引用',
+  manual: '自定义'
+};

@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { Observable, Subject, switchMap, timer } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { Builder } from '@common/models/builder';
-import { Any, AnyDto, Filter, WpxApi, XFilter } from '@weplanx/ng';
+import { Builder, Field } from '@common/models/builder';
+import { Any, AnyDto, Filter, R, WpxApi, XFilter } from '@weplanx/ng';
 import { NzTreeNodeOptions } from 'ng-zorro-antd/tree';
 
 @Injectable({ providedIn: 'root' })
@@ -42,6 +42,12 @@ export class BuildersService extends WpxApi<Builder> {
         return nodes;
       })
     );
+  }
+
+  addSchemaField(id: string, data: Field): Observable<R> {
+    return this.updateById(id, {
+      $push: { 'schema.fields': data }
+    });
   }
 
   existsSchemaKey(key: string): Observable<Any> {

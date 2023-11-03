@@ -40,6 +40,7 @@ export interface UpdateOperators<T> {
   $rename: Partial<{ [P in keyof AnyDto<T>]: string }> & { [key: string]: string };
   $set: Partial<{ [P in keyof AnyDto<T>]: AnyDto<T>[P] }> & R;
   $unset: Partial<{ [P in keyof AnyDto<T>]: '' }> & { [key: string]: '' };
+  $push: Partial<{ [P in keyof AnyDto<T>]: AnyDto<T>[P] }> & R;
 }
 export type Update<T> = Partial<UpdateOperators<T>>;
 export type Sort<T> = Partial<{ [P in keyof AnyDto<T>]: -1 | 1 }>;

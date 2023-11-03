@@ -23,12 +23,12 @@ export class FormComponent implements OnInit {
   tips = {
     name: {
       default: {
-        required: `页面名称不能为空`
+        required: `内容名称不能为空`
       }
     },
     kind: {
       default: {
-        required: '页面种类不能为空'
+        required: '内容种类不能为空'
       }
     },
     schemaKey: {

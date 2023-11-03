@@ -2,23 +2,28 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 
-import { Builder } from '@common/models/builder';
+import { Builder, Field, FieldTypeDict } from '@common/models/builder';
 import { BuildersService } from '@common/services/builders.service';
 import { AnyDto } from '@weplanx/ng';
+import { NzModalService } from 'ng-zorro-antd/modal';
+
+import { FieldComponent, FieldInput } from '../field/field.component';
 
 @Component({
-  selector: 'app-index-builders-page',
-  templateUrl: './page.component.html'
+  selector: 'app-index-builders-schema',
+  templateUrl: './schema.component.html'
 })
-export class PageComponent implements OnInit, OnDestroy {
+export class SchemaComponent implements OnInit, OnDestroy {
   data?: AnyDto<Builder>;
+  fieldTypeDict = FieldTypeDict;
 
   private id!: string;
   private updated!: Subscription;
 
   constructor(
     private builders: BuildersService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private modal: NzModalService
   ) {}
 
   ngOnInit(): void {
@@ -40,6 +45,22 @@ export class PageComponent implements OnInit, OnDestroy {
   getData(): void {
     this.builders.findById(this.id).subscribe(data => {
       this.data = data;
+      console.log(data.schema);
+    });
+  }
+
+  openField(field?: Field): void {
+    this.modal.create<FieldComponent, FieldInput>({
+      nzTitle: !field ? '创建字段' : `编辑【${field.name}】字段`,
+      nzWidth: 960,
+      nzContent: FieldComponent,
+      nzData: {
+        doc: this.data!,
+        field
+      },
+      nzOnOk: () => {
+        this.getData();
+      }
     });
   }
 }

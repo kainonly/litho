@@ -33,8 +33,7 @@ export class BuildersComponent implements OnInit {
     private message: NzMessageService,
     private router: Router,
     private route: ActivatedRoute,
-    private contextMenu: NzContextMenuService,
-    private categories: WpxCategoriesService
+    private contextMenu: NzContextMenuService
   ) {}
 
   ngOnInit(): void {

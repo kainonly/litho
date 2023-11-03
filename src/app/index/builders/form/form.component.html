@@ -2,7 +2,7 @@
   <nz-form-item>
     <nz-form-label nzRequired>名称</nz-form-label>
     <nz-form-control nzHasFeedback [nzAutoTips]="tips.name">
-      <input nz-input formControlName="name" placeholder="请输入页面名称" />
+      <input nz-input formControlName="name" placeholder="请输入内容名称" />
     </nz-form-control>
   </nz-form-item>
   <nz-form-item>
@@ -19,7 +19,7 @@
   <nz-form-item>
     <nz-form-label nzRequired>种类</nz-form-label>
     <nz-form-control nzHasFeedback>
-      <nz-select formControlName="kind" nzPlaceHolder="请选择一种新增种类">
+      <nz-select formControlName="kind" nzPlaceHolder="请选择一种内容种类">
         <nz-option nzValue="nav" nzLabel="导航"> </nz-option>
         <nz-option nzValue="collection" nzLabel="集合页面"> </nz-option>
         <nz-option nzValue="single" nzLabel="单一页面"> </nz-option>

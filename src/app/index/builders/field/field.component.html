@@ -1,0 +1,97 @@
+<form *ngIf="form" nz-form nzLayout="vertical" id="form" [formGroup]="form" (wpxSubmit)="submit($event)">
+  <nz-tabset style="height: 100%" nzTabPosition="left" [(nzSelectedIndex)]="tabIndex">
+    <nz-tab nzTitle="字段类型">
+      <nz-card [nzBodyStyle]="{ 'padding.px': 1 }">
+        <nz-radio-group formControlName="type">
+          <ng-container *ngFor="let item of typeItems">
+            <div nz-card-grid style="text-align: center; width: 25%" [nzHoverable]="false">
+              <label nz-radio [nzValue]="item.value">
+                <h2><span nz-icon [nzType]="item.icon" nzTheme="outline"></span> {{ item.label }} </h2>
+                <span>{{ item.description }}</span>
+              </label>
+            </div>
+          </ng-container>
+        </nz-radio-group>
+      </nz-card>
+    </nz-tab>
+    <nz-tab nzTitle="基本设置">
+      <nz-row [nzGutter]="24">
+        <nz-col [nzSpan]="12">
+          <nz-form-item>
+            <nz-form-label nzRequired>显示名称</nz-form-label>
+            <nz-form-control
+              nzHasFeedback
+              [nzAutoTips]="{
+                default: {
+                  required: '显示名称不能为空'
+                }
+              }"
+            >
+              <input nz-input type="text" formControlName="name" placeholder="显示名称，如订单号" />
+            </nz-form-control>
+          </nz-form-item>
+          <nz-form-item>
+            <nz-form-label>占位提示</nz-form-label>
+            <nz-form-control nzHasFeedback>
+              <input nz-input type="text" formControlName="placeholder" placeholder="输入框内提示信息" />
+            </nz-form-control>
+          </nz-form-item>
+          <nz-form-item>
+            <nz-form-label>描述</nz-form-label>
+            <nz-form-control>
+              <textarea nz-input formControlName="name" [rows]="3" placeholder="输入框外附加描述"></textarea>
+            </nz-form-control>
+          </nz-form-item>
+        </nz-col>
+        <nz-col [nzSpan]="12">
+          <nz-form-item>
+            <nz-form-label nzRequired>字段命名</nz-form-label>
+            <nz-form-control
+              nzHasFeedback
+              [nzAutoTips]="{
+                default: {
+                  required: '字段命名不能为空',
+                  pattern: '请使用小写字母与下划线的组合',
+                  duplicated: '字段必须是唯一的'
+                }
+              }"
+            >
+              <input nz-input type="text" formControlName="key" placeholder="数据库集合字段，如 order_number" />
+            </nz-form-control>
+          </nz-form-item>
+
+          <nz-form-item>
+            <nz-form-label nzRequired>必须</nz-form-label>
+            <nz-form-control nzExtra="在创建内容时，此段是必需填写的">
+              <nz-switch formControlName="required"></nz-switch>
+            </nz-form-control>
+          </nz-form-item>
+          <nz-form-item>
+            <nz-form-label nzRequired>显示</nz-form-label>
+            <nz-form-control nzExtra="表单中不显示，但可通过触发显隐规则显示">
+              <nz-switch formControlName="visible"></nz-switch>
+            </nz-form-control>
+          </nz-form-item>
+        </nz-col>
+      </nz-row>
+    </nz-tab>
+    <nz-tab nzTitle="高级设置">
+      <nz-row [nzGutter]="24">
+        <nz-col [nzSpan]="12">
+          <nz-form-item>
+            <nz-form-label>默认值</nz-form-label>
+            <nz-form-control nzHasFeedback>
+              <input nz-input type="text" formControlName="default_to" />
+            </nz-form-control>
+          </nz-form-item>
+        </nz-col>
+        <nz-col [nzSpan]="12"></nz-col>
+      </nz-row>
+    </nz-tab>
+  </nz-tabset>
+</form>
+
+<div *nzModalFooter>
+  <button nz-button type="button" nzType="default" (click)="close()">取消</button>
+  <button nz-button nzType="primary" form="form" [disabled]="!form.valid">提交</button>
+</div>
