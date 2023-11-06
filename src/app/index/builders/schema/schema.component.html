@@ -50,7 +50,17 @@
           <span>{{ item.name }}</span>
         </td>
         <td></td>
-        <td nzRight></td>
+        <td nzRight>
+          <button nz-button nzType="text" nz-dropdown [nzDropdownMenu]="menu">
+            <span nz-icon nzType="ellipsis" nzTheme="outline"></span>
+          </button>
+          <nz-dropdown-menu #menu="nzDropdownMenu">
+            <ul nz-menu>
+              <li nz-menu-item (click)="openField(item)"> 修改 </li>
+              <li nz-menu-item nzDanger (click)="delete(item)"> 删除 </li>
+            </ul>
+          </nz-dropdown-menu>
+        </td>
       </tr>
     </tbody>
   </nz-table>

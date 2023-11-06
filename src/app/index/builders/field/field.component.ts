@@ -30,7 +30,7 @@ export class FieldComponent implements OnInit {
     { label: '日期范围', value: 'dates', icon: 'calendar', description: '日期范围选择器' },
     { label: '单选框', value: 'radio', icon: 'aim', description: '枚举单选框' },
     { label: '复选框', value: 'checkbox', icon: 'check', description: '枚举复选框' },
-    { label: '选择器', value: 'select', icon: 'unordered-list', description: '枚举或集合标签选择器' },
+    { label: '选择器', value: 'select', icon: 'unordered-list', description: '枚举或集合标签' },
     { label: '引用', value: 'ref', icon: 'link', description: '引用外部集合' },
     { label: '图片', value: 'picture', icon: 'picture', description: '图库资源选择器' },
     { label: '视频', value: 'video', icon: 'video-camera', description: '视频资源选择器' },
@@ -56,11 +56,11 @@ export class FieldComponent implements OnInit {
       description: [''],
       required: [false, [Validators.required]],
       visible: [false, [Validators.required]],
-      default_to: [null]
+      default_to: [null],
+      sort: [0]
     });
     if (this.data.field) {
       this.tabIndex = 1;
-      this.form.get('type')!.disable();
       this.form.patchValue(this.data.field);
     }
   }
@@ -70,12 +70,15 @@ export class FieldComponent implements OnInit {
   }
 
   submit(data: Any): void {
-    console.log(data);
     if (!this.data.field) {
-      data.sort = 0;
       this.builders.addSchemaField(this.data.doc._id, data).subscribe(() => {
         this.modalRef.triggerOk();
         this.message.success('字段新增完成');
+      });
+    } else {
+      this.builders.updateSchemaField(this.data.doc._id, this.data.field.key, data).subscribe(() => {
+        this.modalRef.triggerOk();
+        this.message.success('字段更新完成');
       });
     }
   }

@@ -118,6 +118,7 @@ export abstract class WpxApi<T> {
       xfilter: options?.xfilter,
       data: update,
       xdata: options?.xdata,
+      arrayFilters: options?.arrayFilters,
       txn: options?.txn
     });
   }
@@ -126,6 +127,7 @@ export abstract class WpxApi<T> {
     return this.http.patch(`db/${this.collection}/${id}`, {
       data: update,
       xdata: options?.xdata,
+      arrayFilters: options?.arrayFilters,
       txn: options?.txn
     });
   }

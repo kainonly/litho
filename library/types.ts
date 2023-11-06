@@ -41,6 +41,7 @@ export interface UpdateOperators<T> {
   $set: Partial<{ [P in keyof AnyDto<T>]: AnyDto<T>[P] }> & R;
   $unset: Partial<{ [P in keyof AnyDto<T>]: '' }> & { [key: string]: '' };
   $push: Partial<{ [P in keyof AnyDto<T>]: AnyDto<T>[P] }> & R;
+  $pull: Partial<{ [P in keyof AnyDto<T>]: AnyDto<T>[P] }> & R;
 }
 export type Update<T> = Partial<UpdateOperators<T>>;
 export type Sort<T> = Partial<{ [P in keyof AnyDto<T>]: -1 | 1 }>;
@@ -59,6 +60,7 @@ export interface ApiOptions<T> {
   pagesize?: number;
   xfilter?: XFilter;
   xdata?: XData;
+  arrayFilters?: R[];
   txn?: string;
 }
 export type FilterOption<T> = Pick<ApiOptions<T>, 'xfilter'>;
@@ -70,8 +72,8 @@ export interface FindResult<T> {
 }
 export type FindOneOption<T> = Pick<ApiOptions<T>, 'keys' | 'xfilter'>;
 export type FindByIdOption<T> = Pick<ApiOptions<T>, 'keys'>;
-export type UpdateOption<T> = Pick<ApiOptions<T>, 'xfilter' | 'xdata' | 'txn'>;
-export type UpdateOneByIdOption<T> = Pick<ApiOptions<T>, 'xdata' | 'txn'>;
+export type UpdateOption<T> = Pick<ApiOptions<T>, 'xfilter' | 'xdata' | 'arrayFilters' | 'txn'>;
+export type UpdateOneByIdOption<T> = Pick<ApiOptions<T>, 'xdata' | 'arrayFilters' | 'txn'>;
 export type ReplaceOption<T> = Pick<ApiOptions<T>, 'xdata' | 'txn'>;
 export type DeleteOption<T> = Pick<ApiOptions<T>, 'txn'>;
 export type BulkDeleteOption<T> = Pick<ApiOptions<T>, 'xfilter' | 'txn'>;

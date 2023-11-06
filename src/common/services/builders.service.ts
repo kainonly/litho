@@ -44,16 +44,32 @@ export class BuildersService extends WpxApi<Builder> {
     );
   }
 
+  existsSchemaKey(key: string): Observable<Any> {
+    return timer(500).pipe(
+      switchMap(() => this.exists({ 'schema.key': key })),
+      map(v => (v ? { error: true, duplicated: v } : null))
+    );
+  }
+
   addSchemaField(id: string, data: Field): Observable<R> {
     return this.updateById(id, {
       $push: { 'schema.fields': data }
     });
   }
 
-  existsSchemaKey(key: string): Observable<Any> {
-    return timer(500).pipe(
-      switchMap(() => this.exists({ 'schema.key': key })),
-      map(v => (v ? { error: true, duplicated: v } : null))
+  updateSchemaField(id: string, key: string, data: Field): Observable<R> {
+    return this.updateById(
+      id,
+      {
+        $set: {
+          'schema.fields.$[i]': data
+        }
+      },
+      { arrayFilters: [{ 'i.key': key }] }
     );
+  }
+
+  deleteSchemaField(id: string, key: string): Observable<R> {
+    return this.updateById(id, { $pull: { 'schema.fields': { key } } });
   }
 }

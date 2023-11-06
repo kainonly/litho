@@ -5,6 +5,7 @@ import { Subscription } from 'rxjs';
 import { Builder, Field, FieldTypeDict } from '@common/models/builder';
 import { BuildersService } from '@common/services/builders.service';
 import { AnyDto } from '@weplanx/ng';
+import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalService } from 'ng-zorro-antd/modal';
 
 import { FieldComponent, FieldInput } from '../field/field.component';
@@ -23,7 +24,8 @@ export class SchemaComponent implements OnInit, OnDestroy {
   constructor(
     private builders: BuildersService,
     private route: ActivatedRoute,
-    private modal: NzModalService
+    private modal: NzModalService,
+    private message: NzMessageService
   ) {}
 
   ngOnInit(): void {
@@ -61,6 +63,22 @@ export class SchemaComponent implements OnInit, OnDestroy {
       nzOnOk: () => {
         this.getData();
       }
+    });
+  }
+
+  delete(field: Field): void {
+    this.modal.confirm({
+      nzTitle: `您确定要删除【${field.name}】字段吗?`,
+      nzOkText: `是的`,
+      nzOkType: 'primary',
+      nzOkDanger: true,
+      nzOnOk: () => {
+        this.builders.deleteSchemaField(this.id, field.key).subscribe(() => {
+          this.getData();
+          this.message.success('字段删除成功');
+        });
+      },
+      nzCancelText: `再想想`
     });
   }
 }
