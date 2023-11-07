@@ -72,4 +72,8 @@ export class BuildersService extends WpxApi<Builder> {
   deleteSchemaField(id: string, key: string): Observable<R> {
     return this.updateById(id, { $pull: { 'schema.fields': { key } } });
   }
+
+  sortSchemaFields(id: string, keys: string[]): Observable<R> {
+    return this.http.post(`${this.collection}/sort_fields`, { id, keys });
+  }
 }

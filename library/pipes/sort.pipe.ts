@@ -1,10 +1,12 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
+import { Any } from '../types';
+
 @Pipe({ name: 'wpxSort' })
 export class WpxSortPipe implements PipeTransform {
-  transform(value: any[], field: string, sort: 1 | -1 = 1): any[] {
+  transform(value: Any[], field: string, sort: 1 | -1 = 1): Any[] {
     return value.sort((a, b) => {
-      if (a.hasOwnProperty(field) && b.hasOwnProperty(field)) {
+      if (a[field] && b[field]) {
         return (a[field] - b[field]) * sort;
       }
       return 0;

@@ -56,8 +56,7 @@ export class FieldComponent implements OnInit {
       description: [''],
       required: [false, [Validators.required]],
       visible: [false, [Validators.required]],
-      default_to: [null],
-      sort: [0]
+      default_to: [null]
     });
     if (this.data.field) {
       this.tabIndex = 1;

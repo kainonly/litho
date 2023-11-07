@@ -32,7 +32,11 @@
   <nz-table nzTemplateMode>
     <thead>
       <tr>
-        <th nzWidth="60px" nzAlign="center" nzLeft> </th>
+        <th nzWidth="60px" nzAlign="center" nzLeft>
+          <button nz-button nzType="text" disabled>
+            <i nz-icon nzType="holder"></i>
+          </button>
+        </th>
         <th nzWidth="360px"><b>字段名称</b></th>
         <th><b>详情</b></th>
         <th nzRight nzWidth="60px">
@@ -42,12 +46,17 @@
         </th>
       </tr>
     </thead>
-    <tbody>
-      <tr *ngFor="let item of data?.schema?.fields">
-        <td nzLeft></td>
+    <tbody cdkDropList (cdkDropListDropped)="sort($event)">
+      <tr *ngFor="let field of fields" cdkDrag>
+        <td colspan="4" class="placeholder" *cdkDragPlaceholder> </td>
+        <td nzLeft>
+          <button nz-button nzType="text" cdkDragHandle>
+            <i nz-icon nzType="holder"></i>
+          </button>
+        </td>
         <td>
-          <nz-tag nzColor="blue">{{ fieldTypeDict[item.type] }}</nz-tag>
-          <span>{{ item.name }}</span>
+          <nz-tag nzColor="blue">{{ fieldTypeDict[field.type] }}</nz-tag>
+          <span>{{ field.name }}</span>
         </td>
         <td></td>
         <td nzRight>
@@ -56,8 +65,8 @@
           </button>
           <nz-dropdown-menu #menu="nzDropdownMenu">
             <ul nz-menu>
-              <li nz-menu-item (click)="openField(item)"> 修改 </li>
-              <li nz-menu-item nzDanger (click)="delete(item)"> 删除 </li>
+              <li nz-menu-item (click)="openField(field)"> 修改 </li>
+              <li nz-menu-item nzDanger (click)="delete(field)"> 删除 </li>
             </ul>
           </nz-dropdown-menu>
         </td>

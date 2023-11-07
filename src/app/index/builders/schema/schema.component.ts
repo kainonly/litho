@@ -1,3 +1,4 @@
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
@@ -12,10 +13,12 @@ import { FieldComponent, FieldInput } from '../field/field.component';
 
 @Component({
   selector: 'app-index-builders-schema',
-  templateUrl: './schema.component.html'
+  templateUrl: './schema.component.html',
+  styleUrls: ['./schema.component.less']
 })
 export class SchemaComponent implements OnInit, OnDestroy {
   data?: AnyDto<Builder>;
+  fields: Field[] = [];
   fieldTypeDict = FieldTypeDict;
 
   private id!: string;
@@ -47,8 +50,21 @@ export class SchemaComponent implements OnInit, OnDestroy {
   getData(): void {
     this.builders.findById(this.id).subscribe(data => {
       this.data = data;
-      console.log(data.schema);
+      this.fields = data.schema?.fields ?? [];
     });
+  }
+
+  sort(e: CdkDragDrop<string[]>): void {
+    moveItemInArray(this.fields, e.previousIndex, e.currentIndex);
+    this.fields = [...this.fields];
+    this.builders
+      .sortSchemaFields(
+        this.id,
+        this.fields.map(v => v.key)
+      )
+      .subscribe(() => {
+        this.message.success('字段排序成功');
+      });
   }
 
   openField(field?: Field): void {
