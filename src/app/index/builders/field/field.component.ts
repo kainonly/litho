@@ -1,11 +1,12 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { BehaviorSubject, debounceTime, Subscription } from 'rxjs';
 
 import { Builder, Field } from '@common/models/builder';
 import { BuildersService } from '@common/services/builders.service';
 import { Any, AnyDto } from '@weplanx/ng';
 import { NzMessageService } from 'ng-zorro-antd/message';
-import { NZ_MODAL_DATA, NzModalRef } from 'ng-zorro-antd/modal';
+import { NZ_MODAL_DATA, NzModalRef, NzModalService } from 'ng-zorro-antd/modal';
 
 export interface FieldInput {
   doc: AnyDto<Builder>;
@@ -37,11 +38,21 @@ export class FieldComponent implements OnInit {
     { label: '文件', value: 'file', icon: 'file-text', description: '文件资源选择器' },
     { label: '自定义', value: 'manual', icon: 'code', description: '使用自定注册组件' }
   ];
+  infinity = Infinity;
+
+  refers: Array<AnyDto<Builder>> = [];
+  referDict: Record<string, AnyDto<Builder>> = {};
+  referFields: Field[] = [];
+
+  referText$ = new BehaviorSubject<string>('');
+  referSubscription?: Subscription;
+  referItems: AnyDto<Any>[] = [];
 
   constructor(
     @Inject(NZ_MODAL_DATA)
     public data: FieldInput,
     private fb: FormBuilder,
+    private modal: NzModalService,
     private modalRef: NzModalRef,
     private message: NzMessageService,
     private builders: BuildersService
@@ -58,10 +69,144 @@ export class FieldComponent implements OnInit {
       visible: [false, [Validators.required]],
       default_to: [null]
     });
+    this.watchType();
     if (this.data.field) {
       this.tabIndex = 1;
       this.form.patchValue(this.data.field);
     }
+  }
+
+  get type(): FormControl {
+    return this.form.get('type') as FormControl;
+  }
+
+  private watchType(): void {
+    this.type.valueChanges.subscribe(type => {
+      this.form.removeControl('option');
+      this.refers = [];
+      this.referDict = {};
+      this.referFields = [];
+      this.referSubscription?.unsubscribe();
+      switch (type) {
+        case 'number':
+          this.form.setControl(
+            'option',
+            this.fb.group({
+              max: [null],
+              min: [null],
+              decimal: [2]
+            })
+          );
+          break;
+        case 'date':
+        case 'dates':
+          this.form.setControl(
+            'option',
+            this.fb.group({
+              time: [false]
+            })
+          );
+          break;
+        case 'radio':
+        case 'checkbox':
+          this.form.setControl(
+            'option',
+            this.fb.group({
+              enums: this.fb.array([])
+            })
+          );
+          this.data.field?.option?.enums?.forEach(() => this.addOptionEnum());
+          break;
+        case 'select':
+          this.form.setControl(
+            'option',
+            this.fb.group({
+              enums: this.fb.array([]),
+              multiple: [false]
+            })
+          );
+          this.data.field?.option?.enums?.forEach(() => this.addOptionEnum());
+          break;
+        case 'ref':
+          this.form.setControl(
+            'option',
+            this.fb.group({
+              ref: [null, [Validators.required]],
+              ref_key: [null, [Validators.required]],
+              multiple: [false]
+            })
+          );
+          this.builders.getRefs().subscribe(({ data }) => {
+            this.refers = [...data];
+            this.refers.forEach(v => {
+              this.referDict[v._id] = v;
+            });
+          });
+          this.optionRef.valueChanges.subscribe(id => {
+            this.referFields = [
+              ...this.referDict[id].schema!.fields.filter(v => ['string', 'number', 'bool'].includes(v.type))
+            ];
+          });
+          break;
+        case 'manual':
+          this.form.setControl(
+            'option',
+            this.fb.group({
+              component: [null, [Validators.required]]
+            })
+          );
+          break;
+      }
+    });
+  }
+
+  get option(): FormControl {
+    return this.form.get('option') as FormControl;
+  }
+
+  get optionMax(): FormControl {
+    return this.option.get('max') as FormControl;
+  }
+
+  get optionMin(): FormControl {
+    return this.option.get('min') as FormControl;
+  }
+
+  get optionDecimal(): FormControl {
+    return this.option.get('decimal') as FormControl;
+  }
+
+  get optionTime(): FormControl {
+    return this.option.get('time') as FormControl;
+  }
+
+  get optionEnums(): FormArray {
+    return this.form.get('option')?.get('enums') as FormArray;
+  }
+
+  addOptionEnum(): void {
+    this.optionEnums.push(
+      this.fb.group({
+        label: [null, [Validators.required]],
+        value: [null, [Validators.required]]
+      })
+    );
+  }
+
+  removeOptionEnum(index: number): void {
+    this.optionEnums.removeAt(index);
+  }
+
+  get optionRef(): FormControl {
+    return this.option.get('ref') as FormControl;
+  }
+
+  get optionRefKey(): FormControl {
+    return this.option.get('ref_key') as FormControl;
+  }
+
+  get optionMultiple(): FormControl {
+    return this.option.get('multiple') as FormControl;
   }
 
   close(): void {
@@ -81,4 +226,6 @@ export class FieldComponent implements OnInit {
       });
     }
   }
+
+  protected readonly Infinity = Infinity;
 }

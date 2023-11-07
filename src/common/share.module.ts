@@ -3,6 +3,7 @@ import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
 import { WpxModule, WpxShareModule } from '@weplanx/ng';
+import { WpxCheckboxModule } from '@weplanx/ng/checkbox';
 import { WpxKeywordModule } from '@weplanx/ng/keyword';
 import { WpxListModule } from '@weplanx/ng/list';
 import { WpxTableModule } from '@weplanx/ng/table';
@@ -22,6 +23,7 @@ import { NzTransferModule } from 'ng-zorro-antd/transfer';
     WpxUploadModule,
     WpxTableModule,
     WpxListModule,
+    WpxCheckboxModule,
     NzTransferModule,
     NzCodeEditorModule,
     NzQRCodeModule,

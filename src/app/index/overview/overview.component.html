@@ -96,7 +96,7 @@
         </nz-col>
         <nz-col [nzSpan]="12">
           <ng-template #redisEditTpl>
-            <button nz-button nzType="text">
+            <button nz-button nzType="text" [disabled]="!data.cluster">
               <span nz-icon nzType="deployment-unit" nzTheme="outline"></span>
             </button>
           </ng-template>

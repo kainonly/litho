@@ -33,7 +33,8 @@
       "@weplanx/ng/upload": ["library/upload/public-api.ts"],
       "@weplanx/ng/richtext": ["library/richtext/public-api.ts"],
       "@weplanx/ng/table": ["library/table/public-api.ts"],
-      "@weplanx/ng/list": ["library/list/public-api.ts"]
+      "@weplanx/ng/list": ["library/list/public-api.ts"],
+      "@weplanx/ng/checkbox": ["library/checkbox/public-api.ts"]
     }
   },
   "angularCompilerOptions": {

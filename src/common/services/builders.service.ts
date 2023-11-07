@@ -1,9 +1,10 @@
+import { HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, Subject, switchMap, timer } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { Builder, Field } from '@common/models/builder';
-import { Any, AnyDto, Filter, R, WpxApi, XFilter } from '@weplanx/ng';
+import { Any, AnyDto, Filter, FindResult, R, toHttpParams, WpxApi, XFilter } from '@weplanx/ng';
 import { NzTreeNodeOptions } from 'ng-zorro-antd/tree';
 
 @Injectable({ providedIn: 'root' })
@@ -17,7 +18,7 @@ export class BuildersService extends WpxApi<Builder> {
     filter: Filter<Builder> = {},
     xfilter?: XFilter
   ): Observable<NzTreeNodeOptions[]> {
-    return this.find(filter, { sort: { sort: 1 }, xfilter }).pipe(
+    return this.find(filter, { pagesize: 1000, sort: { sort: 1 }, xfilter }).pipe(
       map(({ data }) => {
         const nodes: NzTreeNodeOptions[] = [];
         const nodeDict: Record<string, NzTreeNodeOptions> = {};
@@ -75,5 +76,15 @@ export class BuildersService extends WpxApi<Builder> {
 
   sortSchemaFields(id: string, keys: string[]): Observable<R> {
     return this.http.post(`${this.collection}/sort_fields`, { id, keys });
+  }
+
+  getRefs(): Observable<FindResult<Builder>> {
+    return this.find(
+      { kind: 'collection', schema: { $exists: true } },
+      {
+        pagesize: 1000,
+        keys: ['_id', 'name', 'schema']
+      }
+    );
   }
 }

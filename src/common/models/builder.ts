@@ -36,7 +36,7 @@ export interface FieldOption {
   time: boolean;
   enums: Enum[];
   ref: string;
-  ref_keys: string[];
+  ref_key: string;
   component: string;
   multiple: boolean;
 }
