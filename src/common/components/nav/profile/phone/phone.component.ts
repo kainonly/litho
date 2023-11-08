@@ -15,14 +15,14 @@ export class PhoneComponent implements OnInit {
   tips = {
     phone: {
       default: {
-        required: `手机号码不能为空`,
-        pattern: '手机号码格式不规范'
+        required: `Phone Number cannot be empty`,
+        pattern: `Must be in phone number format`
       }
     },
     code: {
       default: {
-        required: `验证码不能为空`,
-        pattern: '验证码格式不规范'
+        required: `Code cannot be empty`,
+        pattern: `Must be a number of length 6`
       }
     }
   };
@@ -67,7 +67,7 @@ export class PhoneComponent implements OnInit {
 
   submit(data: Any): void {
     this.app.setUserPhone(data.area + data.phone, data.code).subscribe(() => {
-      this.message.success(`数据更新成功`);
+      this.message.success(`Update successful`);
       this.modalRef.triggerOk();
     });
   }

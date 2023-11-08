@@ -1,7 +1,7 @@
 <nz-card>
   <form nz-form nzLayout="vertical" [formGroup]="form" (wpxSubmit)="submit($event)">
     <nz-form-item>
-      <nz-form-label>头像</nz-form-label>
+      <nz-form-label>Avatar</nz-form-label>
       <nz-form-control>
         <wpx-upload-avatar
           wpxExt="image"
@@ -13,13 +13,13 @@
       </nz-form-control>
     </nz-form-item>
     <nz-form-item>
-      <nz-form-label>图库</nz-form-label>
+      <nz-form-label>Picture</nz-form-label>
       <nz-form-control>
         <app-pictures-input formControlName="pictures"></app-pictures-input>
       </nz-form-control>
     </nz-form-item>
     <nz-form-item>
-      <nz-form-label>视频库</nz-form-label>
+      <nz-form-label>Video</nz-form-label>
       <nz-form-control>
         <app-videos-input formControlName="videos"></app-videos-input>
       </nz-form-control>
@@ -27,9 +27,9 @@
     <nz-form-item>
       <nz-form-control>
         <nz-space>
-          <button *nzSpaceItem nz-button type="button" (click)="mock()">模拟初始化</button>
-          <button *nzSpaceItem nz-button type="button" (click)="reset()">重置</button>
-          <button *nzSpaceItem nz-button nzType="primary" [disabled]="!form.valid">提交</button>
+          <button *nzSpaceItem nz-button type="button" (click)="mock()">Mock Init</button>
+          <button *nzSpaceItem nz-button type="button" (click)="reset()">Reset</button>
+          <button *nzSpaceItem nz-button nzType="primary" [disabled]="!form.valid">Submit</button>
         </nz-space>
       </nz-form-control>
     </nz-form-item>

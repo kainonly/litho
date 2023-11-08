@@ -14,7 +14,7 @@ export class RedirectComponent implements OnInit {
   tips = {
     RedirectUrl: {
       default: {
-        required: `跳转地址不能为空`
+        required: `Redirect Url cannot be empty`
       }
     }
   };
@@ -41,7 +41,7 @@ export class RedirectComponent implements OnInit {
 
   submit(data: Any): void {
     this.wpx.setValues(data).subscribe(() => {
-      this.message.success(`数据更新成功`);
+      this.message.success(`Update successful`);
       this.modalRef.triggerOk();
     });
   }

@@ -151,7 +151,7 @@ export class WpxFilebrowserComponent<T extends WpxFile> implements OnInit, After
   openForm(doc: AnyDto<T>): void {
     if (!this.wpxForm) {
       this.modal.create<FormComponent, FormInput>({
-        nzTitle: `编辑`,
+        nzTitle: `Modify(${doc.name})`,
         nzContent: FormComponent,
         nzData: {
           doc,
@@ -169,7 +169,7 @@ export class WpxFilebrowserComponent<T extends WpxFile> implements OnInit, After
 
   openPicture(doc: AnyDto<T>): void {
     this.modal.create<PictureComponent, PictureInput<T>>({
-      nzTitle: `图片设置`,
+      nzTitle: `Process(${doc.name})`,
       nzWidth: 960,
       nzContent: PictureComponent,
       nzData: {
@@ -196,30 +196,29 @@ export class WpxFilebrowserComponent<T extends WpxFile> implements OnInit, After
 
   delete(data: AnyDto<T>): void {
     this.modal.confirm({
-      nzTitle: `您确认要删除吗?`,
-      nzContent: `[${data.name}]`,
+      nzTitle: `Do you want to delete this?`,
+      nzContent: data.name,
       nzWidth: 640,
-      nzOkText: `是的`,
+      nzOkText: `Yes`,
       nzOkType: 'primary',
       nzOkDanger: true,
       nzOnOk: () => {
         this.wpxApi.delete(data._id).subscribe(() => {
-          this.message.success(`数据删除完成`);
+          this.message.success(`Deletion successful`);
           this.ds.removeSelection(data._id);
           data.deleted = true;
           this.cdr.detectChanges();
         });
       },
-      nzCancelText: `否`
+      nzCancelText: `Think again`
     });
   }
 
   bulkDelete(): void {
     this.modal.confirm({
-      nzTitle: `您确认要删除这 ${this.ds.selection.size} 项元素吗?`,
-      nzContent: [...this.ds.selection.values()].map(v => `[${v.name}]`).toString(),
+      nzTitle: `Do you want to delete these items`,
       nzWidth: 640,
-      nzOkText: `是的`,
+      nzOkText: `Yes`,
       nzOkType: 'primary',
       nzOkDanger: true,
       nzOnOk: () => {
@@ -240,16 +239,16 @@ export class WpxFilebrowserComponent<T extends WpxFile> implements OnInit, After
             });
             this.ds.selection.clear();
             this.cdr.detectChanges();
-            this.message.success(`数据删除完成`);
+            this.message.success(`Deletion successful`);
           });
       },
-      nzCancelText: `否`
+      nzCancelText: `Think again`
     });
   }
 
   bulkCategories(): void {
     this.modal.create<CategoriesComponent, CategoriesInput>({
-      nzTitle: `编辑`,
+      nzTitle: `Category to`,
       nzContent: CategoriesComponent,
       nzData: {
         docs: [...this.ds.selection.values()] as AnyDto<T>[],

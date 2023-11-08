@@ -21,14 +21,20 @@ export class FormComponent implements OnInit {
   tips = {
     email: {
       default: {
-        required: `电子邮件不能为空`,
-        duplicated: `存在重复的定义，电子邮件必须是唯一的`
+        required: `Email cannot be empty`,
+        email: `Must be in email format`,
+        duplicated: `Email must be unique`
       }
     },
     password: {
       default: {
-        required: `密码不能为空`,
-        minlength: `密码长度必须大于6位`
+        required: `Password cannot be empty`,
+        minlength: `The password length must be greater than 8`,
+        lowercase: `The password needs to contain lowercase letters`,
+        uppercase: `The password needs to contain uppercase letters`,
+        number: `The password needs to contain numbers`,
+        symbol: `The password needs to contain symbols (@$!%*?&-+)`,
+        inconsistent: `The password confirmed again is inconsistent`
       }
     }
   };
@@ -82,7 +88,7 @@ export class FormComponent implements OnInit {
           xdata: { password: 'password' }
         })
         .subscribe(() => {
-          this.message.success(`数据更新成功`);
+          this.message.success(`Update successful`);
           this.modalRef.triggerOk();
         });
     } else {
@@ -100,7 +106,7 @@ export class FormComponent implements OnInit {
           }
         )
         .subscribe(() => {
-          this.message.success(`数据更新成功`);
+          this.message.success(`Update successful`);
           this.modalRef.triggerOk();
         });
     }

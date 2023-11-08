@@ -43,7 +43,7 @@ export class AccTasksComponent implements OnInit {
 
   openForm(doc?: AnyDto<AccTask>): void {
     this.modal.create<FormComponent, FormInput>({
-      nzTitle: !doc ? '创建' : `编辑【${doc.source}】`,
+      nzTitle: !doc ? 'Create' : `Modify(${doc.source})`,
       nzContent: FormComponent,
       nzData: {
         doc
@@ -56,7 +56,7 @@ export class AccTasksComponent implements OnInit {
 
   openSetting(): void {
     this.modal.create<SettingComponent>({
-      nzTitle: '资源加速设置',
+      nzTitle: 'Setting',
       nzContent: SettingComponent
     });
   }
@@ -64,31 +64,32 @@ export class AccTasksComponent implements OnInit {
   sync(): void {
     this.syncing = true;
     this.accTasks.invoke().subscribe(data => {
-      this.message.success(`同步已完成：${formatDate(data.date, 'yyyy-MM-dd HH:mm:ss', 'zh-Hans')}`);
+      this.message.success(`Synchronization to be completed in ${formatDate(data.date, 'long', 'en-US')}`);
       this.syncing = false;
     });
   }
 
   delete(doc: AnyDto<AccTask>): void {
     this.modal.confirm({
-      nzTitle: `您确定要删除【${doc.source}】?`,
-      nzOkText: `是的`,
+      nzTitle: `Do you want to delete this?`,
+      nzContent: doc.source,
+      nzOkText: `Yes`,
       nzOkType: 'primary',
       nzOkDanger: true,
       nzOnOk: () => {
         this.accTasks.delete(doc._id).subscribe(() => {
-          this.message.success(`数据删除成功`);
+          this.message.success(`Deletion successful`);
           this.getData(true);
         });
       },
-      nzCancelText: `再想想`
+      nzCancelText: `Think again`
     });
   }
 
   bulkDelete(): void {
     this.modal.confirm({
-      nzTitle: `您确定删除这些项目吗？`,
-      nzOkText: `是的`,
+      nzTitle: `Do you want to delete these items?`,
+      nzOkText: `Yes`,
       nzOkType: 'primary',
       nzOkDanger: true,
       nzOnOk: () => {
@@ -104,12 +105,12 @@ export class AccTasksComponent implements OnInit {
             }
           )
           .subscribe(() => {
-            this.message.success(`数据删除成功`);
+            this.message.success(`Deletion successful`);
             this.getData(true);
             this.model.setCurrentSelections(false);
           });
       },
-      nzCancelText: `再想想`
+      nzCancelText: `Think again`
     });
   }
 }

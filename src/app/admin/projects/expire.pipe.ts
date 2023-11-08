@@ -10,8 +10,8 @@ export class ExpirePipe implements PipeTransform {
 
   transform(v: AnyDto<Project>): string {
     if (!v.status) {
-      return '停用';
+      return 'Disabled';
     }
-    return !v.expire ? '长期' : '有效至 ' + formatDate(v.expire, 'yyyy/MM/dd', this.locale);
+    return !v.expire ? 'Long' : 'Expires ' + formatDate(v.expire, 'yyyy/MM/dd', this.locale);
   }
 }

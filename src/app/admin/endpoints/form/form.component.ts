@@ -20,13 +20,13 @@ export class FormComponent implements OnInit {
   tips = {
     name: {
       default: {
-        required: `服务名称不能为空`
+        required: `Service Name cannot be empty`
       }
     },
     schedule_node: {
       default: {
-        required: `节点命名不能为空`,
-        pattern: `仅允许小写字母、数子、下划线`
+        required: `Node Identity cannot be empty`,
+        pattern: `Only lowercase letters, numbers, and underscores are allowed`
       }
     }
   };
@@ -78,7 +78,7 @@ export class FormComponent implements OnInit {
     }
     this.endpoints.schedulePing([node]).subscribe(data => {
       if (data[node]) {
-        this.message.success(`节点连通测试成功`);
+        this.message.success(`Node connectivity test successful`);
       }
     });
   }
@@ -90,7 +90,7 @@ export class FormComponent implements OnInit {
   submit(data: Any): void {
     if (!this.data.doc) {
       this.endpoints.create(data).subscribe(() => {
-        this.message.success(`数据更新成功`);
+        this.message.success(`Update successful`);
         this.modalRef.triggerOk();
       });
     } else {
@@ -101,7 +101,7 @@ export class FormComponent implements OnInit {
         }
       });
       this.endpoints.updateById(this.data.doc._id, { $set: data, $unset }).subscribe(() => {
-        this.message.success(`数据更新成功`);
+        this.message.success(`Update successful`);
         this.modalRef.triggerOk();
       });
     }

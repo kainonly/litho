@@ -6,7 +6,7 @@
       [wpxModel]="model"
       [wpxKeys]="['target']"
       (wpxSubmit)="getData()"
-      wpxPlaceholder="目标资源"
+      wpxPlaceholder="Target URL"
     ></wpx-keyword>
     <wpx-toolbox *nzSpaceItem [wpxModel]="model" (wpxClear)="getData()" (wpxRefresh)="getData()"> </wpx-toolbox>
   </nz-space>
@@ -15,13 +15,13 @@
 <ng-template #extraRef>
   <nz-space nzAlign="center">
     <ng-container *ngIf="model.selection.size as size">
-      <button *nzSpaceItem nz-button nzType="dashed" nz-dropdown [nzDropdownMenu]="menu"> 已选中 {{ size }} 项 </button>
+      <button *nzSpaceItem nz-button nzType="dashed" nz-dropdown [nzDropdownMenu]="menu">
+        {{ size }} selected items
+      </button>
       <nz-dropdown-menu #menu="nzDropdownMenu">
         <ul nz-menu>
-          <li nz-menu-item (click)="wpxTable.clearSelections()"> 取消选择 </li>
-        </ul>
-        <ul nz-menu>
-          <li nz-menu-item nzDanger (click)="bulkDelete()"> 删除 </li>
+          <li nz-menu-item (click)="wpxTable.clearSelections()"> Unselect </li>
+          <li nz-menu-item nzDanger (click)="bulkDelete()"> Delete </li>
         </ul>
       </nz-dropdown-menu>
     </ng-container>
@@ -29,14 +29,14 @@
       *nzSpaceItem
       nz-button
       nz-popconfirm
-      nzPopconfirmTitle="您确定要开始同步吗?"
+      nzPopconfirmTitle="Are you sure you want to start syncing?"
       (nzOnConfirm)="sync()"
       [nzLoading]="syncing"
     >
-      同步
+      Sync
     </button>
-    <button *nzSpaceItem nz-button (click)="openSetting()"> 设置 </button>
-    <button *nzSpaceItem nz-button nzType="primary" (click)="openForm()"> 新增 </button>
+    <button *nzSpaceItem nz-button (click)="openSetting()"> Setting </button>
+    <button *nzSpaceItem nz-button nzType="primary" (click)="openForm()"> Create </button>
   </nz-space>
 </ng-template>
 
@@ -47,12 +47,12 @@
   [wpxModel]="model"
   [wpxColumns]="[
     {
-      title: '目标资源',
+      title: 'Target URL',
       key: 'target',
       render: target
     },
     {
-      title: '源地址',
+      title: 'Source URL',
       key: 'source'
     }
   ]"
@@ -61,7 +61,7 @@
 >
   <ng-template #target let-data>
     <nz-tag nzColor="blue" [ngSwitch]="data.kind">
-      <ng-container *ngSwitchCase="'static'"> 静态资源 </ng-container>
+      <ng-container *ngSwitchCase="'static'"> Static </ng-container>
     </nz-tag>
     {{ data.target }}
   </ng-template>
@@ -73,8 +73,8 @@
   </button>
   <nz-dropdown-menu #menu="nzDropdownMenu">
     <ul nz-menu>
-      <li nz-menu-item (click)="openForm(data)"> 修改 </li>
-      <li nz-menu-item nzDanger (click)="delete(data)"> 删除 </li>
+      <li nz-menu-item (click)="openForm(data)"> Modify </li>
+      <li nz-menu-item nzDanger (click)="delete(data)"> Delete </li>
     </ul>
   </nz-dropdown-menu>
 </ng-template>

@@ -17,8 +17,8 @@ export class EmailComponent implements OnInit {
   tips = {
     email: {
       default: {
-        email: `电子邮件格式不规范`,
-        duplicated: `存在重复的定义，电子邮件必须是唯一的`
+        required: `Email cannot be empty`,
+        email: `Must be in email format`
       }
     }
   };
@@ -51,7 +51,7 @@ export class EmailComponent implements OnInit {
 
   submit(data: Any): void {
     this.app.setUser({ key: 'email', email: data.email }).subscribe(() => {
-      this.message.success(`数据更新成功，需要重新登录系统`);
+      this.message.success(`Update successful, you need to sign in again`);
       this.modalRef.triggerOk();
     });
   }

@@ -1,22 +1,22 @@
 <app-blank-page>
   <nz-row style="min-height: 85%" nzJustify="center" nzAlign="middle">
     <div style="min-width: 360px">
-      <h2 nz-typography>登 录</h2>
+      <h2 nz-typography>SIGN IN</h2>
       <nz-tabset nzLinkRouter>
         <nz-tab>
-          <a *nzTabLink nz-tab-link routerLink="basic">电子账号</a>
+          <a *nzTabLink nz-tab-link routerLink="basic">BASIC</a>
         </nz-tab>
         <nz-tab>
-          <a *nzTabLink nz-tab-link routerLink="totp">动态口令</a>
+          <a *nzTabLink nz-tab-link routerLink="totp">TOTP</a>
         </nz-tab>
         <nz-tab>
-          <a *nzTabLink nz-tab-link routerLink="sms">短信</a>
+          <a *nzTabLink nz-tab-link routerLink="sms">SMS</a>
         </nz-tab>
       </nz-tabset>
 
       <router-outlet></router-outlet>
 
-      <nz-divider nzPlain nzText="其他登录方式"></nz-divider>
+      <nz-divider nzPlain nzText="Other"></nz-divider>
 
       <nz-row nzJustify="space-between" nzAlign="middle">
         <nz-col>
@@ -28,7 +28,7 @@
         </nz-col>
         <nz-col></nz-col>
         <nz-col>
-          <a routerLink="/forget">忘记密码了？</a>
+          <a routerLink="/forget">Forgot?</a>
         </nz-col>
       </nz-row>
     </div>

@@ -1,14 +1,8 @@
 <form nz-form nzLayout="vertical" id="form" [formGroup]="form" (wpxSubmit)="submit($event)">
   <nz-form-item>
-    <nz-form-label nzRequired>分类</nz-form-label>
+    <nz-form-label nzRequired>Category</nz-form-label>
     <nz-form-control nzHasFeedback>
-      <nz-select
-        formControlName="categories"
-        nzShowSearch
-        nzAllowClear
-        nzMode="multiple"
-        nzPlaceHolder="不选择为默认分类"
-      >
+      <nz-select formControlName="categories" nzShowSearch nzAllowClear nzMode="multiple" nzPlaceHolder="Optional">
         <ng-container *ngFor="let item of data.categories">
           <nz-option [nzLabel]="item.name" [nzValue]="item._id"> </nz-option>
         </ng-container>
@@ -18,6 +12,6 @@
 </form>
 
 <div *nzModalFooter>
-  <button nz-button type="button" nzType="default" (click)="close()">取消</button>
-  <button nz-button nzType="primary" form="form" [disabled]="!form.valid">提交</button>
+  <button nz-button type="button" nzType="default" (click)="close()">Cancel</button>
+  <button nz-button nzType="primary" form="form" [disabled]="!form.valid">Submit</button>
 </div>

@@ -66,7 +66,7 @@ export class ProjectsComponent implements OnInit {
 
   openForm(doc?: AnyDto<Project>): void {
     this.modal.create<ProjectComponent, ProjectInput>({
-      nzTitle: !doc ? '创建' : `编辑【${doc.name}】`,
+      nzTitle: !doc ? 'Create' : `Modify(${doc.name})`,
       nzContent: ProjectComponent,
       nzWidth: 800,
       nzData: {
@@ -80,7 +80,7 @@ export class ProjectsComponent implements OnInit {
 
   openAuthorization(doc: AnyDto<Project>): void {
     this.modal.create<AuthorizationComponent, AnyDto<Project>>({
-      nzTitle: `OpenAPI 授权详情`,
+      nzTitle: `OpenAPI Details`,
       nzContent: AuthorizationComponent,
       nzWidth: 600,
       nzData: doc,
@@ -92,24 +92,25 @@ export class ProjectsComponent implements OnInit {
 
   delete(doc: AnyDto<Project>): void {
     this.modal.confirm({
-      nzTitle: `您确定要删除【${doc.name}】?`,
-      nzOkText: `是的`,
+      nzTitle: `Do you want to delete this?`,
+      nzContent: doc.name,
+      nzOkText: `Yes`,
       nzOkType: 'primary',
       nzOkDanger: true,
       nzOnOk: () => {
         this.projects.delete(doc._id).subscribe(() => {
-          this.message.success(`数据删除成功`);
+          this.message.success(`Deletion successful`);
           this.getData(true);
         });
       },
-      nzCancelText: `再想想`
+      nzCancelText: `Think again`
     });
   }
 
   bulkDelete(): void {
     this.modal.confirm({
-      nzTitle: `您确定删除这些项目吗？`,
-      nzOkText: `是的`,
+      nzTitle: `Do you want to delete these items?`,
+      nzOkText: `Yes`,
       nzOkType: 'primary',
       nzOkDanger: true,
       nzOnOk: () => {
@@ -125,12 +126,12 @@ export class ProjectsComponent implements OnInit {
             }
           )
           .subscribe(() => {
-            this.message.success(`数据删除成功`);
+            this.message.success(`Deletion successful`);
             this.getData(true);
             this.model.setCurrentSelections(false);
           });
       },
-      nzCancelText: `再想想`
+      nzCancelText: `Think again`
     });
   }
 }

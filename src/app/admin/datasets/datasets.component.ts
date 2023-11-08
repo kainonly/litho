@@ -63,7 +63,7 @@ export class DatasetsComponent implements OnInit, AfterViewInit, OnDestroy {
 
   openForm(): void {
     this.modal.create<FormComponent>({
-      nzTitle: '创建',
+      nzTitle: 'Create',
       nzContent: FormComponent,
       nzOnOk: () => {
         this.getData();
@@ -98,18 +98,19 @@ export class DatasetsComponent implements OnInit, AfterViewInit, OnDestroy {
         })
       )
       .subscribe(() => {
-        this.message.success(`数据更新成功`);
+        this.message.success(`Update successful`);
         this.getData();
       });
   }
 
   delete(data: Dataset): void {
     this.modal.confirm({
-      nzTitle: `您确定要删除【${data.name}】吗？`,
+      nzTitle: `Do you want to delete this?`,
+      nzContent: data.name,
       nzOkDanger: true,
       nzOnOk: () => {
         this.datasets.delete(data.name).subscribe(() => {
-          this.message.success(`数据更新成功`);
+          this.message.success(`Update successful`);
           this.getData();
         });
       }

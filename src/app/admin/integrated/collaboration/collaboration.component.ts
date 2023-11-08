@@ -42,10 +42,10 @@ export class CollaborationComponent implements OnInit {
   }
 
   setLark(): void {
-    this.setModal(`设置`, LarkComponent);
+    this.setModal(`Lark`, LarkComponent);
   }
 
-  setLoginFree(): void {
-    this.setModal(`第三方免登陆设置`, RedirectComponent);
+  setRedirect(): void {
+    this.setModal(`Third-party Login`, RedirectComponent);
   }
 }

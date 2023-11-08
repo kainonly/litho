@@ -7,7 +7,7 @@ import {
   withFetch,
   withInterceptorsFromDi
 } from '@angular/common/http';
-import zh from '@angular/common/locales/zh';
+import en from '@angular/common/locales/en';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
@@ -21,7 +21,7 @@ import { ShareModule } from '@common/share.module';
 import { environment } from '@env';
 import { provideFilebrowser } from '@weplanx/ng/filebrowser';
 import { NZ_CONFIG, NzConfig } from 'ng-zorro-antd/core/config';
-import { zh_CN, NZ_I18N } from 'ng-zorro-antd/i18n';
+import { en_US, NZ_I18N } from 'ng-zorro-antd/i18n';
 import { NzMenuModule } from 'ng-zorro-antd/menu';
 import { NzMessageModule } from 'ng-zorro-antd/message';
 
@@ -29,7 +29,7 @@ import { AppComponent } from './app.component';
 import { AppGuard } from './app.guard';
 import { AppInterceptors } from './app.interceptors';
 
-registerLocaleData(zh);
+registerLocaleData(en);
 
 const routes: Routes = [
   {
@@ -56,7 +56,7 @@ const routes: Routes = [
         path: 'admin',
         loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule),
         data: {
-          breadcrumb: `管理后台`
+          breadcrumb: `Admin`
         }
       },
       {
@@ -67,14 +67,14 @@ const routes: Routes = [
         path: 'filebrowser',
         loadChildren: () => import('./filebrowser/filebrowser.module').then(m => m.FilebrowserModule),
         data: {
-          breadcrumb: `资源中心`
+          breadcrumb: `File Browser`
         }
       },
       {
         path: 'audit',
         loadChildren: () => import('./audit/audit.module').then(m => m.AuditModule),
         data: {
-          breadcrumb: `审计日志`
+          breadcrumb: `Audit`
         }
       },
       ...environment.extend,
@@ -100,7 +100,7 @@ const routes: Routes = [
   providers: [
     provideHttpClient(withFetch(), withInterceptorsFromDi()),
     { provide: HTTP_INTERCEPTORS, useClass: AppInterceptors, multi: true },
-    { provide: NZ_I18N, useValue: zh_CN },
+    { provide: NZ_I18N, useValue: en_US },
     {
       provide: NZ_CONFIG,
       useValue: <NzConfig>{

@@ -66,7 +66,7 @@ export class TableComponent implements OnInit {
 
   open(doc?: AnyDto<Order>): void {
     this.modal.create({
-      nzTitle: !doc ? '创建' : `编辑【${doc.no}】`,
+      nzTitle: !doc ? 'Create' : `Modify(${doc.no})`,
       nzWidth: 640,
       nzContent: FormComponent,
       nzData: {
@@ -80,24 +80,25 @@ export class TableComponent implements OnInit {
 
   delete(doc: AnyDto<Order>): void {
     this.modal.confirm({
-      nzTitle: `您确定要删除【${doc.email}】?`,
-      nzOkText: `是的`,
+      nzTitle: `Do you want to delete this?`,
+      nzContent: doc.email,
+      nzOkText: `Yes`,
       nzOkType: 'primary',
       nzOkDanger: true,
       nzOnOk: () => {
         this.orders.delete(doc._id).subscribe(() => {
-          this.message.success(`数据删除成功`);
+          this.message.success(`Deletion successful`);
           this.getData(true);
         });
       },
-      nzCancelText: `再想想`
+      nzCancelText: `Think again`
     });
   }
 
   bulkDelete(): void {
     this.modal.confirm({
-      nzTitle: `您确定删除这些项目吗？`,
-      nzOkText: `是的`,
+      nzTitle: `Do you want to delete these items?`,
+      nzOkText: `Yes`,
       nzOkType: 'primary',
       nzOkDanger: true,
       nzOnOk: () => {
@@ -113,12 +114,12 @@ export class TableComponent implements OnInit {
             }
           )
           .subscribe(() => {
-            this.message.success(`数据删除成功`);
+            this.message.success(`Deletion successful`);
             this.getData(true);
             this.model.setCurrentSelections(false);
           });
       },
-      nzCancelText: `再想想`
+      nzCancelText: `Think again`
     });
   }
 }

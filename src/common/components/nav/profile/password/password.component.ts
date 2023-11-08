@@ -15,12 +15,13 @@ export class PasswordComponent implements OnInit {
   tips = {
     password: {
       default: {
-        required: `密码不能为空`,
-        minlength: `密码不能小于 8 位`,
-        lowercase: `密码需要包含小写字母`,
-        uppercase: `密码需要包含大写字母`,
-        number: `密码需要包含数字`,
-        symbol: `密码需要包含符号 (@$!%*?&-+)`
+        required: `Password cannot be empty`,
+        minlength: `The password length must be greater than 8`,
+        lowercase: `The password needs to contain lowercase letters`,
+        uppercase: `The password needs to contain uppercase letters`,
+        number: `The password needs to contain numbers`,
+        symbol: `The password needs to contain symbols (@$!%*?&-+)`,
+        inconsistent: `The password confirmed again is inconsistent`
       }
     }
   };
@@ -54,7 +55,7 @@ export class PasswordComponent implements OnInit {
 
   submit(data: Any): void {
     this.app.setUserPassword(data.old, data.password).subscribe(() => {
-      this.message.success(`数据更新成功`);
+      this.message.success(`Update successful`);
       this.modalRef.triggerOk();
     });
   }

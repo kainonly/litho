@@ -15,35 +15,35 @@ const routes: Routes = [
         path: 'store',
         loadChildren: () => import('./store/store.module').then(m => m.StoreModule),
         data: {
-          breadcrumb: `本地存储`
+          breadcrumb: `Indexed DB`
         }
       },
       {
         path: 'table',
         loadChildren: () => import('./table/table.module').then(m => m.TableModule),
         data: {
-          breadcrumb: `表格`
+          breadcrumb: `Table`
         }
       },
       {
         path: 'upload',
         loadChildren: () => import('./upload/upload.module').then(m => m.UploadModule),
         data: {
-          breadcrumb: `上传`
+          breadcrumb: `Upload`
         }
       },
       {
         path: 'article',
         loadChildren: () => import('./article/article.module').then(m => m.ArticleModule),
         data: {
-          breadcrumb: `文章`
+          breadcrumb: `Article`
         }
       },
       {
         path: 'code-editor',
         loadChildren: () => import('./code-editor/code-editor.module').then(m => m.CodeEditorModule),
         data: {
-          breadcrumb: `代码编辑器`
+          breadcrumb: `Code Editor`
         }
       },
       { path: '', redirectTo: 'store', pathMatch: 'full' }

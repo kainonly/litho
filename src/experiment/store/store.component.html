@@ -9,20 +9,20 @@
           <nz-form-control>
             <nz-space>
               <input *nzSpaceItem nz-input [(ngModel)]="title" [ngModelOptions]="{ standalone: true }" />
-              <button *nzSpaceItem nz-button (click)="update()">更新</button>
+              <button *nzSpaceItem nz-button (click)="update()">Set</button>
             </nz-space>
           </nz-form-control>
         </nz-form-item>
         <nz-form-item>
           <nz-form-control>
             <nz-space>
-              <button *nzSpaceItem nz-button (click)="set()">重置</button>
+              <button *nzSpaceItem nz-button (click)="set()">Reset</button>
             </nz-space>
           </nz-form-control>
         </nz-form-item>
         <nz-form-item>
           <nz-form-control>
-            <button nz-button (click)="delete()">删除</button>
+            <button nz-button (click)="delete()">Delete</button>
           </nz-form-control>
         </nz-form-item>
       </form>

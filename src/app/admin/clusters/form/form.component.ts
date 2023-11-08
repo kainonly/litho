@@ -20,12 +20,12 @@ export class FormComponent implements OnInit {
   tips = {
     name: {
       default: {
-        required: `集群名称不能为空`
+        required: `Cluster Name cannot be empty`
       }
     },
     config: {
       default: {
-        required: `配置不能为空`
+        required: `Value cannot be empty`
       }
     }
   };
@@ -77,7 +77,7 @@ export class FormComponent implements OnInit {
           xdata: { config: 'cipher' }
         })
         .subscribe(() => {
-          this.message.success(`数据更新成功`);
+          this.message.success(`Update successful`);
           this.modalRef.triggerOk();
         });
     } else {
@@ -90,7 +90,7 @@ export class FormComponent implements OnInit {
           }
         )
         .subscribe(() => {
-          this.message.success(`数据更新成功`);
+          this.message.success(`Update successful`);
           this.modalRef.triggerOk();
         });
     }

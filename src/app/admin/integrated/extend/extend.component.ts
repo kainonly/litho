@@ -15,8 +15,8 @@ export class ExtendComponent implements OnInit {
   tabIndex = 0;
   values: R = {};
   smsTpls = [
-    { key: 'SmsPhoneBind', name: '手机号关联' },
-    { key: 'SmsLoginVerify', name: '登录验证' }
+    { key: 'SmsPhoneBind', name: 'Phone Link' },
+    { key: 'SmsLoginVerify', name: 'Login Verify' }
   ];
 
   constructor(
@@ -72,16 +72,16 @@ export class ExtendComponent implements OnInit {
   }
 
   setEmail(): void {
-    this.setModal(`公共邮箱设置`, EmailComponent);
+    this.setModal(`Public Email`, EmailComponent);
   }
 
   setSms(): void {
-    this.setModal(`腾讯 SMS 设置`, SmsComponent);
+    this.setModal(`Tencent SMS`, SmsComponent);
   }
 
   setSmsTpl(key: string): void {
     this.modal.create<SmsTplComponent, SmsTplInput>({
-      nzTitle: `模板设置【${key}】`,
+      nzTitle: `Template(${key})`,
       nzContent: SmsTplComponent,
       nzData: {
         key,

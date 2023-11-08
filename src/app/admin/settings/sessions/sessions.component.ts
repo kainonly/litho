@@ -21,7 +21,6 @@ export class SessionsComponent implements OnInit, AfterViewInit, OnDestroy {
 
   items = new WpxItems<AnyDto<User>>('_id');
   interval = 15;
-  actived?: AnyDto<User>;
 
   y = '0px';
   private refresh!: Subscription;
@@ -92,11 +91,12 @@ export class SessionsComponent implements OnInit, AfterViewInit, OnDestroy {
 
   delete(doc: AnyDto<User>): void {
     this.modal.confirm({
-      nzTitle: `您确定要中断【${doc.email}】的会话吗？`,
+      nzTitle: `Do you want to interrupt this session?`,
+      nzContent: doc.email,
       nzOkDanger: true,
       nzOnOk: () => {
         this.sessions.delete(doc._id).subscribe(() => {
-          this.message.success(`会话已中断`);
+          this.message.success(`Session interrupted`);
         });
       }
     });
@@ -104,11 +104,11 @@ export class SessionsComponent implements OnInit, AfterViewInit, OnDestroy {
 
   bulkDelete(): void {
     this.modal.confirm({
-      nzTitle: '您确定要中断选中的会话吗？',
+      nzTitle: `Do you want to interrupt these sessions?`,
       nzOkDanger: true,
       nzOnOk: () => {
         this.sessions.clear().subscribe(() => {
-          this.message.success(`会话已中断`);
+          this.message.success(`Session interrupted`);
         });
       }
     });

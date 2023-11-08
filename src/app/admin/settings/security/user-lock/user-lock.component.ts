@@ -14,17 +14,17 @@ export class UserLockComponent implements OnInit {
   tips = {
     LoginFailures: {
       default: {
-        required: `连续登录失败上限不能为空`
+        required: `Number of times cannot be empty`
       }
     },
     LoginTTL: {
       default: {
-        required: `锁定时间不能为空`
+        required: `The TTL cannot be empty`
       }
     }
   };
-  formatterTimes = (value: number): string => `${value} 次`;
-  formatterSec = (value: number): string => `${value} s`;
+  formatterTimes = (value: number): string => `${value} Times`;
+  formatterSec = (value: number): string => `${value} sec`;
 
   constructor(
     @Inject(NZ_MODAL_DATA)
@@ -54,7 +54,7 @@ export class UserLockComponent implements OnInit {
   submit(data: Any): void {
     data['LoginTTL'] = data['LoginTTL'] * 1e9;
     this.wpx.setValues(data).subscribe(() => {
-      this.message.success(`数据更新成功`);
+      this.message.success(`Update successful`);
       this.modalRef.triggerOk();
     });
   }

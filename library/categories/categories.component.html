@@ -3,7 +3,7 @@
   nzShowSearch
   nzAllowClear
   nzMode="multiple"
-  nzPlaceHolder="分类"
+  nzPlaceHolder="Category"
   [nzLoading]="loading"
   [nzDropdownRender]="menuRef"
   [(ngModel)]="value"
@@ -18,60 +18,68 @@
   <nz-divider style="margin: 6px 0 0"></nz-divider>
   <div style="width: 100%">
     <button style="width: 50%" nz-button nzType="link" nzBlock (click)="getData()">
-      <span nz-icon nzType="sync" nzTheme="outline"></span>
-      刷新
+      <span nz-icon nzType="reload" nzTheme="outline"></span>
+      Refresh
     </button>
     <button style="width: 50%" nz-button nzType="link" nzBlock (click)="openPanel()">
       <span nz-icon nzType="ordered-list" nzTheme="outline"></span>
-      管理
+      List
     </button>
   </div>
 </ng-template>
 
 <nz-drawer [nzWidth]="640" [nzClosable]="false" [nzVisible]="panel" (nzOnClose)="closePanel()">
   <ng-container *nzDrawerContent>
-    <nz-page-header nzTitle="分类管理" [nzSubtitle]="wpxType">
+    <nz-page-header nzTitle="Categories" [nzSubtitle]="wpxType">
       <nz-page-header-extra>
-        <button nz-button nzType="primary" nzShape="circle" (click)="openForm()">
-          <span nz-icon nzType="plus" nzTheme="outline"></span>
-        </button>
+        <nz-space nzAlign="center">
+          <button *nzSpaceItem nz-button nzType="primary" nzShape="circle" (click)="getData()">
+            <span nz-icon nzType="reload" nzTheme="outline"></span>
+          </button>
+          <button *nzSpaceItem nz-button nzType="primary" nzShape="circle" (click)="openForm()">
+            <span nz-icon nzType="plus" nzTheme="outline"></span>
+          </button>
+        </nz-space>
       </nz-page-header-extra>
     </nz-page-header>
 
     <nz-card>
-      <nz-table
-        #basicTable
-        [nzData]="items"
-        [nzFrontPagination]="false"
-        [nzShowPagination]="false"
-        [nzLoading]="loading"
-      >
+      <nz-table #basicTable [nzData]="items" [nzShowPagination]="false" [nzLoading]="loading">
         <thead>
           <tr>
-            <th nzWidth="60px" nzLeft nzAlign="center">
-              <span style="cursor: pointer" nz-icon nzType="sync" nzTheme="outline" (click)="getData()"></span>
+            <th nzWidth="60px" nzAlign="center" nzLeft>
+              <button nz-button nzType="text" disabled>
+                <i nz-icon nzType="holder"></i>
+              </button>
             </th>
-            <th><b>名称</b></th>
+            <th><b>Name</b></th>
+            <th nzRight nzWidth="60px">
+              <button nz-button nzType="text" disabled>
+                <span nz-icon nzType="setting" nzTheme="outline"></span>
+              </button>
+            </th>
           </tr>
         </thead>
         <tbody cdkDropList (cdkDropListDropped)="drop($event)">
-          <tr *ngFor="let data of basicTable.data" (contextmenu)="openMenu($event, actions, data)" cdkDrag>
+          <tr *ngFor="let data of basicTable.data" cdkDrag>
             <td nzLeft nzAlign="center">
               <span cdkDragHandle style="cursor: move" nz-icon nzType="holder" nzTheme="outline"></span>
             </td>
             <td>{{ data.name }}</td>
+            <td nzRight>
+              <button nz-button nzType="text" nz-dropdown [nzDropdownMenu]="menu">
+                <span nz-icon nzType="ellipsis" nzTheme="outline"></span>
+              </button>
+              <nz-dropdown-menu #menu="nzDropdownMenu">
+                <ul nz-menu>
+                  <li nz-menu-item (click)="openForm(data)"> Modify </li>
+                  <li nz-menu-item nzDanger (click)="delete(data)"> Delete </li>
+                </ul>
+              </nz-dropdown-menu>
+            </td>
           </tr>
         </tbody>
       </nz-table>
     </nz-card>
   </ng-container>
 </nz-drawer>
-
-<nz-dropdown-menu #actions="nzDropdownMenu">
-  <ul *ngIf="actived" nz-menu>
-    <li nz-menu-item nzDisabled>{{ actived.name }}</li>
-    <li nz-menu-divider></li>
-    <li nz-menu-item (click)="openForm(actived)">编辑</li>
-    <li nz-menu-item nzDanger (click)="delete(actived)">删除</li>
-  </ul>
-</nz-dropdown-menu>

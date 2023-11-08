@@ -33,7 +33,7 @@ export class NameComponent implements OnInit {
 
   submit(data: Any): void {
     this.app.setUser({ key: 'name', name: data.name }).subscribe(() => {
-      this.message.success(`数据更新成功`);
+      this.message.success(`Update successful`);
       this.modalRef.triggerOk();
     });
   }

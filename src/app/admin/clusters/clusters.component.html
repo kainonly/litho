@@ -6,7 +6,7 @@
       [wpxModel]="model"
       [wpxKeys]="['name']"
       (wpxSubmit)="getData()"
-      wpxPlaceholder="集群名称"
+      wpxPlaceholder="Cluster Name"
     ></wpx-keyword>
     <wpx-toolbox *nzSpaceItem [wpxModel]="model" (wpxClear)="getData()" (wpxRefresh)="getData()"> </wpx-toolbox>
   </nz-space>
@@ -15,15 +15,17 @@
 <ng-template #extraRef>
   <nz-space nzAlign="center">
     <ng-container *ngIf="model.selection.size as size">
-      <button *nzSpaceItem nz-button nzType="dashed" nz-dropdown [nzDropdownMenu]="menu"> 已选中 {{ size }} 项 </button>
+      <button *nzSpaceItem nz-button nzType="dashed" nz-dropdown [nzDropdownMenu]="menu">
+        {{ size }} selected items
+      </button>
       <nz-dropdown-menu #menu="nzDropdownMenu">
         <ul nz-menu>
-          <li nz-menu-item (click)="wpxTable.clearSelections()"> 取消选择 </li>
-          <li nz-menu-item nzDanger (click)="bulkDelete()"> 删除 </li>
+          <li nz-menu-item (click)="wpxTable.clearSelections()"> Unselect </li>
+          <li nz-menu-item nzDanger (click)="bulkDelete()"> Delete </li>
         </ul>
       </nz-dropdown-menu>
     </ng-container>
-    <button *nzSpaceItem nz-button nzType="primary" (click)="openForm()"> 新增 </button>
+    <button *nzSpaceItem nz-button nzType="primary" (click)="openForm()"> Create </button>
   </nz-space>
 </ng-template>
 
@@ -34,13 +36,13 @@
   [wpxModel]="model"
   [wpxColumns]="[
     {
-      title: '集群名称',
+      title: 'Cluster Name',
       key: 'name',
       width: '360px',
       render: name
     },
     {
-      title: '详情',
+      title: 'Detail',
       key: 'detail',
       render: detail
     }
@@ -61,8 +63,8 @@
       <nz-tag>MEM：{{ v.mem | nzBytes }}</nz-tag>
       <nz-tag>STORAGE：{{ v.storage | nzBytes }}</nz-tag>
     </ng-container>
-    <nz-tag *ngIf="data.admin" nzColor="orange">管理集群</nz-tag>
-    <a (click)="openDetail(data)">查看详情</a>
+    <nz-tag *ngIf="data.admin" nzColor="orange">Admin Cluster</nz-tag>
+    <a (click)="openDetail(data)">View Details</a>
   </ng-template>
 </wpx-table>
 
@@ -72,12 +74,12 @@
   </button>
   <nz-dropdown-menu #menu="nzDropdownMenu">
     <ul nz-menu>
-      <li nz-menu-item (click)="openForm(data)"> 修改 </li>
-      <li nz-menu-item nzDanger (click)="delete(data)"> 删除 </li>
+      <li nz-menu-item (click)="openForm(data)"> Modify </li>
+      <li nz-menu-item nzDanger (click)="delete(data)"> Delete </li>
     </ul>
   </nz-dropdown-menu>
 </ng-template>
 
 <ng-template #disconnect>
-  <nz-tag nzColor="error">脱机</nz-tag>
+  <nz-tag nzColor="error">Disconnected</nz-tag>
 </ng-template>

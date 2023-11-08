@@ -19,7 +19,7 @@ export class PublishComponent implements OnInit {
   tips = {
     topic: {
       default: {
-        required: `主题不能为空`
+        required: `Topic cannot be empty`
       }
     }
   };
@@ -49,7 +49,7 @@ export class PublishComponent implements OnInit {
 
   submit(data: Any): void {
     this.imessages.publish(data.topic, JSON.parse(data.payload)).subscribe(() => {
-      this.message.success(`发布成功`);
+      this.message.success(`Publish successful`);
     });
   }
 }

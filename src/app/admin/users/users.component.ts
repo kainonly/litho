@@ -66,7 +66,7 @@ export class UsersComponent implements OnInit {
   isSelf(doc?: AnyDto<User>): boolean {
     const result = this.app.user()?._id === doc?._id;
     if (result) {
-      this.message.warning(`请通过【个人中心】更新当前登录用户`);
+      this.message.warning(`Please update the current user through personal settings`);
     }
     return result;
   }
@@ -76,7 +76,7 @@ export class UsersComponent implements OnInit {
       return;
     }
     this.modal.create<FormComponent, FormInput>({
-      nzTitle: !doc ? '创建' : `编辑【${doc.email}】`,
+      nzTitle: !doc ? 'Create' : `Modify(${doc.email})`,
       nzWidth: 640,
       nzContent: FormComponent,
       nzData: {
@@ -93,28 +93,29 @@ export class UsersComponent implements OnInit {
       return;
     }
     this.modal.confirm({
-      nzTitle: `您确定要删除【${doc.email}】?`,
-      nzOkText: `是的`,
+      nzTitle: `Do you want to delete this?`,
+      nzContent: doc.email,
+      nzOkText: `Yes`,
       nzOkType: 'primary',
       nzOkDanger: true,
       nzOnOk: () => {
         this.users.delete(doc._id).subscribe(() => {
-          this.message.success(`数据删除成功`);
+          this.message.success(`Deletion successful`);
           this.getData(true);
         });
       },
-      nzCancelText: `再想想`
+      nzCancelText: `Think again`
     });
   }
 
   bulkDelete(): void {
     if (this.model.selection.has(this.app.user()!._id)) {
-      this.message.warning(`请通过【个人中心】更新当前登录用户`);
+      this.message.warning(`Please update the current user through personal settings`);
       return;
     }
     this.modal.confirm({
-      nzTitle: `您确定删除这些用户吗？`,
-      nzOkText: `是的`,
+      nzTitle: `Do you want to delete these items?`,
+      nzOkText: `Yes`,
       nzOkType: 'primary',
       nzOkDanger: true,
       nzOnOk: () => {
@@ -130,12 +131,12 @@ export class UsersComponent implements OnInit {
             }
           )
           .subscribe(() => {
-            this.message.success(`数据删除成功`);
+            this.message.success(`Deletion successful`);
             this.getData(true);
             this.model.setCurrentSelections(false);
           });
       },
-      nzCancelText: `再想想`
+      nzCancelText: `Think again`
     });
   }
 }

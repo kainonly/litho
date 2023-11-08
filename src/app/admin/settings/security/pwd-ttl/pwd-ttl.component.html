@@ -1,7 +1,7 @@
 <form nz-form nzLayout="vertical" id="form" [formGroup]="form" (wpxSubmit)="submit($event)">
   <nz-form-item>
-    <nz-form-label nzRequired>密码有效期</nz-form-label>
-    <nz-form-control nzHasFeedback nzExtra="0 为永久有效" [nzAutoTips]="tips.pwd_ttl">
+    <nz-form-label nzRequired>Password Expired</nz-form-label>
+    <nz-form-control nzHasFeedback nzExtra="0 is valid forever" [nzAutoTips]="tips.pwd_ttl">
       <nz-input-number
         style="width: 100%"
         formControlName="PwdTTL"
@@ -14,6 +14,6 @@
 </form>
 
 <div *nzModalFooter>
-  <button nz-button type="button" nzType="default" (click)="close()">取消</button>
-  <button nz-button nzType="primary" form="form" [disabled]="!form.valid">提交</button>
+  <button nz-button type="button" nzType="default" (click)="close()">Cancel</button>
+  <button nz-button nzType="primary" form="form" [disabled]="!form.valid">Submit</button>
 </div>

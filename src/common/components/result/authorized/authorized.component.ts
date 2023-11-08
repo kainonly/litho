@@ -5,7 +5,11 @@ import { AppService } from '@app';
 @Component({
   selector: 'app-result-authorized',
   template: `
-    <nz-result nzStatus="success" nzTitle="授权成功" nzSubTitle="您已成功关联您的 Lark 账号">
+    <nz-result
+      nzStatus="success"
+      nzTitle="Authorization successful"
+      nzSubTitle="You have successfully linked your Lark account"
+    >
       <div nz-result-extra>
         <button nz-button nzType="primary" (click)="close()">关闭</button>
       </div>

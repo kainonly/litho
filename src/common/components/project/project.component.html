@@ -2,24 +2,24 @@
   <nz-row [nzGutter]="[24, 24]">
     <nz-col [nzSpan]="12">
       <nz-form-item>
-        <nz-form-label nzRequired>项目名称</nz-form-label>
+        <nz-form-label nzRequired>Project Name</nz-form-label>
         <nz-form-control nzHasFeedback [nzAutoTips]="tips.name">
-          <input nz-input formControlName="name" placeholder="请输入项目名称" />
+          <input nz-input formControlName="name" placeholder="Please enter a name" />
         </nz-form-control>
       </nz-form-item>
       <nz-form-item>
-        <nz-form-label>有效期</nz-form-label>
+        <nz-form-label>Expire</nz-form-label>
         <nz-form-control>
           <nz-date-picker
             style="width: 100%"
             formControlName="expire"
-            nzPlaceHolder="请选择有效期，默认长期"
+            nzPlaceHolder="The default is long"
           ></nz-date-picker>
         </nz-form-control>
       </nz-form-item>
       <nz-form-item>
-        <nz-form-label> 密钥 </nz-form-label>
-        <nz-form-control nzExtra="用于 OpenAPI 接口签名鉴权等">
+        <nz-form-label> Secret ID and Key </nz-form-label>
+        <nz-form-control nzExtra="For OpenAPI signature authentication, etc">
           <nz-input-group nzCompact>
             <input
               style="width: 40%"
@@ -46,22 +46,22 @@
     </nz-col>
     <nz-col [nzSpan]="12">
       <nz-form-item>
-        <nz-form-label nzRequired>项目类型</nz-form-label>
+        <nz-form-label nzRequired>Project Kind</nz-form-label>
         <nz-form-control nzHasFeedback [nzAutoTips]="tips.name">
-          <nz-select formControlName="kind" nzAllowClear nzPlaceHolder="请选择项目类型，设置后不可更改">
-            <nz-option nzValue="default" nzLabel="标准类型"> </nz-option>
-            <nz-option nzValue="cms" nzLabel="内容类型"> </nz-option>
+          <nz-select formControlName="kind" nzAllowClear nzPlaceHolder="Cannot be modified">
+            <nz-option nzValue="standard" nzLabel="Standard"> </nz-option>
+            <nz-option nzValue="cms" nzLabel="Headless CMS"> </nz-option>
           </nz-select>
         </nz-form-control>
       </nz-form-item>
       <nz-form-item>
-        <nz-form-label nzRequired> 命名空间 </nz-form-label>
+        <nz-form-label nzRequired> Namespace </nz-form-label>
         <nz-form-control nzHasFeedback [nzAutoTips]="tips.namespace">
-          <input nz-input formControlName="namespace" placeholder="请输入唯一命名空间，设置后不可更改" />
+          <input nz-input formControlName="namespace" placeholder="Unique and cannot be modified" />
         </nz-form-control>
       </nz-form-item>
       <nz-form-item>
-        <nz-form-label nzRequired>状态</nz-form-label>
+        <nz-form-label nzRequired>Status</nz-form-label>
         <nz-form-control>
           <nz-switch formControlName="status"></nz-switch>
         </nz-form-control>
@@ -71,6 +71,6 @@
 </form>
 
 <div *nzModalFooter>
-  <button nz-button type="button" nzType="default" (click)="close()">取消</button>
-  <button nz-button nzType="primary" form="form" [disabled]="!form.valid">提交</button>
+  <button nz-button type="button" nzType="default" (click)="close()">Cancel</button>
+  <button nz-button nzType="primary" form="form" [disabled]="!form.valid">Submit</button>
 </div>

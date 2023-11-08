@@ -86,14 +86,14 @@
               <ng-template #def [ngSwitch]="column.format">
                 <ng-container *ngSwitchCase="'status'">
                   <ng-container *ngIf="data[column.key]; else isOff">
-                    <nz-badge nzStatus="processing" nzText="启用"></nz-badge>
+                    <nz-badge nzStatus="processing" nzText="Enabled"></nz-badge>
                   </ng-container>
                   <ng-template #isOff>
-                    <nz-badge nzStatus="default" nzText="关闭"></nz-badge>
+                    <nz-badge nzStatus="default" nzText="Disabled"></nz-badge>
                   </ng-template>
                 </ng-container>
                 <ng-container *ngSwitchCase="'date'">
-                  {{ data[column.key] | date: 'yyyy/MM/dd HH:mm:ss' }}
+                  {{ data[column.key] | date: 'long' }}
                 </ng-container>
                 <ng-container *ngSwitchDefault>{{ data[column.key] }}</ng-container>
               </ng-template>
@@ -106,13 +106,13 @@
       </ng-container>
     </tbody>
   </nz-table>
-  <ng-template #totalRef let-total>共 {{ total }} 条记录</ng-template>
+  <ng-template #totalRef let-total>A total of {{ total }} records</ng-template>
 </nz-card>
 
 <ng-template #settingsExtraRef>
   <nz-space nzAlign="center">
-    <button *nzSpaceItem nz-button type="button" (click)="initPreferences()">初始自定义</button>
-    <button *nzSpaceItem nz-button type="button" (click)="closeSettings()">关闭</button>
+    <button *nzSpaceItem nz-button type="button" (click)="initPreferences()">Initial Customization</button>
+    <button *nzSpaceItem nz-button type="button" (click)="closeSettings()">Close</button>
   </nz-space>
 </ng-template>
 

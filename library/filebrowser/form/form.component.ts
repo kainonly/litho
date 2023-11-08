@@ -23,7 +23,7 @@ export class FormComponent implements OnInit {
   tips = {
     name: {
       default: {
-        required: `名称不能为空`
+        required: `Name cannot be empty`
       }
     }
   };
@@ -59,7 +59,7 @@ export class FormComponent implements OnInit {
       .subscribe(() => {
         this.data.doc.name = data.name;
         this.data.doc.categories = data.categories;
-        this.message.success(`数据更新完成`);
+        this.message.success(`Update successful`);
         this.modalRef.triggerOk();
       });
   }

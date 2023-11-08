@@ -1,6 +1,6 @@
 <nz-layout style="height: 100%; background: transparent">
   <nz-page-header>
-    <nz-page-header-title>{{ doc.name }} 详情</nz-page-header-title>
+    <nz-page-header-title>{{ doc.name }}</nz-page-header-title>
     <nz-page-header-extra>
       <nz-space nzAlign="center">
         <button *nzSpaceItem nz-button nzType="primary" nzShape="circle" (click)="getData()">
@@ -17,11 +17,11 @@
           <tr>
             <th>
               <span nz-icon nzType="key" nzTheme="outline"></span>
-              <b> 标识</b>
+              <b> Key</b>
             </th>
-            <th><b>状态</b></th>
+            <th><b>Status</b></th>
             <th nzRight nzWidth="60px" nzAlign="center">
-              <button nz-button nzType="text" nz-tooltip="终止" disabled>
+              <button nz-button nzType="text" disabled>
                 <span nz-icon nzType="stop" nzTheme="outline"></span>
               </button>
             </th>
@@ -32,7 +32,7 @@
             <td>{{ item }}</td>
             <td>
               <ng-container *ngIf="exists.has(item); else notExistsRef">
-                <nz-badge nzStatus="success" nzText="接入"></nz-badge>
+                <nz-badge nzStatus="success" nzText="Connected"></nz-badge>
               </ng-container>
             </td>
             <td nzRight nzAlign="center">
@@ -40,7 +40,7 @@
                 nz-button
                 nzType="text"
                 nz-popconfirm
-                nzPopconfirmTitle="您确定要终止任务吗?"
+                nzPopconfirmTitle="Are you sure you want to terminate this?"
                 (nzOnConfirm)="stopJob(item)"
               >
                 <span nz-icon nzType="stop" nzTheme="outline"></span>
@@ -54,5 +54,5 @@
 </nz-layout>
 
 <ng-template #notExistsRef>
-  <nz-badge nzStatus="error" nzText="脱机"></nz-badge>
+  <nz-badge nzStatus="error" nzText="Disconnected"></nz-badge>
 </ng-template>

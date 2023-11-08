@@ -14,7 +14,7 @@ export class SessionComponent implements OnInit {
   tips = {
     session_ttl: {
       default: {
-        required: `会话超时不能为空`
+        required: `Expired cannot be empty`
       }
     }
   };
@@ -46,7 +46,7 @@ export class SessionComponent implements OnInit {
   submit(data: Any): void {
     data['SessionTTL'] = data['SessionTTL'] * 1e9;
     this.wpx.setValues(data).subscribe(() => {
-      this.message.success(`数据更新成功`);
+      this.message.success(`Update successful`);
       this.modalRef.triggerOk();
     });
   }

@@ -5,14 +5,14 @@
       [wpxModel]="model"
       [wpxKeys]="['email', 'name']"
       (wpxSubmit)="getData()"
-      wpxPlaceholder="电子邮件、姓名"
+      wpxPlaceholder="Email, Name"
     ></wpx-keyword>
     <wpx-toolbox *nzSpaceItem [wpxModel]="model" [wpxSearchForm]="form" (wpxClear)="clear()" (wpxRefresh)="getData()">
       <form *ngIf="form" nz-form id="search" [formGroup]="form" (wpxSubmit)="search($event)">
         <nz-row [nzGutter]="[16, 16]">
           <nz-col [nzSpan]="6">
             <nz-form-item>
-              <nz-form-label>电子邮件</nz-form-label>
+              <nz-form-label>Email</nz-form-label>
               <nz-form-control>
                 <input nz-input formControlName="email" />
               </nz-form-control>
@@ -20,7 +20,7 @@
           </nz-col>
           <nz-col [nzSpan]="6">
             <nz-form-item>
-              <nz-form-label>姓名</nz-form-label>
+              <nz-form-label>Name</nz-form-label>
               <nz-form-control>
                 <input nz-input formControlName="name" />
               </nz-form-control>
@@ -35,17 +35,17 @@
 <ng-template #extraRef>
   <nz-space nzAlign="center">
     <ng-container *ngIf="model.selection.size as size">
-      <button *nzSpaceItem nz-button nzType="dashed" nz-dropdown [nzDropdownMenu]="menu"> 已选中 {{ size }} 项 </button>
+      <button *nzSpaceItem nz-button nzType="dashed" nz-dropdown [nzDropdownMenu]="menu">
+        {{ size }} selected items
+      </button>
       <nz-dropdown-menu #menu="nzDropdownMenu">
         <ul nz-menu>
-          <li nz-menu-item (click)="wpxTable.clearSelections()"> 取消选择 </li>
-        </ul>
-        <ul nz-menu>
-          <li nz-menu-item nzDanger (click)="bulkDelete()"> 删除 </li>
+          <li nz-menu-item (click)="wpxTable.clearSelections()"> Unselect </li>
+          <li nz-menu-item nzDanger (click)="bulkDelete()"> Delete </li>
         </ul>
       </nz-dropdown-menu>
     </ng-container>
-    <button *nzSpaceItem nz-button nzType="primary" (click)="open()"> 新增 </button>
+    <button *nzSpaceItem nz-button nzType="primary" (click)="open()"> Create </button>
   </nz-space>
 </ng-template>
 
@@ -56,30 +56,30 @@
   [wpxModel]="model"
   [wpxColumns]="[
     {
-      title: '电子邮件',
+      title: 'Email',
       key: 'username',
       width: '320px',
       render: username
     },
     {
-      title: '姓名',
+      title: 'Name',
       key: 'name',
       width: '160px'
     },
     {
-      title: '状态',
+      title: 'Status',
       key: 'status',
       width: '120px',
       format: 'status'
     },
     {
-      title: '近期登录 (会话数)',
+      title: 'History',
       key: 'history',
       width: '240px',
       render: history
     },
     {
-      title: '加入时间',
+      title: 'Join Date',
       key: 'create_time',
       width: '240px',
       format: 'date'
@@ -92,19 +92,19 @@
     <nz-space>
       <span *nzSpaceItem>{{ data.email }}</span>
       <ng-container *ngIf="data.lark && data.lark === '*'">
-        <span *nzSpaceItem nz-icon nzType="idcard" nzTheme="twotone" nz-tooltip="已绑定飞书"></span>
+        <span *nzSpaceItem nz-icon nzType="idcard" nzTheme="twotone" nz-tooltip="Linked to Lark"></span>
       </ng-container>
       <ng-container *ngIf="data.phone && data.phone === '*'">
-        <span *nzSpaceItem nz-icon nzType="phone" nzTheme="twotone" nz-tooltip="已绑定手机"></span>
+        <span *nzSpaceItem nz-icon nzType="phone" nzTheme="twotone" nz-tooltip="Linked to phone number"></span>
       </ng-container>
       <ng-container *ngIf="data.totp && data.totp === '*'">
-        <span *nzSpaceItem nz-icon nzType="safety-certificate" nzTheme="twotone" nz-tooltip="已绑定TOTP"></span>
+        <span *nzSpaceItem nz-icon nzType="safety-certificate" nzTheme="twotone" nz-tooltip="Linked to totp"></span>
       </ng-container>
     </nz-space>
   </ng-template>
   <ng-template #history let-data>
     <ng-container *ngIf="data.history">
-      {{ data.history?.timestamp | date: 'yyyy-MM-dd HH:mm:ss' }} （{{ data.sessions }}）
+      {{ data.history?.timestamp | date: 'long' }} （{{ data.sessions }}）
     </ng-container>
   </ng-template>
 </wpx-table>
@@ -115,8 +115,8 @@
   </button>
   <nz-dropdown-menu #menu="nzDropdownMenu">
     <ul nz-menu>
-      <li nz-menu-item (click)="open(data)"> 修改 </li>
-      <li nz-menu-item nzDanger (click)="delete(data)"> 删除 </li>
+      <li nz-menu-item (click)="open(data)"> Modify </li>
+      <li nz-menu-item nzDanger (click)="delete(data)"> Delete </li>
     </ul>
   </nz-dropdown-menu>
 </ng-template>

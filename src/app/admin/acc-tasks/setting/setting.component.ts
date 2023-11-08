@@ -14,12 +14,12 @@ export class SettingComponent implements OnInit {
   tips = {
     AccelerateAddress: {
       default: {
-        required: `函数回调地址不能为空`
+        required: `Accelerate Address cannot be empty`
       }
     },
     CamUin: {
       default: {
-        required: `主账号 ID 不能为空`
+        required: `Cam Uin cannot be empty`
       }
     }
   };
@@ -47,7 +47,7 @@ export class SettingComponent implements OnInit {
 
   submit(data: Any): void {
     this.wpx.setValues(data).subscribe(() => {
-      this.message.success(`数据更新成功`);
+      this.message.success(`Update successful`);
       this.modalRef.triggerOk();
     });
   }

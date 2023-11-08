@@ -16,14 +16,14 @@ export class SmsComponent implements OnInit, OnDestroy {
   tips = {
     phone: {
       default: {
-        required: `手机号码不能为空`,
-        pattern: '手机号码格式不规范'
+        required: `Phone number cannot be empty`,
+        pattern: `Must be in phone number format`
       }
     },
     code: {
       default: {
-        required: `验证码不能为空`,
-        pattern: '验证码格式不规范'
+        required: `Code cannot be empty`,
+        pattern: `Must be a number of length 6`
       }
     }
   };
@@ -71,7 +71,7 @@ export class SmsComponent implements OnInit, OnDestroy {
       next: () => {
         this.loading = false;
         this.router.navigateByUrl('/');
-        this.notification.success(`认证状态`, `🚀登录成功，正在加载数据~`);
+        this.notification.success(`Authentication Status`, `🚀Login successful, loading data...`);
       },
       error: () => {
         this.loading = false;

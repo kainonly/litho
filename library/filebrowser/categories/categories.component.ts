@@ -50,7 +50,7 @@ export class CategoriesComponent implements OnInit {
       )
       .subscribe(() => {
         this.data.docs.forEach(value => (value.categories = data.categories));
-        this.message.success(`数据更新完成`);
+        this.message.success(`Update successful`);
         this.modalRef.triggerOk();
       });
   }

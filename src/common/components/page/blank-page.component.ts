@@ -10,7 +10,7 @@ import { Component } from '@angular/core';
           <nz-col>
             <button nz-button nzType="text" (click)="star()">
               <span nz-icon nzType="github" nzTheme="outline"></span>
-              关注
+              Star
             </button>
           </nz-col>
           <nz-col> </nz-col>

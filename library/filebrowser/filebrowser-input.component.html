@@ -57,22 +57,22 @@
 <nz-space>
   <button *nzSpaceItem type="button" nz-button (click)="view()">
     <i nz-icon nzType="import"></i>
-    <span>导入</span>
+    <span>Import</span>
   </button>
   <button *nzSpaceItem type="button" nz-button nzType="link" [disabled]="wpxValue.length === 0" (click)="openSort()">
     <i nz-icon nzType="sort-descending"></i>
-    <span>排序</span>
+    <span>Sort</span>
   </button>
 </nz-space>
 
 <ng-template #footerRef let-ref="modalRef">
-  <button nz-button (click)="ref.triggerCancel()">取消</button>
+  <button nz-button (click)="ref.triggerCancel()">Cancel</button>
   <ng-container *ngIf="instance.ds.selection.size as size">
     <ng-container *ngIf="size + wpxValue.length > wpxLimit!; else normalRef">
-      <button nz-button disabled> 超出最大限制 </button>
+      <button nz-button disabled> Maximum limit exceeded </button>
     </ng-container>
     <ng-template #normalRef>
-      <button nz-button nzType="primary" (click)="ref.triggerOk()"> 导入 {{ size }} 项 </button>
+      <button nz-button nzType="primary" (click)="ref.triggerOk()"> Import {{ size }} items </button>
     </ng-template>
   </ng-container>
 </ng-template>

@@ -19,7 +19,7 @@ import { ScheduleComponent } from './schedule/schedule.component';
 export class EndpointsComponent implements OnInit, OnDestroy {
   model!: WpxModel<Endpoint>;
   kind: Record<string, string> = {
-    schedule: '定时调度器',
+    schedule: 'Schedule',
     emqx: 'EMQX'
   };
 
@@ -73,7 +73,7 @@ export class EndpointsComponent implements OnInit, OnDestroy {
 
   openForm(doc?: AnyDto<Endpoint>): void {
     this.modal.create<FormComponent, FormInput>({
-      nzTitle: !doc ? '创建' : `编辑【${doc.name}】`,
+      nzTitle: !doc ? 'Create' : `Modify(${doc.name})`,
       nzWidth: 640,
       nzContent: FormComponent,
       nzData: {
@@ -98,24 +98,25 @@ export class EndpointsComponent implements OnInit, OnDestroy {
 
   delete(doc: AnyDto<Endpoint>): void {
     this.modal.confirm({
-      nzTitle: `您确定要删除【${doc.name}】?`,
-      nzOkText: `是的`,
+      nzTitle: `Do you want to delete this?`,
+      nzContent: doc.name,
+      nzOkText: `Yes`,
       nzOkType: 'primary',
       nzOkDanger: true,
       nzOnOk: () => {
         this.endpoints.delete(doc._id).subscribe(() => {
-          this.message.success(`数据删除成功`);
+          this.message.success(`Deletion successful`);
           this.getData(true);
         });
       },
-      nzCancelText: `再想想`
+      nzCancelText: `Think again`
     });
   }
 
   bulkDelete(): void {
     this.modal.confirm({
-      nzTitle: `您确定删除这些集群吗？`,
-      nzOkText: `是的`,
+      nzTitle: `Do you want to delete these items?`,
+      nzOkText: `Yes`,
       nzOkType: 'primary',
       nzOkDanger: true,
       nzOnOk: () => {
@@ -131,12 +132,12 @@ export class EndpointsComponent implements OnInit, OnDestroy {
             }
           )
           .subscribe(() => {
-            this.message.success(`数据删除成功`);
+            this.message.success(`Deletion successful`);
             this.getData(true);
             this.model.setCurrentSelections(false);
           });
       },
-      nzCancelText: `再想想`
+      nzCancelText: `Think again`
     });
   }
 }

@@ -12,8 +12,8 @@ export interface VideoInput {
     <video style="width: 100%" controls [poster]="[data.url + '_0'] | wpxAssets">
       <source [src]="[data.url] | wpxAssets" />
       <p>
-        您的浏览器不支持 HTML5 视频. 请点击
-        <a [href]="[data.url] | wpxAssets">视频链接</a> 代替.
+        Your browser does not support HTML5 video. Please click
+        <a [href]="[data.url] | wpxAssets">video link</a>.
       </p>
     </video>
   `

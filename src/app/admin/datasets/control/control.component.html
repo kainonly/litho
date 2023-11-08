@@ -1,9 +1,6 @@
 <nz-layout style="height: 100%; background: transparent">
   <nz-page-header>
-    <nz-page-header-title>字段管理</nz-page-header-title>
-    <nz-page-header-tags>
-      <nz-tag>{{ name }}</nz-tag>
-    </nz-page-header-tags>
+    <nz-page-header-title>{{ name }}</nz-page-header-title>
     <nz-page-header-extra>
       <button nz-button nzType="primary" form="form" nzShape="circle" [disabled]="!form.valid">
         <span nz-icon nzType="check" nzTheme="outline"></span>
@@ -11,8 +8,8 @@
     </nz-page-header-extra>
     <nz-page-header-footer>
       <nz-tabset nzSize="small" [(nzSelectedIndex)]="index">
-        <nz-tab nzTitle="投影设置"></nz-tab>
-        <nz-tab nzTitle="脱敏设置"></nz-tab>
+        <nz-tab nzTitle="Projection"></nz-tab>
+        <nz-tab nzTitle="Opaque"></nz-tab>
       </nz-tabset>
     </nz-page-header-footer>
   </nz-page-header>
@@ -23,10 +20,14 @@
         <nz-table formArrayName="Keys" nzSize="middle" nzTemplateMode>
           <thead>
             <tr>
-              <th nzWidth="60px"></th>
-              <th><b>字段名称</b></th>
+              <th nzWidth="60px">
+                <button nz-button type="button" nzType="text" disabled>
+                  <span nz-icon nzType="holder" nzTheme="outline"></span>
+                </button>
+              </th>
+              <th><b>Field Name</b></th>
               <th nzWidth="60px" nzAlign="center">
-                <button nz-button type="button" nzType="text" nz-tooltip="清空字段" (click)="keys.clear()">
+                <button nz-button type="button" nzType="text" (click)="keys.clear()">
                   <span nz-icon nzType="rest" nzTheme="outline"></span>
                 </button>
               </th>
@@ -40,7 +41,13 @@
                 </button>
               </td>
               <td>
-                <input style="width: 100%" nzBorderless nz-input [formControlName]="i" placeholder="请输入字段名称" />
+                <input
+                  style="width: 100%"
+                  nzBorderless
+                  nz-input
+                  [formControlName]="i"
+                  placeholder="Please enter a field name"
+                />
               </td>
               <td nzAlign="center">
                 <button nz-button type="button" nzType="text" (click)="removeKey(i)">
@@ -51,17 +58,21 @@
           </tbody>
         </nz-table>
         <button nzBlock type="button" nzType="text" nzSize="large" nz-button (click)="appendKey()">
-          <i nz-icon nzType="plus-circle"></i> 新增
+          <i nz-icon nzType="plus-circle"></i> Create
         </button>
       </nz-card>
       <nz-card *ngSwitchCase="1">
         <nz-table formArrayName="Sensitives" nzSize="middle" nzTemplateMode>
           <thead>
             <tr>
-              <th nzWidth="60px"></th>
-              <th><b>字段名称</b></th>
+              <th nzWidth="60px">
+                <button nz-button type="button" nzType="text" disabled>
+                  <span nz-icon nzType="holder" nzTheme="outline"></span>
+                </button>
+              </th>
+              <th><b>Field Name</b></th>
               <th nzWidth="60px" nzAlign="center">
-                <button nz-button type="button" nzType="text" nz-tooltip="清空字段" (click)="sensitives.clear()">
+                <button nz-button type="button" nzType="text" (click)="sensitives.clear()">
                   <span nz-icon nzType="rest" nzTheme="outline"></span>
                 </button>
               </th>
@@ -75,7 +86,13 @@
                 </button>
               </td>
               <td>
-                <input style="width: 100%" nzBorderless nz-input [formControlName]="i" placeholder="请输入字段名称" />
+                <input
+                  style="width: 100%"
+                  nzBorderless
+                  nz-input
+                  [formControlName]="i"
+                  placeholder="Please enter a field name"
+                />
               </td>
               <td nzAlign="center">
                 <button nz-button type="button" nzType="text" (click)="removeSensitive(i)">
@@ -86,7 +103,7 @@
           </tbody>
         </nz-table>
         <button nzBlock type="button" nzType="text" nzSize="large" nz-button (click)="appendSensitive()">
-          <i nz-icon nzType="plus-circle"></i> 新增
+          <i nz-icon nzType="plus-circle"></i> Create
         </button>
       </nz-card>
     </form>

@@ -7,31 +7,31 @@
     <nz-col></nz-col>
   </nz-row>
 
-  <nz-card nzSize="small" nzType="inner" nzTitle="应用配置" [nzExtra]="larkEditRef">
+  <nz-card nzSize="small" nzType="inner" nzTitle="Application" [nzExtra]="larkEditRef">
     <ng-template #larkEditRef>
       <button nz-button nzType="text" (click)="setLark()">
         <span nz-icon nzType="edit"></span>
       </button>
     </ng-template>
     <nz-descriptions nzLayout="vertical" [nzColumn]="2">
-      <nz-descriptions-item nzTitle="应用 ID">
-        <ng-container *ngIf="data['LarkAppId']; else unkown">
+      <nz-descriptions-item nzTitle="Lark App ID">
+        <ng-container *ngIf="data['LarkAppId']; else unknown">
           {{ data['LarkAppId'] }}
         </ng-container>
       </nz-descriptions-item>
-      <nz-descriptions-item nzTitle="应用密码">
-        <ng-container *ngIf="data['LarkAppSecret']; else unkown">
-          <span>已设置</span>
+      <nz-descriptions-item nzTitle="Lark App Secret">
+        <ng-container *ngIf="data['LarkAppSecret']; else unknown">
+          <span>Exists</span>
         </ng-container>
       </nz-descriptions-item>
-      <nz-descriptions-item nzTitle="事件订阅安全校验数据密钥">
-        <ng-container *ngIf="data['LarkEncryptKey']; else unkown">
-          <span>已设置</span>
+      <nz-descriptions-item nzTitle="Lark Encrypt Key">
+        <ng-container *ngIf="data['LarkEncryptKey']; else unknown">
+          <span>Exists</span>
         </ng-container>
       </nz-descriptions-item>
-      <nz-descriptions-item nzTitle="事件订阅验证令牌">
-        <ng-container *ngIf="data['LarkVerificationToken']; else unkown">
-          <span>已设置</span>
+      <nz-descriptions-item nzTitle="Lark Verification Token">
+        <ng-container *ngIf="data['LarkVerificationToken']; else unknown">
+          <span>Exists</span>
         </ng-container>
       </nz-descriptions-item>
     </nz-descriptions>
@@ -39,16 +39,16 @@
 
   <nz-row style="padding-top: 12px" [nzGutter]="[8, 8]">
     <nz-col [nzSpan]="12">
-      <nz-card nzSize="small" nzType="inner" nzTitle="第三方免登陆" [nzExtra]="larkLoginRef">
+      <nz-card nzSize="small" nzType="inner" nzTitle="Third-party Login" [nzExtra]="larkLoginRef">
         <ng-template #larkLoginRef>
-          <button nz-button nzType="text" (click)="setLoginFree()">
+          <button nz-button nzType="text" (click)="setRedirect()">
             <span nz-icon nzType="edit"></span>
           </button>
         </ng-template>
-        <p>允许通过企业平台用户身份进行登录</p>
+        <p>Allow login through enterprise platform user identity</p>
         <nz-descriptions nzLayout="vertical" [nzColumn]="2">
-          <nz-descriptions-item nzTitle="跳转地址">
-            <ng-container *ngIf="data['RedirectUrl']; else unkown">
+          <nz-descriptions-item nzTitle="Redirect Url">
+            <ng-container *ngIf="data['RedirectUrl']; else unknown">
               {{ data['RedirectUrl'] }}
             </ng-container>
           </nz-descriptions-item>
@@ -58,12 +58,6 @@
   </nz-row>
 </nz-card>
 
-<ng-template #unkown>
-  <span>未设置</span>
-</ng-template>
-
-<ng-template #notYetRef>
-  <button nz-button nzType="text" disabled>
-    <span nz-icon nzType="edit"></span>
-  </button>
+<ng-template #unknown>
+  <span>Unset</span>
 </ng-template>

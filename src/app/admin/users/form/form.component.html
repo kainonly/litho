@@ -2,14 +2,14 @@
   <nz-row [nzGutter]="24">
     <nz-col [nzSpan]="14">
       <nz-form-item>
-        <nz-form-label nzRequired>电子邮件</nz-form-label>
+        <nz-form-label nzRequired>Email</nz-form-label>
         <nz-form-control nzHasFeedback [nzAutoTips]="tips.email">
-          <input nz-input type="email" formControlName="email" placeholder="请输入电子邮件" />
+          <input nz-input type="email" formControlName="email" placeholder="Please enter a email" />
         </nz-form-control>
       </nz-form-item>
       <nz-form-item>
-        <nz-form-label [nzRequired]="!data"> 密码 </nz-form-label>
-        <nz-form-control nzHasFeedback nzExtra="非必须，为空不更新" [nzAutoTips]="tips.password">
+        <nz-form-label [nzRequired]="!data"> Password </nz-form-label>
+        <nz-form-control nzHasFeedback [nzAutoTips]="tips.password">
           <nz-input-group [nzSuffix]="suffixTemplate">
             <ng-template #suffixTemplate>
               <span
@@ -23,21 +23,21 @@
               nz-input
               autocomplete="new-password"
               formControlName="password"
-              placeholder="请输入密码"
+              placeholder="Optional"
             />
           </nz-input-group>
         </nz-form-control>
       </nz-form-item>
       <nz-form-item>
-        <nz-form-label>称呼</nz-form-label>
+        <nz-form-label>Name</nz-form-label>
         <nz-form-control>
-          <input nz-input formControlName="name" placeholder="请输入称呼" />
+          <input nz-input formControlName="name" placeholder="Please enter a name" />
         </nz-form-control>
       </nz-form-item>
     </nz-col>
     <nz-col [nzSpan]="10">
       <nz-form-item>
-        <nz-form-label>头像</nz-form-label>
+        <nz-form-label>Avatar</nz-form-label>
         <nz-form-control>
           <wpx-upload-avatar
             wpxExt="image"
@@ -52,7 +52,7 @@
   </nz-row>
 
   <nz-form-item>
-    <nz-form-label nzRequired>状态</nz-form-label>
+    <nz-form-label nzRequired>Status</nz-form-label>
     <nz-form-control>
       <nz-switch formControlName="status"></nz-switch>
     </nz-form-control>
@@ -60,6 +60,6 @@
 </form>
 
 <div *nzModalFooter>
-  <button nz-button type="button" nzType="default" (click)="close()">取消</button>
-  <button nz-button nzType="primary" form="form" [disabled]="!form.valid">提交</button>
+  <button nz-button type="button" nzType="default" (click)="close()">Cancel</button>
+  <button nz-button nzType="primary" form="form" [disabled]="!form.valid">Submit</button>
 </div>

@@ -18,21 +18,21 @@ import { NzDrawerService } from 'ng-zorro-antd/drawer';
   selector: 'wpx-toolbox',
   template: `
     <nz-button-group>
-      <button *ngIf="wpxSearchForm" nz-button nzType="text" nz-tooltip="高级检索" (click)="open()">
+      <button *ngIf="wpxSearchForm" nz-button nzType="text" (click)="open()">
         <i nz-icon nzType="filter" nzTheme="outline"></i>
       </button>
-      <button nz-button nzType="text" nz-tooltip="清除查询" (click)="clear()">
+      <button nz-button nzType="text" (click)="clear()">
         <i nz-icon nzType="clear" nzTheme="outline"></i>
       </button>
-      <button nz-button nzType="text" nz-tooltip="刷新数据" (click)="refresh()">
+      <button nz-button nzType="text" (click)="refresh()">
         <i nz-icon nzType="reload" nzTheme="outline"></i>
       </button>
     </nz-button-group>
 
     <ng-template #searchBtnRef>
       <nz-space *ngIf="wpxSearchForm">
-        <button *nzSpaceItem nz-button nzType="primary" form="search" [disabled]="!wpxSearchForm.valid">查询</button>
-        <button *nzSpaceItem nz-button type="button" (click)="close()">关闭</button>
+        <button *nzSpaceItem nz-button nzType="primary" form="search" [disabled]="!wpxSearchForm.valid">Query</button>
+        <button *nzSpaceItem nz-button type="button" (click)="close()">Close</button>
       </nz-space>
     </ng-template>
     <ng-template #searchContentRef>
@@ -77,7 +77,7 @@ export class WpxToolboxComponent<T> implements OnDestroy {
     }
     this.wpxModel.advanced.set(
       this.drawer.create({
-        nzTitle: !this.wpxSearchTitle ? '高级检索' : this.wpxSearchTitle,
+        nzTitle: !this.wpxSearchTitle ? 'Advanced Search' : this.wpxSearchTitle,
         nzExtra: this.searchBtnRef,
         nzContent: this.searchContentRef,
         nzHeight: this.wpxSearchHeight,

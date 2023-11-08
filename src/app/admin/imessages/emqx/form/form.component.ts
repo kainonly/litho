@@ -14,17 +14,17 @@ export class FormComponent implements OnInit {
   tips = {
     EmqxHost: {
       default: {
-        required: `EMQX Host 不能为空`
+        required: `EMQX Host cannot be empty`
       }
     },
     EmqxApiKey: {
       default: {
-        required: `Emqx ApiKey 不能为空`
+        required: `EMQX ApiKey cannot be empty`
       }
     },
     EmqxSecretKey: {
       default: {
-        required: `Emqx SecretKey 不能为空`
+        required: `EMQX SecretKey cannot be empty`
       }
     }
   };
@@ -56,7 +56,7 @@ export class FormComponent implements OnInit {
 
   submit(data: Any): void {
     this.wpx.setValues(data).subscribe(() => {
-      this.message.success(`数据更新成功`);
+      this.message.success(`Update successful`);
       this.modalRef.triggerOk();
     });
   }

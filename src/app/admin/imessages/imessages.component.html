@@ -6,7 +6,7 @@
       [wpxModel]="model"
       [wpxKeys]="['topic']"
       (wpxSubmit)="getData()"
-      wpxPlaceholder="主题命名"
+      wpxPlaceholder="Topic"
     ></wpx-keyword>
     <wpx-toolbox *nzSpaceItem [wpxModel]="model" (wpxClear)="getData()" (wpxRefresh)="getData()"> </wpx-toolbox>
   </nz-space>
@@ -15,17 +15,19 @@
 <ng-template #extraRef>
   <nz-space nzAlign="center">
     <ng-container *ngIf="model.selection.size as size">
-      <button *nzSpaceItem nz-button nzType="dashed" nz-dropdown [nzDropdownMenu]="menu"> 已选中 {{ size }} 项 </button>
+      <button *nzSpaceItem nz-button nzType="dashed" nz-dropdown [nzDropdownMenu]="menu">
+        {{ size }} selected items
+      </button>
       <nz-dropdown-menu #menu="nzDropdownMenu">
         <ul nz-menu>
-          <li nz-menu-item (click)="wpxTable.clearSelections()"> 取消选择 </li>
-          <li nz-menu-item nzDanger (click)="bulkDelete()"> 删除 </li>
+          <li nz-menu-item (click)="wpxTable.clearSelections()"> Unselect </li>
+          <li nz-menu-item nzDanger (click)="bulkDelete()"> Delete </li>
         </ul>
       </nz-dropdown-menu>
     </ng-container>
-    <button *nzSpaceItem nz-button (click)="openPublish()"> 发布消息 </button>
-    <button *nzSpaceItem nz-button (click)="openEmqx()"> 服务接入 </button>
-    <button *nzSpaceItem nz-button nzType="primary" (click)="openForm()"> 新增 </button>
+    <button *nzSpaceItem nz-button (click)="openPublish()"> Publish </button>
+    <button *nzSpaceItem nz-button (click)="openEmqx()"> Connect </button>
+    <button *nzSpaceItem nz-button nzType="primary" (click)="openForm()"> Create </button>
   </nz-space>
 </ng-template>
 
@@ -36,13 +38,13 @@
   [wpxModel]="model"
   [wpxColumns]="[
     {
-      title: '主题命名',
+      title: 'Topic',
       key: 'name',
       width: '360px',
       render: name
     },
     {
-      title: '详情',
+      title: 'Detail',
       key: 'detail',
       render: detail
     }
@@ -59,9 +61,9 @@
   <ng-template #detail let-data>
     <nz-tag>
       <span nz-icon [nzType]="data.rule ? 'check-circle' : 'close-circle'"></span>
-      <span>日志收集</span>
+      <span>Logset</span>
     </nz-tag>
-    <a (click)="openDetail(data)">已授权 {{ data.projects.length }} 个项目</a>
+    <a (click)="openDetail(data)">There are {{ data.projects.length }} projects authorized</a>
   </ng-template>
 </wpx-table>
 
@@ -71,8 +73,8 @@
   </button>
   <nz-dropdown-menu #menu="nzDropdownMenu">
     <ul nz-menu>
-      <li nz-menu-item (click)="openForm(data)"> 修改 </li>
-      <li nz-menu-item nzDanger (click)="delete(data)"> 删除 </li>
+      <li nz-menu-item (click)="openForm(data)"> Modify </li>
+      <li nz-menu-item nzDanger (click)="delete(data)"> Delete </li>
     </ul>
   </nz-dropdown-menu>
 </ng-template>

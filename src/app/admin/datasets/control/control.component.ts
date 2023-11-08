@@ -69,7 +69,7 @@ export class ControlComponent implements OnInit {
   submit(data: Any): void {
     this.controls[this.name] = { ...data };
     this.wpx.setValues({ RestControls: this.controls }).subscribe(() => {
-      this.message.success(`数据更新成功`);
+      this.message.success(`Update successful`);
       this.updated();
     });
   }

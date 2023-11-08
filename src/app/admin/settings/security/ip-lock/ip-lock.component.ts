@@ -14,11 +14,11 @@ export class IpLockComponent implements OnInit {
   tips = {
     ip_login_failures: {
       default: {
-        required: `IP 登录失败上限不能为空`
+        required: `Number of times cannot be empty`
       }
     }
   };
-  formatterTimes = (value: number): string => `${value} 次`;
+  formatterTimes = (value: number): string => `${value} Times`;
 
   constructor(
     @Inject(NZ_MODAL_DATA)
@@ -42,7 +42,7 @@ export class IpLockComponent implements OnInit {
 
   submit(data: Any): void {
     this.wpx.setValues(data).subscribe(() => {
-      this.message.success(`数据更新成功`);
+      this.message.success(`Update successful`);
       this.modalRef.triggerOk();
     });
   }

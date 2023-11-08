@@ -46,7 +46,7 @@ export class ImessagesComponent implements OnInit {
 
   openForm(doc?: AnyDto<Imessage>): void {
     this.modal.create<FormComponent, FormInput>({
-      nzTitle: !doc ? '创建' : `编辑【${doc.topic}】`,
+      nzTitle: !doc ? 'Create' : `Modify(${doc.topic})`,
       nzContent: FormComponent,
       nzData: {
         doc
@@ -78,7 +78,7 @@ export class ImessagesComponent implements OnInit {
 
   openPublish(): void {
     this.modal.create<PublishComponent, PublishInput>({
-      nzTitle: '发布消息',
+      nzTitle: 'Publish',
       nzContent: PublishComponent,
       nzWidth: 640
     });
@@ -86,26 +86,27 @@ export class ImessagesComponent implements OnInit {
 
   delete(doc: AnyDto<Imessage>): void {
     this.modal.confirm({
-      nzTitle: `您确定要删除【${doc.topic}】?`,
-      nzOkText: `是的`,
+      nzTitle: `Do you want to delete this?`,
+      nzContent: doc.topic,
+      nzOkText: `Yes`,
       nzOkType: 'primary',
       nzOkDanger: true,
       nzOnOk: () => {
         forkJoin([this.imessages.deleteRule(doc._id), this.imessages.deleteMetrics(doc._id)])
           .pipe(switchMap(() => this.imessages.delete(doc._id)))
           .subscribe(() => {
-            this.message.success(`数据删除成功`);
+            this.message.success(`Deletion successful`);
             this.getData(true);
           });
       },
-      nzCancelText: `再想想`
+      nzCancelText: `Think again`
     });
   }
 
   bulkDelete(): void {
     this.modal.confirm({
-      nzTitle: `您确定删除这些主题吗？`,
-      nzOkText: `是的`,
+      nzTitle: `Do you want to delete these items?`,
+      nzOkText: `Yes`,
       nzOkType: 'primary',
       nzOkDanger: true,
       nzOnOk: () => {
@@ -126,12 +127,12 @@ export class ImessagesComponent implements OnInit {
             )
           )
           .subscribe(() => {
-            this.message.success(`数据删除成功`);
+            this.message.success(`Deletion successful`);
             this.getData(true);
             this.model.setCurrentSelections(false);
           });
       },
-      nzCancelText: `再想想`
+      nzCancelText: `Think again`
     });
   }
 }

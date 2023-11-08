@@ -1,13 +1,12 @@
 <nz-layout style="height: 100%; background: transparent">
   <nz-page-header>
-    <nz-page-header-title>日志</nz-page-header-title>
-    <nz-page-header-subtitle>{{ topic }}</nz-page-header-subtitle>
+    <nz-page-header-title>Log: {{ topic }}</nz-page-header-title>
     <nz-page-header-footer>
       <nz-row nzAlign="middle" nzJustify="space-between">
         <nz-col>
           <nz-space nzAlign="center">
             <nz-input-group *nzSpaceItem style="width: 320px" nzSuffixIcon="search">
-              <input nz-input [(ngModel)]="clientText" (keyup.enter)="getData(true)" placeholder="客户端" />
+              <input nz-input [(ngModel)]="clientText" (keyup.enter)="getData(true)" placeholder="Client" />
             </nz-input-group>
             <nz-range-picker
               *nzSpaceItem
@@ -16,7 +15,7 @@
               nzFormat="yyyy-MM-dd HH:mm"
               [(ngModel)]="timestamp"
               (ngModelChange)="getData(true)"
-              nz-tooltip="建议范围不要超过一天"
+              nz-tooltip="The recommended range should not exceed one day"
             ></nz-range-picker>
             <wpx-toolbox *nzSpaceItem [wpxModel]="model" (wpxClear)="clear()" (wpxRefresh)="getData(true)">
             </wpx-toolbox>
@@ -25,11 +24,11 @@
         <nz-col></nz-col>
         <nz-col>
           <ng-container *ngIf="model.selection.size as size">
-            <button nz-button nzType="dashed" nz-dropdown [nzDropdownMenu]="menu"> 已选中 {{ size }} 项 </button>
+            <button nz-button nzType="dashed" nz-dropdown [nzDropdownMenu]="menu"> {{ size }} selected items </button>
             <nz-dropdown-menu #menu="nzDropdownMenu">
               <ul nz-menu>
-                <li nz-menu-item (click)="wpxTable.clearSelections()"> 取消选择 </li>
-                <li nz-menu-item> 导出 </li>
+                <li nz-menu-item (click)="wpxTable.clearSelections()"> Unselect </li>
+                <li nz-menu-item> Export </li>
               </ul>
             </nz-dropdown-menu>
           </ng-container>
@@ -44,19 +43,19 @@
       [wpxModel]="model"
       [wpxColumns]="[
         {
-          title: '时间',
+          title: 'Timestamp',
           key: 'timestamp',
           width: '200px',
           format: 'date'
         },
         {
-          title: '客户端',
+          title: 'Client',
           key: 'client',
           width: '200px',
           render: client
         },
         {
-          title: '载荷',
+          title: 'Payload',
           key: 'payload',
           render: payload,
           ellipsis: true

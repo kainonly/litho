@@ -14,12 +14,12 @@ export class EmailComponent implements OnInit {
   tips = {
     EmailUsername: {
       default: {
-        required: `用户名不能为空`
+        required: `Username cannot be empty`
       }
     },
     EmailPassword: {
       default: {
-        required: `密码不能为空`
+        required: `Password cannot be empty`
       }
     }
   };
@@ -53,7 +53,7 @@ export class EmailComponent implements OnInit {
 
   submit(data: Any): void {
     this.wpx.setValues(data).subscribe(() => {
-      this.message.success(`数据更新成功`);
+      this.message.success(`Update successful`);
       this.modalRef.triggerOk();
     });
   }

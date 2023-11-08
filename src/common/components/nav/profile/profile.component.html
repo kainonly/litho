@@ -1,10 +1,10 @@
-<nz-page-header nzTitle="个人中心">
+<nz-page-header nzTitle="Profile">
   <nz-page-header-footer>
     <nz-tabset nzSize="small" [(nzSelectedIndex)]="index">
-      <nz-tab nzTitle="基本信息"></nz-tab>
-      <nz-tab nzTitle="安全设置"></nz-tab>
-      <nz-tab nzTitle="办公协作"></nz-tab>
-      <nz-tab nzTitle="登录状态"></nz-tab>
+      <nz-tab nzTitle="Basic"></nz-tab>
+      <nz-tab nzTitle="Security"></nz-tab>
+      <nz-tab nzTitle="Collaboration"></nz-tab>
+      <nz-tab nzTitle="History"></nz-tab>
     </nz-tabset>
   </nz-page-header-footer>
 </nz-page-header>
@@ -14,35 +14,37 @@
     <ng-container *ngSwitchCase="0">
       <nz-list-item>
         <nz-list-item-meta>
-          <nz-list-item-meta-title><b>电子邮件</b></nz-list-item-meta-title>
-          <nz-list-item-meta-description> 已设置： {{ u.email }} </nz-list-item-meta-description>
+          <nz-list-item-meta-title><b>Email</b></nz-list-item-meta-title>
+          <nz-list-item-meta-description> Set To: {{ u.email }} </nz-list-item-meta-description>
         </nz-list-item-meta>
         <nz-list-item-extra>
-          <button nz-button nzType="primary" nzShape="circle" nz-tooltip="编辑" (click)="setEmail()">
+          <button nz-button nzType="primary" nzShape="circle" nz-tooltip="Modify" (click)="setEmail()">
             <i nz-icon nzType="edit"></i>
           </button>
         </nz-list-item-extra>
       </nz-list-item>
       <nz-list-item>
         <nz-list-item-meta>
-          <nz-list-item-meta-title><b>称呼</b></nz-list-item-meta-title>
+          <nz-list-item-meta-title><b>Name</b></nz-list-item-meta-title>
           <nz-list-item-meta-description>
-            <ng-container *ngIf="!!u.name; else emptyNameTpl"> 已设置： {{ u.name }} </ng-container>
+            <ng-container *ngIf="!!u.name; else emptyNameTpl"> Set to: {{ u.name }} </ng-container>
             <ng-template #emptyNameTpl>
-              <span>推荐设置工作称呼或真实姓名</span>
+              <span>It is recommended to use a job title or real name</span>
             </ng-template>
           </nz-list-item-meta-description>
         </nz-list-item-meta>
         <nz-list-item-extra>
-          <button nz-button nzType="primary" nzShape="circle" nz-tooltip="编辑" (click)="setName()">
+          <button nz-button nzType="primary" nzShape="circle" nz-tooltip="Modify" (click)="setName()">
             <i nz-icon nzType="edit"></i>
           </button>
         </nz-list-item-extra>
       </nz-list-item>
       <nz-list-item>
         <nz-list-item-meta>
-          <nz-list-item-meta-title><b>头像</b></nz-list-item-meta-title>
-          <nz-list-item-meta-description> 推荐采用尺寸 256*256 </nz-list-item-meta-description>
+          <nz-list-item-meta-title><b>Avatar</b></nz-list-item-meta-title>
+          <nz-list-item-meta-description>
+            It is recommended to use 256*256 sizes for the avatar.
+          </nz-list-item-meta-description>
         </nz-list-item-meta>
         <ng-container *ngIf="!!u.avatar; else emptyAvatarTpl">
           <nz-avatar nzShape="square" [nzSize]="96" [nzSrc]="[u.avatar] | wpxAssets"></nz-avatar>
@@ -51,7 +53,7 @@
           <nz-avatar nzShape="square" [nzSize]="96" nzIcon="user"></nz-avatar>
         </ng-template>
         <nz-list-item-extra>
-          <button nz-button nzType="primary" nzShape="circle" nz-tooltip="编辑" (click)="setAvatar()">
+          <button nz-button nzType="primary" nzShape="circle" nz-tooltip="Modify" (click)="setAvatar()">
             <i nz-icon nzType="edit"></i>
           </button>
         </nz-list-item-extra>
@@ -60,9 +62,10 @@
     <ng-container *ngSwitchCase="1">
       <nz-list-item>
         <nz-list-item-meta>
-          <nz-list-item-meta-title><b>账户密码</b></nz-list-item-meta-title>
+          <nz-list-item-meta-title><b>Password</b></nz-list-item-meta-title>
           <nz-list-item-meta-description>
-            建议采用大写字母、小写字母、数字和特殊字符（@$!%*?&-+）组合的密码
+            It is best to use a combination of uppercase letters, lowercase letters, numbers and special characters
+            （@$!%*?&-+）
           </nz-list-item-meta-description>
         </nz-list-item-meta>
         <nz-list-item-extra>
@@ -73,11 +76,14 @@
       </nz-list-item>
       <nz-list-item>
         <nz-list-item-meta>
-          <nz-list-item-meta-title><b>手机号码</b></nz-list-item-meta-title>
+          <nz-list-item-meta-title><b>Phone Number</b></nz-list-item-meta-title>
           <nz-list-item-meta-description>
-            <ng-container *ngIf="!!u.phone; else phoneEmptyText"> 已设置 </ng-container>
+            <ng-container *ngIf="!!u.phone; else phoneEmptyText"> Exists </ng-container>
             <ng-template #phoneEmptyText>
-              <span> 目前没有设置手机号码，可用于手机验证登录或恢复账号等安全相关操作 </span>
+              <span>
+                There is no mobile phone number set, which can be used for security-related operations such as mobile
+                phone verification and login or account recovery.
+              </span>
             </ng-template>
           </nz-list-item-meta-description>
         </nz-list-item-meta>
@@ -90,7 +96,7 @@
                 nzDanger
                 nzShape="circle"
                 nz-popconfirm
-                nzPopconfirmTitle="您确定要取消吗？"
+                nzPopconfirmTitle="Are you sure you want to cancel?"
                 nzPopconfirmPlacement="bottom"
                 (nzOnConfirm)="unsetPhone()"
               >
@@ -107,13 +113,16 @@
       </nz-list-item>
       <nz-list-item>
         <nz-list-item-meta>
-          <nz-list-item-meta-title><b>身份验证器</b></nz-list-item-meta-title>
+          <nz-list-item-meta-title><b>Authenticator</b></nz-list-item-meta-title>
           <nz-list-item-meta-description>
             <ng-container *ngIf="!!u.totp; else totpEmptyText">
-              <span>已设置</span>
+              <span>Exists</span>
             </ng-container>
             <ng-template #totpEmptyText>
-              <span>目前没有设置身份验证器应用程序，使用手机上的应用程序进行双因素身份验证出现提示时的代码</span>
+              <span
+                >No authenticator app set up, code when prompted to use the app on your phone for two-factor
+                authentication</span
+              >
             </ng-template>
           </nz-list-item-meta-description>
         </nz-list-item-meta>
@@ -126,7 +135,7 @@
                 nzDanger
                 nzShape="circle"
                 nz-popconfirm
-                nzPopconfirmTitle="您确定要取消吗？"
+                nzPopconfirmTitle="Are you sure you want to cancel?"
                 nzPopconfirmPlacement="bottom"
                 (nzOnConfirm)="unsetTotp()"
               >
@@ -149,14 +158,14 @@
             <nz-avatar nzShape="square" nzSize="large" [nzSrc]="['assets', 'Lark.png'] | wpxAssets"></nz-avatar>
           </nz-list-item-meta-avatar>
           <nz-list-item-meta-title><b>Lark</b></nz-list-item-meta-title>
-          <nz-list-item-meta-description *ngIf="!u.lark"> 当前未关联 Lark 账号 </nz-list-item-meta-description>
+          <nz-list-item-meta-description *ngIf="!u.lark"> Lark account not linked </nz-list-item-meta-description>
         </nz-list-item-meta>
         <nz-descriptions *ngIf="u.lark as lark" nzLayout="vertical" [nzColumn]="2">
-          <nz-descriptions-item nzTitle="用户姓名">{{ lark.name }}</nz-descriptions-item>
-          <nz-descriptions-item nzTitle="用户英文名称">
+          <nz-descriptions-item nzTitle="Name">{{ lark.name }}</nz-descriptions-item>
+          <nz-descriptions-item nzTitle="English Name">
             {{ lark.en_name | nzSafeNull: '-' }}
           </nz-descriptions-item>
-          <nz-descriptions-item nzTitle="用户应用唯一标识" [nzSpan]="2">
+          <nz-descriptions-item nzTitle="Identifier" [nzSpan]="2">
             {{ lark.open_id }}
           </nz-descriptions-item>
         </nz-descriptions>
@@ -167,7 +176,7 @@
               nzDanger
               nzShape="circle"
               nz-popconfirm
-              nzPopconfirmTitle="您确定要取消该关联吗？"
+              nzPopconfirmTitle="Are you sure you want to cancel the association?"
               nzPopconfirmPlacement="bottom"
               (nzOnConfirm)="unlinkLark()"
             >
@@ -175,7 +184,7 @@
             </button>
           </ng-container>
           <ng-template #linkLarkRef>
-            <button nz-button nzType="link" (click)="linkLark()">设置</button>
+            <button nz-button nzType="link" (click)="linkLark()">Modify</button>
           </ng-template>
         </nz-list-item-extra>
       </nz-list-item>
@@ -183,16 +192,16 @@
     <ng-container *ngSwitchCase="3">
       <nz-list-item>
         <nz-list-item-meta>
-          <nz-list-item-meta-title><b>详情</b></nz-list-item-meta-title>
+          <nz-list-item-meta-title><b>Detail</b></nz-list-item-meta-title>
           <nz-list-item-meta-description>
             <nz-descriptions *ngIf="u.history as history" nzLayout="vertical" [nzColumn]="2">
-              <nz-descriptions-item nzTitle="累计会话">
+              <nz-descriptions-item nzTitle="Total Number Of Sessions">
                 <span>
-                  已登录 <i> {{ u.sessions }} </i> 次
+                  It has been logged in <i> {{ u.sessions }} </i> times
                 </span>
               </nz-descriptions-item>
-              <nz-descriptions-item nzTitle="最近登录时间">
-                {{ history.timestamp | date: 'yyyy/MM/dd HH:mm:ss' }}
+              <nz-descriptions-item nzTitle="Last Login Time">
+                {{ history.timestamp | date: 'long' }}
               </nz-descriptions-item>
               <nz-descriptions-item nzTitle="IP">
                 <span> {{ history.metadata.client_ip }}</span>
@@ -205,7 +214,7 @@
               </nz-descriptions-item>
               <ng-container [ngSwitch]="u.history.metadata.version">
                 <ng-container *ngSwitchCase="'shuliancloud.v4'">
-                  <nz-descriptions-item nzTitle="地理信息" [nzSpan]="2">
+                  <nz-descriptions-item nzTitle="Geographic Information" [nzSpan]="2">
                     <nz-space *ngIf="u.history.detail as detail" [nzSplit]="spaceSplit">
                       <span *nzSpaceItem>{{ detail.country | wpxBlank: 'unknown' }}[{{ detail.continent }}]</span>
                       <span *nzSpaceItem>{{ detail.prov | wpxBlank: 'unknown' }}</span>

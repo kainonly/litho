@@ -80,6 +80,7 @@ export class WpxCategoriesComponent implements ControlValueAccessor, OnInit {
       .find(
         { type: this.wpxType },
         {
+          pagesize: 1000,
           sort: { sort: 1 }
         }
       )
@@ -103,7 +104,7 @@ export class WpxCategoriesComponent implements ControlValueAccessor, OnInit {
       )
       .subscribe(() => {
         this.getData();
-        this.message.success(`数据更新成功`);
+        this.message.success(`Update successful`);
       });
   }
 
@@ -118,7 +119,7 @@ export class WpxCategoriesComponent implements ControlValueAccessor, OnInit {
 
   openForm(doc?: AnyDto<WpxCategory>): void {
     this.modal.create<FormComponent, FormInput>({
-      nzTitle: !doc ? `新增` : `编辑`,
+      nzTitle: !doc ? `Create` : `Modify(${doc.name})`,
       nzContent: FormComponent,
       nzData: {
         type: this.wpxType,
@@ -132,18 +133,18 @@ export class WpxCategoriesComponent implements ControlValueAccessor, OnInit {
 
   delete(data: AnyDto<WpxCategory>): void {
     this.modal.confirm({
-      nzTitle: `您确认要删除吗?`,
-      nzContent: `[${data.name}]`,
-      nzOkText: `是的`,
+      nzTitle: `Do you want to delete this?`,
+      nzContent: data.name,
+      nzOkText: `Yes`,
       nzOkType: 'primary',
       nzOkDanger: true,
       nzOnOk: () => {
         this.categories.delete(data._id).subscribe(() => {
           this.getData();
-          this.message.success(`数据删除完成`);
+          this.message.success(`Deletion successful`);
         });
       },
-      nzCancelText: `否`
+      nzCancelText: `Think again`
     });
   }
 }

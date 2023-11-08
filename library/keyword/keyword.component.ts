@@ -20,7 +20,7 @@ export class WpxKeywordComponent<T> {
   @Input({ required: true }) wpxModel!: WpxModel<T>;
   @Input({ required: true }) wpxKeys!: string[];
   @Input() wpxWidth = 220;
-  @Input() wpxPlaceholder = '关键词搜索';
+  @Input() wpxPlaceholder = 'Search';
   @Output() wpxSubmit = new EventEmitter<void>();
 
   submit(): void {

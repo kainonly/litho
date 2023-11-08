@@ -27,18 +27,18 @@ export type ExporterName =
 export const MetaType: Record<string, Record<string, Meta>> = {
   default: {
     value: {
-      alias: '数值'
+      alias: 'Value'
     }
   },
   k: {
     value: {
-      alias: '数值',
+      alias: 'Value',
       formatter: v => {
         if (v > 1000000) {
-          return (v / 1000000).toFixed(2) + ' 百万';
+          return (v / 1000000).toFixed(2) + ' M';
         }
         if (v > 10000) {
-          return (v / 10000).toFixed(2) + ' 万';
+          return (v / 10000).toFixed(2) + ' W';
         }
         return Math.trunc(v);
       }
@@ -46,13 +46,13 @@ export const MetaType: Record<string, Record<string, Meta>> = {
   },
   ms: {
     value: {
-      alias: '毫秒',
+      alias: 'Ms',
       formatter: v => v + 'ms'
     }
   },
   fixed: {
     value: {
-      alias: '数值',
+      alias: 'Value',
       formatter: v => {
         return v.toFixed(2);
       }
@@ -60,13 +60,13 @@ export const MetaType: Record<string, Record<string, Meta>> = {
   },
   ops: {
     value: {
-      alias: '数值',
+      alias: 'Value',
       formatter: value => `${value} Ops`
     }
   },
   bytes: {
     value: {
-      alias: '数值',
+      alias: 'Value',
       formatter: v => {
         if (v > 1048576) {
           return (v / 1048576).toFixed(2) + ` Mb`;

@@ -1,27 +1,27 @@
 <app-blank-page>
   <nz-steps style="width: 50%; margin: 0 auto" [nzCurrent]="index" nzProgressDot>
-    <nz-step nzTitle="验证"></nz-step>
-    <nz-step nzTitle="重置"></nz-step>
-    <nz-step nzTitle="完成"></nz-step>
+    <nz-step nzTitle="Verify"></nz-step>
+    <nz-step nzTitle="Reset"></nz-step>
+    <nz-step nzTitle="Finish"></nz-step>
   </nz-steps>
   <nz-row nzJustify="center">
     <div style="min-width: 540px">
-      <nz-page-header nzBackIcon nzTitle="找回密码"> </nz-page-header>
+      <nz-page-header nzBackIcon nzTitle="Find Back The Password"> </nz-page-header>
       <div style="width: 360px; margin: 12px auto 0" [ngSwitch]="index">
         <form *ngSwitchCase="0" nz-form nzLayout="vertical" [formGroup]="verifyForm" (wpxSubmit)="verifySubmit($event)">
           <nz-form-item>
-            <nz-form-label nzRequired>电子邮件</nz-form-label>
+            <nz-form-label nzRequired>Email</nz-form-label>
             <nz-form-control nzHasFeedback [nzAutoTips]="tips.email">
-              <input type="email" formControlName="email" nz-input placeholder="例如：mail@example.com" />
+              <input type="email" formControlName="email" nz-input placeholder="mail@example.com" />
             </nz-form-control>
           </nz-form-item>
 
           <nz-form-item>
-            <nz-form-label nzRequired>验证码</nz-form-label>
-            <nz-form-control nzExtra="*电子邮件可能会被个人设置拦截" [nzAutoTips]="tips.code">
+            <nz-form-label nzRequired>Verification Code</nz-form-label>
+            <nz-form-control nzExtra="*Emails may be blocked by personal settings" [nzAutoTips]="tips.code">
               <nz-row [nzGutter]="8">
                 <nz-col nzFlex="1">
-                  <input nz-input formControlName="code" placeholder="验证码" />
+                  <input nz-input formControlName="code" placeholder="Code" />
                 </nz-col>
                 <nz-col nzFlex="1">
                   <button
@@ -31,8 +31,8 @@
                     [disabled]="!verifyForm.get('email')?.value || emailTimer !== 0"
                     (click)="getForgetCode()"
                   >
-                    <ng-container *ngIf="emailTimer === 0; else timerText">获取</ng-container>
-                    <ng-template #timerText>{{ emailTimer }} 秒</ng-template>
+                    <ng-container *ngIf="emailTimer === 0; else timerText">Get</ng-container>
+                    <ng-template #timerText>{{ emailTimer }} sec</ng-template>
                   </button>
                 </nz-col>
               </nz-row>
@@ -41,32 +41,32 @@
 
           <nz-form-item>
             <nz-form-control>
-              <button nz-button nzBlock [disabled]="!verifyForm.valid"> 下一步 </button>
+              <button nz-button nzBlock [disabled]="!verifyForm.valid"> Next </button>
             </nz-form-control>
           </nz-form-item>
         </form>
         <form *ngSwitchCase="1" nz-form nzLayout="vertical" [formGroup]="resetForm" (wpxSubmit)="resetSubmit($event)">
           <nz-form-item>
-            <nz-form-label nzRequired> 密码 </nz-form-label>
+            <nz-form-label nzRequired> Password </nz-form-label>
             <nz-form-control nzHasFeedback [nzAutoTips]="tips.password">
               <input
                 nz-input
                 type="password"
                 autocomplete="new-password"
                 formControlName="password"
-                placeholder="请输入重置密码"
+                placeholder="Please enter the password"
               />
             </nz-form-control>
           </nz-form-item>
           <nz-form-item>
-            <nz-form-label nzRequired> 再次确认 </nz-form-label>
+            <nz-form-label nzRequired> Confirm Again </nz-form-label>
             <nz-form-control nzHasFeedback [nzAutoTips]="tips.password">
               <input
                 nz-input
                 type="password"
                 autocomplete="new-password"
                 formControlName="check"
-                placeholder="请再次输入重置密码"
+                placeholder="Please enter the password again"
               />
             </nz-form-control>
           </nz-form-item>
@@ -74,18 +74,18 @@
             <nz-form-control>
               <nz-row [nzGutter]="8">
                 <nz-col nzFlex="1">
-                  <button type="button" nz-button nzBlock (click)="previous()"> 上一步 </button>
+                  <button type="button" nz-button nzBlock (click)="previous()"> Previous </button>
                 </nz-col>
                 <nz-col nzFlex="1">
-                  <button nz-button nzBlock [disabled]="!resetForm.valid"> 提交 </button>
+                  <button nz-button nzBlock [disabled]="!resetForm.valid"> Submit </button>
                 </nz-col>
               </nz-row>
             </nz-form-control>
           </nz-form-item>
         </form>
-        <nz-result *ngSwitchCase="2" nzStatus="success" nzTitle="您的密码已重置">
+        <nz-result *ngSwitchCase="2" nzStatus="success" nzTitle="Your password was reset successfully">
           <div nz-result-extra>
-            <button nz-button nzType="primary" routerLink="/login">返回登录页</button>
+            <button nz-button nzType="primary" routerLink="/login">Go To Login</button>
           </div>
         </nz-result>
       </div>

@@ -5,78 +5,87 @@
     [(nzSelectedIndex)]="tabIndex"
     (nzSelectedIndexChange)="saveTabIndex()"
   >
-    <nz-tab nzTitle="基本设置">
+    <nz-tab nzTitle="Basic">
       <nz-card>
         <nz-list nzSize="large" nzItemLayout="vertical">
           <nz-list-item>
             <nz-list-item-meta>
-              <nz-list-item-meta-title><b>会话超时策略</b></nz-list-item-meta-title>
+              <nz-list-item-meta-title><b>Session Expired</b></nz-list-item-meta-title>
               <nz-list-item-meta-description>
-                用户在 {{ data['SessionTTL'] / 1e9 }} 秒内没有操作，退出当前帐号。
+                If the user does not operate within {{ data['SessionTTL'] / 1e9 }} sec, log out of the current account.
               </nz-list-item-meta-description>
             </nz-list-item-meta>
             <nz-list-item-extra>
-              <button nz-button nzType="primary" nzShape="circle" nz-tooltip="编辑" (click)="setSession()">
+              <button nz-button nzType="primary" nzShape="circle" nz-tooltip="Modify" (click)="setSession()">
                 <i nz-icon nzType="edit"></i>
               </button>
             </nz-list-item-extra>
           </nz-list-item>
           <nz-list-item>
             <nz-list-item-meta>
-              <nz-list-item-meta-title><b>帐号锁定策略</b></nz-list-item-meta-title>
+              <nz-list-item-meta-title><b>Account Locking</b></nz-list-item-meta-title>
               <nz-list-item-meta-description>
-                用户连续登录失败 {{ data['LoginFailures'] }} 次， 锁定帐号 {{ data['LoginTTL'] / 1e9 }} 秒。
+                The user failed to sign in {{ data['LoginFailures'] }} times in a row, and the account was locked for
+                {{ data['LoginTTL'] / 1e9 }} sec.
               </nz-list-item-meta-description>
             </nz-list-item-meta>
             <nz-list-item-extra>
-              <button nz-button nzType="primary" nzShape="circle" nz-tooltip="编辑" (click)="setUserLock()">
+              <button nz-button nzType="primary" nzShape="circle" nz-tooltip="Modify" (click)="setUserLock()">
                 <i nz-icon nzType="edit"></i>
               </button>
             </nz-list-item-extra>
           </nz-list-item>
           <nz-list-item>
             <nz-list-item-meta>
-              <nz-list-item-meta-title><b>IP 锁定策略</b></nz-list-item-meta-title>
+              <nz-list-item-meta-title><b>IP Locking</b></nz-list-item-meta-title>
               <nz-list-item-meta-description>
-                IP 连续 {{ data['IpLoginFailures'] }} 次登录失败后（无白名单时启用），锁定 IP。
+                After the IP of consecutive login failures is {{ data['IpLoginFailures'] }} times (enabled when there is
+                no whitelist), lock the IP
               </nz-list-item-meta-description>
             </nz-list-item-meta>
             <nz-list-item-extra>
-              <button nz-button nzType="primary" nzShape="circle" nz-tooltip="编辑" (click)="setIpLock()">
+              <button nz-button nzType="primary" nzShape="circle" nz-tooltip="Modify" (click)="setIpLock()">
                 <i nz-icon nzType="edit"></i>
               </button>
             </nz-list-item-extra>
           </nz-list-item>
           <nz-list-item>
             <nz-list-item-meta>
-              <nz-list-item-meta-title><b>密码强度策略</b></nz-list-item-meta-title>
+              <nz-list-item-meta-title><b>Password Strength</b></nz-list-item-meta-title>
               <nz-list-item-meta-description>
                 <ng-container [ngSwitch]="data['PwdStrategy']">
-                  <ng-container *ngSwitchCase="0"> 无限制 </ng-container>
-                  <ng-container *ngSwitchCase="1"> 需要大写字母和小写字母 </ng-container>
-                  <ng-container *ngSwitchCase="2"> 需要大写字母、小写字母和数字 </ng-container>
-                  <ng-container *ngSwitchCase="3"> 需要大写字母、小写字母、数字和特殊字符 </ng-container>
+                  <ng-container *ngSwitchCase="0"> Unlimited </ng-container>
+                  <ng-container *ngSwitchCase="1"> Requires uppercase and lowercase letters </ng-container>
+                  <ng-container *ngSwitchCase="2">
+                    Requires uppercase letters, lowercase letters and numbers
+                  </ng-container>
+                  <ng-container *ngSwitchCase="3">
+                    Requires uppercase letters, lowercase letters, numbers, and special characters
+                  </ng-container>
                 </ng-container>
               </nz-list-item-meta-description>
             </nz-list-item-meta>
             <nz-list-item-extra>
-              <button nz-button nzType="primary" nzShape="circle" nz-tooltip="编辑" (click)="setPwdStrategy()">
+              <button nz-button nzType="primary" nzShape="circle" nz-tooltip="Modify" (click)="setPwdStrategy()">
                 <i nz-icon nzType="edit"></i>
               </button>
             </nz-list-item-extra>
           </nz-list-item>
           <nz-list-item>
             <nz-list-item-meta>
-              <nz-list-item-meta-title><b>密码有效期策略</b></nz-list-item-meta-title>
+              <nz-list-item-meta-title><b>Password Expired</b></nz-list-item-meta-title>
               <nz-list-item-meta-description>
-                <ng-container *ngIf="data['PwdTTL'] === 0; else passwordExpire"> 永久 </ng-container>
+                <ng-container *ngIf="data['PwdTTL'] === 0; else passwordExpire"> Permanent </ng-container>
                 <ng-template #passwordExpire>
-                  <ng-container> {{ data['PwdTTL'] / 86400e9 }} 天后密码过期，系统强制要求修改密码。 </ng-container>
+                  <ng-container>
+                    The password expires after {{ data['PwdTTL'] / 86400e9 }} days, and the system forces a password
+                    change.
+                  </ng-container>
                 </ng-template>
               </nz-list-item-meta-description>
             </nz-list-item-meta>
             <nz-list-item-extra>
-              <button nz-button nzType="primary" nzShape="circle" nz-tooltip="编辑" (click)="setPwdTtl()">
+              <button nz-button nzType="primary" nzShape="circle" nz-tooltip="Modify" (click)="setPwdTtl()">
                 <i nz-icon nzType="edit"></i>
               </button>
             </nz-list-item-extra>
@@ -84,16 +93,16 @@
         </nz-list>
       </nz-card>
     </nz-tab>
-    <nz-tab nzTitle="白名单">
+    <nz-tab nzTitle="Whitelist">
       <nz-alert
         nzType="info"
         nzBanner
-        nzMessage="白名单不限制登录失败的锁定，支持 CIDR，例如：192.168.1.0/24"
+        nzMessage="Whitelist does not limit login failure to lock, supports CIDR, for example: 192.168.1.0/24"
       ></nz-alert>
       <nz-table #IpWhitelist nzHideOnSinglePage [nzData]="data['IpWhitelist']" [nzFooter]="whitelistActions">
         <thead>
           <tr>
-            <th><b>IP 地址</b></th>
+            <th><b>IP Address</b></th>
           </tr>
         </thead>
         <tbody>
@@ -102,16 +111,20 @@
           </tr>
         </tbody>
         <ng-template #whitelistActions>
-          <button nz-button nzType="text" nzBlock (click)="setIpList('IpWhitelist')">编辑</button>
+          <button nz-button nzType="text" nzBlock (click)="setIpList('IpWhitelist')">Modify</button>
         </ng-template>
       </nz-table>
     </nz-tab>
-    <nz-tab nzTitle="黑名单">
-      <nz-alert nzType="info" nzBanner nzMessage="黑名单将被禁止访问，支持 CIDR，例如：192.168.1.0/24"></nz-alert>
+    <nz-tab nzTitle="Blacklist">
+      <nz-alert
+        nzType="info"
+        nzBanner
+        nzMessage="Blacklists will be blocked from accessing, supporting CIDR, for example: 192.168.1.0/24"
+      ></nz-alert>
       <nz-table #IpBlacklist nzHideOnSinglePage [nzData]="data['IpBlacklist']" [nzFooter]="blacklistActions">
         <thead>
           <tr>
-            <th><b>IP 地址</b></th>
+            <th><b>IP Address</b></th>
           </tr>
         </thead>
         <tbody>
@@ -120,7 +133,7 @@
           </tr>
         </tbody>
         <ng-template #blacklistActions>
-          <button nz-button nzType="text" nzBlock (click)="setIpList('IpBlacklist')">编辑</button>
+          <button nz-button nzType="text" nzBlock (click)="setIpList('IpBlacklist')">Modify</button>
         </ng-template>
       </nz-table>
     </nz-tab>

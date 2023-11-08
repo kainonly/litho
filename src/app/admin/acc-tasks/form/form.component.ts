@@ -21,17 +21,17 @@ export class FormComponent implements OnInit {
   tips = {
     kind: {
       default: {
-        required: `资源种类不能为空`
+        required: `Resource Kind cannot be empty`
       }
     },
     source: {
       default: {
-        required: `源地址不能为空`
+        required: `Source URL cannot be empty`
       }
     },
     target: {
       default: {
-        required: `目标地址不能为空`
+        required: `Target URL cannot be empty`
       }
     }
   };
@@ -73,12 +73,12 @@ export class FormComponent implements OnInit {
   submit(data: Any): void {
     if (!this.data.doc) {
       this.accTasks.create(data).subscribe(() => {
-        this.message.success(`数据更新成功`);
+        this.message.success(`Update successful`);
         this.modalRef.triggerOk();
       });
     } else {
       this.accTasks.updateById(this.data.doc._id, { $set: data }).subscribe(() => {
-        this.message.success(`数据更新成功`);
+        this.message.success(`Update successful`);
         this.modalRef.triggerOk();
       });
     }

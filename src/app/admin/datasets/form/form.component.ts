@@ -15,16 +15,16 @@ export class FormComponent implements OnInit {
   tips = {
     name: {
       default: {
-        required: `集合名称不能为空`
+        required: `Collection Name cannot be empty`
       }
     },
     kind: {
       default: {
-        required: `集合类型不能为空`
+        required: `Kind cannot be empty`
       }
     }
   };
-  formatterDay = (value: number): string => `${value} 天`;
+  formatterDay = (value: number): string => `${value} days`;
 
   constructor(
     private modalRef: NzModalRef,
@@ -64,7 +64,7 @@ export class FormComponent implements OnInit {
 
   submit(data: Any): void {
     this.datasets.create(data).subscribe(() => {
-      this.message.success(`数据更新成功`);
+      this.message.success(`Update successful`);
       this.modalRef.triggerOk();
     });
   }

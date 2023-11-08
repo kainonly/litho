@@ -2,10 +2,10 @@
   <nz-form-item>
     <nz-form-control [nzAutoTips]="tips.phone">
       <nz-input-group nzCompact>
-        <nz-select formControlName="area" style="width: 30%" nzPlaceHolder="区号">
-          <nz-option [nzLabel]="'+86 中国'" [nzValue]="'+86'"></nz-option>
+        <nz-select formControlName="area" style="width: 30%" nzPlaceHolder="Area Code">
+          <nz-option [nzLabel]="'+86 China'" [nzValue]="'+86'"></nz-option>
         </nz-select>
-        <input type="text" nz-input formControlName="phone" style="width: 70%" placeholder="手机号码" />
+        <input type="text" nz-input formControlName="phone" style="width: 70%" placeholder="Phone Number" />
       </nz-input-group>
     </nz-form-control>
   </nz-form-item>
@@ -13,7 +13,7 @@
     <nz-form-control [nzAutoTips]="tips.code">
       <nz-row [nzGutter]="8">
         <nz-col [nzSpan]="12">
-          <input nz-input formControlName="code" placeholder="验证码" />
+          <input nz-input formControlName="code" placeholder="Code" />
         </nz-col>
         <nz-col [nzSpan]="12">
           <button
@@ -23,8 +23,8 @@
             [disabled]="!form.get('phone')?.value || timer !== 0"
             (click)="getCode()"
           >
-            <ng-container *ngIf="timer === 0; else timerText">获取</ng-container>
-            <ng-template #timerText>{{ timer }} 秒</ng-template>
+            <ng-container *ngIf="timer === 0; else timerText">Get</ng-container>
+            <ng-template #timerText>{{ timer }} sec</ng-template>
           </button>
         </nz-col>
       </nz-row>
@@ -32,7 +32,7 @@
   </nz-form-item>
   <nz-form-item>
     <nz-form-control>
-      <button nz-button nzBlock nzType="primary" [nzLoading]="loading" [disabled]="!form.valid">开始使用</button>
+      <button nz-button nzBlock nzType="primary" [nzLoading]="loading" [disabled]="!form.valid">Go</button>
     </nz-form-control>
   </nz-form-item>
 </form>

@@ -31,7 +31,7 @@ export class ProfileComponent {
 
   private setModal(component: Type<void>, callback?: () => void): void {
     this.modal.create({
-      nzTitle: `用户更新`,
+      nzTitle: `User`,
       nzWidth: 420,
       nzContent: component,
       nzOnOk: () => {
@@ -74,7 +74,7 @@ export class ProfileComponent {
 
   unsetPhone(): void {
     this.app.unsetUser('phone').subscribe(() => {
-      this.message.success(`取消成功`);
+      this.message.success(`Cancellation successful`);
       this.app.getUser().subscribe(() => {
         console.debug('user:update');
       });
@@ -87,7 +87,7 @@ export class ProfileComponent {
 
   unsetTotp(): void {
     this.app.unsetUser('totp').subscribe(() => {
-      this.message.success(`取消成功`);
+      this.message.success(`Cancellation successful`);
       this.app.getUser().subscribe(() => {
         console.debug('user:update');
       });
@@ -110,7 +110,7 @@ export class ProfileComponent {
 
   unlinkLark(): void {
     this.app.unsetUser('lark').subscribe(() => {
-      this.message.success(`取消关联成功`);
+      this.message.success(`Disassociation successful`);
       this.app.getUser().subscribe(() => {
         console.debug('user:update');
       });

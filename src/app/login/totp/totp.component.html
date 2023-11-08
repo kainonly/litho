@@ -2,20 +2,20 @@
   <nz-form-item>
     <nz-form-control [nzAutoTips]="tips.email">
       <nz-input-group nzPrefixIcon="user">
-        <input type="text" nz-input formControlName="email" placeholder="电子邮件" />
+        <input type="text" nz-input formControlName="email" placeholder="Email" />
       </nz-input-group>
     </nz-form-control>
   </nz-form-item>
   <nz-form-item>
     <nz-form-control [nzAutoTips]="tips.totp">
       <nz-input-group nzPrefixIcon="lock">
-        <input type="password" nz-input formControlName="code" autocomplete="new-password" placeholder="口令" />
+        <input type="password" nz-input formControlName="code" autocomplete="new-password" placeholder="Code" />
       </nz-input-group>
     </nz-form-control>
   </nz-form-item>
   <nz-form-item>
     <nz-form-control>
-      <button nz-button nzBlock nzType="primary" [nzLoading]="loading" [disabled]="!form.valid">开始使用</button>
+      <button nz-button nzBlock nzType="primary" [nzLoading]="loading" [disabled]="!form.valid">Go</button>
     </nz-form-control>
   </nz-form-item>
 </form>

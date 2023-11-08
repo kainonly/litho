@@ -23,12 +23,12 @@ export class FormComponent implements OnInit {
   tips = {
     topic: {
       default: {
-        required: `主题不能为空`
+        required: `Topic cannot be empty`
       }
     },
     projects: {
       default: {
-        required: `授权项目不能为空`
+        required: `Authorized projects cannot be empty`
       }
     }
   };
@@ -76,7 +76,7 @@ export class FormComponent implements OnInit {
   submit(data: Any): void {
     if (!this.data.doc) {
       this.imessages.create(data, { xdata: { projects: 'oids' } }).subscribe(() => {
-        this.message.success(`数据更新成功`);
+        this.message.success(`Update successful`);
         this.modalRef.triggerOk();
       });
     } else {
@@ -89,7 +89,7 @@ export class FormComponent implements OnInit {
           }
         )
         .subscribe(() => {
-          this.message.success(`数据更新成功`);
+          this.message.success(`Update successful`);
           this.modalRef.triggerOk();
         });
     }

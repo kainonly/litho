@@ -19,7 +19,7 @@ export class SmsTplComponent implements OnInit {
   tips = {
     value: {
       default: {
-        required: `模板 ID 不能为空`
+        required: `Template ID cannot be empty`
       }
     }
   };
@@ -45,7 +45,7 @@ export class SmsTplComponent implements OnInit {
 
   submit(data: Any): void {
     this.wpx.setValues(data).subscribe(() => {
-      this.message.success(`数据更新成功`);
+      this.message.success(`Update successful`);
       this.modalRef.triggerOk();
     });
   }

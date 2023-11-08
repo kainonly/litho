@@ -1,7 +1,6 @@
 <nz-layout style="height: 100%; background: transparent">
   <nz-page-header>
-    <nz-page-header-title>授权项目详情</nz-page-header-title>
-    <nz-page-header-subtitle>{{ doc.topic }}</nz-page-header-subtitle>
+    <nz-page-header-title>{{ doc.topic }}</nz-page-header-title>
     <nz-page-header-extra>
       <nz-space nzAlign="center">
         <button
@@ -9,9 +8,8 @@
           nz-button
           nzType="primary"
           nzShape="circle"
-          nz-tooltip="重启"
           nz-popconfirm
-          nzPopconfirmTitle="您确定要重启日志收集与监控吗?"
+          nzPopconfirmTitle="Are you sure you want to restart collector and monitoring?"
           (nzOnConfirm)="restart()"
         >
           <span nz-icon nzType="sync" nzTheme="outline"></span>
@@ -29,15 +27,15 @@
         <thead>
           <tr>
             <th nzWidth="60px" nzAlign="center">
-              <button nz-button nzType="text" nz-tooltip="发布消息" disabled>
+              <button nz-button nzType="text" disabled>
                 <span nz-icon nzType="notification" nzTheme="outline"></span>
               </button>
             </th>
-            <th nzWidth="240px"><b>项目名称</b></th>
-            <th><b>授权主题</b></th>
-            <th nzRight nzWidth="150px"><b>消息流入</b></th>
-            <th nzRight nzWidth="150px"><b>消息流出</b></th>
-            <th *ngIf="index === 0" nzRight nzWidth="150px"><b>消息废弃</b></th>
+            <th nzWidth="240px"><b>Project Name</b></th>
+            <th><b>Topic</b></th>
+            <th nzRight nzWidth="150px"><b>Input</b></th>
+            <th nzRight nzWidth="150px"><b>Output</b></th>
+            <th *ngIf="index === 0" nzRight nzWidth="150px"><b>Dropped</b></th>
           </tr>
         </thead>
         <tbody>

@@ -22,13 +22,14 @@ export class ProjectComponent implements OnInit {
   tips = {
     name: {
       default: {
-        required: `项目名称不能为空`
+        required: `Project name cannot be empty`
       }
     },
     namespace: {
       default: {
-        required: `命名空间不能为空`,
-        duplicated: `存在重复的定义，命名空间必须是唯一的`
+        required: `Namespace cannot be empty`,
+        pattern: `Namespace must be lowercase letter, allow underlining`,
+        duplicated: `Namespaces must be unique`
       }
     }
   };
@@ -46,8 +47,8 @@ export class ProjectComponent implements OnInit {
   ngOnInit(): void {
     this.form = this.fb.group({
       name: ['', [Validators.required]],
-      namespace: ['', [Validators.required], [this.checkNamespace]],
-      kind: [null, [Validators.required]],
+      namespace: ['', [Validators.required, Validators.pattern(/[a-z_]+/)], [this.checkNamespace]],
+      kind: ['', [Validators.required]],
       expire: [null],
       secret_id: [''],
       secret_key: [''],
@@ -55,8 +56,8 @@ export class ProjectComponent implements OnInit {
     });
     if (this.data.doc) {
       this.form.patchValue(this.data.doc);
-      this.form.get('namespace')?.disable();
-      this.form.get('kind')?.disable();
+      this.form.get('namespace')!.disable();
+      this.form.get('kind')!.disable();
     }
   }
 
@@ -89,7 +90,7 @@ export class ProjectComponent implements OnInit {
           }
         })
         .subscribe(() => {
-          this.message.success(`数据更新成功`);
+          this.message.success(`Update successful`);
           this.modalRef.triggerOk();
         });
     } else {
@@ -104,7 +105,7 @@ export class ProjectComponent implements OnInit {
           }
         )
         .subscribe(() => {
-          this.message.success(`数据更新成功`);
+          this.message.success(`Update successful`);
           this.modalRef.triggerOk();
         });
     }

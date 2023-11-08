@@ -80,7 +80,7 @@ export class ValuesComponent implements OnInit, AfterViewInit, OnDestroy {
 
   form(data?: KeyValue): void {
     this.modal.create<FormComponent, KeyValue>({
-      nzTitle: `动态配置表单`,
+      nzTitle: `Dynamic Values Modify`,
       nzWidth: '732px',
       nzContent: FormComponent,
       nzData: data,
@@ -92,17 +92,18 @@ export class ValuesComponent implements OnInit, AfterViewInit, OnDestroy {
 
   delete(key: string): void {
     this.modal.confirm({
-      nzTitle: `您确定删除 [${key}] 配置吗？`,
-      nzOkText: `是的`,
+      nzTitle: `Do you want to delete this?`,
+      nzContent: key,
+      nzOkText: `Yes`,
       nzOkType: 'primary',
       nzOkDanger: true,
       nzOnOk: () => {
         this.wpx.deleteValue(key).subscribe(() => {
-          this.message.success(`数据删除成功`);
+          this.message.success(`Deletion successful`);
           this.getData();
         });
       },
-      nzCancelText: `再想想`
+      nzCancelText: `Think again`
     });
   }
 }

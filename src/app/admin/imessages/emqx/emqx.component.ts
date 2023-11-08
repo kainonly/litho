@@ -35,7 +35,7 @@ export class EmqxComponent implements OnInit, OnDestroy {
 
   openForm(): void {
     this.modal.create<FormComponent>({
-      nzTitle: `EMQX 配置`,
+      nzTitle: `EMQX`,
       nzContent: FormComponent
     });
   }

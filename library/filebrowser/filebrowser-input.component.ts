@@ -69,7 +69,7 @@ export class WpxFilebroserInputComponent<T extends WpxFile> {
 
   openSort(): void {
     this.drawer.create({
-      nzTitle: '*拖拽图片进行排序',
+      nzTitle: '*Drag and drop images to sort',
       nzClosable: false,
       nzWidth: 350,
       nzContent: this.sortRef

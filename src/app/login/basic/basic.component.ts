@@ -16,13 +16,13 @@ export class BasicComponent implements OnInit {
   tips = {
     email: {
       default: {
-        required: `电子邮件不能为空`,
-        email: `电子邮件格式不规范`
+        required: `Email cannot be empty`,
+        email: `Must be in email format`
       }
     },
     password: {
       default: {
-        required: `密码不能为空`
+        required: `Password cannot be empty`
       }
     }
   };
@@ -55,7 +55,7 @@ export class BasicComponent implements OnInit {
       next: () => {
         this.loading = false;
         this.router.navigateByUrl('/');
-        this.notification.success(`认证状态`, `🚀登录成功，正在加载数据~`);
+        this.notification.success(`Authentication Status`, `🚀Login successful, loading data...`);
       },
       error: () => {
         this.loading = false;

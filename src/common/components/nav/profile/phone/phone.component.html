@@ -1,24 +1,24 @@
 <form nz-form nzLayout="vertical" id="form" [formGroup]="form" (wpxSubmit)="submit($event)">
   <nz-form-item>
-    <nz-form-label nzRequired> 区号 </nz-form-label>
+    <nz-form-label nzRequired> Area Code </nz-form-label>
     <nz-form-control>
-      <nz-select formControlName="area" nzPlaceHolder="请选择区号">
-        <nz-option [nzLabel]="'+86 中国'" [nzValue]="'+86'"></nz-option>
+      <nz-select formControlName="area" nzPlaceHolder="Please select an area code">
+        <nz-option [nzLabel]="'+86 China'" [nzValue]="'+86'"></nz-option>
       </nz-select>
     </nz-form-control>
   </nz-form-item>
   <nz-form-item>
-    <nz-form-label nzRequired> 手机号码 </nz-form-label>
+    <nz-form-label nzRequired> Phone Number </nz-form-label>
     <nz-form-control [nzAutoTips]="tips.phone">
-      <input nz-input formControlName="phone" placeholder="请输入手机号码" />
+      <input nz-input formControlName="phone" placeholder="Please enter a phone number" />
     </nz-form-control>
   </nz-form-item>
   <nz-form-item>
-    <nz-form-label nzRequired> 验证码 </nz-form-label>
+    <nz-form-label nzRequired> Code </nz-form-label>
     <nz-form-control [nzAutoTips]="tips.code">
       <nz-row [nzGutter]="8">
         <nz-col [nzSpan]="12">
-          <input nz-input formControlName="code" placeholder="请输入验证码" />
+          <input nz-input formControlName="code" placeholder="Please enter the code" />
         </nz-col>
         <nz-col [nzSpan]="12">
           <button
@@ -28,8 +28,8 @@
             [disabled]="!form.get('phone')?.value || timer !== 0"
             (click)="getCode()"
           >
-            <ng-container *ngIf="timer === 0; else timerText">获取</ng-container>
-            <ng-template #timerText>{{ timer }} 秒</ng-template>
+            <ng-container *ngIf="timer === 0; else timerText">Get</ng-container>
+            <ng-template #timerText>{{ timer }} sec</ng-template>
           </button>
         </nz-col>
       </nz-row>
@@ -38,6 +38,6 @@
 </form>
 
 <div *nzModalFooter>
-  <button nz-button type="button" nzType="default" (click)="close()">取消</button>
-  <button nz-button nzType="primary" form="form" [disabled]="!form.valid">提交</button>
+  <button nz-button type="button" nzType="default" (click)="close()">Cancel</button>
+  <button nz-button nzType="primary" form="form" [disabled]="!form.valid">Submit</button>
 </div>

@@ -20,7 +20,7 @@ export class ClustersComponent implements OnInit {
   infos: Record<string, ClusterInfo> = {};
   kind: Record<string, string> = {
     kubernetes: 'Kubernetes',
-    agent: '代理器'
+    agent: 'Agent'
   };
 
   constructor(
@@ -72,7 +72,7 @@ export class ClustersComponent implements OnInit {
 
   openForm(doc?: AnyDto<Cluster>): void {
     this.modal.create<FormComponent, FormInput>({
-      nzTitle: !doc ? '创建' : `编辑【${doc.name}】`,
+      nzTitle: !doc ? 'Create' : `Modify(${doc.name})`,
       nzWidth: 640,
       nzContent: FormComponent,
       nzData: {
@@ -86,24 +86,25 @@ export class ClustersComponent implements OnInit {
 
   delete(doc: AnyDto<Cluster>): void {
     this.modal.confirm({
-      nzTitle: `您确定要删除【${doc.name}】?`,
-      nzOkText: `是的`,
+      nzTitle: `Do you want to delete this?`,
+      nzContent: doc.name,
+      nzOkText: `Yes`,
       nzOkType: 'primary',
       nzOkDanger: true,
       nzOnOk: () => {
         this.clusters.delete(doc._id).subscribe(() => {
-          this.message.success(`数据删除成功`);
+          this.message.success(`Deletion successful`);
           this.getData(true);
         });
       },
-      nzCancelText: `再想想`
+      nzCancelText: `Think again`
     });
   }
 
   bulkDelete(): void {
     this.modal.confirm({
-      nzTitle: `您确定删除这些集群吗？`,
-      nzOkText: `是的`,
+      nzTitle: `Do you want to delete these items?`,
+      nzOkText: `Yes`,
       nzOkType: 'primary',
       nzOkDanger: true,
       nzOnOk: () => {
@@ -119,12 +120,12 @@ export class ClustersComponent implements OnInit {
             }
           )
           .subscribe(() => {
-            this.message.success(`数据删除成功`);
+            this.message.success(`Deletion successful`);
             this.getData(true);
             this.model.setCurrentSelections(false);
           });
       },
-      nzCancelText: `再想想`
+      nzCancelText: `Think again`
     });
   }
 }

@@ -56,7 +56,7 @@ export class SecurityComponent implements OnInit {
 
   private setModal(component: Type<Any>): void {
     this.modal.create<Type<Any>, R>({
-      nzTitle: `设置`,
+      nzTitle: `Security Modify`,
       nzContent: component,
       nzData: this.data,
       nzOnOk: () => {
@@ -86,9 +86,9 @@ export class SecurityComponent implements OnInit {
   }
 
   setIpList(type: 'IpWhitelist' | 'IpBlacklist'): void {
-    const name = type === 'IpWhitelist' ? `白名单` : `黑名单`;
+    const name = type === 'IpWhitelist' ? `Whitelist` : `Blacklist`;
     this.modal.create<IpListComponent, IpListData>({
-      nzTitle: `${name}设置`,
+      nzTitle: `${name}`,
       nzContent: IpListComponent,
       nzData: {
         type,

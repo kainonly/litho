@@ -19,7 +19,7 @@ import { PublishComponent, PublishInput } from '../publish/publish.component';
 })
 export class DetailComponent implements OnInit, OnDestroy {
   @Input({ required: true }) doc!: AnyDto<Imessage>;
-  options = ['全部', 'QoS0', 'QoS1', 'QoS2'];
+  options = ['All', 'QoS0', 'QoS1', 'QoS2'];
   index = 0;
 
   projectDict: Record<string, AnyDto<Project>> = {};
@@ -63,16 +63,16 @@ export class DetailComponent implements OnInit, OnDestroy {
 
   restart(): void {
     this.imessages.updateRule(this.doc._id).subscribe(() => {
-      this.message.success('日志收集已启用');
+      this.message.success('Collector is enabled');
     });
     this.imessages.createMetrics(this.doc._id).subscribe(() => {
-      this.message.success('监控已启用');
+      this.message.success('Monitoring is enabled');
     });
   }
 
   openPublish(pid: string): void {
     this.modal.create<PublishComponent, PublishInput>({
-      nzTitle: '发布消息',
+      nzTitle: 'Publish',
       nzContent: PublishComponent,
       nzData: {
         topic: `${this.doc.topic}/${pid}`
@@ -85,10 +85,11 @@ export class DetailComponent implements OnInit, OnDestroy {
     this.drawer.create({
       nzClosable: false,
       nzContent: LogsComponent,
+      nzPlacement: 'bottom',
       nzContentParams: {
         topic: `${this.doc.topic}/${id}`
       },
-      nzWidth: 960
+      nzHeight: 640
     });
   }
 }

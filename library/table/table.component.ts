@@ -118,7 +118,7 @@ export class WpxTableComponent<T> implements OnInit, AfterViewInit, OnDestroy {
     }
     this.settings.set(
       this.drawer.create({
-        nzTitle: '<b>表格样式自定义</b>',
+        nzTitle: `Table Style`,
         nzExtra: this.settingsExtraRef,
         nzContent: this.settingsContentRef,
         nzHeight: 200,

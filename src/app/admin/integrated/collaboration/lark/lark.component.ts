@@ -14,22 +14,22 @@ export class LarkComponent implements OnInit {
   tips = {
     LarkAppId: {
       default: {
-        required: `应用 ID 不能为空`
+        required: `Lark App ID cannot be empty`
       }
     },
     LarkAppSecret: {
       default: {
-        required: `应用密钥不能为空`
+        required: `Lark App Secret cannot be empty`
       }
     },
     LarkEncryptKey: {
       default: {
-        required: `事件订阅安全校验数据密钥不能为空`
+        required: `Lark Encrypt Key cannot be empty`
       }
     },
     LarkVerificationToken: {
       default: {
-        required: `事件订阅验证令牌不能为空`
+        required: `Lark Verification Token cannot be empty`
       }
     }
   };
@@ -61,7 +61,7 @@ export class LarkComponent implements OnInit {
 
   submit(data: Any): void {
     this.wpx.setValues(data).subscribe(() => {
-      this.message.success(`数据更新成功`);
+      this.message.success(`Update successful`);
       this.modalRef.triggerOk();
     });
   }

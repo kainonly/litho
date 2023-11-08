@@ -13,25 +13,25 @@ export class ForgetComponent implements OnInit {
   tips = {
     email: {
       default: {
-        required: `电子邮件不能为空`,
-        email: `电子邮件格式不规范`
+        required: `Email cannot be empty`,
+        email: `Must be in email format`
       }
     },
     code: {
       default: {
-        required: `验证码不能为空`,
-        pattern: '验证码格式不规范'
+        required: `Code cannot be empty`,
+        pattern: `Must be a number of length 6`
       }
     },
     password: {
       default: {
-        required: `密码不能为空`,
-        minlength: `密码不能小于 8 位`,
-        lowercase: `密码需要包含小写字母`,
-        uppercase: `密码需要包含大写字母`,
-        number: `密码需要包含数字`,
-        symbol: `密码需要包含符号 (@$!%*?&-+)`,
-        inconsistent: `重置密码不一致`
+        required: `Password cannot be empty`,
+        minlength: `The password length must be greater than 8`,
+        lowercase: `The password needs to contain lowercase letters`,
+        uppercase: `The password needs to contain uppercase letters`,
+        number: `The password needs to contain numbers`,
+        symbol: `The password needs to contain symbols (@$!%*?&-+)`,
+        inconsistent: `The password confirmed again is inconsistent`
       }
     }
   };

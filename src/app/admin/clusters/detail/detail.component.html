@@ -8,10 +8,10 @@
       <nz-table nzTemplateMode>
         <thead>
           <tr>
-            <th nzWidth="25%"><b>主机 [IP]</b></th>
-            <th nzWidth="25%"><b>Cpu / 内存 / 存储</b></th>
-            <th nzWidth="25%"><b>操作系统</b></th>
-            <th nzWidth="25%"><b>加入时间</b></th>
+            <th nzWidth="25%"><b>Host [IP]</b></th>
+            <th nzWidth="25%"><b>Cpu / Mem / Storage</b></th>
+            <th nzWidth="25%"><b>OS</b></th>
+            <th nzWidth="25%"><b>Join Date</b></th>
           </tr>
         </thead>
         <tbody>
@@ -19,7 +19,7 @@
             <td> {{ item.hostname }} [{{ item.ip }}]</td>
             <td> {{ item.cpu }} / {{ item.mem | nzBytes }} / {{ item.storage | nzBytes }} </td>
             <td> {{ item.os }} [{{ item.architecture }}] </td>
-            <td> {{ item.create | date: 'yyyy-MM-dd HH:mm' }} </td>
+            <td> {{ item.create | date: 'long' }} </td>
           </tr>
         </tbody>
       </nz-table>

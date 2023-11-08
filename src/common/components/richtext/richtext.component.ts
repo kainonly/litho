@@ -33,7 +33,7 @@ export class RichtextComponent implements ControlValueAccessor {
   @ViewChild('footerRef') footerRef!: TemplateRef<Any>;
   @ViewChild(WpxRichtextComponent) richtext!: WpxRichtextComponent;
 
-  placeholder = `直接输入正文`;
+  placeholder = `Please enter content`;
   value: RichtextData | null = null;
   modalRef?: NzModalRef<WpxFilebrowserComponent<Any>>;
 
