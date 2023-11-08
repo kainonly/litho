@@ -104,7 +104,7 @@
   </ng-template>
   <ng-template #history let-data>
     <ng-container *ngIf="data.history">
-      {{ data.history?.timestamp | date: 'long' }} （{{ data.sessions }}）
+      {{ data.history?.timestamp | date: 'medium' }} （{{ data.sessions }}）
     </ng-container>
   </ng-template>
 </wpx-table>

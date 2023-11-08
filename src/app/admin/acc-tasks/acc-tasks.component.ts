@@ -64,7 +64,7 @@ export class AccTasksComponent implements OnInit {
   sync(): void {
     this.syncing = true;
     this.accTasks.invoke().subscribe(data => {
-      this.message.success(`Synchronization to be completed in ${formatDate(data.date, 'long', 'en-US')}`);
+      this.message.success(`Synchronization to be completed in ${formatDate(data.date, 'medium', 'en-US')}`);
       this.syncing = false;
     });
   }

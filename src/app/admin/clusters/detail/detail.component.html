@@ -19,7 +19,7 @@
             <td> {{ item.hostname }} [{{ item.ip }}]</td>
             <td> {{ item.cpu }} / {{ item.mem | nzBytes }} / {{ item.storage | nzBytes }} </td>
             <td> {{ item.os }} [{{ item.architecture }}] </td>
-            <td> {{ item.create | date: 'long' }} </td>
+            <td> {{ item.create | date: 'medium' }} </td>
           </tr>
         </tbody>
       </nz-table>

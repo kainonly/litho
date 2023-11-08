@@ -55,10 +55,7 @@ const routes: Routes = [
       },
       {
         path: 'monitor',
-        loadChildren: () => import('./monitor/monitor.module').then(m => m.MonitorModule),
-        data: {
-          breadcrumb: `Monitor`
-        }
+        loadChildren: () => import('./monitor/monitor.module').then(m => m.MonitorModule)
       },
       {
         path: 'users',

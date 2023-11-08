@@ -93,7 +93,7 @@
                   </ng-template>
                 </ng-container>
                 <ng-container *ngSwitchCase="'date'">
-                  {{ data[column.key] | date: 'long' }}
+                  {{ data[column.key] | date: 'medium' }}
                 </ng-container>
                 <ng-container *ngSwitchDefault>{{ data[column.key] }}</ng-container>
               </ng-template>

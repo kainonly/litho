@@ -12,20 +12,20 @@ const routes: Routes = [
     component: AuditComponent,
     children: [
       {
-        path: 'logined',
+        path: 'logins',
         loadChildren: () => import('./logins/logins.module').then(m => m.LoginsModule),
         data: {
-          breadcrumb: `登录`
+          breadcrumb: `Logins`
         }
       },
       {
         path: 'operates',
         loadChildren: () => import('./operates/operates.module').then(m => m.OperatesModule),
         data: {
-          breadcrumb: `操作`
+          breadcrumb: `Operates`
         }
       },
-      { path: '', redirectTo: 'logined', pathMatch: 'full' }
+      { path: '', redirectTo: 'logins', pathMatch: 'full' }
     ]
   }
 ];

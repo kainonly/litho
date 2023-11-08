@@ -4,7 +4,7 @@
       <nz-row [nzGutter]="[16, 16]">
         <nz-col [nzSpan]="6">
           <nz-form-item>
-            <nz-form-label>时间</nz-form-label>
+            <nz-form-label>Timestamp</nz-form-label>
             <nz-form-control>
               <nz-range-picker
                 style="width: 100%"
@@ -17,13 +17,13 @@
         </nz-col>
         <nz-col [nzSpan]="6">
           <nz-form-item>
-            <nz-form-label>用户</nz-form-label>
+            <nz-form-label>User</nz-form-label>
             <nz-form-control>
               <nz-select
                 style="width: 100%"
                 nzMode="multiple"
                 formControlName="user_id"
-                nzPlaceHolder="输入电子邮件、姓名"
+                nzPlaceHolder="Email, Name"
                 nzAllowClear
                 nzShowSearch
                 nzServerSearch
@@ -31,7 +31,7 @@
               >
                 <ng-container *ngFor="let item of searchUserItems">
                   <nz-option nzCustomContent [nzValue]="item._id" [nzLabel]="item.email">
-                    {{ item.email }} [{{ item.name | wpxBlank: '无称呼' }}]
+                    {{ item.email }} [{{ item.name | wpxBlank: 'None' }}]
                   </nz-option>
                 </ng-container>
               </nz-select>
@@ -40,11 +40,11 @@
         </nz-col>
         <nz-col [nzSpan]="6">
           <nz-form-item>
-            <nz-form-label>来源</nz-form-label>
+            <nz-form-label>Source</nz-form-label>
             <nz-form-control>
-              <nz-select formControlName="source" nzMode="multiple" nzAllowClear nzPlaceHolder="筛选登录来源">
-                <nz-option nzValue="email" nzLabel="电子邮件"></nz-option>
-                <nz-option nzValue="totp" nzLabel="动态口令"></nz-option>
+              <nz-select formControlName="source" nzMode="multiple" nzAllowClear nzPlaceHolder="Filter source">
+                <nz-option nzValue="email" nzLabel="Email"></nz-option>
+                <nz-option nzValue="totp" nzLabel="Totp"></nz-option>
                 <nz-option nzValue="lark" nzLabel="Lark"></nz-option>
               </nz-select>
             </nz-form-control>
@@ -55,7 +55,7 @@
             <nz-form-label>IP</nz-form-label>
             <nz-form-control>
               <nz-input-group [nzSuffix]="clear">
-                <input type="text" nz-input formControlName="client_ip" placeholder="筛选 IP 地址" />
+                <input type="text" nz-input formControlName="client_ip" placeholder="Filter Client IP" />
                 <ng-template #clear>
                   <span
                     nz-icon
@@ -76,11 +76,11 @@
 </ng-template>
 <ng-template #extraRef>
   <ng-container *ngIf="model.selection.size as size">
-    <button nz-button nzType="dashed" nz-dropdown [nzDropdownMenu]="menu"> 已选中 {{ size }} 项 </button>
+    <button nz-button nzType="dashed" nz-dropdown [nzDropdownMenu]="menu"> {{ size }} selected items </button>
     <nz-dropdown-menu #menu="nzDropdownMenu">
       <ul nz-menu>
-        <li nz-menu-item (click)="wpxTable.clearSelections()"> 取消选择 </li>
-        <li nz-menu-item> 导出 </li>
+        <li nz-menu-item (click)="wpxTable.clearSelections()"> Unselect </li>
+        <li nz-menu-item> Export </li>
       </ul>
     </nz-dropdown-menu>
   </ng-container>
@@ -93,25 +93,25 @@
   [wpxModel]="model"
   [wpxColumns]="[
     {
-      title: '时间',
+      title: 'Timestamp',
       key: 'timestamp',
       width: '200px',
       format: 'date'
     },
     {
-      title: '用户',
+      title: 'User',
       key: 'user',
       width: '240px',
       render: user
     },
     {
-      title: '来源',
+      title: 'Source',
       key: 'source',
       width: '240px',
       render: source
     },
     {
-      title: '信息',
+      title: 'Detail',
       key: 'detail',
       width: '800px',
       render: detail
@@ -129,11 +129,11 @@
 >
   <ng-template #source let-data>
     <ng-container [ngSwitch]="data.metadata.source">
-      <ng-container *ngSwitchCase="'email'">电子邮件</ng-container>
-      <ng-container *ngSwitchCase="'sms'">短信验证</ng-container>
-      <ng-container *ngSwitchCase="'totp'">动态口令</ng-container>
-      <ng-container *ngSwitchCase="'lark'">Lark / 飞书</ng-container>
-      <ng-container *ngSwitchDefault>其他测试</ng-container>
+      <ng-container *ngSwitchCase="'email'">Email</ng-container>
+      <ng-container *ngSwitchCase="'sms'">Sms</ng-container>
+      <ng-container *ngSwitchCase="'totp'">Totp</ng-container>
+      <ng-container *ngSwitchCase="'lark'">Lark</ng-container>
+      <ng-container *ngSwitchDefault>Other</ng-container>
     </ng-container>
   </ng-template>
   <ng-template #user let-data>
@@ -150,11 +150,11 @@
       <ng-container [ngSwitch]="data.metadata.version">
         <ng-container *ngSwitchCase="'shuliancloud.v4'">
           <ng-container *ngIf="data.detail as detail">
-            <span *nzSpaceItem>{{ detail.isp | wpxBlank: '未知' }}</span>
-            <span *nzSpaceItem>{{ detail.country | wpxBlank: '未知' }}[{{ detail.continent }}]</span>
-            <span *nzSpaceItem>{{ detail.prov | wpxBlank: '未知' }}</span>
+            <span *nzSpaceItem>{{ detail.isp | wpxBlank: 'unknown' }}</span>
+            <span *nzSpaceItem>{{ detail.country | wpxBlank: 'unknown' }}[{{ detail.continent }}]</span>
+            <span *nzSpaceItem>{{ detail.prov | wpxBlank: 'unknown' }}</span>
             <span *nzSpaceItem>
-              {{ detail.city | wpxBlank: '未知' }}[{{ detail.lng | wpxBlank: '0' }},{{ detail.lat | wpxBlank: '0' }}]
+              {{ detail.city | wpxBlank: 'unknown' }}[{{ detail.lng | wpxBlank: '0' }},{{ detail.lat | wpxBlank: '0' }}]
             </span>
           </ng-container>
         </ng-container>
@@ -173,7 +173,7 @@
 </ng-template>
 
 <nz-drawer
-  nzTitle="用户详情"
+  nzTitle="User Detail"
   [nzWidth]="640"
   [nzPlacement]="'right'"
   [nzClosable]="false"
@@ -183,39 +183,39 @@
   <ng-container *nzDrawerContent>
     <nz-descriptions *ngIf="userDetail as u" nzBordered [nzColumn]="2">
       <nz-descriptions-item nzTitle="ID" [nzSpan]="2">{{ u._id }}</nz-descriptions-item>
-      <nz-descriptions-item nzTitle="电子邮件">{{ u.email }}</nz-descriptions-item>
-      <nz-descriptions-item nzTitle="称呼">
+      <nz-descriptions-item nzTitle="Email">{{ u.email }}</nz-descriptions-item>
+      <nz-descriptions-item nzTitle="Name">
         <ng-container *ngIf="u.name; else noName">
           {{ u.name }}
         </ng-container>
         <ng-template #noName> None </ng-template>
       </nz-descriptions-item>
-      <nz-descriptions-item nzTitle="头像" [nzSpan]="2">{{ u.avatar }}</nz-descriptions-item>
-      <nz-descriptions-item nzTitle="状态" [nzSpan]="2">
+      <nz-descriptions-item nzTitle="Avatar" [nzSpan]="2">{{ u.avatar }}</nz-descriptions-item>
+      <nz-descriptions-item nzTitle="Status" [nzSpan]="2">
         <ng-container *ngIf="u.status; else isFalse">
-          <nz-badge nzStatus="processing"></nz-badge> <span>开启</span>
+          <nz-badge nzStatus="processing"></nz-badge> <span>On</span>
         </ng-container>
-        <ng-template #isFalse> <nz-badge nzStatus="default"></nz-badge> <span>关闭</span> </ng-template>
+        <ng-template #isFalse> <nz-badge nzStatus="default"></nz-badge> <span>Off</span> </ng-template>
       </nz-descriptions-item>
-      <nz-descriptions-item nzTitle="累计会话" [nzSpan]="2">
+      <nz-descriptions-item nzTitle="Total Number Of Sessions" [nzSpan]="2">
         <span>
-          已登录 <b> {{ u.sessions }} </b> 次
+          It has been logged in <b> {{ u.sessions }} </b> times
         </span>
       </nz-descriptions-item>
       <ng-container *ngIf="u.history as history">
-        <nz-descriptions-item nzTitle="最近登录时间" [nzSpan]="2">
-          {{ history.timestamp | date: 'yyyy/MM/dd HH:mm:ss' }}
+        <nz-descriptions-item nzTitle="Last Login Time" [nzSpan]="2">
+          {{ history.timestamp | date: 'medium' }}
         </nz-descriptions-item>
         <nz-descriptions-item nzTitle="IP" [nzSpan]="2">
           {{ history.metadata.client_ip }}
         </nz-descriptions-item>
         <ng-container [ngSwitch]="u.history.metadata.version">
           <ng-container *ngSwitchCase="'shuliancloud.v4'">
-            <nz-descriptions-item nzTitle="位置" [nzSpan]="2">
+            <nz-descriptions-item nzTitle="Geographic Information" [nzSpan]="2">
               <nz-space *ngIf="u.history.detail as detail" [nzSplit]="spaceSplit">
-                <span *nzSpaceItem>{{ detail.country | wpxBlank: '未知' }}[{{ detail.continent }}]</span>
-                <span *nzSpaceItem>{{ detail.prov | wpxBlank: '未知' }}</span>
-                <span *nzSpaceItem>{{ detail.city | wpxBlank: '未知' }}[{{ detail.lng }},{{ detail.lat }}]</span>
+                <span *nzSpaceItem>{{ detail.country | wpxBlank: 'unknown' }}[{{ detail.continent }}]</span>
+                <span *nzSpaceItem>{{ detail.prov | wpxBlank: 'unknown' }}</span>
+                <span *nzSpaceItem>{{ detail.city | wpxBlank: 'unknown' }}[{{ detail.lng }},{{ detail.lat }}]</span>
               </nz-space>
             </nz-descriptions-item>
             <nz-descriptions-item nzTitle="ISP" [nzSpan]="2">
@@ -227,11 +227,11 @@
           </ng-container>
         </ng-container>
       </ng-container>
-      <nz-descriptions-item nzTitle="创建时间" [nzSpan]="2">
-        {{ u.create_time | date: 'yyyy/MM/dd HH:mm' }}
+      <nz-descriptions-item nzTitle="Create Time" [nzSpan]="2">
+        {{ u.create_time | date: 'medium' }}
       </nz-descriptions-item>
-      <nz-descriptions-item nzTitle="更新时间" [nzSpan]="2">
-        {{ u.update_time | date: 'yyyy/MM/dd HH:mm' }}
+      <nz-descriptions-item nzTitle="Update Time" [nzSpan]="2">
+        {{ u.update_time | date: 'medium' }}
       </nz-descriptions-item>
     </nz-descriptions>
   </ng-container>

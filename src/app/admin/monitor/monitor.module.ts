@@ -14,7 +14,7 @@ const routes: Routes = [
     path: ':type',
     component: MonitorComponent,
     data: {
-      breadcrumb: `监控`
+      breadcrumb: `Monitor`
     }
   },
   { path: '', redirectTo: 'mongo', pathMatch: 'full' }

@@ -69,7 +69,7 @@ export class LogsComponent implements OnInit {
 
   openResponse(data: AnyDto<LogsetImessage>): void {
     this.modal.create<CodeviewComponent>({
-      nzTitle: `Payload [${formatDate(data.timestamp, 'long', this.locale)}]`,
+      nzTitle: `Payload [${formatDate(data.timestamp, 'medium', this.locale)}]`,
       nzContent: CodeviewComponent,
       nzData: data.payload,
       nzWidth: 960,

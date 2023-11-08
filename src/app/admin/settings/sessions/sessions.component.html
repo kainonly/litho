@@ -71,7 +71,7 @@
         </td>
         <td>
           <nz-space *ngIf="data.history as history" [nzSplit]="spaceSplit">
-            <span *nzSpaceItem> Logged in {{ history.timestamp | date: 'long' }} </span>
+            <span *nzSpaceItem> Logged in {{ history.timestamp | date: 'medium' }} </span>
             <span *nzSpaceItem>{{ history.metadata.client_ip }}</span>
             <ng-container [ngSwitch]="history.metadata.version">
               <ng-container *ngSwitchCase="'shuliancloud.v4'">
