@@ -48,7 +48,7 @@ export class QueuesComponent implements OnInit {
 
   openForm(doc?: AnyDto<Queue>): void {
     this.modal.create<FormComponent, FormInput>({
-      nzTitle: !doc ? '创建' : `编辑【${doc.name}】`,
+      nzTitle: !doc ? 'Create' : `Modify(${doc.name})`,
       nzWidth: 640,
       nzContent: FormComponent,
       nzData: {
@@ -73,7 +73,7 @@ export class QueuesComponent implements OnInit {
 
   openPublish(): void {
     this.modal.create<PublishComponent, PublishInput>({
-      nzTitle: '发布消息',
+      nzTitle: 'Publish',
       nzContent: PublishComponent,
       nzWidth: 640
     });
@@ -81,24 +81,25 @@ export class QueuesComponent implements OnInit {
 
   delete(doc: AnyDto<Queue>): void {
     this.modal.confirm({
-      nzTitle: `您确定要删除【${doc.name}】?`,
-      nzOkText: `是的`,
+      nzTitle: `Do you want to delete this`,
+      nzContent: doc.name,
+      nzOkText: `Yes`,
       nzOkType: 'primary',
       nzOkDanger: true,
       nzOnOk: () => {
         this.queues.delete(doc._id).subscribe(() => {
-          this.message.success(`数据删除成功`);
+          this.message.success(`Deletion successful`);
           this.getData(true);
         });
       },
-      nzCancelText: `再想想`
+      nzCancelText: `Think again`
     });
   }
 
   bulkDelete(): void {
     this.modal.confirm({
-      nzTitle: `您确定删除这些队列吗？`,
-      nzOkText: `是的`,
+      nzTitle: `Do you want to delete these items?`,
+      nzOkText: `Yes`,
       nzOkType: 'primary',
       nzOkDanger: true,
       nzOnOk: () => {
@@ -114,12 +115,12 @@ export class QueuesComponent implements OnInit {
             }
           )
           .subscribe(() => {
-            this.message.success(`数据删除成功`);
+            this.message.success(`Deletion successful`);
             this.getData(true);
             this.model.setCurrentSelections(false);
           });
       },
-      nzCancelText: `再想想`
+      nzCancelText: `Think again`
     });
   }
 }

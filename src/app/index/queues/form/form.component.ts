@@ -21,16 +21,16 @@ export class FormComponent implements OnInit {
   tips = {
     name: {
       default: {
-        required: `队列名称不能为空`
+        required: `Queue Name cannot be empty`
       }
     },
     subjects: {
       default: {
-        required: `队列主题不能为空`
+        required: `Subjects cannot be empty`
       }
     }
   };
-  formatterSec = (value: number): string => `${value} s`;
+  formatterSec = (value: number): string => `${value} sec`;
 
   constructor(
     @Inject(NZ_MODAL_DATA)
@@ -69,7 +69,7 @@ export class FormComponent implements OnInit {
     if (!this.data.doc) {
       data['project'] = this.app.contextData!._id;
       this.queues.create(data, { xdata: { project: 'oid' } }).subscribe(() => {
-        this.message.success(`数据更新成功`);
+        this.message.success(`Update successful`);
         this.modalRef.triggerOk();
       });
     } else {
@@ -82,7 +82,7 @@ export class FormComponent implements OnInit {
           }
         )
         .subscribe(() => {
-          this.message.success(`数据更新成功`);
+          this.message.success(`Update successful`);
           this.modalRef.triggerOk();
         });
     }

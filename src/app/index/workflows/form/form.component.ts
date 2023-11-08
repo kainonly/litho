@@ -21,12 +21,12 @@ export class FormComponent implements OnInit {
   tips = {
     name: {
       default: {
-        required: `工作流名称不能为空`
+        required: `Workflow Name cannot be empty`
       }
     },
     kind: {
       default: {
-        required: `工作流类型不能为空`
+        required: `Kind cannot be empty`
       }
     }
   };
@@ -63,12 +63,12 @@ export class FormComponent implements OnInit {
           xdata: { project: 'oid' }
         })
         .subscribe(() => {
-          this.message.success(`数据更新成功`);
+          this.message.success(`Update successful`);
           this.modalRef.triggerOk();
         });
     } else {
       this.workflows.updateById(this.data.doc._id, { $set: data }).subscribe(() => {
-        this.message.success(`数据更新成功`);
+        this.message.success(`Update successful`);
         this.modalRef.triggerOk();
       });
     }

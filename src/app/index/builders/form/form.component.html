@@ -1,52 +1,57 @@
 <form *ngIf="form" nz-form nzLayout="vertical" id="form" [formGroup]="form" (wpxSubmit)="submit($event)">
   <nz-form-item>
-    <nz-form-label nzRequired>名称</nz-form-label>
+    <nz-form-label nzRequired>Name</nz-form-label>
     <nz-form-control nzHasFeedback [nzAutoTips]="tips.name">
-      <input nz-input formControlName="name" placeholder="请输入内容名称" />
+      <input nz-input formControlName="name" placeholder="Please enter a name" />
     </nz-form-control>
   </nz-form-item>
   <nz-form-item>
-    <nz-form-label>父级</nz-form-label>
+    <nz-form-label>Parent</nz-form-label>
     <nz-form-control>
       <nz-tree-select
         nzShowSearch
         [nzNodes]="nodes"
         formControlName="parent"
-        nzPlaceHolder="默认最高级"
+        nzPlaceHolder="Default superlative"
       ></nz-tree-select>
     </nz-form-control>
   </nz-form-item>
   <nz-form-item>
-    <nz-form-label nzRequired>种类</nz-form-label>
+    <nz-form-label nzRequired>Kind</nz-form-label>
     <nz-form-control nzHasFeedback>
-      <nz-select formControlName="kind" nzPlaceHolder="请选择一种内容种类">
-        <nz-option nzValue="nav" nzLabel="导航"> </nz-option>
-        <nz-option nzValue="collection" nzLabel="集合页面"> </nz-option>
-        <nz-option nzValue="single" nzLabel="单一页面"> </nz-option>
-        <nz-option nzValue="manual" nzLabel="自定义"> </nz-option>
+      <nz-select formControlName="kind" nzPlaceHolder="Please select a kind">
+        <nz-option nzValue="nav" nzLabel="Nav"> </nz-option>
+        <nz-option nzValue="collection" nzLabel="Collection"> </nz-option>
+        <nz-option nzValue="single" nzLabel="Single"> </nz-option>
+        <nz-option nzValue="manual" nzLabel="Manual"> </nz-option>
       </nz-select>
     </nz-form-control>
   </nz-form-item>
   <nz-form-item *ngIf="['collection', 'single'].includes(kind.value)" formGroupName="schema">
-    <nz-form-label nzRequired>模型命名</nz-form-label>
+    <nz-form-label nzRequired>Schema Key</nz-form-label>
     <nz-form-control nzHasFeedback [nzAutoTips]="tips.schemaKey">
-      <input nz-input formControlName="key" placeholder="请输入模型命名" />
+      <input nz-input formControlName="key" placeholder="Please enter the schema key" />
     </nz-form-control>
   </nz-form-item>
   <nz-form-item *ngIf="kind.value === 'nav'">
-    <nz-form-label>字体图标</nz-form-label>
+    <nz-form-label>Font Icon</nz-form-label>
     <nz-form-control nzHasFeedback>
-      <input nz-input formControlName="icon" placeholder="Ant Design 字体图标标识" />
+      <input nz-input formControlName="icon" placeholder="Ant Design Icon" />
     </nz-form-control>
   </nz-form-item>
   <nz-form-item>
-    <nz-form-label>描述</nz-form-label>
+    <nz-form-label>Description</nz-form-label>
     <nz-form-control nzHasFeedback>
-      <textarea nz-input formControlName="description" placeholder="描述页面用途" rows="3"></textarea>
+      <textarea
+        nz-input
+        formControlName="description"
+        placeholder="Describe the purpose of the page"
+        rows="3"
+      ></textarea>
     </nz-form-control>
   </nz-form-item>
   <nz-form-item>
-    <nz-form-label nzRequired>状态</nz-form-label>
+    <nz-form-label nzRequired>Status</nz-form-label>
     <nz-form-control>
       <nz-switch formControlName="status"></nz-switch>
     </nz-form-control>
@@ -54,6 +59,6 @@
 </form>
 
 <div *nzModalFooter>
-  <button nz-button type="button" nzType="default" (click)="close()">取消</button>
-  <button nz-button nzType="primary" form="form" [disabled]="!form.valid">提交</button>
+  <button nz-button type="button" nzType="default" (click)="close()">Cancel</button>
+  <button nz-button nzType="primary" form="form" [disabled]="!form.valid">Submit</button>
 </div>

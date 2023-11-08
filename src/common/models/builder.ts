@@ -59,19 +59,20 @@ export interface RuleCondition {
 }
 
 export const FieldTypeDict = {
-  string: '单行文本',
-  text: '多行文本',
-  password: '密码',
-  number: '数字',
-  date: '日期',
-  dates: '日期范围',
-  bool: '开关',
-  radio: '复选框',
-  select: '选择器',
-  richtext: '富文本',
-  picture: '图片',
-  video: '视频',
-  file: '附件',
-  ref: '引用',
-  manual: '自定义'
+  string: 'Input',
+  text: 'Text',
+  number: 'Number',
+  date: 'Date',
+  password: 'Password',
+  richtext: 'RichText',
+  bool: 'Switch',
+  dates: 'Dates',
+  radio: 'Radio',
+  checkbox: 'Checkbox',
+  select: 'Select',
+  ref: 'Ref',
+  picture: 'Picture',
+  video: 'Video',
+  file: 'File',
+  manual: 'Manual'
 };

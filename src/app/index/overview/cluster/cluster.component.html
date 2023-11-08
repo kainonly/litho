@@ -1,11 +1,15 @@
 <form nz-form nzLayout="vertical" id="form" [formGroup]="form" (wpxSubmit)="submit($event)">
   <nz-form-item>
-    <nz-form-label nzRequired> 集群名称 </nz-form-label>
-    <nz-form-control nzHasFeedback [nzAutoTips]="tips.cluster" nzExtra="*切换集群后原自动部署的资源不会被清除">
+    <nz-form-label nzRequired> Cluster </nz-form-label>
+    <nz-form-control
+      nzHasFeedback
+      [nzAutoTips]="tips.cluster"
+      nzExtra="*The original deployed resources will not be cleared after switching the cluster."
+    >
       <nz-select
         formControlName="cluster"
         nzAllowClear
-        nzPlaceHolder="请选择接入的集群名称"
+        nzPlaceHolder="Please select a cluster"
         nzShowSearch
         nzServerSearch
         (nzOnSearch)="clusters$.next($event)"
@@ -19,6 +23,6 @@
 </form>
 
 <div *nzModalFooter>
-  <button nz-button type="button" nzType="default" (click)="close()">取消</button>
-  <button nz-button nzType="primary" form="form" [disabled]="!form.valid">提交</button>
+  <button nz-button type="button" nzType="default" (click)="close()">Cancel</button>
+  <button nz-button nzType="primary" form="form" [disabled]="!form.valid">Submit</button>
 </div>

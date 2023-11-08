@@ -6,7 +6,7 @@
       [wpxModel]="model"
       [wpxKeys]="['name']"
       (wpxSubmit)="getData()"
-      wpxPlaceholder="队列名称、主题"
+      wpxPlaceholder="Name"
     ></wpx-keyword>
     <wpx-toolbox *nzSpaceItem [wpxModel]="model" (wpxClear)="getData()" (wpxRefresh)="getData()"> </wpx-toolbox>
   </nz-space>
@@ -15,16 +15,18 @@
 <ng-template #extraRef>
   <nz-space nzAlign="center">
     <ng-container *ngIf="model.selection.size as size">
-      <button *nzSpaceItem nz-button nzType="dashed" nz-dropdown [nzDropdownMenu]="menu"> 已选中 {{ size }} 项 </button>
+      <button *nzSpaceItem nz-button nzType="dashed" nz-dropdown [nzDropdownMenu]="menu">
+        {{ size }} selected items
+      </button>
       <nz-dropdown-menu #menu="nzDropdownMenu">
         <ul nz-menu>
-          <li nz-menu-item (click)="wpxTable.clearSelections()"> 取消选择 </li>
-          <li nz-menu-item nzDanger (click)="bulkDelete()"> 删除 </li>
+          <li nz-menu-item (click)="wpxTable.clearSelections()"> Unselect </li>
+          <li nz-menu-item nzDanger (click)="bulkDelete()"> Delete </li>
         </ul>
       </nz-dropdown-menu>
     </ng-container>
-    <button *nzSpaceItem nz-button (click)="openPublish()"> 发布消息 </button>
-    <button *nzSpaceItem nz-button nzType="primary" (click)="openForm()"> 新增 </button>
+    <button *nzSpaceItem nz-button (click)="openPublish()"> Publish </button>
+    <button *nzSpaceItem nz-button nzType="primary" (click)="openForm()"> Create </button>
   </nz-space>
 </ng-template>
 
@@ -35,19 +37,19 @@
   [wpxModel]="model"
   [wpxColumns]="[
     {
-      title: '队列名称',
+      title: 'Queue Name',
       key: 'name',
       width: '240px',
       render: name
     },
     {
-      title: '主题命名',
+      title: 'Subjects',
       key: 'subjects',
       width: '240px',
       render: subjects
     },
     {
-      title: '详情',
+      title: 'Detail',
       key: 'detail',
       width: '600px',
       render: detail
@@ -72,10 +74,10 @@
     </ng-template>
   </ng-template>
   <ng-template #detail let-data>
-    <nz-tag *ngIf="data.max_msgs && data.max_msgs !== -1"> 最大消息数：{{ data.max_msgs }} </nz-tag>
-    <nz-tag *ngIf="data.max_bytes && data.max_bytes !== -1"> 最大字节数：{{ data.max_bytes | nzBytes }} </nz-tag>
-    <nz-tag *ngIf="data.max_age"> 有效期：{{ data.max_age / 1e9 }}s </nz-tag>
-    <a (click)="openDetail(data)">查看</a>
+    <nz-tag *ngIf="data.max_msgs && data.max_msgs !== -1"> Max Msgs: {{ data.max_msgs }} </nz-tag>
+    <nz-tag *ngIf="data.max_bytes && data.max_bytes !== -1"> Max Bytes: {{ data.max_bytes | nzBytes }} </nz-tag>
+    <nz-tag *ngIf="data.max_age"> Max Age: {{ data.max_age / 1e9 }}s </nz-tag>
+    <a (click)="openDetail(data)">View Details</a>
   </ng-template>
 </wpx-table>
 
@@ -85,8 +87,8 @@
   </button>
   <nz-dropdown-menu #menu="nzDropdownMenu">
     <ul nz-menu>
-      <li nz-menu-item (click)="openForm(data)"> 修改 </li>
-      <li nz-menu-item nzDanger (click)="delete(data)"> 删除 </li>
+      <li nz-menu-item (click)="openForm(data)"> Modify </li>
+      <li nz-menu-item nzDanger (click)="delete(data)"> Delete </li>
     </ul>
   </nz-dropdown-menu>
 </ng-template>

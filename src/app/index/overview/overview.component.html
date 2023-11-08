@@ -2,8 +2,8 @@
   <nz-page-header-title>{{ data.name }}</nz-page-header-title>
   <nz-page-header-tags>
     <nz-tag nzColor="blue" [ngSwitch]="data.kind">
-      <ng-container *ngSwitchCase="'default'">标准类型</ng-container>
-      <ng-container *ngSwitchCase="'cms'">内容类型</ng-container>
+      <ng-container *ngSwitchCase="'standard'">Standard</ng-container>
+      <ng-container *ngSwitchCase="'cms'">Headless CMS</ng-container>
     </nz-tag>
   </nz-page-header-tags>
   <nz-page-header-extra>
@@ -13,7 +13,7 @@
   </nz-page-header-extra>
   <nz-page-header-content>
     <nz-descriptions nzSize="small" [nzColumn]="3" nzLayout="vertical">
-      <nz-descriptions-item nzTitle="命名空间">
+      <nz-descriptions-item nzTitle="Namespace">
         <span nz-typography [nzContent]="data.namespace" nzCopyable></span>
       </nz-descriptions-item>
       <nz-descriptions-item nzTitle="SECRET ID">
@@ -22,33 +22,37 @@
       <nz-descriptions-item nzTitle="SECRET KEY">
         <span nz-typography [nzContent]="data.secret_key" nzCopyable></span>
       </nz-descriptions-item>
-      <nz-descriptions-item nzTitle="有效期">
-        <ng-container *ngIf="data.expire; else eternal"> 截止至 {{ data.expire | date: 'yyyy-MM-dd' }} </ng-container>
-        <ng-template #eternal>长期</ng-template>
+      <nz-descriptions-item nzTitle="Expire">
+        <ng-container *ngIf="data.expire; else longRef"> Expire in {{ data.expire | date: 'longDate' }} </ng-container>
+        <ng-template #longRef>Long</ng-template>
       </nz-descriptions-item>
-      <nz-descriptions-item nzTitle="创建日期">
-        {{ data.create_time | date: 'yyyy-MM-dd' }}
+      <nz-descriptions-item nzTitle="Create Time">
+        {{ data.create_time | date: 'medium' }}
       </nz-descriptions-item>
-      <nz-descriptions-item nzTitle="更新日期">
-        {{ data.update_time | date: 'yyyy-MM-dd' }}
+      <nz-descriptions-item nzTitle="Update Time">
+        {{ data.update_time | date: 'medium' }}
       </nz-descriptions-item>
     </nz-descriptions>
   </nz-page-header-content>
   <nz-page-header-footer>
     <nz-tabset nzSize="small" [(nzSelectedIndex)]="tabIndex">
-      <nz-tab nzTitle="自动部署"></nz-tab>
-      <nz-tab nzTitle="OpenAPI 限制"></nz-tab>
+      <nz-tab nzTitle="Deployment"></nz-tab>
+      <nz-tab nzTitle="OpenAPI"></nz-tab>
     </nz-tabset>
   </nz-page-header-footer>
 </nz-page-header>
 
 <nz-content style="overflow: hidden auto; margin-top: 8px" [ngSwitch]="tabIndex">
   <ng-container *ngSwitchCase="0">
-    <nz-alert nzBanner nzType="info" nzMessage="请接入集群，自动部署需要先关联集群才能使用"></nz-alert>
+    <nz-alert
+      nzBanner
+      nzType="info"
+      nzMessage="Please connect to the cluster. Deployment needs to be associated with the cluster before it can be used."
+    ></nz-alert>
     <nz-page-header [nzGhost]="false">
       <nz-page-header-title>
-        <ng-template #notConnectedText> 尚未接入 </ng-template>
-        <ng-container *ngIf="data.cluster; else notConnectedText"> 已接入：{{ cluster?.name }} </ng-container>
+        <ng-template #notConnectedText> None </ng-template>
+        <ng-container *ngIf="data.cluster; else notConnectedText"> Connected: {{ cluster?.name }} </ng-container>
         <a (click)="openCluster()">
           <span nz-icon nzType="edit" nzTheme="outline"></span>
         </a>
@@ -60,7 +64,7 @@
           <nz-tag>MEM：{{ info.mem | nzBytes }}</nz-tag>
           <nz-tag>STORAGE：{{ info.storage | nzBytes }}</nz-tag>
         </ng-container>
-        <nz-tag *ngIf="cluster?.admin" nzColor="orange">管理集群</nz-tag>
+        <nz-tag *ngIf="cluster?.admin" nzColor="orange">Admin Cluster</nz-tag>
       </nz-page-header-tags>
       <nz-page-header-extra>
         <button nz-button nzShape="circle" nzType="primary" (click)="getTenants()">
@@ -77,14 +81,18 @@
               nzType="text"
               [disabled]="!data.cluster"
               nz-popconfirm
-              [nzPopconfirmTitle]="data.nats ? '您确定要启用 NATS 租户吗?' : '租户已存在确认要重置吗？'"
+              [nzPopconfirmTitle]="
+                data.nats
+                  ? 'Are you sure you want to enable NATS tenants?'
+                  : 'Are you sure you want to reset an existing tenant?'
+              "
               (nzOnConfirm)="deployNats()"
             >
               <span nz-icon nzType="deployment-unit" nzTheme="outline"></span>
             </button>
           </ng-template>
-          <nz-card nzSize="small" nzType="inner" nzTitle="NATS 租户" [nzExtra]="natsEditTpl">
-            <p>在接入集群中建立隔离 NATS 资源的账号，NATS 集群在 Kubernetes 中命名空间必须是 nats-system</p>
+          <nz-card nzSize="small" nzType="inner" nzTitle="NATS Tenant" [nzExtra]="natsEditTpl">
+            <p> Create an account to isolate NATS cluster, Kubernetes the nats-system namespace must exist. </p>
             <nz-descriptions nzSize="small" nzLayout="vertical" [nzColumn]="2">
               <nz-descriptions-item nzTitle="NKey" [nzSpan]="2">
                 <ng-container *ngIf="data.nats && tenants?.nkey; else unsetText">
@@ -100,15 +108,15 @@
               <span nz-icon nzType="deployment-unit" nzTheme="outline"></span>
             </button>
           </ng-template>
-          <nz-card nzSize="small" nzType="inner" nzTitle="Redis 租户" [nzExtra]="redisEditTpl">
-            <p>在接入集群中建立新的 Redis 副本容器，Kubernetes 必须存在 redis-system 命名空间 </p>
+          <nz-card nzSize="small" nzType="inner" nzTitle="Redis Tenant" [nzExtra]="redisEditTpl">
+            <p> Create a new Redis replica in this cluster, Kubernetes the redis-system namespace must exist. </p>
             <nz-descriptions nzSize="small" nzLayout="vertical" [nzColumn]="2">
-              <nz-descriptions-item nzTitle="连接地址">
+              <nz-descriptions-item nzTitle="Host">
                 <ng-container *ngIf="data?.redis && tenants?.redis_host; else unsetText">
                   <span nz-typography nzCopyable [nzContent]="tenants.redis_host"></span>
                 </ng-container>
               </nz-descriptions-item>
-              <nz-descriptions-item nzTitle="授权">
+              <nz-descriptions-item nzTitle="Auth">
                 <ng-container *ngIf="data?.redis && tenants?.redis_auth; else unsetText">
                   <span nz-typography nzCopyable [nzContent]="tenants.redis_auth"></span>
                 </ng-container>
@@ -120,12 +128,12 @@
     </nz-card>
   </ng-container>
   <ng-container *ngSwitchCase="1">
-    <nz-alert nzBanner nzType="info" nzMessage="支持 CIDR，例如：192.168.1.0/24"></nz-alert>
+    <nz-alert nzBanner nzType="info" nzMessage="supports CIDR, for example: 192.168.1.0/24"></nz-alert>
     <nz-card>
       <nz-table #entryTable nzHideOnSinglePage [nzData]="data.entry ?? []" [nzFooter]="entryActions">
         <thead>
           <tr>
-            <th><b>IP 地址</b></th>
+            <th><b>IP Address</b></th>
           </tr>
         </thead>
         <tbody>
@@ -134,11 +142,11 @@
           </tr>
         </tbody>
         <ng-template #entryActions>
-          <button nz-button nzType="text" nzBlock (click)="openEntry()">编辑</button>
+          <button nz-button nzType="text" nzBlock (click)="openEntry()">Modify</button>
         </ng-template>
       </nz-table>
     </nz-card>
   </ng-container>
 </nz-content>
 
-<ng-template #unsetText> 未启用 </ng-template>
+<ng-template #unsetText> Unset </ng-template>

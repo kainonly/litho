@@ -15,7 +15,7 @@
               nzFormat="yyyy-MM-dd HH:mm"
               [(ngModel)]="timestamp"
               (ngModelChange)="getData(true)"
-              nz-tooltip="建议范围不要超过一天"
+              nz-tooltip="The recommended range should not exceed one day"
             ></nz-range-picker>
             <wpx-toolbox *nzSpaceItem [wpxModel]="model" (wpxClear)="clear()" (wpxRefresh)="getData(true)">
             </wpx-toolbox>
@@ -24,11 +24,11 @@
         <nz-col></nz-col>
         <nz-col>
           <ng-container *ngIf="model.selection.size as size">
-            <button nz-button nzType="dashed" nz-dropdown [nzDropdownMenu]="menu"> 已选中 {{ size }} 项 </button>
+            <button nz-button nzType="dashed" nz-dropdown [nzDropdownMenu]="menu"> {{ size }} selected items </button>
             <nz-dropdown-menu #menu="nzDropdownMenu">
               <ul nz-menu>
-                <li nz-menu-item (click)="wpxTable.clearSelections()"> 取消选择 </li>
-                <li nz-menu-item> 导出 </li>
+                <li nz-menu-item (click)="wpxTable.clearSelections()"> Unselect </li>
+                <li nz-menu-item> Export </li>
               </ul>
             </nz-dropdown-menu>
           </ng-container>
@@ -43,13 +43,13 @@
       [wpxModel]="model"
       [wpxColumns]="[
         {
-          title: '时间',
+          title: 'Timestamp',
           key: 'timestamp',
           width: '200px',
           format: 'date'
         },
         {
-          title: '响应结果',
+          title: 'Response',
           key: 'response',
           render: response,
           ellipsis: true
@@ -79,4 +79,4 @@
   </button>
 </ng-template>
 
-<ng-template #noBodyRef>无返回结果</ng-template>
+<ng-template #noBodyRef>None</ng-template>

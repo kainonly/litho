@@ -63,14 +63,14 @@ export class SchemaComponent implements OnInit, OnDestroy {
         this.fields.map(v => v.key)
       )
       .subscribe(() => {
-        this.message.success('字段排序成功');
+        this.message.success('Field sorted successful');
       });
   }
 
   openField(field?: Field): void {
     this.modal.create<FieldComponent, FieldInput>({
-      nzTitle: !field ? '创建字段' : `编辑【${field.name}】字段`,
-      nzWidth: 960,
+      nzTitle: !field ? 'Create Field' : `Modify Field(${field.name})`,
+      nzWidth: 1200,
       nzContent: FieldComponent,
       nzData: {
         doc: this.data!,
@@ -84,17 +84,18 @@ export class SchemaComponent implements OnInit, OnDestroy {
 
   delete(field: Field): void {
     this.modal.confirm({
-      nzTitle: `您确定要删除【${field.name}】字段吗?`,
-      nzOkText: `是的`,
+      nzTitle: `Do you want to delete this?`,
+      nzContent: field.name,
+      nzOkText: `Yes`,
       nzOkType: 'primary',
       nzOkDanger: true,
       nzOnOk: () => {
         this.builders.deleteSchemaField(this.id, field.key).subscribe(() => {
           this.getData();
-          this.message.success('字段删除成功');
+          this.message.success('Deletion successful');
         });
       },
-      nzCancelText: `再想想`
+      nzCancelText: `Think again`
     });
   }
 }

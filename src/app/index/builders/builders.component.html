@@ -2,17 +2,17 @@
   <nz-sider style="padding: 12px" nzWidth="420px" nzTheme="light">
     <nz-space nzAlign="center">
       <nz-input-group *nzSpaceItem [nzPrefix]="suffixIconSearch" style="width: 320px">
-        <input type="text" nz-input placeholder="搜索" [(ngModel)]="searchText" />
+        <input type="text" nz-input placeholder="Search" [(ngModel)]="searchText" />
         <ng-template #suffixIconSearch>
           <span nz-icon nzType="search"></span>
         </ng-template>
       </nz-input-group>
 
       <nz-button-group *nzSpaceItem>
-        <button nz-button nzType="text" nz-tooltip="刷新" (click)="getData()">
+        <button nz-button nzType="text" (click)="getData()">
           <span nz-icon nzType="reload"></span>
         </button>
-        <button nz-button nzType="text" nz-tooltip="新增" (click)="openForm()">
+        <button nz-button nzType="text" (click)="openForm()">
           <span nz-icon nzType="plus-circle" nzTheme="outline"></span>
         </button>
       </nz-button-group>
@@ -52,16 +52,16 @@
     <nz-col></nz-col>
     <nz-col>
       <ng-container *ngIf="builders.dict[node.key] as data">
-        <nz-tag *ngIf="!data.status" nzColor="error">停用</nz-tag>
+        <nz-tag *ngIf="!data.status" nzColor="error">Off</nz-tag>
         <nz-tag nzColor="blue">
           <ng-container *ngIf="data.icon">
             <span nz-icon [nzType]="data.icon" nzTheme="outline"></span>
           </ng-container>
           <ng-container [ngSwitch]="data.kind">
-            <ng-container *ngSwitchCase="'nav'"> 导航</ng-container>
-            <ng-container *ngSwitchCase="'collection'"> 集合类型</ng-container>
-            <ng-container *ngSwitchCase="'single'"> 单一类型</ng-container>
-            <ng-container *ngSwitchCase="'manual'"> 自定义</ng-container>
+            <ng-container *ngSwitchCase="'nav'"> Nav</ng-container>
+            <ng-container *ngSwitchCase="'collection'"> Collection</ng-container>
+            <ng-container *ngSwitchCase="'single'"> Single</ng-container>
+            <ng-container *ngSwitchCase="'manual'"> Manual</ng-container>
           </ng-container>
         </nz-tag>
       </ng-container>
@@ -73,7 +73,7 @@
   <ul *ngIf="actived" nz-menu>
     <li nz-menu-item>{{ actived.title }}</li>
     <li nz-menu-divider></li>
-    <li nz-menu-item (click)="openForm(builders.dict[actived.key])">编辑</li>
-    <li nz-menu-item (click)="delete(builders.dict[actived.key])">删除</li>
+    <li nz-menu-item (click)="openForm(builders.dict[actived.key])">Modify</li>
+    <li nz-menu-item (click)="delete(builders.dict[actived.key])">Delete</li>
   </ul>
 </nz-dropdown-menu>

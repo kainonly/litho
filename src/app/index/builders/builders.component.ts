@@ -6,7 +6,6 @@ import { AppService } from '@app';
 import { Builder } from '@common/models/builder';
 import { BuildersService } from '@common/services/builders.service';
 import { Any, AnyDto, TransactionResult, WpxService } from '@weplanx/ng';
-import { WpxCategoriesService } from '@weplanx/ng/categories';
 import { NzContextMenuService, NzDropdownMenuComponent } from 'ng-zorro-antd/dropdown';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalService } from 'ng-zorro-antd/modal';
@@ -66,7 +65,7 @@ export class BuildersComponent implements OnInit {
 
   openForm(doc?: AnyDto<Builder>): void {
     this.modal.create<FormComponent, FormInput>({
-      nzTitle: !doc ? '创建' : `编辑【${doc.name}】`,
+      nzTitle: !doc ? 'Create' : `Modify(${doc.name})`,
       nzContent: FormComponent,
       nzData: {
         doc
@@ -107,20 +106,21 @@ export class BuildersComponent implements OnInit {
 
   delete(doc: AnyDto<Builder>): void {
     this.modal.confirm({
-      nzTitle: `您确定要删除【${doc.name}】?`,
-      nzOkText: `是的`,
+      nzTitle: `Do you want to delete this?`,
+      nzContent: doc.name,
+      nzOkText: `Yes`,
       nzOkType: 'primary',
       nzOkDanger: true,
       nzOnOk: () => {
         this.builders.delete(doc._id).subscribe(() => {
-          this.message.success(`数据删除成功`);
+          this.message.success(`Deletion successful`);
           if (this.activedKey.includes(doc._id)) {
             this.router.navigate(['/x', this.app.context, 'builders', 'index']);
           }
           this.getData();
         });
       },
-      nzCancelText: `再想想`
+      nzCancelText: `Think again`
     });
   }
 
@@ -162,7 +162,7 @@ export class BuildersComponent implements OnInit {
         })
       )
       .subscribe(() => {
-        this.message.success(`大纲重组成功`);
+        this.message.success(`Outline reorganization successful`);
         this.getData();
       });
   }

@@ -21,7 +21,7 @@ export class ClusterComponent implements OnInit {
   tips = {
     cluster: {
       default: {
-        required: `接入集群名称不能为空`
+        required: `Cluster cannot be empty`
       }
     }
   };
@@ -76,7 +76,7 @@ export class ClusterComponent implements OnInit {
         }
       )
       .subscribe(() => {
-        this.message.success(`数据更新成功`);
+        this.message.success(`Update successful`);
         this.modalRef.triggerOk();
       });
   }

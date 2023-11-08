@@ -17,28 +17,28 @@ const routes: Routes = [
         path: 'overview',
         loadChildren: () => import('./overview/overview.module').then(m => m.OverviewModule),
         data: {
-          breadcrumb: `项目概况`
+          breadcrumb: `Overview`
         }
       },
       {
         path: 'builders',
         loadChildren: () => import('./builders/builders.module').then(m => m.BuildersModule),
         data: {
-          breadcrumb: `内容生成器`
+          breadcrumb: `Builders`
         }
       },
       {
         path: 'workflows',
         loadChildren: () => import('./workflows/workflows.module').then(m => m.WorkflowsModule),
         data: {
-          breadcrumb: `工作流`
+          breadcrumb: `Workflows`
         }
       },
       {
         path: 'queues',
         loadChildren: () => import('./queues/queues.module').then(m => m.QueuesModule),
         data: {
-          breadcrumb: `消息队列`
+          breadcrumb: `Queues`
         }
       },
       { path: '', redirectTo: 'overview', pathMatch: 'full' }

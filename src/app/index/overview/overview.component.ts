@@ -49,7 +49,7 @@ export class OverviewComponent implements OnInit {
 
   openForm(): void {
     this.modal.create<ProjectComponent, ProjectInput>({
-      nzTitle: `编辑【${this.data.name}】`,
+      nzTitle: `Modify(${this.data.name})`,
       nzContent: ProjectComponent,
       nzWidth: 800,
       nzData: {
@@ -68,7 +68,7 @@ export class OverviewComponent implements OnInit {
     this.projects.getTenants(this.data._id).subscribe(data => {
       this.tenants = data;
       if (!this.tenantsLoading) {
-        const ref = this.message.loading(`正在获取服务信息`, { nzDuration: 1000 });
+        const ref = this.message.loading(`Acquiring service information`, { nzDuration: 1000 });
         this.tenantsLoading = ref.messageId;
         ref.onClose.subscribe(() => {
           this.tenantsLoading = undefined;
@@ -90,7 +90,7 @@ export class OverviewComponent implements OnInit {
 
   openCluster(): void {
     this.modal.create<ClusterComponent, AnyDto<Project>>({
-      nzTitle: `接入集群`,
+      nzTitle: `Connect Cluster`,
       nzContent: ClusterComponent,
       nzOnOk: () => {
         this.app.fetchContextData().subscribe(data => {
@@ -103,13 +103,13 @@ export class OverviewComponent implements OnInit {
 
   deployNats(): void {
     this.projects.deployNats(this.data._id).subscribe(() => {
-      this.message.success(`正在配置租户，请稍后刷新`);
+      this.message.success(`Configuring tenants, please refresh later...`);
     });
   }
 
   openEntry(): void {
     this.modal.create<EntryComponent>({
-      nzTitle: `OpenAPI 入口限制`,
+      nzTitle: `OpenAPI`,
       nzContent: EntryComponent,
       nzOnOk: () => {
         this.refreshData();

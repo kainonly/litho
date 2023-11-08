@@ -65,7 +65,7 @@ export class EntryComponent implements OnInit {
 
   submit(data: Any): void {
     this.projects.updateById(this.data._id, { $set: data }).subscribe(() => {
-      this.message.success(`数据更新成功`);
+      this.message.success(`Update successful`);
       this.modalRef.triggerOk();
     });
   }

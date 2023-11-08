@@ -20,7 +20,7 @@ export class PublishComponent implements OnInit {
   tips = {
     subject: {
       default: {
-        required: `主题不能为空`
+        required: `Subject cannot be empty`
       }
     }
   };
@@ -51,7 +51,7 @@ export class PublishComponent implements OnInit {
 
   submit(data: Any): void {
     this.queues.publish(this.app.contextData!._id, data.subject, JSON.parse(data.payload)).subscribe(() => {
-      this.message.success(`发布成功`);
+      this.message.success(`Publish successful`);
     });
   }
 }

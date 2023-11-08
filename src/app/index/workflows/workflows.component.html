@@ -6,7 +6,7 @@
       [wpxModel]="model"
       [wpxKeys]="['name', 'namespace']"
       (wpxSubmit)="getData()"
-      wpxPlaceholder="工作流名称"
+      wpxPlaceholder="Name, Namespace"
     ></wpx-keyword>
     <wpx-toolbox *nzSpaceItem [wpxModel]="model" (wpxClear)="getData()" (wpxRefresh)="getData()"> </wpx-toolbox>
   </nz-space>
@@ -15,15 +15,17 @@
 <ng-template #extraRef>
   <nz-space nzAlign="center">
     <ng-container *ngIf="model.selection.size as size">
-      <button *nzSpaceItem nz-button nzType="dashed" nz-dropdown [nzDropdownMenu]="menu"> 已选中 {{ size }} 项 </button>
+      <button *nzSpaceItem nz-button nzType="dashed" nz-dropdown [nzDropdownMenu]="menu">
+        {{ size }} selected items
+      </button>
       <nz-dropdown-menu #menu="nzDropdownMenu">
         <ul nz-menu>
-          <li nz-menu-item (click)="wpxTable.clearSelections()"> 取消选择 </li>
-          <li nz-menu-item nzDanger (click)="bulkDelete()"> 删除 </li>
+          <li nz-menu-item (click)="wpxTable.clearSelections()"> Unselect </li>
+          <li nz-menu-item nzDanger (click)="bulkDelete()"> Delete </li>
         </ul>
       </nz-dropdown-menu>
     </ng-container>
-    <button *nzSpaceItem nz-button nzType="primary" (click)="openForm()"> 新增 </button>
+    <button *nzSpaceItem nz-button nzType="primary" (click)="openForm()"> Create </button>
   </nz-space>
 </ng-template>
 
@@ -34,13 +36,13 @@
   [wpxModel]="model"
   [wpxColumns]="[
     {
-      title: '工作流名称',
+      title: 'Name',
       key: 'name',
       width: '360px',
       render: name
     },
     {
-      title: '详情',
+      title: 'Detail',
       key: 'detail',
       render: detail
     }
@@ -51,7 +53,7 @@
   <ng-template #name let-data>
     <nz-tag nzColor="blue">
       <ng-container [ngSwitch]="data.kind">
-        <ng-container *ngSwitchCase="'schedule'">定时启动</ng-container>
+        <ng-container *ngSwitchCase="'schedule'">Schedule</ng-container>
       </ng-container>
     </nz-tag>
     {{ data.name }}
@@ -62,7 +64,7 @@
         <ng-container *ngIf="data.schedule as schedule; else initRef">
           <nz-tag *ngIf="!schedule.status" nzColor="error">
             <span nz-icon nzType="stop"></span>
-            <span>禁用</span>
+            <span>Disabled</span>
           </nz-tag>
           <nz-tag>
             <span nz-icon nzType="deployment-unit" nzTheme="outline"></span>
@@ -74,12 +76,12 @@
             <span nz-icon nzType="key" nzTheme="outline"></span>
             {{ data._id }}
           </nz-tag>
-          <a (click)="openControl(data, 0)"> 已设置 {{ schedule.jobs.length }} 个事件 </a>
+          <a (click)="openControl(data, 0)"> There are {{ schedule.jobs.length }} events </a>
         </ng-container>
         <ng-template #initRef>
           <a (click)="openControl(data, 1)">
             <span nz-icon nzType="info-circle" nzTheme="outline"></span>
-            请初始化事件
+            Please initialize the event
           </a>
         </ng-template>
       </ng-container>
@@ -93,8 +95,8 @@
   </button>
   <nz-dropdown-menu #menu="nzDropdownMenu">
     <ul nz-menu>
-      <li nz-menu-item (click)="openForm(data)"> 修改 </li>
-      <li nz-menu-item nzDanger (click)="delete(data)"> 删除 </li>
+      <li nz-menu-item (click)="openForm(data)"> Modify </li>
+      <li nz-menu-item nzDanger (click)="delete(data)"> Delete </li>
     </ul>
   </nz-dropdown-menu>
 </ng-template>

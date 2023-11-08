@@ -39,13 +39,13 @@ export class DetailComponent implements OnInit, OnDestroy {
 
   sync(): void {
     this.queues.sync(this.doc._id).subscribe(() => {
-      this.message.success(`队列配置已同步`);
+      this.message.success(`Queue configuration synchronized`);
     });
   }
 
   openPublish(subject: string): void {
     this.modal.create<PublishComponent, PublishInput>({
-      nzTitle: '发布消息',
+      nzTitle: 'Publish',
       nzContent: PublishComponent,
       nzData: {
         subject

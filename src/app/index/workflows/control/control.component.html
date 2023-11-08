@@ -4,7 +4,7 @@
     <nz-page-header-tags>
       <nz-tag nzColor="blue">
         <ng-container [ngSwitch]="doc.kind">
-          <ng-container *ngSwitchCase="'schedule'">定时启动</ng-container>
+          <ng-container *ngSwitchCase="'schedule'">Schedule</ng-container>
         </ng-container>
       </nz-tag>
     </nz-page-header-tags>
@@ -17,7 +17,6 @@
           nzShape="circle"
           [disabled]="!doc.schedule?.status"
           (click)="sync()"
-          nz-tooltip="同步"
         >
           <span nz-icon nzType="sync" nzTheme="outline"></span>
         </button>
@@ -28,8 +27,8 @@
     </nz-page-header-extra>
     <nz-page-header-footer>
       <nz-tabset nzSize="small" [(nzSelectedIndex)]="tabIndex">
-        <nz-tab nzTitle="事件详情" [nzDisabled]="!doc.schedule"></nz-tab>
-        <nz-tab nzTitle="设置"></nz-tab>
+        <nz-tab nzTitle="Details" [nzDisabled]="!doc.schedule"></nz-tab>
+        <nz-tab nzTitle="Settings"></nz-tab>
       </nz-tabset>
     </nz-page-header-footer>
   </nz-page-header>
@@ -39,13 +38,13 @@
       <app-index-workflows-control-state *ngSwitchCase="0" [doc]="doc"></app-index-workflows-control-state>
       <form *ngSwitchCase="1" nz-form nzLayout="vertical" id="form" [formGroup]="form" (wpxSubmit)="submit($event)">
         <nz-form-item>
-          <nz-form-label nzRequired> 服务节点 </nz-form-label>
+          <nz-form-label nzRequired> Service Node </nz-form-label>
           <nz-form-control nzHasFeedback [nzAutoTips]="tips.ref">
             <nz-select
               style="width: 320px"
               formControlName="ref"
               nzAllowClear
-              nzPlaceHolder="请选择服务节点"
+              nzPlaceHolder="Please select a service node"
               nzShowSearch
               nzServerSearch
               (nzOnSearch)="scheduleText$.next($event)"
@@ -57,12 +56,12 @@
           </nz-form-control>
         </nz-form-item>
         <nz-form-item>
-          <nz-form-label nzRequired> 启用 </nz-form-label>
+          <nz-form-label nzRequired> Status </nz-form-label>
           <nz-form-control>
             <nz-switch formControlName="status"></nz-switch>
           </nz-form-control>
         </nz-form-item>
-        <nz-divider nzPlain nzText="触发事件" nzOrientation="left"></nz-divider>
+        <nz-divider nzPlain nzText="Events" nzOrientation="left"></nz-divider>
         <nz-collapse formArrayName="jobs" [nzBordered]="false" cdkDropList (cdkDropListDropped)="sort($event, jobs)">
           <ng-container *ngFor="let x of jobs.controls; index as i" [formGroupName]="i">
             <nz-collapse-panel [nzHeader]="headerRef" [nzExtra]="extraRef" cdkDrag>
@@ -80,15 +79,15 @@
                 </nz-button-group>
               </ng-template>
               <nz-form-item>
-                <nz-form-label nzRequired> 操作 </nz-form-label>
+                <nz-form-label nzRequired> Trigger </nz-form-label>
                 <nz-form-control nzHasFeedback>
-                  <nz-select formControlName="mode" nzAllowClear nzPlaceHolder="请选择执行操作">
-                    <nz-option nzValue="HTTP" nzLabel="HTTP：发送请求"> </nz-option>
+                  <nz-select formControlName="mode" nzAllowClear nzPlaceHolder="Please select a trigger">
+                    <nz-option nzValue="HTTP" nzLabel="HTTP: send request"> </nz-option>
                   </nz-select>
                 </nz-form-control>
               </nz-form-item>
               <nz-form-item>
-                <nz-form-label nzRequired> 规格 </nz-form-label>
+                <nz-form-label nzRequired> Spec </nz-form-label>
                 <nz-form-control nzHasFeedback>
                   <nz-cron-expression formControlName="spec" nzType="spring"></nz-cron-expression>
                 </nz-form-control>
@@ -96,7 +95,7 @@
               <ng-container [ngSwitch]="x.get('mode')!.value" formGroupName="option">
                 <ng-container *ngSwitchCase="'HTTP'">
                   <nz-form-item>
-                    <nz-form-label nzRequired> 网络回调地址 </nz-form-label>
+                    <nz-form-label nzRequired> URL </nz-form-label>
                     <nz-form-control>
                       <nz-input-group nzCompact>
                         <nz-select style="width: 15%" formControlName="method">
@@ -108,21 +107,29 @@
                           formControlName="url"
                           type="url"
                           nz-input
-                          placeholder="请输入网络回调地址"
+                          placeholder="Please enter the URL"
                         />
                       </nz-input-group>
                     </nz-form-control>
                   </nz-form-item>
                   <nz-form-item>
-                    <nz-form-label> 请求 Headers </nz-form-label>
+                    <nz-form-label> Headers </nz-form-label>
                     <nz-form-control nzHasFeedback>
-                      <textarea nz-input formControlName="headers" placeholder="请输入 JSON 格式的 Headers"></textarea>
+                      <textarea
+                        nz-input
+                        formControlName="headers"
+                        placeholder="Please enter headers in JSON format"
+                      ></textarea>
                     </nz-form-control>
                   </nz-form-item>
                   <nz-form-item>
-                    <nz-form-label> 请求 Body </nz-form-label>
+                    <nz-form-label> Body </nz-form-label>
                     <nz-form-control nzHasFeedback>
-                      <textarea nz-input formControlName="body" placeholder="请输入 JSON 格式的 Body"></textarea>
+                      <textarea
+                        nz-input
+                        formControlName="body"
+                        placeholder="Please enter body in JSON format"
+                      ></textarea>
                     </nz-form-control>
                   </nz-form-item>
                 </ng-container>
@@ -132,7 +139,7 @@
         </nz-collapse>
 
         <button nzBlock type="button" nzType="text" nzSize="large" nz-button (click)="appendJob()">
-          <i nz-icon nzType="plus-circle"></i> 新增触发
+          <i nz-icon nzType="plus-circle"></i> Create
         </button>
       </form>
     </nz-card>

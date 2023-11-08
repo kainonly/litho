@@ -23,7 +23,7 @@ export class ControlComponent implements OnInit {
   tips = {
     ref: {
       default: {
-        required: `服务节点不能为空`
+        required: `Service Node cannot be empty`
       }
     }
   };
@@ -61,7 +61,7 @@ export class ControlComponent implements OnInit {
 
   sync(): void {
     this.workflows.sync(this.doc._id).subscribe(() => {
-      this.message.success(`触发事件已同步`);
+      this.message.success(`Trigger events synchronized`);
     });
   }
 

@@ -69,7 +69,7 @@ export class LogsComponent implements OnInit {
 
   openResponse(data: AnyDto<LogsetJob>): void {
     this.modal.create<CodeviewComponent>({
-      nzTitle: `响应详情 [${formatDate(data.timestamp, 'yyyy-MM-dd HH:mm:ss', this.locale)}]`,
+      nzTitle: `Detail [${formatDate(data.timestamp, 'long', this.locale)}]`,
       nzContent: CodeviewComponent,
       nzData: data.response.body,
       nzWidth: 960,

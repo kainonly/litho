@@ -23,18 +23,18 @@ export class FormComponent implements OnInit {
   tips = {
     name: {
       default: {
-        required: `内容名称不能为空`
+        required: `Name cannot be empty`
       }
     },
     kind: {
       default: {
-        required: '内容种类不能为空'
+        required: 'Kind cannot be empty'
       }
     },
     schemaKey: {
       default: {
-        required: `模型命名不能为空`,
-        duplicated: `存在重复的定义，模型命名必须是唯一的`
+        required: `Schema Key cannot be empty`,
+        duplicated: `Schema Key must be unique`
       }
     }
   };
@@ -120,7 +120,7 @@ export class FormComponent implements OnInit {
       data['project'] = this.app.contextData!._id;
       data['sort'] = 0;
       this.builders.create(data, { xdata: { project: 'oid', parent: 'oid' } }).subscribe(() => {
-        this.message.success(`数据更新成功`);
+        this.message.success(`Update successful`);
         this.modalRef.triggerOk();
       });
     } else {
@@ -133,7 +133,7 @@ export class FormComponent implements OnInit {
           }
         )
         .subscribe(() => {
-          this.message.success(`数据更新成功`);
+          this.message.success(`Update successful`);
           this.modalRef.triggerOk();
         });
     }

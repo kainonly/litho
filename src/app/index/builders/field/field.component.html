@@ -1,6 +1,6 @@
 <form *ngIf="form" nz-form nzLayout="vertical" id="form" [formGroup]="form" (wpxSubmit)="submit($event)">
   <nz-tabset style="height: 100%" nzTabPosition="left" [(nzSelectedIndex)]="tabIndex">
-    <nz-tab nzTitle="字段类型">
+    <nz-tab nzTitle="Type">
       <nz-card [nzBodyStyle]="{ 'padding.px': 1 }">
         <nz-radio-group formControlName="type">
           <ng-container *ngFor="let item of typeItems">
@@ -14,98 +14,115 @@
         </nz-radio-group>
       </nz-card>
     </nz-tab>
-    <nz-tab nzTitle="基本设置">
+    <nz-tab nzTitle="Basic">
       <nz-row [nzGutter]="24">
         <nz-col [nzSpan]="12">
           <nz-form-item>
-            <nz-form-label nzRequired>显示名称</nz-form-label>
+            <nz-form-label nzRequired>Display Name</nz-form-label>
             <nz-form-control
               nzHasFeedback
               [nzAutoTips]="{
                 default: {
-                  required: '显示名称不能为空'
+                  required: 'Display Name cannot be empty'
                 }
               }"
             >
-              <input nz-input type="text" formControlName="name" placeholder="显示名称，如订单号" />
+              <input nz-input type="text" formControlName="name" placeholder="Display name, such as Order Number" />
             </nz-form-control>
           </nz-form-item>
           <nz-form-item>
-            <nz-form-label>占位提示</nz-form-label>
+            <nz-form-label>Placeholder</nz-form-label>
             <nz-form-control nzHasFeedback>
-              <input nz-input type="text" formControlName="placeholder" placeholder="输入框内提示信息" />
+              <input
+                nz-input
+                type="text"
+                formControlName="placeholder"
+                placeholder="Prompt information in the input box"
+              />
             </nz-form-control>
           </nz-form-item>
           <nz-form-item>
-            <nz-form-label>描述</nz-form-label>
+            <nz-form-label>Description</nz-form-label>
             <nz-form-control>
-              <textarea nz-input formControlName="name" [rows]="3" placeholder="输入框外附加描述"></textarea>
+              <textarea
+                nz-input
+                formControlName="description"
+                [rows]="3"
+                placeholder="Additional description outside the text box"
+              ></textarea>
             </nz-form-control>
           </nz-form-item>
         </nz-col>
         <nz-col [nzSpan]="12">
           <nz-form-item>
-            <nz-form-label nzRequired>字段命名</nz-form-label>
+            <nz-form-label nzRequired>Field Key</nz-form-label>
             <nz-form-control
               nzHasFeedback
               [nzAutoTips]="{
                 default: {
-                  required: '字段命名不能为空',
-                  pattern: '请使用小写字母与下划线的组合',
-                  duplicated: '字段必须是唯一的'
+                  required: 'Field Key cannot be empty',
+                  pattern: 'Only lowercase letters and underscores are allowed',
+                  duplicated: 'Field Key must be unique'
                 }
               }"
             >
-              <input nz-input type="text" formControlName="key" placeholder="数据库集合字段，如 order_number" />
+              <input
+                nz-input
+                type="text"
+                formControlName="key"
+                placeholder="Database collection field, such as order_number"
+              />
             </nz-form-control>
           </nz-form-item>
 
           <nz-form-item>
-            <nz-form-label nzRequired>必须</nz-form-label>
-            <nz-form-control nzExtra="在创建内容时，此段是必需填写的">
+            <nz-form-label nzRequired>Required</nz-form-label>
+            <nz-form-control nzExtra="This section is required when creating content">
               <nz-switch formControlName="required"></nz-switch>
             </nz-form-control>
           </nz-form-item>
           <nz-form-item>
-            <nz-form-label nzRequired>显示</nz-form-label>
-            <nz-form-control nzExtra="表单中不显示，但可通过触发显隐规则显示">
+            <nz-form-label nzRequired>Visible</nz-form-label>
+            <nz-form-control
+              nzExtra="It is not displayed in the form, but can be displayed by triggering an explicit rule"
+            >
               <nz-switch formControlName="visible"></nz-switch>
             </nz-form-control>
           </nz-form-item>
         </nz-col>
       </nz-row>
     </nz-tab>
-    <nz-tab nzTitle="高级设置">
+    <nz-tab nzTitle="Advanced">
       <nz-row [nzGutter]="24">
         <nz-col *ngIf="option" [nzSpan]="12">
           <ng-container formGroupName="option" [ngSwitch]="type.value">
             <ng-container *ngSwitchCase="'number'">
               <nz-form-item>
-                <nz-form-label>最小值</nz-form-label>
+                <nz-form-label>Min</nz-form-label>
                 <nz-form-control>
                   <nz-input-number
                     style="width: 100%"
                     formControlName="min"
                     [nzStep]="1"
                     [nzPrecision]="0"
-                    nzPlaceHolder="最小值，如 1"
+                    nzPlaceHolder="Minimum value, such as 1"
                   ></nz-input-number>
                 </nz-form-control>
               </nz-form-item>
               <nz-form-item>
-                <nz-form-label>最大值</nz-form-label>
+                <nz-form-label>Max</nz-form-label>
                 <nz-form-control>
                   <nz-input-number
                     style="width: 100%"
                     formControlName="max"
                     [nzStep]="1"
                     [nzPrecision]="0"
-                    nzPlaceHolder="最大值，如 1000"
+                    nzPlaceHolder="Maximum value, such as 1000"
                   ></nz-input-number>
                 </nz-form-control>
               </nz-form-item>
               <nz-form-item>
-                <nz-form-label>保留小数</nz-form-label>
+                <nz-form-label>Decimal</nz-form-label>
                 <nz-form-control>
                   <nz-input-number
                     style="width: 100%"
@@ -118,7 +135,7 @@
             </ng-container>
             <ng-container *ngSwitchCase="'date'">
               <nz-form-item>
-                <nz-form-label>包含时间</nz-form-label>
+                <nz-form-label>Include Time</nz-form-label>
                 <nz-form-control>
                   <nz-switch formControlName="time"></nz-switch>
                 </nz-form-control>
@@ -126,7 +143,7 @@
             </ng-container>
             <ng-container *ngSwitchCase="'dates'">
               <nz-form-item>
-                <nz-form-label>包含时间</nz-form-label>
+                <nz-form-label>Include Time</nz-form-label>
                 <nz-form-control>
                   <nz-switch formControlName="time"></nz-switch>
                 </nz-form-control>
@@ -134,12 +151,12 @@
             </ng-container>
             <ng-template #enumsRef>
               <nz-form-item>
-                <nz-form-label>列举元素</nz-form-label>
+                <nz-form-label>Enumeration</nz-form-label>
                 <nz-form-control formArrayName="enums">
                   <ng-container *ngFor="let x of optionEnums.controls; index as i; first as isFirst">
                     <nz-input-group [formGroupName]="i" nzCompact [ngStyle]="{ 'margin-top': isFirst ? null : '-1px' }">
-                      <input style="width: 45%" type="text" nz-input formControlName="label" placeholder="元素名称" />
-                      <input style="width: 45%" type="text" nz-input formControlName="value" placeholder="元素值" />
+                      <input style="width: 45%" type="text" nz-input formControlName="label" placeholder="Label" />
+                      <input style="width: 45%" type="text" nz-input formControlName="value" placeholder="Value" />
                       <button style="width: 10%" nz-button type="button" nzType="default" (click)="removeOptionEnum(i)">
                         <i nz-icon nzType="minus-circle"></i>
                       </button>
@@ -153,7 +170,7 @@
                     nzBlock
                     (click)="addOptionEnum()"
                   >
-                    <i nz-icon nzType="plus-circle"></i> 新增元素
+                    <i nz-icon nzType="plus-circle"></i> Create
                   </button>
                 </nz-form-control>
               </nz-form-item>
@@ -166,7 +183,7 @@
             </ng-container>
             <ng-container *ngSwitchCase="'select'">
               <nz-form-item>
-                <nz-form-label>支持多选</nz-form-label>
+                <nz-form-label>Multiple</nz-form-label>
                 <nz-form-control>
                   <nz-switch formControlName="multiple"></nz-switch>
                 </nz-form-control>
@@ -175,15 +192,15 @@
             </ng-container>
             <ng-container *ngSwitchCase="'ref'">
               <nz-form-item>
-                <nz-form-label>支持多选</nz-form-label>
+                <nz-form-label>Multiple</nz-form-label>
                 <nz-form-control>
                   <nz-switch formControlName="multiple"></nz-switch>
                 </nz-form-control>
               </nz-form-item>
               <nz-form-item>
-                <nz-form-label nzRequired>引用集合</nz-form-label>
+                <nz-form-label nzRequired>Reference</nz-form-label>
                 <nz-form-control>
-                  <nz-select formControlName="ref" nzPlaceHolder="请选择引用集合">
+                  <nz-select formControlName="ref" nzPlaceHolder="Please select a reference">
                     <ng-container *ngFor="let x of refers">
                       <nz-option [nzValue]="x._id" [nzLabel]="x.name + ' [' + x.schema!.key + ']'"> </nz-option>
                     </ng-container>
@@ -191,9 +208,9 @@
                 </nz-form-control>
               </nz-form-item>
               <nz-form-item>
-                <nz-form-label nzRequired>显示字段</nz-form-label>
+                <nz-form-label nzRequired>Reference Display Field</nz-form-label>
                 <nz-form-control>
-                  <nz-select formControlName="ref_key" nzPlaceHolder="请选择引用字段">
+                  <nz-select formControlName="ref_key" nzPlaceHolder="Please select a field">
                     <ng-container *ngFor="let x of referFields">
                       <nz-option [nzValue]="x.key" [nzLabel]="x.name + ' [' + x.key + ']'"> </nz-option>
                     </ng-container>
@@ -203,16 +220,16 @@
             </ng-container>
             <ng-container *ngSwitchCase="'manual'">
               <nz-form-item>
-                <nz-form-label nzRequired>组件标识</nz-form-label>
+                <nz-form-label nzRequired>Component</nz-form-label>
                 <nz-form-control
                   nzHasFeedback
                   [nzAutoTips]="{
                     default: {
-                      required: '组件标识不能为空'
+                      required: 'Component cannot be empty'
                     }
                   }"
                 >
-                  <input nz-input type="text" formControlName="component" placeholder="请输入自定义组件 ID" />
+                  <input nz-input type="text" formControlName="component" placeholder="Please enter the component ID" />
                 </nz-form-control>
               </nz-form-item>
             </ng-container>
@@ -220,20 +237,20 @@
         </nz-col>
         <nz-col [nzSpan]="12">
           <nz-form-item>
-            <nz-form-label>默认值</nz-form-label>
+            <nz-form-label>Default</nz-form-label>
             <nz-form-control nzHasFeedback>
               <ng-container [ngSwitch]="type.value">
                 <ng-container *ngSwitchCase="'string'">
-                  <input nz-input type="text" formControlName="default_to" placeholder="请输入默认值" />
+                  <input nz-input type="text" formControlName="default_to" placeholder="Set default" />
                 </ng-container>
                 <ng-container *ngSwitchCase="'text'">
-                  <textarea rows="3" nz-input formControlName="default_to" placeholder="请输入默认值"></textarea>
+                  <textarea rows="3" nz-input formControlName="default_to" placeholder="Set default"></textarea>
                 </ng-container>
                 <ng-container *ngSwitchCase="'number'">
                   <nz-input-number
                     style="width: 100%"
                     formControlName="default_to"
-                    nzPlaceHolder="请输入默认数字"
+                    nzPlaceHolder="Set default"
                     [nzStep]="1"
                     [nzMax]="!optionMax.value ? infinity : optionMax.value"
                     [nzMin]="!optionMin.value ? -infinity : optionMin.value"
@@ -244,7 +261,7 @@
                   <nz-date-picker
                     style="width: 100%"
                     formControlName="default_to"
-                    nzPlaceHolder="请选择默认日期"
+                    nzPlaceHolder="Set default"
                     [nzShowTime]="optionTime.value"
                   ></nz-date-picker>
                 </ng-container>
@@ -272,14 +289,14 @@
                   <nz-select
                     formControlName="default_to"
                     [nzMode]="optionMultiple.value ? 'tags' : 'default'"
-                    nzPlaceHolder="请选择默认值"
+                    nzPlaceHolder="Set default"
                   >
                     <ng-container *ngFor="let x of optionEnums.value">
                       <nz-option [nzLabel]="x.label" [nzValue]="x.value"></nz-option>
                     </ng-container>
                   </nz-select>
                 </ng-container>
-                <ng-container *ngSwitchDefault> 无法设置 </ng-container>
+                <ng-container *ngSwitchDefault> None </ng-container>
               </ng-container>
             </nz-form-control>
           </nz-form-item>
@@ -290,6 +307,6 @@
 </form>
 
 <div *nzModalFooter>
-  <button nz-button type="button" nzType="default" (click)="close()">取消</button>
-  <button nz-button nzType="primary" form="form" [disabled]="!form.valid">提交</button>
+  <button nz-button type="button" nzType="default" (click)="close()">Cancel</button>
+  <button nz-button nzType="primary" form="form" [disabled]="!form.valid">Submit</button>
 </div>
