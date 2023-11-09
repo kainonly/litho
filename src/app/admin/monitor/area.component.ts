@@ -20,10 +20,13 @@ import { ExporterName } from './types';
 @Component({
   selector: 'app-monitor-area',
   template: `
-    <ng-template #titleRef>
-      <b>{{ title }}</b>
-    </ng-template>
-    <nz-card [nzBodyStyle]="{ 'min-height': height }" nzSize="small" [nzTitle]="titleRef" [nzLoading]="loading()">
+    <nz-card
+      [nzBodyStyle]="{ 'min-height': height }"
+      nzSize="small"
+      nzType="inner"
+      [nzTitle]="title"
+      [nzLoading]="loading()"
+    >
       <div #ref></div>
     </nz-card>
   `,
@@ -34,7 +37,7 @@ export class AreaComponent implements AfterContentInit, OnDestroy {
 
   @Input({ required: true }) title!: string;
   @Input({ required: true }) name!: ExporterName;
-  @Input() height = '200px';
+  @Input() height = '180px';
   @Input() options?: Omit<AreaOptions, 'data'>;
   @Input() fn?: (plot: Area, data: Any[][]) => void;
 
@@ -47,7 +50,7 @@ export class AreaComponent implements AfterContentInit, OnDestroy {
   ngAfterContentInit(): void {
     this.plot = new Area(this.ref.nativeElement, {
       data: [],
-      height: 200,
+      height: 180,
       xField: 'time',
       yField: 'value',
       supportCSSTransform: true,
