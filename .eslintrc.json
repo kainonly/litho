@@ -1,9 +1,13 @@
 {
   "root": true,
-  "ignorePatterns": ["projects/**/*"],
+  "ignorePatterns": [
+    "projects/**/*"
+  ],
   "overrides": [
     {
-      "files": ["*.ts"],
+      "files": [
+        "*.ts"
+      ],
       "extends": [
         "eslint:recommended",
         "plugin:@typescript-eslint/recommended",
@@ -11,7 +15,10 @@
         "plugin:@angular-eslint/template/process-inline-templates",
         "plugin:prettier/recommended"
       ],
-      "plugins": ["prettier", "import"],
+      "plugins": [
+        "prettier",
+        "import"
+      ],
       "rules": {
         "@angular-eslint/directive-selector": [
           "error",
@@ -25,7 +32,11 @@
           "error",
           {
             "type": "element",
-            "prefix": ["app", "x", "v"],
+            "prefix": [
+              "app",
+              "x",
+              "v"
+            ],
             "style": "kebab-case"
           }
         ],
@@ -68,7 +79,16 @@
               "caseInsensitive": false
             },
             "newlines-between": "always",
-            "groups": ["external", "builtin", "internal", ["parent", "sibling", "index"]],
+            "groups": [
+              "external",
+              "builtin",
+              "internal",
+              [
+                "parent",
+                "sibling",
+                "index"
+              ]
+            ],
             "pathGroups": [
               {
                 "pattern": "{@angular/**,rxjs,rxjs/operators}",
@@ -85,14 +105,25 @@
       }
     },
     {
-      "files": ["*.html"],
-      "extends": ["plugin:@angular-eslint/template/recommended"],
+      "files": [
+        "*.html"
+      ],
+      "extends": [
+        "plugin:@angular-eslint/template/recommended",
+        "plugin:@angular-eslint/template/accessibility"
+      ],
       "rules": {}
     },
     {
-      "files": ["*.html"],
-      "excludedFiles": ["*inline-template-*.component.html"],
-      "extends": ["plugin:prettier/recommended"],
+      "files": [
+        "*.html"
+      ],
+      "excludedFiles": [
+        "*inline-template-*.component.html"
+      ],
+      "extends": [
+        "plugin:prettier/recommended"
+      ],
       "rules": {
         "prettier/prettier": [
           "error",
