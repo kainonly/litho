@@ -116,6 +116,48 @@
           }
         }
       }
+    },
+    "@weplanx/ng": {
+      "projectType": "library",
+      "root": "projects/weplanx/ng",
+      "sourceRoot": "projects/weplanx/ng/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "project": "projects/weplanx/ng/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/weplanx/ng/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/weplanx/ng/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "tsConfig": "projects/weplanx/ng/tsconfig.spec.json",
+            "polyfills": [
+              "zone.js",
+              "zone.js/testing"
+            ]
+          }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "projects/weplanx/ng/**/*.ts",
+              "projects/weplanx/ng/**/*.html"
+            ]
+          }
+        }
+      }
     }
   },
   "cli": {
