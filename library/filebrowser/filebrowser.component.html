@@ -49,7 +49,9 @@
 >
   <cdk-virtual-scroll-viewport style="height: 100%" [itemSize]="200" [minBufferPx]="800" [maxBufferPx]="1000">
     <nz-list style="padding: 12px 12px 0 24px" nzGrid [nzSplit]="false" [nzLoading]="ds.loading">
-      <nz-list-empty *ngIf="ds.total === 0"></nz-list-empty>
+      @if (ds.total === 0) {
+        <nz-list-empty></nz-list-empty>
+      }
       <nz-list-item *cdkVirtualFor="let items of ds" style="height: 200px">
         <nz-row [nzGutter]="12" style="width: 100%">
           @for (item of items; track item._id) {

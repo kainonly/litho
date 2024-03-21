@@ -1,16 +1,22 @@
+import { Platform } from '@angular/cdk/platform';
 import { Component, OnInit } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
 
 import { AppService } from '@app';
+import { ShareModule } from '@common/share.module';
 import { environment } from '@env';
 import { WpxService } from '@weplanx/ng';
 import { NzIconService } from 'ng-zorro-antd/icon';
+import { NzSpinModule } from 'ng-zorro-antd/spin';
 
 @Component({
   standalone: true,
-  imports: [RouterOutlet],
+  imports: [ShareModule, NzSpinModule],
   selector: 'app-root',
-  template: '<router-outlet></router-outlet>'
+  template: `
+    @defer {
+      <router-outlet></router-outlet>
+    }
+  `
 })
 export class AppComponent implements OnInit {
   constructor(
@@ -20,9 +26,7 @@ export class AppComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.app.ping().subscribe(() => {
-      console.debug('XSRF:ok');
-    });
+    this.app.ping().subscribe();
     this.icon.changeAssetsSource(environment.cdn);
     this.wpx.setAssets(environment.cdn);
     this.wpx.loadScript('cropperjs', `${environment.cdn}/npm/cropperjs@1.6.0/dist/cropper.min.js`, []);

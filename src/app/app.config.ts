@@ -7,6 +7,7 @@ import { provideClientHydration } from '@angular/platform-browser';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { provideRouter } from '@angular/router';
 
+import { ShareModule } from '@common/share.module';
 import { environment } from '@env';
 import { provideNzConfig } from 'ng-zorro-antd/core/config';
 import { en_US, provideNzI18n } from 'ng-zorro-antd/i18n';
@@ -18,7 +19,7 @@ registerLocaleData(en);
 
 export const appConfig: ApplicationConfig = {
   providers: [
-    importProvidersFrom(FormsModule),
+    importProvidersFrom(ShareModule),
     provideNzConfig({
       notification: { nzPlacement: 'bottomRight' },
       card: { nzBordered: false },

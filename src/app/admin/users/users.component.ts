@@ -13,7 +13,7 @@ import { FormComponent, FormInput } from './form/form.component';
 
 @Component({
   standalone: true,
-  imports: [ShareModule, FormComponent],
+  imports: [ShareModule],
   selector: 'app-admin-users',
   templateUrl: './users.component.html'
 })

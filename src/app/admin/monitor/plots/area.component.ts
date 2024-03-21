@@ -11,17 +11,17 @@ import {
 import { Subscription, timer } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 
-import { Line, LineOptions } from '@antv/g2plot';
+import { Area, AreaOptions } from '@antv/g2plot';
 import { ShareModule } from '@common/share.module';
 import { Any } from '@weplanx/ng';
 
-import { MonitorService } from './monitor.service';
-import { ExporterName } from './types';
+import { MonitorService } from '../monitor.service';
+import { ExporterName } from '../types';
 
 @Component({
   standalone: true,
   imports: [ShareModule],
-  selector: 'app-monitor-line',
+  selector: 'app-monitor-area',
   template: `
     <nz-card
       [nzBodyStyle]="{ 'min-height': height }"
@@ -35,27 +35,28 @@ import { ExporterName } from './types';
   `,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class LineComponent implements AfterContentInit, OnDestroy {
+export class AreaComponent implements AfterContentInit, OnDestroy {
   @ViewChild('ref', { static: true }) ref!: ElementRef;
 
   @Input({ required: true }) title!: string;
   @Input({ required: true }) name!: ExporterName;
   @Input() height = '180px';
-  @Input() options?: Omit<LineOptions, 'data'>;
-  @Input() fn?: (plot: Line, data: Any[][]) => void;
+  @Input() options?: Omit<AreaOptions, 'data'>;
+  @Input() fn?: (plot: Area, data: Any[][]) => void;
 
   loading = signal(true);
-  private plot!: Line;
+  private plot!: Area;
   private subscription!: Subscription;
 
   constructor(private observability: MonitorService) {}
 
   ngAfterContentInit(): void {
-    this.plot = new Line(this.ref.nativeElement, {
+    this.plot = new Area(this.ref.nativeElement, {
       data: [],
       height: 180,
       xField: 'time',
       yField: 'value',
+      supportCSSTransform: true,
       ...this.options
     });
     this.plot.render();

@@ -5,8 +5,8 @@ import { switchMap } from 'rxjs/operators';
 import { ShareModule } from '@common/share.module';
 import { Any } from '@weplanx/ng';
 
-import { MonitorService } from './monitor.service';
-import { ExporterName } from './types';
+import { MonitorService } from '../monitor.service';
+import { ExporterName } from '../types';
 
 @Component({
   standalone: true,

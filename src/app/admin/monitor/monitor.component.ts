@@ -5,10 +5,10 @@ import { Area, AreaOptions, LineOptions } from '@antv/g2plot';
 import { ShareModule } from '@common/share.module';
 import { Any } from '@weplanx/ng';
 
-import { AreaComponent } from './area.component';
-import { LineComponent } from './line.component';
 import { MonitorService } from './monitor.service';
-import { SumComponent } from './sum.component';
+import { AreaComponent } from './plots/area.component';
+import { LineComponent } from './plots/line.component';
+import { SumComponent } from './plots/sum.component';
 import { ExporterName, MetaType } from './types';
 
 @Component({
@@ -16,7 +16,8 @@ import { ExporterName, MetaType } from './types';
   imports: [ShareModule, AreaComponent, LineComponent, SumComponent],
   selector: 'app-monitor',
   templateUrl: './monitor.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  providers: [MonitorService]
 })
 export class MonitorComponent implements OnInit {
   dashboards = ['MONGO', 'REDIS', 'NATS'];

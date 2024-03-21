@@ -1,34 +1,22 @@
 import { Routes } from '@angular/router';
 
-import { AuthorizedComponent } from '@common/components/result/authorized.component';
-import { UnauthorizeComponent } from '@common/components/result/unauthorize.component';
-
+import { adminRoutes } from './admin/admin.routes';
 import { appGuard } from './app.guard';
+import { loginRoutes } from './login/login.routes';
 
 export const routes: Routes = [
-  {
-    path: 'login',
-    loadChildren: () => import('./login/login.module').then(m => m.LoginModule)
-  },
+  ...loginRoutes,
   {
     path: 'unauthorize',
-    component: UnauthorizeComponent
+    loadComponent: () => import('@common/components/result/unauthorize.component').then(m => m.UnauthorizeComponent)
   },
   {
     path: 'authorized',
-    component: AuthorizedComponent
+    loadComponent: () => import('@common/components/result/authorized.component').then(m => m.AuthorizedComponent)
   },
   {
     path: '',
     canActivate: [appGuard],
-    children: [
-      {
-        path: 'admin',
-        loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule),
-        data: {
-          breadcrumb: `Admin`
-        }
-      }
-    ]
+    children: [...adminRoutes, { path: '', redirectTo: 'admin', pathMatch: 'full' }]
   }
 ];

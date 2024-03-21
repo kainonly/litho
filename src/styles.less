@@ -1,1 +1,33 @@
-/* You can add global styles to this file, and also import other style files */
+@nav-height: 60px;
+
+nz-header.nav {
+  height: @nav-height;
+  line-height: @nav-height;
+  padding: 0 12px;
+  background: #fff;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.center {
+  height: 100%;
+  padding: 0 24px;
+  transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+
+  &:hover,
+  &:focus {
+    cursor: pointer;
+    background: rgba(0, 0, 0, 0.018);
+  }
+}
+
+.username {
+  display: inline-block;
+  margin-left: 12px;
+  vertical-align: middle;
+  font-weight: bold;
+}
+
+nz-sider {
+  padding: 8px;
+  border-right: 1px solid #f0f0f0;
+}
