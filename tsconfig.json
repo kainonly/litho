@@ -2,10 +2,21 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
+    "baseUrl": "./",
     "paths": {
-      "@weplanx/ng": [
-        "./library/public-api.ts"
-      ]
+      "@env": ["src/environments/environment.ts"],
+      "@app": ["src/app/app.service.ts"],
+      "@common/*": ["src/common/*"],
+      "@weplanx/ng": ["library/public-api.ts"],
+      "@weplanx/ng/keyword": ["library/keyword/public-api.ts"],
+      "@weplanx/ng/toolbox": ["library/toolbox/public-api.ts"],
+      "@weplanx/ng/categories": ["library/categories/public-api.ts"],
+      "@weplanx/ng/filebrowser": ["library/filebrowser/public-api.ts"],
+      "@weplanx/ng/upload": ["library/upload/public-api.ts"],
+      "@weplanx/ng/richtext": ["library/richtext/public-api.ts"],
+      "@weplanx/ng/table": ["library/table/public-api.ts"],
+      "@weplanx/ng/list": ["library/list/public-api.ts"],
+      "@weplanx/ng/checkbox": ["library/checkbox/public-api.ts"]
     },
     "outDir": "./dist/out-tsc",
     "forceConsistentCasingInFileNames": true,
@@ -24,10 +35,7 @@
     "target": "ES2022",
     "module": "ES2022",
     "useDefineForClassFields": false,
-    "lib": [
-      "ES2022",
-      "dom"
-    ]
+    "lib": ["ES2022", "dom"]
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,
