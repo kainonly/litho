@@ -11,7 +11,8 @@ import { NzDrawerService } from 'ng-zorro-antd/drawer';
   standalone: true,
   imports: [ShareModule],
   selector: 'app-nav',
-  templateUrl: './nav.component.html'
+  templateUrl: './nav.component.html',
+  styleUrl: './nav.component.css'
 })
 export class NavComponent implements OnInit {
   @Input() breadcrumbs?: TemplateRef<void>;

@@ -4,8 +4,9 @@
   "scripts": {
     "start": "ng serve",
     "build": "ng b --configuration production",
+    "build:beta": "ng b --configuration beta",
     "build:library": "ng b library",
-    "serve:ssr:console": "node dist/console/server/server.mjs"
+    "serve:ssr": "node dist/console/server/server.mjs"
   },
   "private": false,
   "dependencies": {
