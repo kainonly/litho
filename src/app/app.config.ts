@@ -2,7 +2,6 @@ import { registerLocaleData } from '@angular/common';
 import { provideHttpClient, withFetch, withInterceptors, withXsrfConfiguration } from '@angular/common/http';
 import en from '@angular/common/locales/en';
 import { ApplicationConfig, importProvidersFrom } from '@angular/core';
-import { FormsModule } from '@angular/forms';
 import { provideClientHydration } from '@angular/platform-browser';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { provideRouter } from '@angular/router';
@@ -23,6 +22,7 @@ export const appConfig: ApplicationConfig = {
     provideNzConfig({
       notification: { nzPlacement: 'bottomRight' },
       card: { nzBordered: false },
+      table: { nzSize: 'middle' },
       codeEditor: {
         assetsRoot: `${environment.cdn}/npm/monaco-editor@0.40.0/min`
       }

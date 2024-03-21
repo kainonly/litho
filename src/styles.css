@@ -1,8 +1,8 @@
-@nav-height: 60px;
+@import 'https://cdn.kainonly.com/npm/cropperjs@1.6.0/dist/cropper.min.css';
 
 nz-header.nav {
-  height: @nav-height;
-  line-height: @nav-height;
+  height: 48px;
+  line-height: 48px;
   padding: 0 12px;
   background: #fff;
   border-bottom: 1px solid #f0f0f0;

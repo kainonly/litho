@@ -22,9 +22,14 @@
             "browser": "src/main.ts",
             "polyfills": ["zone.js"],
             "tsConfig": "tsconfig.app.json",
-            "inlineStyleLanguage": "less",
+            "inlineStyleLanguage": "css",
             "assets": ["src/favicon.ico", "src/assets"],
-            "styles": ["./node_modules/ng-zorro-antd/ng-zorro-antd.min.css", "src/styles.less"],
+            "styles": [
+              "./node_modules/ng-zorro-antd/ng-zorro-antd.compact.min.css",
+              "./node_modules/ng-zorro-antd/resizable/style/index.min.css",
+              "./node_modules/ng-zorro-antd/code-editor/style/index.min.css",
+              "src/styles.css"
+            ],
             "scripts": [],
             "server": "src/main.server.ts",
             "prerender": true,
