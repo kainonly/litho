@@ -117,23 +117,23 @@
         }
       }
     },
-    "@weplanx/ng": {
+    "library": {
       "projectType": "library",
-      "root": "projects/weplanx/ng",
-      "sourceRoot": "projects/weplanx/ng/src",
+      "root": "library",
+      "sourceRoot": "library/src",
       "prefix": "lib",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:ng-packagr",
           "options": {
-            "project": "projects/weplanx/ng/ng-package.json"
+            "project": "library/ng-package.json"
           },
           "configurations": {
             "production": {
-              "tsConfig": "projects/weplanx/ng/tsconfig.lib.prod.json"
+              "tsConfig": "library/tsconfig.lib.prod.json"
             },
             "development": {
-              "tsConfig": "projects/weplanx/ng/tsconfig.lib.json"
+              "tsConfig": "library/tsconfig.lib.json"
             }
           },
           "defaultConfiguration": "production"

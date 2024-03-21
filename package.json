@@ -5,6 +5,7 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
+    "build:library": "ng build library",
     "serve:ssr:console": "node dist/console/server/server.mjs"
   },
   "private": false,
