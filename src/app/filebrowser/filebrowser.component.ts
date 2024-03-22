@@ -1,25 +1,24 @@
 import { Component } from '@angular/core';
 
-import { AppService } from '@app';
 import { NavComponent } from '@common/components/nav/nav.component';
 import { ShareModule } from '@common/share.module';
 
 @Component({
   standalone: true,
   imports: [ShareModule, NavComponent],
-  selector: 'app-audit',
+  selector: 'app-filebrowser',
   template: `
     <nz-layout style="height: 100%">
       <nz-header class="nav">
         <app-nav>
           <ul nz-menu nzMode="horizontal" style="line-height: 47px">
-            <li nz-menu-item nzMatchRouter routerLink="logins">
-              <span nz-icon nzType="login" nzTheme="outline"></span>
-              Logins
+            <li nz-menu-item nzMatchRouter routerLink="pictures">
+              <span nz-icon nzType="picture" nzTheme="outline"></span>
+              Picture
             </li>
-            <li nz-menu-item nzMatchRouter routerLink="operates">
-              <span nz-icon nzType="history" nzTheme="outline"></span>
-              Operates
+            <li nz-menu-item nzMatchRouter routerLink="videos">
+              <span nz-icon nzType="video-camera" nzTheme="outline"></span>
+              Video
             </li>
           </ul>
         </app-nav>
@@ -32,6 +31,4 @@ import { ShareModule } from '@common/share.module';
     </nz-layout>
   `
 })
-export class AuditComponent {
-  constructor(public app: AppService) {}
-}
+export class FilebrowserComponent {}
