@@ -6,6 +6,7 @@ import { adminRoutes } from './admin/admin.routes';
 import { appGuard } from './app.guard';
 import { auditRoutes } from './audit/audit.routes';
 import { filebrowserRoutes } from './filebrowser/filebrowser.routes';
+import { indexRoutes } from './index/index.routes';
 import { loginRoutes } from './login/login.routes';
 
 export const routes: Routes = [
@@ -27,6 +28,7 @@ export const routes: Routes = [
     canActivate: [appGuard],
     children: [
       ...adminRoutes,
+      ...indexRoutes,
       ...filebrowserRoutes,
       ...auditRoutes,
       ...environment.extend,
