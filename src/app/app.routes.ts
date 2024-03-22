@@ -1,5 +1,7 @@
 import { Routes } from '@angular/router';
 
+import { environment } from '@env';
+
 import { adminRoutes } from './admin/admin.routes';
 import { appGuard } from './app.guard';
 import { loginRoutes } from './login/login.routes';
@@ -17,6 +19,6 @@ export const routes: Routes = [
   {
     path: '',
     canActivate: [appGuard],
-    children: [...adminRoutes, { path: '', redirectTo: 'admin', pathMatch: 'full' }]
+    children: [...adminRoutes, ...environment.extend, { path: '', redirectTo: 'admin', pathMatch: 'full' }]
   }
 ];

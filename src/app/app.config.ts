@@ -8,6 +8,7 @@ import { provideRouter } from '@angular/router';
 
 import { ShareModule } from '@common/share.module';
 import { environment } from '@env';
+import { provideFilebrowser } from '@weplanx/ng/filebrowser';
 import { provideNzConfig } from 'ng-zorro-antd/core/config';
 import { en_US, provideNzI18n } from 'ng-zorro-antd/i18n';
 
@@ -25,6 +26,18 @@ export const appConfig: ApplicationConfig = {
       table: { nzSize: 'middle' },
       codeEditor: {
         assetsRoot: `${environment.cdn}/npm/monaco-editor@0.40.0/min`
+      }
+    }),
+    provideFilebrowser({
+      style: {
+        default: {
+          thumbnail: 'imageMogr2/thumbnail/400x/quality/90',
+          placeholder: 'imageMogr2/thumbnail/400x/quality/50/blur/10x1'
+        },
+        processed: {
+          thumbnail: '/quality/90',
+          placeholder: '/quality/50/blur/10x1'
+        }
       }
     }),
     provideHttpClient(
