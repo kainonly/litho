@@ -4,6 +4,7 @@ import { environment } from '@env';
 
 import { adminRoutes } from './admin/admin.routes';
 import { appGuard } from './app.guard';
+import { auditRoutes } from './audit/audit.routes';
 import { loginRoutes } from './login/login.routes';
 
 export const routes: Routes = [
@@ -23,6 +24,11 @@ export const routes: Routes = [
   {
     path: '',
     canActivate: [appGuard],
-    children: [...adminRoutes, ...environment.extend, { path: '', redirectTo: 'admin', pathMatch: 'full' }]
+    children: [
+      ...adminRoutes,
+      ...auditRoutes,
+      ...environment.extend,
+      { path: '', redirectTo: 'admin', pathMatch: 'full' }
+    ]
   }
 ];
