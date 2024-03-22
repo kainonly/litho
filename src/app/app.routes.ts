@@ -9,6 +9,10 @@ import { loginRoutes } from './login/login.routes';
 export const routes: Routes = [
   ...loginRoutes,
   {
+    path: 'forget',
+    loadComponent: () => import('./forget/forget.component').then(m => m.ForgetComponent)
+  },
+  {
     path: 'unauthorize',
     loadComponent: () => import('@common/components/result/unauthorize.component').then(m => m.UnauthorizeComponent)
   },
