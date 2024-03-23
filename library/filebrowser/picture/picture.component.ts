@@ -1,5 +1,6 @@
 /// <reference types="cropperjs" />
 
+import { NgOptimizedImage } from '@angular/common';
 import { AfterViewInit, Component, ElementRef, Inject, NgZone, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 
@@ -16,7 +17,7 @@ export interface PictureInput<T extends WpxPicture> {
 
 @Component({
   standalone: true,
-  imports: [WpxModule, WpxShareModule],
+  imports: [WpxModule, WpxShareModule, NgOptimizedImage],
   selector: 'wpx-filebrowser-picture',
   templateUrl: './picture.component.html',
   styleUrl: './picture.component.css'

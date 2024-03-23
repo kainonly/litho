@@ -8,7 +8,7 @@
     <nz-tab nzTitle="Tencent">
       <nz-row style="padding-bottom: 12px" nzJustify="space-between">
         <nz-col>
-          <img style="height: 96px" [src]="['assets', 'Tencent-Cloud.svg'] | wpxAssets" alt="" />
+          <img [width]="150" [height]="100" [ngSrc]="['assets', 'Tencent-Cloud.svg'] | wpxAssets" alt="" />
         </nz-col>
         <nz-col></nz-col>
         <nz-col>
@@ -79,7 +79,13 @@
     <nz-tab nzTitle="Aws">
       <nz-row style="padding-bottom: 12px" nzJustify="space-between">
         <nz-col>
-          <img style="height: 80px; padding: 16px 8px" [src]="['assets', 'AWS.png'] | wpxAssets" alt="" />
+          <img
+            style="padding: 16px 8px"
+            [height]="80"
+            [width]="160"
+            [ngSrc]="['assets', 'AWS.png'] | wpxAssets"
+            alt=""
+          />
         </nz-col>
         <nz-col></nz-col>
         <nz-col>
