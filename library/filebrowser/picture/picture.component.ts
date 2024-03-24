@@ -1,8 +1,9 @@
 /// <reference types="cropperjs" />
 
 import { NgOptimizedImage } from '@angular/common';
-import { AfterViewInit, Component, ElementRef, Inject, NgZone, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, Inject, NgZone, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { Subscription } from 'rxjs';
 
 import { Any, AnyDto, WpxImageInfo, WpxApi, WpxService, WpxModule, WpxShareModule } from '@weplanx/ng';
 import { NzMessageService } from 'ng-zorro-antd/message';
@@ -22,7 +23,7 @@ export interface PictureInput<T extends WpxPicture> {
   templateUrl: './picture.component.html',
   styleUrl: './picture.component.css'
 })
-export class PictureComponent implements OnInit, AfterViewInit {
+export class PictureComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('painting') painting!: ElementRef;
   original?: WpxImageInfo;
   output?: WpxImageInfo;
@@ -36,6 +37,8 @@ export class PictureComponent implements OnInit, AfterViewInit {
 
   private cropper!: Cropper;
   private locked = false;
+  private cropperSubscription?: Subscription;
+  private subscription = new Subscription();
 
   constructor(
     @Inject(NZ_MODAL_DATA) public data: PictureInput<WpxPicture>,
@@ -51,6 +54,11 @@ export class PictureComponent implements OnInit, AfterViewInit {
     this.getOutputInfo();
     this.query = this.data.doc.query;
     this.form.patchValue({ ...this.data.doc.process });
+    this.subscription.add(
+      this.form.get('mode')!.valueChanges.subscribe(value => {
+        this.watchMode(value);
+      })
+    );
   }
 
   ngAfterViewInit(): void {
@@ -83,6 +91,10 @@ export class PictureComponent implements OnInit, AfterViewInit {
     });
   }
 
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
+  }
+
   get mode(): FormControl {
     return this.form!.get('mode') as FormControl;
   }
@@ -99,10 +111,15 @@ export class PictureComponent implements OnInit, AfterViewInit {
     });
   }
 
-  watchMode(v: number): void {
+  private watchMode(v: number): void {
     if (![1, 3].includes(v)) {
       this.cropper.clear();
       this.cropper.disable();
+      if (this.cropperSubscription) {
+        this.subscription.remove(this.cropperSubscription);
+        this.cropperSubscription.unsubscribe();
+        this.cropperSubscription = undefined;
+      }
     } else {
       this.cropper.enable();
       const cut = this.form.get('cut')!.value;
@@ -117,10 +134,14 @@ export class PictureComponent implements OnInit, AfterViewInit {
           rotate: 0
         });
       }
+      this.cropperSubscription = this.form.get('cut')?.valueChanges.subscribe(() => {
+        this.updateCrop();
+      });
+      this.cropperSubscription?.add(this.cropperSubscription);
     }
   }
 
-  updateCrop(): void {
+  private updateCrop(): void {
     if (this.locked) {
       return;
     }
