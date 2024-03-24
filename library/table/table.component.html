@@ -36,33 +36,34 @@
           [nzIndeterminate]="wpxModel.indeterminate"
           (nzCheckedChange)="wpxModel.setCurrentSelections($event)"
         ></th>
-        <ng-container *ngFor="let column of columns; first as isFirst">
-          <th
-            *ngIf="column.display"
-            nz-resizable
-            nzBounds="window"
-            [nzDisabled]="!settings()"
-            [nzPreview]="!!settings()"
-            [nzMaxWidth]="420"
-            [nzMinWidth]="100"
-            [nzWidth]="column.width ?? null"
-            [nzLeft]="isFirst ? '60px' : false"
-            (nzResize)="resize($event, column)"
-            (nzResizeEnd)="resizeEnd()"
-          >
-            <b>
-              {{ column.title }}
-            </b>
-            @if (settings()) {
-              <nz-resize-handle nzDirection="right">
-                <div class="column">{{ column.width }}</div>
-                <div class="resize-wrap">
-                  <span class="right" nz-icon nzType="more" nzTheme="outline"></span>
-                </div>
-              </nz-resize-handle>
-            }
-          </th>
-        </ng-container>
+        @for (column of columns; track column.key; let isFirst = $first) {
+          @if (column.display) {
+            <th
+              nz-resizable
+              nzBounds="window"
+              [nzDisabled]="!settings()"
+              [nzPreview]="!!settings()"
+              [nzMaxWidth]="420"
+              [nzMinWidth]="100"
+              [nzWidth]="column.width ?? null"
+              [nzLeft]="isFirst ? '60px' : false"
+              (nzResize)="resize($event, column)"
+              (nzResizeEnd)="resizeEnd()"
+            >
+              <b>
+                {{ column.title }}
+              </b>
+              @if (settings()) {
+                <nz-resize-handle nzDirection="right">
+                  <div class="column">{{ column.width }}</div>
+                  <div class="resize-wrap">
+                    <span class="right" nz-icon nzType="more" nzTheme="outline"></span>
+                  </div>
+                </nz-resize-handle>
+              }
+            </th>
+          }
+        }
         <th nzRight nzWidth="60px">
           <button nz-button nzType="text" (click)="openSettings()">
             <span nz-icon nzType="setting" nzTheme="outline"></span>
