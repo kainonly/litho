@@ -5,11 +5,12 @@ import { AppService } from '@app';
 import { ProfileComponent } from '@common/components/nav/profile/profile.component';
 import { ShareModule } from '@common/share.module';
 import { environment } from '@env';
+import { NzBreadCrumbModule } from 'ng-zorro-antd/breadcrumb';
 import { NzDrawerService } from 'ng-zorro-antd/drawer';
 
 @Component({
   standalone: true,
-  imports: [ShareModule],
+  imports: [ShareModule, NzBreadCrumbModule],
   selector: 'app-nav',
   templateUrl: './nav.component.html',
   styleUrl: './nav.component.css'

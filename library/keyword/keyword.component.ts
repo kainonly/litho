@@ -14,9 +14,9 @@ import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
     <nz-input-group [ngStyle]="{ width: wpxWidth + 'px' }" nzSuffixIcon="search">
       <input
         nz-input
+        [disabled]="!!wpxModel.advanced()"
         [placeholder]="wpxPlaceholder"
         [(ngModel)]="wpxModel.searchText"
-        [disabled]="!!wpxModel.advanced()"
         (keyup.enter)="submit()"
       />
     </nz-input-group>
