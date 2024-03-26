@@ -1,4 +1,3 @@
-import { Platform } from '@angular/cdk/platform';
 import { Component, OnInit } from '@angular/core';
 
 import { AppService } from '@app';

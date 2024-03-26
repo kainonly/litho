@@ -24,7 +24,6 @@ import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzImageModule } from 'ng-zorro-antd/image';
 import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzInputNumberModule } from 'ng-zorro-antd/input-number';
-import { NzLayoutModule } from 'ng-zorro-antd/layout';
 import { NzListModule } from 'ng-zorro-antd/list';
 import { NzMenuModule } from 'ng-zorro-antd/menu';
 import { NzMessageModule } from 'ng-zorro-antd/message';
@@ -63,7 +62,6 @@ import { NzTypographyModule } from 'ng-zorro-antd/typography';
     NzIconModule,
     NzDividerModule,
     NzGridModule,
-    NzLayoutModule,
     NzSpaceModule,
     NzDropDownModule,
     NzMenuModule,
