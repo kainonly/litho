@@ -11,6 +11,8 @@ import { WpxMapPipe } from './pipes/map.pipe';
 import { WpxObjectPipe } from './pipes/object.pipe';
 import { WpxSortPipe } from './pipes/sort.pipe';
 import { WpxSplitPipe } from './pipes/split.pipe';
+import { WpxStoreService } from './wpx-store.service';
+import { WpxService } from './wpx.service';
 
 @NgModule({
   imports: [
@@ -38,6 +40,7 @@ import { WpxSplitPipe } from './pipes/split.pipe';
     WpxSortPipe,
     WpxBlankPipe,
     WpxAssetsPipe
-  ]
+  ],
+  providers: [WpxService, WpxStoreService]
 })
 export class WpxModule {}

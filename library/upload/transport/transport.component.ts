@@ -3,14 +3,14 @@ import { Component, EventEmitter, Input, Output, TemplateRef, ViewChild } from '
 
 import { Any, WpxModule, WpxService, WpxShareModule } from '@weplanx/ng';
 import { NzMessageService } from 'ng-zorro-antd/message';
-import { NzUploadChangeParam, NzUploadFile } from 'ng-zorro-antd/upload';
+import { NzUploadChangeParam, NzUploadFile, NzUploadModule } from 'ng-zorro-antd/upload';
 
 import { TransportDataSource } from './transport.data-source';
 import { Transport } from '../types';
 
 @Component({
   standalone: true,
-  imports: [WpxModule, WpxShareModule, ScrollingModule],
+  imports: [WpxModule, WpxShareModule, ScrollingModule, NzUploadModule],
   selector: 'wpx-upload-transport',
   templateUrl: './transport.component.html'
 })

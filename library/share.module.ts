@@ -52,8 +52,6 @@ import { NzTreeModule } from 'ng-zorro-antd/tree';
 import { NzTreeSelectModule } from 'ng-zorro-antd/tree-select';
 import { NzTreeViewModule } from 'ng-zorro-antd/tree-view';
 import { NzTypographyModule } from 'ng-zorro-antd/typography';
-import { NzUploadModule } from 'ng-zorro-antd/upload';
-import { NzWaterMarkModule } from 'ng-zorro-antd/water-mark';
 
 @NgModule({
   exports: [
@@ -78,7 +76,6 @@ import { NzWaterMarkModule } from 'ng-zorro-antd/water-mark';
     NzRadioModule,
     NzSelectModule,
     NzSwitchModule,
-    NzUploadModule,
     NzBadgeModule,
     NzCardModule,
     NzEmptyModule,
@@ -110,8 +107,7 @@ import { NzWaterMarkModule } from 'ng-zorro-antd/water-mark';
     NzProgressModule,
     NzSegmentedModule,
     NzAutocompleteModule,
-    NzTreeViewModule,
-    NzWaterMarkModule
+    NzTreeViewModule
   ]
 })
 export class WpxShareModule {}
