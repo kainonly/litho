@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
 
 import { ShareModule } from '@common/share.module';
+import { NzResultModule } from 'ng-zorro-antd/result';
 
 @Component({
   standalone: true,
-  imports: [ShareModule],
+  imports: [ShareModule, NzResultModule],
   selector: 'app-index-builders-index',
   template: `
     <nz-result nzStatus="info">

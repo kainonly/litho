@@ -130,7 +130,7 @@
     cdkDropListOrientation="horizontal"
     (cdkDropListDropped)="drop($event)"
   >
-    <ng-container *ngFor="let column of columns">
+    @for (column of columns; track column.key) {
       <label
         style="cursor: move"
         cdkDrag
@@ -141,6 +141,6 @@
         <span class="drag-placeholder" *cdkDragPlaceholder>{{ column.title }}</span>
         <b>{{ column.title }}</b>
       </label>
-    </ng-container>
+    }
   </nz-checkbox-wrapper>
 </ng-template>

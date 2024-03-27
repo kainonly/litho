@@ -2,6 +2,7 @@ import { Component, OnInit, Type } from '@angular/core';
 
 import { ShareModule } from '@common/share.module';
 import { Any, R, WpxService, WpxStoreService } from '@weplanx/ng';
+import { NzAlertModule } from 'ng-zorro-antd/alert';
 import { NzModalService } from 'ng-zorro-antd/modal';
 
 import { IpListComponent, IpListData } from './ip-list/ip-list.component';
@@ -15,6 +16,7 @@ import { UserLockComponent } from './user-lock/user-lock.component';
   standalone: true,
   imports: [
     ShareModule,
+    NzAlertModule,
     IpListComponent,
     IpLockComponent,
     PwdStrategyComponent,

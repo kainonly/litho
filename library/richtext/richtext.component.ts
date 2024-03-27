@@ -14,8 +14,8 @@ import {
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { auditTime, BehaviorSubject, delay, from, switchMap } from 'rxjs';
 
-import { Any, WpxModule, WpxService, WpxShareModule } from '@weplanx/ng';
-import { WpxFilebrowserModule } from '@weplanx/ng/filebrowser';
+import { Any, WpxModule, WpxService } from '@weplanx/ng';
+import { WpxFilebrowserComponent } from '@weplanx/ng/filebrowser';
 
 import { defaultTools, zh_CN } from './helper';
 import { Image } from './image';
@@ -26,7 +26,7 @@ declare const EditorJS: Any;
 
 @Component({
   standalone: true,
-  imports: [WpxModule, WpxFilebrowserModule, WpxShareModule],
+  imports: [WpxModule, WpxFilebrowserComponent],
   selector: 'wpx-richtext',
   exportAs: 'wpxRichtext',
   template: `<div class="wpx-richtext" #richtext> </div>`,

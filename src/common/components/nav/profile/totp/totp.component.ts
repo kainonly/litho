@@ -6,10 +6,11 @@ import { ShareModule } from '@common/share.module';
 import { Any } from '@weplanx/ng';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalRef } from 'ng-zorro-antd/modal';
+import { NzQRCodeModule } from 'ng-zorro-antd/qr-code';
 
 @Component({
   standalone: true,
-  imports: [ShareModule],
+  imports: [ShareModule, NzQRCodeModule],
   selector: 'app-nav-profile-totp',
   templateUrl: './totp.component.html'
 })

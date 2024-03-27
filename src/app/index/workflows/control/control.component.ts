@@ -1,4 +1,4 @@
-import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
+import { CdkDragDrop, DragDropModule, moveItemInArray } from '@angular/cdk/drag-drop';
 import { Component, Input, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { BehaviorSubject, debounceTime, switchMap } from 'rxjs';
@@ -9,6 +9,7 @@ import { EndpointsService } from '@common/services/endpoints.service';
 import { WorkflowsService } from '@common/services/workflows.service';
 import { ShareModule } from '@common/share.module';
 import { Any, AnyDto } from '@weplanx/ng';
+import { NzCollapseModule } from 'ng-zorro-antd/collapse';
 import { NzCronExpressionModule } from 'ng-zorro-antd/cron-expression';
 import { NzMessageService } from 'ng-zorro-antd/message';
 
@@ -17,7 +18,7 @@ import { StateComponent } from './state/state.component';
 
 @Component({
   standalone: true,
-  imports: [ShareModule, LogsComponent, StateComponent, NzCronExpressionModule],
+  imports: [ShareModule, NzCollapseModule, NzCronExpressionModule, DragDropModule, LogsComponent, StateComponent],
   selector: 'app-index-workflows-control',
   templateUrl: './control.component.html'
 })

@@ -1,5 +1,4 @@
 import { CdkDragDrop, DragDropModule, moveItemInArray } from '@angular/cdk/drag-drop';
-import { CommonModule } from '@angular/common';
 import {
   AfterViewInit,
   ChangeDetectionStrategy,
@@ -15,51 +14,18 @@ import {
   TemplateRef,
   ViewChild
 } from '@angular/core';
-import { FormsModule } from '@angular/forms';
 
 import { Any, AnyDto, WpxModel, WpxModule, WpxStoreService } from '@weplanx/ng';
-import { NzBadgeModule } from 'ng-zorro-antd/badge';
-import { NzButtonModule } from 'ng-zorro-antd/button';
-import { NzCardModule } from 'ng-zorro-antd/card';
-import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
 import { NgStyleInterface } from 'ng-zorro-antd/core/types';
-import { NzDrawerModule, NzDrawerRef, NzDrawerService } from 'ng-zorro-antd/drawer';
-import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
-import { NzGridModule } from 'ng-zorro-antd/grid';
-import { NzIconModule } from 'ng-zorro-antd/icon';
-import { NzInputModule } from 'ng-zorro-antd/input';
-import { NzMessageModule } from 'ng-zorro-antd/message';
+import { NzDrawerRef, NzDrawerService } from 'ng-zorro-antd/drawer';
 import { NzResizableModule, NzResizeEvent } from 'ng-zorro-antd/resizable';
-import { NzSpaceModule } from 'ng-zorro-antd/space';
-import { NzSwitchModule } from 'ng-zorro-antd/switch';
-import { NzTableComponent, NzTableModule } from 'ng-zorro-antd/table';
-import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
+import { NzTableComponent } from 'ng-zorro-antd/table';
 
 import { Column, Preferences, Scroll, WpxColumn } from './types';
 
 @Component({
   standalone: true,
-  imports: [
-    CommonModule,
-    FormsModule,
-    NzCardModule,
-    NzTableModule,
-    NzButtonModule,
-    NzIconModule,
-    NzInputModule,
-    NzSpaceModule,
-    NzToolTipModule,
-    NzGridModule,
-    NzDropDownModule,
-    NzDrawerModule,
-    NzMessageModule,
-    NzCheckboxModule,
-    NzSwitchModule,
-    NzResizableModule,
-    NzBadgeModule,
-    DragDropModule,
-    WpxModule
-  ],
+  imports: [WpxModule, NzResizableModule, DragDropModule],
   selector: 'wpx-table',
   exportAs: 'wpxTable',
   templateUrl: './table.component.html',

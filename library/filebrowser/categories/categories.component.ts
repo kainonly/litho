@@ -1,7 +1,7 @@
 import { Component, Inject } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 
-import { Any, AnyDto, WpxApi, WpxModule, WpxShareModule } from '@weplanx/ng';
+import { Any, AnyDto, WpxApi, WpxModule } from '@weplanx/ng';
 import { WpxCategory } from '@weplanx/ng/categories';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NZ_MODAL_DATA, NzModalRef } from 'ng-zorro-antd/modal';
@@ -16,7 +16,7 @@ export interface CategoriesInput {
 
 @Component({
   standalone: true,
-  imports: [WpxModule, WpxShareModule],
+  imports: [WpxModule],
   selector: 'wpx-filebrowser-categories',
   templateUrl: './categories.component.html'
 })

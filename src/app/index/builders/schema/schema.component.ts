@@ -1,4 +1,4 @@
-import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
+import { CdkDragDrop, DragDropModule, moveItemInArray } from '@angular/cdk/drag-drop';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
@@ -14,7 +14,7 @@ import { FieldComponent, FieldInput } from '../field/field.component';
 
 @Component({
   standalone: true,
-  imports: [ShareModule],
+  imports: [ShareModule, DragDropModule],
   selector: 'app-index-builders-schema',
   templateUrl: './schema.component.html',
   styleUrl: './schema.component.css'

@@ -3,7 +3,9 @@ import { from, Observable } from 'rxjs';
 
 import { set, get, del, clear } from 'idb-keyval';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class WpxStoreService {
   set<T>(key: string, value: T): Observable<void> {
     return from(set(key, value));

@@ -1,4 +1,4 @@
-import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
+import { CdkDragDrop, DragDropModule, moveItemInArray } from '@angular/cdk/drag-drop';
 import { Component, Input, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 
@@ -8,7 +8,7 @@ import { NzMessageService } from 'ng-zorro-antd/message';
 
 @Component({
   standalone: true,
-  imports: [ShareModule],
+  imports: [ShareModule, DragDropModule],
   selector: 'app-admin-datasets-control',
   templateUrl: './control.component.html'
 })

@@ -1,8 +1,9 @@
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { Component, EventEmitter, Input, Output, TemplateRef, ViewChild } from '@angular/core';
 
-import { Any, WpxModule, WpxService, WpxShareModule } from '@weplanx/ng';
+import { Any, WpxModule, WpxService } from '@weplanx/ng';
 import { NzMessageService } from 'ng-zorro-antd/message';
+import { NzProgressModule } from 'ng-zorro-antd/progress';
 import { NzUploadChangeParam, NzUploadFile, NzUploadModule } from 'ng-zorro-antd/upload';
 
 import { TransportDataSource } from './transport.data-source';
@@ -10,7 +11,7 @@ import { Transport } from '../types';
 
 @Component({
   standalone: true,
-  imports: [WpxModule, WpxShareModule, ScrollingModule, NzUploadModule],
+  imports: [WpxModule, NzUploadModule, NzProgressModule, ScrollingModule],
   selector: 'wpx-upload-transport',
   templateUrl: './transport.component.html'
 })

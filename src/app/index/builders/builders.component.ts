@@ -10,7 +10,13 @@ import { Any, AnyDto, TransactionResult, WpxService } from '@weplanx/ng';
 import { NzContextMenuService, NzDropdownMenuComponent } from 'ng-zorro-antd/dropdown';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalService } from 'ng-zorro-antd/modal';
-import { NzFormatBeforeDropEvent, NzFormatEmitEvent, NzTreeNode, NzTreeNodeOptions } from 'ng-zorro-antd/tree';
+import {
+  NzFormatBeforeDropEvent,
+  NzFormatEmitEvent,
+  NzTreeModule,
+  NzTreeNode,
+  NzTreeNodeOptions
+} from 'ng-zorro-antd/tree';
 
 import { FieldComponent } from './field/field.component';
 import { FormComponent, FormInput } from './form/form.component';
@@ -18,7 +24,7 @@ import { SchemaComponent } from './schema/schema.component';
 
 @Component({
   standalone: true,
-  imports: [ShareModule, FormComponent, FieldComponent, SchemaComponent],
+  imports: [ShareModule, NzTreeModule, FormComponent, FieldComponent, SchemaComponent],
   selector: 'app-index-builders',
   templateUrl: './builders.component.html',
   styleUrl: './builders.component.css'

@@ -4,11 +4,11 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { VideosService } from '@common/services/videos.service';
 import { ShareModule } from '@common/share.module';
 import { Any } from '@weplanx/ng';
-import { WpxFilebrowserModule } from '@weplanx/ng/filebrowser';
+import { WpxFilebroserInputComponent } from '@weplanx/ng/filebrowser';
 
 @Component({
   standalone: true,
-  imports: [ShareModule, WpxFilebrowserModule],
+  imports: [ShareModule, WpxFilebroserInputComponent],
   selector: 'app-videos-input',
   template: `
     <wpx-filebrowser-input

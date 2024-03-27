@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Inject, OnInit } from '@angular/core';
 
 import { ShareModule } from '@common/share.module';
 import { Any } from '@weplanx/ng';
@@ -11,7 +11,8 @@ import { NZ_MODAL_DATA, NzModalRef } from 'ng-zorro-antd/modal';
   selector: 'app-codeview',
   template: `
     <nz-code-editor style="height: 500px; width: 100%" [ngModel]="content" [nzEditorOption]="option"></nz-code-editor>
-  `
+  `,
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CodeviewComponent implements OnInit {
   content = '';

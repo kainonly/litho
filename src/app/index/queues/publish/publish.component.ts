@@ -5,7 +5,7 @@ import { AppService } from '@app';
 import { QueuesService } from '@common/services/queues.service';
 import { ShareModule } from '@common/share.module';
 import { Any } from '@weplanx/ng';
-import { JoinedEditorOptions } from 'ng-zorro-antd/code-editor';
+import { JoinedEditorOptions, NzCodeEditorModule } from 'ng-zorro-antd/code-editor';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NZ_MODAL_DATA, NzModalRef } from 'ng-zorro-antd/modal';
 
@@ -15,7 +15,7 @@ export interface PublishInput {
 
 @Component({
   standalone: true,
-  imports: [ShareModule],
+  imports: [ShareModule, NzCodeEditorModule],
   selector: 'app-index-queues-publish',
   templateUrl: './publish.component.html'
 })

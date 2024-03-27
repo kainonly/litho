@@ -1,37 +1,24 @@
-import { ScrollingModule } from '@angular/cdk/scrolling';
 import { NgOptimizedImage } from '@angular/common';
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
-import { WpxModule, WpxShareModule } from '@weplanx/ng';
-import { WpxCheckboxModule } from '@weplanx/ng/checkbox';
-import { WpxKeywordModule } from '@weplanx/ng/keyword';
-import { WpxListModule } from '@weplanx/ng/list';
-import { WpxTableModule } from '@weplanx/ng/table';
-import { WpxToolboxModule } from '@weplanx/ng/toolbox';
-import { WpxUploadModule } from '@weplanx/ng/upload';
-import { NzCodeEditorModule } from 'ng-zorro-antd/code-editor';
-import { NzQRCodeModule } from 'ng-zorro-antd/qr-code';
-import { NzTransferModule } from 'ng-zorro-antd/transfer';
+import { WpxModule } from '@weplanx/ng';
+import { WpxCheckboxComponent } from '@weplanx/ng/checkbox';
+import { WpxKeywordComponent } from '@weplanx/ng/keyword';
+import { WpxTableComponent } from '@weplanx/ng/table';
+import { WpxToolboxComponent } from '@weplanx/ng/toolbox';
 
 @NgModule({
   exports: [
     RouterModule,
     NgOptimizedImage,
     WpxModule,
-    WpxShareModule,
-    WpxKeywordModule,
-    WpxToolboxModule,
-    WpxUploadModule,
-    WpxTableModule,
-    WpxListModule,
-    WpxCheckboxModule,
-    NzTransferModule,
-    NzCodeEditorModule,
-    NzQRCodeModule,
-    ScrollingModule
+    WpxKeywordComponent,
+    WpxToolboxComponent,
+    WpxTableComponent,
+    WpxCheckboxComponent
   ],
-  imports: [NgOptimizedImage],
+  imports: [NgOptimizedImage, WpxCheckboxComponent, WpxKeywordComponent, WpxToolboxComponent, WpxTableComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class ShareModule {}

@@ -6,7 +6,8 @@
     "build": "ng b --configuration production",
     "build:beta": "ng b --configuration beta",
     "build:library": "ng b library",
-    "serve:ssr": "node dist/console/server/server.mjs"
+    "serve:ssr": "node dist/console/server/server.mjs",
+    "lint": "ng lint"
   },
   "private": false,
   "dependencies": {

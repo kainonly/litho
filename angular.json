@@ -141,14 +141,14 @@
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
-            "tsConfig": "projects/weplanx/ng/tsconfig.spec.json",
+            "tsConfig": "library/tsconfig.spec.json",
             "polyfills": ["zone.js", "zone.js/testing"]
           }
         },
         "lint": {
           "builder": "@angular-eslint/builder:lint",
           "options": {
-            "lintFilePatterns": ["projects/weplanx/ng/**/*.ts", "projects/weplanx/ng/**/*.html"]
+            "lintFilePatterns": ["library/**/*.ts", "library/**/*.html"]
           }
         }
       }

@@ -1,6 +1,6 @@
 import { Component, Inject } from '@angular/core';
 
-import { WpxModule, WpxShareModule } from '@weplanx/ng';
+import { WpxModule } from '@weplanx/ng';
 import { NZ_MODAL_DATA } from 'ng-zorro-antd/modal';
 
 export interface VideoInput {
@@ -9,7 +9,7 @@ export interface VideoInput {
 
 @Component({
   standalone: true,
-  imports: [WpxModule, WpxShareModule],
+  imports: [WpxModule],
   selector: 'wpx-media-video',
   template: `
     <video style="width: 100%" controls [poster]="[data.url + '_0'] | wpxAssets">

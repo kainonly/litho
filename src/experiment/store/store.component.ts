@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 import { ShareModule } from '@common/share.module';
 import { WpxStoreService } from '@weplanx/ng';
+import { NzCodeEditorModule } from 'ng-zorro-antd/code-editor';
 
 interface MyDoc {
   title: string;
@@ -9,7 +10,7 @@ interface MyDoc {
 
 @Component({
   standalone: true,
-  imports: [ShareModule],
+  imports: [ShareModule, NzCodeEditorModule],
   selector: 'x-store',
   templateUrl: './store.component.html'
 })

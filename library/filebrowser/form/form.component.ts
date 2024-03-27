@@ -1,7 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
-import { Any, AnyDto, WpxApi, WpxModule, WpxShareModule } from '@weplanx/ng';
+import { Any, AnyDto, WpxApi, WpxModule } from '@weplanx/ng';
 import { WpxCategory } from '@weplanx/ng/categories';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NZ_MODAL_DATA, NzModalRef } from 'ng-zorro-antd/modal';
@@ -16,7 +16,7 @@ export interface FormInput {
 
 @Component({
   standalone: true,
-  imports: [WpxModule, WpxShareModule],
+  imports: [WpxModule],
   selector: 'wpx-filebrowser-form',
   templateUrl: './form.component.html'
 })

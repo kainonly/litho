@@ -1,9 +1,10 @@
-import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
+import { CdkDragDrop, DragDropModule, moveItemInArray } from '@angular/cdk/drag-drop';
 import { Component, EventEmitter, Inject, Input, Output, TemplateRef, ViewChild } from '@angular/core';
 
-import { Any, WpxApi, WpxModule, WpxService, WpxShareModule } from '@weplanx/ng';
+import { Any, WpxApi, WpxModule, WpxService } from '@weplanx/ng';
 import { NzDrawerService } from 'ng-zorro-antd/drawer';
-import { NzImageService } from 'ng-zorro-antd/image';
+import { NzEmptyModule } from 'ng-zorro-antd/empty';
+import { NzImageModule, NzImageService } from 'ng-zorro-antd/image';
 import { NzModalRef, NzModalService } from 'ng-zorro-antd/modal';
 
 import { WpxFilebrowserComponent, WpxFilebrowserInput } from './filebrowser.component';
@@ -13,7 +14,7 @@ import { VideoComponent } from './video/video.component';
 
 @Component({
   standalone: true,
-  imports: [WpxModule, WpxShareModule],
+  imports: [WpxModule, NzEmptyModule, NzImageModule, DragDropModule],
   selector: 'wpx-filebrowser-input',
   templateUrl: `./filebrowser-input.component.html`,
   styleUrl: './filebrowser-input.component.css'

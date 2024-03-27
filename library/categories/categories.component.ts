@@ -1,8 +1,8 @@
-import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
+import { CdkDragDrop, DragDropModule, moveItemInArray } from '@angular/cdk/drag-drop';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, forwardRef, Input, OnInit } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
-import { Any, AnyDto, WpxModule, WpxShareModule } from '@weplanx/ng';
+import { Any, AnyDto, WpxModule } from '@weplanx/ng';
 import { NzContextMenuService, NzDropdownMenuComponent } from 'ng-zorro-antd/dropdown';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalService } from 'ng-zorro-antd/modal';
@@ -13,7 +13,7 @@ import { WpxCategory } from './types';
 
 @Component({
   standalone: true,
-  imports: [WpxShareModule, WpxModule, FormComponent],
+  imports: [WpxModule, DragDropModule, FormComponent],
   selector: 'wpx-categories',
   templateUrl: './categories.component.html',
   styleUrl: './categories.component.css',

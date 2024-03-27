@@ -2,10 +2,11 @@ import { Component, OnInit } from '@angular/core';
 
 import { AppService } from '@app';
 import { ShareModule } from '@common/share.module';
+import { NzResultModule } from 'ng-zorro-antd/result';
 
 @Component({
   standalone: true,
-  imports: [ShareModule],
+  imports: [ShareModule, NzResultModule],
   selector: 'app-result-authorized',
   template: `
     <nz-result

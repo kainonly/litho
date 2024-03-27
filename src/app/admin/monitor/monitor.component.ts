@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Area, AreaOptions, LineOptions } from '@antv/g2plot';
 import { ShareModule } from '@common/share.module';
 import { Any } from '@weplanx/ng';
+import { NzSegmentedModule } from 'ng-zorro-antd/segmented';
 
 import { MonitorService } from './monitor.service';
 import { AreaComponent } from './plots/area.component';
@@ -13,7 +14,7 @@ import { ExporterName, MetaType } from './types';
 
 @Component({
   standalone: true,
-  imports: [ShareModule, AreaComponent, LineComponent, SumComponent],
+  imports: [ShareModule, NzSegmentedModule, AreaComponent, LineComponent, SumComponent],
   selector: 'app-monitor',
   templateUrl: './monitor.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,

@@ -5,7 +5,8 @@ import { AfterViewInit, Component, ElementRef, Inject, NgZone, OnDestroy, OnInit
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { Subscription } from 'rxjs';
 
-import { Any, AnyDto, WpxImageInfo, WpxApi, WpxService, WpxModule, WpxShareModule } from '@weplanx/ng';
+import { Any, AnyDto, WpxImageInfo, WpxApi, WpxService, WpxModule } from '@weplanx/ng';
+import { NzImageModule } from 'ng-zorro-antd/image';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NZ_MODAL_DATA, NzModalRef } from 'ng-zorro-antd/modal';
 
@@ -18,7 +19,7 @@ export interface PictureInput<T extends WpxPicture> {
 
 @Component({
   standalone: true,
-  imports: [WpxModule, WpxShareModule, NgOptimizedImage],
+  imports: [WpxModule, NzImageModule, NgOptimizedImage],
   selector: 'wpx-filebrowser-picture',
   templateUrl: './picture.component.html',
   styleUrl: './picture.component.css'

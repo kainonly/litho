@@ -10,6 +10,7 @@ import { Any, AnyDto, Filter } from '@weplanx/ng';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NZ_MODAL_DATA, NzModalRef } from 'ng-zorro-antd/modal';
 import { NzTreeNodeOptions } from 'ng-zorro-antd/tree';
+import { NzTreeSelectModule } from 'ng-zorro-antd/tree-select';
 
 export interface FormInput {
   doc?: AnyDto<Builder>;
@@ -17,7 +18,7 @@ export interface FormInput {
 
 @Component({
   standalone: true,
-  imports: [ShareModule],
+  imports: [ShareModule, NzTreeSelectModule],
   selector: 'app-index-builders-form',
   templateUrl: './form.component.html'
 })

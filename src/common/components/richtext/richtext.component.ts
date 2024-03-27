@@ -11,14 +11,14 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 import { PicturesService } from '@common/services/pictures.service';
 import { VideosService } from '@common/services/videos.service';
-import { Any, WpxModule, WpxService, WpxShareModule } from '@weplanx/ng';
+import { Any, WpxModule, WpxService } from '@weplanx/ng';
 import { WpxFile, WpxFilebrowserComponent, WpxFilebrowserInput } from '@weplanx/ng/filebrowser';
-import { ResolveDone, RichtextData, WpxRichtextComponent, WpxRichtextModule } from '@weplanx/ng/richtext';
+import { ResolveDone, RichtextData, WpxRichtextComponent } from '@weplanx/ng/richtext';
 import { NzModalRef, NzModalService } from 'ng-zorro-antd/modal';
 
 @Component({
   standalone: true,
-  imports: [WpxModule, WpxShareModule, WpxRichtextModule],
+  imports: [WpxModule, WpxRichtextComponent],
   selector: 'app-richtext',
   templateUrl: './richtext.component.html',
   providers: [

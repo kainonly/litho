@@ -1,4 +1,3 @@
-import { CommonModule } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
@@ -12,10 +11,11 @@ import {
 import { AnyDto, WpxModel, WpxModule, WpxShareModule } from '@weplanx/ng';
 import { NgStyleInterface } from 'ng-zorro-antd/core/types';
 import { NzContextMenuService, NzDropdownMenuComponent } from 'ng-zorro-antd/dropdown';
+import { NzPaginationModule } from 'ng-zorro-antd/pagination';
 
 @Component({
   standalone: true,
-  imports: [CommonModule, WpxModule, WpxShareModule],
+  imports: [WpxModule, WpxShareModule, NzPaginationModule],
   selector: 'wpx-list',
   templateUrl: './list.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush

@@ -14,12 +14,12 @@ import {
   ViewChild
 } from '@angular/core';
 
-import { Any, AnyDto, Filter, WpxApi, WpxModule, WpxService, WpxShareModule } from '@weplanx/ng';
-import { WpxCategoriesComponent, WpxCategoriesModule } from '@weplanx/ng/categories';
-import { Transport, WpxUploadModule } from '@weplanx/ng/upload';
+import { Any, AnyDto, Filter, WpxApi, WpxModule, WpxService } from '@weplanx/ng';
+import { WpxCategoriesComponent } from '@weplanx/ng/categories';
+import { Transport, WpxUploadTransportComponent } from '@weplanx/ng/upload';
 import { NzCardComponent } from 'ng-zorro-antd/card';
 import { NzContextMenuService, NzDropdownMenuComponent } from 'ng-zorro-antd/dropdown';
-import { NzImageService } from 'ng-zorro-antd/image';
+import { NzImageModule, NzImageService } from 'ng-zorro-antd/image';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NZ_MODAL_DATA, NzModalRef, NzModalService } from 'ng-zorro-antd/modal';
 
@@ -39,7 +39,7 @@ export interface WpxFilebrowserInput<T> {
 
 @Component({
   standalone: true,
-  imports: [WpxModule, WpxShareModule, WpxUploadModule, WpxCategoriesModule, ScrollingModule],
+  imports: [WpxModule, NzImageModule, ScrollingModule, WpxUploadTransportComponent, WpxCategoriesComponent],
   selector: 'wpx-filebrowser',
   templateUrl: './filebrowser.component.html',
   styleUrl: './filebrowser.component.css',

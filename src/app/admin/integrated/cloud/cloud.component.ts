@@ -2,6 +2,7 @@ import { Component, OnInit, Type } from '@angular/core';
 
 import { ShareModule } from '@common/share.module';
 import { Any, R, WpxService, WpxStoreService } from '@weplanx/ng';
+import { NzEmptyModule } from 'ng-zorro-antd/empty';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalService } from 'ng-zorro-antd/modal';
 
@@ -10,7 +11,7 @@ import { TencentComponent } from './tencent/tencent.component';
 
 @Component({
   standalone: true,
-  imports: [ShareModule, CosComponent, TencentComponent],
+  imports: [ShareModule, NzEmptyModule, CosComponent, TencentComponent],
   selector: 'app-admin-integrated-cloud',
   templateUrl: './cloud.component.html'
 })

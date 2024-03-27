@@ -5,10 +5,11 @@ import { PicturesInputComponent } from '@common/components/filebrowser-input/pic
 import { VideosInputComponent } from '@common/components/filebrowser-input/videos-input.component';
 import { ShareModule } from '@common/share.module';
 import { Any } from '@weplanx/ng';
+import { WpxUploadAvatarComponent } from '@weplanx/ng/upload';
 
 @Component({
   standalone: true,
-  imports: [ShareModule, PicturesInputComponent, VideosInputComponent],
+  imports: [ShareModule, WpxUploadAvatarComponent, PicturesInputComponent, VideosInputComponent],
   selector: 'x-upload',
   templateUrl: './upload.component.html'
 })

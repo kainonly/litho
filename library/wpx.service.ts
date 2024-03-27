@@ -9,7 +9,9 @@ import { WpxApi } from './utils/api';
 import { WpxModel } from './utils/model';
 import { WpxStoreService } from './wpx-store.service';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class WpxService {
   assets = '/assets';
   upload: AsyncSubject<UploadOption> = new AsyncSubject();

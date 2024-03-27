@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { ShareModule } from '@common/share.module';
 import { Any, WpxService } from '@weplanx/ng';
-import { JoinedEditorOptions } from 'ng-zorro-antd/code-editor';
+import { JoinedEditorOptions, NzCodeEditorModule } from 'ng-zorro-antd/code-editor';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NZ_MODAL_DATA, NzModalRef } from 'ng-zorro-antd/modal';
 
@@ -11,7 +11,7 @@ import { KeyValue } from '../types';
 
 @Component({
   standalone: true,
-  imports: [ShareModule],
+  imports: [ShareModule, NzCodeEditorModule],
   selector: 'app-admin-settings-values-form',
   templateUrl: './form.component.html'
 })

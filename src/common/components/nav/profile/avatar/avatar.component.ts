@@ -4,12 +4,13 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { AppService } from '@app';
 import { ShareModule } from '@common/share.module';
 import { Any } from '@weplanx/ng';
+import { WpxUploadAvatarComponent } from '@weplanx/ng/upload';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalRef } from 'ng-zorro-antd/modal';
 
 @Component({
   standalone: true,
-  imports: [ShareModule],
+  imports: [ShareModule, WpxUploadAvatarComponent],
   selector: 'app-nav-profile-avatar',
   templateUrl: './avatar.component.html'
 })

@@ -1,13 +1,14 @@
 import { Component, forwardRef, Input } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
-import { Any, WpxModule, WpxService, WpxShareModule } from '@weplanx/ng';
+import { Any, WpxModule, WpxService } from '@weplanx/ng';
+import { NzImageModule } from 'ng-zorro-antd/image';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzUploadChangeParam, NzUploadModule } from 'ng-zorro-antd/upload';
 
 @Component({
   standalone: true,
-  imports: [WpxModule, WpxShareModule, NzUploadModule],
+  imports: [WpxModule, NzUploadModule, NzImageModule],
   selector: 'wpx-upload-avatar',
   templateUrl: './avatar.component.html',
   providers: [

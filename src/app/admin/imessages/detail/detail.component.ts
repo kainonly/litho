@@ -10,6 +10,7 @@ import { AnyDto } from '@weplanx/ng';
 import { NzDrawerService } from 'ng-zorro-antd/drawer';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalService } from 'ng-zorro-antd/modal';
+import { NzSegmentedModule } from 'ng-zorro-antd/segmented';
 
 import { CountRateComponent } from './count-rate.component';
 import { LogsComponent } from '../logs/logs.component';
@@ -17,7 +18,7 @@ import { PublishComponent, PublishInput } from '../publish/publish.component';
 
 @Component({
   standalone: true,
-  imports: [ShareModule, CountRateComponent],
+  imports: [ShareModule, NzSegmentedModule, CountRateComponent],
   selector: 'app-admin-imessages-detail',
   templateUrl: './detail.component.html'
 })

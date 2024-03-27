@@ -2,11 +2,11 @@ import { Component } from '@angular/core';
 
 import { VideosService } from '@common/services/videos.service';
 import { ShareModule } from '@common/share.module';
-import { WpxFilebrowserModule } from '@weplanx/ng/filebrowser';
+import { WpxFilebrowserComponent } from '@weplanx/ng/filebrowser';
 
 @Component({
   standalone: true,
-  imports: [ShareModule, WpxFilebrowserModule],
+  imports: [ShareModule, WpxFilebrowserComponent],
   selector: 'app-filebrowser-videos',
   template: `
     <wpx-filebrowser

@@ -4,13 +4,14 @@ import { switchMap } from 'rxjs/operators';
 
 import { ShareModule } from '@common/share.module';
 import { Any } from '@weplanx/ng';
+import { NzStatisticModule } from 'ng-zorro-antd/statistic';
 
 import { MonitorService } from '../monitor.service';
 import { ExporterName } from '../types';
 
 @Component({
   standalone: true,
-  imports: [ShareModule],
+  imports: [ShareModule, NzStatisticModule],
   selector: 'app-monitor-sum',
   template: `
     <nz-card nzType="inner">

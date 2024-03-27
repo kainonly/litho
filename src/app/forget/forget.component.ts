@@ -1,15 +1,16 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { AppService } from '@app';
 import { BlankPageComponent } from '@common/components/page/blank-page.component';
 import { ShareModule } from '@common/share.module';
 import { Any, validates } from '@weplanx/ng';
+import { NzResultModule } from 'ng-zorro-antd/result';
 import { NzStepsModule } from 'ng-zorro-antd/steps';
 
 @Component({
   standalone: true,
-  imports: [ShareModule, BlankPageComponent, NzStepsModule],
+  imports: [ShareModule, NzResultModule, NzStepsModule, BlankPageComponent],
   selector: 'app-forget',
   templateUrl: './forget.component.html'
 })

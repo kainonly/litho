@@ -8,15 +8,17 @@ import { ClustersService } from '@common/services/clusters.service';
 import { ProjectsService } from '@common/services/projects.service';
 import { ShareModule } from '@common/share.module';
 import { AnyDto } from '@weplanx/ng';
+import { NzAlertModule } from 'ng-zorro-antd/alert';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalService } from 'ng-zorro-antd/modal';
+import { NzPopconfirmModule } from 'ng-zorro-antd/popconfirm';
 
 import { ClusterComponent } from './cluster/cluster.component';
 import { EntryComponent } from './entry/entry.component';
 
 @Component({
   standalone: true,
-  imports: [ShareModule],
+  imports: [ShareModule, NzPopconfirmModule, NzAlertModule],
   selector: 'app-index-overview',
   templateUrl: './overview.component.html'
 })

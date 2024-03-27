@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
 
 import { ShareModule } from '@common/share.module';
+import { NzResultModule } from 'ng-zorro-antd/result';
 
 @Component({
   standalone: true,
-  imports: [ShareModule],
+  imports: [ShareModule, NzResultModule],
   selector: 'app-index-not-found',
   template: `
     <nz-result nzStatus="404" nzTitle="404" nzSubTitle="抱歉，相关项目不存在或已被删除">

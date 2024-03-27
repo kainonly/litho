@@ -4,7 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ImessagesService } from '@common/services/imessages.service';
 import { ShareModule } from '@common/share.module';
 import { Any } from '@weplanx/ng';
-import { JoinedEditorOptions } from 'ng-zorro-antd/code-editor';
+import { JoinedEditorOptions, NzCodeEditorModule } from 'ng-zorro-antd/code-editor';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NZ_MODAL_DATA, NzModalRef } from 'ng-zorro-antd/modal';
 
@@ -14,7 +14,7 @@ export interface PublishInput {
 
 @Component({
   standalone: true,
-  imports: [ShareModule],
+  imports: [ShareModule, NzCodeEditorModule],
   selector: 'app-admin-imessages-publish',
   templateUrl: './publish.component.html'
 })

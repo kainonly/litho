@@ -6,6 +6,7 @@ import { User } from '@common/models/user';
 import { UsersService } from '@common/services/users.service';
 import { ShareModule } from '@common/share.module';
 import { Any, AnyDto, validates } from '@weplanx/ng';
+import { WpxUploadAvatarComponent } from '@weplanx/ng/upload';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NZ_MODAL_DATA, NzModalRef } from 'ng-zorro-antd/modal';
 
@@ -15,7 +16,7 @@ export interface FormInput {
 
 @Component({
   standalone: true,
-  imports: [ShareModule],
+  imports: [ShareModule, WpxUploadAvatarComponent],
   selector: 'app-users-form',
   templateUrl: './form.component.html'
 })

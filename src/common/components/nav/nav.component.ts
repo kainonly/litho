@@ -7,10 +7,11 @@ import { ShareModule } from '@common/share.module';
 import { environment } from '@env';
 import { NzBreadCrumbModule } from 'ng-zorro-antd/breadcrumb';
 import { NzDrawerService } from 'ng-zorro-antd/drawer';
+import { NzPopoverModule } from 'ng-zorro-antd/popover';
 
 @Component({
   standalone: true,
-  imports: [ShareModule, NzBreadCrumbModule],
+  imports: [ShareModule, NzBreadCrumbModule, NzPopoverModule],
   selector: 'app-nav',
   templateUrl: './nav.component.html',
   styleUrl: './nav.component.css'
