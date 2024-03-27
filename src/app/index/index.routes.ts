@@ -35,6 +35,5 @@ export const indexRoutes: Routes = [
     resolve: {
       project: resolver
     }
-  },
-  { path: '**', loadComponent: () => import('./not-found.component').then(m => m.NotFoundComponent) }
+  }
 ];

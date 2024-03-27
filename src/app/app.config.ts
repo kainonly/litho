@@ -23,7 +23,6 @@ export const appConfig: ApplicationConfig = {
     provideNzConfig({
       notification: { nzPlacement: 'bottomRight' },
       card: { nzBordered: false },
-      table: { nzSize: 'middle' },
       codeEditor: {
         assetsRoot: `${environment.cdn}/npm/monaco-editor@0.40.0/min`
       }

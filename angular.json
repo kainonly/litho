@@ -25,7 +25,7 @@
             "inlineStyleLanguage": "css",
             "assets": ["src/favicon.ico", "src/assets"],
             "styles": [
-              "./node_modules/ng-zorro-antd/ng-zorro-antd.compact.min.css",
+              "./node_modules/ng-zorro-antd/ng-zorro-antd.min.css",
               "./node_modules/ng-zorro-antd/resizable/style/index.min.css",
               "./node_modules/ng-zorro-antd/code-editor/style/index.min.css",
               "src/styles.css"

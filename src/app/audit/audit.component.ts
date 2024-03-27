@@ -12,7 +12,7 @@ import { ShareModule } from '@common/share.module';
     <nz-layout style="height: 100%">
       <nz-header class="nav">
         <app-nav>
-          <ul nz-menu nzMode="horizontal" style="line-height: 47px">
+          <ul nz-menu nzMode="horizontal" style="line-height: 63px">
             <li nz-menu-item nzMatchRouter routerLink="logins">
               <span nz-icon nzType="login" nzTheme="outline"></span>
               Logins

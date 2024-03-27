@@ -8,14 +8,14 @@ import {
   TemplateRef
 } from '@angular/core';
 
-import { AnyDto, WpxModel, WpxModule, WpxShareModule } from '@weplanx/ng';
+import { AnyDto, WpxModel, WpxModule } from '@weplanx/ng';
 import { NgStyleInterface } from 'ng-zorro-antd/core/types';
 import { NzContextMenuService, NzDropdownMenuComponent } from 'ng-zorro-antd/dropdown';
 import { NzPaginationModule } from 'ng-zorro-antd/pagination';
 
 @Component({
   standalone: true,
-  imports: [WpxModule, WpxShareModule, NzPaginationModule],
+  imports: [WpxModule, NzPaginationModule],
   selector: 'wpx-list',
   templateUrl: './list.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush
