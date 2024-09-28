@@ -1,7 +1,0 @@
-.ant-drawer-bottom.ant-drawer-open.no-mask {
-  pointer-events: none;
-}
-
-.ant-drawer-content-wrapper {
-  pointer-events: auto;
-}
