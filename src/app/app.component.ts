@@ -1,13 +1,16 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+
+import { ShareModule } from '@common/share.module';
+import { NzSpinModule } from 'ng-zorro-antd/spin';
 
 @Component({
-  selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet],
-  templateUrl: './app.component.html',
-  styleUrl: './app.component.less'
+  imports: [ShareModule, NzSpinModule],
+  selector: 'app-root',
+  template: `
+    @defer {
+      <router-outlet></router-outlet>
+    }
+  `
 })
-export class AppComponent {
-  title = 'dashboard';
-}
+export class AppComponent {}
