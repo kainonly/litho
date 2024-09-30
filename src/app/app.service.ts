@@ -1,5 +1,5 @@
 import { HttpClient, HttpResponse } from '@angular/common/http';
-import { Injectable, Optional, signal } from '@angular/core';
+import { inject, Injectable, Optional, signal } from '@angular/core';
 import { Observable, Subscription, switchMap, timer } from 'rxjs';
 import { map } from 'rxjs/operators';
 
@@ -15,15 +15,13 @@ import { NzModalService } from 'ng-zorro-antd/modal';
   providedIn: 'root'
 })
 export class AppService {
+  private http = inject(HttpClient);
+  private storage = inject(StorageMap);
+  private modal = inject(NzModalService);
+
   activeUser = signal<Any | null>(null);
 
   private refreshTokenSubscription?: Subscription;
-
-  constructor(
-    @Optional() private http: HttpClient,
-    @Optional() private storage: StorageMap,
-    @Optional() private modal: NzModalService
-  ) {}
 
   setList<T extends BasicDto>(api: Api<T>, pagesize = 50): List<T> {
     return new List<T>(api, pagesize);
