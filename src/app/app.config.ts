@@ -1,26 +1,38 @@
 import { registerLocaleData } from '@angular/common';
-import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClient, withFetch, withInterceptors, withXsrfConfiguration } from '@angular/common/http';
 import en from '@angular/common/locales/en';
 import { ApplicationConfig, provideZoneChangeDetection, importProvidersFrom } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { provideClientHydration } from '@angular/platform-browser';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
-import { provideRouter } from '@angular/router';
+import { provideRouter, withHashLocation } from '@angular/router';
 
-import { en_US, provideNzI18n } from 'ng-zorro-antd/i18n';
+import { ShareModule } from '@common/share.module';
+import { provideNzConfig } from 'ng-zorro-antd/core/config';
+import { provideNzI18n, zh_CN } from 'ng-zorro-antd/i18n';
 
+import { appInterceptor } from './app.interceptor';
 import { routes } from './app.routes';
 
 registerLocaleData(en);
 
 export const appConfig: ApplicationConfig = {
   providers: [
-    provideZoneChangeDetection({ eventCoalescing: true }),
-    provideRouter(routes),
-    provideClientHydration(),
-    provideNzI18n(en_US),
-    importProvidersFrom(FormsModule),
+    importProvidersFrom(ShareModule),
+    provideNzI18n(zh_CN),
+    provideNzConfig({
+      notification: { nzPlacement: 'bottomRight' },
+      card: { nzBordered: false },
+      table: { nzSize: 'middle', nzBordered: true }
+    }),
+    provideHttpClient(
+      withFetch(),
+      withInterceptors([appInterceptor]),
+      withXsrfConfiguration({
+        cookieName: 'XSRF-TOKEN',
+        headerName: 'X-XSRF-TOKEN'
+      })
+    ),
     provideAnimationsAsync(),
-    provideHttpClient()
+    provideZoneChangeDetection({ eventCoalescing: true }),
+    provideRouter(routes, withHashLocation())
   ]
 };
