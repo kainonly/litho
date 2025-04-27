@@ -5,12 +5,11 @@ import { ApplicationConfig, provideZoneChangeDetection, importProvidersFrom, isD
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { provideRouter, withHashLocation } from '@angular/router';
 import { provideServiceWorker } from '@angular/service-worker';
-
-import { ShareModule } from '@common/share.module';
 import { provideNzConfig } from 'ng-zorro-antd/core/config';
 import { en_US, provideNzI18n } from 'ng-zorro-antd/i18n';
 
-import { appInterceptor } from './app.interceptor';
+import { ShareModule } from '@common/share.module';
+
 import { routes } from './app.routes';
 
 registerLocaleData(en);
@@ -26,7 +25,7 @@ export const appConfig: ApplicationConfig = {
     }),
     provideHttpClient(
       withFetch(),
-      withInterceptors([appInterceptor]),
+      withInterceptors([]),
       withXsrfConfiguration({
         cookieName: 'XSRF-TOKEN',
         headerName: 'X-XSRF-TOKEN'
@@ -37,7 +36,7 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes, withHashLocation()),
     provideServiceWorker('ngsw-worker.js', {
       enabled: !isDevMode(),
-      registrationStrategy: 'registerWhenStable:30000'
+      registrationStrategy: 'registerWhenStable:10000'
     })
   ]
 };

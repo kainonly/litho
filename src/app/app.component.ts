@@ -1,16 +1,13 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 import { ShareModule } from '@common/share.module';
-import { NzSpinModule } from 'ng-zorro-antd/spin';
 
 @Component({
   standalone: true,
-  imports: [ShareModule, NzSpinModule],
+  imports: [ShareModule],
   selector: 'app-root',
-  template: `
-    @defer {
-      <router-outlet></router-outlet>
-    }
-  `
+  template: ` <router-outlet></router-outlet> `
 })
-export class AppComponent {}
+export class AppComponent implements OnInit {
+  ngOnInit(): void {}
+}

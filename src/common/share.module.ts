@@ -3,11 +3,6 @@ import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 
-import { BoxComponent } from '@common/components/box/box.component';
-import { KeywordComponent } from '@common/components/keyword/keyword.component';
-import { ToolboxComponent } from '@common/components/toolbox/toolbox.component';
-import { DirectivesModule } from '@common/directives/directives.module';
-import { PipesModule } from '@common/pipes/pipes.module';
 import { NzAlertModule } from 'ng-zorro-antd/alert';
 import { NzAvatarModule } from 'ng-zorro-antd/avatar';
 import { NzBadgeModule } from 'ng-zorro-antd/badge';
@@ -95,14 +90,9 @@ import { NzTypographyModule } from 'ng-zorro-antd/typography';
     NzImageModule,
     NzEmptyModule,
     NzPipesModule,
-    NzAlertModule,
-    DirectivesModule,
-    PipesModule,
-    BoxComponent,
-    KeywordComponent,
-    ToolboxComponent
+    NzAlertModule
   ],
-  imports: [NgOptimizedImage, DirectivesModule, PipesModule, BoxComponent, KeywordComponent, ToolboxComponent],
+  imports: [NgOptimizedImage],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class ShareModule {}
