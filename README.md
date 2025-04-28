@@ -1,4 +1,4 @@
-# NGX Litho
+# Litho
 
 [![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/kainonly/ngx-litho/publish.yml?label=publish)]()
 [![TypeScript](https://img.shields.io/badge/%3C%2F%3E-TypeScript-blue.svg?style=flat-square)](https://www.typescriptlang.org/)
