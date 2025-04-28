@@ -1,6 +1,6 @@
 export const environment = {
   production: true,
-  baseUrl: 'https://litho-api.kainonly.com:8443',
+  baseUrl: 'https://sys-api.kainonly.com',
   cdn: 'https://cdn.kainonly.com',
   upload: {
     url: '',
