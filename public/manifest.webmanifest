@@ -1,8 +1,6 @@
 {
-  "name": "dashboard",
-  "short_name": "dashboard",
-  "theme_color": "#1976d2",
-  "background_color": "#fafafa",
+  "name": "litho",
+  "short_name": "litho",
   "display": "standalone",
   "scope": "./",
   "start_url": "./",

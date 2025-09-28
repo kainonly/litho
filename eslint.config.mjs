@@ -1,30 +1,27 @@
 import eslint from '@eslint/js';
 import tseslint from 'typescript-eslint';
 import angular from 'angular-eslint';
-import eslintPluginImport from 'eslint-plugin-import';
-import eslintPluginPrettierRecommended from 'eslint-plugin-prettier/recommended';
+import prettier from 'eslint-plugin-prettier';
+import importPlugin from 'eslint-plugin-import';
+import unusedImports from 'eslint-plugin-unused-imports';
 
 export default tseslint.config(
   {
     files: ['**/*.ts'],
+    plugins: {
+      prettier,
+      import: importPlugin,
+      'unused-imports': unusedImports
+    },
     extends: [
       eslint.configs.recommended,
       ...tseslint.configs.recommended,
       ...tseslint.configs.stylistic,
-      ...angular.configs.tsRecommended,
-      eslintPluginPrettierRecommended,
-      eslintPluginImport.flatConfigs.recommended
+      ...angular.configs.tsRecommended
     ],
-    settings: {
-      'import/resolver': {
-        typescript: {
-          project: ['./tsconfig.json']
-        },
-        node: true
-      }
-    },
     processor: angular.processInlineTemplates,
     rules: {
+      'prettier/prettier': 'error',
       '@angular-eslint/directive-selector': [
         'error',
         {
@@ -41,46 +38,57 @@ export default tseslint.config(
           style: 'kebab-case'
         }
       ],
+      '@typescript-eslint/no-empty-interface': 'off',
+      'unused-imports/no-unused-imports': 'error',
+      'unused-imports/no-unused-vars': [
+        'warn',
+        {
+          vars: 'all',
+          varsIgnorePattern: '^_',
+          args: 'after-used',
+          argsIgnorePattern: '^_'
+        }
+      ],
       'import/no-duplicates': 'error',
       'import/no-unused-modules': 'error',
       'import/no-unassigned-import': 'error',
       'import/order': [
         'error',
         {
-          alphabetize: {
-            order: 'asc',
-            caseInsensitive: false
-          },
+          alphabetize: { order: 'asc', caseInsensitive: false },
           'newlines-between': 'always',
-          groups: ['builtin', 'external', 'internal'],
+          groups: ['external', 'builtin', 'internal', ['parent', 'sibling', 'index']],
           pathGroups: [
             {
               pattern: '{@angular/**,rxjs,rxjs/operators,ng-zorro-antd/**}',
-              group: 'builtin',
+              group: 'external',
               position: 'before'
             }
           ],
           pathGroupsExcludedImportTypes: []
         }
       ],
-      'arrow-body-style': 'off',
-      'prefer-arrow-callback': 'off',
-      '@typescript-eslint/no-empty-interface': 'off'
+      'no-prototype-builtins': 'off',
+      'no-bitwise': 'off',
+      'no-duplicate-imports': 'error',
+      'no-invalid-this': 'off',
+      'no-irregular-whitespace': 'error',
+      'no-magic-numbers': 'off',
+      'no-multiple-empty-lines': 'error',
+      'no-redeclare': 'off',
+      'no-underscore-dangle': 'off',
+      'no-sparse-arrays': 'error',
+      'no-template-curly-in-string': 'off',
+      'prefer-object-spread': 'error',
+      'prefer-template': 'error'
     }
   },
   {
     files: ['**/*.html'],
-    extends: [...angular.configs.templateRecommended, ...angular.configs.templateAccessibility],
-    rules: {
-      '@angular-eslint/template/label-has-associated-control': 'off',
-      '@angular-eslint/template/interactive-supports-focus': 'off',
-      '@angular-eslint/template/click-events-have-key-events': 'off'
-    }
-  },
-  {
-    files: ['*.html'],
-    excludedFiles: ['*inline-template-*.component.html'],
-    extends: [eslintPluginPrettierRecommended],
+    plugins: {
+      prettier
+    },
+    extends: [...angular.configs.templateRecommended],
     rules: {
       'prettier/prettier': [
         'error',

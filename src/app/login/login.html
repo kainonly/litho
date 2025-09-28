@@ -1,0 +1,42 @@
+<app-single-content>
+  <nz-row style="min-height: 85%" nzJustify="center" nzAlign="middle">
+    <div style="min-width: 360px">
+      <h1 style="font-size: 32px">Log In</h1>
+
+      <form nz-form nzLayout="vertical" [formGroup]="form" (appSubmit)="submit($event)">
+        <nz-form-item>
+          <nz-form-label>Email</nz-form-label>
+          <nz-form-control>
+            <nz-input-group nzPrefixIcon="user">
+              <input type="email" nz-input formControlName="email" />
+            </nz-input-group>
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-label>Password</nz-form-label>
+          <nz-form-control>
+            <nz-input-group nzPrefixIcon="lock" [nzSuffix]="suffixTemplate">
+              <input
+                [type]="passwordVisible ? 'text' : 'password'"
+                nz-input
+                formControlName="password"
+                autocomplete="new-password"
+              />
+            </nz-input-group>
+            <ng-template #suffixTemplate>
+              <nz-icon
+                [nzType]="passwordVisible ? 'eye-invisible' : 'eye'"
+                (click)="passwordVisible = !passwordVisible"
+              ></nz-icon>
+            </ng-template>
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-control>
+            <button nz-button nzBlock nzType="primary" [nzLoading]="loading" [disabled]="!form.valid"> Sign In </button>
+          </nz-form-control>
+        </nz-form-item>
+      </form>
+    </div>
+  </nz-row>
+</app-single-content>

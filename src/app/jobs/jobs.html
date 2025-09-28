@@ -1,0 +1,35 @@
+<ng-template #left>
+  <nz-space nzAlign="center">
+    <app-keyword
+      *nzSpaceItem
+      [appModel]="m"
+      (appOnSearch)="getData(true)"
+      appPlaceholder="Search ID, URL, name"
+    ></app-keyword>
+    <app-toolbox *nzSpaceItem [appModel]="m" (appRefresh)="getData(true)" (appClear)="getData(true)"></app-toolbox>
+  </nz-space>
+</ng-template>
+<ng-template #right>
+  <nz-space nzAlign="center">
+    @if (m.selection.size !== 0) {
+      <a nz-dropdown *nzSpaceItem [nzDropdownMenu]="bulkAction">
+        Selected {{ m.selection.size }} items
+        <span nz-icon nzType="down"></span>
+      </a>
+    }
+
+    <nz-dropdown-menu #bulkAction>
+      <ul nz-menu nzSelectable>
+        <li nz-menu-item nzDanger (click)="bulkDelete()">Delete</li>
+        <li nz-menu-divider></li>
+        <li nz-menu-item (click)="m.clearSelections()">Cancel</li>
+      </ul>
+    </nz-dropdown-menu>
+
+    <button *nzSpaceItem nz-button nzType="primary" (click)="open()">Create</button>
+  </nz-space>
+</ng-template>
+
+<app-layout>
+  <app-box [appLeft]="left" [appRight]="right"> </app-box>
+</app-layout>

@@ -1,0 +1,22 @@
+<nz-layout [style.height.%]="100">
+  <nz-header>
+    <nz-row nzJustify="space-between" nzAlign="middle">
+      <nz-col>
+        <ul class="navigation" nz-menu nzMode="horizontal">
+          <li nz-menu-item nzSelected>
+            <a [routerLink]="['/jobs']">
+              <nz-icon nzType="schedule" />
+              Cron Jobs
+            </a>
+          </li>
+        </ul>
+      </nz-col>
+      <nz-col> </nz-col>
+      <nz-col> </nz-col>
+    </nz-row>
+  </nz-header>
+
+  <nz-content style="padding: 8px; overflow: hidden auto">
+    <ng-content></ng-content>
+  </nz-content>
+</nz-layout>
