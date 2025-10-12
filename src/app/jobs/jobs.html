@@ -31,5 +31,54 @@
 </ng-template>
 
 <app-layout>
-  <app-box [appLeft]="left" [appRight]="right"> </app-box>
+  <app-box #box [appLeft]="left" [appRight]="right">
+    <nz-table
+      #tb
+      [style.height.%]="100"
+      [nzLoading]="m.loading()"
+      [nzData]="m.data()"
+      [nzTotal]="m.total"
+      [nzShowTotal]="box.totalRef"
+      [nzFrontPagination]="false"
+      [nzShowPagination]="true"
+      [nzShowSizeChanger]="true"
+      [nzPageSizeOptions]="[10, 20, 50]"
+      [(nzPageIndex)]="m.page"
+      [(nzPageSize)]="m.pagesize"
+      (nzPageIndexChange)="getData()"
+      (nzPageSizeChange)="getData()"
+      [nzScroll]="box.scroll()"
+    >
+      <thead>
+        <tr>
+          <th
+            nzLeft
+            nzAlign="center"
+            nzWidth="50px"
+            [nzChecked]="m.checked"
+            [nzIndeterminate]="m.indeterminate"
+            (nzCheckedChange)="m.setCurrentSelections($event)"
+          ></th>
+          <th nzWidth="360px">
+            <b>NAME</b>
+          </th>
+          <th nzWidth="240px">
+            <b>TIME PATTERN</b>
+          </th>
+          <th>
+            <b>URL</b>
+          </th>
+          <th nzWidth="240px">
+            <b>RUNS IN</b>
+          </th>
+          <th nzRight nzAlign="center" nzWidth="50px">
+            <button nz-button nzType="text">
+              <nz-icon nzType="setting" />
+            </button>
+          </th>
+        </tr>
+      </thead>
+      <tbody> </tbody>
+    </nz-table>
+  </app-box>
 </app-layout>

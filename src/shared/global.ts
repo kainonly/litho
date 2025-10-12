@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 
 import { StorageMap } from '@ngx-pwa/local-storage';
 import { Api } from '@shared/apis';
-import { Basic, R, SearchOption } from '@shared/models';
+import { Any, Basic, R, SearchOption } from '@shared/models';
 
 import { Model } from './utils/model';
 
@@ -19,8 +19,8 @@ export class Global {
     return new Model<T, S>(storageKey, this.storage, api, search);
   }
 
-  login(code: string, password: string): Observable<R> {
-    return this.http.post('login', { code, password });
+  login(dto: Any): Observable<R> {
+    return this.http.post('login', dto);
   }
 
   verify(): Observable<HttpResponse<R>> {

@@ -39,8 +39,8 @@
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "500kB",
-                  "maximumError": "1MB"
+                  "maximumWarning": "10mb",
+                  "maximumError": "15mb"
                 },
                 {
                   "type": "anyComponentStyle",
@@ -51,25 +51,36 @@
               "outputHashing": "all",
               "serviceWorker": "ngsw-config.json"
             },
-            "development": {
+            "kain": {
               "optimization": false,
               "extractLicenses": false,
-              "sourceMap": true
+              "sourceMap": true,
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.kain.ts"
+                }
+              ]
             }
           },
           "defaultConfiguration": "production"
         },
         "serve": {
           "builder": "@angular/build:dev-server",
+          "options": {
+            "hmr": true,
+            "host": "0.0.0.0",
+            "allowedHosts": ["lsys.kainonly.com"]
+          },
           "configurations": {
             "production": {
               "buildTarget": "litho:build:production"
             },
-            "development": {
-              "buildTarget": "litho:build:development"
+            "kain": {
+              "buildTarget": "litho:build:kain"
             }
           },
-          "defaultConfiguration": "development"
+          "defaultConfiguration": "kain"
         },
         "extract-i18n": {
           "builder": "@angular/build:extract-i18n"

@@ -31,12 +31,12 @@ export class Login {
   submit(data: Any): void {
     this.loading = true;
     this.global
-      .login(data.username, data.password)
+      .login(data)
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe({
         next: () => {
           this.loading = false;
-          this.router.navigateByUrl('/index');
+          this.router.navigateByUrl('/jobs');
         },
         error: e => {
           this.loading = false;

@@ -5,6 +5,7 @@ import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { catchError, Observable, throwError } from 'rxjs';
 
+import { environment } from '@env';
 import { EXTERNAL } from '@shared';
 
 export function appInterceptor(req: HttpRequest<unknown>, next: HttpHandlerFn): Observable<HttpEvent<unknown>> {
@@ -19,7 +20,8 @@ export function appInterceptor(req: HttpRequest<unknown>, next: HttpHandlerFn): 
     req.clone({
       ...req,
       ...{
-        url: `apis/${req.url}`
+        url: `${environment.baseUrl}/${req.url}`,
+        withCredentials: true
       }
     })
   ).pipe(
