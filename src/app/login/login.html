@@ -16,18 +16,12 @@
           <nz-form-label>Password</nz-form-label>
           <nz-form-control>
             <nz-input-group nzPrefixIcon="lock" [nzSuffix]="suffixTemplate">
-              <input
-                [type]="passwordVisible ? 'text' : 'password'"
-                nz-input
-                formControlName="password"
-                autocomplete="new-password"
-              />
+              <input [type]="passwordVisible ? 'text' : 'password'" nz-input formControlName="password"
+                autocomplete="new-password" />
             </nz-input-group>
             <ng-template #suffixTemplate>
-              <nz-icon
-                [nzType]="passwordVisible ? 'eye-invisible' : 'eye'"
-                (click)="passwordVisible = !passwordVisible"
-              ></nz-icon>
+              <nz-icon [nzType]="passwordVisible ? 'eye-invisible' : 'eye'"
+                (click)="passwordVisible = !passwordVisible"></nz-icon>
             </ng-template>
           </nz-form-control>
         </nz-form-item>
