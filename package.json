@@ -23,7 +23,7 @@
   },
   "devDependencies": {
     "@angular/build": "^20.3.3",
-    "@angular/cli": "^20.3.3",
+    "@angular/cli": "^20.3.13",
     "@angular/compiler-cli": "^20.3.0",
     "@types/resize-observer-browser": "^0.1.11",
     "angular-eslint": "20.3.0",
