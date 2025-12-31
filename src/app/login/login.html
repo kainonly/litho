@@ -1,60 +1,118 @@
-<div class="login-bg-container">
-  <div class="bg-shape shape-1"></div>
-  <div class="bg-shape shape-2"></div>
-  <div class="bg-shape shape-3"></div>
+<!-- 背景层 -->
+<div class="login-bg">
+  <div class="bg-gradient"></div>
+  <div class="bg-pattern"></div>
 </div>
-<div class="login-wrapper">
-  <div class="login-card">
-    <div class="login-header">
-      <h1 class="login-title">登录</h1>
-      <p class="login-subtitle">使用您的帐户登录</p>
-    </div>
 
-    <form nz-form nzLayout="vertical" [formGroup]="form" (appSubmit)="submit($event)" class="login-form">
-      <nz-form-item>
-        <nz-form-label>电子邮箱</nz-form-label>
-        <nz-form-control [nzErrorTip]="'请输入有效的电子邮箱地址'">
-          <input type="email" nz-input formControlName="email" placeholder="请输入电子邮箱" autocomplete="email" />
-        </nz-form-control>
-      </nz-form-item>
-
-      <nz-form-item>
-        <nz-form-label>密码</nz-form-label>
-        <nz-form-control [nzErrorTip]="'请输入您的密码'">
-          <nz-input-password>
-            <input nz-input formControlName="password" placeholder="请输入密码" autocomplete="current-password" />
-          </nz-input-password>
-        </nz-form-control>
-      </nz-form-item>
-
-      <nz-form-item>
-        <nz-form-control>
-          <div class="form-actions">
-            <a href="#">忘记了密码?</a>
-          </div>
-        </nz-form-control>
-      </nz-form-item>
-
-      <nz-form-item>
-        <nz-form-control>
-          <button nz-button nzType="primary" nzBlock [nzLoading]="loading" [disabled]="!form.valid"> 登录 </button>
-        </nz-form-control>
-      </nz-form-item>
-    </form>
-
-    <div class="login-footer">
-      <div class="sso-container">
-        <span class="sso-label">其他方式登录</span>
-        <div class="sso-icons">
-          <span nz-icon nzType="send" nzTheme="outline" (click)="ssoLogin('feishu')" nz-tooltip nzTooltipTitle="飞书"></span>
-          <span nz-icon nzType="wechat" nzTheme="outline" (click)="ssoLogin('wecom')" nz-tooltip nzTooltipTitle="企业微信"></span>
-          <span nz-icon nzType="dingtalk" nzTheme="outline" (click)="ssoLogin('dingtalk')" nz-tooltip nzTooltipTitle="钉钉"></span>
+<!-- 主容器 -->
+<div class="login-container">
+  <!-- 左侧品牌区域 -->
+  <div class="login-brand">
+    <div class="brand-content">
+      <div class="brand-logo">
+        <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="48" height="48" fill="white" fill-opacity="0.15"/>
+          <path d="M12 12H22V22H12V12Z" fill="white"/>
+          <path d="M26 12H36V22H26V12Z" fill="white" fill-opacity="0.6"/>
+          <path d="M12 26H22V36H12V26Z" fill="white" fill-opacity="0.6"/>
+          <path d="M26 26H36V36H26V26Z" fill="white" fill-opacity="0.3"/>
+        </svg>
+      </div>
+      <h1 class="brand-title">Litho</h1>
+      <p class="brand-tagline">企业级管理平台</p>
+      <div class="brand-features">
+        <div class="feature-item">
+          <span nz-icon nzType="safety" nzTheme="outline"></span>
+          <span>安全可靠</span>
+        </div>
+        <div class="feature-item">
+          <span nz-icon nzType="thunderbolt" nzTheme="outline"></span>
+          <span>高效便捷</span>
+        </div>
+        <div class="feature-item">
+          <span nz-icon nzType="cloud" nzTheme="outline"></span>
+          <span>云端协同</span>
         </div>
       </div>
     </div>
   </div>
 
-  <div class="login-copyright">
-    <span>Copyright <span nz-icon nzType="copyright"></span> 2026 Litho System. Designed by Kain.</span>
+  <!-- 右侧登录表单区域 -->
+  <div class="login-form-section">
+    <div class="login-card">
+      <!-- 表单头部 -->
+      <div class="login-header">
+        <h2 class="login-title">欢迎回来</h2>
+        <p class="login-subtitle">请登录您的账户以继续</p>
+      </div>
+
+      <!-- 登录表单 -->
+      <form nz-form nzLayout="vertical" [formGroup]="form" (appSubmit)="submit($event)" class="login-form">
+        <!-- 邮箱 -->
+        <nz-form-item>
+          <nz-form-label nzRequired>邮箱地址</nz-form-label>
+          <nz-form-control nzErrorTip="请输入有效的电子邮箱地址">
+            <nz-input-group nzPrefixIcon="mail">
+              <input type="email" nz-input formControlName="email" placeholder="name@company.com" autocomplete="email" />
+            </nz-input-group>
+          </nz-form-control>
+        </nz-form-item>
+
+        <!-- 密码 -->
+        <nz-form-item>
+          <nz-form-label nzRequired>密码</nz-form-label>
+          <nz-form-control nzErrorTip="请输入您的密码">
+            <nz-input-group nzPrefixIcon="lock">
+              <input type="password" nz-input formControlName="password" placeholder="请输入密码" autocomplete="current-password" />
+            </nz-input-group>
+          </nz-form-control>
+        </nz-form-item>
+
+        <!-- 记住我 和 忘记密码 -->
+        <nz-form-item class="options-item">
+          <nz-form-control>
+            <div class="login-options">
+              <label nz-checkbox formControlName="remember">记住我</label>
+              <a class="forgot-link">忘记密码?</a>
+            </div>
+          </nz-form-control>
+        </nz-form-item>
+
+        <!-- 登录按钮 -->
+        <nz-form-item class="submit-item">
+          <nz-form-control>
+            <button nz-button nzType="primary" nzBlock [nzLoading]="loading" [disabled]="!form.valid">
+              登录
+            </button>
+          </nz-form-control>
+        </nz-form-item>
+      </form>
+
+      <!-- SSO 登录 -->
+      <div class="login-sso">
+        <nz-divider nzText="其他登录方式"></nz-divider>
+        <div class="sso-buttons">
+          <button nz-button nzType="default" class="sso-btn" nz-tooltip nzTooltipTitle="通行密钥" (click)="ssoLogin('passkey')">
+            <span nz-icon nzType="key" nzTheme="outline"></span>
+          </button>
+          <button nz-button nzType="default" class="sso-btn" nz-tooltip nzTooltipTitle="飞书" (click)="ssoLogin('feishu')">
+            <img src="sso/lark.svg" alt="飞书" />
+          </button>
+          <!--
+          <button nz-button nzType="default" class="sso-btn" nz-tooltip nzTooltipTitle="企业微信" (click)="ssoLogin('wecom')">
+            <img src="sso/weixin-work.svg" alt="企业微信" />
+          </button>
+          <button nz-button nzType="default" class="sso-btn" nz-tooltip nzTooltipTitle="钉钉" (click)="ssoLogin('dingtalk')">
+            <img src="sso/dingtalk.svg" alt="钉钉" />
+          </button>
+          -->
+        </div>
+      </div>
+    </div>
+
+    <!-- 版权信息 -->
+    <div class="login-copyright">
+      © 2026 Litho System. All rights reserved.
+    </div>
   </div>
 </div>

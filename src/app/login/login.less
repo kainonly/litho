@@ -1,185 +1,282 @@
-// 登录页面背景动效 - 电商风格
-.login-bg-container {
+// 登录页面样式
+
+// 背景层
+.login-bg {
   position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  z-index: -1;
-  background: linear-gradient(120deg, #e0c3fc 0%, #8ec5fc 100%); // 清新活力的电商渐变
-  background-size: 200% 200%;
-  animation: bgGradient 15s ease infinite;
-  overflow: hidden;
+  inset: 0;
+  z-index: 0;
 
-  // 漂浮的装饰形状
-  .bg-shape {
+  .bg-gradient {
     position: absolute;
-    border-radius: 50%;
-    filter: blur(50px);
-    opacity: 0.6;
-    animation: float 20s infinite linear;
+    inset: 0;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+  }
 
-    &.shape-1 {
-      width: 400px;
-      height: 400px;
-      background: #a981ff;
-      top: -100px;
-      left: -100px;
-      animation-delay: 0s;
-    }
-
-    &.shape-2 {
-      width: 300px;
-      height: 300px;
-      background: #ff9a9e;
-      bottom: -50px;
-      right: -50px;
-      animation-delay: -5s;
-    }
-
-    &.shape-3 {
-      width: 200px;
-      height: 200px;
-      background: #84fab0;
-      top: 40%;
-      left: 60%;
-      animation-delay: -10s;
-    }
+  .bg-pattern {
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    opacity: 0.8;
   }
 }
 
-@keyframes bgGradient {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
-}
-
-@keyframes float {
-  0% {
-    transform: translate(0, 0) rotate(0deg);
-  }
-  33% {
-    transform: translate(30px, -50px) rotate(120deg);
-  }
-  66% {
-    transform: translate(-20px, 20px) rotate(240deg);
-  }
-  100% {
-    transform: translate(0, 0) rotate(360deg);
-  }
-}
-
-// 登录页面布局样式
-.login-wrapper {
-  width: 100%;
-  max-width: 440px;
-  margin: 0 auto;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  min-height: 100%;
-  padding: 16px;
-  position: relative; // 确保在背景之上
+// 主容器
+.login-container {
+  position: relative;
   z-index: 1;
-}
-
-.login-card {
-  background: #fff;
-  padding: 48px;
-  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08); // 更柔和的阴影提升质感
-  width: 100%;
-}
-
-.login-header {
-  text-align: left; // 左对齐更具现代感
-  margin-bottom: 40px;
-}
-
-.login-title {
-  font-size: 24px;
-  font-weight: 600;
-  margin: 0 0 12px 0;
-  color: rgba(0, 0, 0, 0.85);
-}
-
-.login-subtitle {
-  font-size: 14px;
-  margin: 0;
-  color: rgba(0, 0, 0, 0.45);
-}
-
-.login-form {
-  margin-bottom: 24px;
-
-  // 增加表单项间距
-  ::ng-deep .ant-form-item {
-    margin-bottom: 24px;
-  }
-}
-
-.form-actions {
   display: flex;
-  justify-content: flex-end;
-  margin-bottom: 0;
+  min-height: 100vh;
 }
 
-.login-footer {
-  padding-top: 24px;
-  border-top: 1px solid rgba(0, 0, 0, 0.06);
+// 左侧品牌区域
+.login-brand {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 60px;
+  color: #fff;
 
-  .sso-container {
+  .brand-content {
+    max-width: 400px;
+    text-align: center;
+  }
+
+  .brand-logo {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto 32px;
     display: flex;
-    justify-content: flex-end; // 靠右对齐
     align-items: center;
-    gap: 12px;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+  }
 
-    .sso-label {
-      font-size: 13px;
-      color: rgba(0, 0, 0, 0.45);
-    }
+  .brand-title {
+    font-size: 48px;
+    font-weight: 700;
+    margin: 0 0 12px;
+    letter-spacing: -1px;
+  }
 
-    .sso-icons {
+  .brand-tagline {
+    font-size: 18px;
+    opacity: 0.9;
+    margin: 0 0 48px;
+    font-weight: 300;
+  }
+
+  .brand-features {
+    display: flex;
+    justify-content: center;
+    gap: 32px;
+
+    .feature-item {
       display: flex;
-      gap: 16px;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      font-size: 14px;
+      opacity: 0.85;
 
-      [nz-icon] {
-        font-size: 20px;
-        color: rgba(0, 0, 0, 0.45);
-        cursor: pointer;
-        transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
-
-        &:hover {
-          color: #1890ff; // 悬停时变为主题蓝
-          transform: translateY(-2px); // 悬停微动效
-        }
+      span[nz-icon] {
+        font-size: 24px;
+        opacity: 0.9;
       }
     }
   }
 }
 
+// 右侧表单区域
+.login-form-section {
+  width: 480px;
+  min-width: 480px;
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 60px;
+}
+
+// 登录卡片
+.login-card {
+  width: 100%;
+  max-width: 360px;
+  margin: 0 auto;
+}
+
+// 表单头部
+.login-header {
+  margin-bottom: 40px;
+
+  .login-title {
+    font-size: 28px;
+    font-weight: 600;
+    margin: 0 0 8px;
+    color: #1a1a1a;
+  }
+
+  .login-subtitle {
+    font-size: 15px;
+    color: #8c8c8c;
+    margin: 0;
+  }
+}
+
+// 登录表单
+.login-form {
+  .options-item {
+    margin-bottom: 8px;
+  }
+
+  .login-options {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .forgot-link {
+      font-size: 14px;
+      color: #1890ff;
+      cursor: pointer;
+
+      &:hover {
+        color: #40a9ff;
+      }
+    }
+  }
+
+  .submit-item {
+    margin-top: 24px;
+    margin-bottom: 0;
+  }
+}
+
+// SSO 登录区域
+.login-sso {
+  margin-top: 32px;
+
+  .sso-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+
+    .sso-btn {
+      width: 48px;
+      height: 48px;
+      padding: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      img {
+        width: 24px;
+        height: 24px;
+        object-fit: contain;
+      }
+
+      span[nz-icon] {
+        font-size: 20px;
+      }
+    }
+  }
+}
+
+// 版权信息
 .login-copyright {
-  margin-top: 40px;
+  margin-top: auto;
+  padding-top: 40px;
   text-align: center;
-  font-size: 12px;
-  color: rgba(0, 0, 0, 0.45);
-  padding: 0;
+  font-size: 13px;
+  color: #bfbfbf;
 }
 
 // 响应式设计
-@media (max-width: 576px) {
+@media (max-width: 960px) {
+  .login-container {
+    flex-direction: column;
+  }
+
+  .login-brand {
+    padding: 40px 20px;
+    flex: none;
+
+    .brand-content {
+      max-width: 100%;
+    }
+
+    .brand-title {
+      font-size: 36px;
+    }
+
+    .brand-tagline {
+      margin-bottom: 32px;
+    }
+
+    .brand-features {
+      gap: 24px;
+    }
+  }
+
+  .login-form-section {
+    width: 100%;
+    min-width: auto;
+    padding: 40px 24px;
+    flex: 1;
+  }
+
   .login-card {
-    padding: 32px 24px;
-    box-shadow: none;
-    border: 1px solid rgba(0, 0, 0, 0.06);
+    max-width: 400px;
+  }
+}
+
+@media (max-width: 480px) {
+  .login-brand {
+    padding: 32px 20px;
+
+    .brand-logo {
+      width: 64px;
+      height: 64px;
+      margin-bottom: 20px;
+
+      svg {
+        width: 36px;
+        height: 36px;
+      }
+    }
+
+    .brand-title {
+      font-size: 28px;
+    }
+
+    .brand-tagline {
+      font-size: 16px;
+      margin-bottom: 24px;
+    }
+
+    .brand-features {
+      gap: 16px;
+
+      .feature-item {
+        font-size: 12px;
+
+        span[nz-icon] {
+          font-size: 20px;
+        }
+      }
+    }
+  }
+
+  .login-form-section {
+    padding: 32px 20px;
   }
 
   .login-header {
-    text-align: center;
+    margin-bottom: 32px;
+
+    .login-title {
+      font-size: 24px;
+    }
   }
 }
+
