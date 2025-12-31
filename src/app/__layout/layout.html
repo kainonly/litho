@@ -1,86 +1,80 @@
 <nz-layout [style.height.%]="100">
   <nz-header>
-    <nz-row nzJustify="space-between" nzAlign="middle">
-      <nz-col>
-        <ul class="navigation" nz-menu nzMode="horizontal">
-          <li nz-menu-item nzMatchRouter>
-            <a [routerLink]="['/dashboard']">
-              <nz-icon nzType="dashboard"></nz-icon>
-              工作台
-            </a>
-          </li>
-          <li nz-menu-item nzMatchRouter>
-            <a [routerLink]="['/products']">
-              <nz-icon nzType="shopping"></nz-icon>
-              商品
-            </a>
-          </li>
-          <li nz-menu-item nzMatchRouter>
-            <a [routerLink]="['/orders']">
-              <nz-icon nzType="file-text"></nz-icon>
-              订单
-            </a>
-          </li>
-          <li nz-menu-item nzMatchRouter>
-            <a [routerLink]="['/customers']">
-              <nz-icon nzType="team"></nz-icon>
-              客户
-            </a>
-          </li>
-          <li nz-menu-item nzMatchRouter>
-            <a [routerLink]="['/analytics']">
-              <nz-icon nzType="bar-chart"></nz-icon>
-              数据
-            </a>
-          </li>
-          <li nz-menu-item nzMatchRouter>
-            <a [routerLink]="['/settings']">
-              <nz-icon nzType="setting"></nz-icon>
-              系统
-            </a>
-          </li>
-        </ul>
-      </nz-col>
-      <nz-col> </nz-col>
-      <nz-col>
-        <div class="header-right">
-          <!-- 消息通知 -->
-          <button nz-button nzType="text" nz-tooltip nzTooltipTitle="消息通知" class="header-btn">
-            <nz-badge [nzCount]="5" nzSize="small">
-              <span nz-icon nzType="bell" nzTheme="outline"></span>
-            </nz-badge>
-          </button>
+    <div class="header-container">
+      <ul class="navigation" nz-menu nzMode="horizontal">
+        <li nz-menu-item nzMatchRouter>
+          <a [routerLink]="['/dashboard']">
+            <nz-icon nzType="dashboard"></nz-icon>
+            工作台
+          </a>
+        </li>
+        <li nz-menu-item nzMatchRouter>
+          <a [routerLink]="['/products']">
+            <nz-icon nzType="shopping"></nz-icon>
+            商品
+          </a>
+        </li>
+        <li nz-menu-item nzMatchRouter>
+          <a [routerLink]="['/orders']">
+            <nz-icon nzType="file-text"></nz-icon>
+            订单
+          </a>
+        </li>
+        <li nz-menu-item nzMatchRouter>
+          <a [routerLink]="['/customers']">
+            <nz-icon nzType="team"></nz-icon>
+            客户
+          </a>
+        </li>
+        <li nz-menu-item nzMatchRouter>
+          <a [routerLink]="['/analytics']">
+            <nz-icon nzType="bar-chart"></nz-icon>
+            数据
+          </a>
+        </li>
+        <li nz-menu-item nzMatchRouter>
+          <a [routerLink]="['/settings']">
+            <nz-icon nzType="setting"></nz-icon>
+            系统
+          </a>
+        </li>
+      </ul>
 
-          <!-- 用户头像和用户名 -->
-          <nz-dropdown-menu #userMenu="nzDropdownMenu">
-            <ul nz-menu>
-              <li nz-menu-item>
-                <span nz-icon nzType="user" nzTheme="outline"></span>
-                个人中心
-              </li>
-              <li nz-menu-item>
-                <span nz-icon nzType="setting" nzTheme="outline"></span>
-                账户设置
-              </li>
-              <li nz-menu-divider></li>
-              <li nz-menu-item nzDanger>
-                <span nz-icon nzType="logout" nzTheme="outline"></span>
-                退出登录
-              </li>
-            </ul>
-          </nz-dropdown-menu>
-          <div class="user-info" nz-dropdown [nzDropdownMenu]="userMenu" nzTrigger="click">
-            <nz-avatar nzSize="small">
+      <div class="header-right">
+        <!-- 消息通知 -->
+        <button nz-button nzType="text" nz-tooltip nzTooltipTitle="消息通知" class="header-btn">
+          <nz-badge [nzCount]="5" nzSize="small">
+            <span nz-icon nzType="bell" nzTheme="outline"></span>
+          </nz-badge>
+        </button>
+
+        <!-- 用户头像和用户名 -->
+        <nz-dropdown-menu #userMenu="nzDropdownMenu">
+          <ul nz-menu>
+            <li nz-menu-item>
               <span nz-icon nzType="user" nzTheme="outline"></span>
-            </nz-avatar>
-            <span class="username">用户</span>
-            <span nz-icon nzType="down" nzTheme="outline"></span>
-          </div>
+              个人中心
+            </li>
+            <li nz-menu-item>
+              <span nz-icon nzType="setting" nzTheme="outline"></span>
+              账户设置
+            </li>
+            <li nz-menu-divider></li>
+            <li nz-menu-item nzDanger>
+              <span nz-icon nzType="logout" nzTheme="outline"></span>
+              退出登录
+            </li>
+          </ul>
+        </nz-dropdown-menu>
+        <div class="user-info" nz-dropdown [nzDropdownMenu]="userMenu" nzTrigger="click">
+          <nz-avatar nzSize="small">
+            <span nz-icon nzType="user" nzTheme="outline"></span>
+          </nz-avatar>
+          <span class="username">用户</span>
+          <span nz-icon nzType="down" nzTheme="outline"></span>
         </div>
-
-
-      </nz-col>
-    </nz-row>
+      </div>
+    </div>
   </nz-header>
 
   <nz-content style="padding: 8px; overflow: hidden auto">

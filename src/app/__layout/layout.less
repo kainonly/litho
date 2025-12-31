@@ -1,17 +1,23 @@
-@header-space-width: 500px;
 @header-height: 64px;
 
 nz-header {
   height: @header-height;
-  line-height: @header-height;
   padding: 0 16px;
   background: #fff;
   border-bottom: 1px solid #f0f0f0;
+
+  .header-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 100%;
+  }
 }
 
 .navigation {
   border: none;
-  margin-top: -2px;
+  line-height: @header-height;
+  height: @header-height;
 
   li {
     font-weight: 500;
@@ -28,21 +34,30 @@ nz-header {
 .header-right {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 4px;
+  height: 100%;
 
   .header-btn {
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 4px 8px;
+    height: 100%;
+    padding: 0 12px;
+    border-radius: 0;
+
+    &:hover {
+      background-color: rgba(0, 0, 0, 0.02);
+    }
   }
 
   .user-info {
     display: flex;
     align-items: center;
     gap: 8px;
+    height: 100%;
+    padding: 0 12px;
     cursor: pointer;
-    padding: 4px 8px;
+    transition: background-color 0.2s;
 
     &:hover {
       background-color: rgba(0, 0, 0, 0.02);
