@@ -1,11 +1,30 @@
 // 登录页面样式
 
-// Canvas 粒子背景
-.particles-canvas {
+// 简洁渐变背景
+.login-bg {
   position: fixed;
   inset: 0;
   z-index: 0;
-  background: #ffffff;
+
+  // 柔和的灰白渐变
+  background: linear-gradient(
+    135deg,
+    #fafafa 0%,
+    #f0f0f0 25%,
+    #f5f5f5 50%,
+    #ebebeb 75%,
+    #f8f8f8 100%
+  );
+
+  // 添加微妙的光影效果
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse at 20% 10%, rgba(255, 255, 255, 0.6) 0%, transparent 40%),
+      radial-gradient(ellipse at 80% 90%, rgba(0, 0, 0, 0.02) 0%, transparent 40%);
+  }
 }
 
 // 主容器
@@ -206,6 +225,13 @@
       display: flex;
       align-items: center;
       justify-content: center;
+      background-color: #fff;
+      // border-color: #d9d9d9;
+
+      &:hover {
+        background-color: #fff;
+        border-color: #1890ff;
+      }
 
       img {
         width: 24px;
