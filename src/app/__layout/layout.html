@@ -42,22 +42,26 @@
 
       <div class="header-right">
         <!-- 消息通知 -->
-        <button nz-button nzType="text" nz-tooltip nzTooltipTitle="消息通知" class="header-btn">
+        <a [routerLink]="['/notifications']" class="header-btn" nz-button nzType="text" nz-tooltip nzTooltipTitle="消息通知">
           <nz-badge [nzCount]="5" nzSize="small">
             <span nz-icon nzType="bell" nzTheme="outline"></span>
           </nz-badge>
-        </button>
+        </a>
 
         <!-- 用户头像和用户名 -->
         <nz-dropdown-menu #userMenu="nzDropdownMenu">
           <ul nz-menu>
-            <li nz-menu-item>
-              <span nz-icon nzType="user" nzTheme="outline"></span>
-              个人中心
+            <li nz-menu-item nzMatchRouter>
+              <a [routerLink]="['/profile']">
+                <span nz-icon nzType="user" nzTheme="outline"></span>
+                个人中心
+              </a>
             </li>
-            <li nz-menu-item>
-              <span nz-icon nzType="setting" nzTheme="outline"></span>
-              账户设置
+            <li nz-menu-item nzMatchRouter>
+              <a [routerLink]="['/account']">
+                <span nz-icon nzType="setting" nzTheme="outline"></span>
+                账户设置
+              </a>
             </li>
             <li nz-menu-divider></li>
             <li nz-menu-item nzDanger>

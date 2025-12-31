@@ -1,0 +1,14 @@
+import { Component } from '@angular/core';
+
+import { SharedModule } from '@shared';
+
+import { Layout } from '../__layout/layout';
+
+@Component({
+  standalone: true,
+  imports: [SharedModule, Layout],
+  selector: 'app-account',
+  templateUrl: './account.html'
+})
+export class Account {}
+
