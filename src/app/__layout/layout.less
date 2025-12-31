@@ -4,7 +4,7 @@
 nz-header {
   height: @header-height;
   line-height: @header-height;
-  padding: 0;
+  padding: 0 16px;
   background: #fff;
   border-bottom: 1px solid #f0f0f0;
 }
@@ -12,8 +12,44 @@ nz-header {
 .navigation {
   border: none;
   margin-top: -2px;
+
   li {
     font-weight: 500;
-    font-size: 15px;
+    font-size: 14px;
+
+    a {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+  }
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  .header-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 4px 8px;
+  }
+
+  .user-info {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    padding: 4px 8px;
+
+    &:hover {
+      background-color: rgba(0, 0, 0, 0.02);
+    }
+
+    .username {
+      font-size: 14px;
+    }
   }
 }
