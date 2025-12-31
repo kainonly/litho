@@ -3,8 +3,41 @@
     <nz-row nzJustify="space-between" nzAlign="middle">
       <nz-col>
         <ul class="navigation" nz-menu nzMode="horizontal">
-          <li nz-menu-item nzSelected>
-            <a [routerLink]="['/jobs']"> Cron Jobs </a>
+          <li nz-menu-item>
+            <a [routerLink]="['/jobs']">
+              <nz-icon nzType="dashboard"></nz-icon>
+              工作台
+            </a>
+          </li>
+          <li nz-menu-item>
+            <a [routerLink]="['/jobs']">
+              <nz-icon nzType="shopping"></nz-icon>
+              商品
+            </a>
+          </li>
+          <li nz-menu-item>
+            <a [routerLink]="['/jobs']">
+              <nz-icon nzType="file-text"></nz-icon>
+              订单
+            </a>
+          </li>
+          <li nz-menu-item>
+            <a [routerLink]="['/jobs']">
+              <nz-icon nzType="team"></nz-icon>
+              客户
+            </a>
+          </li>
+          <li nz-menu-item>
+            <a [routerLink]="['/jobs']">
+              <nz-icon nzType="bar-chart"></nz-icon>
+              数据
+            </a>
+          </li>
+          <li nz-menu-item>
+            <a [routerLink]="['/jobs']">
+              <nz-icon nzType="setting"></nz-icon>
+              系统
+            </a>
           </li>
         </ul>
       </nz-col>

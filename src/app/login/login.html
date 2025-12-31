@@ -162,11 +162,10 @@
       <div class="login-sso">
         <nz-divider nzText="其他登录方式"></nz-divider>
         <div class="sso-buttons">
-          <button nz-button nzType="default" class="sso-btn" nz-tooltip nzTooltipTitle="通行密钥"
-            (click)="ssoLogin('passkey')">
+          <button nz-button nzType="text" class="sso-btn" nz-tooltip nzTooltipTitle="通行密钥" (click)="ssoLogin('passkey')">
             <span nz-icon nzType="key" nzTheme="outline"></span>
           </button>
-          <button nz-button nzType="default" class="sso-btn" nz-tooltip nzTooltipTitle="飞书"
+          <button nz-button nzType="text" class="sso-btn" nz-tooltip nzTooltipTitle="飞书"
             (click)="ssoLogin('feishu')">
             <img src="sso/lark.svg" alt="飞书" />
           </button>
