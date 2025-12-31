@@ -1,36 +1,60 @@
-<app-single-content>
-  <nz-row style="min-height: 85%" nzJustify="center" nzAlign="middle">
-    <div style="min-width: 360px">
-      <h1 style="font-size: 32px">Log In</h1>
-
-      <form nz-form nzLayout="vertical" [formGroup]="form" (appSubmit)="submit($event)">
-        <nz-form-item>
-          <nz-form-label>Email</nz-form-label>
-          <nz-form-control>
-            <nz-input-group nzPrefixIcon="user">
-              <input type="email" nz-input formControlName="email" />
-            </nz-input-group>
-          </nz-form-control>
-        </nz-form-item>
-        <nz-form-item>
-          <nz-form-label>Password</nz-form-label>
-          <nz-form-control>
-            <nz-input-group nzPrefixIcon="lock" [nzSuffix]="suffixTemplate">
-              <input [type]="passwordVisible ? 'text' : 'password'" nz-input formControlName="password"
-                autocomplete="new-password" />
-            </nz-input-group>
-            <ng-template #suffixTemplate>
-              <nz-icon [nzType]="passwordVisible ? 'eye-invisible' : 'eye'"
-                (click)="passwordVisible = !passwordVisible"></nz-icon>
-            </ng-template>
-          </nz-form-control>
-        </nz-form-item>
-        <nz-form-item>
-          <nz-form-control>
-            <button nz-button nzBlock nzType="primary" [nzLoading]="loading" [disabled]="!form.valid"> Sign In </button>
-          </nz-form-control>
-        </nz-form-item>
-      </form>
+<div class="login-bg-container">
+  <div class="bg-shape shape-1"></div>
+  <div class="bg-shape shape-2"></div>
+  <div class="bg-shape shape-3"></div>
+</div>
+<div class="login-wrapper">
+  <div class="login-card">
+    <div class="login-header">
+      <h1 class="login-title">登录</h1>
+      <p class="login-subtitle">使用您的帐户登录</p>
     </div>
-  </nz-row>
-</app-single-content>
+
+    <form nz-form nzLayout="vertical" [formGroup]="form" (appSubmit)="submit($event)" class="login-form">
+      <nz-form-item>
+        <nz-form-label>电子邮箱</nz-form-label>
+        <nz-form-control [nzErrorTip]="'请输入有效的电子邮箱地址'">
+          <input type="email" nz-input formControlName="email" placeholder="请输入电子邮箱" autocomplete="email" />
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item>
+        <nz-form-label>密码</nz-form-label>
+        <nz-form-control [nzErrorTip]="'请输入您的密码'">
+          <nz-input-password>
+            <input nz-input formControlName="password" placeholder="请输入密码" autocomplete="current-password" />
+          </nz-input-password>
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item>
+        <nz-form-control>
+          <div class="form-actions">
+            <a href="#">忘记了密码?</a>
+          </div>
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item>
+        <nz-form-control>
+          <button nz-button nzType="primary" nzBlock [nzLoading]="loading" [disabled]="!form.valid"> 登录 </button>
+        </nz-form-control>
+      </nz-form-item>
+    </form>
+
+    <div class="login-footer">
+      <div class="sso-container">
+        <span class="sso-label">其他方式登录</span>
+        <div class="sso-icons">
+          <span nz-icon nzType="send" nzTheme="outline" (click)="ssoLogin('feishu')" nz-tooltip nzTooltipTitle="飞书"></span>
+          <span nz-icon nzType="wechat" nzTheme="outline" (click)="ssoLogin('wecom')" nz-tooltip nzTooltipTitle="企业微信"></span>
+          <span nz-icon nzType="dingtalk" nzTheme="outline" (click)="ssoLogin('dingtalk')" nz-tooltip nzTooltipTitle="钉钉"></span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="login-copyright">
+    <span>Copyright <span nz-icon nzType="copyright"></span> 2026 Litho System. Designed by Kain.</span>
+  </div>
+</div>

@@ -1,21 +1,17 @@
 <ng-template #left>
   <nz-space nzAlign="center">
-    <app-keyword
-      *nzSpaceItem
-      [appModel]="m"
-      (appOnSearch)="getData(true)"
-      appPlaceholder="Search ID, URL, name"
-    ></app-keyword>
+    <app-keyword *nzSpaceItem [appModel]="m" (appOnSearch)="getData(true)"
+      appPlaceholder="Search ID, URL, name"></app-keyword>
     <app-toolbox *nzSpaceItem [appModel]="m" (appRefresh)="getData(true)" (appClear)="getData(true)"></app-toolbox>
   </nz-space>
 </ng-template>
 <ng-template #right>
   <nz-space nzAlign="center">
     @if (m.selection.size !== 0) {
-      <a nz-dropdown *nzSpaceItem [nzDropdownMenu]="bulkAction">
-        Selected {{ m.selection.size }} items
-        <span nz-icon nzType="down"></span>
-      </a>
+    <a nz-dropdown *nzSpaceItem [nzDropdownMenu]="bulkAction">
+      Selected {{ m.selection.size }} items
+      <span nz-icon nzType="down"></span>
+    </a>
     }
 
     <nz-dropdown-menu #bulkAction>
@@ -32,33 +28,14 @@
 
 <app-layout>
   <app-box #box [appLeft]="left" [appRight]="right">
-    <nz-table
-      #tb
-      [style.height.%]="100"
-      [nzLoading]="m.loading()"
-      [nzData]="m.data()"
-      [nzTotal]="m.total"
-      [nzShowTotal]="box.totalRef"
-      [nzFrontPagination]="false"
-      [nzShowPagination]="true"
-      [nzShowSizeChanger]="true"
-      [nzPageSizeOptions]="[10, 20, 50]"
-      [(nzPageIndex)]="m.page"
-      [(nzPageSize)]="m.pagesize"
-      (nzPageIndexChange)="getData()"
-      (nzPageSizeChange)="getData()"
-      [nzScroll]="box.scroll()"
-    >
+    <nz-table #tb [style.height.%]="100" [nzLoading]="m.loading()" [nzData]="m.data()" [nzTotal]="m.total"
+      [nzShowTotal]="box.totalRef" [nzFrontPagination]="false" [nzShowPagination]="true" [nzShowSizeChanger]="true"
+      [nzPageSizeOptions]="[10, 20, 50]" [(nzPageIndex)]="m.page" [(nzPageSize)]="m.pagesize"
+      (nzPageIndexChange)="getData()" (nzPageSizeChange)="getData()" [nzScroll]="box.scroll()">
       <thead>
         <tr>
-          <th
-            nzLeft
-            nzAlign="center"
-            nzWidth="50px"
-            [nzChecked]="m.checked"
-            [nzIndeterminate]="m.indeterminate"
-            (nzCheckedChange)="m.setCurrentSelections($event)"
-          ></th>
+          <th nzLeft nzAlign="center" nzWidth="50px" [nzChecked]="m.checked" [nzIndeterminate]="m.indeterminate"
+            (nzCheckedChange)="m.setCurrentSelections($event)"></th>
           <th nzWidth="360px">
             <b>NAME</b>
           </th>

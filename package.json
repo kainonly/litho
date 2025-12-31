@@ -2,7 +2,7 @@
   "name": "litho",
   "version": "20.0.0",
   "scripts": {
-    "dev:kain": "ng serve --configuration kain",
+    "start": "ng serve",
     "build": "ng build",
     "lint": "ng lint"
   },
@@ -16,7 +16,7 @@
     "@angular/router": "^20.3.0",
     "@angular/service-worker": "^20.3.0",
     "@ngx-pwa/local-storage": "^20.0.0",
-    "ng-zorro-antd": "^20.3.1",
+    "ng-zorro-antd": "^20.4.0",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.15.0"

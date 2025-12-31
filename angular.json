@@ -51,14 +51,14 @@
               "outputHashing": "all",
               "serviceWorker": "ngsw-config.json"
             },
-            "kain": {
+            "development": {
               "optimization": false,
               "extractLicenses": false,
               "sourceMap": true,
               "fileReplacements": [
                 {
                   "replace": "src/environments/environment.ts",
-                  "with": "src/environments/environment.kain.ts"
+                  "with": "src/environments/environment.dev.ts"
                 }
               ]
             }
@@ -70,17 +70,17 @@
           "options": {
             "hmr": true,
             "host": "0.0.0.0",
-            "allowedHosts": ["lsys.kainonly.com"]
+            "allowedHosts": ["sys.kainonly.com"]
           },
           "configurations": {
             "production": {
               "buildTarget": "litho:build:production"
             },
-            "kain": {
-              "buildTarget": "litho:build:kain"
+            "development": {
+              "buildTarget": "litho:build:development"
             }
           },
-          "defaultConfiguration": "kain"
+          "defaultConfiguration": "development"
         },
         "extract-i18n": {
           "builder": "@angular/build:extract-i18n"

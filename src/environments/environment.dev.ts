@@ -1,4 +1,4 @@
 export const environment = {
   production: false,
-  baseUrl: 'https://lapi.kainonly.com:8443'
+  baseUrl: 'https://api.kainonly.com:8443/admin'
 };
