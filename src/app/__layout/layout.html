@@ -41,40 +41,44 @@
       </ul>
 
       <div class="header-right">
-        <!-- 消息通知 -->
-        <a [routerLink]="['/notifications']" class="header-btn" nz-button nzType="text" nz-tooltip nzTooltipTitle="消息通知">
-          <nz-badge [nzCount]="5" nzSize="small">
-            <span nz-icon nzType="bell" nzTheme="outline"></span>
-          </nz-badge>
-        </a>
-
-        <!-- 用户头像和用户名 -->
+        <!-- 用户面板 -->
         <nz-dropdown-menu #userMenu="nzDropdownMenu">
-          <ul nz-menu>
-            <li nz-menu-item nzMatchRouter>
-              <a [routerLink]="['/profile']">
+          <div class="user-panel">
+            <!-- 用户信息头部 -->
+            <div class="user-panel-header">
+              <nz-avatar nzSize="large" class="user-panel-avatar">
                 <span nz-icon nzType="user" nzTheme="outline"></span>
-                个人中心
+              </nz-avatar>
+              <div class="user-panel-info">
+                <div class="user-panel-name">Kain</div>
+                <div class="user-panel-email">kain&#64;example.com</div>
+              </div>
+            </div>
+
+            <!-- 未读通知 -->
+            <a [routerLink]="['/notifications']" class="user-panel-notification">
+              <span>未读通知</span>
+              <nz-badge [nzCount]="5" [nzStyle]="{ backgroundColor: '#f5222d' }"></nz-badge>
+            </a>
+
+            <!-- 菜单选项 -->
+            <div class="user-panel-menu">
+              <a [routerLink]="['/account']" class="menu-item">
+                <span nz-icon nzType="lock" nzTheme="outline"></span>
+                修改密码
               </a>
-            </li>
-            <li nz-menu-item nzMatchRouter>
-              <a [routerLink]="['/account']">
-                <span nz-icon nzType="setting" nzTheme="outline"></span>
-                账户设置
+              <a class="menu-item menu-item-danger">
+                <span nz-icon nzType="logout" nzTheme="outline"></span>
+                退出登录
               </a>
-            </li>
-            <li nz-menu-divider></li>
-            <li nz-menu-item nzDanger>
-              <span nz-icon nzType="logout" nzTheme="outline"></span>
-              退出登录
-            </li>
-          </ul>
+            </div>
+          </div>
         </nz-dropdown-menu>
         <div class="user-info" nz-dropdown [nzDropdownMenu]="userMenu" nzTrigger="click">
           <nz-avatar nzSize="small">
             <span nz-icon nzType="user" nzTheme="outline"></span>
           </nz-avatar>
-          <span class="username">用户</span>
+          <span class="username">Kain</span>
           <span nz-icon nzType="down" nzTheme="outline"></span>
         </div>
       </div>
