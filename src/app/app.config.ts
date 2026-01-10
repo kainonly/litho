@@ -8,7 +8,6 @@ import {
   provideBrowserGlobalErrorListeners,
   provideZoneChangeDetection
 } from '@angular/core';
-import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { provideRouter, withHashLocation, withViewTransitions } from '@angular/router';
 import { provideServiceWorker } from '@angular/service-worker';
 import { provideNzConfig } from 'ng-zorro-antd/core/config';
@@ -35,7 +34,6 @@ export const appConfig: ApplicationConfig = {
         headerName: 'X-XSRF-TOKEN'
       })
     ),
-    provideAnimationsAsync(),
     provideNzI18n(zh_CN),
     provideNzConfig({
       notification: { nzPlacement: 'bottomRight' },

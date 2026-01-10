@@ -4,12 +4,14 @@ import { RouterOutlet } from '@angular/router';
 import { SwUpdate } from '@angular/service-worker';
 
 import { StorageMap } from '@ngx-pwa/local-storage';
-import { fromPromise } from 'rxjs/internal/observable/innerFrom';
+import { from } from 'rxjs';
 
 @Component({
   selector: 'app-root',
   imports: [RouterOutlet],
-  template: ` <router-outlet></router-outlet> `
+  template: `
+    <router-outlet />
+  `,
 })
 export class App implements OnInit {
   private destroyRef = inject(DestroyRef);
@@ -23,7 +25,7 @@ export class App implements OnInit {
 
   checkUpdate(): void {
     if (this.swUpdate.isEnabled) {
-      fromPromise(this.swUpdate.checkForUpdate())
+      from(this.swUpdate.checkForUpdate())
         .pipe(takeUntilDestroyed(this.destroyRef))
         .subscribe(evt => {
           if (evt && confirm('A new version is available. Do you want to update?')) {
