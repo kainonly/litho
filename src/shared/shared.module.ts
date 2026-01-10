@@ -12,7 +12,7 @@ import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
 import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
 import { NzDescriptionsModule } from 'ng-zorro-antd/descriptions';
 import { NzDividerModule } from 'ng-zorro-antd/divider';
-import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
+import { NzDropdownModule } from 'ng-zorro-antd/dropdown';
 import { NzEmptyModule } from 'ng-zorro-antd/empty';
 import { NzFlexModule } from 'ng-zorro-antd/flex';
 import { NzFormModule } from 'ng-zorro-antd/form';
@@ -60,7 +60,7 @@ import { PipesModule } from '@shared/pipes/pipes.module';
     NzFlexModule,
     NzGridModule,
     NzSpaceModule,
-    NzDropDownModule,
+    NzDropdownModule,
     NzPageHeaderModule,
     NzPaginationModule,
     NzCheckboxModule,
