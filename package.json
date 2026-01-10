@@ -27,6 +27,7 @@
     "@angular/compiler-cli": "^21.0.8",
     "@types/resize-observer-browser": "^0.1.11",
     "angular-eslint": "21.1.0",
+    "baseline-browser-mapping": "^2.9.14",
     "eslint": "^9.35.0",
     "eslint-plugin-import": "^2.32.0",
     "eslint-plugin-prettier": "^5.5.1",
