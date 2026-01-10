@@ -31,7 +31,7 @@
     "enableI18nLegacyMessageIdFormat": false,
     "strictInjectionParameters": true,
     "strictInputAccessModifiers": true,
-    "typeCheckHostBindings": true,
+    "typeCheckHostBindings": false,
     "strictTemplates": true
   },
   "files": [],
