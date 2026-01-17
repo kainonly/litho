@@ -15,8 +15,8 @@ export default tseslint.config(
     },
     extends: [
       eslint.configs.recommended,
-      ...tseslint.configs.recommended,
-      ...tseslint.configs.stylistic,
+      tseslint.configs.recommended,
+      tseslint.configs.stylistic,
       ...angular.configs.tsRecommended
     ],
     processor: angular.processInlineTemplates,
@@ -38,7 +38,6 @@ export default tseslint.config(
           style: 'kebab-case'
         }
       ],
-      '@typescript-eslint/no-empty-interface': 'off',
       'unused-imports/no-unused-imports': 'error',
       'unused-imports/no-unused-vars': [
         'warn',
@@ -50,8 +49,6 @@ export default tseslint.config(
         }
       ],
       'import/no-duplicates': 'error',
-      'import/no-unused-modules': 'error',
-      'import/no-unassigned-import': 'error',
       'import/order': [
         'error',
         {
@@ -67,20 +64,7 @@ export default tseslint.config(
           ],
           pathGroupsExcludedImportTypes: []
         }
-      ],
-      'no-prototype-builtins': 'off',
-      'no-bitwise': 'off',
-      'no-duplicate-imports': 'error',
-      'no-invalid-this': 'off',
-      'no-irregular-whitespace': 'error',
-      'no-magic-numbers': 'off',
-      'no-multiple-empty-lines': 'error',
-      'no-redeclare': 'off',
-      'no-underscore-dangle': 'off',
-      'no-sparse-arrays': 'error',
-      'no-template-curly-in-string': 'off',
-      'prefer-object-spread': 'error',
-      'prefer-template': 'error'
+      ]
     }
   },
   {
@@ -88,7 +72,7 @@ export default tseslint.config(
     plugins: {
       prettier
     },
-    extends: [...angular.configs.templateRecommended],
+    extends: [angular.configs.templateRecommended, angular.configs.templateAccessibility],
     rules: {
       'prettier/prettier': [
         'error',

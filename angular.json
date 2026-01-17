@@ -1,6 +1,13 @@
 {
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
   "version": 1,
+  "cli": {
+    "packageManager": "bun",
+    "analytics": "639c0495-8205-441b-83a6-2db87a2eab9a",
+    "schematicCollections": [
+      "angular-eslint"
+    ]
+  },
   "newProjectRoot": "projects",
   "projects": {
     "litho": {
@@ -18,7 +25,6 @@
           "builder": "@angular/build:application",
           "options": {
             "browser": "src/main.ts",
-            "polyfills": ["zone.js"],
             "tsConfig": "tsconfig.app.json",
             "inlineStyleLanguage": "less",
             "assets": [
@@ -32,7 +38,9 @@
                 "output": "/assets/"
               }
             ],
-            "styles": ["src/styles.less"]
+            "styles": [
+              "src/styles.less"
+            ]
           },
           "configurations": {
             "production": {
@@ -70,7 +78,9 @@
           "options": {
             "hmr": true,
             "host": "0.0.0.0",
-            "allowedHosts": ["sys.kainonly.com"]
+            "allowedHosts": [
+              "sys.kainonly.com"
+            ]
           },
           "configurations": {
             "production": {
@@ -82,14 +92,19 @@
           },
           "defaultConfiguration": "development"
         },
-        "extract-i18n": {
-          "builder": "@angular/build:extract-i18n"
+        "test": {
+          "builder": "@angular/build:unit-test"
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "src/**/*.ts",
+              "src/**/*.html"
+            ]
+          }
         }
       }
     }
-  },
-  "cli": {
-    "analytics": "cb8903e5-6992-4097-b087-b4aadeeafbd9",
-    "schematicCollections": ["angular-eslint"]
   }
 }

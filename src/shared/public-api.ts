@@ -6,7 +6,5 @@ export * from './shared.module';
 export * from './global';
 export * from './utils/filter';
 export * from './utils/helper';
-export * from './utils/item';
-export * from './utils/list';
 export * from './utils/loading';
 export * from './utils/model';

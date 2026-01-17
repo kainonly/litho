@@ -1,17 +1,11 @@
 import { registerLocaleData } from '@angular/common';
 import { provideHttpClient, withFetch, withInterceptors, withXsrfConfiguration } from '@angular/common/http';
 import zh from '@angular/common/locales/zh';
-import {
-  ApplicationConfig,
-  importProvidersFrom,
-  isDevMode,
-  provideBrowserGlobalErrorListeners,
-  provideZoneChangeDetection
-} from '@angular/core';
-import { provideRouter, withHashLocation, withViewTransitions } from '@angular/router';
+import { ApplicationConfig, provideBrowserGlobalErrorListeners, isDevMode, importProvidersFrom } from '@angular/core';
+import { provideRouter, withViewTransitions } from '@angular/router';
 import { provideServiceWorker } from '@angular/service-worker';
 import { provideNzConfig } from 'ng-zorro-antd/core/config';
-import { provideNzI18n, zh_CN } from 'ng-zorro-antd/i18n';
+import { zh_CN, provideNzI18n } from 'ng-zorro-antd/i18n';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 
@@ -25,7 +19,6 @@ registerLocaleData(zh);
 export const appConfig: ApplicationConfig = {
   providers: [
     provideBrowserGlobalErrorListeners(),
-    provideZoneChangeDetection({ eventCoalescing: true }),
     provideHttpClient(
       withFetch(),
       withInterceptors([appInterceptor]),
@@ -40,7 +33,7 @@ export const appConfig: ApplicationConfig = {
       card: { nzBordered: false },
       table: { nzSize: 'middle', nzBordered: true }
     }),
-    provideRouter(routes, withHashLocation(), withViewTransitions()),
+    provideRouter(routes, withViewTransitions()),
     importProvidersFrom(SharedModule, NzMessageService, NzNotificationService),
     provideServiceWorker('ngsw-worker.js', {
       enabled: !isDevMode(),

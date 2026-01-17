@@ -2,16 +2,14 @@ import { Component, DestroyRef, inject, OnInit } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { RouterOutlet } from '@angular/router';
 import { SwUpdate } from '@angular/service-worker';
+import { from } from 'rxjs';
 
 import { StorageMap } from '@ngx-pwa/local-storage';
-import { from } from 'rxjs';
 
 @Component({
   selector: 'app-root',
   imports: [RouterOutlet],
-  template: `
-    <router-outlet />
-  `,
+  template: ` <router-outlet /> `
 })
 export class App implements OnInit {
   private destroyRef = inject(DestroyRef);
