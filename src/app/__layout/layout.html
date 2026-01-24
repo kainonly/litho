@@ -1,0 +1,91 @@
+<nz-layout [style.height.%]="100">
+  <nz-header>
+    <div class="header-container">
+      <ul class="navigation" nz-menu nzMode="horizontal">
+        <li nz-menu-item nzMatchRouter>
+          <a [routerLink]="['/dashboard']">
+            <nz-icon nzType="dashboard"></nz-icon>
+            工作台
+          </a>
+        </li>
+        <li nz-menu-item nzMatchRouter>
+          <a [routerLink]="['/products']">
+            <nz-icon nzType="shopping"></nz-icon>
+            商品管理
+          </a>
+        </li>
+        <li nz-menu-item nzMatchRouter>
+          <a [routerLink]="['/orders']">
+            <nz-icon nzType="file-text"></nz-icon>
+            订单管理
+          </a>
+        </li>
+        <li nz-menu-item nzMatchRouter>
+          <a [routerLink]="['/customers']">
+            <nz-icon nzType="team"></nz-icon>
+            客户管理
+          </a>
+        </li>
+        <li nz-menu-item nzMatchRouter>
+          <a [routerLink]="['/analytics']">
+            <nz-icon nzType="bar-chart"></nz-icon>
+            数据分析
+          </a>
+        </li>
+        <li nz-menu-item nzMatchRouter>
+          <a [routerLink]="['/settings']">
+            <nz-icon nzType="setting"></nz-icon>
+            系统设置
+          </a>
+        </li>
+      </ul>
+
+      <div class="header-right">
+        <!-- 用户面板 -->
+        <nz-dropdown-menu #userMenu="nzDropdownMenu">
+          <div class="user-panel">
+            <!-- 用户信息头部 -->
+            <div class="user-panel-header">
+              <nz-avatar nzSize="large" class="user-panel-avatar">
+                <span nz-icon nzType="user" nzTheme="outline"></span>
+              </nz-avatar>
+              <div class="user-panel-info">
+                <div class="user-panel-name">Kain</div>
+                <div class="user-panel-email">kain&#64;example.com</div>
+              </div>
+            </div>
+
+            <!-- 未读通知 -->
+            <a [routerLink]="['/notifications']" class="user-panel-notification">
+              <span>未读通知</span>
+              <nz-badge [nzCount]="5" [nzStyle]="{ backgroundColor: '#f5222d' }"></nz-badge>
+            </a>
+
+            <!-- 菜单选项 -->
+            <div class="user-panel-menu">
+              <a [routerLink]="['/account']" class="menu-item">
+                <span nz-icon nzType="lock" nzTheme="outline"></span>
+                修改密码
+              </a>
+              <a class="menu-item menu-item-danger">
+                <span nz-icon nzType="logout" nzTheme="outline"></span>
+                退出登录
+              </a>
+            </div>
+          </div>
+        </nz-dropdown-menu>
+        <div class="user-info" nz-dropdown [nzDropdownMenu]="userMenu" nzTrigger="click">
+          <nz-avatar nzSize="small">
+            <span nz-icon nzType="user" nzTheme="outline"></span>
+          </nz-avatar>
+          <span class="username">Kain</span>
+          <span nz-icon nzType="down" nzTheme="outline"></span>
+        </div>
+      </div>
+    </div>
+  </nz-header>
+
+  <nz-content style="padding: 8px; overflow: hidden auto">
+    <ng-content></ng-content>
+  </nz-content>
+</nz-layout>

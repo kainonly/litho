@@ -1,0 +1,358 @@
+// 登录页面样式
+
+// 简洁渐变背景
+.login-bg {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+
+  // 柔和的灰白渐变
+  background: linear-gradient(
+    135deg,
+    #fafafa 0%,
+    #f0f0f0 25%,
+    #f5f5f5 50%,
+    #ebebeb 75%,
+    #f8f8f8 100%
+  );
+
+  // 添加微妙的光影效果
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse at 20% 10%, rgba(255, 255, 255, 0.6) 0%, transparent 40%),
+      radial-gradient(ellipse at 80% 90%, rgba(0, 0, 0, 0.02) 0%, transparent 40%);
+  }
+}
+
+// 主容器
+.login-container {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  min-height: 100vh;
+}
+
+// 左侧品牌区域
+.login-brand {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 60px;
+  color: #1a1a1a;
+
+  .brand-content {
+    max-width: 400px;
+    text-align: center;
+  }
+
+  .brand-logo {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(24, 144, 255, 0.08);
+  }
+
+  .brand-title {
+    font-size: 48px;
+    font-weight: 700;
+    margin: 0 0 12px;
+    letter-spacing: -1px;
+    color: #1a1a1a;
+  }
+
+  .brand-tagline {
+    font-size: 18px;
+    color: #8c8c8c;
+    margin: 0 0 48px;
+    font-weight: 300;
+  }
+
+  .brand-features {
+    display: flex;
+    justify-content: center;
+    gap: 32px;
+
+    .feature-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      font-size: 14px;
+      color: #595959;
+
+      span[nz-icon] {
+        font-size: 24px;
+        color: #1890ff;
+      }
+    }
+  }
+}
+
+// 右侧表单区域
+.login-form-section {
+  width: 480px;
+  min-width: 480px;
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 60px;
+  box-shadow: -2px 0 20px rgba(0, 0, 0, 0.03);
+}
+
+// 登录卡片
+.login-card {
+  width: 100%;
+  max-width: 360px;
+  margin: 0 auto;
+}
+
+// 表单头部
+.login-header {
+  margin-bottom: 32px;
+
+  .login-title {
+    font-size: 28px;
+    font-weight: 600;
+    margin: 0 0 8px;
+    color: #1a1a1a;
+  }
+
+  .login-subtitle {
+    font-size: 15px;
+    color: #8c8c8c;
+    margin: 0;
+  }
+}
+
+// 登录方式切换标签
+.login-tabs {
+  display: flex;
+  gap: 0;
+  margin-bottom: 28px;
+  border-bottom: 1px solid #f0f0f0;
+
+  .login-tab {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 12px 16px;
+    font-size: 14px;
+    color: #8c8c8c;
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    margin-bottom: -1px;
+    transition: all 0.2s ease;
+
+    span[nz-icon] {
+      font-size: 16px;
+    }
+
+    &:hover {
+      color: #1890ff;
+    }
+
+    &.active {
+      color: #1890ff;
+      border-bottom-color: #1890ff;
+      font-weight: 500;
+    }
+  }
+}
+
+// 登录表单
+.login-form {
+  .options-item {
+    margin-bottom: 8px;
+  }
+
+  .login-options {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .forgot-link {
+      font-size: 14px;
+      color: #1890ff;
+      cursor: pointer;
+
+      &:hover {
+        color: #40a9ff;
+      }
+    }
+  }
+
+  .submit-item {
+    margin-top: 24px;
+    margin-bottom: 0;
+  }
+
+  // 发送验证码按钮
+  .send-code-btn {
+    padding: 0;
+    height: auto;
+    font-size: 13px;
+    white-space: nowrap;
+
+    &:disabled {
+      color: #bfbfbf;
+    }
+  }
+}
+
+// SSO 登录区域
+.login-sso {
+  margin-top: 32px;
+
+  .sso-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+
+    .sso-btn {
+      width: 48px;
+      height: 48px;
+      padding: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: #fff;
+
+      &:hover {
+        background-color: #fff;
+        border-color: #1890ff;
+      }
+
+      img {
+        width: 24px;
+        height: 24px;
+        object-fit: contain;
+      }
+
+      span[nz-icon] {
+        font-size: 20px;
+      }
+    }
+  }
+}
+
+// 版权信息
+.login-copyright {
+  margin-top: auto;
+  padding-top: 40px;
+  text-align: center;
+  font-size: 13px;
+  color: #bfbfbf;
+}
+
+// 响应式设计
+@media (max-width: 960px) {
+  .login-container {
+    flex-direction: column;
+  }
+
+  .login-brand {
+    padding: 40px 20px;
+    flex: none;
+
+    .brand-content {
+      max-width: 100%;
+    }
+
+    .brand-title {
+      font-size: 36px;
+    }
+
+    .brand-tagline {
+      margin-bottom: 32px;
+    }
+
+    .brand-features {
+      gap: 24px;
+    }
+  }
+
+  .login-form-section {
+    width: 100%;
+    min-width: auto;
+    padding: 40px 24px;
+    flex: 1;
+    box-shadow: 0 -2px 20px rgba(0, 0, 0, 0.03);
+  }
+
+  .login-card {
+    max-width: 400px;
+  }
+}
+
+@media (max-width: 480px) {
+  .login-brand {
+    padding: 32px 20px;
+
+    .brand-logo {
+      width: 64px;
+      height: 64px;
+      margin-bottom: 20px;
+
+      svg {
+        width: 36px;
+        height: 36px;
+      }
+    }
+
+    .brand-title {
+      font-size: 28px;
+    }
+
+    .brand-tagline {
+      font-size: 16px;
+      margin-bottom: 24px;
+    }
+
+    .brand-features {
+      gap: 16px;
+
+      .feature-item {
+        font-size: 12px;
+
+        span[nz-icon] {
+          font-size: 20px;
+        }
+      }
+    }
+  }
+
+  .login-form-section {
+    padding: 32px 20px;
+  }
+
+  .login-header {
+    margin-bottom: 24px;
+
+    .login-title {
+      font-size: 24px;
+    }
+  }
+
+  .login-tabs {
+    margin-bottom: 24px;
+
+    .login-tab {
+      padding: 10px 12px;
+      font-size: 13px;
+
+      span[nz-icon] {
+        font-size: 14px;
+      }
+    }
+  }
+}
