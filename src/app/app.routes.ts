@@ -1,6 +1,5 @@
 import { Routes } from '@angular/router';
 
-import { Analytics } from './analytics/analytics';
 import { appGuard } from './app.guard';
 import { Customers } from './customers/customers';
 import { Dashboard } from './dashboard/dashboard';
@@ -22,7 +21,6 @@ export const routes: Routes = [
       { path: 'products', component: Products },
       { path: 'orders', component: Orders },
       { path: 'customers', component: Customers },
-      { path: 'analytics', component: Analytics },
       { path: 'settings', component: Settings },
       { path: '', redirectTo: '/dashboard', pathMatch: 'full' }
     ]
