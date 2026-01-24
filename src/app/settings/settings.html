@@ -4,54 +4,74 @@
       <ul style="height: 100%" nz-menu nzMode="inline" class="sider-menu">
         <li nz-menu-group nzTitle="通用">
           <ul>
-            <li nz-menu-item>
-              <nz-icon nzType="apartment"></nz-icon>
-              <a>组织</a>
+            <li nz-menu-item nzMatchRouter>
+              <a routerLink="orgs">
+                <nz-icon nzType="apartment"></nz-icon>
+                <span>组织</span>
+              </a>
             </li>
-            <li nz-menu-item>
-              <nz-icon nzType="partition"></nz-icon>
-              <a>权限组</a>
+            <li nz-menu-item nzMatchRouter>
+              <a routerLink="roles">
+                <nz-icon nzType="partition"></nz-icon>
+                <span>权限组</span>
+              </a>
             </li>
-            <li nz-menu-item>
-              <nz-icon nzType="user"></nz-icon>
-              <a>企业成员</a>
+            <li nz-menu-item nzMatchRouter>
+              <a routerLink="users">
+                <nz-icon nzType="user"></nz-icon>
+                <span>企业成员</span>
+              </a>
             </li>
           </ul>
         </li>
         <li nz-menu-group nzTitle="访问控制">
           <ul>
-            <li nz-menu-item>
-              <nz-icon nzType="api"></nz-icon>
-              <a>资源控制</a>
+            <li nz-menu-item nzMatchRouter>
+              <a routerLink="resources">
+                <nz-icon nzType="api"></nz-icon>
+                <span>资源控制</span>
+              </a>
             </li>
-            <li nz-menu-item>
-              <nz-icon nzType="layout"></nz-icon>
-              <a>视图控制</a>
+            <li nz-menu-item nzMatchRouter>
+              <a routerLink="routes">
+                <nz-icon nzType="layout"></nz-icon>
+                <span>视图控制</span>
+              </a>
             </li>
-            <li nz-menu-item>
-              <nz-icon nzType="switcher"></nz-icon>
-              <a>策略组</a>
+            <li nz-menu-item nzMatchRouter>
+              <a routerLink="permissions">
+                <nz-icon nzType="switcher"></nz-icon>
+                <span>策略组</span>
+              </a>
             </li>
           </ul>
         </li>
         <li nz-menu-group nzTitle="审计日志">
           <ul>
-            <li nz-menu-item>
-              <nz-icon nzType="rocket"></nz-icon>
-              <a>在线会话</a>
+            <li nz-menu-item nzMatchRouter>
+              <a routerLink="sessions">
+                <nz-icon nzType="rocket"></nz-icon>
+                <span>在线会话</span>
+              </a>
             </li>
-            <li nz-menu-item>
-              <nz-icon nzType="audit"></nz-icon>
-              <a>登录状态</a>
+            <li nz-menu-item nzMatchRouter>
+              <a routerLink="login-status">
+                <nz-icon nzType="audit"></nz-icon>
+                <span>登录状态</span>
+              </a>
             </li>
-            <li nz-menu-item>
-              <nz-icon nzType="file-search"></nz-icon>
-              <a>操作行为</a>
+            <li nz-menu-item nzMatchRouter>
+              <a routerLink="behaviors">
+                <nz-icon nzType="file-search"></nz-icon>
+                <span>操作行为</span>
+              </a>
             </li>
           </ul>
         </li>
       </ul>
     </nz-sider>
-    <nz-content style="padding: 12px">Content</nz-content>
+    <nz-content style="padding: 12px">
+      <router-outlet />
+    </nz-content>
   </nz-layout>
 </app-layout>

@@ -1,14 +1,13 @@
 import { Component } from '@angular/core';
+import { RouterModule } from '@angular/router';
 
 import { SharedModule } from '@shared';
 
 import { Layout } from '../__layout/layout';
 
 @Component({
-  standalone: true,
-  imports: [SharedModule, Layout],
+  imports: [SharedModule, Layout, RouterModule],
   selector: 'app-settings',
   templateUrl: './settings.html'
 })
-export class Settings {}
-
+export class Settings { }

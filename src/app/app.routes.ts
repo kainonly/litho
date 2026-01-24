@@ -6,7 +6,6 @@ import { Dashboard } from './dashboard/dashboard';
 import { Login } from './login/login';
 import { Orders } from './orders/orders';
 import { Products } from './products/products';
-import { Settings } from './settings/settings';
 
 export const routes: Routes = [
   {
@@ -21,7 +20,11 @@ export const routes: Routes = [
       { path: 'products', component: Products },
       { path: 'orders', component: Orders },
       { path: 'customers', component: Customers },
-      { path: 'settings', component: Settings },
+      {
+        path: 'settings',
+        loadComponent: () => import('./settings/settings').then(m => m.Settings),
+        loadChildren: () => import('./settings/children.routes').then(m => m.childrenRoutes)
+      },
       { path: '', redirectTo: '/dashboard', pathMatch: 'full' }
     ]
   }
