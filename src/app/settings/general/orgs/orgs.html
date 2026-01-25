@@ -1,1 +1,38 @@
-<p>orgs works!</p>
+<ng-template #leftRef>
+  <nz-input-search style="width: 200px">
+    <input nz-input placeholder="搜索" />
+  </nz-input-search>
+</ng-template>
+
+<ng-template #rightRef>
+  <nz-space>
+    <button *nzSpaceItem nz-button nzType="primary">新增</button>
+  </nz-space>
+</ng-template>
+
+<app-box [appLeft]="leftRef" [appRight]="rightRef">
+  <nz-table #basicTable [nzData]="listOfData">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Age</th>
+        <th>Address</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (data of basicTable.data; track data) {
+        <tr>
+          <td>{{ data.name }}</td>
+          <td>{{ data.age }}</td>
+          <td>{{ data.address }}</td>
+          <td>
+            <a>Action 一 {{ data.name }}</a>
+            <nz-divider nzType="vertical"></nz-divider>
+            <a>Delete</a>
+          </td>
+        </tr>
+      }
+    </tbody>
+  </nz-table>
+</app-box>

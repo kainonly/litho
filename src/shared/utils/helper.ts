@@ -3,48 +3,52 @@ import { AbstractControl, FormGroup } from '@angular/forms';
 import { EnumType } from '@shared/models';
 import { endOfDay, format, formatRFC3339, parseISO, startOfDay } from 'date-fns';
 
+// 递归标记无效控件为已触摸并触发校验（包含嵌套 FormGroup）。
 export const updateFormGroup = (controls: AbstractControl[]): void => {
-  controls.forEach(control => {
+  for (const control of controls) {
     if (control instanceof FormGroup) {
       updateFormGroup(Object.values(control.controls));
-    } else {
-      if (control.invalid) {
-        control.markAsDirty();
-        control.updateValueAndValidity({ onlySelf: true });
-      }
+      continue;
     }
-  });
+    if (control.invalid) {
+      control.markAsDirty();
+      control.updateValueAndValidity({ onlySelf: true });
+    }
+  }
 };
 
-export const timeOnly = (date: Date) => {
-  const timeOnly = new Date();
-  timeOnly.setHours(date.getUTCHours(), date.getUTCMinutes(), date.getUTCSeconds(), date.getUTCMilliseconds());
-  return timeOnly;
+// 返回仅包含输入 UTC 时间部分的 Date。
+export const timeOnly = (date: Date): Date => {
+  const result = new Date(0);
+  result.setUTCHours(date.getUTCHours(), date.getUTCMinutes(), date.getUTCSeconds(), date.getUTCMilliseconds());
+  return result;
 };
 
-export const datetimeOnly = (date: Date) => {
-  const dateOnly = new Date();
-  dateOnly.setFullYear(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate());
-  return dateOnly;
+// 返回仅包含输入 UTC 日期部分的 Date。
+export const datetimeOnly = (date: Date): Date => {
+  const result = new Date(0);
+  result.setUTCFullYear(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate());
+  return result;
 };
 
+// 返回今天的本地起始与结束时间。
 export const getTodayRange = (): Date[] => {
   const today = new Date();
   return [startOfDay(today), endOfDay(today)];
 };
 
-export const parseToTime = (iso8601: string): Date => {
-  return timeOnly(parseISO(iso8601));
-};
+// 解析 ISO 字符串，并仅保留 UTC 时间部分。
+export const parseToTime = (iso8601: string): Date => timeOnly(parseISO(iso8601));
 
+// 格式化日期为 yyyy-MM-dd。
 export const formatDate = (date: Date): string => {
   return format(date, 'yyyy-MM-dd');
 };
 
-export const formatRFC = (date: Date): string => {
-  return formatRFC3339(date);
-};
+// 格式化日期为 RFC3339。
+export const formatRFC = (date: Date): string => formatRFC3339(date);
 
+// 按 UTC 时间（时分秒毫秒）比较两个日期是否相等。
 export const isEqualTime = (dateLeft: Date, dateRight: Date): boolean => {
   return (
     dateLeft.getUTCHours() === dateRight.getUTCHours() &&
@@ -54,12 +58,11 @@ export const isEqualTime = (dateLeft: Date, dateRight: Date): boolean => {
   );
 };
 
-export const toM = (values: EnumType[]): Record<number, string> => {
-  return values.reduce(
-    (previousValue, currentValue) => {
-      previousValue[currentValue.value] = currentValue.label;
-      return previousValue;
-    },
-    {} as Record<number, string>
-  );
+// 将枚举数组转换为 value -> label 的映射。
+export const toM = (values: readonly EnumType[]): Record<number, string> => {
+  const result: Record<number, string> = {};
+  for (const value of values) {
+    result[value.value] = value.label;
+  }
+  return result;
 };

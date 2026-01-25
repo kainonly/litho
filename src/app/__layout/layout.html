@@ -35,6 +35,14 @@
       </ul>
 
       <div class="header-right">
+        <div class="user-info" nz-dropdown [nzDropdownMenu]="userMenu" nzTrigger="click">
+          <nz-avatar nzSize="small">
+            <nz-icon nzType="user" />
+          </nz-avatar>
+          <span class="username">Kain</span>
+          <nz-icon nzType="down" />
+        </div>
+
         <!-- 用户面板 -->
         <nz-dropdown-menu #userMenu="nzDropdownMenu">
           <div class="user-panel">
@@ -68,18 +76,11 @@
             </div>
           </div>
         </nz-dropdown-menu>
-        <div class="user-info" nz-dropdown [nzDropdownMenu]="userMenu" nzTrigger="click">
-          <nz-avatar nzSize="small">
-            <span nz-icon nzType="user" nzTheme="outline"></span>
-          </nz-avatar>
-          <span class="username">Kain</span>
-          <span nz-icon nzType="down" nzTheme="outline"></span>
-        </div>
       </div>
     </div>
   </nz-header>
 
-  <nz-content style="padding: 8px; overflow: hidden auto">
+  <nz-content style="overflow: hidden auto">
     <ng-content></ng-content>
   </nz-content>
 </nz-layout>

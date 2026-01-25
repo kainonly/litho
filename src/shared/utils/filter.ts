@@ -1,39 +1,26 @@
+import { signal } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 
-import { Any } from '@shared/models';
-
 export interface FilterConfig {
-  height: number;
-  visible: boolean;
+  height?: number;
+  visible?: boolean;
 }
 
 export class Filter {
-  height: number;
-  visible: boolean;
+  readonly height = signal(160);
+  readonly visible = signal(false);
 
   constructor(
-    public form: FormGroup,
-    config?: FilterConfig
+    public readonly form: FormGroup,
+    config: FilterConfig = {}
   ) {
-    this.height = config ? config.height : 160;
-    this.visible = config ? config.visible : false;
+    this.height.set(config.height ?? 160);
+    this.visible.set(config.visible ?? false);
   }
 
-  patch(value: Any): void {
-    const notEmpty = Object.values(value).some(v => {
-      if (v instanceof Array) {
-        return v.length !== 0;
-      }
-      if (v instanceof Object) {
-        return Object.keys(v).length !== 0;
-      }
-      if (v instanceof Date) {
-        return new Date('1970-01-01T00:00:00Z').getTime() === v.getTime();
-      }
-      return !!v;
-    });
-    if (notEmpty) {
-      this.visible = true;
+  patch(value: Record<string, unknown>): void {
+    if (hasMeaningfulValue(value)) {
+      this.visible.set(true);
     }
     this.form.patchValue(value);
   }
@@ -43,10 +30,29 @@ export class Filter {
   }
 
   open(): void {
-    this.visible = !this.visible;
+    this.visible.update(v => !v);
   }
 
   close(): void {
-    this.visible = false;
+    this.visible.set(false);
   }
+}
+
+const EPOCH_TIME = Date.parse('1970-01-01T00:00:00Z');
+
+function hasMeaningfulValue(value: Record<string, unknown>): boolean {
+  return Object.values(value).some(isMeaningfulValue);
+}
+
+function isMeaningfulValue(value: unknown): boolean {
+  if (Array.isArray(value)) {
+    return value.length !== 0;
+  }
+  if (value instanceof Date) {
+    return value.getTime() === EPOCH_TIME;
+  }
+  if (value && typeof value === 'object') {
+    return Object.keys(value as Record<string, unknown>).length !== 0;
+  }
+  return Boolean(value);
 }
