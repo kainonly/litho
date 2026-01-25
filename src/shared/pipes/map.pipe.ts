@@ -1,13 +1,10 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
-import { Any } from '@shared/models';
-
 @Pipe({
-  standalone: true,
   name: 'appMap'
 })
 export class MapPipe implements PipeTransform {
-  transform(value: Map<Any, Any>, key: Any): Any {
+  transform<K, V>(value: Map<K, V>, key: K): V | undefined {
     return value.get(key);
   }
 }

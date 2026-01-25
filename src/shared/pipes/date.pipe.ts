@@ -1,12 +1,13 @@
 import { formatDate } from '@angular/common';
-import { Pipe, PipeTransform } from '@angular/core';
+import { inject, LOCALE_ID, Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
-  standalone: true,
   name: 'appDate'
 })
 export class DatePipe implements PipeTransform {
-  transform(value: string | Date, time = true, sec = false, year = true): string {
+  private readonly locale = inject(LOCALE_ID);
+
+  transform(value: string | number | Date, time = true, sec = false, year = true): string {
     let f = `MM-dd`;
     if (year) {
       f = `yyyy-MM-dd`;
@@ -17,6 +18,6 @@ export class DatePipe implements PipeTransform {
     if (sec) {
       f += `:ss`;
     }
-    return formatDate(value, f, 'zh-Hans');
+    return formatDate(value, f, this.locale);
   }
 }
