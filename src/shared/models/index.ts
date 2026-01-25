@@ -24,3 +24,11 @@ export interface EnumType {
   label: string;
   value: number;
 }
+
+export * from './menu';
+export * from './org';
+export * from './permission';
+export * from './resource';
+export * from './role';
+export * from './route';
+export * from './user';
