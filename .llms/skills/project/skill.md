@@ -1,228 +1,228 @@
-# Litho Project - LLM Context
+# Litho 项目 - LLM 上下文
 
-## Project Overview
+## 项目概述
 
-Litho is an enterprise-grade admin management system built with Angular 21 and Ng-Zorro-Antd.
+Litho 是一个使用 Angular 21 和 Ng-Zorro-Antd 构建的企业级后台管理系统。
 
-**Version**: 21.0.0
-**Package Manager**: Bun 1.3.5
-**API Gateway**: https://apigw.kainonly.com/admin
-**Domain**: sys.kainonly.com
+**版本**: 21.0.0
+**包管理器**: Bun 1.3.5
+**API 网关**: https://apigw.kainonly.com/admin
+**域名**: sys.kainonly.com
 
-## Architecture Principles
+## 架构原则
 
-### Component Architecture
-- **All components MUST be standalone** (no NgModule declarations)
-- Use signal-based reactivity instead of RxJS where possible
-- Prefer OnPush change detection strategy
-- Follow smart/dumb component pattern
-- Components must use LESS for styling
+### 组件架构
+- **所有组件必须是独立组件 (standalone)**（不使用 NgModule 声明）
+- 尽可能使用基于信号的响应式而非 RxJS
+- 优先使用 OnPush 变更检测策略
+- 遵循智能/展示组件模式 (smart/dumb component pattern)
+- 组件样式必须使用 LESS
 
-### State Management
-- Use Angular signals for local component state
-- Use services with signals for shared state across components
-- Use @ngx-pwa/local-storage for persistent client-side storage
-- Avoid deeply nested state structures
+### 状态管理
+- 使用 Angular signals 管理组件本地状态
+- 使用带 signals 的服务管理跨组件共享状态
+- 使用 @ngx-pwa/local-storage 进行客户端持久化存储
+- 避免深层嵌套的状态结构
 
-### Routing & Navigation
-- Use functional route guards (appGuard pattern)
-- Implement lazy loading for feature modules
-- Use loadComponent/loadChildren for code splitting
-- All routes require authentication except /login
+### 路由与导航
+- 使用函数式路由守卫 (appGuard 模式)
+- 为功能模块实现延迟加载
+- 使用 loadComponent/loadChildren 进行代码分割
+- 除 /login 外所有路由都需要身份验证
 
-### API Integration
-- All API classes are located in `src/shared/apis/`
-- Follow the established pattern: menus, orgs, permissions, resources, roles, routes, users
-- API base URL configured in environment files
-- Use HttpClient with type-safe interfaces from `src/shared/models/`
+### API 集成
+- 所有 API 类位于 `src/shared/apis/`
+- 遵循已建立的模式: menus、orgs、permissions、resources、roles、routes、users
+- API 基础 URL 在环境文件中配置
+- 使用 HttpClient 并配合 `src/shared/models/` 中的类型安全接口
 
-## Code Organization
+## 代码组织
 
-### Directory Structure
+### 目录结构
 ```
 src/
 ├── app/
-│   ├── __layout/          # Layout components
-│   ├── dashboard/         # Dashboard module
-│   ├── customers/         # Customer management
-│   ├── products/          # Product management
-│   ├── orders/            # Order management
-│   ├── settings/          # Settings module
-│   │   ├── general/       # General settings
-│   │   ├── access/        # Access control (permissions, resources, routes)
-│   │   └── audit/         # Audit logs
-│   ├── login/             # Authentication
-│   ├── app.routes.ts      # Main routing configuration
-│   └── app.guard.ts       # Route guard
+│   ├── __layout/          # 布局组件
+│   ├── dashboard/         # 仪表板模块
+│   ├── customers/         # 客户管理
+│   ├── products/          # 产品管理
+│   ├── orders/            # 订单管理
+│   ├── settings/          # 设置模块
+│   │   ├── general/       # 通用设置
+│   │   ├── access/        # 访问控制（权限、资源、路由）
+│   │   └── audit/         # 审计日志
+│   ├── login/             # 身份验证
+│   ├── app.routes.ts      # 主路由配置
+│   └── app.guard.ts       # 路由守卫
 └── shared/
-    ├── apis/              # API service classes
-    ├── models/            # TypeScript interfaces
-    ├── components/        # Shared components (Box, Toolbox)
-    ├── directives/        # Custom directives (submit, text)
-    ├── pipes/             # Custom pipes (9 pipes total)
-    └── utils/             # Utilities (model, filter, helper, loading)
+    ├── apis/              # API 服务类
+    ├── models/            # TypeScript 接口
+    ├── components/        # 共享组件（Box、Toolbox）
+    ├── directives/        # 自定义指令（submit、text）
+    ├── pipes/             # 自定义管道（共 9 个）
+    └── utils/             # 工具函数（model、filter、helper、loading）
 ```
 
-### Naming Conventions
-- **Components**: PascalCase class names, kebab-case selectors
-- **Files**: Component file name matches class name (e.g., `dashboard.ts` for `Dashboard` class)
-- **HTML Templates**: Same name as component file (e.g., `dashboard.html`)
-- **Styles**: Use LESS with same name (e.g., `dashboard.less`)
-- **APIs**: Plural names (e.g., `users.ts`, `menus.ts`)
-- **Models**: Singular interfaces (e.g., `User`, `Menu`, `Role`)
+### 命名约定
+- **组件**: 类名使用 PascalCase，选择器使用 kebab-case
+- **文件**: 组件文件名与类名匹配（如 `Dashboard` 类对应 `dashboard.ts`）
+- **HTML 模板**: 与组件文件同名（如 `dashboard.html`）
+- **样式**: 使用 LESS，文件名同名（如 `dashboard.less`）
+- **APIs**: 复数名称（如 `users.ts`、`menus.ts`）
+- **Models**: 单数接口（如 `User`、`Menu`、`Role`）
 
-### Import Patterns
-- Use shared barrel exports from `src/shared/public-api.ts`
-- Prefer relative imports for local files
-- Group imports: Angular core, third-party, shared, local
+### 导入模式
+- 使用 `src/shared/public-api.ts` 中的桶式导出
+- 本地文件优先使用相对导入
+- 导入分组顺序: Angular 核心、第三方库、共享模块、本地文件
 
-## Data Models
+## 数据模型
 
-### Core Entities
-The project has 7 core domain models located in `src/shared/models/`:
-- **User**: User accounts and profiles
-- **Role**: User roles for RBAC
-- **Permission**: Granular permissions
-- **Resource**: System resources
-- **Route**: Navigation routes
-- **Menu**: Menu items
-- **Organization (Org)**: Organizational units
+### 核心实体
+项目在 `src/shared/models/` 中有 7 个核心领域模型:
+- **User**: 用户账户和配置文件
+- **Role**: 用于 RBAC 的用户角色
+- **Permission**: 细粒度权限
+- **Resource**: 系统资源
+- **Route**: 导航路由
+- **Menu**: 菜单项
+- **Organization (Org)**: 组织单位
 
-### Model Pattern
-- All models are TypeScript interfaces
-- Located in `src/shared/models/`
-- Each has corresponding API service in `src/shared/apis/`
+### 模型模式
+- 所有模型都是 TypeScript 接口
+- 位于 `src/shared/models/`
+- 每个模型在 `src/shared/apis/` 中都有对应的 API 服务
 
-## Shared Resources
+## 共享资源
 
-### Custom Pipes (9 Total)
-All pipes are in `src/shared/pipes/`:
-- `BlankPipe`: Handle blank values
-- `DatePipe`: Date formatting
-- `EmptyDatePipe`: Empty date handling
-- `EmptyPipe`: Empty value handling
-- `JoinPipe`: Array joining
-- `MapPipe`: Object/array mapping
-- `ObjectPipe`: Object manipulation
-- `SlicePipe`: Array slicing
-- `SortPipe`: Array sorting
-- `SplitPipe`: String splitting
+### 自定义管道（共 9 个）
+所有管道位于 `src/shared/pipes/`:
+- `BlankPipe`: 处理空白值
+- `DatePipe`: 日期格式化
+- `EmptyDatePipe`: 空日期处理
+- `EmptyPipe`: 空值处理
+- `JoinPipe`: 数组连接
+- `MapPipe`: 对象/数组映射
+- `ObjectPipe`: 对象操作
+- `SlicePipe`: 数组切片
+- `SortPipe`: 数组排序
+- `SplitPipe`: 字符串分割
 
-### Custom Directives
-Located in `src/shared/directives/`:
-- `SubmitDirective`: Form submission handling
-- `TextDirective`: Text styling and formatting
+### 自定义指令
+位于 `src/shared/directives/`:
+- `SubmitDirective`: 表单提交处理
+- `TextDirective`: 文本样式和格式化
 
-### Shared Components
-- `Box`: Container component
-- `Toolbox`: Utility toolbar component
+### 共享组件
+- `Box`: 容器组件
+- `Toolbox`: 工具栏组件
 
-### Utilities
-Located in `src/shared/utils/`:
-- `model.ts`: Model utilities
-- `filter.ts`: Filtering utilities
-- `helper.ts`: General helpers
-- `loading.ts`: Loading state management
+### 工具函数
+位于 `src/shared/utils/`:
+- `model.ts`: 模型工具
+- `filter.ts`: 过滤工具
+- `helper.ts`: 通用辅助函数
+- `loading.ts`: 加载状态管理
 
-## Styling Guidelines
+## 样式指南
 
-### LESS Configuration
-- Component styles use LESS preprocessor
-- Global styles in `src/styles.less`
-- Component style budget: max 4kB warning, 8kB error
-- Follow Ant Design theming variables
+### LESS 配置
+- 组件样式使用 LESS 预处理器
+- 全局样式在 `src/styles.less`
+- 组件样式预算: 最大 4kB 警告，8kB 错误
+- 遵循 Ant Design 主题变量
 
-### Responsive Design
-- Use Ng-Zorro Grid system (24-column)
-- Mobile-first approach
-- Support for desktop and mobile views
+### 响应式设计
+- 使用 Ng-Zorro 栅格系统（24 栏）
+- 移动优先方法
+- 支持桌面和移动视图
 
-## Testing Strategy
+## 测试策略
 
-### Unit Testing
-- Test framework: Vitest
-- Test files co-located with components
-- Use TestBed for component testing
-- Mock services and HTTP calls
+### 单元测试
+- 测试框架: Vitest
+- 测试文件与组件放在一起
+- 使用 TestBed 进行组件测试
+- 模拟服务和 HTTP 调用
 
-### Linting & Code Quality
-- ESLint with Angular-specific rules
-- Prettier for code formatting
-- Unused imports plugin enabled
-- Run `bun run lint` before commits
+### 代码检查与质量
+- 使用 ESLint 及 Angular 特定规则
+- 使用 Prettier 进行代码格式化
+- 启用未使用导入插件
+- 提交前运行 `bun run lint`
 
-## Security & Authentication
+## 安全与认证
 
-### RBAC System
-- Complete Role-Based Access Control
-- Permissions linked to resources
-- Route-based access control
-- Guard implementation in `app.guard.ts`
+### RBAC 系统
+- 完整的基于角色的访问控制
+- 权限关联到资源
+- 基于路由的访问控制
+- 守卫实现在 `app.guard.ts`
 
-### Best Practices
-- Never commit sensitive data
-- Use environment files for configuration
-- Validate user input
-- Sanitize data before rendering
+### 最佳实践
+- 永远不要提交敏感数据
+- 使用环境文件进行配置
+- 验证用户输入
+- 渲染前清理数据
 
-## Development Workflow
+## 开发工作流
 
-### Available Scripts
-- `bun start`: Development server with HMR
-- `bun run build`: Production build
-- `bun run lint`: Run ESLint
+### 可用脚本
+- `bun start`: 开发服务器（带 HMR）
+- `bun run build`: 生产构建
+- `bun run lint`: 运行 ESLint
 
-### Environment Configuration
-- **Production**: `src/environments/environment.ts`
-- **Development**: `src/environments/environment.dev.ts`
-- File replacement configured in `angular.json`
+### 环境配置
+- **生产环境**: `src/environments/environment.ts`
+- **开发环境**: `src/environments/environment.dev.ts`
+- 文件替换在 `angular.json` 中配置
 
-### Build Configuration
-- Initial bundle size: max 10MB warning, 15MB error
-- Enable source maps in development
-- Service Worker enabled in production
-- Output hashing for cache busting
+### 构建配置
+- 初始包大小: 最大 10MB 警告，15MB 错误
+- 开发环境启用 source maps
+- 生产环境启用 Service Worker
+- 输出哈希用于缓存破坏
 
-## PWA Features
+## PWA 特性
 
-- Service Worker configured (`ngsw-config.json`)
-- Offline support enabled
-- App manifest for installability
-- Configured in production builds only
+- Service Worker 已配置（`ngsw-config.json`）
+- 启用离线支持
+- 应用清单支持可安装性
+- 仅在生产构建中配置
 
-## Common Patterns & Anti-Patterns
+## 常见模式与反模式
 
-### ✅ DO
-- Use standalone components
-- Use signals for reactive state
-- Implement OnPush change detection
-- Use trackBy in @for loops
-- Lazy load feature modules
-- Follow the existing API and model patterns
-- Use Ng-Zorro components consistently
-- Validate forms with reactive forms
+### ✅ 应该做的
+- 使用独立组件 (standalone components)
+- 使用 signals 管理响应式状态
+- 实现 OnPush 变更检测
+- 在 @for 循环中使用 trackBy
+- 延迟加载功能模块
+- 遵循现有的 API 和模型模式
+- 一致使用 Ng-Zorro 组件
+- 使用响应式表单验证表单
 
-### ❌ DON'T
-- Don't use NgModule for new components
-- Don't use RxJS when signals suffice
-- Don't create deeply nested state
-- Don't bypass route guards
-- Don't hardcode API URLs
-- Don't mix template-driven and reactive forms
-- Don't create custom UI components when Ng-Zorro provides them
-- Don't ignore TypeScript strict mode errors
+### ❌ 不应该做的
+- 不要为新组件使用 NgModule
+- 当 signals 足够时不要使用 RxJS
+- 不要创建深层嵌套的状态
+- 不要绕过路由守卫
+- 不要硬编码 API URL
+- 不要混用模板驱动和响应式表单
+- 当 Ng-Zorro 提供组件时不要创建自定义 UI 组件
+- 不要忽略 TypeScript 严格模式错误
 
-## References
+## 参考资料
 
-- Angular Documentation: https://angular.dev
-- Ng-Zorro Documentation: https://ng.ant.design
-- Ant Design Specification: https://ant.design
-- RxJS Documentation: https://rxjs.dev
+- Angular 文档: https://angular.dev
+- Ng-Zorro 文档: https://ng.ant.design
+- Ant Design 规范: https://ant.design
+- RxJS 文档: https://rxjs.dev
 
-## Notes
+## 注意事项
 
-- This project uses Bun as the package manager, not npm or yarn
-- All new code should follow Angular 21 best practices
-- Prefer composition over inheritance
-- Keep components focused and single-responsibility
-- Write self-documenting code with clear naming
+- 此项目使用 Bun 作为包管理器，而非 npm 或 yarn
+- 所有新代码应遵循 Angular 21 最佳实践
+- 优先使用组合而非继承
+- 保持组件专注和单一职责
+- 编写具有清晰命名的自文档化代码
