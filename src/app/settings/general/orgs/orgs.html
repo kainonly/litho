@@ -2,6 +2,7 @@
   <nz-input-search style="width: 200px">
     <input nz-input placeholder="搜索" />
   </nz-input-search>
+  <!--  <app-toolbox></app-toolbox>-->
 </ng-template>
 
 <ng-template #rightRef>
@@ -11,12 +12,10 @@
 </ng-template>
 
 <app-box [appLeft]="leftRef" [appRight]="rightRef">
-  <nz-table #basicTable [nzData]="listOfData">
+  <nz-table #basicTable [nzData]="m.data()">
     <thead>
       <tr>
-        <th>Name</th>
-        <th>Age</th>
-        <th>Address</th>
+        <th>组织名称</th>
         <th>Action</th>
       </tr>
     </thead>
@@ -24,13 +23,7 @@
       @for (data of basicTable.data; track data) {
         <tr>
           <td>{{ data.name }}</td>
-          <td>{{ data.age }}</td>
-          <td>{{ data.address }}</td>
-          <td>
-            <a>Action 一 {{ data.name }}</a>
-            <nz-divider nzType="vertical"></nz-divider>
-            <a>Delete</a>
-          </td>
+          <td> </td>
         </tr>
       }
     </tbody>
