@@ -46,7 +46,7 @@
           <nz-form-item>
             <nz-form-label nzRequired>邮箱地址</nz-form-label>
             <nz-form-control nzErrorTip="请输入有效的电子邮箱地址">
-              <nz-input-group nzPrefixIcon="mail">
+              <nz-input-wrapper nzPrefixIcon="mail">
                 <input
                   type="email"
                   nz-input
@@ -54,7 +54,7 @@
                   placeholder="name@company.com"
                   autocomplete="email"
                 />
-              </nz-input-group>
+              </nz-input-wrapper>
             </nz-form-control>
           </nz-form-item>
 
@@ -62,7 +62,7 @@
           <nz-form-item>
             <nz-form-label nzRequired>密码</nz-form-label>
             <nz-form-control nzErrorTip="请输入您的密码">
-              <nz-input-group nzPrefixIcon="lock">
+              <nz-input-wrapper nzPrefixIcon="lock">
                 <input
                   type="password"
                   nz-input
@@ -70,7 +70,7 @@
                   placeholder="请输入密码"
                   autocomplete="current-password"
                 />
-              </nz-input-group>
+              </nz-input-wrapper>
             </nz-form-control>
           </nz-form-item>
 
@@ -78,7 +78,7 @@
           <nz-form-item class="options-item">
             <nz-form-control>
               <div class="login-options">
-                <label nz-checkbox formControlName="remember">记住我</label>
+                <nz-checkbox formControlName="remember">记住我</nz-checkbox>
                 <a class="forgot-link" routerLink="/forgot-password">忘记密码?</a>
               </div>
             </nz-form-control>
@@ -102,9 +102,9 @@
           <nz-form-item>
             <nz-form-label nzRequired>手机号码</nz-form-label>
             <nz-form-control nzErrorTip="请输入有效的手机号码">
-              <nz-input-group nzPrefixIcon="mobile" [nzAddOnBefore]="prefixTemplate">
+              <nz-input-wrapper nzPrefixIcon="mobile" [nzAddOnBefore]="prefixTemplate">
                 <input nz-input formControlName="phone" placeholder="请输入手机号" autocomplete="tel" />
-              </nz-input-group>
+              </nz-input-wrapper>
               <ng-template #prefixTemplate>
                 <nz-select formControlName="phonePrefix" style="width: 80px">
                   <nz-option nzLabel="+86" nzValue="+86"></nz-option>
@@ -120,9 +120,9 @@
           <nz-form-item>
             <nz-form-label nzRequired>验证码</nz-form-label>
             <nz-form-control nzErrorTip="请输入验证码">
-              <nz-input-group nzPrefixIcon="safety" [nzSuffix]="codeSuffix">
+              <nz-input-wrapper nzPrefixIcon="safety" [nzSuffix]="codeSuffix">
                 <input nz-input formControlName="code" placeholder="请输入验证码" maxlength="6" />
-              </nz-input-group>
+              </nz-input-wrapper>
               <ng-template #codeSuffix>
                 <button
                   nz-button
@@ -141,7 +141,7 @@
           <nz-form-item class="options-item">
             <nz-form-control>
               <div class="login-options">
-                <label nz-checkbox formControlName="remember">记住我</label>
+                <nz-checkbox formControlName="remember">记住我</nz-checkbox>
               </div>
             </nz-form-control>
           </nz-form-item>
