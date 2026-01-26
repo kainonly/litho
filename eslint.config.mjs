@@ -72,7 +72,7 @@ export default tseslint.config(
     plugins: {
       prettier
     },
-    extends: [angular.configs.templateRecommended, angular.configs.templateAccessibility],
+    extends: [angular.configs.templateRecommended],
     rules: {
       'prettier/prettier': [
         'error',

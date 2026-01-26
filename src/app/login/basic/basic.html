@@ -1,0 +1,31 @@
+<form nz-form nzLayout="vertical" [formGroup]="form" (appSubmit)="submit($event)">
+  <nz-form-item>
+    <nz-form-label nzRequired>邮箱地址</nz-form-label>
+    <nz-form-control nzErrorTip="请输入有效的电子邮箱地址">
+      <input type="email" nz-input formControlName="email" placeholder="name@company.com" autocomplete="email" />
+    </nz-form-control>
+  </nz-form-item>
+
+  <nz-form-item>
+    <nz-form-label nzRequired>密码</nz-form-label>
+    <nz-form-control nzErrorTip="请输入您的密码">
+      <nz-input-password>
+        <input nz-input formControlName="password" autocomplete="current-password" placeholder="请输入密码" />
+      </nz-input-password>
+    </nz-form-control>
+  </nz-form-item>
+
+  <nz-form-item>
+    <nz-form-control>
+      <div class="form-options">
+        <a routerLink="/forgot-password">忘记密码?</a>
+      </div>
+    </nz-form-control>
+  </nz-form-item>
+
+  <nz-form-item>
+    <nz-form-control>
+      <button nz-button nzType="primary" nzBlock [nzLoading]="loading.value()" [disabled]="!form.valid">登录</button>
+    </nz-form-control>
+  </nz-form-item>
+</form>

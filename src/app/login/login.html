@@ -1,186 +1,41 @@
 <div class="login-container">
-  <div class="login-brand">
-    <div class="brand-content"> </div>
-  </div>
+  <div class="login-brand"></div>
 
-  <div class="login-form-section">
-    <div class="login-card">
-      <!-- 表单头部 -->
-      <div class="login-header">
-        <h2 class="login-title">欢迎回来</h2>
-        <p class="login-subtitle">请登录您的账户以继续</p>
-      </div>
+  <section class="login-section">
+    <header class="login-header">
+      <h1>欢迎回来</h1>
+      <p>请登录您的账户以继续</p>
+    </header>
 
-      <!-- 登录方式切换 -->
-      <div class="login-tabs">
-        <button
-          type="button"
-          nz-button
-          nzType="text"
-          class="login-tab"
-          [class.active]="loginMode === 'email'"
-          (click)="switchLoginMode('email')"
-          [attr.aria-pressed]="loginMode === 'email'"
-        >
-          <nz-icon nzType="mail" />
-          邮箱登录
-        </button>
-        <button
-          type="button"
-          nz-button
-          nzType="text"
-          class="login-tab"
-          [class.active]="loginMode === 'sms'"
-          (click)="switchLoginMode('sms')"
-          [attr.aria-pressed]="loginMode === 'sms'"
-        >
-          <nz-icon nzType="mobile" />
-          短信登录
-        </button>
-      </div>
+    <nz-segmented
+      [nzOptions]="options"
+      [ngModel]="mode()"
+      (ngModelChange)="mode.set($event)"
+      nzBlock
+      class="login-tabs"
+    />
 
-      <!-- 邮箱登录表单 -->
-      @if (loginMode === 'email') {
-        <form nz-form nzLayout="vertical" [formGroup]="emailForm" (appSubmit)="submitEmail($event)" class="login-form">
-          <!-- 邮箱 -->
-          <nz-form-item>
-            <nz-form-label nzRequired>邮箱地址</nz-form-label>
-            <nz-form-control nzErrorTip="请输入有效的电子邮箱地址">
-              <nz-input-wrapper nzPrefixIcon="mail">
-                <input
-                  type="email"
-                  nz-input
-                  formControlName="email"
-                  placeholder="name@company.com"
-                  autocomplete="email"
-                />
-              </nz-input-wrapper>
-            </nz-form-control>
-          </nz-form-item>
-
-          <!-- 密码 -->
-          <nz-form-item>
-            <nz-form-label nzRequired>密码</nz-form-label>
-            <nz-form-control nzErrorTip="请输入您的密码">
-              <nz-input-wrapper nzPrefixIcon="lock">
-                <input
-                  type="password"
-                  nz-input
-                  formControlName="password"
-                  placeholder="请输入密码"
-                  autocomplete="current-password"
-                />
-              </nz-input-wrapper>
-            </nz-form-control>
-          </nz-form-item>
-
-          <!-- 记住我 和 忘记密码 -->
-          <nz-form-item class="options-item">
-            <nz-form-control>
-              <div class="login-options">
-                <nz-checkbox formControlName="remember">记住我</nz-checkbox>
-                <a class="forgot-link" routerLink="/forgot-password">忘记密码?</a>
-              </div>
-            </nz-form-control>
-          </nz-form-item>
-
-          <!-- 登录按钮 -->
-          <nz-form-item class="submit-item">
-            <nz-form-control>
-              <button nz-button nzType="primary" nzBlock [nzLoading]="loading" [disabled]="!emailForm.valid">
-                登录
-              </button>
-            </nz-form-control>
-          </nz-form-item>
-        </form>
+    @switch (mode()) {
+      @case ('email') {
+        <app-login-basic />
       }
-
-      <!-- 短信登录表单 -->
-      @if (loginMode === 'sms') {
-        <form nz-form nzLayout="vertical" [formGroup]="smsForm" (appSubmit)="submitSms($event)" class="login-form">
-          <!-- 手机号 -->
-          <nz-form-item>
-            <nz-form-label nzRequired>手机号码</nz-form-label>
-            <nz-form-control nzErrorTip="请输入有效的手机号码">
-              <nz-input-wrapper nzPrefixIcon="mobile" [nzAddOnBefore]="prefixTemplate">
-                <input nz-input formControlName="phone" placeholder="请输入手机号" autocomplete="tel" />
-              </nz-input-wrapper>
-              <ng-template #prefixTemplate>
-                <nz-select formControlName="phonePrefix" style="width: 80px">
-                  <nz-option nzLabel="+86" nzValue="+86"></nz-option>
-                  <nz-option nzLabel="+852" nzValue="+852"></nz-option>
-                  <nz-option nzLabel="+853" nzValue="+853"></nz-option>
-                  <nz-option nzLabel="+886" nzValue="+886"></nz-option>
-                </nz-select>
-              </ng-template>
-            </nz-form-control>
-          </nz-form-item>
-
-          <!-- 验证码 -->
-          <nz-form-item>
-            <nz-form-label nzRequired>验证码</nz-form-label>
-            <nz-form-control nzErrorTip="请输入验证码">
-              <nz-input-wrapper nzPrefixIcon="safety" [nzSuffix]="codeSuffix">
-                <input nz-input formControlName="code" placeholder="请输入验证码" maxlength="6" />
-              </nz-input-wrapper>
-              <ng-template #codeSuffix>
-                <button
-                  nz-button
-                  nzType="link"
-                  [disabled]="countdown > 0 || !smsForm.get('phone')?.valid"
-                  (click)="sendCode($event)"
-                  class="send-code-btn"
-                >
-                  {{ countdown > 0 ? countdown + 's 后重发' : '获取验证码' }}
-                </button>
-              </ng-template>
-            </nz-form-control>
-          </nz-form-item>
-
-          <!-- 记住我 -->
-          <nz-form-item class="options-item">
-            <nz-form-control>
-              <div class="login-options">
-                <nz-checkbox formControlName="remember">记住我</nz-checkbox>
-              </div>
-            </nz-form-control>
-          </nz-form-item>
-
-          <!-- 登录按钮 -->
-          <nz-form-item class="submit-item">
-            <nz-form-control>
-              <button nz-button nzType="primary" nzBlock [nzLoading]="loading" [disabled]="!smsForm.valid">
-                登录
-              </button>
-            </nz-form-control>
-          </nz-form-item>
-        </form>
+      @case ('sms') {
+        <app-login-sms />
       }
+    }
 
-      <!-- SSO 登录 -->
-      <div class="login-sso">
-        <nz-divider nzText="其他登录方式"></nz-divider>
-        <div class="sso-buttons">
-          <button
-            nz-button
-            nzType="text"
-            class="sso-btn"
-            nz-tooltip
-            nzTooltipTitle="通行密钥"
-            (click)="ssoLogin('passkey')"
-          >
-            <nz-icon nzType="key" />
-          </button>
-          <button nz-button nzType="text" class="sso-btn" nz-tooltip nzTooltipTitle="飞书" (click)="ssoLogin('feishu')">
-            <img src="sso/lark.svg" alt="飞书" />
-          </button>
-        </div>
-      </div>
-    </div>
+    <footer class="login-footer">
+      <nz-divider nzText="其他登录方式" />
+      <nz-space nzAlign="center">
+        <button *nzSpaceItem nz-button nzType="text" nz-tooltip nzTooltipTitle="通行密钥">
+          <nz-icon nzType="key" />
+        </button>
+      </nz-space>
+    </footer>
 
-    <div class="login-copyright">
-      © 2026 Litho System. All rights reserved.
-      <p>Design by Kain</p>
-    </div>
-  </div>
+    <small class="copyright">
+      ©2026 Litho System. All rights reserved.
+      <span>Design by Kain</span>
+    </small>
+  </section>
 </div>

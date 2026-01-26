@@ -33,6 +33,7 @@ import { NzRadioModule } from 'ng-zorro-antd/radio';
 import { NzRateModule } from 'ng-zorro-antd/rate';
 import { NzResultModule } from 'ng-zorro-antd/result';
 import { NzSelectModule } from 'ng-zorro-antd/select';
+import { NzSegmentedModule } from 'ng-zorro-antd/segmented';
 import { NzSpaceModule } from 'ng-zorro-antd/space';
 import { NzStatisticModule } from 'ng-zorro-antd/statistic';
 import { NzTableModule } from 'ng-zorro-antd/table';
@@ -69,6 +70,7 @@ import { DirectivesModule } from '@shared/directives/directives.module';
     NzInputNumberModule,
     NzRadioModule,
     NzSelectModule,
+    NzSegmentedModule,
     NzAvatarModule,
     NzBadgeModule,
     NzCardModule,

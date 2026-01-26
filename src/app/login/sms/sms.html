@@ -1,0 +1,32 @@
+<form nz-form nzLayout="vertical" [formGroup]="form" (appSubmit)="submit($event)">
+  <nz-form-item>
+    <nz-form-label nzRequired>手机号码</nz-form-label>
+    <nz-form-control nzErrorTip="请输入有效的手机号码">
+      <input type="email" nz-input formControlName="phone" placeholder="+86" autocomplete="email" />
+    </nz-form-control>
+  </nz-form-item>
+
+  <nz-form-item>
+    <nz-form-label nzRequired>验证码</nz-form-label>
+    <nz-form-control nzErrorTip="请输入验证码">
+      <nz-space>
+        <nz-input-otp *nzSpaceItem [nzFormatter]="formatter"></nz-input-otp>
+        <a *nzSpaceItem nz-button nzType="link">获取</a>
+      </nz-space>
+    </nz-form-control>
+  </nz-form-item>
+
+  <nz-form-item>
+    <nz-form-control>
+      <div class="form-options">
+        <a routerLink="/forgot-password">忘记密码?</a>
+      </div>
+    </nz-form-control>
+  </nz-form-item>
+
+  <nz-form-item>
+    <nz-form-control>
+      <button nz-button nzType="primary" nzBlock [nzLoading]="loading.value()" [disabled]="!form.valid">登录</button>
+    </nz-form-control>
+  </nz-form-item>
+</form>

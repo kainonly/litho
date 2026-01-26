@@ -1,7 +1,13 @@
 import { registerLocaleData } from '@angular/common';
 import { provideHttpClient, withFetch, withInterceptors, withXsrfConfiguration } from '@angular/common/http';
 import zh from '@angular/common/locales/zh';
-import { ApplicationConfig, provideBrowserGlobalErrorListeners, isDevMode, importProvidersFrom } from '@angular/core';
+import {
+  ApplicationConfig,
+  provideBrowserGlobalErrorListeners,
+  isDevMode,
+  importProvidersFrom,
+  provideZonelessChangeDetection
+} from '@angular/core';
 import { provideRouter, withViewTransitions } from '@angular/router';
 import { provideServiceWorker } from '@angular/service-worker';
 import { provideNzConfig } from 'ng-zorro-antd/core/config';
@@ -19,6 +25,7 @@ registerLocaleData(zh);
 export const appConfig: ApplicationConfig = {
   providers: [
     provideBrowserGlobalErrorListeners(),
+    provideZonelessChangeDetection(),
     provideHttpClient(
       withFetch(),
       withInterceptors([appInterceptor]),
