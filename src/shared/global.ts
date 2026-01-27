@@ -19,6 +19,29 @@ export class Global {
     return new Model<T, S>(storageKey, this.storage, api, search);
   }
 
+  deleteConfirm(content: string, onOk: () => void): void {
+    this.modal.confirm({
+      nzTitle: `您确定删除该数据吗?`,
+      nzContent: content,
+      nzOkText: `是的`,
+      nzOkType: 'primary',
+      nzOkDanger: true,
+      nzOnOk: () => onOk(),
+      nzCancelText: `再想想`
+    });
+  }
+
+  bulkDeleteConfirm(onOk: () => void): void {
+    this.modal.confirm({
+      nzTitle: `您确定删除当前选中的数据吗?`,
+      nzOkText: `是的`,
+      nzOkType: 'primary',
+      nzOkDanger: true,
+      nzOnOk: () => onOk(),
+      nzCancelText: `再想想`
+    });
+  }
+
   login(dto: Any): Observable<R> {
     return this.http.post('login', dto);
   }

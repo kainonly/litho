@@ -1,0 +1,19 @@
+<form nz-form nzLayout="vertical" id="form" [formGroup]="form" (appSubmit)="submit($event)">
+  <nz-form-item>
+    <nz-form-label nzRequired>组织名称</nz-form-label>
+    <nz-form-control nzHasFeedback [nzAutoTips]="tips.name">
+      <input nz-input formControlName="name" placeholder="请输入组织名称" />
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label nzRequired>状态</nz-form-label>
+    <nz-form-control>
+      <nz-switch formControlName="active"></nz-switch>
+    </nz-form-control>
+  </nz-form-item>
+</form>
+
+<div *nzModalFooter>
+  <button nz-button type="button" nzType="default" (click)="close()">取消</button>
+  <button nz-button nzType="primary" form="form" [disabled]="!form.valid">提交</button>
+</div>

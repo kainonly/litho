@@ -1,29 +1,59 @@
-<ng-template #leftRef>
+<ng-template #left>
   <nz-input-search style="width: 200px">
     <input nz-input placeholder="搜索" />
   </nz-input-search>
   <!--  <app-toolbox></app-toolbox>-->
 </ng-template>
 
-<ng-template #rightRef>
+<ng-template #right>
   <nz-space>
-    <button *nzSpaceItem nz-button nzType="primary">新增</button>
+    <button *nzSpaceItem nz-button nzType="primary" (click)="open()">新增</button>
   </nz-space>
 </ng-template>
 
-<app-box [appLeft]="leftRef" [appRight]="rightRef">
+<app-box [appLeft]="left" [appRight]="right">
   <nz-table #basicTable [nzData]="m.data()">
     <thead>
       <tr>
-        <th>组织名称</th>
-        <th>Action</th>
+        <th
+          nzLeft
+          nzAlign="center"
+          nzWidth="50px"
+          [nzChecked]="m.checked()"
+          [nzIndeterminate]="m.indeterminate()"
+          (nzCheckedChange)="m.setCurrentSelections($event)"
+        ></th>
+        <th><b>组织名称</b></th>
+        <th nzRight nzAlign="center" nzWidth="50px">
+          <button nz-button nzType="text" nz-tooltip="操作">
+            <nz-icon nzType="setting" />
+          </button>
+        </th>
       </tr>
     </thead>
     <tbody>
       @for (data of basicTable.data; track data) {
         <tr>
+          <td
+            nzLeft
+            nzAlign="center"
+            [nzChecked]="m.selection().has(data.id)"
+            (nzCheckedChange)="$event ? m.setSelection(data) : m.removeSelection(data.id)"
+          ></td>
           <td>{{ data.name }}</td>
-          <td> </td>
+          <td nzRight nzAlign="center">
+            <button nz-button nzType="text" nz-dropdown [nzDropdownMenu]="actions">
+              <nz-icon nzType="ellipsis" nzTheme="outline"></nz-icon>
+            </button>
+            <nz-dropdown-menu #actions>
+              <ul nz-menu>
+                <li nz-menu-item (click)="open(data)"> 修改</li>
+                <li nz-menu-divider></li>
+                <li nz-menu-item> 审计</li>
+                <li nz-menu-item nzDanger (click)="delete(data)"> 删除</li>
+              </ul>
+            </nz-dropdown-menu>
+          </td>
         </tr>
       }
     </tbody>

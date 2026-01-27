@@ -32,10 +32,11 @@ import { NzPopoverModule } from 'ng-zorro-antd/popover';
 import { NzRadioModule } from 'ng-zorro-antd/radio';
 import { NzRateModule } from 'ng-zorro-antd/rate';
 import { NzResultModule } from 'ng-zorro-antd/result';
-import { NzSelectModule } from 'ng-zorro-antd/select';
 import { NzSegmentedModule } from 'ng-zorro-antd/segmented';
+import { NzSelectModule } from 'ng-zorro-antd/select';
 import { NzSpaceModule } from 'ng-zorro-antd/space';
 import { NzStatisticModule } from 'ng-zorro-antd/statistic';
+import { NzSwitchModule } from 'ng-zorro-antd/switch';
 import { NzTableModule } from 'ng-zorro-antd/table';
 import { NzTabsModule } from 'ng-zorro-antd/tabs';
 import { NzTagModule } from 'ng-zorro-antd/tag';
@@ -83,6 +84,7 @@ import { DirectivesModule } from '@shared/directives/directives.module';
     NzCascaderModule,
     NzTooltipModule,
     NzModalModule,
+    NzSwitchModule,
     NzPopconfirmModule,
     NzImageModule,
     NzEmptyModule,
