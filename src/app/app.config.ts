@@ -38,7 +38,7 @@ export const appConfig: ApplicationConfig = {
     provideNzConfig({
       notification: { nzPlacement: 'bottomRight' },
       card: { nzBordered: false },
-      table: { nzSize: 'middle', nzBordered: true }
+      table: { nzSize: 'small', nzBordered: true }
     }),
     provideRouter(routes, withViewTransitions()),
     importProvidersFrom(SharedModule, NzMessageService, NzNotificationService),
