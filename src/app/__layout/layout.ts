@@ -1,4 +1,5 @@
 import { Component, DestroyRef, inject, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { NzModalService } from 'ng-zorro-antd/modal';
 
 import { Global, SharedModule } from '@shared';
@@ -15,6 +16,14 @@ export class Layout implements OnInit {
 
   private destroyRef = inject(DestroyRef);
   private modal = inject(NzModalService);
+  private router = inject(Router);
 
-  ngOnInit(): void { }
+  ngOnInit(): void {}
+
+  logout(): void {
+    this.global.logout().subscribe(() => {
+      // this.global.activeUser.set(null);
+      this.router.navigateByUrl('/login');
+    });
+  }
 }

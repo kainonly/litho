@@ -57,18 +57,5 @@ export class Sms implements OnDestroy {
 
   submit(data: Any): void {
     this.loading.start();
-    // this.global
-    //   .loginSms(data.phone, data.code)
-    //   .pipe(takeUntilDestroyed(this.destroyRef))
-    //   .subscribe({
-    //     next: () => {
-    //       this.loading.end();
-    //       this.router.navigateByUrl('/index');
-    //       this.notification.success(`登录成功`, `🚀 欢迎回来，正在进入系统...`);
-    //     },
-    //     error: () => {
-    //       this.loading.end();
-    //     }
-    //   });
   }
 }

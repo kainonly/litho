@@ -34,10 +34,16 @@ export class Basic {
     this.global
       .login(data)
       .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe(() => {
-        this.loading.end();
-        this.router.navigateByUrl('/dashboard');
-        this.notification.success(`登录成功`, `🚀 欢迎回来，正在进入系统...`);
+      .subscribe({
+        next: () => {
+          this.loading.end();
+          this.router.navigateByUrl('/dashboard');
+          this.notification.success(`登录成功`, `🚀 欢迎回来，正在进入系统...`);
+        },
+        error: response => {
+          this.loading.end();
+          this.notification.error(`登录失败`, response.error.message);
+        }
       });
   }
 }
