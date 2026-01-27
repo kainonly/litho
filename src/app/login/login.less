@@ -3,6 +3,7 @@
   z-index: 1;
   display: flex;
   min-height: 100vh;
+  overflow: hidden;
 }
 
 .login-brand {
@@ -46,6 +47,8 @@
     object-fit: contain;
     position: relative;
     z-index: 1;
+    animation-timing-function: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    animation-delay: var(--animate-delay);
   }
 }
 
@@ -60,13 +63,15 @@
   box-shadow: -8px 0 24px rgba(0, 0, 0, 0.06);
   position: relative;
   justify-content: center;
+  animation-delay: var(--animate-delay);
+  animation-timing-function: cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
 .login-header {
-  margin-bottom: 32px;
+  margin-bottom: 48px;
 
   h1 {
-    font-size: 28px;
+    font-size: 32px;
     font-weight: 600;
     margin: 0 0 8px;
     color: #1a1a1a;

@@ -16,6 +16,7 @@
     "@angular/router": "^21.1.0",
     "@angular/service-worker": "^21.1.0",
     "@ngx-pwa/local-storage": "21.0.0",
+    "animate.css": "^4.1.1",
     "ng-zorro-antd": "^21.0.1",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0"

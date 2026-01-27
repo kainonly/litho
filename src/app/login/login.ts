@@ -30,7 +30,7 @@ export class Login implements OnDestroy {
   mode = signal<Mode>('email');
   options: NzSegmentedOption[] = [
     {
-      label: '邮箱登录',
+      label: '账号登录',
       value: 'email',
       icon: 'mail'
     },

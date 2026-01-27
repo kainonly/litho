@@ -39,7 +39,8 @@
               }
             ],
             "styles": [
-              "src/styles.less"
+              "src/styles.less",
+              "node_modules/animate.css/animate.min.css"
             ]
           },
           "configurations": {
