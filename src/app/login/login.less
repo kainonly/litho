@@ -67,6 +67,28 @@
   animation-timing-function: cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
+// 多语言切换按钮
+.language-switcher {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  font-size: 14px;
+  transition: all 0.2s;
+
+  nz-icon {
+    font-size: 16px;
+  }
+
+  &:hover {
+    color: #1890ff;
+    border-color: #1890ff;
+  }
+}
+
 .login-header {
   margin-bottom: 48px;
 
