@@ -25,6 +25,21 @@
     pointer-events: none;
   }
 
+  .login-logo {
+    position: absolute;
+    top: -64px;
+    left: 16px;
+    width: 256px;
+    object-fit: contain;
+    opacity: 0.9;
+    transition: opacity 0.2s;
+    z-index: 2;
+
+    &:hover {
+      opacity: 1;
+    }
+  }
+
   .brand-logo {
     max-width: 60%;
     height: auto;

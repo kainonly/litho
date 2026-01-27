@@ -7,13 +7,6 @@ import { NzModalService } from 'ng-zorro-antd/modal';
 import { Global, SharedModule } from '@shared';
 import { OrgsApi } from '@shared/apis/orgs';
 
-interface Person {
-  key: string;
-  name: string;
-  age: number;
-  address: string;
-}
-
 @Component({
   imports: [SharedModule],
   selector: 'app-settings-orgs',
