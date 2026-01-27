@@ -64,7 +64,7 @@ export class Sms implements OnDestroy {
     //     next: () => {
     //       this.loading.end();
     //       this.router.navigateByUrl('/index');
-    //       this.notification.success(`鉴权成功`, `🚀账号登录成功, 正在加载页面...`);
+    //       this.notification.success(`登录成功`, `🚀 欢迎回来，正在进入系统...`);
     //     },
     //     error: () => {
     //       this.loading.end();

@@ -34,18 +34,10 @@ export class Basic {
     this.global
       .login(data)
       .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe({
-        next: () => {
-          this.loading.end();
-          this.router.navigateByUrl('/dashboard');
-          this.notification.success(`鉴权成功`, `🚀账号登录成功, 正在加载页面...`);
-        },
-        error: e => {
-          this.loading.end();
-          if (e.error.code == 'ErrLoginNotExists' || e.error.code == 'ErrLoginInvalid') {
-            this.notification.error(`登录失败`, `❌账号或密码错误，请重新输入`);
-          }
-        }
+      .subscribe(() => {
+        this.loading.end();
+        this.router.navigateByUrl('/dashboard');
+        this.notification.success(`登录成功`, `🚀 欢迎回来，正在进入系统...`);
       });
   }
 }
