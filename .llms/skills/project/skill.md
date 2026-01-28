@@ -113,14 +113,29 @@ src/
 - `SubmitDirective`: 表单提交处理
 - `TextDirective`: 文本样式和格式化
 
-### 共享组件
+### 共享组件（共 5 个）
+位于 `src/shared/components/`:
 - `Box`: 容器组件
-- `Toolbox`: 工具栏组件
+- `Toolbox`: 工具栏组件，包含筛选、清空、刷新功能，支持抽屉式筛选面板
+- `Active`: 状态显示组件，使用 nz-badge 显示启用/禁用状态
+- `Title`: 表格列标题组件，支持信息提示和关键词标记
+- `Keyword`: 关键词搜索输入框组件，与 Model 集成
 
-### 工具函数
+### 工具类
 位于 `src/shared/utils/`:
-- `model.ts`: 模型工具
-- `filter.ts`: 过滤工具
+
+#### Model 类（核心数据管理）
+`Model<T, S>` 是通用数据模型类，用于管理列表数据的状态、分页、排序和选择:
+- **数据状态**: `data()`、`loading()`、`total()` 信号
+- **分页**: `page()`、`pagesize()` 信号
+- **选择**: `selection()`、`checked()`、`indeterminate()` 计算信号
+- **排序**: `sort` Map 和 `setSort()` 方法
+- **搜索**: `search` 对象和 `searchInit` 初始值
+- **持久化**: 自动保存/恢复分页、搜索、排序状态到本地存储
+- **方法**: `ready()`、`fetch()`、`setSelection()`、`clearSelections()` 等
+
+#### 其他工具
+- `filter.ts`: 筛选工具类，管理抽屉式筛选面板状态
 - `helper.ts`: 通用辅助函数
 - `loading.ts`: 加载状态管理
 
@@ -190,17 +205,223 @@ src/
 - 应用清单支持可安装性
 - 仅在生产构建中配置
 
+## 常见模式
+
+### 列表页面模式
+```typescript
+@Component({
+  imports: [SharedModule],
+  selector: 'app-settings-users',
+  templateUrl: './users.html',
+  changeDetection: ChangeDetectionStrategy.OnPush
+})
+export class Users implements OnInit {
+  global = inject(Global);
+  users = inject(UsersApi);
+  private destroyRef = inject(DestroyRef);
+  private modal = inject(NzModalService);
+  private message = inject(NzMessageService);
+
+  // 使用 Global.setModel() 创建 Model 实例
+  m = this.global.setModel(`users`, this.users, { q: '' });
+
+  ngOnInit(): void {
+    this.m.ready()
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe(() => this.getData());
+  }
+
+  getData(refresh = false): void {
+    if (refresh) this.m.page.set(1);
+    let params = new HttpParams();
+    const { q } = this.m.search;
+    if (q) params = params.set('q', q);
+    this.m.fetch(params).pipe(takeUntilDestroyed(this.destroyRef)).subscribe();
+  }
+
+  open(data?: User): void {
+    this.modal.create<Form, FormInput>({
+      nzTitle: !data ? '新增用户' : `修改用户【${data.name}】`,
+      nzContent: Form,
+      nzData: { data },
+      nzOnOk: () => this.getData(true)
+    });
+  }
+
+  delete(data: User): void {
+    this.global.deleteConfirm(`用户【${data.name}】`, () => {
+      this.users.delete([data.id])
+        .pipe(takeUntilDestroyed(this.destroyRef))
+        .subscribe(() => {
+          this.message.success(`删除成功`);
+          this.m.clearSelection(data.id);
+          this.getData(true);
+        });
+    });
+  }
+
+  bulkDelete(): void {
+    this.global.bulkDeleteConfirm(() => {
+      this.users.delete([...this.m.selection().keys()])
+        .pipe(takeUntilDestroyed(this.destroyRef))
+        .subscribe(() => {
+          this.message.success(`删除成功`);
+          this.m.clearSelections();
+          this.getData(true);
+        });
+    });
+  }
+}
+```
+
+### 模态表单模式
+```typescript
+export interface FormInput {
+  data?: User;
+}
+
+@Component({
+  imports: [SharedModule],
+  selector: 'app-settings-general-users-form',
+  templateUrl: './form.html',
+  changeDetection: ChangeDetectionStrategy.OnPush
+})
+export class Form implements OnInit {
+  input = inject<FormInput>(NZ_MODAL_DATA);
+  global = inject(Global);
+  users = inject(UsersApi);
+  private destroyRef = inject(DestroyRef);
+  private modalRef = inject(NzModalRef);
+  private message = inject(NzMessageService);
+  private fb = inject(FormBuilder);
+
+  form: FormGroup = this.fb.group({
+    name: ['', [Validators.required]],
+    email: ['', [Validators.required, Validators.email]],
+    active: [true, [Validators.required]]
+  });
+  tips = tips; // 导入验证提示配置
+
+  ngOnInit(): void {
+    if (this.input.data) {
+      this.getData(this.input.data.id);
+    }
+  }
+
+  getData(id: string): void {
+    this.users.findById(id)
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe(data => this.form.patchValue(data));
+  }
+
+  close(): void {
+    this.modalRef.triggerCancel();
+  }
+
+  submit(data: Any): void {
+    const dto = { ...data };
+    if (!this.input.data) {
+      this.users.create(dto)
+        .pipe(takeUntilDestroyed(this.destroyRef))
+        .subscribe(() => {
+          this.message.success(`新增成功`);
+          this.modalRef.triggerOk();
+        });
+    } else {
+      dto.id = this.input.data.id;
+      this.users.update(dto)
+        .pipe(takeUntilDestroyed(this.destroyRef))
+        .subscribe(() => {
+          this.message.success(`更新成功`);
+          this.modalRef.triggerOk();
+        });
+    }
+  }
+}
+```
+
+### 验证提示配置模式
+```typescript
+// tips.ts
+export const tips = {
+  name: {
+    default: { required: '用户名称不能为空' }
+  },
+  email: {
+    default: {
+      required: '邮箱不能为空',
+      email: '邮箱格式不正确'
+    }
+  }
+};
+```
+
+### 表格模板模式
+```html
+<nz-table
+  #tb
+  [nzLoading]="m.loading()"
+  [nzData]="m.data()"
+  [nzTotal]="m.total()"
+  [nzFrontPagination]="false"
+  [(nzPageIndex)]="m.page"
+  [(nzPageSize)]="m.pagesize"
+  (nzPageIndexChange)="getData()"
+  (nzPageSizeChange)="getData()">
+  <thead>
+    <tr>
+      <th nzAlign="center" nzWidth="50px"
+        [nzChecked]="m.checked()"
+        [nzIndeterminate]="m.indeterminate()"
+        (nzCheckedChange)="m.setCurrentSelections($event)"></th>
+      <th><app-title>名称</app-title></th>
+      <th nzAlign="center"><app-title>状态</app-title></th>
+      <th nzRight nzAlign="center" nzWidth="50px">
+        <button nz-button nzType="text"><nz-icon nzType="setting" /></button>
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    @for (data of tb.data; track data.id) {
+      <tr>
+        <td nzAlign="center"
+          [nzChecked]="m.selection().has(data.id)"
+          (nzCheckedChange)="$event ? m.setSelection(data) : m.removeSelection(data.id)"></td>
+        <td>{{ data.name }}</td>
+        <td nzAlign="center"><app-active [appValue]="data.active"></app-active></td>
+        <td nzRight nzAlign="center">
+          <button nz-button nzType="text" nz-dropdown [nzDropdownMenu]="actions">
+            <nz-icon nzType="ellipsis"></nz-icon>
+          </button>
+          <nz-dropdown-menu #actions>
+            <ul nz-menu>
+              <li nz-menu-item (click)="open(data)">修改</li>
+              <li nz-menu-divider></li>
+              <li nz-menu-item nzDanger (click)="delete(data)">删除</li>
+            </ul>
+          </nz-dropdown-menu>
+        </td>
+      </tr>
+    }
+  </tbody>
+</nz-table>
+```
+
 ## 常见模式与反模式
 
 ### ✅ 应该做的
 - 使用独立组件 (standalone components)
 - 使用 signals 管理响应式状态
 - 实现 OnPush 变更检测
-- 在 @for 循环中使用 trackBy
+- 在 @for 循环中使用 track
 - 延迟加载功能模块
 - 遵循现有的 API 和模型模式
 - 一致使用 Ng-Zorro 组件
 - 使用响应式表单验证表单
+- 使用 `takeUntilDestroyed(this.destroyRef)` 管理订阅
+- 使用 `Global.setModel()` 创建列表数据管理实例
+- 使用 `NZ_MODAL_DATA` 传递模态框数据
+- 使用 `tips` 配置统一管理表单验证提示
 
 ### ❌ 不应该做的
 - 不要为新组件使用 NgModule
@@ -211,6 +432,8 @@ src/
 - 不要混用模板驱动和响应式表单
 - 当 Ng-Zorro 提供组件时不要创建自定义 UI 组件
 - 不要忽略 TypeScript 严格模式错误
+- 不要在列表组件中设置 `standalone: true`（Angular 21 默认）
+- 不要忘记使用 `track` 追踪 @for 循环
 
 ## 参考资料
 
