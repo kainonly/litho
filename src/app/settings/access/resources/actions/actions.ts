@@ -1,5 +1,5 @@
 import { HttpParams } from '@angular/common/http';
-import { ChangeDetectionStrategy, Component, DestroyRef, inject, OnInit } from '@angular/core';
+import { Component, DestroyRef, inject, OnInit } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalService } from 'ng-zorro-antd/modal';
@@ -12,9 +12,8 @@ import { Form, FormInput } from './form/form';
 
 @Component({
   imports: [SharedModule],
-  selector: 'app-settings-resources',
-  templateUrl: './resources.html',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  selector: 'app-settings-access-resources-actions',
+  templateUrl: './actions.html'
 })
 export class Resources implements OnInit {
   global = inject(Global);
@@ -24,7 +23,7 @@ export class Resources implements OnInit {
   private modal = inject(NzModalService);
   private message = inject(NzMessageService);
 
-  m = this.global.setModel(`resources`, this.resources, {
+  m = this.global.setModel(`actions`, this.resources, {
     q: ''
   });
 
@@ -51,7 +50,7 @@ export class Resources implements OnInit {
 
   open(data?: Resource): void {
     this.modal.create<Form, FormInput>({
-      nzTitle: !data ? '新增资源' : `修改资源【${data.name}】`,
+      nzTitle: !data ? '新增操作' : `修改操作【${data.name}】`,
       nzContent: Form,
       nzData: {
         data

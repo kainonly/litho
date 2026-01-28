@@ -17,7 +17,7 @@ export interface FormInput {
 @Component({
   standalone: true,
   imports: [SharedModule],
-  selector: 'app-settings-access-resources-form',
+  selector: 'app-settings-access-resources-actions-form',
   templateUrl: './form.html'
 })
 export class Form implements OnInit {
