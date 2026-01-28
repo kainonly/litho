@@ -1,5 +1,5 @@
 import { HttpParams } from '@angular/common/http';
-import { ChangeDetectionStrategy, Component, DestroyRef, inject, OnInit } from '@angular/core';
+import { Component, DestroyRef, inject, OnInit } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalService } from 'ng-zorro-antd/modal';
@@ -13,8 +13,7 @@ import { Form, FormInput } from './form/form';
 @Component({
   imports: [SharedModule],
   selector: 'app-settings-orgs',
-  templateUrl: './orgs.html',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  templateUrl: './orgs.html'
 })
 export class Orgs implements OnInit {
   global = inject(Global);

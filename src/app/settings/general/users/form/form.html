@@ -1,0 +1,37 @@
+<form nz-form nzLayout="vertical" id="form" [formGroup]="form" (appSubmit)="submit($event)">
+  <nz-form-item>
+    <nz-form-label nzRequired>用户名称</nz-form-label>
+    <nz-form-control nzHasFeedback [nzAutoTips]="tips.name">
+      <input nz-input formControlName="name" placeholder="请输入用户名称" />
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label nzRequired>邮箱</nz-form-label>
+    <nz-form-control nzHasFeedback [nzAutoTips]="tips.email">
+      <input nz-input type="email" formControlName="email" placeholder="请输入邮箱" />
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label>手机号</nz-form-label>
+    <nz-form-control nzHasFeedback [nzAutoTips]="tips.phone">
+      <input nz-input formControlName="phone" placeholder="请输入手机号" />
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label nzRequired>密码</nz-form-label>
+    <nz-form-control nzHasFeedback [nzAutoTips]="tips.password">
+      <input nz-input type="password" formControlName="password" placeholder="请输入密码" autocomplete="new-password" />
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label nzRequired>状态</nz-form-label>
+    <nz-form-control>
+      <nz-switch formControlName="active"></nz-switch>
+    </nz-form-control>
+  </nz-form-item>
+</form>
+
+<div *nzModalFooter>
+  <button nz-button type="button" nzType="default" (click)="close()">取消</button>
+  <button nz-button nzType="primary" form="form" [disabled]="!form.valid">提交</button>
+</div>
