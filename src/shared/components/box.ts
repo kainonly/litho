@@ -63,7 +63,7 @@ export class Box implements AfterViewInit, OnDestroy {
   private readonly size = signal({ width: 0, height: 0 });
 
   readonly scroll = computed(() => ({
-    x: `${this.appScrollX() ?? this.size().width - 24}px`,
+    x: `${this.appScrollX() ?? this.size().width - 48}px`,
     y: `${this.size().height - this.appScrollOffsetY()}px`
   }));
   readonly cardHeight = computed(() => {

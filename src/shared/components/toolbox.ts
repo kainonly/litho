@@ -65,11 +65,11 @@ import { Basic, SearchOption } from '@shared/models';
 export class Toolbox<T extends Basic, S extends SearchOption> {
   private message = inject(NzMessageService);
 
-  readonly appModel = input.required<Model<T, S>>();
-  readonly appFilter = input<Filter>();
-  readonly appClearOmit = input<(keyof S)[]>([]);
-  readonly appClear = output<void>();
-  readonly appRefresh = output<void>();
+  appModel = input.required<Model<T, S>>();
+  appFilter = input<Filter>();
+  appClearOmit = input<(keyof S)[]>([]);
+  appClear = output<void>();
+  appRefresh = output<void>();
 
   refresh(): void {
     this.message.loading('正在刷新...', { nzDuration: 500 });
@@ -79,10 +79,13 @@ export class Toolbox<T extends Basic, S extends SearchOption> {
   clear(): void {
     const model = this.appModel();
     const search = structuredClone(model.searchInit);
+    console.log(search);
     for (const key of this.appClearOmit()) {
       search[key] = model.search[key];
     }
-    model.search = { ...search };
+    for (const key in search) {
+      model.search[key] = search[key];
+    }
     model.sort.clear();
     model.page.set(1);
     this.appClear.emit();

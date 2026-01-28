@@ -37,7 +37,6 @@ export const appConfig: ApplicationConfig = {
     provideNzI18n(zh_CN),
     provideNzConfig({
       notification: { nzPlacement: 'bottomRight' },
-      card: { nzBordered: false },
       table: { nzSize: 'small', nzBordered: true }
     }),
     provideRouter(routes, withViewTransitions()),
