@@ -49,6 +49,8 @@ export class Model<T extends Basic, S extends SearchOption> {
 
   /** 搜索条件 */
   search: S = {} as S;
+  /** 搜索条件初始值（保持不可变基准） */
+  readonly searchInit: S;
   /** 排序字段映射 */
   sort = new Map<string, 'ascend' | 'descend'>();
   /** 排序值映射（升序=1，降序=-1） */
@@ -74,8 +76,10 @@ export class Model<T extends Basic, S extends SearchOption> {
     public storageKey: string,
     private storage: StorageMap,
     private api: Api<T>,
-    readonly searchInit: S
-  ) { }
+    searchInit: S
+  ) {
+    this.searchInit = structuredClone(searchInit);
+  }
 
   /**
    * 从本地存储恢复状态
@@ -87,7 +91,11 @@ export class Model<T extends Basic, S extends SearchOption> {
         const v = unknow as Any;
         this.page.set(v?.page ?? 1);
         this.pagesize.set(v?.pagesize ?? 20);
-        this.search = v?.search ?? this.searchInit;
+        if (v?.search) {
+          this.search = structuredClone(v.search);
+        } else {
+          this.search = structuredClone(this.searchInit);
+        }
         this.sort = v?.sort ?? new Map<string, 'ascend' | 'descend'>();
 
         return {

@@ -37,7 +37,6 @@
     [(nzPageSize)]="m.pagesize"
     (nzPageIndexChange)="getData()"
     (nzPageSizeChange)="getData()"
-    [nzScroll]="box.scroll()"
   >
     <thead>
       <tr>
@@ -61,7 +60,7 @@
       </tr>
     </thead>
     <tbody>
-      @for (data of tb.data; track data) {
+      @for (data of tb.data; track data.id) {
         <tr>
           <td
             nzLeft

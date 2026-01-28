@@ -1,7 +1,7 @@
 <app-layout>
   <nz-layout class="inner-layout">
     <nz-sider nzWidth="200px" nzTheme="light">
-      <ul style="height: 100%" nz-menu nzMode="inline" class="sider-menu">
+      <ul style="height: 100%; overflow: hidden auto" nz-menu nzMode="inline">
         <li nz-menu-group nzTitle="通用">
           <ul>
             <li nz-menu-item nzMatchRouter>
@@ -70,6 +70,7 @@
         </li>
       </ul>
     </nz-sider>
+
     <nz-content style="padding: 8px; overflow: hidden auto; background: #f0f2f5">
       <router-outlet />
     </nz-content>
