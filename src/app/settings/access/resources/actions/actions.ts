@@ -73,6 +73,7 @@ export class Actions implements OnInit {
       nzTitle: !data ? '新增操作' : `修改操作【${data.name}】`,
       nzContent: Form,
       nzData: {
+        resource: this.resourceData!,
         data
       },
       nzOnOk: () => {
