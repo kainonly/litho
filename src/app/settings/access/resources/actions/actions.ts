@@ -28,7 +28,7 @@ export class Actions implements OnInit {
   private modal = inject(NzModalService);
   private message = inject(NzMessageService);
 
-  resourceId?: string;
+  resourceId!: string;
   resourceData?: Resource;
   m = this.global.setModel(`actions`, this.resourceActions, {
     q: ''
@@ -51,7 +51,7 @@ export class Actions implements OnInit {
     if (refresh) {
       this.m.page.set(1);
     }
-    let params = new HttpParams().set(`resource_id`, this.resourceId!);
+    let params = new HttpParams().set(`resource_id`, this.resourceId);
     const { q } = this.m.search;
     if (q) {
       params = params.set('q', q);
@@ -61,7 +61,7 @@ export class Actions implements OnInit {
 
   getResource(): void {
     this.resources
-      .findById(this.resourceId!)
+      .findById(this.resourceId)
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe(data => {
         this.resourceData = data;
