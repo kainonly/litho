@@ -29,6 +29,7 @@ export * from './menu';
 export * from './org';
 export * from './permission';
 export * from './resource';
+export * from './resource-action';
 export * from './role';
 export * from './route';
 export * from './user';

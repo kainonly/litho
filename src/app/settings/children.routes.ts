@@ -15,7 +15,8 @@ export const childrenRoutes: Routes = [
   },
   {
     path: 'resources',
-    loadComponent: () => import('./access/resources/resources').then(m => m.Resources)
+    loadComponent: () => import('./access/resources/resources').then(m => m.Resources),
+    loadChildren: () => import('./access/resources/children.routes').then(m => m.childrenRoutes)
   },
   {
     path: 'routes',
