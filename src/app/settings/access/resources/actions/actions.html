@@ -30,7 +30,7 @@
 
 <nz-card style="height: 100%" [nzBordered]="false" [nzTitle]="left" [nzExtra]="right">
   <nz-table
-    #actionTb
+    #tb
     [style.height.%]="100"
     [nzLoading]="m.loading()"
     [nzData]="m.data()"
@@ -67,7 +67,7 @@
       </tr>
     </thead>
     <tbody>
-      @for (data of actionTb.data; track data.id) {
+      @for (data of tb.data; track data.id) {
         <tr>
           <td
             nzLeft

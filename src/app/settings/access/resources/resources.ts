@@ -28,6 +28,7 @@ export class Resources implements OnInit {
   });
 
   ngOnInit(): void {
+    this.m.pagesize.set(100);
     this.m
       .ready()
       .pipe(takeUntilDestroyed(this.destroyRef))

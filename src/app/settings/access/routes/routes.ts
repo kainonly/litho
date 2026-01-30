@@ -1,34 +1,36 @@
 import { HttpParams } from '@angular/common/http';
-import { ChangeDetectionStrategy, Component, DestroyRef, inject, OnInit } from '@angular/core';
+import { Component, DestroyRef, inject, OnInit } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalService } from 'ng-zorro-antd/modal';
 
 import { Global, SharedModule } from '@shared';
+import { MenusApi } from '@shared/apis/menus';
 import { RoutesApi } from '@shared/apis/routes';
-import { Route } from '@shared/models';
+import { Menu } from '@shared/models';
 
 import { Form, FormInput } from './form/form';
 
 @Component({
   imports: [SharedModule],
   selector: 'app-settings-routes',
-  templateUrl: './routes.html',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  templateUrl: './routes.html'
 })
 export class SettingsRoutes implements OnInit {
   global = inject(Global);
+  menus = inject(MenusApi);
   routes = inject(RoutesApi);
 
   private destroyRef = inject(DestroyRef);
   private modal = inject(NzModalService);
   private message = inject(NzMessageService);
 
-  m = this.global.setModel(`routes`, this.routes, {
+  m = this.global.setModel(`menus`, this.menus, {
     q: ''
   });
 
   ngOnInit(): void {
+    this.m.pagesize.set(100);
     this.m
       .ready()
       .pipe(takeUntilDestroyed(this.destroyRef))
@@ -49,7 +51,7 @@ export class SettingsRoutes implements OnInit {
     this.m.fetch(params).pipe(takeUntilDestroyed(this.destroyRef)).subscribe();
   }
 
-  open(data?: Route): void {
+  open(data?: Menu): void {
     this.modal.create<Form, FormInput>({
       nzTitle: !data ? '新增视图' : `修改视图【${data.name}】`,
       nzContent: Form,
@@ -62,9 +64,9 @@ export class SettingsRoutes implements OnInit {
     });
   }
 
-  delete(data: Route): void {
+  delete(data: Menu): void {
     this.global.deleteConfirm(`视图【${data.name}】`, () => {
-      this.routes
+      this.menus
         .delete([data.id])
         .pipe(takeUntilDestroyed(this.destroyRef))
         .subscribe(() => {
@@ -77,7 +79,7 @@ export class SettingsRoutes implements OnInit {
 
   bulkDelete(): void {
     this.global.bulkDeleteConfirm(() => {
-      this.routes
+      this.menus
         .delete([...this.m.selection().keys()])
         .pipe(takeUntilDestroyed(this.destroyRef))
         .subscribe(() => {

@@ -89,8 +89,12 @@ export class Model<T extends Basic, S extends SearchOption> {
     return this.storage.get(`m:${this.storageKey}`).pipe(
       map(unknow => {
         const v = unknow as Any;
-        this.page.set(v?.page ?? 1);
-        this.pagesize.set(v?.pagesize ?? 20);
+        if (!this.page()) {
+          this.page.set(v?.page);
+        }
+        if (!this.pagesize()) {
+          this.pagesize.set(v?.pagesize);
+        }
         if (v?.search) {
           this.search = structuredClone(v.search);
         } else {

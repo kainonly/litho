@@ -5,13 +5,13 @@ import { NzMessageService } from 'ng-zorro-antd/message';
 import { NZ_MODAL_DATA, NzModalRef } from 'ng-zorro-antd/modal';
 
 import { Global, SharedModule } from '@shared';
-import { RoutesApi } from '@shared/apis/routes';
-import { Any, Route } from '@shared/models';
+import { MenusApi } from '@shared/apis/menus';
+import { Any, Menu } from '@shared/models';
 
 import { tips } from './tips';
 
 export interface FormInput {
-  data?: Route;
+  data?: Menu;
 }
 
 @Component({
@@ -23,7 +23,7 @@ export interface FormInput {
 export class Form implements OnInit {
   input = inject<FormInput>(NZ_MODAL_DATA);
   global = inject(Global);
-  routes = inject(RoutesApi);
+  menus = inject(MenusApi);
 
   private destroyRef = inject(DestroyRef);
   private modalRef = inject(NzModalRef);
@@ -32,7 +32,6 @@ export class Form implements OnInit {
 
   form: FormGroup = this.fb.group({
     name: ['', [Validators.required]],
-    link: ['', [Validators.required]],
     icon: [''],
     sort: [0, [Validators.required]],
     active: [true, [Validators.required]]
@@ -46,7 +45,7 @@ export class Form implements OnInit {
   }
 
   getData(id: string): void {
-    this.routes
+    this.menus
       .findById(id)
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe(data => {
@@ -63,7 +62,7 @@ export class Form implements OnInit {
       ...data
     };
     if (!this.input.data) {
-      this.routes
+      this.menus
         .create(dto)
         .pipe(takeUntilDestroyed(this.destroyRef))
         .subscribe(() => {
@@ -72,7 +71,7 @@ export class Form implements OnInit {
         });
     } else {
       dto.id = this.input.data.id;
-      this.routes
+      this.menus
         .update(dto)
         .pipe(takeUntilDestroyed(this.destroyRef))
         .subscribe(() => {
