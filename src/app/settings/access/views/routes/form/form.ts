@@ -1,29 +1,31 @@
-import { Component, DestroyRef, inject, OnInit } from '@angular/core';
+import { HttpParams } from '@angular/common/http';
+import { ChangeDetectionStrategy, Component, DestroyRef, inject, OnInit, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NZ_MODAL_DATA, NzModalRef } from 'ng-zorro-antd/modal';
 
 import { Global, SharedModule } from '@shared';
-import { MenusApi } from '@shared/apis/menus';
-import { Any, Menu } from '@shared/models';
+import { RoutesApi } from '@shared/apis/routes';
+import { Any, Menu, Route } from '@shared/models';
 
 import { tips } from './tips';
 
 export interface FormInput {
-  data?: Menu;
+  menu: Menu;
+  data?: Route;
 }
 
 @Component({
-  standalone: true,
   imports: [SharedModule],
-  selector: 'app-settings-access-routes-form',
-  templateUrl: './form.html'
+  selector: 'app-settings-access-views-routes-form',
+  templateUrl: './form.html',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class Form implements OnInit {
   input = inject<FormInput>(NZ_MODAL_DATA);
   global = inject(Global);
-  menus = inject(MenusApi);
+  routes = inject(RoutesApi);
 
   private destroyRef = inject(DestroyRef);
   private modalRef = inject(NzModalRef);
@@ -32,24 +34,39 @@ export class Form implements OnInit {
 
   form: FormGroup = this.fb.group({
     name: ['', [Validators.required]],
+    type: [1, [Validators.required]],
+    pid: [0],
     icon: [''],
-    sort: [0, [Validators.required]],
+    link: [''],
     active: [true, [Validators.required]]
   });
   tips = tips;
+  groupItems = signal<Route[]>([]);
 
   ngOnInit(): void {
+    this.getGroupItems();
+
     if (this.input.data) {
       this.getData(this.input.data.id);
     }
   }
 
   getData(id: string): void {
-    this.menus
+    this.routes
       .findById(id)
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe(data => {
         this.form.patchValue(data);
+      });
+  }
+
+  getGroupItems(): void {
+    const http = new HttpParams();
+    this.routes
+      .find(http, { page: 1, pagesize: 1000 })
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe(({ data }) => {
+        this.groupItems.set(data);
       });
   }
 
@@ -61,8 +78,12 @@ export class Form implements OnInit {
     const dto = {
       ...data
     };
+    if (!dto.pid) {
+      delete dto.pid;
+    }
     if (!this.input.data) {
-      this.menus
+      dto.menu_id = this.input.menu.id;
+      this.routes
         .create(dto)
         .pipe(takeUntilDestroyed(this.destroyRef))
         .subscribe(() => {
@@ -71,7 +92,7 @@ export class Form implements OnInit {
         });
     } else {
       dto.id = this.input.data.id;
-      this.menus
+      this.routes
         .update(dto)
         .pipe(takeUntilDestroyed(this.destroyRef))
         .subscribe(() => {

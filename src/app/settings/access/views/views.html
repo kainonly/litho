@@ -18,7 +18,7 @@
             <li nz-menu-item (click)="m.clearSelections()">取消选择</li>
           </ul>
         </nz-dropdown-menu>
-        <button *nzSpaceItem nz-button nzType="primary" (click)="open()">新增</button>
+        <button *nzSpaceItem nz-button nzType="primary" (click)="open()">新增导航</button>
       </nz-space>
     </ng-template>
 
@@ -56,9 +56,9 @@
             </th>
           </tr>
         </thead>
-        <tbody>
+        <tbody cdkDropList (cdkDropListDropped)="sort($event, m.data())">
           @for (data of m.data(); track data.id) {
-            <tr>
+            <tr cdkDrag>
               <td
                 nzLeft
                 nzAlign="center"
@@ -71,7 +71,7 @@
                 </button>
               </td>
               <td>
-                <a [routerLink]="['/settings', 'routes', data.id]">
+                <a [routerLink]="['/settings', 'views', data.id]">
                   @if (data.icon) {
                     <nz-icon [nzType]="data.icon"></nz-icon>
                   }

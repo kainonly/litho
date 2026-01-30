@@ -1,3 +1,4 @@
+import { DragDropModule } from '@angular/cdk/drag-drop';
 import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -93,6 +94,7 @@ import { DirectivesModule } from '@shared/directives/directives.module';
     NzResultModule,
     NzStatisticModule,
     NzRateModule,
+    DragDropModule,
     ComponentsModule,
     DirectivesModule
   ],

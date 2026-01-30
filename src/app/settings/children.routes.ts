@@ -19,8 +19,9 @@ export const childrenRoutes: Routes = [
     loadChildren: () => import('./access/resources/children.routes').then(m => m.childrenRoutes)
   },
   {
-    path: 'routes',
-    loadComponent: () => import('./access/routes/routes').then(m => m.SettingsRoutes)
+    path: 'views',
+    loadComponent: () => import('./access/views/views').then(m => m.Views),
+    loadChildren: () => import('./access/views/children.routes').then(m => m.childrenRoutes)
   },
   {
     path: 'permissions',

@@ -1,25 +1,25 @@
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { HttpParams } from '@angular/common/http';
-import { Component, DestroyRef, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, DestroyRef, inject, OnInit } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalService } from 'ng-zorro-antd/modal';
 
 import { Global, SharedModule } from '@shared';
 import { MenusApi } from '@shared/apis/menus';
-import { RoutesApi } from '@shared/apis/routes';
 import { Menu } from '@shared/models';
 
 import { Form, FormInput } from './form/form';
 
 @Component({
   imports: [SharedModule],
-  selector: 'app-settings-routes',
-  templateUrl: './routes.html'
+  selector: 'app-settings-views',
+  templateUrl: './views.html',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SettingsRoutes implements OnInit {
+export class Views implements OnInit {
   global = inject(Global);
   menus = inject(MenusApi);
-  routes = inject(RoutesApi);
 
   private destroyRef = inject(DestroyRef);
   private modal = inject(NzModalService);
@@ -53,7 +53,7 @@ export class SettingsRoutes implements OnInit {
 
   open(data?: Menu): void {
     this.modal.create<Form, FormInput>({
-      nzTitle: !data ? '新增视图' : `修改视图【${data.name}】`,
+      nzTitle: !data ? '新增导航' : `修改导航【${data.name}】`,
       nzContent: Form,
       nzData: {
         data
@@ -65,7 +65,7 @@ export class SettingsRoutes implements OnInit {
   }
 
   delete(data: Menu): void {
-    this.global.deleteConfirm(`视图【${data.name}】`, () => {
+    this.global.deleteConfirm(`导航【${data.name}】`, () => {
       this.menus
         .delete([data.id])
         .pipe(takeUntilDestroyed(this.destroyRef))
@@ -88,5 +88,15 @@ export class SettingsRoutes implements OnInit {
           this.getData(true);
         });
     });
+  }
+
+  sort(event: CdkDragDrop<string[]>, values: Menu[]): void {
+    moveItemInArray(values, event.previousIndex, event.currentIndex);
+    this.menus
+      .sort(values.map(v => v.id))
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe(() => {
+        this.message.success('排序成功');
+      });
   }
 }
