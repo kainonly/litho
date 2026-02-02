@@ -13,8 +13,8 @@ import { tips } from './tips';
 
 export interface FormInput {
   menu: Menu;
-  pid: string;
   data?: Route;
+  pid?: string;
 }
 
 @Component({

@@ -1,9 +1,11 @@
 import { HttpParams } from '@angular/common/http';
-import { ChangeDetectionStrategy, Component, DestroyRef, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, DestroyRef, inject, OnInit, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ActivatedRoute } from '@angular/router';
+import { NzContextMenuService, NzDropdownMenuComponent } from 'ng-zorro-antd/dropdown';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalService } from 'ng-zorro-antd/modal';
+import { NzFormatEmitEvent, NzTreeModule, NzTreeNode, NzTreeNodeOptions } from 'ng-zorro-antd/tree';
 
 import { Global, SharedModule } from '@shared';
 import { MenusApi } from '@shared/apis/menus';
@@ -14,9 +16,10 @@ import { Form, FormInput } from './form/form';
 import { GroupForm, GroupFormInput } from './group-form/group-form';
 
 @Component({
-  imports: [SharedModule],
+  imports: [SharedModule, NzTreeModule],
   selector: 'app-settings-access-views-routes-actions',
   templateUrl: './routes.html',
+  styleUrl: `./routes.less`,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class Routes implements OnInit {
@@ -28,36 +31,71 @@ export class Routes implements OnInit {
   private route = inject(ActivatedRoute);
   private modal = inject(NzModalService);
   private message = inject(NzMessageService);
+  private contextMenu = inject(NzContextMenuService);
 
   menuId!: string;
   menuData?: Menu;
-  m = this.global.setModel(`routes`, this.routes, {
-    q: ''
-  });
+  nodes = signal<NzTreeNodeOptions[]>([]);
+  routeM = signal<Record<string, Route>>({});
+  selected = signal<Route | undefined>(undefined);
 
   ngOnInit(): void {
     this.route.params.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(({ id }) => {
       this.menuId = id;
-      this.m
-        .ready()
-        .pipe(takeUntilDestroyed(this.destroyRef))
-        .subscribe(() => {
-          this.getMenu();
-          this.getData();
-        });
+      this.getMenu();
+      this.getData();
     });
   }
 
-  getData(refresh = false): void {
-    if (refresh) {
-      this.m.page.set(1);
-    }
-    let params = new HttpParams().set(`menu_id`, this.menuId);
-    const { q } = this.m.search;
-    if (q) {
-      params = params.set('q', q);
-    }
-    this.m.fetch(params).pipe(takeUntilDestroyed(this.destroyRef)).subscribe();
+  getData(): void {
+    const params = new HttpParams().set(`menu_id`, this.menuId);
+    this.routes
+      .find(params, { page: 1, pagesize: 1000 })
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe(({ data }) => {
+        this.routeM.set(this.buildRouteMap(data));
+        this.nodes.set(this.buildNodes(data));
+      });
+  }
+
+  private buildRouteMap(data: Route[]): Record<string, Route> {
+    return data.reduce<Record<string, Route>>((acc, item) => {
+      acc[item.id] = item;
+      return acc;
+    }, {});
+  }
+
+  private buildNodes(data: Route[]): NzTreeNodeOptions[] {
+    const nodesMap = new Map<string, NzTreeNodeOptions>();
+    const roots: NzTreeNodeOptions[] = [];
+
+    data.forEach(item => {
+      nodesMap.set(item.id, {
+        title: item.name,
+        key: item.id,
+        children: []
+      });
+    });
+
+    data.forEach(item => {
+      const node = nodesMap.get(item.id)!;
+      node.selectable = false;
+      node.expanded = true;
+
+      if (item.pid && item.pid !== '0') {
+        const parent = nodesMap.get(item.pid);
+        if (parent) {
+          parent.children = parent.children ?? [];
+          parent.children.push(node);
+        } else {
+          roots.push(node);
+        }
+      } else {
+        roots.push(node);
+      }
+    });
+
+    return roots;
   }
 
   getMenu(): void {
@@ -78,22 +116,31 @@ export class Routes implements OnInit {
         data
       },
       nzOnOk: () => {
-        this.getData(true);
+        this.getData();
       }
     });
   }
 
-  open(pid: string, data?: Route): void {
+  expand(node: NzTreeNode): void {
+    node.isExpanded = !node.isExpanded;
+  }
+
+  actions(event: NzFormatEmitEvent, menu: NzDropdownMenuComponent): void {
+    this.selected.set(this.routeM()[event.node!.key]);
+    this.contextMenu.create(event.event as MouseEvent, menu);
+  }
+
+  open(data?: Route, pid?: string): void {
     this.modal.create<Form, FormInput>({
       nzTitle: !data ? '新增路由' : `修改路由【${data.name}】`,
       nzContent: Form,
       nzData: {
         menu: this.menuData!,
-        pid,
-        data
+        data,
+        pid
       },
       nzOnOk: () => {
-        this.getData(true);
+        this.getData();
       }
     });
   }
@@ -105,21 +152,7 @@ export class Routes implements OnInit {
         .pipe(takeUntilDestroyed(this.destroyRef))
         .subscribe(() => {
           this.message.success(`删除成功`);
-          this.m.clearSelection(data.id);
-          this.getData(true);
-        });
-    });
-  }
-
-  bulkDelete(): void {
-    this.global.bulkDeleteConfirm(() => {
-      this.routes
-        .delete([...this.m.selection().keys()])
-        .pipe(takeUntilDestroyed(this.destroyRef))
-        .subscribe(() => {
-          this.message.success(`删除成功`);
-          this.m.clearSelections();
-          this.getData(true);
+          this.getData();
         });
     });
   }
