@@ -11,6 +11,7 @@ import { RoutesApi } from '@shared/apis/routes';
 import { Menu, Route } from '@shared/models';
 
 import { Form, FormInput } from './form/form';
+import { GroupForm, GroupFormInput } from './group-form/group-form';
 
 @Component({
   imports: [SharedModule],
@@ -68,12 +69,27 @@ export class Routes implements OnInit {
       });
   }
 
-  open(data?: Route): void {
+  openGroup(data?: Route): void {
+    this.modal.create<GroupForm, GroupFormInput>({
+      nzTitle: !data ? '新增分组' : `修改分组【${data.name}】`,
+      nzContent: GroupForm,
+      nzData: {
+        menu: this.menuData!,
+        data
+      },
+      nzOnOk: () => {
+        this.getData(true);
+      }
+    });
+  }
+
+  open(pid: string, data?: Route): void {
     this.modal.create<Form, FormInput>({
       nzTitle: !data ? '新增路由' : `修改路由【${data.name}】`,
       nzContent: Form,
       nzData: {
         menu: this.menuData!,
+        pid,
         data
       },
       nzOnOk: () => {

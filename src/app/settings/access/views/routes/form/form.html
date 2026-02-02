@@ -4,9 +4,23 @@
       <nz-form-item>
         <nz-form-label nzRequired>类型</nz-form-label>
         <nz-form-control nzHasFeedback [nzAutoTips]="tips.type">
-          <nz-select formControlName="type" nzPlaceHolder="请选择路由类型">
+          <nz-select nzAllowClear nzPlaceHolder="请选择路由类型" formControlName="type">
             @for (item of routes.types; track item.value) {
-              <nz-option [nzValue]="item.value" [nzLabel]="item.label"></nz-option>
+              @if (item.value !== 1) {
+                <nz-option [nzValue]="item.value" [nzLabel]="item.label"></nz-option>
+              }
+            }
+          </nz-select>
+        </nz-form-control>
+      </nz-form-item>
+    </nz-col>
+    <nz-col [nzSpan]="12">
+      <nz-form-item>
+        <nz-form-label nzRequired>分组</nz-form-label>
+        <nz-form-control>
+          <nz-select nzAllowClear nzPlaceHolder="请选择路由分组" formControlName="pid">
+            @for (item of groupItems(); track item.id) {
+              <nz-option [nzValue]="item.id" [nzLabel]="item.name"></nz-option>
             }
           </nz-select>
         </nz-form-control>
@@ -16,19 +30,7 @@
       <nz-form-item>
         <nz-form-label nzRequired>名称</nz-form-label>
         <nz-form-control nzHasFeedback [nzAutoTips]="tips.name">
-          <input nz-input formControlName="name" placeholder="请输入路由名称" />
-        </nz-form-control>
-      </nz-form-item>
-    </nz-col>
-    <nz-col [nzSpan]="12">
-      <nz-form-item>
-        <nz-form-label>父级</nz-form-label>
-        <nz-form-control>
-          <nz-select formControlName="type" nzPlaceHolder="请选择路由类型">
-            @for (item of groupItems(); track item.id) {
-              <nz-option [nzValue]="item.id" [nzLabel]="item.name"></nz-option>
-            }
-          </nz-select>
+          <input nz-input placeholder="请输入路由名称" formControlName="name" />
         </nz-form-control>
       </nz-form-item>
     </nz-col>
@@ -49,7 +51,7 @@
   </nz-row>
   <nz-form-item>
     <nz-form-label>链接</nz-form-label>
-    <nz-form-control nzHasFeedback [nzAutoTips]="tips.link">
+    <nz-form-control nzHasFeedback>
       <input nz-input formControlName="link" placeholder="请输入链接" />
     </nz-form-control>
   </nz-form-item>

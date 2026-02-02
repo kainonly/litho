@@ -13,6 +13,7 @@ import { tips } from './tips';
 
 export interface FormInput {
   menu: Menu;
+  pid: string;
   data?: Route;
 }
 
@@ -34,8 +35,8 @@ export class Form implements OnInit {
 
   form: FormGroup = this.fb.group({
     name: ['', [Validators.required]],
-    type: [1, [Validators.required]],
-    pid: [0],
+    type: [2, [Validators.required]],
+    pid: ['', [Validators.required]],
     icon: [''],
     link: [''],
     active: [true, [Validators.required]]
@@ -44,11 +45,11 @@ export class Form implements OnInit {
   groupItems = signal<Route[]>([]);
 
   ngOnInit(): void {
-    this.getGroupItems();
-
+    this.form.patchValue({ pid: this.input.pid });
     if (this.input.data) {
       this.getData(this.input.data.id);
     }
+    this.getGroupItems();
   }
 
   getData(id: string): void {
@@ -61,7 +62,7 @@ export class Form implements OnInit {
   }
 
   getGroupItems(): void {
-    const http = new HttpParams();
+    const http = new HttpParams().set(`pid`, `0`).set(`menu_id`, this.input.menu.id);
     this.routes
       .find(http, { page: 1, pagesize: 1000 })
       .pipe(takeUntilDestroyed(this.destroyRef))
@@ -75,9 +76,7 @@ export class Form implements OnInit {
   }
 
   submit(data: Any): void {
-    const dto = {
-      ...data
-    };
+    const dto = { ...data };
     if (!dto.pid) {
       delete dto.pid;
     }

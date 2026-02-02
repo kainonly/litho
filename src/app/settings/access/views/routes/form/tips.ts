@@ -8,10 +8,5 @@ export const tips = {
     default: {
       required: '路由名称不能为空'
     }
-  },
-  link: {
-    default: {
-      required: '链接不能为空'
-    }
   }
 };

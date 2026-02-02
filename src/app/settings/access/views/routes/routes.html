@@ -24,7 +24,7 @@
       </ul>
     </nz-dropdown-menu>
 
-    <button *nzSpaceItem nz-button nzType="primary" (click)="open()">新增路由</button>
+    <button *nzSpaceItem nz-button nzType="primary" (click)="openGroup()">新增分组</button>
   </nz-space>
 </ng-template>
 
@@ -61,7 +61,7 @@
         </th>
         <th nzWidth="160px"><app-title>路由名称</app-title></th>
         <th nzWidth="160px"><app-title>路由类型</app-title></th>
-        <th><app-title>路由路径</app-title></th>
+        <th><app-title>链接</app-title></th>
         <th nzAlign="center" nzWidth="100px">
           <app-title>状态</app-title>
         </th>
@@ -94,7 +94,7 @@
           </td>
           <td>{{ routes.typeM[data.type] }}</td>
           <td>
-            @if (data.type !== 2) {
+            @if (data.type !== 1) {
               {{ data.link }}
             } @else {
               无
@@ -109,7 +109,12 @@
             </button>
             <nz-dropdown-menu #actions>
               <ul nz-menu>
-                <li nz-menu-item (click)="open(data)">修改</li>
+                @if (data.type === 1) {
+                  <li nz-menu-item (click)="open(data.id)">新增路由</li>
+                  <li nz-menu-item (click)="openGroup(data)">修改</li>
+                } @else {
+                  <li nz-menu-item (click)="open(data.pid, data)">修改</li>
+                }
                 <li nz-menu-divider></li>
                 <li nz-menu-item nzDanger (click)="delete(data)">删除</li>
               </ul>

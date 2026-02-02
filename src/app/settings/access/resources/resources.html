@@ -70,7 +70,7 @@
                 (nzCheckedChange)="$event ? m.setSelection(data) : m.removeSelection(data.id)"
               ></td>
               <td>
-                <a [routerLink]="['/settings', 'resources', data.id]">{{ data.name }}</a>
+                <a [routerLink]="['/settings', 'access', 'resources', data.id]">{{ data.name }}</a>
               </td>
               <td>{{ data.code }}</td>
               <td nzAlign="center">
