@@ -1,12 +1,13 @@
 import { HttpParams } from '@angular/common/http';
-import { Component, DestroyRef, inject, OnInit } from '@angular/core';
+import { Component, DestroyRef, inject, OnInit, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalService } from 'ng-zorro-antd/modal';
 
 import { Global, SharedModule } from '@shared';
+import { OrgsApi } from '@shared/apis/orgs-api';
 import { RolesApi } from '@shared/apis/roles-api';
-import { Role } from '@shared/models';
+import { Org, Role } from '@shared/models';
 
 import { Form, FormInput } from './form/form';
 
@@ -17,14 +18,18 @@ import { Form, FormInput } from './form/form';
 })
 export class Roles implements OnInit {
   global = inject(Global);
+  orgs = inject(OrgsApi);
   roles = inject(RolesApi);
 
   private destroyRef = inject(DestroyRef);
   private modal = inject(NzModalService);
   private message = inject(NzMessageService);
 
+  orgItems = signal<Org[]>([]);
+
   m = this.global.setModel(`roles`, this.roles, {
-    q: ''
+    q: '',
+    org_id: ''
   });
 
   ngOnInit(): void {
@@ -32,6 +37,7 @@ export class Roles implements OnInit {
       .ready()
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe(() => {
+        this.getOrgItems();
         this.getData();
       });
   }
@@ -46,6 +52,16 @@ export class Roles implements OnInit {
       params = params.set('q', q);
     }
     this.m.fetch(params).pipe(takeUntilDestroyed(this.destroyRef)).subscribe();
+  }
+
+  getOrgItems(): void {
+    const params = new HttpParams();
+    this.orgs
+      .find(params)
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe(({ data }) => {
+        this.orgItems.set(data);
+      });
   }
 
   open(data?: Role): void {

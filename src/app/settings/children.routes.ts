@@ -8,7 +8,8 @@ export const childrenRoutes: Routes = [
   },
   {
     path: 'general/roles',
-    loadComponent: () => import('./general/roles/roles').then(m => m.Roles)
+    loadComponent: () => import('./general/roles/roles').then(m => m.Roles),
+    loadChildren: () => import('./general/roles/children.routes').then(m => m.childrenRoutes)
   },
   {
     path: 'general/users',
