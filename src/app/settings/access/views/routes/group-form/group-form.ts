@@ -5,7 +5,7 @@ import { NzMessageService } from 'ng-zorro-antd/message';
 import { NZ_MODAL_DATA, NzModalRef } from 'ng-zorro-antd/modal';
 
 import { Global, SharedModule } from '@shared';
-import { RoutesApi } from '@shared/apis/routes';
+import { RoutesApi } from '@shared/apis/routes-api';
 import { Any, Menu, Route } from '@shared/models';
 
 import { tips } from './tips';

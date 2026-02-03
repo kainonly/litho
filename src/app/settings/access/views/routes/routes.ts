@@ -16,8 +16,8 @@ import {
 import { Observable, of } from 'rxjs';
 
 import { Global, SharedModule } from '@shared';
-import { MenusApi } from '@shared/apis/menus';
-import { RoutesApi } from '@shared/apis/routes';
+import { MenusApi } from '@shared/apis/menus-api';
+import { RoutesApi } from '@shared/apis/routes-api';
 import { Menu, RegroupUpdate, Route } from '@shared/models';
 
 import { Form, FormInput } from './form/form';

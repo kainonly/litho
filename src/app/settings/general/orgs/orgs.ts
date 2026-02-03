@@ -5,7 +5,7 @@ import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalService } from 'ng-zorro-antd/modal';
 
 import { Global, SharedModule } from '@shared';
-import { OrgsApi } from '@shared/apis/orgs';
+import { OrgsApi } from '@shared/apis/orgs-api';
 import { Org } from '@shared/models';
 
 import { Form, FormInput } from './form/form';

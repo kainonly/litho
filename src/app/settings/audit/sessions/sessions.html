@@ -1,1 +1,77 @@
-<p>sessions works!</p>
+<ng-template #titleRef>
+  <nz-space>
+    <nz-select *nzSpaceItem [style.width.px]="150" [(ngModel)]="interval" (ngModelChange)="getData(500)">
+      <nz-option [nzValue]="15" nzLabel="每 15 秒刷新"></nz-option>
+      <nz-option [nzValue]="30" nzLabel="每 30 秒刷新"></nz-option>
+      <nz-option [nzValue]="60" nzLabel="每 60 秒刷新"></nz-option>
+    </nz-select>
+    <nz-space-compact *nzSpaceItem>
+      <button nz-button nzType="text" (click)="clearSearch()">
+        <i nz-icon nzType="clear"></i>
+      </button>
+      <button nz-button nzType="text" (click)="getData(500)">
+        <i nz-icon nzType="reload"></i>
+      </button>
+    </nz-space-compact>
+  </nz-space>
+</ng-template>
+
+<ng-template #extraRef>
+  <!--  <button nz-button nzType="primary" nzDanger (click)="bulkDelete()" [disabled]="items.selection.size === 0">-->
+  <!--    选中 {{ items.selection.size }} 个会话并中断-->
+  <!--  </button>-->
+</ng-template>
+
+<nz-card style="height: 100%" [nzTitle]="titleRef" [nzExtra]="extraRef">
+  <nz-table #basicTable [nzData]="items()" [nzFrontPagination]="false" [nzShowPagination]="false" [nzScroll]="{ y }">
+    <thead>
+      <tr>
+        <th nzWidth="36px" nzLeft nzAlign="center"> </th>
+        <th nzWidth="400px"><b>会话ID</b></th>
+        <th><b>详情</b></th>
+        <th nzRight nzWidth="36px">
+          <button nz-button nzType="text" nz-tooltip="操作">
+            <nz-icon nzType="setting" nzTheme="outline"></nz-icon>
+          </button>
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (data of basicTable.data; track data.id) {
+        <tr>
+          <td> </td>
+          <td>
+            <!--            @if (global.activeUser()?.id === data.id) {-->
+            <!--              <nz-tag>我</nz-tag>-->
+            <!--            }-->
+            <span>
+              {{ data.phone }} <b>[ {{ !data.name ? 'None' : data.name }} ]</b>
+            </span>
+          </td>
+          <td>
+            <!--            @if (data.history; as history) {-->
+            <!--              <nz-space [nzSplit]="spaceSplit">-->
+            <!--                <span *nzSpaceItem> 累计会话 {{ data.sessions }} 次 </span>-->
+            <!--                <span *nzSpaceItem> 登录于 {{ history.last_time | date: 'yyyy-MM-dd HH:mm:ss' }} </span>-->
+            <!--              </nz-space>-->
+            <!--            }-->
+          </td>
+          <td nzRight>
+            <button nz-button nzType="text" nz-dropdown [nzDropdownMenu]="menu">
+              <nz-icon nzType="ellipsis" />
+            </button>
+            <nz-dropdown-menu #menu="nzDropdownMenu">
+              <ul nz-menu>
+                <li nz-menu-item nzDanger (click)="kick(data)">中断</li>
+              </ul>
+            </nz-dropdown-menu>
+          </td>
+        </tr>
+      }
+    </tbody>
+  </nz-table>
+</nz-card>
+
+<ng-template #spaceSplit>
+  <nz-divider nzType="vertical"></nz-divider>
+</ng-template>
