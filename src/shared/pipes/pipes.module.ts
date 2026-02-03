@@ -1,3 +1,5 @@
+import { NgModule } from '@angular/core';
+
 import { BlankPipe } from '../pipes/blank.pipe';
 import { DatePipe } from '../pipes/date.pipe';
 import { EmptyDatePipe } from '../pipes/empty-date.pipe';
@@ -8,14 +10,8 @@ import { ObjectPipe } from '../pipes/object.pipe';
 import { SortPipe } from '../pipes/sort.pipe';
 import { SplitPipe } from '../pipes/split.pipe';
 
-export const SHARED_PIPES = [
-  BlankPipe,
-  EmptyPipe,
-  EmptyDatePipe,
-  JoinPipe,
-  MapPipe,
-  ObjectPipe,
-  SortPipe,
-  SplitPipe,
-  DatePipe
-] as const;
+@NgModule({
+  imports: [BlankPipe, EmptyPipe, EmptyDatePipe, JoinPipe, MapPipe, ObjectPipe, SortPipe, SplitPipe, DatePipe],
+  exports: [BlankPipe, EmptyPipe, EmptyDatePipe, JoinPipe, MapPipe, ObjectPipe, SortPipe, SplitPipe, DatePipe]
+})
+export class PipesModule {}

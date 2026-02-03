@@ -47,6 +47,7 @@ import { NzTypographyModule } from 'ng-zorro-antd/typography';
 
 import { ComponentsModule } from '@shared/components/components.module';
 import { DirectivesModule } from '@shared/directives/directives.module';
+import { PipesModule } from '@shared/pipes/pipes.module';
 
 @NgModule({
   exports: [
@@ -98,9 +99,10 @@ import { DirectivesModule } from '@shared/directives/directives.module';
     NzSkeletonModule,
     DragDropModule,
     ComponentsModule,
-    DirectivesModule
+    DirectivesModule,
+    PipesModule
   ],
-  imports: [NgOptimizedImage, ComponentsModule, DirectivesModule],
+  imports: [NgOptimizedImage, ComponentsModule, DirectivesModule, PipesModule],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class SharedModule {}

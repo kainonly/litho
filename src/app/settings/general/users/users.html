@@ -48,9 +48,10 @@
           [nzIndeterminate]="m.indeterminate()"
           (nzCheckedChange)="m.setCurrentSelections($event)"
         ></th>
-        <th><app-title>用户名称</app-title></th>
-        <th><app-title>邮箱</app-title></th>
-        <th><app-title>手机号</app-title></th>
+        <th nzWidth="320px"><app-title>电子邮件</app-title></th>
+        <th nzWidth="200px"><app-title>姓名</app-title></th>
+        <th nzWidth="200px"><app-title>手机号</app-title></th>
+        <th><app-title>详情</app-title></th>
         <th nzRight="50px" nzAlign="center" nzWidth="100px">
           <app-title>状态</app-title>
         </th>
@@ -70,9 +71,12 @@
             [nzChecked]="m.selection().has(data.id)"
             (nzCheckedChange)="$event ? m.setSelection(data) : m.removeSelection(data.id)"
           ></td>
-          <td>{{ data.name }}</td>
-          <td>{{ data.email }}</td>
-          <td>{{ data.phone }}</td>
+          <td> {{ data.email }} </td>
+          <td> {{ data.name | appBlank }} </td>
+          <td> {{ data.phone | appBlank }} </td>
+          <td>
+            <a>已加入 {{ 0 }} 个组织</a>
+          </td>
           <td nzRight nzAlign="center">
             <app-active [appValue]="data.active"></app-active>
           </td>
