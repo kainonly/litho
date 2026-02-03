@@ -1,14 +1,14 @@
 import { HttpParams } from '@angular/common/http';
-import { ChangeDetectionStrategy, Component, DestroyRef, inject, OnInit, signal } from '@angular/core';
+import { Component, DestroyRef, inject, OnInit, signal, viewChild } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ActivatedRoute } from '@angular/router';
 import { NzContextMenuService, NzDropdownMenuComponent } from 'ng-zorro-antd/dropdown';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalService } from 'ng-zorro-antd/modal';
-import { NzSkeletonModule } from 'ng-zorro-antd/skeleton';
 import {
   NzFormatBeforeDropEvent,
   NzFormatEmitEvent,
+  NzTreeComponent,
   NzTreeModule,
   NzTreeNode,
   NzTreeNodeOptions
@@ -18,17 +18,16 @@ import { Observable, of } from 'rxjs';
 import { Global, SharedModule } from '@shared';
 import { MenusApi } from '@shared/apis/menus';
 import { RoutesApi } from '@shared/apis/routes';
-import { Menu, Route } from '@shared/models';
+import { Menu, RegroupUpdate, Route } from '@shared/models';
 
 import { Form, FormInput } from './form/form';
 import { GroupForm, GroupFormInput } from './group-form/group-form';
 
 @Component({
-  imports: [SharedModule, NzTreeModule, NzSkeletonModule],
+  imports: [SharedModule, NzTreeModule],
   selector: 'app-settings-access-views-routes-actions',
   templateUrl: './routes.html',
-  styleUrl: `./routes.less`,
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrl: `./routes.less`
 })
 export class Routes implements OnInit {
   global = inject(Global);
@@ -41,8 +40,10 @@ export class Routes implements OnInit {
   private message = inject(NzMessageService);
   private contextMenu = inject(NzContextMenuService);
 
+  tree = viewChild(NzTreeComponent);
   menuId!: string;
   menuData?: Menu;
+  searchText = signal<string>('');
   nodes = signal<NzTreeNodeOptions[]>([]);
   routeM = signal<Record<string, Route>>({});
   selected = signal<Route | undefined>(undefined);
@@ -153,10 +154,6 @@ export class Routes implements OnInit {
     });
   }
 
-  regroup(event: NzFormatEmitEvent): void {
-    console.log(event);
-  }
-
   beforeDrop(arg: NzFormatBeforeDropEvent): Observable<boolean> {
     const dragNode = arg.dragNode;
     const targetNode = arg.node;
@@ -175,6 +172,46 @@ export class Routes implements OnInit {
       return of(false);
     }
     return of(false);
+  }
+
+  regroup(event: NzFormatEmitEvent): void {
+    const routeM = this.routeM();
+    const data = routeM[event.node!.key];
+    const dragData = routeM[event.dragNode!.key];
+    const update: RegroupUpdate = {
+      changed: false,
+      id: dragData.id,
+      pid: ''
+    };
+    if (data.type !== dragData.type) {
+      update.changed = true;
+      update.pid = data.id;
+    }
+    if (data.type === dragData.type && data.pid !== dragData.pid) {
+      update.changed = true;
+      update.pid = data.pid;
+    }
+    const sorts: string[][] = [];
+    const nodes: NzTreeNode[][] = [[...this.tree()!.getTreeNodes()]];
+    while (nodes.length > 0) {
+      sorts.push(
+        nodes.pop()!.map((node: NzTreeNode) => {
+          const children = node.getChildren();
+          if (children.length > 0) {
+            nodes.push(children);
+          }
+          return node.key;
+        })
+      );
+    }
+
+    this.routes
+      .regroup(update, sorts)
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe(() => {
+        this.message.success('重组成功');
+        this.getData();
+      });
   }
 
   delete(data: Route): void {

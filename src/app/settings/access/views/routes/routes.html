@@ -1,11 +1,14 @@
 <ng-template #left>
   <nz-space nzAlign="center">
     @if (menuData) {
-      <button *nzSpaceItem nz-button nzType="dashed" [routerLink]="['/settings', 'views', 'home']">
+      <button *nzSpaceItem nz-button nzType="dashed" [routerLink]="['/settings', 'access', 'views', 'home']">
         {{ menuData.name }}
         <nz-icon nzType="close" />
       </button>
     }
+    <button *nzSpaceItem nz-button nzType="text" nz-tooltip="刷新" (click)="getData()">
+      <nz-icon nzType="sync" />
+    </button>
   </nz-space>
 </ng-template>
 <ng-template #right>
@@ -16,7 +19,6 @@
 
 <nz-card style="height: 100%" [nzBordered]="false" [nzTitle]="left" [nzExtra]="right">
   <nz-tree
-    #nzTree
     nzBlockNode
     nzDraggable
     [nzData]="nodes()"
@@ -63,14 +65,20 @@
         @if (!data.active) {
           <nz-tag nzColor="red">已禁用</nz-tag>
         }
-        <nz-tag>
+
+        @if (data.type === 2) {
+          <nz-tag nzColor="blue">
+            <nz-icon nzType="api" />
+            已设置 {{ 0 }} 资源规则
+          </nz-tag>
+        }
+
+        <nz-tag [nzColor]="data.type === 1 ? 'purple' : 'geekblue'">
+          <nz-icon [nzType]="data.type === 1 ? 'group' : 'file'" />
           {{ routes.typeM[data.type] }}
         </nz-tag>
-        <nz-tag nzColor="blue"> 设置 {{ 0 }} 规则 </nz-tag>
       </nz-col>
     </nz-row>
-  } @else {
-    <nz-skeleton></nz-skeleton>
   }
 </ng-template>
 

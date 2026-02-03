@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 
 import { toM } from '@shared';
-import { EnumType, Route } from '@shared/models';
+import { EnumType, RegroupUpdate, Route } from '@shared/models';
 
 import { Api } from './index';
 
@@ -18,4 +19,8 @@ export class RoutesApi extends Api<Route> {
     { label: 'IFRAME', value: 4 }
   ];
   typeM = toM(this.types);
+
+  regroup(update: RegroupUpdate, sorts: string[][]): Observable<void> {
+    return this.http.post<void>(`${this.collection}/regroup`, { update, sorts });
+  }
 }

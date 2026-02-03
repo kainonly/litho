@@ -11,3 +11,9 @@ export interface Route {
   icon: string;
   link: string;
 }
+
+export interface RegroupUpdate {
+  changed: boolean;
+  id: string;
+  pid: string;
+}

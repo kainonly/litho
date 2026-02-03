@@ -35,6 +35,7 @@ import { NzRateModule } from 'ng-zorro-antd/rate';
 import { NzResultModule } from 'ng-zorro-antd/result';
 import { NzSegmentedModule } from 'ng-zorro-antd/segmented';
 import { NzSelectModule } from 'ng-zorro-antd/select';
+import { NzSkeletonModule } from 'ng-zorro-antd/skeleton';
 import { NzSpaceModule } from 'ng-zorro-antd/space';
 import { NzStatisticModule } from 'ng-zorro-antd/statistic';
 import { NzSwitchModule } from 'ng-zorro-antd/switch';
@@ -94,6 +95,7 @@ import { DirectivesModule } from '@shared/directives/directives.module';
     NzResultModule,
     NzStatisticModule,
     NzRateModule,
+    NzSkeletonModule,
     DragDropModule,
     ComponentsModule,
     DirectivesModule
