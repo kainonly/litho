@@ -5,7 +5,15 @@ import { ActivatedRoute } from '@angular/router';
 import { NzContextMenuService, NzDropdownMenuComponent } from 'ng-zorro-antd/dropdown';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalService } from 'ng-zorro-antd/modal';
-import { NzFormatEmitEvent, NzTreeModule, NzTreeNode, NzTreeNodeOptions } from 'ng-zorro-antd/tree';
+import { NzSkeletonModule } from 'ng-zorro-antd/skeleton';
+import {
+  NzFormatBeforeDropEvent,
+  NzFormatEmitEvent,
+  NzTreeModule,
+  NzTreeNode,
+  NzTreeNodeOptions
+} from 'ng-zorro-antd/tree';
+import { Observable, of } from 'rxjs';
 
 import { Global, SharedModule } from '@shared';
 import { MenusApi } from '@shared/apis/menus';
@@ -16,7 +24,7 @@ import { Form, FormInput } from './form/form';
 import { GroupForm, GroupFormInput } from './group-form/group-form';
 
 @Component({
-  imports: [SharedModule, NzTreeModule],
+  imports: [SharedModule, NzTreeModule, NzSkeletonModule],
   selector: 'app-settings-access-views-routes-actions',
   templateUrl: './routes.html',
   styleUrl: `./routes.less`,
@@ -143,6 +151,30 @@ export class Routes implements OnInit {
         this.getData();
       }
     });
+  }
+
+  regroup(event: NzFormatEmitEvent): void {
+    console.log(event);
+  }
+
+  beforeDrop(arg: NzFormatBeforeDropEvent): Observable<boolean> {
+    const dragNode = arg.dragNode;
+    const targetNode = arg.node;
+    const dropPosition = arg.pos;
+
+    const dragLevel = dragNode.level;
+    const targetLevel = targetNode.level;
+
+    if (dragLevel === targetLevel && dropPosition !== 0) {
+      return of(true);
+    }
+    if (dragLevel === 1 && targetLevel === 0 && dropPosition === 0) {
+      return of(true);
+    }
+    if (dragLevel === 0 && targetLevel >= 1) {
+      return of(false);
+    }
+    return of(false);
   }
 
   delete(data: Route): void {
