@@ -25,7 +25,8 @@ export class Users implements OnInit {
   private message = inject(NzMessageService);
 
   m = this.global.setModel(`users`, this.users, {
-    q: ''
+    q: '',
+    org_id: ''
   });
 
   ngOnInit(): void {
@@ -42,9 +43,12 @@ export class Users implements OnInit {
       this.m.page.set(1);
     }
     let params = new HttpParams();
-    const { q } = this.m.search;
+    const { q, org_id } = this.m.search;
     if (q) {
       params = params.set('q', q);
+    }
+    if (org_id) {
+      params = params.set('org_id', org_id);
     }
     this.m.fetch(params).pipe(takeUntilDestroyed(this.destroyRef)).subscribe();
   }

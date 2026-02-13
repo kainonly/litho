@@ -32,7 +32,6 @@ export class Form implements OnInit {
   form: FormGroup = this.fb.group({
     name: ['', [Validators.required]],
     description: [''],
-    sort: [0, [Validators.min(0)]],
     active: [true, [Validators.required]]
   });
   tips = tips;

@@ -75,7 +75,7 @@
                 (nzCheckedChange)="$event ? m.setSelection(data) : m.removeSelection(data.id)"
               ></td>
               <td>
-                <!-- {{ data.org_id }} -->
+                {{ orgM()[data.org_id].name }}
               </td>
               <td>
                 <app-title [appInfo]="data.description">

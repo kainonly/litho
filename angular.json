@@ -4,9 +4,7 @@
   "cli": {
     "packageManager": "bun",
     "analytics": "639c0495-8205-441b-83a6-2db87a2eab9a",
-    "schematicCollections": [
-      "angular-eslint"
-    ]
+    "schematicCollections": ["angular-eslint"]
   },
   "newProjectRoot": "projects",
   "projects": {
@@ -38,10 +36,7 @@
                 "output": "/assets/"
               }
             ],
-            "styles": [
-              "src/styles.less",
-              "node_modules/animate.css/animate.min.css"
-            ]
+            "styles": ["src/styles.less", "node_modules/animate.css/animate.min.css"]
           },
           "configurations": {
             "production": {
@@ -79,9 +74,7 @@
           "options": {
             "hmr": true,
             "host": "0.0.0.0",
-            "allowedHosts": [
-              "sys.kainonly.com"
-            ]
+            "allowedHosts": ["sys-x.kainonly.com"]
           },
           "configurations": {
             "production": {
@@ -99,10 +92,7 @@
         "lint": {
           "builder": "@angular-eslint/builder:lint",
           "options": {
-            "lintFilePatterns": [
-              "src/**/*.ts",
-              "src/**/*.html"
-            ]
+            "lintFilePatterns": ["src/**/*.ts", "src/**/*.html"]
           }
         }
       }
