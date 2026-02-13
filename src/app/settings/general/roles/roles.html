@@ -1,5 +1,5 @@
 <div class="litho-split-container">
-  <div class="litho-split-list-panel">
+  <div class="litho-split-list-panel" style="width: 680px">
     <ng-template #left>
       <nz-space nzAlign="center">
         <nz-select
@@ -43,21 +43,13 @@
       >
         <thead>
           <tr>
-            <th
-              nzLeft
-              nzAlign="center"
-              nzWidth="50px"
-              [nzChecked]="m.checked()"
-              [nzIndeterminate]="m.indeterminate()"
-              (nzCheckedChange)="m.setCurrentSelections($event)"
-            ></th>
-            <th nzLeft="50px" nzWidth="50px" nzAlign="center">
+            <th nzWidth="50px" nzAlign="center">
               <button nz-button nzType="text" nz-tooltip="排序">
                 <nz-icon nzType="holder" />
               </button>
             </th>
-            <th nzWidth="200px"><app-title>组织</app-title></th>
-            <th><app-title>权限名称</app-title></th>
+            <th nzWidth="200px"><app-title>权限名称</app-title></th>
+            <th><app-title>组织</app-title></th>
             <th nzRight="50px" nzAlign="center" nzWidth="100px">
               <app-title>状态</app-title>
             </th>
@@ -71,26 +63,20 @@
         <tbody cdkDropList (cdkDropListDropped)="sort($event, m.data())">
           @for (data of tb.data; track data.id) {
             <tr cdkDrag>
-              <td
-                nzLeft
-                nzAlign="center"
-                [nzChecked]="m.selection().has(data.id)"
-                (nzCheckedChange)="$event ? m.setSelection(data) : m.removeSelection(data.id)"
-              ></td>
-              <td nzLeft="50px" nzAlign="center">
+              <td nzAlign="center">
                 <button cdkDragHandle nz-button nzType="text">
                   <nz-icon nzType="holder" />
                 </button>
               </td>
               <td>
-                {{ orgM()[data.org_id].name }}
-              </td>
-              <td>
                 <app-title [appInfo]="data.description">
-                  <a [routerLink]="['/settings', 'general', 'roles', data.id]">
+                  <a [routerLink]="['/settings', 'general', 'roles', data.id, 'views']">
                     {{ data.name }}
                   </a>
                 </app-title>
+              </td>
+              <td>
+                {{ orgM()[data.org_id].name }}
               </td>
               <td nzRight nzAlign="center">
                 <app-active [appValue]="data.active"></app-active>

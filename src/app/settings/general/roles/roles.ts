@@ -2,6 +2,7 @@ import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { HttpParams } from '@angular/common/http';
 import { Component, computed, DestroyRef, inject, OnInit, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { ActivatedRoute } from '@angular/router';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalService } from 'ng-zorro-antd/modal';
 
@@ -25,6 +26,7 @@ export class Roles implements OnInit {
   private destroyRef = inject(DestroyRef);
   private modal = inject(NzModalService);
   private message = inject(NzMessageService);
+  private route = inject(ActivatedRoute);
 
   orgItems = signal<Org[]>([]);
   orgM = computed(() => Object.fromEntries(this.orgItems().map(i => [i.id, i])));
