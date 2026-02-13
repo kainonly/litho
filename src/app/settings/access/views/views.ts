@@ -97,6 +97,7 @@ export class Views implements OnInit {
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe(() => {
         this.message.success('排序成功');
+        this.getData(true);
       });
   }
 }

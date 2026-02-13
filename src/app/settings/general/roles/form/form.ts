@@ -1,12 +1,14 @@
-import { Component, DestroyRef, inject, OnInit } from '@angular/core';
+import { HttpParams } from '@angular/common/http';
+import { Component, DestroyRef, inject, OnInit, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NZ_MODAL_DATA, NzModalRef } from 'ng-zorro-antd/modal';
 
 import { Global, SharedModule } from '@shared';
+import { OrgsApi } from '@shared/apis/orgs-api';
 import { RolesApi } from '@shared/apis/roles-api';
-import { Any, Role } from '@shared/models';
+import { Any, Org, Role } from '@shared/models';
 
 import { tips } from './tips';
 
@@ -23,6 +25,7 @@ export class Form implements OnInit {
   input = inject<FormInput>(NZ_MODAL_DATA);
   global = inject(Global);
   roles = inject(RolesApi);
+  orgs = inject(OrgsApi);
 
   private destroyRef = inject(DestroyRef);
   private modalRef = inject(NzModalRef);
@@ -31,12 +34,16 @@ export class Form implements OnInit {
 
   form: FormGroup = this.fb.group({
     name: ['', [Validators.required]],
+    org_id: ['', Validators.required],
     description: [''],
     active: [true, [Validators.required]]
   });
   tips = tips;
 
+  orgItems = signal<Org[]>([]);
+
   ngOnInit(): void {
+    this.getOrgItems();
     if (this.input.data) {
       this.getData(this.input.data.id);
     }
@@ -48,6 +55,16 @@ export class Form implements OnInit {
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe(data => {
         this.form.patchValue(data);
+      });
+  }
+
+  getOrgItems(): void {
+    const params = new HttpParams();
+    this.orgs
+      .find(params)
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe(({ data }) => {
+        this.orgItems.set(data);
       });
   }
 

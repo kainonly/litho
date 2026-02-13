@@ -1,3 +1,4 @@
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { HttpParams } from '@angular/common/http';
 import { Component, computed, DestroyRef, inject, OnInit, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
@@ -70,7 +71,7 @@ export class Roles implements OnInit {
 
   open(data?: Role): void {
     this.modal.create<Form, FormInput>({
-      nzTitle: !data ? '新增角色' : `修改角色【${data.name}】`,
+      nzTitle: !data ? '新增权限组' : `修改权限组【${data.name}】`,
       nzContent: Form,
       nzData: {
         data
@@ -81,8 +82,19 @@ export class Roles implements OnInit {
     });
   }
 
+  sort(event: CdkDragDrop<string[]>, values: Role[]): void {
+    moveItemInArray(values, event.previousIndex, event.currentIndex);
+    this.roles
+      .sort(values.map(v => v.id))
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe(() => {
+        this.message.success('排序成功');
+        this.getData(true);
+      });
+  }
+
   delete(data: Role): void {
-    this.global.deleteConfirm(`角色【${data.name}】`, () => {
+    this.global.deleteConfirm(`权限组【${data.name}】`, () => {
       this.roles
         .delete([data.id])
         .pipe(takeUntilDestroyed(this.destroyRef))

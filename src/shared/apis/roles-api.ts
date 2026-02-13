@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 
-import { Role } from '@shared/models';
+import { R, Role } from '@shared/models';
 
 import { Api } from './index';
 
@@ -9,4 +10,8 @@ import { Api } from './index';
 })
 export class RolesApi extends Api<Role> {
   override collection = 'roles';
+
+  sort(ids: string[]): Observable<R> {
+    return this.http.post<R>(`${this.collection}/sort`, { ids });
+  }
 }

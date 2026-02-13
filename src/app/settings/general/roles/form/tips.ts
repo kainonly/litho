@@ -1,7 +1,12 @@
 export const tips = {
   name: {
     default: {
-      required: '角色名称不能为空'
+      required: '权限组名称不能为空'
+    }
+  },
+  org_id: {
+    default: {
+      required: '所属组织不能为空'
     }
   }
 };
