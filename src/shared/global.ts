@@ -17,11 +17,11 @@ export class Global {
   private modal = inject(NzModalService);
 
   readonly navs: Nav[] = [
-    { key: 'dashboard', name: '仪表盘', icon: 'dashboard', link: '/dashboard' },
-    { key: 'ops', name: '运营中心', icon: 'shopping', link: '/ops' },
-    { key: 'business', name: '业务对象', icon: 'inbox', link: '/business' },
-    { key: 'analysis', name: '数据分析', icon: 'fund-view', link: '/analysis' },
-    { key: 'system', name: '系统设置', icon: 'setting', link: '/system' }
+    { key: 'dashboard', name: '仪表盘', icon: 'dashboard', link: 'dashboard' },
+    { key: 'ops', name: '运营中心', icon: 'shopping', link: 'ops' },
+    { key: 'business', name: '业务对象', icon: 'inbox', link: 'business' },
+    { key: 'analysis', name: '数据分析', icon: 'fund-view', link: 'analysis' },
+    { key: 'system', name: '系统设置', icon: 'setting', link: 'system' }
   ];
   navM: Record<string, Nav> = this.navs.reduce(
     (previousValue, currentValue) => {

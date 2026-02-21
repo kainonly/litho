@@ -3,6 +3,7 @@ import { Component, DestroyRef, inject, OnInit, signal, viewChild } from '@angul
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ActivatedRoute } from '@angular/router';
 import { NzContextMenuService, NzDropdownMenuComponent } from 'ng-zorro-antd/dropdown';
+import { NzFloatButtonModule } from 'ng-zorro-antd/float-button';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import {
@@ -23,7 +24,7 @@ import { Form, FormInput } from './form/form';
 import { GroupForm, GroupFormInput } from './group-form/group-form';
 
 @Component({
-  imports: [SharedModule, NzTreeModule],
+  imports: [SharedModule, NzTreeModule, NzFloatButtonModule],
   selector: 'app-system-access-views-routes-actions',
   templateUrl: './routes.html',
   styleUrl: `./routes.less`
@@ -39,23 +40,22 @@ export class Routes implements OnInit {
   private contextMenu = inject(NzContextMenuService);
 
   tree = viewChild(NzTreeComponent);
-  menuId!: string;
+  nav!: string;
   menuData?: Menu;
-  searchText = signal<string>('');
   nodes = signal<NzTreeNodeOptions[]>([]);
   routeM = signal<Record<string, Route>>({});
   selected = signal<Route | undefined>(undefined);
 
   ngOnInit(): void {
-    this.route.params.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(({ id }) => {
-      this.menuId = id;
+    this.route.params.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(({ nav }) => {
+      this.nav = nav;
       this.getMenu();
       this.getData();
     });
   }
 
   getData(): void {
-    const params = new HttpParams().set(`menu_id`, this.menuId);
+    const params = new HttpParams().set(`nav`, this.nav);
     this.routes
       .find(params, { page: 1, pagesize: 1000 })
       .pipe(takeUntilDestroyed(this.destroyRef))

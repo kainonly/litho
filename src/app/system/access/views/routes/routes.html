@@ -1,23 +1,6 @@
-<ng-template #left>
-  <nz-space nzAlign="center">
-    @if (menuData) {
-      <button *nzSpaceItem nz-button nzType="dashed" [routerLink]="['/system', 'access', 'views', 'home']">
-        {{ menuData.name }}
-        <nz-icon nzType="close" />
-      </button>
-    }
-    <button *nzSpaceItem nz-button nzType="text" nz-tooltip="刷新" (click)="getData()">
-      <nz-icon nzType="sync" />
-    </button>
-  </nz-space>
-</ng-template>
-<ng-template #right>
-  <nz-space nzAlign="center">
-    <button *nzSpaceItem nz-button nzType="primary" (click)="openGroup()">新增分组</button>
-  </nz-space>
-</ng-template>
+<nz-float-button nz-tooltip="新增分组" nzType="primary" nzIcon="plus" (click)="openGroup()" />
 
-<nz-card style="height: 100%" [nzBordered]="false" [nzTitle]="left" [nzExtra]="right">
+<nz-card style="height: 100%" [nzBordered]="false">
   <nz-tree
     nzBlockNode
     nzDraggable

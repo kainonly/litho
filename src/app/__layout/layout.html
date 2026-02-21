@@ -4,7 +4,7 @@
       <ul class="navigation" nz-menu nzMode="horizontal">
         @for (nav of navs(); track nav.key) {
           <li nz-menu-item nzMatchRouter>
-            <a [routerLink]="[nav.link]">
+            <a [routerLink]="['/', nav.link]">
               <nz-icon [nzType]="nav.icon" />
               {{ nav.name }}
             </a>

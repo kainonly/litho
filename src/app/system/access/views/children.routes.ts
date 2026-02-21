@@ -6,7 +6,7 @@ export const childrenRoutes: Routes = [
     loadComponent: () => import('./home').then(m => m.Home)
   },
   {
-    path: ':id',
+    path: ':nav',
     loadComponent: () => import('./routes/routes').then(m => m.Routes)
   },
   { path: '', redirectTo: 'home', pathMatch: 'full' }

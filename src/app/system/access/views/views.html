@@ -1,103 +1,15 @@
 <div class="litho-split-container">
-  <div class="litho-split-list-panel" style="width: 40%">
-    <ng-template #left>
-      <nz-space nzAlign="center">
-        <!--        <app-keyword *nzSpaceItem [appModel]="m" (appOnSearch)="getData(true)"></app-keyword>-->
-        <!--        <app-toolbox *nzSpaceItem [appModel]="m" (appRefresh)="getData(true)" (appClear)="getData(true)"></app-toolbox>-->
-      </nz-space>
-    </ng-template>
-    <ng-template #right>
-      <!--      <nz-space nzAlign="center">-->
-      <!--        <a nz-dropdown *nzSpaceItem [nzDropdownMenu]="bulkAction" [nzDisabled]="m.selection().size === 0">-->
-      <!--          已选择 {{ m.selection().size }} 个项目-->
-      <!--          <nz-icon nzType="down" />-->
-      <!--        </a>-->
-      <!--        <nz-dropdown-menu #bulkAction>-->
-      <!--          <ul nz-menu nzSelectable>-->
-      <!--            <li nz-menu-item nzDanger (click)="bulkDelete()">删除</li>-->
-      <!--            <li nz-menu-item (click)="m.clearSelections()">取消选择</li>-->
-      <!--          </ul>-->
-      <!--        </nz-dropdown-menu>-->
-      <!--        <button *nzSpaceItem nz-button nzType="primary" (click)="open()">新增导航</button>-->
-      <!--      </nz-space>-->
-    </ng-template>
-
-    <nz-card style="height: 100%" [nzBordered]="false" [nzTitle]="left" [nzExtra]="right">
-      <!--      <nz-table-->
-      <!--        nzTemplateMode-->
-      <!--        [style.height.%]="100"-->
-      <!--        [nzLoading]="m.loading()"-->
-      <!--        [nzFrontPagination]="false"-->
-      <!--        [nzScroll]="{ y: '100%', x: '100%' }"-->
-      <!--      >-->
-      <!--        <thead>-->
-      <!--          <tr>-->
-      <!--            <th-->
-      <!--              nzLeft-->
-      <!--              nzWidth="50px"-->
-      <!--              nzAlign="center"-->
-      <!--              [nzChecked]="m.checked()"-->
-      <!--              [nzIndeterminate]="m.indeterminate()"-->
-      <!--              (nzCheckedChange)="m.setCurrentSelections($event)"-->
-      <!--            ></th>-->
-      <!--            <th nzLeft="50px" nzWidth="50px" nzAlign="center">-->
-      <!--              <button nz-button nzType="text" nz-tooltip="排序">-->
-      <!--                <nz-icon nzType="holder" />-->
-      <!--              </button>-->
-      <!--            </th>-->
-      <!--            <th><app-title>导航名称</app-title></th>-->
-      <!--            <th nzAlign="center" nzWidth="100px">-->
-      <!--              <app-title>状态</app-title>-->
-      <!--            </th>-->
-      <!--            <th nzRight nzAlign="center" nzWidth="50px">-->
-      <!--              <button nz-button nzType="text" nz-tooltip="操作">-->
-      <!--                <nz-icon nzType="setting" />-->
-      <!--              </button>-->
-      <!--            </th>-->
-      <!--          </tr>-->
-      <!--        </thead>-->
-      <!--        <tbody cdkDropList (cdkDropListDropped)="sort($event, m.data())">-->
-      <!--          @for (data of m.data(); track data.id) {-->
-      <!--            <tr cdkDrag>-->
-      <!--              <td-->
-      <!--                nzLeft-->
-      <!--                nzAlign="center"-->
-      <!--                [nzChecked]="m.selection().has(data.id)"-->
-      <!--                (nzCheckedChange)="$event ? m.setSelection(data) : m.removeSelection(data.id)"-->
-      <!--              ></td>-->
-      <!--              <td nzLeft="50px" nzAlign="center">-->
-      <!--                <button cdkDragHandle nz-button nzType="text">-->
-      <!--                  <nz-icon nzType="holder" />-->
-      <!--                </button>-->
-      <!--              </td>-->
-      <!--              <td>-->
-      <!--                <a [routerLink]="['/system', 'access', 'views', data.id]">-->
-      <!--                  @if (data.icon) {-->
-      <!--                    <nz-icon [nzType]="data.icon"></nz-icon>-->
-      <!--                  }-->
-      <!--                  {{ data.name }}-->
-      <!--                </a>-->
-      <!--              </td>-->
-      <!--              <td nzAlign="center">-->
-      <!--                <app-active [appValue]="data.active"></app-active>-->
-      <!--              </td>-->
-      <!--              <td nzRight nzAlign="center">-->
-      <!--                <button nz-button nzType="text" nz-dropdown [nzDropdownMenu]="actions">-->
-      <!--                  <nz-icon nzType="ellipsis"></nz-icon>-->
-      <!--                </button>-->
-      <!--                <nz-dropdown-menu #actions>-->
-      <!--                  <ul nz-menu>-->
-      <!--                    <li nz-menu-item (click)="open(data)">修改</li>-->
-      <!--                    <li nz-menu-divider></li>-->
-      <!--                    <li nz-menu-item nzDanger (click)="delete(data)">删除</li>-->
-      <!--                  </ul>-->
-      <!--                </nz-dropdown-menu>-->
-      <!--              </td>-->
-      <!--            </tr>-->
-      <!--          }-->
-      <!--        </tbody>-->
-      <!--      </nz-table>-->
-    </nz-card>
+  <div class="litho-split-list-panel" style="width: 200px; overflow: hidden auto">
+    <ul style="border: none; height: 100%" nz-menu nzMode="inline">
+      @for (nav of global.navs; track nav.key) {
+        <li nz-menu-item nzMatchRouter>
+          <a [routerLink]="['/system', 'access', 'views', nav.link]">
+            <nz-icon [nzType]="nav.icon" />
+            {{ nav.name }}
+          </a>
+        </li>
+      }
+    </ul>
   </div>
 
   <div class="litho-split-detail-panel">
