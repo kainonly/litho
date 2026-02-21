@@ -2,7 +2,7 @@ import { Routes } from '@angular/router';
 
 import { Analysis } from './analysis/analysis';
 import { appGuard } from './app.guard';
-import { AppResolver } from './app.resolver';
+import { appResolver } from './app.resolver';
 import { Business } from './business/business';
 import { Dashboard } from './dashboard/dashboard';
 import { Login } from './login/login';
@@ -17,7 +17,7 @@ export const routes: Routes = [
     path: '',
     canActivate: [appGuard],
     resolve: {
-      layout: AppResolver
+      layout: appResolver
     },
     children: [
       { path: 'dashboard', component: Dashboard },

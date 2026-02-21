@@ -29,16 +29,16 @@ export function appInterceptor(req: HttpRequest<unknown>, next: HttpHandlerFn): 
       switch (e.status) {
         case 401:
           modal.closeAll();
-          message.error(`Login expired. Please re-log in.`);
+          message.error(`登录已过期，请重新登录`);
           router.navigateByUrl('/login').then();
           break;
         case 403:
-          message.error(`Have no permission to access.`);
+          message.error(`无权限访问`);
           break;
         case 500:
         case 503:
           if (![''].includes(e.error.code)) {
-            message.error(`Server busy. Please try again later.`);
+            message.error(`服务器繁忙，请稍后再试`);
           }
           break;
       }
