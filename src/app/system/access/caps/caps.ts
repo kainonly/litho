@@ -5,8 +5,8 @@ import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalService } from 'ng-zorro-antd/modal';
 
 import { Global, SharedModule } from '@shared';
-import { PermissionsApi } from '@shared/apis/permissions-api';
-import { Permission } from '@shared/models';
+import { CapsApi } from '@shared/apis/caps-api';
+import { Cap } from '@shared/models';
 
 import { Form, FormInput } from './form/form';
 
@@ -18,13 +18,13 @@ import { Form, FormInput } from './form/form';
 })
 export class Caps implements OnInit {
   global = inject(Global);
-  permissions = inject(PermissionsApi);
+  caps = inject(CapsApi);
 
   private destroyRef = inject(DestroyRef);
   private modal = inject(NzModalService);
   private message = inject(NzMessageService);
 
-  m = this.global.setModel(`permissions`, this.permissions, {
+  m = this.global.setModel(`caps`, this.caps, {
     q: ''
   });
 
@@ -49,9 +49,9 @@ export class Caps implements OnInit {
     this.m.fetch(params).pipe(takeUntilDestroyed(this.destroyRef)).subscribe();
   }
 
-  open(data?: Permission): void {
+  open(data?: Cap): void {
     this.modal.create<Form, FormInput>({
-      nzTitle: !data ? '新增权限' : `修改权限【${data.code}】`,
+      nzTitle: !data ? '新增能力' : `修改能力【${data.code}】`,
       nzContent: Form,
       nzData: {
         data
@@ -62,9 +62,9 @@ export class Caps implements OnInit {
     });
   }
 
-  delete(data: Permission): void {
-    this.global.deleteConfirm(`权限【${data.code}】`, () => {
-      this.permissions
+  delete(data: Cap): void {
+    this.global.deleteConfirm(`能力【${data.code}】`, () => {
+      this.caps
         .delete([data.id])
         .pipe(takeUntilDestroyed(this.destroyRef))
         .subscribe(() => {
@@ -77,7 +77,7 @@ export class Caps implements OnInit {
 
   bulkDelete(): void {
     this.global.bulkDeleteConfirm(() => {
-      this.permissions
+      this.caps
         .delete([...this.m.selection().keys()])
         .pipe(takeUntilDestroyed(this.destroyRef))
         .subscribe(() => {

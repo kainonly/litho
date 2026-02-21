@@ -1,4 +1,4 @@
-export interface Permission {
+export interface Cap {
   id: string;
   created_at: string;
   updated_at: string;
