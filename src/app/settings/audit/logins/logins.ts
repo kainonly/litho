@@ -4,8 +4,8 @@ import { SharedModule } from '@shared';
 
 @Component({
   imports: [SharedModule],
-  selector: 'app-settings-login-status',
-  templateUrl: './login-status.html',
+  selector: 'app-settings-logins',
+  templateUrl: './logins.html',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class LoginStatus {}
+export class Logins {}

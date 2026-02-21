@@ -2,36 +2,14 @@
   <nz-header>
     <div class="header-container">
       <ul class="navigation" nz-menu nzMode="horizontal">
-        <li nz-menu-item nzMatchRouter>
-          <a [routerLink]="['/dashboard']">
-            <nz-icon nzType="dashboard" />
-            工作台
-          </a>
-        </li>
-        <li nz-menu-item nzMatchRouter>
-          <a [routerLink]="['/products']">
-            <nz-icon nzType="shopping" />
-            商品管理
-          </a>
-        </li>
-        <li nz-menu-item nzMatchRouter>
-          <a [routerLink]="['/orders']">
-            <nz-icon nzType="file-text" />
-            订单管理
-          </a>
-        </li>
-        <li nz-menu-item nzMatchRouter>
-          <a [routerLink]="['/customers']">
-            <nz-icon nzType="team" />
-            客户管理
-          </a>
-        </li>
-        <li nz-menu-item nzMatchRouter>
-          <a [routerLink]="['/settings']">
-            <nz-icon nzType="setting" />
-            系统设置
-          </a>
-        </li>
+        @for (nav of global.navs; track nav.key) {
+          <li nz-menu-item nzMatchRouter>
+            <a [routerLink]="[nav.link]">
+              <nz-icon [nzType]="nav.icon" />
+              {{ nav.name }}
+            </a>
+          </li>
+        }
       </ul>
 
       <div class="header-right">

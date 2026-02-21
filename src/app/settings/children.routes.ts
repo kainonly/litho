@@ -36,8 +36,8 @@ export const childrenRoutes: Routes = [
     loadComponent: () => import('./audit/sessions/sessions').then(m => m.Sessions)
   },
   {
-    path: 'audit/login-status',
-    loadComponent: () => import('./audit/login-status/login-status').then(m => m.LoginStatus)
+    path: 'audit/logins',
+    loadComponent: () => import('./audit/logins/logins').then(m => m.Logins)
   },
   {
     path: 'audit/behaviors',
