@@ -7,8 +7,8 @@ import { Layout } from '../__layout/layout';
 @Component({
   standalone: true,
   imports: [SharedModule, Layout],
-  selector: 'app-orders',
-  templateUrl: './orders.html'
+  selector: 'app-ops',
+  templateUrl: './ops.html'
 })
-export class Orders {}
+export class Ops { }
 

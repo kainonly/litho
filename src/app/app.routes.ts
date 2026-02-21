@@ -1,11 +1,11 @@
 import { Routes } from '@angular/router';
 
+import { Analysis } from './analysis/analysis';
 import { appGuard } from './app.guard';
-import { Customers } from './customers/customers';
+import { Business } from './business/business';
 import { Dashboard } from './dashboard/dashboard';
 import { Login } from './login/login';
-import { Orders } from './orders/orders';
-import { Products } from './products/products';
+import { Ops } from './ops/ops';
 
 export const routes: Routes = [
   {
@@ -17,9 +17,9 @@ export const routes: Routes = [
     canActivate: [appGuard],
     children: [
       { path: 'dashboard', component: Dashboard },
-      { path: 'products', component: Products },
-      { path: 'orders', component: Orders },
-      { path: 'customers', component: Customers },
+      { path: 'ops', component: Ops },
+      { path: 'business', component: Business },
+      { path: 'analysis', component: Analysis },
       {
         path: 'system',
         loadComponent: () => import('./system/system').then(m => m.Settings),
