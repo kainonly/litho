@@ -16,7 +16,6 @@ import {
 import { Observable, of } from 'rxjs';
 
 import { Global, SharedModule } from '@shared';
-import { MenusApi } from '@shared/apis/menus-api';
 import { RoutesApi } from '@shared/apis/routes-api';
 import { Menu, RegroupUpdate, Route } from '@shared/models';
 
@@ -31,7 +30,6 @@ import { GroupForm, GroupFormInput } from './group-form/group-form';
 })
 export class Routes implements OnInit {
   global = inject(Global);
-  menus = inject(MenusApi);
   routes = inject(RoutesApi);
 
   private destroyRef = inject(DestroyRef);
@@ -107,14 +105,7 @@ export class Routes implements OnInit {
     return roots;
   }
 
-  getMenu(): void {
-    this.menus
-      .findById(this.menuId)
-      .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe(data => {
-        this.menuData = data;
-      });
-  }
+  getMenu(): void {}
 
   openGroup(data?: Route): void {
     this.modal.create<GroupForm, GroupFormInput>({

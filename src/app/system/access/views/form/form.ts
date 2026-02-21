@@ -1,11 +1,9 @@
 import { ChangeDetectionStrategy, Component, DestroyRef, inject, OnInit } from '@angular/core';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NZ_MODAL_DATA, NzModalRef } from 'ng-zorro-antd/modal';
 
 import { Global, SharedModule } from '@shared';
-import { MenusApi } from '@shared/apis/menus-api';
 import { Any, Menu } from '@shared/models';
 
 import { tips } from './tips';
@@ -23,7 +21,6 @@ export interface FormInput {
 export class Form implements OnInit {
   input = inject<FormInput>(NZ_MODAL_DATA);
   global = inject(Global);
-  menus = inject(MenusApi);
 
   private destroyRef = inject(DestroyRef);
   private modalRef = inject(NzModalRef);
@@ -44,12 +41,12 @@ export class Form implements OnInit {
   }
 
   getData(id: string): void {
-    this.menus
-      .findById(id)
-      .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe(data => {
-        this.form.patchValue(data);
-      });
+    // this.menus
+    //   .findById(id)
+    //   .pipe(takeUntilDestroyed(this.destroyRef))
+    //   .subscribe(data => {
+    //     this.form.patchValue(data);
+    //   });
   }
 
   close(): void {
@@ -61,22 +58,22 @@ export class Form implements OnInit {
       ...data
     };
     if (!this.input.data) {
-      this.menus
-        .create(dto)
-        .pipe(takeUntilDestroyed(this.destroyRef))
-        .subscribe(() => {
-          this.message.success(`新增成功`);
-          this.modalRef.triggerOk();
-        });
+      // this.menus
+      //   .create(dto)
+      //   .pipe(takeUntilDestroyed(this.destroyRef))
+      //   .subscribe(() => {
+      //     this.message.success(`新增成功`);
+      //     this.modalRef.triggerOk();
+      //   });
     } else {
       // dto.id = this.input.data.id;
-      this.menus
-        .update(dto)
-        .pipe(takeUntilDestroyed(this.destroyRef))
-        .subscribe(() => {
-          this.message.success(`更新成功`);
-          this.modalRef.triggerOk();
-        });
+      // this.menus
+      //   .update(dto)
+      //   .pipe(takeUntilDestroyed(this.destroyRef))
+      //   .subscribe(() => {
+      //     this.message.success(`更新成功`);
+      //     this.modalRef.triggerOk();
+      //   });
     }
   }
 }

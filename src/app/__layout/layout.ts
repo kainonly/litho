@@ -3,9 +3,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { Global, SharedModule } from '@shared';
-import { Menu } from '@shared/models';
-import { Layout as LayoutModel } from '@shared/models/layout';
-import { Nav } from '@shared/models/nav';
+import { Menu, Layout as LayoutModel, Nav } from '@shared/models';
 
 @Component({
   standalone: true,

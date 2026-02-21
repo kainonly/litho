@@ -78,7 +78,6 @@ export class Toolbox<T extends Basic, S extends SearchOption> {
 
   clear(): void {
     const model = this.appModel();
-    console.log(model.searchInit);
     const search = structuredClone(model.searchInit);
 
     for (const key of this.appClearOmit()) {
