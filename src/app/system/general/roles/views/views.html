@@ -1,0 +1,41 @@
+<ng-template #bottom>
+  @if (roleData()) {
+    <button nz-button nzType="dashed" [routerLink]="['/system', 'general', 'roles', 'home']">
+      {{ roleData()!.name }}
+      <nz-icon nzType="close" />
+    </button>
+  }
+</ng-template>
+
+<ng-template #title>
+  <nz-space nzAlign="center">
+    <b *nzSpaceItem></b>
+  </nz-space>
+</ng-template>
+
+<ng-template #extra> </ng-template>
+
+<nz-row style="height: 100%">
+  <nz-col nzFlex="200px">
+    <nz-tabs style="height: 100%; padding: 24px 0" nzSize="large" nzTabPosition="left" [nzTabBarExtraContent]="bottom">
+      <nz-tab>
+        <a *nzTabLink nz-tab-link> <nz-icon nzType="windows" /> 视图授权 </a>
+      </nz-tab>
+      <nz-tab>
+        <a *nzTabLink nz-tab-link> <nz-icon nzType="code" /> 策略组 </a>
+      </nz-tab>
+    </nz-tabs>
+  </nz-col>
+  <nz-col nzFlex="auto">
+    <nz-page-header>
+      <nz-page-header-title>{{ roleData()?.description | appBlank: '暂无描述' }}</nz-page-header-title>
+      <nz-page-header-extra>
+        <nz-space nzAlign="center">
+          <button *nzSpaceItem nz-button nzType="primary">更新授权</button>
+        </nz-space>
+      </nz-page-header-extra>
+    </nz-page-header>
+
+    <!--    <nz-card style="height: 100%" [nzBordered]="false" [nzTitle]="title" [nzExtra]="extra"> </nz-card>-->
+  </nz-col>
+</nz-row>

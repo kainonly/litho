@@ -1,0 +1,99 @@
+<ng-template #left>
+  <nz-space nzAlign="center">
+    @if (resourceData) {
+      <button *nzSpaceItem nz-button nzType="dashed" [routerLink]="['/system', 'resources', 'home']">
+        {{ resourceData.name }}
+        <nz-icon nzType="close" />
+      </button>
+    }
+
+    <app-keyword *nzSpaceItem [appModel]="m" (appOnSearch)="getData(true)"></app-keyword>
+    <app-toolbox *nzSpaceItem [appModel]="m" (appRefresh)="getData(true)" (appClear)="getData(true)"></app-toolbox>
+  </nz-space>
+</ng-template>
+<ng-template #right>
+  <nz-space nzAlign="center">
+    <a nz-dropdown *nzSpaceItem [nzDropdownMenu]="bulkAction" [nzDisabled]="m.selection().size === 0">
+      已选择 {{ m.selection().size }} 个项目
+      <nz-icon nzType="down" />
+    </a>
+    <nz-dropdown-menu #bulkAction>
+      <ul nz-menu nzSelectable>
+        <li nz-menu-item nzDanger (click)="bulkDelete()">删除</li>
+        <li nz-menu-item (click)="m.clearSelections()">取消选择</li>
+      </ul>
+    </nz-dropdown-menu>
+
+    <button *nzSpaceItem nz-button nzType="primary" (click)="open()">新增操作</button>
+  </nz-space>
+</ng-template>
+
+<nz-card style="height: 100%" [nzBordered]="false" [nzTitle]="left" [nzExtra]="right">
+  <nz-table
+    #tb
+    [style.height.%]="100"
+    [nzLoading]="m.loading()"
+    [nzData]="m.data()"
+    [nzTotal]="m.total()"
+    [nzFrontPagination]="false"
+    [nzShowPagination]="true"
+    [nzShowSizeChanger]="true"
+    [nzPageSizeOptions]="[10, 20, 50]"
+    [(nzPageIndex)]="m.page"
+    [(nzPageSize)]="m.pagesize"
+    (nzPageIndexChange)="getData()"
+    (nzPageSizeChange)="getData()"
+  >
+    <thead>
+      <tr>
+        <th
+          nzLeft
+          nzAlign="center"
+          nzWidth="50px"
+          [nzChecked]="m.checked()"
+          [nzIndeterminate]="m.indeterminate()"
+          (nzCheckedChange)="m.setCurrentSelections($event)"
+        ></th>
+        <th><app-title>操作名称</app-title></th>
+        <th><app-title>操作路径</app-title></th>
+        <th nzAlign="center" nzWidth="100px">
+          <app-title>状态</app-title>
+        </th>
+        <th nzRight nzAlign="center" nzWidth="50px">
+          <button nz-button nzType="text" nz-tooltip="操作">
+            <nz-icon nzType="setting" />
+          </button>
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (data of tb.data; track data.id) {
+        <tr>
+          <td
+            nzLeft
+            nzAlign="center"
+            [nzChecked]="m.selection().has(data.id)"
+            (nzCheckedChange)="$event ? m.setSelection(data) : m.removeSelection(data.id)"
+          ></td>
+          <td>{{ data.name }}</td>
+          <td>{{ data.code }}</td>
+          <td nzAlign="center">
+            <app-active [appValue]="data.active"></app-active>
+          </td>
+          <td nzRight nzAlign="center">
+            <button nz-button nzType="text" nz-dropdown [nzDropdownMenu]="actions">
+              <nz-icon nzType="ellipsis" nzTheme="outline"></nz-icon>
+            </button>
+            <nz-dropdown-menu #actions>
+              <ul nz-menu>
+                <li nz-menu-item (click)="open(data)">修改</li>
+                <li nz-menu-divider></li>
+                <li nz-menu-item nzDanger (click)="delete(data)">删除</li>
+              </ul>
+            </nz-dropdown-menu>
+          </td>
+        </tr>
+      }
+    </tbody>
+  </nz-table>
+</nz-card>

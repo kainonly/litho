@@ -21,9 +21,9 @@ export const routes: Routes = [
       { path: 'orders', component: Orders },
       { path: 'customers', component: Customers },
       {
-        path: 'settings',
-        loadComponent: () => import('./settings/settings').then(m => m.Settings),
-        loadChildren: () => import('./settings/children.routes').then(m => m.childrenRoutes)
+        path: 'system',
+        loadComponent: () => import('./system/system').then(m => m.Settings),
+        loadChildren: () => import('./system/children.routes').then(m => m.childrenRoutes)
       },
       { path: '', redirectTo: '/dashboard', pathMatch: 'full' }
     ]
