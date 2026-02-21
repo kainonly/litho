@@ -1,7 +1,7 @@
 <ng-template #left>
   <nz-space nzAlign="center">
     @if (resourceData()) {
-      <button *nzSpaceItem nz-button nzType="dashed" [routerLink]="['/system', 'resources', 'home']">
+      <button *nzSpaceItem nz-button nzType="dashed" [routerLink]="['/system', 'access', 'resources']">
         {{ resourceData()?.label }}
         <nz-icon nzType="close" />
       </button>
