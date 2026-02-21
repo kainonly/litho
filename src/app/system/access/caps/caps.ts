@@ -12,11 +12,11 @@ import { Form, FormInput } from './form/form';
 
 @Component({
   imports: [SharedModule],
-  selector: 'app-system-permissions',
-  templateUrl: './permissions.html',
+  selector: 'app-system-caps',
+  templateUrl: './caps.html',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class Permissions implements OnInit {
+export class Caps implements OnInit {
   global = inject(Global);
   permissions = inject(PermissionsApi);
 

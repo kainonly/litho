@@ -17,7 +17,7 @@ export interface FormInput {
 @Component({
   standalone: true,
   imports: [SharedModule],
-  selector: 'app-system-access-permissions-form',
+  selector: 'app-system-access-caps-form',
   templateUrl: './form.html'
 })
 export class Form implements OnInit {
