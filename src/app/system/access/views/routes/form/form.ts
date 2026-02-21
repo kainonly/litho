@@ -1,4 +1,3 @@
-import { HttpParams } from '@angular/common/http';
 import { ChangeDetectionStrategy, Component, DestroyRef, inject, OnInit, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -62,13 +61,13 @@ export class Form implements OnInit {
   }
 
   getGroupItems(): void {
-    const http = new HttpParams().set(`pid`, `0`).set(`menu_id`, this.input.menu.id);
-    this.routes
-      .find(http, { page: 1, pagesize: 1000 })
-      .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe(({ data }) => {
-        this.groupItems.set(data);
-      });
+    // const http = new HttpParams().set(`pid`, `0`).set(`menu_id`, this.input.menu.id);
+    // this.routes
+    //   .find(http, { page: 1, pagesize: 1000 })
+    //   .pipe(takeUntilDestroyed(this.destroyRef))
+    //   .subscribe(({ data }) => {
+    //     this.groupItems.set(data);
+    //   });
   }
 
   close(): void {
@@ -81,7 +80,7 @@ export class Form implements OnInit {
       delete dto.pid;
     }
     if (!this.input.data) {
-      dto.menu_id = this.input.menu.id;
+      // dto.menu_id = this.input.menu.id;
       this.routes
         .create(dto)
         .pipe(takeUntilDestroyed(this.destroyRef))

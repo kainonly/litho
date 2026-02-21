@@ -39,7 +39,7 @@ export class Form implements OnInit {
 
   ngOnInit(): void {
     if (this.input.data) {
-      this.getData(this.input.data.id);
+      // this.getData(this.input.data.id);
     }
   }
 
@@ -69,7 +69,7 @@ export class Form implements OnInit {
           this.modalRef.triggerOk();
         });
     } else {
-      dto.id = this.input.data.id;
+      // dto.id = this.input.data.id;
       this.menus
         .update(dto)
         .pipe(takeUntilDestroyed(this.destroyRef))

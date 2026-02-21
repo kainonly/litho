@@ -2,7 +2,7 @@
   <nz-header>
     <div class="header-container">
       <ul class="navigation" nz-menu nzMode="horizontal">
-        @for (nav of global.navs; track nav.key) {
+        @for (nav of navs(); track nav.key) {
           <li nz-menu-item nzMatchRouter>
             <a [routerLink]="[nav.link]">
               <nz-icon [nzType]="nav.icon" />
@@ -57,7 +57,47 @@
       </div>
     </div>
   </nz-header>
-  <nz-content>
-    <ng-content></ng-content>
-  </nz-content>
+
+  @let menus = navMenus()[appNav()] || [];
+  @if (!appFull() && menus.length !== 0) {
+    <nz-layout class="inner-layout">
+      <nz-sider nzWidth="200px" nzTheme="light">
+        <ul class="menu" nz-menu nzMode="inline">
+          @for (menu of menus; track menu.name) {
+            @if (!menu.disabled) {
+              <li nz-menu-group [nzTitle]="menu.name">
+                @for (submenu of menu.children; track submenu.name) {
+                  @if (!submenu.disabled) {
+                    <li nz-menu-item nzMatchRouter>
+                      <a [routerLink]="submenu.link" rel="noopener noreferrer">
+                        @if (submenu.icon) {
+                          <nz-icon [nzType]="submenu.icon"></nz-icon>
+                        }
+                        <span>{{ submenu.name }}</span>
+                      </a>
+                    </li>
+                  } @else {
+                    <li nz-menu-item nzDisabled>
+                      @if (submenu.icon) {
+                        <nz-icon [nzType]="submenu.icon"></nz-icon>
+                      }
+                      <span>{{ submenu.name }}</span>
+                    </li>
+                  }
+                }
+              </li>
+            }
+          }
+        </ul>
+      </nz-sider>
+
+      <nz-content class="content">
+        <router-outlet />
+      </nz-content>
+    </nz-layout>
+  } @else {
+    <nz-content>
+      <router-outlet />
+    </nz-content>
+  }
 </nz-layout>

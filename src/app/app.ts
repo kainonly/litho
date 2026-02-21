@@ -26,7 +26,7 @@ export class App implements OnInit {
       from(this.swUpdate.checkForUpdate())
         .pipe(takeUntilDestroyed(this.destroyRef))
         .subscribe(evt => {
-          if (evt && confirm('A new version is available. Do you want to update?')) {
+          if (evt && confirm('有新的版本可用，是否更新？')) {
             this.storage.clear().pipe(takeUntilDestroyed(this.destroyRef)).subscribe();
             window.location.reload();
           }

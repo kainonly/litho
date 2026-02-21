@@ -59,7 +59,7 @@ export class GroupForm implements OnInit {
   submit(data: Any): void {
     const dto = { ...data };
     if (!this.input.data) {
-      dto.menu_id = this.input.menu.id;
+      // dto.menu_id = this.input.menu.id;
       dto.type = 1;
       this.routes
         .create(dto)

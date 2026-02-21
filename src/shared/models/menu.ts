@@ -1,9 +1,7 @@
 export interface Menu {
-  id: string;
-  created_at: string;
-  updated_at: string;
-  sort: number;
-  active: boolean;
   name: string;
-  icon: string;
+  disabled: boolean;
+  icon?: string;
+  link?: string;
+  children: Omit<Menu, 'children'>[];
 }

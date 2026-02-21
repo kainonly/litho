@@ -8,6 +8,6 @@ import { Layout } from '../__layout/layout';
 @Component({
   imports: [SharedModule, Layout, RouterModule],
   selector: 'app-system',
-  templateUrl: './system.html'
+  template: `<app-layout appNav="system"> </app-layout>`
 })
-export class Settings { }
+export class Settings {}

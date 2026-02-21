@@ -1,24 +1,44 @@
-import { Component, DestroyRef, inject, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { NzModalService } from 'ng-zorro-antd/modal';
+import { ChangeDetectionStrategy, Component, DestroyRef, inject, input, OnInit, signal } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { ActivatedRoute, Router } from '@angular/router';
 
 import { Global, SharedModule } from '@shared';
+import { Menu } from '@shared/models';
+import { Layout as LayoutModel } from '@shared/models/layout';
+import { Nav } from '@shared/models/nav';
 
 @Component({
   standalone: true,
   imports: [SharedModule],
   selector: 'app-layout',
   styleUrl: `./layout.less`,
-  templateUrl: './layout.html'
+  templateUrl: './layout.html',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class Layout implements OnInit {
+  readonly appNav = input<string>('');
+  readonly appFull = input<boolean>(false);
+
   global = inject(Global);
 
   private destroyRef = inject(DestroyRef);
-  private modal = inject(NzModalService);
   private router = inject(Router);
+  private route = inject(ActivatedRoute);
 
-  ngOnInit(): void {}
+  navs = signal<Nav[]>([]);
+  navMenus = signal<Record<string, Menu[]>>({});
+
+  ngOnInit(): void {
+    this.route.data.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(data => {
+      if (!data['layout']) {
+        return;
+      }
+      const { navs, nav_menus } = data['layout'] as LayoutModel;
+      const exists = new Set(navs);
+      this.navs.set(this.global.navs.filter(v => exists.has(v.key)));
+      this.navMenus.set(nav_menus);
+    });
+  }
 
   logout(): void {
     this.global.logout().subscribe(() => {
