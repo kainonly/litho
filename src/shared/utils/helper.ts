@@ -1,6 +1,5 @@
 import { AbstractControl, FormGroup } from '@angular/forms';
 
-import { EnumType } from '@shared/models';
 import { endOfDay, format, formatRFC3339, parseISO, startOfDay } from 'date-fns';
 
 // 递归标记无效控件为已触摸并触发校验（包含嵌套 FormGroup）。
@@ -58,11 +57,15 @@ export const isEqualTime = (dateLeft: Date, dateRight: Date): boolean => {
   );
 };
 
-// 将枚举数组转换为 value -> label 的映射。
-export const toM = (values: readonly EnumType[]): Record<number, string> => {
-  const result: Record<number, string> = {};
+// 将数组转换为以指定键提取函数为键的字典，可选值提取函数，默认使用元素本身。
+export const toM = <T, K extends string | number, V = T>(
+  values: readonly T[],
+  keyFn: (item: T) => K,
+  valueFn?: (item: T) => V
+): Record<K, V> => {
+  const result = {} as Record<K, V>;
   for (const value of values) {
-    result[value.value] = value.label;
+    result[keyFn(value)] = (valueFn ? valueFn(value) : value) as V;
   }
   return result;
 };

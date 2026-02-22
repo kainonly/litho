@@ -1,12 +1,14 @@
 import { HttpParams } from '@angular/common/http';
-import { ChangeDetectionStrategy, Component, DestroyRef, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, DestroyRef, inject, OnInit, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalService } from 'ng-zorro-antd/modal';
 
-import { Global, SharedModule } from '@shared';
+import { Global, SharedModule, toM } from '@shared';
+import { OrgsApi } from '@shared/apis/orgs-api';
+import { RolesApi } from '@shared/apis/roles-api';
 import { UsersApi } from '@shared/apis/users-api';
-import { User } from '@shared/models';
+import { Org, Role, User } from '@shared/models';
 
 import { Form, FormInput } from './form/form';
 
@@ -19,6 +21,8 @@ import { Form, FormInput } from './form/form';
 export class Users implements OnInit {
   global = inject(Global);
   users = inject(UsersApi);
+  orgs = inject(OrgsApi);
+  roles = inject(RolesApi);
 
   private destroyRef = inject(DestroyRef);
   private modal = inject(NzModalService);
@@ -26,8 +30,15 @@ export class Users implements OnInit {
 
   m = this.global.setModel(`users`, this.users, {
     q: '',
-    org_id: ''
+    org_id: '',
+    role_id: ''
   });
+
+  orgItems = signal<Org[]>([]);
+  orgM = signal<Record<string, Org>>({});
+
+  roleItems = signal<Role[]>([]);
+  roleM = signal<Record<string, Role>>({});
 
   ngOnInit(): void {
     this.m
@@ -35,6 +46,8 @@ export class Users implements OnInit {
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe(() => {
         this.getData();
+        this.getOrgItems();
+        this.getRoleItems();
       });
   }
 
@@ -43,19 +56,44 @@ export class Users implements OnInit {
       this.m.page.set(1);
     }
     let params = new HttpParams();
-    const { q, org_id } = this.m.search;
+    const { q, org_id, role_id } = this.m.search;
     if (q) {
       params = params.set('q', q);
     }
     if (org_id) {
       params = params.set('org_id', org_id);
     }
+    if (role_id) {
+      params = params.set('role_id', role_id);
+    }
     this.m.fetch(params).pipe(takeUntilDestroyed(this.destroyRef)).subscribe();
+  }
+
+  getOrgItems(): void {
+    const params = new HttpParams();
+    this.orgs
+      .find(params, { page: 1, pagesize: 1000 })
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe(({ data }) => {
+        this.orgItems.set(data);
+        this.orgM.set(toM(data, item => item.id));
+      });
+  }
+
+  getRoleItems(): void {
+    const params = new HttpParams();
+    this.roles
+      .find(params, { page: 1, pagesize: 1000 })
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe(({ data }) => {
+        this.roleItems.set(data);
+        this.roleM.set(toM(data, item => item.id));
+      });
   }
 
   open(data?: User): void {
     this.modal.create<Form, FormInput>({
-      nzTitle: !data ? '新增用户' : `修改用户【${data.name}】`,
+      nzTitle: !data ? '新增成员' : `修改成员【${data.name}】`,
       nzContent: Form,
       nzData: {
         data
@@ -67,7 +105,7 @@ export class Users implements OnInit {
   }
 
   delete(data: User): void {
-    this.global.deleteConfirm(`用户【${data.name}】`, () => {
+    this.global.deleteConfirm(`成员【${data.name}】`, () => {
       this.users
         .delete([data.id])
         .pipe(takeUntilDestroyed(this.destroyRef))

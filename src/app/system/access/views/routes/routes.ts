@@ -16,7 +16,7 @@ import {
 } from 'ng-zorro-antd/tree';
 import { Observable, of } from 'rxjs';
 
-import { Global, SharedModule } from '@shared';
+import { Global, SharedModule, toM } from '@shared';
 import { RoutesApi } from '@shared/apis/routes-api';
 import { RegroupUpdate, Route } from '@shared/models';
 
@@ -58,16 +58,9 @@ export class Routes implements OnInit {
       .find(params, { page: 1, pagesize: 1000 })
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe(({ data }) => {
-        this.routeM.set(this.buildRouteMap(data));
+        this.routeM.set(toM(data, item => item.id));
         this.nodes.set(this.buildNodes(data));
       });
-  }
-
-  private buildRouteMap(data: Route[]): Record<string, Route> {
-    return data.reduce<Record<string, Route>>((acc, item) => {
-      acc[item.id] = item;
-      return acc;
-    }, {});
   }
 
   private buildNodes(data: Route[]): NzTreeNodeOptions[] {

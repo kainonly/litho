@@ -1,19 +1,19 @@
 <form nz-form nzLayout="vertical" id="form" [formGroup]="form" (appSubmit)="submit($event)">
   <nz-form-item>
-    <nz-form-label nzRequired>用户名称</nz-form-label>
-    <nz-form-control nzHasFeedback [nzAutoTips]="tips.name">
-      <input nz-input formControlName="name" placeholder="请输入用户名称" />
-    </nz-form-control>
-  </nz-form-item>
-  <nz-form-item>
     <nz-form-label nzRequired>邮箱</nz-form-label>
     <nz-form-control nzHasFeedback [nzAutoTips]="tips.email">
       <input nz-input type="email" formControlName="email" placeholder="请输入邮箱" />
     </nz-form-control>
   </nz-form-item>
   <nz-form-item>
+    <nz-form-label>姓名</nz-form-label>
+    <nz-form-control nzHasFeedback>
+      <input nz-input formControlName="name" placeholder="请输入姓名" />
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
     <nz-form-label>手机号</nz-form-label>
-    <nz-form-control nzHasFeedback [nzAutoTips]="tips.phone">
+    <nz-form-control nzHasFeedback>
       <input nz-input formControlName="phone" placeholder="请输入手机号" />
     </nz-form-control>
   </nz-form-item>

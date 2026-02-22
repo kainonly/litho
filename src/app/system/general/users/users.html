@@ -1,6 +1,32 @@
 <ng-template #left>
   <nz-space nzAlign="center">
     <app-keyword *nzSpaceItem [appModel]="m" (appOnSearch)="getData(true)"></app-keyword>
+    <nz-select
+      *nzSpaceItem
+      [style.min-width.px]="150"
+      nzShowSearch
+      nzAllowClear
+      nzPlaceHolder="所属组织"
+      [(ngModel)]="m.search.org_id"
+      (ngModelChange)="getData(true)"
+    >
+      @for (item of orgItems(); track item.id) {
+        <nz-option [nzLabel]="item.name" [nzValue]="item.id"></nz-option>
+      }
+    </nz-select>
+    <nz-select
+      *nzSpaceItem
+      [style.min-width.px]="150"
+      nzShowSearch
+      nzAllowClear
+      nzPlaceHolder="所属权限组"
+      [(ngModel)]="m.search.role_id"
+      (ngModelChange)="getData(true)"
+    >
+      @for (item of roleItems(); track item.id) {
+        <nz-option [nzLabel]="item.name" [nzValue]="item.id"></nz-option>
+      }
+    </nz-select>
     <app-toolbox *nzSpaceItem [appModel]="m" (appRefresh)="getData(true)" (appClear)="getData(true)"></app-toolbox>
   </nz-space>
 </ng-template>
@@ -48,9 +74,9 @@
           [nzIndeterminate]="m.indeterminate()"
           (nzCheckedChange)="m.setCurrentSelections($event)"
         ></th>
+        <th nzWidth="200px"><app-title>组织</app-title></th>
         <th nzWidth="320px"><app-title>电子邮件</app-title></th>
-        <th nzWidth="200px"><app-title>姓名</app-title></th>
-        <th nzWidth="200px"><app-title>手机号</app-title></th>
+        <th nzWidth="200px"><app-title>权限组</app-title></th>
         <th><app-title>详情</app-title></th>
         <th nzRight="50px" nzAlign="center" nzWidth="100px">
           <app-title>状态</app-title>
@@ -71,11 +97,18 @@
             [nzChecked]="m.selection().has(data.id)"
             (nzCheckedChange)="$event ? m.setSelection(data) : m.removeSelection(data.id)"
           ></td>
+          <td> {{ orgM()[data.org_id].name }} </td>
           <td> {{ data.email }} </td>
-          <td> {{ data.name | appBlank }} </td>
-          <td> {{ data.phone | appBlank }} </td>
+          <td> {{ roleM()[data.role_id].name }}</td>
           <td>
-            <a>已加入 {{ 0 }} 个组织</a>
+            <app-split>
+              <span *appSplitItem>
+                {{ data.name | appBlank: '暂无姓名' }}
+              </span>
+              <span *appSplitItem>
+                {{ data.phone | appBlank: '暂无手机号' }}
+              </span>
+            </app-split>
           </td>
           <td nzRight nzAlign="center">
             <app-active [appValue]="data.active"></app-active>

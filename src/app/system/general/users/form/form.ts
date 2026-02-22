@@ -30,14 +30,14 @@ export class Form implements OnInit {
   private message = inject(NzMessageService);
   private fb = inject(FormBuilder);
 
+  tips = tips;
   form: FormGroup = this.fb.group({
-    name: ['', [Validators.required]],
     email: ['', [Validators.required, Validators.email]],
-    phone: ['', [Validators.pattern(/[0-9]{11}/)]],
+    name: [''],
+    phone: [''],
     password: ['', [Validators.required]],
     active: [true, [Validators.required]]
   });
-  tips = tips;
 
   ngOnInit(): void {
     if (this.input.data) {

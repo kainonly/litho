@@ -18,7 +18,11 @@ export class RoutesApi extends Api<Route> {
     { label: '外链', value: 3 },
     { label: 'IFRAME', value: 4 }
   ];
-  typeM = toM(this.types);
+  typeM = toM(
+    this.types,
+    v => v.value,
+    v => v.label
+  );
 
   regroup(update: RegroupUpdate, sorts: string[][]): Observable<void> {
     return this.http.post<void>(`${this.collection}/regroup`, { update, sorts });
