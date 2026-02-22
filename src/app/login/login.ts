@@ -1,7 +1,4 @@
-import { Component, DestroyRef, inject, OnDestroy, signal } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
-import { Router } from '@angular/router';
-import { NzNotificationService } from 'ng-zorro-antd/notification';
+import { Component, inject, signal } from '@angular/core';
 import { NzSegmentedOption } from 'ng-zorro-antd/segmented';
 
 import { Global, SharedModule } from '@shared';
@@ -19,13 +16,8 @@ type Mode = 'email' | 'sms';
   templateUrl: './login.html',
   styleUrls: ['./login.less']
 })
-export class Login implements OnDestroy {
+export class Login {
   global = inject(Global);
-
-  private destroyRef = inject(DestroyRef);
-  private fb = inject(FormBuilder);
-  private router = inject(Router);
-  private notification = inject(NzNotificationService);
 
   mode = signal<Mode>('email');
   options: NzSegmentedOption[] = [
@@ -40,14 +32,4 @@ export class Login implements OnDestroy {
       icon: 'mobile'
     }
   ];
-
-  loading = false;
-  countdown = 0;
-  private countdownTimer: ReturnType<typeof setInterval> | null = null;
-
-  ngOnDestroy(): void {
-    if (this.countdownTimer !== null) {
-      clearInterval(this.countdownTimer);
-    }
-  }
 }

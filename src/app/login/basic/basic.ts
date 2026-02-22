@@ -37,7 +37,7 @@ export class Basic {
       .subscribe({
         next: () => {
           this.loading.end();
-          this.router.navigateByUrl('/dashboard');
+          this.router.navigateByUrl('/');
           this.notification.success(`登录成功`, `🚀 欢迎回来，正在进入系统...`);
         },
         error: response => {
