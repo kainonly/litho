@@ -6,16 +6,6 @@
     </nz-form-control>
   </nz-form-item>
   <nz-form-item>
-    <nz-form-label nzRequired>组织名称</nz-form-label>
-    <nz-form-control nzHasFeedback [nzAutoTips]="tips.org_id">
-      <nz-select formControlName="org_id" nzPlaceHolder="请输入组织名称">
-        @for (item of orgItems(); track item.id) {
-          <nz-option [nzValue]="item.id" [nzLabel]="item.name" />
-        }
-      </nz-select>
-    </nz-form-control>
-  </nz-form-item>
-  <nz-form-item>
     <nz-form-label>描述</nz-form-label>
     <nz-form-control>
       <textarea nz-input rows="3" formControlName="description" placeholder="请输入描述"></textarea>

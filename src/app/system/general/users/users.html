@@ -10,7 +10,7 @@
       [(ngModel)]="m.search.org_id"
       (ngModelChange)="getData(true)"
     >
-      @for (item of orgItems(); track item.id) {
+      @for (item of orgItem.data(); track item.id) {
         <nz-option [nzLabel]="item.name" [nzValue]="item.id"></nz-option>
       }
     </nz-select>
@@ -23,7 +23,7 @@
       [(ngModel)]="m.search.role_id"
       (ngModelChange)="getData(true)"
     >
-      @for (item of roleItems(); track item.id) {
+      @for (item of roleItem.data(); track item.id) {
         <nz-option [nzLabel]="item.name" [nzValue]="item.id"></nz-option>
       }
     </nz-select>
@@ -98,11 +98,11 @@
             (nzCheckedChange)="$event ? m.setSelection(data) : m.removeSelection(data.id)"
           ></td>
           <td>
-            {{ orgM()[data.org_id].name }}
+            {{ orgItem.dict()[data.org_id].name }}
           </td>
           <td> {{ data.email }} </td>
           <td>
-            {{ roleM()[data.role_id].name }}
+            {{ roleItem.dict()[data.role_id].name }}
             <a
               nz-popconfirm
               [nzPopconfirmTitle]="setRoleRef"
@@ -161,7 +161,7 @@
           [ngModel]="user.role_id"
           (ngModelChange)="userData.set($event)"
         >
-          @for (item of roleItems(); track item.id) {
+          @for (item of roleItem.data(); track item.id) {
             <nz-option [nzLabel]="item.name" [nzValue]="item.id"></nz-option>
           }
         </nz-select>

@@ -5,11 +5,11 @@ import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { Observable, of } from 'rxjs';
 
-import { Global, SharedModule, toM } from '@shared';
+import { Global, Item, SharedModule } from '@shared';
 import { OrgsApi } from '@shared/apis/orgs-api';
 import { RolesApi } from '@shared/apis/roles-api';
 import { UsersApi } from '@shared/apis/users-api';
-import { Org, Role, User } from '@shared/models';
+import { User } from '@shared/models';
 
 import { Form, FormInput } from './form/form';
 
@@ -35,11 +35,8 @@ export class Users implements OnInit {
     role_id: ''
   });
 
-  orgItems = signal<Org[]>([]);
-  orgM = signal<Record<string, Org>>({});
-
-  roleItems = signal<Role[]>([]);
-  roleM = signal<Record<string, Role>>({});
+  orgItem = new Item(this.orgs);
+  roleItem = new Item(this.roles);
 
   userData = signal<User | undefined>(undefined);
 
@@ -74,24 +71,12 @@ export class Users implements OnInit {
 
   getOrgItems(): void {
     const params = new HttpParams();
-    this.orgs
-      .find(params, { page: 1, pagesize: 1000 })
-      .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe(({ data }) => {
-        this.orgItems.set(data);
-        this.orgM.set(toM(data, item => item.id));
-      });
+    this.orgItem.fetch(params).pipe(takeUntilDestroyed(this.destroyRef)).subscribe();
   }
 
   getRoleItems(): void {
     const params = new HttpParams();
-    this.roles
-      .find(params, { page: 1, pagesize: 1000 })
-      .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe(({ data }) => {
-        this.roleItems.set(data);
-        this.roleM.set(toM(data, item => item.id));
-      });
+    this.roleItem.fetch(params).pipe(takeUntilDestroyed(this.destroyRef)).subscribe();
   }
 
   open(data?: User): void {

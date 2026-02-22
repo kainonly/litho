@@ -1,15 +1,14 @@
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { HttpParams } from '@angular/common/http';
-import { Component, computed, DestroyRef, inject, OnInit, signal } from '@angular/core';
+import { Component, DestroyRef, inject, OnInit } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ActivatedRoute } from '@angular/router';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalService } from 'ng-zorro-antd/modal';
 
 import { Global, SharedModule } from '@shared';
-import { OrgsApi } from '@shared/apis/orgs-api';
 import { RolesApi } from '@shared/apis/roles-api';
-import { Org, Role } from '@shared/models';
+import { Role } from '@shared/models';
 
 import { Form, FormInput } from './form/form';
 
@@ -20,7 +19,6 @@ import { Form, FormInput } from './form/form';
 })
 export class Roles implements OnInit {
   global = inject(Global);
-  orgs = inject(OrgsApi);
   roles = inject(RolesApi);
 
   private destroyRef = inject(DestroyRef);
@@ -28,12 +26,8 @@ export class Roles implements OnInit {
   private message = inject(NzMessageService);
   private route = inject(ActivatedRoute);
 
-  orgItems = signal<Org[]>([]);
-  orgM = computed(() => Object.fromEntries(this.orgItems().map(i => [i.id, i])));
-
   m = this.global.setModel(`roles`, this.roles, {
-    q: '',
-    org_id: ''
+    q: ''
   });
 
   ngOnInit(): void {
@@ -41,7 +35,6 @@ export class Roles implements OnInit {
       .ready()
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe(() => {
-        this.getOrgItems();
         this.getData();
       });
   }
@@ -51,24 +44,11 @@ export class Roles implements OnInit {
       this.m.page.set(1);
     }
     let params = new HttpParams();
-    const { q, org_id } = this.m.search;
+    const { q } = this.m.search;
     if (q) {
       params = params.set('q', q);
     }
-    if (org_id) {
-      params = params.set('org_id', org_id);
-    }
     this.m.fetch(params).pipe(takeUntilDestroyed(this.destroyRef)).subscribe();
-  }
-
-  getOrgItems(): void {
-    const params = new HttpParams();
-    this.orgs
-      .find(params)
-      .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe(({ data }) => {
-        this.orgItems.set(data);
-      });
   }
 
   open(data?: Role): void {

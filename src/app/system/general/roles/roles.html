@@ -1,19 +1,7 @@
 <div class="litho-split-container">
-  <div class="litho-split-list-panel" style="width: 680px">
+  <div class="litho-split-list-panel">
     <ng-template #left>
       <nz-space nzAlign="center">
-        <nz-select
-          *nzSpaceItem
-          [style.width.px]="150"
-          nzAllowClear
-          nzPlaceHolder="组织"
-          [(ngModel)]="m.search.org_id"
-          (ngModelChange)="getData(true)"
-        >
-          @for (item of orgItems(); track item.id) {
-            <nz-option [nzLabel]="item.name" [nzValue]="item.id"></nz-option>
-          }
-        </nz-select>
         <app-keyword *nzSpaceItem [appModel]="m" (appOnSearch)="getData(true)"></app-keyword>
         <app-toolbox *nzSpaceItem [appModel]="m" (appRefresh)="getData(true)" (appClear)="getData(true)"></app-toolbox>
       </nz-space>
@@ -48,8 +36,8 @@
                 <nz-icon nzType="holder" />
               </button>
             </th>
-            <th nzWidth="200px"><app-title>权限名称</app-title></th>
-            <th><app-title>组织</app-title></th>
+            <th nzWidth="200px"><app-title>名称</app-title></th>
+            <th><app-title>能力标识</app-title></th>
             <th nzRight="50px" nzAlign="center" nzWidth="100px">
               <app-title>状态</app-title>
             </th>
@@ -69,15 +57,13 @@
                 </button>
               </td>
               <td>
-                <app-title [appInfo]="data.description">
+                <app-title [appBold]="false" [appInfo]="data.description">
                   <a [routerLink]="['/system', 'general', 'roles', data.id, 'views']">
                     {{ data.name }}
                   </a>
                 </app-title>
               </td>
-              <td>
-                {{ orgM()[data.org_id].name }}
-              </td>
+              <td></td>
               <td nzRight nzAlign="center">
                 <app-active [appValue]="data.active"></app-active>
               </td>
