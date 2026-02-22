@@ -1,3 +1,4 @@
+import { HttpParams } from '@angular/common/http';
 import { ChangeDetectionStrategy, Component, DestroyRef, inject, OnInit, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -6,12 +7,12 @@ import { NZ_MODAL_DATA, NzModalRef } from 'ng-zorro-antd/modal';
 
 import { Global, SharedModule } from '@shared';
 import { RoutesApi } from '@shared/apis/routes-api';
-import { Any, Menu, Route } from '@shared/models';
+import { Any, Route } from '@shared/models';
 
 import { tips } from './tips';
 
 export interface FormInput {
-  menu: Menu;
+  nav: string;
   data?: Route;
   pid?: string;
 }
@@ -32,6 +33,7 @@ export class Form implements OnInit {
   private message = inject(NzMessageService);
   private fb = inject(FormBuilder);
 
+  tips = tips;
   form: FormGroup = this.fb.group({
     name: ['', [Validators.required]],
     type: [2, [Validators.required]],
@@ -40,7 +42,7 @@ export class Form implements OnInit {
     link: [''],
     active: [true, [Validators.required]]
   });
-  tips = tips;
+
   groupItems = signal<Route[]>([]);
 
   ngOnInit(): void {
@@ -61,13 +63,13 @@ export class Form implements OnInit {
   }
 
   getGroupItems(): void {
-    // const http = new HttpParams().set(`pid`, `0`).set(`menu_id`, this.input.menu.id);
-    // this.routes
-    //   .find(http, { page: 1, pagesize: 1000 })
-    //   .pipe(takeUntilDestroyed(this.destroyRef))
-    //   .subscribe(({ data }) => {
-    //     this.groupItems.set(data);
-    //   });
+    const http = new HttpParams().set(`pid`, `0`).set(`nav`, this.input.nav);
+    this.routes
+      .find(http, { page: 1, pagesize: 1000 })
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe(({ data }) => {
+        this.groupItems.set(data);
+      });
   }
 
   close(): void {
@@ -80,7 +82,7 @@ export class Form implements OnInit {
       delete dto.pid;
     }
     if (!this.input.data) {
-      // dto.menu_id = this.input.menu.id;
+      dto.nav = this.input.nav;
       this.routes
         .create(dto)
         .pipe(takeUntilDestroyed(this.destroyRef))

@@ -6,12 +6,12 @@ import { NZ_MODAL_DATA, NzModalRef } from 'ng-zorro-antd/modal';
 
 import { Global, SharedModule } from '@shared';
 import { RoutesApi } from '@shared/apis/routes-api';
-import { Any, Menu, Route } from '@shared/models';
+import { Any, Route } from '@shared/models';
 
 import { tips } from './tips';
 
 export interface GroupFormInput {
-  menu: Menu;
+  nav: string;
   data?: Route;
 }
 
@@ -59,7 +59,7 @@ export class GroupForm implements OnInit {
   submit(data: Any): void {
     const dto = { ...data };
     if (!this.input.data) {
-      // dto.menu_id = this.input.menu.id;
+      dto.nav = this.input.nav;
       dto.type = 1;
       this.routes
         .create(dto)

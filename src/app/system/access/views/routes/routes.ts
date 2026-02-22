@@ -18,7 +18,7 @@ import { Observable, of } from 'rxjs';
 
 import { Global, SharedModule } from '@shared';
 import { RoutesApi } from '@shared/apis/routes-api';
-import { Menu, RegroupUpdate, Route } from '@shared/models';
+import { RegroupUpdate, Route } from '@shared/models';
 
 import { Form, FormInput } from './form/form';
 import { GroupForm, GroupFormInput } from './group-form/group-form';
@@ -41,7 +41,6 @@ export class Routes implements OnInit {
 
   tree = viewChild(NzTreeComponent);
   nav!: string;
-  menuData?: Menu;
   nodes = signal<NzTreeNodeOptions[]>([]);
   routeM = signal<Record<string, Route>>({});
   selected = signal<Route | undefined>(undefined);
@@ -49,7 +48,6 @@ export class Routes implements OnInit {
   ngOnInit(): void {
     this.route.params.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(({ nav }) => {
       this.nav = nav;
-      this.getMenu();
       this.getData();
     });
   }
@@ -105,14 +103,12 @@ export class Routes implements OnInit {
     return roots;
   }
 
-  getMenu(): void {}
-
   openGroup(data?: Route): void {
     this.modal.create<GroupForm, GroupFormInput>({
       nzTitle: !data ? '新增分组' : `修改分组【${data.name}】`,
       nzContent: GroupForm,
       nzData: {
-        menu: this.menuData!,
+        nav: this.nav,
         data
       },
       nzOnOk: () => {
@@ -135,7 +131,7 @@ export class Routes implements OnInit {
       nzTitle: !data ? '新增路由' : `修改路由【${data.name}】`,
       nzContent: Form,
       nzData: {
-        menu: this.menuData!,
+        nav: this.nav,
         data,
         pid
       },
