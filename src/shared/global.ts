@@ -8,6 +8,7 @@ import { Api } from '@shared/apis';
 import { Any, Basic, R, SearchOption } from '@shared/models';
 import { Nav } from '@shared/models/nav';
 
+import { toM } from './utils/helper';
 import { Model } from './utils/model';
 
 @Injectable({ providedIn: 'root' })
@@ -17,19 +18,12 @@ export class Global {
   private modal = inject(NzModalService);
 
   readonly navs: Nav[] = [
-    { key: 'dashboard', name: '仪表盘', icon: 'dashboard', link: 'dashboard' },
-    { key: 'ops', name: '运营中心', icon: 'shopping', link: 'ops' },
+    { key: 'ops', name: '运营中心', icon: 'desktop', link: 'ops' },
     { key: 'business', name: '业务对象', icon: 'inbox', link: 'business' },
-    { key: 'analysis', name: '数据分析', icon: 'fund-view', link: 'analysis' },
+    { key: 'analysis', name: '数据报表', icon: 'fund-view', link: 'analysis' },
     { key: 'system', name: '系统设置', icon: 'setting', link: 'system' }
   ];
-  navM: Record<string, Nav> = this.navs.reduce(
-    (previousValue, currentValue) => {
-      previousValue[currentValue.key] = currentValue;
-      return previousValue;
-    },
-    {} as Record<string, Nav>
-  );
+  navM = toM(this.navs, item => item.key);
 
   setModel<T extends Basic, S extends SearchOption>(storageKey: string, api: Api<T>, search: S): Model<T, S> {
     return new Model<T, S>(storageKey, this.storage, api, search);

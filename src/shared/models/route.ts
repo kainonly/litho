@@ -1,6 +1,7 @@
 export interface Route {
   id: string;
   menu_id: string;
+  nav: string;
   created_at: string;
   updated_at: string;
   sort: number;

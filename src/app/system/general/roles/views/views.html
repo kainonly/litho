@@ -7,25 +7,38 @@
   }
 </ng-template>
 
-<nz-tabs style="height: 100%; padding: 24px 0" nzSize="large" nzTabPosition="left" [nzTabBarExtraContent]="bottom">
-  @for (nav of global.navs; track nav.key) {
-    <ng-template #navTitle>
-      <nz-space nzAlign="center">
-        <span *nzSpaceItem> <nz-icon [nzType]="nav.icon" /> {{ nav.name }}</span>
-      </nz-space>
-    </ng-template>
-    <nz-tab [nzTitle]="navTitle">
-      <nz-switch
-        [nzCheckedChildren]="onRef"
-        [nzUnCheckedChildren]="offRef"
-        [ngModel]="display.has(nav.key)"
-        (ngModelChange)="watchDisplay(nav.key, $event)"
-      >
-      </nz-switch>
-      <nz-tree #nzTreeComponent [nzData]="nodes()" nzCheckable />
-    </nz-tab>
-  }
-</nz-tabs>
+<nz-card style="height: 100%" [nzBordered]="false">
+  <nz-row [nzGutter]="[16, 16]">
+    @for (nav of global.navs; track nav.key) {
+      <nz-col [nzSpan]="12">
+        <ng-template #extra>
+          <nz-switch
+            [nzCheckedChildren]="onRef"
+            [nzUnCheckedChildren]="offRef"
+            [ngModel]="display.has(nav.key)"
+            (ngModelChange)="watchDisplay(nav.key, $event)"
+          >
+          </nz-switch>
+        </ng-template>
+        <nz-card nzSize="small" nzType="inner" [nzBordered]="false" [nzTitle]="nav.name" [nzExtra]="extra">
+          @if (!navNodes()[nav.key]) {
+            <nz-empty />
+          }
+          <nz-tree [nzData]="navNodes()[nav.key]" nzCheckable />
+        </nz-card>
+      </nz-col>
+    }
+  </nz-row>
+</nz-card>
+
+<!--<nz-tabs-->
+<!--  style="height: 100%; padding: 24px 0; overflow: hidden auto"-->
+<!--  nzSize="large"-->
+<!--  nzTabPosition="left"-->
+<!--  [nzTabBarExtraContent]="bottom"-->
+<!--&gt;-->
+<!--  <nz-tab nzTitle="视图授权"> </nz-tab>-->
+<!--</nz-tabs>-->
 
 <nz-float-button nz-tooltip="更新授权" nzType="primary" nzIcon="save" />
 

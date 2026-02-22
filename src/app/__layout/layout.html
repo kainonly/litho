@@ -10,6 +10,12 @@
             </a>
           </li>
         }
+        <li nz-menu-item>
+          <a href="#" target="_blank" rel="noopener noreferrer">
+            <nz-icon nzType="robot" />
+            AI 助手
+          </a>
+        </li>
       </ul>
 
       <div class="header-right">
@@ -59,45 +65,39 @@
   </nz-header>
 
   @let menus = navMenus()[appNav()] || [];
-  @if (!appFull() && menus.length !== 0) {
-    <nz-layout class="inner-layout">
-      <nz-sider nzWidth="200px" nzTheme="light">
-        <ul class="menu" nz-menu nzMode="inline">
-          @for (menu of menus; track menu.name) {
-            @if (!menu.disabled) {
-              <li nz-menu-group [nzTitle]="menu.name">
-                @for (submenu of menu.children; track submenu.name) {
-                  @if (!submenu.disabled) {
-                    <li nz-menu-item nzMatchRouter>
-                      <a [routerLink]="submenu.link" rel="noopener noreferrer">
-                        @if (submenu.icon) {
-                          <nz-icon [nzType]="submenu.icon"></nz-icon>
-                        }
-                        <span>{{ submenu.name }}</span>
-                      </a>
-                    </li>
-                  } @else {
-                    <li nz-menu-item nzDisabled>
+  <nz-layout class="inner-layout">
+    <nz-sider nzWidth="200px" nzTheme="light">
+      <ul class="menu" nz-menu nzMode="inline">
+        @for (menu of menus; track menu.name) {
+          @if (!menu.disabled) {
+            <li nz-menu-group [nzTitle]="menu.name">
+              @for (submenu of menu.children; track submenu.name) {
+                @if (!submenu.disabled) {
+                  <li nz-menu-item nzMatchRouter>
+                    <a [routerLink]="submenu.link" rel="noopener noreferrer">
                       @if (submenu.icon) {
                         <nz-icon [nzType]="submenu.icon"></nz-icon>
                       }
                       <span>{{ submenu.name }}</span>
-                    </li>
-                  }
+                    </a>
+                  </li>
+                } @else {
+                  <li nz-menu-item nzDisabled>
+                    @if (submenu.icon) {
+                      <nz-icon [nzType]="submenu.icon"></nz-icon>
+                    }
+                    <span>{{ submenu.name }}</span>
+                  </li>
                 }
-              </li>
-            }
+              }
+            </li>
           }
-        </ul>
-      </nz-sider>
+        }
+      </ul>
+    </nz-sider>
 
-      <nz-content class="content">
-        <router-outlet />
-      </nz-content>
-    </nz-layout>
-  } @else {
-    <nz-content>
+    <nz-content class="content">
       <router-outlet />
     </nz-content>
-  }
+  </nz-layout>
 </nz-layout>

@@ -15,7 +15,6 @@ import { Menu, Layout as LayoutModel, Nav } from '@shared/models';
 })
 export class Layout implements OnInit {
   readonly appNav = input<string>('');
-  readonly appFull = input<boolean>(false);
 
   global = inject(Global);
 
