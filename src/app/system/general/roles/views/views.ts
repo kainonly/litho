@@ -2,7 +2,6 @@ import { HttpParams } from '@angular/common/http';
 import { ChangeDetectionStrategy, Component, DestroyRef, inject, OnInit, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ActivatedRoute } from '@angular/router';
-import { NzFloatButtonComponent } from 'ng-zorro-antd/float-button';
 import { NzTreeModule, NzTreeNodeOptions } from 'ng-zorro-antd/tree';
 
 import { FlagSet, Global, SharedModule } from '@shared';
@@ -11,7 +10,7 @@ import { RoutesApi } from '@shared/apis/routes-api';
 import { Role } from '@shared/models';
 
 @Component({
-  imports: [SharedModule, NzFloatButtonComponent, NzTreeModule],
+  imports: [SharedModule, NzTreeModule],
   selector: 'app-system-roles-views',
   templateUrl: './views.html',
   changeDetection: ChangeDetectionStrategy.OnPush

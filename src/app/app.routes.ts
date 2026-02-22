@@ -4,9 +4,8 @@ import { Analysis } from './analysis/analysis';
 import { appGuard } from './app.guard';
 import { appResolver } from './app.resolver';
 import { Business } from './business/business';
-import { Dashboard } from './dashboard/dashboard';
+import { Index } from './index';
 import { Login } from './login/login';
-import { Ops } from './ops/ops';
 
 export const routes: Routes = [
   {
@@ -20,8 +19,7 @@ export const routes: Routes = [
       layout: appResolver
     },
     children: [
-      { path: 'dashboard', component: Dashboard },
-      { path: 'ops', component: Ops },
+      { path: 'index', component: Index },
       { path: 'business', component: Business },
       { path: 'analysis', component: Analysis },
       {
@@ -29,7 +27,7 @@ export const routes: Routes = [
         loadComponent: () => import('./system/system').then(m => m.Settings),
         loadChildren: () => import('./system/children.routes').then(m => m.childrenRoutes)
       },
-      { path: '', redirectTo: '/dashboard', pathMatch: 'full' }
+      { path: '', redirectTo: '/index', pathMatch: 'full' }
     ]
   }
 ];

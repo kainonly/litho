@@ -5,5 +5,5 @@ export const childrenRoutes: Routes = [
     path: ':nav',
     loadComponent: () => import('./routes/routes').then(m => m.Routes)
   },
-  { path: '', redirectTo: 'system', pathMatch: 'full' }
+  { path: '', redirectTo: 'index', pathMatch: 'full' }
 ];

@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, inject, input, output, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, input, output, signal, ViewEncapsulation } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzDrawerModule } from 'ng-zorro-antd/drawer';
@@ -24,7 +24,7 @@ import { Basic, SearchOption } from '@shared/models';
       <button nz-button nzType="text" nz-tooltip="清空" (click)="clear()">
         <nz-icon nzType="clear" />
       </button>
-      <button nz-button nzType="text" nz-tooltip="刷新" (click)="refresh()">
+      <button nz-button nzType="text" nz-tooltip="刷新" (click)="refresh()" [nzLoading]="loading()">
         <nz-icon nzType="sync" />
       </button>
     </nz-space-compact>
@@ -71,9 +71,15 @@ export class Toolbox<T extends Basic, S extends SearchOption> {
   appClear = output<void>();
   appRefresh = output<void>();
 
+  loading = signal(false);
+
   refresh(): void {
-    this.message.loading('正在刷新...', { nzDuration: 500 });
+    this.loading.set(true);
+    // this.message.loading('正在刷新...', { nzDuration: 500 });
     this.appRefresh.emit();
+    setTimeout(() => {
+      this.loading.set(false);
+    }, 500);
   }
 
   clear(): void {

@@ -18,7 +18,7 @@ export class Global {
   private modal = inject(NzModalService);
 
   readonly navs: Nav[] = [
-    { key: 'ops', name: '运营中心', icon: 'desktop', link: 'ops' },
+    { key: 'index', name: '运营中心', icon: 'desktop', link: 'index' },
     { key: 'business', name: '业务对象', icon: 'inbox', link: 'business' },
     { key: 'analysis', name: '数据报表', icon: 'fund-view', link: 'analysis' },
     { key: 'system', name: '系统设置', icon: 'setting', link: 'system' }

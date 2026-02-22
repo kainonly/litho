@@ -6,11 +6,15 @@
         <nz-icon nzType="close" />
       </button>
     }
+    <nz-input-search *nzSpaceItem [style.width.px]="180">
+      <input nz-input placeholder="关键词" />
+    </nz-input-search>
   </nz-space>
 </ng-template>
 
 <nz-card style="height: 100%" [nzBordered]="false" [nzTitle]="left">
-  <nz-table [style.height.%]="100" nzTemplateMode>
+  @let actions = resourceData()?.actions || [];
+  <nz-table #tb [style.height.%]="100" [nzData]="actions">
     <thead>
       <tr>
         <th><app-title>操作名称</app-title></th>
@@ -23,7 +27,7 @@
       </tr>
     </thead>
     <tbody>
-      @for (data of resourceData()?.actions; track data.value) {
+      @for (data of tb.data; track data.value) {
         <tr>
           <td>{{ data.label }}</td>
           <td>/{{ data.value }}</td>
