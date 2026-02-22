@@ -1,6 +1,19 @@
 <ng-template #left>
   <nz-space nzAlign="center">
     <app-keyword *nzSpaceItem [appModel]="m" (appOnSearch)="getData(true)"></app-keyword>
+    <nz-select
+      *nzSpaceItem
+      [style.min-width.px]="150"
+      nzShowSearch
+      nzAllowClear
+      nzPlaceHolder="组织类型"
+      [(ngModel)]="m.search.type"
+      (ngModelChange)="getData(true)"
+    >
+      @for (item of orgs.types; track item.value) {
+        <nz-option [nzLabel]="item.label" [nzValue]="item.value"></nz-option>
+      }
+    </nz-select>
     <app-toolbox *nzSpaceItem [appModel]="m" (appRefresh)="getData(true)" (appClear)="getData(true)"></app-toolbox>
   </nz-space>
 </ng-template>
@@ -48,7 +61,8 @@
           [nzIndeterminate]="m.indeterminate()"
           (nzCheckedChange)="m.setCurrentSelections($event)"
         ></th>
-        <th><app-title>组织名称</app-title></th>
+        <th nzWidth="200px"><app-title>类型</app-title></th>
+        <th><app-title>名称</app-title></th>
         <th nzRight="50px" nzAlign="center" nzWidth="100px">
           <app-title>状态</app-title>
         </th>
@@ -68,6 +82,7 @@
             [nzChecked]="m.selection().has(data.id)"
             (nzCheckedChange)="$event ? m.setSelection(data) : m.removeSelection(data.id)"
           ></td>
+          <td>{{ orgs.typeM[data.type] }}</td>
           <td>{{ data.name }}</td>
           <td nzRight nzAlign="center">
             <app-active [appValue]="data.active"></app-active>

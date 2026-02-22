@@ -74,9 +74,9 @@
           [nzIndeterminate]="m.indeterminate()"
           (nzCheckedChange)="m.setCurrentSelections($event)"
         ></th>
-        <th nzWidth="200px"><app-title>组织</app-title></th>
-        <th nzWidth="320px"><app-title>电子邮件</app-title></th>
-        <th nzWidth="200px"><app-title>权限组</app-title></th>
+        <th nzWidth="200px"><app-title>所属组织</app-title></th>
+        <th nzWidth="270px"><app-title>电子邮件</app-title></th>
+        <th nzWidth="200px"><app-title>所属权限组</app-title></th>
         <th><app-title>详情</app-title></th>
         <th nzRight="50px" nzAlign="center" nzWidth="100px">
           <app-title>状态</app-title>
@@ -97,9 +97,22 @@
             [nzChecked]="m.selection().has(data.id)"
             (nzCheckedChange)="$event ? m.setSelection(data) : m.removeSelection(data.id)"
           ></td>
-          <td> {{ orgM()[data.org_id].name }} </td>
+          <td>
+            {{ orgM()[data.org_id].name }}
+          </td>
           <td> {{ data.email }} </td>
-          <td> {{ roleM()[data.role_id].name }}</td>
+          <td>
+            {{ roleM()[data.role_id].name }}
+            <a
+              nz-popconfirm
+              [nzPopconfirmTitle]="setRoleRef"
+              [nzBeforeConfirm]="setRoleConfirm"
+              (nzOnConfirm)="confirmOk()"
+              (click)="openRole(data)"
+            >
+              <nz-icon nzType="edit" />
+            </a>
+          </td>
           <td>
             <app-split>
               <span *appSplitItem>
@@ -131,3 +144,28 @@
     </tbody>
   </nz-table>
 </app-box>
+
+<ng-template #setRoleRef>
+  @let user = userData();
+  @if (user) {
+    <nz-space nzDirection="vertical">
+      <div *nzSpaceItem>
+        <b>{{ user.email }}</b>
+      </div>
+      <div *nzSpaceItem>
+        <nz-select
+          [style.min-width.px]="270"
+          nzShowSearch
+          nzAllowClear
+          nzPlaceHolder="请选择权限组"
+          [ngModel]="user.role_id"
+          (ngModelChange)="userData.set($event)"
+        >
+          @for (item of roleItems(); track item.id) {
+            <nz-option [nzLabel]="item.name" [nzValue]="item.id"></nz-option>
+          }
+        </nz-select>
+      </div>
+    </nz-space>
+  }
+</ng-template>

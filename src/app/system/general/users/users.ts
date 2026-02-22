@@ -3,6 +3,7 @@ import { ChangeDetectionStrategy, Component, DestroyRef, inject, OnInit, signal 
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalService } from 'ng-zorro-antd/modal';
+import { Observable, of } from 'rxjs';
 
 import { Global, SharedModule, toM } from '@shared';
 import { OrgsApi } from '@shared/apis/orgs-api';
@@ -39,6 +40,8 @@ export class Users implements OnInit {
 
   roleItems = signal<Role[]>([]);
   roleM = signal<Record<string, Role>>({});
+
+  userData = signal<User | undefined>(undefined);
 
   ngOnInit(): void {
     this.m
@@ -102,6 +105,27 @@ export class Users implements OnInit {
         this.getData(true);
       }
     });
+  }
+
+  openRole(user: User): void {
+    this.userData.set(user);
+    this.getRoleItems();
+  }
+
+  setRoleConfirm = (): Observable<boolean> => {
+    if (!this.userData()) {
+      return of(false);
+    }
+    return of(true);
+    // return this.users.setRoles([this.user.id], this.user.role_id).pipe(
+    //   takeUntilDestroyed(this.destroyRef),
+    //   map(() => true)
+    // );
+  };
+
+  confirmOk(): void {
+    this.message.success(`更新成功`);
+    this.getData();
   }
 
   delete(data: User): void {

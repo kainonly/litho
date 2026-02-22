@@ -24,7 +24,8 @@ export class Orgs implements OnInit {
   private message = inject(NzMessageService);
 
   m = this.global.setModel(`orgs`, this.orgs, {
-    q: ''
+    q: '',
+    type: 0
   });
 
   ngOnInit(): void {
