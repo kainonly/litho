@@ -1,6 +1,13 @@
 <nz-float-button nz-tooltip="新增分组" nzType="primary" nzIcon="plus" (click)="openGroup()" />
 
 <nz-card style="height: 100%" [nzBordered]="false">
+  @if (nodes().length === 0) {
+    <nz-result style="margin-top: 6%" nzStatus="info" nzTitle="当前导航无任何路由">
+      <div nz-result-extra>
+        <button nz-button nzType="primary" (click)="openGroup()">新增分组</button>
+      </div>
+    </nz-result>
+  }
   <nz-tree
     nzBlockNode
     nzDraggable
