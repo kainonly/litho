@@ -10,4 +10,26 @@ export interface User {
   name: string;
   password: string;
   avatar: string;
+  sessions: number;
+  history: History;
+}
+
+export interface UserInfo {
+  id: string;
+  created_at: Date;
+  updated_at: Date;
+  org: string;
+  org_type: number;
+  role: string;
+  cabs: string[];
+  email: string;
+  phone: string;
+  name: string;
+  avatar: string;
+  sessions: number;
+  history: History;
+}
+
+export interface History {
+  last_time: string;
 }

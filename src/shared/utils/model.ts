@@ -8,6 +8,8 @@ import { StorageMap } from '@ngx-pwa/local-storage';
 import { Api } from '@shared/apis';
 import { Any, Basic, Result, SearchOption } from '@shared/models';
 
+import { FlagSet } from './flagset';
+
 /**
  * 通用数据模型类，用于管理列表数据的状态、分页、排序和选择
  * @template T 数据实体类型，必须继承 Basic
@@ -28,12 +30,12 @@ export class Model<T extends Basic, S extends SearchOption> {
   readonly pagesize = signal(20);
 
   /** 已选中的数据项 */
-  readonly selection = signal(new Map<string, T>());
+  readonly selection = new FlagSet();
   /** 是否全选（当前页所有可选项都已选中） */
   readonly checked = computed(() => {
     const filterFn = this.selectionEnabledFn();
     const data = this.data().filter(filterFn);
-    const sel = this.selection();
+    const sel = this.selection;
     return data.length > 0 && data.every(v => sel.has(v.id));
   });
   /** 是否部分选中（当前页有选中但未全选） */
@@ -41,7 +43,7 @@ export class Model<T extends Basic, S extends SearchOption> {
     if (this.checked()) return false;
     const filterFn = this.selectionEnabledFn();
     const data = this.data().filter(filterFn);
-    const sel = this.selection();
+    const sel = this.selection;
     return data.some(v => sel.has(v.id));
   });
   /** 选择过滤函数，用于判断数据项是否可被选中 */
@@ -160,11 +162,7 @@ export class Model<T extends Basic, S extends SearchOption> {
    * @param data 要选中的数据项
    */
   setSelection(data: T): void {
-    this.selection.update(sel => {
-      const newSel = new Map(sel);
-      newSel.set(data.id, data);
-      return newSel;
-    });
+    this.selection.add(data.id);
   }
 
   /**
@@ -172,11 +170,7 @@ export class Model<T extends Basic, S extends SearchOption> {
    * @param id 要取消选中的数据 ID
    */
   removeSelection(id: string): void {
-    this.selection.update(sel => {
-      const newSel = new Map(sel);
-      newSel.delete(id);
-      return newSel;
-    });
+    this.selection.delete(id);
   }
 
   /**
@@ -184,14 +178,11 @@ export class Model<T extends Basic, S extends SearchOption> {
    * @param checked 是否全选当前页
    */
   setCurrentSelections(checked: boolean): void {
-    this.selection.update(sel => {
-      const newSel = new Map(sel);
-      const filterFn = this.selectionEnabledFn();
-      this.data()
-        .filter(filterFn)
-        .forEach(v => (checked ? newSel.set(v.id, v) : newSel.delete(v.id)));
-      return newSel;
-    });
+    const sel = this.selection;
+    const filterFn = this.selectionEnabledFn();
+    this.data()
+      .filter(filterFn)
+      .forEach(v => (checked ? sel.add(v.id) : sel.delete(v.id)));
   }
 
   /**
@@ -199,18 +190,14 @@ export class Model<T extends Basic, S extends SearchOption> {
    * @param key 要清除的数据 ID
    */
   clearSelection(key: string): void {
-    this.selection.update(sel => {
-      const newSel = new Map(sel);
-      newSel.delete(key);
-      return newSel;
-    });
+    this.selection.delete(key);
   }
 
   /**
    * 清除所有选中项
    */
   clearSelections(): void {
-    this.selection.set(new Map());
+    this.selection.clear();
   }
 
   /**

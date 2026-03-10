@@ -1,21 +1,32 @@
 import { HttpClient, HttpResponse } from '@angular/common/http';
-import { inject, Injectable } from '@angular/core';
+import { inject, Injectable, signal } from '@angular/core';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
+import { environment } from '@env';
 import { StorageMap } from '@ngx-pwa/local-storage';
 import { Api } from '@shared/apis';
-import { Any, Basic, R, SearchOption } from '@shared/models';
+import { Any, Basic, R, SearchOption, UserInfo } from '@shared/models';
 import { Nav } from '@shared/models/nav';
 
 import { toM } from './utils/helper';
 import { Model } from './utils/model';
+
+interface UploadOption {
+  url: string;
+  limit: number;
+}
 
 @Injectable({ providedIn: 'root' })
 export class Global {
   private http = inject(HttpClient);
   private storage = inject(StorageMap);
   private modal = inject(NzModalService);
+
+  readonly activeUser = signal<UserInfo | null>(null); // 登录用户
+  assets = environment.cdn ?? '/assets'; // 静态资源路径
+  upload = environment.upload as UploadOption; // 上传配置
 
   readonly navs: Nav[] = [
     { key: 'index', name: '运营中心', icon: 'desktop', link: 'index' },
@@ -58,6 +69,15 @@ export class Global {
 
   verify(): Observable<HttpResponse<R>> {
     return this.http.get('verify', { observe: 'response' });
+  }
+
+  getUser(): Observable<UserInfo> {
+    return this.http.get<UserInfo>('user').pipe(
+      map(v => {
+        this.activeUser.set(v);
+        return v;
+      })
+    );
   }
 
   logout(): Observable<R> {

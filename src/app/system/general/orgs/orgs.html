@@ -20,8 +20,8 @@
 
 <ng-template #right>
   <nz-space nzAlign="center">
-    <a nz-dropdown *nzSpaceItem [nzDropdownMenu]="bulkAction" [nzDisabled]="m.selection().size === 0">
-      已选择 {{ m.selection().size }} 个项目
+    <a nz-dropdown *nzSpaceItem [nzDropdownMenu]="bulkAction" [nzDisabled]="m.selection.size === 0">
+      已选择 {{ m.selection.size }} 个项目
       <nz-icon nzType="down" />
     </a>
     <nz-dropdown-menu #bulkAction>
@@ -79,7 +79,7 @@
           <td
             nzLeft
             nzAlign="center"
-            [nzChecked]="m.selection().has(data.id)"
+            [nzChecked]="m.selection.has(data.id)"
             (nzCheckedChange)="$event ? m.setSelection(data) : m.removeSelection(data.id)"
           ></td>
           <td>{{ orgs.typeM[data.type] }}</td>

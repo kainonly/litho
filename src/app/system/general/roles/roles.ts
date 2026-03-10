@@ -91,7 +91,7 @@ export class Roles implements OnInit {
   bulkDelete(): void {
     this.global.bulkDeleteConfirm(() => {
       this.roles
-        .delete([...this.m.selection().keys()])
+        .delete([...this.m.selection.keys()])
         .pipe(takeUntilDestroyed(this.destroyRef))
         .subscribe(() => {
           this.message.success(`删除成功`);

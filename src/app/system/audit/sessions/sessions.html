@@ -17,19 +17,27 @@
 </ng-template>
 
 <ng-template #extraRef>
-  <!--  <button nz-button nzType="primary" nzDanger (click)="bulkDelete()" [disabled]="items.selection.size === 0">-->
-  <!--    选中 {{ items.selection.size }} 个会话并中断-->
-  <!--  </button>-->
+  <button nz-button nzType="primary" nzDanger (click)="bulkDelete()" [disabled]="selection.size === 0">
+    选中 {{ selection.size }} 个会话并中断
+  </button>
 </ng-template>
 
 <nz-card style="height: 100%" [nzTitle]="titleRef" [nzExtra]="extraRef">
   <nz-table #basicTable [nzData]="items()" [nzFrontPagination]="false" [nzShowPagination]="false" [nzScroll]="{ y }">
     <thead>
       <tr>
-        <th nzWidth="36px" nzLeft nzAlign="center"> </th>
+        <th
+          nzWidth="50px"
+          nzLeft
+          nzAlign="center"
+          [nzChecked]="checked()"
+          [nzIndeterminate]="indeterminate()"
+          (nzCheckedChange)="setCurrentSelections($event)"
+        >
+        </th>
         <th nzWidth="400px"><b>会话ID</b></th>
         <th><b>详情</b></th>
-        <th nzRight nzWidth="36px">
+        <th nzRight nzWidth="50px">
           <button nz-button nzType="text" nz-tooltip="操作">
             <nz-icon nzType="setting" nzTheme="outline"></nz-icon>
           </button>
@@ -39,22 +47,26 @@
     <tbody>
       @for (data of basicTable.data; track data.id) {
         <tr>
-          <td> </td>
+          <td
+            [nzChecked]="selection.has(data.id)"
+            (nzCheckedChange)="$event ? setSelection(data) : removeSelection(data.id)"
+          >
+          </td>
           <td>
-            <!--            @if (global.activeUser()?.id === data.id) {-->
-            <!--              <nz-tag>我</nz-tag>-->
-            <!--            }-->
+            @if (global.activeUser()?.id === data.id) {
+              <nz-tag>我</nz-tag>
+            }
             <span>
-              {{ data.phone }} <b>[ {{ !data.name ? 'None' : data.name }} ]</b>
+              {{ data.email }} <b>[ {{ !data.name ? 'None' : data.name }} ]</b>
             </span>
           </td>
           <td>
-            <!--            @if (data.history; as history) {-->
-            <!--              <nz-space [nzSplit]="spaceSplit">-->
-            <!--                <span *nzSpaceItem> 累计会话 {{ data.sessions }} 次 </span>-->
-            <!--                <span *nzSpaceItem> 登录于 {{ history.last_time | date: 'yyyy-MM-dd HH:mm:ss' }} </span>-->
-            <!--              </nz-space>-->
-            <!--            }-->
+            @if (data.history; as history) {
+              <app-split>
+                <span *appSplitItem> 累计会话 {{ data.sessions }} 次 </span>
+                <span *appSplitItem> 登录于 {{ history.last_time | date: 'yyyy-MM-dd HH:mm:ss' }} </span>
+              </app-split>
+            }
           </td>
           <td nzRight>
             <button nz-button nzType="text" nz-dropdown [nzDropdownMenu]="menu">
@@ -71,7 +83,3 @@
     </tbody>
   </nz-table>
 </nz-card>
-
-<ng-template #spaceSplit>
-  <nz-divider nzType="vertical"></nz-divider>
-</ng-template>

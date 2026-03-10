@@ -8,7 +8,8 @@ import {
   DestroyRef,
   viewChild,
   ElementRef,
-  signal
+  signal,
+  computed
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { NzCardComponent } from 'ng-zorro-antd/card';
@@ -16,7 +17,7 @@ import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { Subscription, switchMap, timer } from 'rxjs';
 
-import { Global, SharedModule } from '@shared';
+import { FlagSet, Global, SharedModule } from '@shared';
 import { SessionsApi } from '@shared/apis/sessions-api';
 import { User } from '@shared/models';
 
@@ -37,7 +38,23 @@ export class Sessions implements OnInit, AfterViewInit, OnDestroy {
   card = viewChild(NzCardComponent, { read: ElementRef });
 
   searchText = signal<string>('');
-  items = signal<User[]>([]);
+  readonly items = signal<User[]>([]);
+  readonly selection = new FlagSet();
+  readonly checked = computed(() => {
+    const data = this.items();
+    const sel = this.selection;
+    return data.length > 0 && data.every(v => sel.has(v.id));
+  });
+  /** 是否部分选中（当前页有选中但未全选） */
+  readonly indeterminate = computed(() => {
+    if (this.checked()) {
+      return false;
+    }
+    const data = this.items();
+    const sel = this.selection;
+    return data.some(v => sel.has(v.id));
+  });
+
   interval = 15;
 
   y = '0px';
@@ -87,6 +104,46 @@ export class Sessions implements OnInit, AfterViewInit, OnDestroy {
   clearSearch(): void {
     this.searchText.set('');
     this.getData();
+  }
+
+  /**
+   * 选中一条数据
+   * @param data 要选中的数据项
+   */
+  setSelection(data: User): void {
+    this.selection.add(data.id);
+  }
+
+  /**
+   * 取消选中一条数据
+   * @param id 要取消选中的数据 ID
+   */
+  removeSelection(id: string): void {
+    this.selection.delete(id);
+  }
+
+  /**
+   * 设置当前页的选中状态
+   * @param checked 是否全选当前页
+   */
+  setCurrentSelections(checked: boolean): void {
+    const sel = this.selection;
+    this.items().forEach(v => (checked ? sel.add(v.id) : sel.delete(v.id)));
+  }
+
+  /**
+   * 清除指定的选中项
+   * @param key 要清除的数据 ID
+   */
+  clearSelection(key: string): void {
+    this.selection.delete(key);
+  }
+
+  /**
+   * 清除所有选中项
+   */
+  clearSelections(): void {
+    this.selection.clear();
   }
 
   kick(data: User): void {

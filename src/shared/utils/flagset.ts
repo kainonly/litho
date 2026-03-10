@@ -12,7 +12,17 @@ export class FlagSet {
 
   /** 判断 key 是否存在 */
   has(key: string): boolean {
-    return this._state()[key];
+    return !!this._state()[key];
+  }
+
+  /** 当前集合大小 */
+  get size(): number {
+    return Object.keys(this._state()).length;
+  }
+
+  /** 返回 key 迭代器，兼容 Set/Map 的 keys() 用法 */
+  keys(): IterableIterator<string> {
+    return Object.keys(this._state())[Symbol.iterator]();
   }
 
   /** 添加 key */

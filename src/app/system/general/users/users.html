@@ -33,8 +33,8 @@
 
 <ng-template #right>
   <nz-space nzAlign="center">
-    <a nz-dropdown *nzSpaceItem [nzDropdownMenu]="bulkAction" [nzDisabled]="m.selection().size === 0">
-      已选择 {{ m.selection().size }} 个项目
+    <a nz-dropdown *nzSpaceItem [nzDropdownMenu]="bulkAction" [nzDisabled]="m.selection.size === 0">
+      已选择 {{ m.selection.size }} 个项目
       <nz-icon nzType="down" />
     </a>
     <nz-dropdown-menu #bulkAction>
@@ -94,15 +94,21 @@
           <td
             nzLeft
             nzAlign="center"
-            [nzChecked]="m.selection().has(data.id)"
+            [nzChecked]="m.selection.has(data.id)"
             (nzCheckedChange)="$event ? m.setSelection(data) : m.removeSelection(data.id)"
           ></td>
           <td>
-            {{ orgItem.dict()[data.org_id].name }}
+            @let org = orgItem.dict()[data.org_id];
+            @if (org) {
+              {{ org.name }}
+            }
           </td>
           <td> {{ data.email }} </td>
           <td>
-            {{ roleItem.dict()[data.role_id].name }}
+            @let role = roleItem.dict()[data.role_id];
+            @if (role) {
+              {{ role.name }}
+            }
             <a
               nz-popconfirm
               [nzPopconfirmTitle]="setRoleRef"
