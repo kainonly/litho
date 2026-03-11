@@ -2,6 +2,7 @@ export interface User {
   id: string;
   created_at: string;
   updated_at: string;
+  login_at: string;
   active: boolean;
   org_id: string;
   role_id: string;
@@ -11,7 +12,6 @@ export interface User {
   password: string;
   avatar: string;
   sessions: number;
-  history: History;
 }
 
 export interface UserInfo {
@@ -27,9 +27,4 @@ export interface UserInfo {
   name: string;
   avatar: string;
   sessions: number;
-  history: History;
-}
-
-export interface History {
-  last_time: string;
 }

@@ -61,12 +61,10 @@
             </span>
           </td>
           <td>
-            @if (data.history; as history) {
-              <app-split>
-                <span *appSplitItem> 累计会话 {{ data.sessions }} 次 </span>
-                <span *appSplitItem> 登录于 {{ history.last_time | date: 'yyyy-MM-dd HH:mm:ss' }} </span>
-              </app-split>
-            }
+            <app-split>
+              <span *appSplitItem> 累计会话 {{ data.sessions }} 次 </span>
+              <span *appSplitItem> 登录于 {{ data.login_at | date: 'yyyy-MM-dd HH:mm:ss' }} </span>
+            </app-split>
           </td>
           <td nzRight>
             <button nz-button nzType="text" nz-dropdown [nzDropdownMenu]="menu">
