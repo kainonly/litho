@@ -7,4 +7,11 @@ export interface Role {
   active: boolean;
   name: string;
   description: string;
+  strategy: RoleStrategy;
+}
+
+export interface RoleStrategy {
+  navs: string[];
+  routes: string[];
+  caps: string[];
 }

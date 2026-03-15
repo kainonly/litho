@@ -1,8 +1,10 @@
+@let role = roleData();
+
 <ng-template #left>
   <nz-space nzAlign="center">
-    @if (roleData()) {
+    @if (role) {
       <button *nzSpaceItem nz-button nzType="dashed" [routerLink]="['/system', 'general', 'roles', 'home']">
-        {{ roleData()!.name }}
+        {{ role.name }}
         <nz-icon nzType="close" />
       </button>
     }
@@ -14,42 +16,68 @@
 
 <ng-template #right>
   <nz-space nzAlign="center">
+    <button *nzSpaceItem nz-button> 设置能力 </button>
     <button *nzSpaceItem nz-button nzType="primary"> 更新授权 </button>
   </nz-space>
 </ng-template>
 
-<nz-card style="height: 100%" [nzBordered]="false" [nzTitle]="left" [nzExtra]="right">
-  <nz-row [nzGutter]="[16, 16]">
-    @for (nav of global.navs; track nav.key) {
-      <nz-col [nzSpan]="12">
-        <ng-template #extra>
-          <nz-switch
-            [nzCheckedChildren]="onRef"
-            [nzUnCheckedChildren]="offRef"
-            [ngModel]="display.has(nav.key)"
-            (ngModelChange)="watchDisplay(nav.key, $event)"
-          >
-          </nz-switch>
-        </ng-template>
-        <nz-card nzSize="small" nzType="inner" [nzBordered]="false" [nzTitle]="nav.name" [nzExtra]="extra">
-          @if (!navNodes()[nav.key]) {
-            <nz-empty />
+<nz-card
+  [style]="{ height: '100%', display: 'flex', 'flex-direction': 'column' }"
+  [nzBodyStyle]="{ padding: '0', flex: '1', overflow: 'hidden', display: 'flex', 'flex-direction': 'column' }"
+  [nzBordered]="false"
+  [nzTitle]="left"
+  [nzExtra]="right"
+  [nzLoading]="!role"
+>
+  @if (role) {
+    <div style="display: flex; flex: 1; overflow: hidden; height: 100%">
+      <div style="flex: auto; overflow: hidden auto">
+        <nz-row style="padding: 24px" [nzGutter]="[24, 24]">
+          @for (nav of global.navs; track nav.key) {
+            <nz-col [nzSpan]="12">
+              <ng-template #extra>
+                <nz-switch
+                  [nzCheckedChildren]="onRef"
+                  [nzUnCheckedChildren]="offRef"
+                  [ngModel]="display.has(nav.key)"
+                  (ngModelChange)="watchDisplay(nav.key, $event)"
+                >
+                </nz-switch>
+              </ng-template>
+              <nz-card nzSize="small" nzType="inner" [nzBordered]="false" [nzTitle]="nav.name" [nzExtra]="extra">
+                @if (!navNodes()[nav.key]) {
+                  <nz-empty />
+                }
+                <nz-tree [nzData]="navNodes()[nav.key]" nzCheckable />
+              </nz-card>
+            </nz-col>
           }
-          <nz-tree [nzData]="navNodes()[nav.key]" nzCheckable />
-        </nz-card>
-      </nz-col>
-    }
-  </nz-row>
+        </nz-row>
+      </div>
+      <div style="flex: 0 0 420px; border-left: 1px solid #dedede">
+        @if (role.strategy.caps.length !== 0) {
+          <nz-list nzSize="large" [nzBordered]="false">
+            @for (cap of role.strategy.caps; track cap) {
+              <nz-list-item>
+                <nz-list-item-meta>
+                  <nz-list-item-meta-title> {{ cap }} </nz-list-item-meta-title>
+                  <nz-list-item-meta-description>
+                    {{ capItem.dict()[cap].description }}
+                  </nz-list-item-meta-description>
+                </nz-list-item-meta>
+                <ul nz-list-item-actions>
+                  <nz-list-item-action><a>移除</a></nz-list-item-action>
+                </ul>
+              </nz-list-item>
+            }
+          </nz-list>
+        } @else {
+          <nz-list-empty></nz-list-empty>
+        }
+      </div>
+    </div>
+  }
 </nz-card>
-
-<!--<nz-tabs-->
-<!--  style="height: 100%; padding: 24px 0; overflow: hidden auto"-->
-<!--  nzSize="large"-->
-<!--  nzTabPosition="left"-->
-<!--  [nzTabBarExtraContent]="bottom"-->
-<!--&gt;-->
-<!--  <nz-tab nzTitle="视图授权"> </nz-tab>-->
-<!--</nz-tabs>-->
 
 <ng-template #onRef>
   <nz-icon nzType="eye" />

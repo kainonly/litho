@@ -4,7 +4,8 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ActivatedRoute } from '@angular/router';
 import { NzTreeModule, NzTreeNodeOptions } from 'ng-zorro-antd/tree';
 
-import { FlagSet, Global, SharedModule } from '@shared';
+import { FlagSet, Global, Item, SharedModule } from '@shared';
+import { CapsApi } from '@shared/apis/caps-api';
 import { RolesApi } from '@shared/apis/roles-api';
 import { RoutesApi } from '@shared/apis/routes-api';
 import { Role } from '@shared/models';
@@ -19,6 +20,7 @@ export class Views implements OnInit {
   global = inject(Global);
   roles = inject(RolesApi);
   routes = inject(RoutesApi);
+  caps = inject(CapsApi);
 
   private destroyRef = inject(DestroyRef);
   private route = inject(ActivatedRoute);
@@ -29,17 +31,20 @@ export class Views implements OnInit {
   display = new FlagSet();
   navNodes = signal<Record<string, NzTreeNodeOptions[]>>({});
 
+  capItem = new Item(this.caps);
+
   ngOnInit(): void {
     this.route.params.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(({ id }) => {
       this.roleId = id;
       this.getRole();
       this.getRoutes();
+      this.getCaps();
     });
   }
 
   getRole(): void {
     this.roles
-      .findById(this.roleId)
+      .findById(this.roleId, new HttpParams().set(`full`, `1`))
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe(data => {
         this.roleData.set(data);
@@ -82,6 +87,11 @@ export class Views implements OnInit {
 
         this.navNodes.set(grouped);
       });
+  }
+
+  getCaps(): void {
+    const params = new HttpParams();
+    this.capItem.fetch(params).pipe(takeUntilDestroyed(this.destroyRef)).subscribe();
   }
 
   watchDisplay(key: string, v: boolean) {
