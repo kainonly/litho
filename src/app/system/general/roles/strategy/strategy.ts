@@ -4,6 +4,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ActivatedRoute } from '@angular/router';
 import { NzTreeNodeKey } from 'ng-zorro-antd/core/tree';
 import { NzMessageService } from 'ng-zorro-antd/message';
+import { NzModalService } from 'ng-zorro-antd/modal';
 import { NzTreeModule, NzTreeNodeOptions } from 'ng-zorro-antd/tree';
 
 import { FlagSet, Global, Item, SharedModule } from '@shared';
@@ -11,6 +12,8 @@ import { CapsApi } from '@shared/apis/caps-api';
 import { RolesApi } from '@shared/apis/roles-api';
 import { RoutesApi } from '@shared/apis/routes-api';
 import { Role } from '@shared/models';
+
+import { SetCaps, SetCapsInput } from './set-caps/set-caps';
 
 @Component({
   imports: [SharedModule, NzTreeModule],
@@ -27,6 +30,7 @@ export class Strategy implements OnInit {
   private destroyRef = inject(DestroyRef);
   private route = inject(ActivatedRoute);
   private message = inject(NzMessageService);
+  private modal = inject(NzModalService);
 
   roleId = '';
   roleData = signal<Role | undefined>(undefined);
@@ -129,6 +133,21 @@ export class Strategy implements OnInit {
     };
     collect(nodes ?? []);
     return keys;
+  }
+
+  openCapModal(): void {
+    this.modal.create<SetCaps, SetCapsInput>({
+      nzTitle: '设置能力',
+      nzContent: SetCaps,
+      nzWidth: 640,
+      nzData: {
+        caps: this.capItem.data(),
+        selected: this.strategyCaps()
+      },
+      nzOnOk: (ref) => {
+        this.strategyCaps.set([...ref.selection.keys()]);
+      }
+    });
   }
 
   removeCap(v: string): void {

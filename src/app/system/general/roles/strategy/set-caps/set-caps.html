@@ -1,0 +1,28 @@
+<nz-table nzTemplateMode [nzShowPagination]="false">
+  <thead>
+    <tr>
+      <th nzAlign="center" nzWidth="50px"></th>
+      <th nzWidth="150px">名称</th>
+      <th>描述</th>
+    </tr>
+  </thead>
+  <tbody>
+    @for (item of input.caps; track item.id) {
+      <tr>
+        <td
+          nzAlign="center"
+          [nzChecked]="selection.state()[item.id]"
+          (nzCheckedChange)="$event ? selection.add(item.id) : selection.delete(item.id)"
+        >
+        </td>
+        <td>{{ item.id }}</td>
+        <td>{{ item.description }}</td>
+      </tr>
+    }
+  </tbody>
+</nz-table>
+
+<div *nzModalFooter>
+  <button nz-button nzType="default" (click)="close()">取消</button>
+  <button nz-button nzType="primary" (click)="submit()">确定</button>
+</div>
