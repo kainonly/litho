@@ -2,6 +2,7 @@ import { HttpParams } from '@angular/common/http';
 import { ChangeDetectionStrategy, Component, DestroyRef, inject, OnInit, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ActivatedRoute } from '@angular/router';
+import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzTreeModule, NzTreeNodeOptions } from 'ng-zorro-antd/tree';
 
 import { FlagSet, Global, Item, SharedModule } from '@shared';
@@ -20,18 +21,20 @@ export class Strategy implements OnInit {
   global = inject(Global);
   roles = inject(RolesApi);
   routes = inject(RoutesApi);
-  caps = inject(CapsApi);
+  capsApi = inject(CapsApi);
 
   private destroyRef = inject(DestroyRef);
   private route = inject(ActivatedRoute);
+  private message = inject(NzMessageService);
 
   roleId = '';
   roleData = signal<Role | undefined>(undefined);
 
-  display = new FlagSet();
+  strategyNavs = new FlagSet();
+  caps = signal<string[]>([]);
   navNodes = signal<Record<string, NzTreeNodeOptions[]>>({});
 
-  capItem = new Item(this.caps);
+  capItem = new Item(this.capsApi);
 
   ngOnInit(): void {
     this.route.params.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(({ id }) => {
@@ -48,6 +51,8 @@ export class Strategy implements OnInit {
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe(data => {
         this.roleData.set(data);
+        this.strategyNavs.reset(data.strategy.navs);
+        this.caps.set(data.strategy.caps);
       });
   }
 
@@ -94,26 +99,29 @@ export class Strategy implements OnInit {
     this.capItem.fetch(params).pipe(takeUntilDestroyed(this.destroyRef)).subscribe();
   }
 
-  watchDisplay(key: string, v: boolean) {
+  watchNav(key: string, v: boolean): void {
     if (v) {
-      this.display.add(key);
+      this.strategyNavs.add(key);
     } else {
-      this.display.delete(key);
+      this.strategyNavs.delete(key);
     }
   }
 
   removeCap(v: string): void {
-    const role = this.roleData()!;
-    this.roleData.set({
-      ...role,
-      strategy: {
-        ...role.strategy,
-        caps: role.strategy.caps.filter(c => c !== v)
-      }
-    });
+    this.caps.update(c => c.filter((x: string) => x !== v));
   }
 
   setStrategy(): void {
-    console.log(this.roleData()!.strategy);
+    const strategy = {
+      navs: [...this.strategyNavs.keys()],
+      routes: this.roleData()!.strategy.routes,
+      caps: this.caps()
+    };
+    this.roles
+      .setStrategy(this.roleId, strategy)
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe(() => {
+        this.message.success(`授权更新成功`);
+      });
   }
 }

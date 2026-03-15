@@ -40,8 +40,8 @@
                 <nz-switch
                   [nzCheckedChildren]="onRef"
                   [nzUnCheckedChildren]="offRef"
-                  [ngModel]="display.has(nav.key)"
-                  (ngModelChange)="watchDisplay(nav.key, $event)"
+                  [ngModel]="strategyNavs.has(nav.key)"
+                  (ngModelChange)="watchNav(nav.key, $event)"
                 >
                 </nz-switch>
               </ng-template>
@@ -56,9 +56,9 @@
         </nz-row>
       </div>
       <div style="flex: 0 0 420px; border-left: 1px solid #dedede">
-        @if (role.strategy.caps.length !== 0) {
+        @if (caps().length !== 0) {
           <nz-list nzSize="large" [nzBordered]="false">
-            @for (cap of role.strategy.caps; track cap) {
+            @for (cap of caps(); track cap) {
               <nz-list-item>
                 <nz-list-item-meta>
                   <nz-list-item-meta-title> {{ cap }} </nz-list-item-meta-title>
@@ -90,4 +90,3 @@
 <ng-template #offRef>
   <nz-icon nzType="eye-invisible" />
 </ng-template>
-

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { R, Role } from '@shared/models';
+import { R, Role, RoleStrategy } from '@shared/models';
 
 import { Api } from './index';
 
@@ -13,5 +13,9 @@ export class RolesApi extends Api<Role> {
 
   sort(ids: string[]): Observable<R> {
     return this.http.post<R>(`${this.collection}/sort`, { ids });
+  }
+
+  setStrategy(id: string, strategy: RoleStrategy): Observable<R> {
+    return this.http.post<R>(`${this.collection}/set_strategy`, { id, strategy });
   }
 }
