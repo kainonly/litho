@@ -7,17 +7,18 @@
         {{ role.name }}
         <nz-icon nzType="close" />
       </button>
+      <nz-input-search *nzSpaceItem [style.width.px]="180">
+        <input nz-input placeholder="关键词" />
+      </nz-input-search>
+      <span *nzSpaceItem>{{ role.description }}</span>
     }
-    <nz-input-search *nzSpaceItem [style.width.px]="180">
-      <input nz-input placeholder="关键词" />
-    </nz-input-search>
   </nz-space>
 </ng-template>
 
 <ng-template #right>
   <nz-space nzAlign="center">
     <button *nzSpaceItem nz-button> 设置能力 </button>
-    <button *nzSpaceItem nz-button nzType="primary"> 更新授权 </button>
+    <button *nzSpaceItem nz-button nzType="primary" (click)="setStrategy()"> 更新授权 </button>
   </nz-space>
 </ng-template>
 
@@ -66,7 +67,11 @@
                   </nz-list-item-meta-description>
                 </nz-list-item-meta>
                 <ul nz-list-item-actions>
-                  <nz-list-item-action><a>移除</a></nz-list-item-action>
+                  <nz-list-item-action>
+                    <a nz-popconfirm nzPopconfirmTitle="您确定要移除该能力标识吗?" (nzOnConfirm)="removeCap(cap)">
+                      移除
+                    </a>
+                  </nz-list-item-action>
                 </ul>
               </nz-list-item>
             }
@@ -85,3 +90,4 @@
 <ng-template #offRef>
   <nz-icon nzType="eye-invisible" />
 </ng-template>
+

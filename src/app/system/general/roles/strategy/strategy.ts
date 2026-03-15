@@ -12,11 +12,11 @@ import { Role } from '@shared/models';
 
 @Component({
   imports: [SharedModule, NzTreeModule],
-  selector: 'app-system-roles-views',
-  templateUrl: './views.html',
+  selector: 'app-system-roles-strategy',
+  templateUrl: './strategy.html',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class Views implements OnInit {
+export class Strategy implements OnInit {
   global = inject(Global);
   roles = inject(RolesApi);
   routes = inject(RoutesApi);
@@ -100,5 +100,20 @@ export class Views implements OnInit {
     } else {
       this.display.delete(key);
     }
+  }
+
+  removeCap(v: string): void {
+    const role = this.roleData()!;
+    this.roleData.set({
+      ...role,
+      strategy: {
+        ...role.strategy,
+        caps: role.strategy.caps.filter(c => c !== v)
+      }
+    });
+  }
+
+  setStrategy(): void {
+    console.log(this.roleData()!.strategy);
   }
 }
