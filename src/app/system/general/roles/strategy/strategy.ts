@@ -144,7 +144,7 @@ export class Strategy implements OnInit {
         caps: this.capItem.data(),
         selected: this.strategyCaps()
       },
-      nzOnOk: (ref) => {
+      nzOnOk: ref => {
         this.strategyCaps.set([...ref.selection.keys()]);
       }
     });

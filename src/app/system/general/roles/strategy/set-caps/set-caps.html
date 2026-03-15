@@ -11,7 +11,7 @@
       <tr>
         <td
           nzAlign="center"
-          [nzChecked]="selection.state()[item.id]"
+          [nzChecked]="!!selection.state()[item.id]"
           (nzCheckedChange)="$event ? selection.add(item.id) : selection.delete(item.id)"
         >
         </td>

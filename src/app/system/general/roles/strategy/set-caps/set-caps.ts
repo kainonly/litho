@@ -23,6 +23,7 @@ export class SetCaps implements OnInit {
   selection = new FlagSet();
 
   ngOnInit(): void {
+    console.log(this.input.selected);
     this.caps.set(this.input.caps);
     this.selection.reset(this.input.selected);
   }
