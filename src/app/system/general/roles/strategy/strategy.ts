@@ -2,6 +2,7 @@ import { HttpParams } from '@angular/common/http';
 import { ChangeDetectionStrategy, Component, DestroyRef, inject, OnInit, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ActivatedRoute } from '@angular/router';
+import { NzTreeNodeKey } from 'ng-zorro-antd/core/tree';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzTreeModule, NzTreeNodeOptions } from 'ng-zorro-antd/tree';
 
@@ -31,7 +32,8 @@ export class Strategy implements OnInit {
   roleData = signal<Role | undefined>(undefined);
 
   strategyNavs = new FlagSet();
-  caps = signal<string[]>([]);
+  strategyRoutes = signal<string[]>([]);
+  strategyCaps = signal<string[]>([]);
   navNodes = signal<Record<string, NzTreeNodeOptions[]>>({});
 
   capItem = new Item(this.capsApi);
@@ -52,7 +54,8 @@ export class Strategy implements OnInit {
       .subscribe(data => {
         this.roleData.set(data);
         this.strategyNavs.reset(data.strategy.navs);
-        this.caps.set(data.strategy.caps);
+        this.strategyRoutes.set(data.strategy.routes);
+        this.strategyCaps.set(data.strategy.caps);
       });
   }
 
@@ -91,6 +94,8 @@ export class Strategy implements OnInit {
         }
 
         this.navNodes.set(grouped);
+        // nzData 更新后重新扩散 nzCheckedKeys，确保 tree 正确渲染已勾选项
+        this.strategyRoutes.update(v => [...v]);
       });
   }
 
@@ -107,15 +112,34 @@ export class Strategy implements OnInit {
     }
   }
 
+  watchRoute(navKey: string, checked: NzTreeNodeKey[]): void {
+    const allInNav = this.getAllNodeKeys(this.navNodes()[navKey]);
+    this.strategyRoutes.update(routes => [...routes.filter(r => !allInNav.includes(r)), ...(checked as string[])]);
+  }
+
+  private getAllNodeKeys(nodes: NzTreeNodeOptions[]): string[] {
+    const keys: string[] = [];
+    const collect = (items: NzTreeNodeOptions[]) => {
+      for (const item of items) {
+        keys.push(item.key as string);
+        if (item.children?.length) {
+          collect(item.children);
+        }
+      }
+    };
+    collect(nodes ?? []);
+    return keys;
+  }
+
   removeCap(v: string): void {
-    this.caps.update(c => c.filter((x: string) => x !== v));
+    this.strategyCaps.update(c => c.filter((x: string) => x !== v));
   }
 
   setStrategy(): void {
     const strategy = {
       navs: [...this.strategyNavs.keys()],
-      routes: this.roleData()!.strategy.routes,
-      caps: this.caps()
+      routes: this.strategyRoutes(),
+      caps: this.strategyCaps()
     };
     this.roles
       .setStrategy(this.roleId, strategy)

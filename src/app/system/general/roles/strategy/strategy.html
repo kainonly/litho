@@ -46,24 +46,30 @@
                 </nz-switch>
               </ng-template>
               <nz-card nzSize="small" nzType="inner" [nzBordered]="false" [nzTitle]="nav.name" [nzExtra]="extra">
-                @if (!navNodes()[nav.key]) {
+                @if (navNodes()[nav.key] && role) {
+                  <nz-tree
+                    [nzData]="navNodes()[nav.key]"
+                    nzCheckable
+                    [nzCheckedKeys]="strategyRoutes()"
+                    (nzCheckedKeysChange)="watchRoute(nav.key, $event)"
+                  />
+                } @else {
                   <nz-empty />
                 }
-                <nz-tree [nzData]="navNodes()[nav.key]" nzCheckable />
               </nz-card>
             </nz-col>
           }
         </nz-row>
       </div>
       <div style="flex: 0 0 420px; border-left: 1px solid #dedede">
-        @if (caps().length !== 0) {
+        @if (strategyCaps().length !== 0) {
           <nz-list nzSize="large" [nzBordered]="false">
-            @for (cap of caps(); track cap) {
+            @for (cap of strategyCaps(); track cap) {
               <nz-list-item>
                 <nz-list-item-meta>
                   <nz-list-item-meta-title> {{ cap }} </nz-list-item-meta-title>
                   <nz-list-item-meta-description>
-                    {{ capItem.dict()[cap].description }}
+                    {{ capItem.dict()[cap]?.description }}
                   </nz-list-item-meta-description>
                 </nz-list-item-meta>
                 <ul nz-list-item-actions>
