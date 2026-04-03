@@ -14,7 +14,7 @@
         "@angular/service-worker": "^21.2.7",
         "@ngx-pwa/local-storage": "21.0.0",
         "animate.css": "^4.1.1",
-        "ng-zorro-antd": "^21.0.1",
+        "ng-zorro-antd": "^21.2.1",
         "rxjs": "~7.8.0",
         "tslib": "^2.3.0",
       },
@@ -1161,7 +1161,7 @@
 
     "negotiator": ["negotiator@1.0.0", "https://registry.npmmirror.com/negotiator/-/negotiator-1.0.0.tgz", {}, "sha512-8Ofs/AUQh8MaEcrlq5xOX0CQ9ypTF5dl78mjlMNfOK08fzpgTHQRQPBxcPlEtIw0yRpws+Zo/3r+5WRby7u3Gg=="],
 
-    "ng-zorro-antd": ["ng-zorro-antd@21.0.1", "https://registry.npmmirror.com/ng-zorro-antd/-/ng-zorro-antd-21.0.1.tgz", { "dependencies": { "@angular/cdk": "^21.0.0", "@ant-design/icons-angular": "^21.0.0", "@ctrl/tinycolor": "^3.6.0", "date-fns": "^2.16.1", "tslib": "^2.3.0" }, "peerDependencies": { "@angular/common": "^21.0.0", "@angular/core": "^21.0.0", "@angular/forms": "^21.0.0", "@angular/platform-browser": "^21.0.0", "@angular/router": "^21.0.0" } }, "sha512-YmtY+fs0enefvYgXJRfY125Qo3Oyx96t0fLGyRqVdNFaxXMYVoBIfyneMkxQt190sMsIaWB/z/QNcnWRbu+pNg=="],
+    "ng-zorro-antd": ["ng-zorro-antd@21.2.1", "https://registry.npmmirror.com/ng-zorro-antd/-/ng-zorro-antd-21.2.1.tgz", { "dependencies": { "@angular/cdk": "^21.0.0", "@ant-design/icons-angular": "^21.0.0", "@ctrl/tinycolor": "^3.6.0", "date-fns": "^2.16.1", "tslib": "^2.3.0" }, "peerDependencies": { "@angular/common": "^21.0.0", "@angular/core": "^21.0.0", "@angular/forms": "^21.0.0", "@angular/platform-browser": "^21.0.0", "@angular/router": "^21.0.0" } }, "sha512-uUzVJGVJs5s2OkaRyFyBV+4+DHBC2IQaRdi69bljdHbdSpCVmacEe58+QgAqj9ElcYcdRBn7H8wMA5Wv8AOrAA=="],
 
     "node-addon-api": ["node-addon-api@6.1.0", "https://registry.npmmirror.com/node-addon-api/-/node-addon-api-6.1.0.tgz", {}, "sha512-+eawOlIgy680F0kBzPUNFhMZGtJ1YmqM6l4+Crf4IkImjYrO/mqPwRMh352g23uIaQKFItcQ64I7KMaJxHgAVA=="],
 
