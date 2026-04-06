@@ -19,7 +19,11 @@ export const routes: Routes = [
       layout: appResolver
     },
     children: [
-      { path: 'index', component: Index },
+      {
+        path: 'index',
+        component: Index,
+        loadChildren: () => import('./index/children.routes').then(m => m.childrenRoutes)
+      },
       { path: 'business', component: Business },
       { path: 'analysis', component: Analysis },
       {
