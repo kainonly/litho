@@ -48,6 +48,7 @@
           [nzIndeterminate]="m.indeterminate()"
           (nzCheckedChange)="m.setCurrentSelections($event)"
         ></th>
+        <th nzWidth="80px"><app-title>缩略图</app-title></th>
         <th><app-title>名称</app-title></th>
         <th><app-title>描述</app-title></th>
         <th nzWidth="120px"><app-title>价格</app-title></th>
@@ -71,6 +72,15 @@
             [nzChecked]="m.selection.has(data.id)"
             (nzCheckedChange)="$event ? m.setSelection(data) : m.removeSelection(data.id)"
           ></td>
+          <td>
+            @if (data.thumbnail) {
+              <img
+                [src]="data.thumbnail"
+                alt="缩略图"
+                style="width: 48px; height: 48px; object-fit: cover; border-radius: 4px"
+              />
+            }
+          </td>
           <td>{{ data.name }}</td>
           <td>{{ data.description }}</td>
           <td>{{ data.price | number: '1.2-2' }}</td>

@@ -27,7 +27,7 @@ export class Model<T extends Basic, S extends SearchOption> {
   /** 当前页码 */
   readonly page = signal(1);
   /** 每页数量 */
-  readonly pagesize = signal(20);
+  readonly pagesize = signal(10);
 
   /** 已选中的数据项 */
   readonly selection = new FlagSet();

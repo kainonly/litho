@@ -43,6 +43,21 @@
     </nz-form-control>
   </nz-form-item>
   <nz-form-item>
+    <nz-form-label>缩略图</nz-form-label>
+    <nz-form-control>
+      <input nz-input formControlName="thumbnail" placeholder="请输入缩略图 URL" />
+      @if (form.value.thumbnail) {
+        <div style="margin-top: 8px">
+          <img
+            [src]="form.value.thumbnail"
+            alt="缩略图预览"
+            style="max-width: 100%; max-height: 120px; object-fit: contain"
+          />
+        </div>
+      }
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
     <nz-form-label nzRequired>状态</nz-form-label>
     <nz-form-control>
       <nz-switch formControlName="active" nzCheckedChildren="上架" nzUnCheckedChildren="下架"></nz-switch>

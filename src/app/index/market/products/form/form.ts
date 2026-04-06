@@ -34,7 +34,8 @@ export class Form implements OnInit {
         description: [''],
         price: [null, [Validators.required, Validators.min(0.01)]],
         stock: [0, [Validators.required, Validators.min(0)]],
-        active: [true, [Validators.required]]
+        active: [true, [Validators.required]],
+        thumbnail: ['']
     });
     tips = tips;
 
