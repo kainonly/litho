@@ -5,10 +5,8 @@ import { SharedModule } from '@shared';
 import { Layout } from '../__layout/layout';
 
 @Component({
-  standalone: true,
   imports: [SharedModule, Layout],
   selector: 'app-analysis',
-  templateUrl: './analysis.html'
+  template: `<app-layout appNav="analysis"> </app-layout>`
 })
-export class Analysis { }
-
+export class Analysis {}

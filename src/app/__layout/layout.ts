@@ -30,10 +30,12 @@ export class Layout implements OnInit {
       if (!data['layout']) {
         return;
       }
+      console.log(data);
       const { navs, nav_menus } = data['layout'] as LayoutModel;
       const exists = new Set(navs);
       this.navs.set(this.global.navs.filter(v => exists.has(v.key)));
       this.navMenus.set(nav_menus);
+      console.log(this.navMenus());
     });
   }
 

@@ -8,7 +8,6 @@ import { Layout } from '../__layout/layout';
   standalone: true,
   imports: [SharedModule, Layout],
   selector: 'app-business',
-  templateUrl: './business.html'
+  template: `<app-layout appNav="business"> </app-layout>`
 })
-export class Business { }
-
+export class Business {}

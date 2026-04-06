@@ -5,9 +5,8 @@ import { SharedModule } from '@shared';
 import { Layout } from '../__layout/layout';
 
 @Component({
-  standalone: true,
   imports: [SharedModule, Layout],
   selector: 'app-index',
-  templateUrl: './index.html'
+  template: `<app-layout appNav="index"> </app-layout>`
 })
 export class Index {}
