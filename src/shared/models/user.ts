@@ -2,7 +2,7 @@ export interface User {
   id: string;
   created_at: string;
   updated_at: string;
-  login_at: string;
+  login_time: string;
   active: boolean;
   org_id: string;
   role_id: string;

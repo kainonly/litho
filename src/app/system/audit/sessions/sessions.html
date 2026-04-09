@@ -63,7 +63,7 @@
           <td>
             <app-split>
               <span *appSplitItem> 累计会话 {{ data.sessions }} 次 </span>
-              <span *appSplitItem> 登录于 {{ data.login_at | date: 'yyyy-MM-dd HH:mm:ss' }} </span>
+              <span *appSplitItem> 登录于 {{ data.login_time | date: 'yyyy-MM-dd HH:mm:ss' }} </span>
             </app-split>
           </td>
           <td nzRight>
