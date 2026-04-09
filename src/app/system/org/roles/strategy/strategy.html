@@ -1,0 +1,98 @@
+@let role = roleData();
+
+<ng-template #left>
+  <nz-space nzAlign="center">
+    @if (role) {
+      <button *nzSpaceItem nz-button nzType="dashed" [routerLink]="['/system', 'org', 'roles', 'home']">
+        {{ role.name }}
+        <nz-icon nzType="close" />
+      </button>
+      <nz-input-search *nzSpaceItem [style.width.px]="180">
+        <input nz-input placeholder="关键词" />
+      </nz-input-search>
+      <span *nzSpaceItem>{{ role.description }}</span>
+    }
+  </nz-space>
+</ng-template>
+
+<ng-template #right>
+  <nz-space nzAlign="center">
+    <button *nzSpaceItem nz-button (click)="openCapModal()"> 设置能力 </button>
+    <button *nzSpaceItem nz-button nzType="primary" (click)="setStrategy()"> 更新授权 </button>
+  </nz-space>
+</ng-template>
+
+<nz-card
+  [style]="{ height: '100%', display: 'flex', 'flex-direction': 'column' }"
+  [nzBodyStyle]="{ padding: '0', flex: '1', overflow: 'hidden', display: 'flex', 'flex-direction': 'column' }"
+  [nzBordered]="false"
+  [nzTitle]="left"
+  [nzExtra]="right"
+  [nzLoading]="!role"
+>
+  @if (role) {
+    <div style="display: flex; flex: 1; overflow: hidden; height: 100%">
+      <div style="flex: auto; overflow: hidden auto">
+        <nz-row style="padding: 24px" [nzGutter]="[24, 24]">
+          @for (nav of global.navs; track nav.key) {
+            <nz-col [nzSpan]="12">
+              <ng-template #extra>
+                <nz-switch
+                  [nzCheckedChildren]="onRef"
+                  [nzUnCheckedChildren]="offRef"
+                  [ngModel]="strategyNavs.has(nav.key)"
+                  (ngModelChange)="watchNav(nav.key, $event)"
+                >
+                </nz-switch>
+              </ng-template>
+              <nz-card nzSize="small" nzType="inner" [nzBordered]="false" [nzTitle]="nav.name" [nzExtra]="extra">
+                @if (navNodes()[nav.key] && role) {
+                  <nz-tree
+                    [nzData]="navNodes()[nav.key]"
+                    nzCheckable
+                    [nzCheckedKeys]="strategyRoutes()"
+                    (nzCheckedKeysChange)="watchRoute(nav.key, $event)"
+                  />
+                } @else {
+                  <nz-empty />
+                }
+              </nz-card>
+            </nz-col>
+          }
+        </nz-row>
+      </div>
+      <div style="flex: 0 0 420px; border-left: 1px solid #dedede">
+        @if (strategyCaps().length !== 0) {
+          <nz-list nzSize="large" [nzBordered]="false">
+            @for (cap of strategyCaps(); track cap) {
+              <nz-list-item>
+                <nz-list-item-meta>
+                  <nz-list-item-meta-title> {{ cap }} </nz-list-item-meta-title>
+                  <nz-list-item-meta-description>
+                    {{ capItem.dict()[cap]?.description }}
+                  </nz-list-item-meta-description>
+                </nz-list-item-meta>
+                <ul nz-list-item-actions>
+                  <nz-list-item-action>
+                    <a nz-popconfirm nzPopconfirmTitle="您确定要移除该能力标识吗?" (nzOnConfirm)="removeCap(cap)">
+                      移除
+                    </a>
+                  </nz-list-item-action>
+                </ul>
+              </nz-list-item>
+            }
+          </nz-list>
+        } @else {
+          <nz-list-empty></nz-list-empty>
+        }
+      </div>
+    </div>
+  }
+</nz-card>
+
+<ng-template #onRef>
+  <nz-icon nzType="eye" />
+</ng-template>
+<ng-template #offRef>
+  <nz-icon nzType="eye-invisible" />
+</ng-template>
