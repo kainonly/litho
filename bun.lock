@@ -13,7 +13,6 @@
         "@angular/router": "^21.2.7",
         "@angular/service-worker": "^21.2.7",
         "@ngx-pwa/local-storage": "21.0.0",
-        "animate.css": "^4.1.1",
         "ng-zorro-antd": "^21.2.1",
         "rxjs": "~7.8.0",
         "tslib": "^2.3.0",
@@ -612,8 +611,6 @@
     "algoliasearch": ["algoliasearch@5.48.1", "https://registry.npmmirror.com/algoliasearch/-/algoliasearch-5.48.1.tgz", { "dependencies": { "@algolia/abtesting": "1.14.1", "@algolia/client-abtesting": "5.48.1", "@algolia/client-analytics": "5.48.1", "@algolia/client-common": "5.48.1", "@algolia/client-insights": "5.48.1", "@algolia/client-personalization": "5.48.1", "@algolia/client-query-suggestions": "5.48.1", "@algolia/client-search": "5.48.1", "@algolia/ingestion": "1.48.1", "@algolia/monitoring": "1.48.1", "@algolia/recommend": "5.48.1", "@algolia/requester-browser-xhr": "5.48.1", "@algolia/requester-fetch": "5.48.1", "@algolia/requester-node-http": "5.48.1" } }, "sha512-Rf7xmeuIo7nb6S4mp4abW2faW8DauZyE2faBIKFaUfP3wnpOvNSbiI5AwVhqBNj0jPgBWEvhyCu0sLjN2q77Rg=="],
 
     "angular-eslint": ["angular-eslint@21.3.1", "https://registry.npmmirror.com/angular-eslint/-/angular-eslint-21.3.1.tgz", { "dependencies": { "@angular-devkit/core": ">= 21.0.0 < 22.0.0", "@angular-devkit/schematics": ">= 21.0.0 < 22.0.0", "@angular-eslint/builder": "21.3.1", "@angular-eslint/eslint-plugin": "21.3.1", "@angular-eslint/eslint-plugin-template": "21.3.1", "@angular-eslint/schematics": "21.3.1", "@angular-eslint/template-parser": "21.3.1", "@typescript-eslint/types": "^8.0.0", "@typescript-eslint/utils": "^8.0.0" }, "peerDependencies": { "@angular/cli": ">= 21.0.0 < 22.0.0", "eslint": "^8.57.0 || ^9.0.0 || ^10.0.0", "typescript": "*", "typescript-eslint": "^8.0.0" } }, "sha512-VGQWTyuPAEO/AnZuqHxGBJMYSiZ0tbrHx/OgPCRTKHfbrFU4x+zivS84h9UWoDpDtius1RyD+ZReFjTAEWptiA=="],
-
-    "animate.css": ["animate.css@4.1.1", "https://registry.npmmirror.com/animate.css/-/animate.css-4.1.1.tgz", {}, "sha512-+mRmCTv6SbCmtYJCN4faJMNFVNN5EuCTTprDTAo7YzIGji2KADmakjVA3+8mVDkZ2Bf09vayB35lSQIex2+QaQ=="],
 
     "ansi-escapes": ["ansi-escapes@7.2.0", "https://registry.npmmirror.com/ansi-escapes/-/ansi-escapes-7.2.0.tgz", { "dependencies": { "environment": "^1.0.0" } }, "sha512-g6LhBsl+GBPRWGWsBtutpzBYuIIdBkLEvad5C/va/74Db018+5TZiyA26cZJAr3Rft5lprVqOIPxf5Vid6tqAw=="],
 

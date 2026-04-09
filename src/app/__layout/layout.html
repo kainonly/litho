@@ -1,97 +1,61 @@
 <nz-layout [style.height.%]="100">
   <nz-header>
-    <div class="header-container">
-      <ul class="navigation" nz-menu nzMode="horizontal">
-        @for (nav of navs(); track nav.key) {
-          <li nz-menu-item nzMatchRouter>
-            <a [routerLink]="['/', nav.link]">
-              <nz-icon [nzType]="nav.icon" />
-              {{ nav.name }}
-            </a>
-          </li>
-        }
-      </ul>
-
-      <div class="header-right">
-        <div class="user-info" nz-dropdown [nzDropdownMenu]="userMenu" nzTrigger="click">
-          <nz-avatar nzSize="small" nzShape="square">
-            <nz-icon nzType="user" />
-          </nz-avatar>
-          <span class="username">Kain</span>
-          <nz-icon nzType="down" />
-        </div>
-
-        <!-- 用户面板 -->
-        <nz-dropdown-menu #userMenu="nzDropdownMenu">
-          <div class="user-panel">
-            <!-- 用户信息头部 -->
-            <div class="user-panel-header">
-              <nz-avatar nzSize="large" class="user-panel-avatar">
-                <nz-icon nzType="user" />
-              </nz-avatar>
-              <div class="user-panel-info">
-                <div class="user-panel-name">Kain</div>
-                <div class="user-panel-email">kain&#64;example.com</div>
-              </div>
-            </div>
-
-            <!-- 未读通知 -->
-            <a [routerLink]="['/notifications']" class="user-panel-notification">
-              <span>未读通知</span>
-              <nz-badge [nzCount]="5" [nzStyle]="{ backgroundColor: '#f5222d' }"></nz-badge>
-            </a>
-
-            <!-- 菜单选项 -->
-            <div class="user-panel-menu">
-              <a [routerLink]="['/account']" class="menu-item">
-                <nz-icon nzType="lock" />
-                修改密码
-              </a>
-              <a class="menu-item menu-item-danger" (click)="logout()">
-                <nz-icon nzType="logout" />
-                退出登录
-              </a>
-            </div>
-          </div>
-        </nz-dropdown-menu>
-      </div>
-    </div>
-  </nz-header>
-
-  @let menus = navMenus()[appNav()] || [];
-  <nz-layout class="inner-layout">
-    <nz-sider nzWidth="200px" nzTheme="light">
-      <ul class="menu" nz-menu nzMode="inline">
-        @for (menu of menus; track menu.name) {
-          @if (!menu.disabled) {
-            <li nz-menu-group [nzTitle]="menu.name">
-              @for (submenu of menu.children; track submenu.name) {
-                @if (!submenu.disabled) {
-                  <li nz-menu-item nzMatchRouter>
-                    <a [routerLink]="submenu.link" rel="noopener noreferrer">
-                      @if (submenu.icon) {
-                        <nz-icon [nzType]="submenu.icon"></nz-icon>
+    <nz-row class="navigation" nzJustify="space-between" nzAlign="middle">
+      <nz-col>
+        <ul style="border: none" nz-menu nzMode="horizontal">
+          @for (nav of navs(); track nav.key) {
+            <li nz-submenu [nzTitle]="nav.name" [nzIcon]="nav.icon">
+              <ul>
+                @for (menu of navMenus()[nav.key]; track menu.name) {
+                  @if (!menu.disabled) {
+                    <li nz-menu-group [nzTitle]="menu.name">
+                      @for (submenu of menu.children; track submenu.name) {
+                        @if (!submenu.disabled) {
+                          <li nz-menu-item nzMatchRouter>
+                            <a [routerLink]="submenu.link" rel="noopener noreferrer">
+                              @if (submenu.icon) {
+                                <nz-icon [nzType]="submenu.icon"></nz-icon>
+                              }
+                              <span>{{ submenu.name }}</span>
+                            </a>
+                          </li>
+                        } @else {
+                          <li nz-menu-item nzDisabled>
+                            @if (submenu.icon) {
+                              <nz-icon [nzType]="submenu.icon"></nz-icon>
+                            }
+                            <span>{{ submenu.name }}</span>
+                          </li>
+                        }
                       }
-                      <span>{{ submenu.name }}</span>
-                    </a>
-                  </li>
-                } @else {
-                  <li nz-menu-item nzDisabled>
-                    @if (submenu.icon) {
-                      <nz-icon [nzType]="submenu.icon"></nz-icon>
-                    }
-                    <span>{{ submenu.name }}</span>
-                  </li>
+                    </li>
+                  }
                 }
-              }
+              </ul>
             </li>
           }
-        }
-      </ul>
-    </nz-sider>
+        </ul>
+      </nz-col>
+      <nz-col></nz-col>
+      <nz-col>
+        <nz-space nzAlign="center">
+          <nz-breadcrumb *nzSpaceItem nzAutoGenerate></nz-breadcrumb>
+          <nz-divider *nzSpaceItem nzType="vertical"></nz-divider>
+          @if (global.activeUser(); as u) {
+            <div *nzSpaceItem class="center">
+              @if (u.avatar) {
+                <nz-avatar [nzSize]="32" nzIcon="user" [nzShape]="'square'"></nz-avatar>
+              } @else {
+                <nz-avatar [nzSize]="32" [nzShape]="'square'" [nzText]="u.name"></nz-avatar>
+              }
+            </div>
+          }
+        </nz-space>
+      </nz-col>
+    </nz-row>
+  </nz-header>
 
-    <nz-content class="content">
-      <router-outlet />
-    </nz-content>
-  </nz-layout>
+  <nz-content>
+    <router-outlet />
+  </nz-content>
 </nz-layout>

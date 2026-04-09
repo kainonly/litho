@@ -36,7 +36,7 @@
                 "output": "/assets/"
               }
             ],
-            "styles": ["src/styles.less", "node_modules/animate.css/animate.min.css"]
+            "styles": ["node_modules/ng-zorro-antd/ng-zorro-antd.compact.min.css", "src/styles.less"]
           },
           "configurations": {
             "production": {

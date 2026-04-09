@@ -29,7 +29,7 @@ export class Global {
   upload = environment.upload as UploadOption; // 上传配置
 
   readonly navs: Nav[] = [
-    { key: 'index', name: '实验中心', icon: 'desktop', link: 'index' },
+    { key: 'index', name: '工作台', icon: 'desktop', link: 'index' },
     { key: 'business', name: '实验对象', icon: 'inbox', link: 'business' },
     { key: 'analysis', name: '实验报表', icon: 'fund-view', link: 'analysis' },
     { key: 'system', name: '系统设置', icon: 'setting', link: 'system' }

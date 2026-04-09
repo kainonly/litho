@@ -28,6 +28,9 @@ export const routes: Routes = [
       { path: 'analysis', component: Analysis },
       {
         path: 'system',
+        data: {
+          breadcrumb: '系统设置'
+        },
         loadComponent: () => import('./system/system').then(m => m.Settings),
         loadChildren: () => import('./system/children.routes').then(m => m.childrenRoutes)
       },

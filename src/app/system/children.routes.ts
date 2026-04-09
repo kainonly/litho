@@ -3,6 +3,9 @@ import { Routes } from '@angular/router';
 export const childrenRoutes: Routes = [
   {
     path: 'general',
+    data: {
+      breadcrumb: `组织架构`
+    },
     loadChildren: () => import('./general/children.routes').then(m => m.childrenRoutes)
   },
   {
