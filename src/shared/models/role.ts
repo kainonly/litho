@@ -1,10 +1,9 @@
 export interface Role {
   id: string;
-  org_id: string;
-  created_at: string;
-  updated_at: string;
+  create_time: string;
+  update_time: string;
   sort: number;
-  active: boolean;
+  status: boolean;
   name: string;
   description: string;
   strategy: RoleStrategy;

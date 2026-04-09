@@ -1,7 +1,6 @@
 import { Routes } from '@angular/router';
 
 export const childrenRoutes: Routes = [
-  { path: '', redirectTo: 'departments', pathMatch: 'full' },
   {
     path: 'departments',
     data: {
@@ -23,5 +22,6 @@ export const childrenRoutes: Routes = [
       breadcrumb: `企业成员`
     },
     loadComponent: () => import('./users/users').then(m => m.Users)
-  }
+  },
+  { path: '', redirectTo: 'departments', pathMatch: 'full' }
 ];

@@ -1,10 +1,10 @@
 export interface User {
   id: string;
-  created_at: string;
-  updated_at: string;
+  create_time: string;
+  update_time: string;
   login_time: string;
-  active: boolean;
-  org_id: string;
+  status: boolean;
+  department_id: string;
   role_id: string;
   email: string;
   phone: string;
@@ -16,12 +16,12 @@ export interface User {
 
 export interface UserInfo {
   id: string;
-  created_at: Date;
-  updated_at: Date;
-  org: string;
-  org_type: number;
+  create_time: Date;
+  update_time: Date;
+  department: string;
+  department_type: number;
   role: string;
-  cabs: string[];
+  permissions: string[];
   email: string;
   phone: string;
   name: string;

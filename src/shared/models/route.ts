@@ -1,11 +1,10 @@
 export interface Route {
   id: string;
-  menu_id: string;
-  nav: string;
-  created_at: string;
-  updated_at: string;
+  create_time: string;
+  update_time: string;
   sort: number;
-  active: boolean;
+  status: boolean;
+  nav: string;
   pid: string;
   name: string;
   type: number;
