@@ -4,6 +4,9 @@ export const childrenRoutes: Routes = [
   { path: '', redirectTo: 'departments', pathMatch: 'full' },
   {
     path: 'departments',
+    data: {
+      breadcrumb: `部门管理`
+    },
     loadComponent: () => import('./departments/departments').then(m => m.Departments)
   },
   {

@@ -1,8 +1,8 @@
 <nz-layout [style.height.%]="100">
   <nz-header>
-    <nz-row class="navigation" nzJustify="space-between" nzAlign="middle">
+    <nz-row nzJustify="space-between" nzAlign="middle">
       <nz-col>
-        <ul style="border: none" nz-menu nzMode="horizontal">
+        <ul class="navigation" nz-menu nzMode="horizontal">
           @for (nav of navs(); track nav.key) {
             <li nz-submenu [nzTitle]="nav.name" [nzIcon]="nav.icon">
               <ul>
