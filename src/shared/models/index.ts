@@ -35,3 +35,4 @@ export * from './role';
 export * from './route';
 export * from './user';
 export * from './product';
+export * from './order';

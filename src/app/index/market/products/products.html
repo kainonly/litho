@@ -86,7 +86,7 @@
           <td>{{ data.price | number: '1.2-2' }}</td>
           <td>{{ data.stock }}</td>
           <td nzRight nzAlign="center">
-            <app-active [appValue]="data.active"></app-active>
+            <app-active [appValue]="data.status"></app-active>
           </td>
           <td nzRight nzAlign="center">
             <button nz-button nzType="text" nz-dropdown [nzDropdownMenu]="actions">

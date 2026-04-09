@@ -29,12 +29,12 @@ export class Form implements OnInit {
     private fb = inject(FormBuilder);
 
     form: FormGroup = this.fb.group({
-        org_id: ['', [Validators.required]],
+        department_id: ['', [Validators.required]],
         name: ['', [Validators.required]],
         description: [''],
         price: [null, [Validators.required, Validators.min(0.01)]],
         stock: [0, [Validators.required, Validators.min(0)]],
-        active: [true, [Validators.required]],
+        status: [true, [Validators.required]],
         thumbnail: ['']
     });
     tips = tips;
