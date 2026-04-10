@@ -1,7 +1,7 @@
 export const tips = {
   name: {
     default: {
-      required: '组织名称不能为空'
+      required: '部门名称不能为空'
     }
   }
 };

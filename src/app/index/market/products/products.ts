@@ -36,7 +36,10 @@ export class Products implements OnInit {
   getData(refresh = false): void {
     if (refresh) this.m.page.set(1);
     let params = new HttpParams();
-    if (this.m.search.q) params = params.set('q', this.m.search.q);
+    const { q } = this.m.search();
+    if (q) {
+      params = params.set('q', q);
+    }
     this.m.fetch(params).pipe(takeUntilDestroyed(this.destroyRef)).subscribe();
   }
 

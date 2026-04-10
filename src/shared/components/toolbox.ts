@@ -1,10 +1,9 @@
-import { ChangeDetectionStrategy, Component, inject, input, output, signal, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input, output, signal, ViewEncapsulation } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzDrawerModule } from 'ng-zorro-antd/drawer';
 import { NzGridModule } from 'ng-zorro-antd/grid';
 import { NzIconModule } from 'ng-zorro-antd/icon';
-import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzSpaceModule } from 'ng-zorro-antd/space';
 import { NzTooltipModule } from 'ng-zorro-antd/tooltip';
 
@@ -63,8 +62,6 @@ import { Basic, SearchOption } from '@shared/models';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class Toolbox<T extends Basic, S extends SearchOption> {
-  private message = inject(NzMessageService);
-
   appModel = input.required<Model<T, S>>();
   appFilter = input<Filter>();
   appClearOmit = input<(keyof S)[]>([]);
@@ -75,7 +72,6 @@ export class Toolbox<T extends Basic, S extends SearchOption> {
 
   refresh(): void {
     this.loading.set(true);
-    // this.message.loading('正在刷新...', { nzDuration: 500 });
     this.appRefresh.emit();
     setTimeout(() => {
       this.loading.set(false);
@@ -84,16 +80,14 @@ export class Toolbox<T extends Basic, S extends SearchOption> {
 
   clear(): void {
     const model = this.appModel();
-    const search = structuredClone(model.searchInit);
-
-    for (const key of this.appClearOmit()) {
-      search[key] = model.search[key];
-    }
-    for (const key in search) {
-      model.search[key] = search[key];
-    }
-    model.sort.clear();
     model.page.set(1);
+    model.sort.set({});
+
+    const search = structuredClone(model.searchInit);
+    for (const key of this.appClearOmit()) {
+      search[key] = model.search()[key];
+    }
+    model.search.set(search);
     this.appClear.emit();
   }
 }

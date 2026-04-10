@@ -1,10 +1,7 @@
 import { Routes } from '@angular/router';
 
-import { Analysis } from './analysis/analysis';
 import { appGuard } from './app.guard';
 import { appResolver } from './app.resolver';
-import { Business } from './business/business';
-import { Index } from './index';
 import { Login } from './login/login';
 
 export const routes: Routes = [
@@ -21,11 +18,26 @@ export const routes: Routes = [
     children: [
       {
         path: 'index',
-        component: Index,
+        data: {
+          breadcrumb: '工作站'
+        },
+        loadComponent: () => import('./index/index').then(m => m.Index),
         loadChildren: () => import('./index/children.routes').then(m => m.childrenRoutes)
       },
-      { path: 'business', component: Business },
-      { path: 'analysis', component: Analysis },
+      {
+        path: 'business',
+        data: {
+          breadcrumb: '实验对象'
+        },
+        loadComponent: () => import('./business/business').then(m => m.Business)
+      },
+      {
+        path: 'analysis',
+        data: {
+          breadcrumb: '实验报表'
+        },
+        loadComponent: () => import('./analysis/analysis').then(m => m.Analysis)
+      },
       {
         path: 'system',
         data: {

@@ -14,7 +14,12 @@ import { Basic, SearchOption } from '@shared/models';
   selector: 'app-keyword',
   template: `
     <nz-input-search [style.width.px]="appWidth()" (nzSearch)="search()">
-      <input nz-input [placeholder]="appPlaceholder()" [(ngModel)]="appModel().search.q" />
+      <input
+        nz-input
+        [placeholder]="appPlaceholder()"
+        [ngModel]="appModel().search().q"
+        (ngModelChange)="appModel().updateSearch({ q: $event })"
+      />
     </nz-input-search>
   `
 })
@@ -25,6 +30,6 @@ export class Keyword<T extends Basic, S extends SearchOption> {
   appOnSearch = output<string>();
 
   search(): void {
-    this.appOnSearch.emit(this.appModel().search.q);
+    this.appOnSearch.emit(this.appModel().search().q);
   }
 }

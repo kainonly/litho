@@ -36,7 +36,7 @@ export class Form implements OnInit {
     name: [''],
     phone: [''],
     password: ['', [Validators.required]],
-    active: [true, [Validators.required]]
+    status: [true, [Validators.required]]
   });
 
   ngOnInit(): void {

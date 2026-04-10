@@ -22,7 +22,7 @@ import { Form, FormInput } from './form/form';
 export class Users implements OnInit {
   global = inject(Global);
   users = inject(UsersApi);
-  orgs = inject(DepartmentsApi);
+  departments = inject(DepartmentsApi);
   roles = inject(RolesApi);
 
   private destroyRef = inject(DestroyRef);
@@ -31,11 +31,11 @@ export class Users implements OnInit {
 
   m = this.global.setModel(`users`, this.users, {
     q: '',
-    org_id: '',
+    department_id: '',
     role_id: ''
   });
 
-  orgItem = new Item(this.orgs);
+  departmentItem = new Item(this.departments);
   roleItem = new Item(this.roles);
 
   userData = signal<User | undefined>(undefined);
@@ -56,12 +56,12 @@ export class Users implements OnInit {
       this.m.page.set(1);
     }
     let params = new HttpParams();
-    const { q, org_id, role_id } = this.m.search;
+    const { q, department_id, role_id } = this.m.search();
     if (q) {
       params = params.set('q', q);
     }
-    if (org_id) {
-      params = params.set('org_id', org_id);
+    if (department_id) {
+      params = params.set('department_id', department_id);
     }
     if (role_id) {
       params = params.set('role_id', role_id);
@@ -71,7 +71,7 @@ export class Users implements OnInit {
 
   getOrgItems(): void {
     const params = new HttpParams();
-    this.orgItem.fetch(params).pipe(takeUntilDestroyed(this.destroyRef)).subscribe();
+    this.departmentItem.fetch(params).pipe(takeUntilDestroyed(this.destroyRef)).subscribe();
   }
 
   getRoleItems(): void {

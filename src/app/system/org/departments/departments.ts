@@ -17,13 +17,13 @@ import { Form, FormInput } from './form/form';
 })
 export class Departments implements OnInit {
   global = inject(Global);
-  orgs = inject(DepartmentsApi);
+  departments = inject(DepartmentsApi);
 
-  private destroyRef = inject(DestroyRef);
+  private destroy = inject(DestroyRef);
   private modal = inject(NzModalService);
   private message = inject(NzMessageService);
 
-  m = this.global.setModel(`departments`, this.orgs, {
+  m = this.global.setModel(`departments`, this.departments, {
     q: '',
     type: 0
   });
@@ -31,10 +31,15 @@ export class Departments implements OnInit {
   ngOnInit(): void {
     this.m
       .ready()
-      .pipe(takeUntilDestroyed(this.destroyRef))
+      .pipe(takeUntilDestroyed(this.destroy))
       .subscribe(() => {
         this.getData();
       });
+  }
+
+  setType(type: number) {
+    this.m.updateSearch({ type });
+    this.getData(true);
   }
 
   getData(refresh = false): void {
@@ -42,16 +47,19 @@ export class Departments implements OnInit {
       this.m.page.set(1);
     }
     let params = new HttpParams();
-    const { q } = this.m.search;
+    const { q, type } = this.m.search();
     if (q) {
       params = params.set('q', q);
     }
-    this.m.fetch(params).pipe(takeUntilDestroyed(this.destroyRef)).subscribe();
+    if (type) {
+      params = params.set('type', type);
+    }
+    this.m.fetch(params).pipe(takeUntilDestroyed(this.destroy)).subscribe();
   }
 
   open(data?: Department): void {
     this.modal.create<Form, FormInput>({
-      nzTitle: !data ? '新增组织' : `修改组织【${data.name}】`,
+      nzTitle: !data ? '新增部门' : `修改部门【${data.name}】`,
       nzContent: Form,
       nzData: {
         data
@@ -64,9 +72,9 @@ export class Departments implements OnInit {
 
   delete(data: Department): void {
     this.global.deleteConfirm(`部门【${data.name}】`, () => {
-      this.orgs
+      this.departments
         .delete([data.id])
-        .pipe(takeUntilDestroyed(this.destroyRef))
+        .pipe(takeUntilDestroyed(this.destroy))
         .subscribe(() => {
           this.message.success(`删除成功`);
           this.m.clearSelection(data.id);
@@ -77,9 +85,9 @@ export class Departments implements OnInit {
 
   bulkDelete(): void {
     this.global.bulkDeleteConfirm(() => {
-      this.orgs
+      this.departments
         .delete([...this.m.selection.keys()])
-        .pipe(takeUntilDestroyed(this.destroyRef))
+        .pipe(takeUntilDestroyed(this.destroy))
         .subscribe(() => {
           this.message.success(`删除成功`);
           this.m.clearSelections();

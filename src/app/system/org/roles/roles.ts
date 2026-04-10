@@ -44,7 +44,7 @@ export class Roles implements OnInit {
       this.m.page.set(1);
     }
     let params = new HttpParams();
-    const { q } = this.m.search;
+    const { q } = this.m.search();
     if (q) {
       params = params.set('q', q);
     }

@@ -6,11 +6,11 @@
       [style.min-width.px]="150"
       nzShowSearch
       nzAllowClear
-      nzPlaceHolder="所属组织"
-      [(ngModel)]="m.search.org_id"
+      nzPlaceHolder="所属部门"
+      [(ngModel)]="m.search().department_id"
       (ngModelChange)="getData(true)"
     >
-      @for (item of orgItem.data(); track item.id) {
+      @for (item of departmentItem.data(); track item.id) {
         <nz-option [nzLabel]="item.name" [nzValue]="item.id"></nz-option>
       }
     </nz-select>
@@ -20,7 +20,7 @@
       nzShowSearch
       nzAllowClear
       nzPlaceHolder="所属权限组"
-      [(ngModel)]="m.search.role_id"
+      [(ngModel)]="m.search().role_id"
       (ngModelChange)="getData(true)"
     >
       @for (item of roleItem.data(); track item.id) {
@@ -74,7 +74,7 @@
           [nzIndeterminate]="m.indeterminate()"
           (nzCheckedChange)="m.setCurrentSelections($event)"
         ></th>
-        <th nzWidth="200px"><app-title>所属组织</app-title></th>
+        <th nzWidth="200px"><app-title>所属部门</app-title></th>
         <th nzWidth="270px"><app-title>电子邮件</app-title></th>
         <th nzWidth="200px"><app-title>所属权限组</app-title></th>
         <th><app-title>详情</app-title></th>
@@ -98,9 +98,9 @@
             (nzCheckedChange)="$event ? m.setSelection(data) : m.removeSelection(data.id)"
           ></td>
           <td>
-            @let org = orgItem.dict()[data.org_id];
-            @if (org) {
-              {{ org.name }}
+            @let department = departmentItem.dict()[data.department_id];
+            @if (department) {
+              {{ department.name }}
             }
           </td>
           <td> {{ data.email }} </td>
@@ -130,7 +130,7 @@
             </app-split>
           </td>
           <td nzRight nzAlign="center">
-            <app-active [appValue]="data.active"></app-active>
+            <app-active [appValue]="data.status"></app-active>
           </td>
           <td nzRight nzAlign="center">
             <button nz-button nzType="text" nz-dropdown [nzDropdownMenu]="actions">
