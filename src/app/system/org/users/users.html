@@ -7,7 +7,7 @@
       nzShowSearch
       nzAllowClear
       nzPlaceHolder="所属部门"
-      [(ngModel)]="m.search().department_id"
+      [(ngModel)]="m.search().org_id"
       (ngModelChange)="getData(true)"
     >
       @for (item of departmentItem.data(); track item.id) {
@@ -98,7 +98,7 @@
             (nzCheckedChange)="$event ? m.setSelection(data) : m.removeSelection(data.id)"
           ></td>
           <td>
-            @let department = departmentItem.dict()[data.department_id];
+            @let department = departmentItem.dict()[data.org_id];
             @if (department) {
               {{ department.name }}
             }

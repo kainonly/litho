@@ -1,7 +1,7 @@
 export interface Order {
     id: string;
     created_at: string;
-    department_id: string;
+    org_id: string;
     user_id: string;
     no: string;
     amount: number;

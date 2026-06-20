@@ -6,7 +6,7 @@ import { NzModalService } from 'ng-zorro-antd/modal';
 import { Observable, of } from 'rxjs';
 
 import { Global, Item, SharedModule } from '@shared';
-import { DepartmentsApi } from '@shared/apis/departments-api';
+import { OrgsApi } from '@shared/apis/orgs-api';
 import { RolesApi } from '@shared/apis/roles-api';
 import { UsersApi } from '@shared/apis/users-api';
 import { User } from '@shared/models';
@@ -22,7 +22,7 @@ import { Form, FormInput } from './form/form';
 export class Users implements OnInit {
   global = inject(Global);
   users = inject(UsersApi);
-  departments = inject(DepartmentsApi);
+  orgs = inject(OrgsApi);
   roles = inject(RolesApi);
 
   private destroyRef = inject(DestroyRef);
@@ -31,11 +31,11 @@ export class Users implements OnInit {
 
   m = this.global.setModel(`users`, this.users, {
     q: '',
-    department_id: '',
+    org_id: '',
     role_id: ''
   });
 
-  departmentItem = new Item(this.departments);
+  departmentItem = new Item(this.orgs);
   roleItem = new Item(this.roles);
 
   userData = signal<User | undefined>(undefined);
@@ -56,12 +56,12 @@ export class Users implements OnInit {
       this.m.page.set(1);
     }
     let params = new HttpParams();
-    const { q, department_id, role_id } = this.m.search();
+    const { q, org_id, role_id } = this.m.search();
     if (q) {
       params = params.set('q', q);
     }
-    if (department_id) {
-      params = params.set('department_id', department_id);
+    if (org_id) {
+      params = params.set('org_id', org_id);
     }
     if (role_id) {
       params = params.set('role_id', role_id);

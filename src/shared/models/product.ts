@@ -1,6 +1,6 @@
 export interface Product {
   id: string;
-  department_id: string;
+  org_id: string;
   name: string;
   description: string;
   price: number;

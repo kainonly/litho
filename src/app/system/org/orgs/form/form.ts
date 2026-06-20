@@ -5,24 +5,24 @@ import { NzMessageService } from 'ng-zorro-antd/message';
 import { NZ_MODAL_DATA, NzModalRef } from 'ng-zorro-antd/modal';
 
 import { Global, SharedModule } from '@shared';
-import { DepartmentsApi } from '@shared/apis/departments-api';
-import { Any, Department } from '@shared/models';
+import { OrgsApi } from '@shared/apis/orgs-api';
+import { Any, Org } from '@shared/models';
 
 import { tips } from './tips';
 
 export interface FormInput {
-  data?: Department;
+  data?: Org;
 }
 
 @Component({
   imports: [SharedModule],
-  selector: 'app-system-org-departments-form',
+  selector: 'app-system-org-orgs-form',
   templateUrl: './form.html'
 })
 export class Form implements OnInit {
   input = inject<FormInput>(NZ_MODAL_DATA);
   global = inject(Global);
-  orgs = inject(DepartmentsApi);
+  orgs = inject(OrgsApi);
 
   private destroyRef = inject(DestroyRef);
   private modalRef = inject(NzModalRef);

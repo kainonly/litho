@@ -1,4 +1,4 @@
-export interface Department {
+export interface Org {
   id: string;
   create_time: string;
   update_time: string;

@@ -24,7 +24,7 @@ export class Basic {
 
   loading = new Loading();
   form: FormGroup = this.fb.group({
-    email: [null, [Validators.required]],
+    username: [null, [Validators.required]],
     password: [null, [Validators.required]],
     remember: [true]
   });

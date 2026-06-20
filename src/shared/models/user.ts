@@ -4,7 +4,7 @@ export interface User {
   update_time: string;
   login_time: string;
   status: boolean;
-  department_id: string;
+  org_id: string;
   role_id: string;
   email: string;
   phone: string;

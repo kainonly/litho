@@ -28,7 +28,7 @@ export interface EnumType {
 export * from './layout';
 export * from './menu';
 export * from './nav';
-export * from './department';
+export * from './org';
 export * from './permission';
 export * from './resource';
 export * from './role';

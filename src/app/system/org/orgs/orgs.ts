@@ -5,25 +5,25 @@ import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalService } from 'ng-zorro-antd/modal';
 
 import { Global, SharedModule } from '@shared';
-import { DepartmentsApi } from '@shared/apis/departments-api';
-import { Department } from '@shared/models';
+import { OrgsApi } from '@shared/apis/orgs-api';
+import { Org } from '@shared/models';
 
 import { Form, FormInput } from './form/form';
 
 @Component({
   imports: [SharedModule],
-  selector: 'app-system-departments',
-  templateUrl: './departments.html'
+  selector: 'app-system-orgs',
+  templateUrl: './orgs.html'
 })
-export class Departments implements OnInit {
+export class Orgs implements OnInit {
   global = inject(Global);
-  departments = inject(DepartmentsApi);
+  orgs = inject(OrgsApi);
 
   private destroy = inject(DestroyRef);
   private modal = inject(NzModalService);
   private message = inject(NzMessageService);
 
-  m = this.global.setModel(`departments`, this.departments, {
+  m = this.global.setModel(`orgs`, this.orgs, {
     q: '',
     type: 0
   });
@@ -57,7 +57,7 @@ export class Departments implements OnInit {
     this.m.fetch(params).pipe(takeUntilDestroyed(this.destroy)).subscribe();
   }
 
-  open(data?: Department): void {
+  open(data?: Org): void {
     this.modal.create<Form, FormInput>({
       nzTitle: !data ? '新增部门' : `修改部门【${data.name}】`,
       nzContent: Form,
@@ -70,9 +70,9 @@ export class Departments implements OnInit {
     });
   }
 
-  delete(data: Department): void {
+  delete(data: Org): void {
     this.global.deleteConfirm(`部门【${data.name}】`, () => {
-      this.departments
+      this.orgs
         .delete([data.id])
         .pipe(takeUntilDestroyed(this.destroy))
         .subscribe(() => {
@@ -85,7 +85,7 @@ export class Departments implements OnInit {
 
   bulkDelete(): void {
     this.global.bulkDeleteConfirm(() => {
-      this.departments
+      this.orgs
         .delete([...this.m.selection.keys()])
         .pipe(takeUntilDestroyed(this.destroy))
         .subscribe(() => {
